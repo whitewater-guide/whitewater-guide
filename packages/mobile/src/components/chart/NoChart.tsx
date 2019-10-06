@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Subheading } from 'react-native-paper';
 import theme from '../../theme';
-import { Icon } from '../Icon';
+import Icon from '../Icon';
 
 const styles = StyleSheet.create({
   container: {

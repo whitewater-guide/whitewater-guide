@@ -28,7 +28,3 @@ File `app.json` has ios and android persistent build numbers `<androidBuildNumbe
 - `Version` is `<major>.<minor>.<patch>`
 - `Build` is `iosBuildNumber` from `app.json`
 - After appstore verion gets approved for sale, `<patch>` (or even `<minor>`) should be bumped, and `<iosBuildNumber>` can be reset to zero
-
-# Useful links
-
-- [How to setup XCode staging](https://github.com/facebook/react-native/issues/11813#issuecomment-310029148)

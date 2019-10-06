@@ -18,8 +18,8 @@ export interface QueryMap {
   [name: string]: (variables: any) => any;
 }
 
-export type MockedProviderStatic = React.SFC & {
-  client: ApolloClient<any>;
+export type MockedProviderStatic = React.FC & {
+  client: ApolloClient<any> & { resetCounters: () => void };
 };
 
 class CounterMap extends Map<string, number> {
@@ -59,7 +59,7 @@ export interface MockedProviderOptions {
 
 export const mockApolloClient = (
   options: MockedProviderOptions = {},
-): ApolloClient<any> => {
+): ApolloClient<any> & { resetCounters: () => void } => {
   const { Query = {}, Mutation = {}, mocks = {} } = options;
   let typeDefs: any = [];
   try {
@@ -140,10 +140,18 @@ export const mockApolloClient = (
     },
   });
 
-  return new ApolloClient({
-    cache: configureApolloCache(),
-    link: new SchemaLink({ schema, context: { counters: new CounterMap() } }),
-  });
+  const countersMap = new CounterMap();
+  return Object.assign(
+    new ApolloClient({
+      cache: configureApolloCache(),
+      link: new SchemaLink({ schema, context: { counters: countersMap } }),
+    }),
+    {
+      resetCounters() {
+        countersMap.clear();
+      },
+    },
+  );
 };
 
 export const mockApolloProvider = (

@@ -5,30 +5,27 @@ import {
   TagsProvider,
 } from '@whitewater-guide/clients';
 import ApolloClient from 'apollo-client';
+import Loading from 'components/Loading';
+import { Snackbar, SnackbarProvider } from 'components/snackbar';
+import SplashScreen from 'components/SplashScreen';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { AsyncStorage } from 'react-native';
+import NativeSplashScreen from 'react-native-bootsplash';
 import codePush from 'react-native-code-push';
 import { Provider as PaperProvider } from 'react-native-paper';
-import NativeSplashScreen from 'react-native-splash-screen';
 import { NavigationState } from 'react-navigation';
 import { Provider } from 'react-redux';
 import { Store } from 'redux';
 import { Persistor } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
-import {
-  Loading,
-  Snackbar,
-  SnackbarProvider,
-  SplashScreen,
-} from './components';
 import { apolloCachePersistor, initApolloClient } from './core/apollo';
 import { MobileAuthService } from './core/auth';
 import configMisc from './core/config/configMisc';
 import { configErrors } from './core/errors';
 import { configureStore, resetNavigationToHome } from './core/redux';
 import { navigationChannel } from './core/sagas';
-import { purchaseActions } from './features/purchases';
+import { IapProvider } from './features/purchases';
 import { I18nProvider } from './i18n';
 import RootNavigator from './RootNavigator';
 import { PaperTheme } from './theme';
@@ -58,6 +55,7 @@ class App extends React.PureComponent {
   }
 
   async componentDidMount() {
+    // findPath('src/App.tsx', 'node_modules/react-native-svg/src/elements/Pattern.tsx');
     this._apolloClient = await initApolloClient(this._authService);
     this.forceUpdate();
   }
@@ -69,7 +67,6 @@ class App extends React.PureComponent {
 
   onSignOut = () => {
     navigationChannel.put(resetNavigationToHome());
-    this._store.dispatch(purchaseActions.logout());
   };
 
   // See https://github.com/apollographql/apollo-cache-persist/issues/34#issuecomment-371177206 for explanation
@@ -111,16 +108,20 @@ class App extends React.PureComponent {
                         onUserLanguageChange={this.resetApolloCache}
                       >
                         <SnackbarProvider>
-                          <PreviousVersion />
-                          <RootNavigator
-                            onNavigationStateChange={trackScreenChange}
-                            persistNavigationState={this.persistNavigationState}
-                            loadNavigationState={this.loadNavigationState}
-                            renderLoadingExperimental={
-                              this.renderLoadingExperimental
-                            }
-                          />
-                          <Snackbar />
+                          <IapProvider>
+                            <PreviousVersion />
+                            <RootNavigator
+                              onNavigationStateChange={trackScreenChange}
+                              persistNavigationState={
+                                this.persistNavigationState
+                              }
+                              loadNavigationState={this.loadNavigationState}
+                              renderLoadingExperimental={
+                                this.renderLoadingExperimental
+                              }
+                            />
+                            <Snackbar />
+                          </IapProvider>
                         </SnackbarProvider>
                       </I18nProvider>
                     </AuthProvider>

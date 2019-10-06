@@ -1,10 +1,10 @@
 import { useAuth } from '@whitewater-guide/clients';
-import { useNavigation } from '@zhigang1992/react-navigation-hooks';
+import Divider from 'components/Divider';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 import { Button } from 'react-native-paper';
-import { Divider } from '../../../components';
+import { useNavigation } from 'react-navigation-hooks';
 import Screens from '../../screen-names';
 import { AuthScreenBase } from '../AuthScreenBase';
 import { FacebookButton } from '../FacebookButton';

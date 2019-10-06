@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import { VictoryTheme } from 'victory-native';
-import { Loading } from '../Loading';
+import Loading from '../Loading';
 import ChartView from './ChartView';
 import { NoChart } from './NoChart';
 

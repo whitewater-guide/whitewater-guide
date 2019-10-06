@@ -1,9 +1,9 @@
-import { useNavigation } from '@zhigang1992/react-navigation-hooks';
+import Spacer from 'components/Spacer';
+import HelperText from 'forms/HelperText';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'react-native-paper';
-import { Spacer } from '../../../components';
-import { HelperText } from '../../../components/forms';
+import { useNavigation } from 'react-navigation-hooks';
 
 const MissingParams: React.FC = () => {
   const { t } = useTranslation();

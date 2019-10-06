@@ -1,13 +1,11 @@
 import { useSection } from '@whitewater-guide/clients';
+import { NoChart } from 'components/chart';
+import { Screen } from 'components/Screen';
 import React from 'react';
 import { NavigationScreenComponent } from 'react-navigation';
-import { Icon, Screen } from '../../../components';
-import { NoChart } from '../../../components/chart';
-import { I18nText } from '../../../i18n';
-import theme from '../../../theme';
 import ChartLayout from './ChartLayout';
 
-export const SectionChartScreen: NavigationScreenComponent = () => {
+const SectionChartScreen: NavigationScreenComponent = () => {
   const { node } = useSection();
   const gauge = node && node.gauge;
   return (
@@ -21,7 +19,4 @@ export const SectionChartScreen: NavigationScreenComponent = () => {
   );
 };
 
-SectionChartScreen.navigationOptions = {
-  tabBarLabel: <I18nText>section:chart.title</I18nText>,
-  tabBarIcon: () => <Icon icon="chart-line" color={theme.colors.textLight} />,
-};
+export default SectionChartScreen;

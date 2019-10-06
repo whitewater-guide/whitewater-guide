@@ -6,7 +6,7 @@ import ActionSheet from 'react-native-actionsheet';
 import { Paragraph, Subheading } from 'react-native-paper';
 import theme from '../../theme';
 import { Left, Right, Row } from '../Row';
-import { useActionSheet } from '../useActionSheet';
+import useActionSheet from '../useActionSheet';
 
 const styles = StyleSheet.create({
   link: {

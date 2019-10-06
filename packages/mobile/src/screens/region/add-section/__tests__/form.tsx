@@ -6,14 +6,16 @@ import {
   within,
 } from '@testing-library/react-native';
 import * as clients from '@whitewater-guide/clients';
+import { SnackbarProvider } from 'components/snackbar';
 import React from 'react';
+import { Clipboard } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { createAppContainer } from 'react-navigation';
-import { SnackbarProvider } from '../../../../components/snackbar';
 import { I18nTestProvider } from '../../../../i18n/I18nTestProvider';
 import { AddSectionStack } from '../AddSectionStack';
 
 const mockMutate = jest.fn();
+jest.mock('Clipboard', () => ({ getString: jest.fn().mockResolvedValue('') }));
 jest.mock('../useAddSection', () => () => mockMutate);
 jest.mock('../../../../features/settings/useMapType');
 
@@ -22,13 +24,17 @@ const Nav = createAppContainer(AddSectionStack as any);
 let test: RenderResult;
 
 beforeEach(() => {
-  jest.spyOn(clients, 'useRegion').mockImplementation(() => ({
-    node: {
-      id: '92c6338e-ca93-11e9-a32f-2a2ae2dbcce4',
-      name: '__region_name__',
-      bounds: [[0, 0, 0], [1, 1, 1], [2, 2, 2]],
-    },
-  }));
+  jest.resetAllMocks();
+  jest.spyOn(clients, 'useRegion').mockImplementation(
+    () =>
+      ({
+        node: {
+          id: '92c6338e-ca93-11e9-a32f-2a2ae2dbcce4',
+          name: '__region_name__',
+          bounds: [[0, 0, 0], [1, 1, 1], [2, 2, 2]],
+        },
+      } as any),
+  );
   test = render(
     <ApolloProvider>
       <PaperProvider>
@@ -89,36 +95,36 @@ it('should fill in main fields and submit', async () => {
   fireEvent.press(putInPlaceholder);
   const shapeFab = await test.findByLabelText('edit shape');
   fireEvent.press(shapeFab);
-  const [piGroup, toGroup, shapeDialogOK] = await Promise.all([
+  const [piGroup, toGroup] = await Promise.all([
     test.findByHintText('commons:putIn'),
     test.findByHintText('commons:takeOut'),
-    test.findByText('COMMONS:OK'),
   ]);
-  const piLat = await within(piGroup).findByLabelText('commons:latitude');
-  const piLng = await within(piGroup).findByLabelText('commons:longitude');
-  const piAlt = await within(piGroup).findByLabelText('commons:altitude');
-  const toLat = await within(toGroup).findByLabelText('commons:latitude');
-  const toLng = await within(toGroup).findByLabelText('commons:longitude');
-  const toAlt = await within(toGroup).findByLabelText('commons:altitude');
+  const piLat = within(piGroup).getByLabelText('commons:latitude');
+  const piLng = within(piGroup).getByLabelText('commons:longitude');
+  const piAlt = within(piGroup).getByLabelText('commons:altitude');
+  const toLat = within(toGroup).getByLabelText('commons:latitude');
+  const toLng = within(toGroup).getByLabelText('commons:longitude');
+  const toAlt = within(toGroup).getByLabelText('commons:altitude');
   fireEvent.changeText(piLat, '1');
   fireEvent.changeText(piLng, '2');
   fireEvent.changeText(piAlt, '3');
   fireEvent.changeText(toLat, '4');
   fireEvent.changeText(toLng, '5');
   fireEvent.changeText(toAlt, '6');
+  const shapeDialogOK = await test.findByLabelText('commons:ok');
   fireEvent.press(shapeDialogOK);
-  const shapeDone = await test.findByText('COMMONS:DONE');
+  const shapeDone = await test.findByLabelText('commons:done');
   fireEvent.press(shapeDone);
 
   await Promise.all([
-    test.findByDisplayValue('1°0′0″ N, 2°0′0″ E'),
-    test.findByDisplayValue('4°0′0″ N, 5°0′0″ E'),
+    test.findByDisplayValue('1.0000, 2.0000'),
+    test.findByDisplayValue('4.0000, 5.0000'),
   ]);
 
   fireEvent.changeText(name, 'Name');
   fireEvent.changeText(difficultyXtra, 'X');
 
-  const createButton = await test.findByText('COMMONS:CREATE');
+  const createButton = await test.findByLabelText('commons:create');
   fireEvent.press(createButton);
   await wait(() => {
     expect(mockMutate).toHaveBeenCalled();

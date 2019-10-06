@@ -3,7 +3,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Chip } from 'react-native-paper';
 import theme from '../theme';
-import { Icon } from './Icon';
+import Icon from './Icon';
 
 const styles = StyleSheet.create({
   chip: {
@@ -55,7 +55,7 @@ interface Props {
   onPress: (id: string) => void;
 }
 
-export class TernaryChip extends React.PureComponent<Props> {
+class TernaryChip extends React.PureComponent<Props> {
   onPress = () => this.props.onPress(this.props.tag.id);
 
   render() {
@@ -73,3 +73,5 @@ export class TernaryChip extends React.PureComponent<Props> {
     );
   }
 }
+
+export default TernaryChip;

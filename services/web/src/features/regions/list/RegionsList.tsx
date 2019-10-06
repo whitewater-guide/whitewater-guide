@@ -1,7 +1,7 @@
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import { useStreamingQuery } from '@whitewater-guide/clients';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useDeleteMutation } from '../../../apollo';
 import { Loading } from '../../../components';
 import { EditorLanguagePicker } from '../../../components/language';
@@ -21,14 +21,19 @@ export const RegionsList: React.FC = React.memo(() => {
   const removeRegion = useDeleteMutation(REMOVE_REGION, [
     { query: LIST_REGIONS },
   ]);
+  const regions = useMemo(
+    () =>
+      data ? data.regions : { __typename: 'RegionsList', nodes: [], count: 0 },
+    [data],
+  );
   return (
     <Card>
       <CardHeader title="Regions list" action={<EditorLanguagePicker />} />
       <CardContent>
-        {loading && !data!.regions ? (
+        {loading ? (
           <Loading />
         ) : (
-          <RegionsTable regions={data!.regions} onRemove={removeRegion} />
+          <RegionsTable regions={regions} onRemove={removeRegion} />
         )}
       </CardContent>
       <EditorFooter add={true} adminOnly={true} />

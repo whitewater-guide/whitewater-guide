@@ -1,1 +1,1 @@
-export * from './ForgotScreen';
+export * from './LazyForgotScreen';

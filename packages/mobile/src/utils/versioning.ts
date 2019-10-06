@@ -36,10 +36,9 @@ class Versioning {
   };
 
   getHumanVersion = async () => {
-    const { version } = require('../../package.json');
     // prefer ios build number, because they're incremented together but ios one looks better
     const { local, pending, remote } = await this.getCodePushVersion();
-    return `${version} ${local || pending || remote || 'v0'}`;
+    return `${PJSON_VERSION} ${local || pending || remote || 'v0'}`;
   };
 
   getDist = () => {
@@ -51,9 +50,8 @@ class Versioning {
   };
 
   getSentryVersion = async () => {
-    const { version } = require('../../package.json');
     const { local, pending, remote } = await this.getCodePushVersion();
-    return `${version}-${Config.ENV_NAME}-${local ||
+    return `${PJSON_VERSION}-${Config.ENV_NAME}-${local ||
       pending ||
       remote ||
       'v0'}`;
@@ -63,8 +61,9 @@ class Versioning {
 // TODO: component can later be used to notify users of what's new
 export const PreviousVersion: React.FC = () => {
   useEffect(() => {
-    const { version } = require('../../package.json');
-    AsyncStorage.setItem('@whitewater-guide/version', version).catch(() => {});
+    AsyncStorage.setItem('@whitewater-guide/version', PJSON_VERSION).catch(
+      () => {},
+    );
   }, []);
   return null;
 };

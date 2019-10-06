@@ -42,10 +42,9 @@ class VersionBadge extends React.PureComponent<{}, State> {
   showDetails = () => {
     const { codePushVersion, sentryVersion } = this.state;
     const { local, pending, remote } = codePushVersion;
-    const { version } = require('../../../package.json');
     const { androidBuildNumber, iosBuildNumber } = require('../../../app.json');
 
-    const info = `Version: ${version}
+    const info = `Version: ${PJSON_VERSION}
 Build: ${iosBuildNumber} / ${androidBuildNumber}
 Environment: ${Config.ENV_NAME}
 Sentry: ${sentryVersion}

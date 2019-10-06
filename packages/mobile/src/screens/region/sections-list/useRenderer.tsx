@@ -1,11 +1,11 @@
 import { SectionsStatus } from '@whitewater-guide/clients';
 import { Banner, isBanner, Section } from '@whitewater-guide/commons';
-import { useNavigation } from '@zhigang1992/react-navigation-hooks';
 import max from 'date-fns/max';
 import parseISO from 'date-fns/parseISO';
 import React, { useCallback, useMemo, useState } from 'react';
 import { RefreshControl } from 'react-native';
-import { WithPremiumDialog } from '../../../features/purchases';
+import { useNavigation } from 'react-navigation-hooks';
+import { hasPremiumAccess, useIap } from '../../../features/purchases';
 import Screens from '../../screen-names';
 import { ListItem } from './item';
 import { SectionListBanner } from './item/SectionListBanner';
@@ -18,16 +18,10 @@ interface ExtendedState {
   lastTimestamp: Date;
 }
 
-export default (props: ListProps & WithPremiumDialog) => {
-  const {
-    region,
-    sections,
-    refresh,
-    status,
-    canMakePayments,
-    buyRegion,
-  } = props;
+export default (props: ListProps) => {
+  const { region, sections, refresh, status } = props;
   const { navigate } = useNavigation();
+  const { canMakePayments } = useIap();
 
   const [extraState, setExtraState] = useState<ExtendedState>({
     swipedId: '',
@@ -71,17 +65,10 @@ export default (props: ListProps & WithPremiumDialog) => {
     [setExtraState],
   );
 
-  const canNavigate = useCallback(() => {
-    if (!region) {
-      return false;
-    }
-    const { premium, hasPremiumAccess } = region;
-    if (canMakePayments && premium && !hasPremiumAccess) {
-      buyRegion(region);
-      return false;
-    }
-    return true;
-  }, [region, canMakePayments, buyRegion]);
+  const buyRegion = useCallback(
+    () => navigate(Screens.Purchase.Root, { region }),
+    [region],
+  );
 
   const renderItem = useCallback(
     (
@@ -90,19 +77,15 @@ export default (props: ListProps & WithPremiumDialog) => {
       index: number,
       extendedState: ExtendedState,
     ) => {
-      const { premium, hasPremiumAccess } = region || {
-        premium: false,
-        hasPremiumAccess: false,
-      };
       if (isBanner(item)) {
         return <SectionListBanner banner={item} />;
       }
       return (
         <ListItem
+          hasPremiumAccess={hasPremiumAccess(canMakePayments, region, item)}
+          buyRegion={buyRegion}
+          regionPremium={region ? region.premium : false}
           forceCloseCnt={extendedState.forceCloseCnt}
-          premium={premium}
-          hasPremiumAccess={hasPremiumAccess}
-          canNavigate={canNavigate}
           swipedId={extendedState.swipedId}
           item={item}
           onPress={onSectionSelected}
@@ -110,7 +93,7 @@ export default (props: ListProps & WithPremiumDialog) => {
         />
       );
     },
-    [region, canNavigate, onSectionSelected, onItemMaximized],
+    [region, canMakePayments, buyRegion, onSectionSelected, onItemMaximized],
   );
 
   const scrollViewProps = useMemo(() => {

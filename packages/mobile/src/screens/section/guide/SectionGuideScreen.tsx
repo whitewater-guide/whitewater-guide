@@ -1,11 +1,10 @@
 import { useSection } from '@whitewater-guide/clients';
 import { BannerPlacement } from '@whitewater-guide/commons';
+import { Screen } from 'components/Screen';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { NavigationScreenComponent } from 'react-navigation';
-import { Icon, Screen } from '../../../components';
 import { RegionBanners } from '../../../features/banners';
-import { I18nText } from '../../../i18n';
 import theme from '../../../theme';
 import SuggestionFAB from '../SuggestionFAB';
 import SectionGuideView from './SectionGuideView';
@@ -19,7 +18,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const SectionGuideScreen: NavigationScreenComponent = () => {
+const SectionGuideScreen: NavigationScreenComponent = () => {
   const section = useSection();
   return (
     <Screen>
@@ -36,9 +35,4 @@ export const SectionGuideScreen: NavigationScreenComponent = () => {
   );
 };
 
-SectionGuideScreen.navigationOptions = {
-  tabBarLabel: <I18nText>section:guide.title</I18nText>,
-  tabBarIcon: () => (
-    <Icon icon="book-open-variant" color={theme.colors.textLight} />
-  ),
-};
+export default SectionGuideScreen;

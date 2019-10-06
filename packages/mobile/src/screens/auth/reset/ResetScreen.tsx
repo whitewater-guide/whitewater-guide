@@ -3,7 +3,7 @@ import { NavigationScreenComponent } from 'react-navigation';
 import { ResetView } from './ResetView';
 import { ResetParams } from './types';
 
-export const ResetScreen: NavigationScreenComponent<ResetParams> = ({
+const ResetScreen: NavigationScreenComponent<ResetParams> = ({
   navigation,
 }) => (
   <ResetView
@@ -11,3 +11,5 @@ export const ResetScreen: NavigationScreenComponent<ResetParams> = ({
     token={navigation.getParam('token')}
   />
 );
+
+export default ResetScreen;

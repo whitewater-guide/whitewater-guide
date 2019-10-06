@@ -1,5 +1,5 @@
+import messaging from '@react-native-firebase/messaging';
 import { AsyncStorage } from 'react-native';
-import Firebase from 'react-native-firebase';
 
 enum MessagingPermission {
   UNKNOWN = 1,
@@ -18,10 +18,10 @@ export const enablePushNotifications = async () => {
   if (storedPermission !== MessagingPermission.UNKNOWN) {
     return;
   }
-  let enabled = await Firebase.messaging().hasPermission();
+  let enabled = await messaging().hasPermission();
   if (!enabled) {
     try {
-      await Firebase.messaging().requestPermission();
+      await messaging().requestPermission();
       enabled = true;
     } catch {}
   }

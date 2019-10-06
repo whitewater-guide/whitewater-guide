@@ -1,49 +1,41 @@
-import {
-  MapSelectionProvider,
-  RegionProvider,
-  SectionProvider,
-} from '@whitewater-guide/clients';
 import React from 'react';
+import { register } from 'react-native-bundle-splitter';
 import {
   NavigationRouteConfigMap,
   NavigationRouter,
   NavigationScreenComponent,
-  TabNavigatorConfig,
 } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
-import { ErrorBoundary, WithNetworkError } from '../../components';
-import { SelectedPOIView } from '../../components/map';
 import theme from '../../theme';
 import Screens from '../screen-names';
-import { SectionChartScreen } from './chart';
-import { SectionGuideScreen } from './guide';
+import { LazySectionChartScreen } from './chart';
+import { LazySectionGuideScreen } from './guide';
 import HeaderRight from './HeaderRight';
-import SectionInfoScreen from './info';
-import { SectionMapScreen } from './map';
-import { SectionMediaScreen } from './media';
-import { SECTION_DETAILS } from './sectionDetails.query';
+import { LazySectionInfoScreen } from './info';
+import { LazySectionMapScreen } from './map';
+import { LazySectionMediaScreen } from './media';
 import SectionTitle from './SectionTitle';
 import { NavParams } from './types';
 
 const routes: NavigationRouteConfigMap = {
   [Screens.Section.Map]: {
-    screen: SectionMapScreen,
+    screen: LazySectionMapScreen,
   },
   [Screens.Section.Chart]: {
-    screen: SectionChartScreen,
+    screen: LazySectionChartScreen,
   },
   [Screens.Section.Info]: {
-    screen: SectionInfoScreen,
+    screen: LazySectionInfoScreen,
   },
   [Screens.Section.Guide]: {
-    screen: SectionGuideScreen,
+    screen: LazySectionGuideScreen,
   },
   [Screens.Section.Media]: {
-    screen: SectionMediaScreen,
+    screen: LazySectionMediaScreen,
   },
 };
 
-const config: TabNavigatorConfig = {
+const config = {
   initialRouteName: Screens.Section.Info,
   backBehavior: 'none',
   swipeEnabled: false,
@@ -52,8 +44,6 @@ const config: TabNavigatorConfig = {
     activeTintColor: theme.colors.textLight,
     allowFontScaling: true,
   },
-  // Not yet in typedefs
-  // @ts-ignore
   barStyle: {
     backgroundColor: theme.colors.primary,
   },
@@ -62,38 +52,19 @@ const config: TabNavigatorConfig = {
 
 const Navigator = createMaterialBottomTabNavigator(routes, config);
 
+const LazySectionTabs = register({
+  require: () => require('./LazySectionTabs'),
+});
+
 export const SectionTabs: NavigationScreenComponent<NavParams> & {
   router: NavigationRouter;
 } = ({ navigation }) => {
   const regionId = navigation.getParam('regionId');
   const sectionId = navigation.getParam('sectionId');
-  if (!regionId || !sectionId) {
-    return null;
-  }
   return (
-    <ErrorBoundary>
-      <RegionProvider
-        regionId={regionId}
-        bannerWidth={theme.screenWidthPx}
-        fetchPolicy="cache-only"
-      >
-        <SectionProvider sectionId={sectionId} query={SECTION_DETAILS}>
-          {({ node, error, loading, refetch }) => (
-            <WithNetworkError
-              data={node}
-              error={error}
-              loading={loading}
-              refetch={refetch}
-            >
-              <MapSelectionProvider>
-                <Navigator navigation={navigation} />
-                <SelectedPOIView />
-              </MapSelectionProvider>
-            </WithNetworkError>
-          )}
-        </SectionProvider>
-      </RegionProvider>
-    </ErrorBoundary>
+    <LazySectionTabs regionId={regionId} sectionId={sectionId}>
+      <Navigator navigation={navigation} />
+    </LazySectionTabs>
   );
 };
 

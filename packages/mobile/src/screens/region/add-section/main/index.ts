@@ -1,1 +1,1 @@
-export * from './MainScreen';
+export * from './LazyMainScreen';

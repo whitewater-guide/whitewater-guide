@@ -1,1 +1,1 @@
-export * from './SectionMediaScreen';
+export * from './LazySectionMediaScreen';

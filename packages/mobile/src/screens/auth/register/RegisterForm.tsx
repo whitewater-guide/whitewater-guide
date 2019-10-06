@@ -1,11 +1,12 @@
 import { RegisterPayload, useAuth } from '@whitewater-guide/clients';
-import { useNavigation } from '@zhigang1992/react-navigation-hooks';
 import { Formik } from 'formik';
+import PasswordField from 'forms/password-field';
+import TextField from 'forms/TextField';
 import React, { createRef, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Button, TextInput, Title } from 'react-native-paper';
-import { PasswordField, TextField } from '../../../components/forms';
+import { useNavigation } from 'react-navigation-hooks';
 import theme from '../../../theme';
 import Screens from '../../screen-names';
 import { useAuthSubmit } from '../useAuthSubmit';

@@ -1,5 +1,6 @@
-import { createStackNavigator, StackNavigatorConfig } from 'react-navigation';
-import { getHeaderRenderer } from '../../components/header';
+import { getHeaderRenderer } from 'components/header';
+import { createStackNavigator } from 'react-navigation-stack';
+import { StackNavigatorConfig } from '../../utils/navigation';
 import Screens from '../screen-names';
 import { AddSectionStack } from './add-section';
 import RegionTabs from './RegionTabs';

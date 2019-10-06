@@ -1,4 +1,5 @@
 import simpleGit from 'simple-git/promise';
+import { argv } from 'yargs';
 import {
   bumpPackage,
   hasPackageChanged,
@@ -20,7 +21,8 @@ const publishLibs = async () => {
     throw new Error('working tree is dirty');
   }
 
-  const commonsChanged = await hasPackageChanged('packages/commons');
+  let commonsChanged = await hasPackageChanged('packages/commons');
+  commonsChanged = commonsChanged || !!argv.force;
   let clientsChanged = commonsChanged;
   if (!clientsChanged) {
     clientsChanged = await hasPackageChanged('packages/clients');

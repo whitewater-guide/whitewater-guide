@@ -1,10 +1,10 @@
 import { useRegion } from '@whitewater-guide/clients';
-import { useNavigation } from '@zhigang1992/react-navigation-hooks';
 import React, { memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, StyleSheet } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import { Button } from 'react-native-paper';
+import { useNavigation } from 'react-navigation-hooks';
 import Screens from '../../../screens/screen-names';
 
 export const SECTION_DETAILS_BUTTON_HEIGHT = 36;

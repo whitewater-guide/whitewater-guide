@@ -26,7 +26,7 @@ interface Props {
   label?: string;
 }
 
-export const Chips: React.FC<Props> = ({ items, label }) => {
+const Chips: React.FC<Props> = ({ items, label }) => {
   return (
     <View style={styles.container}>
       {!!label && (
@@ -43,3 +43,5 @@ export const Chips: React.FC<Props> = ({ items, label }) => {
     </View>
   );
 };
+
+export default Chips;

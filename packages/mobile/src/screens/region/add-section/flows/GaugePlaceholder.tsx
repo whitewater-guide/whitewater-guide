@@ -1,10 +1,10 @@
 import { NamedNode } from '@whitewater-guide/commons';
 import { useField } from 'formik';
+import HelperText from 'forms/HelperText';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { TouchableWithoutFeedback, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
-import { HelperText } from '../../../../components/forms';
 import { useNavigate } from '../../../../utils/navigation';
 import Screens from '../../../screen-names';
 

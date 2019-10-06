@@ -5,12 +5,12 @@ import {
   useFilterSetteer,
 } from '@whitewater-guide/clients';
 import { applySearch } from '@whitewater-guide/commons';
-import { useNavigation } from '@zhigang1992/react-navigation-hooks';
 import React, { useCallback, useMemo } from 'react';
 import { useQuery } from 'react-apollo';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
+import { useNavigation } from 'react-navigation-hooks';
 import { SearchState } from './types';
 import { stateToSearchTerms } from './utils';
 

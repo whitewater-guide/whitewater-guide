@@ -38,6 +38,7 @@ const SubmitButton: React.FC = () => {
       onPress={submitForm}
       onLayout={onLayout}
       disabled={!isValid}
+      accessibilityLabel={t('commons:create')}
     >
       {t('commons:create')}
     </Button>

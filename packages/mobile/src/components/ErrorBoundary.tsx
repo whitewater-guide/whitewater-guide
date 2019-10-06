@@ -11,7 +11,7 @@ interface State {
   info: ErrorInfo | null;
 }
 
-export class ErrorBoundary extends React.PureComponent<Props, State> {
+class ErrorBoundary extends React.PureComponent<Props, State> {
   readonly state: State = {
     error: null,
     info: null,
@@ -19,7 +19,7 @@ export class ErrorBoundary extends React.PureComponent<Props, State> {
 
   componentDidCatch(error: Error, info: ErrorInfo) {
     const { logger = 'errorBoundary' } = this.props;
-    trackError(logger, error, info.componentStack);
+    trackError(logger, error, { componentStack: info.componentStack });
     this.setState({ error, info });
   }
 
@@ -34,3 +34,5 @@ export class ErrorBoundary extends React.PureComponent<Props, State> {
     return children || null;
   }
 }
+
+export default ErrorBoundary;

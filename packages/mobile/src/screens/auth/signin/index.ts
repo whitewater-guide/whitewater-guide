@@ -1,1 +1,1 @@
-export * from './SignInScreen';
+export * from './LazySignInScreen';

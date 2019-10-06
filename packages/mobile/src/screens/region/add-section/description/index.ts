@@ -1,1 +1,1 @@
-export * from './DescriptionScreen';
+export * from './LazyDescriptionScreen';

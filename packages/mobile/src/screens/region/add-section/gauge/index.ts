@@ -1,1 +1,1 @@
-export * from './GaugeScreen';
+export * from './LazyGaugeScreen';

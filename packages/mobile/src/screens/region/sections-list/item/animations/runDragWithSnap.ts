@@ -1,6 +1,6 @@
 import { State } from 'react-native-gesture-handler';
 import Animated from 'react-native-reanimated';
-import { runSpring, snapPoint as getSnapPoint } from 'react-native-redash';
+import { snapPoint as getSnapPoint, spring } from 'react-native-redash';
 
 const {
   Value,
@@ -54,12 +54,12 @@ const runDragWithSnap = (
       [
         set(
           transX,
-          runSpring(
-            inertiaClock,
-            add(offset, dragX),
-            getSnapPoint(add(offset, dragX), dragVX, [0, snapPoint]),
-            springConfig,
-          ),
+          spring({
+            clock: inertiaClock,
+            from: add(offset, dragX),
+            to: getSnapPoint(add(offset, dragX), dragVX, [0, snapPoint]),
+            config: springConfig,
+          }),
         ),
       ],
       [

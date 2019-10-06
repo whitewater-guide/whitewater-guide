@@ -1,3 +1,4 @@
+import messaging from '@react-native-firebase/messaging';
 import {
   AuthResponse,
   AuthType,
@@ -16,10 +17,9 @@ import {
 } from '@whitewater-guide/commons';
 import { AppState, AppStateStatus, Platform } from 'react-native';
 import { AccessToken, LoginManager, LoginResult } from 'react-native-fbsdk';
-import Firebase from 'react-native-firebase';
-import { Sentry } from 'react-native-sentry';
 import { BACKEND_URL } from '../../utils/urls';
 import waitUntilActive from '../../utils/waitUntilActive';
+import { tracker, trackError } from '../errors';
 import { tokenStorage } from './tokens';
 
 export class MobileAuthService extends BaseAuthService {
@@ -39,11 +39,11 @@ export class MobileAuthService extends BaseAuthService {
 
   async init() {
     await super.init();
-    const pushEnabled = await Firebase.messaging().hasPermission();
+    const pushEnabled = await messaging().hasPermission();
     if (pushEnabled) {
       // do not watch token change.
       // fcm token should be valid at startup and this is enough for now
-      this._fcmToken = await Firebase.messaging().getToken();
+      this._fcmToken = await messaging().getToken();
     }
     // Legacy check. If user is logged in via FB, but has no access token, then
     // most likely he logged in via legacy auth in older app version
@@ -86,9 +86,14 @@ export class MobileAuthService extends BaseAuthService {
     if (success && accessToken) {
       await tokenStorage.setAccessToken(accessToken);
     } else if (status === 400) {
-      Sentry.captureMessage('token refresh failed', {
-        extra: { error, error_id },
-      });
+      trackError(
+        'auth',
+        new Error('token refresh failed'),
+        {
+          error,
+        },
+        error_id,
+      );
       // call internal function, so _loading status doesn't prevent it from running
       await this.signOut(true);
     }
@@ -129,7 +134,9 @@ export class MobileAuthService extends BaseAuthService {
         };
       }
       if (result.error) {
-        Sentry.captureException(new Error('facebook sign in failed'));
+        trackError('auth', new Error('facebook sign in failed'), {
+          error: result.error,
+        });
         return { success: false, error: { form: result.error }, status: 400 };
       }
       // On real iOS device first backend login will fail
@@ -141,7 +148,7 @@ export class MobileAuthService extends BaseAuthService {
       await waitUntilActive(600);
       const at = await AccessToken.getCurrentAccessToken();
       if (!at) {
-        Sentry.captureException(new Error('fb_access_token_not_found'));
+        trackError('auth', new Error('fb_access_token_not_found'));
         return {
           success: false,
           error: { form: 'fb_access_token_not_found' },
@@ -174,7 +181,7 @@ export class MobileAuthService extends BaseAuthService {
     if (refreshToken) {
       await tokenStorage.setRefreshToken(refreshToken);
     }
-    Sentry.setUserContext({ id });
+    tracker.setUser({ id });
     if (this._resetApolloCache) {
       await this._resetApolloCache();
     }
@@ -199,7 +206,7 @@ export class MobileAuthService extends BaseAuthService {
     await tokenStorage.setAccessToken(null);
     await tokenStorage.setRefreshToken(null);
     LoginManager.logOut();
-    Sentry.setUserContext({});
+    tracker.setUser(null);
     if (this._onSignOut) {
       this._onSignOut();
     }

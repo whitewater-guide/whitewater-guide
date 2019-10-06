@@ -1,38 +1,32 @@
-// const path = require('path');
-// const metro = require('metro');
-
+// const modulePaths = require('./packager/modulePaths');
+// const resolve = require('path').resolve;
+// const fs = require('fs');
+//
+// const config = {
+//   transformer: {
+//     getTransformOptions: () => {
+//       const moduleMap = {};
+//       modulePaths.forEach((path) => {
+//         if (fs.existsSync(path)) {
+//           moduleMap[resolve(path)] = true;
+//         }
+//       });
+//       return {
+//         preloadedModules: moduleMap,
+//         transform: { inlineRequires: { blacklist: moduleMap } },
+//       };
+//     },
+//   },
+// };
+//
+// module.exports = config;
 module.exports = {
-  // Commented out configuration to support symlinked modules,
-  // since removed symlinking from this project entirely
-  //
-  // watchFolders: [
-  //   path.join(process.cwd(), '../clients'),
-  //   path.join(process.cwd(), '../commons'),
-  // ],
-  // resolver: {
-  //   extraNodeModules: new Proxy(
-  //     {},
-  //     {
-  //       get: (target, name) => path.join(process.cwd(), `node_modules/${name}`),
-  //     },
-  //   ),
-  //   blacklistRE: metro.createBlacklist([
-  //     /@whitewater-guide\/commons\/node_modules\/react-native\/.*/,
-  //     /@whitewater-guide\/clients\/node_modules\/react-native\/.*/,
-  //     /@whitewater-guide\/clients\/node_modules\/react\/.*/,
-  //     new RegExp(path.join(process.cwd(), '../clients/node_modules/') + '.*'),
-  //     new RegExp(path.join(process.cwd(), '../commons/node_modules/') + '.*'),
-  //   ]),
-  // },
   transformer: {
     getTransformOptions: async () => ({
       transform: {
         experimentalImportSupport: false,
-        inlineRequires: false,
+        inlineRequires: true,
       },
     }),
   },
-  // server: {
-  //   enableVisualizer: true,
-  // },
 };

@@ -2,7 +2,12 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "jsx": "react-native",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "components/*": ["src/components/*"],
+      "forms/*": ["src/forms/*"]
+    }
   },
   "include": ["src/**/*", "storybook/**/*", "typings/**/*"]
 }

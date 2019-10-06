@@ -1,7 +1,7 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import theme from '../../theme';
-import { Icon } from '../Icon';
+import Icon from '../Icon';
 
 const styles = StyleSheet.create({
   headerOuter: {

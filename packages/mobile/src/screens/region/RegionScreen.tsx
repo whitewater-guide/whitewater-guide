@@ -4,10 +4,10 @@ import {
   SectionsListProvider,
   useFilterState,
 } from '@whitewater-guide/clients';
+import ErrorBoundary from 'components/ErrorBoundary';
 import React from 'react';
 import { useApolloClient } from 'react-apollo';
 import { NavigationRouter, NavigationScreenComponent } from 'react-navigation';
-import { ErrorBoundary } from '../../components';
 import theme from '../../theme';
 import RegionStack from './RegionStack';
 

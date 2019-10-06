@@ -1,12 +1,14 @@
 import { useAuth } from '@whitewater-guide/clients';
-import { useNavigation } from '@zhigang1992/react-navigation-hooks';
+import Spacer from 'components/Spacer';
 import { Formik } from 'formik';
+import HelperText from 'forms/HelperText';
+import SuccessText from 'forms/SuccessText';
+import TextField from 'forms/TextField';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'react-native-paper';
+import { useNavigation } from 'react-navigation-hooks';
 import { RequestResetPayload } from '../../../../../clients/src/auth';
-import { Spacer } from '../../../components';
-import { HelperText, SuccessText, TextField } from '../../../components/forms';
 import Screens from '../../screen-names';
 import { useAuthSubmit } from '../useAuthSubmit';
 import getValidationSchema from './getValidationSchema';

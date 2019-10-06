@@ -57,6 +57,7 @@ let link: ApolloLink;
 beforeEach(async () => {
   jest.clearAllMocks();
   fetchMock.reset();
+  fetchMock.mock(/logout/, { data: { success: true } });
   const service = new MobileAuthService(jest.fn(), jest.fn());
   await service.init();
   link = createLink(service);
@@ -172,7 +173,9 @@ describe('token expired locally', () => {
       },
     });
     // refresh and do not query afterwards
-    expect(fetchMock.calls()).toHaveLength(1);
+    expect(fetchMock.calls()).toHaveLength(2);
+    expect(fetchMock.calls()[0][0]).toEqual(expect.stringContaining('refresh'));
+    expect(fetchMock.calls()[1][0]).toEqual(expect.stringContaining('logout'));
     expect(LoginManager.logOut).toHaveBeenCalled();
   });
 
@@ -270,9 +273,11 @@ describe('bad local token', () => {
         success: false,
       },
     });
-    expect(LoginManager.logOut).toHaveBeenCalled();
     // graphql fails fatally -> do not refresh
-    expect(fetchMock.calls()).toHaveLength(1);
+    expect(fetchMock.calls()).toHaveLength(2);
+    expect(fetchMock.calls()[0][0]).toEqual(expect.stringContaining('graphql'));
+    expect(fetchMock.calls()[1][0]).toEqual(expect.stringContaining('logout'));
+    expect(LoginManager.logOut).toHaveBeenCalled();
   });
 
   it('should clear tokens if graphql request fails on authentication', async () => {

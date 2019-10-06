@@ -1,5 +1,5 @@
-import { useNavigation } from '@zhigang1992/react-navigation-hooks';
 import { useCallback } from 'react';
+import { useNavigation } from 'react-navigation-hooks';
 
 export const useNavigate = (routeName: string, params?: any) => {
   const { navigate } = useNavigation();

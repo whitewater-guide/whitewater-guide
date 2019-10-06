@@ -1,6 +1,6 @@
 import { storiesOf } from '@storybook/react-native';
+import Paper from 'components/Paper';
 import React from 'react';
-import { Paper } from '../../components';
 import { VerificationStatusInternal } from './VerificationStatus';
 
 storiesOf('VerificationStatus', module)

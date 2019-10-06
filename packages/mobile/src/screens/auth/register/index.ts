@@ -1,1 +1,1 @@
-export * from './RegisterScreen';
+export * from './LazyRegisterScreen';

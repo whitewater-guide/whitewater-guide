@@ -37,7 +37,7 @@ interface Props {
   section: Section;
 }
 
-export const FlowsThumb: React.FC<Props> = ({ section }) => {
+const FlowsThumb: React.FC<Props> = ({ section }) => {
   const [t] = useTranslation();
   const formulas = useFormulas(section);
   const { levels, flows, gauge } = section;
@@ -81,3 +81,5 @@ export const FlowsThumb: React.FC<Props> = ({ section }) => {
     </View>
   );
 };
+
+export default FlowsThumb;

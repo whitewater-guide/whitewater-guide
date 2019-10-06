@@ -1,10 +1,10 @@
 import { getVideoThumb, VideoThumb } from '@whitewater-guide/clients';
 import { Media } from '@whitewater-guide/commons';
+import { Row } from 'components/Row';
 import React from 'react';
 import { Clipboard, Linking, StyleSheet, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { Caption, Paragraph, TouchableRipple } from 'react-native-paper';
-import { Row } from '../../../components';
 import { trackError } from '../../../core/errors';
 import { PHOTO_PADDING, PHOTO_SIZE } from '../../../features/media';
 import VideoThumbPlaceholder from './VideoThumbPlaceholder';

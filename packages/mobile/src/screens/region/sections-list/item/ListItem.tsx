@@ -10,10 +10,7 @@ import { ItemProps } from '../types';
 import { SectionListBanner } from './SectionListBanner';
 import { SectionListItem } from './SectionListItem';
 
-const always = () => true;
-
 type Props = ItemProps<Section | Banner> & {
-  premium: boolean;
   swipedId: string;
 };
 
@@ -27,30 +24,10 @@ const propsAreEqual = (prev: Props, next: Props) =>
   prev.forceCloseCnt === next.forceCloseCnt;
 
 export const ListItem: React.FC<Props> = React.memo((props) => {
-  const {
-    item,
-    hasPremiumAccess,
-    premium,
-    canNavigate,
-    swipedId,
-    onPress,
-    onMaximize,
-    forceCloseCnt,
-  } = props;
-  if (isBanner(item)) {
-    return <SectionListBanner banner={item} />;
+  if (isBanner(props.item)) {
+    return <SectionListBanner banner={props.item} />;
   }
-  return (
-    <SectionListItem
-      forceCloseCnt={forceCloseCnt}
-      hasPremiumAccess={hasPremiumAccess || !premium}
-      canNavigate={item.demo ? always : canNavigate}
-      swipedId={swipedId}
-      item={item}
-      onPress={onPress}
-      onMaximize={onMaximize}
-    />
-  );
+  return <SectionListItem {...props} item={props.item} />;
 }, propsAreEqual);
 
 ListItem.displayName = 'ListItem';

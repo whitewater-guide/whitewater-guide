@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/adminer",
   "private": true,
-  "version": "0.0.33-ugsections.1",
+  "version": "0.0.33-rn60.0",
   "license": "UNLICENSED",
   "description": "adminer for whitewater.guide stack",
   "main": "index.js",

@@ -1,12 +1,12 @@
 import Mapbox, { RegionChangeEvent } from '@react-native-mapbox-gl/maps';
 import { useRegion } from '@whitewater-guide/clients';
 import { SectionInput } from '@whitewater-guide/commons';
+import { MapLayoutBase } from 'components/map';
 import { useFormikContext } from 'formik';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { FAB } from 'react-native-paper';
 import useBoolean from 'react-use/lib/useBoolean';
-import { MapLayoutBase } from '../../../../components/map';
 import theme from '../../../../theme';
 import { PiToDialog } from './dialog';
 import PiToControl from './PiToControl';

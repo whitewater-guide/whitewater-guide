@@ -10,7 +10,7 @@ import React from 'react';
 import { Section } from '../../../../../commons/src/features/sections';
 import { SectionsList } from './SectionsList';
 
-jest.mock('@zhigang1992/react-navigation-hooks', () => ({
+jest.mock('react-navigation-hooks', () => ({
   useNavigation: jest.fn().mockReturnValue({}),
 }));
 
@@ -45,6 +45,7 @@ const sections: Section[] = [
     createdAt: new Date(2000, 0).toISOString(),
     updatedAt: new Date(2000, 0).toISOString(),
     hidden: false,
+    helpNeeded: null,
     pois: [],
     tags: [],
     putIn: {
@@ -87,14 +88,12 @@ const sections: Section[] = [
 it('should be updated when measurements are updated', () => {
   const ref = React.createRef<any>();
   const props: React.ComponentProps<typeof SectionsList> = {
-    buyRegion: jest.fn(),
-    canMakePayments: true,
     refresh: jest.fn(),
     status: SectionsStatus.READY,
     region: region as any,
     sections,
   };
-  const { rerender, getByText, getByTestId, baseElement } = render(
+  const { rerender, getByText, getByTestId } = render(
     <SectionsList ref={ref} {...props} />,
   );
   const recycler = getByTestId('sections-list-recycler');

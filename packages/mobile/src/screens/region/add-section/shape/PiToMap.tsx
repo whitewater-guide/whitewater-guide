@@ -1,9 +1,9 @@
 import Mapbox, { RegionChangeEvent } from '@react-native-mapbox-gl/maps';
 import { ColorStrings, useSectionsList } from '@whitewater-guide/clients';
+import { BaseMap } from 'components/map';
+import { useMapboxData } from 'components/map/hooks';
 import React, { forwardRef, RefAttributes } from 'react';
 import { PUT_IN_PIN, TAKE_OUT_PIN } from '../../../../assets';
-import { BaseMap } from '../../../../components/map';
-import { useMapboxData } from '../../../../components/map/hooks';
 import { PiToState } from './usePiToState';
 
 const MapComponent = BaseMap as React.ComponentType<

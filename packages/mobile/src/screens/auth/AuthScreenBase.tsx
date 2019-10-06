@@ -1,3 +1,5 @@
+import Logo from 'components/Logo';
+import { Screen } from 'components/Screen';
 import React from 'react';
 import {
   Keyboard,
@@ -7,7 +9,6 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { Logo, Screen } from '../../components';
 import theme from '../../theme';
 
 const styles = StyleSheet.create({

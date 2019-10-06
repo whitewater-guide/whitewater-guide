@@ -1,8 +1,8 @@
 import { useMapSelection } from '@whitewater-guide/clients';
-import { useNavigation } from '@zhigang1992/react-navigation-hooks';
 import React, { useCallback } from 'react';
 import { StyleSheet } from 'react-native';
 import { FAB } from 'react-native-paper';
+import { useNavigation } from 'react-navigation-hooks';
 import theme from '../../theme';
 import Screens from '../screen-names';
 

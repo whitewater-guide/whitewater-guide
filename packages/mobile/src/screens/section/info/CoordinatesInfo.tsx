@@ -1,78 +1,56 @@
-import {
-  arrayToDMSString,
-  withRegion,
-  WithRegion,
-} from '@whitewater-guide/clients';
+import { arrayToLatLngString, useRegion } from '@whitewater-guide/clients';
 import { Coordinate, Section } from '@whitewater-guide/commons';
-import React from 'react';
+import Icon from 'components/Icon';
+import { Left, Right, Row } from 'components/Row';
+import React, { useCallback } from 'react';
 import { Clipboard } from 'react-native';
 import { Paragraph, Subheading } from 'react-native-paper';
-import { compose } from 'recompose';
-import { Icon, Left, Right, Row } from '../../../components';
-import {
-  connectPremiumDialog,
-  WithPremiumDialog,
-} from '../../../features/purchases';
+import { usePremiumAccess, usePremiumGuard } from '../../../features/purchases';
 import { openGoogleMaps } from '../../../utils/maps';
 
-interface OwnProps {
+interface Props {
   label: string;
   coordinates: Coordinate;
   section: Section;
 }
 
-type InnerProps = OwnProps & WithRegion & WithPremiumDialog;
+const CoordinatesInfo: React.FC<Props> = React.memo((props) => {
+  const { coordinates, label, section } = props;
+  const region = useRegion();
+  const isFree = usePremiumAccess(region.node, section);
+  const premiumGuard = usePremiumGuard(region.node, section);
+  const prettyCoord = isFree ? arrayToLatLngString(coordinates) : '';
 
-class CoordinatesInfo extends React.PureComponent<InnerProps> {
-  canNavigate = () => {
-    const { section, region, canMakePayments } = this.props;
-    return (
-      (section && section.demo) ||
-      !canMakePayments ||
-      !region.node ||
-      !region.node.premium ||
-      region.node.hasPremiumAccess
-    );
-  };
-
-  onCopy = () => {
-    const { coordinates, region, buyRegion } = this.props;
-    if (this.canNavigate()) {
-      const prettyCoord = arrayToDMSString(coordinates);
+  const onCopy = useCallback(() => {
+    if (premiumGuard()) {
       Clipboard.setString(prettyCoord);
-    } else if (region.node) {
-      buyRegion(region.node);
     }
-  };
+  }, [premiumGuard, prettyCoord]);
 
-  onNavigate = () => {
-    const { coordinates, region, buyRegion, section } = this.props;
-    if (this.canNavigate()) {
+  const onNavigate = useCallback(() => {
+    if (premiumGuard()) {
       openGoogleMaps(coordinates);
-    } else if (region.node) {
-      buyRegion(region.node, section.id);
     }
-  };
+  }, [premiumGuard, coordinates]);
 
-  render() {
-    const { coordinates, label } = this.props;
-    const prettyCoord = this.canNavigate() ? arrayToDMSString(coordinates) : '';
-    return (
-      <Row>
-        <Left>
-          <Subheading>{label}</Subheading>
-        </Left>
-        <Right row={true}>
-          <Paragraph>{prettyCoord}</Paragraph>
-          <Icon icon="content-copy" onPress={this.onCopy} />
-          <Icon icon="car" onPress={this.onNavigate} />
-        </Right>
-      </Row>
-    );
-  }
-}
+  return (
+    <Row>
+      <Left>
+        <Subheading>{label}</Subheading>
+      </Left>
+      <Right row={true}>
+        <Paragraph>{prettyCoord}</Paragraph>
+        <Icon
+          icon="content-copy"
+          accessibilityLabel="copy coordinate"
+          onPress={onCopy}
+        />
+        <Icon icon="car" accessibilityLabel="navigate" onPress={onNavigate} />
+      </Right>
+    </Row>
+  );
+});
 
-export default compose<InnerProps, OwnProps>(
-  withRegion,
-  connectPremiumDialog,
-)(CoordinatesInfo);
+CoordinatesInfo.displayName = 'CoordinatesInfo';
+
+export default CoordinatesInfo;

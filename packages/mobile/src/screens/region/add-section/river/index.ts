@@ -1,1 +1,1 @@
-export * from './RiverScreen';
+export * from './LazyRiverScreen';

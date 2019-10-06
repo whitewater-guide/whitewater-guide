@@ -1,2 +1,2 @@
-export * from './SectionGuideScreen';
-export * from './SectionGuideMenu';
+export * from './LazySectionGuideScreen';
+export * from './LazySectionGuideMenu';

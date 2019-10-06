@@ -1,9 +1,10 @@
 import { useAuth } from '@whitewater-guide/clients';
-import { useNavigation } from '@zhigang1992/react-navigation-hooks';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Button, Paragraph, Title } from 'react-native-paper';
+import { useNavigation } from 'react-navigation-hooks';
+import Screens from '../../screen-names';
 import { AuthScreenBase } from '../AuthScreenBase';
 
 const styles = StyleSheet.create({
@@ -18,10 +19,10 @@ interface Props {
 
 export const WelcomeView: React.FC<Props> = ({ verified }) => {
   const { t } = useTranslation();
-  const { popToTop } = useNavigation();
+  const { goBack } = useNavigation();
   const { me } = useAuth();
   const user = me ? me.name : '';
-  const onPress = useCallback(() => popToTop(), [popToTop]);
+  const onPress = useCallback(() => goBack(Screens.Auth.Root), [goBack]);
   // TODO: check email link, resend link
   // good example here:
   // https://mobbin.design/static/media/iPhoneXs.b6dc293d.png

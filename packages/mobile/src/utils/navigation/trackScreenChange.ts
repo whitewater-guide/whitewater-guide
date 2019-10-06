@@ -1,4 +1,3 @@
-import Firebase from 'react-native-firebase';
 import { NavigationState } from 'react-navigation';
 import { tracker } from '../../core/errors';
 import { currentRouteNameSelector, getCurrentRoute } from './selectors';
@@ -16,10 +15,5 @@ export const trackScreenChange = (
     currentScreen
   ) {
     tracker.setScreen(currentScreenName, currentScreen.params);
-    Firebase.analytics().setCurrentScreen(currentScreenName);
-    Firebase.analytics().logEvent(
-      `Screen_${currentScreenName}`,
-      currentScreen.params,
-    );
   }
 };

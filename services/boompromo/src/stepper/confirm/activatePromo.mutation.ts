@@ -1,9 +1,15 @@
-import { PurchaseInput } from '@whitewater-guide/commons';
+import { PurchaseInput, Region } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 
 export const ACTIVATE_PROMO_MUTATION = gql`
   mutation activatePromo($purchase: PurchaseInput!) {
-    addPurchase(purchase: $purchase)
+    savePurchase(purchase: $purchase) {
+      regions {
+        id
+        sku
+        hasPremiumAccess
+      }
+    }
   }
 `;
 
@@ -12,5 +18,5 @@ export interface Vars {
 }
 
 export interface Result {
-  addPurchase: boolean;
+  addPurchase: Array<Pick<Region, 'id' | 'sku' | 'hasPremiumAccess'>>;
 }

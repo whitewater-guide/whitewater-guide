@@ -1,25 +1,16 @@
-import {
-  MapSelection,
-  withMapSelection,
-  WithRegion,
-  withRegion,
-} from '@whitewater-guide/clients';
-import { isPoint, Point } from '@whitewater-guide/commons';
-import get from 'lodash/get';
-import React from 'react';
+import { useMapSelection, useRegion } from '@whitewater-guide/clients';
+import { isPoint } from '@whitewater-guide/commons';
+import SelectedPOIHeader from 'components/map/panels/SelectedPOIHeader';
+import React, { useCallback, useRef } from 'react';
 import { StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Paragraph } from 'react-native-paper';
 import Animated from 'react-native-reanimated';
-import { compose, pure } from 'recompose';
-import {
-  connectPremiumDialog,
-  WithPremiumDialog,
-} from '../../../features/purchases';
+import { usePremiumGuard } from '../../../features/purchases';
 import theme from '../../../theme';
+import useLastNotNull from '../../../utils/useLastNotNull';
 import { NAVIGATE_BUTTON_HEIGHT, NavigateButton } from '../../NavigateButton';
 import SelectedElementView from './SelectedElementView';
-import SelectedPOIHeader from './SelectedPOIHeader';
 
 const styles = StyleSheet.create({
   scroll: {
@@ -37,96 +28,59 @@ const SNAP_POINTS: [number, number, number] = [
   0,
 ];
 
-type Props = WithRegion & WithPremiumDialog & MapSelection;
+export const SelectedPOIView: React.FC = React.memo(() => {
+  const scroll = useRef<ScrollView | null>(null);
+  const region = useRegion();
+  const { selection, onSelected } = useMapSelection();
+  const poi = isPoint(selection) ? selection : null;
+  // Keep section as state to prevent flash of empty content before panel hides
+  const lastPoi = useLastNotNull(poi);
 
-interface State {
-  poi: Point | null;
-}
-
-class SelectedPOIViewInternal extends React.PureComponent<Props, State> {
-  private _scroll = React.createRef<ScrollView>();
-
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      poi: isPoint(props.selection) ? props.selection : null,
-    };
-  }
-
-  static getDerivedStateFromProps(nextProps: Props, prevState: State): State {
-    // Keep poi as state to prevent flash of empty content before panel hides
-    if (isPoint(nextProps.selection)) {
-      return {
-        poi: nextProps.selection,
-      };
-    }
-    return prevState;
-  }
-
-  canNavigate = () => {
-    const { buyRegion, region, canMakePayments } = this.props;
-    const result =
-      !canMakePayments ||
-      !region.node ||
-      !region.node.premium ||
-      region.node.hasPremiumAccess;
-    if (!result) {
-      buyRegion(region.node!);
-    }
-    return result;
-  };
-
-  renderContent = () => {
-    const { poi } = this.state;
+  const renderHeader = useCallback(() => {
     return (
       <ScrollView
         style={styles.scroll}
         contentContainerStyle={styles.scrollContent}
-        ref={this._scroll}
+        ref={scroll}
         bounces={false}
       >
-        <Paragraph>{get(poi, 'description', ' ')}</Paragraph>
+        <Paragraph>{lastPoi ? lastPoi.description : ''}</Paragraph>
       </ScrollView>
     );
-  };
+  }, [lastPoi, scroll]);
 
-  renderHeader = () => {
-    const { poi } = this.state;
-    return <SelectedPOIHeader poi={poi} />;
-  };
+  const renderContent = useCallback(() => {
+    return <SelectedPOIHeader poi={lastPoi} />;
+  }, [lastPoi]);
 
-  renderButtons = (scale?: Animated.Node<number>) => {
-    const { poi } = this.state;
-    return (
-      <NavigateButton
-        labelKey="commons:navigate"
-        point={poi}
-        canNavigate={this.canNavigate}
-        scale={scale}
-      />
-    );
-  };
+  // TODO: poi should be navigatable on demo map section
+  const premiumGuard = usePremiumGuard(region.node);
 
-  render() {
-    const { selection, onSelected } = this.props;
-    const poi = isPoint(selection) ? selection : null;
-    return (
-      <SelectedElementView
-        snapPoints={SNAP_POINTS}
-        renderHeader={this.renderHeader}
-        renderButtons={this.renderButtons}
-        renderContent={this.renderContent}
-        selection={poi}
-        onSelected={onSelected}
-        simultaneousHandlers={this._scroll}
-      />
-    );
-  }
-}
+  const renderButtons = useCallback(
+    (scale?: Animated.Node<number>) => {
+      return (
+        <NavigateButton
+          labelKey="commons:navigate"
+          point={lastPoi}
+          premiumGuard={premiumGuard}
+          scale={scale}
+        />
+      );
+    },
+    [lastPoi, premiumGuard],
+  );
 
-export const SelectedPOIView = compose<Props, {}>(
-  pure,
-  withMapSelection,
-  withRegion,
-  connectPremiumDialog,
-)(SelectedPOIViewInternal);
+  return (
+    <SelectedElementView
+      snapPoints={SNAP_POINTS}
+      renderHeader={renderHeader}
+      renderButtons={renderButtons}
+      renderContent={renderContent}
+      selection={poi}
+      onSelected={onSelected}
+      simultaneousHandlers={scroll}
+    />
+  );
+});
+
+SelectedPOIView.displayName = 'SelectedPOIView';

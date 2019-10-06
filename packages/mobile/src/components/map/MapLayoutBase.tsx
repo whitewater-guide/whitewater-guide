@@ -3,7 +3,7 @@ import { CoordinateLoose } from '@whitewater-guide/commons';
 import React, { MutableRefObject } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useMapType } from '../../features/settings';
-import { Loading } from '../Loading';
+import Loading from '../Loading';
 import CameraControls from './CameraControls';
 import {
   CameraProvider,

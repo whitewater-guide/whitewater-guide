@@ -1,31 +1,21 @@
 import { Section } from '@whitewater-guide/commons';
 import React from 'react';
-import {
-  connectPremiumDialog,
-  WithPremiumDialog,
-} from '../../../../features/purchases';
+import { useIap } from '../../../../features/purchases';
 import NoDataPlaceholder from './NoDataPlaceholder';
 import PremiumPlaceholder from './PremiumPlaceholder';
 
-interface Props extends WithPremiumDialog {
+interface Props {
   premium: boolean;
   section: Section;
 }
 
-const Placeholder: React.SFC<Props> = ({
-  canMakePayments,
-  buyRegion,
-  premium,
-  section,
-}) =>
-  premium && canMakePayments ? (
-    <PremiumPlaceholder
-      section={section}
-      canMakePayments={canMakePayments}
-      buyRegion={buyRegion}
-    />
+const Placeholder: React.FC<Props> = ({ premium, section }) => {
+  const { canMakePayments } = useIap();
+  return premium && canMakePayments ? (
+    <PremiumPlaceholder section={section} />
   ) : (
     <NoDataPlaceholder />
   );
+};
 
-export default connectPremiumDialog(Placeholder);
+export default Placeholder;

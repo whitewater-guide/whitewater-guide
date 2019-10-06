@@ -1,1 +1,1 @@
-export * from './AttributesScreen';
+export * from './LazyAttributesScreen';

@@ -1,13 +1,11 @@
+import { Screen } from 'components/Screen';
 import React from 'react';
 import { NavigationScreenComponent } from 'react-navigation';
-import { Screen } from '../../components';
 import RegionsListView from './RegionsListView';
 
-export const RegionsListScreen: NavigationScreenComponent = ({
-  navigation,
-}) => (
+export const RegionsListScreen: NavigationScreenComponent = () => (
   <Screen>
-    <RegionsListView navigate={navigation.navigate} />
+    <RegionsListView />
   </Screen>
 );
 

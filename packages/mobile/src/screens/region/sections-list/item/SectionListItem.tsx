@@ -1,14 +1,14 @@
 import { sectionHasChanged } from '@whitewater-guide/clients';
 import { Section } from '@whitewater-guide/commons';
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { PanGestureHandler } from 'react-native-gesture-handler';
-import Reanimated from 'react-native-reanimated';
 import {
   NAVIGATE_BUTTON_HEIGHT,
   NAVIGATE_BUTTON_WIDTH,
   NavigateButton,
-} from '../../../../components';
+} from 'components/NavigateButton';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { PanGestureHandler } from 'react-native-gesture-handler';
+import Reanimated from 'react-native-reanimated';
 import theme from '../../../../theme';
 import { ItemProps } from '../types';
 import { runAnimation, SwipeableAnimation } from './animations';
@@ -86,23 +86,32 @@ export class SectionListItem extends React.Component<Props> {
     }
   };
 
+  premiumGuard = () => {
+    const { hasPremiumAccess, buyRegion } = this.props;
+    this._animation.close();
+    if (hasPremiumAccess) {
+      return true;
+    } else {
+      buyRegion();
+      return false;
+    }
+  };
+
   render() {
-    const { item, hasPremiumAccess, canNavigate } = this.props;
+    const { item, hasPremiumAccess, regionPremium } = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.right}>
           <NavigateButton
             labelKey="commons:putIn"
             point={item.putIn}
-            canNavigate={canNavigate}
-            onPress={this._animation.close}
+            premiumGuard={this.premiumGuard}
             scale={this._scalePI}
           />
           <NavigateButton
             labelKey="commons:takeOut"
             point={item.takeOut}
-            canNavigate={canNavigate}
-            onPress={this._animation.close}
+            premiumGuard={this.premiumGuard}
             scale={this._scaleTO}
           />
         </View>
@@ -121,7 +130,7 @@ export class SectionListItem extends React.Component<Props> {
             }
           >
             <SectionListBody
-              hasPremiumAccess={hasPremiumAccess}
+              regionPremium={regionPremium}
               section={item}
               onPress={this.onPress}
             />

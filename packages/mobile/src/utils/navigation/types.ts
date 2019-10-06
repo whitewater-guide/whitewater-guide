@@ -1,21 +1,12 @@
-// tslint:disable:max-classes-per-file
-import { Component, PureComponent } from 'react';
-import {
-  NavigationScreenConfig,
-  NavigationScreenProps,
-} from 'react-navigation';
+import { NavigationScreenComponent } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 
-export class PureScreen<
-  Props = {},
-  Params = {},
-  State = {}
-> extends PureComponent<Props & NavigationScreenProps<Params, any>, State> {
-  static navigationOptions?: NavigationScreenConfig<{}>;
-}
+export type StackNavigatorConfig = Parameters<typeof createStackNavigator>[1];
+export type TabNavigatorConfig = Parameters<
+  typeof createMaterialTopTabNavigator
+>[1];
 
-export class Screen<Props = {}, Params = {}, State = {}> extends Component<
-  Props & NavigationScreenProps<Params>,
-  State
-> {
-  static navigationOptions?: NavigationScreenConfig<{}>;
-}
+export type WrappedStackNavigator = NavigationScreenComponent & {
+  router?: any;
+};

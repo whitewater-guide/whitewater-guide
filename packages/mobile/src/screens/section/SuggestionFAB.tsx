@@ -1,9 +1,9 @@
 import { useSection } from '@whitewater-guide/clients';
-import { useNavigation } from '@zhigang1992/react-navigation-hooks';
+import Icon from 'components/Icon';
 import React, { useCallback } from 'react';
 import { StyleSheet } from 'react-native';
 import { FAB, IconSource } from 'react-native-paper';
-import { Icon } from '../../components';
+import { useNavigation } from 'react-navigation-hooks';
 import Screens from '../screen-names';
 
 const styles = StyleSheet.create({

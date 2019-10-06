@@ -1,11 +1,10 @@
+import { Screen } from 'components/Screen';
+import TextField from 'forms/TextField';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { KeyboardAvoidingView, StyleSheet } from 'react-native';
 import { NavigationScreenComponent } from 'react-navigation';
-import { Screen } from '../../../../components';
-import { TextField } from '../../../../components/forms';
 import theme from '../../../../theme';
-import TabBarLabel from '../TabBarLabel';
 
 const styles = StyleSheet.create({
   container: {
@@ -17,7 +16,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const DescriptionScreen: NavigationScreenComponent = () => {
+const DescriptionScreen: NavigationScreenComponent = () => {
   const { t } = useTranslation();
   return (
     <Screen>
@@ -39,8 +38,4 @@ export const DescriptionScreen: NavigationScreenComponent = () => {
 };
 
 DescriptionScreen.displayName = 'DescriptionScreen';
-DescriptionScreen.navigationOptions = {
-  tabBarLabel: (props: any) => (
-    <TabBarLabel {...props} i18nKey="screens:addSection.tabs.description" />
-  ),
-};
+export default DescriptionScreen;

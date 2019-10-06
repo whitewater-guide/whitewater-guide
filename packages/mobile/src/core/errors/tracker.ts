@@ -1,9 +1,11 @@
-import { Sentry, SentrySeverity } from 'react-native-sentry';
+import analytics from '@react-native-firebase/analytics';
+import * as Sentry from '@sentry/react-native';
 
 interface Trace {
   logger: string;
+  transactionId?: string;
   error: Error;
-  extra: { [key: string]: any };
+  extra?: { [key: string]: any };
 }
 
 class ErrorTracker {
@@ -17,7 +19,7 @@ class ErrorTracker {
   };
 
   track = (trace: Trace) => {
-    const { logger, error, extra } = trace;
+    const { logger, transactionId, error, extra } = trace;
     if (__DEV__) {
       try {
         console.dir(error);
@@ -30,20 +32,30 @@ class ErrorTracker {
       this._queue.push(trace);
       return;
     }
-    if (!__DEV__) {
-      Sentry.captureException(error, { logger, extra });
-    }
+    Sentry.withScope((scope) => {
+      scope.setTag('logger', logger);
+      if (transactionId) {
+        scope.setTransaction(transactionId);
+      }
+      if (extra) {
+        scope.setExtras(extra);
+      }
+      Sentry.captureException(error);
+    });
   };
 
   setScreen = (screen: string, params: any) => {
-    if (!__DEV__) {
-      Sentry.captureBreadcrumb({
-        category: 'navigation',
-        level: SentrySeverity.Info,
-        message: screen,
-        data: params,
-      });
-    }
+    Sentry.addBreadcrumb({
+      category: 'navigation',
+      level: Sentry.Severity.Info,
+      message: screen,
+      data: params,
+    });
+    analytics().setCurrentScreen(screen);
+  };
+
+  setUser = (user: any) => {
+    Sentry.setUser(user);
   };
 }
 

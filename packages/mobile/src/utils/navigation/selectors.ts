@@ -26,7 +26,7 @@ function isStateRoute(
 }
 
 export const getCurrentRoute = (
-  navigationState: NavigationState | NavigationRoute<any>,
+  navigationState: NavigationState | NavigationRoute<any> | null,
 ): NavigationRoute | null => {
   if (!navigationState) {
     return null;
@@ -51,7 +51,7 @@ export const dotRouteSelector = (state: NavigationState) =>
 export const currentRouteNameSelector = (state: NavigationState) =>
   getCurrentRouteName(state);
 export const isRouteFocused = (
-  state: NavigationState | NavigationRoute<any>,
+  state: NavigationState | NavigationRoute<any> | null,
   routeName: string,
   params?: any,
 ) => {

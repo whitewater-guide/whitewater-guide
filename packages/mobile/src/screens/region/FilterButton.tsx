@@ -1,7 +1,7 @@
 import { useFilterState } from '@whitewater-guide/clients';
+import Icon from 'components/Icon';
 import React, { useCallback } from 'react';
 import { NavigationInjectedProps } from 'react-navigation';
-import { Icon } from '../../components';
 import theme from '../../theme';
 import Screens from '../screen-names';
 

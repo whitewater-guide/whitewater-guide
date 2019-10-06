@@ -2,7 +2,7 @@ import { Page } from '@whitewater-guide/commons';
 import { DocumentNode } from 'graphql';
 import { useEffect } from 'react';
 import { QueryHookOptions, QueryResult, useQuery } from 'react-apollo';
-import { getListMerger } from './queryResultToList';
+import { getListMerger } from './getListMerger';
 
 const getConnectionField = <QResult>(data: QResult): null | keyof QResult => {
   if (!data) {

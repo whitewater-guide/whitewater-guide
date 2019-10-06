@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationInjectedProps } from 'react-navigation';
 import Screens from '../screen-names';
 import FilterButton from './FilterButton';
-import { RegionInfoMenu } from './info';
+import { LazyRegionInfoMenu } from './info';
 
 const HeaderRight: React.FC<NavigationInjectedProps> = ({ navigation }) => {
   const route = navigation.state.routes[navigation.state.index].routeName;
@@ -11,7 +11,7 @@ const HeaderRight: React.FC<NavigationInjectedProps> = ({ navigation }) => {
     case Screens.Region.Tabs.Map:
       return <FilterButton navigation={navigation} />;
     case Screens.Region.Tabs.Info:
-      return <RegionInfoMenu regionId={navigation.getParam('regionId')} />;
+      return <LazyRegionInfoMenu regionId={navigation.getParam('regionId')} />;
   }
   return null;
 };

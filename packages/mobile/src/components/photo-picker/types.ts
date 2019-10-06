@@ -6,7 +6,3 @@ export interface Photo {
   image: string;
   resolution: number[];
 }
-
-export type ImagePickerOptions = Parameters<
-  typeof ImagePicker['showImagePicker']
->[0];

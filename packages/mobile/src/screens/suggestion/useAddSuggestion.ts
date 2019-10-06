@@ -1,12 +1,12 @@
 import { getValidationErrors } from '@whitewater-guide/clients';
 import { SuggestionInput } from '@whitewater-guide/commons';
-import { useNavigation } from '@zhigang1992/react-navigation-hooks';
+import { useSnackbarMessage } from 'components/snackbar';
 import { FormikHelpers } from 'formik';
 import gql from 'graphql-tag';
 import { useCallback } from 'react';
 import { useMutation } from 'react-apollo';
 import { useTranslation } from 'react-i18next';
-import { useSnackbarMessage } from '../../components/snackbar';
+import { useNavigation } from 'react-navigation-hooks';
 
 const ADD_SUGGESTION_MUTATION = gql`
   mutation addSuggestion($suggestion: SuggestionInput!) {

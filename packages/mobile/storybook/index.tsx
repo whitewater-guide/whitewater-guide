@@ -4,8 +4,8 @@ import {
   getStorybookUI,
 } from '@storybook/react-native';
 import React from 'react';
+import SplashScreen from 'react-native-bootsplash';
 import { Provider as PaperProvider } from 'react-native-paper';
-import SplashScreen from 'react-native-splash-screen';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { I18nProvider } from '../src/i18n';
 import { PaperTheme } from '../src/theme';

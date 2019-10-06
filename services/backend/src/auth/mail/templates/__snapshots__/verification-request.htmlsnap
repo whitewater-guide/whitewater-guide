@@ -36,7 +36,7 @@ exports[`should match snapshot for "verification-request" 1`] = `
         <![endif]-->
     <!--[if lte mso 11]>
         <style type="text/css">
-          .outlook-group-fix { width:100% !important; }
+          .mj-outlook-group-fix { width:100% !important; }
         </style>
         <![endif]-->
     <!--[if !mso]><!-->
@@ -55,8 +55,8 @@ exports[`should match snapshot for "verification-request" 1`] = `
     </style>
     <style type="text/css">
       @media only screen and (max-width:480px) {
-      table.full-width-mobile { width: 100% !important; }
-      td.full-width-mobile { width: auto !important; }
+      table.mj-full-width-mobile { width: 100% !important; }
+      td.mj-full-width-mobile { width: auto !important; }
     }
     </style>
   </head>
@@ -89,7 +89,7 @@ exports[`should match snapshot for "verification-request" 1`] = `
                class="" style="vertical-align:top;width:600px;"
             >
           <![endif]-->
-                <div class="mj-column-per-100 outlook-group-fix"
+                <div class="mj-column-per-100 mj-outlook-group-fix"
                      style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;"
                 >
                   <table border="0"
@@ -173,7 +173,7 @@ exports[`should match snapshot for "verification-request" 1`] = `
                class="" style="vertical-align:top;width:600px;"
             >
           <![endif]-->
-                <div class="mj-column-per-100 outlook-group-fix"
+                <div class="mj-column-per-100 mj-outlook-group-fix"
                      style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;"
                 >
                   <table border="0"
@@ -342,7 +342,7 @@ exports[`should match snapshot for "verification-request" 1`] = `
                class="" style="width:600px;"
             >
           <![endif]-->
-                          <div class="mj-column-per-100 outlook-group-fix"
+                          <div class="mj-column-per-100 mj-outlook-group-fix"
                                style="font-size:0;line-height:0;text-align:left;display:inline-block;width:100%;direction:ltr;"
                           >
                             <!--[if mso | IE]>
@@ -353,7 +353,7 @@ exports[`should match snapshot for "verification-request" 1`] = `
                  style="vertical-align:top;width:120px;"
               >
               <![endif]-->
-                            <div class="mj-column-per-20 outlook-group-fix"
+                            <div class="mj-column-per-20 mj-outlook-group-fix"
                                  style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:20%;"
                             >
                               <table border="0"
@@ -401,7 +401,7 @@ exports[`should match snapshot for "verification-request" 1`] = `
                  style="vertical-align:top;width:120px;"
               >
               <![endif]-->
-                            <div class="mj-column-per-20 outlook-group-fix"
+                            <div class="mj-column-per-20 mj-outlook-group-fix"
                                  style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:20%;"
                             >
                               <table border="0"
@@ -449,7 +449,7 @@ exports[`should match snapshot for "verification-request" 1`] = `
                  style="vertical-align:top;width:120px;"
               >
               <![endif]-->
-                            <div class="mj-column-per-20 outlook-group-fix"
+                            <div class="mj-column-per-20 mj-outlook-group-fix"
                                  style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:20%;"
                             >
                               <table border="0"
@@ -497,7 +497,7 @@ exports[`should match snapshot for "verification-request" 1`] = `
                  style="vertical-align:top;width:120px;"
               >
               <![endif]-->
-                            <div class="mj-column-per-20 outlook-group-fix"
+                            <div class="mj-column-per-20 mj-outlook-group-fix"
                                  style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:20%;"
                             >
                               <table border="0"
@@ -545,7 +545,7 @@ exports[`should match snapshot for "verification-request" 1`] = `
                  style="vertical-align:top;width:120px;"
               >
               <![endif]-->
-                            <div class="mj-column-per-20 outlook-group-fix"
+                            <div class="mj-column-per-20 mj-outlook-group-fix"
                                  style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:20%;"
                             >
                               <table border="0"
@@ -644,7 +644,7 @@ exports[`should match snapshot for "verification-request" 1`] = `
                class="" style="vertical-align:top;width:600px;"
             >
           <![endif]-->
-                          <div class="mj-column-per-100 outlook-group-fix"
+                          <div class="mj-column-per-100 mj-outlook-group-fix"
                                style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;"
                           >
                             <table border="0"

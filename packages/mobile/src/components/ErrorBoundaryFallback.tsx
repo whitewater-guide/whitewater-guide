@@ -2,7 +2,7 @@ import React, { ErrorInfo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Clipboard, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Caption, Subheading } from 'react-native-paper';
-import { Icon } from './Icon';
+import Icon from './Icon';
 
 const styles = StyleSheet.create({
   container: {

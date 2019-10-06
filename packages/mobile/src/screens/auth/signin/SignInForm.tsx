@@ -1,11 +1,12 @@
 import { Credentials, useAuth } from '@whitewater-guide/clients';
-import { useNavigation } from '@zhigang1992/react-navigation-hooks';
 import { Formik } from 'formik';
+import PasswordField from 'forms/password-field';
+import TextField from 'forms/TextField';
 import React, { createRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
-import { PasswordField, TextField } from '../../../components/forms';
+import { useNavigation } from 'react-navigation-hooks';
 import theme from '../../../theme';
 import Screens from '../../screen-names';
 import { useAuthSubmit } from '../useAuthSubmit';
@@ -26,7 +27,7 @@ const initialValues: Credentials = {
 export const SignInForm: React.FC = () => {
   const { loading } = useAuth();
   const { t } = useTranslation();
-  const { navigate, popToTop } = useNavigation();
+  const { navigate, goBack } = useNavigation();
   const forgot = useCallback(() => navigate(Screens.Auth.Forgot), [navigate]);
   const { service } = useAuth();
   const localSignIn = useCallback(
@@ -40,8 +41,8 @@ export const SignInForm: React.FC = () => {
     }
   }, [passwordField]);
   const onSuccess = useCallback(() => {
-    popToTop();
-  }, [popToTop]);
+    goBack(Screens.Auth.Root);
+  }, [goBack]);
   const [submit] = useAuthSubmit(
     'screens:auth.signin.',
     localSignIn,

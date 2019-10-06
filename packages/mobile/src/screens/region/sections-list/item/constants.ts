@@ -1,4 +1,4 @@
-import { NAVIGATE_BUTTON_HEIGHT } from '../../../../components';
+import { NAVIGATE_BUTTON_HEIGHT } from 'components/NavigateButton';
 import theme from '../../../../theme';
 
 export const ITEM_HEIGHT = NAVIGATE_BUTTON_HEIGHT;

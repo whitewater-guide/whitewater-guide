@@ -1,1 +1,1 @@
-export * from './ShapeScreen';
+export * from './LazyShapeScreen';

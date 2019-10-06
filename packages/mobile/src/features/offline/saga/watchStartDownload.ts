@@ -1,4 +1,4 @@
-import { analytics } from 'react-native-firebase';
+import analytics from '@react-native-firebase/analytics';
 import { buffers, Channel, channel } from 'redux-saga';
 import { all, call, CallEffect, put } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';

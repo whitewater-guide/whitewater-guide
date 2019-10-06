@@ -78,6 +78,7 @@ fastlane/.env.*
 /ios/whitewater/GoogleService-Info.plist
 /android/app/google-services.json
 /ios/pem/
+/ios/tmp.xcconfig
 /tsconfig.base.json
 /android/app/src/main/assets/fonts/
 /.jest/

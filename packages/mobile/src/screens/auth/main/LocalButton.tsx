@@ -1,7 +1,7 @@
-import { useNavigation } from '@zhigang1992/react-navigation-hooks';
 import React, { useCallback } from 'react';
 import { Button, PartialIconProps } from 'react-native-paper';
 import MDCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useNavigation } from 'react-navigation-hooks';
 import Screens from '../../screen-names';
 
 interface Props {

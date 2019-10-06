@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const Paper: React.FC<PaperProps> = (props) => {
+const Paper: React.FC<PaperProps> = (props) => {
   const { doublePad, gutterBottom, noPad, style, ...rest } = props;
   const mergedStyle = [
     styles.base,
@@ -36,3 +36,5 @@ export const Paper: React.FC<PaperProps> = (props) => {
   ];
   return <Surface style={mergedStyle} {...rest} />;
 };
+
+export default Paper;

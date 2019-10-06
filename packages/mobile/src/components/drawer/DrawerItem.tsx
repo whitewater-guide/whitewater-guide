@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Drawer } from 'react-native-paper';
 
 interface Props {
@@ -6,27 +6,27 @@ interface Props {
   label: string;
   routeName: string;
   icon?: string;
+  navKey?: string;
   params?: Record<string, any>;
-  onPress: (routeName: string, params?: Record<string, any>) => void;
+  onPress: (
+    routeName: string,
+    params?: Record<string, any>,
+    key?: string,
+  ) => void;
 }
 
-class DrawerItem extends React.PureComponent<Props> {
-  onPress = () => {
-    const { routeName, params, onPress } = this.props;
-    onPress(routeName, params);
-  };
+const DrawerItem: React.FC<Props> = React.memo((props) => {
+  const { focused, label, routeName, icon, navKey, params, onPress } = props;
 
-  render() {
-    const { focused, label, icon } = this.props;
-    return (
-      <Drawer.Item
-        label={label}
-        icon={icon}
-        active={focused}
-        onPress={this.onPress}
-      />
-    );
-  }
-}
+  const onTap = useCallback(() => {
+    onPress(routeName, params, navKey);
+  }, [onPress, routeName, params, navKey]);
+
+  return (
+    <Drawer.Item label={label} icon={icon} active={focused} onPress={onTap} />
+  );
+});
+
+DrawerItem.displayName = 'DrawerItem';
 
 export default DrawerItem;

@@ -11,9 +11,6 @@ const dialogState = createSelector(
     inProgress:
       !!state.dialogRegion && state.dialogRegion.id === state.regionInProgress,
     progress: state.progress,
-    variables: {
-      regionId: state.dialogRegion ? state.dialogRegion.id : undefined,
-    },
     error: state.error,
   }),
 );

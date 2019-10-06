@@ -4,16 +4,14 @@ import {
   useTags,
 } from '@whitewater-guide/clients';
 import { Duration, toRomanDifficulty } from '@whitewater-guide/commons';
+import Loading from 'components/Loading';
+import MultiSlider from 'components/multi-slider';
+import StarRating from 'components/StarRating';
+import TernaryChips from 'components/TernaryChips';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import { Subheading } from 'react-native-paper';
-import {
-  Loading,
-  MultiSlider,
-  StarRating,
-  TernaryChips,
-} from '../../components';
 import { getSeasonLocalizer } from '../../i18n';
 import theme from '../../theme';
 import { FindButton } from './FindButton';

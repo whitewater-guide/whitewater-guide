@@ -1,1 +1,1 @@
-export * from './FilterScreen';
+export * from './LazyFilterScreen';

@@ -1,45 +1,27 @@
-import { useRegion } from '@whitewater-guide/clients';
-import {
-  createSafeValidator,
-  SectionInput,
-  SectionInputSchema,
-} from '@whitewater-guide/commons';
-import { Formik } from 'formik';
-import React, { useMemo } from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
-import {
-  createStackNavigator,
-  NavigationRouter,
-  NavigationScreenComponent,
-  StackNavigatorConfig,
-} from 'react-navigation';
-import { getHeaderRenderer } from '../../../components/header';
-import theme from '../../../theme';
+import { getHeaderRenderer } from 'components/header';
+import React from 'react';
+import { register } from 'react-native-bundle-splitter';
+import { NavigationRouter, NavigationScreenComponent } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import { StackNavigatorConfig } from '../../../utils/navigation';
 import Screens from '../../screen-names';
 import AddSectionTabs from './AddSectionTabs';
-import { GaugeScreen } from './gauge';
-import { RiverScreen } from './river';
-import { ShapeScreen } from './shape';
-import useAddSection from './useAddSection';
-
-const styles = StyleSheet.create({
-  safe: {
-    backgroundColor: theme.colors.primary,
-  },
-});
+import { LazyGaugeScreen } from './gauge';
+import { LazyRiverScreen } from './river';
+import { LazyShapeScreen } from './shape';
 
 const routes = {
   [Screens.Region.AddSection.Tabs.Root]: {
     screen: AddSectionTabs,
   },
   [Screens.Region.AddSection.River]: {
-    screen: RiverScreen,
+    screen: LazyRiverScreen,
   },
   [Screens.Region.AddSection.Gauge]: {
-    screen: GaugeScreen,
+    screen: LazyGaugeScreen,
   },
   [Screens.Region.AddSection.Shape]: {
-    screen: ShapeScreen,
+    screen: LazyShapeScreen,
   },
 };
 
@@ -52,62 +34,19 @@ const config: StackNavigatorConfig = {
   },
 };
 
-const validator = createSafeValidator(SectionInputSchema);
-
 const Navigator = createStackNavigator(routes, config);
+
+const LazyAddSectionStack = register({
+  require: () => require('./LazyAddSectionStack'),
+});
 
 export const AddSectionStack: NavigationScreenComponent & {
   router?: NavigationRouter;
 } = React.memo((props) => {
-  const { node } = useRegion();
-  const initialValues: SectionInput = useMemo(
-    () => ({
-      id: null,
-      name: '',
-      altNames: [],
-      description: null,
-      season: null,
-      seasonNumeric: [],
-
-      river: null as any,
-      gauge: null,
-      region: { id: node!.id, name: node!.name },
-      levels: null,
-      flows: null,
-      flowsText: null,
-
-      shape: [],
-      distance: null,
-      drop: null,
-      duration: null,
-      difficulty: 1,
-      difficultyXtra: null,
-      rating: null,
-      tags: [],
-      pois: [],
-
-      hidden: false,
-    }),
-    [],
-  );
-  const initialErrors = useMemo(() => validator(initialValues) || {}, [
-    initialValues,
-  ]);
-
-  const addSection = useAddSection();
-
   return (
-    <Formik<SectionInput>
-      initialValues={initialValues}
-      initialErrors={initialErrors}
-      onSubmit={addSection}
-      validate={validator as any}
-    >
-      <React.Fragment>
-        <Navigator {...props} />
-        <SafeAreaView style={styles.safe} />
-      </React.Fragment>
-    </Formik>
+    <LazyAddSectionStack>
+      <Navigator {...props} />
+    </LazyAddSectionStack>
   );
 });
 

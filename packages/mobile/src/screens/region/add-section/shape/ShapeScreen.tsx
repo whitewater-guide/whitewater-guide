@@ -1,10 +1,9 @@
+import { Screen } from 'components/Screen';
 import React from 'react';
 import { NavigationScreenComponent } from 'react-navigation';
-import { Screen } from '../../../../components';
-import DoneButton from './DoneButton';
 import PiToField from './PiToField';
 
-export const ShapeScreen: NavigationScreenComponent = () => {
+const ShapeScreen: NavigationScreenComponent = () => {
   return (
     <Screen>
       <PiToField />
@@ -13,7 +12,5 @@ export const ShapeScreen: NavigationScreenComponent = () => {
 };
 
 ShapeScreen.displayName = 'ShapeScreen';
-ShapeScreen.navigationOptions = {
-  headerTitle: 'screens:addSection.shape.title',
-  headerRight: <DoneButton />,
-};
+
+export default ShapeScreen;

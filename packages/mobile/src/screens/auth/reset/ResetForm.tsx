@@ -1,15 +1,13 @@
 import { ResetPayload, useAuth } from '@whitewater-guide/clients';
-import { useNavigation } from '@zhigang1992/react-navigation-hooks';
+import Spacer from 'components/Spacer';
 import { Formik } from 'formik';
+import HelperText from 'forms/HelperText';
+import PasswordField from 'forms/password-field';
+import SuccessText from 'forms/SuccessText';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'react-native-paper';
-import { Spacer } from '../../../components';
-import {
-  HelperText,
-  PasswordField,
-  SuccessText,
-} from '../../../components/forms';
+import { useNavigation } from 'react-navigation-hooks';
 import Screens from '../../screen-names';
 import { useAuthSubmit } from '../useAuthSubmit';
 import getValidationSchema from './getValidationSchema';

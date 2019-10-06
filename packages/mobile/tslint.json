@@ -11,7 +11,11 @@
       "date-fns",
       "@storybook/addon-actions",
       "react-native-gesture-handler",
-      "redux-saga-test-plan/matchers"
-    ]
+      "redux-saga-test-plan/matchers",
+      "components",
+      "forms",
+      "@whitewater-guide/translations"
+    ],
+    "no-implicit-dependencies": [true, "dev", ["components", "forms"]]
   }
 }

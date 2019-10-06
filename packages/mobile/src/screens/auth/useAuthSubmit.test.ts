@@ -1,6 +1,6 @@
+import { act, renderHook } from '@testing-library/react-hooks';
 import { AuthResponse } from '@whitewater-guide/clients';
 import { FormikHelpers } from 'formik';
-import { act, renderHook } from 'react-hooks-testing-library';
 import { UseAuthSubmit, useAuthSubmit } from './useAuthSubmit';
 
 const TEST_PREFIX = '__prefix__';

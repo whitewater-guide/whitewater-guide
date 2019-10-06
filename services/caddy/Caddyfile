@@ -53,12 +53,6 @@ import subdomains/*
     to /landing.html
   }
 
-  # russian landing
-  rewrite / {
-    if {path} starts_with /ru
-    to {path} landing_ru.html
-  }
-
   rewrite /boompromo /promo
   proxy /promo boompromo:8043 {
     without /promo

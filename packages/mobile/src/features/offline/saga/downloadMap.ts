@@ -1,9 +1,9 @@
 import MapboxGL from '@react-native-mapbox-gl/maps';
 import { getBBox } from '@whitewater-guide/clients';
 import { Region } from '@whitewater-guide/commons';
+import Layers from 'components/map/layers';
 import { channel, Channel, END } from 'redux-saga';
 import { apply, call, put, takeMaybe } from 'redux-saga/effects';
-import Layers from '../../../components/map/layers';
 import { trackError } from '../../../core/errors';
 import { offlineContentActions } from '../actions';
 import { MapboxOfflinePackState } from '../types';

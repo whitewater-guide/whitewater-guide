@@ -1,3 +1,4 @@
+import messaging from '@react-native-firebase/messaging';
 import {
   AuthResponse,
   AuthService,
@@ -7,7 +8,6 @@ import {
 import { RefreshBody, SignInBody } from '@whitewater-guide/commons';
 import { AppState } from 'react-native';
 import { AccessToken, LoginManager } from 'react-native-fbsdk';
-import Firebase from 'react-native-firebase';
 import { AuthBody } from '../../../../commons/src/auth';
 import { fetchMock } from '../../test';
 import { MobileAuthService } from './service';
@@ -37,10 +37,8 @@ beforeEach(async () => {
   jest.clearAllMocks();
   fetchMock.reset();
   (AccessToken.getCurrentAccessToken as any).mockResolvedValueOnce(null);
-  (Firebase.messaging().hasPermission as jest.Mock).mockResolvedValue(true);
-  (Firebase.messaging().getToken as jest.Mock).mockResolvedValue(
-    '__fcm_token__',
-  );
+  (messaging().hasPermission as jest.Mock).mockResolvedValue(true);
+  (messaging().getToken as jest.Mock).mockResolvedValue('__fcm_token__');
   service = new MobileAuthService(resetApolloCache, onSignOut);
   fetchMock.mock('end:fcm/set', { success: true });
   fetchMock.mock('glob:*logout*', 200);

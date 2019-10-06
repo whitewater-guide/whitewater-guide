@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import Image from 'react-native-fast-image';
 import theme from '../../theme';
-import { Icon } from '../Icon';
+import Icon from '../Icon';
 import { PhotoGallery } from '../photo-gallery';
 import { commonStyles } from './styles';
 import { Photo } from './types';

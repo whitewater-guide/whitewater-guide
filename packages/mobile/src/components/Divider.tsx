@@ -23,7 +23,7 @@ interface DividerProps {
   label?: string;
 }
 
-export const Divider: React.FC<DividerProps & ViewProps> = ({
+const Divider: React.FC<DividerProps & ViewProps> = ({
   label,
   style,
   ...props
@@ -34,3 +34,5 @@ export const Divider: React.FC<DividerProps & ViewProps> = ({
     {!!label && <View style={styles.line} />}
   </View>
 );
+
+export default Divider;

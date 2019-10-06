@@ -6,7 +6,7 @@ import {
   View,
 } from 'react-native';
 import theme from '../theme';
-import { ErrorBoundary } from './ErrorBoundary';
+import ErrorBoundary from './ErrorBoundary';
 
 const styles = StyleSheet.create({
   screen: {

@@ -1,12 +1,10 @@
 import { getSectionContentBounds, useSection } from '@whitewater-guide/clients';
+import { Map } from 'components/map';
+import { Screen } from 'components/Screen';
 import React, { useMemo } from 'react';
 import { NavigationScreenComponent } from 'react-navigation';
-import { Icon, Screen } from '../../../components';
-import { Map } from '../../../components/map';
-import { I18nText } from '../../../i18n';
-import theme from '../../../theme';
 
-export const SectionMapScreen: NavigationScreenComponent = () => {
+const SectionMapScreen: NavigationScreenComponent = () => {
   const section = useSection();
   const initialBounds = useMemo(() => getSectionContentBounds(section.node), [
     section,
@@ -38,7 +36,4 @@ export const SectionMapScreen: NavigationScreenComponent = () => {
   );
 };
 
-SectionMapScreen.navigationOptions = {
-  tabBarLabel: <I18nText>section:map.title</I18nText>,
-  tabBarIcon: () => <Icon icon="map" color={theme.colors.textLight} />,
-};
+export default SectionMapScreen;

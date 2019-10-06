@@ -1,1 +1,1 @@
-export * from './SectionMapScreen';
+export * from './LazySectionMapScreen';

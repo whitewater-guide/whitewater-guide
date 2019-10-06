@@ -1,3 +1,5 @@
+import { Region } from '@whitewater-guide/commons';
+import Icon from 'components/Icon';
 import React from 'react';
 import {
   ActivityIndicator,
@@ -5,7 +7,6 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { Icon } from '../../components';
 import theme from '../../theme';
 
 const styles = StyleSheet.create({
@@ -32,33 +33,50 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  onPress: () => void;
-  disabled?: boolean;
-  inProgress?: boolean;
+  region: Pick<Region, 'id' | 'premium' | 'hasPremiumAccess'>;
+  regionInProgress: string | null;
+  canMakePayments: boolean;
+  downloadRegion: () => void;
 }
 
-export default class DownloadButton extends React.PureComponent<Props> {
-  renderInProgress = () => (
-    <TouchableWithoutFeedback onPress={this.props.onPress}>
-      <View style={[styles.container, styles.loadingContainer]}>
-        <ActivityIndicator color={theme.colors.textLight} size="small" />
-      </View>
-    </TouchableWithoutFeedback>
-  );
+const DownloadButton: React.FC<Props> = React.memo((props) => {
+  const { region, regionInProgress, canMakePayments, downloadRegion } = props;
+  const { premium, hasPremiumAccess } = region;
 
-  render() {
-    const { inProgress, disabled, onPress } = this.props;
-    if (inProgress) {
-      return this.renderInProgress();
-    }
+  if (premium && !hasPremiumAccess && !canMakePayments) {
+    return null;
+  }
+
+  if (regionInProgress === region.id) {
     return (
-      <Icon
-        icon="cloud-download"
-        style={[styles.container, styles.iconContainer]}
-        iconStyle={[styles.icon, disabled && styles.iconDisabled]}
-        color={theme.colors.textLight}
-        onPress={disabled ? undefined : onPress}
-      />
+      <TouchableWithoutFeedback
+        onPress={downloadRegion}
+        accessibilityRole="button"
+      >
+        <View style={[styles.container, styles.loadingContainer]}>
+          <ActivityIndicator
+            color={theme.colors.textLight}
+            size="small"
+            accessibilityLabel="loading"
+          />
+        </View>
+      </TouchableWithoutFeedback>
     );
   }
-}
+
+  const disabled = !!regionInProgress && regionInProgress !== region.id;
+  return (
+    <Icon
+      icon="cloud-download"
+      accessibilityLabel="download"
+      style={[styles.container, styles.iconContainer]}
+      iconStyle={[styles.icon, disabled && styles.iconDisabled]}
+      color={theme.colors.textLight}
+      onPress={disabled ? undefined : downloadRegion}
+    />
+  );
+});
+
+DownloadButton.displayName = 'DownloadButton';
+
+export default DownloadButton;

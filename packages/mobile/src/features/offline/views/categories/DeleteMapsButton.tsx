@@ -1,8 +1,8 @@
 import byteSize from 'byte-size';
+import Icon from 'components/Icon';
 import React, { useCallback } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Caption } from 'react-native-paper';
-import { Icon } from '../../../../components';
 import theme from '../../../../theme';
 import { OfflineCategoryType } from '../../types';
 

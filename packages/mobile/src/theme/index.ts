@@ -7,6 +7,7 @@ import { DefaultTheme, Theme } from 'react-native-paper';
 
 const colors = {
   primary: '#2196f3', // Blue 500
+  logoBlue: '#0078b4',
   primaryDarker: '#1769aa',
   accent: '#FF9900',
   lightBackground: '#FFFFFF',

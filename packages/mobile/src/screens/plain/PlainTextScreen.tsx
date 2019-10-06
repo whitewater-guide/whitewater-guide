@@ -1,8 +1,8 @@
+import Markdown from 'components/Markdown';
+import { Screen } from 'components/Screen';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { ScrollView, StyleSheet } from 'react-native';
 import { NavigationScreenComponent } from 'react-navigation';
-import { Markdown, Screen } from '../../components';
 import theme from '../../theme';
 
 const styles = StyleSheet.create({
@@ -12,23 +12,11 @@ const styles = StyleSheet.create({
 });
 
 interface NavParams {
-  fixture?: string;
   title?: string;
   text?: string;
 }
 
-interface Props {
-  fixture?: string;
-  text?: string;
-}
-
-export const PlainText: React.FC<Props> = ({ text, fixture }) => {
-  const [t] = useTranslation('markdown');
-  const markdown = text || (fixture ? t(fixture) : 'Text not found');
-  return <Markdown>{markdown}</Markdown>;
-};
-
-export const PlainTextScreen: NavigationScreenComponent<NavParams> = ({
+const PlainTextScreen: NavigationScreenComponent<NavParams> = ({
   navigation,
 }) => (
   <Screen>
@@ -36,14 +24,9 @@ export const PlainTextScreen: NavigationScreenComponent<NavParams> = ({
       style={StyleSheet.absoluteFill}
       contentContainerStyle={styles.content}
     >
-      <PlainText
-        fixture={navigation.getParam('fixture')}
-        text={navigation.getParam('text')}
-      />
+      <Markdown>{navigation.getParam('text')}</Markdown>
     </ScrollView>
   </Screen>
 );
 
-PlainTextScreen.navigationOptions = ({ navigation }) => {
-  return { headerTitle: navigation.getParam('title') };
-};
+export default PlainTextScreen;

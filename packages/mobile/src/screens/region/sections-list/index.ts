@@ -1,3 +1,1 @@
-import { RegionSectionsListScreen } from './RegionSectionsListScreen';
-
-export default RegionSectionsListScreen;
+export * from './LazyRegionSectionsListScreen';

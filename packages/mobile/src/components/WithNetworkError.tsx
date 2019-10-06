@@ -1,6 +1,7 @@
 import React from 'react';
 import isApolloOfflineError from '../utils/isApolloOfflineError';
-import { Loading, RetryPlaceholder } from './index';
+import Loading from './Loading';
+import RetryPlaceholder from './RetryPlaceholder';
 
 interface Props {
   data: any;
@@ -13,7 +14,7 @@ interface State {
   refetching: boolean;
 }
 
-export class WithNetworkError extends React.PureComponent<Props, State> {
+class WithNetworkError extends React.PureComponent<Props, State> {
   readonly state: State = { refetching: false };
 
   render() {
@@ -34,3 +35,5 @@ export class WithNetworkError extends React.PureComponent<Props, State> {
     return <React.Fragment>{children}</React.Fragment>;
   }
 }
+
+export default WithNetworkError;

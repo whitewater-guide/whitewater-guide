@@ -9,7 +9,7 @@ interface Props extends Omit<SwipableRatingProps, 'rating' | 'onPress'> {
   onChange?: (value: number) => void;
 }
 
-export const StarRating: React.FC<Props> = React.memo(
+const StarRating: React.FC<Props> = React.memo(
   ({ value, onChange, ...props }) => {
     return (
       <SwipeableRating
@@ -27,3 +27,5 @@ export const StarRating: React.FC<Props> = React.memo(
 );
 
 StarRating.displayName = 'StarRating';
+
+export default StarRating;

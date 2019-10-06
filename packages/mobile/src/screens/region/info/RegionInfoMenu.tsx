@@ -12,7 +12,7 @@ interface Props {
   regionId?: string;
 }
 
-export const RegionInfoMenu: React.FC<Props> = ({ regionId }) => {
+const RegionInfoMenu: React.FC<Props> = ({ regionId }) => {
   const client = useApolloClient();
   const actionSheet = useRef<ActionSheet>(null);
   const [t] = useTranslation();

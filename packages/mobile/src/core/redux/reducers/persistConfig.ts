@@ -3,7 +3,7 @@ import { PersistConfig } from 'redux-persist';
 // @ts-ignore
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 
-export const persistConfig: PersistConfig = {
+export const persistConfig: PersistConfig<any> = {
   key: 'root',
   storage: AsyncStorage,
   stateReconciler: autoMergeLevel2,

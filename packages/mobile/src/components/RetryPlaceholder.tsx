@@ -4,7 +4,7 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { Button, Subheading } from 'react-native-paper';
 import theme from '../theme';
-import { Icon } from './Icon';
+import Icon from './Icon';
 
 const styles = StyleSheet.create({
   container: {
@@ -84,4 +84,4 @@ class RetryPlaceholderInner extends React.PureComponent<
   }
 }
 
-export const RetryPlaceholder = withTranslation()(RetryPlaceholderInner);
+export default withTranslation()(RetryPlaceholderInner);

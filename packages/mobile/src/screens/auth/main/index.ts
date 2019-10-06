@@ -1,1 +1,1 @@
-export * from './AuthMainScreen';
+export * from './LazyMainScreen';

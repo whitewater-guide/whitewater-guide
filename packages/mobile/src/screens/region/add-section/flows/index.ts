@@ -1,1 +1,1 @@
-export * from './FlowsScreen';
+export * from './LazyFlowsScreen';

@@ -6,8 +6,8 @@ import ActionSheet from 'react-native-actionsheet';
 import { RectButton } from 'react-native-gesture-handler';
 import { useMapType } from '../../features/settings';
 import theme from '../../theme';
-import { Icon } from '../Icon';
-import { useActionSheet } from '../useActionSheet';
+import Icon from '../Icon';
+import useActionSheet from '../useActionSheet';
 import Layers from './layers';
 
 const styles = StyleSheet.create({

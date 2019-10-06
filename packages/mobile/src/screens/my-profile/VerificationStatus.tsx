@@ -1,10 +1,11 @@
 import { useAuth } from '@whitewater-guide/clients';
+import Icon from 'components/Icon';
+import Spacer from 'components/Spacer';
 import React, { useCallback, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import { Button, Paragraph } from 'react-native-paper';
-import { Icon, Spacer } from '../../components';
 import theme from '../../theme';
 
 const styles = StyleSheet.create({

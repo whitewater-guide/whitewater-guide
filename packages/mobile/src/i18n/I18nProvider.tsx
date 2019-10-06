@@ -1,6 +1,5 @@
 import { configDateFNS, useAuth } from '@whitewater-guide/clients';
 import { User } from '@whitewater-guide/commons';
-import { mobile } from '@whitewater-guide/translations';
 import i18next from 'i18next';
 import React, { useEffect, useState } from 'react';
 import { initReactI18next } from 'react-i18next';
@@ -8,6 +7,7 @@ import { getLocales } from 'react-native-localize';
 import { usePrevious } from '../utils/usePrevious';
 import formatters from './formatters';
 import { SUPPORTED_LANGUAGES } from './languages';
+import resources from './resources';
 
 interface Props {
   /**
@@ -54,7 +54,7 @@ export const I18nProvider: React.FC<Props> = ({
         react: {
           nsMode: 'fallback',
         },
-        resources: mobile,
+        resources,
       });
       configDateFNS(_i18n.languages[0]);
       setReady(true);

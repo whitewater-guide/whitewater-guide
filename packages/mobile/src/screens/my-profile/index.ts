@@ -1,1 +1,1 @@
-export * from './MyProfileScreen';
+export * from './LazyMyProfileScreen';

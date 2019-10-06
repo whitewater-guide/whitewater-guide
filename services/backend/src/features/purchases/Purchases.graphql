@@ -22,6 +22,11 @@ type BoomPromoInfo {
   redeemed: Boolean
 }
 
+type SavedPurchase {
+  regions: [Region]
+  section: Section
+}
+
 type Query {
   # Gets information about promocode. Is it group promocode or one-region promocode
   checkBoomPromo(code: String!): BoomPromoInfo
@@ -30,5 +35,7 @@ type Query {
 }
 
 type Mutation {
-  addPurchase(purchase: PurchaseInput!): Boolean
+  # deprecated, used by old mobile client.
+  addPurchase(purchase: PurchaseInput!): Boolean @deprecated
+  savePurchase(purchase: PurchaseInput!, sectionId: ID): SavedPurchase
 }

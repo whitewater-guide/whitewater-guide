@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/landing",
   "private": true,
-  "version": "0.0.53",
+  "version": "0.0.53-rn60.4",
   "license": "UNLICENSED",
   "description": "Static landing pages for whitewater.guide",
   "scripts": {
@@ -9,6 +9,7 @@
   },
   "author": "Konstantin Kuznetsov",
   "devDependencies": {
-    "browser-sync": "^2.18.13"
+    "@whitewater-guide/translations": "^2.0.3",
+    "browser-sync": "^2.26.7"
   }
 }

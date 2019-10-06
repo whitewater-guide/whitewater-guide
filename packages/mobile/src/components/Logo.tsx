@@ -13,7 +13,7 @@ interface LogoProps {
   style?: StyleProp<ViewStyle>;
 }
 
-export const Logo: React.FC<LogoProps> = ({ style }) => (
+const Logo: React.FC<LogoProps> = ({ style }) => (
   <View style={[styles.wrapper, style]}>
     <Svg
       width="100%"
@@ -68,3 +68,5 @@ export const Logo: React.FC<LogoProps> = ({ style }) => (
     </Svg>
   </View>
 );
+
+export default Logo;

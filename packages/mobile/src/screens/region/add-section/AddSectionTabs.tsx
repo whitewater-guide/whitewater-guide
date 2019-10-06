@@ -1,33 +1,33 @@
 import React from 'react';
-import {
-  createMaterialTopTabNavigator,
-  NavigationRouteConfigMap,
-  TabNavigatorConfig,
-} from 'react-navigation';
+import { NavigationRouteConfigMap } from 'react-navigation';
+import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import theme from '../../../theme';
+import { TabNavigatorConfig } from '../../../utils/navigation';
 import Screens from '../../screen-names';
-import { AttributesScreen } from './attributes';
-import { DescriptionScreen } from './description';
-import { FlowsScreen } from './flows';
-import { MainScreen } from './main';
+import { LazyAttributesScreen } from './attributes';
+import { LazyDescriptionScreen } from './description';
+import { LazyFlowsScreen } from './flows';
+import { LazyMainScreen } from './main';
 import SubmitButton from './SubmitButton';
 
 const routes: NavigationRouteConfigMap = {
   [Screens.Region.AddSection.Tabs.Main]: {
-    screen: MainScreen,
+    screen: LazyMainScreen,
   },
   [Screens.Region.AddSection.Tabs.Attributes]: {
-    screen: AttributesScreen,
+    screen: LazyAttributesScreen,
   },
   [Screens.Region.AddSection.Tabs.Description]: {
-    screen: DescriptionScreen,
+    screen: LazyDescriptionScreen,
   },
   [Screens.Region.AddSection.Tabs.Flows]: {
-    screen: FlowsScreen,
+    screen: LazyFlowsScreen,
   },
 };
 
 const config: TabNavigatorConfig = {
+  // TODO: https://github.com/react-navigation/tabs/issues/162
+  // @ts-ignore
   initialRouteName: Screens.Region.AddSection.Tabs.Main,
   backBehavior: 'none',
   swipeEnabled: false,
@@ -52,7 +52,8 @@ const config: TabNavigatorConfig = {
   },
 };
 
-const AddSectionTabs = createMaterialTopTabNavigator(routes, config);
+// TODO: wait till typedefs are fixed
+const AddSectionTabs: any = createMaterialTopTabNavigator(routes, config);
 AddSectionTabs.navigationOptions = {
   headerTitle: 'screens:addSection.headerTitle',
   headerRight: <SubmitButton />,

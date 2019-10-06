@@ -8,8 +8,8 @@
 	<array>
 		<string>applinks:whitewater.guide</string>
 		<string>applinks:beta.whitewater.guide</string>
-		<string>applinks:api.beta.whitewater.guide</string>
 		<string>applinks:api.whitewater.guide</string>
+		<string>applinks:api.beta.whitewater.guide</string>
 	</array>
 </dict>
 </plist>

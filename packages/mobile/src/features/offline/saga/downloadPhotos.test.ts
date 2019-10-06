@@ -13,7 +13,7 @@ it('should download photos and report progress', () => {
   mediaChan.put(['foo2', 'bar2']);
   mediaChan.put(END);
 
-  return expectSaga(downloadPhotos, mediaChan)
+  return expectSaga(downloadPhotos as any, mediaChan as any)
     .put(offlineContentActions.updateProgress({ media: 1 }))
     .put(offlineContentActions.updateProgress({ media: 2 }))
     .put(offlineContentActions.updateProgress({ media: 3 }))

@@ -1,7 +1,7 @@
-import { useNavigation } from '@zhigang1992/react-navigation-hooks';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'react-native-paper';
+import { useNavigation } from 'react-navigation-hooks';
 import theme from '../../../../theme';
 import { Maybe3d } from '../types';
 import notifier from './notifier';
@@ -24,6 +24,7 @@ const DoneButton: React.FC = () => {
       color={theme.colors.textLight}
       disabled={disabled}
       onPress={onPress}
+      accessibilityLabel={t('commons:done')}
     >
       {t('commons:done')}
     </Button>

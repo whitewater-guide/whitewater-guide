@@ -265,7 +265,7 @@ function withDecaying(
   ]);
 }
 
-export class BottomSheet extends React.Component<Props, State> {
+class BottomSheet extends React.Component<Props, State> {
   static defaultProps = {
     overdragResistanceFactor: 0,
     initialSnap: 0,
@@ -811,3 +811,5 @@ export class BottomSheet extends React.Component<Props, State> {
     );
   }
 }
+
+export default BottomSheet;

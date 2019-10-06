@@ -33,6 +33,7 @@ const Screens = {
   MyProfile: 'MyProfile',
   Filter: 'Filter',
   Auth: {
+    Root: 'Auth',
     Main: 'AuthMain',
     SignIn: 'AuthSignIn',
     Register: 'AuthRegister',
@@ -40,7 +41,15 @@ const Screens = {
     Reset: 'AuthReset',
     Welcome: 'AuthWelcome',
   },
+  Purchase: {
+    Root: 'Purchase',
+    Buy: 'Buy',
+    AlreadyHave: 'AlreadyHave',
+    Verify: 'Verify',
+    Success: 'Success',
+  },
   Plain: 'Plain',
+  WebView: 'WebView',
   Suggestion: 'Suggestion',
 };
 

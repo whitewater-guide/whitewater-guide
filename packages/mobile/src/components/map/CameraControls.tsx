@@ -5,7 +5,7 @@ import React, { useCallback } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import theme from '../../theme';
-import { Icon } from '../Icon';
+import Icon from '../Icon';
 import { useCamera } from './hooks';
 
 const styles = StyleSheet.create({

@@ -1,7 +1,7 @@
 import { RegisterPayload } from '@whitewater-guide/clients';
 import { PASSWORD_MIN_SCORE } from '@whitewater-guide/commons';
+import * as zxcvbn from 'react-native-zxcvbn';
 import * as yup from 'yup';
-import validatePassword from '../../../utils/validatePassword';
 
 let _schema: yup.ObjectSchema<RegisterPayload>;
 
@@ -22,8 +22,9 @@ const getValidationSchema = () => {
         .test(
           'is-password',
           'yup:yup:string.weak_password',
-          (value?: string) => {
-            return validatePassword(value) >= PASSWORD_MIN_SCORE;
+          async (value?: string) => {
+            const score = await zxcvbn.score(value);
+            return score >= PASSWORD_MIN_SCORE;
           },
         )
         .required(),

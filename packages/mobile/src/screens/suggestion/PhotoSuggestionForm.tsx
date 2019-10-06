@@ -2,7 +2,12 @@ import {
   PhotoSuggestionInputSchema,
   SuggestionInput,
 } from '@whitewater-guide/commons';
+import CCNote from 'components/CCNote';
+import Loading from 'components/Loading';
 import { Formik } from 'formik';
+import PhotoUploadField from 'forms/photo-upload';
+import TextField from 'forms/TextField';
+import useValidate from 'forms/useValidate';
 import React, { useCallback, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -12,12 +17,6 @@ import {
   TextInput,
 } from 'react-native';
 import { Button } from 'react-native-paper';
-import { CCNote, Loading } from '../../components';
-import {
-  PhotoUploadField,
-  TextField,
-  useValidate,
-} from '../../components/forms';
 import theme from '../../theme';
 import getInitialValues from './getInitialValues';
 import useAddSuggestion from './useAddSuggestion';

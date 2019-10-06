@@ -1,9 +1,15 @@
 import { NamedNode } from '@whitewater-guide/commons';
 import React, { useCallback, useState } from 'react';
+import { useQuery } from 'react-apollo';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Dialog, Subheading } from 'react-native-paper';
 import theme from '../../../theme';
+import {
+  REGION_MEDIA_SUMMARY,
+  Result,
+  Vars,
+} from '../regionMediaSummary.query';
 import {
   OfflineCategorySelection,
   OfflineCategoryType,
@@ -12,7 +18,6 @@ import {
 import { Categories } from './categories';
 import DialogActions from './DialogActions';
 import LoadingSummary from './LoadingSummary';
-import { SummaryProps } from './types';
 import Warnings from './Warnings';
 
 const styles = StyleSheet.create({
@@ -29,15 +34,21 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props extends SummaryProps {
-  region: NamedNode | null;
+interface Props {
+  region: NamedNode;
   inProgress?: boolean;
   progress: OfflineProgress;
   error?: string | null;
 }
 
 const OfflineContentDialogView: React.FC<Props> = React.memo((props) => {
-  const { region, inProgress, progress, summary, error } = props;
+  const { region, inProgress, progress, error } = props;
+  const summary = useQuery<Result, Vars>(REGION_MEDIA_SUMMARY, {
+    fetchPolicy: 'no-cache',
+    variables: { regionId: region.id },
+  });
+  const data =
+    summary.data && summary.data.region && summary.data.region.mediaSummary;
   const { t } = useTranslation();
   const [selection, setSelection] = useState<OfflineCategorySelection>({
     data: true,
@@ -50,7 +61,7 @@ const OfflineContentDialogView: React.FC<Props> = React.memo((props) => {
     },
     [selection, setSelection],
   );
-  const canDownload = !summary.loading && !!summary.summary;
+  const canDownload = !summary.loading && !!data;
   if (!region) {
     return null;
   }
@@ -65,7 +76,7 @@ const OfflineContentDialogView: React.FC<Props> = React.memo((props) => {
       {canDownload ? (
         <View style={styles.root}>
           <Categories
-            summary={summary.summary!}
+            summary={data!}
             inProgress={inProgress}
             progress={progress}
             selection={selection}

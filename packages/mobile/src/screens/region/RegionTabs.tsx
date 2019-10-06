@@ -1,41 +1,32 @@
-import {
-  MapSelectionProvider,
-  useRegion,
-  useSectionsList,
-} from '@whitewater-guide/clients';
 import React from 'react';
+import { register } from 'react-native-bundle-splitter';
 import {
   NavigationRouteConfigMap,
   NavigationRouter,
   NavigationScreenComponent,
-  TabNavigatorConfig,
 } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
-import { WithNetworkError } from '../../components';
-import { SelectedPOIView, SelectedSectionView } from '../../components/map';
 import theme from '../../theme';
 import Screens from '../screen-names';
-import AddSectionFAB from './AddSectionFAB';
 import HeaderRight from './HeaderRight';
-import { RegionInfoScreen } from './info';
-import RegionMapScreen from './map';
+import { LazyRegionInfoScreen } from './info';
+import { LazyRegionMapScreen } from './map';
 import RegionTitle from './RegionTitle';
-import RegionSectionsListScreen from './sections-list';
-import SectionsProgress from './SectionsProgress';
+import { LazyRegionSectionsListScreen } from './sections-list';
 
 const routes: NavigationRouteConfigMap = {
   [Screens.Region.Tabs.Map]: {
-    screen: RegionMapScreen,
+    screen: LazyRegionMapScreen,
   },
   [Screens.Region.Tabs.SectionsList]: {
-    screen: RegionSectionsListScreen,
+    screen: LazyRegionSectionsListScreen,
   },
   [Screens.Region.Tabs.Info]: {
-    screen: RegionInfoScreen,
+    screen: LazyRegionInfoScreen,
   },
 };
 
-const config: TabNavigatorConfig = {
+const config = {
   initialRouteName: Screens.Region.Tabs.Map,
   backBehavior: 'none',
   swipeEnabled: false,
@@ -44,13 +35,15 @@ const config: TabNavigatorConfig = {
     activeTintColor: theme.colors.textLight,
     allowFontScaling: true,
   },
-  // Not yet in typedefs
-  // @ts-ignore
   barStyle: {
     backgroundColor: theme.colors.primary,
   },
   shifting: true,
 };
+
+const LazyRegionTabs = register({
+  require: () => require('./LazyRegionTabs'),
+});
 
 const Navigator = createMaterialBottomTabNavigator(routes, config);
 
@@ -60,27 +53,10 @@ type NavComponent = NavigationScreenComponent & {
 
 const RegionTabs: NavComponent = React.memo((props) => {
   const { navigation } = props;
-  const sectionsList = useSectionsList();
-  const { error, loading, node, refetch } = useRegion();
   return (
-    <MapSelectionProvider>
-      <WithNetworkError
-        data={node}
-        loading={loading}
-        error={error}
-        refetch={refetch}
-      >
-        <Navigator navigation={navigation} />
-        <AddSectionFAB />
-        <SelectedPOIView />
-        <SelectedSectionView />
-        <SectionsProgress
-          status={sectionsList.status}
-          loaded={sectionsList.sections.length}
-          count={sectionsList.count}
-        />
-      </WithNetworkError>
-    </MapSelectionProvider>
+    <LazyRegionTabs>
+      <Navigator navigation={navigation} />
+    </LazyRegionTabs>
   );
 });
 

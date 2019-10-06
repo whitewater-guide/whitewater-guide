@@ -9,10 +9,8 @@ import readCachedRegionSummary from './calls/readCachedRegionSummary';
 import { mockImagePreload, mockPack, mockPackSubscribe } from './test-utils';
 import watchStartDownload from './watchStartDownload';
 
-jest.mock('react-native-firebase', () => ({
-  analytics: () => ({
-    logEvent: jest.fn(),
-  }),
+jest.mock('@react-native-firebase/analytics', () => () => ({
+  logEvent: jest.fn(),
 }));
 jest.mock('./constants');
 jest.mock('../../../core/apollo/client', () => {
@@ -45,7 +43,7 @@ it('should download everything', () => {
     },
   };
   return expectSaga(
-    watchStartDownload,
+    watchStartDownload as any,
     offlineContentActions.startDownload({
       regionId: '__id__',
       selection: {
@@ -53,7 +51,7 @@ it('should download everything', () => {
         maps: true,
         media: true,
       },
-    }),
+    }) as any,
   )
     .provide([
       [

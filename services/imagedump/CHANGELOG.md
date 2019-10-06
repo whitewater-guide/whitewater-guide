@@ -1,16 +1,20 @@
-## [0.0.57-ugsections.1](https://github.com/doomsower/whitewater/compare/94ee9f49db57fc636024c1d8e56c1b8eafe08a66...c5b38c01f95be7e90356b9815aebf6c7c4bbcb05) (2019-10-01)
+## [0.0.57-rn60.0](https://github.com/doomsower/whitewater/compare/8104a5cdbff2db335633e4ac516e5414b533499b...f0d6d74e6f1d904d9cfee7051320992325226298) (2019-10-05)
 
-### Features
+## [0.0.57-rn60.0](https://github.com/doomsower/whitewater/compare/2bb2e24ecb53327902498437af067452637e72e1...8104a5cdbff2db335633e4ac516e5414b533499b) (2019-10-05)
 
-- add help needed field ([00bd4d4cce1d64148a69f2dc154b95e7f04fc951](https://github.com/doomsower/whitewater/commit/00bd4d4cce1d64148a69f2dc154b95e7f04fc951))
+## [0.0.57-rn60.0](https://github.com/doomsower/whitewater/compare/1796d68d2bd3ea8fef064b0e19a224a33f940471...2bb2e24ecb53327902498437af067452637e72e1) (2019-10-05)
 
-## [0.0.57-ugsections.1](https://github.com/doomsower/whitewater/compare/3e6838a59095c9e5eeb96a7dc1fc501c97f2bf1d...94ee9f49db57fc636024c1d8e56c1b8eafe08a66) (2019-10-01)
+## [0.0.57-rn60.0](https://github.com/doomsower/whitewater/compare/c5b38c01f95be7e90356b9815aebf6c7c4bbcb05...1796d68d2bd3ea8fef064b0e19a224a33f940471) (2019-10-01)
 
-## [0.0.57-ugsections.1](https://github.com/doomsower/whitewater/compare/7f04be220daa4b109e50a7365f7346834a15c457...d89a28d698ff69a61ce3fab79a6797bef73fff39) (2019-09-26)
+## [0.0.57-rn60.0](https://github.com/doomsower/whitewater/compare/c8ca4e0d73043effebc1ef52cfc65e40a9ad1e9f...3e6838a59095c9e5eeb96a7dc1fc501c97f2bf1d) (2019-09-28)
 
-## [0.0.57-ugsections.1](https://github.com/doomsower/whitewater/compare/26ea0f151022e7b2f0ef430f3c9eecb7f2169944...7f04be220daa4b109e50a7365f7346834a15c457) (2019-09-26)
+## [0.0.57-rn60.0](https://github.com/doomsower/whitewater/compare/156ed0d516ece7cdb7b38e34051aa03cde123a7f...c8ca4e0d73043effebc1ef52cfc65e40a9ad1e9f) (2019-09-28)
 
-## [0.0.57-ugsections.1](https://github.com/doomsower/whitewater/compare/08c66f39f237fb0fc1c12f3a118df83eab0085af...26ea0f151022e7b2f0ef430f3c9eecb7f2169944) (2019-09-26)
+## [0.0.57-rn60.0](https://github.com/doomsower/whitewater/compare/d89a28d698ff69a61ce3fab79a6797bef73fff39...156ed0d516ece7cdb7b38e34051aa03cde123a7f) (2019-09-27)
+
+## [0.0.57-rn60.0](https://github.com/doomsower/whitewater/compare/8b272fc89701c559b1ad32d37bde9fa6e16b7a57...08c66f39f237fb0fc1c12f3a118df83eab0085af) (2019-09-21)
+
+## [0.0.57-rn60.0](https://github.com/doomsower/whitewater/compare/29ec198658912047d6226f85a9ca571a57cb44fc...8b272fc89701c559b1ad32d37bde9fa6e16b7a57) (2019-09-21)
 
 ## [0.0.57-ugsections.1](https://github.com/doomsower/whitewater/compare/6fca4f2a6929ab7072c51d2441b5b8ee6cc45fb1...29ec198658912047d6226f85a9ca571a57cb44fc) (2019-09-05)
 

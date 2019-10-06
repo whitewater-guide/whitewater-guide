@@ -1,14 +1,15 @@
 import { toRomanDifficulty } from '@whitewater-guide/commons';
+import CCNote from 'components/CCNote';
+import { Screen } from 'components/Screen';
+import ModalPickerField from 'forms/modal-picker';
+import TextField from 'forms/TextField';
 import times from 'lodash/times';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { NavigationScreenComponent } from 'react-navigation';
-import { CCNote, Screen } from '../../../../components';
-import { ModalPickerField, TextField } from '../../../../components/forms';
 import theme from '../../../../theme';
-import TabBarLabel from '../TabBarLabel';
 import PiToPlaceholder from './PiToPlaceholder';
 import RiverPlaceholder from './RiverPlaceholder';
 
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const MainScreen: NavigationScreenComponent = React.memo(() => {
+const MainScreen: NavigationScreenComponent = React.memo(() => {
   const { t } = useTranslation();
   return (
     <Screen>
@@ -89,8 +90,5 @@ export const MainScreen: NavigationScreenComponent = React.memo(() => {
 });
 
 MainScreen.displayName = 'MainScreen';
-MainScreen.navigationOptions = {
-  tabBarLabel: (props: any) => (
-    <TabBarLabel {...props} i18nKey="screens:addSection.tabs.main" />
-  ),
-};
+
+export default MainScreen;

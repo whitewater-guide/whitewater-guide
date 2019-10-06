@@ -3,7 +3,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { BannerView } from '../../../../features/banners';
 import theme from '../../../../theme';
-import { ITEM_HEIGHT } from './index';
+import { ITEM_HEIGHT } from './constants';
 
 const styles = StyleSheet.create({
   banner: {
@@ -20,6 +20,6 @@ interface Props {
   banner: Banner;
 }
 
-export const SectionListBanner: React.SFC<Props> = ({ banner }) => (
+export const SectionListBanner: React.FC<Props> = ({ banner }) => (
   <BannerView banner={banner} style={styles.banner} />
 );

@@ -37,6 +37,8 @@ interface IconBaseProps {
   large?: boolean;
   style?: StyleProp<ViewStyle>;
   iconStyle?: StyleProp<ViewStyle>;
+  accessibilityHint?: string;
+  accessibilityLabel?: string;
 }
 
 const IconBase = React.forwardRef<any, IconBaseProps>((props, ref) => {
@@ -50,6 +52,8 @@ const IconBase = React.forwardRef<any, IconBaseProps>((props, ref) => {
     onLongPress,
     style,
     iconStyle,
+    accessibilityHint,
+    accessibilityLabel,
   } = props;
   const clr = color
     ? color
@@ -64,24 +68,31 @@ const IconBase = React.forwardRef<any, IconBaseProps>((props, ref) => {
         onLongPress={onLongPress}
         style={style}
         ref={ref}
+        accessibilityHint={accessibilityHint}
+        accessibilityLabel={accessibilityLabel}
       >
         <MDCommunity name={icon} size={sz} color={clr} style={iconStyle} />
       </TouchableRipple>
     );
   }
   return (
-    <View style={style} ref={ref}>
+    <View
+      style={style}
+      ref={ref}
+      accessibilityHint={accessibilityHint}
+      accessibilityLabel={accessibilityLabel}
+    >
       <MDCommunity name={icon} size={sz} color={clr} style={iconStyle} />
     </View>
   );
 });
 
-export interface IconProps extends IconBaseProps {
+interface IconProps extends IconBaseProps {
   wide?: boolean;
   narrow?: boolean;
 }
 
-export const Icon = React.forwardRef<any, IconProps>((props, ref) => {
+const Icon = React.forwardRef<any, IconProps>((props, ref) => {
   const { wide, narrow, style, ...rest } = props;
   let sizeStyle = {};
   if (narrow) {
@@ -93,3 +104,5 @@ export const Icon = React.forwardRef<any, IconProps>((props, ref) => {
     <IconBase ref={ref} {...rest} style={[styles.icon, sizeStyle, style]} />
   );
 });
+
+export default Icon;

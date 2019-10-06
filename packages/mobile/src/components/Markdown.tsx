@@ -1,4 +1,5 @@
 import { ColorStrings } from '@whitewater-guide/clients';
+import deepmerge from 'deepmerge';
 import Attributes from 'markdown-it-attrs';
 import React from 'react';
 import { Platform, StyleProp, StyleSheet, Text } from 'react-native';
@@ -9,9 +10,7 @@ import SimpleMarkdown, {
 } from 'react-native-markdown-renderer';
 import theme from '../theme';
 
-type TStyle = ReturnType<typeof StyleSheet.create> & { [key: string]: any };
-
-const styles: TStyle = StyleSheet.create({
+const defaultStyles: StyleSheet.NamedStyles<any> = StyleSheet.create({
   a: {
     color: theme.colors.primary,
   },
@@ -54,9 +53,9 @@ const plugins = [new PluginContainer(Attributes)];
 
 const rules: RenderRules = {
   strong: (node, children) => {
-    let style: StyleProp<any> = styles.strong;
+    let style: StyleProp<any> = defaultStyles.strong;
     if (node.attributes && node.attributes.color) {
-      style = [style, styles[`level${node.attributes.color}`]];
+      style = [style, defaultStyles[`level${node.attributes.color}`]];
     }
     return (
       <Text key={getUniqueID()} style={style}>
@@ -69,8 +68,19 @@ const rules: RenderRules = {
   },
 };
 
-export const Markdown: React.FC = ({ children }) => (
-  <SimpleMarkdown rules={rules} style={styles} plugins={plugins}>
-    {children}
-  </SimpleMarkdown>
-);
+interface Props {
+  styles?: StyleSheet.NamedStyles<any>;
+}
+
+const Markdown: React.FC<Props> = ({ children, styles }) => {
+  const actualStyles: any = styles
+    ? deepmerge(StyleSheet.flatten(defaultStyles), styles)
+    : defaultStyles;
+  return (
+    <SimpleMarkdown rules={rules} style={actualStyles} plugins={plugins}>
+      {children}
+    </SimpleMarkdown>
+  );
+};
+
+export default Markdown;

@@ -1,1 +1,1 @@
-export * from './ResetScreen';
+export * from './LazyResetScreen';

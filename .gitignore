@@ -7,3 +7,4 @@ node_modules/
 /services/backend/merged-schema.graphql
 lerna-changed.json
 ww-meta.json
+/packages/mobile59/

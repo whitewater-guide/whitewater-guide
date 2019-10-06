@@ -1,3 +1,1 @@
-import { SectionInfoScreen } from './SectionInfoScreen';
-
-export default SectionInfoScreen;
+export * from './LazySectionInfoScreen';

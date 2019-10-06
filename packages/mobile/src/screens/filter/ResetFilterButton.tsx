@@ -1,8 +1,8 @@
 import { useFilterSetteer } from '@whitewater-guide/clients';
-import { useNavigation } from '@zhigang1992/react-navigation-hooks';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'react-native-paper';
+import { useNavigation } from 'react-navigation-hooks';
 import theme from '../../theme';
 
 const ResetFilterButton: React.FC = () => {

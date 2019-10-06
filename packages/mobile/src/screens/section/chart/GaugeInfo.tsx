@@ -1,5 +1,6 @@
 import { formatDistanceToNow } from '@whitewater-guide/clients';
 import { Gauge } from '@whitewater-guide/commons';
+import { Left, Right, Row } from 'components/Row';
 import differenceInDays from 'date-fns/differenceInDays';
 import parseISO from 'date-fns/parseISO';
 import upperFirst from 'lodash/upperFirst';
@@ -8,7 +9,6 @@ import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import { Paragraph, Subheading } from 'react-native-paper';
-import { Left, Right, Row } from '../../../components';
 import theme from '../../../theme';
 import GaugeWarning from './GaugeValueWarning';
 import useGaugeActionSheet from './useGaugeActionSheet';

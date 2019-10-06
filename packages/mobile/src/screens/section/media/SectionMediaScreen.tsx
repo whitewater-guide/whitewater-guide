@@ -1,9 +1,8 @@
 import { useSection } from '@whitewater-guide/clients';
+import { Screen } from 'components/Screen';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { NavigationScreenComponent } from 'react-navigation';
-import { Icon, Screen } from '../../../components';
-import { I18nText } from '../../../i18n';
 import theme from '../../../theme';
 import SuggestionFAB from '../SuggestionFAB';
 import SectionMediaScreenContent from './SectionMediaScreenContent';
@@ -17,7 +16,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const SectionMediaScreen: NavigationScreenComponent = () => {
+const SectionMediaScreen: NavigationScreenComponent = () => {
   const { node } = useSection();
   return (
     <Screen>
@@ -30,9 +29,4 @@ export const SectionMediaScreen: NavigationScreenComponent = () => {
   );
 };
 
-SectionMediaScreen.navigationOptions = {
-  tabBarLabel: <I18nText>section:media.title</I18nText>,
-  tabBarIcon: () => (
-    <Icon icon="image-multiple" color={theme.colors.textLight} />
-  ),
-};
+export default SectionMediaScreen;

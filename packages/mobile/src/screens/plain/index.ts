@@ -1,1 +1,1 @@
-export * from './PlainTextScreen';
+export * from './LazyPlainScreen';

@@ -6,7 +6,7 @@ const createPhotoChannel = (photos: string[]): EventChannel<number> =>
     FastImage.preload(
       photos.map((uri) => ({ uri })),
       // Total is not from current batch, but comes as arg
-      (loaded: number) => emitter(loaded),
+      (_, loaded) => emitter(loaded),
       () => emitter(END),
     );
     return () => {};

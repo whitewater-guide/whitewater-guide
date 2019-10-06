@@ -1,1 +1,1 @@
-export * from './SuggestionScreen';
+export * from './LazySuggestionScreen';

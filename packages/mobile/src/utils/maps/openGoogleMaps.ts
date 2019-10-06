@@ -1,6 +1,6 @@
+import analytics from '@react-native-firebase/analytics';
 import { Coordinate } from '@whitewater-guide/commons';
 import { Linking, Platform } from 'react-native';
-import Firebase from 'react-native-firebase';
 
 export const openGoogleMaps = async (
   [lng, lat]: Coordinate,
@@ -12,7 +12,7 @@ export const openGoogleMaps = async (
     if (canOpenGoogleMaps) {
       directionsURL = `comgooglemaps://?q=${lat},${lng}`;
     }
-    Firebase.analytics().setUserProperty(
+    analytics().setUserProperty(
       'canOpenGoogleMaps',
       canOpenGoogleMaps ? 'true' : 'false',
     );

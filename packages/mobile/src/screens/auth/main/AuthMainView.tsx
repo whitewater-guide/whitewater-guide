@@ -1,10 +1,10 @@
 import { useAuth } from '@whitewater-guide/clients';
-import { useNavigation } from '@zhigang1992/react-navigation-hooks';
+import Divider from 'components/Divider';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button, Caption } from 'react-native-paper';
-import { Divider } from '../../../components';
+import { useNavigation } from 'react-navigation-hooks';
 import theme from '../../../theme';
 import Screens from '../../screen-names';
 import { AuthScreenBase } from '../AuthScreenBase';
@@ -26,14 +26,14 @@ export const AuthMainView: React.FC = () => {
   const { navigate } = useNavigation();
   const signIn = useCallback(() => navigate(Screens.Auth.SignIn), [navigate]);
   const showPolicy = useCallback(() => {
-    navigate(Screens.Plain, {
-      fixture: 'privacyPolicy',
+    navigate(Screens.WebView, {
+      fixture: 'privacy_policy',
       title: t('commons:privacyPolicy'),
     });
   }, [navigate]);
   const showTerms = useCallback(() => {
-    navigate(Screens.Plain, {
-      fixture: 'termsAndConditions',
+    navigate(Screens.WebView, {
+      fixture: 'terms_and_conditions',
       title: t('commons:termsOfService'),
     });
   }, [navigate]);

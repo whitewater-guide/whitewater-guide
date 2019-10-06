@@ -9,7 +9,7 @@ import { Paragraph, Subheading } from 'react-native-paper';
 import Svg, { Path } from 'react-native-svg';
 import { getSeasonLocalizer } from '../../../i18n';
 import theme from '../../../theme';
-import { Icon } from '../../Icon';
+import Icon from '../../Icon';
 import { NAVIGATE_BUTTON_WIDTH } from '../../NavigateButton';
 import SectionFlowsRow from './SectionFlowsRow';
 

@@ -1,3 +1,1 @@
-import { RegionMapScreen } from './RegionMapScreen';
-
-export default RegionMapScreen;
+export * from './LazyRegionMapScreen';

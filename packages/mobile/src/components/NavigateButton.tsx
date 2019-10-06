@@ -1,4 +1,4 @@
-import { Coordinate, Point } from '@whitewater-guide/commons';
+import { Point } from '@whitewater-guide/commons';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text } from 'react-native';
@@ -6,7 +6,7 @@ import { RectButton } from 'react-native-gesture-handler';
 import Animated from 'react-native-reanimated';
 import theme from '../theme';
 import { openGoogleMaps } from '../utils/maps';
-import { Icon } from './Icon';
+import Icon from './Icon';
 
 export const NAVIGATE_BUTTON_HEIGHT = 72;
 export const NAVIGATE_BUTTON_WIDTH = 64;
@@ -33,8 +33,7 @@ const styles = StyleSheet.create({
 interface Props {
   labelKey: string;
   point: Point | null;
-  canNavigate: (coordinates: Coordinate) => boolean;
-  onPress?: () => void;
+  premiumGuard: () => boolean;
   scale?: Animated.Node<number>;
 }
 
@@ -42,19 +41,15 @@ export const NavigateButton: React.FC<Props> = React.memo((props) => {
   const {
     labelKey,
     point,
-    onPress,
-    canNavigate,
+    premiumGuard,
     scale = new Animated.Value(1),
   } = props;
   const { t } = useTranslation();
   const onTouch = useCallback(() => {
-    if (onPress) {
-      onPress();
-    }
-    if (point && canNavigate(point.coordinates)) {
+    if (point && premiumGuard()) {
       openGoogleMaps(point.coordinates, point.name).catch(() => {});
     }
-  }, [point, onPress]);
+  }, [point, premiumGuard]);
   return (
     <RectButton onPress={onTouch} style={styles.button}>
       <Animated.View

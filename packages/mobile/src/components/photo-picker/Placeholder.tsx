@@ -8,12 +8,12 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import ImagePicker from 'react-native-image-picker';
+import ImagePicker, { ImagePickerOptions } from 'react-native-image-picker';
 import { Subheading } from 'react-native-paper';
 import { PaperTheme } from '../../theme';
-import { Icon } from '../Icon';
+import Icon from '../Icon';
 import { commonStyles } from './styles';
-import { ImagePickerOptions, Photo } from './types';
+import { Photo } from './types';
 
 const styles = StyleSheet.create({
   placeholder: {
@@ -34,7 +34,7 @@ const Placeholder: React.FC<Props> = (props) => {
     label = 'components:photoPicker.placeholder',
   } = props;
   const { t } = useTranslation();
-  const pickerOptions: ImagePickerOptions = useMemo<ImagePickerOptions>(
+  const pickerOptions = useMemo<ImagePickerOptions>(
     () => ({
       title: t('components:photoPicker.pickerTitle'),
       cancelButtonTitle: t('commons:cancel'),

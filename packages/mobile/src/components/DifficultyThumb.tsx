@@ -37,7 +37,7 @@ const denseRoman = memoize((difficulty: number) =>
   toRomanDifficulty(difficulty).replace(/\s/gi, ''),
 );
 
-export const DifficultyThumb: React.FC<Props> = React.memo(
+const DifficultyThumb: React.FC<Props> = React.memo(
   ({ difficulty, difficultyXtra, noBorder }) => {
     const style = noBorder
       ? styles.container
@@ -54,3 +54,5 @@ export const DifficultyThumb: React.FC<Props> = React.memo(
 );
 
 DifficultyThumb.displayName = 'DifficultyThumb';
+
+export default DifficultyThumb;

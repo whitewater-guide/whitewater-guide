@@ -1,10 +1,11 @@
 import { Coordinate3d } from '@whitewater-guide/commons';
 import { Formik } from 'formik';
+import HelperText from 'forms/HelperText';
+import NumericField from 'forms/NumericField';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import { Button, Modal, Portal, Surface } from 'react-native-paper';
-import { HelperText, NumericField } from '../../../../../components/forms';
 import theme from '../../../../../theme';
 import { Shape } from '../../types';
 import { getShapeError, isShapeTouched } from '../../utils';
@@ -164,12 +165,18 @@ export const PiToDialog: React.FC<Props> = (props) => {
                   error={getShapeError(errors, 1)}
                 />
                 <View style={styles.actions}>
-                  <Button onPress={onDismiss}>{t('commons:cancel')}</Button>
+                  <Button
+                    onPress={onDismiss}
+                    accessibilityLabel={t('commons:cancel')}
+                  >
+                    {t('commons:cancel')}
+                  </Button>
                   <Button
                     onPress={submitForm}
                     disabled={!isValid}
                     mode="contained"
                     style={styles.okButton}
+                    accessibilityLabel={t('commons:ok')}
                   >
                     {t('commons:ok')}
                   </Button>

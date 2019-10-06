@@ -7,7 +7,7 @@ import set from 'lodash/fp/set';
 import map from 'lodash/map';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { TernaryChip } from './TernaryChip';
+import TernaryChip from './TernaryChip';
 
 const styles = StyleSheet.create({
   chips: {
@@ -22,7 +22,7 @@ interface Props {
   onChange: (value: SelectableTag[]) => void;
 }
 
-export class TernaryChips extends React.PureComponent<Props> {
+class TernaryChips extends React.PureComponent<Props> {
   onToggle = (id: string) => {
     const { tags, onChange } = this.props;
     const index = tags.findIndex((t) => t.id === id);
@@ -49,3 +49,5 @@ export class TernaryChips extends React.PureComponent<Props> {
     );
   }
 }
+
+export default TernaryChips;

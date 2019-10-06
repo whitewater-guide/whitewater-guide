@@ -1,1 +1,1 @@
-export * from './SectionChartScreen';
+export * from './LazySectionChartScreen';

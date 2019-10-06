@@ -1,10 +1,10 @@
 import { Gauge } from '@whitewater-guide/commons';
-import { useNavigation } from '@zhigang1992/react-navigation-hooks';
+import useActionSheet from 'components/useActionSheet';
 import { MutableRefObject, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Linking } from 'react-native';
 import ActionSheet, { ActionSheetProps } from 'react-native-actionsheet';
-import { useActionSheet } from '../../../components';
+import { useNavigation } from 'react-navigation-hooks';
 import Screens from '../../screen-names';
 
 type UseGaugeSheet = [

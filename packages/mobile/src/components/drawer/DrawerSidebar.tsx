@@ -1,15 +1,15 @@
 import { useAuth } from '@whitewater-guide/clients';
-import { useNavigation } from '@zhigang1992/react-navigation-hooks';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { Divider } from 'react-native-paper';
 import { NavigationActions } from 'react-navigation';
+import { useNavigation } from 'react-navigation-hooks';
 import Screens from '../../screens/screen-names';
 import theme from '../../theme';
 import { isRouteFocused } from '../../utils/navigation';
-import { Logo } from '../Logo';
-import { Spacer } from '../Spacer';
+import Logo from '../Logo';
+import Spacer from '../Spacer';
 import { useDrawer } from './DrawerContext';
 import DrawerItem from './DrawerItem';
 import VersionBadge from './VersionBadge';
@@ -30,10 +30,12 @@ const DrawerSidebar: React.FC = () => {
   const navigation = useNavigation();
   const toggleDrawer = useDrawer();
   const navigate = useCallback(
-    (routeName: string, params: any) => {
+    (routeName: string, params: any, key?: string) => {
       toggleDrawer(false);
       if (navigation) {
-        navigation.dispatch(NavigationActions.navigate({ routeName, params }));
+        navigation.dispatch(
+          NavigationActions.navigate({ routeName, params, key }),
+        );
       }
     },
     [toggleDrawer, navigation],
@@ -61,9 +63,10 @@ const DrawerSidebar: React.FC = () => {
         <DrawerItem
           label={t('drawer:signIn')}
           icon="exit-to-app"
-          routeName={Screens.Auth.Main}
+          routeName={Screens.Auth.Root}
           onPress={navigate}
-          focused={isRouteFocused(state, Screens.Auth.Main)}
+          navKey={Screens.Auth.Root}
+          focused={isRouteFocused(state, Screens.Auth.Root)}
         />
       )}
       <DrawerItem
@@ -76,34 +79,34 @@ const DrawerSidebar: React.FC = () => {
       <DrawerItem
         label={t('drawer:faq')}
         icon="help"
-        routeName={Screens.Plain}
+        routeName={Screens.WebView}
         params={{ fixture: 'faq', title: t('drawer:faq') }}
         onPress={navigate}
-        focused={isRouteFocused(state, Screens.Plain, { fixture: 'faq' })}
+        focused={isRouteFocused(state, Screens.WebView, { fixture: 'faq' })}
       />
       <Spacer />
       <DrawerItem
         label={t('commons:termsOfService')}
-        routeName={Screens.Plain}
+        routeName={Screens.WebView}
         params={{
-          fixture: 'termsAndConditions',
+          fixture: 'terms_and_conditions',
           title: t('commons:termsOfService'),
         }}
         onPress={navigate}
-        focused={isRouteFocused(state, Screens.Plain, {
-          fixture: 'termsAndConditions',
+        focused={isRouteFocused(state, Screens.WebView, {
+          fixture: 'terms_and_conditions',
         })}
       />
       <DrawerItem
         label={t('commons:privacyPolicy')}
-        routeName={Screens.Plain}
+        routeName={Screens.WebView}
         params={{
-          fixture: 'privacyPolicy',
+          fixture: 'privacy_policy',
           title: t('commons:privacyPolicy'),
         }}
         onPress={navigate}
-        focused={isRouteFocused(state, Screens.Plain, {
-          fixture: 'privacyPolicy',
+        focused={isRouteFocused(state, Screens.WebView, {
+          fixture: 'privacy_policy',
         })}
       />
       <VersionBadge />

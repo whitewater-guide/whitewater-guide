@@ -1,28 +1,24 @@
+import Drawer from 'components/drawer';
+import { getHeaderRenderer } from 'components/header';
 import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
-import {
-  createAppContainer,
-  createStackNavigator,
-  NavigationNavigator,
-  StackNavigatorConfig,
-} from 'react-navigation';
-import { Drawer } from './components';
-import { getHeaderRenderer } from './components/header';
+import { createAppContainer, NavigationNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 import { navigationChannel } from './core/sagas';
 import { useLinking } from './core/useLinking';
 import { OfflineContentDialog } from './features/offline';
-import { PremiumDialog } from './features/purchases';
-import {
-  AuthRoutes,
-  FilterScreen,
-  MyProfileScreen,
-  PlainTextScreen,
-  RegionScreen,
-  RegionsListScreen,
-  SectionTabs,
-} from './screens';
+import { AuthStack } from './screens/auth';
+import { LazyFilterScreen } from './screens/filter';
+import { LazyMyProfileScreen } from './screens/my-profile';
+import { LazyPlainScreen } from './screens/plain';
+import { PurchaseStack } from './screens/purchase';
+import { RegionScreen } from './screens/region';
+import { RegionsListScreen } from './screens/regions-list';
 import Screens from './screens/screen-names';
-import { SuggestionScreen } from './screens/suggestion';
+import { SectionTabs } from './screens/section';
+import { LazySuggestionScreen } from './screens/suggestion';
+import { LazyWebViewScreen } from './screens/webview';
+import { StackNavigatorConfig } from './utils/navigation';
 
 const routes = {
   [Screens.RegionsList]: {
@@ -35,18 +31,26 @@ const routes = {
     screen: SectionTabs,
   },
   [Screens.Plain]: {
-    screen: PlainTextScreen,
+    screen: LazyPlainScreen,
+  },
+  [Screens.WebView]: {
+    screen: LazyWebViewScreen,
   },
   [Screens.MyProfile]: {
-    screen: MyProfileScreen,
+    screen: LazyMyProfileScreen,
   },
   [Screens.Filter]: {
-    screen: FilterScreen,
+    screen: LazyFilterScreen,
   },
   [Screens.Suggestion]: {
-    screen: SuggestionScreen,
+    screen: LazySuggestionScreen,
   },
-  ...AuthRoutes,
+  [Screens.Auth.Root]: {
+    screen: AuthStack,
+  },
+  [Screens.Purchase.Root]: {
+    screen: PurchaseStack,
+  },
 };
 
 const config: StackNavigatorConfig = {
@@ -72,7 +76,6 @@ const RootNavigatorView: NavigationNavigator<any, any, any> = ({
     <Drawer>
       <View style={StyleSheet.absoluteFill}>
         <Navigator navigation={navigation} />
-        <PremiumDialog />
         <OfflineContentDialog />
       </View>
     </Drawer>

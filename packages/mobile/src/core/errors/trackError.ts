@@ -4,21 +4,19 @@ import { tracker } from './tracker';
 export const trackError = (
   logger: string,
   error: Error,
-  componentStack?: string,
-  isFatal?: boolean,
+  extra?: { [key: string]: any },
+  transactionId?: string,
 ) => {
   if (error instanceof AppError) {
     tracker.track({
       error,
       logger,
+      transactionId: error.id,
       extra: {
-        isFatal,
-        componentStack,
         original: error.original,
-        error_id: error.id,
       },
     });
   } else {
-    tracker.track({ error, logger, extra: { isFatal, componentStack } });
+    tracker.track({ error, logger, transactionId, extra });
   }
 };

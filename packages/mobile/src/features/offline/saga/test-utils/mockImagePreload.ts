@@ -1,4 +1,4 @@
-type ProgressListener = (n: number) => void;
+type ProgressListener = (_: any, n: number) => void;
 type CompleteListener = () => void;
 
 export const mockImagePreload = (
@@ -16,7 +16,7 @@ export const mockImagePreload = (
       if (n >= total) {
         complete();
       } else {
-        progress(n + 1);
+        progress(undefined, n + 1);
         download(n + 1, progress, complete);
       }
     }, 1);

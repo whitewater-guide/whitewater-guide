@@ -1,17 +1,13 @@
 import React, { forwardRef } from 'react';
 import { StyleSheet } from 'react-native';
 import { RecyclerListView } from 'recyclerlistview';
-import {
-  connectPremiumDialog,
-  WithPremiumDialog,
-} from '../../../features/purchases';
 import { layoutProvider } from './item';
 import NoSectionsPlaceholder from './NoSectionsPlaceholder';
 import { ListProps } from './types';
 import useDataProvider from './useDataProvider';
 import useRenderer from './useRenderer';
 
-type Props = ListProps & WithPremiumDialog;
+type Props = ListProps;
 
 export const SectionsList = React.memo(
   forwardRef<any, Props>((props, ref) => {
@@ -39,4 +35,4 @@ export const SectionsList = React.memo(
 
 SectionsList.displayName = 'SectionsList';
 
-export default connectPremiumDialog(SectionsList);
+export default SectionsList;

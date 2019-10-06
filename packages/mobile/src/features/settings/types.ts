@@ -1,4 +1,4 @@
-import Layers from '../../components/map/layers';
+import Layers from 'components/map/layers';
 
 export interface AppSettings {
   mapType?: string;

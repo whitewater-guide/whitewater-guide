@@ -20,8 +20,13 @@ interface Props {
   style?: StyleProp<ViewStyle>;
 }
 
-export const Loading: React.FC<Props> = ({ style }) => (
+const Loading: React.FC<Props> = ({ style }) => (
   <View style={[styles.container, style]}>
-    <ActivityIndicator color={theme.colors.primary} />
+    <ActivityIndicator
+      color={theme.colors.primary}
+      accessibilityLabel="loading"
+    />
   </View>
 );
+
+export default Loading;

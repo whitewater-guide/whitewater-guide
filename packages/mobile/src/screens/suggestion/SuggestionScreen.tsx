@@ -1,6 +1,6 @@
+import { Screen } from 'components/Screen';
 import React from 'react';
 import { NavigationScreenComponent } from 'react-navigation';
-import { Screen } from '../../components';
 import PhotoSuggestionForm from './PhotoSuggestionForm';
 import SimpleSuggestionForm from './SimpleSuggestionForm';
 
@@ -9,7 +9,7 @@ interface NavParams {
   type?: 'simple' | 'photo';
 }
 
-export const SuggestionScreen: NavigationScreenComponent<NavParams> = ({
+const SuggestionScreen: NavigationScreenComponent<NavParams> = ({
   navigation,
 }) => {
   const formType = navigation.getParam('type');
@@ -25,7 +25,4 @@ export const SuggestionScreen: NavigationScreenComponent<NavParams> = ({
   );
 };
 
-SuggestionScreen.navigationOptions = ({ navigation }) => {
-  const type = navigation.getParam('type') || 'simple';
-  return { headerTitle: `screens:suggestion.${type}.title` };
-};
+export default SuggestionScreen;

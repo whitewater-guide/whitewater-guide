@@ -1,20 +1,18 @@
 import { useTags } from '@whitewater-guide/clients';
 import { Duration, Durations } from '@whitewater-guide/commons';
+import Loading from 'components/Loading';
+import { Screen } from 'components/Screen';
+import ModalPickerField from 'forms/modal-picker';
+import NumericField from 'forms/NumericField';
+import RatingField from 'forms/RatingField';
+import TagsField from 'forms/TagsField';
 import groupBy from 'lodash/groupBy';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { NavigationScreenComponent } from 'react-navigation';
-import { Loading, Screen } from '../../../../components';
-import {
-  ModalPickerField,
-  NumericField,
-  RatingField,
-  TagsField,
-} from '../../../../components/forms';
 import theme from '../../../../theme';
-import TabBarLabel from '../TabBarLabel';
 
 const DURATIONS: Array<Duration | null> = [null].concat(Array.from(
   Durations.entries(),
@@ -30,7 +28,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const AttributesScreen: NavigationScreenComponent = React.memo(() => {
+const AttributesScreen: NavigationScreenComponent = React.memo(() => {
   const { t } = useTranslation();
   const durationToString = useCallback(
     (v: Duration | null) => (v ? t(`durations:${v}`) : '-'),
@@ -93,8 +91,5 @@ export const AttributesScreen: NavigationScreenComponent = React.memo(() => {
 });
 
 AttributesScreen.displayName = 'AttributesScreen';
-AttributesScreen.navigationOptions = {
-  tabBarLabel: (props: any) => (
-    <TabBarLabel {...props} i18nKey="screens:addSection.tabs.attributes" />
-  ),
-};
+
+export default AttributesScreen;

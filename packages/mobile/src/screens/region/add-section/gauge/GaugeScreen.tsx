@@ -1,5 +1,5 @@
 import { NamedNode } from '@whitewater-guide/commons';
-import { useNavigation } from '@zhigang1992/react-navigation-hooks';
+import { Screen } from 'components/Screen';
 import { useFormikContext } from 'formik';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { Searchbar, Surface } from 'react-native-paper';
 import { NavigationScreenComponent } from 'react-navigation';
-import { Screen } from '../../../../components';
+import { useNavigation } from 'react-navigation-hooks';
 import theme from '../../../../theme';
 import EmptyListPlaceholder from './EmptyListPlaceholder';
 import GaugeListHeader from './GaugeListHeader';
@@ -49,7 +49,7 @@ const getItemLayout = (_: any, i: number) => ({
   index: i,
 });
 
-export const GaugeScreen: NavigationScreenComponent = () => {
+const GaugeScreen: NavigationScreenComponent = () => {
   const { t } = useTranslation();
   const { goBack } = useNavigation();
   const { values, setFieldValue } = useFormikContext<any>();
@@ -101,6 +101,5 @@ export const GaugeScreen: NavigationScreenComponent = () => {
 };
 
 GaugeScreen.displayName = 'GaugeScreen';
-GaugeScreen.navigationOptions = {
-  headerTitle: 'screens:addSection.gauge.title',
-};
+
+export default GaugeScreen;

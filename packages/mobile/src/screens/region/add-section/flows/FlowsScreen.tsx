@@ -1,13 +1,13 @@
+import { Screen } from 'components/Screen';
+import NumericField from 'forms/NumericField';
+import TextField from 'forms/TextField';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Title } from 'react-native-paper';
 import { NavigationScreenComponent } from 'react-navigation';
-import { Screen } from '../../../../components';
-import { NumericField, TextField } from '../../../../components/forms';
 import theme from '../../../../theme';
-import TabBarLabel from '../TabBarLabel';
 import GaugePlaceholder from './GaugePlaceholder';
 import { SeasonNumericField } from './season';
 
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const FlowsScreen: NavigationScreenComponent = React.memo(() => {
+const FlowsScreen: NavigationScreenComponent = React.memo(() => {
   const { t } = useTranslation();
   return (
     <Screen>
@@ -86,8 +86,5 @@ export const FlowsScreen: NavigationScreenComponent = React.memo(() => {
 });
 
 FlowsScreen.displayName = 'FlowsScreen';
-FlowsScreen.navigationOptions = {
-  tabBarLabel: (props: any) => (
-    <TabBarLabel {...props} i18nKey="screens:addSection.tabs.flows" />
-  ),
-};
+
+export default FlowsScreen;

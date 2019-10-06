@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 import theme from '../theme';
-import { Icon } from './Icon';
+import Icon from './Icon';
 
 const styles = StyleSheet.create({
   container: {
@@ -33,7 +33,7 @@ interface Props {
   style?: StyleProp<ViewStyle>;
 }
 
-export const SimpleStarRating: React.FC<Props> = React.memo((props) => {
+const SimpleStarRating: React.FC<Props> = React.memo((props) => {
   const { value, style } = props;
   return (
     <View style={[styles.container, style]}>
@@ -58,3 +58,5 @@ export const SimpleStarRating: React.FC<Props> = React.memo((props) => {
 });
 
 SimpleStarRating.displayName = 'SimpleStarRating';
+
+export default SimpleStarRating;
