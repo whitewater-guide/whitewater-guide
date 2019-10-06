@@ -1,3 +1,10 @@
+## [0.0.102](https://github.com/doomsower/whitewater/compare/f0d6d74e6f1d904d9cfee7051320992325226298...508ee452f938c959f4332169e1aab55fb014b69c) (2019-10-06)
+
+### Features
+
+- add help needed field ([00bd4d4cce1d64148a69f2dc154b95e7f04fc951](https://github.com/doomsower/whitewater/commit/00bd4d4cce1d64148a69f2dc154b95e7f04fc951))
+- update to rn61 and new iap ([db7ccc631e2b7064f49a9ca7e5c2df6350e3dea2](https://github.com/doomsower/whitewater/commit/db7ccc631e2b7064f49a9ca7e5c2df6350e3dea2))
+
 ## [0.0.100](https://github.com/doomsower/whitewater/compare/94ee9f49db57fc636024c1d8e56c1b8eafe08a66...c5b38c01f95be7e90356b9815aebf6c7c4bbcb05) (2019-10-01)
 
 ### Features
