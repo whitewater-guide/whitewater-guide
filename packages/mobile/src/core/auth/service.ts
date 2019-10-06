@@ -34,7 +34,6 @@ export class MobileAuthService extends BaseAuthService {
     LoginManager.setLoginBehavior(
       Platform.OS === 'ios' ? 'browser' : 'native_with_fallback',
     );
-    AppState.addEventListener('change', this.onAppStateChange);
   }
 
   async init() {
@@ -50,6 +49,7 @@ export class MobileAuthService extends BaseAuthService {
         })
         .catch(() => {});
     }
+    AppState.addEventListener('change', this.onAppStateChange);
   }
 
   onAppStateChange = (state: AppStateStatus) => {
