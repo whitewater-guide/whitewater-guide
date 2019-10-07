@@ -311,7 +311,7 @@ PODS:
     - React
   - react-native-mapbox-gl (7.0.6):
     - React
-  - react-native-netinfo (4.3.1):
+  - react-native-netinfo (4.4.0):
     - React
   - react-native-sensitive-info (5.5.1):
     - React
@@ -319,7 +319,7 @@ PODS:
     - React
   - react-native-webview (7.4.1):
     - React
-  - react-native-zxcvbn (1.0.0):
+  - react-native-zxcvbn (1.0.1):
     - React
     - zxcvbn-ios
   - React-RCTActionSheet (0.61.2):
@@ -378,18 +378,18 @@ PODS:
     - React
   - RNGestureHandler (1.4.1):
     - React
-  - RNIap (3.5.8):
+  - RNIap (3.5.9):
     - React
-  - RNLocalize (1.2.1):
+  - RNLocalize (1.3.0):
     - React
   - RNReanimated (1.3.0):
     - React
   - RNScreens (1.0.0-alpha.23):
     - React
-  - RNSentry (1.0.6):
+  - RNSentry (1.0.7):
     - React
     - Sentry (~> 4.4.0)
-  - RNSVG (9.11.0):
+  - RNSVG (9.11.1):
     - React
   - RNTextSize (4.0.0-rc.1):
     - React
@@ -639,11 +639,11 @@ SPEC CHECKSUMS:
   react-native-fbsdk: 45e28bbab3e905cbc635c0bdd3444b372e933ae9
   react-native-image-picker: 7a85cf7b0a53845f03ae52fb4592a2748ded069b
   react-native-mapbox-gl: 4988be25f86de3daa43bda9325dca9020a7825e0
-  react-native-netinfo: 397dc351976ee5640fabca2452c23813895be2e5
+  react-native-netinfo: 6bb847e64f45a2d69c6173741111cfd95c669301
   react-native-sensitive-info: e05877777e50e8112b8728f69eab407c3dcf38ab
   react-native-startup-time: 591097b85cf0d8a5e7483fbfdb43141a53e062a8
   react-native-webview: e800df5dd1a0f3555fd543ebf7d881a9014851f2
-  react-native-zxcvbn: e14558fdaf51744f836ce8d450b01244cd7cef7c
+  react-native-zxcvbn: ba72ee34accf0531cdd60778d98b3fe491c562bf
   React-RCTActionSheet: 89b037c0fb7d2671607cb645760164e7e0c013f6
   React-RCTAnimation: e3cefa93c38c004c318f7ec04b883eb14b8b8235
   React-RCTBlob: d26ac0e313fbf14e7203473fd593ccaaeee8329e
@@ -661,12 +661,12 @@ SPEC CHECKSUMS:
   RNFBMessaging: f729b60d23ce5717a4f989c911082e2c03cb5ee3
   RNFS: a8fbe7060fa49157d819466404794ad9c58e58cf
   RNGestureHandler: 4cb47a93019c1a201df2644413a0a1569a51c8aa
-  RNIap: 3730f7f44e1ad0aa13c2566b3d8b02dfd089e744
-  RNLocalize: f42aea3133d91d7fa3ec01284a6895019af1a83f
+  RNIap: 9e69c8d9ecfdd1f0882363366e85d2e1683ecc89
+  RNLocalize: cebb57c3c1e5479806204ce135b26bdd79d17e8a
   RNReanimated: 6abbbae2e5e72609d85aabd92a982a94566885f1
   RNScreens: f28b48b8345f2f5f39ed6195518291515032a788
-  RNSentry: f1c8e34f9109a94b77e946d0ca50803375c1c19e
-  RNSVG: 3ddb5eaa2b82a1ff0fef867f71aff130a2e6abb0
+  RNSentry: e57b6acd2424e185ba2e23ef78aa2186a40e83e0
+  RNSVG: be27aa7c58819f97399388ae53d7fa0572f32c7f
   RNTextSize: 7efa06531c6bb7ab6ed070b4ce0d1248cf06fcdf
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
   SDWebImage: 609192dcf3898c910a2848032372ead951e66364

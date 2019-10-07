@@ -34,7 +34,6 @@ export class MobileAuthService extends BaseAuthService {
     LoginManager.setLoginBehavior(
       Platform.OS === 'ios' ? 'browser' : 'native_with_fallback',
     );
-    AppState.addEventListener('change', this.onAppStateChange);
   }
 
   async init() {
@@ -43,26 +42,14 @@ export class MobileAuthService extends BaseAuthService {
     if (pushEnabled) {
       // do not watch token change.
       // fcm token should be valid at startup and this is enough for now
-      this._fcmToken = await messaging().getToken();
+      messaging()
+        .getToken()
+        .then((token: string) => {
+          this._fcmToken = token;
+        })
+        .catch(() => {});
     }
-    // Legacy check. If user is logged in via FB, but has no access token, then
-    // most likely he logged in via legacy auth in older app version
-    let fbToken: AccessToken | null = null;
-    try {
-      fbToken = await AccessToken.getCurrentAccessToken();
-    } catch {}
-    const refreshToken = await tokenStorage.getRefreshToken();
-    if (!refreshToken && !!fbToken) {
-      const resp = await this._get('/auth/facebook/signin', {
-        access_token: fbToken.accessToken,
-      });
-      if (resp.accessToken) {
-        await tokenStorage.setAccessToken(resp.accessToken);
-      }
-      if (resp.refreshToken) {
-        await tokenStorage.setRefreshToken(resp.refreshToken);
-      }
-    }
+    AppState.addEventListener('change', this.onAppStateChange);
   }
 
   onAppStateChange = (state: AppStateStatus) => {

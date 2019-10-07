@@ -1,4 +1,5 @@
-import { LIST_SECTIONS, mockApolloClient } from '@whitewater-guide/clients';
+import { LIST_SECTIONS } from '@whitewater-guide/clients';
+import { mockApolloClient } from '@whitewater-guide/clients/dist/test';
 import { OFFLINE_SECTIONS } from './offlineSections.query';
 import { mockApolloData } from './saga/test-utils';
 

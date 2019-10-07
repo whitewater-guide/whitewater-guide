@@ -1,10 +1,9 @@
 import messaging from '@react-native-firebase/messaging';
+import { AuthResponse, AuthService } from '@whitewater-guide/clients';
 import {
-  AuthResponse,
-  AuthService,
   continuouslyAdvanceTimers,
   flushPromises,
-} from '@whitewater-guide/clients';
+} from '@whitewater-guide/clients/dist/test';
 import { RefreshBody, SignInBody } from '@whitewater-guide/commons';
 import { AppState } from 'react-native';
 import { AccessToken, LoginManager } from 'react-native-fbsdk';
