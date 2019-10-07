@@ -29,10 +29,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     maxHeight: 200,
   },
-  logo: {
-    maxWidth: '80%',
-    flex: 1,
-  },
 });
 
 export const AuthScreenBase: React.FC = ({ children }) => {
@@ -45,7 +41,7 @@ export const AuthScreenBase: React.FC = ({ children }) => {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.body}>
             <View style={styles.logoWrapper}>
-              <Logo style={styles.logo} />
+              <Logo />
             </View>
             {children}
           </View>
