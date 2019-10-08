@@ -1,15 +1,13 @@
 import Box from '@material-ui/core/Box';
 import MUIDrawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { useAuth } from '@whitewater-guide/clients';
 import React from 'react';
-import { matchPath } from 'react-router-dom';
 import useRouter from 'use-react-router';
 import { DRAWER_WIDTH } from './constants';
+import DrawerItem from './DrawerItem';
 import { usePermanentDrawer } from './usePermanentDrawer';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -63,25 +61,14 @@ export const Drawer: React.FC<Props> = ({ onClose, isOpen }) => {
           if (editor && !(me && (me.admin || me.editor))) {
             return null;
           }
-          const clickable = !matchPath(location.pathname, {
-            path,
-            exact: true,
-          });
-          const onClick = () => {
-            onClose();
-            if (clickable) {
-              history.push(path);
-            }
-          };
           return (
-            <ListItem
+            <DrawerItem
               key={path}
-              button={true}
-              selected={value === path}
-              onClick={onClick}
-            >
-              <ListItemText primary={title} />
-            </ListItem>
+              path={path}
+              title={title}
+              selected={value}
+              onClose={onClose}
+            />
           );
         })}
       </List>
