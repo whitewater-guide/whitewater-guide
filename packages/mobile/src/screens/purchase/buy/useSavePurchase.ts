@@ -48,7 +48,7 @@ export default (sectionId?: string): Hook => {
             receipt: Platform.select({
               ios: purchase.transactionReceipt,
               android: JSON.stringify({
-                data: purchase.dataAndroid,
+                data: purchase.transactionReceipt,
                 signature: purchase.signatureAndroid,
               }),
             }),

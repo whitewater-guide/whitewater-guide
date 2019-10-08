@@ -2284,10 +2284,10 @@
   resolved "https://registry.npmjs.org/@types/linkify-it/-/linkify-it-2.1.0.tgz#ea3dd64c4805597311790b61e872cbd1ed2cd806"
   integrity sha512-Q7DYAOi9O/+cLLhdaSvKdaumWyHbm7HAk/bFwwyTuU0arR5yyCeW5GOoqt4tJTpDRxhpx9Q8kQL6vMpuw9hDSw==
 
-"@types/lodash@^4.14.141":
-  version "4.14.141"
-  resolved "https://registry.npmjs.org/@types/lodash/-/lodash-4.14.141.tgz#d81f4d0c562abe28713406b571ffb27692a82ae6"
-  integrity sha512-v5NYIi9qEbFEUpCyikmnOYe4YlP8BMUdTcNCAquAKzu+FA7rZ1onj9x80mbnDdOW/K5bFf3Tv5kJplP33+gAbQ==
+"@types/lodash@^4.14.142":
+  version "4.14.142"
+  resolved "https://registry.npmjs.org/@types/lodash/-/lodash-4.14.142.tgz#52d5daff878e36e72e299bb9c5871fd6aee55829"
+  integrity sha512-ZhNS7c4D4WQ49Dr1FftQj7SwngRswOnPfxktmqSy5BettRCuum2q784jRwNTYfxH00r8+fEgRz6Da8j5DHNd1Q==
 
 "@types/markdown-it@^0.0.4":
   version "0.0.4"
@@ -11637,7 +11637,15 @@ react-native-gesture-handler@1.4.1:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
-react-native-iap@4.0.2, react-native-iap@^4.0.0-rc13:
+react-native-iap@4.0.3:
+  version "4.0.3"
+  resolved "https://registry.npmjs.org/react-native-iap/-/react-native-iap-4.0.3.tgz#79a2d02a76cf70d81d1c9f5625e811c467c02965"
+  integrity sha512-YflWbGvNIGoMjATmPDeXsB4/VbnAYa5OTAPTgir0I04zBQgQ86uPUiT2/GPs4IOM6f9n9151Ve23uZ+cKtmpcQ==
+  dependencies:
+    dooboolab-welcome "^1.1.1"
+    react-native-iap "^4.0.0-rc13"
+
+react-native-iap@^4.0.0-rc13:
   version "4.0.2"
   resolved "https://registry.npmjs.org/react-native-iap/-/react-native-iap-4.0.2.tgz#773a29dee1155ae3adaa35ff85ad0f8a8353237b"
   integrity sha512-+EXq9GKtTcCvOUUcx4c2jiiZZW88NckKp24UFc+ZWxWHaTmEh6Pql4QdJofE09jf4Q1EV59JN03Grlm+c3j8yg==
@@ -12000,17 +12008,17 @@ react-timer-mixin@^0.13.3:
   resolved "https://registry.npmjs.org/react-timer-mixin/-/react-timer-mixin-0.13.4.tgz#75a00c3c94c13abe29b43d63b4c65a88fc8264d3"
   integrity sha512-4+ow23tp/Tv7hBM5Az5/Be/eKKF7DIvJ09voz5LyHGQaqqz9WV8YMs31eFvcYQs7d451LSg7kDJV70XYN/Ug/Q==
 
-react-use@^12.2.3:
-  version "12.2.3"
-  resolved "https://registry.npmjs.org/react-use/-/react-use-12.2.3.tgz#cfadc5645f227a944cc438ac1c7c6ed775ba748f"
-  integrity sha512-dOLN0s2m4e2VjkSMzdZgrYfsVHeTq2bnPO84L9/7pWQ7ao7qjRwrV0UZRTprlwvTA3zFd6LZ41EHqGNNnbtIXw==
+react-use@^12.3.0:
+  version "12.3.0"
+  resolved "https://registry.npmjs.org/react-use/-/react-use-12.3.0.tgz#4b7249059da2ab0bfc5f2ac773141150d4f16984"
+  integrity sha512-x2WyX6ZurupfJClc+bEGD8qD6EE7qtDrbw0azCTfxpeg+ErOkD7psccyeprk88IilWRzuf9B7/BM7oBRcbvMjQ==
   dependencies:
     copy-to-clipboard "^3.1.0"
     nano-css "^5.1.0"
     react-fast-compare "^2.0.4"
     react-wait "^0.3.0"
     resize-observer-polyfill "^1.5.1"
-    screenfull "^4.1.0"
+    screenfull "^5.0.0"
     set-harmonic-interval "^1.0.0"
     throttle-debounce "^2.0.1"
     ts-easing "^0.2.0"
@@ -12748,10 +12756,10 @@ schema-utils@^2.0.0, schema-utils@^2.4.1:
     ajv "^6.10.2"
     ajv-keywords "^3.4.1"
 
-screenfull@^4.1.0:
-  version "4.2.1"
-  resolved "https://registry.npmjs.org/screenfull/-/screenfull-4.2.1.tgz#3245b7bc73d2b7c9a15bd8caaf6965db7cbc7f04"
-  integrity sha512-PLSp6f5XdhvjCCCO8OjavRfzkSGL3Qmdm7P82bxyU8HDDDBhDV3UckRaYcRa/NDNTYt8YBpzjoLWHUAejmOjLg==
+screenfull@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.npmjs.org/screenfull/-/screenfull-5.0.0.tgz#5c2010c0e84fd4157bf852877698f90b8cbe96f6"
+  integrity sha512-yShzhaIoE9OtOhWVyBBffA6V98CDCoyHTsp8228blmqYy1Z5bddzE/4FPiJKlr8DVR4VBiiUyfPzIQPIYDkeMA==
 
 secure-keys@^1.0.0:
   version "1.0.0"
