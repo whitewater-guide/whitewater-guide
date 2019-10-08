@@ -1,6 +1,6 @@
 import { AppState, AppStateStatus } from 'react-native';
 
-export const waitUntilActive = (timeout?: number): Promise<boolean> => {
+const waitUntilActive = (timeout?: number): Promise<boolean> => {
   let listener: any;
   const statePromise = new Promise<boolean>((resolve) => {
     if (AppState.currentState === 'active') {

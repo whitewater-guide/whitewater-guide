@@ -27,7 +27,6 @@ jest.mock('../../../utils/maps', () => {
     openGoogleMaps: jest.fn(),
   };
 });
-jest.mock('Clipboard');
 
 beforeEach(() => {
   jest.resetAllMocks();
@@ -53,10 +52,11 @@ describe('has premium access', () => {
   });
 
   it('should copy coordinates', () => {
+    const mockClipboard = jest.spyOn(Clipboard, 'setString');
     const { getByLabelText } = doRender();
     const copyBtn = getByLabelText('copy coordinate');
     fireEvent.press(copyBtn);
-    expect(Clipboard.setString).toHaveBeenCalledWith('0.0000, 0.0000');
+    expect(mockClipboard).toHaveBeenCalledWith('0.0000, 0.0000');
   });
 
   it('should navigate', () => {
@@ -78,10 +78,11 @@ describe('has no premium access', () => {
   });
 
   it('should not copy coordinates', () => {
+    const mockClipboard = jest.spyOn(Clipboard, 'setString');
     const { getByLabelText } = doRender();
     const copyBtn = getByLabelText('copy coordinate');
     fireEvent.press(copyBtn);
-    expect(Clipboard.setString).not.toHaveBeenCalled();
+    expect(mockClipboard).not.toHaveBeenCalled();
     expect(mockNavigate).toHaveBeenCalled();
   });
 

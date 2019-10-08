@@ -21,7 +21,7 @@ const SAVE_SUCCESS = {
 };
 
 const SAVE_ERROR = {
-  error: new IAPError('iap:errors.savePurchase'),
+  error: new IAPError('screens:purchase.buy.errors.savePurchase'),
   saved: false,
 };
 
@@ -31,7 +31,7 @@ const ACKNOWLEDGE_SUCCESS = {
 };
 
 const ACKNOWLEDGE_ERROR = {
-  error: new IAPError('iap:errors.acknowledge'),
+  error: new IAPError('screens:purchase.buy.errors.acknowledge'),
   acknowledged: false,
 };
 
@@ -42,7 +42,7 @@ const RESTORE_SUCCESS = {
 
 const RESTORE_ERROR = {
   purchase: undefined,
-  error: new IAPError('iap:errors.restoreFailed'),
+  error: new IAPError('screens:purchase.buy.errors.restoreFailed'),
 };
 
 const mockNavigate = jest.fn();
@@ -109,7 +109,7 @@ it('should display error if request purchase fails', async () => {
   await waitForNextUpdate();
   expect(result.current).toMatchObject({
     loading: false,
-    error: { message: 'iap:errors.requestPurchase' },
+    error: { message: expect.stringContaining('errors.requestPurchase') },
   });
 });
 
@@ -129,7 +129,7 @@ describe('purchase already owned', () => {
     await waitForNextUpdate();
     expect(result.current).toMatchObject({
       loading: false,
-      error: { message: 'iap:errors.restoreFailed' },
+      error: { message: expect.stringContaining('errors.restoreFailed') },
     });
   });
 
@@ -180,7 +180,7 @@ describe('request purchase success', () => {
       await waitForNextUpdate();
       expect(result.current).toMatchObject({
         loading: false,
-        error: { message: 'iap:errors.savePurchase' },
+        error: { message: expect.stringContaining('errors.savePurchase') },
       });
     });
 
@@ -212,7 +212,7 @@ describe('request purchase success', () => {
         await waitForNextUpdate();
         expect(result.current).toMatchObject({
           loading: false,
-          error: { message: 'iap:errors.acknowledge' },
+          error: { message: expect.stringContaining('errors.acknowledge') },
         });
       });
 

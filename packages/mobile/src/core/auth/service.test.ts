@@ -5,7 +5,6 @@ import {
   flushPromises,
 } from '@whitewater-guide/clients/dist/test';
 import { RefreshBody, SignInBody } from '@whitewater-guide/commons';
-import { AppState } from 'react-native';
 import { AccessToken, LoginManager } from 'react-native-fbsdk';
 import { AuthBody } from '../../../../commons/src/auth';
 import { fetchMock } from '../../test';
@@ -13,7 +12,7 @@ import { MobileAuthService } from './service';
 import { tokenStorage } from './tokens';
 
 jest.mock('./tokens');
-jest.mock('AppState', () => ({
+jest.mock('react-native/Libraries/AppState/AppState', () => ({
   currentState: 'active ',
   addEventListener: jest.fn(),
   removeEventListener: jest.fn(),
@@ -30,18 +29,18 @@ let service: AuthService;
 jest.mock('../../utils/waitUntilActive', () => () => Promise.resolve());
 
 beforeEach(async () => {
-  jest.useFakeTimers();
   await tokenStorage.setAccessToken(null);
   await tokenStorage.setRefreshToken(null);
-  jest.clearAllMocks();
+  jest.resetAllMocks();
   fetchMock.reset();
-  (AccessToken.getCurrentAccessToken as any).mockResolvedValueOnce(null);
+  (AccessToken.getCurrentAccessToken as jest.Mock).mockResolvedValue(null);
   (messaging().hasPermission as jest.Mock).mockResolvedValue(true);
   (messaging().getToken as jest.Mock).mockResolvedValue('__fcm_token__');
   service = new MobileAuthService(resetApolloCache, onSignOut);
   fetchMock.mock('end:fcm/set', { success: true });
   fetchMock.mock('glob:*logout*', 200);
   await service.init();
+  jest.useFakeTimers();
 });
 
 afterEach(() => {
@@ -256,8 +255,8 @@ describe('sign in', () => {
       beforeEach(async () => {
         resp = undefined;
         fetchMock.mock('glob:*facebook/signin*', success);
-        (LoginManager.logInWithPermissions as any).mockResolvedValue({});
-        (AccessToken.getCurrentAccessToken as any).mockResolvedValue({
+        (LoginManager.logInWithPermissions as jest.Mock).mockResolvedValue({});
+        (AccessToken.getCurrentAccessToken as jest.Mock).mockResolvedValue({
           accessToken: '__fb_access_token__',
         });
         const promise = service.signIn('facebook');
@@ -322,8 +321,10 @@ describe('sign in', () => {
       });
 
       it('should return fb error when access token is unavailable', async () => {
-        (LoginManager.logInWithPermissions as any).mockReturnValue({});
-        (AccessToken.getCurrentAccessToken as any).mockResolvedValue(null);
+        (LoginManager.logInWithPermissions as jest.Mock).mockReturnValue({});
+        (AccessToken.getCurrentAccessToken as jest.Mock).mockResolvedValue(
+          null,
+        );
         const promise = service.signIn('facebook');
         await Promise.resolve().then(() => jest.advanceTimersByTime(2000));
         const resp = await promise;

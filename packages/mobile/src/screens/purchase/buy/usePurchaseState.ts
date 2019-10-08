@@ -12,6 +12,13 @@ export default (region: PremiumRegion, sectionId?: string): PurchaseState => {
   const iapState = useIap();
   const premiumState = usePremiumQuery(region, sectionId);
   const purchaseAction = usePurchaseAction(region.sku, sectionId);
+  const { canMakePayments, products } = iapState;
+  const product = region.sku ? products.get(region.sku) : undefined;
+  const buyButton = product
+    ? t('screens:purchase.buy.confirmButton.buy', {
+        price: product.localizedPrice,
+      })
+    : t('screens:purchase.buy.confirmButton.noPrice');
 
   if (iapState.error) {
     return {
@@ -29,16 +36,22 @@ export default (region: PremiumRegion, sectionId?: string): PurchaseState => {
     };
   }
 
-  if (iapState.loading) {
+  if (purchaseAction.error) {
     return {
-      loading: true,
-      button: t('screens:purchase.buy.confirmButton.noPrice'),
+      error: purchaseAction.error,
+      button: t('screens:purchase.buy.confirmButton.retry'),
+      onPress: purchaseAction.onPress,
     };
   }
 
-  const { canMakePayments, products } = iapState;
+  if (iapState.loading) {
+    return {
+      loading: true,
+      button: buyButton,
+    };
+  }
+
   const { hasPremiumAccess, me } = premiumState;
-  const product = region.sku ? products.get(region.sku) : undefined;
 
   if (!product) {
     return {
@@ -60,24 +73,20 @@ export default (region: PremiumRegion, sectionId?: string): PurchaseState => {
     };
   }
 
-  const button = t('screens:purchase.buy.confirmButton.buy', {
-    price: product.localizedPrice,
-  });
-
   if (premiumState.loading) {
-    return { loading: true, button };
+    return { loading: true, button: buyButton };
   }
 
   if (hasPremiumAccess) {
     return {
-      button,
+      button: buyButton,
       onPress: () => navigate(Screens.Purchase.AlreadyHave),
     };
   }
 
   if (!me) {
     return {
-      button,
+      button: buyButton,
       onPress: () =>
         navigate({ routeName: Screens.Auth.Root, key: Screens.Auth.Root }),
     };
@@ -85,7 +94,7 @@ export default (region: PremiumRegion, sectionId?: string): PurchaseState => {
 
   if (!me.verified) {
     return {
-      button,
+      button: buyButton,
       onPress: () => navigate(Screens.Purchase.Verify),
     };
   }
@@ -93,7 +102,7 @@ export default (region: PremiumRegion, sectionId?: string): PurchaseState => {
   return {
     button: purchaseAction.error
       ? t('screens:purchase.buy.confirmButton.retry')
-      : button,
+      : buyButton,
     loading: purchaseAction.loading,
     error: purchaseAction.error,
     onPress: purchaseAction.loading ? undefined : purchaseAction.onPress,

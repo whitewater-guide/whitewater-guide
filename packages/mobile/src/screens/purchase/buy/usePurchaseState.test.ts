@@ -78,13 +78,15 @@ beforeEach(() => {
 
 it('should display error and refetch products when iap fails', () => {
   const { iap } = setupMocks({
-    iap: { error: new IAPError('iap:errors.fetchProduct') },
+    iap: { error: new IAPError('screens:purchase.buy.errors.fetchProduct') },
   });
   const { result, unmount } = renderHook(() =>
     usePurchaseState(region, '__sectionId__'),
   );
   expect(result.current).toEqual({
-    error: expect.objectContaining({ message: 'iap:errors.fetchProduct' }),
+    error: expect.objectContaining({
+      message: 'screens:purchase.buy.errors.fetchProduct',
+    }),
     button: expect.stringContaining('retry'),
     onPress: expect.any(Function),
   });
@@ -134,7 +136,9 @@ it('should display fatal error when product cannot be found', () => {
     usePurchaseState({ ...region, sku: 'Region.sku.2' }, '__sectionId__'),
   );
   expect(result.current).toEqual({
-    error: expect.objectContaining({ message: 'iap:errors.notFound' }),
+    error: expect.objectContaining({
+      message: 'screens:purchase.buy.errors.notFound',
+    }),
     button: expect.stringContaining('commons:ok'),
     onPress: expect.any(Function),
   });
@@ -152,7 +156,7 @@ it('should display fatal error when cannot make payment', () => {
   );
   expect(result.current).toEqual({
     error: expect.objectContaining({
-      message: 'iap:errors.cannotMakePayments',
+      message: 'screens:purchase.buy.errors.cannotMakePayments',
     }),
     button: expect.stringContaining('commons:ok'),
     onPress: expect.any(Function),
@@ -170,7 +174,7 @@ it('should display loading when premium query is loading', () => {
     usePurchaseState(region, '__sectionId__'),
   );
   expect(result.current).toEqual({
-    button: 'iap:buy.confirmButton.buy',
+    button: 'screens:purchase.buy.confirmButton.buy',
     loading: true,
   });
   unmount();
@@ -182,7 +186,7 @@ it('should lead to already owned screen when already owned', () => {
     usePurchaseState(region, '__sectionId__'),
   );
   expect(result.current).toEqual({
-    button: 'iap:buy.confirmButton.buy',
+    button: 'screens:purchase.buy.confirmButton.buy',
     onPress: expect.any(Function),
   });
   act(() => {
@@ -198,7 +202,7 @@ it('should lead to auth screen when not logged in', () => {
     usePurchaseState(region, '__sectionId__'),
   );
   expect(result.current).toEqual({
-    button: 'iap:buy.confirmButton.buy',
+    button: 'screens:purchase.buy.confirmButton.buy',
     onPress: expect.any(Function),
   });
   act(() => {
@@ -217,7 +221,7 @@ it('should lead to verify screen when not verified', () => {
     usePurchaseState(region, '__sectionId__'),
   );
   expect(result.current).toEqual({
-    button: 'iap:buy.confirmButton.buy',
+    button: 'screens:purchase.buy.confirmButton.buy',
     onPress: expect.any(Function),
   });
   act(() => {
@@ -233,10 +237,36 @@ it('should display purchase flow', () => {
     usePurchaseState(region, '__sectionId__'),
   );
   expect(result.current).toEqual({
-    button: 'iap:buy.confirmButton.buy',
+    button: 'screens:purchase.buy.confirmButton.buy',
     loading: false,
     error: undefined,
     onPress: expect.any(Function),
+  });
+  act(() => {
+    result.current.onPress!();
+  });
+  expect(action).toHaveBeenCalled();
+  unmount();
+});
+
+it('should display error when purchase action fails on acknowledge phase', () => {
+  const { action } = setupMocks({
+    premium: {
+      hasPremiumAccess: true,
+    },
+    action: {
+      error: new IAPError('screens:purchase.buy.error.acknowledge'),
+    },
+  });
+  const { result, unmount } = renderHook(() =>
+    usePurchaseState(region, '__sectionId__'),
+  );
+  expect(result.current).toEqual({
+    button: expect.stringContaining('retry'),
+    error: expect.objectContaining({
+      message: expect.stringContaining('acknowledge'),
+    }),
+    onPress: action,
   });
   act(() => {
     result.current.onPress!();

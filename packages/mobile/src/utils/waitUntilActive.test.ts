@@ -2,7 +2,7 @@ import { EventEmitter } from 'events';
 import { AppState, AppStateStatic, AppStateStatus } from 'react-native';
 import waitUntilActive from './waitUntilActive';
 
-jest.mock('AppState', () => new MockAppState());
+jest.mock('react-native/Libraries/AppState/AppState', () => new MockAppState());
 jest.useFakeTimers();
 
 class MockAppState implements AppStateStatic {

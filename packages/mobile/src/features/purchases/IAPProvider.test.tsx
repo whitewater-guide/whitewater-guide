@@ -80,7 +80,7 @@ describe('products', () => {
       new Error('failed to get products'),
     );
     const { findByText, getByText } = render(<Test />);
-    await expect(findByText('iap:errors.fetchProduct')).resolves.toBeTruthy();
+    await expect(findByText(/errors\.fetchProduct/)).resolves.toBeTruthy();
     expect(() => getByText(/Product:/)).toThrow();
   });
 
@@ -114,7 +114,7 @@ describe('products', () => {
     );
     const refreshBtn = await findByText('Refresh');
     fireEvent.press(refreshBtn);
-    await expect(findByText('iap:errors.fetchProduct')).resolves.toBeTruthy();
+    await expect(findByText(/errors\.fetchProduct/)).resolves.toBeTruthy();
     expect(() => getByText('Product: Region.sku.1')).toThrow();
   });
 });

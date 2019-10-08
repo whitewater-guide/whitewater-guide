@@ -16,7 +16,6 @@ import { I18nTestProvider } from '../../../../i18n/I18nTestProvider';
 import { AddSectionStack } from '../AddSectionStack';
 
 const mockMutate = jest.fn();
-jest.mock('Clipboard', () => ({ getString: jest.fn().mockResolvedValue('') }));
 jest.mock('../useAddSection', () => () => mockMutate);
 jest.mock('../../../../features/settings/useMapType');
 
@@ -26,6 +25,7 @@ let test: RenderResult;
 
 beforeEach(() => {
   jest.resetAllMocks();
+  jest.spyOn(Clipboard, 'getString').mockResolvedValue('');
   jest.spyOn(clients, 'useRegion').mockImplementation(
     () =>
       ({
