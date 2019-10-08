@@ -1,3 +1,10 @@
+## [0.1.401](https://github.com/doomsower/whitewater/compare/701537e7d3d28cb5eaab6721c7d9b3ec20a83b83...744ff0ea0cc5317266c1b7384cee936fafeccba4) (2019-10-08)
+
+### Features
+
+- new tags selector ([005df4e6fac074116f26fc644b5ea3233a11ef92](https://github.com/doomsower/whitewater/commit/005df4e6fac074116f26fc644b5ea3233a11ef92))
+- open drawer items in new tabs ([92644497abd1a14878e13657b03e304e5b85494e](https://github.com/doomsower/whitewater/commit/92644497abd1a14878e13657b03e304e5b85494e))
+
 ## [0.1.400](https://github.com/doomsower/whitewater/compare/52ae717187c6119bb454a2b8a827ce3ca9e3f92e...701537e7d3d28cb5eaab6721c7d9b3ec20a83b83) (2019-10-06)
 
 ### Features
