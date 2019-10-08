@@ -20,4 +20,5 @@ export * from './RegionFinder';
 export * from './RiverFinder';
 export * from './season-picker';
 export * from './tables';
+export * from './tag-selector';
 export * from './UnstyledLink';

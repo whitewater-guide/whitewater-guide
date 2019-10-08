@@ -14,4 +14,5 @@ export * from './POIField';
 export * from './RatingField';
 export * from './SeasonPickerField';
 export * from './select';
+export * from './TagsField';
 export * from './TextField';

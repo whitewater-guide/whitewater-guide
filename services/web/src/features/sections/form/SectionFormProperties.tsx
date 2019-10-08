@@ -4,11 +4,11 @@ import groupBy from 'lodash/groupBy';
 import React from 'react';
 import { AutocompleteMenuProps } from '../../../components/autocomplete';
 import {
-  MulticompleteField,
   NumberField,
   SeasonPickerField,
   SelectField,
   SelectFieldPreset,
+  TagsField,
   TextField,
 } from '../../../formik/fields';
 import { QResult } from './sectionForm.query';
@@ -92,51 +92,23 @@ export const SectionFormProperties: React.FC<Props> = (props) => {
       </Grid>
 
       <Grid item={true} xs={12}>
-        <MulticompleteField
-          name="supplyTags"
-          options={supply}
-          label="River supply"
-          placeholder="River supply"
-          fullWidth={true}
-          openOnFocus={true}
-          menuProps={tagsMenuProps}
-        />
+        <TagsField name="supplyTags" label="River supply" options={supply} />
       </Grid>
 
       <Grid item={true} xs={12}>
-        <MulticompleteField
+        <TagsField
           name="kayakingTags"
           label="Kayaking types"
-          placeholder="Kayaking types"
           options={kayaking}
-          fullWidth={true}
-          openOnFocus={true}
-          menuProps={tagsMenuProps}
         />
       </Grid>
 
       <Grid item={true} xs={12}>
-        <MulticompleteField
-          name="hazardsTags"
-          label="Hazards"
-          placeholder="Hazards"
-          options={hazards}
-          fullWidth={true}
-          openOnFocus={true}
-          menuProps={tagsMenuProps}
-        />
+        <TagsField name="hazardsTags" label="Hazards" options={hazards} />
       </Grid>
 
       <Grid item={true} xs={12}>
-        <MulticompleteField
-          name="miscTags"
-          label="Tags"
-          placeholder="Tags"
-          options={misc}
-          fullWidth={true}
-          openOnFocus={true}
-          menuProps={tagsMenuProps}
-        />
+        <TagsField name="miscTags" label="Tags" options={misc} />
       </Grid>
     </Grid>
   );
