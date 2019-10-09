@@ -25,7 +25,10 @@ const AlreadyHaveScreen: NavigationScreenComponent = ({
   const { region } = screenProps as NavParams;
   const { t } = useTranslation();
   const onCancel = useCallback(() => {
-    navigation.goBack();
+    const parent = navigation.dangerouslyGetParent();
+    if (parent) {
+      parent.goBack();
+    }
   }, [navigation]);
   return (
     <Screen safe={true}>
