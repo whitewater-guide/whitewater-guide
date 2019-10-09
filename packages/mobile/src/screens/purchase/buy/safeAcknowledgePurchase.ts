@@ -1,10 +1,13 @@
+import { Platform } from 'react-native';
 import { finishTransaction, ProductPurchase } from 'react-native-iap';
 import { trackError } from '../../../core/errors';
 import { IAPError } from '../../../features/purchases';
 
 const safeAcknowledgePurchase = async (purchase: ProductPurchase) => {
   try {
-    await finishTransaction(purchase.transactionId!);
+    await finishTransaction(
+      Platform.OS === 'ios' ? purchase.transactionId! : purchase.purchaseToken!,
+    );
     return {
       error: undefined,
       acknowledged: true,

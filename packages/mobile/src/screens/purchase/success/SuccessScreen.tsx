@@ -25,7 +25,10 @@ const SuccessScreen: NavigationScreenComponent = ({
   const { region } = screenProps as NavParams;
   const { t } = useTranslation();
   const onComplete = useCallback(() => {
-    navigation.goBack();
+    const parent = navigation.dangerouslyGetParent();
+    if (parent) {
+      parent.goBack();
+    }
   }, [navigation]);
   return (
     <Screen safe={true}>
