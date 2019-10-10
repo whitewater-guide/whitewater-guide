@@ -39,7 +39,7 @@ const config: StackNavigatorConfig = {
     header: getHeaderRenderer(false),
     gesturesEnabled: false,
     headerStyle: {
-      backgroundColor: theme.colors.primaryBackground,
+      backgroundColor: theme.colors.lightBackground,
       borderBottomWidth: 0,
       elevation: 0,
     },

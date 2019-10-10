@@ -1,14 +1,8 @@
 import Logo from 'components/Logo';
 import { Screen } from 'components/Screen';
 import React from 'react';
-import {
-  Keyboard,
-  KeyboardAvoidingView,
-  Platform,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  View,
-} from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import theme from '../../theme';
 
 const styles = StyleSheet.create({
@@ -17,7 +11,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.primaryBackground,
   },
   body: {
-    flex: 1,
+    height: theme.stackScreenHeight,
     alignItems: 'stretch',
     padding: theme.margin.double,
     justifyContent: 'space-between',
@@ -34,19 +28,14 @@ const styles = StyleSheet.create({
 export const AuthScreenBase: React.FC = ({ children }) => {
   return (
     <Screen safe={true}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        style={styles.root}
-      >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.body}>
-            <View style={styles.logoWrapper}>
-              <Logo />
-            </View>
-            {children}
+      <KeyboardAwareScrollView>
+        <View style={styles.body}>
+          <View style={styles.logoWrapper}>
+            <Logo />
           </View>
-        </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
+          {children}
+        </View>
+      </KeyboardAwareScrollView>
     </Screen>
   );
 };
