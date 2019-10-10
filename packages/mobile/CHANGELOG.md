@@ -1,3 +1,26 @@
+## [1.9.6](https://github.com/doomsower/whitewater/compare/b1e46349824a1b601ce40a0498c4d7361d8b392e...e1115b356c7f6cda5395d7d682c9b92df7f0a809) (2019-10-10)
+
+### Features
+
+- acknowledge android purchases server-side ([1485aecf0aa26c07620102d7ee2f2b8e6490d230](https://github.com/doomsower/whitewater/commit/1485aecf0aa26c07620102d7ee2f2b8e6490d230))
+- add help needed field ([00bd4d4cce1d64148a69f2dc154b95e7f04fc951](https://github.com/doomsower/whitewater/commit/00bd4d4cce1d64148a69f2dc154b95e7f04fc951))
+- png logo ([d657e80ece61cee11f1a05812cf456507f3b3c79](https://github.com/doomsower/whitewater/commit/d657e80ece61cee11f1a05812cf456507f3b3c79))
+- remove legacy facebook login check ([153eee1ffbcf2903310f8db6350469148bd9449c](https://github.com/doomsower/whitewater/commit/153eee1ffbcf2903310f8db6350469148bd9449c))
+- update to rn61 and new iap ([db7ccc631e2b7064f49a9ca7e5c2df6350e3dea2](https://github.com/doomsower/whitewater/commit/db7ccc631e2b7064f49a9ca7e5c2df6350e3dea2))
+- use new finishTransaction method ([855dbb485c83bd58910dfd0d9d02cc7836e83514](https://github.com/doomsower/whitewater/commit/855dbb485c83bd58910dfd0d9d02cc7836e83514))
+
+### Bug Fixes
+
+- already acknowledge purchases ([6527c0a2859d63e198ff6ca15961e2b1a23e02b0](https://github.com/doomsower/whitewater/commit/6527c0a2859d63e198ff6ca15961e2b1a23e02b0))
+- already have screen now pops correctly ([d2f05e275e620a9e67d15bbf69e1338010f94642](https://github.com/doomsower/whitewater/commit/d2f05e275e620a9e67d15bbf69e1338010f94642))
+- android deep links ([40ccc09578378ab3e6b2ef9c62a4b4a96222c4c1](https://github.com/doomsower/whitewater/commit/40ccc09578378ab3e6b2ef9c62a4b4a96222c4c1))
+- android purchases fixes ([ab42a8adb0ecf93dd449c564c3a6bd8d5caf70f3](https://github.com/doomsower/whitewater/commit/ab42a8adb0ecf93dd449c564c3a6bd8d5caf70f3))
+- auth service error ([7dcd56df3c77df63e01214c4ca242f34433d1324](https://github.com/doomsower/whitewater/commit/7dcd56df3c77df63e01214c4ca242f34433d1324))
+- deep linking android ([05d61b3a2d00899fdabbf4ca9df1233d00faa907](https://github.com/doomsower/whitewater/commit/05d61b3a2d00899fdabbf4ca9df1233d00faa907))
+- fix tests ([50d406a64448718961899600a9d7dafe0dda6de9](https://github.com/doomsower/whitewater/commit/50d406a64448718961899600a9d7dafe0dda6de9))
+- more fixes to purchase ([7f5f81b68f1d2124a91ab1d4d0ef0d037a61518d](https://github.com/doomsower/whitewater/commit/7f5f81b68f1d2124a91ab1d4d0ef0d037a61518d))
+- various fixes and adjustments in purchases flow ([8195d4e387b6333eb595ef93177ba89789735f2e](https://github.com/doomsower/whitewater/commit/8195d4e387b6333eb595ef93177ba89789735f2e))
+
 ## [1.9.4](https://github.com/doomsower/whitewater/compare/4a3e5cccbd87724f2df408b8123cb2196428761e...b1e46349824a1b601ce40a0498c4d7361d8b392e) (2019-09-26)
 
 ### Features
