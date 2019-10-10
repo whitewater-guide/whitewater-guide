@@ -1,3 +1,4 @@
+import log from '@log';
 import { PurchaseInput } from '@whitewater-guide/commons';
 import { readJSON } from 'fs-extra';
 import Verifier, {
@@ -35,6 +36,7 @@ export const acknowledgeAndroid = async (
     purchaseToken,
     developerPayload: uid,
   } as any);
+  log.info(`Acknowledged android purchase`, result);
   if (!result.isSuccessful) {
     throw new Error(result.errorMessage || 'acknowledge android failed');
   }
