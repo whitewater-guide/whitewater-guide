@@ -40,6 +40,7 @@
     "dataloader": "^1.4.0",
     "fs-extra": "^8.1.0",
     "geojson": "^0.5.0",
+    "google-play-billing-validator": "^2.1.1",
     "graphql": "^14.5.7",
     "graphql-fields": "^2.0.3",
     "graphql-iso-date": "^3.6.1",

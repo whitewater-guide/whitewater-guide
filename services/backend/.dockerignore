@@ -14,3 +14,4 @@ yarn-error.log
 .dockerignore
 .env.*
 gulpfile.js
+google_service_account.json

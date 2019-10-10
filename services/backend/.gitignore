@@ -10,3 +10,4 @@ src/**/dump.sql
 /dist/
 src/migrations/014/riverzone.json
 src/migrations/014/riverzone_skipped.json
+google_service_account.json

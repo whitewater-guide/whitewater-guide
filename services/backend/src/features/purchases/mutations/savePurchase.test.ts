@@ -29,6 +29,14 @@ jest.mock('in-app-purchase', () => ({
   isValidated: jest.fn(),
   validate: jest.fn(),
 }));
+jest.mock('google-play-billing-validator', () => {
+  return function Verifier() {
+    return {
+      verifyINAPP: () =>
+        Promise.resolve({ isSuccessful: true, payload: { foo: 'bar' } }),
+    };
+  };
+});
 
 beforeEach(async () => {
   await holdTransaction();
@@ -237,12 +245,12 @@ describe('boomstarter', () => {
   });
 });
 
-describe('stores', () => {
+describe('ios', () => {
   it.each([['with section', mutation], ['without section', mutationWOSection]])(
     'should return single region %s',
     async (_, m) => {
       const purchase: PurchaseInput = {
-        platform: PurchasePlatform.android,
+        platform: PurchasePlatform.ios,
         transactionId: '__transaction_id__',
         productId: 'region.ecuador',
         receipt: '{}',
@@ -261,10 +269,63 @@ describe('stores', () => {
 
   it('should return single region and section', async () => {
     const purchase: PurchaseInput = {
-      platform: PurchasePlatform.android,
+      platform: PurchasePlatform.ios,
       transactionId: '__transaction_id__',
       productId: 'region.georgia',
       receipt: '{}',
+    };
+    const result = await runQuery(
+      mutation,
+      { purchase, sectionId: GEORGIA_BZHUZHA_EXTREME },
+      fakeContext(TEST_USER2),
+    );
+    expect(result.errors).toBeUndefined();
+    expect(result.data.savePurchase).toEqual({
+      regions: [
+        {
+          id: REGION_GEORGIA,
+          sku: 'region.georgia',
+          hasPremiumAccess: true,
+        },
+      ],
+      section: {
+        id: GEORGIA_BZHUZHA_EXTREME,
+        description: 'Bzhuzha Extreme race description',
+      },
+    });
+  });
+});
+
+describe('android', () => {
+  it.each([['with section', mutation], ['without section', mutationWOSection]])(
+    'should return single region %s',
+    async (_, m) => {
+      const purchase: PurchaseInput = {
+        platform: PurchasePlatform.android,
+        transactionId: '__transaction_id__',
+        productId: 'region.ecuador',
+        receipt:
+          '{"packageName": "guide.whitewater", "productId": "region.ecuador", "purchaseToken": "someToken"}',
+      };
+      const result = await runQuery(m, { purchase }, fakeContext(TEST_USER2));
+      expect(result.errors).toBeUndefined();
+      expect(result.data.savePurchase.regions).toEqual([
+        {
+          id: REGION_ECUADOR,
+          sku: 'region.ecuador',
+          hasPremiumAccess: true,
+        },
+      ]);
+    },
+  );
+
+  it('should return single region and section', async () => {
+    const purchase: PurchaseInput = {
+      platform: PurchasePlatform.android,
+      transactionId: '__transaction_id__',
+      productId: 'region.georgia',
+      receipt:
+        '{"packageName": "guide.whitewater", "productId": "region.georgia", "purchaseToken": "someToken"}',
     };
     const result = await runQuery(
       mutation,

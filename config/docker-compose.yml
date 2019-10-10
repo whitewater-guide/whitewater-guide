@@ -23,6 +23,8 @@ services:
       - redis
       - minio
       - workers
+    secrets:
+      - google_service_account
 
   # Postgres sql database
   db:
@@ -117,3 +119,7 @@ services:
       labels:
         guide.whitewater: ''
     read_only: true
+
+secrets:
+  google_service_account:
+    file: ../services/backend/google_service_account.json

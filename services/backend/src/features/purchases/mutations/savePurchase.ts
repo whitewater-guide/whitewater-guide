@@ -16,6 +16,7 @@ import { QueryBuilder, Transaction } from 'knex';
 import * as yup from 'yup';
 import logger from '../logger';
 import { BoomPromoRaw, TransactionRaw } from '../types';
+import { acknowledgeAndroid } from './utils';
 
 interface Vars {
   purchase: PurchaseInput;
@@ -60,12 +61,15 @@ const processBoomstarterPurchase = async (
 };
 
 const processIAP = async (purchase: PurchaseInput, { user }: Context) => {
-  const receipt =
-    purchase.platform === PurchasePlatform.android
-      ? JSON.parse(purchase.receipt!)
-      : purchase.receipt!;
-  const response = await validate(receipt);
-  const validated = isValidated(response);
+  let validated = false;
+  let response: any;
+  if (purchase.platform === PurchasePlatform.android) {
+    response = await acknowledgeAndroid(purchase, user!.id);
+    validated = true;
+  } else {
+    response = await validate(purchase.receipt!);
+    validated = isValidated(response);
+  }
   const transaction: Partial<TransactionRaw> = {
     user_id: user!.id,
     platform: purchase.platform,
