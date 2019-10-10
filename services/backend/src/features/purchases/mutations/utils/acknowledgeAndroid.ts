@@ -12,7 +12,7 @@ const getVerifier = async () => {
     const gServiceAcc = await readJSON(
       process.env.NODE_ENV === 'test'
         ? 'google_service_account.json'
-        : '/run/secrets/google_service_account.json',
+        : '/run/secrets/google_service_account',
     );
     _verifier = new Verifier({
       email: gServiceAcc.client_email,
