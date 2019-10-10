@@ -47,7 +47,7 @@ const reducer: Reducer<State, Action> = (state: State, action: Action) => {
 
 export const SectionRiverField: React.FC = React.memo(() => {
   const { match } = useRouter<RouterParams>();
-  const { sectionId, regionId } = match.params;
+  const { regionId } = match.params;
 
   const { values, setFieldTouched, setFieldValue } = useFormikContext<any>();
 
@@ -82,8 +82,7 @@ export const SectionRiverField: React.FC = React.memo(() => {
       <TextField
         fullWidth={true}
         readOnly={true}
-        disabled={!!sectionId}
-        onClick={!!sectionId ? undefined : openDialog}
+        onClick={openDialog}
         name="river.name"
         errorFieldName="river"
         label="River"
