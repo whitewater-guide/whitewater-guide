@@ -1,3 +1,9 @@
+## [0.0.403](https://github.com/doomsower/whitewater/compare/36ba52e4a8fcdc2482c7522bf8999b9a43f7494d...ca4ad13c1afd864b02e7aba04ff245f0ed4e23e4) (2019-10-10)
+
+### Bug Fixes
+
+- read secret correctly ([e282a377e2b610c3384b3f73b3dad2bd9fb2c41d](https://github.com/doomsower/whitewater/commit/e282a377e2b610c3384b3f73b3dad2bd9fb2c41d))
+
 ## [0.0.402](https://github.com/doomsower/whitewater/compare/744ff0ea0cc5317266c1b7384cee936fafeccba4...36ba52e4a8fcdc2482c7522bf8999b9a43f7494d) (2019-10-10)
 
 ### Features
