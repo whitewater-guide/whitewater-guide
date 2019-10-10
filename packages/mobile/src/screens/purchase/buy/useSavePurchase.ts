@@ -45,13 +45,7 @@ export default (sectionId?: string): Hook => {
             productId: purchase.productId,
             transactionId: purchase.transactionId!,
             transactionDate: new Date(purchase.transactionDate),
-            receipt: Platform.select({
-              ios: purchase.transactionReceipt,
-              android: JSON.stringify({
-                data: purchase.transactionReceipt,
-                signature: purchase.signatureAndroid,
-              }),
-            }),
+            receipt: purchase.transactionReceipt,
             extra: purchase,
           },
           sectionId,

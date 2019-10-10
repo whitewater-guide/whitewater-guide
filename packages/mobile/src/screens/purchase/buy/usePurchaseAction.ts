@@ -36,6 +36,9 @@ export default (sku: string | null, sectionId?: string) => {
 
   useEffect(() => {
     const sub = purchaseUpdatedListener(async (purchase: ProductPurchase) => {
+      if (purchase.productId !== sku) {
+        return;
+      }
       setState((current) => ({
         ...current,
         error: undefined,
@@ -44,7 +47,7 @@ export default (sku: string | null, sectionId?: string) => {
       }));
     });
     return () => sub.remove();
-  }, [setState]);
+  }, [setState, sku]);
 
   useEffect(() => {
     const sub = purchaseErrorListener((e: PurchaseError) => {

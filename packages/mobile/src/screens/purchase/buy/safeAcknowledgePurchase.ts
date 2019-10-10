@@ -5,15 +5,14 @@ import { IAPError } from '../../../features/purchases';
 
 const safeAcknowledgePurchase = async (purchase: ProductPurchase) => {
   try {
-    if (purchase.isAcknowledgedAndroid) {
+    // on android purchases are acknowledged server-side
+    if (purchase.isAcknowledgedAndroid || Platform.OS === 'android') {
       return Promise.resolve({
         error: undefined,
         acknowledged: true,
       });
     }
-    await finishTransaction(
-      Platform.OS === 'ios' ? purchase.transactionId! : purchase.purchaseToken!,
-    );
+    await finishTransaction(purchase.transactionId!);
     return {
       error: undefined,
       acknowledged: true,
