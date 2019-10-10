@@ -1,3 +1,9 @@
+## [0.0.404](https://github.com/doomsower/whitewater/compare/ca4ad13c1afd864b02e7aba04ff245f0ed4e23e4...0148648e9f09e37e83b8c0a3b0061c7bd89e3e78) (2019-10-10)
+
+### Features
+
+- log acknowledged purchases ([d87080f61a01f4ccd11fd2ea58e12f8f1baa2040](https://github.com/doomsower/whitewater/commit/d87080f61a01f4ccd11fd2ea58e12f8f1baa2040))
+
 ## [0.0.403](https://github.com/doomsower/whitewater/compare/36ba52e4a8fcdc2482c7522bf8999b9a43f7494d...ca4ad13c1afd864b02e7aba04ff245f0ed4e23e4) (2019-10-10)
 
 ### Bug Fixes
