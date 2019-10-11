@@ -88,6 +88,7 @@ const SectionForm: React.FC<Props> = ({ match, location }) => {
       {...formik}
       validationSchema={SectionFormSchema}
       submitLabel={fromSuggestedId ? 'Accept' : undefined}
+      validateOnChange={false}
       extraActions={
         <RejectSuggestedButton suggestedSectionId={fromSuggestedId} />
       }
