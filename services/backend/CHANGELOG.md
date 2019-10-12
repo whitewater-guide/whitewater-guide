@@ -1,3 +1,9 @@
+## [0.0.405](https://github.com/doomsower/whitewater/compare/38e704b3125e62d5925dff49faddd82ab6c08ccf...8d420be94979a81bd1e7471cf2c1033842b878fd) (2019-10-12)
+
+### Features
+
+- allow replacement of fcm token ([996069630d97a6cc57b2d64ab1e926e3a3f401a9](https://github.com/doomsower/whitewater/commit/996069630d97a6cc57b2d64ab1e926e3a3f401a9))
+
 ## [0.0.404](https://github.com/doomsower/whitewater/compare/8e2d4d216511bd6f0349989439861ba83e2d7842...38e704b3125e62d5925dff49faddd82ab6c08ccf) (2019-10-12)
 
 ## [0.0.404](https://github.com/doomsower/whitewater/compare/89e2f009d74dc4697bc2c6dc46c3b0795b3aa9c1...8e2d4d216511bd6f0349989439861ba83e2d7842) (2019-10-11)
