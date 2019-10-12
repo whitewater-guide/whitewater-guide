@@ -43,7 +43,7 @@ services:
   # Minio to store images
   minio:
     <<: *ww-single-host
-    image: 'minio/minio:RELEASE.2019-08-01T22-18-54Z'
+    image: 'minio/minio:RELEASE.2019-10-12T01-39-57Z'
     command: server /data
     env_file:
       - ${DOCKER_ENV_FILE}
