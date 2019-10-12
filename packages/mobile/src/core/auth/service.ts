@@ -38,17 +38,13 @@ export class MobileAuthService extends BaseAuthService {
 
   async init() {
     await super.init();
-    const pushEnabled = await messaging().hasPermission();
-    if (pushEnabled) {
-      // do not watch token change.
-      // fcm token should be valid at startup and this is enough for now
-      messaging()
-        .getToken()
-        .then((token: string) => {
-          this._fcmToken = token;
-        })
-        .catch(() => {});
-    }
+    messaging()
+      .getToken()
+      .then((token) => {
+        this._fcmToken = token;
+      })
+      .catch(() => {});
+    messaging().onTokenRefresh(this._sendFcmToken);
     AppState.addEventListener('change', this.onAppStateChange);
   }
 
@@ -86,11 +82,10 @@ export class MobileAuthService extends BaseAuthService {
     }
     if (!this._fcmTokenSent && this._fcmToken) {
       // no await on purpose
-      this._getBearerHeader()
-        .then((opts) =>
-          this._post('/fcm/set', { fcm_token: this._fcmToken }, opts),
-        )
-        .then(() => {
+      messaging()
+        .getToken()
+        .then((token) => {
+          this._sendFcmToken(token);
           this._fcmTokenSent = true;
         })
         .catch(() => {});
@@ -153,6 +148,7 @@ export class MobileAuthService extends BaseAuthService {
       });
     }
     await this.postSignIn(resp);
+    this._fcmTokenSent = true;
     return resp;
   }
 
@@ -161,7 +157,6 @@ export class MobileAuthService extends BaseAuthService {
     if (!success) {
       return;
     }
-    this._fcmTokenSent = true;
     if (accessToken) {
       await tokenStorage.setAccessToken(accessToken);
     }
@@ -201,7 +196,6 @@ export class MobileAuthService extends BaseAuthService {
     if (this._resetApolloCache) {
       await this._resetApolloCache();
     }
-    this._fcmTokenSent = false;
     return { success: true, status: 200 };
   }
 
@@ -229,5 +223,16 @@ export class MobileAuthService extends BaseAuthService {
           },
         }
       : undefined;
+  };
+
+  private _sendFcmToken = async (fcm_token: string) => {
+    const old_fcm_token = fcm_token === this._fcmToken ? null : this._fcmToken;
+    this._fcmToken = fcm_token;
+    const opts = await this._getBearerHeader();
+    if (fcm_token && opts) {
+      try {
+        this._post('/fcm/set', { fcm_token, old_fcm_token }, opts);
+      } catch {}
+    }
   };
 }

@@ -137,7 +137,7 @@ describe('refresh access token', () => {
       await expect(calls).toHaveLength(1);
       await expect(calls).toHaveProperty(
         '0.1.body',
-        JSON.stringify({ fcm_token: '__fcm_token__' }),
+        JSON.stringify({ fcm_token: '__fcm_token__', old_fcm_token: null }),
       );
       await service.refreshAccessToken();
       await flushPromises();
@@ -282,7 +282,12 @@ describe('sign in', () => {
         );
       });
 
-      it('should send fcm token', async () => {});
+      it('should send fcm token', async () => {
+        const calls = fetchMock.calls('glob:*facebook/signin*');
+        expect(calls[0][0]).toContain(
+          'facebook/signin?access_token=__fb_access_token__&fcm_token=__fcm_token__',
+        );
+      });
     });
 
     describe('errors', () => {
@@ -338,13 +343,28 @@ describe('sign in', () => {
   });
 });
 
-describe('logout', () => {
-  it('should send fcm token', async () => {
+describe('fcm tokens', () => {
+  it('should send fcm token on logout', async () => {
     await tokenStorage.setAccessToken(ACCESS_TOKEN);
     await tokenStorage.setRefreshToken(REFRESH_TOKEN);
     await service.signOut();
     await flushPromises();
     const calls = fetchMock.calls('glob:*logout*');
     await expect(calls[0][0]).toEqual(expect.stringContaining('__fcm_token__'));
+  });
+
+  it('should send fcm token on refresh', async () => {
+    await tokenStorage.setAccessToken(ACCESS_TOKEN);
+    await tokenStorage.setRefreshToken(REFRESH_TOKEN);
+    (messaging() as any).emitTokenRefresh('foo');
+    await flushPromises();
+    const calls = fetchMock.calls('end:fcm/set');
+    expect(calls).toHaveLength(1);
+    expect(calls[0][1]).toMatchObject({
+      body: JSON.stringify({
+        fcm_token: 'foo',
+        old_fcm_token: '__fcm_token__',
+      }),
+    });
   });
 });
