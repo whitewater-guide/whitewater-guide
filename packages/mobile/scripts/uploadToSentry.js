@@ -32,6 +32,23 @@ async function getAppcenterVersion(platform, deployment) {
   );
 }
 
+function getBundleArgs(platform) {
+  if (platform === 'ios') {
+    return [
+      '--bundle',
+      'build/ios/CodePush/main.jsbundle',
+      '--bundle-sourcemap',
+      'build/ios/CodePush/main.jsbundle.map',
+    ];
+  }
+  return [
+    '--bundle',
+    'build/ios/CodePush/index.android.bundle',
+    '--bundle-sourcemap',
+    'build/ios/CodePush/index.android.bundle.map',
+  ];
+}
+
 function uploadToSentry(platform, version, dist) {
   spawnSync(
     'yarn',
@@ -41,7 +58,7 @@ function uploadToSentry(platform, version, dist) {
       'files',
       version, // must match `Sentry.setRelease` on client
       'upload-sourcemaps',
-      `build/${platform}/CodePush`,
+      ...getBundleArgs(platform),
       '--rewrite',
       '--strip-common-prefix',
       '--dist',
