@@ -6,21 +6,19 @@ import {
   NumberField,
   TextField,
 } from '../../../formik/fields';
-import { squashConnection } from '../../../formik/utils';
 import { QResult } from './sectionForm.query';
 
 interface Props {
-  region: QResult['region'] | null;
+  gauges: QResult['gauges'] | null;
 }
 
-export const SectionFormFlows: React.FC<Props> = ({ region }) => {
-  const gauges = squashConnection(region || undefined, 'gauges');
+export const SectionFormFlows: React.FC<Props> = ({ gauges }) => {
   return (
     <Grid container={true} spacing={4}>
       <Grid item={true} xs={12}>
         <AutocompleteField
           name="gauge"
-          options={gauges}
+          options={gauges ? gauges.nodes : []}
           allowNull={true}
           placeholder="Select gauge"
           label="Gauge"

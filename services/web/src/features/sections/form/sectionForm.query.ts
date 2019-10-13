@@ -54,11 +54,11 @@ export const SECTION_FORM_QUERY = gql`
       id
       name
       bounds
-      gauges {
-        nodes {
-          id
-          name
-        }
+    }
+    gauges(filter: { regionId: $regionId }) {
+      nodes {
+        id
+        name
       }
     }
     tags {
@@ -95,8 +95,8 @@ export interface QResult {
   river: NamedNode | null;
   region: NamedNode & {
     bounds: Region['bounds'];
-    gauges: Connection<NamedNode>;
   };
+  gauges: Required<Connection<NamedNode>>;
   suggestedSection: {
     id: string;
     section: SectionInput;

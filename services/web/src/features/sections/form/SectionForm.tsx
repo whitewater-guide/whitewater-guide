@@ -79,6 +79,7 @@ const SectionForm: React.FC<Props> = ({ match, location }) => {
   });
 
   const region = formik.rawData ? formik.rawData.region : null;
+  const gauges = formik.rawData ? formik.rawData.gauges : null;
   const bounds = region ? region.bounds : null;
   const tags = formik.rawData ? formik.rawData.tags : [];
 
@@ -115,7 +116,7 @@ const SectionForm: React.FC<Props> = ({ match, location }) => {
       </HashTabView>
 
       <HashTabView value="#flows">
-        <SectionFormFlows region={region} />
+        <SectionFormFlows gauges={gauges} />
       </HashTabView>
 
       <HashTabView value="#properties">
