@@ -1,3 +1,9 @@
+## [0.0.107](https://github.com/doomsower/whitewater/compare/a590f15a7fff92720c41239b4a48aa725040a80b...5f9c3ba43c4b9223ab2d85b85f82615889a22e9e) (2019-10-13)
+
+### Bug Fixes
+
+- debug canada ([0ae069bbc90eff7d22aa5bbd8efd48215b3a842b](https://github.com/doomsower/whitewater/commit/0ae069bbc90eff7d22aa5bbd8efd48215b3a842b))
+
 ## [0.0.106](https://github.com/doomsower/whitewater/compare/24a0e6980526bc26b4bddc5d114baace0ab2d295...a590f15a7fff92720c41239b4a48aa725040a80b) (2019-10-13)
 
 ### Bug Fixes
