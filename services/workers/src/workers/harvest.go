@@ -19,8 +19,19 @@ func harvest(db *DatabaseManager, cache *CacheManager, worker *core.Worker, payl
       payload.Since = lastMeasurement.Timestamp.UTC().Unix()
     }
   }
+  logrus.WithFields(logrus.Fields{
+    "script":   (*worker).ScriptName(),
+    "command":  "harvest",
+    "options": payload.HarvestOptions,
+  }).Info("start harvest")
   // filter since, update last values
   measurements, err := (*worker).Harvest(payload.HarvestOptions)
+  logrus.WithFields(logrus.Fields{
+    "script":   (*worker).ScriptName(),
+    "command":  "harvest",
+    "options": payload.HarvestOptions,
+    "count": len(measurements),
+  }).Info("harvested")
   if err != nil {
     return 0, err
   }
@@ -40,6 +51,12 @@ func harvest(db *DatabaseManager, cache *CacheManager, worker *core.Worker, payl
   }
   // Save to postgres
   saved, err = (*db).SaveMeasurements(measurements)
+  logrus.WithFields(logrus.Fields{
+    "script":   (*worker).ScriptName(),
+    "command":  "harvest",
+    "options": payload.HarvestOptions,
+    "saved": saved,
+  }).Info("saved")
   if saved > 0 {
     (*cache).SaveLastMeasurements(lastMeasurements)
   }

@@ -56,12 +56,6 @@ func (w *workerCanada) Autofill(options map[string]interface{}) (result []core.G
 func (w *workerCanada) Harvest(options core.HarvestOptions) ([]core.Measurement, error) {
 	provinces := getProvinces(options.Extras)
 
-	log.WithFields(log.Fields{
-		"script":   w.ScriptName(),
-		"command":  "harvest",
-		"provinces": len(provinces),
-	}).Info("start harvest")
-
 	jobsCh := make(chan string, len(provinces))
 	resultsCh := make(chan []core.Measurement, len(provinces))
 	var results []core.Measurement
@@ -80,22 +74,11 @@ func (w *workerCanada) Harvest(options core.HarvestOptions) ([]core.Measurement,
 	}
 	close(resultsCh)
 
-	log.WithFields(log.Fields{
-		"script":   w.ScriptName(),
-		"command":  "harvest",
-		"count": len(results),
-	}).Info("canada done")
-
 	return results, nil
 }
 
 func (w *workerCanada) provinceWorker(provinces <-chan string, results chan<- []core.Measurement) {
 	for province := range provinces {
-		log.WithFields(log.Fields{
-			"script":   w.ScriptName(),
-			"command":  "harvest",
-			"province": province,
-		}).Info("canada province worker")
 		measurements, err := fetchMeasurements(w.ScriptName(), province)
 		if err != nil {
 			log.WithFields(log.Fields{
@@ -103,12 +86,6 @@ func (w *workerCanada) provinceWorker(provinces <-chan string, results chan<- []
 				"command":  "harvest",
 				"province": province,
 			}).Error(err)
-		} else {
-			log.WithFields(log.Fields{
-				"script":   w.ScriptName(),
-				"command":  "harvest",
-				"province": province,
-			}).Info("canada province done")
 		}
 		results <- measurements
 	}
