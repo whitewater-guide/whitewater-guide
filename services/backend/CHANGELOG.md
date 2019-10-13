@@ -1,3 +1,9 @@
+## [0.0.407](https://github.com/doomsower/whitewater/compare/bbc1e46c862704168c0d030745acc302017498c8...c7b1bf50ccadeb192323e03123819bc21ecc0353) (2019-10-13)
+
+### Bug Fixes
+
+- fix introspection query ([47013beb3b7188bf8e2b3c44e57557bc7d17978c](https://github.com/doomsower/whitewater/commit/47013beb3b7188bf8e2b3c44e57557bc7d17978c))
+
 ## [0.0.406](https://github.com/doomsower/whitewater/compare/8d420be94979a81bd1e7471cf2c1033842b878fd...bbc1e46c862704168c0d030745acc302017498c8) (2019-10-13)
 
 ### Bug Fixes
