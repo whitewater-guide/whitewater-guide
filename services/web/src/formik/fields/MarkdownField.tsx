@@ -34,6 +34,7 @@ const MarkdownComponent: React.FC<FieldInputProps<MdEditorValue>> = ({
       value={value}
       onChangeCompat={onChange}
       toolbarProps={toolbarProps}
+      rememberMdSwitch={true}
     />
   );
 };

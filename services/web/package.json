@@ -29,7 +29,7 @@
     "@types/react-facebook-login": "^4.1.0",
     "@whitewater-guide/clients": "0.0.300",
     "@whitewater-guide/commons": "0.0.186",
-    "@whitewater-guide/md-editor": "1.1.2",
+    "@whitewater-guide/md-editor": "2.0.2",
     "@whitewater-guide/translations": "^2.0.4",
     "apollo-cache": "^1.2.1",
     "apollo-cache-inmemory": "^1.6.3",
