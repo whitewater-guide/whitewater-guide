@@ -1,3 +1,13 @@
+## [0.0.409](https://github.com/doomsower/whitewater/compare/fa539d802e2d87eca50f7843edd2c516c2f62e2f...48d553196c0a3e51b60d34d53722e2b584ccc263) (2019-10-13)
+
+### Bug Fixes
+
+- quantize coordinates ([98cf6480e70f15b13ea3124a9f418355f0fa0f86](https://github.com/doomsower/whitewater/commit/98cf6480e70f15b13ea3124a9f418355f0fa0f86))
+
+### Features
+
+- region->gauges connection now lists only linked gauges ([27ab7d4195e17066f59cad28c6d2b4562a4d27a2](https://github.com/doomsower/whitewater/commit/27ab7d4195e17066f59cad28c6d2b4562a4d27a2))
+
 ## [0.0.408](https://github.com/doomsower/whitewater/compare/c7b1bf50ccadeb192323e03123819bc21ecc0353...fa539d802e2d87eca50f7843edd2c516c2f62e2f) (2019-10-13)
 
 ### Features
