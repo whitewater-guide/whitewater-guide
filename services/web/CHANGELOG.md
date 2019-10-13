@@ -1,3 +1,14 @@
+## [0.1.406](https://github.com/doomsower/whitewater/compare/03b6968e1286bb15a127beff1193e5c0515b343c...24a0e6980526bc26b4bddc5d114baace0ab2d295) (2019-10-13)
+
+### Bug Fixes
+
+- gauge selector web uses correct query ([06bc86e7a707d0d6c3c9b910b541ec6e70493952](https://github.com/doomsower/whitewater/commit/06bc86e7a707d0d6c3c9b910b541ec6e70493952))
+- remove unused font-awesome ([28fffede8ab6aaa6fdce0e72cf21c0c385830672](https://github.com/doomsower/whitewater/commit/28fffede8ab6aaa6fdce0e72cf21c0c385830672))
+
+### Other
+
+- get rid of adapter buttons ([d9a21e964f88dc14ca4ecac76874a0aa74ce2c99](https://github.com/doomsower/whitewater/commit/d9a21e964f88dc14ca4ecac76874a0aa74ce2c99))
+
 ## [0.1.405](https://github.com/doomsower/whitewater/compare/b2f90df3c19e8921b4cc91a7b452e9261e8a4dc6...03b6968e1286bb15a127beff1193e5c0515b343c) (2019-10-13)
 
 ### Features
