@@ -11,7 +11,7 @@ CREATE OR REPLACE VIEW points_view AS
     COALESCE(points_translations.name, english.name, 'Not translated') as name,
     COALESCE(points_translations.description, english.description, 'Not translated') as description,
     points.kind,
-    (ST_AsGeoJSON(ST_QuantizeCoordinates(points.coordinates, 0)) :: JSON) AS coordinates
+    (ST_AsGeoJSON(points.coordinates, 4) :: JSON) AS coordinates
   FROM langs
     CROSS JOIN points
     LEFT OUTER JOIN points_translations

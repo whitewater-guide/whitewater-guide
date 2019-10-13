@@ -18,7 +18,7 @@ CREATE OR REPLACE VIEW regions_view AS
     regions.maps_size,
     regions.created_at,
     regions.updated_at,
-    (ST_AsGeoJSON(ST_QuantizeCoordinates(regions.bounds, 0)) :: json) AS bounds,
+    (ST_AsGeoJSON(regions.bounds, 2) :: json) AS bounds,
     (
       SELECT json_agg(points_view.*)
       FROM points_view

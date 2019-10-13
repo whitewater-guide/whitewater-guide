@@ -4,7 +4,6 @@ import Knex from 'knex';
 const VIEWS = ['gauges', 'sections', 'rivers', 'regions', 'points'];
 /**
  * Return only 4 digits after point in geometry
- * https://postgis.net/docs/ST_QuantizeCoordinates.html
  * @param {Knex} db
  * @returns {Promise<void>}
  */
