@@ -1,3 +1,9 @@
+## [0.1.405](https://github.com/doomsower/whitewater/compare/b2f90df3c19e8921b4cc91a7b452e9261e8a4dc6...03b6968e1286bb15a127beff1193e5c0515b343c) (2019-10-13)
+
+### Features
+
+- round coordinates to 4 digits in web ui ([1b8d532713a3d79fd898d0df699f3c75c6ff497e](https://github.com/doomsower/whitewater/commit/1b8d532713a3d79fd898d0df699f3c75c6ff497e))
+
 ## [0.1.404](https://github.com/doomsower/whitewater/compare/48d553196c0a3e51b60d34d53722e2b584ccc263...b2f90df3c19e8921b4cc91a7b452e9261e8a4dc6) (2019-10-13)
 
 ## [0.1.404](https://github.com/doomsower/whitewater/compare/fa539d802e2d87eca50f7843edd2c516c2f62e2f...48d553196c0a3e51b60d34d53722e2b584ccc263) (2019-10-13)
