@@ -1,5 +1,6 @@
 import { Tag } from '@whitewater-guide/commons';
 import { toMarkdown } from '@whitewater-guide/md-editor';
+import upperFirst from 'lodash/upperFirst';
 import { SectionFormData } from './types';
 import { MVars } from './upsertSection.mutation';
 
@@ -10,6 +11,7 @@ export default (form: SectionFormData): MVars => {
     supplyTags,
     miscTags,
     description,
+    name,
     ...rest
   } = form;
   const tags = [
@@ -22,6 +24,7 @@ export default (form: SectionFormData): MVars => {
   return {
     section: {
       ...rest,
+      name: upperFirst(name.trim()),
       tags,
       description: toMarkdown(description),
     },

@@ -8,6 +8,7 @@ import Divider from '@material-ui/core/Divider';
 import TextInput from '@material-ui/core/TextField';
 import { NamedNode, NEW_ID } from '@whitewater-guide/commons';
 import { useFormikContext } from 'formik';
+import upperFirst from 'lodash/upperFirst';
 import React, {
   ChangeEvent,
   Reducer,
@@ -73,7 +74,10 @@ export const SectionRiverField: React.FC = React.memo(() => {
   );
 
   const onSubmit = useCallback(() => {
-    setFieldValue('river', state.selected || { id: NEW_ID, name: state.input });
+    setFieldValue(
+      'river',
+      state.selected || { id: NEW_ID, name: upperFirst(state.input).trim() },
+    );
     closeDialog();
   }, [setFieldValue, state, closeDialog]);
 
