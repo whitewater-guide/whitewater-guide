@@ -5,6 +5,7 @@ import (
 	"encoding/csv"
 	"errors"
 	"fmt"
+	log "github.com/sirupsen/logrus"
 	"golang.org/x/text/encoding/charmap"
 	"golang.org/x/text/transform"
 	"io"
@@ -92,7 +93,7 @@ func fetchMeasurements(script, province string) ([]core.Measurement, error) {
 	if province == "" {
 		return nil, errors.New("province is required")
 	}
-	resp, err := core.Client.Get(fmt.Sprintf("http://dd.weather.gc.ca/hydrometric/csv/%s/hourly/%s_hourly_hydrometric.csv", province, province))
+	resp, err := core.Client.Get(fmt.Sprintf("https://dd.weather.gc.ca/hydrometric/csv/%s/hourly/%s_hourly_hydrometric.csv", province, province))
 	if err != nil {
 		return nil, err
 	}
@@ -134,10 +135,16 @@ func fetchMeasurements(script, province string) ([]core.Measurement, error) {
 			flowQA:      line[9],
 		}
 		measurement, err := convertMeasurements(mRaw, timezones, script)
-		if err != nil {
-			return nil, err
+		if err == nil {
+			result = append(result, *measurement)
+		} else {
+			log.WithFields(log.Fields{
+				"script":   "canada",
+				"command":  "harvest",
+				"province": province,
+				"code": mRaw.id,
+			}).Warn(err)
 		}
-		result = append(result, *measurement)
 	}
 	return result, nil
 }

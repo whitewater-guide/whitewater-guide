@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-const CSV_URL = "http://dd.weather.gc.ca/hydrometric/doc/hydrometric_StationList.csv"
+const CSV_URL = "https://dd.weather.gc.ca/hydrometric/doc/hydrometric_StationList.csv"
 
 type station struct {
 	id        string // ID,
