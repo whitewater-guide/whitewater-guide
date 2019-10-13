@@ -118,6 +118,7 @@ func handler(res http.ResponseWriter, req *http.Request) {
 	case "harvest":
 		worker := workerFactories[payload.Script]()
 		result, err = harvest(&database, &cache, &worker, &payload)
+		logger.Info(fmt.Sprintf("main done with %s: result %v, error %v", worker.ScriptName(), result, err))
 		go cache.SaveOpLog(payload.Script, payload.Code, err, getResultCount(result))
 	default:
 		logger.Error("bad command")

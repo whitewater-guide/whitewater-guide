@@ -31,6 +31,7 @@ func harvest(db *DatabaseManager, cache *CacheManager, worker *core.Worker, payl
     "command":  "harvest",
     "options": payload.HarvestOptions,
     "count": len(measurements),
+    "error": err,
   }).Info("harvested")
   if err != nil {
     return 0, err
@@ -56,6 +57,7 @@ func harvest(db *DatabaseManager, cache *CacheManager, worker *core.Worker, payl
     "command":  "harvest",
     "options": payload.HarvestOptions,
     "saved": saved,
+    "err": err,
   }).Info("saved")
   if saved > 0 {
     (*cache).SaveLastMeasurements(lastMeasurements)
