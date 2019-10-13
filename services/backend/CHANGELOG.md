@@ -1,3 +1,9 @@
+## [0.0.408](https://github.com/doomsower/whitewater/compare/c7b1bf50ccadeb192323e03123819bc21ecc0353...fa539d802e2d87eca50f7843edd2c516c2f62e2f) (2019-10-13)
+
+### Features
+
+- quantize coordinates ([7d85064306535bb6658d61b742f530b91e0ea4d2](https://github.com/doomsower/whitewater/commit/7d85064306535bb6658d61b742f530b91e0ea4d2))
+
 ## [0.0.407](https://github.com/doomsower/whitewater/compare/bbc1e46c862704168c0d030745acc302017498c8...c7b1bf50ccadeb192323e03123819bc21ecc0353) (2019-10-13)
 
 ### Bug Fixes
