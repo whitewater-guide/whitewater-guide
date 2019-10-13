@@ -21,28 +21,13 @@ func harvest(db *DatabaseManager, cache *CacheManager, worker *core.Worker, payl
   }
   // filter since, update last values
   measurements, err := (*worker).Harvest(payload.HarvestOptions)
-  logrus.WithFields(logrus.Fields{
-    "script":   (*worker).ScriptName(),
-    "command":  "harvest",
-    "options": payload.HarvestOptions,
-    "count": len(measurements),
-    "error": err,
-  }).Info("harvested")
   if err != nil {
     return 0, err
   }
 
-  logrus.WithFields(logrus.Fields{
-    "script":   (*worker).ScriptName(),
-    "command":  "harvest",
-    "options": payload.HarvestOptions,
-    "count": len(measurements),
-    "lastMeasurements": lastMeasurements,
-  }).Info("filtering")
-
   if (*worker).HarvestMode() == core.AllAtOnce {
     // For one-by-one script filtering is done using since parameter
-    measurements = core.FilterByLast(measurements, lastMeasurements)
+    measurements = core.FilterByLast(measurements, lastMeasurements, 4)
   }
 
   logrus.WithFields(logrus.Fields{

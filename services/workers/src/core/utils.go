@@ -49,7 +49,7 @@ func FilterMeasurements(measurements []Measurement, since int64) []Measurement {
   return result
 }
 
-func FilterByLast(measurements []Measurement, last map[GaugeId]Measurement) []Measurement {
+func FilterByLast(measurements []Measurement, last map[GaugeId]Measurement, defaultHours int) []Measurement {
   // TODO: test me
   result := make([]Measurement, 0)
   for _, m := range measurements {
@@ -58,7 +58,9 @@ func FilterByLast(measurements []Measurement, last map[GaugeId]Measurement) []Me
         result = append(result, m)
       }
     } else {
-      result = append(result, m)
+      if m.Timestamp.After(time.Now().Add(time.Duration(-defaultHours) * time.Hour)) {
+        result = append(result, m)
+      }
     }
   }
   return result
