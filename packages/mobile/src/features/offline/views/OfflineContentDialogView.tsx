@@ -44,7 +44,7 @@ interface Props {
 const OfflineContentDialogView: React.FC<Props> = React.memo((props) => {
   const { region, inProgress, progress, error } = props;
   const summary = useQuery<Result, Vars>(REGION_MEDIA_SUMMARY, {
-    fetchPolicy: 'no-cache',
+    fetchPolicy: 'network-only',
     variables: { regionId: region.id },
   });
   const data =
