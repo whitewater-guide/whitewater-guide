@@ -13,6 +13,7 @@ export const apolloCachePersistor = new CachePersistor({
   storage,
   maxSize: false,
   debug: __DEV__,
+  debounce: 4000,
 });
 
 export const assertCachePersistorVersion = async () => {
