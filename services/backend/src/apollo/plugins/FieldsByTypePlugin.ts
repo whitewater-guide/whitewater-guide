@@ -27,7 +27,16 @@ export class FieldsByTypePlugin
   }
 
   didResolveOperation: DidResolveOpListener = (requestContext) => {
-    const { document, request, context, queryHash } = requestContext;
+    const {
+      document,
+      request,
+      context,
+      queryHash,
+      operationName,
+    } = requestContext;
+    if (operationName === 'IntrospectionQuery') {
+      return Promise.resolve();
+    }
     if (queryHash) {
       const cached = this._cache.get(queryHash);
       if (cached) {
