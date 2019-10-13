@@ -1,3 +1,6 @@
+import round from 'lodash/round';
+
+type LatLngLiteral = google.maps.LatLngLiteral;
 type LatLng = google.maps.LatLng;
 type Geometry = google.maps.Data.Geometry;
 type Point = google.maps.Data.Point;
@@ -16,16 +19,37 @@ export function isPolygon(geometry: Geometry): geometry is Polygon {
   return geometry.getType() === 'Polygon';
 }
 
-export function geometryToLatLngs(geometry?: Geometry): LatLng[] | null {
+export const latLngToPrecision = (
+  value: LatLng | LatLngLiteral,
+  precision = 4,
+): LatLngLiteral => {
+  const lat = round(
+    typeof value.lat === 'number' ? value.lat : value.lat(),
+    precision,
+  );
+  const lng = round(
+    typeof value.lng === 'number' ? value.lng : value.lng(),
+    precision,
+  );
+  return { lat, lng };
+};
+
+export function geometryToLatLngs(
+  geometry?: Geometry,
+  precision?: number,
+): Array<LatLng | LatLngLiteral> | null {
   if (!geometry) {
     return null;
   }
   if (isPoint(geometry)) {
-    return [geometry.get()];
+    return [latLngToPrecision(geometry.get(), precision)];
   } else if (isLineString(geometry)) {
-    return geometry.getArray();
+    return geometry.getArray().map((pt) => latLngToPrecision(pt, precision));
   } else if (isPolygon(geometry)) {
-    return geometry.getAt(0).getArray();
+    return geometry
+      .getAt(0)
+      .getArray()
+      .map((pt) => latLngToPrecision(pt, precision));
   }
   return null;
 }

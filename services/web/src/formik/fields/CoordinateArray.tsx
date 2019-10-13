@@ -25,6 +25,7 @@ const CoordinateArrayInner: React.FC<FieldArrayRenderProps> = React.memo(
   (props) => {
     const { form, name, push, remove } = props;
     const coordinates: Coordinate3d[] = props.form.values[props.name];
+    const lastIndex = coordinates.length - 1;
     const classes = useStyles();
 
     const onReverse = useCallback(() => {
@@ -42,6 +43,7 @@ const CoordinateArrayInner: React.FC<FieldArrayRenderProps> = React.memo(
             name={`${name}.${i}`}
             index={i}
             onRemove={remove}
+            showCopy={i === 0 || i === lastIndex}
           />
         ))}
         <CoordinateInput

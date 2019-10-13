@@ -5,8 +5,10 @@ import {
   CoordinateSchema,
   createSafeValidator,
 } from '@whitewater-guide/commons';
+import clipboard from 'clipboard-copy';
 import Coordinates from 'coordinate-parser';
 import isEmpty from 'lodash/isEmpty';
+import round from 'lodash/round';
 import React from 'react';
 import { Styles } from '../styles';
 import { NumberInput } from './NumberInput';
@@ -19,7 +21,7 @@ const styles: Styles = {
     alignItems: 'center',
   },
   input: {
-    width: 85,
+    width: 75,
     marginRight: 4,
   },
   altitude: {
@@ -31,8 +33,8 @@ const styles: Styles = {
     width: undefined,
     height: undefined,
   },
-  icon: {
-    padding: 0,
+  iconsWrapper: {
+    width: 64,
   },
 };
 
@@ -42,6 +44,7 @@ type Unnumber = undefined | number;
 type Uncoordinate = [Unnumber, Unnumber, Unnumber];
 
 export interface CoordinateInputProps {
+  showCopy?: boolean;
   value?: Uncoordinate;
   onChange?: (val: Uncoordinate) => void;
   onAdd?: (val: Coordinate3d) => void;
@@ -107,8 +110,8 @@ export class CoordinateInput extends React.PureComponent<
         'Text',
       );
       const coord = new Coordinates(coordinateStr);
-      const lat = coord.getLatitude();
-      const lng = coord.getLongitude();
+      const lat = round(coord.getLatitude(), 4);
+      const lng = round(coord.getLongitude(), 4);
       const value: Uncoordinate = [lng, lat, 0];
       const errors = validator(value);
       this.setState({ value, errors });
@@ -116,9 +119,16 @@ export class CoordinateInput extends React.PureComponent<
     } catch (err) {}
   };
 
+  onCopy = () => {
+    const [lng, lat] = this.props.value || [];
+    if (lng !== undefined && lat !== undefined) {
+      clipboard(`${lat.toFixed(4)}, ${lng.toFixed(4)}`).catch(() => {});
+    }
+  };
+
   render() {
     const { errors, value, submitted } = this.state;
-    const { isNew, onRemove } = this.props;
+    const { isNew, showCopy, onRemove } = this.props;
     const btnDisabled = isNew ? submitted && !isEmpty(errors) : false;
     const showErrors = isNew ? submitted : true;
     return (
@@ -148,12 +158,20 @@ export class CoordinateInput extends React.PureComponent<
           margin="dense"
           error={!!errors && !!errors[2] && showErrors}
         />
-        <IconButton
-          disabled={btnDisabled}
-          onClick={isNew ? this.onAdd : onRemove}
-        >
-          <Icon>{isNew ? 'add_circle' : 'remove_circle'}</Icon>
-        </IconButton>
+        <div style={styles.iconsWrapper}>
+          <IconButton
+            size="small"
+            disabled={btnDisabled}
+            onClick={isNew ? this.onAdd : onRemove}
+          >
+            <Icon>{isNew ? 'add_circle' : 'remove_circle'}</Icon>
+          </IconButton>
+          {showCopy && (
+            <IconButton size="small" onClick={this.onCopy}>
+              <Icon>{'file_copy'}</Icon>
+            </IconButton>
+          )}
+        </div>
       </div>
     );
   }
