@@ -1,3 +1,10 @@
+## [0.0.106](https://github.com/doomsower/whitewater/compare/24a0e6980526bc26b4bddc5d114baace0ab2d295...a590f15a7fff92720c41239b4a48aa725040a80b) (2019-10-13)
+
+### Bug Fixes
+
+- switch canada to https and skip failed measurements ([52867697286c9af5bb21329b8e41fe70b0c7f1ad](https://github.com/doomsower/whitewater/commit/52867697286c9af5bb21329b8e41fe70b0c7f1ad))
+- workers build bug ([8e16350d8d8a40a61211f8118a7f27be6e7808de](https://github.com/doomsower/whitewater/commit/8e16350d8d8a40a61211f8118a7f27be6e7808de))
+
 ## [0.0.103](https://github.com/doomsower/whitewater/compare/03b6968e1286bb15a127beff1193e5c0515b343c...24a0e6980526bc26b4bddc5d114baace0ab2d295) (2019-10-13)
 
 ## [0.0.103](https://github.com/doomsower/whitewater/compare/b2f90df3c19e8921b4cc91a7b452e9261e8a4dc6...03b6968e1286bb15a127beff1193e5c0515b343c) (2019-10-13)

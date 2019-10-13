@@ -1,3 +1,10 @@
+## [0.1.409](https://github.com/doomsower/whitewater/compare/24a0e6980526bc26b4bddc5d114baace0ab2d295...a590f15a7fff92720c41239b4a48aa725040a80b) (2019-10-13)
+
+### Features
+
+- remember markdown state ([2978788a2fd73e4148ee84c335b884dae494de51](https://github.com/doomsower/whitewater/commit/2978788a2fd73e4148ee84c335b884dae494de51))
+- upper case river & section name on submit ([5a0b04fb3ad7c35653678ab42f04d9bbc2a3252b](https://github.com/doomsower/whitewater/commit/5a0b04fb3ad7c35653678ab42f04d9bbc2a3252b))
+
 ## [0.1.406](https://github.com/doomsower/whitewater/compare/03b6968e1286bb15a127beff1193e5c0515b343c...24a0e6980526bc26b4bddc5d114baace0ab2d295) (2019-10-13)
 
 ### Bug Fixes
