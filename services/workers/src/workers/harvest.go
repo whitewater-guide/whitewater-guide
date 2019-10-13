@@ -24,18 +24,11 @@ func harvest(db *DatabaseManager, cache *CacheManager, worker *core.Worker, payl
   if err != nil {
     return 0, err
   }
-
+  
   if (*worker).HarvestMode() == core.AllAtOnce {
     // For one-by-one script filtering is done using since parameter
     measurements = core.FilterByLast(measurements, lastMeasurements, 4)
   }
-
-  logrus.WithFields(logrus.Fields{
-    "script":   (*worker).ScriptName(),
-    "command":  "harvest",
-    "options": payload.HarvestOptions,
-    "count": len(measurements),
-  }).Info("filtered")
 
   for _, m := range measurements {
     if lastMeasurement, ok = lastMeasurements[m.GaugeId]; !ok || m.Timestamp.After(lastMeasurement.Timestamp.Time) {
@@ -45,21 +38,8 @@ func harvest(db *DatabaseManager, cache *CacheManager, worker *core.Worker, payl
   if len(measurements) == 0 {
     logrus.WithFields(structs.Map(payload)).WithFields(structs.Map(payload.HarvestOptions)).Warn("harvested 0 measurements")
   }
-  logrus.WithFields(logrus.Fields{
-    "script":   (*worker).ScriptName(),
-    "command":  "harvest",
-    "options": payload.HarvestOptions,
-    "count": len(measurements),
-  }).Info("saving")
   // Save to postgres
   saved, err = (*db).SaveMeasurements(measurements)
-  logrus.WithFields(logrus.Fields{
-    "script":   (*worker).ScriptName(),
-    "command":  "harvest",
-    "options": payload.HarvestOptions,
-    "saved": saved,
-    "err": err,
-  }).Info("saved")
   if saved > 0 {
     (*cache).SaveLastMeasurements(lastMeasurements)
   }
