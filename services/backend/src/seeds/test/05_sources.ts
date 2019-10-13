@@ -1,6 +1,6 @@
 import { HarvestMode } from '@whitewater-guide/commons';
 import Knex from 'knex';
-import { REGION_GALICIA, REGION_NORWAY } from './04_regions';
+import { REGION_GALICIA, REGION_GEORGIA, REGION_NORWAY } from './04_regions';
 
 export const SOURCE_GALICIA_1 = '6d0d717e-aa9d-11e7-abc4-cec278b6b50a';
 export const SOURCE_GALICIA_2 = '9f962a34-bff9-11e7-abc4-cec278b6b50a';
@@ -109,6 +109,10 @@ const sourcesRegions = [
   {
     source_id: SOURCE_NORWAY,
     region_id: REGION_NORWAY,
+  },
+  {
+    source_id: SOURCE_GEORGIA,
+    region_id: REGION_GEORGIA,
   },
 ];
 

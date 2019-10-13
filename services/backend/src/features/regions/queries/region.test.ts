@@ -229,10 +229,10 @@ describe('connections', () => {
     // Norway
     const result = await runQuery(
       gaugesQuery,
-      { id: 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34' },
-      fakeContext(EDITOR_NO_EC),
+      { id: REGION_GEORGIA },
+      fakeContext(ADMIN),
     );
-    expect(result.data!.region.gauges.count).toEqual(6);
+    expect(result.data!.region.gauges.count).toEqual(2);
     expect(result.data!.region.gauges).toMatchSnapshot();
   });
 
@@ -256,16 +256,16 @@ describe('connections', () => {
     const result = await runQuery(
       gaugesQuery,
       {
-        id: 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34',
+        id: REGION_GEORGIA,
         page: { limit: 1, offset: 1 },
       },
-      fakeContext(EDITOR_NO_EC),
+      fakeContext(ADMIN),
     );
-    expect(result.data!.region.gauges.count).toBe(6);
+    expect(result.data!.region.gauges.count).toBe(2);
     expect(result.data!.region.gauges.nodes).toHaveLength(1);
     expect(result).toHaveProperty(
       'data.region.gauges.nodes.0.name',
-      'Galicia gauge 2',
+      'Georgian gauge 4',
     );
   });
 

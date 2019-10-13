@@ -39,31 +39,15 @@ Object {
 
 exports[`connections should get gauges 1`] = `
 Object {
-  "count": 6,
+  "count": 2,
   "nodes": Array [
     Object {
-      "id": "aba8c106-aaa0-11e7-abc4-cec278b6b50a",
-      "name": "Galicia gauge 1",
+      "id": "53af2530-19fe-11e8-accf-0ed5f89f718b",
+      "name": "Georgian gauge 1",
     },
     Object {
-      "id": "b77ef1b2-aaa0-11e7-abc4-cec278b6b50a",
-      "name": "Galicia gauge 2",
-    },
-    Object {
-      "id": "c03184b4-aaa0-11e7-abc4-cec278b6b50a",
-      "name": "Norway gauge 1",
-    },
-    Object {
-      "id": "cc55b1c0-aaa0-11e7-abc4-cec278b6b50a",
-      "name": "Norway gauge 2",
-    },
-    Object {
-      "id": "1628c340-1a0a-11e8-accf-0ed5f89f718b",
-      "name": "Norway gauge 3",
-    },
-    Object {
-      "id": "1628cb60-1a0a-11e8-accf-0ed5f89f718b",
-      "name": "Norway gauge 4",
+      "id": "53af2e2c-19fe-11e8-accf-0ed5f89f718b",
+      "name": "Georgian gauge 4",
     },
   ],
 }

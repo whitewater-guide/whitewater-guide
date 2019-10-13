@@ -22,7 +22,8 @@ type Region {
 
   # List of rivers
   rivers(page: Page): RegionRiverConnection!
-  # List of gauges
+  # List of gauges.
+  # Important: only gauges linked to sections are listed.
   gauges(page: Page): RegionGaugeConnection!
   # List of sections
   sections(page: Page, filter: SectionsFilter): RegionSectionConnection!

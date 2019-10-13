@@ -145,10 +145,10 @@ describe('results', () => {
     expect(result.data!.regions).toBeDefined();
     expect(result.data!.regions.nodes).toMatchObject([
       { gauges: { count: 0 } }, // Ecuador
-      { gauges: { count: 4 } }, // galicia
-      { gauges: { count: 0 } }, // georgia
+      { gauges: { count: 1 } }, // galicia
+      { gauges: { count: 2 } }, // georgia
       { gauges: { count: 0 } }, // laos
-      { gauges: { count: 6 } }, // norway
+      { gauges: { count: 1 } }, // norway
     ]);
   });
 
