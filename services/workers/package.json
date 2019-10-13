@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/workers",
   "private": true,
-  "version": "0.0.109",
+  "version": "0.0.110",
   "license": "UNLICENSED",
   "description": "workers for whitewater.guide stack",
   "repository": "https://github.com/doomsower/whitewater.git",
