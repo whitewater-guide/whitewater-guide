@@ -1,3 +1,9 @@
+## [0.0.406](https://github.com/doomsower/whitewater/compare/8d420be94979a81bd1e7471cf2c1033842b878fd...bbc1e46c862704168c0d030745acc302017498c8) (2019-10-13)
+
+### Bug Fixes
+
+- expose introspection schema on staging ([cb0cf831a299f625b81b8fbec45aa1296cb01786](https://github.com/doomsower/whitewater/commit/cb0cf831a299f625b81b8fbec45aa1296cb01786))
+
 ## [0.0.405](https://github.com/doomsower/whitewater/compare/38e704b3125e62d5925dff49faddd82ab6c08ccf...8d420be94979a81bd1e7471cf2c1033842b878fd) (2019-10-12)
 
 ### Features
