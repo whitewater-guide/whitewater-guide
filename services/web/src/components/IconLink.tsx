@@ -7,10 +7,6 @@ interface Props extends LinkProps {
   icon?: string;
 }
 
-const AdapterLink = React.forwardRef<HTMLAnchorElement, LinkProps>(
-  (props, ref) => <Link innerRef={ref as any} {...props} />,
-);
-
 export const IconLink: React.FC<Props> = React.forwardRef(
   ({ icon, children, ...props }, ref) => {
     // Workaround: IconButton doesn't have component prop in typedefs
@@ -21,7 +17,7 @@ export const IconLink: React.FC<Props> = React.forwardRef(
       React.Children.only(children)
     );
     return (
-      <Component {...props} ref={ref} component={AdapterLink}>
+      <Component {...props} ref={ref} component={Link}>
         {iconElement}
       </Component>
     );

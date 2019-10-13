@@ -1,13 +1,7 @@
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import React from 'react';
-import { Link, LinkProps } from 'react-router-dom';
-
-// The usage of React.forwardRef will no longer be required for react-router-dom v6.
-// see https://github.com/ReactTraining/react-router/issues/6056
-const AdapterLink = React.forwardRef<HTMLAnchorElement, LinkProps>(
-  (props, ref) => <Link innerRef={ref as any} {...props} />,
-);
+import { Link } from 'react-router-dom';
 
 interface Props {
   to: string;
@@ -15,7 +9,7 @@ interface Props {
 
 const AddSectionButton: React.FC<Props> = React.memo(({ to }) => {
   return (
-    <Button component={AdapterLink} to={to}>
+    <Button component={Link} to={to}>
       <Icon>add</Icon>
       Add Section
     </Button>
