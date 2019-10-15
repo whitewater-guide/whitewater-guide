@@ -1,4 +1,9 @@
-import { Coordinate3d, CoordinateLoose } from '@whitewater-guide/commons';
+import {
+  Coordinate3d,
+  CoordinateLoose,
+  CoordinateSchema,
+  createSafeValidator,
+} from '@whitewater-guide/commons';
 import { useField } from 'formik';
 import React, { useCallback } from 'react';
 import { SelectGeometryDialog } from '../../components/maps';
@@ -10,11 +15,15 @@ interface Props {
   onClose: () => void;
 }
 
+const validator = createSafeValidator(CoordinateSchema);
+
 export const SelectPointDialogField: React.FC<Props> = React.memo((props) => {
   const { name, bounds, onClose } = props;
   const [field] = useField(name);
   const point: Coordinate3d | undefined = field.value;
-  const points: Coordinate3d[] | undefined = point ? [point] : undefined;
+  const points: Coordinate3d[] | undefined = validator(point)
+    ? undefined
+    : ([point] as Coordinate3d[]);
   const { onChange } = useFakeHandlers(name);
 
   const onSubmit = useCallback(
