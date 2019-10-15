@@ -122,7 +122,7 @@ export class CoordinateInput extends React.PureComponent<
   onCopy = () => {
     const [lng, lat] = this.props.value || [];
     if (lng !== undefined && lat !== undefined) {
-      clipboard(`${lat.toFixed(4)}, ${lng.toFixed(4)}`).catch(() => {});
+      clipboard(`${lat.toFixed(4)},${lng.toFixed(4)}`).catch(() => {});
     }
   };
 
