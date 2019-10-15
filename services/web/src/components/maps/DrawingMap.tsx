@@ -124,6 +124,11 @@ export class DrawingMap extends React.Component<Props> {
         this.feature.setGeometry(new Polygon([latLngs]));
       }
       this.ignoreSetGeometryEvent = false;
+
+      if (points.length === 0) {
+        this.map!.data.setDrawingMode(drawingMode);
+        this.map!.data.setControls([drawingMode]);
+      }
     } else if (points.length >= minPoints[drawingMode]) {
       this.addFeature(points);
     } else if (points.length === 1 && prevPoints.length === 0) {
