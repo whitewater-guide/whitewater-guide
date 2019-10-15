@@ -64,11 +64,9 @@ export class CoordinateInput extends React.PureComponent<
 > {
   constructor(props: CoordinateInputProps) {
     super(props);
-    this.state = {
-      errors: {},
-      value: props.value || [undefined, undefined, undefined],
-      submitted: false,
-    };
+    const value = props.value || [undefined, undefined, undefined];
+    const errors = validator(value);
+    this.state = { errors, value, submitted: false };
   }
 
   componentWillReceiveProps(next: CoordinateInputProps) {
