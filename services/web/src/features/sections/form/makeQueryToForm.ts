@@ -35,7 +35,7 @@ export default (isCopy?: boolean) => (result: QResult): SectionFormData => {
   }
   if (!result || !result.section) {
     // Deliberately allow null. Initial form value will be invalid
-    const river: any = result ? result.river : null;
+    const river: any = (result && result.river) || { id: null, name: '' };
     return {
       id: null,
       river,
