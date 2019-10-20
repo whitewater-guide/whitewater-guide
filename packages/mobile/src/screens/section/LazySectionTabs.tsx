@@ -20,6 +20,7 @@ const LazySectionTabs: React.FC<Props> = React.memo(
     if (!regionId || !sectionId) {
       return null;
     }
+    // return partial data is set to true for new fields in case of offline regions
     return (
       <ErrorBoundary>
         <RegionProvider
@@ -27,7 +28,11 @@ const LazySectionTabs: React.FC<Props> = React.memo(
           bannerWidth={theme.screenWidthPx}
           fetchPolicy="cache-only"
         >
-          <SectionProvider sectionId={sectionId} query={SECTION_DETAILS}>
+          <SectionProvider
+            sectionId={sectionId}
+            query={SECTION_DETAILS}
+            returnPartialData={true}
+          >
             {({ node, error, loading, refetch }) => (
               <WithNetworkError
                 data={node}
