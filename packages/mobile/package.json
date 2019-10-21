@@ -90,6 +90,7 @@
     "react-native-bootsplash": "^1.0.1",
     "react-native-bundle-splitter": "^1.0.3",
     "react-native-code-push": "^5.6.1",
+    "react-native-collapsible": "^1.5.1",
     "react-native-config": "https://github.com/luggit/react-native-config",
     "react-native-debugger-open": "^0.3.19",
     "react-native-fast-image": "https://github.com/doomsower/react-native-fast-image/releases/download/7.1.0/react-native-fast-image-7.1.0.tgz",

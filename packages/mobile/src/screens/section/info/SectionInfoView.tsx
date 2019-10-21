@@ -1,9 +1,9 @@
 import {
   renderDifficulty,
   stringifySeason,
-  WithSection,
+  WithNode,
 } from '@whitewater-guide/clients';
-import { TagCategory } from '@whitewater-guide/commons';
+import { Section, TagCategory } from '@whitewater-guide/commons';
 import Chips from 'components/Chips';
 import { Body, Left, Right, Row } from 'components/Row';
 import SimpleStarRating from 'components/SimpleStarRating';
@@ -12,11 +12,12 @@ import trim from 'lodash/trim';
 import upperFirst from 'lodash/upperFirst';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
 import { Paragraph, Subheading } from 'react-native-paper';
 import { getSeasonLocalizer } from '../../../i18n';
 import theme from '../../../theme';
 import CoordinatesInfo from './CoordinatesInfo';
+import HelpNeeded from './HelpNeeded';
 
 const styles = StyleSheet.create({
   content: {
@@ -27,7 +28,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const SectionInfoView: React.FC<WithSection> = ({ section: { node } }) => {
+interface Props {
+  section: WithNode<Section>;
+}
+
+const SectionInfoView: React.FC<Props> = ({ section }) => {
+  const { node, refetch, loading } = section;
   const [t] = useTranslation();
   if (!node) {
     return null;
@@ -42,7 +48,14 @@ const SectionInfoView: React.FC<WithSection> = ({ section: { node } }) => {
   }
   const tagsByCategory = groupBy(node.tags, 'category');
   return (
-    <ScrollView contentContainerStyle={styles.content}>
+    <ScrollView
+      contentContainerStyle={styles.content}
+      refreshControl={
+        <RefreshControl refreshing={loading} onRefresh={refetch} />
+      }
+    >
+      <HelpNeeded section={node} />
+
       <Row>
         <Left>
           <Subheading>{t('commons:difficulty')}</Subheading>
