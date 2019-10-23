@@ -43,9 +43,9 @@ function getBundleArgs(platform) {
   }
   return [
     '--bundle',
-    'build/ios/CodePush/index.android.bundle',
+    'build/android/CodePush/index.android.bundle',
     '--bundle-sourcemap',
-    'build/ios/CodePush/index.android.bundle.map',
+    'build/android/CodePush/index.android.bundle.map',
   ];
 }
 
