@@ -1,3 +1,9 @@
+## [0.1.412](https://github.com/doomsower/whitewater/compare/b8e708b100908b2f91f67704dd29f02abca3e760...b46194c5001f5699434a72b16e2b3c1a0173a6c8) (2019-11-05)
+
+### Features
+
+- add sections with media ([bd33663dacc13f121b7944cfc74831853d7da1db](https://github.com/doomsower/whitewater/commit/bd33663dacc13f121b7944cfc74831853d7da1db))
+
 ## [0.1.411-photos.6](https://github.com/doomsower/whitewater/compare/8bae1d9b3fc5d39d04b02cf82afff6df2f21a1a0...b8e708b100908b2f91f67704dd29f02abca3e760) (2019-11-04)
 
 ## [0.1.411-photos.6](https://github.com/doomsower/whitewater/compare/ea415d30703d618f765d16941873bce2deb776fb...8bae1d9b3fc5d39d04b02cf82afff6df2f21a1a0) (2019-11-04)
