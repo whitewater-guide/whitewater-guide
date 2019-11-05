@@ -6,7 +6,7 @@ import { Loading } from '../../components';
 import MediaForm from './form';
 import { MediaListWithData } from './list';
 
-const SectionMedia: React.FC = () => {
+export const SectionMedia: React.FC = () => {
   const { match } = useRouter();
   return (
     <Box padding={1}>
@@ -22,5 +22,3 @@ const SectionMedia: React.FC = () => {
     </Box>
   );
 };
-
-export default SectionMedia;

@@ -29,4 +29,5 @@ export const transformRivermapSection = (
   tags: [],
   pois: [],
   hidden: true,
+  media: [],
 });

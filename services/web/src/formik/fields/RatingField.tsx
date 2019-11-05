@@ -21,7 +21,7 @@ interface Props {
 
 export const RatingField: React.FC<Props> = React.memo((props) => {
   const { name, label } = props;
-  const [field] = useField(name);
+  const [field] = useField<number>(name);
   const { onChange } = useFakeHandlers(name);
   const classes = useStyles();
   // Because event.target.value is string

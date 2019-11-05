@@ -1,4 +1,4 @@
-import { Media, UploadLink } from '@whitewater-guide/commons';
+import { Media } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 
 export const MEDIA_FORM_QUERY = gql`
@@ -11,12 +11,6 @@ export const MEDIA_FORM_QUERY = gql`
       url
       weight
       resolution
-    }
-
-    uploadLink {
-      formData
-      key
-      postURL
     }
   }
 `;
@@ -36,5 +30,4 @@ export interface QResult {
     | 'weight'
     | 'resolution'
   >;
-  uploadLink: UploadLink;
 }

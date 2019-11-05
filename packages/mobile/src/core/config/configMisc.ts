@@ -4,11 +4,7 @@ import Config from 'react-native-config';
 import { useScreens } from 'react-native-screens';
 
 const configMisc = () => {
-  YellowBox.ignoreWarnings([
-    'Setting a timer',
-    'Warning: NetInfo',
-    '-[RCTRootView cancelTouches]',
-  ]);
+  console.disableYellowBox = true;
 
   // TODO: possible react-native-screens and react-native-splash-screen conflict causing crashes
   // https://github.com/kmagiera/react-native-screens/issues/54

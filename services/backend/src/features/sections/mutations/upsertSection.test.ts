@@ -20,7 +20,7 @@ import {
 import { REGION_GALICIA, REGION_NORWAY } from '@seeds/04_regions';
 import { RIVER_GAL_1, RIVER_SJOA } from '@seeds/07_rivers';
 import { GALICIA_R1_S1, NORWAY_SJOA_AMOT } from '@seeds/09_sections';
-import { PHOTO_1 } from '@seeds/11_media';
+import { PHOTO_1, PHOTO_2 } from '@seeds/11_media';
 import { MEDIA_SUGGESTION_ID1 } from '@seeds/17_suggestions';
 import {
   countRows,
@@ -40,6 +40,8 @@ import { copy } from 'fs-extra';
 import { ExecutionResult } from 'graphql';
 import set from 'lodash/fp/set';
 import * as path from 'path';
+
+const { PROTOCOL, MINIO_DOMAIN } = process.env;
 
 let spBefore: number;
 let pBefore: number;
@@ -192,6 +194,7 @@ const existingRiverSection: SectionInput = {
       coordinates: [33, 34], // 2d
     },
   ],
+  media: [],
   hidden: false,
   helpNeeded: 'please proofread this',
 };
@@ -265,6 +268,7 @@ const invalidSection: SectionInput = {
   rating: 35,
   tags: [],
   pois: [],
+  media: [],
 
   hidden: false,
   helpNeeded: null,
@@ -584,6 +588,7 @@ describe('i18n', () => {
     gauge: null,
     levels: null,
     tags: [],
+    media: [],
 
     hidden: false,
     helpNeeded: null,
@@ -702,7 +707,19 @@ describe('media', () => {
   const updateSection: SectionInput = {
     ...existingRiverSection,
     id: NORWAY_SJOA_AMOT,
-    media,
+    media: [
+      ...media,
+      {
+        id: PHOTO_2,
+        kind: MediaKind.photo,
+        description: 'Photo 2 new description',
+        copyright: 'Photo 2 new copyright',
+        // Absolute url of photot that exists in seed minio data
+        url: `${PROTOCOL}://${MINIO_DOMAIN}/media/${PHOTO_2}`,
+        resolution: [1024, 768],
+        weight: 1,
+      },
+    ],
   };
 
   beforeEach(async () => {
@@ -734,7 +751,7 @@ describe('media', () => {
         nodes: [
           {
             id: expect.stringMatching(UUID_REGEX),
-            url: 'photo.jpg',
+            url: `${PROTOCOL}://${MINIO_DOMAIN}/media/photo.jpg`,
             kind: MediaKind.photo,
           },
           {
@@ -774,11 +791,16 @@ describe('media', () => {
 
     it('should return media', () => {
       expect(result.data!.upsertSection.media).toMatchObject({
-        count: 2,
+        count: 3,
         nodes: [
           {
+            id: PHOTO_2,
+            url: `${PROTOCOL}://${MINIO_DOMAIN}/media/${PHOTO_2}`,
+            kind: MediaKind.photo,
+          },
+          {
             id: expect.stringMatching(UUID_REGEX),
-            url: 'photo.jpg',
+            url: `${PROTOCOL}://${MINIO_DOMAIN}/media/photo.jpg`,
             kind: MediaKind.photo,
           },
           {

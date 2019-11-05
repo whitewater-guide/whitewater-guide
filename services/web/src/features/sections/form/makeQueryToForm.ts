@@ -63,13 +63,23 @@ export default (isCopy?: boolean) => (result: QResult): SectionFormData => {
       supplyTags: [],
       levels: null,
       flows: null,
+      media: [],
     };
   }
-  const { tags, id, name, description, demo, ...section } = result.section;
+  const {
+    tags,
+    id,
+    name,
+    description,
+    demo,
+    media,
+    ...section
+  } = result.section;
   return {
     id: isCopy ? null : id,
     name: isCopy ? '' : name,
     ...section,
+    media: media.nodes,
     river: toNamedNode(section.river),
     region: toNamedNode(result.region),
     description: fromMarkdown(description),

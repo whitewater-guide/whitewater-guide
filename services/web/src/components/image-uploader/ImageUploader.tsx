@@ -1,264 +1,121 @@
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { uploadFile } from '@whitewater-guide/clients';
-import { Media, UploadLink } from '@whitewater-guide/commons';
-import React from 'react';
-import { S3_HOST } from '../../environment';
-import { Styles } from '../../styles';
-import {
-  cleanupPreview,
-  FileWithPreview,
-  getImageSize,
-  isFileWithPreview,
-} from '../../utils';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { i18nizeUploadError, useUploadLink } from '@whitewater-guide/clients';
+import clsx from 'clsx';
+import React, { useCallback, useEffect, useRef } from 'react';
+import { Required } from 'utility-types';
+import { cleanupPreview, LocalPhoto } from '../../utils/files';
 import { DeleteButton } from '../DeleteButton';
-import { Lightbox, LightboxItem } from '../lightbox';
 import AddFile from './AddFile';
+import Filename from './Filename';
+import {
+  ImageUploaderPreview,
+  ImageUploaderPreviewProps,
+} from './ImageUploaderPreview';
 
-const styles: Styles = {
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    flexGrow: 0,
-    width: 'max-content',
-    padding: 8,
-  },
-  main: {
-    display: 'flex',
-    padding: 8,
-    flexGrow: 0,
-    borderWidth: 1,
-    borderColor: '#BBBBBB',
-    borderStyle: 'solid',
-  },
-  imageWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 8,
-    minHeight: 100,
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-    objectFit: 'scale-down',
-    cursor: 'pointer',
-  },
-  noImage: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: '#BBBBBB',
-    borderStyle: 'dashed',
-    backgroundColor: 'white',
-  },
-  buttons: {
-    display: 'flex',
-    flexDirection: 'column',
-    paddingLeft: 8,
-    paddingRight: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  error: {
-    color: '#f44336',
-  },
-};
+const useStyles = makeStyles(({ spacing }) =>
+  createStyles({
+    root: {
+      display: 'flex',
+      flexDirection: 'column',
+      flexGrow: 0,
+      width: 'max-content',
+      padding: spacing(),
+    },
+    main: {
+      display: 'flex',
+      padding: spacing(),
+      flexGrow: 0,
+      borderWidth: 1,
+      borderColor: '#BBBBBB',
+      borderStyle: 'solid',
+    },
+    buttons: {
+      display: 'flex',
+      flexDirection: 'column',
+      paddingLeft: spacing(),
+      paddingRight: spacing(),
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+  }),
+);
 
-export interface ImageUploaderProps {
-  bucket: string;
-  width: number | [number, number];
-  height: number | [number, number];
-  previewScale: number;
-  title?: string;
+export interface ImageUploaderProps extends ImageUploaderPreviewProps {
+  onChange: (value: LocalPhoto | null) => void;
   hideFileName?: boolean;
-  value: string | FileWithPreview | null;
-  onChange: (value: string | FileWithPreview | null) => void;
-  uploading?: boolean; // for storybook
-  upload?: UploadLink; // optional for storybook
-  rootStyle?: any;
-  mainStyle?: any;
+  title?: string;
+  classes?: {
+    root?: string;
+    main?: string;
+  };
+  mpxOrResolution?: number | [number, number];
 }
 
-interface State {
-  badSize: boolean;
-  uploading: boolean;
-  currentModal: number | null;
-  fakeMedia: LightboxItem[];
-  useTempBucket: boolean;
-}
+export const ImageUploader: React.FC<ImageUploaderProps> = React.memo(
+  (props) => {
+    const {
+      value,
+      onChange,
+      title,
+      hideFileName,
+      classes = {},
+      width,
+      height,
+      previewScale,
+      mpxOrResolution,
+    } = props;
+    const classez = useStyles();
+    const prev = useRef(value);
+    const { upload } = useUploadLink();
 
-const getSrc = (value: string, bucket: string) => {
-  if (process.env.STORYBOOK_ENABLED === 'true') {
-    return value;
-  }
-  return value.startsWith('http') ? value : `${S3_HOST}/${bucket}/${value}`;
-};
+    useEffect(() => {
+      if (prev.current !== value && prev.current && prev.current.file) {
+        cleanupPreview(prev.current.file);
+      }
+      prev.current = value;
+    }, [value]);
 
-const getFakeMedia = (
-  props: ImageUploaderProps,
-  useTempBucket?: boolean,
-): LightboxItem[] => {
-  const { value, bucket } = props;
-  return typeof value === 'string'
-    ? [
-        {
-          id: 'upload',
-          url: getSrc(value, useTempBucket ? 'temp' : bucket),
-          image: getSrc(value, useTempBucket ? 'temp' : bucket),
-          description: value,
-          copyright: '',
-        },
-      ]
-    : [];
-};
+    const handleDelete = useCallback(() => onChange(null), [onChange]);
 
-export class ImageUploader extends React.PureComponent<
-  ImageUploaderProps,
-  State
-> {
-  static getDerivedStateFromProps(props: ImageUploaderProps, prevState: State) {
-    return {
-      ...prevState,
-      fakeMedia: getFakeMedia(props, prevState.useTempBucket),
-    };
-  }
-
-  readonly state: State = {
-    badSize: false,
-    uploading: this.props.uploading || false,
-    currentModal: null,
-    fakeMedia: getFakeMedia(this.props),
-    useTempBucket: false,
-  };
-
-  async componentDidMount() {
-    if (isFileWithPreview(this.props.value)) {
-      const badSize = await this.checkFileSize(this.props.value);
-      this.setState({ badSize });
-    }
-  }
-
-  componentDidUpdate(prevProps: ImageUploaderProps) {
-    if (
-      isFileWithPreview(prevProps.value) &&
-      prevProps.value !== this.props.value
-    ) {
-      cleanupPreview(prevProps.value);
-    }
-  }
-
-  checkFileSize = async (file: FileWithPreview) => {
-    const { width, height } = this.props;
-    const dimensions = await getImageSize(file);
-    const [minWidth, maxWidth] =
-      typeof width === 'number' ? [width, width] : width;
-    const [minHeight, maxHeight] =
-      typeof height === 'number' ? [height, height] : height;
-    return !(
-      dimensions.width >= minWidth &&
-      dimensions.width <= maxWidth &&
-      dimensions.height >= minHeight &&
-      dimensions.height <= maxHeight
+    const handleChange = useCallback(
+      (v: Required<LocalPhoto, 'file'>) => {
+        onChange(v);
+        if (!v.error) {
+          upload(v.file)
+            .then((url) => {
+              onChange({ ...v, url });
+            })
+            .catch((e) => {
+              onChange({ ...v, error: i18nizeUploadError(e) });
+            });
+        }
+      },
+      [onChange],
     );
-  };
 
-  onAdd = async (file: FileWithPreview) => {
-    const badSize = await this.checkFileSize(file);
-    this.setState({ badSize });
-    this.props.onChange(file);
-    if (!badSize && this.props.upload) {
-      this.setState({ uploading: true });
-      const filename = await uploadFile(file.file, this.props.upload);
-      this.props.onChange(filename);
-      this.setState({ uploading: false, useTempBucket: true });
-    }
-  };
-
-  onDelete = () => this.props.onChange(null);
-
-  onCloseLightbox = () => this.setState({ currentModal: null });
-
-  onOpenLightbox = () => {
-    if (this.props.value instanceof File) {
-      return;
-    }
-    this.setState({ currentModal: 0 });
-  };
-
-  renderImage = () => {
-    const { bucket, width, height, previewScale, value } = this.props;
-    const { uploading, useTempBucket } = this.state;
-    const imageStyle = {
-      width: (typeof width === 'number' ? width : width[1]) * previewScale,
-      height: (typeof height === 'number' ? height : height[1]) * previewScale,
-    };
-    if (uploading) {
-      return (
-        <div style={{ ...imageStyle, ...styles.noImage }}>
-          <CircularProgress />
-        </div>
-      );
-    }
-    if (value) {
-      const src: string = isFileWithPreview(value)
-        ? value.preview
-        : getSrc(value, useTempBucket ? 'temp' : bucket);
-      return (
-        <div style={imageStyle}>
-          <img style={styles.image} src={src} onClick={this.onOpenLightbox} />
-        </div>
-      );
-    }
     return (
-      <div style={{ ...imageStyle, ...styles.noImage }}>
-        <span>No Image</span>
-      </div>
-    );
-  };
-
-  renderFilename = () => {
-    const { value } = this.props;
-    const filename = value instanceof File ? value.name : value;
-    return <span>{`File: ${filename || ''}`}</span>;
-  };
-
-  renderBadSize = () => {
-    const { width, height } = this.props;
-    const { badSize } = this.state;
-    if (badSize) {
-      return (
-        <span style={styles.error}>
-          {`Required image size is ${width}x${height}`}
-        </span>
-      );
-    }
-  };
-
-  render() {
-    const { hideFileName, title, rootStyle, mainStyle } = this.props;
-    return (
-      <div style={{ ...styles.root, ...rootStyle }}>
+      <div className={clsx(classez.root, classes.root)}>
         {!!title && (
           <span>
             <strong>{title}</strong>
           </span>
         )}
-        {!hideFileName && this.renderFilename()}
-        <div style={{ ...styles.main, ...mainStyle }}>
-          <div style={styles.imageWrapper}>{this.renderImage()}</div>
-          <div style={styles.buttons}>
-            <DeleteButton id="img" deleteHandler={this.onDelete} />
-            <AddFile onAdd={this.onAdd} />
+        {!hideFileName && <Filename value={value} />}
+        <div className={clsx(classez.main, classes.main)}>
+          <ImageUploaderPreview
+            value={value}
+            width={width}
+            height={height}
+            previewScale={previewScale}
+          />
+          <div className={classez.buttons}>
+            <DeleteButton id="img" deleteHandler={handleDelete} />
+            <AddFile onAdd={handleChange} mpxOrResolution={mpxOrResolution} />
           </div>
         </div>
-        {this.renderBadSize()}
-        <Lightbox
-          items={this.state.fakeMedia}
-          currentModal={this.state.currentModal}
-          onClose={this.onCloseLightbox}
-        />
       </div>
     );
-  }
-}
+  },
+);
+
+ImageUploader.displayName = 'ImageUploader';

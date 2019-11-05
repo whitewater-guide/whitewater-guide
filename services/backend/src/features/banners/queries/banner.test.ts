@@ -26,8 +26,7 @@ const query = `
       placement
       source {
         kind
-        ratio
-        src(width: 1000)
+        url(width: 1000)
       }
       link
       extras
@@ -103,7 +102,7 @@ describe('data', () => {
       fakeContext(ADMIN),
     );
     expect(result.errors).toBeUndefined();
-    expect(result.data!.banner.source.src).toEqual(
+    expect(result.data!.banner.source.url).toEqual(
       expect.stringContaining(`${PROTOCOL}://${MINIO_DOMAIN}/thumbs/`),
     );
   });
@@ -115,7 +114,7 @@ describe('data', () => {
       { ...fakeContext(ADMIN), legacy: 1 },
     );
     expect(result.errors).toBeUndefined();
-    expect(result.data!.banner.source.src).toBe('banner_4.jpg');
+    expect(result.data!.banner.source.url).toBe('banner_4.jpg');
   });
 
   it('should return webview url in legacy mode', async () => {
@@ -125,7 +124,7 @@ describe('data', () => {
       { ...fakeContext(ADMIN), legacy: 1 },
     );
     expect(result.errors).toBeUndefined();
-    expect(result.data!.banner.source.src).toBe(
+    expect(result.data!.banner.source.url).toBe(
       'http://whitewater.guide/galicia_region_descr_banner',
     );
   });

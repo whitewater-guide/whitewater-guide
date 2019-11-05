@@ -4,5 +4,4 @@ export * from './geo';
 export * from './hooks';
 export * from './sleep';
 export * from './text';
-export * from './uploadFile';
 export * from './video';

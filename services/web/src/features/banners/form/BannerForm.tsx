@@ -1,4 +1,3 @@
-import { NamedNode } from '@whitewater-guide/commons';
 import React from 'react';
 import { FormikCard, useApolloFormik } from '../../../formik';
 import { squashConnection } from '../../../formik/utils';
@@ -29,19 +28,15 @@ export const BannerForm: React.FC<Props> = ({ match }) => {
 
   const regions = squashConnection(formik.rawData, 'regions');
   const groups = squashConnection(formik.rawData, 'groups');
-  const uploadLink = formik.rawData && formik.rawData.uploadLink;
 
   return (
     <FormikCard<QResult, BannerFormData>
       header={header}
       {...formik}
       validationSchema={BannerFormSchema}
+      validateOnChange={true}
     >
-      <BannerFormMain
-        regions={regions}
-        groups={groups}
-        uploadLink={uploadLink}
-      />
+      <BannerFormMain regions={regions} groups={groups} />
     </FormikCard>
   );
 };

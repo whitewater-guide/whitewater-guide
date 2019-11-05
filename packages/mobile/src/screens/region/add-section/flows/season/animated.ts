@@ -47,12 +47,15 @@ const createGestureHandler = (
           cond(eq(state, State.BEGAN), [set(start.x, x), set(start.y, y)]),
           onChange(
             ind(end),
-            call(
-              [
-                diffClamp(min(ind(start), ind(end)), 0, 23),
-                diffClamp(max(ind(start), ind(end)), 0, 23),
-              ],
-              onPan,
+            cond(
+              eq(state, State.ACTIVE),
+              call(
+                [
+                  diffClamp(min(ind(start), ind(end)), 0, 23),
+                  diffClamp(max(ind(start), ind(end)), 0, 23),
+                ],
+                onPan,
+              ),
             ),
           ),
           onChange(

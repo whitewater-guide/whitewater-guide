@@ -8,6 +8,7 @@ import { LazyAttributesScreen } from './attributes';
 import { LazyDescriptionScreen } from './description';
 import { LazyFlowsScreen } from './flows';
 import { LazyMainScreen } from './main';
+import { LazyPhotosScreen } from './photos';
 import SubmitButton from './SubmitButton';
 
 const routes: NavigationRouteConfigMap = {
@@ -22,6 +23,9 @@ const routes: NavigationRouteConfigMap = {
   },
   [Screens.Region.AddSection.Tabs.Flows]: {
     screen: LazyFlowsScreen,
+  },
+  [Screens.Region.AddSection.Tabs.Photos]: {
+    screen: LazyPhotosScreen,
   },
 };
 

@@ -1,1 +1,1 @@
-export { default as SectionMedia } from './SectionMedia';
+export * from './SectionMedia';

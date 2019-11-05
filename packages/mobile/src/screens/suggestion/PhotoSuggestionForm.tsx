@@ -1,14 +1,8 @@
-import {
-  PhotoSuggestionInputSchema,
-  SuggestionInput,
-} from '@whitewater-guide/commons';
 import CCNote from 'components/CCNote';
-import Loading from 'components/Loading';
 import { Formik } from 'formik';
 import PhotoUploadField from 'forms/photo-upload';
 import TextField from 'forms/TextField';
-import useValidate from 'forms/useValidate';
-import React, { useCallback, useMemo, useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   KeyboardAvoidingView,
@@ -18,10 +12,9 @@ import {
 } from 'react-native';
 import { Button } from 'react-native-paper';
 import theme from '../../theme';
-import getInitialValues from './getInitialValues';
-import useAddSuggestion from './useAddSuggestion';
+import { PhotoSuggestion } from './types';
 import useKeyboard from './useKeyboard';
-import useUploadLink from './useUploadLink';
+import usePhotoSuggestionForm from './usePhotoSuggestionForm';
 
 const styles = StyleSheet.create({
   container: {
@@ -41,10 +34,11 @@ const styles = StyleSheet.create({
 
 interface Props {
   sectionId: string;
+  localPhotoId: string;
 }
 
 const PhotoSuggestionForm: React.FC<Props> = React.memo((props) => {
-  const { sectionId } = props;
+  const { sectionId, localPhotoId } = props;
   const descriptionRef = useRef<TextInput | null>(null);
   const onCopyrightSubmit = useCallback(() => {
     if (descriptionRef.current) {
@@ -52,26 +46,11 @@ const PhotoSuggestionForm: React.FC<Props> = React.memo((props) => {
     }
   }, [descriptionRef]);
   const { t } = useTranslation();
-  const initialValues = useMemo(() => getInitialValues(sectionId), [sectionId]);
-  const onSubmit = useAddSuggestion();
-  const validate = useValidate(PhotoSuggestionInputSchema);
-  const initialErrors = useMemo(() => validate(initialValues), [
-    validate,
-    initialValues,
-  ]);
   const [scroll, handlers] = useKeyboard();
-  const [uploadLink, preparingLink] = useUploadLink();
-  if (preparingLink || !uploadLink) {
-    return <Loading />;
-  }
+  const form = usePhotoSuggestionForm(sectionId, localPhotoId);
 
   return (
-    <Formik<SuggestionInput>
-      initialValues={initialValues}
-      initialErrors={initialErrors}
-      onSubmit={onSubmit}
-      validate={validate}
-    >
+    <Formik<PhotoSuggestion> {...form} validateOnMount={true}>
       {({ isSubmitting, isValid, submitForm }) => (
         <KeyboardAvoidingView
           behavior="height"
@@ -83,7 +62,7 @@ const PhotoSuggestionForm: React.FC<Props> = React.memo((props) => {
             style={styles.container}
             contentContainerStyle={styles.content}
           >
-            <PhotoUploadField name="filename" uploadLink={uploadLink} />
+            <PhotoUploadField name="photo" localPhotoId={localPhotoId} />
             <TextField
               name="copyright"
               label={t('screens:suggestion.copyrightLabel')}

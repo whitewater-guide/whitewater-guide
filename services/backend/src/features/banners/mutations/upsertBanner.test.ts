@@ -60,8 +60,7 @@ const mutation = `
       placement
       source {
         kind
-        ratio
-        src
+        url
       }
       link
       extras
@@ -92,8 +91,7 @@ const banner: BannerInput = {
   placement: BannerPlacement.MOBILE_SECTION_ROW,
   source: {
     kind: BannerKind.WebView,
-    ratio: 4,
-    src: 'https://ya.ru/new_banner',
+    url: 'https://ya.ru/new_banner',
   },
   link: 'https://go.to/new_banner',
   extras: { foo: 'bar' },
@@ -131,11 +129,10 @@ describe('resolvers chain', () => {
       placement: BannerPlacement.MOBILE_SECTION_ROW,
       source: {
         kind: BannerKind.WebView,
-        ratio: 100,
-        src: '',
+        url: '',
       },
       link: '',
-      extras: 'x',
+      extras: 'x' as any,
       regions: [{ id: 'bax' }],
       groups: [{ id: 'nun' }],
     };
@@ -259,8 +256,7 @@ describe('files', () => {
     ...banner,
     source: {
       kind: BannerKind.Image,
-      ratio: null,
-      src: NEW_FILE_ID,
+      url: NEW_FILE_ID,
     },
   };
 
@@ -270,8 +266,7 @@ describe('files', () => {
     id: GALICIA_REGION_DESCR_BANNER2,
     source: {
       kind: BannerKind.Image,
-      ratio: null,
-      src: 'banner_4.jpg',
+      url: 'banner_4.jpg',
     },
   };
 
@@ -280,8 +275,7 @@ describe('files', () => {
     id: GALICIA_REGION_DESCR_BANNER2,
     source: {
       kind: BannerKind.Image,
-      ratio: null,
-      src: NEW_FILE_ID,
+      url: NEW_FILE_ID,
     },
   };
 
@@ -290,8 +284,7 @@ describe('files', () => {
     id: GALICIA_REGION_DESCR_BANNER2,
     source: {
       kind: BannerKind.WebView,
-      ratio: null,
-      src: 'http://ya.ru',
+      url: 'http://ya.ru',
     },
   };
 
@@ -340,7 +333,7 @@ describe('files', () => {
           ...oldBanner,
           source: {
             ...oldBanner.source,
-            src: `${PROTOCOL}://${MINIO_DOMAIN}/banners/${oldBanner.source.src}`,
+            url: `${PROTOCOL}://${MINIO_DOMAIN}/banners/${oldBanner.source.url}`,
           },
         },
       },
@@ -353,8 +346,8 @@ describe('files', () => {
       .where({ id: upsertedBanner.id })
       .first();
     expect(source).toEqual(oldBanner.source);
-    expect(upsertedBanner.source.src).toEqual(
-      `${PROTOCOL}://${MINIO_DOMAIN}/banners/${oldBanner.source.src}`,
+    expect(upsertedBanner.source.url).toEqual(
+      `${PROTOCOL}://${MINIO_DOMAIN}/banners/${oldBanner.source.url}`,
     );
   });
 
@@ -372,8 +365,8 @@ describe('files', () => {
       .where({ id: upsertedBanner.id })
       .first();
     expect(source).toEqual(newImageBanner.source);
-    expect(upsertedBanner.source.src).toEqual(
-      `${PROTOCOL}://${MINIO_DOMAIN}/banners/${newImageBanner.source.src}`,
+    expect(upsertedBanner.source.url).toEqual(
+      `${PROTOCOL}://${MINIO_DOMAIN}/banners/${newImageBanner.source.url}`,
     );
   });
 

@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 import { useCallback } from 'react';
 import { useMutation } from 'react-apollo';
 import { Platform } from 'react-native';
-import { ProductPurchase } from 'react-native-iap';
+import { InAppPurchase } from 'react-native-iap';
 import { IAPError } from '../../../features/purchases';
 
 const ADD_PURCHASE_MUTATION = gql`
@@ -28,13 +28,13 @@ interface Vars {
 }
 
 type Hook = (
-  purchase: ProductPurchase,
+  purchase: InAppPurchase,
 ) => Promise<{ error?: IAPError; saved: boolean }>;
 
 export default (sectionId?: string): Hook => {
   const [mutate] = useMutation<{}, Vars>(ADD_PURCHASE_MUTATION);
   return useCallback(
-    (purchase: ProductPurchase) =>
+    (purchase: InAppPurchase) =>
       mutate({
         variables: {
           purchase: {

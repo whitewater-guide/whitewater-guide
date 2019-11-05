@@ -9,10 +9,10 @@ import { groupByRiver, importRivers, importSection } from './utils';
  * @returns {Promise<void>}
  */
 export const up = async (db: Knex) => {
-  console.info('Importing rainchasers');
   if (process.env.NODE_ENV === 'test') {
     return;
   }
+  console.info('Importing rainchasers');
   const rcSection = await importRainchasers();
   const byRiver = groupByRiver(rcSection, 'river');
   const riverNames = Array.from(byRiver.keys());

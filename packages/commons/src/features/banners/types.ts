@@ -17,7 +17,7 @@ export enum BannerKind {
 export interface BannerSource {
   kind: BannerKind;
   ratio: number | null;
-  src: string;
+  url: string;
 }
 
 export interface BannerCore extends NamedNode {
@@ -40,8 +40,7 @@ export interface Banner extends BannerCore {
 
 export interface BannerSourceInput {
   kind: BannerKind;
-  ratio: number | null;
-  src: string | null;
+  url: string;
 }
 
 export interface BannerInput {

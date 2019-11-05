@@ -7,6 +7,8 @@ import { useCallback } from 'react';
 import { useMutation } from 'react-apollo';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from 'react-navigation-hooks';
+import formToInput from './formToInput';
+import { SectionFormInput } from './types';
 
 const ADD_SECTION_MUTATION = gql`
   mutation addSection($section: SectionInput!) {
@@ -26,8 +28,8 @@ export default () => {
   const { goBack } = useNavigation();
   const setSnackbar = useSnackbarMessage();
   return useCallback(
-    (section: SectionInput, helpers: FormikHelpers<SectionInput>) =>
-      mutate({ variables: { section } })
+    (section: SectionFormInput, helpers: FormikHelpers<SectionFormInput>) =>
+      mutate({ variables: { section: formToInput(section) } })
         .then((resp) => {
           if (resp.errors) {
             setSnackbar(resp.errors[0]);

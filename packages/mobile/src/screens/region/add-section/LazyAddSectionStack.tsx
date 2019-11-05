@@ -1,14 +1,15 @@
 import { useRegion } from '@whitewater-guide/clients';
 import {
   createSafeValidator,
-  SectionInput,
   SectionInputSchema,
 } from '@whitewater-guide/commons';
 import { Formik } from 'formik';
 import React, { useMemo } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import theme from '../../../theme';
+import { SectionFormInput } from './types';
 import useAddSection from './useAddSection';
+import { SectionFormSchema } from './validation';
 
 const styles = StyleSheet.create({
   safe: {
@@ -16,11 +17,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const validator = createSafeValidator(SectionInputSchema);
+const validator = createSafeValidator(SectionFormSchema);
 
 const LazyAddSectionStack: React.FC = React.memo(({ children }) => {
   const { node } = useRegion();
-  const initialValues: SectionInput = useMemo(
+  const initialValues: SectionFormInput = useMemo(
     () => ({
       id: null,
       name: '',
@@ -45,22 +46,20 @@ const LazyAddSectionStack: React.FC = React.memo(({ children }) => {
       rating: null,
       tags: [],
       pois: [],
+      media: [],
 
       hidden: false,
       helpNeeded: null,
     }),
     [],
   );
-  const initialErrors = useMemo(() => validator(initialValues) || {}, [
-    initialValues,
-  ]);
 
   const addSection = useAddSection();
 
   return (
-    <Formik<SectionInput>
+    <Formik<SectionFormInput>
       initialValues={initialValues}
-      initialErrors={initialErrors}
+      validateOnMount={true}
       onSubmit={addSection}
       validate={validator as any}
     >

@@ -1,32 +1,34 @@
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import { ImageUploaderProps } from '../../../../components/image-uploader';
 import { ImageUploadField } from '../../../../formik/fields';
-import { Styles } from '../../../../styles';
 
-const styles: Styles = {
-  uploaderRoot: {
-    padding: 0,
-    borderWidth: 0,
-  },
-  uploaderMain: {
-    padding: 0,
-    borderWidth: 0,
-  },
-};
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    root: {
+      padding: 0,
+      borderWidth: 0,
+    },
+    main: {
+      padding: 0,
+      borderWidth: 0,
+    },
+  }),
+);
 
 type Props = Pick<
   ImageUploaderProps,
-  'bucket' | 'width' | 'height' | 'previewScale' | 'upload'
+  'width' | 'height' | 'previewScale' | 'mpxOrResolution'
 >;
 
 export const BannerImagePicker: React.FC<Props> = React.memo((props) => {
+  const classes = useStyles();
   return (
     <ImageUploadField
       {...props}
-      name="source.src"
+      name="source"
       hideFileName={true}
-      rootStyle={styles.uploaderRoot}
-      mainStyle={styles.uploaderMain}
+      classes={classes}
     />
   );
 });

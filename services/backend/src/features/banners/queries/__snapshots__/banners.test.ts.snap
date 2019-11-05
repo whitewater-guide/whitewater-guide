@@ -28,8 +28,7 @@ Object {
       "slug": "all_section_row_banner_disabled",
       "source": Object {
         "kind": "WebView",
-        "ratio": 4,
-        "src": "http://whitewater.guide/all_section_row_banner_disabled",
+        "url": "http://whitewater.guide/all_section_row_banner_disabled",
       },
     },
     Object {
@@ -56,8 +55,7 @@ Object {
       "slug": "galicia_region_descr_banner2",
       "source": Object {
         "kind": "Image",
-        "ratio": null,
-        "src": "http://localhost:9001/thumbs/MwQAP5FQfDT2WQvVDkltiW8YEAbMHCyziBVikg2Dlr8/w:1024/czM6Ly9iYW5uZXJzL2Jhbm5lcl80LmpwZw.jpg",
+        "url": "http://localhost:9001/thumbs/MwQAP5FQfDT2WQvVDkltiW8YEAbMHCyziBVikg2Dlr8/w:1024/czM6Ly9iYW5uZXJzL2Jhbm5lcl80LmpwZw.jpg",
       },
     },
     Object {
@@ -84,8 +82,7 @@ Object {
       "slug": "all_section_row_banner",
       "source": Object {
         "kind": "WebView",
-        "ratio": 4,
-        "src": "http://whitewater.guide/all_section_row_banner",
+        "url": "http://whitewater.guide/all_section_row_banner",
       },
     },
     Object {
@@ -114,8 +111,7 @@ Object {
       "slug": "norway_section_media_banner",
       "source": Object {
         "kind": "WebView",
-        "ratio": 4,
-        "src": "http://whitewater.guide/norway_section_media_banner",
+        "url": "http://whitewater.guide/norway_section_media_banner",
       },
     },
     Object {
@@ -142,8 +138,7 @@ Object {
       "slug": "galicia_section_row_banner",
       "source": Object {
         "kind": "WebView",
-        "ratio": 4,
-        "src": "http://whitewater.guide/galicia_section_row_banner",
+        "url": "http://whitewater.guide/galicia_section_row_banner",
       },
     },
     Object {
@@ -170,8 +165,7 @@ Object {
       "slug": "galicia_region_descr_banner",
       "source": Object {
         "kind": "WebView",
-        "ratio": 4,
-        "src": "http://whitewater.guide/galicia_region_descr_banner",
+        "url": "http://whitewater.guide/galicia_region_descr_banner",
       },
     },
   ],

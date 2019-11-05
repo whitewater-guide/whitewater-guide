@@ -1,4 +1,11 @@
-import { BannerPlacement, BannerSource } from '@whitewater-guide/commons';
+import { BannerKind, BannerPlacement } from '@whitewater-guide/commons';
+
+export interface BannerSourceRaw {
+  kind: BannerKind;
+  url: string;
+  ratio?: number; // @deprecated, might exist in older records
+  src?: string; // @deprecated, use url now, might exist in older records
+}
 
 export interface BannerRaw {
   id: string;
@@ -9,7 +16,7 @@ export interface BannerRaw {
   placement: BannerPlacement;
   link: string | null;
   extras: any;
-  source: BannerSource;
+  source: BannerSourceRaw;
 }
 
 export interface BannerSourceArgs {

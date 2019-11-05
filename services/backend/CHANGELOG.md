@@ -1,3 +1,53 @@
+## [0.0.411-photos.8](https://github.com/doomsower/whitewater/compare/8bae1d9b3fc5d39d04b02cf82afff6df2f21a1a0...b8e708b100908b2f91f67704dd29f02abca3e760) (2019-11-04)
+
+### Bug Fixes
+
+- pin pm2 version ([0578383a7318d48f76dbc2c58eb888fe94702106](https://github.com/doomsower/whitewater/commit/0578383a7318d48f76dbc2c58eb888fe94702106))
+
+## [0.0.411-photos.7](https://github.com/doomsower/whitewater/compare/ea415d30703d618f765d16941873bce2deb776fb...8bae1d9b3fc5d39d04b02cf82afff6df2f21a1a0) (2019-11-04)
+
+## [0.0.411-photos.6](https://github.com/doomsower/whitewater/compare/c918b760e216b4b2c32d19850685526120267813...ea415d30703d618f765d16941873bce2deb776fb) (2019-11-04)
+
+## [0.0.411-photos.5](https://github.com/doomsower/whitewater/compare/dd833f59651073096c66070256d6488be9263da8...c918b760e216b4b2c32d19850685526120267813) (2019-11-02)
+
+### Other
+
+- refactor banner source field ([92e400932656caae92a2d8a5bed24dd985df176b](https://github.com/doomsower/whitewater/commit/92e400932656caae92a2d8a5bed24dd985df176b))
+
+## [0.0.411-photos.4](https://github.com/doomsower/whitewater/compare/cc627e0ebe2d19f84ad6c2a37a1840a503e42e27...dd833f59651073096c66070256d6488be9263da8) (2019-11-01)
+
+### Bug Fixes
+
+- add suggestion should handle absolute file urls ([7be19cb7ea23ad6d94c13ec537dfd03a5ac079f3](https://github.com/doomsower/whitewater/commit/7be19cb7ea23ad6d94c13ec537dfd03a5ac079f3))
+
+## [0.0.411-photos.3](https://github.com/doomsower/whitewater/compare/8093c8cd27c2701b5ece3eedff18bdbe0e1d628b...cc627e0ebe2d19f84ad6c2a37a1840a503e42e27) (2019-10-29)
+
+### Bug Fixes
+
+- fix UploadLink.key resolver ([7c336daea0e68235fc942c26e85d10c365d2ba6a](https://github.com/doomsower/whitewater/commit/7c336daea0e68235fc942c26e85d10c365d2ba6a))
+
+## [0.0.411-photos.2](https://github.com/doomsower/whitewater/compare/57d18eee1c123b276001e7c93e5424c92815a613...8093c8cd27c2701b5ece3eedff18bdbe0e1d628b) (2019-10-29)
+
+## [0.0.411-photos.2](https://github.com/doomsower/whitewater/compare/2162951531a2a575220b8218c3f50940c806df84...57d18eee1c123b276001e7c93e5424c92815a613) (2019-10-29)
+
+## [0.0.411-photos.2](https://github.com/doomsower/whitewater/compare/5b65fc496342968dcf25881b65cd3e0b4dbe63f2...2162951531a2a575220b8218c3f50940c806df84) (2019-10-29)
+
+### Bug Fixes
+
+- absolute urls in media input of photos ([4ce8f9b4020af172f3465815f04fb3b0e623696b](https://github.com/doomsower/whitewater/commit/4ce8f9b4020af172f3465815f04fb3b0e623696b))
+
+## [0.0.411-photos.1](https://github.com/doomsower/whitewater/compare/58b0d169b11f04507d9147e83d452309c1960f8d...5b65fc496342968dcf25881b65cd3e0b4dbe63f2) (2019-10-29)
+
+### Features
+
+- return full urls for photos ([60e13ed2894636768e459926383b6e9a90abea17](https://github.com/doomsower/whitewater/commit/60e13ed2894636768e459926383b6e9a90abea17))
+
+## [0.0.411-photos.0](https://github.com/doomsower/whitewater/compare/1aed53eab0cbfa735c65746256778995878d0c8a...58b0d169b11f04507d9147e83d452309c1960f8d) (2019-10-28)
+
+### Features
+
+- upload link allows to upload multiple files ([25cc1a9886371252909ecd55ddea0c5693d280e3](https://github.com/doomsower/whitewater/commit/25cc1a9886371252909ecd55ddea0c5693d280e3))
+
 ## [0.0.410](https://github.com/doomsower/whitewater/compare/5f9c3ba43c4b9223ab2d85b85f82615889a22e9e...1aed53eab0cbfa735c65746256778995878d0c8a) (2019-10-13)
 
 ## [0.0.410](https://github.com/doomsower/whitewater/compare/a590f15a7fff92720c41239b4a48aa725040a80b...5f9c3ba43c4b9223ab2d85b85f82615889a22e9e) (2019-10-13)

@@ -1,10 +1,5 @@
 import { BannerFragments } from '@whitewater-guide/clients';
-import {
-  BannerCore,
-  Connection,
-  NamedNode,
-  UploadLink,
-} from '@whitewater-guide/commons';
+import { BannerCore, Connection, NamedNode } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 
 export const BANNER_FORM_QUERY = gql`
@@ -42,12 +37,6 @@ export const BANNER_FORM_QUERY = gql`
       }
       count
     }
-
-    uploadLink {
-      postURL
-      formData
-      key
-    }
   }
   ${BannerFragments.Core}
 `;
@@ -63,5 +52,4 @@ export interface QResult {
   };
   regions: Connection<NamedNode>;
   groups: Connection<NamedNode>;
-  uploadLink: UploadLink;
 }

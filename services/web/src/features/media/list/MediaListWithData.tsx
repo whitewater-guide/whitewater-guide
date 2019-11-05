@@ -1,15 +1,12 @@
 import { useRegion } from '@whitewater-guide/clients';
-import React, { useMemo } from 'react';
-import { useQuery } from 'react-apollo';
+import { MediaKind } from '@whitewater-guide/commons';
+import React, { Suspense, useCallback } from 'react';
 import ErrorBoundary from 'react-error-boundary';
 import useRouter from 'use-react-router';
-import { useDeleteMutation } from '../../../apollo';
 import { Loading } from '../../../components';
-import { squashConnection } from '../../../formik/utils';
-import { THUMB_HEIGHT } from './constants';
-import MediaList from './MediaList';
-import { REMOVE_MEDIA } from './removeMedia.mutation';
-import { QResult, QVars, SECTIONS_MEDIA } from './sectionsMedia.query';
+import { LocalPhoto } from '../../../utils/files';
+import { LazyMediaList } from '../components/list';
+import useSectionMedia from './useSectionMedia';
 
 interface RouterParams {
   sectionId: string;
@@ -20,30 +17,44 @@ export const MediaListWithData: React.FC = React.memo(() => {
   const { history, match } = useRouter<RouterParams>();
   const { regionId, sectionId } = match.params;
   const { node: region } = useRegion();
-  const { data, loading } = useQuery<QResult, QVars>(SECTIONS_MEDIA, {
-    fetchPolicy: 'cache-and-network',
-    variables: { sectionId, thumbHeight: THUMB_HEIGHT },
-  });
-  const removeMedia = useDeleteMutation(REMOVE_MEDIA, [
-    {
-      query: SECTIONS_MEDIA,
-      variables: { sectionId, thumbHeight: THUMB_HEIGHT },
+  const { media, loading, removeMedia } = useSectionMedia(sectionId);
+
+  const onEdit = useCallback(
+    (index: number) => {
+      const item = media[index];
+      if (item) {
+        history.push(
+          `/regions/${regionId}/sections/${sectionId}/media/${item.id}/settings`,
+        );
+      }
     },
-  ]);
-  const media = useMemo(() => squashConnection(data, 'media'), [data]);
+    [media, regionId, sectionId, history],
+  );
+
+  const onAdd = useCallback(
+    (kind: MediaKind, file?: LocalPhoto) => {
+      history.push(
+        `/regions/${regionId}/sections/${sectionId}/media/new?kind=${kind}`,
+        { file },
+      );
+    },
+    [regionId, sectionId, history],
+  );
+
   if (loading) {
     return <Loading />;
   }
   return (
     <ErrorBoundary>
-      <MediaList
-        regionId={regionId}
-        sectionId={sectionId}
-        media={media}
-        editable={!!region && region.editable}
-        history={history}
-        onRemove={removeMedia}
-      />
+      <Suspense fallback={<Loading />}>
+        <LazyMediaList
+          media={media}
+          editable={!!region && region.editable}
+          onRemove={removeMedia}
+          onEdit={onEdit}
+          onAdd={onAdd}
+        />
+      </Suspense>
     </ErrorBoundary>
   );
 });

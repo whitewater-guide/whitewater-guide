@@ -13,6 +13,7 @@ export * from './KmlUploader';
 export * from './lightbox';
 export * from './language';
 export * from './Loading';
+export * from './MediaImg';
 export * from './MutationToggle';
 export * from './NotFound';
 export * from './NumberInput';

@@ -11,7 +11,7 @@ const removeBanner: TopLevelResolver = async (root, { id }: NodeQuery) => {
     .returning(['id', 'source']);
   const [{ source }] = result;
   if (source && source.kind === BannerKind.Image) {
-    await minioClient.removeObject(BANNERS, source.src);
+    await minioClient.removeObject(BANNERS, source.url);
   }
   return { id, deleted: true };
 };

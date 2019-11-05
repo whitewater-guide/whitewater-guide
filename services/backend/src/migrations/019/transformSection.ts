@@ -76,6 +76,7 @@ export const transformSection = (
     rating: null,
     tags: [],
     pois: [],
+    media: [],
 
     hidden: true,
   };

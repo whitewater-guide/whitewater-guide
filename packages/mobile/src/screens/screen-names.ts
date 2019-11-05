@@ -16,10 +16,12 @@ const Screens = {
         Attributes: 'AddSectionAttributes',
         Description: 'AddSectionDescription',
         Flows: 'AddSectionFlows',
+        Photos: 'AddSectionPhotos',
       },
       River: 'AddSectionRiver',
       Gauge: 'AddSectionGauge',
       Shape: 'AddSectionShape',
+      Photo: 'AddSectionPhoto',
     },
   },
   Section: {

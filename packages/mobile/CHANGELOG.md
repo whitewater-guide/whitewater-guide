@@ -1,3 +1,46 @@
+## [1.9.9](https://github.com/doomsower/whitewater/compare/e1115b356c7f6cda5395d7d682c9b92df7f0a809...07fedbd4474f949c64d21c8f2c3355699e520b47) (2019-11-05)
+
+### Bug Fixes
+
+- disable yellowbox for -[RCTRootView cancelTouches](<[5cf8317257021efe3845f7b4e08b0e3419c9db42](https://github.com/doomsower/whitewater/commit/5cf8317257021efe3845f7b4e08b0e3419c9db42)>)
+- downgrade bundle splitter ([519febe0ffcc83c4eb395be05c178c2ab4ec7b26](https://github.com/doomsower/whitewater/commit/519febe0ffcc83c4eb395be05c178c2ab4ec7b26))
+- fix pito dialog ([d9d1899d5eae9d7a0abd523b494bfbf98cf6252f](https://github.com/doomsower/whitewater/commit/d9d1899d5eae9d7a0abd523b494bfbf98cf6252f))
+- fix tests and photouploadfield ([bd46f36965612eece8d7d0397ade298bfd6e516c](https://github.com/doomsower/whitewater/commit/bd46f36965612eece8d7d0397ade298bfd6e516c))
+- handle upload errors ([dcbae7aa1aad575ac0c347b16f24ea32566b403a](https://github.com/doomsower/whitewater/commit/dcbae7aa1aad575ac0c347b16f24ea32566b403a))
+- improve unknown rating ui ([6d02a79b0dd738f12979d5f94fa4931fa0dead9b](https://github.com/doomsower/whitewater/commit/6d02a79b0dd738f12979d5f94fa4931fa0dead9b))
+- megapixels ([85b815bf6656b8add30a7d6c72234f27fdd4fa78](https://github.com/doomsower/whitewater/commit/85b815bf6656b8add30a7d6c72234f27fdd4fa78))
+- photo url validation ([f506adc28b8987f9cfe9e886f3141c4f660f7e19](https://github.com/doomsower/whitewater/commit/f506adc28b8987f9cfe9e886f3141c4f660f7e19))
+- push notifications ([dfda49d32a25028e194845487d034812f266f9e3](https://github.com/doomsower/whitewater/commit/dfda49d32a25028e194845487d034812f266f9e3))
+- region media summary is cached ([6688e1d8525772c3a9f2fe5c47f36ec76e6cc9b7](https://github.com/doomsower/whitewater/commit/6688e1d8525772c3a9f2fe5c47f36ec76e6cc9b7))
+- release apk paths ([4599f14706a17a1422a1977387dd81bde00c6159](https://github.com/doomsower/whitewater/commit/4599f14706a17a1422a1977387dd81bde00c6159))
+- remove unused ([35e53fdf12b6796cf062cc873ef270e4a5637a46](https://github.com/doomsower/whitewater/commit/35e53fdf12b6796cf062cc873ef270e4a5637a46))
+- season numeric animations ([a6bf69cfa85c121ecd212501896d3cd17a5608f3](https://github.com/doomsower/whitewater/commit/a6bf69cfa85c121ecd212501896d3cd17a5608f3))
+- upload to sentry ([3b0fad98590be26b7ac22633a4b7d358d6b08e25](https://github.com/doomsower/whitewater/commit/3b0fad98590be26b7ac22633a4b7d358d6b08e25))
+- use maps from github ([d9918da95b5a15241d07b459c6d070a352670f30](https://github.com/doomsower/whitewater/commit/d9918da95b5a15241d07b459c6d070a352670f30))
+- various media form fixes ([3871989d6fe662ed4cafbcdedfd8d0ab46c1410e](https://github.com/doomsower/whitewater/commit/3871989d6fe662ed4cafbcdedfd8d0ab46c1410e))
+
+### Features
+
+- add help needed section badge ([bf803280a735131a906892125ba6758809f6d1d8](https://github.com/doomsower/whitewater/commit/bf803280a735131a906892125ba6758809f6d1d8))
+- add section with photos wip ([d19824675cf62932690ea77af188313ac7932404](https://github.com/doomsower/whitewater/commit/d19824675cf62932690ea77af188313ac7932404))
+- fix multiple media ([992605a3239904c0480cd09577b824958f728fb9](https://github.com/doomsower/whitewater/commit/992605a3239904c0480cd09577b824958f728fb9))
+- imrove auth screen keyboard ([87b976812376dd554bab2f82ced80c5dab47479b](https://github.com/doomsower/whitewater/commit/87b976812376dd554bab2f82ced80c5dab47479b))
+- increase cache persist debounce to 4s ([3c72d5d9f9f8ddb88a6bacabf91bd9fec4699257](https://github.com/doomsower/whitewater/commit/3c72d5d9f9f8ddb88a6bacabf91bd9fec4699257))
+- reduce image quality ([43aa9a376af4c5d237fa5d0afba23cc9f3d3facb](https://github.com/doomsower/whitewater/commit/43aa9a376af4c5d237fa5d0afba23cc9f3d3facb))
+- return partial data in section details ([98b0de6e10ce795b2eb36749c41a109f586672a5](https://github.com/doomsower/whitewater/commit/98b0de6e10ce795b2eb36749c41a109f586672a5))
+- show uploaded photos ([bfc728f22f7ef991476e9bf06529aaf7c9ad0dfb](https://github.com/doomsower/whitewater/commit/bfc728f22f7ef991476e9bf06529aaf7c9ad0dfb))
+- suggest media fab opens photo picker immediately ([6a88c5c4d22239b22488be3114bbf733875442ba](https://github.com/doomsower/whitewater/commit/6a88c5c4d22239b22488be3114bbf733875442ba))
+- update photo uploading ([4c052b1bd9a23d9e78f5cec1c43aecb9b9e42a41](https://github.com/doomsower/whitewater/commit/4c052b1bd9a23d9e78f5cec1c43aecb9b9e42a41))
+- use uuid instead of file names on mobile ([5b29d4cccb6c8ac84b871d6623e766d78d48e756](https://github.com/doomsower/whitewater/commit/5b29d4cccb6c8ac84b871d6623e766d78d48e756))
+- watch fcm token ([463932cdd5f379e12a43b86b1246d36cf467df50](https://github.com/doomsower/whitewater/commit/463932cdd5f379e12a43b86b1246d36cf467df50))
+
+### Other
+
+- fix fastlane ([e7a3a4d38265ad2529ba601001945fabf611dc59](https://github.com/doomsower/whitewater/commit/e7a3a4d38265ad2529ba601001945fabf611dc59))
+- move LocalPhoto and all related stuff to clients ([849aaa18772d2c27588485f2fb41f4a8e451b5a5](https://github.com/doomsower/whitewater/commit/849aaa18772d2c27588485f2fb41f4a8e451b5a5))
+- refactor photo uploading ([f69f65e4ecf48a4550cf872fb2508a8f979d3a1f](https://github.com/doomsower/whitewater/commit/f69f65e4ecf48a4550cf872fb2508a8f979d3a1f))
+- update sentry bundle upload script ([59364fdbc13e0fd5b5250c829821c95ae702ba21](https://github.com/doomsower/whitewater/commit/59364fdbc13e0fd5b5250c829821c95ae702ba21))
+
 ## [1.9.6](https://github.com/doomsower/whitewater/compare/b1e46349824a1b601ce40a0498c4d7361d8b392e...e1115b356c7f6cda5395d7d682c9b92df7f0a809) (2019-10-10)
 
 ### Features

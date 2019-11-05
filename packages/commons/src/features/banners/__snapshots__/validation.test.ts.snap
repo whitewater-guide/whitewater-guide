@@ -33,20 +33,6 @@ Object {
 }
 `;
 
-exports[`BannerInputStruct should be invalid for bad ratio 1`] = `
-Object {
-  "source": Object {
-    "ratio": Object {
-      "key": "yup:number.moreThan",
-      "options": Object {
-        "more": 3,
-        "path": "source.ratio",
-      },
-    },
-  },
-}
-`;
-
 exports[`BannerInputStruct should be invalid for bad region 1`] = `
 Object {
   "regions": Array [
@@ -96,7 +82,7 @@ Object {
 exports[`BannerInputStruct should be invalid for empty source 1`] = `
 Object {
   "source": Object {
-    "src": "yup:string.nonEmpty",
+    "url": "yup:string.nonEmpty",
   },
 }
 `;
@@ -121,19 +107,6 @@ Object {
 exports[`BannerInputStruct should be invalid for missing uuid 1`] = `
 Object {
   "id": "yup:string.uuid",
-}
-`;
-
-exports[`BannerInputStruct should be invalid for non-strict ratio  1`] = `
-Object {
-  "source": Object {
-    "ratio": Object {
-      "key": "yup:mixed.notType",
-      "options": Object {
-        "type": "number",
-      },
-    },
-  },
 }
 `;
 

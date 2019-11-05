@@ -32,7 +32,7 @@ class WebViewBanner extends React.PureComponent<Props> {
 
   onNavigationStateChange = ({ url }: any) => {
     const { banner, onPress } = this.props;
-    if (this._webView && url !== banner.source.src) {
+    if (this._webView && url !== banner.source.url) {
       this._webView.stopLoading();
       try {
         Linking.openURL(url);
@@ -52,7 +52,7 @@ class WebViewBanner extends React.PureComponent<Props> {
       <View style={[styles.container, aspectRatios[placement]]}>
         <WebView
           ref={this.setRef}
-          source={{ uri: source.src! }}
+          source={{ uri: source.url! }}
           style={[
             styles.webview,
             aspectRatios[placement],

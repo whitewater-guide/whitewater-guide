@@ -2,8 +2,6 @@ import { MediaInput } from '@whitewater-guide/commons';
 import React, { useMemo } from 'react';
 import { RouteComponentProps } from 'react-router';
 import { useApolloFormik } from '../../../formik';
-import { SECTIONS_MEDIA } from '../list';
-import { THUMB_HEIGHT } from '../list/constants';
 import makeFormToMutation from './makeFormToMutation';
 import makeQueryToForm from './makeQueryToForm';
 import { MEDIA_FORM_QUERY, QResult, QVars } from './mediaForm.query';
@@ -29,15 +27,7 @@ const MediaForm: React.FC<Props> = React.memo((props) => {
     },
     mutation: UPSERT_MEDIA,
     mutationOptions: {
-      refetchQueries: [
-        {
-          query: SECTIONS_MEDIA,
-          variables: {
-            sectionId: props.match.params.sectionId,
-            thumbHeight: THUMB_HEIGHT,
-          },
-        },
-      ],
+      refetchQueries: ['sectionMedia'],
     },
     ...transformers,
   });

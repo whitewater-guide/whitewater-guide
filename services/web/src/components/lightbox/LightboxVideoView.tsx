@@ -1,6 +1,7 @@
-import { isVimeo, isYoutube } from '@whitewater-guide/clients';
+import { isFacebook, isVimeo, isYoutube } from '@whitewater-guide/clients';
 import React from 'react';
 import { Styles } from '../../styles';
+import LightboxFacebook from './LightboxFacebook';
 import LightboxVimeo from './LightboxVimeo';
 import LightboxYoutube from './LightboxYoutube';
 import { LightboxItem } from './types';
@@ -30,8 +31,9 @@ const LightboxVideoView: React.FC<Props> = React.memo((props) => {
   return (
     <div style={styles.container}>
       <div style={styles.video}>
-        {isYoutube(url) && <LightboxYoutube url={url} />}
-        {isVimeo(url) && <LightboxVimeo url={url} />}
+        {isYoutube(url) && <LightboxYoutube url={url!} />}
+        {isVimeo(url) && <LightboxVimeo url={url!} />}
+        {isFacebook(url) && <LightboxFacebook url={url!} />}
       </div>
     </div>
   );

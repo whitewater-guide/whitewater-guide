@@ -1,6 +1,6 @@
 import React from 'react';
 import { addDecorator, configure } from '@storybook/react';
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 import { theme } from '../src/styles';
 
 addDecorator((story) => (

@@ -92,10 +92,7 @@ export const SectionInputSchema = yup
       .array()
       .of(PointInputSchema.clone())
       .defined(),
-    media: yup
-      .array()
-      .of(MediaInputSchema.clone())
-      .notRequired(),
+    media: yup.array().of(MediaInputSchema.clone()),
     hidden: yup.bool().required(),
     helpNeeded: yup.string().nullable(),
     createdBy: yupTypes.uuid(true, true),

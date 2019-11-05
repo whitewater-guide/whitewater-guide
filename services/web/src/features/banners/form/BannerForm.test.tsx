@@ -33,14 +33,14 @@ const mocks: RecursiveMockResolver = {
     },
   }),
   BannerSource: () => ({
-    ratio: (
+    url: (
       _: any,
       __: any,
       ctx: MockedResolversContext,
       info: GraphQLResolveInfo,
     ) => {
       const { seq } = ctx.counters.resolveNext(info);
-      return 4 + seq / 100;
+      return `https://banner${seq}.com`;
     },
   }),
 };
@@ -95,13 +95,11 @@ describe('new banner', () => {
     const slug = await findByLabelText('Slug');
     const radio = await findByLabelText('WebView');
     fireEvent.click(radio);
-    const ratio = await findByLabelText('Ratio');
     const url = await findByLabelText('URL');
     const button = await findByText('Create');
     fireEvent.change(name, { target: { value: 'foo' } });
     fireEvent.change(slug, { target: { value: 'slug' } });
     fireEvent.change(url, { target: { value: 'https://test.com' } });
-    fireEvent.change(ratio, { target: { value: '4' } });
     fireEvent.click(button);
     await expect(findByText(FORM_SUCCEEDED)).resolves.toBeTruthy();
   });

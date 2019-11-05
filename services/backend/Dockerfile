@@ -8,7 +8,7 @@ RUN apk --no-cache add --virtual native-deps \
     g++ gcc libgcc libstdc++ linux-headers make python && \
     apk add --no-cache curl git
 
-RUN npm install pm2 -g
+RUN npm install pm2@3.5.1 -g
 RUN chown -R node /opt/app
 
 COPY . /opt/app

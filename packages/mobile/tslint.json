@@ -15,7 +15,8 @@
       "components",
       "forms",
       "@whitewater-guide/clients",
-      "@whitewater-guide/translations"
+      "@whitewater-guide/translations",
+      "uuid"
     ],
     "no-implicit-dependencies": [true, "dev", ["components", "forms"]]
   }

@@ -50,7 +50,9 @@ export default class BannersTable extends React.PureComponent<Props> {
     if (isEmptyRow(rowData)) {
       return null;
     }
-    return <BannerPreview source={rowData.source} />;
+    return (
+      <BannerPreview source={rowData.source} placement={rowData.placement} />
+    );
   };
 
   renderPlacement: TableCellRenderer<ListedBanner> = ({ rowData }) => {

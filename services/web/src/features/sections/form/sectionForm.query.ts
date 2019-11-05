@@ -9,6 +9,7 @@ import {
 } from '@whitewater-guide/clients';
 import {
   Connection,
+  Media,
   NamedNode,
   Region,
   Section,
@@ -30,6 +31,17 @@ export const SECTION_FORM_QUERY = gql`
       ...SectionShape
       ...SectionPOIs
       ...SectionTags
+      media {
+        nodes {
+          id
+          description
+          copyright
+          url
+          kind
+          resolution
+          weight
+        }
+      }
       gauge {
         id
         name
@@ -91,7 +103,23 @@ export interface QResult {
     SectionTags & { gauge: NamedNode | null } & Pick<
       Section,
       'levels' | 'flows' | 'flowsText'
-    >;
+    > & {
+      media: {
+        nodes: Array<
+          Pick<
+            Media,
+            | '__typename'
+            | 'id'
+            | 'description'
+            | 'copyright'
+            | 'url'
+            | 'kind'
+            | 'resolution'
+            | 'weight'
+          >
+        >;
+      };
+    };
   river: NamedNode | null;
   region: NamedNode & {
     bounds: Region['bounds'];

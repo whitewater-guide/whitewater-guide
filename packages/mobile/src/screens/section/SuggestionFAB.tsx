@@ -15,23 +15,18 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props {
-  type?: 'simple' | 'photo';
-}
-
 const renderPencil: IconSource = ({ size, color }) => (
   <Icon icon="pencil-plus" size={size} color={color} narrow={true} />
 );
 
-export const SuggestionFAB: React.FC<Props> = React.memo(({ type }) => {
-  const icon = type === 'photo' ? 'add-a-photo' : renderPencil;
+export const SuggestionFAB: React.FC = React.memo(() => {
   const { navigate } = useNavigation();
   const { node } = useSection();
   const onPress = useCallback(
-    () => navigate(Screens.Suggestion, { sectionId: node!.id, type }),
-    [navigate, type, node],
+    () => navigate(Screens.Suggestion, { sectionId: node!.id }),
+    [navigate, node],
   );
-  return <FAB style={styles.fab} icon={icon} onPress={onPress} />;
+  return <FAB style={styles.fab} icon={renderPencil} onPress={onPress} />;
 });
 
 SuggestionFAB.displayName = 'SuggestionFAB';

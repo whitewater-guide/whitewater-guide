@@ -15,7 +15,6 @@ type Media {
   copyright: String
   # Full URL for videos and blogs,
   # Filename for images (legacy, use image instead)
-  # TODO: as older versions of mobile clients die out, replace this with full url for images too
   url: String!
   # Absolute image url (or thumb, when parameters are set)
   image(width: Int, height: Int): String

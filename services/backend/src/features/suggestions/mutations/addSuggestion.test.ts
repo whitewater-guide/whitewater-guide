@@ -28,6 +28,8 @@ import {
 import { copy } from 'fs-extra';
 import * as path from 'path';
 
+const { PROTOCOL, MINIO_DOMAIN } = process.env;
+
 let sBefore: number;
 let mBefore: number;
 
@@ -78,7 +80,7 @@ const withMedia: SuggestionInput = {
   section: { id: GEORGIA_BZHUZHA_EXTREME },
   description: 'foobar',
   copyright: 'copyleft',
-  filename: 'suggested_media.jpg',
+  filename: `${PROTOCOL}://${MINIO_DOMAIN}/temp/suggested_media.jpg`,
   resolution: [100, 100],
 };
 
@@ -157,7 +159,7 @@ describe('regular user', () => {
       },
       copyright: 'copyleft',
       resolution: [100, 100],
-      image: expect.stringMatching(/^http.*suggested_media\.jpg$/),
+      image: `${PROTOCOL}://${MINIO_DOMAIN}/media/suggested_media.jpg`,
     });
   });
 
@@ -205,7 +207,7 @@ describe('editor', () => {
       },
       copyright: 'copyleft',
       resolution: [100, 100],
-      image: expect.stringMatching(/^http.*suggested_media\.jpg$/),
+      image: `${PROTOCOL}://${MINIO_DOMAIN}/media/suggested_media.jpg`,
     });
   });
 

@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/commons",
   "private": false,
-  "version": "0.0.187",
+  "version": "0.0.188-photos.6",
   "license": "UNLICENSED",
   "description": "shared code for whitewater.guide backend and frontend",
   "main": "dist/index.js",
@@ -25,29 +25,29 @@
   "dependencies": {
     "@types/yup": "^0.26.24",
     "cron-validator": "^1.0.2",
-    "deepmerge": "^4.0.0",
+    "deepmerge": "^4.2.2",
     "expr-eval": "^2.0.2",
     "lodash": "^4.17.15",
-    "validator": "^11.1.0",
+    "validator": "^12.0.0",
     "yup": "^0.27.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.2",
+    "@babel/core": "^7.6.4",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
-    "@babel/preset-env": "^7.6.2",
+    "@babel/preset-env": "^7.6.3",
     "@babel/preset-typescript": "^7.6.0",
-    "@types/jest": "^24.0.18",
-    "@types/lodash": "^4.14.141",
+    "@types/jest": "^24.0.21",
+    "@types/lodash": "^4.14.144",
     "@types/validator": "^10.11.3",
     "jest": "^24.9.0",
-    "rollup": "^1.23.1",
+    "rollup": "^1.26.3",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "ts-jest": "^24.1.0",
     "tslib": "^1.10.0",
-    "typescript": "3.6.3",
-    "utility-types": "^3.8.0"
+    "typescript": "3.6.4",
+    "utility-types": "^3.9.0"
   }
 }

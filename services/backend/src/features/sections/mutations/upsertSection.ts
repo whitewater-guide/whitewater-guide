@@ -7,8 +7,9 @@ import {
 import db, { rawUpsert } from '@db';
 import { RiverRaw } from '@features/rivers';
 import { SectionRaw } from '@features/sections';
-import { MEDIA, minioClient, moveTempImage } from '@minio';
+import { getLocalFileName, MEDIA, minioClient, moveTempImage } from '@minio';
 import {
+  MediaKind,
   NEW_ID,
   RiverInput,
   SectionInput,
@@ -30,6 +31,17 @@ const differ = new DiffPatcher({
     );
   },
 });
+
+const transformSection = (section: SectionInput): SectionInput => {
+  return {
+    ...section,
+    media: section.media.map((item) => {
+      return item.kind === MediaKind.photo
+        ? { ...item, url: getLocalFileName(item.url)! }
+        : item;
+    }),
+  };
+};
 
 const checkForNewRiver = (section: SectionInput) => {
   const shouldInsertRiver = section.river.id === NEW_ID;
@@ -159,7 +171,7 @@ const resolver: TopLevelResolver<Vars> = async (
   { user, language, dataSources },
 ) => {
   const createdBy = vars.section.createdBy || (user ? user.id : null);
-  const section = { ...vars.section, createdBy };
+  const section = transformSection({ ...vars.section, createdBy });
   const shouldInsertRiver = checkForNewRiver(section);
 
   const isEditor = await checkIsEditor(section, dataSources);

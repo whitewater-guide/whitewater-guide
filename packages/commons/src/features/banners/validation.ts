@@ -5,12 +5,7 @@ import { BannerKind, BannerPlacement } from './types';
 const BannerSourceSchema = yup
   .object({
     kind: yup.mixed().oneOf(Object.values(BannerKind)),
-    ratio: yup
-      .number()
-      .moreThan(3)
-      .lessThan(10)
-      .nullable(true),
-    src: yupTypes.nonEmptyString(),
+    url: yupTypes.nonEmptyString(),
   })
   .noUnknown();
 

@@ -53,11 +53,9 @@ const initRouter = (passport: KoaPassport) => {
 
     router.get('/', async (ctx, next) => {
       // tslint:disable-next-line:prefer-conditional-expression
-      if (ctx.user) {
+      if (ctx.state.user) {
         // tslint:disable-next-line:max-line-length
-        ctx.body = `<p>Welcome, ${
-          ctx.user.name
-        } (<a href="javascript:fetch('/auth/logout', { method: 'POST', credentials: 'include' }).then(() => window.location = '/')">log out</a>)</p>`;
+        ctx.body = `<p>Welcome, (<a href="javascript:fetch('/auth/logout', { method: 'POST', credentials: 'include' }).then(() => window.location = '/')">log out</a>)</p>`;
       } else {
         ctx.body = `<p>Welcome, guest! (<a href="/auth/facebook">log in</a>)</p>`;
       }

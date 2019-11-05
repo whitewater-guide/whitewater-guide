@@ -4,8 +4,8 @@ import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { NavigationScreenComponent } from 'react-navigation';
 import theme from '../../../theme';
-import SuggestionFAB from '../SuggestionFAB';
 import SectionMediaScreenContent from './SectionMediaScreenContent';
+import SuggestMediaFAB from './SuggestMediaFAB';
 
 const styles = StyleSheet.create({
   content: {
@@ -24,7 +24,7 @@ const SectionMediaScreen: NavigationScreenComponent = () => {
         <SectionMediaScreenContent section={node} />
         <View style={styles.fabHelper} />
       </ScrollView>
-      <SuggestionFAB type="photo" />
+      <SuggestMediaFAB />
     </Screen>
   );
 };

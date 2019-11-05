@@ -13,7 +13,7 @@ interface Props {
 
 export class BannerView extends React.PureComponent<Props> {
   onPress = () => {
-    analytics().logEvent(`Banner_${this.props.banner.slug}`);
+    analytics().logEvent(`Banner_${this.props.banner.slug}`, {});
   };
 
   renderBanner = () => {

@@ -16,8 +16,7 @@ describe('BannerInputStruct', () => {
     placement: BannerPlacement.MOBILE_REGION_DESCRIPTION,
     source: {
       kind: BannerKind.WebView,
-      ratio: 4,
-      src: 'https://banner.com',
+      url: 'https://banner.com',
     },
     link: 'https://yamdex.ru',
     extras: { foo: 'bar' },
@@ -34,8 +33,7 @@ describe('BannerInputStruct', () => {
         ...correct,
         source: {
           kind: BannerKind.Image,
-          ratio: null,
-          src: 'banner_file',
+          url: 'banner_file',
         },
       },
     ],
@@ -52,22 +50,8 @@ describe('BannerInputStruct', () => {
     ['bad slug 1', { ...correct, slug: 'a' }],
     ['bad slug 2', { ...correct, slug: 'ешкин крот' }],
     [
-      'bad ratio',
-      {
-        ...correct,
-        source: { kind: BannerKind.WebView, ratio: 1, src: 'https://ya.ru' },
-      },
-    ],
-    [
       'empty source',
       { ...correct, source: { kind: BannerKind.WebView, ratio: 4, src: '' } },
-    ],
-    [
-      'non-strict ratio ',
-      {
-        ...correct,
-        source: { kind: BannerKind.WebView, ratio: '4', src: 'https://ya.ru' },
-      },
     ],
     [
       'source with extra fields',
@@ -76,7 +60,7 @@ describe('BannerInputStruct', () => {
         source: {
           kind: BannerKind.WebView,
           ratio: 4,
-          src: 'https://ya.ru',
+          url: 'https://ya.ru',
           foo: 'bar',
         },
       },

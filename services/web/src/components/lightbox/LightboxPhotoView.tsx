@@ -1,5 +1,6 @@
 import React from 'react';
 import { Styles } from '../../styles';
+import { MediaImg } from '../MediaImg';
 import { LightboxItem } from './types';
 
 const styles: Styles = {
@@ -24,7 +25,7 @@ interface Props {
 const LightboxPhotoView: React.FC<Props> = ({ data }) => {
   return (
     <div style={styles.container}>
-      <img src={data.image || undefined} style={styles.img} />
+      <MediaImg src={data.image || data.url || undefined} style={styles.img} />
     </div>
   );
 };

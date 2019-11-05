@@ -1,10 +1,12 @@
+import { Coordinate3d } from '@whitewater-guide/commons';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'react-native-paper';
 import { useNavigation } from 'react-navigation-hooks';
 import theme from '../../../../theme';
-import { Maybe3d } from '../types';
 import notifier from './notifier';
+
+type Maybe3d = Coordinate3d | undefined;
 
 const DoneButton: React.FC = () => {
   const [disabled, setDisabled] = useState(true);

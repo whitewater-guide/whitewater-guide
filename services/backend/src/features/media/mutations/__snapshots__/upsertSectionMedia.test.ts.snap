@@ -12,7 +12,7 @@ Object {
       1080,
     ],
     "size": 0,
-    "url": "717b3058-28f0-11e8-b467-0ed5f89f718b",
+    "url": "http://localhost:9001/media/717b3058-28f0-11e8-b467-0ed5f89f718b",
     "weight": 0,
   },
 }
@@ -29,7 +29,7 @@ Object {
       1080,
     ],
     "size": 0,
-    "url": "717b3058-28f0-11e8-b467-0ed5f89f718b",
+    "url": "http://localhost:9001/media/717b3058-28f0-11e8-b467-0ed5f89f718b",
     "weight": 0,
   },
 }

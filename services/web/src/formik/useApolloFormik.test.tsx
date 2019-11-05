@@ -204,99 +204,102 @@ it('should provide default value when query returns null', async () => {
 describe('submit success', () => {
   describe('explicit submit callback', () => {
     const onSuccess = jest.fn();
+    let wait: any;
 
     beforeEach(async () => {
-      const { result, waitForNextUpdate } = renderWrapper({
+      const rendered = renderWrapper({
         mocks: [queryNotFound, mutationSuccess],
         onSuccess,
       });
+      wait = rendered.wait;
       act(() => {
-        result.current.onSubmit({ f: 'input' }, helpers);
-      });
-      await waitForNextUpdate(); // mutation loading
-      await waitForNextUpdate(); // mutation success
-    });
-
-    it('should mutate on submit', () => {
-      expect(onSuccess).toHaveBeenCalledWith({
-        upsertEntity: {
-          __typename: 'Entity',
-          q: 'mutation_result',
-        },
+        rendered.result.current.onSubmit({ f: 'input' }, helpers);
       });
     });
 
-    it('should set form status', () => {
-      expect(helpers.setStatus).toHaveBeenCalledWith({ success: true });
+    it('should mutate on submit', async () => {
+      await wait(() => {
+        expect(onSuccess).toHaveBeenCalledWith({
+          upsertEntity: {
+            __typename: 'Entity',
+            q: 'mutation_result',
+          },
+        });
+      });
     });
 
-    it('should finish submitting', () => {
-      expect(helpers.setSubmitting).toHaveBeenCalledWith(false);
+    it('should set form status', async () => {
+      await wait(() => {
+        expect(helpers.setStatus).toHaveBeenCalledWith({ success: true });
+      });
+    });
+
+    it('should finish submitting', async () => {
+      await wait(() => {
+        expect(helpers.setSubmitting).toHaveBeenCalledWith(false);
+      });
     });
   });
 
   it('should go back', async () => {
     const goBack = jest.spyOn(mockHistory, 'goBack');
-    const { result, waitForNextUpdate } = renderWrapper({
+    const { result, wait } = renderWrapper({
       mocks: [queryNotFound, mutationSuccess],
     });
     act(() => {
       result.current.onSubmit({ f: 'input' }, helpers);
     });
-    await waitForNextUpdate(); // mutation loading
-    await waitForNextUpdate(); // mutation success
-    await Promise.resolve();
-    expect(goBack).toHaveBeenCalled();
+    await wait(() => {
+      expect(goBack).toHaveBeenCalled();
+    });
   });
 
   it('should navigate', async () => {
     const replace = jest.spyOn(mockHistory, 'replace');
-    const { result, waitForNextUpdate } = renderWrapper({
+    const { result, wait } = renderWrapper({
       mocks: [queryNotFound, mutationSuccess],
       onSuccess: 'hell',
     });
     act(() => {
       result.current.onSubmit({ f: 'input' }, helpers);
     });
-    await waitForNextUpdate(); // mutation loading
-    await waitForNextUpdate(); // mutation success
-    await Promise.resolve();
-    expect(replace).toHaveBeenCalledWith('hell');
+    await wait(() => {
+      expect(replace).toHaveBeenCalledWith('hell');
+    });
   });
 });
 
 describe('submit error', () => {
   it('should set graphql form error', async () => {
-    const { result, waitForNextUpdate } = renderWrapper({
+    const { result, wait } = renderWrapper({
       mocks: [queryNotFound, mutationSuccess],
     });
     act(() => {
       result.current.onSubmit({ f: 'mocked_provider_muss' }, helpers);
     });
-    await waitForNextUpdate(); // mutation loading
-    await waitForNextUpdate(); // mutation success
-    expect(helpers.setSubmitting).toHaveBeenCalledWith(false);
-    expect(helpers.setErrors).toHaveBeenCalledWith({});
-    expect(helpers.setStatus).toHaveBeenCalledWith({
-      success: false,
-      error: expect.any(Error),
+    await wait(() => {
+      expect(helpers.setSubmitting).toHaveBeenCalledWith(false);
+      expect(helpers.setErrors).toHaveBeenCalledWith({});
+      expect(helpers.setStatus).toHaveBeenCalledWith({
+        success: false,
+        error: expect.any(Error),
+      });
     });
   });
 
   it('should set form validation errors', async () => {
-    const { result, waitForNextUpdate } = renderWrapper({
+    const { result, wait } = renderWrapper({
       mocks: [queryNotFound, mutationValidationError],
     });
     act(() => {
       result.current.onSubmit({ f: 'input' }, helpers);
     });
-    await waitForNextUpdate(); // mutation loading
-    await waitForNextUpdate(); // mutation success
-    await Promise.resolve();
-    expect(helpers.setErrors).toHaveBeenCalledWith({ m: 'field_error' });
-    expect(helpers.setSubmitting).toHaveBeenCalledWith(false);
-    expect(helpers.setStatus).toHaveBeenLastCalledWith({
-      success: false,
+    await wait(() => {
+      expect(helpers.setErrors).toHaveBeenCalledWith({ m: 'field_error' });
+      expect(helpers.setSubmitting).toHaveBeenCalledWith(false);
+      expect(helpers.setStatus).toHaveBeenLastCalledWith({
+        success: false,
+      });
     });
   });
 });

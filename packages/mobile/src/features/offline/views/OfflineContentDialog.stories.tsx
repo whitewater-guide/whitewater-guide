@@ -1,6 +1,5 @@
 import { storiesOf } from '@storybook/react-native';
-import { NamedNode, RegionMediaSummary } from '@whitewater-guide/commons';
-import { ApolloError } from 'apollo-client';
+import { NamedNode } from '@whitewater-guide/commons';
 import noop from 'lodash/noop';
 import React from 'react';
 import { Dialog } from 'react-native-paper';
@@ -29,25 +28,6 @@ const progressPartial2: OfflineProgress = {
   maps: [22, 100],
 };
 
-const summary: RegionMediaSummary = {
-  photo: {
-    count: 33,
-    size: 12345678,
-  },
-  video: {
-    count: 33,
-    size: 12345678,
-  },
-  blog: {
-    count: 33,
-    size: 12345678,
-  },
-  maps: {
-    count: 0,
-    size: 123456789,
-  },
-};
-
 const store = createStore(() => ({ offlineContent: {} }));
 
 storiesOf('Offline dialog', module)
@@ -59,35 +39,18 @@ storiesOf('Offline dialog', module)
     </Provider>
   ))
   .add('Loading summary', () => (
-    <OfflineContentDialogView
-      summary={{ summary, loading: true }}
-      region={region}
-      progress={progress}
-    />
+    <OfflineContentDialogView region={region} progress={progress} />
   ))
   .add('Loading summary error', () => (
-    <OfflineContentDialogView
-      summary={{
-        summary: null,
-        loading: false,
-        error: new ApolloError({ errorMessage: 'Error' }),
-      }}
-      region={region}
-      progress={progress}
-    />
+    <OfflineContentDialogView region={region} progress={progress} />
   ))
   .add('Ready', () => (
-    <OfflineContentDialogView
-      region={region}
-      progress={progress}
-      summary={{ summary }}
-    />
+    <OfflineContentDialogView region={region} progress={progress} />
   ))
   .add('Error', () => (
     <OfflineContentDialogView
       region={region}
       progress={progress}
-      summary={{ summary }}
       error="offline:dialog.mapsError"
     />
   ))
@@ -96,7 +59,6 @@ storiesOf('Offline dialog', module)
       inProgress={true}
       region={region}
       progress={progress}
-      summary={{ summary }}
     />
   ))
   .add('In progress (partial, first)', () => (
@@ -104,7 +66,6 @@ storiesOf('Offline dialog', module)
       inProgress={true}
       region={region}
       progress={progressPartial}
-      summary={{ summary }}
     />
   ))
   .add('In progress (partial, no photos)', () => (
@@ -112,7 +73,6 @@ storiesOf('Offline dialog', module)
       inProgress={true}
       region={region}
       progress={progressPartial2}
-      summary={{ summary }}
     />
   ))
   .add('In progress (maps error)', () => (
@@ -120,7 +80,6 @@ storiesOf('Offline dialog', module)
       inProgress={true}
       region={region}
       progress={progressPartial2}
-      summary={{ summary }}
       error="offline:dialog.mapsError"
     />
   ));

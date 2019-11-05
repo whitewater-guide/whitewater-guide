@@ -19,7 +19,7 @@ const validator = createSafeValidator(CoordinateSchema);
 
 export const SelectPointDialogField: React.FC<Props> = React.memo((props) => {
   const { name, bounds, onClose } = props;
-  const [field] = useField(name);
+  const [field] = useField<Coordinate3d | undefined>(name);
   const point: Coordinate3d | undefined = field.value;
   const points: Coordinate3d[] | undefined = validator(point)
     ? undefined

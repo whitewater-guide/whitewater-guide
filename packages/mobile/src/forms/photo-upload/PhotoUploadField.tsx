@@ -1,17 +1,12 @@
-import { UploadLink } from '@whitewater-guide/commons';
+import { LocalPhotoStatus } from '@whitewater-guide/clients';
 import Loading from 'components/Loading';
-import { Photo, PhotoPicker } from 'components/photo-picker';
-import { useFormikContext } from 'formik';
-import React, { useState } from 'react';
+import { PhotoPicker } from 'components/photo-picker';
+import { getIn, useFormikContext } from 'formik';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { StyleSheet, View } from 'react-native';
-import useAsyncFn from 'react-use/lib/useAsyncFn';
-import { trackError } from '../../core/errors';
+import { LocalPhoto, useLocalPhotos } from '../../features/uploads';
 import theme from '../../theme';
 import HelperText from '../HelperText';
-import i18nizeUploadError from './i18nizeUploadError';
-import uploadPhoto from './uploadPhoto';
-import usePhotoUploadErrors from './usePhotoUploadErrors';
-import useSetPhotoValues from './useSetPhotoValues';
 
 const styles = StyleSheet.create({
   picker: {
@@ -39,61 +34,63 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
+  localPhotoId: string;
   name: string;
-  resolutionName?: string;
-  uploadLink: UploadLink;
 }
 
 export const PhotoUploadField: React.FC<Props> = React.memo((props) => {
-  const { name, resolutionName = 'resolution', uploadLink } = props;
-  const [file, setFile] = useState<Photo | null>(null);
-  const { errors, touched, setFieldTouched } = useFormikContext<any>();
-  const setPhotoUploadErrors = usePhotoUploadErrors(name, resolutionName);
-  const setPhotoValues = useSetPhotoValues(name, resolutionName);
-  // TODO: cancel current request using AbortController in react 0.60
-  const [state, onChange] = useAsyncFn(
-    async (value: Photo | null) => {
+  const { name, localPhotoId } = props;
+  const ctx = useFormikContext<any>();
+  const { errors, values, touched, setFieldTouched } = ctx;
+  const ctxRef = useRef(ctx);
+  ctxRef.current = ctx;
+  const { upload, localPhotos } = useLocalPhotos();
+  const localPhoto: LocalPhoto = localPhotos[localPhotoId];
+  const value: LocalPhoto = getIn(values, name);
+  const error = getIn(errors, name);
+  const loading = value && value.status !== LocalPhotoStatus.READY;
+
+  const onChange = useCallback(
+    (v: LocalPhoto) => {
       setFieldTouched(name, true);
-      setPhotoUploadErrors();
-      setFile(value);
-      if (!value) {
-        setPhotoValues(undefined, undefined);
-        return;
-      }
-      try {
-        const filename = await uploadPhoto(value, uploadLink);
-        setPhotoValues(filename, value.resolution);
-      } catch (e) {
-        trackError('photo-uploader', e);
-        setPhotoUploadErrors(i18nizeUploadError(e));
-      }
+      upload(v);
     },
-    [
-      name,
-      resolutionName,
-      uploadLink,
-      setFile,
-      setPhotoUploadErrors,
-      setPhotoValues,
-      setFieldTouched,
-    ],
+    [name, setFieldTouched, upload],
   );
-  const error = errors[name] || errors[resolutionName];
+
+  useEffect(() => {
+    if (!localPhoto) {
+      return;
+    }
+    ctxRef.current.handleChange({ target: { name, value: localPhoto } });
+    setTimeout(() => {
+      ctxRef.current.handleBlur({ target: { name } });
+    }, 0);
+  }, [name, localPhoto, ctxRef]);
+
   if (error && (error as any).key === 'yup:mixed.notType') {
     (error as any).key = 'yup:mixed.required';
   }
   return (
     <View style={styles.container}>
       <View>
-        <PhotoPicker value={file} onChange={onChange} style={styles.picker} />
-        {state.loading && (
+        <PhotoPicker
+          value={value}
+          onChange={onChange}
+          style={styles.picker}
+          localPhotoId={localPhotoId}
+        />
+        {loading && (
           <View style={styles.overlay}>
             <Loading />
           </View>
         )}
       </View>
       <View style={styles.errorBox}>
-        <HelperText touched={!!touched[name] && !state.loading} error={error} />
+        <HelperText
+          touched={!!getIn(touched, name) && !loading}
+          error={error}
+        />
       </View>
     </View>
   );

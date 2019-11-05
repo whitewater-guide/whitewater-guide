@@ -67,6 +67,7 @@ export const transformRiverzoneSection = (
     difficultyXtra: value.grade,
     rating: null,
     tags: [],
+    media: [],
     pois,
     hidden: true,
   };

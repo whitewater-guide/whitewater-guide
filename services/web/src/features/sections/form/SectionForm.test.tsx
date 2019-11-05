@@ -92,6 +92,7 @@ const mocks: RecursiveMockResolver = {
       helpNeeded: null,
       createdBy: 'author',
       suggestionId: '__suggestion_id__',
+      media: [],
     };
     return inp;
   },

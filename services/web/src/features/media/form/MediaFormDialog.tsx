@@ -1,26 +1,26 @@
 import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
 import {
   createSafeValidator,
   MediaInput,
   MediaInputSchema,
-  MediaKind,
 } from '@whitewater-guide/commons';
 import { Formik } from 'formik';
-import React, { useMemo } from 'react';
-import ErrorBoundary from 'react-error-boundary';
+import React, { Suspense, useCallback, useMemo } from 'react';
+import useRouter from 'use-react-router';
 import { Loading } from '../../../components';
 import { UseApolloFormik } from '../../../formik';
+import { LocalPhoto } from '../../../utils/files';
+import { LazyMediaDialog } from '../components/form';
 import { QResult } from './mediaForm.query';
-import MediaFormActions from './MediaFormActions';
-import MediaFormTitle from './MediaFormTitle';
-import NonPhotoForm from './NonPhotoForm';
-import PhotoForm from './PhotoForm';
 
 type Props = UseApolloFormik<QResult, MediaInput>;
 
 const MediaFormDialog: React.FC<Props> = React.memo((props) => {
-  const { onSubmit, loading, initialValues, rawData } = props;
+  const { onSubmit, loading, initialValues } = props;
+  const { history, location } = useRouter();
+  const onCancel = useCallback(() => history.goBack(), [history.goBack]);
+  const localPhoto: LocalPhoto | undefined =
+    location.state && location.state.file;
 
   // TODO: cannot use validation scheme directly due to this https://github.com/jaredpalmer/formik/issues/1697
   // any is because validate function can return error (https://github.com/jaredpalmer/formik/blob/217a49e6243a41a318a8973d18a7e1535b7880d5/src/Formik.tsx#L168)
@@ -43,19 +43,17 @@ const MediaFormDialog: React.FC<Props> = React.memo((props) => {
       onSubmit={onSubmit}
       validate={validate}
     >
-      <Dialog open={true} disableBackdropClick={true} maxWidth="xl">
-        <MediaFormTitle />
-        <DialogContent>
-          <ErrorBoundary>
-            {initialValues.kind === MediaKind.photo ? (
-              <PhotoForm uploadLink={rawData!.uploadLink} />
-            ) : (
-              <NonPhotoForm />
-            )}
-          </ErrorBoundary>
-        </DialogContent>
-        <MediaFormActions />
-      </Dialog>
+      {({ submitForm }) => (
+        <Suspense fallback={<Loading />}>
+          <LazyMediaDialog
+            open={true}
+            localPhoto={localPhoto}
+            kind={initialValues.kind}
+            onCancel={onCancel}
+            onSubmit={submitForm}
+          />
+        </Suspense>
+      )}
     </Formik>
   );
 });

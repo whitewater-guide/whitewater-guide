@@ -1,9 +1,9 @@
 import { Platform } from 'react-native';
-import { finishTransaction, ProductPurchase } from 'react-native-iap';
+import { finishTransaction, InAppPurchase } from 'react-native-iap';
 import { trackError } from '../../../core/errors';
 import { IAPError } from '../../../features/purchases';
 
-const safeAcknowledgePurchase = async (purchase: ProductPurchase) => {
+const safeAcknowledgePurchase = async (purchase: InAppPurchase) => {
   try {
     // on android purchases are acknowledged server-side
     if (purchase.isAcknowledgedAndroid || Platform.OS === 'android') {
@@ -12,7 +12,7 @@ const safeAcknowledgePurchase = async (purchase: ProductPurchase) => {
         acknowledged: true,
       });
     }
-    await finishTransaction(purchase.transactionId!);
+    await finishTransaction(purchase);
     return {
       error: undefined,
       acknowledged: true,

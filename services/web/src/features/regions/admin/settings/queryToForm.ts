@@ -1,14 +1,25 @@
-import { RegionAdminSettings } from '@whitewater-guide/commons';
+import { LocalPhotoStatus } from '@whitewater-guide/clients';
+import shortid from 'shortid';
+import { COVER_IMAGE_RESOLUTION } from './constants';
 import { QResult } from './regionAdmin.query';
+import { RegionAdminFormData } from './types';
 
-export default (result: QResult): RegionAdminSettings => {
+export default (result: QResult): RegionAdminFormData => {
   if (!result || !result.settings) {
-    // should never get here, only existing sections can be administrated
-    return null as any;
+    throw new Error('only existing regions can be administrated');
   }
+  const { hidden, mapsSize, coverImage, ...rest } = result.settings;
   return {
-    ...result.settings,
-    hidden: !!result.settings.hidden,
-    mapsSize: result.settings.mapsSize || 0,
+    ...rest,
+    hidden: !!hidden,
+    mapsSize: mapsSize || 0,
+    coverImage: coverImage.mobile
+      ? {
+          resolution: COVER_IMAGE_RESOLUTION,
+          url: coverImage.mobile,
+          status: LocalPhotoStatus.READY,
+          id: shortid(),
+        }
+      : null,
   };
 };

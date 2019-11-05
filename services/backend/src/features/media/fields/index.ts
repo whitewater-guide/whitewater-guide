@@ -11,6 +11,12 @@ const WHITELIST = [
 const mediaFieldResolvers: FieldResolvers<MediaRaw, Media> = {
   ...timestampResolvers,
   deleted: ({ deleted }) => !!deleted,
+  url: ({ kind, url }) => {
+    if (kind === MediaKind.photo) {
+      return Imgproxy.url('media', url, null);
+    }
+    return url;
+  },
   image: ({ kind, url }, { width, height }: ImageArgs) => {
     if (kind === MediaKind.photo) {
       return Imgproxy.url(

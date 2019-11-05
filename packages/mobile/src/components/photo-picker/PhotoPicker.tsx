@@ -1,22 +1,33 @@
+import LocalPhotoView from 'components/photo-picker/LocalPhotoView';
 import React from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
-import LocalPhoto from './LocalPhoto';
+import { LocalPhoto } from '../../features/uploads';
 import Placeholder from './Placeholder';
-import { Photo } from './types';
 
 export interface PhotoPickerProps {
-  value: Photo | null;
-  onChange: (value: Photo | null) => void;
+  value: LocalPhoto | null;
+  onChange: (value: LocalPhoto) => void;
   style?: StyleProp<ViewStyle>;
   label?: string;
+  localPhotoId: string;
 }
 
 export const PhotoPicker: React.FC<PhotoPickerProps> = React.memo((props) => {
-  const { value, onChange, label, style } = props;
-  return value && value.image ? (
-    <LocalPhoto value={value} onChange={onChange} style={style} />
+  const { value, onChange, label, style, localPhotoId } = props;
+  return value && value.file ? (
+    <LocalPhotoView
+      value={value}
+      onChange={onChange}
+      style={style}
+      localPhotoId={localPhotoId}
+    />
   ) : (
-    <Placeholder onChange={onChange} label={label} style={style} />
+    <Placeholder
+      onChange={onChange}
+      label={label}
+      style={style}
+      localPhotoId={localPhotoId}
+    />
   );
 });
 

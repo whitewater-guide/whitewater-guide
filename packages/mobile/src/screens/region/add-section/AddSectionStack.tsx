@@ -7,6 +7,7 @@ import { StackNavigatorConfig } from '../../../utils/navigation';
 import Screens from '../../screen-names';
 import AddSectionTabs from './AddSectionTabs';
 import { LazyGaugeScreen } from './gauge';
+import { LazyPhotoScreen } from './photo';
 import { LazyRiverScreen } from './river';
 import { LazyShapeScreen } from './shape';
 
@@ -22,6 +23,9 @@ const routes = {
   },
   [Screens.Region.AddSection.Shape]: {
     screen: LazyShapeScreen,
+  },
+  [Screens.Region.AddSection.Photo]: {
+    screen: LazyPhotoScreen,
   },
 };
 

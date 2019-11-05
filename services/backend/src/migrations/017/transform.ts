@@ -86,6 +86,7 @@ export const getTransform = (gauges: GaugeRaw[]) => (
     rating: null,
     tags: [],
     pois: [],
+    media: [],
     hidden: true,
   };
 };

@@ -24,9 +24,9 @@ const upsertBannerResolver: TopLevelResolver<Vars> = async (_, vars) => {
     ...vars.banner,
     source: {
       ...vars.banner.source,
-      src: isImage
-        ? getLocalFileName(vars.banner.source.src)
-        : vars.banner.source.src,
+      url: isImage
+        ? getLocalFileName(vars.banner.source.url)!
+        : vars.banner.source.url,
     },
   };
   let shouldMoveTempImage = isImage;
@@ -38,14 +38,14 @@ const upsertBannerResolver: TopLevelResolver<Vars> = async (_, vars) => {
       .where({ id })
       .first();
     const wasImage = oldBanner.source.kind === BannerKind.Image;
-    const sameImage = oldBanner.source.src === banner.source.src;
+    const sameImage = oldBanner.source.url === banner.source.url;
     shouldMoveTempImage = shouldMoveTempImage && !sameImage;
     if (wasImage && oldBanner.source && (!isImage || !sameImage)) {
-      await minioClient.removeObject(BANNERS, oldBanner.source.src!);
+      await minioClient.removeObject(BANNERS, oldBanner.source.url!);
     }
   }
   if (shouldMoveTempImage) {
-    await moveTempImage(banner.source.src!, BANNERS);
+    await moveTempImage(banner.source.url!, BANNERS);
   }
   return rawUpsert(db(), 'SELECT upsert_banner(?)', [banner]);
 };

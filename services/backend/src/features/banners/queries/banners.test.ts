@@ -19,8 +19,7 @@ query listBanners {
       placement
       source {
         kind
-        ratio
-        src(width: 1000)
+        url(width: 1000)
       }
       link
       extras

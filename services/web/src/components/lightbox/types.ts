@@ -1,6 +1,10 @@
-import { Media, MediaKind } from '@whitewater-guide/commons';
+import { MediaKind } from '@whitewater-guide/commons';
 
-export type LightboxItem = Pick<
-  Media,
-  'id' | 'image' | 'description' | 'copyright'
-> & { url?: string; kind?: MediaKind };
+export interface LightboxItem {
+  id: string | null;
+  kind?: MediaKind;
+  image?: string | null;
+  url?: string | null;
+  description: string | null;
+  copyright: string | null;
+}

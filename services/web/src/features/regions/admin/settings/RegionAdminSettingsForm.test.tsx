@@ -8,7 +8,12 @@ import React from 'react';
 import { FORM_SUCCEEDED, renderForm } from '../../../../formik/test';
 import { RegionAdminSettingsForm } from './RegionAdminSettingsForm';
 
-jest.mock('validator/lib/isUUID', () => () => true);
+jest.mock('validator/lib/isUUID', () => {
+  return {
+    __esModule: true,
+    default: () => true,
+  };
+});
 
 const mocks: RecursiveMockResolver = {
   Region: () => ({
@@ -21,6 +26,9 @@ const mocks: RecursiveMockResolver = {
       const { seq } = ctx.counters.resolveNext(info);
       return `region.sku${seq}`;
     },
+  }),
+  RegionCoverImage: () => ({
+    mobile: () => 'https://ya.ru/img1.jpg',
   }),
 };
 

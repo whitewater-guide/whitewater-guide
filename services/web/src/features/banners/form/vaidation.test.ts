@@ -1,6 +1,7 @@
+import { LocalPhotoStatus } from '@whitewater-guide/clients';
 import {
-  BannerKind,
   BannerPlacement,
+  BannerResolutions,
   createSafeValidator,
 } from '@whitewater-guide/commons';
 import { BannerFormData } from './types';
@@ -16,11 +17,7 @@ const correct: BannerFormData = {
   priority: 10,
   enabled: true,
   placement: BannerPlacement.MOBILE_REGION_DESCRIPTION,
-  source: {
-    kind: BannerKind.WebView,
-    ratio: 4,
-    src: 'https://banner.com',
-  },
+  source: 'https://banner.com',
   link: 'https://yamdex.ru',
   extras: '{ "foo": "bar" }',
   regions: [{ id: 'd10c02b6-c659-11e8-a355-529269fb1459', name: 'region' }],
@@ -28,10 +25,45 @@ const correct: BannerFormData = {
 };
 
 const correctValues: TestValue[] = [
-  ['full value', correct],
+  ['webview value', correct],
+  [
+    'local photo value',
+    {
+      ...correct,
+      source: {
+        id: 'foo',
+        status: LocalPhotoStatus.READY,
+        url: 'https://banner.com',
+        resolution: BannerResolutions.get(
+          BannerPlacement.MOBILE_REGION_DESCRIPTION,
+        )!,
+      },
+    },
+  ],
   ['null extras', { ...correct, extras: null }],
+];
+
+const incorrectValues: TestValue[] = [
+  [
+    'invalid resolution',
+    {
+      ...correct,
+      source: {
+        id: 'foo',
+        status: LocalPhotoStatus.READY,
+        url: 'https://banner.com',
+        resolution: [100, 100],
+      },
+    },
+  ],
 ];
 
 it.each(correctValues)('should be valid for %s', (_, value) => {
   expect(validator(value)).toBeNull();
+});
+
+it.each(incorrectValues)('should be invalid for %s', (_, value) => {
+  const result = validator(value);
+  expect(result).not.toBeNull();
+  expect(result).toMatchSnapshot();
 });

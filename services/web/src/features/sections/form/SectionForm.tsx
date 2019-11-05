@@ -13,6 +13,7 @@ import { QResult, QVars, SECTION_FORM_QUERY } from './sectionForm.query';
 import { SectionFormFlows } from './SectionFormFlows';
 import { SectionFormMain } from './SectionFormMain';
 import { SectionFormMap } from './SectionFormMap';
+import SectionFormMedia from './SectionFormMedia';
 import { SectionFormProperties } from './SectionFormProperties';
 import { RouterParams, SectionFormData } from './types';
 import { MVars, UPSERT_SECTION } from './upsertSection.mutation';
@@ -47,6 +48,7 @@ const PropertiesFields: Array<keyof SectionFormData> = [
 const ShapeFields: Array<keyof SectionFormData> = ['shape'];
 const POIFields: Array<keyof SectionFormData> = ['pois'];
 const DescriptionFields: Array<keyof SectionFormData> = ['description'];
+const MediaFields: Array<keyof SectionFormData> = ['media'];
 
 type Props = RouteComponentProps<RouterParams>;
 
@@ -103,12 +105,13 @@ const SectionForm: React.FC<Props> = ({ match, location }) => {
           label="Properties"
           value="#properties"
         />
-        <FormikTab fields={POIFields} label="POIS" value="#pois" />
         <FormikTab
           fields={DescriptionFields}
           label="Description"
           value="#description"
         />
+        <FormikTab fields={POIFields} label="POIS" value="#pois" />
+        <FormikTab fields={MediaFields} label="Media" value="#media" />
       </HashTabs>
 
       <HashTabView value="#main">
@@ -127,12 +130,16 @@ const SectionForm: React.FC<Props> = ({ match, location }) => {
         <SectionFormMap bounds={bounds} />
       </HashTabView>
 
+      <HashTabView value="#description" padding={0}>
+        <MarkdownField name="description" />
+      </HashTabView>
+
       <HashTabView value="#pois">
         <POIArray name="pois" mapBounds={bounds} />
       </HashTabView>
 
-      <HashTabView value="#description" padding={0}>
-        <MarkdownField name="description" />
+      <HashTabView value="#media">
+        <SectionFormMedia />
       </HashTabView>
     </FormikCard>
   );

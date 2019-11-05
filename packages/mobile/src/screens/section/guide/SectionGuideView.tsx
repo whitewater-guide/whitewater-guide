@@ -1,12 +1,17 @@
-import { WithSection } from '@whitewater-guide/clients';
+import { WithNode } from '@whitewater-guide/clients';
+import { Section } from '@whitewater-guide/commons';
 import Markdown from 'components/Markdown';
 import React from 'react';
 import Placeholder from './placeholder';
 
+interface Props {
+  section: WithNode<Section | null>;
+}
+
 // Priorities:
 // section description is empty string when there is no description (even for premium)
 // section description is null when premium is required
-const SectionGuideView: React.FC<WithSection> = ({ section: { node } }) => {
+const SectionGuideView: React.FC<Props> = ({ section: { node } }) => {
   if (!node) {
     return null;
   }

@@ -12,11 +12,14 @@ enum BannerKind {
 
 type BannerSource {
   kind: BannerKind!
-  # Width / height for WebView, null for Image
-  ratio: Float
+  # @deprecated, ration is inferred from placement
+  ratio: Float @deprecated
+
+  # Deprecated, use URL istead
   # For WebView - URL
   # For Image - filename in legacy mode and full url in normal mode
-  src(width: Int): String!
+  src(width: Int): String! @deprecated
+  url(width: Int): String! @deprecated
 }
 
 type Banner {
@@ -60,8 +63,7 @@ type BannersList {
 
 input BannerSourceInput {
   kind: BannerKind!
-  ratio: Float
-  src: String!
+  url: String!
 }
 
 input BannerInput {

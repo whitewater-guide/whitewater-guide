@@ -25,8 +25,7 @@ Object {
   "slug": "galicia_section_row_banner",
   "source": Object {
     "kind": "WebView",
-    "ratio": 4,
-    "src": "http://whitewater.guide/galicia_section_row_banner",
+    "url": "http://whitewater.guide/galicia_section_row_banner",
   },
 }
 `;

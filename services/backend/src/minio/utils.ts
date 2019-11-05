@@ -7,11 +7,14 @@ import { minioClient } from './client';
 
 const logger = log.child({ module: 'minio' });
 
-export const getTempPostPolicy = async (key?: string, uploadedBy?: string) => {
+export const getTempPostPolicy = async (
+  key?: string | null,
+  uploadedBy?: string,
+) => {
   const policy = minioClient.newPostPolicy();
   const expires = new Date();
-  // Policy expires in 24 hours
-  expires.setSeconds(24 * 60 * 60);
+  // Policy expires in 30 minutes
+  expires.setSeconds(30 * 60);
   policy.setExpires(expires);
   policy.setContentType('image/*');
   policy.setBucket(TEMP);

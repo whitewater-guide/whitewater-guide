@@ -155,7 +155,6 @@ describe('SectionInput', () => {
       },
     ],
     ['empty media', { ...correct, media: [] }],
-    ['no media', omit(correct, 'media')],
   ];
 
   const incorrectValues: TestValue[] = [

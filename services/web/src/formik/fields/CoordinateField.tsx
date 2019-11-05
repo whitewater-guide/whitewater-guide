@@ -12,7 +12,7 @@ interface Props
 
 const CoordinateField: React.FC<Props> = React.memo((props) => {
   const { name, index, onRemove, ...coordinateInputProps } = props;
-  const [{ value }] = useField(name);
+  const [{ value }] = useField<any>(name);
   const { onChange } = useFakeHandlers(name);
   const handleRemove = useCallback(() => {
     onRemove(index);

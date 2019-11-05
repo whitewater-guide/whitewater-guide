@@ -10,8 +10,7 @@ const Core = gql`
     placement
     source {
       kind
-      ratio
-      src
+      url
     }
     link
     extras

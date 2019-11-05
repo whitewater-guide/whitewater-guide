@@ -36,6 +36,8 @@ import {
 import { copy } from 'fs-extra';
 import * as path from 'path';
 
+const { PROTOCOL, MINIO_DOMAIN } = process.env;
+
 let mBefore: number;
 let msBefore: number;
 let trBefore: number;
@@ -314,6 +316,25 @@ describe('update', () => {
       created_at: expect.any(Date),
     });
   });
+
+  it('should accept absolute photo urls', async () => {
+    const result = await runQuery(
+      mutation,
+      {
+        sectionId,
+        media: {
+          ...uMedia,
+          copyright: 'foo',
+          url: `${PROTOCOL}://${MINIO_DOMAIN}/media/${NEW_MEDIA_ID}`,
+        },
+      },
+      fakeContext(EDITOR_NO_EC),
+    );
+    expect(result.data.upsertSectionMedia.copyright).toBe('foo');
+    expect(result.data.upsertSectionMedia.url).toBe(
+      `${PROTOCOL}://${MINIO_DOMAIN}/media/${NEW_MEDIA_ID}`,
+    );
+  });
 });
 
 describe('i18n', () => {
@@ -427,8 +448,10 @@ describe('files', () => {
     expect(size).toBe(14935);
   });
 
-  it('should return filename as url', async () => {
-    expect(result).toHaveProperty('data.upsertSectionMedia.url', NEW_MEDIA_ID);
+  it('should return full url', async () => {
+    const url = result.data.upsertSectionMedia.url;
+    expect(url).toContain(NEW_MEDIA_ID);
+    expect(url).toContain('http://');
   });
 
   it('should return media size', async () => {

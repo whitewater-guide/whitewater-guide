@@ -24,6 +24,7 @@ module.exports = {
   transformIgnorePatterns: [`node_modules/(?!(${notIgnoredModules})/)`],
   setupFilesAfterEnv: [
     '<rootDir>/jest.setup.ts',
+    '<rootDir>/jest-mapbox.setup.ts',
     '<rootDir>/node_modules/react-native-gesture-handler/jestSetup.js',
     '<rootDir>/node_modules/@testing-library/react-native/cleanup-after-each',
   ],

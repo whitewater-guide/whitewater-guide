@@ -6,18 +6,21 @@ import SimpleSuggestionForm from './SimpleSuggestionForm';
 
 interface NavParams {
   sectionId: string;
-  type?: 'simple' | 'photo';
+  localPhotoId?: string;
 }
 
 const SuggestionScreen: NavigationScreenComponent<NavParams> = ({
   navigation,
 }) => {
-  const formType = navigation.getParam('type');
+  const localPhotoId = navigation.getParam('localPhotoId');
   const sectionId = navigation.getParam('sectionId');
   return (
     <Screen safe={true}>
-      {formType === 'photo' ? (
-        <PhotoSuggestionForm sectionId={sectionId} />
+      {localPhotoId ? (
+        <PhotoSuggestionForm
+          sectionId={sectionId}
+          localPhotoId={localPhotoId}
+        />
       ) : (
         <SimpleSuggestionForm sectionId={sectionId} />
       )}

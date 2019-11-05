@@ -8,7 +8,8 @@
       "date-fns",
       "react-use",
       "@whitewater-guide/clients",
-      "@whitewater-guide/translations"
+      "@whitewater-guide/translations",
+      "rewiremock"
     ]
   }
 }

@@ -1,9 +1,9 @@
-import i18next from 'i18next';
+import { FormatFunction } from 'i18next';
 import brackets from './brackets';
 import byteSize from './byteSize';
 import month from './month';
 
-const formatters: Record<string, i18next.FormatFunction> = {
+const formatters: Record<string, FormatFunction> = {
   month,
   byteSize,
   brackets,

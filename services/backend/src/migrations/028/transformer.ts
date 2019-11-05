@@ -27,6 +27,7 @@ export default (
     rating: null,
     tags: [],
     pois: [],
+    media: [],
     hidden: true,
   };
 };

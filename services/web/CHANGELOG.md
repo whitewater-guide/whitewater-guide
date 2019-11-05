@@ -1,3 +1,61 @@
+## [0.1.411-photos.6](https://github.com/doomsower/whitewater/compare/8bae1d9b3fc5d39d04b02cf82afff6df2f21a1a0...b8e708b100908b2f91f67704dd29f02abca3e760) (2019-11-04)
+
+## [0.1.411-photos.6](https://github.com/doomsower/whitewater/compare/ea415d30703d618f765d16941873bce2deb776fb...8bae1d9b3fc5d39d04b02cf82afff6df2f21a1a0) (2019-11-04)
+
+## [0.1.411-photos.6](https://github.com/doomsower/whitewater/compare/c918b760e216b4b2c32d19850685526120267813...ea415d30703d618f765d16941873bce2deb776fb) (2019-11-04)
+
+### Other
+
+- use LocalPhotos on web ([a5db6da302360586df5282b947dfe7e7c02d9a1e](https://github.com/doomsower/whitewater/commit/a5db6da302360586df5282b947dfe7e7c02d9a1e))
+
+## [0.1.411-photos.5](https://github.com/doomsower/whitewater/compare/dd833f59651073096c66070256d6488be9263da8...c918b760e216b4b2c32d19850685526120267813) (2019-11-02)
+
+## [0.1.411-photos.5](https://github.com/doomsower/whitewater/compare/cc627e0ebe2d19f84ad6c2a37a1840a503e42e27...dd833f59651073096c66070256d6488be9263da8) (2019-11-01)
+
+## [0.1.411-photos.4](https://github.com/doomsower/whitewater/compare/8093c8cd27c2701b5ece3eedff18bdbe0e1d628b...cc627e0ebe2d19f84ad6c2a37a1840a503e42e27) (2019-10-29)
+
+## [0.1.411-photos.4](https://github.com/doomsower/whitewater/compare/57d18eee1c123b276001e7c93e5424c92815a613...8093c8cd27c2701b5ece3eedff18bdbe0e1d628b) (2019-10-29)
+
+### Bug Fixes
+
+- fix photos in suggested section ([a89bd644c08d671998f5cf9fef332ca28520048b](https://github.com/doomsower/whitewater/commit/a89bd644c08d671998f5cf9fef332ca28520048b))
+
+## [0.1.411-photos.3](https://github.com/doomsower/whitewater/compare/2162951531a2a575220b8218c3f50940c806df84...57d18eee1c123b276001e7c93e5424c92815a613) (2019-10-29)
+
+### Bug Fixes
+
+- editing section media ([c518705d1eb34558a1c85d526f30b4b5ab0bcd55](https://github.com/doomsower/whitewater/commit/c518705d1eb34558a1c85d526f30b4b5ab0bcd55))
+
+## [0.1.411-photos.2](https://github.com/doomsower/whitewater/compare/5b65fc496342968dcf25881b65cd3e0b4dbe63f2...2162951531a2a575220b8218c3f50940c806df84) (2019-10-29)
+
+### Bug Fixes
+
+- absolute urls in photo form preview ([039aa317710a0e40682db219546959c0733eb962](https://github.com/doomsower/whitewater/commit/039aa317710a0e40682db219546959c0733eb962))
+
+## [0.1.411-photos.1](https://github.com/doomsower/whitewater/compare/58b0d169b11f04507d9147e83d452309c1960f8d...5b65fc496342968dcf25881b65cd3e0b4dbe63f2) (2019-10-29)
+
+### Features
+
+- media tab in section form ([41d440cc57303107800c4d3f07207d861ed8fa19](https://github.com/doomsower/whitewater/commit/41d440cc57303107800c4d3f07207d861ed8fa19))
+
+### Other
+
+- extract simple media form without formik ([5c950dd8b9cfbc610d143f4eada9780b8987f665](https://github.com/doomsower/whitewater/commit/5c950dd8b9cfbc610d143f4eada9780b8987f665))
+- stateless media list ([8869ce6fa11e491c39425f2048c773bc70ef2351](https://github.com/doomsower/whitewater/commit/8869ce6fa11e491c39425f2048c773bc70ef2351))
+
+## [0.1.411-photos.0](https://github.com/doomsower/whitewater/compare/1aed53eab0cbfa735c65746256778995878d0c8a...58b0d169b11f04507d9147e83d452309c1960f8d) (2019-10-28)
+
+### Features
+
+- bring back drawing controls when entire line is erased ([0c212c678aaff8a5c2a986754477b007ecaf2771](https://github.com/doomsower/whitewater/commit/0c212c678aaff8a5c2a986754477b007ecaf2771))
+
+### Bug Fixes
+
+- crash on touched river selector ([72418d3ed7e163ef6786297170735d644cfe8722](https://github.com/doomsower/whitewater/commit/72418d3ed7e163ef6786297170735d644cfe8722))
+- opening poi dialog when fields are invalid ([04d8610045cf99327048946fda9084fdfd847b0c](https://github.com/doomsower/whitewater/commit/04d8610045cf99327048946fda9084fdfd847b0c))
+- pressing add on empty coordinate input ([91e7e74ca948a9ea60c519e646fb28bc6ae0192b](https://github.com/doomsower/whitewater/commit/91e7e74ca948a9ea60c519e646fb28bc6ae0192b))
+- remove space from copied coordinates ([ab88c8b09013c858ffaf404e1f72126e2092c59d](https://github.com/doomsower/whitewater/commit/ab88c8b09013c858ffaf404e1f72126e2092c59d))
+
 ## [0.1.409](https://github.com/doomsower/whitewater/compare/5f9c3ba43c4b9223ab2d85b85f82615889a22e9e...1aed53eab0cbfa735c65746256778995878d0c8a) (2019-10-13)
 
 ## [0.1.409](https://github.com/doomsower/whitewater/compare/a590f15a7fff92720c41239b4a48aa725040a80b...5f9c3ba43c4b9223ab2d85b85f82615889a22e9e) (2019-10-13)

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import {
   IAPErrorCode,
-  ProductPurchase,
+  InAppPurchase,
   PurchaseError,
   purchaseErrorListener,
   purchaseUpdatedListener,
@@ -19,7 +19,7 @@ import useSavePurchase from './useSavePurchase';
 interface State {
   loading: boolean;
   error?: IAPError;
-  purchase?: ProductPurchase;
+  purchase?: InAppPurchase;
   saved: boolean;
   acknowledged: boolean;
 }
@@ -35,7 +35,7 @@ export default (sku: string | null, sectionId?: string) => {
   const save = useSavePurchase(sectionId);
 
   useEffect(() => {
-    const sub = purchaseUpdatedListener(async (purchase: ProductPurchase) => {
+    const sub = purchaseUpdatedListener(async (purchase: InAppPurchase) => {
       if (purchase.productId !== sku) {
         return;
       }

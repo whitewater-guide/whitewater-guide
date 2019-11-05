@@ -3,8 +3,8 @@ import {
   BannerPlacement,
   BannerRatios,
   NamedNode,
-  UploadLink,
 } from '@whitewater-guide/commons';
+import { useFormikContext } from 'formik';
 import snakeCase from 'lodash/snakeCase';
 import upperFirst from 'lodash/upperCase';
 import React from 'react';
@@ -30,12 +30,12 @@ const PLACEMENTS = Object.values(BannerPlacement).map((placement) => {
 });
 
 interface Props {
-  uploadLink?: UploadLink;
   regions: NamedNode[];
   groups: NamedNode[];
 }
 
 export const BannerFormMain: React.FC<Props> = React.memo((props) => {
+  const { errors, values } = useFormikContext();
   const { match } = useRouter<RouterParams>();
   return (
     <Box padding={1} overflow="auto">
@@ -63,11 +63,9 @@ export const BannerFormMain: React.FC<Props> = React.memo((props) => {
       />
       <BannerSourceFields
         title="Banner source"
-        bucket="banners"
         height={[450, 683]}
         width={2048}
         previewScale={0.25}
-        upload={props.uploadLink}
       />
       <CheckboxField name="enabled" label="Enabled" />
       <TextField fullWidth={true} name="link" label="Link" />

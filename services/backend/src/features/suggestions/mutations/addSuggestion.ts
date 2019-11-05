@@ -1,6 +1,6 @@
 import { isInputValidResolver, TopLevelResolver } from '@apollo';
 import db from '@db';
-import { MEDIA, moveTempImage } from '@minio';
+import { getLocalFileName, MEDIA, moveTempImage } from '@minio';
 import {
   MediaKind,
   SuggestionInput,
@@ -31,7 +31,7 @@ const addSuggestion: TopLevelResolver<Vars> = async (
     section_id: suggestion.section.id,
     description: suggestion.description,
     copyright: suggestion.copyright,
-    filename: suggestion.filename,
+    filename: getLocalFileName(suggestion.filename),
     resolution: suggestion.resolution,
     created_by: user ? user.id : null,
     resolved_by: autoApprove ? user!.id : null,

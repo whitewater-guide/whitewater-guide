@@ -12,7 +12,7 @@ Object {
     600,
   ],
   "thumb": "http://localhost:9001/thumbs/k_AraJAhv-dEymZHq_MfSvQPFKaEciEw9RUj6iU8IWc/rs:fill:100:100/g:sm/czM6Ly9tZWRpYS9hMzI2NjRjYS0xZWU1LTExZTgtYjQ2Ny0wZWQ1Zjg5ZjcxOGI.jpg",
-  "url": "a32664ca-1ee5-11e8-b467-0ed5f89f718b",
+  "url": "http://localhost:9001/media/a32664ca-1ee5-11e8-b467-0ed5f89f718b",
   "weight": 1,
 }
 `;

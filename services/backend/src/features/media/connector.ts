@@ -2,8 +2,14 @@ import { BaseConnector, FieldsMap, ManyBuilderOptions } from '@db/connectors';
 import db from '@db/db';
 import { rawUpsert } from '@db/rawUpsert';
 import log from '@log';
-import { MEDIA, minioClient, moveTempImage, TEMP } from '@minio';
-import { Media, MediaInput } from '@whitewater-guide/commons';
+import {
+  getLocalFileName,
+  MEDIA,
+  minioClient,
+  moveTempImage,
+  TEMP,
+} from '@minio';
+import { Media, MediaInput, MediaKind } from '@whitewater-guide/commons';
 import { UserInputError } from 'apollo-server-errors';
 import { GraphQLResolveInfo } from 'graphql';
 import { QueryBuilder } from 'knex';
@@ -60,6 +66,10 @@ export class MediaConnector extends BaseConnector<Media, MediaRaw> {
     }
     const media = {
       ...input,
+      url:
+        input.kind === MediaKind.photo
+          ? getLocalFileName(input.url)
+          : input.url,
       createdBy: userId || (this._user ? this._user.id : null),
       size,
     };

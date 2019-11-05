@@ -1,57 +1,54 @@
-import { BannerKind, BannerSource } from '@whitewater-guide/commons';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+import {
+  BannerKind,
+  BannerPlacement,
+  BannerResolutions,
+  BannerSource,
+} from '@whitewater-guide/commons';
 import React from 'react';
 import Iframe from 'react-iframe';
-import { Styles } from '../../../styles';
 
-const styles: Styles = {
-  container: {
-    width: 512,
-    height: 171,
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-    objectFit: 'scale-down',
-  },
-};
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    container: {
+      width: 512,
+      height: 171,
+    },
+    image: {
+      width: '100%',
+      height: '100%',
+      objectFit: 'scale-down',
+    },
+  }),
+);
 
 interface Props {
+  placement: BannerPlacement;
   source: BannerSource;
 }
 
-class BannerPreview extends React.PureComponent<Props> {
-  renderImage = () => {
-    const {
-      source: { src },
-    } = this.props;
-    return <img style={styles.image} src={src || undefined} />;
-  };
-
-  renderWebView = () => {
-    const {
-      source: { src, ratio },
-    } = this.props;
-    const safeRatio = ratio || 4;
+export const BannerPreview: React.FC<Props> = React.memo(
+  ({ placement, source }) => {
+    const { url, kind } = source;
+    const height = Math.ceil(BannerResolutions.get(placement)![1] / 2);
+    const classes = useStyles();
     return (
-      <Iframe
-        width="512px"
-        height={`${Math.ceil(512 / safeRatio)}px`}
-        url={src}
-        styles={{ overflow: 'hidden' }}
-      />
-    );
-  };
-
-  render() {
-    const {
-      source: { kind },
-    } = this.props;
-    return (
-      <div style={styles.container}>
-        {kind === BannerKind.Image ? this.renderImage() : this.renderWebView()}
+      <div className={classes.container}>
+        {kind === BannerKind.Image ? (
+          <img className={classes.image} src={url} />
+        ) : (
+          <Iframe
+            width="512px"
+            height={`${height}px`}
+            url={url}
+            styles={{ overflow: 'hidden' }}
+          />
+        )}
       </div>
     );
-  }
-}
+  },
+);
+
+BannerPreview.displayName = 'BannerPreview';
 
 export default BannerPreview;

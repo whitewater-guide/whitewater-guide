@@ -1,6 +1,7 @@
 import {
   createSafeValidator,
   Duration,
+  MediaKind,
   TagCategory,
 } from '@whitewater-guide/commons';
 import { SectionFormData } from './types';
@@ -55,6 +56,18 @@ const correct: SectionFormData = {
       description: 'poi description',
       name: 'some poi',
       kind: 'portage',
+    },
+  ],
+  media: [
+    {
+      id: '4e108caa-fa39-11e9-8f0b-362b9e155667',
+      kind: MediaKind.photo,
+      url:
+        'https://s3.whitewater.guide/media/d6aef4e0-f758-11e9-b404-63f7f453f7a2.png',
+      weight: null,
+      resolution: [100, 100],
+      description: null,
+      copyright: null,
     },
   ],
   hidden: false,

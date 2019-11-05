@@ -1,9 +1,10 @@
 import db from '@db';
+import { Context } from 'koa';
 import Router from 'koa-router';
 import get from 'lodash/get';
 import { clearCookies, getLogoutRedirect } from './utils';
 
-export const logoutRouter = new Router();
+export const logoutRouter: Router<any, Context> = new Router();
 
 logoutRouter.get('/auth/logout', async (ctx, next) => {
   const token =
@@ -19,7 +20,7 @@ logoutRouter.get('/auth/logout', async (ctx, next) => {
     ).catch();
   }
   clearCookies(ctx);
-  if (ctx.session) {
+  if (ctx.session && !!ctx.logout) {
     ctx.logout();
     ctx.cookies.set('wwguide');
     ctx.redirect(getLogoutRedirect(ctx));

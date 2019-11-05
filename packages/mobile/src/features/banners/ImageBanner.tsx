@@ -65,7 +65,7 @@ export default class ImageBanner extends React.PureComponent<Props> {
       >
         <TouchableWithoutFeedback onPress={this.onPress}>
           <FastImage
-            source={{ uri: source.src }}
+            source={{ uri: source.url }}
             style={[styles.image, aspectRatios[placement]]}
           />
         </TouchableWithoutFeedback>

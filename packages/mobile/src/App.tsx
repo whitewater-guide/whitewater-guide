@@ -26,6 +26,7 @@ import { configErrors } from './core/errors';
 import { configureStore, resetNavigationToHome } from './core/redux';
 import { navigationChannel } from './core/sagas';
 import { IapProvider } from './features/purchases';
+import { UploadsProvider } from './features/uploads';
 import { I18nProvider } from './i18n';
 import RootNavigator from './RootNavigator';
 import { PaperTheme } from './theme';
@@ -107,22 +108,24 @@ class App extends React.PureComponent {
                       <I18nProvider
                         onUserLanguageChange={this.resetApolloCache}
                       >
-                        <SnackbarProvider>
-                          <IapProvider>
-                            <PreviousVersion />
-                            <RootNavigator
-                              onNavigationStateChange={trackScreenChange}
-                              persistNavigationState={
-                                this.persistNavigationState
-                              }
-                              loadNavigationState={this.loadNavigationState}
-                              renderLoadingExperimental={
-                                this.renderLoadingExperimental
-                              }
-                            />
-                            <Snackbar />
-                          </IapProvider>
-                        </SnackbarProvider>
+                        <UploadsProvider>
+                          <SnackbarProvider>
+                            <IapProvider>
+                              <PreviousVersion />
+                              <RootNavigator
+                                onNavigationStateChange={trackScreenChange}
+                                persistNavigationState={
+                                  this.persistNavigationState
+                                }
+                                loadNavigationState={this.loadNavigationState}
+                                renderLoadingExperimental={
+                                  this.renderLoadingExperimental
+                                }
+                              />
+                              <Snackbar />
+                            </IapProvider>
+                          </SnackbarProvider>
+                        </UploadsProvider>
                       </I18nProvider>
                     </AuthProvider>
                   </TagsProvider>

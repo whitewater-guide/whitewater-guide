@@ -50,7 +50,9 @@ it('should not change when query is refreshed', async () => {
   });
   await waitForNextUpdate();
   const firstResult = result.current;
-  await act(() => query.refetch());
+  await act(() => {
+    query.refetch();
+  });
   expect(result.current).toBe(firstResult);
   unmount();
 });

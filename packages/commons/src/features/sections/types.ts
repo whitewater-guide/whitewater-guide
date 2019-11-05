@@ -103,8 +103,7 @@ export interface SectionInput {
   rating: number | null;
   tags: NodeRef[];
   pois: PointInput[];
-  // this is optional for now
-  media?: MediaInput[];
+  media: MediaInput[];
 
   hidden: boolean;
   helpNeeded: string | null;

@@ -58,6 +58,7 @@ beforeEach(async () => {
   jest.clearAllMocks();
   fetchMock.reset();
   fetchMock.mock(/logout/, { data: { success: true } });
+  fetchMock.mock(/fcm\/set/, { data: { success: true } });
   const service = new MobileAuthService(jest.fn(), jest.fn());
   await service.init();
   link = createLink(service);
@@ -155,7 +156,9 @@ describe('token expired locally', () => {
     const promise = toPromise(execute(link, { query }));
     await expect(promise).resolves.toEqual({ data: ME_RESPONSE });
     // refresh then query
-    expect(fetchMock.calls()).toHaveLength(2);
+    const calls = fetchMock.calls().map((call) => call[0]);
+    expect(calls[0]).toEqual(expect.stringContaining('jwt/refresh'));
+    expect(calls[1]).toEqual(expect.stringContaining('graphql'));
   });
 
   it('should force sign out if refresh fails', async () => {
@@ -200,7 +203,10 @@ describe('token expired locally', () => {
       toPromise(execute(link, { query })),
     ]);
     // refresh, then 2 queries
-    expect(fetchMock.calls()).toHaveLength(3);
+    const calls = fetchMock.calls().map((call) => call[0]);
+    expect(calls[0]).toEqual(expect.stringContaining('jwt/refresh'));
+    expect(calls[1]).toEqual(expect.stringContaining('graphql'));
+    expect(calls[2]).toEqual(expect.stringContaining('graphql'));
     expect(result).toEqual([{ data: ME_RESPONSE }, { data: ME_RESPONSE }]);
   });
 
@@ -213,7 +219,13 @@ describe('token expired locally', () => {
     const promise = toPromise(execute(link, { query }));
     await expect(promise).resolves.toEqual({ data: ME_RESPONSE });
     // refresh, failed query, successful query
-    expect(fetchMock.calls()).toHaveLength(3);
+    const urls = fetchMock.calls().map((call) => call[0]);
+    expect(urls).toEqual([
+      expect.stringContaining('jwt/refresh'),
+      expect.stringContaining('graphql'),
+      expect.stringContaining('fcm/set'),
+      expect.stringContaining('graphql'),
+    ]);
   });
 
   it('should perform next requests with new token', async () => {
@@ -252,7 +264,13 @@ describe('token expired remotely', () => {
     const promise = toPromise(execute(link, { query }));
     await expect(promise).resolves.toEqual({ data: ME_RESPONSE });
     // failed query, refresh, successful query
-    expect(fetchMock.calls()).toHaveLength(3);
+    const urls = fetchMock.calls().map((call) => call[0]);
+    expect(urls).toEqual([
+      expect.stringContaining('graphql'),
+      expect.stringContaining('jwt/refresh'),
+      expect.stringContaining('graphql'),
+      expect.stringContaining('fcm/set'),
+    ]);
   });
 });
 

@@ -1,4 +1,4 @@
-import { Region, UploadLink } from '@whitewater-guide/commons';
+import { Region } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 
 export const REGION_ADMIN_SETTINGS_QUERY = gql`
@@ -13,12 +13,6 @@ export const REGION_ADMIN_SETTINGS_QUERY = gql`
         mobile
       }
     }
-
-    uploadLink {
-      postURL
-      formData
-      key
-    }
   }
 `;
 
@@ -31,5 +25,4 @@ export interface QResult {
     Region,
     'id' | 'hidden' | 'premium' | 'sku' | 'mapsSize' | 'coverImage'
   >;
-  uploadLink: UploadLink;
 }

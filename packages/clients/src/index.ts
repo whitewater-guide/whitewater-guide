@@ -13,3 +13,4 @@ export * from './features/regions';
 export * from './features/sections';
 export * from './features/suggestions';
 export * from './features/tags';
+export * from './features/uploads';

@@ -1,23 +1,32 @@
-import { useField } from 'formik';
-import React from 'react';
+import { getIn, useFormikContext } from 'formik';
+import React, { useCallback } from 'react';
 import {
   ImageUploader,
   ImageUploaderProps,
 } from '../../components/image-uploader';
-import { useFakeHandlers } from '../utils';
+import { LocalPhoto } from '../../utils/files';
+import { FormikFormControl } from '../helpers';
 
 type Props = Omit<ImageUploaderProps, 'value' | 'onChange'> & { name: string };
 
 export const ImageUploadField: React.FC<Props> = React.memo((props) => {
   const { name, ...imageUploaderProps } = props;
-  const [field] = useField(name);
-  const { onChange } = useFakeHandlers(name);
+  const { handleChange, handleBlur, values } = useFormikContext<any>();
+  const onChange = useCallback(
+    (value: LocalPhoto | null) => {
+      handleChange({ target: { name, value } });
+      handleBlur({ target: { name, value } });
+    },
+    [handleChange, handleBlur],
+  );
   return (
-    <ImageUploader
-      {...imageUploaderProps}
-      value={field.value}
-      onChange={onChange}
-    />
+    <FormikFormControl name={name}>
+      <ImageUploader
+        {...imageUploaderProps}
+        value={getIn(values, name)}
+        onChange={onChange}
+      />
+    </FormikFormControl>
   );
 });
 

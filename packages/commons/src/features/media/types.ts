@@ -6,25 +6,22 @@ export enum MediaKind {
   blog = 'blog',
 }
 
-export interface Media extends Node, Timestamped {
-  description: string | null;
-  copyright: string | null;
-  url: string;
-  kind: MediaKind;
-  resolution: number[] | null;
-  deleted?: boolean;
-  weight: number;
-  size: number;
-  image: string | null;
-  thumb?: string | null; // graphql alias for image with arguments
-}
-
-export interface MediaInput {
-  id: string | null;
+interface MediaBase {
   description: string | null;
   copyright: string | null;
   url: string;
   kind: MediaKind;
   resolution: number[] | null;
   weight: number | null;
+}
+
+export interface Media extends MediaBase, Node, Timestamped {
+  deleted?: boolean;
+  size: number;
+  image: string | null;
+  thumb?: string | null; // graphql alias for image with arguments
+}
+
+export interface MediaInput extends MediaBase {
+  id: string | null;
 }

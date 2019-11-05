@@ -1,8 +1,4 @@
-import {
-  createSafeValidator,
-  RegionAdminSettings,
-  RegionAdminSettingsSchema,
-} from '@whitewater-guide/commons';
+import { createSafeValidator } from '@whitewater-guide/commons';
 import { Formik } from 'formik';
 import React, { useMemo } from 'react';
 import { Loading } from '../../../../components';
@@ -22,6 +18,8 @@ import {
 } from './regionAdmin.query';
 import RegionAdminSettingsFooter from './RegionAdminSettingsFooter';
 import RegionAdminSettingsMain from './RegionAdminSettingsMain';
+import { RegionAdminFormData } from './types';
+import { RegionAdminFormSchema } from './validation';
 
 interface Props {
   regionId: string;
@@ -30,11 +28,11 @@ interface Props {
 export const RegionAdminSettingsForm: React.FC<Props> = React.memo(
   ({ regionId }) => {
     const validate: any = useMemo(
-      () => createSafeValidator(RegionAdminSettingsSchema),
+      () => createSafeValidator(RegionAdminFormSchema),
       [],
     );
 
-    const formik = useApolloFormik<QVars, QResult, RegionAdminSettings, MVars>({
+    const formik = useApolloFormik<QVars, QResult, RegionAdminFormData, MVars>({
       query: REGION_ADMIN_SETTINGS_QUERY,
       queryOptions: {
         variables: { regionId },
@@ -53,14 +51,14 @@ export const RegionAdminSettingsForm: React.FC<Props> = React.memo(
     }
 
     return (
-      <Formik<RegionAdminSettings>
+      <Formik<RegionAdminFormData>
         initialValues={formik.initialValues}
         onSubmit={formik.onSubmit}
         validate={validate}
       >
         <React.Fragment>
           <UnsavedPrompt />
-          <RegionAdminSettingsMain uploadLink={formik.rawData!.uploadLink} />
+          <RegionAdminSettingsMain />
           <RegionAdminSettingsFooter />
         </React.Fragment>
       </Formik>

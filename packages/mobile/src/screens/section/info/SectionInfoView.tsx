@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  section: WithNode<Section>;
+  section: WithNode<Section | null>;
 }
 
 const SectionInfoView: React.FC<Props> = ({ section }) => {

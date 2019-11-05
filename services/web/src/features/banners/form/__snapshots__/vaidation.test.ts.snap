@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should be invalid for invalid resolution 1`] = `
+Object {
+  "source": Object {
+    "key": "yup:photo.resolution",
+    "options": Object {
+      "height": 683,
+      "width": 2048,
+    },
+  },
+}
+`;
