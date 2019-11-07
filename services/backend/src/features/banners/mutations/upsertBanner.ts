@@ -41,7 +41,10 @@ const upsertBannerResolver: TopLevelResolver<Vars> = async (_, vars) => {
     const sameImage = oldBanner.source.url === banner.source.url;
     shouldMoveTempImage = shouldMoveTempImage && !sameImage;
     if (wasImage && oldBanner.source && (!isImage || !sameImage)) {
-      await minioClient.removeObject(BANNERS, oldBanner.source.url!);
+      const objectName = oldBanner.source.url || oldBanner.source.src;
+      if (objectName) {
+        await minioClient.removeObject(BANNERS, objectName);
+      }
     }
   }
   if (shouldMoveTempImage) {
