@@ -6,10 +6,10 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import { VictoryTheme } from 'victory-native';
 import Loading from '../Loading';
 import ChartView from './ChartView';
 import { NoChart } from './NoChart';
+import VictoryTheme from './theme';
 
 const styles = StyleSheet.create({
   container: {
@@ -52,7 +52,7 @@ const PureChart: React.FC<Props> = React.memo((props) => {
           width={layout.width}
           height={layout.height}
           padding={{ top: 20, bottom: 54, left: 48, right: 16 }}
-          theme={VictoryTheme.material}
+          theme={VictoryTheme}
         />
       )}
     </View>
