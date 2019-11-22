@@ -40,31 +40,26 @@ interface Props {
 const FlowsThumb: React.FC<Props> = ({ section }) => {
   const [t] = useTranslation();
   const formulas = useFormulas(section);
-  const { levels, flows, gauge } = section;
+  const { gauge } = section;
   if (!gauge) {
     return null;
   }
   const { lastMeasurement, flowUnit, levelUnit } = gauge;
-  if (
-    !lastMeasurement ||
-    (!lastMeasurement.flow && !lastMeasurement.level) ||
-    (!flows && !levels)
-  ) {
+  if (!lastMeasurement || (!lastMeasurement.flow && !lastMeasurement.level)) {
     return null;
   }
   const color = getSectionColor(section);
-  const data =
-    flows && lastMeasurement.flow
-      ? {
-          label: t('commons:flow'),
-          unit: flowUnit,
-          value: formulas.flows(lastMeasurement.flow),
-        }
-      : {
-          label: t('commons:level'),
-          unit: levelUnit,
-          value: formulas.levels(lastMeasurement.level),
-        };
+  const data = lastMeasurement.flow
+    ? {
+        label: t('commons:flow'),
+        unit: flowUnit,
+        value: formulas.flows(lastMeasurement.flow),
+      }
+    : {
+        label: t('commons:level'),
+        unit: levelUnit,
+        value: formulas.levels(lastMeasurement.level),
+      };
   const fromNow = formatDistanceToNow(parseISO(lastMeasurement.timestamp), {
     addSuffix: true,
   });
