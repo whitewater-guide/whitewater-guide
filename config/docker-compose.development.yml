@@ -50,6 +50,9 @@ services:
         # Bind data dir locally, otherwise tmpfs runs out of space on pg_restore
       - ww-db-pgdata:/var/lib/postgresql/data
       - type: bind
+        source: ../services/db/config/postgres-initdb.sh
+        target: /docker-entrypoint-initdb.d/postgres-initdb.sh
+      - type: bind
         source: ../services/db/config/dump.bak
         target: /docker-entrypoint-initdb.d/dump.bak
       - type: bind
@@ -110,10 +113,11 @@ services:
   # Workers to harvest some data
   workers:
     container_name: ww-workers
-    image: 'ww-workers:dev'
     env_file:
       - .env.development.local
       - ../services/workers/.env.development.local
+    command:
+      ['--pg-db', 'gorge', '--log-level', 'debug', '--log-format', 'plain']
     ports:
       - '7080:7080'
     volumes:

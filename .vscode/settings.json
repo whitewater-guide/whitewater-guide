@@ -1,0 +1,22 @@
+{
+  "sqltools.connections": [
+    {
+      "database": "wwguide",
+      "dialect": "PostgreSQL",
+      "name": "ww-tests",
+      "password": "whitewater",
+      "port": 5432,
+      "server": "localhost",
+      "username": "postgres"
+    },
+    {
+      "database": "gorge",
+      "dialect": "PostgreSQL",
+      "name": "ww-dev-gorge",
+      "password": "whitewater",
+      "port": 5432,
+      "server": "localhost",
+      "username": "postgres"
+    }
+  ]
+}

@@ -38,8 +38,8 @@ PGDUMP_CONTAINER=$(docker-machine ssh ww-${S3_PREFIX} docker ps --filter="name=$
 CMD="docker-machine ssh ww-${S3_PREFIX} docker exec ${PG_EXTRA} ${PGDUMP_CONTAINER} sh backup.sh"
 eval "${CMD}"
 
-LATEST_BACKUP=$(aws s3 ls s3://$S3_BUCKET/$S3_PREFIX/ | sort | tail -n 1 | awk '{ print $4 }')
+LATEST_BACKUP=$(aws2 s3 ls s3://$S3_BUCKET/$S3_PREFIX/ | sort | tail -n 1 | awk '{ print $4 }')
 
 echo "Fetching ${LATEST_BACKUP} from S3"
 
-aws s3 cp s3://$S3_BUCKET/$S3_PREFIX/${LATEST_BACKUP} config/${DUMP_NAME}
+aws2 s3 cp s3://$S3_BUCKET/$S3_PREFIX/${LATEST_BACKUP} config/${DUMP_NAME}
