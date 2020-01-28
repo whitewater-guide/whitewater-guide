@@ -2542,10 +2542,10 @@
     "@webassemblyjs/wast-parser" "1.8.5"
     "@xtuc/long" "4.2.2"
 
-"@whitewater-guide/clients@0.0.302":
-  version "0.0.302"
-  resolved "https://registry.npmjs.org/@whitewater-guide/clients/-/clients-0.0.302.tgz#6093000159025bf39bde4b5581f611459f9dc944"
-  integrity sha512-TNOI8vrLgiK03sm9LK4041Yy6OXomUjoU0/YwhHGXBz8xiFJoIU0bNQxniZ0spjB6y4Kt9YdtB5emibfYs+oqQ==
+"@whitewater-guide/clients@0.0.303-workers.0":
+  version "0.0.303-workers.0"
+  resolved "https://registry.npmjs.org/@whitewater-guide/clients/-/clients-0.0.303-workers.0.tgz#7a8b9ce3e1434e7e53fb7a712c1467e16280fbe8"
+  integrity sha512-YQiBA/LrqUStPBHOZoFnuzZE0piU375MVdNEcUekZ/l69WtJMXKZW7eaSWB5wVM4oKBvWw+jzexkPU7v74HLAg==
   dependencies:
     "@turf/bearing" "^6.0.1"
     "@turf/helpers" "^6.1.4"
@@ -2574,6 +2574,19 @@
   version "0.0.188"
   resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.188.tgz#fd9cdbe27f3da6aa14956492126f3f1703fd2374"
   integrity sha512-VdHGlux/NKIFuJbDdfaUXy2RiZTbFHntj3KvR4UBYQfJatRaTj6MZNku3LC415iIJz4MVVh+Ysq3qRNoTUCzGA==
+  dependencies:
+    "@types/yup" "^0.26.24"
+    cron-validator "^1.0.2"
+    deepmerge "^4.2.2"
+    expr-eval "^2.0.2"
+    lodash "^4.17.15"
+    validator "^12.0.0"
+    yup "^0.27.0"
+
+"@whitewater-guide/commons@0.0.189-workers.2":
+  version "0.0.189-workers.2"
+  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.189-workers.2.tgz#d33ec616dc04d81b42a4f7464262c1486cdd2cc6"
+  integrity sha512-QZYjduLg6R8rFB9ETijpa53hhlCEZEkHeo/hm/jjxJHK68UdRVNRW+tNt6aIE9tn9ca75UsXZyENenvC/EwsRg==
   dependencies:
     "@types/yup" "^0.26.24"
     cron-validator "^1.0.2"
