@@ -36,16 +36,11 @@ export interface GaugeLocation {
 
 const HarvestInfo = gql`
   fragment GaugeHarvestInfo on Gauge {
-    enabled
     requestParams
-    cron
   }
 `;
 
-export type GaugeHarvestInfo<RP = any> = Pick<
-  Gauge<RP>,
-  'enabled' | 'cron' | 'requestParams'
->;
+export type GaugeHarvestInfo<RP = any> = Pick<Gauge<RP>, 'requestParams'>;
 
 const LastMeasurement = gql`
   fragment GaugeLastMeasurement on Gauge {
