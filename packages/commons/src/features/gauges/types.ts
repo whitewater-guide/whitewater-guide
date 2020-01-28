@@ -8,7 +8,6 @@ export interface Gauge<RP = any> extends NamedNode, Timestamped {
   levelUnit: string | null;
   flowUnit: string | null;
   requestParams: RP;
-  cron: string | null;
   url: string | null;
   enabled: boolean;
   location: Point | null;
@@ -27,7 +26,6 @@ export interface GaugeInput<RP = any> {
   levelUnit: string | null;
   flowUnit: string | null;
   requestParams: RP;
-  cron: string | null;
   url: string | null;
 }
 

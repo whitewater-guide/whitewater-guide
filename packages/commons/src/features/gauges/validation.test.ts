@@ -20,7 +20,6 @@ const gauge: GaugeInput = {
     kind: 'gauge',
   },
   requestParams: { foo: 'bar' },
-  cron: '8 * * * *',
   url: 'http://google.com',
   source: {
     id: '7df5722e-2d30-4993-890b-c062de184f78',
@@ -38,7 +37,6 @@ const correctValues: TestValue[] = [
       flowUnit: null,
       location: null,
       requestParams: null,
-      cron: null,
       url: null,
     },
   ],

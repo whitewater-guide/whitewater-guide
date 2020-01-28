@@ -1,6 +1,6 @@
 import * as yup from 'yup';
+
 import { yupTypes } from '../../validation';
-import { HarvestModeSchema } from '../harvest-mode';
 
 export const SourceInputSchema = yup
   .object({
@@ -17,7 +17,6 @@ export const SourceInputSchema = yup
       .max(20),
     requestParams: yup.object().nullable(),
     cron: yupTypes.cron().nullable(),
-    harvestMode: HarvestModeSchema.clone(),
     url: yup
       .string()
       .url()

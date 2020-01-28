@@ -5,8 +5,8 @@ import {
   NodeRef,
   Timestamped,
 } from '../../apollo';
+
 import { Gauge } from '../gauges';
-import { HarvestMode } from '../harvest-mode';
 import { HarvestStatus } from '../measurements';
 import { Region } from '../regions';
 
@@ -15,7 +15,6 @@ export interface Source<RP = any> extends NamedNode, Timestamped {
   script: string;
   requestParams: RP;
   cron: string | null;
-  harvestMode: HarvestMode;
   url: string | null;
   enabled: boolean | null;
   // --- connections
@@ -31,7 +30,6 @@ export interface SourceInput<RP = any> {
   script: string;
   cron: string | null;
   requestParams: RP;
-  harvestMode: HarvestMode;
   url: string | null;
   regions: NodeRef[];
 }

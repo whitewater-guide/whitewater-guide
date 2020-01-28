@@ -1,5 +1,4 @@
 import { createSafeValidator } from '../../validation';
-import { HarvestMode } from '../harvest-mode';
 import { SourceInput } from './types';
 import { SourceInputSchema } from './validation';
 
@@ -12,7 +11,6 @@ describe('SourceInput', () => {
     id: 'fd78e364-c2e4-11e8-a355-529269fb1459',
     name: 'src',
     cron: '10 * * * *',
-    harvestMode: HarvestMode.ALL_AT_ONCE,
     regions: [{ id: '1750c41e-c2e5-11e8-a355-529269fb1459' }],
     script: 'script',
     termsOfUse: 'terms of use',
@@ -28,7 +26,6 @@ describe('SourceInput', () => {
         id: null,
         name: 'source',
         cron: null,
-        harvestMode: HarvestMode.ALL_AT_ONCE,
         regions: [],
         script: 'script',
         termsOfUse: null,

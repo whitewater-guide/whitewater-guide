@@ -1,2 +1,0 @@
-schemaPath: 'services/backend/merged-schema.graphql'
-excludes: ['services/backend/src/**/*', 'services/backend/dist/**/*']

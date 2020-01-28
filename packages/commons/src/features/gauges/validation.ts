@@ -15,7 +15,6 @@ export const GaugeInputSchema = yup
       .mixed()
       .defined()
       .nullable(),
-    cron: yupTypes.cron().nullable(),
     url: yup.string().nullable(),
     source: yupTypes.node().defined(),
   })
