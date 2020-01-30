@@ -1,7 +1,6 @@
 import {
   BannerKind,
   BannerPlacement,
-  HarvestMode,
   MediaKind,
   TAG_CATEGORIES,
 } from '@whitewater-guide/commons';
@@ -95,10 +94,6 @@ export const mockApolloClient = (
     Boolean: (_, __, { counters }, info) => {
       const { seq } = counters.resolveNext(info);
       return seq % 2 === 0;
-    },
-    HarvestMode: (_, __, { counters }, info) => {
-      const { seq } = counters.resolveNext(info);
-      return [HarvestMode.ONE_BY_ONE, HarvestMode.ALL_AT_ONCE][seq % 2];
     },
     MediaKind: (_, __, { counters }, info) => {
       const { seq } = counters.resolveNext(info);
