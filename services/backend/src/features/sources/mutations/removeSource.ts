@@ -15,7 +15,7 @@ const removeSource: TopLevelResolver<Vars> = async (
     .del()
     .where({ id })
     .returning('id');
-  await dataSources.gorge.deleteJob(result);
+  await dataSources.gorge.deleteJobForSource(result);
   return result;
 };
 

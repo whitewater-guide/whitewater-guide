@@ -1,8 +1,7 @@
 import { holdTransaction, rollbackTransaction } from '@db';
 import { fileExistsInBucket, resetTestMinio, TEMP } from '@minio';
 import { TEST_USER, TEST_USER_ID } from '@seeds/01_users';
-import { anonContext, fakeContext, runQuery } from '@test';
-import { ApolloErrorCodes } from '@whitewater-guide/commons';
+import { fakeContext, runQuery } from '@test';
 import superagent from 'superagent';
 
 const { PROTOCOL, MINIO_DOMAIN } = process.env;
@@ -31,10 +30,10 @@ describe('response', () => {
     const result = await runQuery(query, variables, fakeContext(TEST_USER));
     expect(result.errors).toBeUndefined();
     expect(result.data!.uploadLink).toEqual({
-      postURL: `${PROTOCOL}://${MINIO_DOMAIN}/temp`,
+      postURL: `${PROTOCOL}://${MINIO_DOMAIN}/${TEMP}`,
       formData: {
         'Content-Type': 'image/*',
-        bucket: 'temp',
+        bucket: TEMP,
         key: expect.any(String),
         policy: expect.any(String),
         'x-amz-algorithm': 'AWS4-HMAC-SHA256',
@@ -80,7 +79,7 @@ describe('uploads', () => {
     await expect(req).resolves.toMatchObject({
       status: 204,
       header: {
-        location: `${PROTOCOL}://${MINIO_DOMAIN}/temp/${key}${extension}`,
+        location: `${PROTOCOL}://${MINIO_DOMAIN}/${TEMP}/${key}${extension}`,
         etag: expect.any(String),
       },
     });

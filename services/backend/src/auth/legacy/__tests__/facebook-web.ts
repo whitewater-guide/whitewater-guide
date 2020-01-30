@@ -250,6 +250,6 @@ describe('logout', () => {
     // existence of session before logout call is tested in different test above
     await testAgent.get(LOGOUT_ROUTE);
     const cookie = testAgent.jar.getCookie('wwguide', CookieAccessInfo.All);
-    expect(cookie.value).toBe('');
+    expect(cookie).toBeUndefined();
   });
 });

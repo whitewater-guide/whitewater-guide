@@ -1,4 +1,4 @@
-import { AVATARS } from './buckets';
+import { AVATARS, TEMP } from './buckets';
 import { fileExistsInBucket, resetTestMinio } from './test-utils';
 import { getTempPostPolicy, moveTempImage, renameFile } from './utils';
 
@@ -8,14 +8,14 @@ describe('getTempPostPolicy', () => {
     expect(result).toEqual({
       formData: {
         'Content-Type': 'image/*',
-        bucket: 'temp',
+        bucket: TEMP,
         policy: expect.any(String),
         'x-amz-algorithm': 'AWS4-HMAC-SHA256',
         'x-amz-credential': expect.any(String),
         'x-amz-date': expect.stringMatching(/[0-9TZ]+/),
         'x-amz-signature': expect.any(String),
       },
-      postURL: 'http://localhost:9001/temp',
+      postURL: `http://localhost:9001/${TEMP}`,
     });
   });
 
@@ -24,7 +24,7 @@ describe('getTempPostPolicy', () => {
     expect(result).toEqual({
       formData: {
         'Content-Type': 'image/*',
-        bucket: 'temp',
+        bucket: TEMP,
         key: 'myfile333.jpg',
         policy: expect.any(String),
         'x-amz-algorithm': 'AWS4-HMAC-SHA256',
@@ -32,7 +32,7 @@ describe('getTempPostPolicy', () => {
         'x-amz-date': expect.stringMatching(/[0-9TZ]+/),
         'x-amz-signature': expect.any(String),
       },
-      postURL: 'http://localhost:9001/temp',
+      postURL: `http://localhost:9001/${TEMP}`,
     });
   });
 
@@ -41,7 +41,7 @@ describe('getTempPostPolicy', () => {
     expect(result).toEqual({
       formData: {
         'Content-Type': 'image/*',
-        bucket: 'temp',
+        bucket: TEMP,
         key: 'myfile333.jpg',
         policy: expect.any(String),
         'x-amz-algorithm': 'AWS4-HMAC-SHA256',
@@ -50,7 +50,7 @@ describe('getTempPostPolicy', () => {
         'x-amz-signature': expect.any(String),
         'x-amz-meta-uploaded-by': 'uuid',
       },
-      postURL: 'http://localhost:9001/temp',
+      postURL: `http://localhost:9001/${TEMP}`,
     });
   });
 });
@@ -72,21 +72,21 @@ describe('moveTempImage', () => {
 
   it('should delete temp file', async () => {
     await moveTempImage(
-      'http://localhost:6001/uploads/temp/temp1.jpg',
+      `http://localhost:6001/uploads/${TEMP}/temp1.jpg`,
       AVATARS,
     );
-    const exists = await fileExistsInBucket('temp', 'temp1.jpg');
+    const exists = await fileExistsInBucket(TEMP, 'temp1.jpg');
     expect(exists).toBe(false);
   });
 
   it('should create file in other bucket', async () => {
     await moveTempImage(
-      'http://localhost:6001/uploads/temp/temp1.jpg',
+      `http://localhost:6001/uploads/${TEMP}/temp1.jpg`,
       AVATARS,
     );
     // Use http://onlinemd5.com/ to generate etags (md5)
     const exists = await fileExistsInBucket(
-      'avatars',
+      AVATARS,
       'temp1.jpg',
       'c8773384029dbf0a11464f6ad3a82997',
     );
@@ -95,11 +95,11 @@ describe('moveTempImage', () => {
 
   it('should overwrite existing file', async () => {
     await moveTempImage(
-      'http://localhost:6001/uploads/temp/overwrite.png',
+      `http://localhost:6001/uploads/${TEMP}/overwrite.png`,
       AVATARS,
     );
     const exists = await fileExistsInBucket(
-      'avatars',
+      AVATARS,
       'overwrite.png',
       '4bfdb23e6fd7255f908d0a0de979bf3d',
     );
@@ -108,12 +108,12 @@ describe('moveTempImage', () => {
 
   it('should rename file', async () => {
     await moveTempImage(
-      'http://localhost:6001/uploads/temp/overwrite.png',
+      `http://localhost:6001/uploads/${TEMP}/overwrite.png`,
       AVATARS,
       'foobar',
     );
     const exists = await fileExistsInBucket(
-      'avatars',
+      AVATARS,
       'foobar.png',
       '4bfdb23e6fd7255f908d0a0de979bf3d',
     );

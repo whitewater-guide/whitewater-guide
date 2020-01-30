@@ -2,7 +2,7 @@ import db, { holdTransaction, rollbackTransaction } from '@db';
 import { redis } from '@redis';
 import { ADMIN, ADMIN_FB_PROFILE, NEW_FB_PROFILE } from '@seeds/01_users';
 import { countRows, UUID_REGEX } from '@test';
-import { CookieAccessInfo } from 'cookiejar';
+import { Cookie, CookieAccessInfo } from 'cookiejar';
 import Koa from 'koa';
 import get from 'lodash/get';
 import FacebookTokenStrategy from 'passport-facebook-token';
@@ -234,6 +234,7 @@ describe('logout', () => {
 
   beforeEach(async () => {
     testAgent = agent(app);
+    testAgent.jar.setCookie(new Cookie('wwguide=legacy_id;path=/'));
     testAgent.get(`${ROUTE}?access_token=__new_access_token__`);
   });
 
@@ -264,6 +265,6 @@ describe('logout', () => {
       await testAgent.get(LOGOUT_ROUTE);
     } catch {}
     const cookie = testAgent.jar.getCookie('wwguide', CookieAccessInfo.All);
-    expect(cookie.value).toBe('');
+    expect(cookie).toBeUndefined();
   });
 });

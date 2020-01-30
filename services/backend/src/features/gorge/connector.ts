@@ -171,10 +171,10 @@ export class GorgeConnector implements DataSource<Context> {
     if (actuallyEnabled === enabled) {
       return enabled;
     }
-    if (!enabled) {
-      await this.deleteJobForSource(sourceId);
-    } else {
+    if (enabled) {
       await this.createJobForSource(sourceId);
+    } else {
+      await this.deleteJobForSource(sourceId);
     }
     return enabled;
   }

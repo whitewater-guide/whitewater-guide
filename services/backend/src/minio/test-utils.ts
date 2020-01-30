@@ -1,24 +1,29 @@
-import { createHash } from 'crypto';
+import {
+  AVATARS,
+  BANNERS,
+  BUCKETS_TEST_PREFIX,
+  COVERS,
+  MEDIA,
+  TEMP,
+} from './buckets';
 import { access, constants, createReadStream, readdir } from 'fs';
 import { copy, emptyDir } from 'fs-extra';
-import path from 'path';
-import { AVATARS, BANNERS, COVERS, MEDIA, TEMP } from './buckets';
 
-export const BUCKETS_DIR = path.resolve(
+import { createHash } from 'crypto';
+import { resolve } from 'path';
+
+export const BUCKETS_DIR = resolve(
   __dirname,
   '../../../../dev-mount/minio/data',
 );
 
-export const TEMP_BUCKET_DIR = path.resolve(BUCKETS_DIR, TEMP);
-export const MEDIA_BUCKET_DIR = path.resolve(BUCKETS_DIR, MEDIA);
-export const AVATARS_BUCKET_DIR = path.resolve(BUCKETS_DIR, AVATARS);
-export const COVERS_BUCKET_DIR = path.resolve(BUCKETS_DIR, COVERS);
-export const BANNERS_BUCKET_DIR = path.resolve(BUCKETS_DIR, BANNERS);
+export const TEMP_BUCKET_DIR = resolve(BUCKETS_DIR, TEMP);
+export const MEDIA_BUCKET_DIR = resolve(BUCKETS_DIR, MEDIA);
+export const AVATARS_BUCKET_DIR = resolve(BUCKETS_DIR, AVATARS);
+export const COVERS_BUCKET_DIR = resolve(BUCKETS_DIR, COVERS);
+export const BANNERS_BUCKET_DIR = resolve(BUCKETS_DIR, BANNERS);
 
-export const FIXTURES_BUCKETS_DIR = path.resolve(
-  __dirname,
-  '../seeds/test/minio',
-);
+export const FIXTURES_BUCKETS_DIR = resolve(__dirname, '../seeds/test/minio');
 
 export const resetTestMinio = async (clearOnly = false) => {
   await Promise.all([
@@ -29,23 +34,44 @@ export const resetTestMinio = async (clearOnly = false) => {
     emptyDir(BANNERS_BUCKET_DIR),
   ]);
   if (!clearOnly) {
-    await copy(FIXTURES_BUCKETS_DIR, BUCKETS_DIR);
+    await Promise.all([
+      copy(
+        resolve(FIXTURES_BUCKETS_DIR, TEMP.replace(BUCKETS_TEST_PREFIX, '')),
+        TEMP_BUCKET_DIR,
+      ),
+      copy(
+        resolve(FIXTURES_BUCKETS_DIR, MEDIA.replace(BUCKETS_TEST_PREFIX, '')),
+        MEDIA_BUCKET_DIR,
+      ),
+      copy(
+        resolve(FIXTURES_BUCKETS_DIR, AVATARS.replace(BUCKETS_TEST_PREFIX, '')),
+        AVATARS_BUCKET_DIR,
+      ),
+      copy(
+        resolve(FIXTURES_BUCKETS_DIR, COVERS.replace(BUCKETS_TEST_PREFIX, '')),
+        COVERS_BUCKET_DIR,
+      ),
+      copy(
+        resolve(FIXTURES_BUCKETS_DIR, BANNERS.replace(BUCKETS_TEST_PREFIX, '')),
+        BANNERS_BUCKET_DIR,
+      ),
+    ]);
   }
 };
 
 export const countFilesInBucket = (bucketName: string) =>
-  new Promise((resolve, reject) => {
-    const bucketPath = path.resolve(BUCKETS_DIR, bucketName);
+  new Promise((res, reject) => {
+    const bucketPath = resolve(BUCKETS_DIR, bucketName);
     readdir(bucketPath, (err, files) => {
       if (err) {
         if (err.code === 'ENOENT') {
           // Buckets are not real folders, so empty bucket does not exist as folder
-          resolve(0);
+          res(0);
         } else {
           reject(err);
         }
       } else {
-        resolve(files.length);
+        res(files.length);
       }
     });
   });
@@ -62,21 +88,21 @@ export const fileExistsInBucket = (
   fileName: string,
   etag?: string,
 ) =>
-  new Promise((resolve, reject) => {
-    const file = path.resolve(BUCKETS_DIR, bucketName, fileName);
+  new Promise((res, reject) => {
+    const file = resolve(BUCKETS_DIR, bucketName, fileName);
     access(file, constants.F_OK, (err) => {
       if (err) {
-        resolve(false);
+        res(false);
       } else if (etag) {
         const hash = createHash('md5');
         const stream = createReadStream(file);
         stream.on('error', reject);
         hash.once('readable', () => {
-          resolve((hash.read() as Buffer).toString('hex') === etag);
+          res((hash.read() as Buffer).toString('hex') === etag);
         });
         stream.pipe(hash);
       } else {
-        resolve(true);
+        res(true);
       }
     });
   });

@@ -10,7 +10,7 @@ const toggleSource: TopLevelResolver<Vars> = async (
   { id, enabled },
   { dataSources },
 ) => {
-  const res = await dataSources.gorge.toggleJob(id, enabled);
+  const res = await dataSources.gorge.toggleJobForSource(id, enabled);
   return { id, enabled: res };
 };
 

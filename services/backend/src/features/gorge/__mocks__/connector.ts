@@ -190,7 +190,12 @@ export class GorgeConnector extends Original implements DataSource<Context> {
     return Promise.resolve(new Map());
   }
 
-  public async createJob(sourceId: string): Promise<GorgeJob> {
+  public async deleteJobForSource(sourceId: string): Promise<void> {
+    this._jobs.delete(sourceId);
+    return Promise.resolve();
+  }
+
+  public async createJobForSource(sourceId: string): Promise<GorgeJob> {
     const fake: GorgeJob = {
       id: sourceId,
       script: 'all_at_once',
@@ -199,23 +204,6 @@ export class GorgeConnector extends Original implements DataSource<Context> {
     };
     this._jobs.set(sourceId, fake);
     return Promise.resolve(fake);
-  }
-
-  public async deleteJobForSource(sourceId: string): Promise<void> {
-    this._jobs.delete(sourceId);
-    return Promise.resolve();
-  }
-
-  public async createJobForSource(
-    sourceId: string,
-    enabled: boolean,
-  ): Promise<boolean> {
-    if (enabled) {
-      this.createJob(sourceId);
-    } else {
-      this.deleteJobForSource(sourceId);
-    }
-    return Promise.resolve(enabled);
   }
 
   public getLatest(script: string, code: string) {
