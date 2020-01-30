@@ -52,7 +52,7 @@ const LastMeasurement = gql`
   }
 `;
 
-export type GaugeLastMeasurement = Pick<Gauge, 'lastMeasurement'>;
+export type GaugeLastMeasurement = Pick<Gauge, 'latestMeasurement'>;
 
 const Status = gql`
   fragment GaugeStatus on Gauge {

@@ -40,7 +40,7 @@ const makeSection = (
   },
   levels: null,
   gauge: {
-    lastMeasurement: { flow: value, level: 0 },
+    latestMeasurement: { flow: value, level: 0 },
   },
 });
 
@@ -100,7 +100,7 @@ describe('Not enough input data', () => {
         impossible: 4,
         approximate: false,
       },
-      gauge: { lastMeasurement: null },
+      gauge: { latestMeasurement: null },
     };
     expect(getSectionColor(input)).toBe(ColorStrings.none);
   });
@@ -121,7 +121,7 @@ describe('Not enough input data', () => {
         impossible: 4,
         approximate: false,
       },
-      gauge: { lastMeasurement: { level: 0, flow: 0 } },
+      gauge: { latestMeasurement: { level: 0, flow: 0 } },
     };
     expect(getSectionColor(input)).toBe(ColorStrings.none);
   });
@@ -131,7 +131,7 @@ describe('Not enough input data', () => {
       flows: null,
       levels: null,
       gauge: {
-        lastMeasurement: { level: 10, flow: 10 },
+        latestMeasurement: { level: 10, flow: 10 },
       },
     };
     expect(getSectionColor(input)).toBe(ColorStrings.none);
@@ -147,7 +147,7 @@ describe('Not enough input data', () => {
         impossible: 4,
         approximate: false,
       },
-      gauge: { lastMeasurement: { level: 0, flow: 10 } },
+      gauge: { latestMeasurement: { level: 0, flow: 10 } },
     };
     expect(getSectionColor(input)).toBe(ColorStrings.none);
   });
@@ -169,7 +169,7 @@ it('should return prefer flow to level', () => {
       impossible: 40,
       approximate: false,
     },
-    gauge: { lastMeasurement: { level: 35, flow: 200 } },
+    gauge: { latestMeasurement: { level: 35, flow: 200 } },
   };
   expect(getSectionColor(input)).toBe(ColorStrings.optimum);
 });

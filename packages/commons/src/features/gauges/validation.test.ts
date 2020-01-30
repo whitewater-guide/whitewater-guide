@@ -66,7 +66,6 @@ const incorrectValues: TestValue[] = [
         kind: 'foo',
       },
       requestParams: {},
-      cron: '-1 * * * *',
       url: 'http://google.',
       source: {
         id: 'bar',
@@ -75,7 +74,6 @@ const incorrectValues: TestValue[] = [
   ],
   ['undefined name', { ...gauge, name: undefined as any }],
   ['undefined code', { ...gauge, code: undefined as any }],
-  ['undefined cron', { ...gauge, cron: undefined as any }],
   ['undefined level unit', { ...gauge, levelUnit: undefined as any }],
   ['undefined request params', { ...gauge, requestParams: undefined as any }],
   ['undefined source', { ...gauge, source: undefined as any }],

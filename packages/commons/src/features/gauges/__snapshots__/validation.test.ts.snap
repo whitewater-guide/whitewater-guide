@@ -3,7 +3,6 @@
 exports[`should be invalid for all 1`] = `
 Object {
   "code": "yup:varchar.nonEmpty",
-  "cron": "yup:string.cron",
   "flowUnit": "yup:varchar.nonEmpty",
   "id": "yup:string.uuid",
   "levelUnit": "yup:varchar.nonEmpty",
@@ -52,12 +51,6 @@ Object {
 exports[`should be invalid for undefined code 1`] = `
 Object {
   "code": "yup:mixed.defined",
-}
-`;
-
-exports[`should be invalid for undefined cron 1`] = `
-Object {
-  "cron": "yup:mixed.defined",
 }
 `;
 

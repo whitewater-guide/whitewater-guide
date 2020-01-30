@@ -43,7 +43,6 @@ describe('SourceInput', () => {
     ['empty name', { ...correct, name: '' }],
     ['empty script', { ...correct, script: '' }],
     ['bad cron', { ...correct, cron: '100 * * * * *' }],
-    ['bad harvest_mode', { ...correct, harvestMode: 'foo' as any }],
     ['bad url', { ...correct, url: 'foo' }],
     ['bad region', { ...correct, regions: [{ id: 'foo' }] }],
     [

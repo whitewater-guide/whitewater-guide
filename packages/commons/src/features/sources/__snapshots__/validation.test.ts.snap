@@ -6,17 +6,6 @@ Object {
 }
 `;
 
-exports[`SourceInput should be invalid for bad harvest_mode 1`] = `
-Object {
-  "harvestMode": Object {
-    "key": "yup:mixed.oneOf",
-    "options": Object {
-      "values": "allAtOnce, oneByOne",
-    },
-  },
-}
-`;
-
 exports[`SourceInput should be invalid for bad region 1`] = `
 Object {
   "regions": Array [

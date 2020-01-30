@@ -325,17 +325,17 @@ const colorTable: ColorTable = {
 
 // Subset of section data required to compute its color
 interface PGauge {
-  lastMeasurement: Pick<Measurement, 'level' | 'flow'> | null;
+  latestMeasurement: Pick<Measurement, 'level' | 'flow'> | null;
 }
 export type ColorizeSection = Pick<Section, 'flows' | 'levels'> & {
   gauge: PGauge | null;
 };
 
 export function getSectionColorRaw(section: ColorizeSection): color {
-  if (!section.gauge || !section.gauge.lastMeasurement) {
+  if (!section.gauge || !section.gauge.latestMeasurement) {
     return Colors.none;
   }
-  const { flow, level } = section.gauge.lastMeasurement;
+  const { flow, level } = section.gauge.latestMeasurement;
   if (!flow && !level) {
     return Colors.none;
   }
