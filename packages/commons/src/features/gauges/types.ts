@@ -13,7 +13,7 @@ export interface Gauge<RP = any> extends NamedNode, Timestamped {
   location: Point | null;
   source: Source;
   // measurements?: Measurement[];
-  lastMeasurement: Measurement | null;
+  latestMeasurement: Measurement | null;
   status: HarvestStatus | null;
 }
 
