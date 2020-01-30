@@ -33,7 +33,7 @@ Object {
           "code": "Gauge.code.1",
           "flowUnit": "Gauge.flowUnit.1",
           "id": "Gauge.id.1",
-          "lastMeasurement": Object {
+          "latestMeasurement": Object {
             "__typename": "Measurement",
             "flow": 1.5,
             "level": 1.5,
@@ -147,7 +147,7 @@ Object {
           "code": "Gauge.code.2",
           "flowUnit": "Gauge.flowUnit.2",
           "id": "Gauge.id.2",
-          "lastMeasurement": Object {
+          "latestMeasurement": Object {
             "__typename": "Measurement",
             "flow": 2.5,
             "level": 2.5,
@@ -261,7 +261,7 @@ Object {
           "code": "Gauge.code.3",
           "flowUnit": "Gauge.flowUnit.3",
           "id": "Gauge.id.3",
-          "lastMeasurement": Object {
+          "latestMeasurement": Object {
             "__typename": "Measurement",
             "flow": 3.5,
             "level": 3.5,
@@ -375,7 +375,7 @@ Object {
           "code": "Gauge.code.4",
           "flowUnit": "Gauge.flowUnit.4",
           "id": "Gauge.id.4",
-          "lastMeasurement": Object {
+          "latestMeasurement": Object {
             "__typename": "Measurement",
             "flow": 4.5,
             "level": 4.5,
@@ -489,7 +489,7 @@ Object {
           "code": "Gauge.code.5",
           "flowUnit": "Gauge.flowUnit.5",
           "id": "Gauge.id.5",
-          "lastMeasurement": Object {
+          "latestMeasurement": Object {
             "__typename": "Measurement",
             "flow": 5.5,
             "level": 5.5,

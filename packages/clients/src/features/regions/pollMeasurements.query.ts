@@ -7,7 +7,7 @@ export const POLL_REGION_MEASUREMENTS = gql`
       gauges {
         nodes {
           id
-          lastMeasurement {
+          latestMeasurement {
             flow
             level
             timestamp

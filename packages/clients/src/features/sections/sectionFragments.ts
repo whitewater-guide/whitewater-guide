@@ -111,7 +111,7 @@ const Measurements = gql`
     gauge {
       ...GaugeCore
       ...GaugeLocation
-      ...GaugeLastMeasurement
+      ...GaugeLatestMeasurement
       source {
         id
         name
@@ -127,7 +127,7 @@ const Measurements = gql`
     flowsText
   }
   ${GaugeFragments.Core}
-  ${GaugeFragments.LastMeasurement}
+  ${GaugeFragments.LatestMeasurement}
   ${GaugeFragments.Location}
   ${GaugeBinding.All}
 `;

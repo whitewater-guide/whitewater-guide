@@ -42,9 +42,9 @@ const HarvestInfo = gql`
 
 export type GaugeHarvestInfo<RP = any> = Pick<Gauge<RP>, 'requestParams'>;
 
-const LastMeasurement = gql`
-  fragment GaugeLastMeasurement on Gauge {
-    lastMeasurement {
+const LatestMeasurement = gql`
+  fragment GaugeLatestMeasurement on Gauge {
+    latestMeasurement {
       timestamp
       flow
       level
@@ -52,7 +52,7 @@ const LastMeasurement = gql`
   }
 `;
 
-export type GaugeLastMeasurement = Pick<Gauge, 'latestMeasurement'>;
+export type GaugeLatestMeasurement = Pick<Gauge, 'latestMeasurement'>;
 
 const Status = gql`
   fragment GaugeStatus on Gauge {
@@ -94,7 +94,7 @@ export const GaugeFragments = {
   Core,
   Location,
   HarvestInfo,
-  LastMeasurement,
+  LatestMeasurement,
   Measurements,
   Source,
   Status,

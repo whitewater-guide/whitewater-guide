@@ -19,9 +19,9 @@ import {
 } from '../../test';
 import { POLL_REGION_MEASUREMENTS } from '../regions';
 import {
-  LIST_SECTIONS,
   ListSectionsResult,
   ListSectionsVars,
+  LIST_SECTIONS,
 } from './listSections.query';
 import { SectionsListProvider } from './SectionsListProvider';
 import { SectionsStatus } from './types';
@@ -143,7 +143,7 @@ const mockPolledResponse = (n: number) => ({
             {
               __typename: 'Gauge',
               id: 'Gauge.id.1',
-              lastMeasurement: {
+              latestMeasurement: {
                 __typename: 'Measurement',
                 flow: 300 + n,
                 level: 300 + n,
@@ -516,7 +516,7 @@ it('should fire polling query immediately', async () => {
   );
 });
 
-it('should poll lastMeasurements', async () => {
+it('should poll latestMeasurements', async () => {
   jest.useFakeTimers();
   mountInHarness({
     responses: mockedResponses,
@@ -533,8 +533,11 @@ it('should poll lastMeasurements', async () => {
   );
 });
 
-it.each([['partial data', 2], ['full data', INITIAL_COUNT]])(
-  'should poll lastMeasurements after coming back online with %s',
+it.each([
+  ['partial data', 2],
+  ['full data', INITIAL_COUNT],
+])(
+  'should poll latestMeasurements after coming back online with %s',
   async (_: any, len: number) => {
     jest.useFakeTimers();
     const harness = mountInHarness({
@@ -563,7 +566,7 @@ it.each([['partial data', 2], ['full data', INITIAL_COUNT]])(
   },
 );
 
-it('should pass lastMeasurements updated via poll', async () => {
+it('should pass latestMeasurements updated via poll', async () => {
   jest.useFakeTimers();
   mountInHarness({
     responses: mockedResponses,
@@ -577,20 +580,20 @@ it('should pass lastMeasurements updated via poll', async () => {
   jest.runTimersToTime(POLL_INTERVAL * 1.1);
   await flushPromises(10);
   expect(children.mock.calls.pop()).toHaveProperty(
-    '0.sections.0.gauge.lastMeasurement.flow',
+    '0.sections.0.gauge.latestMeasurement.flow',
     302,
   );
   expect(children.mock.calls.pop()).toHaveProperty(
-    '0.sections.0.gauge.lastMeasurement.flow',
+    '0.sections.0.gauge.latestMeasurement.flow',
     301,
   );
   expect(children.mock.calls.pop()).toHaveProperty(
-    '0.sections.0.gauge.lastMeasurement.flow',
+    '0.sections.0.gauge.latestMeasurement.flow',
     300,
   );
 });
 
-it('should pass lastMeasurements updated via poll after coming back online', async () => {
+it('should pass latestMeasurements updated via poll after coming back online', async () => {
   jest.useFakeTimers();
   const harness = mountInHarness({
     cache: {
@@ -610,7 +613,7 @@ it('should pass lastMeasurements updated via poll after coming back online', asy
   jest.runTimersToTime(POLL_INTERVAL * 2.5);
   await flushPromises(10);
   expect(children.mock.calls.pop()).toHaveProperty(
-    '0.sections.0.gauge.lastMeasurement.flow',
+    '0.sections.0.gauge.latestMeasurement.flow',
     301,
   );
 });

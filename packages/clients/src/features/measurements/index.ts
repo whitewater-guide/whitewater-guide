@@ -1,1 +1,1 @@
-export * from './lastMeasurements.query';
+export * from './latestMeasurements.query';
