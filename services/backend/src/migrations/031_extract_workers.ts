@@ -1,5 +1,4 @@
 import { createViews, dropViews, runSqlFile } from '@db';
-import { HarvestMode } from '@whitewater-guide/commons';
 import Knex from 'knex';
 
 const VIEWS = ['gauges', 'sources'];
@@ -30,9 +29,9 @@ export const down = async (db: Knex) => {
   await db.raw('DROP VIEW IF EXISTS jobs_view');
   await db.schema.alterTable('sources', (table) => {
     table
-      .enu('harvest_mode', [HarvestMode.ALL_AT_ONCE, HarvestMode.ONE_BY_ONE])
+      .enu('harvest_mode', ['allAtOnce', 'oneByOne'])
       .notNullable()
-      .defaultTo(HarvestMode.ALL_AT_ONCE); // this should never happen
+      .defaultTo('allAtOnce'); // this should never happen
     table
       .boolean('enabled')
       .notNullable()

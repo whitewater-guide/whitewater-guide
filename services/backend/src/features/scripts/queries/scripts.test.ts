@@ -1,6 +1,6 @@
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
-import { ApolloErrorCodes, HarvestMode } from '@whitewater-guide/commons';
 import { anonContext, fakeContext, runQuery } from '@test';
+import { ApolloErrorCodes } from '@whitewater-guide/commons';
 
 jest.mock('../../gorge/connector');
 
@@ -13,7 +13,6 @@ const query = `
     scripts {
       id
       name
-      harvestMode
     }
   }
 `;
@@ -42,12 +41,10 @@ it('should return some scripts', async () => {
     {
       id: 'all_at_once',
       name: 'all_at_once',
-      harvestMode: HarvestMode.ALL_AT_ONCE,
     },
     {
       id: 'one_by_one',
       name: 'one_by_one',
-      harvestMode: HarvestMode.ONE_BY_ONE,
     },
   ]);
 });

@@ -4,7 +4,7 @@ import {
   removeUpdatedAtFunction,
   runSqlFile,
 } from '@db';
-import { HarvestMode, POITypes } from '@whitewater-guide/commons';
+import { POITypes } from '@whitewater-guide/commons';
 import Knex from 'knex';
 import { createTable } from './utils';
 
@@ -67,9 +67,7 @@ export const up = async (db: Knex) => {
       .primary();
     table.string('script', 20).notNullable();
     table.string('cron', 50);
-    table
-      .enu('harvest_mode', [HarvestMode.ALL_AT_ONCE, HarvestMode.ONE_BY_ONE])
-      .notNullable();
+    table.enu('harvest_mode', ['allAtOnce', 'oneByOne']).notNullable();
     table.string('url', 500);
     table
       .boolean('enabled')

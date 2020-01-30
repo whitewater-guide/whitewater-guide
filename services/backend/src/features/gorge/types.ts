@@ -1,8 +1,6 @@
-import { HarvestMode } from '@whitewater-guide/commons';
-
 export interface GorgeScript {
   name: string;
-  mode: HarvestMode;
+  mode: string;
 }
 
 export interface GorgeGauge {

@@ -1,6 +1,5 @@
 import { holdTransaction, rollbackTransaction } from '@db';
 import { SOURCE_GALICIA_1 } from '@seeds/05_sources';
-import { HarvestMode } from '@whitewater-guide/commons';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { GorgeConnector } from './connector';
@@ -25,8 +24,8 @@ const ERROR: GorgeError = { error: 'script failed' };
 
 it('should list scripts', async () => {
   const scripts: GorgeScript[] = [
-    { name: 'all_at_once', mode: HarvestMode.ALL_AT_ONCE },
-    { name: 'one_by_one', mode: HarvestMode.ONE_BY_ONE },
+    { name: 'all_at_once', mode: 'allAtOnce' },
+    { name: 'one_by_one', mode: 'oneByOne' },
   ];
   mock.onGet(/.*\/scripts/).replyOnce(200, scripts);
   const connector = new GorgeConnector();

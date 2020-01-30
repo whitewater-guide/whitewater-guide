@@ -1,5 +1,4 @@
 import { Context } from '@apollo';
-import { HarvestMode } from '@whitewater-guide/commons';
 import { DataSource, DataSourceConfig } from 'apollo-datasource';
 import compareDesc from 'date-fns/compareDesc';
 import differenceInDays from 'date-fns/differenceInDays';
@@ -168,8 +167,8 @@ export class GorgeConnector extends Original implements DataSource<Context> {
 
   public async listScripts(): Promise<GorgeScript[]> {
     return Promise.resolve([
-      { name: 'all_at_once', mode: HarvestMode.ALL_AT_ONCE },
-      { name: 'one_by_one', mode: HarvestMode.ONE_BY_ONE },
+      { name: 'all_at_once', mode: 'allAtOnce' },
+      { name: 'one_by_one', mode: 'oneByOne' },
     ]);
   }
 
