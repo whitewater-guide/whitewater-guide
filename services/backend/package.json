@@ -24,7 +24,7 @@
     "@sentry/node": "^5.7.1",
     "@turf/boolean-point-in-polygon": "^6.0.1",
     "@turf/helpers": "^6.1.4",
-    "@whitewater-guide/commons": "0.0.189-workers.2",
+    "@whitewater-guide/commons": "0.0.189-workers.4",
     "apollo-datasource": "^0.6.3",
     "apollo-server": "^2.9.7",
     "apollo-server-cache-redis": "^1.1.4",
