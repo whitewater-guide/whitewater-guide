@@ -1,6 +1,4 @@
 import * as yup from 'yup';
-
-import { HarvestModeSchema } from '../harvest-mode';
 import { Script } from './types';
 
 export const ScriptSchema = yup
@@ -13,7 +11,6 @@ export const ScriptSchema = yup
       .string()
       .min(1)
       .max(20),
-    harvestMode: HarvestModeSchema.clone(),
   })
   .strict(true)
   .noUnknown();

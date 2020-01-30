@@ -18,5 +18,9 @@
       "server": "localhost",
       "username": "postgres"
     }
-  ]
+  ],
+  "search.exclude": {
+    "**/dist": true,
+    "**/node_modules": true
+  }
 }

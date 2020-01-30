@@ -4,7 +4,6 @@ export * from './features';
 export * from './features/banners';
 export * from './features/gauges';
 export * from './features/groups';
-export * from './features/harvest-mode';
 export * from './features/measurements';
 export * from './features/media';
 export * from './features/points';
