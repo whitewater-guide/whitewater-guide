@@ -5,7 +5,6 @@ exports[`insert should match snapshot 1`] = `undefined`;
 exports[`update should match snapshot 1`] = `
 Object {
   "code": "gal1",
-  "cron": "10 * * * *",
   "flowUnit": "cm3/s",
   "levelUnit": "m",
   "location": Object {

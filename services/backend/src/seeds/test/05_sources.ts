@@ -1,4 +1,3 @@
-import { HarvestMode } from '@whitewater-guide/commons';
 import Knex from 'knex';
 import { REGION_GALICIA, REGION_GEORGIA, REGION_NORWAY } from './04_regions';
 
@@ -14,44 +13,32 @@ const sources = [
     id: SOURCE_GALICIA_1,
     script: 'galicia',
     cron: '0 * * * *',
-    harvest_mode: HarvestMode.ALL_AT_ONCE,
     url: 'http://ya.ru',
-    enabled: false,
   },
   {
     id: SOURCE_GALICIA_2,
     script: 'galicia2',
     cron: null,
-    harvest_mode: HarvestMode.ALL_AT_ONCE,
     url: 'http://yandex.ru',
-    enabled: true,
   },
   {
     id: SOURCE_ALPS,
     script: 'alps',
     cron: '10 * * * *',
-    harvest_mode: HarvestMode.ALL_AT_ONCE,
     url: 'http://yandex.ru',
-    enabled: true,
   },
   {
     id: SOURCE_NORWAY,
     script: 'norway',
-    harvest_mode: HarvestMode.ONE_BY_ONE,
-    enabled: true,
   },
   {
     id: SOURCE_GEORGIA,
     script: 'one_by_one',
-    harvest_mode: HarvestMode.ONE_BY_ONE,
-    enabled: false,
   },
   {
     id: SOURCE_RUSSIA,
-    script: 'one_by_one',
-    harvest_mode: HarvestMode.ONE_BY_ONE,
+    script: 'russia',
     request_params: JSON.stringify({ foo: 'bar' }),
-    enabled: false,
   },
 ];
 

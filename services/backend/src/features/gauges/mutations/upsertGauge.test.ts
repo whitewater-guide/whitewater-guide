@@ -1,7 +1,8 @@
 import db, { holdTransaction, rollbackTransaction } from '@db';
+import { GorgeConnector } from '@features/gorge';
 import { ADMIN, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
 import { SOURCE_GALICIA_1, SOURCE_NORWAY } from '@seeds/05_sources';
-import { GAUGE_GAL_1_1, GAUGE_GEO_3 } from '@seeds/06_gauges';
+import { GAUGE_GAL_1_1, GAUGE_GAL_2_1 } from '@seeds/06_gauges';
 import {
   anonContext,
   countRows,
@@ -14,11 +15,14 @@ import {
 import { ApolloErrorCodes, GaugeInput } from '@whitewater-guide/commons';
 import { GaugeRaw } from '../types';
 
+jest.mock('../../gorge/connector');
+
 let pBefore: number;
 let gBefore: number;
 let tBefore: number;
 
 beforeAll(async () => {
+  jest.resetAllMocks();
   [gBefore, tBefore, pBefore] = await countRows(
     true,
     'gauges',
@@ -44,7 +48,6 @@ const upsertQuery = `
       levelUnit
       flowUnit
       requestParams
-      cron
       url
       createdAt
       updatedAt
@@ -66,7 +69,6 @@ describe('resolvers chain', () => {
     levelUnit: 'cm',
     flowUnit: null,
     requestParams: null,
-    cron: null,
     url: null,
   };
 
@@ -109,7 +111,6 @@ describe('resolvers chain', () => {
       levelUnit: '',
       flowUnit: '',
       requestParams: null,
-      cron: 'aaa',
       url: 'bbb',
     };
     const result = await runQuery(
@@ -137,7 +138,6 @@ describe('insert', () => {
     levelUnit: 'cm',
     flowUnit: 'm3/s',
     requestParams: { foo: 'bar' },
-    cron: '10 * * * *',
     url: 'http://nve.no/nor5',
   };
 
@@ -233,7 +233,6 @@ describe('update', () => {
     levelUnit: 'm',
     flowUnit: 'cm3/s',
     requestParams: { lol: 'fun' },
-    cron: '10 * * * *',
     url: 'http://galic.ia/gal1',
   };
 
@@ -291,20 +290,46 @@ describe('update', () => {
     });
   });
 
-  it('should not change enabled gauges', async () => {
-    const result = await runQuery(
-      upsertQuery,
-      { gauge: { ...input, id: GAUGE_GEO_3 } },
-      fakeContext(ADMIN),
-    );
-    expect(result).toHaveGraphqlError(
-      ApolloErrorCodes.MUTATION_NOT_ALLOWED,
-      'Disable gauge before editing it',
-    );
-  });
-
   it('should match snapshot', async () => {
     expect(noUnstable(updatedGauge)).toMatchSnapshot();
+  });
+});
+
+describe('jobs', () => {
+  const input: GaugeInput = {
+    id: GAUGE_GAL_1_1,
+    source: { id: SOURCE_GALICIA_1 },
+    name: 'GALICIA GAUGE 1',
+    code: 'gal1',
+    location: {
+      id: '0c86ff2c-bbdd-11e7-abc4-cec278b6b50a',
+      name: null,
+      description: null,
+      coordinates: [11.1, 12.2, 1.1],
+      kind: 'gauge',
+    },
+    levelUnit: 'm',
+    flowUnit: 'cm3/s',
+    requestParams: { lol: 'fun' },
+    url: 'http://galic.ia/gal1',
+  };
+
+  it('should call update job for enabled gauges', async () => {
+    const spy = jest.spyOn(GorgeConnector.prototype, 'updateJobForSource');
+    await runQuery(upsertQuery, { gauge: input }, fakeContext(ADMIN));
+    expect(spy).toHaveBeenCalledWith(SOURCE_GALICIA_1);
+    spy.mockReset();
+  });
+
+  it('should not call update job for disabled gauges', async () => {
+    const spy = jest.spyOn(GorgeConnector.prototype, 'updateJobForSource');
+    await runQuery(
+      upsertQuery,
+      { gauge: { ...input, id: GAUGE_GAL_2_1 } },
+      fakeContext(ADMIN),
+    );
+    expect(spy).not.toHaveBeenCalled();
+    spy.mockReset();
   });
 });
 
@@ -324,7 +349,6 @@ describe('i18n', () => {
     levelUnit: 'm',
     flowUnit: 'cm3/s',
     requestParams: { lol: 'fun' },
-    cron: '10 * * * *',
     url: 'http://galic.ia/gal1',
   };
 

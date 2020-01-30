@@ -14,12 +14,10 @@ import {
   noUnstable,
   runQuery,
 } from '@test';
-import {
-  ApolloErrorCodes,
-  HarvestMode,
-  SourceInput,
-} from '@whitewater-guide/commons';
+import { ApolloErrorCodes, SourceInput } from '@whitewater-guide/commons';
 import { SourceRaw } from '../types';
+
+jest.mock('../../gorge/connector');
 
 let sourceCountBefore: number;
 
@@ -37,7 +35,6 @@ afterEach(rollbackTransaction);
 const requiredSource: SourceInput = {
   id: null,
   name: 'New Source',
-  harvestMode: HarvestMode.ALL_AT_ONCE,
   script: 'newScript',
   url: null,
   termsOfUse: null,
@@ -52,7 +49,6 @@ const optionalSource: SourceInput = {
   script: 'updatedScript',
   requestParams: { foo: 'bar' },
   cron: '1 1 * * *',
-  harvestMode: HarvestMode.ONE_BY_ONE,
   url: 'http://google.com',
   termsOfUse: 'New terms of use',
   regions: [{ id: '2caf75ca-7625-11e7-b5a5-be2e44b06b34' }], // replace two regions with one different
@@ -67,7 +63,6 @@ const mutation = `
       script
       requestParams
       cron
-      harvestMode
       url
       enabled
       createdAt
@@ -110,7 +105,6 @@ describe('resolvers chain', () => {
       name: 'Invalid source',
       script: 'updatedScript',
       cron: '300 1 * * *',
-      harvestMode: HarvestMode.ONE_BY_ONE,
       url: 'not url',
       requestParams: null,
       termsOfUse: 'New terms of use',
@@ -271,7 +265,6 @@ describe('i18n', () => {
     termsOfUse: 'Правила пользования Грузией',
     cron: '0 * * * *',
     requestParams: null,
-    harvestMode: HarvestMode.ONE_BY_ONE,
     url: 'http://georgia.ge',
     regions: [],
   };
@@ -281,7 +274,6 @@ describe('i18n', () => {
     script: 'galicia',
     cron: '0 * * * *',
     requestParams: null,
-    harvestMode: HarvestMode.ALL_AT_ONCE,
     url: 'http://ya.ru',
     name: 'Новая Галисия',
     termsOfUse: 'Правила пользования новой галисией',

@@ -5,7 +5,6 @@ Object {
   "__typename": "Source",
   "cron": "0 * * * *",
   "enabled": false,
-  "harvestMode": "allAtOnce",
   "id": "6d0d717e-aa9d-11e7-abc4-cec278b6b50a",
   "name": "Galicia",
   "requestParams": null,

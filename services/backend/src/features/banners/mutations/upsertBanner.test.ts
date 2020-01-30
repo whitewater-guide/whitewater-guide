@@ -1,31 +1,32 @@
-import db, { holdTransaction, rollbackTransaction } from '@db';
-import {
-  BANNERS,
-  fileExistsInBucket,
-  resetTestMinio,
-  TEMP,
-  TEMP_BUCKET_DIR,
-} from '@minio';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
-import { GROUP_LATIN } from '@seeds/03_groups';
-import { REGION_GALICIA, REGION_NORWAY } from '@seeds/04_regions';
-import {
-  GALICIA_REGION_DESCR_BANNER,
-  GALICIA_REGION_DESCR_BANNER2,
-} from '@seeds/14_banners';
-import {
-  anonContext,
-  countRows,
-  fakeContext,
-  runQuery,
-  UUID_REGEX,
-} from '@test';
 import {
   ApolloErrorCodes,
   BannerInput,
   BannerKind,
   BannerPlacement,
 } from '@whitewater-guide/commons';
+import {
+  BANNERS,
+  TEMP,
+  TEMP_BUCKET_DIR,
+  fileExistsInBucket,
+  resetTestMinio,
+} from '@minio';
+import {
+  GALICIA_REGION_DESCR_BANNER,
+  GALICIA_REGION_DESCR_BANNER2,
+} from '@seeds/14_banners';
+import { REGION_GALICIA, REGION_NORWAY } from '@seeds/04_regions';
+import {
+  UUID_REGEX,
+  anonContext,
+  countRows,
+  fakeContext,
+  runQuery,
+} from '@test';
+import db, { holdTransaction, rollbackTransaction } from '@db';
+
+import { GROUP_LATIN } from '@seeds/03_groups';
 import { copy } from 'fs-extra';
 import path from 'path';
 
@@ -288,6 +289,14 @@ describe('files', () => {
     },
   };
 
+  beforeEach(async () => {
+    // Emulate file with the same key as existing avatar uploaded by user
+    await copy(
+      path.resolve(__dirname, '__tests__/banner_5.jpg'),
+      path.resolve(TEMP_BUCKET_DIR, NEW_FILE_ID),
+    );
+  });
+
   it('test banner should exist in bucket', async () => {
     await expect(
       fileExistsInBucket(
@@ -296,14 +305,6 @@ describe('files', () => {
         '6a188ddefa676b8d60082f21be94d212',
       ),
     ).resolves.toBe(true);
-  });
-
-  beforeEach(async () => {
-    // Emulate file with the same key as existing avatar uploaded by user
-    await copy(
-      path.resolve(__dirname, '__tests__/banner_5.jpg'),
-      path.resolve(TEMP_BUCKET_DIR, NEW_FILE_ID),
-    );
   });
 
   it('should move file from temp to banners', async () => {

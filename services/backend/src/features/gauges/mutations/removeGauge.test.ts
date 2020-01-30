@@ -1,14 +1,14 @@
-import { holdTransaction, rollbackTransaction } from '@db';
-import { stopJobs } from '@features/jobs';
+import db, { holdTransaction, rollbackTransaction } from '@db';
+import { GorgeConnector } from '@features/gorge';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
 import { SOURCE_GALICIA_1 } from '@seeds/05_sources';
 import { GAUGE_GAL_1_1 } from '@seeds/06_gauges';
+import { GALICIA_R1_S1 } from '@seeds/09_sections';
 import { anonContext, countRows, fakeContext, runQuery } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
+import { ExecutionResult } from 'graphql';
 
-jest.mock('@features/jobs', () => ({
-  stopJobs: jest.fn(),
-}));
+jest.mock('../../gorge/connector.ts');
 
 let pBefore: number;
 let gBefore: number;
@@ -60,18 +60,21 @@ describe('resolvers chain', () => {
 });
 
 describe('effects', () => {
-  let result: any;
+  let result: ExecutionResult;
+  let spy: jest.SpyInstance;
 
   beforeEach(async () => {
+    spy = jest.spyOn(GorgeConnector.prototype, 'updateJobForSource');
     result = await runQuery(query, gal1, fakeContext(ADMIN));
+    expect(result.errors).toBeUndefined();
   });
 
   afterEach(() => {
-    result = null;
+    spy.mockReset();
   });
 
   it('should return deleted gauge id', () => {
-    expect(result.data.removeGauge).toBe(gal1.id);
+    expect(result.data?.removeGauge).toBe(gal1.id);
   });
 
   it('should remove from tables', async () => {
@@ -88,7 +91,16 @@ describe('effects', () => {
     ]);
   });
 
-  it('sholud stop job when gauge is removed', () => {
-    expect(stopJobs).toHaveBeenCalledWith(SOURCE_GALICIA_1, GAUGE_GAL_1_1);
+  it('should nullify corresponding sections gauge_id', async () => {
+    const s = await db()
+      .select('gauge_id')
+      .from('sections')
+      .where({ id: GALICIA_R1_S1 })
+      .first();
+    expect(s.gauge_id).toBeNull();
+  });
+
+  it('should update job when gauge is removed', () => {
+    expect(spy).toHaveBeenCalledWith(SOURCE_GALICIA_1);
   });
 });

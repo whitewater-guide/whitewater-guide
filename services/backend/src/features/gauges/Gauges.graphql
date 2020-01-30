@@ -13,8 +13,6 @@ type Gauge {
   flowUnit: String
   # Arbitrary upstream request params
   requestParams: JSON @admin
-  # Crosn schedule
-  cron: String @admin
 
   # Gauge web page
   url: String
@@ -25,8 +23,10 @@ type Gauge {
   # Updated date (in whitewater.guide)
   updatedAt: Date
 
-  # Last known gauge measurements
-  lastMeasurement: Measurement
+  # Last known measurement
+  latestMeasurement: Measurement @deprecated
+  # Deprecated, renamed to latestMeasurement
+  lastMeasurement: Measurement @deprecated
   # Last known harvest result
   status: HarvestStatus
 
@@ -43,7 +43,6 @@ input GaugeInput {
   levelUnit: String
   flowUnit: String
   requestParams: JSON
-  cron: String
   url: String
 }
 
@@ -67,10 +66,4 @@ type Mutation {
   upsertGauge(gauge: GaugeInput!): Gauge @admin
   removeGauge(id: ID!): ID @admin
   removeGauges(sourceId: ID!): [ID] @admin
-  toggleGauge(id: ID!, enabled: Boolean!): Gauge @admin
-  toggleAllGauges(
-    sourceId: ID!
-    enabled: Boolean!
-    linkedOnly: Boolean
-  ): [Gauge] @admin
 }

@@ -1,5 +1,6 @@
-import lastMeasurements from './lastMeasurements';
+import measurements from './measurements';
 
 export default {
-  lastMeasurements,
+  lastMeasurements: measurements, // @deprecated, renamed
+  measurements,
 };

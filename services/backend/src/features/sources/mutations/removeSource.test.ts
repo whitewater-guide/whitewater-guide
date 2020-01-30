@@ -1,17 +1,16 @@
 import { holdTransaction, rollbackTransaction } from '@db';
-import { stopJobs } from '@features/jobs';
+import { GorgeConnector } from '@features/gorge';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
 import { SOURCE_GALICIA_1 } from '@seeds/05_sources';
 import { anonContext, countRows, fakeContext, runQuery } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
+import { ExecutionResult } from 'graphql';
+
+jest.mock('../../gorge/connector');
 
 let sBefore: number;
 let tBefore: number;
 let rBefore: number;
-
-jest.mock('@features/jobs', () => ({
-  stopJobs: jest.fn(),
-}));
 
 beforeAll(async () => {
   [sBefore, tBefore, rBefore] = await countRows(
@@ -54,18 +53,21 @@ describe('resolvers chain', () => {
 });
 
 describe('effects', () => {
-  let result: any;
+  let result: ExecutionResult<any>;
+  let spy: jest.SpyInstance;
 
   beforeEach(async () => {
+    spy = jest.spyOn(GorgeConnector.prototype, 'deleteJobForSource');
     result = await runQuery(query, galicia, fakeContext(ADMIN));
   });
 
   afterEach(() => {
-    result = null;
+    spy.mockReset();
   });
 
   it('should return deleted source id', () => {
     expect(result.data.removeSource).toBe(galicia.id);
+    expect(result.errors).toBeUndefined();
   });
 
   it('should remove from sources table', async () => {
@@ -84,6 +86,6 @@ describe('effects', () => {
   });
 
   it('should stop jobs', () => {
-    expect(stopJobs).toHaveBeenCalledWith(SOURCE_GALICIA_1);
+    expect(spy).toHaveBeenCalledWith(SOURCE_GALICIA_1);
   });
 });

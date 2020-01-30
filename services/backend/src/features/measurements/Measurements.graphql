@@ -12,5 +12,8 @@ type HarvestStatus {
 }
 
 type Query {
+  # Deprecated, renamed to simply measurements
   lastMeasurements(gaugeId: ID, sectionId: ID, days: Int!): [Measurement]
+    @deprecated
+  measurements(gaugeId: ID, sectionId: ID, days: Int!): [Measurement]
 }

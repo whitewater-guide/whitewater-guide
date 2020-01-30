@@ -1,4 +1,5 @@
 import db, { holdTransaction, rollbackTransaction } from '@db';
+import { GorgeConnector } from '@features/gorge';
 import { SectionsEditLogRaw } from '@features/sections';
 import {
   fileExistsInBucket,
@@ -18,6 +19,8 @@ import {
   TEST_USER,
 } from '@seeds/01_users';
 import { REGION_GALICIA, REGION_NORWAY } from '@seeds/04_regions';
+import { SOURCE_GALICIA_1, SOURCE_GEORGIA } from '@seeds/05_sources';
+import { GAUGE_GAL_1_1, GAUGE_GAL_1_2, GAUGE_GEO_1 } from '@seeds/06_gauges';
 import { RIVER_GAL_1, RIVER_SJOA } from '@seeds/07_rivers';
 import { GALICIA_R1_S1, NORWAY_SJOA_AMOT } from '@seeds/09_sections';
 import { PHOTO_1, PHOTO_2 } from '@seeds/11_media';
@@ -40,6 +43,8 @@ import { copy } from 'fs-extra';
 import { ExecutionResult } from 'graphql';
 import set from 'lodash/fp/set';
 import * as path from 'path';
+
+jest.mock('../../gorge/connector');
 
 const { PROTOCOL, MINIO_DOMAIN } = process.env;
 
@@ -170,7 +175,11 @@ const existingRiverSection: SectionInput = {
   flows: null,
   flowsText: 'Playrun flows',
 
-  shape: [[33, 33], [34, 42, 0], [34, 43, null]],
+  shape: [
+    [33, 33],
+    [34, 42, 0],
+    [34, 43, null],
+  ],
   distance: 2.44,
   drop: 101.1,
   duration: Duration.LAPS,
@@ -212,7 +221,7 @@ const updateData: SectionInput = {
     id: RIVER_GAL_1,
   },
   gauge: {
-    id: 'aba8c106-aaa0-11e7-abc4-cec278b6b50a', // Galicia gauge 1
+    id: GAUGE_GAL_1_1, // Galicia gauge 1
   },
   // Seed section has 2 POIS
   // Delete 1 POI, update 1 poi, add 2 POIs
@@ -259,7 +268,10 @@ const invalidSection: SectionInput = {
   flows: null,
   flowsText: null,
 
-  shape: [[300, 33, 0], [34, 42, 0]],
+  shape: [
+    [300, 33, 0],
+    [34, 42, 0],
+  ],
   distance: -2.44,
   drop: -101.1,
   duration: 4,
@@ -573,7 +585,10 @@ describe('i18n', () => {
       id: RIVER_SJOA,
     },
     seasonNumeric: [10, 11, 12, 13, 14, 15, 16],
-    shape: [[1, 1, 0], [2, 2, 0]],
+    shape: [
+      [1, 1, 0],
+      [2, 2, 0],
+    ],
     distance: 3.2,
     drop: 34.2,
     duration: Duration.LAPS,
@@ -823,6 +838,87 @@ describe('media', () => {
     it('should delete unused media files', async () => {
       await expect(fileExistsInBucket(MEDIA, PHOTO_1)).resolves.toBe(false);
     });
+  });
+});
+
+describe('gorge jobs', () => {
+  let spy: jest.SpyInstance;
+
+  beforeEach(() => {
+    spy = jest.spyOn(GorgeConnector.prototype, 'updateJobForSource');
+  });
+
+  afterEach(() => {
+    spy.mockReset();
+  });
+
+  it('should update job for new section with gauge', async () => {
+    await runQuery(
+      upsertQuery,
+      {
+        section: {
+          ...existingRiverSection,
+          river: { id: RIVER_GAL_1 },
+          gauge: { id: GAUGE_GAL_1_1 },
+        },
+      },
+      fakeContext(ADMIN),
+    );
+    expect(spy).toHaveBeenCalledWith(SOURCE_GALICIA_1);
+  });
+
+  it('should not update job for new section without gauge', async () => {
+    await runQuery(
+      upsertQuery,
+      {
+        section: {
+          ...existingRiverSection,
+          river: { id: RIVER_GAL_1 },
+          gauge: null,
+        },
+      },
+      fakeContext(ADMIN),
+    );
+    expect(spy).not.toHaveBeenCalled();
+  });
+
+  it('should update job for new section with gauge', async () => {
+    await runQuery(
+      upsertQuery,
+      {
+        section: {
+          ...existingRiverSection,
+          river: { id: RIVER_GAL_1 },
+          gauge: { id: GAUGE_GAL_1_1 },
+        },
+      },
+      fakeContext(ADMIN),
+    );
+    expect(spy).toHaveBeenCalledWith(SOURCE_GALICIA_1);
+  });
+
+  it('should not update job when section is updated without gauge change', async () => {
+    await runQuery(upsertQuery, { section: updateData }, fakeContext(ADMIN));
+    expect(spy).not.toHaveBeenCalled();
+  });
+
+  it('should update job when section is updated with gauge change', async () => {
+    await runQuery(
+      upsertQuery,
+      { section: { ...updateData, gauge: { id: GAUGE_GAL_1_2 } } },
+      fakeContext(ADMIN),
+    );
+    expect(spy).toHaveBeenCalledWith(SOURCE_GALICIA_1);
+  });
+
+  it('should update two jobs gauge from different source is selected', async () => {
+    await runQuery(
+      upsertQuery,
+      { section: { ...updateData, gauge: { id: GAUGE_GEO_1 } } },
+      fakeContext(ADMIN),
+    );
+    expect(spy).toHaveBeenCalledWith(SOURCE_GALICIA_1);
+    expect(spy).toHaveBeenCalledWith(SOURCE_GEORGIA);
   });
 });
 

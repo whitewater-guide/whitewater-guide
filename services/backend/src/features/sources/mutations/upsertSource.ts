@@ -15,14 +15,14 @@ const Struct = yup.object({
   source: SourceInputSchema,
 });
 
-const resolver: TopLevelResolver<Vars> = async (root, args, { language }) => {
+const resolver: TopLevelResolver<Vars> = async (
+  root,
+  args,
+  { language, dataSources },
+) => {
   const { source } = args;
   if (source.id) {
-    const { enabled } = await db()
-      .table('sources')
-      .select(['enabled'])
-      .where({ id: source.id })
-      .first();
+    const enabled = await dataSources.gorge.isSourceEnabled(source.id);
     if (enabled) {
       throw new MutationNotAllowedError('Disable source before editing it');
     }

@@ -1,11 +1,12 @@
-import { holdTransaction, rollbackTransaction } from '@db';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
-import { anonContext, fakeContext, runQuery } from '@test';
 import { ApolloErrorCodes, HarvestMode } from '@whitewater-guide/commons';
-jest.mock('../execScript');
+import { anonContext, fakeContext, runQuery } from '@test';
 
-beforeEach(holdTransaction);
-afterEach(rollbackTransaction);
+jest.mock('../../gorge/connector');
+
+beforeEach(() => {
+  jest.resetAllMocks();
+});
 
 const query = `
   query listScripts {
@@ -13,7 +14,6 @@ const query = `
       id
       name
       harvestMode
-      error
     }
   }
 `;
@@ -37,14 +37,17 @@ describe('resolvers chain', () => {
 
 it('should return some scripts', async () => {
   const result = await runQuery(query, undefined, fakeContext(ADMIN));
-  expect(result.data!.scripts).toEqual(
-    expect.arrayContaining([
-      {
-        id: expect.any(String),
-        name: expect.any(String),
-        harvestMode: HarvestMode.ALL_AT_ONCE,
-        error: null,
-      },
-    ]),
-  );
+  expect(result.errors).toBeUndefined();
+  expect(result.data!.scripts).toEqual([
+    {
+      id: 'all_at_once',
+      name: 'all_at_once',
+      harvestMode: HarvestMode.ALL_AT_ONCE,
+    },
+    {
+      id: 'one_by_one',
+      name: 'one_by_one',
+      harvestMode: HarvestMode.ONE_BY_ONE,
+    },
+  ]);
 });

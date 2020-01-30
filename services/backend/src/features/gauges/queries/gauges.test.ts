@@ -4,6 +4,8 @@ import { REGION_GALICIA } from '@seeds/04_regions';
 import { SOURCE_NORWAY } from '@seeds/05_sources';
 import { anonContext, fakeContext, noTimestamps, runQuery } from '@test';
 
+jest.mock('../../gorge/connector.ts');
+
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
@@ -21,7 +23,6 @@ query listGauges($filter: GaugesFilter, $page: Page) {
       levelUnit
       flowUnit
       requestParams
-      cron
       url
       enabled
       createdAt
@@ -29,7 +30,7 @@ query listGauges($filter: GaugesFilter, $page: Page) {
       source {
         id
         name
-        harvestMode
+        enabled
       }
     }
     count
@@ -38,30 +39,27 @@ query listGauges($filter: GaugesFilter, $page: Page) {
 `;
 
 describe('resolvers chain', () => {
-  it('anon should not see cron and request params', async () => {
+  it('anon should not see request params', async () => {
     const result = await runQuery(query, undefined, anonContext());
     expect(result.errors).toBeUndefined();
     expect(result.data!.gauges.nodes[0]).toMatchObject({
       requestParams: null,
-      cron: null,
     });
   });
 
-  it('user should not see cron and request params', async () => {
+  it('user should not see request params', async () => {
     const result = await runQuery(query, undefined, fakeContext(TEST_USER));
     expect(result.errors).toBeUndefined();
     expect(result.data!.gauges.nodes[0]).toMatchObject({
       requestParams: null,
-      cron: null,
     });
   });
 
-  it('editor should not see cron and request params', async () => {
+  it('editor should not see request params', async () => {
     const result = await runQuery(query, undefined, fakeContext(EDITOR_NO_EC));
     expect(result.errors).toBeUndefined();
     expect(result.data!.gauges.nodes[0]).toMatchObject({
       requestParams: null,
-      cron: null,
     });
   });
 });

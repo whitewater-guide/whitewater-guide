@@ -2,7 +2,6 @@ type Script {
   id: String!
   name: String!
   harvestMode: HarvestMode!
-  error: String
 }
 
 type Query {

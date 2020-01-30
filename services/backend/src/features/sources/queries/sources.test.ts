@@ -1,6 +1,8 @@
-import { holdTransaction, rollbackTransaction } from '@db';
 import { ADMIN, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
 import { anonContext, fakeContext, noTimestamps, runQuery } from '@test';
+import { holdTransaction, rollbackTransaction } from '@db';
+
+jest.mock('../../gorge/connector');
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -13,7 +15,6 @@ query listSources {
       name
       url
       script
-      harvestMode
       requestParams
       cron
       enabled
@@ -32,7 +33,6 @@ describe('permissions', () => {
     expect(result.data!.sources.nodes).toHaveLength(6);
     expect(result.data!.sources.nodes[0]).toMatchObject({
       script: null,
-      harvestMode: null,
       cron: null,
       requestParams: null,
     });
@@ -44,7 +44,6 @@ describe('permissions', () => {
     expect(result.data!.sources.nodes).toHaveLength(6);
     expect(result.data!.sources.nodes[0]).toMatchObject({
       script: null,
-      harvestMode: null,
       cron: null,
       requestParams: null,
     });
@@ -56,7 +55,6 @@ describe('permissions', () => {
     expect(result.data!.sources.nodes).toHaveLength(6);
     expect(result.data!.sources.nodes[0]).toMatchObject({
       script: null,
-      harvestMode: null,
       cron: null,
       requestParams: null,
     });

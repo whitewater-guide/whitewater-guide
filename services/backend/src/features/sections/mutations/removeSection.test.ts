@@ -1,4 +1,5 @@
 import db, { holdTransaction, rollbackTransaction } from '@db';
+import { GorgeConnector } from '@features/gorge';
 import { SectionsEditLogRaw } from '@features/sections';
 import {
   EDITOR_GA_EC,
@@ -7,6 +8,7 @@ import {
   TEST_USER,
 } from '@seeds/01_users';
 import { REGION_GALICIA } from '@seeds/04_regions';
+import { SOURCE_GALICIA_1 } from '@seeds/05_sources';
 import { RIVER_GAL_1 } from '@seeds/07_rivers';
 import { GALICIA_R1_S1 } from '@seeds/09_sections';
 import {
@@ -17,6 +19,8 @@ import {
   UUID_REGEX,
 } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
+
+jest.mock('../../gorge/connector');
 
 let sBefore: number;
 let pBefore: number;
@@ -63,13 +67,15 @@ describe('resolvers chain', () => {
 
 describe('effects', () => {
   let result: any;
+  let spy: jest.SpyInstance;
 
   beforeEach(async () => {
+    spy = jest.spyOn(GorgeConnector.prototype, 'updateJobForSource');
     result = await runQuery(query, { id }, fakeContext(EDITOR_GA_EC));
   });
 
   afterEach(() => {
-    result = null;
+    spy.mockReset();
   });
 
   it('should return delete section id', () => {
@@ -116,5 +122,9 @@ describe('effects', () => {
     });
   });
 
-  it.skip('should remove media', async () => {});
+  it('should update gorge job for source', async () => {
+    expect(spy).toHaveBeenCalledWith(SOURCE_GALICIA_1);
+  });
+
+  it.todo('should remove media');
 });

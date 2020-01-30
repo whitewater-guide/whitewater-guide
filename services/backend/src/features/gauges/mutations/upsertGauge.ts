@@ -1,11 +1,8 @@
-import {
-  isInputValidResolver,
-  MutationNotAllowedError,
-  TopLevelResolver,
-} from '@apollo';
+import { isInputValidResolver, TopLevelResolver } from '@apollo';
 import db, { rawUpsert } from '@db';
 import { GaugeInput, GaugeInputSchema } from '@whitewater-guide/commons';
 import * as yup from 'yup';
+import { GaugeRaw } from '../types';
 
 interface Vars {
   gauge: GaugeInput;
@@ -16,21 +13,18 @@ const Struct = yup.object({
 });
 
 const resolver: TopLevelResolver<Vars> = async (
-  root,
+  _,
   { gauge },
-  { language },
+  { dataSources, language },
 ) => {
-  if (gauge.id) {
-    const { enabled } = await db()
-      .table('gauges')
-      .select(['enabled'])
-      .where({ id: gauge.id })
-      .first();
-    if (enabled) {
-      throw new MutationNotAllowedError('Disable gauge before editing it');
-    }
+  const result: GaugeRaw = await rawUpsert(db(), 'SELECT upsert_gauge(?, ?)', [
+    gauge,
+    language,
+  ]);
+  if (result?.enabled) {
+    dataSources.gorge.updateJobForSource(result.source_id);
   }
-  return rawUpsert(db(), 'SELECT upsert_gauge(?, ?)', [gauge, language]);
+  return result;
 };
 
 const upsertGauge = isInputValidResolver(Struct, resolver);

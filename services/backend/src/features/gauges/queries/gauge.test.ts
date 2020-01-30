@@ -3,6 +3,8 @@ import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
 import { GAUGE_GAL_1_1 } from '@seeds/06_gauges';
 import { anonContext, fakeContext, noTimestamps, runQuery } from '@test';
 
+jest.mock('../../gorge/connector.ts');
+
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
@@ -15,7 +17,6 @@ const query = `
       levelUnit
       flowUnit
       requestParams
-      cron
       url
       enabled
       createdAt
@@ -23,8 +24,8 @@ const query = `
       source {
         id
         name
+        enabled
         script
-        harvestMode
       }
       location {
         id
@@ -35,16 +36,15 @@ const query = `
 `;
 
 describe('resolvers chain', () => {
-  it('anon should not see cron and request params', async () => {
+  it('anon should not see request params', async () => {
     const result = await runQuery(query, { id: GAUGE_GAL_1_1 }, anonContext());
     expect(result.errors).toBeUndefined();
     expect(result.data!.gauge).toMatchObject({
       requestParams: null,
-      cron: null,
     });
   });
 
-  it('user should not see cron and request params', async () => {
+  it('user should not see request params', async () => {
     const result = await runQuery(
       query,
       { id: GAUGE_GAL_1_1 },
@@ -53,11 +53,10 @@ describe('resolvers chain', () => {
     expect(result.errors).toBeUndefined();
     expect(result.data!.gauge).toMatchObject({
       requestParams: null,
-      cron: null,
     });
   });
 
-  it('editor should not see cron and request params', async () => {
+  it('editor should not see request params', async () => {
     const result = await runQuery(
       query,
       { id: GAUGE_GAL_1_1 },
@@ -66,7 +65,6 @@ describe('resolvers chain', () => {
     expect(result.errors).toBeUndefined();
     expect(result.data!.gauge).toMatchObject({
       requestParams: null,
-      cron: null,
     });
   });
 });
@@ -117,4 +115,22 @@ it('should be able to get basic attributes without translation', async () => {
   expect(result.data!.gauge.url).toBe('http://ya.ru');
 });
 
-it.skip('it should return last level/flow/timestamp', () => {});
+it('it should return latest measurement', async () => {
+  const q = `
+  query gaugeDetails($id: ID){
+    gauge(id: $id) {
+      id
+      latestMeasurement {
+        timestamp
+        level
+        flow
+      }
+    }
+  }
+`;
+  const result = await runQuery(query, { id: GAUGE_GAL_1_1 });
+  expect(result.errors).toBeUndefined();
+  expect(result.data!.gauge.latestMeasurement).toMatchInlineSnapshot(
+    `undefined`,
+  );
+});

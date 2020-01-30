@@ -1,19 +1,12 @@
-import { TopLevelResolver, UnknownError } from '@apollo';
-import { execScript } from '../execScript';
-import { ScriptCommand, ScriptDescription } from '../types';
+import { GorgeScript } from '@features/gorge';
+import { TopLevelResolver } from '@apollo';
 
-const scripts: TopLevelResolver = async () => {
-  const { success, data, error } = await execScript<ScriptDescription[]>({
-    command: ScriptCommand.LIST,
-  });
-  if (!success) {
-    throw new UnknownError(`Failed to list workers: ${error}`);
-  }
-  return data!.map(({ name, mode }) => ({
+const scripts: TopLevelResolver = async (_, __, { dataSources }) => {
+  const data: GorgeScript[] = await dataSources.gorge.listScripts();
+  return data.map(({ name, mode }) => ({
     id: name,
     name,
     harvestMode: mode,
-    error: null,
   }));
 };
 

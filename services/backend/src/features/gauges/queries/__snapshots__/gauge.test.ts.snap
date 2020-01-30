@@ -3,8 +3,7 @@
 exports[`should return gauge 1`] = `
 Object {
   "code": "gal1",
-  "cron": null,
-  "enabled": false,
+  "enabled": true,
   "flowUnit": "m3/s",
   "id": "aba8c106-aaa0-11e7-abc4-cec278b6b50a",
   "levelUnit": "cm",
@@ -21,7 +20,7 @@ Object {
     "foo": "bar",
   },
   "source": Object {
-    "harvestMode": "allAtOnce",
+    "enabled": false,
     "id": "6d0d717e-aa9d-11e7-abc4-cec278b6b50a",
     "name": "Galicia",
     "script": "galicia",

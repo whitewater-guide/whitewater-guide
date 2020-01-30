@@ -5,6 +5,8 @@ import { GAUGE_NOR_2 } from '@seeds/06_gauges';
 import { anonContext, fakeContext, noTimestamps, runQuery } from '@test';
 import { Source } from '@whitewater-guide/commons';
 
+jest.mock('../../gorge/connector');
+
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
@@ -15,7 +17,6 @@ const query = `
       name
       url
       script
-      harvestMode
       requestParams
       cron
       enabled
@@ -36,7 +37,6 @@ describe('permissions', () => {
     expect(result.errors).toBeUndefined();
     expect(result.data!.source).toMatchObject({
       script: null,
-      harvestMode: null,
       cron: null,
       requestParams: null,
     });
@@ -51,7 +51,6 @@ describe('permissions', () => {
     expect(result.errors).toBeUndefined();
     expect(result.data!.source).toMatchObject({
       script: null,
-      harvestMode: null,
       cron: null,
       requestParams: null,
     });
@@ -66,7 +65,6 @@ describe('permissions', () => {
     expect(result.errors).toBeUndefined();
     expect(result.data!.source).toMatchObject({
       script: null,
-      harvestMode: null,
       cron: null,
       requestParams: null,
     });

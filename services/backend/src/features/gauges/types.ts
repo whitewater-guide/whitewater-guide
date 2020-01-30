@@ -9,7 +9,6 @@ export interface GaugeRaw extends NamedNode, RawTimestamped, WithLanguage {
   level_unit: string | null;
   flow_unit: string | null;
   request_params: any;
-  cron: string | null;
   url: string | null;
   enabled: boolean;
 

@@ -109,7 +109,6 @@ Array [
   Object {
     "cron": "10 * * * *",
     "enabled": true,
-    "harvestMode": "allAtOnce",
     "id": "1628c0a2-1a0a-11e8-accf-0ed5f89f718b",
     "name": "Alps",
     "requestParams": null,
@@ -119,7 +118,6 @@ Array [
   Object {
     "cron": "0 * * * *",
     "enabled": false,
-    "harvestMode": "allAtOnce",
     "id": "6d0d717e-aa9d-11e7-abc4-cec278b6b50a",
     "name": "Galicia",
     "requestParams": null,
@@ -129,7 +127,6 @@ Array [
   Object {
     "cron": null,
     "enabled": true,
-    "harvestMode": "allAtOnce",
     "id": "9f962a34-bff9-11e7-abc4-cec278b6b50a",
     "name": "Galicia2",
     "requestParams": null,
@@ -139,7 +136,6 @@ Array [
   Object {
     "cron": null,
     "enabled": false,
-    "harvestMode": "oneByOne",
     "id": "53af1a54-19fe-11e8-accf-0ed5f89f718b",
     "name": "Georgia",
     "requestParams": null,
@@ -149,7 +145,6 @@ Array [
   Object {
     "cron": null,
     "enabled": true,
-    "harvestMode": "oneByOne",
     "id": "786251d4-aa9d-11e7-abc4-cec278b6b50a",
     "name": "Norway",
     "requestParams": null,
@@ -159,13 +154,12 @@ Array [
   Object {
     "cron": null,
     "enabled": false,
-    "harvestMode": "oneByOne",
     "id": "8e37e9d2-1d7b-11e8-b467-0ed5f89f718b",
     "name": "Russia",
     "requestParams": Object {
       "foo": "bar",
     },
-    "script": "one_by_one",
+    "script": "russia",
     "url": null,
   },
 ]

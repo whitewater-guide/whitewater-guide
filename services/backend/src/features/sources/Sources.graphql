@@ -16,15 +16,13 @@ type Source {
   requestParams: JSON @admin
   # Cron schedule
   cron: String @admin
-  # Non-nullable for admin
-  harvestMode: HarvestMode @admin
   # Upstream provider web page
   url: String
   # Is harvesting ON?
   enabled: Boolean
   # Creation date
   createdAt: Date
-  # Last modificatio date
+  # Last modification date
   updatedAt: Date
 
   # Last harvest operation status
@@ -52,7 +50,6 @@ input SourceInput {
   script: String!
   requestParams: JSON
   cron: String
-  harvestMode: HarvestMode!
   regions: [RefInput]
   url: String
 }
@@ -72,5 +69,4 @@ type Mutation {
   removeSource(id: ID!): ID @admin
   toggleSource(id: ID!, enabled: Boolean!): Source @admin
   autofillSource(id: ID!): [Gauge] @admin
-  generateSourceSchedule(id: ID!, linkedOnly: Boolean): [Gauge] @admin
 }

@@ -1,17 +1,16 @@
 import { Context } from '@apollo';
-import { HarvestMode } from '@whitewater-guide/commons';
+import { GorgeJob } from '@features/gorge';
 import { GraphQLFieldResolver } from 'graphql';
 import { SourceRaw } from '../types';
 
 const statusResolver: GraphQLFieldResolver<SourceRaw, Context> = async (
-  { script, harvest_mode },
+  { id },
   _,
   { dataSources },
 ) => {
-  if (harvest_mode === HarvestMode.ONE_BY_ONE) {
-    return null;
-  }
-  return dataSources.sources.getStatus(script);
+  const jobs: Map<string, GorgeJob> = await dataSources.gorge.listJobs();
+  const job = jobs.get(id);
+  return job?.status;
 };
 
 export default statusResolver;

@@ -20,7 +20,8 @@
       "lodash",
       "validator",
       "redux-saga",
-      "moment"
+      "moment",
+      "date-fns"
     ],
     "object-literal-sort-keys": false,
     "prefer-const": [true, { "destructuring": "all" }],

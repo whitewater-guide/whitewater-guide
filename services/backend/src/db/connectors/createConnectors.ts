@@ -2,8 +2,8 @@ export function createConnectors() {
   // Dynamically load modules to avoid cyclic dependency
   const { BannersConnector } = require('@features/banners');
   const { GaugesConnector } = require('@features/gauges');
+  const { GorgeConnector } = require('@features/gorge');
   const { GroupsConnector } = require('@features/groups');
-  const { MeasurementsConnector } = require('@features/measurements');
   const { MediaConnector } = require('@features/media');
   const { PurchasesConnector } = require('@features/purchases');
   const { RegionsConnector } = require('@features/regions');
@@ -19,8 +19,8 @@ export function createConnectors() {
   return {
     banners: new BannersConnector(),
     gauges: new GaugesConnector(),
+    gorge: new GorgeConnector(),
     groups: new GroupsConnector(),
-    measurements: new MeasurementsConnector(),
     media: new MediaConnector(),
     purchases: new PurchasesConnector(),
     regions: new RegionsConnector(),

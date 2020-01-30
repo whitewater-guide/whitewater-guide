@@ -1,4 +1,5 @@
 import db, { holdTransaction, rollbackTransaction } from '@db';
+import { GorgeConnector } from '@features/gorge';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
 import {
   SOURCE_ALPS,
@@ -15,15 +16,12 @@ import {
 } from '@test';
 import { ApolloErrorCodes, Gauge } from '@whitewater-guide/commons';
 import { ExecutionResult } from 'graphql';
-import { execScript, ScriptGaugeInfo, ScriptResponse } from '../../scripts';
+
+jest.mock('../../gorge/connector');
 
 interface TData {
   autofillSource: Gauge[];
 }
-
-jest.mock('../../scripts', () => ({
-  execScript: jest.fn(),
-}));
 
 const mutation = `
   mutation autofillSource($id: ID!){
@@ -39,7 +37,6 @@ const mutation = `
       levelUnit
       flowUnit
       requestParams
-      cron
       url
       createdAt
       updatedAt
@@ -62,6 +59,7 @@ beforeAll(async () => {
     'gauges',
     'gauges_translations',
   );
+  jest.resetAllMocks();
 });
 
 beforeEach(holdTransaction);
@@ -111,11 +109,9 @@ describe('errors', () => {
   });
 
   it('should fail when script fails', async () => {
-    const scriptsError: ScriptResponse<ScriptGaugeInfo> = {
-      success: false,
-      error: 'boom!',
-    };
-    (execScript as any).mockReturnValueOnce(Promise.resolve(scriptsError));
+    jest
+      .spyOn(GorgeConnector.prototype, 'listGauges')
+      .mockRejectedValueOnce(new Error('boom'));
     const result = await runQuery(
       mutation,
       { id: SOURCE_RUSSIA },
@@ -131,32 +127,7 @@ describe('errors', () => {
 describe('source without gauges', () => {
   let result: ExecutionResult<TData> | null = null;
 
-  const scriptSuccess: ScriptResponse<ScriptGaugeInfo[]> = {
-    success: true,
-    data: [
-      {
-        name: 'Russia gauge 1',
-        location: { latitude: 11, longitude: 22, altitude: 33 },
-        url: 'http://ww.guide/ru1',
-        flowUnit: '',
-        levelUnit: 'm',
-        code: 'ru1',
-        script: 'russia',
-      },
-      {
-        name: 'Russia gauge 2',
-        location: { latitude: 44, longitude: 55, altitude: 66 },
-        url: 'http://ww.guide/ru2',
-        flowUnit: 'm3/s',
-        levelUnit: 'm',
-        code: 'ru2',
-        script: 'russia',
-      },
-    ],
-  };
-
   beforeEach(async () => {
-    (execScript as any).mockReturnValueOnce(Promise.resolve(scriptSuccess));
     result = null;
     result = await runQuery(
       mutation,
@@ -188,32 +159,7 @@ describe('source without gauges', () => {
 describe('source with gauges', () => {
   let result: ExecutionResult<TData> | null = null;
 
-  const scriptSuccess: ScriptResponse<ScriptGaugeInfo[]> = {
-    success: true,
-    data: [
-      {
-        name: 'Galicia GAUGE 1',
-        location: { latitude: 11, longitude: 22, altitude: 33 },
-        url: 'http://ww.guide/gal1',
-        flowUnit: '',
-        levelUnit: 'm',
-        code: 'gal1',
-        script: 'galicia',
-      },
-      {
-        name: 'Galicia gauge 3',
-        location: { latitude: 33, longitude: 44, altitude: 55 },
-        url: 'http://ww.guide/gal3',
-        flowUnit: '',
-        levelUnit: 'm',
-        code: 'gal3',
-        script: 'galicia',
-      },
-    ],
-  };
-
   beforeEach(async () => {
-    (execScript as any).mockReturnValueOnce(Promise.resolve(scriptSuccess));
     result = null;
     result = await runQuery(
       mutation,

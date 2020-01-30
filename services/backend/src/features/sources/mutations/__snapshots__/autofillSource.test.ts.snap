@@ -4,7 +4,6 @@ exports[`source with gauges should return gauges 1`] = `
 Array [
   Object {
     "code": "gal1",
-    "cron": null,
     "flowUnit": null,
     "levelUnit": "m",
     "location": Object {
@@ -24,7 +23,6 @@ Array [
   },
   Object {
     "code": "gal3",
-    "cron": null,
     "flowUnit": null,
     "levelUnit": "m",
     "location": Object {
@@ -49,7 +47,6 @@ exports[`source without gauges should return gauges 1`] = `
 Array [
   Object {
     "code": "ru1",
-    "cron": null,
     "flowUnit": null,
     "levelUnit": "m",
     "location": Object {
@@ -69,7 +66,6 @@ Array [
   },
   Object {
     "code": "ru2",
-    "cron": null,
     "flowUnit": "m3/s",
     "levelUnit": "m",
     "location": Object {

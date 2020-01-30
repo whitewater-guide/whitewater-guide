@@ -2,14 +2,13 @@
 // @ts-ignore
 require('module-alias/register');
 
-import db from '@db';
-import { startupJobs } from '@features/jobs';
-import { initIAP } from '@features/purchases';
-import log from '@log';
-import { initMinio } from '@minio';
-import { init as initSentry } from '@sentry/node';
 import { createApolloServer } from './apollo/server';
 import { createApp } from './app';
+import db from '@db';
+import { initIAP } from '@features/purchases';
+import { initMinio } from '@minio';
+import { init as initSentry } from '@sentry/node';
+import log from '@log';
 import startServer from './server';
 
 async function startup() {
@@ -33,7 +32,6 @@ async function startup() {
   const app = createApp();
   await createApolloServer(app);
   startServer(app);
-  await startupJobs();
   await initIAP();
   log.info('Startup complete');
 }

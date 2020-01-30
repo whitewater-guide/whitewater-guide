@@ -35,7 +35,7 @@ const differ = new DiffPatcher({
 const transformSection = (section: SectionInput): SectionInput => {
   return {
     ...section,
-    media: section.media.map((item) => {
+    media: (section.media ?? []).map((item) => {
       return item.kind === MediaKind.photo
         ? { ...item, url: getLocalFileName(item.url)! }
         : item;
@@ -138,7 +138,7 @@ const moveAllMedia = async (ids: string[] | null) => {
   if (!ids || ids.length === 0) {
     return;
   }
-  const files: Array<{ url: string }> = await db()
+  const files: { url: string }[] = await db()
     .select('url')
     .from('media')
     .where({ kind: 'photo' })
@@ -151,6 +151,28 @@ const deleteUnusedFiles = async (urls: string[] | null) => {
     return;
   }
   return Promise.all(urls.map((url) => minioClient.removeObject(MEDIA, url)));
+};
+
+const maybeUpdateJobs = async (
+  dataSources: any,
+  current: SectionRaw,
+  old?: SectionRaw,
+) => {
+  const oldGid = old?.gauge_id;
+  const newGid = current.gauge_id;
+  if (newGid !== oldGid) {
+    const gids: string[] = [oldGid, newGid].filter((g) => !!g) as any;
+    const sids: string[] = await db()
+      .select('source_id')
+      .from('gauges')
+      .whereIn('id', gids)
+      .pluck('source_id');
+    if (sids) {
+      await Promise.all(
+        sids.map((sid) => dataSources.gorge.updateJobForSource(sid)),
+      );
+    }
+  }
 };
 
 type RawUpsertResult =
@@ -166,7 +188,7 @@ const Struct = yup.object({
 });
 
 const resolver: TopLevelResolver<Vars> = async (
-  root,
+  _,
   vars,
   { user, language, dataSources },
 ) => {
@@ -203,6 +225,7 @@ const resolver: TopLevelResolver<Vars> = async (
       approveSuggestion(section, user),
       moveAllMedia(upsertedMediaIds),
       deleteUnusedFiles(deletedMediaUrls),
+      maybeUpdateJobs(dataSources, newSection, old),
     ]);
   }
 
