@@ -2551,6 +2551,11 @@
   resolved "https://registry.npmjs.org/@types/yup/-/yup-0.26.24.tgz#c24170b3a5c867b4fabd49fcc42fe45f780cb153"
   integrity sha512-x0bhHnYjH5mZit4HivUYbTMO4LouOTGwp/LLxSL1mbJYVwNJtHYESH0ed2bwM1lkI2yDmsoCDYJnWEgHeJDACg==
 
+"@types/yup@^0.26.29":
+  version "0.26.29"
+  resolved "https://registry.npmjs.org/@types/yup/-/yup-0.26.29.tgz#5a533ad6f74e442436698e20b1441c68a7a1c931"
+  integrity sha512-M81oZOgLap0b0I/BySnpLwHjOj1BFxUKV1ytG2Kqj3jmkh8F3H11PEnk658UniftpjTXdueloOL+KZYn+SMQ9w==
+
 "@types/zen-observable@0.8.0", "@types/zen-observable@^0.8.0":
   version "0.8.0"
   resolved "https://registry.npmjs.org/@types/zen-observable/-/zen-observable-0.8.0.tgz#8b63ab7f1aa5321248aad5ac890a485656dcea4d"
@@ -2719,46 +2724,46 @@
     "@webassemblyjs/wast-parser" "1.8.5"
     "@xtuc/long" "4.2.2"
 
-"@whitewater-guide/clients@0.0.303-workers.2":
-  version "0.0.303-workers.2"
-  resolved "https://registry.npmjs.org/@whitewater-guide/clients/-/clients-0.0.303-workers.2.tgz#501f6c439387a78d003756664f22306b6ec46360"
-  integrity sha512-Xyoxl7UscRuWig582LCmzBiZkaI43cJs/UBNIxiK/GomNPwRLtK3iw3DLu0mM7kCYRaih8+7SuFWcI/gaftfIw==
+"@whitewater-guide/clients@0.0.303-workers.4":
+  version "0.0.303-workers.4"
+  resolved "https://registry.npmjs.org/@whitewater-guide/clients/-/clients-0.0.303-workers.4.tgz#c22cb5180c01dccc344feecbb5011b00b09e49ef"
+  integrity sha512-vNIQ5KjoXqFtvdwUwjt7v+pASlZc+1MA0VJYOXI96l27Q2UaXD89xsw7dIPFYxj46xhDihLb9ikuQDBuVl50nQ==
   dependencies:
     "@turf/bearing" "^6.0.1"
     "@turf/helpers" "^6.1.4"
-    "@whitewater-guide/commons" "0.0.189-workers.4"
+    "@whitewater-guide/commons" "0.0.189-workers.6"
     apollo-link "^1.2.13"
     apollo-link-error "https://github.com/doomsower/apollo-link/releases/download/error-async/apollo-link-error-1.1.10-vnext.tgz"
     apollo-link-http "^1.5.16"
     apollo-link-http-common "^0.2.15"
     apollo-link-schema "^1.2.4"
-    apollo-utilities "^1.3.2"
-    async-retry "^1.2.3"
+    apollo-utilities "^1.3.3"
+    async-retry "^1.3.1"
     color "^3.1.1"
-    d3-scale "^3.2.0"
+    d3-scale "^3.2.1"
     deepmerge "^4.2.2"
     expr-eval "^2.0.2"
     graphql-tools "^4.0.6"
-    graphql-type-json "^0.3.0"
+    graphql-type-json "^0.3.1"
     lodash "^4.17.15"
-    qs "^6.9.0"
+    qs "^6.9.1"
     shortid "^2.2.15"
     typescript-fsa "^3.0.0"
     url-parse "^1.4.7"
-    yup "^0.27.0"
+    yup "^0.28.1"
 
-"@whitewater-guide/commons@0.0.189-workers.4":
-  version "0.0.189-workers.4"
-  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.189-workers.4.tgz#f931e3507d50bcfe51a669136aa076fcefba23a0"
-  integrity sha512-bH+36Xma4C4Pcsb/a/SujzDj1/OC/Qwb+HPsbl9H47JZvhzXayC1QwdNHvqddjeIBy9LwnKsRrO+qjCmdVAOgA==
+"@whitewater-guide/commons@0.0.189-workers.6":
+  version "0.0.189-workers.6"
+  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.189-workers.6.tgz#9959a86cb01cf33f4c847e344c3a7b8f9a78aa10"
+  integrity sha512-ZjTEimVwXtuMHqZKXqmpiP01O2mGWkAa7BN5S/6ILy8VZ8lbKnIiJgCLc3bzVENithlxigov+KwCR/gohATtMA==
   dependencies:
-    "@types/yup" "^0.26.24"
-    cron-validator "^1.0.2"
+    "@types/yup" "^0.26.29"
+    cron-validator "^1.1.0"
     deepmerge "^4.2.2"
     expr-eval "^2.0.2"
     lodash "^4.17.15"
-    validator "^12.0.0"
-    yup "^0.27.0"
+    validator "^12.2.0"
+    yup "^0.28.1"
 
 "@whitewater-guide/translations@^2.1.0":
   version "2.1.0"
@@ -3154,6 +3159,16 @@ apollo-utilities@1.3.2, apollo-utilities@^1.0.1, apollo-utilities@^1.0.3, apollo
     ts-invariant "^0.4.0"
     tslib "^1.9.3"
 
+apollo-utilities@^1.3.3:
+  version "1.3.3"
+  resolved "https://registry.npmjs.org/apollo-utilities/-/apollo-utilities-1.3.3.tgz#f1854715a7be80cd810bc3ac95df085815c0787c"
+  integrity sha512-F14aX2R/fKNYMvhuP2t9GD9fggID7zp5I96MF5QeKYWDWTrkRdHRp4+SVfXUVN+cXOaB/IebfvRtzPf25CM0zw==
+  dependencies:
+    "@wry/equality" "^0.1.2"
+    fast-json-stable-stringify "^2.0.0"
+    ts-invariant "^0.4.0"
+    tslib "^1.10.0"
+
 app-module-path@^2.2.0:
   version "2.2.0"
   resolved "https://registry.npmjs.org/app-module-path/-/app-module-path-2.2.0.tgz#641aa55dfb7d6a6f0a8141c4b9c0aa50b6c24dd5"
@@ -3426,10 +3441,10 @@ async-limiter@~1.0.0:
   resolved "https://registry.npmjs.org/async-limiter/-/async-limiter-1.0.1.tgz#dd379e94f0db8310b08291f9d64c3209766617fd"
   integrity sha512-csOlWGAcRFJaI6m+F2WKdnMKr4HhdhFVBk0H/QbJFMCr+uO2kwohwXQPxw/9OCxp05r5ghVBFSyioixx3gfkNQ==
 
-async-retry@^1.2.3:
-  version "1.2.3"
-  resolved "https://registry.npmjs.org/async-retry/-/async-retry-1.2.3.tgz#a6521f338358d322b1a0012b79030c6f411d1ce0"
-  integrity sha512-tfDb02Th6CE6pJUF2gjW5ZVjsgwlucVXOEQMvEX9JgSJMs9gAX+Nz3xRuJBKuUYjTSYORqvDBORdAQ3LU59g7Q==
+async-retry@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.npmjs.org/async-retry/-/async-retry-1.3.1.tgz#139f31f8ddce50c0870b0ba558a6079684aaed55"
+  integrity sha512-aiieFW/7h3hY0Bq5d+ktDBejxuwR78vRu9hDUdR8rNhSaQ29VzPL4AoIRG7D/c7tdenwOcKvgPM6tIxB3cB6HA==
   dependencies:
     retry "0.12.0"
 
@@ -5030,10 +5045,10 @@ create-react-context@^0.3.0:
     gud "^1.0.0"
     warning "^4.0.3"
 
-cron-validator@^1.0.2:
-  version "1.0.4"
-  resolved "https://registry.npmjs.org/cron-validator/-/cron-validator-1.0.4.tgz#9be7a8a90b1e5f3fe885b9b523ca5bf74848ca5b"
-  integrity sha512-0kkf+kNrRF5eyuOKSkhHyaatqdru92Jxj7pIk9oFhMA8993i1QFLWBZ809au9ruTh6n0Ia+L8hmVzMSIFvD1Jw==
+cron-validator@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/cron-validator/-/cron-validator-1.1.0.tgz#e31defb8939759cb437fcf7a75360e0b071802dd"
+  integrity sha512-L04f8pyhc5BFHVF7cS4kGkeQcNZ3Vpn5tNMhBY2yxvOvG+FdPNz9YpNwoF6Au7gRcIC4Z6rJmp/mhchdwlf6cw==
 
 cross-spawn@6.0.5, cross-spawn@^6.0.0, cross-spawn@^6.0.5:
   version "6.0.5"
@@ -5219,6 +5234,13 @@ d3-interpolate@1, d3-interpolate@^1.1.1:
   dependencies:
     d3-color "1"
 
+d3-interpolate@^1.2.0:
+  version "1.4.0"
+  resolved "https://registry.npmjs.org/d3-interpolate/-/d3-interpolate-1.4.0.tgz#526e79e2d80daa383f9e0c1c1c7dcc0f0583e987"
+  integrity sha512-V9znK0zc3jOPV4VD2zZn0sDhZU3WAE2bmlxdIwwQPPzPjvyLkd8B3JUVdS1IDUFDkWZ72c9qnv1GK2ZagTZ8EA==
+  dependencies:
+    d3-color "1"
+
 d3-path@1:
   version "1.0.8"
   resolved "https://registry.npmjs.org/d3-path/-/d3-path-1.0.8.tgz#4a0606a794d104513ec4a8af43525f374b278719"
@@ -5245,6 +5267,17 @@ d3-scale@^3.2.0:
     d3-array "1.2.0 - 2"
     d3-format "1"
     d3-interpolate "1"
+    d3-time "1"
+    d3-time-format "2"
+
+d3-scale@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.npmjs.org/d3-scale/-/d3-scale-3.2.1.tgz#da1684adce7261b4bc7a76fe193d887f0e909e69"
+  integrity sha512-huz5byJO/6MPpz6Q8d4lg7GgSpTjIZW/l+1MQkzKfu2u8P6hjaXaStOpmyrD6ymKoW87d2QVFCKvSjLwjzx/rA==
+  dependencies:
+    d3-array "1.2.0 - 2"
+    d3-format "1"
+    d3-interpolate "^1.2.0"
     d3-time "1"
     d3-time-format "2"
 
@@ -7240,6 +7273,11 @@ graphql-type-json@^0.3.0:
   resolved "https://registry.npmjs.org/graphql-type-json/-/graphql-type-json-0.3.0.tgz#bb32e1b74bf52ebc690f9df12b4067bc061f818a"
   integrity sha512-lnxg5HiB95yxy+/5cDKtP6pZo0zgntsOmqsjeCBXFGJ4YoMF3+1YaSEKWJntNTu+VsAm3zf6lPxFpp1kxzofLA==
 
+graphql-type-json@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.npmjs.org/graphql-type-json/-/graphql-type-json-0.3.1.tgz#47fca2b1fa7adc0758d165b33580d7be7a6cf548"
+  integrity sha512-1lPkUXQ2L8o+ERLzVAuc3rzc/E6pGF+6HnjihCVTK0VzR0jCuUd92FqNxoHdfILXqOn2L6b4y47TBxiPyieUVA==
+
 graphql@*, graphql@^14.5.3, graphql@^14.5.6:
   version "14.5.8"
   resolved "https://registry.npmjs.org/graphql/-/graphql-14.5.8.tgz#504f3d3114cb9a0a3f359bbbcf38d9e5bf6a6b3c"
@@ -9080,7 +9118,7 @@ locate-path@^5.0.0:
   dependencies:
     p-locate "^4.1.0"
 
-lodash-es@^4.17.14:
+lodash-es@^4.17.11, lodash-es@^4.17.14:
   version "4.17.15"
   resolved "https://registry.npmjs.org/lodash-es/-/lodash-es-4.17.15.tgz#21bd96839354412f23d7a10340e5eac6ee455d78"
   integrity sha512-rlrc3yU3+JNOpZ9zj5pQtxnx2THmvRykwL4Xlxoa8I9lHBlVbbyPhgyPMioxVZ4NqyxaVVtaJnzsyOidQIhyyQ==
@@ -11388,6 +11426,11 @@ qs@^6.6.0, qs@^6.7.0, qs@^6.9.0:
   version "6.9.0"
   resolved "https://registry.npmjs.org/qs/-/qs-6.9.0.tgz#d1297e2a049c53119cb49cca366adbbacc80b409"
   integrity sha512-27RP4UotQORTpmNQDX8BHPukOnBP3p1uUJY5UnDhaJB+rMt9iMsok724XL+UHU23bEFOHRMQ2ZhI99qOWUMGFA==
+
+qs@^6.9.1:
+  version "6.9.1"
+  resolved "https://registry.npmjs.org/qs/-/qs-6.9.1.tgz#20082c65cb78223635ab1a9eaca8875a29bf8ec9"
+  integrity sha512-Cxm7/SS/y/Z3MHWSxXb8lIFqgqBowP5JMlTUFyJN88y0SGQhVmZnqFK/PeuMX9LzUyWsqqhNxIyg0jlzq946yA==
 
 qs@~6.5.2:
   version "6.5.2"
@@ -14733,10 +14776,10 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
-validator@^12.0.0:
-  version "12.0.0"
-  resolved "https://registry.npmjs.org/validator/-/validator-12.0.0.tgz#fb33221f5320abe2422cda2f517dc3838064e813"
-  integrity sha512-r5zA1cQBEOgYlesRmSEwc9LkbfNLTtji+vWyaHzRZUxCTHdsX3bd+sdHfs5tGZ2W6ILGGsxWxCNwT/h3IY/3ng==
+validator@^12.2.0:
+  version "12.2.0"
+  resolved "https://registry.npmjs.org/validator/-/validator-12.2.0.tgz#660d47e96267033fd070096c3b1a6f2db4380a0a"
+  integrity sha512-jJfE/DW6tIK1Ek8nCfNFqt8Wb3nzMoAbocBF6/Icgg1ZFSBpObdnwVY2jQj6qUqzhx5jc71fpvBWyLGO7Xl+nQ==
 
 validator@~9.4.1:
   version "9.4.1"
@@ -15684,6 +15727,19 @@ yup@^0.27.0:
     "@babel/runtime" "^7.0.0"
     fn-name "~2.0.1"
     lodash "^4.17.11"
+    property-expr "^1.5.0"
+    synchronous-promise "^2.0.6"
+    toposort "^2.0.2"
+
+yup@^0.28.1:
+  version "0.28.1"
+  resolved "https://registry.npmjs.org/yup/-/yup-0.28.1.tgz#60c0725be7057ed7a9ae61561333809332a63d47"
+  integrity sha512-xSHMZA7UyecSG/CCTDCtnYZMjBrYDR/C7hu0fMsZ6UcS/ngko4qCVFbw+CAmNtHlbItKkvQ3YXITODeTj/dUkw==
+  dependencies:
+    "@babel/runtime" "^7.0.0"
+    fn-name "~2.0.1"
+    lodash "^4.17.11"
+    lodash-es "^4.17.11"
     property-expr "^1.5.0"
     synchronous-promise "^2.0.6"
     toposort "^2.0.2"

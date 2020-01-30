@@ -1356,11 +1356,6 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@types/yup@^0.26.24":
-  version "0.26.28"
-  resolved "https://registry.npmjs.org/@types/yup/-/yup-0.26.28.tgz#6b8a98fb56ddb5c8a3a7f60996165221671c1ca1"
-  integrity sha512-DiT584YBKBENDzgk50LwiJLLOh+XgHpiy9p8PwSoOY696LpfrJRIeJ2AoBCG9KyjE8gWL4J64xDZgw15itecag==
-
 "@types/yup@^0.26.29":
   version "0.26.29"
   resolved "https://registry.npmjs.org/@types/yup/-/yup-0.26.29.tgz#5a533ad6f74e442436698e20b1441c68a7a1c931"
@@ -1384,18 +1379,18 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@whitewater-guide/commons@0.0.189-workers.4":
-  version "0.0.189-workers.4"
-  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.189-workers.4.tgz#f931e3507d50bcfe51a669136aa076fcefba23a0"
-  integrity sha512-bH+36Xma4C4Pcsb/a/SujzDj1/OC/Qwb+HPsbl9H47JZvhzXayC1QwdNHvqddjeIBy9LwnKsRrO+qjCmdVAOgA==
+"@whitewater-guide/commons@0.0.189-workers.6":
+  version "0.0.189-workers.6"
+  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.189-workers.6.tgz#9959a86cb01cf33f4c847e344c3a7b8f9a78aa10"
+  integrity sha512-ZjTEimVwXtuMHqZKXqmpiP01O2mGWkAa7BN5S/6ILy8VZ8lbKnIiJgCLc3bzVENithlxigov+KwCR/gohATtMA==
   dependencies:
-    "@types/yup" "^0.26.24"
-    cron-validator "^1.0.2"
+    "@types/yup" "^0.26.29"
+    cron-validator "^1.1.0"
     deepmerge "^4.2.2"
     expr-eval "^2.0.2"
     lodash "^4.17.15"
-    validator "^12.0.0"
-    yup "^0.27.0"
+    validator "^12.2.0"
+    yup "^0.28.1"
 
 "@wry/equality@^0.1.2":
   version "0.1.9"
@@ -3165,7 +3160,7 @@ crc@^3.4.4:
   dependencies:
     buffer "^5.1.0"
 
-cron-validator@^1.0.2:
+cron-validator@^1.1.0:
   version "1.1.0"
   resolved "https://registry.npmjs.org/cron-validator/-/cron-validator-1.1.0.tgz#e31defb8939759cb437fcf7a75360e0b071802dd"
   integrity sha512-L04f8pyhc5BFHVF7cS4kGkeQcNZ3Vpn5tNMhBY2yxvOvG+FdPNz9YpNwoF6Au7gRcIC4Z6rJmp/mhchdwlf6cw==
@@ -10428,7 +10423,7 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
-validator@^12.0.0, validator@^12.2.0:
+validator@^12.2.0:
   version "12.2.0"
   resolved "https://registry.npmjs.org/validator/-/validator-12.2.0.tgz#660d47e96267033fd070096c3b1a6f2db4380a0a"
   integrity sha512-jJfE/DW6tIK1Ek8nCfNFqt8Wb3nzMoAbocBF6/Icgg1ZFSBpObdnwVY2jQj6qUqzhx5jc71fpvBWyLGO7Xl+nQ==
@@ -10937,18 +10932,6 @@ yn@3.1.1:
   version "3.1.1"
   resolved "https://registry.npmjs.org/yn/-/yn-3.1.1.tgz#1e87401a09d767c1d5eab26a6e4c185182d2eb50"
   integrity sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==
-
-yup@^0.27.0:
-  version "0.27.0"
-  resolved "https://registry.npmjs.org/yup/-/yup-0.27.0.tgz#f8cb198c8e7dd2124beddc2457571329096b06e7"
-  integrity sha512-v1yFnE4+u9za42gG/b/081E7uNW9mUj3qtkmelLbW5YPROZzSH/KUUyJu9Wt8vxFJcT9otL/eZopS0YK1L5yPQ==
-  dependencies:
-    "@babel/runtime" "^7.0.0"
-    fn-name "~2.0.1"
-    lodash "^4.17.11"
-    property-expr "^1.5.0"
-    synchronous-promise "^2.0.6"
-    toposort "^2.0.2"
 
 yup@^0.28.1:
   version "0.28.1"
