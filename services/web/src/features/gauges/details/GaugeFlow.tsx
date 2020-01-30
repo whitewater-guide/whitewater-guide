@@ -10,11 +10,11 @@ interface Props {
 }
 
 const GaugeFlow: React.FC<Props> = React.memo(({ gauge }) => {
-  const { lastMeasurement, flowUnit } = gauge;
-  if (!flowUnit || !lastMeasurement) {
+  const { latestMeasurement, flowUnit } = gauge;
+  if (!flowUnit || !latestMeasurement) {
     return null;
   }
-  const { timestamp, flow } = lastMeasurement;
+  const { timestamp, flow } = latestMeasurement;
   const fromNow = formatDistanceToNow(parseISO(timestamp), {
     addSuffix: true,
   });

@@ -14,7 +14,6 @@ export const SOURCE_FORM_QUERY = gql`
       termsOfUse
       script
       cron
-      harvestMode
       requestParams
       url
       regions {
@@ -36,8 +35,6 @@ export const SOURCE_FORM_QUERY = gql`
     scripts {
       id
       name
-      harvestMode
-      error
     }
   }
 `;
@@ -49,14 +46,7 @@ export interface QVars {
 export interface QResult {
   source: Pick<
     Source,
-    | 'id'
-    | 'name'
-    | 'termsOfUse'
-    | 'script'
-    | 'cron'
-    | 'harvestMode'
-    | 'requestParams'
-    | 'url'
+    'id' | 'name' | 'termsOfUse' | 'script' | 'cron' | 'requestParams' | 'url'
   > & { regions: Connection<NamedNode> };
   regions: Connection<NamedNode>;
   scripts: Script[];

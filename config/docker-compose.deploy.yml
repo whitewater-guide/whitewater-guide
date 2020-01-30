@@ -73,12 +73,12 @@ services:
         source: /var/redis
         target: /data
 
-  # Workers to harvest some data
-  workers:
-    image: '${DOCKER_REGISTRY_PREFIX}workers:${WORKERS_VERSION}'
+  # Gorge to harvest some data
+  gorge:
+    image: '${DOCKER_REGISTRY_PREFIX}gorge:${GORGE_VERSION}'
     volumes:
       - type: bind
-        source: /tmp/workers
+        source: /tmp/gorge
         target: /tmp
 
   # Serve static landing

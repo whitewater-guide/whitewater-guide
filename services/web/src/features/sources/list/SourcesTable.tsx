@@ -1,4 +1,4 @@
-import { HarvestMode, Source } from '@whitewater-guide/commons';
+import { Source } from '@whitewater-guide/commons';
 import { History } from 'history';
 import React from 'react';
 import { Column } from 'react-virtualized';
@@ -55,17 +55,16 @@ export default class SourcesTable extends React.PureComponent<Props> {
     if (isEmptyRow(rowData)) {
       return null;
     }
-    const { harvestMode, status } = rowData;
-    const showStatus = harvestMode === HarvestMode.ALL_AT_ONCE;
-    return showStatus ? <HarvestStatusIndicator status={status} /> : null;
+    const { status } = rowData;
+    return <HarvestStatusIndicator status={status} />;
   };
 
   renderCron: TableCellRenderer<Source> = ({ rowData }) => {
     if (isEmptyRow(rowData)) {
       return null;
     }
-    const { cron, harvestMode } = rowData;
-    return harvestMode === HarvestMode.ONE_BY_ONE ? null : cron;
+    const { cron } = rowData;
+    return cron;
   };
 
   renderActions: TableCellRenderer<Source> = ({ rowData }) => {
@@ -90,12 +89,6 @@ export default class SourcesTable extends React.PureComponent<Props> {
           label="Name"
           dataKey="name"
           cellRenderer={renderName}
-        />
-        <Column
-          width={100}
-          label="Harvest mode"
-          dataKey="harvestMode"
-          headerClassName="centered"
         />
         <AdminColumn
           width={70}

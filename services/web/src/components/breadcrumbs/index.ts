@@ -1,3 +1,3 @@
 export * from './Breadcrumbs';
-import { BreadcrumbsMap } from './types';
-export type BreadcrumbsMap = BreadcrumbsMap;
+import { BreadcrumbsMap as BCM } from './types';
+export type BreadcrumbsMap = BCM;

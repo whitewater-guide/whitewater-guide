@@ -15,17 +15,15 @@ export default ({ sourceId }: RouterParams) => (
       levelUnit: null,
       flowUnit: null,
       requestParams: null,
-      cron: null,
       url: null,
     };
   }
-  const { enabled, ...gauge } = result.gauge;
   return {
-    ...gauge,
+    ...result.gauge,
     source: { id: sourceId },
-    requestParams: fromJSON(gauge.requestParams),
-    location: gauge.location
-      ? { ...gauge.location, name: null, description: null }
+    requestParams: fromJSON(result.gauge.requestParams),
+    location: result.gauge.location
+      ? { ...result.gauge.location, name: null, description: null }
       : null,
   };
 };

@@ -34,8 +34,8 @@ sudo mkdir -p /mnt/sda1/var/minio/config
 sudo ln -s /mnt/sda1/var/minio /var/minio
 # Redis
 sudo mkdir -p /tmp/redis
-# Workers
-sudo mkdir -p /tmp/workers/cookies
+# Gorge
+sudo mkdir -p /tmp/gorge/cookies
 # Adminer
 sudo mkdir -p /tmp/adminer
 # imageproxy

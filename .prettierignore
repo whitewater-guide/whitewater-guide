@@ -13,7 +13,6 @@
 /packages/mobile/coverage/
 /packages/mobile/android/
 /packages/mobile/fastlane/
-/services/workers/src/
 /services/backend/coverage/
 /services/db/dev_data/
 /dev-mount/

@@ -21,6 +21,7 @@
   ],
   "search.exclude": {
     "**/dist": true,
+    "**/build": true,
     "**/node_modules": true
   }
 }

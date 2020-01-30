@@ -110,19 +110,19 @@ services:
       - type: tmpfs
         target: /data
 
-  # Workers to harvest some data
-  workers:
-    container_name: ww-workers
+  # Gorge to harvest some data
+  gorge:
+    container_name: ww-gorge
     env_file:
       - .env.development.local
-      - ../services/workers/.env.development.local
+      - ../services/gorge/.env.development.local
     command:
       ['--pg-db', 'gorge', '--log-level', 'debug', '--log-format', 'plain']
     ports:
       - '7080:7080'
     volumes:
       - type: bind
-        source: ../dev-mount/workers
+        source: ../dev-mount/gorge
         target: /tmp
 
   # cache for imageproxy thumbs

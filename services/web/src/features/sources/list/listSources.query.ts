@@ -7,7 +7,6 @@ export const LIST_SOURCES = gql`
       nodes {
         id
         name
-        harvestMode
         enabled
         cron
         gauges {

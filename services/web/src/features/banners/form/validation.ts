@@ -32,26 +32,26 @@ const WebViewSourceSchema = yup
   .url()
   .required();
 
-export const BannerFormSchema: yup.Schema<
-  BannerFormData
-> = BannerInputSchema.clone().shape({
-  extras: yupTypes.jsonString().nullable(),
-  regions: yup.array().of(yupTypes.namedNode()),
-  groups: yup.array().of(yupTypes.namedNode()),
-  source: yup.mixed().test({
-    name: 'banner-source',
-    message: 'web:banners.invalidSource',
-    test(v: any) {
-      const schema =
-        typeof v === 'string' ? WebViewSourceSchema : ImageSourceSchema;
-      try {
-        schema.validateSync(v, { context: this.parent });
-        return true;
-      } catch (e) {
-        return this.createError({
-          message: (e as yup.ValidationError).message,
-        });
-      }
-    },
-  }),
-});
+export const BannerFormSchema: yup.Schema<BannerFormData> = BannerInputSchema.clone().shape(
+  {
+    extras: yupTypes.jsonString().nullable(),
+    regions: yup.array().of(yupTypes.namedNode()),
+    groups: yup.array().of(yupTypes.namedNode()),
+    source: yup.mixed().test({
+      name: 'banner-source',
+      message: 'web:banners.invalidSource',
+      test(v: any) {
+        const schema =
+          typeof v === 'string' ? WebViewSourceSchema : ImageSourceSchema;
+        try {
+          schema.validateSync(v, { context: this.parent });
+          return true;
+        } catch (e) {
+          return this.createError({
+            message: (e as yup.ValidationError).message,
+          });
+        }
+      },
+    }),
+  },
+);

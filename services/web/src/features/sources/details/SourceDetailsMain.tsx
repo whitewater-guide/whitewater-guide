@@ -44,10 +44,6 @@ const SourceDetailsMain: React.StatelessComponent<Props> = ({ source }) => (
       <div>{source.script}</div>
     </div>
     <div style={styles.row}>
-      <div style={styles.title}>Harvest mode</div>
-      <div>{source.harvestMode}</div>
-    </div>
-    <div style={styles.row}>
       <div style={styles.title}>Cron</div>
       <div>{source.cron}</div>
     </div>

@@ -2,6 +2,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "module": "commonjs",
+    "target": "es2019", // node.js 12 doesn't support nullish coalescing
     "baseUrl": "./",
     "paths": {
       "@apollo": ["src/apollo"],

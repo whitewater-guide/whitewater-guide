@@ -22,7 +22,7 @@ services:
       - db
       - redis
       - minio
-      - workers
+      - gorge
     secrets:
       - google_service_account
 
@@ -76,13 +76,13 @@ services:
     depends_on:
       - imageproxy
 
-  # Workers to harvest some data
-  workers:
+  # Gorge to harvest some data
+  gorge:
     <<: *ww-single-host
     image: docker.pkg.github.com/whitewater-guide/gorge/gorge:latest
     env_file:
       - ${DOCKER_ENV_FILE}
-      - ../services/workers/${DOCKER_ENV_FILE}
+      - ../services/gorge/${DOCKER_ENV_FILE}
     read_only: true
     depends_on:
       - db

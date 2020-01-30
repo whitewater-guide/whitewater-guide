@@ -1,10 +1,5 @@
 import { formatDistanceToNow } from '@whitewater-guide/clients';
-import {
-  Connection,
-  Gauge,
-  HarvestMode,
-  Source,
-} from '@whitewater-guide/commons';
+import { Connection, Gauge, Source } from '@whitewater-guide/commons';
 import parseISO from 'date-fns/parseISO';
 import { History } from 'history';
 import React from 'react';
@@ -65,10 +60,7 @@ export default class GaugesTable extends React.PureComponent<Props> {
     if (isEmptyRow(rowData)) {
       return null;
     }
-    const showStatus = this.props.source.harvestMode === HarvestMode.ONE_BY_ONE;
-    return showStatus ? (
-      <HarvestStatusIndicator status={rowData.status} />
-    ) : null;
+    return <HarvestStatusIndicator status={rowData.status} />;
   };
 
   renderRequestParams: TableCellRenderer<Gauge> = ({ rowData }) => {
@@ -83,9 +75,9 @@ export default class GaugesTable extends React.PureComponent<Props> {
     if (isEmptyRow(rowData)) {
       return null;
     }
-    const { lastMeasurement, flowUnit, levelUnit }: Gauge = rowData;
-    if (lastMeasurement) {
-      const { timestamp, flow, level } = lastMeasurement;
+    const { latestMeasurement, flowUnit, levelUnit }: Gauge = rowData;
+    if (latestMeasurement) {
+      const { timestamp, flow, level } = latestMeasurement;
       const v = flow ? flow : level;
       const unit = flow ? flowUnit : levelUnit;
       const fromNow = formatDistanceToNow(parseISO(timestamp), {

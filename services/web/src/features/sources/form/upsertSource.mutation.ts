@@ -9,7 +9,6 @@ export const UPSERT_SOURCE = gql`
       termsOfUse
       script
       cron
-      harvestMode
       url
     }
   }

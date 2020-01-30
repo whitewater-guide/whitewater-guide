@@ -17,8 +17,8 @@ mkdir -p /tmp/minio
 
 mkdir -p /tmp/redis
 
-mkdir -p /tmp/workers/cookies
-chown -R 1000:1000 /tmp/workers
+mkdir -p /tmp/gorge/cookies
+chown -R 1000:1000 /tmp/gorge
 
 mkdir -p /tmp/adminer
 

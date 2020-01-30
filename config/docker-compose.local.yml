@@ -38,8 +38,8 @@ services:
     ports:
       - '6379:6379'
 
-  # Workers to harvest some data
-  workers:
+  # Gorge to harvest some data
+  gorge:
 
   # Serve static landing
   landing:

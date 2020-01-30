@@ -43,7 +43,7 @@ export default class SectionsTable extends React.PureComponent<Props> {
     super(props);
     this._scrollToIndex =
       this.props.history.location.state &&
-      this.props.history.location.state.scrollIndex;
+      (this.props.history.location.state as any).scrollIndex;
   }
 
   onSectionClick = (id: string) => {
@@ -107,9 +107,9 @@ export default class SectionsTable extends React.PureComponent<Props> {
     if (!gauge) {
       return null;
     }
-    const { lastMeasurement, flowUnit, levelUnit } = gauge;
-    if (lastMeasurement) {
-      const { timestamp, flow, level } = lastMeasurement;
+    const { latestMeasurement, flowUnit, levelUnit } = gauge;
+    if (latestMeasurement) {
+      const { timestamp, flow, level } = latestMeasurement;
       const v = flow ? flow : level;
       const unit = flow ? flowUnit : levelUnit;
       const formula = getBindingFormula(flow ? flows : levels);
@@ -134,8 +134,8 @@ export default class SectionsTable extends React.PureComponent<Props> {
     if (!gauge) {
       return null;
     }
-    const { lastMeasurement } = gauge;
-    if (lastMeasurement) {
+    const { latestMeasurement } = gauge;
+    if (latestMeasurement) {
       const color = getSectionColor(rowData);
       return (
         <Box

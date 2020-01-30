@@ -9,7 +9,6 @@ export const SOURCE_DETAILS = gql`
       termsOfUse
       script
       cron
-      harvestMode
       url
       enabled
       regions {

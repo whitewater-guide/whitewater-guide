@@ -10,11 +10,11 @@ interface Props {
 }
 
 const GaugeLevel: React.FC<Props> = React.memo(({ gauge }) => {
-  const { lastMeasurement, levelUnit } = gauge;
-  if (!levelUnit || !lastMeasurement) {
+  const { latestMeasurement, levelUnit } = gauge;
+  if (!levelUnit || !latestMeasurement) {
     return null;
   }
-  const { timestamp, level } = lastMeasurement;
+  const { timestamp, level } = latestMeasurement;
   const fromNow = formatDistanceToNow(parseISO(timestamp), {
     addSuffix: true,
   });

@@ -13,7 +13,7 @@ import {
   JobRaw,
 } from './types';
 
-const GORGE_HOST = 'workers';
+const GORGE_HOST = 'gorge';
 const GORGE_PORT = '7080';
 const GORGE_PATH = '';
 const GORGE_URL = `http://${GORGE_HOST}:${GORGE_PORT}${GORGE_PATH}`;

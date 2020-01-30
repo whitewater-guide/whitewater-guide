@@ -1,4 +1,3 @@
-import { HarvestMode } from '@whitewater-guide/commons';
 import { fromMarkdown } from '@whitewater-guide/md-editor';
 import { fromJSON, squashConnection } from '../../../formik/utils';
 import { QResult } from './sourceForm.query';
@@ -13,12 +12,9 @@ export default (result?: QResult): SourceFormData => {
       script: {
         id: 'one_by_one',
         name: 'one_by_one',
-        error: null,
-        harvestMode: HarvestMode.ONE_BY_ONE,
       },
       cron: null,
       requestParams: null,
-      harvestMode: HarvestMode.ONE_BY_ONE,
       url: null,
       regions: [],
     };
@@ -30,8 +26,6 @@ export default (result?: QResult): SourceFormData => {
     script: {
       id: src.script,
       name: src.script,
-      harvestMode: src.harvestMode,
-      error: null,
     },
     requestParams: fromJSON(src.requestParams),
     regions: squashConnection(src, 'regions'),

@@ -20,7 +20,7 @@ const MediaFormDialog: React.FC<Props> = React.memo((props) => {
   const { history, location } = useRouter();
   const onCancel = useCallback(() => history.goBack(), [history.goBack]);
   const localPhoto: LocalPhoto | undefined =
-    location.state && location.state.file;
+    location.state && (location.state as any).file;
 
   // TODO: cannot use validation scheme directly due to this https://github.com/jaredpalmer/formik/issues/1697
   // any is because validate function can return error (https://github.com/jaredpalmer/formik/blob/217a49e6243a41a318a8973d18a7e1535b7880d5/src/Formik.tsx#L168)

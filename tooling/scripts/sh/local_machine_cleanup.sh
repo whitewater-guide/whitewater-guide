@@ -22,5 +22,5 @@ sudo sh -c "rm -rf /var/minio/config/*"
 sudo sh -c "rm -rf /tmp/minio/*"
 # Redis
 sudo sh -c "rm -rf /tmp/redis/*"
-# Workers
-sudo sh -c "rm -rf /tmp/workers/cookies/*"
+# Gorge
+sudo sh -c "rm -rf /tmp/gorge/cookies/*"

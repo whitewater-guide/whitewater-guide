@@ -55,7 +55,7 @@ export class Multicomplete<
     } = this.props;
     const { inputValue } = this.state;
     return (
-      <Downshift
+      <Downshift<any>
         inputValue={inputValue}
         onChange={this.handleChange}
         selectedItem={values}

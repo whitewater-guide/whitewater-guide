@@ -1,4 +1,4 @@
-import { createSafeValidator, HarvestMode } from '@whitewater-guide/commons';
+import { createSafeValidator } from '@whitewater-guide/commons';
 import { SourceFormData } from './types';
 import SourceFormSchema from './validation';
 
@@ -11,13 +11,10 @@ const correct: SourceFormData = {
   name: 'src',
   requestParams: '{ "foo": "bar" }',
   cron: '10 * * * *',
-  harvestMode: HarvestMode.ALL_AT_ONCE,
   regions: [{ id: '1750c41e-c2e5-11e8-a355-529269fb1459', name: 'region' }],
   script: {
     id: 'galicia2',
     name: 'Galicia 2',
-    harvestMode: HarvestMode.ONE_BY_ONE,
-    error: null,
   },
   termsOfUse: {
     markdown: 'foo',
@@ -53,13 +50,10 @@ const incorrectValues: TestValue[] = [
       script: {
         id: '',
         name: '',
-        harvestMode: 'foo' as any,
-        error: null,
       },
     },
   ],
   ['bad cron', { ...correct, cron: '100 * * * * *' }],
-  ['bad harvest_mode', { ...correct, harvestMode: 'foo' as any }],
   ['bad url', { ...correct, url: 'foo' }],
   ['bad region', { ...correct, regions: [{ id: 'foo', name: 'region' }] }],
   [
