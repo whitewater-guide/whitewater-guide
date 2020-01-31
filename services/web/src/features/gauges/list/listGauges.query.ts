@@ -16,7 +16,7 @@ export const LIST_GAUGES = gql`
         ...GaugeLocation
         ...GaugeHarvestInfo
         ...GaugeStatus
-        ...GaugeLastMeasurement
+        ...GaugeLatestMeasurement
         source {
           id
         }
@@ -26,7 +26,7 @@ export const LIST_GAUGES = gql`
     }
   }
   ${GaugeFragments.Core}
-  ${GaugeFragments.LastMeasurement}
+  ${GaugeFragments.LatestMeasurement}
   ${GaugeFragments.Location}
   ${GaugeFragments.HarvestInfo}
   ${GaugeFragments.Status}

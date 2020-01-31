@@ -2,9 +2,9 @@ import { Unit } from '@whitewater-guide/commons';
 import React, { useMemo, useState } from 'react';
 import { Query } from 'react-apollo';
 import {
-  LatestMeasurementsResult,
-  LatestMeasurementsVars,
-  LATEST_MEASUREMENTS_QUERY,
+  MeasurementsResult,
+  MeasurementsVars,
+  MEASUREMENTS_QUERY,
 } from '../measurements';
 import { PureChartProvider } from './PureChartProvider';
 import { ChartProps } from './types';
@@ -19,7 +19,7 @@ export const ChartProvider: React.FC<ChartProps> = React.memo((props) => {
     gauge,
   ]);
   const variables = useMemo(() => {
-    const vars: LatestMeasurementsVars = { days, gaugeId: gauge.id };
+    const vars: MeasurementsVars = { days, gaugeId: gauge.id };
     if (section) {
       vars.sectionId = section.id;
     }
@@ -27,8 +27,8 @@ export const ChartProvider: React.FC<ChartProps> = React.memo((props) => {
   }, [days, gauge, section]);
 
   return (
-    <Query<LatestMeasurementsResult, LatestMeasurementsVars>
-      query={LATEST_MEASUREMENTS_QUERY}
+    <Query<MeasurementsResult, MeasurementsVars>
+      query={MEASUREMENTS_QUERY}
       variables={variables}
     >
       {(queryProps) => (

@@ -1,7 +1,7 @@
 import { Context } from '@apollo';
 import db from '@db';
 import { DataSource } from 'apollo-datasource';
-import Axios from 'axios';
+import Axios, { AxiosResponse } from 'axios';
 import DataLoader from 'dataloader';
 import {
   GorgeError,
@@ -32,11 +32,12 @@ export class GorgeConnector implements DataSource<Context> {
   private _gauges?: GorgeGauge[];
   private _gaugeStatuses?: Map<string, Map<string, GorgeStatus>>;
   private _jobs?: Map<string, GorgeJob>;
-  private readonly _latest: DataLoader<Key, GorgeMeasurement>;
+  private _jobsPromise?: Promise<AxiosResponse<GorgeJob[]>>;
+  private readonly _latest: DataLoader<Key, GorgeMeasurement | null>;
 
   constructor() {
     this._loadLatestBatch = this._loadLatestBatch.bind(this);
-    this._latest = new DataLoader<Key, GorgeMeasurement>(
+    this._latest = new DataLoader<Key, GorgeMeasurement | null>(
       this._loadLatestBatch,
       DLOptions,
     );
@@ -86,7 +87,10 @@ export class GorgeConnector implements DataSource<Context> {
   public async listJobs(): Promise<Map<string, GorgeJob>> {
     try {
       if (!this._jobs) {
-        const resp = await Axios.get<GorgeJob[]>(`${GORGE_URL}/jobs`);
+        if (!this._jobsPromise) {
+          this._jobsPromise = Axios.get<GorgeJob[]>(`${GORGE_URL}/jobs`);
+        }
+        const resp = await this._jobsPromise;
         this._jobs = new Map(resp.data.map((j) => [j.id, j]));
       }
     } catch (err) {
@@ -135,6 +139,7 @@ export class GorgeConnector implements DataSource<Context> {
   public async deleteJobForSource(sourceId: string): Promise<void> {
     try {
       await Axios.delete(`${GORGE_URL}/jobs/${sourceId}`);
+      this._jobs?.delete(sourceId);
     } catch (err) {
       throw this._handleError(err);
     }
@@ -157,7 +162,10 @@ export class GorgeConnector implements DataSource<Context> {
 
     try {
       const resp = await Axios.post<GorgeJob>(`${GORGE_URL}/jobs`, input);
-      return resp.data;
+      const job = resp.data;
+      // this._jobs should exist due to isSourceEnabled call above
+      this._jobs?.set(job.id, job);
+      return job;
     } catch (err) {
       throw this._handleError(err);
     }
@@ -207,20 +215,24 @@ export class GorgeConnector implements DataSource<Context> {
     return this._latest.load({ script, code });
   }
 
-  private async _loadLatestBatch(keys: Key[]) {
+  private async _loadLatestBatch(
+    keys: Key[],
+  ): Promise<Array<GorgeMeasurement | null>> {
     if (keys.length === 1) {
-      return this._getLatest([keys[0].script], keys[0].code);
+      const one = await this._getLatest([keys[0].script], keys[0].code);
+      return [one.get(`${keys[0].script}:${keys[0].code}`)!];
     }
     // Many keys
     const scripts = new Set<string>();
     keys.forEach(({ script }) => scripts.add(script));
-    return this._getLatest(Array.from(scripts));
+    const map = await this._getLatest(Array.from(scripts));
+    return keys.map(({ script, code }) => map.get(`${script}:${code}`) || null);
   }
 
   private async _getLatest(
     scripts: string[],
     code?: string,
-  ): Promise<GorgeMeasurement[]> {
+  ): Promise<Map<string, GorgeMeasurement>> {
     if (code && scripts.length !== 1) {
       throw new Error('gauge code can be used with single script only');
     }
@@ -229,7 +241,9 @@ export class GorgeConnector implements DataSource<Context> {
       : `${GORGE_URL}/measurements/latest?scripts=${scripts.join(',')}`;
     try {
       const resp = await Axios.get<GorgeMeasurement[]>(url);
-      return resp.data;
+      const result = new Map<string, GorgeMeasurement>();
+      resp.data.forEach((m) => result.set(`${m.script}:${m.code}`, m));
+      return result;
     } catch (err) {
       throw this._handleError(err);
     }

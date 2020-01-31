@@ -10,11 +10,10 @@ import {
   HarvestStatusIndicator,
   IconLink,
   isEmptyRow,
-  MutationToggle,
   TableCellRenderer,
   UnstyledLink,
 } from '../../../components';
-import { AdminColumn, Table } from '../../../components/tables';
+import { AdminColumn, BooleanColumn, Table } from '../../../components/tables';
 import { paths } from '../../../utils';
 
 interface Props {
@@ -43,16 +42,6 @@ export default class GaugesTable extends React.PureComponent<Props> {
       <UnstyledLink sourceId={this.props.source.id} gaugeId={rowData.id}>
         {rowData.name}
       </UnstyledLink>
-    );
-  };
-
-  renderEnabled: TableCellRenderer<Gauge> = ({ rowData }) => {
-    if (isEmptyRow(rowData)) {
-      return null;
-    }
-    const { id, enabled } = rowData;
-    return (
-      <MutationToggle id={id} enabled={enabled} toggle={this.toggleGauge} />
     );
   };
 
@@ -129,14 +118,13 @@ export default class GaugesTable extends React.PureComponent<Props> {
           cellRenderer={this.renderValue}
         />
         <Column
-          width={50}
+          width={60}
           label="Status"
           dataKey="status"
           className="centered"
           headerClassName="centered"
           cellRenderer={this.renderStatus}
         />
-        <AdminColumn width={70} label="Cron" dataKey="cron" />
         <AdminColumn
           width={120}
           label="Request params"
@@ -145,13 +133,13 @@ export default class GaugesTable extends React.PureComponent<Props> {
           headerClassName="centered"
           cellRenderer={this.renderRequestParams}
         />
-        <AdminColumn
+        <BooleanColumn
           width={70}
           label="Enabled"
           dataKey="enabled"
+          iconTrue="check"
           className="centered"
           headerClassName="centered"
-          cellRenderer={this.renderEnabled}
         />
         <AdminColumn
           width={120}

@@ -1,19 +1,16 @@
 import { Measurement } from '@whitewater-guide/commons';
 import React, { useMemo } from 'react';
 import { QueryResult } from 'react-apollo';
-import {
-  LatestMeasurementsResult,
-  LatestMeasurementsVars,
-} from '../measurements';
+import { MeasurementsResult, MeasurementsVars } from '../measurements';
 import { useFormulas } from '../sections';
 import { PureChartContext } from './context';
 import { ChartContext } from './types';
 
 interface Props extends ChartContext {
-  queryProps: QueryResult<LatestMeasurementsResult, LatestMeasurementsVars>;
+  queryProps: QueryResult<MeasurementsResult, MeasurementsVars>;
 }
 
-const empty: Measurement<string>[] = [];
+const empty: Array<Measurement<string>> = [];
 
 export const PureChartProvider: React.FC<Props> = React.memo(
   ({ queryProps, children, ...props }) => {
@@ -21,7 +18,7 @@ export const PureChartProvider: React.FC<Props> = React.memo(
     const formulas = useFormulas(section);
     const measurements = useMemo(() => {
       const original =
-        (queryProps.data && queryProps.data.latestMeasurements) || empty;
+        (queryProps.data && queryProps.data.measurements) || empty;
       const data = original.reduceRight((acc, v) => {
         acc.push({
           flow: formulas.flows(v.flow),

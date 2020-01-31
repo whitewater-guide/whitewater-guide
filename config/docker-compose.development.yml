@@ -51,7 +51,7 @@ services:
       - ww-db-pgdata:/var/lib/postgresql/data
       - type: bind
         source: ../services/db/config/postgres-initdb.sh
-        target: /docker-entrypoint-initdb.d/postgres-initdb.sh
+        target: /docker-entrypoint-initdb.d/initdb.sh
       - type: bind
         source: ../services/db/config/dump.bak
         target: /docker-entrypoint-initdb.d/dump.bak

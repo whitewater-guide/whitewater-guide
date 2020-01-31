@@ -10,7 +10,7 @@ export const GAUGE_DETAILS = gql`
       ...GaugeHarvestInfo
       ...GaugeSource
       ...GaugeStatus
-      ...GaugeLastMeasurement
+      ...GaugeLatestMeasurement
     }
   }
   ${GaugeFragments.Core}
@@ -18,7 +18,7 @@ export const GAUGE_DETAILS = gql`
   ${GaugeFragments.HarvestInfo}
   ${GaugeFragments.Source}
   ${GaugeFragments.Status}
-  ${GaugeFragments.LastMeasurement}
+  ${GaugeFragments.LatestMeasurement}
 `;
 
 export interface QVars {

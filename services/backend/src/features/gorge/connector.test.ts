@@ -107,6 +107,30 @@ it('should handle list jobs error', async () => {
   await expect(connector.listJobs()).rejects.toThrow(ERROR.error);
 });
 
+it('should dedupe list jobs calls', async () => {
+  const jobs: GorgeJob[] = [
+    {
+      id: '35964e89-4482-40af-8a15-ad9e7d970212',
+      cron: '* * * * *',
+      gauges: { g000: {} },
+      script: 'all_at_once',
+      options: { gauges: 1 },
+      status: {
+        count: 0,
+        success: false,
+        timestamp: '2019-01-01',
+        error: 'something is broken',
+      },
+    },
+  ];
+  const expected = new Map([['35964e89-4482-40af-8a15-ad9e7d970212', jobs[0]]]);
+  mock.onGet(/.*\/jobs/).replyOnce(200, jobs);
+  const connector = new GorgeConnector();
+  await expect(
+    Promise.all([connector.listJobs(), connector.listJobs()]),
+  ).resolves.toEqual([expected, expected]);
+});
+
 it('should get job', async () => {
   const jobs: GorgeJob[] = [
     {
@@ -284,6 +308,9 @@ describe('toggle job', () => {
     ).resolves.toEqual(true);
     expect(mock.history.post).toHaveLength(0);
     expect(mock.history.delete).toHaveLength(0);
+    await expect(connector.isSourceEnabled(SOURCE_GALICIA_1)).resolves.toEqual(
+      true,
+    );
   });
 
   it('should disable enabled source', async () => {
@@ -297,6 +324,9 @@ describe('toggle job', () => {
     ).resolves.toEqual(false);
     expect(mock.history.post).toHaveLength(0);
     expect(mock.history.delete).toHaveLength(1);
+    await expect(connector.isSourceEnabled(SOURCE_GALICIA_1)).resolves.toEqual(
+      false,
+    );
   });
 
   it('should enable disabled source', async () => {
@@ -308,6 +338,9 @@ describe('toggle job', () => {
     ).resolves.toEqual(true);
     expect(mock.history.post).toHaveLength(1);
     expect(mock.history.delete).toHaveLength(0);
+    await expect(connector.isSourceEnabled(SOURCE_GALICIA_1)).resolves.toEqual(
+      true,
+    );
   });
 
   it('should disable disabled source without network calls', async () => {
@@ -318,6 +351,9 @@ describe('toggle job', () => {
     ).resolves.toEqual(false);
     expect(mock.history.post).toHaveLength(0);
     expect(mock.history.delete).toHaveLength(0);
+    await expect(connector.isSourceEnabled(SOURCE_GALICIA_1)).resolves.toEqual(
+      false,
+    );
   });
 });
 
@@ -351,6 +387,13 @@ describe('latest', () => {
         level: 121,
       },
       {
+        script: 'one_by_one',
+        code: 'o001',
+        timestamp: '2018-01-01',
+        flow: null,
+        level: 1,
+      },
+      {
         script: 'all_at_once',
         code: 'a000',
         timestamp: '2019-01-01',
@@ -367,6 +410,7 @@ describe('latest', () => {
     await expect(
       Promise.all([
         connector.getLatest('one_by_one', 'o000'),
+        connector.getLatest('one_by_one', 'o001'),
         connector.getLatest('all_at_once', 'a000'),
       ]),
     ).resolves.toEqual(measurements);
@@ -385,5 +429,30 @@ describe('latest', () => {
         connector.getLatest('all_at_once', 'a000'),
       ]),
     ).rejects.toThrow(ERROR.error);
+  });
+
+  it('should handle empty latest measurements', async () => {
+    const measurements: GorgeMeasurement[] = [
+      {
+        script: 'one_by_one',
+        code: 'o000',
+        timestamp: '2018-01-01',
+        flow: null,
+        level: 121,
+      },
+    ];
+    mock
+      .onGet(
+        new RegExp('.*/measurements/latest\\?scripts=one_by_one,all_at_once'),
+      )
+      .replyOnce(200, measurements);
+    const connector = new GorgeConnector();
+    await expect(
+      Promise.all([
+        connector.getLatest('one_by_one', 'o000'),
+        connector.getLatest('one_by_one', 'o001'),
+        connector.getLatest('all_at_once', 'a000'),
+      ]),
+    ).resolves.toEqual([...measurements, null, null]);
   });
 });
