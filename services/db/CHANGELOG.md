@@ -1,3 +1,9 @@
+## [0.0.52](https://github.com/doomsower/whitewater/compare/1b45d55293836ca3f7b39b2313e6cd3dcf8f204c...c27854563d6257f520ca0cac5b4a44003b0d49e8) (2020-02-16)
+
+### Features
+
+- update timescale ([24310016294bcbc86248b644cc10157c881f57aa](https://github.com/doomsower/whitewater/commit/24310016294bcbc86248b644cc10157c881f57aa))
+
 ## [0.0.51](https://github.com/doomsower/whitewater/compare/64bd81e8b53b7fb3f09f0b7e1b2770a6041d9951...1b45d55293836ca3f7b39b2313e6cd3dcf8f204c) (2020-02-16)
 
 ### Features
