@@ -61,6 +61,7 @@ const Status = gql`
       success
       count
       error
+      next
     }
   }
 `;
