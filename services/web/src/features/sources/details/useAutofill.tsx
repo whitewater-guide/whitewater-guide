@@ -6,7 +6,6 @@ const AUTOFILL_MUTATION = gql`
   mutation autofillSource($sourceId: ID!) {
     autofillSource(id: $sourceId) {
       id
-      cron
     }
   }
 `;

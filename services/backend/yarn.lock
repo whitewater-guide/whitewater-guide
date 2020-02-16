@@ -1379,6 +1379,11 @@
     validator "^12.2.0"
     yup "^0.28.1"
 
+"@whitewater-guide/gorge@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/@whitewater-guide/gorge/-/gorge-1.0.2.tgz#95354fe0911ad3f893904e814c4abd940fa2771e"
+  integrity sha512-ILEMNuLk0efakp9sPjYvwch+Yl4bFiuXPgvuPV9Xp5eXKIqdmNAIzWXQKmvKycUhbQDk18kwV4k2j4AxykOJNA==
+
 "@wry/equality@^0.1.2":
   version "0.1.9"
   resolved "https://registry.npmjs.org/@wry/equality/-/equality-0.1.9.tgz#b13e18b7a8053c6858aa6c85b54911fb31e3a909"

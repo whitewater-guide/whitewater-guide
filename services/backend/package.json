@@ -25,6 +25,7 @@
     "@turf/boolean-point-in-polygon": "^6.0.1",
     "@turf/helpers": "^6.1.4",
     "@whitewater-guide/commons": "0.0.189-workers.6",
+    "@whitewater-guide/gorge": "^1.0.2",
     "apollo-datasource": "^0.6.4",
     "apollo-server": "^2.9.16",
     "apollo-server-cache-redis": "^1.1.5",

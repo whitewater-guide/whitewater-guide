@@ -117,7 +117,15 @@ services:
       - .env.development.local
       - ../services/gorge/.env.development.local
     command:
-      ['--pg-db', 'gorge', '--log-level', 'debug', '--log-format', 'plain']
+      [
+        '--pg-db',
+        'gorge',
+        '--debug',
+        '--log-format',
+        'plain',
+        '--db-chunk-size',
+        '1000',
+      ]
     ports:
       - '7080:7080'
     volumes:

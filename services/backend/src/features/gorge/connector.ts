@@ -159,7 +159,6 @@ export class GorgeConnector implements DataSource<Context> {
       // delete and create anew
       await this.deleteJobForSource(sourceId);
     }
-
     try {
       const resp = await Axios.post<GorgeJob>(`${GORGE_URL}/jobs`, input);
       const job = resp.data;
