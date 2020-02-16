@@ -139,7 +139,7 @@ services:
         constraints: [node.role == manager]
     labels:
       guide.whitewater: ''
-    image: 'doomsower/postgres-backup-s3:4'
+    image: 'doomsower/postgres-backup-s3:5'
     # read_only: true
     environment:
       SCHEDULE: '@daily'

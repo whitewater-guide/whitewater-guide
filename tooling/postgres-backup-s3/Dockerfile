@@ -1,4 +1,4 @@
-FROM alpine:3.11.3
+FROM postgres:11.6-alpine
 LABEL maintainer="Johannes Schickling <schickling.j@gmail.com>"
 
 ADD install.sh install.sh
