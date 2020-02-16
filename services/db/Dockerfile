@@ -1,4 +1,4 @@
-FROM timescale/timescaledb-postgis:1.4.1-pg10
+FROM timescale/timescaledb-postgis:1.6.0-pg11
 
 ENV TIMESCALEDB_TELEMETRY=off
 
