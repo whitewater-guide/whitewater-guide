@@ -13,5 +13,6 @@ export interface HarvestStatus<TDate = string> {
   count: number;
   success: boolean;
   timestamp: TDate;
+  next: TDate;
   error: string | null;
 }
