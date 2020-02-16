@@ -20,7 +20,7 @@ services:
     image: '${DOCKER_REGISTRY_PREFIX}db:${DB_VERSION}'
     volumes:
       - type: bind
-        source: /var/postgres/10.9/data
+        source: /var/postgres/11.6/data
         target: /var/lib/postgresql/data
       - type: bind
         source: /tmp/postgres
