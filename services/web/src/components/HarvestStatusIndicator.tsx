@@ -113,12 +113,25 @@ export class HarvestStatusIndicator extends React.PureComponent<Props, State> {
                   {formatDate(parseISO(status.timestamp), 'dd/MM/yyyy H:mm')}
                 </Grid>
               </Grid>
+
+              {status.next && (
+                <Grid container={true} style={tsStyle}>
+                  <Grid item={true} sm={4}>
+                    <b>Next</b>
+                  </Grid>
+                  <Grid item={true}>
+                    {formatDate(parseISO(status.next), 'dd/MM/yyyy H:mm')}
+                  </Grid>
+                </Grid>
+              )}
+
               <Grid container={true} style={countStyle}>
                 <Grid item={true} sm={4}>
                   <b>Measurements</b>
                 </Grid>
                 <Grid item={true}>{status.count.toString()}</Grid>
               </Grid>
+
               {!!error && (
                 <Grid container={true} style={{ color: red[500] }}>
                   <Grid item={true} sm={12}>
