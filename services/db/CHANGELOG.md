@@ -1,3 +1,9 @@
+## [0.0.50](https://github.com/doomsower/whitewater/compare/43b485f47a4d325b8fdaf95a072a34d3df6c0d82...871320e60c36446048ebd10150b32177abff4429) (2020-02-16)
+
+### Features
+
+- version pg data dir ([064369dcfcf30152058b57df6edcc7d1884f29e6](https://github.com/doomsower/whitewater/commit/064369dcfcf30152058b57df6edcc7d1884f29e6))
+
 ## [0.0.50](https://github.com/doomsower/whitewater/compare/b46194c5001f5699434a72b16e2b3c1a0173a6c8...43b485f47a4d325b8fdaf95a072a34d3df6c0d82) (2019-11-07)
 
 ## [0.0.50](https://github.com/doomsower/whitewater/compare/b8e708b100908b2f91f67704dd29f02abca3e760...b46194c5001f5699434a72b16e2b3c1a0173a6c8) (2019-11-05)
