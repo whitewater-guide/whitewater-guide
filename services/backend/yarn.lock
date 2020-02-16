@@ -1366,10 +1366,10 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@whitewater-guide/commons@0.0.189-workers.6":
-  version "0.0.189-workers.6"
-  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.189-workers.6.tgz#9959a86cb01cf33f4c847e344c3a7b8f9a78aa10"
-  integrity sha512-ZjTEimVwXtuMHqZKXqmpiP01O2mGWkAa7BN5S/6ILy8VZ8lbKnIiJgCLc3bzVENithlxigov+KwCR/gohATtMA==
+"@whitewater-guide/commons@0.0.189-workers.7":
+  version "0.0.189-workers.7"
+  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.189-workers.7.tgz#cfd18b694639cc6df1de1ed7a4e7408720f093de"
+  integrity sha512-SmuXoPknoK2eaDVXQJYquC02wq5DGPmJIWdF0Me0W3MzeccyT6FcTY75XDtl1S/oVV/yKNiY71S8gxia2vuhcQ==
   dependencies:
     "@types/yup" "^0.26.29"
     cron-validator "^1.1.0"

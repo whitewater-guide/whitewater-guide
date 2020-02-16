@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/clients",
   "private": false,
-  "version": "0.0.303-workers.6",
+  "version": "0.0.303-workers.7",
   "description": "shared code for whitewater.guide clients",
   "license": "UNLICENSED",
   "files": [
@@ -26,7 +26,7 @@
   "dependencies": {
     "@turf/bearing": "^6.0.1",
     "@turf/helpers": "^6.1.4",
-    "@whitewater-guide/commons": "0.0.189-workers.6",
+    "@whitewater-guide/commons": "0.0.189-workers.7",
     "apollo-link": "^1.2.13",
     "apollo-link-error": "https://github.com/doomsower/apollo-link/releases/download/error-async/apollo-link-error-1.1.10-vnext.tgz",
     "apollo-link-http": "^1.5.16",
