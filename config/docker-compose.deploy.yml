@@ -21,7 +21,7 @@ services:
     volumes:
       - type: bind
         source: /var/postgres/10.9/data
-        target: /var/lib/postgresql/10.9/data
+        target: /var/lib/postgresql/data
       - type: bind
         source: /tmp/postgres
         target: /tmp
