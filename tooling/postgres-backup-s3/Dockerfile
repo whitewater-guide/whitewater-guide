@@ -1,4 +1,4 @@
-FROM alpine:3.7
+FROM alpine:3.11.3
 LABEL maintainer="Johannes Schickling <schickling.j@gmail.com>"
 
 ADD install.sh install.sh
