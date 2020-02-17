@@ -1,3 +1,9 @@
+## [0.0.415](https://github.com/doomsower/whitewater/compare/5df7aa280d51853a51eac9bf4a0e1a4692b701f1...e90d246fffeb8d102979844bd9f211dc07970a73) (2020-02-17)
+
+### Bug Fixes
+
+- fix tests ([3b63d403c104273e9cb36b7eeb229bc747360834](https://github.com/doomsower/whitewater/commit/3b63d403c104273e9cb36b7eeb229bc747360834))
+
 ## [0.0.414](https://github.com/doomsower/whitewater/compare/5afb47f202836f7cc156844b09294ac08288aa23...5df7aa280d51853a51eac9bf4a0e1a4692b701f1) (2020-02-17)
 
 ### Features
