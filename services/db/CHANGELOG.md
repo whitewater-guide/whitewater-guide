@@ -1,3 +1,11 @@
+## [0.0.53](https://github.com/doomsower/whitewater/compare/5afb47f202836f7cc156844b09294ac08288aa23...5df7aa280d51853a51eac9bf4a0e1a4692b701f1) (2020-02-17)
+
+### Features
+
+- migartion to gorge wip ([59ae46c78c6bd195f07c17f38cae1e1044819b69](https://github.com/doomsower/whitewater/commit/59ae46c78c6bd195f07c17f38cae1e1044819b69))
+- migrating to gorge wip ([3979b92c61b3a266bcf9937c64c3b11ebe2dee52](https://github.com/doomsower/whitewater/commit/3979b92c61b3a266bcf9937c64c3b11ebe2dee52))
+- use gorge container ([67b68d15a4a4faa49908123d3aa2f2f7fd429fe9](https://github.com/doomsower/whitewater/commit/67b68d15a4a4faa49908123d3aa2f2f7fd429fe9))
+
 ## [0.0.52](https://github.com/doomsower/whitewater/compare/c769ccc10c3dff83e7d7a6d102e18b322d7ee62c...5afb47f202836f7cc156844b09294ac08288aa23) (2020-02-16)
 
 ## [0.0.52](https://github.com/doomsower/whitewater/compare/c27854563d6257f520ca0cac5b4a44003b0d49e8...c769ccc10c3dff83e7d7a6d102e18b322d7ee62c) (2020-02-16)
