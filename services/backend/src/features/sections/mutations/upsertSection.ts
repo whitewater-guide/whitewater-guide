@@ -138,7 +138,7 @@ const moveAllMedia = async (ids: string[] | null) => {
   if (!ids || ids.length === 0) {
     return;
   }
-  const files: { url: string }[] = await db()
+  const files: Array<{ url: string }> = await db()
     .select('url')
     .from('media')
     .where({ kind: 'photo' })
@@ -150,7 +150,13 @@ const deleteUnusedFiles = async (urls: string[] | null) => {
   if (!urls || urls.length === 0) {
     return;
   }
-  return Promise.all(urls.map((url) => minioClient.removeObject(MEDIA, url)));
+  return Promise.all(
+    urls.map((url) =>
+      minioClient.removeObject(MEDIA, url).catch(() => {
+        /*ignore */
+      }),
+    ),
+  );
 };
 
 const maybeUpdateJobs = async (
