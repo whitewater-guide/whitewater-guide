@@ -7,7 +7,7 @@ RUN curl -sfL https://github.com/powerman/dockerize/releases/download/${DOCKERIZ
 
 FROM pierrezemb/gostatic
 
-COPY build /srv/http/
+COPY --chown=appuser:appgroup build /srv/http/
 COPY --from=dockerizer /usr/local/bin/dockerize /
 
 ENTRYPOINT ["/dockerize", "-template", "/srv/http/index.html:/srv/http/index.html", "/goStatic"]
