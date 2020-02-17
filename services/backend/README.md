@@ -14,7 +14,6 @@
 | FB_SECRET                    | <random_secret>                                            | Secret for facebook auth                                                                                              |
 | APOLLO_EXPOSE_SCHEMA         | true                                                       | Should Apollo router expose 'schema.json' and 'typedefs.txt'? Mostly used by devtools and tests (mock data generator) |
 | APOLLO_EXPOSE_GRAPHIQL       | true                                                       | Should Apollo router expose GRAPHIQL UI                                                                               |
-| ENGINE_API_KEY               | service:<name>:<key>                                       | API key for Apollo Engine                                                                                             |
 | MINIO_HOST                   | minio                                                      | Minio host name in docker internal network                                                                            |
 | MINIO_PORT                   | 9000 (9001 for test because 9000 is used by ios simulator) | Minio host name in docker internal network                                                                            |
 | AUTO_SEED                    | true                                                       | Set to true to automatically seed database on startup                                                                 |

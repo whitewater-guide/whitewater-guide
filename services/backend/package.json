@@ -16,8 +16,7 @@
     "dev:dump": "npm_scripts/dev-dump.sh",
     "dev:restore": "npm_scripts/dev-restore.sh",
     "madge": "madge --circular --basedir ./dist --webpackConfig madge.js dist/index.js",
-    "version": "yarn build",
-    "postversion": "node npm_scripts/postversion.js"
+    "version": "yarn build"
   },
   "dependencies": {
     "@koa/cors": "3.0.0",
@@ -130,7 +129,6 @@
     "@types/xmldom": "^0.1.29",
     "@types/yup": "^0.26.31",
     "@types/zxcvbn": "^4.4.0",
-    "apollo": "^2.22.1",
     "apollo-server-testing": "^2.10.1",
     "axios-mock-adapter": "^1.17.0",
     "cookiejar": "^2.1.2",
