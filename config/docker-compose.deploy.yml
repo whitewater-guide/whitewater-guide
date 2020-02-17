@@ -75,7 +75,6 @@ services:
 
   # Gorge to harvest some data
   gorge:
-    image: '${DOCKER_REGISTRY_PREFIX}gorge:${GORGE_VERSION}'
     volumes:
       - type: bind
         source: /tmp/gorge
