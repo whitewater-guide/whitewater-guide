@@ -14,6 +14,7 @@ export interface Gauge<RP = any> extends NamedNode, Timestamped {
   source: Source;
   // measurements?: Measurement[];
   latestMeasurement: Measurement | null;
+  lastMeasurement: Measurement | null; // @deprecated, renamed to latestMeasurement
   status: HarvestStatus | null;
 }
 
