@@ -138,13 +138,13 @@ services:
         constraints: [node.role == manager]
     labels:
       guide.whitewater: ''
-    image: 'doomsower/postgres-backup-s3:5'
+    image: 'doomsower/postgres-backup-s3:6'
     # read_only: true
     environment:
       SCHEDULE: '@daily'
       S3_PREFIX: '${DOCKER_ENVIRONMENT}'
       POSTGRES_HOST: db
-      POSTGRES_DATABASE: wwguide
+      POSTGRES_DATABASES: wwguide,gorge
       POSTGRES_USER: postgres
     env_file:
       - ${DOCKER_ENV_FILE}

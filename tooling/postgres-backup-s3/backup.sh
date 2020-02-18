@@ -18,8 +18,8 @@ if [ "${S3_BUCKET}" = "**None**" ]; then
   exit 1
 fi
 
-if [ "${POSTGRES_DATABASE}" = "**None**" ]; then
-  echo "You need to set the POSTGRES_DATABASE environment variable."
+if [ "${POSTGRES_DATABASES}" = "**None**" ]; then
+  echo "You need to set the POSTGRES_DATABASES environment variable."
   exit 1
 fi
 
@@ -57,12 +57,22 @@ export AWS_DEFAULT_REGION=$S3_REGION
 export PGPASSWORD=$POSTGRES_PASSWORD
 POSTGRES_HOST_OPTS="-h $POSTGRES_HOST -p $POSTGRES_PORT -U $POSTGRES_USER $POSTGRES_EXTRA_OPTS"
 
-echo "Creating dump of ${POSTGRES_DATABASE} database from ${POSTGRES_HOST}... with extra options ${POSTGRES_EXTRA_OPTS}"
 
-pg_dump $POSTGRES_HOST_OPTS -Fc -f dump.bak $POSTGRES_EXTRA_OPTS $POSTGRES_DATABASE
+echo "Deleting older backups"
+rm -rf *.bak backup.tar
+
+IFS=","
+for DATABASE in $POSTGRES_DATABASES
+do
+  echo "Creating dump of ${DATABASE} database from ${POSTGRES_HOST}... with extra options ${POSTGRES_EXTRA_OPTS}"
+  pg_dump $POSTGRES_HOST_OPTS -Fc -f $DATABASE.bak $POSTGRES_EXTRA_OPTS $DATABASE
+done
+
+echo "Taring all backups together"
+tar cvf backup.tar *.bak
 
 echo "Uploading dump to $S3_BUCKET"
 
-cat dump.bak | aws $AWS_ARGS s3 cp - s3://$S3_BUCKET/$S3_PREFIX/${POSTGRES_DATABASE}_$(date +"%Y-%m-%dT%H:%M:%SZ").bak || exit 2
+cat backup.tar | aws $AWS_ARGS s3 cp - s3://$S3_BUCKET/$S3_PREFIX/backup_$(date +"%Y-%m-%dT%H:%M:%SZ").tar || exit 2
 
 echo "SQL backup uploaded successfully"
