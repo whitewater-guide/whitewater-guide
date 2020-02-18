@@ -9,6 +9,7 @@ const resolvers: FieldResolvers<GaugeRaw, Gauge> = {
   levelUnit: (gauge) => gauge.level_unit,
   flowUnit: (gauge) => gauge.flow_unit,
   latestMeasurement,
+  lastMeasurement: latestMeasurement,
   status,
   requestParams: (gauge) => gauge.request_params,
   source: ({ source_id }, _, { dataSources }) =>

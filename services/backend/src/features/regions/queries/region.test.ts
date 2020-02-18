@@ -13,8 +13,8 @@ import {
   REGION_LAOS,
   REGION_NORWAY,
 } from '@seeds/04_regions';
+import { GAUGE_GAL_1_1 } from '@seeds/06_gauges';
 import { GEORGIA_BZHUZHA_LONG } from '@seeds/09_sections';
-import { PHOTO_1 } from '@seeds/11_media';
 import {
   ALL_SECTION_ROW_BANNER,
   ALL_SECTION_ROW_BANNER_DISABLED,
@@ -22,8 +22,16 @@ import {
   GALICIA_REGION_DESCR_BANNER2,
   GALICIA_SECTION_ROW_BANNER,
 } from '@seeds/14_banners';
-import { anonContext, fakeContext, noTimestamps, runQuery } from '@test';
+import {
+  anonContext,
+  fakeContext,
+  noTimestamps,
+  runQuery,
+  TIMESTAMP_REGEX,
+} from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
+
+jest.mock('../../gorge/connector');
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -657,5 +665,88 @@ describe('premium access', () => {
       fakeContext(EDITOR_GE),
     );
     expect(result).toHaveProperty('data.region.hasPremiumAccess', true);
+  });
+});
+
+it('should not fail on poll measurements query', async () => {
+  const q = `query pollRegionMeasurements($id: ID) {
+    region(id: $id) {
+      id
+      gauges {
+        nodes {
+          id
+          latestMeasurement {
+            flow
+            level
+            timestamp
+          }
+        }
+      }
+    }
+  }`;
+  const result = await runQuery(
+    q,
+    { id: REGION_GALICIA },
+    fakeContext(TEST_USER),
+  );
+  expect(result.errors).toBeUndefined();
+  expect(result.data).toMatchObject({
+    region: {
+      gauges: {
+        nodes: [
+          {
+            id: GAUGE_GAL_1_1,
+            latestMeasurement: {
+              flow: null,
+              level: 1.2,
+              timestamp: expect.stringMatching(TIMESTAMP_REGEX),
+            },
+          },
+        ],
+      },
+      id: REGION_GALICIA,
+    },
+  });
+});
+
+it('should not fail on legacy poll measurements query', async () => {
+  // the difference is that instead of latestMeasurement it uses depreacted lastMeasurement
+  const q = `query pollRegionMeasurements($id: ID) {
+    region(id: $id) {
+      id
+      gauges {
+        nodes {
+          id
+          lastMeasurement {
+            flow
+            level
+            timestamp
+          }
+        }
+      }
+    }
+  }`;
+  const result = await runQuery(
+    q,
+    { id: REGION_GALICIA },
+    fakeContext(TEST_USER),
+  );
+  expect(result.errors).toBeUndefined();
+  expect(result.data).toMatchObject({
+    region: {
+      gauges: {
+        nodes: [
+          {
+            id: GAUGE_GAL_1_1,
+            lastMeasurement: {
+              flow: null,
+              level: 1.2,
+              timestamp: expect.stringMatching(TIMESTAMP_REGEX),
+            },
+          },
+        ],
+      },
+      id: REGION_GALICIA,
+    },
   });
 });

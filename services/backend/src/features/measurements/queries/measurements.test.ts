@@ -61,3 +61,22 @@ it('should return correct result shape', async () => {
     level: 1.2,
   });
 });
+
+it('should handle deprecated query', async () => {
+  const q = `
+  query lastMeasurements($gaugeId: ID, $sectionId: ID, $days: Int!){
+    lastMeasurements(gaugeId: $gaugeId, sectionId: $sectionId, days: $days) {
+      timestamp
+      level
+      flow
+    }
+  }
+`;
+  const r = await runQuery(q, { gaugeId: GAUGE_GAL_1_1, days: 1 });
+  const [m1] = r.data!.lastMeasurements;
+  expect(m1).toMatchObject({
+    timestamp: expect.stringMatching(TIMESTAMP_REGEX),
+    flow: null,
+    level: 1.2,
+  });
+});

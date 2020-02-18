@@ -4,6 +4,7 @@ import { GaugeRaw } from './types';
 
 const FIELDS_MAP: FieldsMap<Gauge, GaugeRaw> = {
   latestMeasurement: ['script', 'code'],
+  lastMeasurement: ['script', 'code'],
   status: ['source_id', 'code'],
   source: ['source_id', 'script'],
 };
