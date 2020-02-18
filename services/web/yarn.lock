@@ -2772,14 +2772,14 @@
     "@webassemblyjs/wast-parser" "1.8.5"
     "@xtuc/long" "4.2.2"
 
-"@whitewater-guide/clients@0.0.303":
-  version "0.0.303"
-  resolved "https://registry.npmjs.org/@whitewater-guide/clients/-/clients-0.0.303.tgz#aa14896c3b95d58c437997b8c0a030de0aa077d3"
-  integrity sha512-ns1KnQgEXtC4jO6HfccEh5EI2B5y9ilJTqx6Up9Hqnvx44Fb5Sh0P0WGuYOzxKjDTRwTG3DvKcpX+6U+CQeETQ==
+"@whitewater-guide/clients@0.0.304":
+  version "0.0.304"
+  resolved "https://registry.npmjs.org/@whitewater-guide/clients/-/clients-0.0.304.tgz#b9e188f12a0d780f3826149370d86cb1b3ca2524"
+  integrity sha512-ijxRjY2frfUWh3Jo0sG7jA2gQuUlZXHKGXzdBklmDBKczLV4wwvNZ6aQM1Ir+8xq8GSzfig277nioSyefZe2Ww==
   dependencies:
     "@turf/bearing" "^6.0.1"
     "@turf/helpers" "^6.1.4"
-    "@whitewater-guide/commons" "0.0.189"
+    "@whitewater-guide/commons" "0.0.190"
     apollo-link "^1.2.13"
     apollo-link-error "https://github.com/doomsower/apollo-link/releases/download/error-async/apollo-link-error-1.1.10-vnext.tgz"
     apollo-link-http "^1.5.16"
@@ -2800,10 +2800,10 @@
     url-parse "^1.4.7"
     yup "^0.28.1"
 
-"@whitewater-guide/commons@0.0.189":
-  version "0.0.189"
-  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.189.tgz#9224d1a6c31ee4bd176c24a2e6f23e1db9e36b37"
-  integrity sha512-gi1Or1lXjAa/njheSbBrQy+5pPgZ0MSQ6+JBjnGqFu9wnGg9V8SDZMZtRAO3QuEzcf/NF9grDZvn6Ezo58fnyQ==
+"@whitewater-guide/commons@0.0.190":
+  version "0.0.190"
+  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.190.tgz#9ca6006748cd03966495b4e4c23f05797914d0bd"
+  integrity sha512-mQ42MkMr1zbmXdot1vM97FXWPI83SJnGrK/k5kDwFHFVAqL4aF7fKKLKsz9F+JsaZMHGpI7FKZU8GalXqYTujA==
   dependencies:
     "@types/yup" "^0.26.29"
     cron-validator "^1.1.0"
