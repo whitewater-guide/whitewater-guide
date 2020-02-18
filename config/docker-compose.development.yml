@@ -53,8 +53,14 @@ services:
         source: ../services/db/config/postgres-initdb.sh
         target: /docker-entrypoint-initdb.d/initdb.sh
       - type: bind
-        source: ../services/db/config/dump.bak
-        target: /docker-entrypoint-initdb.d/dump.bak
+        source: ../services/db/config/gorge_schema.bak
+        target: /docker-entrypoint-initdb.d/gorge_schema.bak
+      - type: bind
+        source: ../services/db/config/wwguide.bak
+        target: /docker-entrypoint-initdb.d/wwguide.bak
+      - type: bind
+        source: ../services/db/config/measurements.csv
+        target: /docker-entrypoint-initdb.d/measurements.csv
       - type: bind
         source: ../services/db/config/x-dev-restore.sh
         target: /docker-entrypoint-initdb.d/x-dev-restore.sh

@@ -19,6 +19,8 @@ LATEST_BACKUP=$(aws2 s3 ls s3://$S3_BUCKET/$S3_PREFIX/ | sort | tail -n 1 | awk 
 
 echo "Fetching ${LATEST_BACKUP} from S3"
 aws2 s3 cp s3://$S3_BUCKET/$S3_PREFIX/${LATEST_BACKUP} config/${DUMP_NAME}
-tar -xvf config/${DUMP_NAME}
-rm config/${DUMP_NAME}
+cd config
+tar -xvf ${DUMP_NAME}
+rm ${DUMP_NAME}
+rm gorge.bak
 echo "Success"

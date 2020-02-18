@@ -1,14 +1,20 @@
 #! /bin/sh
 
-if [ -f /docker-entrypoint-initdb.d/dump.bak ]; then
-    echo "Restoring dump"
-    #psql --username "$POSTGRES_USER" -c "ALTER DATABASE ${POSTGRES_DB} SET timescaledb.restoring='on';"
-    psql --username "$POSTGRES_USER" -d $POSTGRES_DB -c "drop schema public cascade; create schema public;"
-    pg_restore --username "$POSTGRES_USER" -Fc -d $POSTGRES_DB /docker-entrypoint-initdb.d/dump.bak
-    #psql --username "$POSTGRES_USER" -c "ALTER DATABASE ${POSTGRES_DB} SET timescaledb.restoring='off';"
+if [ -f /docker-entrypoint-initdb.d/wwguide.bak ]; then
+    echo "Restoring wwguide dump"
+    pg_restore --username "$POSTGRES_USER" -Fc -d wwguide /docker-entrypoint-initdb.d/wwguide.bak
+    echo "Success"
+fi
 
-    # Disable sources when restoring
-    psql --username "$POSTGRES_USER" -d $POSTGRES_DB -c "UPDATE public.sources SET enabled = false;"
-    # Recreate hypertable in case it's not in the dump
-    psql --username "$POSTGRES_USER" -d $POSTGRES_DB -c "SELECT create_hypertable('measurements', 'timestamp', if_not_exists => true);"
+if [ -f /docker-entrypoint-initdb.d/gorge_schema.bak ]; then
+    echo "Restoring gorge schema dump"
+    psql --username "$POSTGRES_USER" -d gorge -c "CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;"
+    psql --username "$POSTGRES_USER" -d gorge -c "SELECT timescaledb_pre_restore();"
+    pg_restore --username "$POSTGRES_USER" -Fc -d gorge /docker-entrypoint-initdb.d/gorge_schema.bak
+    psql --username "$POSTGRES_USER" -d gorge -c "SELECT timescaledb_post_restore();"
+    psql --username "$POSTGRES_USER" -d gorge -c "INSERT INTO schema_migrations (version, dirty) VALUES (1, false);"
+    if [ -f /docker-entrypoint-initdb.d/measurements.csv ]; then
+        psql --username "$POSTGRES_USER" --dbname=gorge -c "\copy measurements FROM '/docker-entrypoint-initdb.d/measurements.csv'"
+    fi
+    echo "Success"
 fi
