@@ -1,3 +1,9 @@
+## [0.0.417](https://github.com/doomsower/whitewater/compare/f414fd5faf75b4f6f19d76843957b7817c52c02d...695e8937bd79558103ec59617f79ee9db32e82bd) (2020-02-18)
+
+### Bug Fixes
+
+- queries with deprecated fields ([c08fe73a32d1ee469df46ca2bd816225894526ef](https://github.com/doomsower/whitewater/commit/c08fe73a32d1ee469df46ca2bd816225894526ef))
+
 ## [0.0.416](https://github.com/doomsower/whitewater/compare/3637196bd90056f4c40c981d1d06a8af57aa9162...f414fd5faf75b4f6f19d76843957b7817c52c02d) (2020-02-17)
 
 ### Features
