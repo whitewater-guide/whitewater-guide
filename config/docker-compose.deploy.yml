@@ -138,14 +138,11 @@ services:
         constraints: [node.role == manager]
     labels:
       guide.whitewater: ''
-    image: 'doomsower/postgres-backup-s3:6'
+    image: 'docker.pkg.github.com/whitewater-guide/pg_dump_restore/pg_dump_restore:1.0.3'
     # read_only: true
     environment:
       SCHEDULE: '@daily'
       S3_PREFIX: '${DOCKER_ENVIRONMENT}'
-      POSTGRES_HOST: db
-      POSTGRES_DATABASES: wwguide,gorge
-      POSTGRES_USER: postgres
     env_file:
       - ${DOCKER_ENV_FILE}
       - ../services/pgdump/${DOCKER_ENV_FILE}
