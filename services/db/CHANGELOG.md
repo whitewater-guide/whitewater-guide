@@ -1,3 +1,10 @@
+## [0.0.53](https://github.com/doomsower/whitewater/compare/0c328a3279d4f340c369ba8955fe0c31d598604a...ad6fa84c3bc7c868cdf5c7616bd41dd3d7534bdc) (2020-02-20)
+
+### Features
+
+- local refresh_dump ([4c7b41b5dfbb376d8bdd18560209a749ccce5285](https://github.com/doomsower/whitewater/commit/4c7b41b5dfbb376d8bdd18560209a749ccce5285))
+- update staging sync ([ad6fa84c3bc7c868cdf5c7616bd41dd3d7534bdc](https://github.com/doomsower/whitewater/commit/ad6fa84c3bc7c868cdf5c7616bd41dd3d7534bdc))
+
 ## [0.0.53](https://github.com/doomsower/whitewater/compare/d48d2654896cdf78dfaed159696c01d2ea56b1b8...0c328a3279d4f340c369ba8955fe0c31d598604a) (2020-02-18)
 
 ## [0.0.53](https://github.com/doomsower/whitewater/compare/c1e13458d05d873a7b29482ca4c2447f8bc3b616...d48d2654896cdf78dfaed159696c01d2ea56b1b8) (2020-02-18)
