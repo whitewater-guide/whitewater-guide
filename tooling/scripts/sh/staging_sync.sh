@@ -3,8 +3,6 @@
 MACHINE_PRODUCTION=ww-production
 MACHINE_STAGING=ww-staging
 STACK_NAME=wwguide
-S3_ACCESS_KEY_ID=$(aws configure get default.aws_access_key_id)
-S3_SECRET_ACCESS_KEY=$(aws configure get default.aws_secret_access_key)
 BACKUP_BUCKET=backup.whitewater.guide
 
 #########################################################################
