@@ -18,11 +18,11 @@ set +o allexport
 # Step 2: Make ww-production machine produce unscheduled dump.          #
 # It will be uploaded to s3.                                            #
 #########################################################################
-echo "Creating new production dump"
+echo "Creating new partial production dump"
 docker-machine ssh ${MACHINE_PRODUCTION} <<END-OF-BACKUP
     PGDUMP_CONTAINER=\$(docker ps -q --filter name=${STACK_NAME}_pgdump)
     IMAGEDUMP_CONTAINER=\$(docker ps -q --filter name=${STACK_NAME}_imagedump)
-    docker exec \${PGDUMP_CONTAINER} sh /backup.sh
+    docker exec \${PGDUMP_CONTAINER} sh /app/backup_partial.sh
     docker exec \${IMAGEDUMP_CONTAINER} backup.sh
 END-OF-BACKUP
 
@@ -31,17 +31,8 @@ END-OF-BACKUP
 #########################################################################
 echo "Restoring staging DB"
 docker-machine ssh ${MACHINE_STAGING} <<END-OF-DB-RESTORE
-    docker run -e S3_ACCESS_KEY_ID=${S3_ACCESS_KEY_ID} \
-               -e S3_SECRET_ACCESS_KEY=${S3_SECRET_ACCESS_KEY} \
-               -e S3_BUCKET=${BACKUP_BUCKET} \
-               -e S3_PREFIX=production \
-               -e S3_REGION=eu-central-1 \
-               -e POSTGRES_DATABASE=${POSTGRES_DB} \
-               -e POSTGRES_USER=postgres \
-               -e POSTGRES_PASSWORD=${POSTGRES_PASSWORD} \
-               -e POSTGRES_HOST=db \
-               --network wwguide_default \
-               doomsower/postgres-restore-s3:latest
+    PGDUMP_CONTAINER=\$(docker ps -q --filter name=${STACK_NAME}_pgdump)
+    docker exec \${PGDUMP_CONTAINER} sh /app/restore_partial.sh
 END-OF-DB-RESTORE
 
 #########################################################################
