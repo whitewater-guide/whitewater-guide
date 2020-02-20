@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/root",
   "private": true,
-  "version": "0.0.1236",
+  "version": "0.0.1237",
   "license": "UNLICENSED",
   "description": "whitewater.guide monorepo",
   "repository": "https://github.com/doomsower/whitewater.git",
