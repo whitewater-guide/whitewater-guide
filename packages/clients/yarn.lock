@@ -1414,10 +1414,10 @@
   resolved "https://registry.npmjs.org/@types/zen-observable/-/zen-observable-0.8.0.tgz#8b63ab7f1aa5321248aad5ac890a485656dcea4d"
   integrity sha512-te5lMAWii1uEJ4FwLjzdlbw3+n0FZNOvFXHxQDKeT0dilh7HOzdMzV2TrJVUzq8ep7J4Na8OUYPRLSQkJHAlrg==
 
-"@whitewater-guide/commons@0.0.191-archive.1":
-  version "0.0.191-archive.1"
-  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.191-archive.1.tgz#a6b9200b875f966d4a69aa7b1ab883d75c200c63"
-  integrity sha512-Y27+oySBNEXPJSl5MUR1czVXLkU9gpKXVwvWcP1McQ/qzFt2/GRHyGEDB8Wadj+FfZ8riRkKuZjgXeBE8Eu/jg==
+"@whitewater-guide/commons@0.0.191":
+  version "0.0.191"
+  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.191.tgz#661f1d98645c6d5b86913b437e4bd78ecf7cce04"
+  integrity sha512-z4+SdJDzuDcdnZ+yPux8zReooPIzHKkMJac1+3SemDHXUeaSrCrfvDWUt7t5zNPU5X4EZnakZ2wxXwlRFNLLfw==
   dependencies:
     "@types/yup" "^0.26.29"
     cron-validator "^1.1.0"
