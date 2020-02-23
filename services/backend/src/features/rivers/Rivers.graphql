@@ -25,6 +25,8 @@ input RiverInput {
   name: String!
   altNames: [String!]
   region: RefInput!
+  # Optional field for imported data
+  importId: String
 }
 
 type RiversList {

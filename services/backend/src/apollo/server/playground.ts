@@ -35,7 +35,7 @@ export const getPlaygroundConfig = async (
     undefined,
   );
   return {
-    schema: data,
+    schema: data!,
     tabs: [
       {
         name: 'Example: some regions',

@@ -81,3 +81,8 @@ export interface SectionsEditLogRaw {
   created_at: Date;
   count?: number;
 }
+
+// [SectionRaw, upsertedMediaIds, deletedMediaIds]
+export type RawSectionUpsertResult =
+  | undefined
+  | [SectionRaw, string[] | null, string[] | null];

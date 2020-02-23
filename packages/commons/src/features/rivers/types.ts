@@ -19,6 +19,7 @@ export interface RiverInput {
   name: string;
   altNames: string[] | null;
   region: NodeRef;
+  importId?: string | null;
 }
 
 export interface RiversFilter {

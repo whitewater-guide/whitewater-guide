@@ -125,6 +125,8 @@ input SectionInput {
   helpNeeded: String
   createdBy: ID
   suggestionId: ID
+  # Optional field for imported data
+  importId: String
 }
 
 input SectionAdminSettings {
@@ -170,8 +172,21 @@ type Query {
   ): SectionsEditLogList! @admin
 }
 
+type BulkInsertResult {
+  count: Int!
+  log: String!
+}
+
 type Mutation {
   upsertSection(section: SectionInput!): Section
   removeSection(id: ID!): ID
   administrateSection(id: ID!, settings: SectionAdminSettings!): Section @admin
+  # This mutation will fetch tar.gz archive and insert sections in it
+  # Each JSON file in archive must be array of Partial<SectionInput> objects
+  # TODO: also upload photos from archive
+  bulkInsert(
+    regionId: ID!
+    hidden: Boolean
+    archiveURL: String!
+  ): BulkInsertResult @admin
 }

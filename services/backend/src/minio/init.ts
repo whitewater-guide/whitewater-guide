@@ -2,11 +2,11 @@ import log from '@log';
 import { AVATARS, BANNERS, COVERS, MEDIA, TEMP } from './buckets';
 import { minioClient } from './client';
 import {
-  AVATARS_POLICY,
-  BANNERS_POLICY,
-  COVERS_POLICY,
-  MEDIA_POLICY,
-  TEMP_POLICY,
+  avatarsPolicy,
+  bannersPolicy,
+  coversPolicy,
+  mediaPolicy,
+  tempPolicy,
 } from './policies';
 
 const createIfNotExists = async (bucketName: string) => {
@@ -29,10 +29,19 @@ export const initMinio = async () => {
       createIfNotExists(bucket),
     ),
   );
-  await minioClient.setBucketPolicy(TEMP, JSON.stringify(TEMP_POLICY));
-  await minioClient.setBucketPolicy(MEDIA, JSON.stringify(MEDIA_POLICY));
-  await minioClient.setBucketPolicy(AVATARS, JSON.stringify(AVATARS_POLICY));
-  await minioClient.setBucketPolicy(COVERS, JSON.stringify(COVERS_POLICY));
-  await minioClient.setBucketPolicy(BANNERS, JSON.stringify(BANNERS_POLICY));
+  await minioClient.setBucketPolicy(TEMP, JSON.stringify(tempPolicy(TEMP)));
+  await minioClient.setBucketPolicy(MEDIA, JSON.stringify(mediaPolicy(MEDIA)));
+  await minioClient.setBucketPolicy(
+    AVATARS,
+    JSON.stringify(avatarsPolicy(AVATARS)),
+  );
+  await minioClient.setBucketPolicy(
+    COVERS,
+    JSON.stringify(coversPolicy(COVERS)),
+  );
+  await minioClient.setBucketPolicy(
+    BANNERS,
+    JSON.stringify(bannersPolicy(BANNERS)),
+  );
   log.info('Minio init complete');
 };

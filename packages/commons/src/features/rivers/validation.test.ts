@@ -21,6 +21,14 @@ const correctValues: TestValue[] = [
       ...correct,
       id: null,
       altNames: null,
+      importId: null,
+    },
+  ],
+  [
+    'with import id',
+    {
+      ...correct,
+      importId: 'green',
     },
   ],
 ];

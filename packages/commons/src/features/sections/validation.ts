@@ -97,6 +97,7 @@ export const SectionInputSchema = yup
     helpNeeded: yup.string().nullable(),
     createdBy: yupTypes.uuid(true, true),
     suggestionId: yupTypes.uuid(true, true),
+    importId: yup.string().nullable(),
   })
   .strict(true)
   .noUnknown();

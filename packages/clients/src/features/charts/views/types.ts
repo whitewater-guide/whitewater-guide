@@ -1,12 +1,9 @@
 import { Gauge, Measurement, Section, Unit } from '@whitewater-guide/commons';
 import React from 'react';
-import {
-  TextAnchorType,
-  VictoryAxisProps,
-  VictoryChartProps,
-  VictoryLabelProps,
-  VictoryLineProps,
-} from 'victory';
+import { VictoryAxisProps } from 'victory-axis';
+import { VictoryChartProps } from 'victory-chart';
+import { TextAnchorType, VictoryLabelProps } from 'victory-core';
+import { VictoryLineProps } from 'victory-line';
 
 export enum Period {
   DAY = 'day',

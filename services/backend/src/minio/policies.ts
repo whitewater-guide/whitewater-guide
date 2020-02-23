@@ -1,126 +1,126 @@
-export const AVATARS_POLICY = {
+export const avatarsPolicy = (bucket: string) => ({
   Version: '2012-10-17',
   Statement: [
     {
       Action: ['s3:GetBucketLocation'],
       Effect: 'Allow',
       Principal: { AWS: ['*'] },
-      Resource: ['arn:aws:s3:::avatars'],
+      Resource: [`arn:aws:s3:::${bucket}`],
       Sid: '',
     },
     {
       Action: ['s3:GetObject'],
       Effect: 'Allow',
       Principal: { AWS: ['*'] },
-      Resource: ['arn:aws:s3:::avatars/*'],
+      Resource: [`arn:aws:s3:::${bucket}/*`],
       Sid: '',
     },
     {
       Action: ['s3:ListBucket'],
       Effect: 'Allow',
       Principal: { AWS: ['*'] },
-      Resource: ['arn:aws:s3:::avatars'],
+      Resource: [`arn:aws:s3:::${bucket}`],
       Sid: '',
     },
   ],
-};
+});
 
-export const BANNERS_POLICY = {
+export const bannersPolicy = (bucket: string) => ({
   Version: '2012-10-17',
   Statement: [
     {
       Action: ['s3:GetBucketLocation'],
       Effect: 'Allow',
       Principal: { AWS: ['*'] },
-      Resource: ['arn:aws:s3:::banners'],
+      Resource: [`arn:aws:s3:::${bucket}`],
       Sid: '',
     },
     {
       Action: ['s3:GetObject'],
       Effect: 'Allow',
       Principal: { AWS: ['*'] },
-      Resource: ['arn:aws:s3:::banners/*'],
+      Resource: [`arn:aws:s3:::${bucket}/*`],
       Sid: '',
     },
     {
       Action: ['s3:ListBucket'],
       Effect: 'Allow',
       Principal: { AWS: ['*'] },
-      Resource: ['arn:aws:s3:::banners'],
+      Resource: [`arn:aws:s3:::${bucket}`],
       Sid: '',
     },
   ],
-};
+});
 
-export const COVERS_POLICY = {
+export const coversPolicy = (bucket: string) => ({
   Version: '2012-10-17',
   Statement: [
     {
       Action: ['s3:GetBucketLocation'],
       Effect: 'Allow',
       Principal: { AWS: ['*'] },
-      Resource: ['arn:aws:s3:::covers'],
+      Resource: [`arn:aws:s3:::${bucket}`],
       Sid: '',
     },
     {
       Action: ['s3:GetObject'],
       Effect: 'Allow',
       Principal: { AWS: ['*'] },
-      Resource: ['arn:aws:s3:::covers/*'],
+      Resource: [`arn:aws:s3:::${bucket}/*`],
       Sid: '',
     },
     {
       Action: ['s3:ListBucket'],
       Effect: 'Allow',
       Principal: { AWS: ['*'] },
-      Resource: ['arn:aws:s3:::covers'],
+      Resource: [`arn:aws:s3:::${bucket}`],
       Sid: '',
     },
   ],
-};
+});
 
-export const MEDIA_POLICY = {
+export const mediaPolicy = (bucket: string) => ({
   Version: '2012-10-17',
   Statement: [
     {
       Action: ['s3:GetBucketLocation'],
       Effect: 'Allow',
       Principal: { AWS: ['*'] },
-      Resource: ['arn:aws:s3:::media'],
+      Resource: [`arn:aws:s3:::${bucket}`],
       Sid: '',
     },
     {
       Action: ['s3:GetObject'],
       Effect: 'Allow',
       Principal: { AWS: ['*'] },
-      Resource: ['arn:aws:s3:::media/*'],
+      Resource: [`arn:aws:s3:::${bucket}/*`],
       Sid: '',
     },
     {
       Action: ['s3:ListBucket'],
       Effect: 'Allow',
       Principal: { AWS: ['*'] },
-      Resource: ['arn:aws:s3:::media'],
+      Resource: [`arn:aws:s3:::${bucket}`],
       Sid: '',
     },
   ],
-};
+});
 
-export const TEMP_POLICY = {
+export const tempPolicy = (bucket: string) => ({
   Version: '2012-10-17',
   Statement: [
     {
       Action: ['s3:GetBucketLocation', 's3:ListBucketMultipartUploads'],
       Effect: 'Allow',
       Principal: { AWS: ['*'] },
-      Resource: ['arn:aws:s3:::temp'],
+      Resource: [`arn:aws:s3:::${bucket}`],
       Sid: '',
     },
     {
       Action: ['s3:GetObject'],
       Effect: 'Allow',
       Principal: { AWS: ['*'] },
-      Resource: ['arn:aws:s3:::temp/*'],
+      Resource: [`arn:aws:s3:::${bucket}/*`],
       Sid: '',
     },
     {
@@ -132,8 +132,8 @@ export const TEMP_POLICY = {
       ],
       Effect: 'Allow',
       Principal: { AWS: ['*'] },
-      Resource: ['arn:aws:s3:::temp/*'],
+      Resource: [`arn:aws:s3:::${bucket}/*`],
       Sid: '',
     },
   ],
-};
+});

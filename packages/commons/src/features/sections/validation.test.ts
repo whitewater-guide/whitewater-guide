@@ -1,4 +1,3 @@
-import omit from 'lodash/omit';
 import { NEW_ID } from '../../apollo';
 import { createSafeValidator } from '../../validation';
 import { MediaKind } from '../media';
@@ -77,7 +76,10 @@ describe('SectionInput', () => {
     levels: { minimum: 10, optimum: null },
     flows: { maximum: 11, approximate: true },
     flowsText: 'unknown',
-    shape: [[0, 0, 0], [0.1, 1, 0]],
+    shape: [
+      [0, 0, 0],
+      [0.1, 1, 0],
+    ],
     distance: 10,
     drop: 100,
     duration: Duration.LAPS,
@@ -131,6 +133,7 @@ describe('SectionInput', () => {
         createdBy: null,
         suggestionId: null,
         helpNeeded: null,
+        importId: null,
       },
     ],
     [
@@ -141,6 +144,7 @@ describe('SectionInput', () => {
       'with suggestionId',
       { ...correct, createdBy: '8ef42282-bd02-11e9-9cb5-2a2ae2dbcce4' },
     ],
+    ['with importId', { ...correct, importId: 'whatever' }],
     ['empty description', { ...correct, description: '' }],
     ['empty season', { ...correct, season: '' }],
     ['empty season numeric', { ...correct, seasonNumeric: [] }],
@@ -174,7 +178,14 @@ describe('SectionInput', () => {
     ['bad shape (not enough points)', { ...correct, shape: [[1, 2, 3]] }],
     [
       'bad shape (bad point)',
-      { ...correct, shape: [[1, 2, 3], [300, 1, 1], [2, 3, 4]] },
+      {
+        ...correct,
+        shape: [
+          [1, 2, 3],
+          [300, 1, 1],
+          [2, 3, 4],
+        ],
+      },
     ],
     ['bad distance', { ...correct, distance: -100 }],
     ['bad drop', { ...correct, drop: -100 }],

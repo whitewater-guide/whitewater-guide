@@ -110,6 +110,7 @@ export interface SectionInput {
 
   createdBy?: string | null;
   suggestionId?: string | null;
+  importId?: string | null;
 }
 
 export type SectionSortBy = 'name' | 'difficulty' | 'duration' | 'rating';

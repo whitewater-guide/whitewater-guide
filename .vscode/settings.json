@@ -32,5 +32,9 @@
     "**/dist": true,
     "**/build": true,
     "**/node_modules": true
-  }
+  },
+  "[sql]": {
+    "editor.formatOnSave": false
+  },
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

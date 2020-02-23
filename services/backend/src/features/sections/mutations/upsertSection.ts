@@ -1,24 +1,18 @@
-import {
-  Context,
-  isInputValidResolver,
-  TopLevelResolver,
-  UnknownError,
-} from '@apollo';
+import { Context, isInputValidResolver, TopLevelResolver } from '@apollo';
 import db, { rawUpsert } from '@db';
-import { RiverRaw } from '@features/rivers';
 import { SectionRaw } from '@features/sections';
 import { getLocalFileName, MEDIA, minioClient, moveTempImage } from '@minio';
 import {
   MediaKind,
   NEW_ID,
-  RiverInput,
   SectionInput,
   SectionInputSchema,
   SuggestionStatus,
 } from '@whitewater-guide/commons';
-import { UserInputError } from 'apollo-server-errors';
 import { DiffPatcher } from 'jsondiffpatch';
 import * as yup from 'yup';
+import { RawSectionUpsertResult } from '../types';
+import { checkForNewRiver, insertNewRiver } from './upsertUtils';
 
 const differ = new DiffPatcher({
   propertyFilter: (name: keyof SectionRaw) => {
@@ -43,19 +37,6 @@ const transformSection = (section: SectionInput): SectionInput => {
   };
 };
 
-const checkForNewRiver = (section: SectionInput) => {
-  const shouldInsertRiver = section.river.id === NEW_ID;
-  if (shouldInsertRiver && section.id) {
-    throw new UserInputError('cannot create new river for existing section');
-  }
-  if (shouldInsertRiver && !section.region) {
-    throw new UserInputError(
-      'cannot create new river when region is not provided',
-    );
-  }
-  return shouldInsertRiver;
-};
-
 const checkIsEditor = async (
   section: SectionInput,
   dataSources: Context['dataSources'],
@@ -75,27 +56,6 @@ const insertAsSuggestion = async (section: SectionInput) => {
   await db()
     .insert({ section })
     .into('suggested_sections');
-};
-
-const insertNewRiver = async (
-  section: SectionInput,
-  language: Context['language'],
-) => {
-  const riverInput: RiverInput = {
-    id: null,
-    altNames: null,
-    name: section.river.name!,
-    region: section.region!,
-  };
-  const river: RiverRaw | undefined = await rawUpsert(
-    db(),
-    'SELECT upsert_river(?, ?)',
-    [riverInput, language],
-  );
-  if (!river) {
-    throw new UnknownError('failed to insert new river');
-  }
-  return river.id;
 };
 
 const saveLog = async (
@@ -181,10 +141,6 @@ const maybeUpdateJobs = async (
   }
 };
 
-type RawUpsertResult =
-  | undefined
-  | [SectionRaw, string[] | null, string[] | null];
-
 interface Vars {
   section: SectionInput;
 }
@@ -216,7 +172,7 @@ const resolver: TopLevelResolver<Vars> = async (
   const old: SectionRaw | undefined = await dataSources.sections.getById(
     section.id,
   );
-  const result: RawUpsertResult = await rawUpsert(
+  const result: RawSectionUpsertResult = await rawUpsert(
     db(),
     'SELECT upsert_section(?, ?)',
     [section, language],

@@ -7,6 +7,7 @@ export const RiverInputSchema = yup
     id: yupTypes.uuid(true),
     name: yupTypes.nonEmptyString(),
     region: yupTypes.node(),
+    importId: yup.string().nullable(),
     altNames: yup
       .array()
       .of(yupTypes.nonEmptyString())

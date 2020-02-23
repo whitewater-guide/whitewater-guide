@@ -6,6 +6,7 @@ import React from 'react';
 import { EditorLanguagePicker } from '../../../components/language';
 import { HashTab, HashTabs, HashTabView } from '../../../components/navtabs';
 import { Card } from '../../../layout';
+import RegionBulkInsert from './bulk';
 import RegionEditors from './editors';
 import RegionGroups from './groups';
 import { RegionAdminSettingsForm } from './settings';
@@ -27,6 +28,7 @@ const RegionAdmin: React.FC = () => {
             <HashTab label="Main" value="#main" />
             <HashTab label="Editors" value="#editors" />
             <HashTab label="Groups" value="#groups" />
+            <HashTab label="Import" value="#import" />
           </HashTabs>
 
           <HashTabView value="#main">
@@ -37,6 +39,9 @@ const RegionAdmin: React.FC = () => {
           </HashTabView>
           <HashTabView value="#groups">
             <RegionGroups regionId={node!.id} />
+          </HashTabView>
+          <HashTabView value="#import">
+            <RegionBulkInsert regionId={node!.id} />
           </HashTabView>
         </Box>
       </CardContent>

@@ -7,4 +7,4 @@ source .env.test
 source .env.test.local
 set +o allexport
 
-./node_modules/.bin/jest --forceExit "$@"
+node --inspect=0.0.0.0:9230 ./node_modules/jest/bin/jest.js --forceExit "$@"
