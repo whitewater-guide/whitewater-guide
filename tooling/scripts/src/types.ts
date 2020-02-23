@@ -4,7 +4,7 @@ export enum EnvType {
   LOCAL = 'local',
   DEVELOPMENT = 'development',
 }
-export const isEnvType = (value: string): value is EnvType =>
+export const isEnvType = (value: any): value is EnvType =>
   Object.values(EnvType).includes(value);
 
 export enum Machine {
@@ -12,5 +12,5 @@ export enum Machine {
   STAGING = 'ww-staging',
   LOCAL = 'ww-local',
 }
-export const isMachine = (value: string): value is Machine =>
+export const isMachine = (value: any): value is Machine =>
   Object.values(Machine).includes(value);

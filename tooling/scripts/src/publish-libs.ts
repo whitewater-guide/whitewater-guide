@@ -41,7 +41,11 @@ const publishLibs = async () => {
     await npmPublish('packages/clients');
   }
 
-  await installRecursive(libs, ['packages/mobile', 'services/*']);
+  await installRecursive(libs, [
+    'packages/mobile',
+    'packages/importer',
+    'services/*',
+  ]);
 
   await git.commit('chore(release): publish libs\n\n' + libs.join(', '));
 
