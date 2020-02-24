@@ -49,9 +49,6 @@ services:
         source: ../dev-mount/minio/data
         target: /data
       - type: bind
-        source: ../dev-mount/minio/config
-        target: /root/.minio
-      - type: bind
         source: ../dev-mount/minio/log/
         target: /var/log
     read_only: true
