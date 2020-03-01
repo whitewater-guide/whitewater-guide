@@ -96,6 +96,11 @@ export class UsersConnector extends BaseConnector<User, UserRaw> {
     }
     for (const [k, v] of Object.entries(query)) {
       const dbField = Keys.get(k as any);
+      if (k === 'riverId' && query.sectionId) {
+        // If we know section id, river id is redundant
+        // Moreover, when we change section's river having both id in query will lead to failing where clause
+        continue;
+      }
       if (v && dbField) {
         builder = builder.where(dbField, '=', v);
       }

@@ -21,7 +21,7 @@ import {
 import { REGION_GALICIA, REGION_NORWAY } from '@seeds/04_regions';
 import { SOURCE_GALICIA_1, SOURCE_GEORGIA } from '@seeds/05_sources';
 import { GAUGE_GAL_1_1, GAUGE_GAL_1_2, GAUGE_GEO_1 } from '@seeds/06_gauges';
-import { RIVER_GAL_1, RIVER_SJOA } from '@seeds/07_rivers';
+import { RIVER_GAL_1, RIVER_GAL_2, RIVER_SJOA } from '@seeds/07_rivers';
 import { GALICIA_R1_S1, NORWAY_SJOA_AMOT } from '@seeds/09_sections';
 import { PHOTO_1, PHOTO_2 } from '@seeds/11_media';
 import { MEDIA_SUGGESTION_ID1 } from '@seeds/17_suggestions';
@@ -938,4 +938,17 @@ it('should sanitize input', async () => {
     'data.upsertSection.pois.0.name',
     "it's a \\ $1 slash with . ?",
   );
+});
+
+it('should be able to change river of existing section', async () => {
+  const res = await runQuery(
+    upsertQuery,
+    { section: { ...updateData, river: { id: RIVER_GAL_2 } } },
+    fakeContext(EDITOR_GA_EC),
+  );
+  expect(res.errors).toBeUndefined();
+  // expect(res.data.upsertSection.river.id).toBe(RIVER_GAL_2);
+  // observed bug led to creation of suggestion instead
+  const [suggAfter] = await countRows(false, 'suggested_sections');
+  expect(suggAfter).toBe(suggBefore);
 });
