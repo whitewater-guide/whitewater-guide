@@ -147,8 +147,8 @@ android {
         resValue "string", "build_config_package", "guide.whitewater"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 100601105
-        versionName "1.9.9"
+        versionCode 100601106
+        versionName "1.9.10"
     }
     splits {
         abi {
