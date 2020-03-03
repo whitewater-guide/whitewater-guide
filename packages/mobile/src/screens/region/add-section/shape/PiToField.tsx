@@ -95,7 +95,7 @@ const PiToField: React.FC = React.memo(() => {
         <PiToControl index={1} state={state} select={select} />
         <FAB
           style={styles.fab}
-          icon="edit"
+          icon="pencil"
           onPress={toggleDialog}
           accessibilityLabel="edit shape"
           testID="shape-fab"
