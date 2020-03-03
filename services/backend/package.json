@@ -142,6 +142,7 @@
     "dotenv": "^8.2.0",
     "graphql-extensions": "^0.10.10",
     "gulp": "4.0.2",
+    "gulp-sourcemaps": "^2.6.5",
     "gulp-typescript": "^6.0.0-alpha.1",
     "ioredis-mock": "^4.19.0",
     "jest": "^25.1.0",

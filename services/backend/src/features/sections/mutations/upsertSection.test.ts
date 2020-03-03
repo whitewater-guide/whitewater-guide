@@ -1,5 +1,4 @@
 import db, { holdTransaction, rollbackTransaction } from '@db';
-import { GorgeConnector } from '@features/gorge';
 import { SectionsEditLogRaw } from '@features/sections';
 import {
   fileExistsInBucket,
@@ -68,6 +67,7 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
+  jest.resetAllMocks();
   await holdTransaction();
   await resetTestMinio();
 });
@@ -842,18 +842,14 @@ describe('media', () => {
 });
 
 describe('gorge jobs', () => {
-  let spy: jest.SpyInstance;
+  let spy: jest.Mock;
 
   beforeEach(() => {
-    spy = jest.spyOn(GorgeConnector.prototype, 'updateJobForSource');
-  });
-
-  afterEach(() => {
-    spy.mockReset();
+    spy = require('../../gorge/connector').mockUpdateJobForSource;
   });
 
   it('should update job for new section with gauge', async () => {
-    await runQuery(
+    const result = await runQuery(
       upsertQuery,
       {
         section: {
@@ -864,11 +860,12 @@ describe('gorge jobs', () => {
       },
       fakeContext(ADMIN),
     );
+    expect(result.errors).toBeUndefined();
     expect(spy).toHaveBeenCalledWith(SOURCE_GALICIA_1);
   });
 
   it('should not update job for new section without gauge', async () => {
-    await runQuery(
+    const result = await runQuery(
       upsertQuery,
       {
         section: {
@@ -879,11 +876,12 @@ describe('gorge jobs', () => {
       },
       fakeContext(ADMIN),
     );
+    expect(result.errors).toBeUndefined();
     expect(spy).not.toHaveBeenCalled();
   });
 
   it('should update job for new section with gauge', async () => {
-    await runQuery(
+    const result = await runQuery(
       upsertQuery,
       {
         section: {
@@ -894,29 +892,37 @@ describe('gorge jobs', () => {
       },
       fakeContext(ADMIN),
     );
+    expect(result.errors).toBeUndefined();
     expect(spy).toHaveBeenCalledWith(SOURCE_GALICIA_1);
   });
 
   it('should not update job when section is updated without gauge change', async () => {
-    await runQuery(upsertQuery, { section: updateData }, fakeContext(ADMIN));
+    const result = await runQuery(
+      upsertQuery,
+      { section: updateData },
+      fakeContext(ADMIN),
+    );
+    expect(result.errors).toBeUndefined();
     expect(spy).not.toHaveBeenCalled();
   });
 
   it('should update job when section is updated with gauge change', async () => {
-    await runQuery(
+    const result = await runQuery(
       upsertQuery,
       { section: { ...updateData, gauge: { id: GAUGE_GAL_1_2 } } },
       fakeContext(ADMIN),
     );
+    expect(result.errors).toBeUndefined();
     expect(spy).toHaveBeenCalledWith(SOURCE_GALICIA_1);
   });
 
   it('should update two jobs gauge from different source is selected', async () => {
-    await runQuery(
+    const result = await runQuery(
       upsertQuery,
       { section: { ...updateData, gauge: { id: GAUGE_GEO_1 } } },
       fakeContext(ADMIN),
     );
+    expect(result.errors).toBeUndefined();
     expect(spy).toHaveBeenCalledWith(SOURCE_GALICIA_1);
     expect(spy).toHaveBeenCalledWith(SOURCE_GEORGIA);
   });

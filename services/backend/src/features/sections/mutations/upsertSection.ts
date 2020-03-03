@@ -10,6 +10,7 @@ import {
   SuggestionStatus,
 } from '@whitewater-guide/commons';
 import { DiffPatcher } from 'jsondiffpatch';
+import uniq from 'lodash/uniq';
 import * as yup from 'yup';
 import { RawSectionUpsertResult } from '../types';
 import { checkForNewRiver, insertNewRiver } from './upsertUtils';
@@ -128,11 +129,12 @@ const maybeUpdateJobs = async (
   const newGid = current.gauge_id;
   if (newGid !== oldGid) {
     const gids: string[] = [oldGid, newGid].filter((g) => !!g) as any;
-    const sids: string[] = await db()
+    let sids: string[] = await db()
       .select('source_id')
       .from('gauges')
       .whereIn('id', gids)
       .pluck('source_id');
+    sids = uniq(sids);
     if (sids) {
       await Promise.all(
         sids.map((sid) => dataSources.gorge.updateJobForSource(sid)),

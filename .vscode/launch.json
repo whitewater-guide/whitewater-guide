@@ -14,8 +14,28 @@
       "restart": true,
       "disableOptimisticBPs": true,
       "showAsyncStacks": true,
+      "skipFiles": ["<node_internals>/**/*.js"]
+      // "outFiles": ["${workspaceFolder}/services/backend/dist/**/*.js"],
+      // "sourceMaps": true,
+      // "trace": "verbose"
+    },
+    {
+      "name": "Backend",
+      "type": "node",
+      "request": "attach",
+      "port": 5775,
+      "address": "localhost",
+      "protocol": "inspector",
+      "restart": true,
+      "disableOptimisticBPs": true,
+      "showAsyncStacks": true,
       "skipFiles": ["<node_internals>/**/*.js"],
-      "sourceMaps": true
+      "sourceMaps": true,
+      "cwd": "${workspaceFolder}/services/backend",
+      "outFiles": ["${workspaceFolder}/services/backend/dist/**/*.js"],
+      "localRoot": "${workspaceFolder}/services/backend",
+      "remoteRoot": "/opt/app",
+      "trace": "verbose"
     }
   ]
 }

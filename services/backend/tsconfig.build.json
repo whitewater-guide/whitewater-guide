@@ -2,9 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "noEmit": false,
-    "outDir": "dist",
-    "inlineSourceMap": true,
-    "inlineSources": true
+    "outDir": "dist"
   },
   "exclude": ["**/*.test.ts", "**/__mocks__/**/*"]
 }

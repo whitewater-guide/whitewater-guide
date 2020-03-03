@@ -5,6 +5,7 @@ import differenceInDays from 'date-fns/differenceInDays';
 import parseISO from 'date-fns/parseISO';
 import {
   SOURCE_ALPS,
+  SOURCE_GALICIA_1,
   SOURCE_GALICIA_2,
   SOURCE_NORWAY,
 } from '../../../seeds/test/05_sources';
@@ -22,8 +23,19 @@ const daysAgo = (days: number) => hoursAgo(24 * days);
 
 const { GorgeConnector: Original } = jest.requireActual('../connector.ts');
 
+export const mockUpdateJobForSource = jest.fn();
+
 export class GorgeConnector extends Original implements DataSource<Context> {
   private _jobs: Map<string, GorgeJob> = new Map<string, GorgeJob>([
+    [
+      SOURCE_GALICIA_1,
+      {
+        id: SOURCE_GALICIA_1,
+        script: 'galicia',
+        gauges: {},
+        cron: '',
+      },
+    ],
     [
       SOURCE_GALICIA_2,
       {
@@ -190,6 +202,9 @@ export class GorgeConnector extends Original implements DataSource<Context> {
   }
 
   public async deleteJobForSource(sourceId: string): Promise<void> {
+    if (!this._jobs.has(sourceId)) {
+      throw new Error('gorge server throws in this case');
+    }
     this._jobs.delete(sourceId);
     return Promise.resolve();
   }
@@ -203,6 +218,11 @@ export class GorgeConnector extends Original implements DataSource<Context> {
     };
     this._jobs.set(sourceId, fake);
     return Promise.resolve(fake);
+  }
+
+  public async updateJobForSource(sourceId: string) {
+    mockUpdateJobForSource(sourceId);
+    return super.updateJobForSource(sourceId);
   }
 
   public getLatest(script: string, code: string) {

@@ -1,6 +1,7 @@
 const { task, src, dest, series, parallel, watch } = require('gulp');
 const ts = require('gulp-typescript');
 const rimraf = require('rimraf');
+const sourcemaps = require('gulp-sourcemaps');
 
 const tsProject = ts.createProject('tsconfig.build.json');
 const ASSETS = 'src/**/*.{graphql,sql,json,kml,mjml}';
@@ -12,7 +13,9 @@ function clean(done) {
 function compile() {
   return tsProject
     .src()
+    .pipe(sourcemaps.init())
     .pipe(tsProject())
+    .pipe(sourcemaps.write())
     .pipe(dest('dist'));
 }
 
