@@ -1,5 +1,11 @@
 // tslint:disable:no-var-requires
+// tslint:disable-next-line:no-submodule-imports
+import RNCNetInfoMock from '@react-native-community/netinfo/jest/netinfo-mock';
 import fetchMock from 'fetch-mock';
+import { NativeModules } from 'react-native';
+
+NativeModules.RNCNetInfo = RNCNetInfoMock;
+
 // @ts-ignore
 global.__GRAPHQL_TYPEDEFS_MODULE__ = require('./src/test/typedefs');
 jest.mock('./src/core/errors/tracker');
