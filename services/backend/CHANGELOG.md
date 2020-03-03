@@ -1,3 +1,9 @@
+## [0.0.420](https://github.com/doomsower/whitewater/compare/bd4da27ab5c76e76f28db4adbd5ca0a10bf1713f...49c0bc30d6380ba3fc3d9adc2548f984bbe17420) (2020-03-03)
+
+### Bug Fixes
+
+- change section's gauge ([](https://github.com/doomsower/whitewater/commit/368b8632b392aed3bb3b6ac2291dbd0d7857f06e))
+
 ## [0.0.419](https://github.com/doomsower/whitewater/compare/ad5c14add5e3700f241c167e62cccfe5f4c79b54...bd4da27ab5c76e76f28db4adbd5ca0a10bf1713f) (2020-03-01)
 
 ### Bug Fixes
