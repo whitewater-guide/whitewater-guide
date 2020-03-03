@@ -1209,10 +1209,10 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@whitewater-guide/commons@0.0.192-mobile.0":
-  version "0.0.192-mobile.0"
-  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.192-mobile.0.tgz#5298f8d6a1ba63e8b05b062d137de7d214cdbd3d"
-  integrity sha512-inelyS5bXcYUbBUpIFXbHVyeTLQUGBwBz3iMiIRGb05aCFwyPfEl3ITwEOTL68MNRMXo8PujlVv/3OFFfwhU2A==
+"@whitewater-guide/commons@0.0.192":
+  version "0.0.192"
+  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.192.tgz#38d62ea5a59bc67d753c57ccb2a77a3ca022f2e5"
+  integrity sha512-19zl2OsNMbcDqLfHKHw/GXxHH6EOdwFFeqsRmzxMaD2xAgJJ1XTNWNFeK+LQzR4lpnhM9P/XOrb7JnL9zsjBaQ==
   dependencies:
     "@types/yup" "^0.26.32"
     cron-validator "^1.1.0"

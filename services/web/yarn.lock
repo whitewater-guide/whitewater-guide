@@ -2591,10 +2591,10 @@
     "@webassemblyjs/wast-parser" "1.8.5"
     "@xtuc/long" "4.2.2"
 
-"@whitewater-guide/clients@0.0.306-mobile.1":
-  version "0.0.306-mobile.1"
-  resolved "https://registry.npmjs.org/@whitewater-guide/clients/-/clients-0.0.306-mobile.1.tgz#089d5f652038fa0891f6e6aad7799f2a6d5a81a9"
-  integrity sha512-XH5hvuFUDrG9MBg6Ovi7DsPWakbz9p1wjTDMHS8FQSrdLq97HijQ+mlX9dN6Xsr9PHQz4ZmUoASiKWK5dflNOA==
+"@whitewater-guide/clients@0.0.306":
+  version "0.0.306"
+  resolved "https://registry.npmjs.org/@whitewater-guide/clients/-/clients-0.0.306.tgz#26a1c32eb953ee42d0e4afc8d5c94d84d3f9e591"
+  integrity sha512-CTUnID6kMzWUb2togEUKb/RL+zkDpjpZhfeN9zfM9Lt58W/I9NtIIa2/Uiw9juUGfDsqxVw1IKaGrJdHZl64OQ==
   dependencies:
     "@turf/bearing" "^6.0.1"
     "@turf/helpers" "^6.1.4"
@@ -2617,6 +2617,19 @@
     shortid "^2.2.15"
     typescript-fsa "^3.0.0"
     url-parse "^1.4.7"
+    yup "^0.28.1"
+
+"@whitewater-guide/commons@0.0.192":
+  version "0.0.192"
+  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.192.tgz#38d62ea5a59bc67d753c57ccb2a77a3ca022f2e5"
+  integrity sha512-19zl2OsNMbcDqLfHKHw/GXxHH6EOdwFFeqsRmzxMaD2xAgJJ1XTNWNFeK+LQzR4lpnhM9P/XOrb7JnL9zsjBaQ==
+  dependencies:
+    "@types/yup" "^0.26.32"
+    cron-validator "^1.1.0"
+    deepmerge "^4.2.2"
+    expr-eval "^2.0.2"
+    lodash "^4.17.15"
+    validator "^12.2.0"
     yup "^0.28.1"
 
 "@whitewater-guide/commons@0.0.192-mobile.0":
