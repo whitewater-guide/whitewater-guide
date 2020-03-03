@@ -16,7 +16,7 @@ storiesOf('Gauge Info', module)
   .add('Fresh value', () => {
     const gauge: Partial<Gauge> = {
       name: 'Some cool gauge',
-      lastMeasurement: {
+      latestMeasurement: {
         level: 123,
         flow: 456,
         timestamp: new Date().toISOString(),
@@ -27,7 +27,7 @@ storiesOf('Gauge Info', module)
   .add('Fresh approximate value', () => {
     const gauge: Partial<Gauge> = {
       name: 'Some cool gauge',
-      lastMeasurement: {
+      latestMeasurement: {
         level: 123,
         flow: 456,
         timestamp: new Date().toISOString(),
@@ -38,7 +38,7 @@ storiesOf('Gauge Info', module)
   .add('Fresh formula value', () => {
     const gauge: Partial<Gauge> = {
       name: 'Some cool gauge',
-      lastMeasurement: {
+      latestMeasurement: {
         level: 123,
         flow: 456,
         timestamp: new Date().toISOString(),
@@ -55,7 +55,7 @@ storiesOf('Gauge Info', module)
   .add('Old value', () => {
     const gauge: Partial<Gauge> = {
       name: 'Some cool gauge',
-      lastMeasurement: {
+      latestMeasurement: {
         level: 123,
         flow: 456,
         timestamp: subDays(new Date(), 3).toISOString(),
@@ -66,7 +66,7 @@ storiesOf('Gauge Info', module)
   .add('Old approximate value', () => {
     const gauge: Partial<Gauge> = {
       name: 'Some cool gauge',
-      lastMeasurement: {
+      latestMeasurement: {
         level: 123,
         flow: 456,
         timestamp: subDays(new Date(), 3).toISOString(),
@@ -77,7 +77,7 @@ storiesOf('Gauge Info', module)
   .add('Old formula value', () => {
     const gauge: Partial<Gauge> = {
       name: 'Gauge',
-      lastMeasurement: {
+      latestMeasurement: {
         level: 123,
         flow: 456,
         timestamp: subDays(new Date(), 3).toISOString(),

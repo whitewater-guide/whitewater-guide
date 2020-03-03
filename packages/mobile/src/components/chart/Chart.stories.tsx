@@ -25,7 +25,7 @@ const gauge: Gauge = {
   enabled: true,
   location: null,
   latestMeasurement: null,
-  lastMeasurement: null,
+  latestMeasurement: null,
   status: null,
   requestParams: null,
   source: {

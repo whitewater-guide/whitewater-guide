@@ -24,7 +24,7 @@ type Gauge {
   updatedAt: Date
 
   # Last known measurement
-  latestMeasurement: Measurement @deprecated
+  latestMeasurement: Measurement
   # Deprecated, renamed to latestMeasurement
   lastMeasurement: Measurement @deprecated
   # Last known harvest result

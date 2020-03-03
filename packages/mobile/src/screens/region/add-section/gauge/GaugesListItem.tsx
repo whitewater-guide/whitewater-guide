@@ -39,22 +39,22 @@ interface Props {
 }
 
 const getValue = (gauge: ListedGauge, t: i18next.TFunction) => {
-  const { flowUnit, levelUnit, lastMeasurement } = gauge;
-  if (!lastMeasurement || (!flowUnit && !levelUnit)) {
+  const { flowUnit, levelUnit, latestMeasurement } = gauge;
+  if (!latestMeasurement || (!flowUnit && !levelUnit)) {
     return null;
   }
-  const fromNow = formatDistanceToNow(parseISO(lastMeasurement.timestamp), {
+  const fromNow = formatDistanceToNow(parseISO(latestMeasurement.timestamp), {
     addSuffix: true,
   });
-  if (flowUnit && lastMeasurement.flow) {
+  if (flowUnit && latestMeasurement.flow) {
     return [
-      prettyNumber(lastMeasurement.flow) + ' ' + t('commons:' + flowUnit),
+      prettyNumber(latestMeasurement.flow) + ' ' + t('commons:' + flowUnit),
       fromNow,
     ];
   }
-  if (levelUnit && lastMeasurement.level) {
+  if (levelUnit && latestMeasurement.level) {
     return [
-      prettyNumber(lastMeasurement.level) + ' ' + t('commons:' + levelUnit),
+      prettyNumber(latestMeasurement.level) + ' ' + t('commons:' + levelUnit),
       fromNow,
     ];
   }

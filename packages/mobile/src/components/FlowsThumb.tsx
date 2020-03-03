@@ -44,23 +44,26 @@ const FlowsThumb: React.FC<Props> = ({ section }) => {
   if (!gauge) {
     return null;
   }
-  const { lastMeasurement, flowUnit, levelUnit } = gauge;
-  if (!lastMeasurement || (!lastMeasurement.flow && !lastMeasurement.level)) {
+  const { latestMeasurement, flowUnit, levelUnit } = gauge;
+  if (
+    !latestMeasurement ||
+    (!latestMeasurement.flow && !latestMeasurement.level)
+  ) {
     return null;
   }
   const color = getSectionColor(section);
-  const data = lastMeasurement.flow
+  const data = latestMeasurement.flow
     ? {
         label: t('commons:flow'),
         unit: flowUnit,
-        value: formulas.flows(lastMeasurement.flow),
+        value: formulas.flows(latestMeasurement.flow),
       }
     : {
         label: t('commons:level'),
         unit: levelUnit,
-        value: formulas.levels(lastMeasurement.level),
+        value: formulas.levels(latestMeasurement.level),
       };
-  const fromNow = formatDistanceToNow(parseISO(lastMeasurement.timestamp), {
+  const fromNow = formatDistanceToNow(parseISO(latestMeasurement.timestamp), {
     addSuffix: true,
   });
   return (

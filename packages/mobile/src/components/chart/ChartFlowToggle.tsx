@@ -12,7 +12,7 @@ import ChartFlowToggleUnit from './ChartFlowToggleUnit';
 export const ChartFlowToggle: React.FC = React.memo(() => {
   const { t } = useTranslation();
   const { unit, onChangeUnit, unitChangeable, gauge, section } = useChart();
-  const { lastMeasurement, flowUnit, levelUnit } = gauge;
+  const { latestMeasurement, flowUnit, levelUnit } = gauge;
   const formulas = useFormulas(section);
   const options = useMemo(
     () => [t('commons:flow'), t('commons:level'), t('commons:cancel')],
@@ -28,11 +28,11 @@ export const ChartFlowToggle: React.FC = React.memo(() => {
     [onChangeUnit],
   );
   let value: string = '?';
-  if (lastMeasurement) {
+  if (latestMeasurement) {
     const numeric =
       unit === Unit.FLOW
-        ? formulas.flows(lastMeasurement.flow)
-        : formulas.levels(lastMeasurement.level);
+        ? formulas.flows(latestMeasurement.flow)
+        : formulas.levels(latestMeasurement.level);
     value = numeric.toFixed(2);
   }
   const unitName = unit === Unit.FLOW ? flowUnit! : levelUnit!;

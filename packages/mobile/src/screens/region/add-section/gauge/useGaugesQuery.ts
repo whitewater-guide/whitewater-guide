@@ -1,5 +1,5 @@
 import { useRegion } from '@whitewater-guide/clients';
-import { GaugesFilter, NamedNode, Page } from '@whitewater-guide/commons';
+import { GaugesFilter, Page } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 import { useState } from 'react';
 import { useQuery } from 'react-apollo';
@@ -15,7 +15,7 @@ const FIND_GAUGES_QUERY = gql`
         code
         flowUnit
         levelUnit
-        lastMeasurement {
+        latestMeasurement {
           flow
           level
           timestamp

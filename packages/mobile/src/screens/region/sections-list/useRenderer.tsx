@@ -36,8 +36,8 @@ export default (props: ListProps) => {
         const dates = [acc, parseISO(section.updatedAt)];
         const msm =
           section.gauge &&
-          section.gauge.lastMeasurement &&
-          section.gauge.lastMeasurement.timestamp;
+          section.gauge.latestMeasurement &&
+          section.gauge.latestMeasurement.timestamp;
         if (msm) {
           dates.push(parseISO(msm));
         }

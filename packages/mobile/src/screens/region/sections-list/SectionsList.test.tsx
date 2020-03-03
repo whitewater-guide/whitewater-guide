@@ -28,7 +28,10 @@ const sections: Section[] = [
     id: '29425d60-d796-11e9-8a34-2a2ae2dbcce4',
     name: 'Section name',
     region: region as any,
-    shape: [[1, 1, 1], [2, 2, 2]],
+    shape: [
+      [1, 1, 1],
+      [2, 2, 2],
+    ],
     river: {
       id: 'e6b06568-d796-11e9-8a34-2a2ae2dbcce4',
       name: 'river name',
@@ -75,7 +78,7 @@ const sections: Section[] = [
       flowUnit: 'cms',
       levelUnit: null,
       code: 'qwerty',
-      lastMeasurement: {
+      latestMeasurement: {
         flow: 25,
         timestamp: new Date(2018, 8, 8).toISOString(),
       },
@@ -104,10 +107,10 @@ it('should be updated when measurements are updated', () => {
   );
   expect(getByText(/25\.00/)).toBeTruthy();
   const newSections = set(
-    '0.gauge.lastMeasurement.flow',
+    '0.gauge.latestMeasurement.flow',
     777,
     set(
-      '0.gauge.lastMeasurement.timestamp',
+      '0.gauge.latestMeasurement.timestamp',
       new Date().toISOString(),
       sections,
     ),

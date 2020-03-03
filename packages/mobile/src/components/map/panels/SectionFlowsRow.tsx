@@ -70,19 +70,19 @@ const SectionFlowsRow: React.FC<Props> = React.memo(({ section }) => {
     return <SimpleTextFlowRow style={styles.container} />;
   }
   const { flows, levels, gauge, flowsText } = section;
-  if (!gauge || !gauge.lastMeasurement || (!flows && !levels)) {
+  if (!gauge || !gauge.latestMeasurement || (!flows && !levels)) {
     return <SimpleTextFlowRow flowsText={flowsText} style={styles.container} />;
   }
   const color = getSectionColor(section);
-  const preferFlow = flows && gauge.lastMeasurement.flow;
+  const preferFlow = flows && gauge.latestMeasurement.flow;
   const binding = (preferFlow ? flows : levels)!;
   const label = preferFlow ? t('commons:flow') : t('commons:level');
   const unitName = preferFlow ? gauge.flowUnit : gauge.levelUnit;
   const value = preferFlow
-    ? formulas.flows(gauge.lastMeasurement.flow)
-    : formulas.levels(gauge.lastMeasurement.level);
+    ? formulas.flows(gauge.latestMeasurement.flow)
+    : formulas.levels(gauge.latestMeasurement.level);
   const fromNow = formatDistanceToNow(
-    parseISO(gauge.lastMeasurement.timestamp),
+    parseISO(gauge.latestMeasurement.timestamp),
     {
       addSuffix: true,
     },

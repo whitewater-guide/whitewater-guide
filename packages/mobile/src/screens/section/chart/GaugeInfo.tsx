@@ -53,16 +53,16 @@ interface Props {
 
 const GaugeInfo: React.FC<Props> = (props) => {
   const { gauge, approximate, formula } = props;
-  const { name, lastMeasurement } = gauge;
+  const { name, latestMeasurement } = gauge;
 
   const { t } = useTranslation();
   const [sheet, showSheet, sheetProps] = useGaugeActionSheet(gauge);
 
-  const isOutdated = lastMeasurement
-    ? differenceInDays(new Date(), parseISO(lastMeasurement.timestamp)) > 1
+  const isOutdated = latestMeasurement
+    ? differenceInDays(new Date(), parseISO(latestMeasurement.timestamp)) > 1
     : false;
-  const fromNow = lastMeasurement
-    ? formatDistanceToNow(parseISO(lastMeasurement.timestamp), {
+  const fromNow = latestMeasurement
+    ? formatDistanceToNow(parseISO(latestMeasurement.timestamp), {
         addSuffix: true,
       })
     : '';
