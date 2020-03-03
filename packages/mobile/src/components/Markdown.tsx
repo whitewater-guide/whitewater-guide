@@ -7,7 +7,7 @@ import SimpleMarkdown, {
   getUniqueID,
   PluginContainer,
   RenderRules,
-} from 'react-native-markdown-renderer';
+} from 'react-native-markdown-display';
 import theme from '../theme';
 
 const defaultStyles: StyleSheet.NamedStyles<any> = StyleSheet.create({

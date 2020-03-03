@@ -1,4 +1,4 @@
-import { Schema } from 'yup';
+import 'yup';
 
 declare module 'yup' {
   type Defined<T> = T extends undefined ? never : T;

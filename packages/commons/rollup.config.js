@@ -1,6 +1,7 @@
-import commonjs from 'rollup-plugin-commonjs';
-import resolve from 'rollup-plugin-node-resolve';
 import babel from 'rollup-plugin-babel';
+import commonjs from 'rollup-plugin-commonjs';
+import copy from 'rollup-plugin-copy';
+import resolve from 'rollup-plugin-node-resolve';
 
 const pkg = require('./package.json');
 const deps = [
@@ -24,6 +25,9 @@ export default {
     babel({
       exclude: ['node_modules/**', '**/*.test.ts', '**/__mocks__/**/*'],
       extensions,
+    }),
+    copy({
+      targets: [{ src: 'src/declarations', dest: 'dist' }],
     }),
   ],
 };
