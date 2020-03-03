@@ -1,10 +1,22 @@
 import { Ref, useImperativeHandle, useRef } from 'react';
 
 interface Focusable {
-  isFocused: () => boolean;
-  clear: () => void;
-  focus: () => void;
-  blur: () => void;
+  /**
+   * Returns `true` if the input is currently focused, `false` otherwise.
+   */
+  isFocused(): boolean | null | undefined;
+  /**
+   * Removes all text from the TextInput.
+   */
+  clear(): void | null | undefined;
+  /**
+   * Focuses the input.
+   */
+  focus(): void | null | undefined;
+  /**
+   * Removes focus from the input.
+   */
+  blur(): void | null | undefined;
 }
 
 const useFocus = (ref: Ref<Focusable>) => {

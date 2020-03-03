@@ -1,11 +1,13 @@
 import { useField } from 'formik';
 import React, { forwardRef, useCallback, useState } from 'react';
 import { StyleSheet } from 'react-native';
-import { TextInput, TextInputProps } from 'react-native-paper';
+import { TextInput } from 'react-native-paper';
 import HelperText from '../HelperText';
 import useFocus from '../useFocus';
 import useReactNativeHandlers from '../useReactNativeHandlers';
 import { PasswordInput, PasswordInputProps } from './PasswordInput';
+
+type TextInputProps = React.ComponentProps<typeof TextInput>;
 
 const styles = StyleSheet.create({
   hidden: {
@@ -19,7 +21,7 @@ type Props = {
   Omit<TextInputProps, 'value' | 'onChangeText' | 'onChange' | 'onBlur'>;
 
 export const PasswordField = React.memo(
-  forwardRef<TextInput, Props>(({ name, ...props }, ref) => {
+  forwardRef<any, Props>(({ name, ...props }, ref) => {
     const inputRef = useFocus(ref);
     const [field, meta] = useField<string>(name);
     const { onChange, onBlur } = useReactNativeHandlers(field);

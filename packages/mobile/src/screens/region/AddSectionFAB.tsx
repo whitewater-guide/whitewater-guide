@@ -23,7 +23,7 @@ export const AddSectionFAB: React.FC = React.memo(() => {
   return (
     <FAB
       style={styles.fab}
-      icon="add"
+      icon="plus"
       onPress={onPress}
       disabled={!!selection}
     />

@@ -1,10 +1,12 @@
 import Icon from 'components/Icon';
 import React, { forwardRef, useCallback } from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
-import { TextInput, TextInputProps } from 'react-native-paper';
+import { TextInput } from 'react-native-paper';
 import theme from '../../theme';
 import useFocus from '../useFocus';
 import PasswordStrengthIndicator from './PasswordStrengthIndicator';
+
+type TextInputProps = React.ComponentProps<typeof TextInput>;
 
 const MemoTextInput = React.memo(TextInput);
 
@@ -29,7 +31,7 @@ export interface PasswordInputProps {
 }
 
 export const PasswordInput = React.memo(
-  forwardRef<TextInput, PasswordInputProps & TextInputProps>(
+  forwardRef<any, PasswordInputProps & TextInputProps>(
     ({ showStrengthIndicator, strengthIndicatorStyle, ...props }, ref) => {
       const [secureTextEntry, setSecureTextEntry] = React.useState(true);
       const [eyeVisible, setEyeVisible] = React.useState(false);

@@ -1,10 +1,12 @@
 import { useField } from 'formik';
 import React, { forwardRef } from 'react';
 import { StyleProp, View, ViewStyle } from 'react-native';
-import { TextInput, TextInputProps } from 'react-native-paper';
+import { TextInput } from 'react-native-paper';
 import HelperText from './HelperText';
 import useFocus from './useFocus';
 import useReactNativeHandlers from './useReactNativeHandlers';
+
+type TextInputProps = React.ComponentProps<typeof TextInput>;
 
 type Props = {
   name: string;
@@ -14,7 +16,7 @@ type Props = {
 } & Omit<TextInputProps, 'value' | 'onChangeText' | 'onChange'>;
 
 const TextField = React.memo(
-  forwardRef<TextInput, Props>(
+  forwardRef<any, Props>(
     (
       { name, displayError = true, wrapperStyle, helperText, ...props },
       ref,

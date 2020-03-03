@@ -17,6 +17,10 @@ const styles = StyleSheet.create({
   link: {
     color: theme.colors.primary,
     textDecorationLine: 'underline',
+    textAlign: 'right',
+  },
+  linkWrapper: {
+    flex: 1,
   },
   approximatePopover: {
     width: theme.screenWidth * 0.66,
@@ -74,29 +78,33 @@ const GaugeInfo: React.FC<Props> = (props) => {
         </Left>
         <Right row={true} style={styles.gaugeRowRight}>
           {(approximate || !!formula) && (
-            <GaugeWarning>
-              <View style={styles.approximatePopover}>
-                <Paragraph>
-                  {formula
-                    ? t('section:chart.formulaWarning')
-                    : t('section:chart.approximateWarning')}
-                </Paragraph>
-                {formula && (
-                  <Paragraph style={styles.formula}>{formula}</Paragraph>
-                )}
-                {formula && (
+            <View>
+              <GaugeWarning>
+                <View style={styles.approximatePopover}>
                   <Paragraph>
-                    {t('section:chart.formulaWarning2')}
-                    <Text style={styles.x}>{' x '}</Text>
-                    {t('section:chart.formulaWarning3')}
+                    {formula
+                      ? t('section:chart.formulaWarning')
+                      : t('section:chart.approximateWarning')}
                   </Paragraph>
-                )}
-              </View>
-            </GaugeWarning>
+                  {formula && (
+                    <Paragraph style={styles.formula}>{formula}</Paragraph>
+                  )}
+                  {formula && (
+                    <Paragraph>
+                      {t('section:chart.formulaWarning2')}
+                      <Text style={styles.x}>{' x '}</Text>
+                      {t('section:chart.formulaWarning3')}
+                    </Paragraph>
+                  )}
+                </View>
+              </GaugeWarning>
+            </View>
           )}
-          <Paragraph style={styles.link} onPress={showSheet}>
-            {upperFirst(name)}
-          </Paragraph>
+          <View style={styles.linkWrapper}>
+            <Paragraph style={styles.link} onPress={showSheet}>
+              {upperFirst(name)}
+            </Paragraph>
+          </View>
         </Right>
       </Row>
 

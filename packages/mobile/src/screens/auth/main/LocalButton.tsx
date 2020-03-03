@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { Button, PartialIconProps } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 import MDCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from 'react-navigation-hooks';
 import Screens from '../../screen-names';
@@ -10,7 +10,7 @@ interface Props {
 
 const LocalButton: React.FC<Props> = ({ label }) => {
   const renderIcon = useCallback(
-    ({ size, color }: PartialIconProps) => (
+    ({ size, color }: any) => (
       <MDCommunity
         name="email"
         size={1.6 * size}

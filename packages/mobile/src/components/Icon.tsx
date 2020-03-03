@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  GestureResponderEvent,
-  StyleProp,
-  StyleSheet,
-  View,
-  ViewStyle,
-} from 'react-native';
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { TouchableRipple } from 'react-native-paper';
 import MDCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import theme from '../theme';
@@ -31,8 +25,8 @@ interface IconBaseProps {
   icon: string;
   primary?: boolean;
   color?: string;
-  onPress?: (event: GestureResponderEvent) => void;
-  onLongPress?: (event: GestureResponderEvent) => void;
+  onPress?: () => void;
+  onLongPress?: () => void;
   size?: number;
   large?: boolean;
   style?: StyleProp<ViewStyle>;

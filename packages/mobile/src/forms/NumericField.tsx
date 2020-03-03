@@ -3,9 +3,11 @@ import { useFormikContext } from 'formik';
 import get from 'lodash/get';
 import React, { forwardRef, useCallback, useEffect, useState } from 'react';
 import { StyleProp, View, ViewStyle } from 'react-native';
-import { TextInput, TextInputProps } from 'react-native-paper';
+import { TextInput } from 'react-native-paper';
 import HelperText from './HelperText';
 import useFocus from './useFocus';
+
+type TextInputProps = React.ComponentProps<typeof TextInput>;
 
 const PARTIAL_NUMERIC = /(-)?[0-9]*([,|.][0-9]*)?/;
 const numToStr = (num: any): string =>
@@ -18,7 +20,7 @@ type Props = {
 } & Omit<TextInputProps, 'value' | 'onChangeText' | 'onChange'>;
 
 const NumericField = React.memo(
-  forwardRef<TextInput, Props>(
+  forwardRef<any, Props>(
     ({ name, displayError = true, wrapperStyle, ...props }, ref) => {
       const {
         errors,

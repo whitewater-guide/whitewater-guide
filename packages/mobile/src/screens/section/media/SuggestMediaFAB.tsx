@@ -34,7 +34,7 @@ export const SuggestMediaFAB: React.FC = React.memo(() => {
     [upload, navigate, node],
   );
   const onPress = useImagePicker(onPick);
-  return <FAB style={styles.fab} icon="add-a-photo" onPress={onPress} />;
+  return <FAB style={styles.fab} icon="image-plus" onPress={onPress} />;
 });
 
 SuggestMediaFAB.displayName = 'SuggestionFAB';

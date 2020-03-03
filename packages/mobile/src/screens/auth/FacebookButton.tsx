@@ -1,7 +1,7 @@
 import { useAuth } from '@whitewater-guide/clients';
 import React, { useCallback, useState } from 'react';
 import { StyleSheet } from 'react-native';
-import { Button, PartialIconProps } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 import MDCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from 'react-navigation-hooks';
 import theme from '../../theme';
@@ -37,7 +37,7 @@ export const FacebookButton: React.FC<Props> = React.memo(({ label }) => {
   }, [service.signIn, navigate, setFbPressed]);
 
   const renderIcon = useCallback(
-    ({ size, color }: PartialIconProps) => (
+    ({ size, color }: any) => (
       <MDCommunity
         name="facebook-box"
         size={1.8 * size}

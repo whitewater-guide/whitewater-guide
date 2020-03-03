@@ -2,7 +2,7 @@ import { useSection } from '@whitewater-guide/clients';
 import Icon from 'components/Icon';
 import React, { useCallback } from 'react';
 import { StyleSheet } from 'react-native';
-import { FAB, IconSource } from 'react-native-paper';
+import { FAB } from 'react-native-paper';
 import { useNavigation } from 'react-navigation-hooks';
 import Screens from '../screen-names';
 
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const renderPencil: IconSource = ({ size, color }) => (
+const renderPencil = ({ size, color }: any) => (
   <Icon icon="pencil-plus" size={size} color={color} narrow={true} />
 );
 

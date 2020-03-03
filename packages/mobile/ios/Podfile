@@ -1,5 +1,6 @@
 platform :ios, '9.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+use_frameworks!
 
 target 'whitewater' do
   # Pods for whitewater
@@ -35,4 +36,14 @@ target 'whitewater' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
   use_native_modules!
+end
+
+pre_install do |installer|
+  installer.pod_targets.each do |pod|
+    if pod.name.start_with?('RNFB')
+      def pod.build_type;
+        Pod::Target::BuildType.static_library
+      end
+    end
+  end
 end

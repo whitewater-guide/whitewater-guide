@@ -8,23 +8,21 @@ interface Props {
   blog: Media;
 }
 
-class BlogItem extends React.PureComponent<Props> {
-  onPress = () => Linking.openURL(this.props.blog.url).catch(() => {});
+const renderIcon = () => <Icon icon="link" />;
 
-  renderIcon = () => <Icon icon="link" />;
-
-  render() {
-    const { blog } = this.props;
-    const copyright = blog.copyright ? `© ${blog.copyright}` : undefined;
-    return (
-      <List.Item
-        title={blog.description}
-        description={copyright}
-        left={this.renderIcon}
-        onPress={this.onPress}
-      />
-    );
-  }
-}
+const BlogItem: React.FC<Props> = ({ blog }) => {
+  const copyright = blog.copyright ? `© ${blog.copyright}` : undefined;
+  const onPress = React.useCallback(() => {
+    Linking.openURL(blog.url).catch(() => {});
+  }, [blog]);
+  return (
+    <List.Item
+      title={blog.description}
+      description={copyright}
+      left={renderIcon}
+      onPress={onPress}
+    />
+  );
+};
 
 export default BlogItem;

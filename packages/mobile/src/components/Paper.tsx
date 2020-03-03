@@ -1,13 +1,15 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Surface, SurfaceProps } from 'react-native-paper';
+import { Surface } from 'react-native-paper';
 import theme from '../theme';
 
-interface PaperProps extends SurfaceProps {
+type SurfaceProps = React.ComponentProps<typeof Surface>;
+
+type PaperProps = SurfaceProps & {
   noPad?: boolean;
   doublePad?: boolean;
   gutterBottom?: boolean;
-}
+};
 
 const styles = StyleSheet.create({
   base: {

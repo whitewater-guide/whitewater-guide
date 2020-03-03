@@ -60,7 +60,9 @@ class VideoItem extends React.PureComponent<Props, State> {
     this._mounted = false;
   }
 
-  onPress = () => Linking.openURL(this.props.video.url).catch(() => {});
+  onPress = () => {
+    Linking.openURL(this.props.video.url).catch(() => {});
+  };
 
   onLongPress = () => Clipboard.setString(this.props.video.url);
 

@@ -5,7 +5,7 @@ import TextField from 'forms/TextField';
 import React, { createRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
-import { Button, TextInput } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 import { useNavigation } from 'react-navigation-hooks';
 import theme from '../../../theme';
 import Screens from '../../screen-names';
@@ -34,7 +34,7 @@ export const SignInForm: React.FC = () => {
     (values: Credentials) => service.signIn('local', values),
     [service],
   );
-  const passwordField = createRef<TextInput>();
+  const passwordField = createRef<any>();
   const onEmailSubmit = useCallback(() => {
     if (passwordField.current) {
       passwordField.current.focus();

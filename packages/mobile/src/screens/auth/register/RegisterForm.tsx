@@ -2,10 +2,10 @@ import { RegisterPayload, useAuth } from '@whitewater-guide/clients';
 import { Formik } from 'formik';
 import PasswordField from 'forms/password-field';
 import TextField from 'forms/TextField';
-import React, { createRef, useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
-import { Button, TextInput, Title } from 'react-native-paper';
+import { Button, Title } from 'react-native-paper';
 import { useNavigation } from 'react-navigation-hooks';
 import theme from '../../../theme';
 import Screens from '../../screen-names';
@@ -40,8 +40,8 @@ export const RegisterForm: React.FC = React.memo(() => {
     service.signUp,
     onSuccess,
   );
-  const nameField = createRef<TextInput>();
-  const passwordField = createRef<TextInput>();
+  const nameField = useRef<any>();
+  const passwordField = useRef<any>();
   const onEmailSubmit = useCallback(() => {
     if (nameField.current) {
       nameField.current.focus();
