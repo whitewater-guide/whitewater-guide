@@ -2392,7 +2392,7 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@types/yup@^0.26.29", "@types/yup@^0.26.32":
+"@types/yup@^0.26.32":
   version "0.26.32"
   resolved "https://registry.npmjs.org/@types/yup/-/yup-0.26.32.tgz#bd356fb405f3d641eff963854edf7ad854a8e829"
   integrity sha512-55WFAq8lNYXdRzSP1cenMFFXtPRe7PWsqn5y9ibqKHOQZ/cSLErkcnB1LE89M7W2TSXVDFtx+T7eFePkGoB+xw==
@@ -2591,14 +2591,14 @@
     "@webassemblyjs/wast-parser" "1.8.5"
     "@xtuc/long" "4.2.2"
 
-"@whitewater-guide/clients@0.0.305":
-  version "0.0.305"
-  resolved "https://registry.npmjs.org/@whitewater-guide/clients/-/clients-0.0.305.tgz#e01bc3eae49be4000b44d658161f2c65ab4455d8"
-  integrity sha512-5LdHfI5gRGpCPdrcvhtfadvj1MZqgqxaxSyTqdnmNe4/5KwUK7clgx29CBWr7GAIviyCzjCjNTs8BH21JGdp5Q==
+"@whitewater-guide/clients@0.0.306-mobile.0":
+  version "0.0.306-mobile.0"
+  resolved "https://registry.npmjs.org/@whitewater-guide/clients/-/clients-0.0.306-mobile.0.tgz#a73837fe938d8cdff6fec8dd79d0c176c94eea2d"
+  integrity sha512-m5c3ZWBOFfIVpQCf1heY1EA+61/P4819CWPgR/fFuKoBmYkoE+A73FyuEWU1TdlHrdpr3qoh1lD2mlfmsjFtPw==
   dependencies:
     "@turf/bearing" "^6.0.1"
     "@turf/helpers" "^6.1.4"
-    "@whitewater-guide/commons" "0.0.191"
+    "@whitewater-guide/commons" "0.0.192-mobile.0"
     apollo-link "^1.2.13"
     apollo-link-error "https://github.com/doomsower/apollo-link/releases/download/error-async/apollo-link-error-1.1.10-vnext.tgz"
     apollo-link-http "^1.5.16"
@@ -2619,12 +2619,12 @@
     url-parse "^1.4.7"
     yup "^0.28.1"
 
-"@whitewater-guide/commons@0.0.191":
-  version "0.0.191"
-  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.191.tgz#661f1d98645c6d5b86913b437e4bd78ecf7cce04"
-  integrity sha512-z4+SdJDzuDcdnZ+yPux8zReooPIzHKkMJac1+3SemDHXUeaSrCrfvDWUt7t5zNPU5X4EZnakZ2wxXwlRFNLLfw==
+"@whitewater-guide/commons@0.0.192-mobile.0":
+  version "0.0.192-mobile.0"
+  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.192-mobile.0.tgz#5298f8d6a1ba63e8b05b062d137de7d214cdbd3d"
+  integrity sha512-inelyS5bXcYUbBUpIFXbHVyeTLQUGBwBz3iMiIRGb05aCFwyPfEl3ITwEOTL68MNRMXo8PujlVv/3OFFfwhU2A==
   dependencies:
-    "@types/yup" "^0.26.29"
+    "@types/yup" "^0.26.32"
     cron-validator "^1.1.0"
     deepmerge "^4.2.2"
     expr-eval "^2.0.2"
