@@ -1,10 +1,5 @@
 import { storiesOf } from '@storybook/react-native';
-import {
-  Gauge,
-  HarvestMode,
-  Measurement,
-  Unit,
-} from '@whitewater-guide/commons';
+import { Gauge, Measurement, Unit } from '@whitewater-guide/commons';
 import subHours from 'date-fns/subHours';
 import times from 'lodash/times';
 import React from 'react';
@@ -26,10 +21,10 @@ const gauge: Gauge = {
   name: 'Test Gauge',
   levelUnit: 'cm',
   flowUnit: 'm3/s',
-  cron: null,
   url: 'http://ya.ru',
   enabled: true,
   location: null,
+  latestMeasurement: null,
   lastMeasurement: null,
   status: null,
   requestParams: null,
@@ -38,7 +33,6 @@ const gauge: Gauge = {
     name: 'source',
     cron: null,
     enabled: true,
-    harvestMode: HarvestMode.ALL_AT_ONCE,
     script: 'test',
     status: null,
     termsOfUse: null,

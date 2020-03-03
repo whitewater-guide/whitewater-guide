@@ -18,6 +18,7 @@ const formikHelpers: FormikHelpers<{}> = {
   validateForm: jest.fn(),
   validateField: jest.fn(),
   resetForm: jest.fn(),
+  submitForm: jest.fn(),
   setFormikState: jest.fn(),
 };
 
@@ -38,7 +39,7 @@ describe('success', () => {
       useAuthSubmit<{}>(TEST_PREFIX, apiCall, onSuccess),
     );
     const [submit] = rendered.result.current;
-    await act(() => submit({}, formikHelpers));
+    await act(() => submit({}, formikHelpers) as any);
     result = rendered.result.current;
   });
 
@@ -76,7 +77,7 @@ describe('error', () => {
       useAuthSubmit<{}>(TEST_PREFIX, apiCall, onSuccess),
     );
     const [submit] = rendered.result.current;
-    await act(() => submit({}, formikHelpers));
+    await act(() => submit({}, formikHelpers) as any);
     result = rendered.result.current;
   });
 

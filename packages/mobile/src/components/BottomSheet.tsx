@@ -556,7 +556,7 @@ class BottomSheet extends React.Component<Props, State> {
             ),
             set(wasEndedMasterAfterInner, 1),
           ),
-          set(prevMaster, this.panMasterState),
+          set(prevMaster, this.panMasterState as any),
           cond(
             and(
               eq(this.panState, GestureState.END),

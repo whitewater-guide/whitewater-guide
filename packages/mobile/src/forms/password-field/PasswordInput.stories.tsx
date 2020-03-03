@@ -6,7 +6,7 @@ import { PasswordInput } from './PasswordInput';
 type Props = React.ComponentProps<typeof PasswordInput>;
 
 const StatefulInput: React.FC<Props> = (props) => {
-  const [value, setValue] = useState();
+  const [value, setValue] = useState<string | undefined>();
   return <PasswordInput {...props} value={value} onChangeText={setValue} />;
 };
 

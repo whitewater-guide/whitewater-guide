@@ -48,9 +48,28 @@ interface Props {
   moving: boolean;
 }
 
+interface Positions {
+  vert: {
+    top: number;
+    left: number;
+    height: number;
+    width: number;
+  };
+  hor: {
+    top: number;
+    left: number;
+    height: number;
+    width: number;
+  };
+  pin: {
+    top: number;
+    left: number;
+  };
+}
+
 const PiToOverlay: React.FC<Props> = React.memo(({ selected, moving }) => {
   const { t } = useTranslation();
-  const [positions, setPositions] = useState();
+  const [positions, setPositions] = useState<Positions | undefined>();
   const onLayout = useCallback(
     (e: LayoutChangeEvent) => {
       const { width, height } = e.nativeEvent.layout;
@@ -97,12 +116,12 @@ const PiToOverlay: React.FC<Props> = React.memo(({ selected, moving }) => {
           </Caption>
         </View>
       )}
-      {visible && <View style={[styles.cross, positions.hor]} />}
-      {visible && <View style={[styles.cross, positions.vert]} />}
+      {visible && <View style={[styles.cross, positions?.hor]} />}
+      {visible && <View style={[styles.cross, positions?.vert]} />}
       {visible && (
         <Image
           source={selected === 0 ? PUT_IN_PIN : TAKE_OUT_PIN}
-          style={[styles.pin, positions.pin]}
+          style={[styles.pin, positions?.pin]}
         />
       )}
     </View>

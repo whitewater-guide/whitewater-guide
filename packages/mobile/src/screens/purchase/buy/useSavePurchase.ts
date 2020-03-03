@@ -41,7 +41,7 @@ export default (sectionId?: string): Hook => {
             platform: Platform.select({
               ios: PurchasePlatform.ios,
               android: PurchasePlatform.android,
-            }),
+            })!,
             productId: purchase.productId,
             transactionId: purchase.transactionId!,
             transactionDate: new Date(purchase.transactionDate),
