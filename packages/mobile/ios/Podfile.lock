@@ -123,9 +123,6 @@ PODS:
   - libwebp/mux (1.1.0):
     - libwebp/demux
   - libwebp/webp (1.1.0)
-  - Mapbox-iOS-SDK (5.7.0):
-    - MapboxMobileEvents (= 0.10.2)
-  - MapboxMobileEvents (0.10.2)
   - nanopb (0.3.9011):
     - nanopb/decode (= 0.3.9011)
     - nanopb/encode (= 0.3.9011)
@@ -313,8 +310,7 @@ PODS:
     - React
   - react-native-image-picker (2.3.1):
     - React
-  - react-native-mapbox-gl (7.2.0):
-    - Mapbox-iOS-SDK (~> 5.6)
+  - react-native-mapbox-gl (7.0.9):
     - React
   - react-native-netinfo (5.5.1):
     - React
@@ -490,8 +486,6 @@ SPEC REPOS:
     - GoogleUtilities
     - JWT
     - libwebp
-    - Mapbox-iOS-SDK
-    - MapboxMobileEvents
     - nanopb
     - Protobuf
     - SDWebImage
@@ -631,8 +625,6 @@ SPEC CHECKSUMS:
   GoogleUtilities: 06eb53bb579efe7099152735900dd04bf09e7275
   JWT: 9b5c05abbcc1a0e69c3c91e1655b3387fc7e581d
   libwebp: 946cb3063cea9236285f7e9a8505d806d30e07f3
-  Mapbox-iOS-SDK: 1b7cb0e739247d20ef75f5f14aa6ce34e1f0660f
-  MapboxMobileEvents: 2bc0ca2eedb627b73cf403258dce2b2fa98074a6
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
   RCTRequired: b153add4da6e7dbc44aebf93f3cf4fcae392ddf1
@@ -647,7 +639,7 @@ SPEC CHECKSUMS:
   react-native-config: f2c2ae45625a068c35681a16b9bfb1ca58b0adc7
   react-native-fbsdk: c35d42169e64aaf66f01713c1e18d0674f7f6519
   react-native-image-picker: 6a850c41f57f0848d918c2a77aedd7aa272ffa30
-  react-native-mapbox-gl: f94bda32d55284b202d72359ed7d5d43f5223c89
+  react-native-mapbox-gl: 7d6dda14fda15b680f70ade65e47b2d39cb976d1
   react-native-netinfo: 3bf235d94cc291cf0673ad9fd9eaae82f84ed8a9
   react-native-sensitive-info: 4629b223484a08225c3eb088ff3f91b03097b5e5
   react-native-startup-time: 591097b85cf0d8a5e7483fbfdb43141a53e062a8

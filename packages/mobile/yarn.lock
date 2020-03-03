@@ -1799,10 +1799,10 @@
   resolved "https://registry.npmjs.org/@react-native-firebase/messaging/-/messaging-6.3.4.tgz#6a9154957e32f5e4a10cca29ed5d95a72ef1a2e7"
   integrity sha512-75TJr98RuWDH//svGSOovdU6exs8MUFjsIbb9WwqyQZQFaChjr0Nnh0pX7tgBObLyP5+U70b1xUODz/REEthFw==
 
-"@react-native-mapbox-gl/maps@^7.2.0":
-  version "7.2.0"
-  resolved "https://registry.npmjs.org/@react-native-mapbox-gl/maps/-/maps-7.2.0.tgz#8b0c56ce15b690009f3bed19c9e9759e343a2a68"
-  integrity sha512-C+y4ynYx3hvz8orXJK8DoBy4ZO8LHG50YsKi/O65ZcdusIgWhQLgj3r+pRAydELmOsmeZVzOownpTgTbEw1jOA==
+"@react-native-mapbox-gl/maps@7.0.9":
+  version "7.0.9"
+  resolved "https://registry.npmjs.org/@react-native-mapbox-gl/maps/-/maps-7.0.9.tgz#08366781cd6567ae9aa817a23ddf3a2520ab7310"
+  integrity sha512-Nl4T8uPWR3IBzBDQMzTP3Vq+Bi2u9ZPcTMIKdpd2bcTn982O01Wp6ZwOZzz+Qzg4UJ0M1JxWFTjn69+7cGM66g==
   dependencies:
     "@mapbox/geo-viewport" ">= 0.4.0"
     "@turf/along" ">= 4.0.0 <7.0.0"
