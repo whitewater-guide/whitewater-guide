@@ -2277,14 +2277,14 @@
     "@webassemblyjs/wast-parser" "1.8.5"
     "@xtuc/long" "4.2.2"
 
-"@whitewater-guide/clients@0.0.306":
-  version "0.0.306"
-  resolved "https://registry.npmjs.org/@whitewater-guide/clients/-/clients-0.0.306.tgz#26a1c32eb953ee42d0e4afc8d5c94d84d3f9e591"
-  integrity sha512-CTUnID6kMzWUb2togEUKb/RL+zkDpjpZhfeN9zfM9Lt58W/I9NtIIa2/Uiw9juUGfDsqxVw1IKaGrJdHZl64OQ==
+"@whitewater-guide/clients@0.0.307":
+  version "0.0.307"
+  resolved "https://registry.npmjs.org/@whitewater-guide/clients/-/clients-0.0.307.tgz#b05e41b5e3d2daaeeb6ba6e4090bd85c5d42555b"
+  integrity sha512-bJS5qSGtOGojlpDwk1vRAh2zu673gvgtS+Y2xuATLAdlQH/Wp2vssN/kdpN4u9o646hozTUhomdxk7UFU+tX5g==
   dependencies:
     "@turf/bearing" "^6.0.1"
     "@turf/helpers" "^6.1.4"
-    "@whitewater-guide/commons" "0.0.192-mobile.0"
+    "@whitewater-guide/commons" "^0.0.192"
     apollo-link "^1.2.13"
     apollo-link-error "https://github.com/doomsower/apollo-link/releases/download/error-async/apollo-link-error-1.1.10-vnext.tgz"
     apollo-link-http "^1.5.16"
@@ -2305,23 +2305,10 @@
     url-parse "^1.4.7"
     yup "^0.28.1"
 
-"@whitewater-guide/commons@0.0.192":
+"@whitewater-guide/commons@0.0.192", "@whitewater-guide/commons@^0.0.192":
   version "0.0.192"
   resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.192.tgz#38d62ea5a59bc67d753c57ccb2a77a3ca022f2e5"
   integrity sha512-19zl2OsNMbcDqLfHKHw/GXxHH6EOdwFFeqsRmzxMaD2xAgJJ1XTNWNFeK+LQzR4lpnhM9P/XOrb7JnL9zsjBaQ==
-  dependencies:
-    "@types/yup" "^0.26.32"
-    cron-validator "^1.1.0"
-    deepmerge "^4.2.2"
-    expr-eval "^2.0.2"
-    lodash "^4.17.15"
-    validator "^12.2.0"
-    yup "^0.28.1"
-
-"@whitewater-guide/commons@0.0.192-mobile.0":
-  version "0.0.192-mobile.0"
-  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.192-mobile.0.tgz#5298f8d6a1ba63e8b05b062d137de7d214cdbd3d"
-  integrity sha512-inelyS5bXcYUbBUpIFXbHVyeTLQUGBwBz3iMiIRGb05aCFwyPfEl3ITwEOTL68MNRMXo8PujlVv/3OFFfwhU2A==
   dependencies:
     "@types/yup" "^0.26.32"
     cron-validator "^1.1.0"
