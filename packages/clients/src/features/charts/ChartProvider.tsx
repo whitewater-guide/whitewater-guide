@@ -1,11 +1,7 @@
 import { Unit } from '@whitewater-guide/commons';
 import React, { useMemo, useState } from 'react';
-import { Query } from 'react-apollo';
-import {
-  MeasurementsResult,
-  MeasurementsVars,
-  MEASUREMENTS_QUERY,
-} from '../measurements';
+import { useQuery } from 'react-apollo';
+import { MeasurementsVars, MEASUREMENTS_QUERY } from '../measurements';
 import { PureChartProvider } from './PureChartProvider';
 import { ChartProps } from './types';
 
@@ -25,27 +21,24 @@ export const ChartProvider: React.FC<ChartProps> = React.memo((props) => {
     }
     return vars;
   }, [days, gauge, section]);
+  const query = useQuery(MEASUREMENTS_QUERY, {
+    variables,
+    fetchPolicy: 'cache-and-network',
+  });
 
   return (
-    <Query<MeasurementsResult, MeasurementsVars>
-      query={MEASUREMENTS_QUERY}
-      variables={variables}
+    <PureChartProvider
+      days={days}
+      onChangeDays={onChangeDays}
+      unit={unit}
+      unitChangeable={unitChangeable}
+      onChangeUnit={onChangeUnit}
+      gauge={gauge}
+      section={section}
+      queryProps={query}
     >
-      {(queryProps) => (
-        <PureChartProvider
-          days={days}
-          onChangeDays={onChangeDays}
-          unit={unit}
-          unitChangeable={unitChangeable}
-          onChangeUnit={onChangeUnit}
-          gauge={gauge}
-          section={section}
-          queryProps={queryProps}
-        >
-          {children}
-        </PureChartProvider>
-      )}
-    </Query>
+      {children}
+    </PureChartProvider>
   );
 });
 
