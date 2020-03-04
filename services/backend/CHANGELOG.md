@@ -1,3 +1,9 @@
+## [0.0.420](https://github.com/doomsower/whitewater/compare/49c0bc30d6380ba3fc3d9adc2548f984bbe17420...e471c050240b02dc38a319e37b3210b57f7f97ce) (2020-03-04)
+
+### Features
+
+- use correct latestMeasurement field ([](https://github.com/doomsower/whitewater/commit/2a1d5a63b4f47f0a3419123b887e873f1b88e25e))
+
 ## [0.0.420](https://github.com/doomsower/whitewater/compare/bd4da27ab5c76e76f28db4adbd5ca0a10bf1713f...49c0bc30d6380ba3fc3d9adc2548f984bbe17420) (2020-03-03)
 
 ### Bug Fixes
