@@ -19,7 +19,9 @@ const RegionsListView: React.FC = React.memo(() => {
   const { data, error, loading, refetch } = useRegionsListQuery();
 
   const renderItem = useCallback(
-    ({ item }: ListRenderItemInfo<Region>) => <RegionCard region={item} />,
+    ({ item, index }: ListRenderItemInfo<Region>) => (
+      <RegionCard region={item} index={index} />
+    ),
     [],
   );
 

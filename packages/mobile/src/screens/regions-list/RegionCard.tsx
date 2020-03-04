@@ -65,14 +65,18 @@ export const CARD_HEIGHT =
 
 interface Props {
   region: Region;
+  index: number;
 }
 
-export const RegionCard: React.FC<Props> = React.memo(({ region }) => {
+export const RegionCard: React.FC<Props> = React.memo(({ region, index }) => {
   const { t } = useTranslation();
   const cardProps = useCommonCardProps(region);
   const uri = region.coverImage.mobile || undefined;
   return (
-    <TouchableRipple onPress={cardProps.openRegion}>
+    <TouchableRipple
+      onPress={cardProps.openRegion}
+      testID={`RegionCard${index}`}
+    >
       <Paper style={styles.root}>
         <Image source={{ uri }} style={styles.image}>
           <LinearGradient

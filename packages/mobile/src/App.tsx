@@ -13,6 +13,7 @@ import { ApolloProvider } from 'react-apollo';
 import { AsyncStorage } from 'react-native';
 import NativeSplashScreen from 'react-native-bootsplash';
 import codePush from 'react-native-code-push';
+import Config from 'react-native-config';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { NavigationState } from 'react-navigation';
 import { Provider } from 'react-redux';
@@ -86,6 +87,9 @@ class App extends React.PureComponent {
   };
 
   loadNavigationState = async () => {
+    if (Config.DISABLE_NAVIGATION_PERSISTENCE === 'true') {
+      return null;
+    }
     const jsonString = await AsyncStorage.getItem(NAVIGATION_PERSISTENCE_KEY);
     return jsonString === null ? null : JSON.parse(jsonString);
   };

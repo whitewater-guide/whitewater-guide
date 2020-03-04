@@ -33,6 +33,7 @@
     "ios:fix-xcode": "react-native-schemes-manager all",
     "ios:uninstall": "xcrun simctl uninstall booted su.swapp",
     "ios:linking": "xcrun simctl openurl booted",
+    "ios:e2e": "detox test",
     "release": "scripts/prepare_release.sh"
   },
   "dependencies": {
@@ -187,6 +188,7 @@
     "babel-plugin-module-resolver": "^4.0.0",
     "code-push": "^3.1.1",
     "deep-diff": "^1.0.2",
+    "detox": "^15.4.2",
     "dotenv": "^8.2.0",
     "fetch-mock": "^9.0.0",
     "graphql-ast-tools": "^0.2.3",
@@ -212,5 +214,18 @@
       "pattern": "**/*.stories.tsx",
       "outputFile": "./storybook/storyLoader.ts"
     }
+  },
+  "detox": {
+    "configurations": {
+      "ios.sim.debug": {
+        "binaryPath": "ios/build/Build/Products/Detox-iphonesimulator/whitewater.app",
+        "build": "xcodebuild -workspace ios/whitewater.xcworkspace -scheme whitewater -configuration Detox -sdk iphonesimulator -derivedDataPath ios/build",
+        "type": "ios.simulator",
+        "device": {
+          "type": "iPhone 8"
+        }
+      }
+    },
+    "test-runner": "jest"
   }
 }
