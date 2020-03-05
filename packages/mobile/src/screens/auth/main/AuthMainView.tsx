@@ -56,7 +56,12 @@ export const AuthMainView: React.FC = () => {
       </View>
       <View>
         <Divider label={t('screens:auth.main.gotAccount')} />
-        <Button mode="text" onPress={signIn} disabled={loading}>
+        <Button
+          mode="text"
+          onPress={signIn}
+          disabled={loading}
+          testID="auth-main-signin"
+        >
           {t('screens:auth.main.signin')}
         </Button>
       </View>

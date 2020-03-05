@@ -26,7 +26,12 @@ const LocalButton: React.FC<Props> = ({ label }) => {
     navigate,
   ]);
   return (
-    <Button mode="contained" icon={renderIcon} onPress={onPress}>
+    <Button
+      mode="contained"
+      icon={renderIcon}
+      onPress={onPress}
+      testID="auth-main-local"
+    >
       {paddedLabel}
     </Button>
   );
