@@ -67,7 +67,7 @@ const OfflineContentDialogView: React.FC<Props> = React.memo((props) => {
   }
   return (
     <React.Fragment>
-      <Dialog.Title>
+      <Dialog.Title testID="offline-dialog-title">
         {t('offline:dialog.title', { region: region ? region.name : '' })}
       </Dialog.Title>
       <Subheading style={styles.subtitle}>

@@ -69,6 +69,7 @@ const DownloadButton: React.FC<Props> = React.memo((props) => {
     <Icon
       icon="cloud-download"
       accessibilityLabel="download"
+      testID="download-button"
       style={[styles.container, styles.iconContainer]}
       iconStyle={[styles.icon, disabled && styles.iconDisabled]}
       color={theme.colors.textLight}

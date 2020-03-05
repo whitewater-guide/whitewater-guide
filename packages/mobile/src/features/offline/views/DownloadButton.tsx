@@ -39,7 +39,11 @@ const DownloadButton: React.FC<Props> = ({
 
   return (
     <Dialog.Actions>
-      <Button mode="outlined" onPress={handlers.onDismiss}>
+      <Button
+        mode="outlined"
+        onPress={handlers.onDismiss}
+        accessibilityLabel={t('commons:cancel')}
+      >
         {t('commons:cancel')}
       </Button>
       <Button

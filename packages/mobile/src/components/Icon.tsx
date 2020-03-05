@@ -33,6 +33,7 @@ interface IconBaseProps {
   iconStyle?: StyleProp<ViewStyle>;
   accessibilityHint?: string;
   accessibilityLabel?: string;
+  testID?: string;
 }
 
 const IconBase = React.forwardRef<any, IconBaseProps>((props, ref) => {
@@ -48,6 +49,7 @@ const IconBase = React.forwardRef<any, IconBaseProps>((props, ref) => {
     iconStyle,
     accessibilityHint,
     accessibilityLabel,
+    testID,
   } = props;
   const clr = color
     ? color
@@ -64,6 +66,7 @@ const IconBase = React.forwardRef<any, IconBaseProps>((props, ref) => {
         ref={ref}
         accessibilityHint={accessibilityHint}
         accessibilityLabel={accessibilityLabel}
+        testID={testID}
       >
         <MDCommunity name={icon} size={sz} color={clr} style={iconStyle} />
       </TouchableRipple>
@@ -75,6 +78,7 @@ const IconBase = React.forwardRef<any, IconBaseProps>((props, ref) => {
       ref={ref}
       accessibilityHint={accessibilityHint}
       accessibilityLabel={accessibilityLabel}
+      testID={testID}
     >
       <MDCommunity name={icon} size={sz} color={clr} style={iconStyle} />
     </View>

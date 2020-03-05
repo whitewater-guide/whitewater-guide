@@ -1,4 +1,11 @@
 platform :ios, '9.0'
+
+project 'whitewater',
+  'Detox' => :debug,
+  'Debug' => :debug,
+  'Staging' => :release,
+  'Release' => :release
+
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 use_frameworks!
 

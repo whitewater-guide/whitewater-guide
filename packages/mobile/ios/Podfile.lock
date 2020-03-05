@@ -320,7 +320,7 @@ PODS:
     - React
   - react-native-sensitive-info (5.5.5):
     - React
-  - react-native-startup-time (1.2.1):
+  - react-native-startup-time (1.2.2):
     - React
   - react-native-webview (8.1.2):
     - React
@@ -394,7 +394,7 @@ PODS:
   - RNSentry (1.3.3):
     - React
     - Sentry (~> 4.4.0)
-  - RNSVG (11.0.1):
+  - RNSVG (12.0.2):
     - React
   - RNTextSize (4.0.0-rc.1):
     - React
@@ -650,7 +650,7 @@ SPEC CHECKSUMS:
   react-native-mapbox-gl: f94bda32d55284b202d72359ed7d5d43f5223c89
   react-native-netinfo: 3bf235d94cc291cf0673ad9fd9eaae82f84ed8a9
   react-native-sensitive-info: 4629b223484a08225c3eb088ff3f91b03097b5e5
-  react-native-startup-time: 591097b85cf0d8a5e7483fbfdb43141a53e062a8
+  react-native-startup-time: b2736ed7feca431295cf38a787f23c2bdfcc58d3
   react-native-webview: fcb5f377aadc216273300f452ee0d321fb85809b
   react-native-zxcvbn: ba72ee34accf0531cdd60778d98b3fe491c562bf
   React-RCTActionSheet: 600b4d10e3aea0913b5a92256d2719c0cdd26d76
@@ -675,7 +675,7 @@ SPEC CHECKSUMS:
   RNReanimated: 031fe8d9ea93c2bd689a40f05320ef9d96f74d7f
   RNScreens: 812b79d384e2bea7eebc4ec981469160d4948fd5
   RNSentry: 86baf0c87120cd5eb491d073989f8cbc1a2174c6
-  RNSVG: 67f1f12dae2cef6ed59a42cae74a6b8f5a9e7b46
+  RNSVG: 9f7446f2e8fb1a5dc66a4aff58c33d367291d34c
   RNTextSize: 7efa06531c6bb7ab6ed070b4ce0d1248cf06fcdf
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
   SDWebImage: 4d5c027c935438f341ed33dbac53ff9f479922ca
@@ -685,6 +685,6 @@ SPEC CHECKSUMS:
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
   zxcvbn-ios: fef98b7c80f1512ff0eec47ac1fa399fc00f7e3c
 
-PODFILE CHECKSUM: e84060675c2c36ef2beef00e41238d5605059112
+PODFILE CHECKSUM: f7e377324f0d7fc9e3400d96e1a698260baf6ae1
 
 COCOAPODS: 1.8.4

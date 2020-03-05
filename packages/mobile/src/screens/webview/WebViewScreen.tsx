@@ -33,6 +33,7 @@ const WebViewScreen: NavigationScreenComponent<NavParams> = ({
         style={StyleSheet.absoluteFill}
         startInLoadingState={true}
         renderLoading={renderLoading}
+        testID={`webview-${fixture}`}
       />
     </Screen>
   );

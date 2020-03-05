@@ -23,7 +23,13 @@ const DrawerItem: React.FC<Props> = React.memo((props) => {
   }, [onPress, routeName, params, navKey]);
 
   return (
-    <Drawer.Item label={label} icon={icon} active={focused} onPress={onTap} />
+    <Drawer.Item
+      label={label}
+      icon={icon}
+      active={focused}
+      onPress={onTap}
+      accessibilityLabel={label}
+    />
   );
 });
 

@@ -29,10 +29,18 @@ const HeaderLeft: React.FC<Props> = (props) => {
         size={36}
         onPress={onBack}
         color={headerTintColor}
+        testID="header-back"
       />
     );
   }
-  return <Appbar.Action icon="menu" onPress={onMenu} color={headerTintColor} />;
+  return (
+    <Appbar.Action
+      icon="menu"
+      onPress={onMenu}
+      color={headerTintColor}
+      testID="header-menu"
+    />
+  );
 };
 
 export default HeaderLeft;
