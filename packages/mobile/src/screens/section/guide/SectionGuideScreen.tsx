@@ -30,7 +30,7 @@ const SectionGuideScreen: NavigationScreenComponent = () => {
         />
         <View style={styles.fabHelper} />
       </ScrollView>
-      <SuggestionFAB />
+      <SuggestionFAB testID="section-guide-fab" />
     </Screen>
   );
 };

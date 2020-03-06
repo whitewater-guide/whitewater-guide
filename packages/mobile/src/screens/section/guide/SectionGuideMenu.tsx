@@ -32,7 +32,7 @@ const SectionGuideMenu: React.FC<Props> = ({ sectionId }) => {
     <React.Fragment>
       <IconButton
         testID="section-info-menu-button"
-        icon={Platform.OS === 'ios' ? 'more-horiz' : 'more-vert'}
+        icon={Platform.OS === 'ios' ? 'dots-horizontal' : 'dots-vertical'}
         color={theme.colors.textLight}
         onPress={showMenu}
       />

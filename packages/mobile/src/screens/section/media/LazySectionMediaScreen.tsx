@@ -9,7 +9,11 @@ export const LazySectionMediaScreen = registerScreen({
   navigationOptions: {
     tabBarLabel: <I18nText>section:media.title</I18nText>,
     tabBarIcon: () => (
-      <Icon icon="image-multiple" color={theme.colors.textLight} />
+      <Icon
+        icon="image-multiple"
+        color={theme.colors.textLight}
+        testID="section-tab-media"
+      />
     ),
   },
 });

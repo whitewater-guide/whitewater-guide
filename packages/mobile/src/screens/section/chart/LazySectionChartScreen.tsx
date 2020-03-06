@@ -8,6 +8,12 @@ export const LazySectionChartScreen = registerScreen({
   require: () => require('./SectionChartScreen'),
   navigationOptions: {
     tabBarLabel: <I18nText>section:chart.title</I18nText>,
-    tabBarIcon: () => <Icon icon="chart-line" color={theme.colors.textLight} />,
+    tabBarIcon: () => (
+      <Icon
+        icon="chart-line"
+        color={theme.colors.textLight}
+        testID="section-tab-chart"
+      />
+    ),
   },
 });

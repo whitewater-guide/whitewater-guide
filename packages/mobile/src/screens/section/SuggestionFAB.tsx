@@ -19,15 +19,26 @@ const renderPencil = ({ size, color }: any) => (
   <Icon icon="pencil-plus" size={size} color={color} narrow={true} />
 );
 
-export const SuggestionFAB: React.FC = React.memo(() => {
+interface Props {
+  testID?: string;
+}
+
+export const SuggestionFAB: React.FC<Props> = ({ testID }) => {
   const { navigate } = useNavigation();
   const { node } = useSection();
   const onPress = useCallback(
     () => navigate(Screens.Suggestion, { sectionId: node!.id }),
     [navigate, node],
   );
-  return <FAB style={styles.fab} icon={renderPencil} onPress={onPress} />;
-});
+  return (
+    <FAB
+      style={styles.fab}
+      icon={renderPencil}
+      onPress={onPress}
+      testID={testID}
+    />
+  );
+};
 
 SuggestionFAB.displayName = 'SuggestionFAB';
 

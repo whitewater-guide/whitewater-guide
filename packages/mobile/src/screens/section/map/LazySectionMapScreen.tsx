@@ -8,6 +8,12 @@ export const LazySectionMapScreen = registerScreen({
   require: () => require('./SectionMapScreen'),
   navigationOptions: {
     tabBarLabel: <I18nText>section:map.title</I18nText>,
-    tabBarIcon: () => <Icon icon="map" color={theme.colors.textLight} />,
+    tabBarIcon: () => (
+      <Icon
+        icon="map"
+        color={theme.colors.textLight}
+        testID="section-tab-map"
+      />
+    ),
   },
 });

@@ -9,7 +9,11 @@ export const LazySectionInfoScreen = registerScreen({
   navigationOptions: {
     tabBarLabel: <I18nText>section:info.title</I18nText>,
     tabBarIcon: () => (
-      <Icon icon="information" color={theme.colors.textLight} />
+      <Icon
+        icon="information"
+        color={theme.colors.textLight}
+        testID="section-tab-info"
+      />
     ),
   },
 });

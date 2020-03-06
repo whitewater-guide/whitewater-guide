@@ -17,6 +17,7 @@ jasmine.getEnv().addReporter(specReporter);
 
 beforeAll(async () => {
   await detox.init(config.detox);
+  await device.setURLBlacklist(['.*clients3.google.com.*']);
 }, 300000);
 
 beforeEach(async () => {

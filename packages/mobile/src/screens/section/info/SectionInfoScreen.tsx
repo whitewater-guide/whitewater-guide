@@ -10,7 +10,7 @@ const SectionInfoScreen: NavigationScreenComponent = () => {
   return (
     <Screen>
       <SectionInfoView section={node} />
-      <SuggestionFAB />
+      <SuggestionFAB testID="section-info-fab" />
     </Screen>
   );
 };

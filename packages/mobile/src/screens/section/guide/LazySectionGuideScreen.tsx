@@ -9,7 +9,11 @@ export const LazySectionGuideScreen = registerScreen({
   navigationOptions: {
     tabBarLabel: <I18nText>section:guide.title</I18nText>,
     tabBarIcon: () => (
-      <Icon icon="book-open-variant" color={theme.colors.textLight} />
+      <Icon
+        icon="book-open-variant"
+        color={theme.colors.textLight}
+        testID="section-tab-guide"
+      />
     ),
   },
 });

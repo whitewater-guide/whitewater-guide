@@ -23,7 +23,7 @@ const ChartLayout: React.FC<ChartProps> = ({ gauge, section }) => {
   const formula = section && section.flows && section.flows.formula;
   return (
     <ChartProvider section={section} gauge={gauge}>
-      <View style={styles.container}>
+      <View style={styles.container} testID="chart-container">
         <View style={styles.container}>
           <Chart />
         </View>

@@ -1,5 +1,5 @@
 import Mapbox from '@react-native-mapbox-gl/maps';
-import { Platform, UIManager, YellowBox } from 'react-native';
+import { Platform, UIManager } from 'react-native';
 import Config from 'react-native-config';
 import { useScreens } from 'react-native-screens';
 
@@ -45,6 +45,22 @@ const configMisc = () => {
   //     ? global.originalFileReader
   //     : global.FileReader;
   // }
+
+  // Used to track infinite loops
+  // (function() {
+  //   const oldSetTimeout = global.setTimeout;
+  //   global.setTimeout = function(...args) {
+  //     const e = new Error('Looking for timers');
+  //     console.log('New timeout registered from %s', e.stack);
+  //     return oldSetTimeout.apply(this, args);
+  //   };
+  //   const oldSetInterval = global.setInterval;
+  //   global.setInterval = function(...args) {
+  //     const e = new Error('Looking for timers');
+  //     console.log('New interval registered from %s', e.stack);
+  //     return oldSetInterval.apply(this, args);
+  //   };
+  // })();
 };
 
 export default configMisc;
