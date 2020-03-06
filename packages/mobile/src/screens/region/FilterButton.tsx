@@ -12,7 +12,14 @@ const FilterButton: React.FC<NavigationInjectedProps> = ({ navigation }) => {
     [navigation.navigate],
   );
   const icon = searchTerms ? 'filter' : 'filter-outline';
-  return <Icon icon={icon} color={theme.colors.textLight} onPress={onPress} />;
+  return (
+    <Icon
+      icon={icon}
+      color={theme.colors.textLight}
+      onPress={onPress}
+      testID="region-filter-btn"
+    />
+  );
 };
 
 export default FilterButton;

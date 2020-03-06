@@ -41,7 +41,7 @@ const RegionInfoMenu: React.FC<Props> = ({ regionId }) => {
     <React.Fragment>
       <IconButton
         testID="region-info-menu-button"
-        icon={Platform.OS === 'ios' ? 'more-horiz' : 'more-vert'}
+        icon={Platform.OS === 'ios' ? 'dots-horizontal' : 'dots-vertical'}
         color={theme.colors.textLight}
         onPress={showMenu}
       />

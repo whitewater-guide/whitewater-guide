@@ -10,6 +10,7 @@ export interface ItemProps<T> {
   onPress: (section: Section) => void;
   onMaximize?: (id: string) => void;
   forceCloseCnt?: number;
+  testID?: string;
 }
 
 export interface ListProps {

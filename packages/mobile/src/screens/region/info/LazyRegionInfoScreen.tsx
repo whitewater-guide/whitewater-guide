@@ -9,7 +9,11 @@ export const LazyRegionInfoScreen = registerScreen({
   navigationOptions: {
     tabBarLabel: <I18nText>region:info.title</I18nText>,
     tabBarIcon: () => (
-      <Icon icon="information" color={theme.colors.textLight} />
+      <Icon
+        icon="information"
+        color={theme.colors.textLight}
+        testID="region-tab-info"
+      />
     ),
   },
 });

@@ -90,6 +90,7 @@ export default (props: ListProps) => {
           item={item}
           onPress={onSectionSelected}
           onMaximize={onItemMaximized}
+          testID={`SectionsListItem${index}`}
         />
       );
     },

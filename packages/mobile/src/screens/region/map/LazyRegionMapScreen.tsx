@@ -8,6 +8,8 @@ export const LazyRegionMapScreen = registerScreen({
   require: () => require('./RegionMapScreen'),
   navigationOptions: {
     tabBarLabel: <I18nText>region:map.title</I18nText>,
-    tabBarIcon: () => <Icon icon="map" color={theme.colors.textLight} />,
+    tabBarIcon: () => (
+      <Icon icon="map" color={theme.colors.textLight} testID="region-tab-map" />
+    ),
   },
 });

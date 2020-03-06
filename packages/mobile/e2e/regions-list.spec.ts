@@ -14,14 +14,14 @@ it('should open and close offline download dialog', async () => {
     // by.id('download-button'),
   ).tap();
   await expect(element(by.id('offline-dialog-title'))).toBeVisible();
-  await element(by.label('cancel')).tap();
+  await element(by.label('commons:cancel')).tap();
   await expect(element(by.id('offline-dialog-title'))).toNotExist();
 });
 
 it.each([
-  ['faq', 'faq'],
-  ['privacy_policy', 'privacyPolicy'],
-  ['terms_and_conditions', 'termsOfService'],
+  ['faq', 'drawer:faq'],
+  ['privacy_policy', 'commons:privacyPolicy'],
+  ['terms_and_conditions', 'commons:termsOfService'],
 ])('should open %s screen and go back', async (fixture, label) => {
   await element(by.id('header-menu')).tap();
   await element(by.label(label)).tap();

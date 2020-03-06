@@ -1,9 +1,9 @@
 import { sectionHasChanged } from '@whitewater-guide/clients';
 import { Section } from '@whitewater-guide/commons';
 import {
+  NavigateButton,
   NAVIGATE_BUTTON_HEIGHT,
   NAVIGATE_BUTTON_WIDTH,
-  NavigateButton,
 } from 'components/NavigateButton';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -98,7 +98,7 @@ export class SectionListItem extends React.Component<Props> {
   };
 
   render() {
-    const { item, hasPremiumAccess, regionPremium } = this.props;
+    const { item, hasPremiumAccess, regionPremium, testID } = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.right}>
@@ -133,6 +133,7 @@ export class SectionListItem extends React.Component<Props> {
               regionPremium={regionPremium}
               section={item}
               onPress={this.onPress}
+              testID={testID}
             />
           </Reanimated.View>
         </PanGestureHandler>

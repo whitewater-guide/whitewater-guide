@@ -56,6 +56,7 @@ export const I18nProvider: React.FC<Props> = ({
           nsMode: 'fallback',
         },
         resources,
+        appendNamespaceToCIMode: true,
       });
       const dfnsLng = Config.I18N_CI === 'true' ? 'en' : _i18n.languages[0];
       configDateFNS(dfnsLng);

@@ -47,11 +47,12 @@ interface Props {
   section: Section;
   regionPremium: boolean;
   onPress: () => void;
+  testID?: string;
 }
 
 const SectionListBody: React.FC<Props> = React.memo(
-  ({ onPress, regionPremium, section }) => (
-    <RectButton onPress={onPress}>
+  ({ onPress, regionPremium, section, testID }) => (
+    <RectButton onPress={onPress} testID={testID}>
       <View style={styles.container}>
         <DifficultyThumb
           difficulty={section.difficulty}

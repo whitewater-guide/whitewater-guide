@@ -26,6 +26,7 @@ export const AddSectionFAB: React.FC = React.memo(() => {
       icon="plus"
       onPress={onPress}
       disabled={!!selection}
+      testID="add-section-fab"
     />
   );
 });
