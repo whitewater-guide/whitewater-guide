@@ -153,6 +153,7 @@
     "@testing-library/react-hooks": "^3.2.1",
     "@testing-library/react-native": "^5.0.3",
     "@types/d3-scale": "^2.1.1",
+    "@types/detox": "^14.5.2",
     "@types/dotenv": "^8.2.0",
     "@types/fetch-mock": "^7.3.2",
     "@types/flat": "^5.0.0",

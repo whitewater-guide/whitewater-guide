@@ -2627,6 +2627,11 @@
   resolved "https://registry.npmjs.org/@types/d3-time/-/d3-time-1.0.10.tgz#d338c7feac93a98a32aac875d1100f92c7b61f4f"
   integrity sha512-aKf62rRQafDQmSiv1NylKhIMmznsjRN+MnXRXTqHoqm0U/UZzVpdrtRnSIfdiLS616OuC1soYeX1dBg2n1u8Xw==
 
+"@types/detox@^14.5.2":
+  version "14.5.2"
+  resolved "https://registry.npmjs.org/@types/detox/-/detox-14.5.2.tgz#7890d5338cdb453a66bdc58a3ce92e4118c32625"
+  integrity sha512-IGeXr20JY3XNkieXY6hsFSbmhH8By7QDG6feW4eHYdOcudaHwB/K/X82AXxxbGYoi9hehvv2vMLfZqd6NtM6hw==
+
 "@types/dotenv@^8.2.0":
   version "8.2.0"
   resolved "https://registry.npmjs.org/@types/dotenv/-/dotenv-8.2.0.tgz#5cd64710c3c98e82d9d15844375a33bf1b45d053"

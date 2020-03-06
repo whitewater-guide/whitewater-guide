@@ -9,5 +9,5 @@
       "forms/*": ["src/forms/*"]
     }
   },
-  "include": ["src/**/*", "storybook/**/*", "typings/**/*"]
+  "include": ["src/**/*", "storybook/**/*", "e2e/**/*", "typings/**/*"]
 }
