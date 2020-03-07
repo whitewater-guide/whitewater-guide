@@ -18,16 +18,21 @@ const PiToPlaceholder: React.FC<Props> = React.memo(({ index }) => {
   const { t } = useTranslation();
   const onPress = useNavigate(Screens.Region.AddSection.Shape);
   const label = t(index ? 'commons:takeOut' : 'commons:putIn');
-  const testID = `fake-${index ? 'takeout' : 'putin'}-input`;
+  const inputTestID = `fake-${index ? 'takeout' : 'putin'}-input`;
+  const touchTestID = `fake-${index ? 'takeout' : 'putin'}-btn`;
   return (
-    <TouchableWithoutFeedback onPress={onPress} accessibilityLabel={label}>
+    <TouchableWithoutFeedback
+      onPress={onPress}
+      accessibilityLabel={label}
+      testID={touchTestID}
+    >
       <View pointerEvents="box-only">
         <TextInput
           mode="outlined"
           label={label}
           value={arrayToLatLngString(values.shape[index])}
           editable={false}
-          testID={testID}
+          testID={inputTestID}
         />
         <HelperText
           touched={!!touched.shape}

@@ -14,9 +14,9 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { NavigationScreenComponent } from 'react-navigation';
 import theme from '../../../../theme';
 
-const DURATIONS: Array<Duration | null> = [null].concat(Array.from(
-  Durations.entries(),
-).map(([k]) => k) as any);
+const DURATIONS: Array<Duration | null> = [null].concat(
+  Array.from(Durations.entries()).map(([k]) => k) as any,
+);
 const keyExtractor = (v: Duration | null) => (v ? v.toString() : 'null');
 
 const styles = StyleSheet.create({
@@ -51,6 +51,7 @@ const AttributesScreen: NavigationScreenComponent = React.memo(() => {
           name="distance"
           label={t('commons:length', { unit: 'km' })}
           keyboardType="numeric"
+          testID="distance"
         />
         <NumericField
           name="drop"

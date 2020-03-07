@@ -79,6 +79,7 @@ const RiverScreen: NavigationScreenComponent = (props) => {
         autoCorrect={false}
         autoCompleteType="off"
         autoFocus={true}
+        testID="river-searchbar"
       />
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}

@@ -31,6 +31,7 @@ const DescriptionScreen: NavigationScreenComponent = () => {
           wrapperStyle={styles.description}
           style={styles.description}
           label={t('screens:addSection.description.label')}
+          testID="description"
         />
       </KeyboardAvoidingView>
     </Screen>

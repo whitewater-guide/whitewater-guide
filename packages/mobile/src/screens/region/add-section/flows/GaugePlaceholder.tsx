@@ -13,7 +13,7 @@ const GaugePlaceholder: React.FC = React.memo(() => {
   const { t } = useTranslation();
   const onPress = useNavigate(Screens.Region.AddSection.Gauge);
   return (
-    <TouchableWithoutFeedback onPress={onPress}>
+    <TouchableWithoutFeedback onPress={onPress} testID="gauge-placeholder">
       <View pointerEvents="box-only">
         <TextInput
           mode="outlined"

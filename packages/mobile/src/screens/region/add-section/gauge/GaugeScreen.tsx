@@ -78,6 +78,7 @@ const GaugeScreen: NavigationScreenComponent = () => {
         autoCorrect={false}
         autoCompleteType="off"
         autoFocus={true}
+        testID="gauge-searchbar"
       />
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}

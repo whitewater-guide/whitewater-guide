@@ -14,7 +14,11 @@ const RiverPlaceholder: React.FC = React.memo(() => {
   const onPress = useNavigate(Screens.Region.AddSection.River);
   const label = t('screens:addSection.main.riverLabel');
   return (
-    <TouchableWithoutFeedback onPress={onPress} accessibilityLabel={label}>
+    <TouchableWithoutFeedback
+      onPress={onPress}
+      accessibilityLabel={label}
+      testID="river-placeholder"
+    >
       <View pointerEvents="box-only">
         <TextInput
           mode="outlined"

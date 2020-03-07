@@ -4,6 +4,7 @@ import Icon from 'components/Icon';
 import { useFormikContext } from 'formik';
 import React, { useCallback } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
+import Config from 'react-native-config';
 import { useNavigation } from 'react-navigation-hooks';
 import {
   LocalPhoto,
@@ -66,13 +67,22 @@ const AddPhotoButton: React.FC<Props> = React.memo(({ index }) => {
     [push, navigate, upload, setFieldTouched, index],
   );
 
-  const onPress = useImagePicker(onPick);
+  const onPress =
+    Config.E2E_MODE === 'true'
+      ? () => {
+          navigate(Screens.Region.AddSection.Photo, {
+            localPhotoId: 'fooo',
+            index,
+          });
+        }
+      : useImagePicker(onPick);
 
   return (
     <TouchableOpacity
       style={styles.container}
       onPress={onPress}
       accessibilityLabel="Add photo"
+      testID="add-photo-btn"
     >
       <Icon icon="plus" />
     </TouchableOpacity>
