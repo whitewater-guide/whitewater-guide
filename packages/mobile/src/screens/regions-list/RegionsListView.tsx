@@ -42,6 +42,7 @@ const RegionsListView: React.FC = React.memo(() => {
         removeClippedSubviews={true}
         windowSize={10}
         initialNumToRender={rowsPerScreen}
+        testID="regions-list-flat-list"
       />
     </WithNetworkError>
   );

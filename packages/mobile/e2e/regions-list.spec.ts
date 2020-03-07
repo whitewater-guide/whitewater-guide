@@ -29,3 +29,22 @@ it.each([
   await element(by.id('header-back')).tap();
   await expect(element(by.id('RegionCard1'))).toBeVisible();
 });
+
+it('should go to premium screen and back', async () => {
+  await waitFor(element(by.id('premium-btn')))
+    .toBeVisible()
+    .whileElement(by.id('regions-list-flat-list'))
+    .scroll(250, 'down');
+  await expect(element(by.id('premium-btn'))).toBeVisible();
+  await element(by.id('premium-btn')).tap();
+  await expect(
+    element(by.label('SCREENS:PURCHASE.BUY.CONFIRMBUTTON.BUY')),
+  ).toBeVisible();
+  await element(by.id('purchase-buy-close-btn')).tap();
+  await element(by.id('premium-btn')).tap();
+  await element(by.label('SCREENS:PURCHASE.BUY.CONFIRMBUTTON.BUY')).tap();
+  await expect(element(by.label('SCREENS:AUTH.MAIN.SIGNIN'))).toBeVisible();
+  await element(by.id('header-back')).tap();
+  await element(by.id('purchase-buy-close-btn')).tap();
+  await expect(element(by.id('premium-btn'))).toBeVisible();
+});

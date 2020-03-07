@@ -17,6 +17,7 @@ const CloseButton: React.FC<Props> = React.memo(({ disabled }) => {
       icon="close"
       onPress={disabled ? undefined : onPress}
       color={disabled ? theme.colors.componentBorder : theme.colors.primary}
+      testID="purchase-buy-close-btn"
     />
   );
 });

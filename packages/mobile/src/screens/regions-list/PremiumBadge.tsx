@@ -65,6 +65,7 @@ const PremiumBadge: React.FC<Props> = React.memo(
           hitSlop={PREMIUM_HIT_SLOP}
           style={styles.premiumTouchable}
           accessibilityLabel="buy premium"
+          testID="premium-btn"
         >
           <View style={styles.col}>
             <Caption style={styles.premium}>{t('commons:premium')}</Caption>
