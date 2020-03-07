@@ -38,7 +38,8 @@ it('should navigate through add section tabs', async () => {
   await expect(element(by.type('RCTMGLMapView'))).toBeVisible();
 });
 
-it('should navigate to select river screen and back', async () => {
+it.only('should navigate to select river screen and back', async () => {
+  await expect(element(by.id('header-back'))).toBeVisible();
   await element(by.id('river-placeholder')).tap();
   await expect(element(by.id('river-searchbar'))).toBeVisible();
   await element(by.id('header-back')).tap();

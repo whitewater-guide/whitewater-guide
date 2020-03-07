@@ -24,6 +24,7 @@
     "android:production": "fastlane android production --env production",
     "android:uninstall": "adb uninstall guide.whitewater.staging || adb uninstall guide.whitewater",
     "android:linking": "./scripts/android_linking.sh",
+    "android:e2e": "detox test -c android.sim.debug",
     "ios:clean": "rm -rf ios/build/* && cd ios && pod deintegrate && rm Podfile.lock",
     "ios:setup_push": "fastlane ios setup_push --env staging",
     "ios:staging": "fastlane ios staging --env staging",
@@ -33,7 +34,7 @@
     "ios:fix-xcode": "react-native-schemes-manager all",
     "ios:uninstall": "xcrun simctl uninstall booted su.swapp",
     "ios:linking": "xcrun simctl openurl booted",
-    "ios:e2e": "detox test",
+    "ios:e2e": "detox test -c ios.sim.debug",
     "release": "scripts/prepare_release.sh"
   },
   "dependencies": {
@@ -224,6 +225,15 @@
         "type": "ios.simulator",
         "device": {
           "type": "iPhone 8"
+        }
+      },
+      "android.sim.debug": {
+        "binaryPath": "android/app/build/outputs/apk/debugDetox/app-x86-debugDetox.apk",
+        "testBinaryPath": "android/app/build/outputs/apk/androidTest/debugDetox/app-debugDetox-androidTest.apk",
+        "build": "cd android && ./gradlew assembleDebugDetox assembleAndroidTest -DtestBuildType=debugDetox && cd ..",
+        "type": "android.emulator",
+        "device": {
+          "avdName": "Nexus"
         }
       }
     },
