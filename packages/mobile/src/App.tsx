@@ -87,7 +87,7 @@ class App extends React.PureComponent {
   };
 
   loadNavigationState = async () => {
-    if (Config.DISABLE_NAVIGATION_PERSISTENCE === 'true') {
+    if (Config.E2E_MODE === 'true') {
       return null;
     }
     const jsonString = await AsyncStorage.getItem(NAVIGATION_PERSISTENCE_KEY);

@@ -61,3 +61,25 @@ it('should navigate between tabs', async () => {
     .toBeVisible()
     .withTimeout(2000);
 });
+
+it('should navigate to simple suggestion screen and back', async () => {
+  await element(by.id('section-info-fab')).tap();
+  await expect(
+    element(by.label('SCREENS:SUGGESTION.SUBMITSIMPLE')),
+  ).toBeVisible();
+  await element(by.id('header-back')).tap();
+  await expect(element(by.label('commons:difficulty'))).toBeVisible();
+  await expect(element(by.label('section:info.title'))).toBeVisible();
+});
+
+it('should navigate to media suggestion screen and back', async () => {
+  await element(by.id('section-tab-media'))
+    .atIndex(0)
+    .tap();
+  await element(by.id('suggest-media-fab')).tap();
+  await expect(
+    element(by.label('SCREENS:SUGGESTION.SUBMITPHOTO')),
+  ).toBeVisible();
+  await element(by.id('header-back')).tap();
+  await expect(element(by.label('section:media.photo'))).toBeVisible();
+});

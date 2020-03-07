@@ -6,8 +6,7 @@ declare module 'react-native-config' {
     ENV_NAME: string;
     SENTRY_DSN: string;
     MAPBOX_ACCESS_TOKEN: string;
-    DISABLE_NAVIGATION_PERSISTENCE?: 'true';
-    I18N_CI?: 'true';
+    E2E_MODE?: 'true';
   }
 
   const Config: IConfig;

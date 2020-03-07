@@ -1,6 +1,7 @@
 import { useSection } from '@whitewater-guide/clients';
 import React, { useCallback } from 'react';
 import { StyleSheet } from 'react-native';
+import Config from 'react-native-config';
 import { FAB } from 'react-native-paper';
 import { useNavigation } from 'react-navigation-hooks';
 import {
@@ -33,7 +34,15 @@ export const SuggestMediaFAB: React.FC = React.memo(() => {
     },
     [upload, navigate, node],
   );
-  const onPress = useImagePicker(onPick);
+  const onPress =
+    Config.E2E_MODE === 'true'
+      ? () => {
+          navigate(Screens.Suggestion, {
+            sectionId: node!.id,
+            localPhotoId: 'foo',
+          });
+        }
+      : useImagePicker(onPick);
   return (
     <FAB
       style={styles.fab}

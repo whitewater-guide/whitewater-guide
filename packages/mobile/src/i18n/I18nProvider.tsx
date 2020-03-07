@@ -38,7 +38,7 @@ export const I18nProvider: React.FC<Props> = ({
     const onMount = async () => {
       const [{ languageCode }] = getLocales();
       const language = (me && me.language) || languageCode || 'en';
-      const lng = Config.I18N_CI === 'true' ? 'cimode' : language.substr(0, 2);
+      const lng = Config.E2E_MODE === 'true' ? 'cimode' : language.substr(0, 2);
       await _i18n.init({
         lng,
         fallbackLng: 'en',
@@ -58,7 +58,7 @@ export const I18nProvider: React.FC<Props> = ({
         resources,
         appendNamespaceToCIMode: true,
       });
-      const dfnsLng = Config.I18N_CI === 'true' ? 'en' : _i18n.languages[0];
+      const dfnsLng = Config.E2E_MODE === 'true' ? 'en' : _i18n.languages[0];
       configDateFNS(dfnsLng);
       setReady(true);
       return;
