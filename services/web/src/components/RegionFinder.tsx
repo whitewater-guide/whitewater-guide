@@ -22,7 +22,7 @@ export const RegionFinder: React.FC<Props> = React.memo((props) => {
   const getVariables = useCallback(
     (input: string | null) => ({
       filter: {
-        search: input || '',
+        searchString: input || '',
       },
       page: { limit: 5 },
     }),
