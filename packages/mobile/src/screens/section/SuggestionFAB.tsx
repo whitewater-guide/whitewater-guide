@@ -27,10 +27,10 @@ interface Props {
 export const SuggestionFAB: React.FC<Props> = ({ testID }) => {
   const { navigate } = useNavigation<SectionScreenNavProp>();
   const { node } = useSection();
-  const onPress = useCallback(
-    () => navigate(Screens.SUGGESTION, { sectionId: node!.id }),
-    [navigate, node],
-  );
+  const onPress = useCallback(() => {
+    throw new Error('test crash');
+    navigate(Screens.SUGGESTION, { sectionId: node!.id });
+  }, [navigate, node]);
   return (
     <FAB
       style={styles.fab}
