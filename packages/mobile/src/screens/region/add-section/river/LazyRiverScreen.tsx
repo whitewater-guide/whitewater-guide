@@ -1,9 +1,5 @@
-import React from 'react';
-import registerScreen from '../../../../utils/registerScreen';
+import { register } from 'react-native-bundle-splitter';
 
-export const LazyRiverScreen = registerScreen({
+export const LazyRiverScreen = register({
   require: () => require('./RiverScreen'),
-  navigationOptions: {
-    headerTitle: 'screens:addSection.river.title',
-  },
 });

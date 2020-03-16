@@ -1,11 +1,7 @@
 import db, { holdTransaction, rollbackTransaction } from '@db';
 import { GorgeConnector } from '@features/gorge';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
-import {
-  SOURCE_ALPS,
-  SOURCE_GALICIA_1,
-  SOURCE_RUSSIA,
-} from '@seeds/05_sources';
+import { SOURCE_GALICIA_1, SOURCE_RUSSIA } from '@seeds/05_sources';
 import { GAUGE_GAL_1_1 } from '@seeds/06_gauges';
 import {
   anonContext,
@@ -95,19 +91,6 @@ describe('resolvers chain', () => {
 });
 
 describe('errors', () => {
-  it('should fail for enabled source', async () => {
-    const result = await runQuery(
-      mutation,
-      { id: SOURCE_ALPS },
-      fakeContext(ADMIN),
-    );
-    expect(result.data!.autofillSource).toBeNull();
-    expect(result).toHaveGraphqlError(
-      ApolloErrorCodes.MUTATION_NOT_ALLOWED,
-      'Cannot autofill source that is enabled',
-    );
-  });
-
   it('should fail when script fails', async () => {
     jest
       .spyOn(GorgeConnector.prototype, 'listGauges')

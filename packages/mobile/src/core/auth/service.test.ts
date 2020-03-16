@@ -36,7 +36,9 @@ beforeEach(async () => {
   (AccessToken.getCurrentAccessToken as jest.Mock).mockResolvedValue(null);
   (messaging().hasPermission as jest.Mock).mockResolvedValue(true);
   (messaging().getToken as jest.Mock).mockResolvedValue('__fcm_token__');
-  service = new MobileAuthService(resetApolloCache, onSignOut);
+  service = new MobileAuthService();
+  service.on('sign-in', resetApolloCache);
+  service.on('sign-out', onSignOut);
   fetchMock.mock('end:fcm/set', { success: true });
   fetchMock.mock('glob:*logout*', 200);
   await service.init();

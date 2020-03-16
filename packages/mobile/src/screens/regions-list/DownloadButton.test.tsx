@@ -69,3 +69,33 @@ it('should not allow download when other region is in progress', () => {
   fireEvent.press(button);
   expect(downloadRegion).not.toHaveBeenCalled();
 });
+
+it('should render error on region in progress', () => {
+  const downloadRegion = jest.fn();
+  const err = new Error('net fail');
+  const { getByHintText } = render(
+    <DownloadButton
+      region={region}
+      regionInProgress="__id__"
+      canMakePayments={true}
+      downloadRegion={downloadRegion}
+      offlineError={err}
+    />,
+  );
+  expect(getByHintText('download failed')).toBeTruthy();
+});
+
+it('should not render error on region not in progress', () => {
+  const downloadRegion = jest.fn();
+  const err = new Error('net fail');
+  const { getByHintText } = render(
+    <DownloadButton
+      region={region}
+      regionInProgress="__id_2__"
+      canMakePayments={true}
+      downloadRegion={downloadRegion}
+      offlineError={err}
+    />,
+  );
+  expect(() => getByHintText('download failed')).toThrow();
+});

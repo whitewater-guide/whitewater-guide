@@ -1,17 +1,18 @@
 import { NamedNode } from '@whitewater-guide/commons';
 import { useField } from 'formik';
-import HelperText from 'forms/HelperText';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { TouchableWithoutFeedback, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
-import { useNavigate } from '../../../../utils/navigation';
-import Screens from '../../../screen-names';
+import HelperText from '~/forms/HelperText';
 
-const RiverPlaceholder: React.FC = React.memo(() => {
+interface Props {
+  onPress: () => void;
+}
+
+const RiverPlaceholder: React.FC<Props> = React.memo(({ onPress }) => {
   const [{ value }, meta] = useField<NamedNode | null>('river');
   const { t } = useTranslation();
-  const onPress = useNavigate(Screens.Region.AddSection.River);
   const label = t('screens:addSection.main.riverLabel');
   return (
     <TouchableWithoutFeedback

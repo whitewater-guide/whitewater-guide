@@ -25,8 +25,8 @@ export interface NodeRef extends Node {
   name?: string;
 }
 
-export interface TextSearchFilter {
-  search?: string;
+export interface SearchableFilterOptions {
+  searchString?: string;
 }
 
 /**

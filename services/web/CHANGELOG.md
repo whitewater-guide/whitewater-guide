@@ -1,3 +1,14 @@
+## [0.1.418-v5.0](https://github.com/doomsower/whitewater/compare/e471c050240b02dc38a319e37b3210b57f7f97ce...dbcb26d330aeb35197c416b7b4af6fce20c9573d) (2020-03-15)
+
+### Bug Fixes
+
+- update web ([](https://github.com/doomsower/whitewater/commit/988736f612bd40c6a107985b430e063a9dfc039e))
+
+### Features
+
+- better filters wip ([](https://github.com/doomsower/whitewater/commit/ccd6a68fd84b2ca3d8be9fda5ce2ba87761ee1e4))
+- update web auth service usage ([](https://github.com/doomsower/whitewater/commit/0db63b03e4ef5db8647d7396223d7a6ba4ca15f9))
+
 ## [0.1.417](https://github.com/doomsower/whitewater/compare/49c0bc30d6380ba3fc3d9adc2548f984bbe17420...e471c050240b02dc38a319e37b3210b57f7f97ce) (2020-03-04)
 
 ## [0.1.417](https://github.com/doomsower/whitewater/compare/bd4da27ab5c76e76f28db4adbd5ca0a10bf1713f...49c0bc30d6380ba3fc3d9adc2548f984bbe17420) (2020-03-03)

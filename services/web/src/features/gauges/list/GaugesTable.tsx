@@ -2,6 +2,7 @@ import { formatDistanceToNow } from '@whitewater-guide/clients';
 import { Connection, Gauge, Source } from '@whitewater-guide/commons';
 import parseISO from 'date-fns/parseISO';
 import { History } from 'history';
+import isNil from 'lodash/isNil';
 import React from 'react';
 import { Column } from 'react-virtualized';
 import {
@@ -72,6 +73,9 @@ export default class GaugesTable extends React.PureComponent<Props> {
       const fromNow = formatDistanceToNow(parseISO(timestamp), {
         addSuffix: true,
       });
+      if (isNil(v)) {
+        return null;
+      }
       return (
         <span>
           <b>{v.toPrecision(3)}</b>

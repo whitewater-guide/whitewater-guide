@@ -1,10 +1,7 @@
 import db, { holdTransaction, rollbackTransaction } from '@db';
+import { GorgeConnector } from '@features/gorge';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
-import {
-  SOURCE_GALICIA_1,
-  SOURCE_GALICIA_2,
-  SOURCE_GEORGIA,
-} from '@seeds/05_sources';
+import { SOURCE_GALICIA_1, SOURCE_GEORGIA } from '@seeds/05_sources';
 import {
   anonContext,
   fakeContext,
@@ -29,7 +26,10 @@ beforeAll(async () => {
   sourceCountBefore = Number(sourcesCnt.count);
 });
 
-beforeEach(holdTransaction);
+beforeEach(async () => {
+  jest.resetAllMocks();
+  await holdTransaction();
+});
 afterEach(rollbackTransaction);
 
 const requiredSource: SourceInput = {
@@ -177,6 +177,18 @@ describe('insert', () => {
   });
 });
 
+it('update should not change enabled sources', async () => {
+  const result = await runQuery(
+    mutation,
+    { source: optionalSource },
+    fakeContext(ADMIN),
+  );
+  expect(result).toHaveGraphqlError(
+    ApolloErrorCodes.MUTATION_NOT_ALLOWED,
+    'Disable source before editing it',
+  );
+});
+
 describe('update', () => {
   let oldSource: SourceRaw | null;
   let updateResult: any;
@@ -187,6 +199,10 @@ describe('update', () => {
       .table('sources')
       .where({ id: optionalSource.id })
       .first();
+    // Make source disabled
+    jest
+      .spyOn(GorgeConnector.prototype, 'isSourceEnabled')
+      .mockResolvedValue(false);
     updateResult = await runQuery(
       mutation,
       { source: optionalSource },
@@ -238,18 +254,6 @@ describe('update', () => {
         region_id: '2caf75ca-7625-11e7-b5a5-be2e44b06b34',
       },
     ]);
-  });
-
-  it('should not change enabled sources', async () => {
-    const result = await runQuery(
-      mutation,
-      { source: { ...optionalSource, id: SOURCE_GALICIA_2 } },
-      fakeContext(ADMIN),
-    );
-    expect(result).toHaveGraphqlError(
-      ApolloErrorCodes.MUTATION_NOT_ALLOWED,
-      'Disable source before editing it',
-    );
   });
 
   it('should match snapshot', () => {

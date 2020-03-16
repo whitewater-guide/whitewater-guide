@@ -1,6 +1,6 @@
 import Mapbox, { MapboxViewProps } from '@react-native-mapbox-gl/maps';
-import React, { forwardRef } from 'react';
-import { StyleSheet } from 'react-native';
+import React, { forwardRef, useCallback } from 'react';
+import { Keyboard, StyleSheet } from 'react-native';
 import { useCameraSetter, useInRegionLocation, useMapboxBounds } from './hooks';
 import { MapViewProps } from './types';
 
@@ -14,10 +14,20 @@ export const BaseMap = React.memo(
       locationPermissionGranted,
       initialBounds,
       children,
+      onPress,
       ...mapboxProps
     } = props;
     const setCamera = useCameraSetter();
     const bounds = useMapboxBounds(props.initialBounds);
+    const onMapPress = useCallback(
+      (e) => {
+        Keyboard.dismiss();
+        if (onPress) {
+          onPress(e);
+        }
+      },
+      [onPress],
+    );
     if (!detailed) {
       // detailed should not change during map existence
       useInRegionLocation(initialBounds, locationPermissionGranted);
@@ -32,6 +42,7 @@ export const BaseMap = React.memo(
         showUserLocation={locationPermissionGranted}
         styleURL={mapType}
         style={StyleSheet.absoluteFill}
+        onPress={onMapPress}
         {...mapboxProps}
       >
         <Mapbox.Camera

@@ -1,19 +1,5 @@
-import Icon from 'components/Icon';
-import React from 'react';
-import { I18nText } from '../../../i18n';
-import theme from '../../../theme';
-import registerScreen from '../../../utils/registerScreen';
+import { register } from 'react-native-bundle-splitter';
 
-export const LazyRegionSectionsListScreen = registerScreen({
+export const LazyRegionSectionsListScreen = register({
   require: () => require('./RegionSectionsListScreen'),
-  navigationOptions: {
-    tabBarLabel: <I18nText>{'region:sections.title'}</I18nText>,
-    tabBarIcon: () => (
-      <Icon
-        icon="view-list"
-        color={theme.colors.textLight}
-        testID="region-tab-list"
-      />
-    ),
-  },
 });

@@ -59,7 +59,7 @@ beforeEach(async () => {
   fetchMock.reset();
   fetchMock.mock(/logout/, { data: { success: true } });
   fetchMock.mock(/fcm\/set/, { data: { success: true } });
-  const service = new MobileAuthService(jest.fn(), jest.fn());
+  const service = new MobileAuthService();
   await service.init();
   link = createLink(service);
 });

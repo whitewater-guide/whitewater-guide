@@ -1,19 +1,5 @@
-import Icon from 'components/Icon';
-import React from 'react';
-import { I18nText } from '../../../i18n';
-import theme from '../../../theme';
-import registerScreen from '../../../utils/registerScreen';
+import { register } from 'react-native-bundle-splitter';
 
-export const LazySectionMapScreen = registerScreen({
+export const LazySectionMapScreen = register({
   require: () => require('./SectionMapScreen'),
-  navigationOptions: {
-    tabBarLabel: <I18nText>section:map.title</I18nText>,
-    tabBarIcon: () => (
-      <Icon
-        icon="map"
-        color={theme.colors.textLight}
-        testID="section-tab-map"
-      />
-    ),
-  },
 });

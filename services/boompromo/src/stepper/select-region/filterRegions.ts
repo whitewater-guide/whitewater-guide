@@ -1,7 +1,7 @@
-import { NamedNode } from '@whitewater-guide/commons';
+import { Region } from '@whitewater-guide/commons';
 import take from 'lodash/take';
 
-const filterRegions = (regions: NamedNode[], inputValue: string | null) => {
+const filterRegions = (regions: Region[], inputValue: string | null) => {
   if (!inputValue) {
     return take(regions, 5);
   }

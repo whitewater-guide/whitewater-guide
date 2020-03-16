@@ -4,14 +4,14 @@ import {
   render,
 } from '@testing-library/react-native';
 import { SectionsStatus } from '@whitewater-guide/clients';
-import { Region } from '@whitewater-guide/commons';
+import { Region, Section } from '@whitewater-guide/commons';
 import set from 'lodash/fp/set';
 import React from 'react';
-import { Section } from '../../../../../commons/src/features/sections';
 import { SectionsList } from './SectionsList';
 
-jest.mock('react-navigation-hooks', () => ({
-  useNavigation: jest.fn().mockReturnValue({}),
+jest.mock('@react-navigation/native', () => ({
+  ...require.requireActual('@react-navigation/native'),
+  useNavigation: () => ({}),
 }));
 
 const region: Partial<Region> = {

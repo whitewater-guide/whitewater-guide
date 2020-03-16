@@ -1,8 +1,12 @@
-import { BaseAuthService } from './service';
+import { AuthServiceEvent, BaseAuthService } from './service';
 
 export class MockAuthService extends BaseAuthService {
   constructor() {
     super('');
+  }
+
+  async testEmit(event: AuthServiceEvent, ...payload: any[]) {
+    await super.emit(event, ...payload);
   }
 
   init = jest.fn(() => super.init());

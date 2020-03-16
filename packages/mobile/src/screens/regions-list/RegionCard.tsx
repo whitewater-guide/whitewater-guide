@@ -1,11 +1,11 @@
 import { Region } from '@whitewater-guide/commons';
-import Paper from 'components/Paper';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import Image from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 import { Caption, Title, TouchableRipple } from 'react-native-paper';
+import Paper from '~/components/Paper';
 import theme from '../../theme';
 import DownloadButton from './DownloadButton';
 import PremiumBadge from './PremiumBadge';
@@ -88,6 +88,7 @@ export const RegionCard: React.FC<Props> = React.memo(({ region, index }) => {
               downloadRegion={cardProps.downloadRegion}
               canMakePayments={cardProps.canMakePayments}
               regionInProgress={cardProps.regionInProgress}
+              offlineError={cardProps.offlineError}
               region={region}
             />
             <Title style={styles.title}>{region.name}</Title>

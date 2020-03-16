@@ -20,7 +20,6 @@
       "simple-git",
       "lodash",
       "validator",
-      "redux-saga",
       "moment",
       "date-fns"
     ],

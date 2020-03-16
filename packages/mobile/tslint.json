@@ -5,19 +5,15 @@
       true,
       "react-native-vector-icons",
       "lodash",
-      "redux-saga",
-      "redux-persist",
       "react-use",
       "date-fns",
       "@storybook/addon-actions",
       "react-native-gesture-handler",
-      "redux-saga-test-plan/matchers",
-      "components",
-      "forms",
+      "~",
       "@whitewater-guide/clients",
       "@whitewater-guide/translations",
       "uuid"
     ],
-    "no-implicit-dependencies": [true, "dev", ["components", "forms"]]
+    "no-implicit-dependencies": [true, "dev", ["~"]]
   }
 }

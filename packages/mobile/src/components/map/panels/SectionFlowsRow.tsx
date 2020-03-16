@@ -7,6 +7,7 @@ import {
 } from '@whitewater-guide/clients';
 import { Section } from '@whitewater-guide/commons';
 import parseISO from 'date-fns/parseISO';
+import isNil from 'lodash/isNil';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
@@ -87,6 +88,9 @@ const SectionFlowsRow: React.FC<Props> = React.memo(({ section }) => {
       addSuffix: true,
     },
   );
+  if (isNil(value)) {
+    return <SimpleTextFlowRow style={styles.container} />;
+  }
   return (
     <Row style={styles.container}>
       <Subheading>{label}</Subheading>

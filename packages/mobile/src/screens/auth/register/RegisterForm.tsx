@@ -1,16 +1,17 @@
+import { useNavigation } from '@react-navigation/native';
 import { RegisterPayload, useAuth } from '@whitewater-guide/clients';
 import { Formik } from 'formik';
-import PasswordField from 'forms/password-field';
-import TextField from 'forms/TextField';
 import React, { useCallback, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Button, Title } from 'react-native-paper';
-import { useNavigation } from 'react-navigation-hooks';
-import theme from '../../../theme';
-import Screens from '../../screen-names';
+import { Screens } from '~/core/navigation';
+import PasswordField from '~/forms/password-field';
+import TextField from '~/forms/TextField';
+import theme from '~/theme';
 import { useAuthSubmit } from '../useAuthSubmit';
 import getValidationSchema from './getValidationSchema';
+import { AuthRegisterNavProp } from './types';
 
 const styles = StyleSheet.create({
   submitButton: {
@@ -31,8 +32,8 @@ export const RegisterForm: React.FC = React.memo(() => {
     [],
   );
   const { service } = useAuth();
-  const { navigate } = useNavigation();
-  const onSuccess = useCallback(() => navigate(Screens.Auth.Welcome), [
+  const { navigate } = useNavigation<AuthRegisterNavProp>();
+  const onSuccess = useCallback(() => navigate(Screens.AUTH_WELCOME), [
     navigate,
   ]);
   const [submit] = useAuthSubmit(

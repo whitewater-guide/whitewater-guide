@@ -1,11 +1,12 @@
+import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '@whitewater-guide/clients';
 import React, { useCallback, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 import MDCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useNavigation } from 'react-navigation-hooks';
+import { Screens } from '~/core/navigation';
 import theme from '../../theme';
-import Screens from '../screen-names';
+import { AuthStackNavProp } from './types';
 
 const styles = StyleSheet.create({
   fb: {
@@ -19,7 +20,7 @@ interface Props {
 
 export const FacebookButton: React.FC<Props> = React.memo(({ label }) => {
   const { service, loading } = useAuth();
-  const { navigate } = useNavigation();
+  const { navigate } = useNavigation<AuthStackNavProp>();
   const [fbPressed, setFbPressed] = useState(false);
   const signInWithFB = useCallback(() => {
     setFbPressed(true);
@@ -29,9 +30,9 @@ export const FacebookButton: React.FC<Props> = React.memo(({ label }) => {
         return;
       }
       if (isNew) {
-        navigate(Screens.Auth.Welcome, { verified: true });
+        navigate(Screens.AUTH_WELCOME, { verified: true });
       } else {
-        navigate(Screens.RegionsList);
+        navigate(Screens.REGIONS_LIST);
       }
     });
   }, [service.signIn, navigate, setFbPressed]);

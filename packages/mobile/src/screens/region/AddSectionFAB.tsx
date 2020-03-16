@@ -1,10 +1,10 @@
+import { useNavigation } from '@react-navigation/native';
 import { useMapSelection } from '@whitewater-guide/clients';
 import React, { useCallback } from 'react';
 import { StyleSheet } from 'react-native';
 import { FAB } from 'react-native-paper';
-import { useNavigation } from 'react-navigation-hooks';
+import { Screens } from '~/core/navigation';
 import theme from '../../theme';
-import Screens from '../screen-names';
 
 const styles = StyleSheet.create({
   fab: {
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
 export const AddSectionFAB: React.FC = React.memo(() => {
   const { navigate } = useNavigation();
   const { selection } = useMapSelection();
-  const onPress = useCallback(() => navigate(Screens.Region.AddSection.Root), [
+  const onPress = useCallback(() => navigate(Screens.ADD_SECTION_SCREEN), [
     navigate,
   ]);
   return (

@@ -1,8 +1,8 @@
 import { ListQuery, TopLevelResolver } from '@apollo';
-import { RegionsFilter } from '@whitewater-guide/commons';
+import { RegionFilterOptions } from '@whitewater-guide/commons';
 
 interface Vars extends ListQuery {
-  filter: RegionsFilter;
+  filter: RegionFilterOptions;
 }
 
 const regions: TopLevelResolver<Vars> = async (
@@ -12,9 +12,9 @@ const regions: TopLevelResolver<Vars> = async (
   info,
 ) => {
   let query = dataSources.regions.getMany(info, { page });
-  const { search } = filter;
-  if (search) {
-    query = query.where('name', 'ilike', `%${search}%`);
+  const { searchString } = filter;
+  if (searchString) {
+    query = query.where('name', 'ilike', `%${searchString}%`);
   }
   const result = await query;
   return result;

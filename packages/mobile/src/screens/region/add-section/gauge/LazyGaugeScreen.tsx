@@ -1,9 +1,5 @@
-import React from 'react';
-import registerScreen from '../../../../utils/registerScreen';
+import { register } from 'react-native-bundle-splitter';
 
-export const LazyGaugeScreen = registerScreen({
+export const LazyGaugeScreen = register({
   require: () => require('./GaugeScreen'),
-  navigationOptions: {
-    headerTitle: 'screens:addSection.gauge.title',
-  },
 });

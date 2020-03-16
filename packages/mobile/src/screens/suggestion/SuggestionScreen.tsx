@@ -1,19 +1,23 @@
-import { Screen } from 'components/Screen';
 import React from 'react';
-import { NavigationScreenComponent } from 'react-navigation';
+import { useTranslation } from 'react-i18next';
+import useEffectOnce from 'react-use/lib/useEffectOnce';
+import { Screen } from '~/components/Screen';
 import PhotoSuggestionForm from './PhotoSuggestionForm';
 import SimpleSuggestionForm from './SimpleSuggestionForm';
+import { SuggestionNavProps } from './types';
 
-interface NavParams {
-  sectionId: string;
-  localPhotoId?: string;
-}
-
-const SuggestionScreen: NavigationScreenComponent<NavParams> = ({
+const SuggestionScreen: React.FC<SuggestionNavProps> = ({
   navigation,
+  route,
 }) => {
-  const localPhotoId = navigation.getParam('localPhotoId');
-  const sectionId = navigation.getParam('sectionId');
+  const { t } = useTranslation();
+  const { sectionId, localPhotoId } = route.params;
+  const type = localPhotoId ? 'photo' : 'simple';
+  useEffectOnce(() => {
+    navigation.setOptions({
+      headerTitle: t(`screens:suggestion.${type}.title`),
+    });
+  });
   return (
     <Screen safe={true}>
       {localPhotoId ? (

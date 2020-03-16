@@ -5,7 +5,7 @@ import MDCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import App from './src/App';
 
-// This is required do to use_frameworks! in Podfile
+// This is required due to use_frameworks! in Podfile
 MDCommunity.loadFont();
 MaterialIcons.loadFont();
 

@@ -1,19 +1,5 @@
-import Icon from 'components/Icon';
-import React from 'react';
-import { I18nText } from '../../../i18n';
-import theme from '../../../theme';
-import registerScreen from '../../../utils/registerScreen';
+import { register } from 'react-native-bundle-splitter';
 
-export const LazySectionMediaScreen = registerScreen({
+export const LazySectionMediaScreen = register({
   require: () => require('./SectionMediaScreen'),
-  navigationOptions: {
-    tabBarLabel: <I18nText>section:media.title</I18nText>,
-    tabBarIcon: () => (
-      <Icon
-        icon="image-multiple"
-        color={theme.colors.textLight}
-        testID="section-tab-media"
-      />
-    ),
-  },
 });

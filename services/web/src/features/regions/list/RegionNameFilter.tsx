@@ -3,45 +3,47 @@ import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import Input from '@material-ui/core/Input';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import {
+  useRegionsSearchString,
+  useRegionsSearchStringSetter,
+} from '@whitewater-guide/clients';
 import React, { useCallback } from 'react';
 
-interface Props {
-  search: string;
-  setSearch: (value: string) => void;
-}
+const RegionNameFilter: React.FC = React.memo(() => {
+  const searchString = useRegionsSearchString();
+  const setSearchString = useRegionsSearchStringSetter();
 
-const RegionNameFilter: React.FC<Props> = React.memo(
-  ({ search, setSearch }) => {
-    const clear = useCallback(() => {
-      setSearch('');
-    }, [setSearch]);
-    const setSearchString = useCallback(
-      (e: any) => {
-        setSearch(e.target.value);
-      },
-      [setSearch],
-    );
-    return (
-      <FormControl fullWidth={true} margin="dense">
-        <Input
-          id="name-filter"
-          value={search}
-          onChange={setSearchString}
-          endAdornment={
-            search ? (
-              <InputAdornment position="end">
-                <IconButton onClick={clear} size="small">
-                  <Icon fontSize="small">cancel</Icon>
-                </IconButton>
-              </InputAdornment>
-            ) : null
-          }
-          placeholder="Name"
-        />
-      </FormControl>
-    );
-  },
-);
+  const clearSearchString = useCallback(() => {
+    setSearchString('');
+  }, [setSearchString]);
+
+  const onSearchStringChange = useCallback(
+    (e: any) => {
+      setSearchString(e.target.value);
+    },
+    [setSearchString],
+  );
+
+  return (
+    <FormControl fullWidth={true} margin="dense">
+      <Input
+        id="name-filter"
+        value={searchString}
+        onChange={onSearchStringChange}
+        endAdornment={
+          searchString ? (
+            <InputAdornment position="end">
+              <IconButton onClick={clearSearchString} size="small">
+                <Icon fontSize="small">cancel</Icon>
+              </IconButton>
+            </InputAdornment>
+          ) : null
+        }
+        placeholder="Name"
+      />
+    </FormControl>
+  );
+});
 
 RegionNameFilter.displayName = 'RegionNameFilter';
 

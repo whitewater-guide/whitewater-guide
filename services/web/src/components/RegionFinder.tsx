@@ -6,7 +6,7 @@ import { QueryResult } from 'react-apollo';
 import { AutocompleteProps, QueryAutocomplete } from './autocomplete';
 
 const FIND_REGIONS_QUERY = gql`
-  query findRegions($filter: RegionsFilter, $page: Page) {
+  query findRegions($filter: RegionFilterOptions, $page: Page) {
     regions(filter: $filter, page: $page) {
       nodes {
         id

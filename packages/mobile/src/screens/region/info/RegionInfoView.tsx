@@ -1,6 +1,6 @@
 import { useRegion } from '@whitewater-guide/clients';
-import Markdown from 'components/Markdown';
 import React from 'react';
+import Markdown from '~/components/Markdown';
 import NoRegionDescription from './NoRegionDescription';
 
 const RegionInfoView: React.FC = () => {

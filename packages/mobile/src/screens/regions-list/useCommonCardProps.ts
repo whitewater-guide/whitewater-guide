@@ -1,38 +1,34 @@
+import { useNavigation } from '@react-navigation/native';
 import { Region } from '@whitewater-guide/commons';
 import { useCallback } from 'react';
-import { useNavigation } from 'react-navigation-hooks';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../core/redux/reducers';
-import { offlineContentActions } from '../../features/offline';
+import { Screens } from '~/core/navigation';
+import { useOfflineContent } from '~/features/offline';
 import { useIap, usePremiumGuard } from '../../features/purchases';
-import Screens from '../screen-names';
+import { RegionsListNavProp } from './types';
 
 export default (region: Region) => {
-  const { navigate } = useNavigation();
+  const { navigate } = useNavigation<RegionsListNavProp>();
   const { canMakePayments } = useIap();
-
-  const regionInProgress = useSelector(
-    (state: RootState) => state.offlineContent.regionInProgress,
-  );
+  const offline = useOfflineContent();
 
   const premiumGuard = usePremiumGuard(region);
-  const dispatch = useDispatch();
   const downloadRegion = useCallback(() => {
     if (premiumGuard()) {
-      dispatch(offlineContentActions.toggleDialog(region));
+      offline.setDialogRegion(region);
     }
-  }, [dispatch, region, premiumGuard]);
+  }, [offline.setDialogRegion, region, premiumGuard]);
 
   const buyRegion = useCallback(() => {
-    navigate(Screens.Purchase.Root, { region });
+    navigate(Screens.PURCHASE_STACK, { region });
   }, [navigate, region]);
 
   const openRegion = useCallback(() => {
-    navigate(Screens.Region.Root, { regionId: region.id });
+    navigate(Screens.REGION_STACK, { regionId: region.id });
   }, [navigate, region]);
 
   return {
-    regionInProgress,
+    regionInProgress: offline.regionInProgress,
+    offlineError: offline.error,
     canMakePayments,
     downloadRegion,
     buyRegion,

@@ -1,5 +1,4 @@
 import { Region } from '@whitewater-guide/commons';
-import Icon from 'components/Icon';
 import React from 'react';
 import {
   ActivityIndicator,
@@ -7,6 +6,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import Icon from '~/components/Icon';
 import theme from '../../theme';
 
 const styles = StyleSheet.create({
@@ -35,19 +35,26 @@ const styles = StyleSheet.create({
 interface Props {
   region: Pick<Region, 'id' | 'premium' | 'hasPremiumAccess'>;
   regionInProgress: string | null;
+  offlineError?: Error;
   canMakePayments: boolean;
   downloadRegion: () => void;
 }
 
 const DownloadButton: React.FC<Props> = React.memo((props) => {
-  const { region, regionInProgress, canMakePayments, downloadRegion } = props;
+  const {
+    region,
+    regionInProgress,
+    canMakePayments,
+    downloadRegion,
+    offlineError,
+  } = props;
   const { premium, hasPremiumAccess } = region;
 
   if (premium && !hasPremiumAccess && !canMakePayments) {
     return null;
   }
 
-  if (regionInProgress === region.id) {
+  if (regionInProgress === region.id && !offlineError) {
     return (
       <TouchableWithoutFeedback
         onPress={downloadRegion}
@@ -65,14 +72,16 @@ const DownloadButton: React.FC<Props> = React.memo((props) => {
   }
 
   const disabled = !!regionInProgress && regionInProgress !== region.id;
+  const hasFailed = !!offlineError && regionInProgress === region.id;
   return (
     <Icon
-      icon="cloud-download"
+      icon={hasFailed ? 'cloud-alert' : 'cloud-download'}
       accessibilityLabel="download"
+      accessibilityHint={hasFailed ? 'download failed' : 'download'}
       testID="download-button"
       style={[styles.container, styles.iconContainer]}
       iconStyle={[styles.icon, disabled && styles.iconDisabled]}
-      color={theme.colors.textLight}
+      color={hasFailed ? theme.colors.error : theme.colors.textLight}
       onPress={disabled ? undefined : downloadRegion}
     />
   );

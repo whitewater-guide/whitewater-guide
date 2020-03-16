@@ -1,14 +1,14 @@
 import { sectionHasChanged } from '@whitewater-guide/clients';
 import { Section } from '@whitewater-guide/commons';
-import {
-  NavigateButton,
-  NAVIGATE_BUTTON_HEIGHT,
-  NAVIGATE_BUTTON_WIDTH,
-} from 'components/NavigateButton';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { PanGestureHandler } from 'react-native-gesture-handler';
 import Reanimated from 'react-native-reanimated';
+import {
+  NavigateButton,
+  NAVIGATE_BUTTON_HEIGHT,
+  NAVIGATE_BUTTON_WIDTH,
+} from '~/components/NavigateButton';
 import theme from '../../../../theme';
 import { ItemProps } from '../types';
 import { runAnimation, SwipeableAnimation } from './animations';

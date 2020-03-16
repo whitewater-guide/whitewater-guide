@@ -1,19 +1,19 @@
 import { useAuth } from '@whitewater-guide/clients';
 import { MediaKind } from '@whitewater-guide/commons';
-import Icon from 'components/Icon';
 import { useFormikContext } from 'formik';
 import React, { useCallback } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import Config from 'react-native-config';
-import { useNavigation } from 'react-navigation-hooks';
+import Icon from '~/components/Icon';
+import { Screens } from '~/core/navigation';
 import {
   LocalPhoto,
   useImagePicker,
   useLocalPhotos,
 } from '../../../../features/uploads';
 import theme from '../../../../theme';
-import Screens from '../../../screen-names';
 import { MediaFormInput, SectionFormInput } from '../types';
+import { AddSectionPhotosNavProp } from './types';
 
 const styles = StyleSheet.create({
   container: {
@@ -28,10 +28,10 @@ const styles = StyleSheet.create({
 
 interface Props {
   index: number;
+  navigation: AddSectionPhotosNavProp;
 }
 
-const AddPhotoButton: React.FC<Props> = React.memo(({ index }) => {
-  const { navigate } = useNavigation();
+const AddPhotoButton: React.FC<Props> = React.memo(({ index, navigation }) => {
   const { values, setFieldValue, setFieldTouched } = useFormikContext<
     SectionFormInput
   >();
@@ -56,7 +56,7 @@ const AddPhotoButton: React.FC<Props> = React.memo(({ index }) => {
         weight: null,
         photo,
       });
-      navigate(Screens.Region.AddSection.Photo, {
+      navigation.navigate(Screens.ADD_SECTION_PHOTO, {
         localPhotoId: photo.id,
         index,
       });
@@ -64,13 +64,13 @@ const AddPhotoButton: React.FC<Props> = React.memo(({ index }) => {
         setFieldTouched(`media.${index}.photo` as any, true);
       });
     },
-    [push, navigate, upload, setFieldTouched, index],
+    [push, navigation.navigate, upload, setFieldTouched, index],
   );
 
   const onPress =
     Config.E2E_MODE === 'true'
       ? () => {
-          navigate(Screens.Region.AddSection.Photo, {
+          navigation.navigate(Screens.ADD_SECTION_PHOTO, {
             localPhotoId: 'fooo',
             index,
           });

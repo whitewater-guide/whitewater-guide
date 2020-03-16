@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import NativeSplashScreen from 'react-native-bootsplash';
 import { enablePushNotifications } from '../core/pushNotifications';
 
-const SplashScreen: React.FC = () => {
+const SplashScreen = () => {
   useEffect(() => {
     return () => {
       NativeSplashScreen.hide();
@@ -11,5 +11,7 @@ const SplashScreen: React.FC = () => {
   }, []);
   return null;
 };
+
+SplashScreen.hide = () => NativeSplashScreen.hide();
 
 export default SplashScreen;

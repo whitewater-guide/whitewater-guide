@@ -14,6 +14,7 @@ export const OFFLINE_SECTIONS = gql`
       @connection(key: "offline_sections", filter: ["filter"]) {
       nodes {
         ...SectionCore
+        ...SectionRegionId
         ...SectionDescription
         ...SectionEnds
         ...SectionShape
@@ -27,6 +28,7 @@ export const OFFLINE_SECTIONS = gql`
     }
   }
   ${SectionFragments.Core}
+  ${SectionFragments.RegionId}
   ${SectionFragments.Description}
   ${SectionFragments.Ends}
   ${SectionFragments.Shape}

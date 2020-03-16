@@ -1,7 +1,7 @@
+import { useNavigation } from '@react-navigation/native';
 import { Region, Section } from '@whitewater-guide/commons';
 import { useCallback } from 'react';
-import { useNavigation } from 'react-navigation-hooks';
-import Screens from '../../screens/screen-names';
+import { Screens } from '~/core/navigation';
 import { usePremiumAccess } from './usePremiumAccess';
 
 export const usePremiumGuard = (
@@ -13,7 +13,7 @@ export const usePremiumGuard = (
   return useCallback(() => {
     if (!isFree) {
       const sectionId = section ? section.id : undefined;
-      navigate(Screens.Purchase.Root, { region, sectionId });
+      navigate(Screens.PURCHASE_STACK, { region, sectionId });
       return false;
     }
     return true;

@@ -1,7 +1,7 @@
 import {
   applySearch,
   Section,
-  SectionSearchTerms,
+  SectionFilterOptions,
 } from '@whitewater-guide/commons';
 import ApolloClient, {
   ApolloQueryResult,
@@ -10,11 +10,11 @@ import ApolloClient, {
 } from 'apollo-client';
 import React, { useContext } from 'react';
 import { getListMerger } from '../../apollo';
-import { POLL_REGION_MEASUREMENTS, PollVars } from '../regions';
+import { PollVars, POLL_REGION_MEASUREMENTS } from '../regions';
 import {
-  LIST_SECTIONS,
   ListSectionsResult,
   ListSectionsVars,
+  LIST_SECTIONS,
 } from './listSections.query';
 import { SectionsStatus } from './types';
 
@@ -36,7 +36,7 @@ export const SectionsListContext = React.createContext<SectionsListContext>({
 });
 
 interface Props {
-  searchTerms: SectionSearchTerms | null;
+  filterOptions: SectionFilterOptions | null;
   regionId?: string | null;
   limit?: number;
   pollInterval?: number;
@@ -215,7 +215,7 @@ export class SectionsListProvider extends React.PureComponent<
     const updatedAfter: Date | undefined = this.state.sections.reduce(
       (acc, { updatedAt }) =>
         acc && acc > new Date(updatedAt) ? acc : new Date(updatedAt),
-      undefined as (Date | undefined),
+      undefined as Date | undefined,
     );
     this.setState({ status: SectionsStatus.LOADING_UPDATES });
     await this.loadSections(0, updatedAfter);
@@ -259,9 +259,9 @@ export class SectionsListProvider extends React.PureComponent<
   };
 
   render() {
-    const { searchTerms, children } = this.props;
+    const { filterOptions, children } = this.props;
     const { status, count, sections } = this.state;
-    const filteredSections = applySearch(sections, searchTerms);
+    const filteredSections = applySearch(sections, filterOptions);
     const value = {
       count,
       status,

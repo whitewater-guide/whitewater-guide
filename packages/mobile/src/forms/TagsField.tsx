@@ -4,11 +4,11 @@ import {
   Tag,
   TagSelection,
 } from '@whitewater-guide/commons';
-import TernaryChip from 'components/TernaryChip';
 import { useFormikContext } from 'formik';
 import React, { useCallback, useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Paragraph } from 'react-native-paper';
+import TernaryChip from '~/components/TernaryChip';
 import theme from '../theme';
 
 const styles = StyleSheet.create({

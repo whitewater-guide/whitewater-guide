@@ -1,10 +1,11 @@
+import { useNavigation } from '@react-navigation/native';
 import { useSection } from '@whitewater-guide/clients';
-import Icon from 'components/Icon';
 import React, { useCallback } from 'react';
 import { StyleSheet } from 'react-native';
 import { FAB } from 'react-native-paper';
-import { useNavigation } from 'react-navigation-hooks';
-import Screens from '../screen-names';
+import Icon from '~/components/Icon';
+import { Screens } from '~/core/navigation';
+import { SectionScreenNavProp } from '~/screens/section/types';
 
 const styles = StyleSheet.create({
   fab: {
@@ -24,10 +25,10 @@ interface Props {
 }
 
 export const SuggestionFAB: React.FC<Props> = ({ testID }) => {
-  const { navigate } = useNavigation();
+  const { navigate } = useNavigation<SectionScreenNavProp>();
   const { node } = useSection();
   const onPress = useCallback(
-    () => navigate(Screens.Suggestion, { sectionId: node!.id }),
+    () => navigate(Screens.SUGGESTION, { sectionId: node!.id }),
     [navigate, node],
   );
   return (

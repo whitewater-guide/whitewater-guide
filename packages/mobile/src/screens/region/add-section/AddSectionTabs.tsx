@@ -1,66 +1,87 @@
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import React from 'react';
-import { NavigationRouteConfigMap } from 'react-navigation';
-import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
-import theme from '../../../theme';
-import { TabNavigatorConfig } from '../../../utils/navigation';
-import Screens from '../../screen-names';
+import { useTranslation } from 'react-i18next';
+import { Screens } from '~/core/navigation';
+import { AddSectionTabsNavProps } from '~/screens/region/add-section/types';
+import theme from '~/theme';
 import { LazyAttributesScreen } from './attributes';
 import { LazyDescriptionScreen } from './description';
 import { LazyFlowsScreen } from './flows';
+import getPager from './getPager';
 import { LazyMainScreen } from './main';
 import { LazyPhotosScreen } from './photos';
-import SubmitButton from './SubmitButton';
+import { AddSectionTabsParamsList } from './types';
 
-const routes: NavigationRouteConfigMap = {
-  [Screens.Region.AddSection.Tabs.Main]: {
-    screen: LazyMainScreen,
-  },
-  [Screens.Region.AddSection.Tabs.Attributes]: {
-    screen: LazyAttributesScreen,
-  },
-  [Screens.Region.AddSection.Tabs.Description]: {
-    screen: LazyDescriptionScreen,
-  },
-  [Screens.Region.AddSection.Tabs.Flows]: {
-    screen: LazyFlowsScreen,
-  },
-  [Screens.Region.AddSection.Tabs.Photos]: {
-    screen: LazyPhotosScreen,
-  },
-};
+const Tab = createMaterialTopTabNavigator<AddSectionTabsParamsList>();
 
-const config: TabNavigatorConfig = {
-  // TODO: https://github.com/react-navigation/tabs/issues/162
-  // @ts-ignore
-  initialRouteName: Screens.Region.AddSection.Tabs.Main,
-  backBehavior: 'none',
-  swipeEnabled: false,
-  animationEnabled: false,
-  lazy: true,
-  tabBarPosition: 'bottom',
-  initialLayout: {
-    height: theme.stackScreenHeight,
-    width: theme.screenWidth,
-  },
-  tabBarOptions: {
-    showIcon: false,
-    scrollEnabled: true,
-    indicatorStyle: {
-      bottom: undefined,
-      top: 0,
-      backgroundColor: theme.colors.accent,
-    },
-    style: {
-      backgroundColor: theme.colors.primary,
-    },
-  },
-};
-
-// TODO: wait till typedefs are fixed
-const AddSectionTabs: any = createMaterialTopTabNavigator(routes, config);
-AddSectionTabs.navigationOptions = {
-  headerTitle: 'screens:addSection.headerTitle',
-  headerRight: <SubmitButton />,
+const AddSectionTabs: React.FC<AddSectionTabsNavProps> = () => {
+  const { t } = useTranslation();
+  return (
+    <Tab.Navigator
+      backBehavior="none"
+      lazy={true}
+      tabBarPosition="bottom"
+      initialLayout={{
+        height: theme.stackScreenHeight,
+        width: theme.screenWidth,
+      }}
+      tabBarOptions={{
+        showIcon: false,
+        scrollEnabled: true,
+        indicatorStyle: {
+          bottom: undefined,
+          top: 0,
+          backgroundColor: theme.colors.accent,
+        },
+        style: {
+          backgroundColor: theme.colors.primary,
+        },
+      }}
+      swipeEnabled={false}
+      pager={getPager}
+    >
+      <Tab.Screen
+        name={Screens.ADD_SECTION_MAIN}
+        component={LazyMainScreen}
+        options={{
+          tabBarLabel: t('screens:addSection.tabs.main'),
+          tabBarTestID: 'add-section-tab-main',
+        }}
+      />
+      <Tab.Screen
+        name={Screens.ADD_SECTION_ATTRIBUTES}
+        component={LazyAttributesScreen}
+        options={{
+          tabBarLabel: t('screens:addSection.tabs.attributes'),
+          tabBarTestID: 'add-section-tab-attributes',
+        }}
+      />
+      <Tab.Screen
+        name={Screens.ADD_SECTION_DESCRIPTION}
+        component={LazyDescriptionScreen}
+        options={{
+          tabBarLabel: t('screens:addSection.tabs.description'),
+          tabBarTestID: 'add-section-tab-description',
+        }}
+      />
+      <Tab.Screen
+        name={Screens.ADD_SECTION_FLOWS}
+        component={LazyFlowsScreen}
+        options={{
+          tabBarLabel: t('screens:addSection.tabs.flows'),
+          tabBarTestID: 'add-section-tab-flows',
+        }}
+      />
+      <Tab.Screen
+        name={Screens.ADD_SECTION_PHOTOS}
+        component={LazyPhotosScreen}
+        options={{
+          tabBarLabel: t('screens:addSection.tabs.photos'),
+          tabBarTestID: 'add-section-tab-photos',
+        }}
+      />
+    </Tab.Navigator>
+  );
 };
 
 export default AddSectionTabs;

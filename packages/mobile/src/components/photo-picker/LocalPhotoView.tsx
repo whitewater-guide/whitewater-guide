@@ -29,6 +29,7 @@ interface Props {
   value: LocalPhoto;
   onChange: (value: LocalPhoto | null) => void;
   style?: StyleProp<ViewStyle>;
+  testID?: string;
 }
 
 const LocalPhotoView: React.FC<Props> = ({
@@ -36,6 +37,7 @@ const LocalPhotoView: React.FC<Props> = ({
   onChange,
   style,
   localPhotoId,
+  testID,
 }) => {
   const [index, setIndex] = useState(-1);
   const onOpen = useCallback(() => setIndex(0), [setIndex]);
@@ -62,7 +64,7 @@ const LocalPhotoView: React.FC<Props> = ({
     };
   }, [value]);
   return (
-    <View>
+    <View testID={testID}>
       <StatusBar hidden={Platform.OS === 'ios' && index >= 0} />
       <TouchableOpacity onPress={onOpen}>
         <Image

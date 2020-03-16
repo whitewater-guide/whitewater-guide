@@ -339,7 +339,7 @@ export function getSectionColorRaw(section: ColorizeSection): color {
   if (!flow && !level) {
     return Colors.none;
   }
-  let lastValue = 0;
+  let lastValue: number | null = 0;
   let binding: GaugeBinding | undefined;
   if (flow && section.flows) {
     lastValue = getBindingFormula(section.flows)(flow);

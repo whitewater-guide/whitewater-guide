@@ -1,10 +1,10 @@
 import { User } from '@whitewater-guide/commons';
-import RadioDialog from 'components/radio-dialog';
 import identity from 'lodash/identity';
 import memoize from 'lodash/memoize';
 import React from 'react';
 import { Mutation, MutationFunction } from 'react-apollo';
 import { useTranslation } from 'react-i18next';
+import RadioDialog from '~/components/radio-dialog';
 import { LANGUAGE_NAMES, SUPPORTED_LANGUAGES } from '../../i18n';
 import { Result, UPDATE_MY_PROFILE, Vars } from './updateProfile.mutation';
 

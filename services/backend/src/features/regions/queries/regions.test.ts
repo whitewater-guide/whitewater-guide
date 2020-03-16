@@ -175,7 +175,7 @@ describe('results', () => {
 
   it('should search by name', async () => {
     const searchQuery = `
-      query listRegions($filter: RegionsFilter, $page: Page){
+      query listRegions($filter: RegionFilterOptions, $page: Page){
         regions(filter: $filter, page: $page) {
           nodes {
             id
@@ -187,7 +187,7 @@ describe('results', () => {
 
     const result = await runQuery(
       searchQuery,
-      { filter: { search: 'Or' } },
+      { filter: { searchString: 'Or' } },
       fakeContext(ADMIN),
     );
     expect(result.errors).toBeUndefined();

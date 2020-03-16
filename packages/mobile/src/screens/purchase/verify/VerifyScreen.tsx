@@ -1,12 +1,12 @@
 import { useAuth } from '@whitewater-guide/clients';
-import { Screen } from 'components/Screen';
-import Spacer from 'components/Spacer';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Button, Paragraph, Subheading } from 'react-native-paper';
-import { NavigationScreenComponent } from 'react-navigation';
-import theme from '../../../theme';
+import { Screen } from '~/components/Screen';
+import Spacer from '~/components/Spacer';
+import theme from '~/theme';
+import { PurchaseVerifyNavProps } from './types';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const VerifyScreen: NavigationScreenComponent = ({ navigation }) => {
+const VerifyScreen: React.FC<PurchaseVerifyNavProps> = ({ navigation }) => {
   const { t } = useTranslation();
   const { me, refreshProfile, service } = useAuth();
 

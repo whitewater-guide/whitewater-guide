@@ -1,7 +1,7 @@
 import MapboxGL from '@react-native-mapbox-gl/maps';
 import { useCallback, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../../core/redux/reducers';
+import useMountedState from 'react-use/lib/useMountedState';
+import { useOfflineContent } from '../../OfflineContentProvider';
 
 const getPackSize = async (regionId: string) => {
   try {
@@ -19,24 +19,28 @@ const getPackSize = async (regionId: string) => {
 };
 
 const useOfflineMapsPack = () => {
-  const region = useSelector(
-    (state: RootState) => state.offlineContent.dialogRegion,
-  );
-  const regionId = region ? region.id : '';
+  const { dialogRegion } = useOfflineContent();
+  const isMounted = useMountedState();
+  const regionId = dialogRegion ? dialogRegion.id : '';
   const [loading, setLoading] = useState(true);
   const [size, setSize] = useState<number | null>(null);
+
   useEffect(() => {
     getPackSize(regionId).then((s) => {
-      setSize(s);
-      setLoading(false);
+      if (isMounted()) {
+        setSize(s);
+        setLoading(false);
+      }
     });
-  }, []);
+  }, [isMounted]);
+
   const deletePack = useCallback(() => {
     MapboxGL.offlineManager
       .deletePack(regionId)
       .then(() => setSize(null))
       .catch(() => {});
   }, [regionId, setSize]);
+
   return {
     loading,
     size,

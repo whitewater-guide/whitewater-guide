@@ -1,10 +1,10 @@
 import { WithNode } from '@whitewater-guide/clients';
 import { Region, Section } from '@whitewater-guide/commons';
-import DifficultyThumb from 'components/DifficultyThumb';
 import get from 'lodash/get';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Paragraph, Subheading } from 'react-native-paper';
+import DifficultyThumb from '~/components/DifficultyThumb';
 import theme from '../../../theme';
 import Icon from '../../Icon';
 import { NAVIGATE_BUTTON_HEIGHT } from '../../NavigateButton';

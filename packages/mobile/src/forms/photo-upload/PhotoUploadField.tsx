@@ -1,9 +1,9 @@
 import { LocalPhotoStatus } from '@whitewater-guide/clients';
-import Loading from 'components/Loading';
-import { PhotoPicker } from 'components/photo-picker';
 import { getIn, useFormikContext } from 'formik';
 import React, { useCallback, useEffect, useRef } from 'react';
 import { StyleSheet, View } from 'react-native';
+import Loading from '~/components/Loading';
+import { PhotoPicker } from '~/components/photo-picker';
 import { LocalPhoto, useLocalPhotos } from '../../features/uploads';
 import theme from '../../theme';
 import HelperText from '../HelperText';
@@ -36,10 +36,11 @@ const styles = StyleSheet.create({
 interface Props {
   localPhotoId: string;
   name: string;
+  testID?: string;
 }
 
 export const PhotoUploadField: React.FC<Props> = React.memo((props) => {
-  const { name, localPhotoId } = props;
+  const { name, localPhotoId, testID } = props;
   const ctx = useFormikContext<any>();
   const { errors, values, touched, setFieldTouched } = ctx;
   const ctxRef = useRef(ctx);
@@ -79,6 +80,7 @@ export const PhotoUploadField: React.FC<Props> = React.memo((props) => {
           onChange={onChange}
           style={styles.picker}
           localPhotoId={localPhotoId}
+          testID={testID}
         />
         {loading && (
           <View style={styles.overlay}>

@@ -14,7 +14,9 @@ it('should render by default', async () => {
   await element(by.id('auth-main-local')).tap();
   await expect(element(by.label('SCREENS:AUTH.REGISTER.SUBMIT'))).toBeVisible();
   // back on main screen and then to login screen
-  await element(by.id('header-back')).tap();
+  await element(by.id('header-back'))
+    .atIndex(0)
+    .tap();
   await element(by.id('auth-main-signin')).tap();
   // login via email screen
   await expect(element(by.label('SCREENS:AUTH.SIGNIN.REGISTER'))).toBeVisible();
@@ -23,8 +25,12 @@ it('should render by default', async () => {
   await element(by.label('screens:auth.signin.forgot')).tap();
   await expect(element(by.label('SCREENS:AUTH.FORGOT.SUBMIT'))).toBeVisible();
   // back to home screen
-  await element(by.id('header-back')).tap();
-  await element(by.id('header-back')).tap();
+  await element(by.id('header-back'))
+    .atIndex(0)
+    .tap();
+  await element(by.id('header-back'))
+    .atIndex(0)
+    .tap();
   await element(by.id('header-back')).tap();
   await expect(element(by.id('RegionCard1'))).toBeVisible();
 });
@@ -36,7 +42,8 @@ it('should handle password reset url from email', async () => {
       'https://api.beta.whitewater.guide/auth/local/reset/callback?id=foo&token=bar',
   });
   await expect(element(by.label('screens:auth.reset.title'))).toBeVisible();
-  await element(by.id('header-back')).tap();
-  await element(by.id('header-back')).tap();
+  await element(by.id('header-back'))
+    .atIndex(0)
+    .tap();
   await expect(element(by.id('RegionCard1'))).toBeVisible();
 });

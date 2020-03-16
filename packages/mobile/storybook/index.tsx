@@ -6,7 +6,6 @@ import {
 import React from 'react';
 import SplashScreen from 'react-native-bootsplash';
 import { Provider as PaperProvider } from 'react-native-paper';
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { I18nProvider } from '../src/i18n';
 import { PaperTheme } from '../src/theme';
 // @ts-ignore
@@ -16,13 +15,10 @@ console.disableYellowBox = true;
 
 addDecorator((story: any) => {
   const Screen = () => story();
-  const Navigator = createAppContainer(createSwitchNavigator({ Screen }));
 
   return (
     <I18nProvider>
-      <PaperProvider theme={PaperTheme}>
-        <Navigator />
-      </PaperProvider>
+      <PaperProvider theme={PaperTheme}>{story()}</PaperProvider>
     </I18nProvider>
   );
 });

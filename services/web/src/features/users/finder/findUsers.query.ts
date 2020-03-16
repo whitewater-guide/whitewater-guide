@@ -1,8 +1,8 @@
-import { NamedNode, UserFilter } from '@whitewater-guide/commons';
+import { NamedNode, UserFilterOptions } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 
 export const FIND_USERS_QUERY = gql`
-  query findUsers($filter: UserFilter!) {
+  query findUsers($filter: UserFilterOptions!) {
     users: findUsers(filter: $filter) {
       id
       name
@@ -11,7 +11,7 @@ export const FIND_USERS_QUERY = gql`
 `;
 
 export interface QVars {
-  filter: UserFilter;
+  filter: UserFilterOptions;
 }
 
 export interface QResult {

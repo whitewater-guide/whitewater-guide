@@ -1,12 +1,13 @@
+import { useNavigation } from '@react-navigation/native';
 import { getValidationErrors } from '@whitewater-guide/clients';
 import { SuggestionInput } from '@whitewater-guide/commons';
-import { useSnackbarMessage } from 'components/snackbar';
 import { FormikHelpers } from 'formik';
 import gql from 'graphql-tag';
 import { useCallback } from 'react';
 import { useMutation } from 'react-apollo';
 import { useTranslation } from 'react-i18next';
-import { useNavigation } from 'react-navigation-hooks';
+import { useSnackbarMessage } from '~/components/snackbar';
+import { SuggestionNavProp } from './types';
 
 const ADD_SUGGESTION_MUTATION = gql`
   mutation addSuggestion($suggestion: SuggestionInput!) {
@@ -23,7 +24,7 @@ interface MVars {
 export default () => {
   const { t } = useTranslation();
   const [mutate] = useMutation<any, MVars>(ADD_SUGGESTION_MUTATION);
-  const { goBack } = useNavigation();
+  const { goBack } = useNavigation<SuggestionNavProp>();
   const setSnackbar = useSnackbarMessage();
   return useCallback(
     (suggestion: SuggestionInput, helpers: FormikHelpers<SuggestionInput>) =>

@@ -26,10 +26,7 @@ export class MobileAuthService extends BaseAuthService {
   private _fcmToken: string | null = null;
   private _fcmTokenSent: boolean = false;
 
-  constructor(
-    private readonly _resetApolloCache?: () => Promise<void>,
-    private readonly _onSignOut?: () => void,
-  ) {
+  constructor() {
     super(BACKEND_URL);
     LoginManager.setLoginBehavior(
       Platform.OS === 'ios' ? 'browser' : 'native_with_fallback',
@@ -152,7 +149,10 @@ export class MobileAuthService extends BaseAuthService {
     return resp;
   }
 
-  private async postSignIn(resp: AuthResponse<SignInBody>) {
+  private async postSignIn(
+    resp: AuthResponse<SignInBody>,
+    afterSignup = false,
+  ) {
     const { success, id, accessToken, refreshToken } = resp;
     if (!success) {
       return;
@@ -163,10 +163,8 @@ export class MobileAuthService extends BaseAuthService {
     if (refreshToken) {
       await tokenStorage.setRefreshToken(refreshToken);
     }
+    await this.emit('sign-in', false);
     tracker.setUser({ id });
-    if (this._resetApolloCache) {
-      await this._resetApolloCache();
-    }
   }
 
   async signUp(payload: RegisterPayload): Promise<AuthResponse<SignInBody>> {
@@ -174,28 +172,24 @@ export class MobileAuthService extends BaseAuthService {
       ...payload,
       fcm_token: this._fcmToken,
     });
-    await this.postSignIn(resp);
+    await this.postSignIn(resp, true);
     return resp;
   }
 
   async signOut(force = false) {
     const opts = await this._getBearerHeader();
     // no await on purpose
-    this._get('/auth/logout', { fcm_token: this._fcmToken }, opts).catch(
-      () => {},
-    );
+    this._get(
+      '/auth/logout',
+      { fcm_token: this._fcmToken },
+      opts,
+    ).catch(() => {});
 
     await tokenStorage.setAccessToken(null);
     await tokenStorage.setRefreshToken(null);
     LoginManager.logOut();
     tracker.setUser(null);
-    if (this._onSignOut) {
-      this._onSignOut();
-    }
-    // resetApolloCache cannot be before resetNavigationToHome
-    if (this._resetApolloCache) {
-      await this._resetApolloCache();
-    }
+    await this.emit('sign-out', force);
     return { success: true, status: 200 };
   }
 

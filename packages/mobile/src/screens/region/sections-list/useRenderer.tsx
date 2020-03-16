@@ -1,15 +1,15 @@
+import { useNavigation } from '@react-navigation/native';
 import { SectionsStatus } from '@whitewater-guide/clients';
 import { Banner, isBanner, Section } from '@whitewater-guide/commons';
 import max from 'date-fns/max';
 import parseISO from 'date-fns/parseISO';
 import React, { useCallback, useMemo, useState } from 'react';
 import { RefreshControl } from 'react-native';
-import { useNavigation } from 'react-navigation-hooks';
-import { hasPremiumAccess, useIap } from '../../../features/purchases';
-import Screens from '../../screen-names';
+import { Screens } from '~/core/navigation';
+import { hasPremiumAccess, useIap } from '~/features/purchases';
 import { ListItem } from './item';
 import { SectionListBanner } from './item/SectionListBanner';
-import { ListProps } from './types';
+import { ListProps, RegionSectionsNavProp } from './types';
 
 interface ExtendedState {
   swipedId: string;
@@ -20,7 +20,7 @@ interface ExtendedState {
 
 export default (props: ListProps) => {
   const { region, sections, refresh, status } = props;
-  const { navigate } = useNavigation();
+  const { navigate } = useNavigation<RegionSectionsNavProp>();
   const { canMakePayments } = useIap();
 
   const [extraState, setExtraState] = useState<ExtendedState>({
@@ -49,9 +49,8 @@ export default (props: ListProps) => {
   const onSectionSelected = useCallback(
     (section: Section) => {
       if (region) {
-        navigate(Screens.Section.Root, {
+        navigate(Screens.SECTION_SCREEN, {
           sectionId: section.id,
-          regionId: region.id,
         });
       }
     },
@@ -65,10 +64,11 @@ export default (props: ListProps) => {
     [setExtraState],
   );
 
-  const buyRegion = useCallback(
-    () => navigate(Screens.Purchase.Root, { region }),
-    [region],
-  );
+  const buyRegion = useCallback(() => {
+    if (region) {
+      navigate(Screens.PURCHASE_STACK, { region });
+    }
+  }, [region]);
 
   const renderItem = useCallback(
     (

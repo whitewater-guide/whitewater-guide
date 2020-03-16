@@ -1,5 +1,6 @@
+import { useRegionsFilterOptions } from '@whitewater-guide/clients';
 import { Connection, filterRegions } from '@whitewater-guide/commons';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Column } from 'react-virtualized';
 import useRouter from 'use-react-router';
 import { UnstyledLink } from '../../../components';
@@ -40,17 +41,11 @@ const RegionsTable: React.FC<Props> = React.memo((props) => {
   const { regions, onRemove } = props;
   const { nodes, count } = regions;
   const { history } = useRouter();
-  const [search, setSearch] = useState('');
+  const filter = useRegionsFilterOptions();
 
-  const renderNameHeader = useCallback(
-    () => <RegionNameFilter search={search} setSearch={setSearch} />,
-    [search, search],
-  );
+  const renderNameHeader = useCallback(() => <RegionNameFilter />, []);
 
-  const filtered = useMemo(() => filterRegions(nodes, { search }), [
-    nodes,
-    search,
-  ]);
+  const filtered = useMemo(() => filterRegions(nodes, filter), [nodes, filter]);
 
   const onRegionClick = useCallback(
     (id: string) =>

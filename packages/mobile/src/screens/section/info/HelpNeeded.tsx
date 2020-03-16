@@ -1,9 +1,9 @@
 import { Section } from '@whitewater-guide/commons';
-import Paper from 'components/Paper';
 import React, { useCallback, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Collapsible from 'react-native-collapsible';
 import { Button, Paragraph } from 'react-native-paper';
+import Paper from '~/components/Paper';
 
 const styles = StyleSheet.create({
   buttonWrapper: {

@@ -313,10 +313,12 @@ PODS:
     - React
   - react-native-image-picker (2.3.1):
     - React
-  - react-native-mapbox-gl (7.2.0):
-    - Mapbox-iOS-SDK (~> 5.6)
+  - react-native-mapbox-gl (8.0.0-rc1):
+    - Mapbox-iOS-SDK (~> 5.7)
     - React
-  - react-native-netinfo (5.5.1):
+  - react-native-netinfo (5.6.2):
+    - React
+  - react-native-safe-area-context (0.7.3):
     - React
   - react-native-sensitive-info (5.5.5):
     - React
@@ -362,7 +364,11 @@ PODS:
     - React-cxxreact (= 0.61.5)
     - React-jsi (= 0.61.5)
     - ReactCommon/jscallinvoker (= 0.61.5)
-  - RNBootSplash (1.2.1):
+  - RNBootSplash (2.0.5):
+    - React
+  - RNCAsyncStorage (1.8.1):
+    - React
+  - RNCMaskedView (0.1.7):
     - React
   - RNFastImage (7.1.0):
     - React
@@ -389,12 +395,12 @@ PODS:
     - React
   - RNReanimated (1.7.0):
     - React
-  - RNScreens (2.2.0):
+  - RNScreens (2.3.0):
     - React
   - RNSentry (1.3.3):
     - React
     - Sentry (~> 4.4.0)
-  - RNSVG (12.0.2):
+  - RNSVG (12.0.3):
     - React
   - RNTextSize (4.0.0-rc.1):
     - React
@@ -437,6 +443,7 @@ DEPENDENCIES:
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - "react-native-mapbox-gl (from `../node_modules/@react-native-mapbox-gl/maps`)"
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
+  - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-sensitive-info (from `../node_modules/react-native-sensitive-info`)
   - react-native-startup-time (from `../node_modules/react-native-startup-time`)
   - react-native-webview (from `../node_modules/react-native-webview`)
@@ -453,6 +460,8 @@ DEPENDENCIES:
   - ReactCommon/jscallinvoker (from `../node_modules/react-native/ReactCommon`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - RNBootSplash (from `../node_modules/react-native-bootsplash`)
+  - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
+  - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - RNFastImage (from `../node_modules/react-native-fast-image`)
   - "RNFBAnalytics (from `../node_modules/@react-native-firebase/analytics`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
@@ -543,6 +552,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-mapbox-gl/maps"
   react-native-netinfo:
     :path: "../node_modules/@react-native-community/netinfo"
+  react-native-safe-area-context:
+    :path: "../node_modules/react-native-safe-area-context"
   react-native-sensitive-info:
     :path: "../node_modules/react-native-sensitive-info"
   react-native-startup-time:
@@ -573,6 +584,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   RNBootSplash:
     :path: "../node_modules/react-native-bootsplash"
+  RNCAsyncStorage:
+    :path: "../node_modules/@react-native-community/async-storage"
+  RNCMaskedView:
+    :path: "../node_modules/@react-native-community/masked-view"
   RNFastImage:
     :path: "../node_modules/react-native-fast-image"
   RNFBAnalytics:
@@ -647,8 +662,9 @@ SPEC CHECKSUMS:
   react-native-config: f2c2ae45625a068c35681a16b9bfb1ca58b0adc7
   react-native-fbsdk: c35d42169e64aaf66f01713c1e18d0674f7f6519
   react-native-image-picker: 6a850c41f57f0848d918c2a77aedd7aa272ffa30
-  react-native-mapbox-gl: f94bda32d55284b202d72359ed7d5d43f5223c89
-  react-native-netinfo: 3bf235d94cc291cf0673ad9fd9eaae82f84ed8a9
+  react-native-mapbox-gl: 88e6bb18990c209c161b23debf3d76b214ca6319
+  react-native-netinfo: 73303369946c2487c600418961bfdc87748b832f
+  react-native-safe-area-context: e200d4433aba6b7e60b52da5f37af11f7a0b0392
   react-native-sensitive-info: 4629b223484a08225c3eb088ff3f91b03097b5e5
   react-native-startup-time: b2736ed7feca431295cf38a787f23c2bdfcc58d3
   react-native-webview: fcb5f377aadc216273300f452ee0d321fb85809b
@@ -663,7 +679,9 @@ SPEC CHECKSUMS:
   React-RCTText: 9ccc88273e9a3aacff5094d2175a605efa854dbe
   React-RCTVibration: a49a1f42bf8f5acf1c3e297097517c6b3af377ad
   ReactCommon: 198c7c8d3591f975e5431bec1b0b3b581aa1c5dd
-  RNBootSplash: 823a7eacaf6aa6e4725bf8dee9f6eeb013b27bc9
+  RNBootSplash: e5e37b64a03a9655e2db8c2e12a7a30853cf3352
+  RNCAsyncStorage: e0dd7c8a36543b4ef84969acd9f8aceba3a92dc2
+  RNCMaskedView: 76c40a1d41c3e2535df09246a2b5487f04de0814
   RNFastImage: c5dd7458d2ad421e990ee42a19e93c678bed1aa8
   RNFBAnalytics: b8bad44e6653af73219b1a7af24bf3452cb02c1b
   RNFBApp: 7d4006751de8bb5cafa2e8d2e7d94ee250df81db
@@ -673,9 +691,9 @@ SPEC CHECKSUMS:
   RNIap: 4a353600facc146dfc771250b2382f2c25aa22ee
   RNLocalize: a734b53c45e77acd3ffb78b92e63bb4d6cd13257
   RNReanimated: 031fe8d9ea93c2bd689a40f05320ef9d96f74d7f
-  RNScreens: 812b79d384e2bea7eebc4ec981469160d4948fd5
+  RNScreens: 03bf608b92ac0acf323f47d8f5b63a8f829340c8
   RNSentry: 86baf0c87120cd5eb491d073989f8cbc1a2174c6
-  RNSVG: 9f7446f2e8fb1a5dc66a4aff58c33d367291d34c
+  RNSVG: 7e16ddfc6e00d5aa69c9eb83e699bcce5dcb85d4
   RNTextSize: 7efa06531c6bb7ab6ed070b4ce0d1248cf06fcdf
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
   SDWebImage: 4d5c027c935438f341ed33dbac53ff9f479922ca

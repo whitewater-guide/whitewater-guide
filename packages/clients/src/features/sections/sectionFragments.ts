@@ -57,6 +57,16 @@ export type SectionCore = SectionName &
     | 'rating'
   >;
 
+const RegionId = gql`
+  fragment SectionRegionId on Section {
+    region {
+      id
+    }
+  }
+`;
+
+export type SectionRegionId = { region: { __typename?: 'Region'; id: string } };
+
 const Ends = gql`
   fragment SectionEnds on Section {
     putIn {
@@ -221,6 +231,7 @@ export type SectionTags = Pick<Section, 'tags'>;
 export const SectionFragments = {
   Name,
   Core,
+  RegionId,
   Description,
   GaugeBinding,
   Ends,

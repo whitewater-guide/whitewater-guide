@@ -1,32 +1,27 @@
-import useActionSheet from 'components/useActionSheet';
+import { Section } from '@whitewater-guide/commons';
 import React, { useCallback } from 'react';
-import { useQuery } from 'react-apollo';
 import { useTranslation } from 'react-i18next';
 import { Clipboard, Platform } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import { IconButton } from 'react-native-paper';
+import useActionSheet from '~/components/useActionSheet';
 import theme from '../../../theme';
-import { Result, SECTION_DETAILS, Vars } from '../sectionDetails.query';
 
 interface Props {
-  sectionId: string;
+  section: Section | null;
 }
 
-const SectionGuideMenu: React.FC<Props> = ({ sectionId }) => {
+const SectionGuideMenu: React.FC<Props> = ({ section }) => {
   const [t] = useTranslation();
   const options = [t('section:guide.menu.clipboard'), t('commons:cancel')];
   const [actionSheet, showMenu] = useActionSheet();
-  const { data } = useQuery<Result, Vars>(SECTION_DETAILS, {
-    fetchPolicy: 'cache-only',
-    variables: { sectionId },
-  });
   const onMenu = useCallback(
     (index: number) => {
-      if (index === 0 && data && data.section && data.section.description) {
-        Clipboard.setString(data.section.description);
+      if (index === 0 && section?.description) {
+        Clipboard.setString(section?.description);
       }
     },
-    [data],
+    [section],
   );
   return (
     <React.Fragment>

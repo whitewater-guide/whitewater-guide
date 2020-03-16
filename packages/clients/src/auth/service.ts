@@ -12,7 +12,9 @@ import {
   ResetPayload,
 } from './types';
 
-type Listener = (loading: boolean) => void;
+type Listener = (...args: any[]) => Promise<void> | void;
+
+export type AuthServiceEvent = 'loading' | 'sign-out' | 'sign-in';
 
 export interface AuthService {
   init(): Promise<void>;
@@ -34,14 +36,26 @@ export interface AuthService {
     payload: RequestVerificationPayload,
   ): Promise<AuthResponse>;
 
-  listener: Listener | null;
+  on(
+    e: 'loading',
+    listener: (loading: boolean) => Promise<void> | void,
+  ): () => void;
+  on(
+    e: 'sign-out',
+    listener: (forced: boolean) => Promise<void> | void,
+  ): () => void;
+  on(
+    e: 'sign-in',
+    listener: (afterSignUp: boolean) => Promise<void> | void,
+  ): () => void;
+  off(e: AuthServiceEvent, listener?: Listener): void;
 }
 
 export abstract class BaseAuthService implements AuthService {
   protected readonly _baseUrl: string;
   protected readonly _credentials: RequestInit['credentials'];
   private _loading: boolean = false;
-  private _listener: Listener | null = null;
+  private _listeners: Map<string | symbol, Listener[]> = new Map();
   private _initialized: boolean = false;
   private _refreshing: Promise<AuthResponse<RefreshBody>> | null = null;
 
@@ -50,16 +64,38 @@ export abstract class BaseAuthService implements AuthService {
     this._credentials = credentials ? 'include' : 'omit';
   }
 
-  set listener(value: Listener | null) {
-    this._listener = value;
+  public on(event: AuthServiceEvent, listener: Listener): () => void {
+    const listeners = this._listeners.get(event) || [];
+    listeners.push(listener);
+    this._listeners.set(event, listeners);
+    return () => this.off(event, listener);
+  }
+
+  public off(event: AuthServiceEvent, listener?: Listener) {
+    if (!listener) {
+      this._listeners.delete(event);
+      return;
+    }
+    const listeners = this._listeners.get(event) || [];
+    this._listeners.set(
+      event,
+      listeners.filter((l) => l !== listener),
+    );
+  }
+
+  protected async emit(event: AuthServiceEvent, ...payload: any[]) {
+    const listeners = this._listeners.get(event);
+    if (listeners) {
+      for (const listener of listeners) {
+        await Promise.resolve(listener(...payload));
+      }
+    }
   }
 
   protected set loading(value: boolean) {
     if (this._loading !== value) {
       this._loading = value;
-      if (this._listener) {
-        this._listener(value);
-      }
+      this.emit('loading', value);
     }
   }
 

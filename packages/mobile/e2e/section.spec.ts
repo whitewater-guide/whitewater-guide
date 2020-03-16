@@ -15,7 +15,9 @@ it('should navigate back to region', async () => {
   await expect(element(by.label('commons:difficulty'))).toBeVisible();
   await expect(element(by.label('section:info.title'))).toBeVisible();
   await expect(element(by.id('section-info-fab'))).toBeVisible();
-  await element(by.id('header-back')).tap();
+  await element(by.id('header-back'))
+    .atIndex(0)
+    .tap();
   await expect(element(by.id('SectionsListItem0'))).toBeVisible();
 });
 
@@ -24,13 +26,13 @@ it('should navigate between tabs', async () => {
   await element(by.id('section-tab-map'))
     .atIndex(0)
     .tap();
-  await expect(element(by.type('RCTMGLMapView'))).toBeVisible();
-  await expect(element(by.id('header-back'))).toBeVisible();
+  await expect(element(by.id('section-map'))).toBeVisible();
+  await expect(element(by.id('header-back')).atIndex(0)).toBeVisible();
   // guide
   await element(by.id('section-tab-guide'))
     .atIndex(0)
     .tap();
-  await expect(element(by.id('header-back'))).toBeVisible();
+  await expect(element(by.id('header-back')).atIndex(0)).toBeVisible();
   await expect(element(by.id('section-info-menu-button'))).toBeVisible();
   await expect(element(by.label('section:guide.noData'))).toBeVisible(); // TODO: case with data
   await expect(element(by.id('section-guide-fab'))).toBeVisible();
@@ -38,7 +40,7 @@ it('should navigate between tabs', async () => {
   await element(by.id('section-tab-media'))
     .atIndex(0)
     .tap();
-  await expect(element(by.id('header-back'))).toBeVisible();
+  await expect(element(by.id('header-back')).atIndex(0)).toBeVisible();
   await expect(element(by.label('section:media.photo'))).toBeVisible();
   await expect(element(by.id('suggest-media-fab'))).toBeVisible();
   // Chart
@@ -56,7 +58,9 @@ it('should navigate between tabs', async () => {
     .toBeVisible()
     .withTimeout(2000);
   // back to region from non-default tab
-  await element(by.id('header-back')).tap();
+  await element(by.id('header-back'))
+    .atIndex(0)
+    .tap();
   await waitFor(element(by.id('SectionsListItem0')))
     .toBeVisible()
     .withTimeout(2000);
@@ -67,7 +71,9 @@ it('should navigate to simple suggestion screen and back', async () => {
   await expect(
     element(by.label('SCREENS:SUGGESTION.SUBMITSIMPLE')),
   ).toBeVisible();
-  await element(by.id('header-back')).tap();
+  await element(by.id('header-back'))
+    .atIndex(0)
+    .tap();
   await expect(element(by.label('commons:difficulty'))).toBeVisible();
   await expect(element(by.label('section:info.title'))).toBeVisible();
 });
@@ -80,6 +86,8 @@ it('should navigate to media suggestion screen and back', async () => {
   await expect(
     element(by.label('SCREENS:SUGGESTION.SUBMITPHOTO')),
   ).toBeVisible();
-  await element(by.id('header-back')).tap();
+  await element(by.id('header-back'))
+    .atIndex(0)
+    .tap();
   await expect(element(by.label('section:media.photo'))).toBeVisible();
 });

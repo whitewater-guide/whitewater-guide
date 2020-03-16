@@ -3,18 +3,18 @@ import {
   render,
   waitForElementToBeRemoved,
 } from '@testing-library/react-native';
+import { dataIdFromObject } from '@whitewater-guide/clients';
 import { mockApolloProvider } from '@whitewater-guide/clients/dist/test';
 import gql from 'graphql-tag';
 import { MockList } from 'graphql-tools';
 import React from 'react';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import { dataIdFromObject } from '../../../../clients/src/apollo';
-import { rootReducer } from '../../core/redux/reducers';
 import RegionsListView from './RegionsListView';
 
-jest.mock('react-navigation-hooks', () => ({
-  useNavigation: () => ({ navigate: jest.fn() }),
+jest.mock('@react-navigation/native', () => ({
+  ...require.requireActual('@react-navigation/native'),
+  useNavigation: () => ({
+    navigate: jest.fn(),
+  }),
 }));
 
 it('should rerender when premium changes', async () => {
@@ -34,13 +34,8 @@ it('should rerender when premium changes', async () => {
       }),
     },
   });
-  const store = createStore(rootReducer);
   const Providers: React.FC = ({ children }) => {
-    return (
-      <Provider store={store}>
-        <ApolloProvider>{children}</ApolloProvider>
-      </Provider>
-    );
+    return <ApolloProvider>{children}</ApolloProvider>;
   };
 
   const { rerender, getByLabelText, getAllByLabelText } = render(

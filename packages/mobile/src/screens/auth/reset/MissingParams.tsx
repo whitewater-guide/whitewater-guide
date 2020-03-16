@@ -1,13 +1,14 @@
-import Spacer from 'components/Spacer';
-import HelperText from 'forms/HelperText';
+import { useNavigation } from '@react-navigation/native';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'react-native-paper';
-import { useNavigation } from 'react-navigation-hooks';
+import Spacer from '~/components/Spacer';
+import HelperText from '~/forms/HelperText';
+import { AuthResetNavProp } from './types';
 
 const MissingParams: React.FC = () => {
   const { t } = useTranslation();
-  const { goBack } = useNavigation();
+  const { goBack } = useNavigation<AuthResetNavProp>();
   const back = useCallback(() => goBack(), [goBack]);
   return (
     <React.Fragment>

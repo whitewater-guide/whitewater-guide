@@ -1,19 +1,24 @@
+import { useNavigation } from '@react-navigation/native';
 import { ResetPayload, useAuth } from '@whitewater-guide/clients';
-import Spacer from 'components/Spacer';
 import { Formik } from 'formik';
-import HelperText from 'forms/HelperText';
-import PasswordField from 'forms/password-field';
-import SuccessText from 'forms/SuccessText';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'react-native-paper';
-import { useNavigation } from 'react-navigation-hooks';
-import Screens from '../../screen-names';
+import Spacer from '~/components/Spacer';
+import { Screens } from '~/core/navigation';
+import HelperText from '~/forms/HelperText';
+import PasswordField from '~/forms/password-field';
+import SuccessText from '~/forms/SuccessText';
 import { useAuthSubmit } from '../useAuthSubmit';
 import getValidationSchema from './getValidationSchema';
-import { ResetParams } from './types';
+import { AuthResetNavProp } from './types';
 
-export const ResetForm: React.FC<ResetParams> = ({ id, token }) => {
+interface Props {
+  id: string;
+  token: string;
+}
+
+export const ResetForm: React.FC<Props> = ({ id, token }) => {
   const initialValues: ResetPayload = useMemo(
     () => ({
       id,
@@ -23,8 +28,8 @@ export const ResetForm: React.FC<ResetParams> = ({ id, token }) => {
     [id, token],
   );
   const { t } = useTranslation();
-  const { navigate } = useNavigation();
-  const back = useCallback(() => navigate(Screens.Auth.SignIn), [navigate]);
+  const { navigate } = useNavigation<AuthResetNavProp>();
+  const back = useCallback(() => navigate(Screens.AUTH_SIGN_IN), [navigate]);
   const { service } = useAuth();
   const [submit, isSuccessful] = useAuthSubmit(
     'screens:auth.reset.',

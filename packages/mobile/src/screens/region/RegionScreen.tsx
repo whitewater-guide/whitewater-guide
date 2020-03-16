@@ -1,45 +1,51 @@
 import { useNetInfo } from '@react-native-community/netinfo';
 import {
   RegionProvider,
+  SectionsFilterProvider,
   SectionsListProvider,
-  useFilterState,
+  useSectionsFilterOptions,
 } from '@whitewater-guide/clients';
-import ErrorBoundary from 'components/ErrorBoundary';
 import React from 'react';
 import { useApolloClient } from 'react-apollo';
-import { NavigationRouter, NavigationScreenComponent } from 'react-navigation';
+import ErrorBoundary from '~/components/ErrorBoundary';
 import theme from '../../theme';
 import RegionStack from './RegionStack';
+import { RegionScreenNavProps } from './types';
 
-interface NavParams {
+interface Props {
   regionId: string;
 }
 
-export const RegionScreen: NavigationScreenComponent<NavParams> & {
-  router: NavigationRouter;
-} = ({ navigation }) => {
-  const searchTerms = useFilterState();
+const InnerRegionScreen: React.FC<Props> = ({ regionId }) => {
+  const filterOptions = useSectionsFilterOptions();
   const { isConnected } = useNetInfo();
   const client = useApolloClient();
-  const regionId = navigation.getParam('regionId');
+  return (
+    <SectionsListProvider
+      filterOptions={filterOptions}
+      regionId={regionId}
+      isConnected={isConnected}
+      client={client}
+    >
+      <RegionStack />
+    </SectionsListProvider>
+  );
+};
+
+const RegionScreen: React.FC<RegionScreenNavProps> = ({ route }) => {
+  // TODO navigation allow error boundary to reset to home screen
   return (
     <ErrorBoundary>
-      <RegionProvider regionId={regionId} bannerWidth={theme.screenWidthPx}>
-        <SectionsListProvider
-          searchTerms={searchTerms}
-          regionId={regionId}
-          isConnected={isConnected}
-          client={client}
+      <SectionsFilterProvider>
+        <RegionProvider
+          regionId={route.params.regionId}
+          bannerWidth={theme.screenWidthPx}
         >
-          <RegionStack navigation={navigation} />
-        </SectionsListProvider>
-      </RegionProvider>
+          <InnerRegionScreen regionId={route.params.regionId} />
+        </RegionProvider>
+      </SectionsFilterProvider>
     </ErrorBoundary>
   );
 };
 
-RegionScreen.router = RegionStack.router;
-
-RegionScreen.navigationOptions = ({ navigation }) => ({
-  header: null,
-});
+export default RegionScreen;

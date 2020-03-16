@@ -1,1 +1,1 @@
-export * from './AuthStack';
+export * from './LazyAuthStack';

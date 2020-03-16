@@ -1,28 +1,57 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Appbar } from 'react-native-paper';
+import theme from '~/theme';
 
 interface Props {
-  headerLeft?: React.ReactElement | null;
-  index: number;
+  element?: React.ReactNode;
+  hasPrevious: boolean;
   topLevel?: boolean;
   onMenu: () => void;
   onBack: () => void;
   headerTintColor?: string;
+
+  searchActive?: boolean;
+  setSearchActive?: React.Dispatch<React.SetStateAction<boolean>>;
+  setSearchInput?: (input: string) => void;
 }
 
-const HeaderLeft: React.FC<Props> = (props) => {
+const HeaderLeft: React.FC<Props> = React.memo((props) => {
   const {
-    headerLeft,
-    index,
+    element,
+    hasPrevious,
     topLevel,
     onMenu,
     onBack,
     headerTintColor,
+    searchActive,
+    setSearchActive,
+    setSearchInput,
   } = props;
-  if (headerLeft === null || !!headerLeft) {
-    return headerLeft;
+
+  const cancelSearch = useCallback(() => {
+    if (setSearchActive) {
+      setSearchActive(false);
+    }
+    if (setSearchInput) {
+      setSearchInput('');
+    }
+  }, [setSearchActive, setSearchInput]);
+
+  if (searchActive) {
+    return (
+      <Appbar.Action
+        icon="chevron-left"
+        size={36}
+        onPress={cancelSearch}
+        color={theme.colors.primary}
+        testID="header-search-back"
+      />
+    );
   }
-  if (index || !topLevel) {
+  if (element !== undefined) {
+    return element as any;
+  }
+  if (hasPrevious || !topLevel) {
     return (
       <Appbar.Action
         icon="chevron-left"
@@ -41,6 +70,8 @@ const HeaderLeft: React.FC<Props> = (props) => {
       testID="header-menu"
     />
   );
-};
+});
+
+HeaderLeft.displayName = 'HeaderLeft';
 
 export default HeaderLeft;

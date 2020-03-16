@@ -1,7 +1,12 @@
 import React from 'react';
-import { NavigationScreenComponent } from 'react-navigation';
-import { RegisterView } from './RegisterView';
+import { AuthScreenBase } from '../AuthScreenBase';
+import { RegisterForm } from './RegisterForm';
+import { AuthRegisterNavProps } from './types';
 
-const RegisterScreen: NavigationScreenComponent = () => <RegisterView />;
+const RegisterScreen: React.FC<AuthRegisterNavProps> = () => (
+  <AuthScreenBase>
+    <RegisterForm />
+  </AuthScreenBase>
+);
 
 export default RegisterScreen;

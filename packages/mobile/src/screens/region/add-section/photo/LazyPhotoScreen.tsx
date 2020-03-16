@@ -1,12 +1,5 @@
-import React from 'react';
-import registerScreen from '../../../../utils/registerScreen';
-import BackButton from './BackButton';
+import { register } from 'react-native-bundle-splitter';
 
-export const LazyPhotoScreen = registerScreen({
+export const LazyPhotoScreen = register({
   require: () => require('./PhotoScreen'),
-  navigationOptions: {
-    title: 'screens:addSection.photo.title',
-    headerLeft: null,
-    headerRight: <BackButton />,
-  },
 });

@@ -1,21 +1,29 @@
-import { Screen } from 'components/Screen';
 import React from 'react';
-import { NavigationScreenComponent } from 'react-navigation';
+import { Screen } from '~/components/Screen';
+import BackButton from './BackButton';
 import SectionPhotoForm from './SectionPhotoForm';
-import { NavParams } from './types';
+import { AddSectionPhotoNavProps } from './types';
 
-const PhotoScreen: NavigationScreenComponent<NavParams> = React.memo(
-  ({ navigation }) => {
-    const index = navigation.getParam('index');
-    const localPhotoId = navigation.getParam('localPhotoId');
-    return (
-      <Screen>
-        <SectionPhotoForm index={index} localPhotoId={localPhotoId} />
-      </Screen>
-    );
-  },
-);
+const PhotoScreen: React.FC<AddSectionPhotoNavProps> = ({
+  navigation,
+  route,
+}) => {
+  const { index, localPhotoId } = route.params;
 
-PhotoScreen.displayName = 'PhotoScreen';
+  React.useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => null,
+      headerRight: () => (
+        <BackButton index={index} onPress={navigation.goBack} />
+      ),
+    });
+  }, [navigation, index]);
+
+  return (
+    <Screen>
+      <SectionPhotoForm index={index} localPhotoId={localPhotoId} />
+    </Screen>
+  );
+};
 
 export default PhotoScreen;

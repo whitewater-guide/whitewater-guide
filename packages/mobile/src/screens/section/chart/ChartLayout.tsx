@@ -1,7 +1,7 @@
 import { ChartProps, ChartProvider } from '@whitewater-guide/clients';
-import { Chart, ChartFlowToggle, ChartPeriodToggle } from 'components/chart';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { Chart, ChartFlowToggle, ChartPeriodToggle } from '~/components/chart';
 import theme from '../../../theme';
 import GaugeInfo from './GaugeInfo';
 

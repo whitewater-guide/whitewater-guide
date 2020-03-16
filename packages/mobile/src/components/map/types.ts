@@ -14,4 +14,5 @@ export interface MapViewProps {
   detailed?: boolean;
   locationPermissionGranted: boolean;
   initialBounds: CoordinateLoose[];
+  testID?: string;
 }

@@ -1,1 +1,1 @@
-export * from './SectionTabs';
+export * from './LazySectionScreen';

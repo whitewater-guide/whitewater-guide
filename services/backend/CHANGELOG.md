@@ -1,3 +1,10 @@
+## [0.0.421-v5.0](https://github.com/doomsower/whitewater/compare/e471c050240b02dc38a319e37b3210b57f7f97ce...dbcb26d330aeb35197c416b7b4af6fce20c9573d) (2020-03-15)
+
+### Features
+
+- better filters wip ([](https://github.com/doomsower/whitewater/commit/ccd6a68fd84b2ca3d8be9fda5ce2ba87761ee1e4))
+- update backend and use latest filter changes ([](https://github.com/doomsower/whitewater/commit/872a35ac63f855a83c99e69e696868a46d1029bd))
+
 ## [0.0.420](https://github.com/doomsower/whitewater/compare/49c0bc30d6380ba3fc3d9adc2548f984bbe17420...e471c050240b02dc38a319e37b3210b57f7f97ce) (2020-03-04)
 
 ### Features

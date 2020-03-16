@@ -1,13 +1,13 @@
+import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
-import { useNavigation } from 'react-navigation-hooks';
+import { Screens } from '~/core/navigation';
 import { IAPError, PremiumRegion, useIap } from '../../../features/purchases';
-import Screens from '../../screen-names';
-import { PurchaseState } from './types';
+import { PurchaseBuyNavProp, PurchaseState } from './types';
 import usePremiumQuery from './usePremiumQuery';
 import usePurchaseAction from './usePurchaseAction';
 
 export default (region: PremiumRegion, sectionId?: string): PurchaseState => {
-  const { goBack, navigate } = useNavigation();
+  const { goBack, navigate } = useNavigation<PurchaseBuyNavProp>();
   const { t } = useTranslation();
   const iapState = useIap();
   const premiumState = usePremiumQuery(region, sectionId);
@@ -80,7 +80,7 @@ export default (region: PremiumRegion, sectionId?: string): PurchaseState => {
   if (hasPremiumAccess) {
     return {
       button: buyButton,
-      onPress: () => navigate(Screens.Purchase.AlreadyHave),
+      onPress: () => navigate(Screens.PURCHASE_ALREADY_HAVE),
     };
   }
 
@@ -88,14 +88,14 @@ export default (region: PremiumRegion, sectionId?: string): PurchaseState => {
     return {
       button: buyButton,
       onPress: () =>
-        navigate({ routeName: Screens.Auth.Root, key: Screens.Auth.Root }),
+        navigate({ name: Screens.AUTH_STACK, key: Screens.AUTH_STACK }),
     };
   }
 
   if (!me.verified) {
     return {
       button: buyButton,
-      onPress: () => navigate(Screens.Purchase.Verify),
+      onPress: () => navigate(Screens.PURCHASE_VERIFY),
     };
   }
 

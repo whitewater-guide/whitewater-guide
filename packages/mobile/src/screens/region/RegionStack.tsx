@@ -1,28 +1,53 @@
-import { getHeaderRenderer } from 'components/header';
-import { createStackNavigator } from 'react-navigation-stack';
-import { StackNavigatorConfig } from '../../utils/navigation';
-import Screens from '../screen-names';
-import { AddSectionStack } from './add-section';
+import {
+  createStackNavigator,
+  StackNavigationOptions,
+} from '@react-navigation/stack';
+import {
+  SectionsSearchStringContext,
+  SectionsSearchStringSetterContext,
+  useRegion,
+} from '@whitewater-guide/clients';
+import React from 'react';
+import Config from 'react-native-config';
+import { getHeaderRenderer } from '~/components/header';
+import { Screens } from '~/core/navigation';
+import { RegionStackParamsList } from '~/screens/region/types';
+import { LazyAddSectionScreen } from './add-section';
+import { LazyFilterScreen } from './filter';
 import RegionTabs from './RegionTabs';
+import RegionTitle from './RegionTitle';
 
-const routes = {
-  [Screens.Region.Tabs.Root]: {
-    screen: RegionTabs,
-  },
-  [Screens.Region.AddSection.Root]: {
-    screen: AddSectionStack,
-  },
+const Stack = createStackNavigator<RegionStackParamsList>();
+
+const screenOptions: StackNavigationOptions = {
+  header: getHeaderRenderer(
+    false,
+    [SectionsSearchStringContext, SectionsSearchStringSetterContext],
+    'region:sectionSearchPlaceholder',
+  ),
+  gestureEnabled: false,
+  animationEnabled: Config.E2E_MODE !== 'true',
 };
 
-const config: StackNavigatorConfig = {
-  initialRouteName: Screens.Region.Tabs.Root,
-  headerMode: 'screen',
-  defaultNavigationOptions: {
-    header: getHeaderRenderer(false),
-    gesturesEnabled: false,
-  },
+const RegionStack: React.FC = () => {
+  const { node } = useRegion();
+  return (
+    <Stack.Navigator screenOptions={screenOptions} headerMode="screen">
+      <Stack.Screen
+        name={Screens.REGION_TABS}
+        component={RegionTabs}
+        options={{
+          headerTitle: () => <RegionTitle region={node} />,
+        }}
+      />
+      <Stack.Screen name={Screens.FILTER} component={LazyFilterScreen} />
+      <Stack.Screen
+        name={Screens.ADD_SECTION_SCREEN}
+        component={LazyAddSectionScreen}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
 };
-
-const RegionStack = createStackNavigator(routes, config);
 
 export default RegionStack;

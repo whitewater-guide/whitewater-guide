@@ -1,11 +1,10 @@
-import PhotoUploadField from 'forms/photo-upload';
-import TextField from 'forms/TextField';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import theme from '../../../../theme';
-import { NavParams } from './types';
+import PhotoUploadField from '~/forms/photo-upload';
+import TextField from '~/forms/TextField';
+import theme from '~/theme';
 
 const styles = StyleSheet.create({
   description: {
@@ -17,7 +16,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const SectionPhotoForm: React.FC<NavParams> = React.memo((props) => {
+interface Props {
+  index: number;
+  localPhotoId: string;
+}
+
+const SectionPhotoForm: React.FC<Props> = React.memo((props) => {
   const { index, localPhotoId } = props;
   const { t } = useTranslation();
 
@@ -29,6 +33,7 @@ const SectionPhotoForm: React.FC<NavParams> = React.memo((props) => {
       <PhotoUploadField
         name={`media.${index}.photo`}
         localPhotoId={localPhotoId}
+        testID="photo-picker"
       />
       <TextField
         name={`media.${index}.copyright`}

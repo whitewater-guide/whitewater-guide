@@ -1,11 +1,11 @@
 import { useSection } from '@whitewater-guide/clients';
-import { Screen } from 'components/Screen';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { NavigationScreenComponent } from 'react-navigation';
+import { Screen } from '~/components/Screen';
 import theme from '../../../theme';
 import SectionMediaScreenContent from './SectionMediaScreenContent';
 import SuggestMediaFAB from './SuggestMediaFAB';
+import { SectionMediaNavProps } from './types';
 
 const styles = StyleSheet.create({
   content: {
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const SectionMediaScreen: NavigationScreenComponent = () => {
+const SectionMediaScreen: React.FC<SectionMediaNavProps> = () => {
   const { node } = useSection();
   return (
     <Screen>

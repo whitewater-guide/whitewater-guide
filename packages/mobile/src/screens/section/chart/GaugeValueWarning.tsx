@@ -1,7 +1,7 @@
-import Icon from 'components/Icon';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Popover, PopoverController } from 'react-native-modal-popover';
+import Icon from '~/components/Icon';
 import theme from '../../../theme';
 
 const styles = StyleSheet.create({

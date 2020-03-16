@@ -1,9 +1,9 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleProp, TextStyle } from 'react-native';
 import { Caption } from 'react-native-paper';
-import { useNavigation } from 'react-navigation-hooks';
-import Screens from '../screens/screen-names';
+import { Screens } from '~/core/navigation';
 import TextWithLinks from './TextWithLinks';
 
 interface Props {
@@ -14,7 +14,7 @@ const CCNote: React.FC<Props> = React.memo(({ style }) => {
   const { navigate } = useNavigation();
   const { t } = useTranslation();
   const onPress = useCallback(() => {
-    navigate(Screens.WebView, {
+    navigate(Screens.WEB_VIEW, {
       fixture: 'terms_and_conditions',
       title: t('commons:termsOfService'),
     });

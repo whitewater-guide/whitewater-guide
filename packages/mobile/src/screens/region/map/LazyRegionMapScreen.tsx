@@ -1,15 +1,5 @@
-import Icon from 'components/Icon';
-import React from 'react';
-import { I18nText } from '../../../i18n';
-import theme from '../../../theme';
-import registerScreen from '../../../utils/registerScreen';
+import { register } from 'react-native-bundle-splitter';
 
-export const LazyRegionMapScreen = registerScreen({
+export const LazyRegionMapScreen = register({
   require: () => require('./RegionMapScreen'),
-  navigationOptions: {
-    tabBarLabel: <I18nText>region:map.title</I18nText>,
-    tabBarIcon: () => (
-      <Icon icon="map" color={theme.colors.textLight} testID="region-tab-map" />
-    ),
-  },
 });

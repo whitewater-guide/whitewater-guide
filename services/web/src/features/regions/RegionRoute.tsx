@@ -1,4 +1,7 @@
-import { FilterProvider, RegionProvider } from '@whitewater-guide/clients';
+import {
+  RegionProvider,
+  SectionsFilterProvider,
+} from '@whitewater-guide/clients';
 import React, { Suspense } from 'react';
 import { Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { Loading } from '../../components';
@@ -15,7 +18,7 @@ const RegionRoute: React.FC<Props> = React.memo((props) => {
   } = props;
   return (
     <Suspense fallback={<Loading />}>
-      <FilterProvider>
+      <SectionsFilterProvider>
         <RegionProvider regionId={params.regionId}>
           {({ loading }) => {
             if (loading) {
@@ -38,7 +41,7 @@ const RegionRoute: React.FC<Props> = React.memo((props) => {
             );
           }}
         </RegionProvider>
-      </FilterProvider>
+      </SectionsFilterProvider>
     </Suspense>
   );
 });

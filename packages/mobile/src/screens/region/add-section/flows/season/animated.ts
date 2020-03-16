@@ -10,7 +10,6 @@ const {
   block,
   call,
   cond,
-  diffClamp,
   divide,
   eq,
   event,
@@ -28,6 +27,11 @@ const COLS_IN_ROW = 6;
 const row = (node: Animated.Node<number>) => floor(divide(node, Month.height));
 const col = (node: Animated.Node<number>) =>
   floor(divide(node, HalfMonth.width));
+const clamp = (
+  node: Animated.Node<number>,
+  minV: Animated.Adaptable<number>,
+  maxV: Animated.Adaptable<number>,
+) => min(maxV, max(minV, node));
 
 const ind = ({ x, y }: AnimatedPoint) =>
   add(multiply(row(y), COLS_IN_ROW), col(x));
@@ -51,8 +55,8 @@ const createGestureHandler = (
               eq(state, State.ACTIVE),
               call(
                 [
-                  diffClamp(min(ind(start), ind(end)), 0, 23),
-                  diffClamp(max(ind(start), ind(end)), 0, 23),
+                  clamp(min(ind(start), ind(end)), 0, 23),
+                  clamp(max(ind(start), ind(end)), 0, 23),
                 ],
                 onPan,
               ),

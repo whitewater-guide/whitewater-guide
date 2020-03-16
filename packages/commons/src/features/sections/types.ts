@@ -3,6 +3,7 @@ import {
   NamedNode,
   Node,
   NodeRef,
+  SearchableFilterOptions,
   Timestamped,
 } from '../../apollo';
 import { Gauge } from '../gauges';
@@ -115,10 +116,10 @@ export interface SectionInput {
 
 export type SectionSortBy = 'name' | 'difficulty' | 'duration' | 'rating';
 
-export interface SectionSearchTerms {
+// This is cleint-side filter options
+export interface SectionFilterOptions extends SearchableFilterOptions {
   sortBy: SectionSortBy;
   sortDirection: 'ASC' | 'DESC';
-  searchString: string;
   difficulty: [number, number];
   duration: [Duration, Duration];
   rating: number;
@@ -127,7 +128,7 @@ export interface SectionSearchTerms {
   withoutTags: string[];
 }
 
-export const DefaultSectionSearchTerms: SectionSearchTerms = {
+export const DefaultSectionFilterOptions: SectionFilterOptions = {
   sortBy: 'name',
   sortDirection: 'ASC',
   searchString: '',
@@ -139,14 +140,15 @@ export const DefaultSectionSearchTerms: SectionSearchTerms = {
   withoutTags: [],
 };
 
-export interface SectionAdminSettings {
-  demo: boolean;
-}
-
+// This is server-side filter options
 export interface SectionsFilter {
   riverId?: string;
   regionId?: string;
   updatedAfter?: Date;
+}
+
+export interface SectionAdminSettings {
+  demo: boolean;
 }
 
 export type SectionEditAction =

@@ -1,16 +1,17 @@
+import { useNavigation } from '@react-navigation/native';
 import { Credentials, useAuth } from '@whitewater-guide/clients';
 import { Formik } from 'formik';
-import PasswordField from 'forms/password-field';
-import TextField from 'forms/TextField';
 import React, { createRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
-import { useNavigation } from 'react-navigation-hooks';
+import { Screens } from '~/core/navigation';
+import PasswordField from '~/forms/password-field';
+import TextField from '~/forms/TextField';
 import theme from '../../../theme';
-import Screens from '../../screen-names';
 import { useAuthSubmit } from '../useAuthSubmit';
 import getValidationSchema from './getValidationSchema';
+import { AuthSignInNavProp } from './types';
 
 const styles = StyleSheet.create({
   forgot: {
@@ -27,8 +28,10 @@ const initialValues: Credentials = {
 export const SignInForm: React.FC = () => {
   const { loading } = useAuth();
   const { t } = useTranslation();
-  const { navigate, goBack } = useNavigation();
-  const forgot = useCallback(() => navigate(Screens.Auth.Forgot), [navigate]);
+  const navigation = useNavigation<AuthSignInNavProp>();
+  const forgot = useCallback(() => navigation.navigate(Screens.AUTH_FORGOT), [
+    navigation.navigate,
+  ]);
   const { service } = useAuth();
   const localSignIn = useCallback(
     (values: Credentials) => service.signIn('local', values),
@@ -41,8 +44,8 @@ export const SignInForm: React.FC = () => {
     }
   }, [passwordField]);
   const onSuccess = useCallback(() => {
-    goBack(Screens.Auth.Root);
-  }, [goBack]);
+    navigation.dangerouslyGetParent()?.goBack();
+  }, [navigation]);
   const [submit] = useAuthSubmit(
     'screens:auth.signin.',
     localSignIn,

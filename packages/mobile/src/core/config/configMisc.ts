@@ -1,16 +1,12 @@
 import Mapbox from '@react-native-mapbox-gl/maps';
-import { Platform, UIManager } from 'react-native';
+import { UIManager } from 'react-native';
 import Config from 'react-native-config';
-import { useScreens } from 'react-native-screens';
+import { enableScreens } from 'react-native-screens';
 
 const configMisc = () => {
   console.disableYellowBox = true;
 
-  // TODO: possible react-native-screens and react-native-splash-screen conflict causing crashes
-  // https://github.com/kmagiera/react-native-screens/issues/54
-  if (Platform.OS === 'ios') {
-    useScreens();
-  }
+  enableScreens();
 
   if (UIManager.setLayoutAnimationEnabledExperimental) {
     UIManager.setLayoutAnimationEnabledExperimental(true);

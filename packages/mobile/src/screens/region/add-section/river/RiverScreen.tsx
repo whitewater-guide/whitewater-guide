@@ -1,5 +1,5 @@
+import { useNavigation } from '@react-navigation/native';
 import { NamedNode } from '@whitewater-guide/commons';
-import { Screen } from 'components/Screen';
 import { useFormikContext } from 'formik';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -11,8 +11,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import { Searchbar, Surface } from 'react-native-paper';
-import { NavigationScreenComponent } from 'react-navigation';
-import { useNavigation } from 'react-navigation-hooks';
+import { Screen } from '~/components/Screen';
 import theme from '../../../../theme';
 import EmptyListPlaceholder from './EmptyListPlaceholder';
 import RiversListHeader from './RiversListHeader';
@@ -48,7 +47,7 @@ const getItemLayout = (_: any, i: number) => ({
   index: i,
 });
 
-const RiverScreen: NavigationScreenComponent = (props) => {
+const RiverScreen: React.FC = () => {
   const { t } = useTranslation();
   const { goBack } = useNavigation();
   const { values, setFieldValue } = useFormikContext<any>();

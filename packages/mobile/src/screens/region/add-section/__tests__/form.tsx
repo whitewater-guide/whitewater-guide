@@ -1,3 +1,4 @@
+import { NavigationContainer } from '@react-navigation/native';
 import {
   fireEvent,
   render,
@@ -7,20 +8,19 @@ import {
 } from '@testing-library/react-native';
 import * as clients from '@whitewater-guide/clients';
 import { mockApolloProvider } from '@whitewater-guide/clients/dist/test';
-import { SnackbarProvider } from 'components/snackbar';
 import React from 'react';
 import { Clipboard } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
-import { createAppContainer } from 'react-navigation';
+import { SnackbarProvider } from '~/components/snackbar';
 import { I18nTestProvider } from '../../../../i18n/I18nTestProvider';
-import { AddSectionStack } from '../AddSectionStack';
+import AddSectionScreen from '../AddSectionScreen';
 
 const mockMutate = jest.fn();
+jest.mock('../getPager');
 jest.mock('../useAddSection', () => () => mockMutate);
 jest.mock('../../../../features/settings/useMapType');
 
 const ApolloProvider = mockApolloProvider();
-const Nav = createAppContainer(AddSectionStack as any);
 let test: RenderResult;
 
 beforeEach(() => {
@@ -32,7 +32,11 @@ beforeEach(() => {
         node: {
           id: '92c6338e-ca93-11e9-a32f-2a2ae2dbcce4',
           name: '__region_name__',
-          bounds: [[0, 0, 0], [1, 1, 1], [2, 2, 2]],
+          bounds: [
+            [0, 0, 0],
+            [1, 1, 1],
+            [2, 2, 2],
+          ],
         },
       } as any),
   );
@@ -41,7 +45,9 @@ beforeEach(() => {
       <PaperProvider>
         <I18nTestProvider>
           <SnackbarProvider>
-            <Nav />
+            <NavigationContainer>
+              <AddSectionScreen />
+            </NavigationContainer>
           </SnackbarProvider>
         </I18nTestProvider>
       </PaperProvider>
@@ -54,7 +60,7 @@ afterEach(() => {
 });
 
 it('should render initial state', async () => {
-  await expect(test.findByText('COMMONS:CREATE')).resolves.toBeTruthy();
+  await expect(test.findByText('commons:create')).resolves.toBeTruthy();
 });
 
 it('should fill in main fields and submit', async () => {
@@ -138,7 +144,10 @@ it('should fill in main fields and submit', async () => {
       },
       difficulty: 3.5,
       difficultyXtra: 'X',
-      shape: [[2, 1, 3], [5, 4, 6]],
+      shape: [
+        [2, 1, 3],
+        [5, 4, 6],
+      ],
     });
   });
 });

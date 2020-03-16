@@ -1,8 +1,8 @@
 import { Media } from '@whitewater-guide/commons';
-import Icon from 'components/Icon';
 import React from 'react';
 import { Linking } from 'react-native';
 import { List } from 'react-native-paper';
+import Icon from '~/components/Icon';
 
 interface Props {
   blog: Media;

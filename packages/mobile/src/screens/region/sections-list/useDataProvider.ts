@@ -39,7 +39,7 @@ export default (sections: Section[], region: Region | null) => {
   const [provider, setProvider] = useState<DataProvider>(
     new DataProvider(
       (r1: Node, r2: Node) => r1.id !== r2.id,
-      (index) => dataRef.current[index].id,
+      (index) => dataRef.current[index]?.id,
     ),
   );
 

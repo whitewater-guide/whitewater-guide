@@ -5,8 +5,7 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "components/*": ["src/components/*"],
-      "forms/*": ["src/forms/*"]
+      "~/*": ["src/*"]
     }
   },
   "include": ["src/**/*", "storybook/**/*", "e2e/**/*", "typings/**/*"]

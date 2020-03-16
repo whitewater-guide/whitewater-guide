@@ -29,11 +29,11 @@ it('should ignore null filter', () => {
 });
 
 it('should ignore empty search string filter', () => {
-  expect(filterRegions(regions, { search: '' })).toBe(regions);
+  expect(filterRegions(regions, { searchString: '' })).toBe(regions);
 });
 
 it('should search', () => {
-  expect(filterRegions(regions, { search: ' r ' })).toEqual([
+  expect(filterRegions(regions, { searchString: ' r ' })).toEqual([
     {
       id: '2',
       name: ' bar ',
@@ -42,5 +42,5 @@ it('should search', () => {
 });
 
 it('should search with freaky characters', () => {
-  expect(filterRegions(regions, { search: ' éb ' })).toHaveLength(2);
+  expect(filterRegions(regions, { searchString: ' éb ' })).toHaveLength(2);
 });

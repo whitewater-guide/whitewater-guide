@@ -1,10 +1,9 @@
-import React, { useMemo } from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
-import { Button, Dialog } from 'react-native-paper';
-import { useDispatch } from 'react-redux';
+import { Button } from 'react-native-paper';
 import theme from '../../../theme';
-import { offlineContentActions } from '../actions';
+import { useOfflineContent } from '../OfflineContentProvider';
 import { OfflineCategorySelection } from '../types';
 
 const styles = StyleSheet.create({
@@ -26,38 +25,23 @@ const DownloadButton: React.FC<Props> = ({
   selection,
 }) => {
   const { t } = useTranslation();
+  const { download } = useOfflineContent();
 
-  const dispatch = useDispatch();
-  const handlers = useMemo(
-    () => ({
-      onDismiss: () => dispatch(offlineContentActions.toggleDialog(null)),
-      onDownload: () =>
-        dispatch(offlineContentActions.startDownload({ regionId, selection })),
-    }),
-    [dispatch, regionId, selection],
-  );
+  const onDownload = useCallback(() => {
+    download(regionId, selection);
+  }, [download, regionId, selection]);
 
   return (
-    <Dialog.Actions>
-      <Button
-        mode="outlined"
-        onPress={handlers.onDismiss}
-        accessibilityLabel={t('commons:cancel')}
-      >
-        {t('commons:cancel')}
-      </Button>
-      <Button
-        mode="contained"
-        disabled={!canDownload}
-        onPress={handlers.onDownload}
-        style={styles.okButton}
-      >
-        {t('offline:dialog.download')}
-      </Button>
-    </Dialog.Actions>
+    <Button
+      mode="contained"
+      disabled={!canDownload}
+      onPress={onDownload}
+      style={styles.okButton}
+      accessibilityLabel={t('offline:dialog.download')}
+    >
+      {t('offline:dialog.download')}
+    </Button>
   );
 };
-
-DownloadButton.displayName = 'DownloadButton';
 
 export default DownloadButton;

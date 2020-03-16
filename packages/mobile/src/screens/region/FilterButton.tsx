@@ -1,19 +1,21 @@
-import { useFilterState } from '@whitewater-guide/clients';
-import Icon from 'components/Icon';
+import { useNavigation } from '@react-navigation/native';
+import { useSectionsFilterOptions } from '@whitewater-guide/clients';
+import { DefaultSectionFilterOptions } from '@whitewater-guide/commons';
+import isEqual from 'lodash/isEqual';
 import React, { useCallback } from 'react';
-import { NavigationInjectedProps } from 'react-navigation';
-import theme from '../../theme';
-import Screens from '../screen-names';
+import { Appbar } from 'react-native-paper';
+import { RootStackNav, Screens } from '~/core/navigation';
+import theme from '~/theme';
 
-const FilterButton: React.FC<NavigationInjectedProps> = ({ navigation }) => {
-  const searchTerms = useFilterState();
-  const onPress = useCallback(
-    () => navigation.navigate(Screens.Filter, navigation.state.params),
-    [navigation.navigate],
-  );
-  const icon = searchTerms ? 'filter' : 'filter-outline';
+const FilterButton: React.FC = () => {
+  const filterOptions = useSectionsFilterOptions();
+  const { navigate } = useNavigation<RootStackNav>();
+  const onPress = useCallback(() => navigate(Screens.FILTER), [navigate]);
+  const icon = isEqual(filterOptions, DefaultSectionFilterOptions)
+    ? 'filter-outline'
+    : 'filter';
   return (
-    <Icon
+    <Appbar.Action
       icon={icon}
       color={theme.colors.textLight}
       onPress={onPress}

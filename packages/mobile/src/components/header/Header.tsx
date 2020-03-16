@@ -1,69 +1,71 @@
-import HeaderLeft from 'components/header/HeaderLeft';
-import get from 'lodash/get';
-import React, { useCallback, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Keyboard } from 'react-native';
+import { StackHeaderProps } from '@react-navigation/stack';
+import React from 'react';
+import { StyleSheet } from 'react-native';
 import { Appbar } from 'react-native-paper';
-import { useNavigation } from 'react-navigation-hooks';
-// tslint:disable-next-line:no-submodule-imports
-import { HeaderProps } from 'react-navigation-stack/lib/typescript/types';
-import theme from '../../theme';
-import { useDrawer } from '../drawer/DrawerContext';
+import HeaderLeft from '~/components/header/HeaderLeft';
+import { SearchContexts } from '~/components/header/types';
+import { useHeaderSearch } from '~/components/header/useHeaderSearch';
+import theme from '~/theme';
+import HeaderCenter from './HeaderCenter';
+import HeaderRight from './HeaderRight';
+import useHeaderElements from './useHeaderElements';
 
-interface Props extends HeaderProps {
+const styles = StyleSheet.create({
+  searchMode: {
+    backgroundColor: theme.colors.lightBackground,
+  },
+});
+
+interface Props extends StackHeaderProps {
   topLevel?: boolean;
+  searchContexts?: SearchContexts;
+  searchPlaceholderKey?: string;
 }
 
 const Header: React.FC<Props> = (props) => {
-  const { topLevel = true } = props;
-  const nav = useNavigation();
-  const goBack = useCallback(() => nav.goBack(null), [nav.goBack]);
-  const { t } = useTranslation();
-  const toggleDrawer = useDrawer();
-  const openDrawer = useCallback(() => toggleDrawer(true), [toggleDrawer]);
-  const title = get(props, 'scene.descriptor.options.headerTitle', null);
-  const headerLeft = get(
-    props,
-    'scene.descriptor.options.headerLeft',
-    undefined,
-  );
-  const headerRight = get(
-    props,
-    'scene.descriptor.options.headerRight',
-    undefined,
-  );
-  const headerStyle = get(props, 'scene.descriptor.options.headerStyle');
-  const headerTintColor = get(
-    props,
-    'scene.descriptor.options.headerTintColor',
-    theme.colors.textLight,
-  );
-  const contentProps = useMemo(
-    () => ({
-      onPress: () => Keyboard.dismiss(),
-    }),
-    [],
-  );
-  let titleNode: React.ReactNode = null;
-  if (title) {
-    titleNode = typeof title === 'string' ? t(title) : title;
-  }
+  const {
+    topLevel = true,
+    navigation,
+    scene,
+    searchContexts,
+    searchPlaceholderKey,
+  } = props;
+  const search = useHeaderSearch(searchContexts);
+
+  const { headerLeft, headerRight, title } = useHeaderElements(scene);
+  const {
+    headerStyle,
+    headerTintColor = theme.colors.textLight,
+  } = scene.descriptor.options;
+
   return (
-    <Appbar.Header style={headerStyle}>
+    <Appbar.Header style={[headerStyle, search.active && styles.searchMode]}>
       <HeaderLeft
-        index={props.scene.index}
-        headerLeft={headerLeft}
-        onBack={goBack}
-        onMenu={openDrawer}
+        hasPrevious={!!props.previous}
+        element={headerLeft}
+        onBack={navigation.goBack}
+        onMenu={(navigation as any).openDrawer}
         headerTintColor={headerTintColor}
         topLevel={topLevel}
+        searchActive={search.active}
+        setSearchActive={search.setActive}
+        setSearchInput={search.setSearchInput}
       />
-      <Appbar.Content
-        title={titleNode}
-        {...contentProps}
-        color={headerTintColor}
+      <HeaderCenter
+        title={title}
+        headerTintColor={headerTintColor}
+        searchActive={search.active}
+        setSearchInput={search.setSearchInput}
+        searchString={search.searchInput}
+        searchPlaceholderKey={searchPlaceholderKey}
       />
-      {headerRight}
+      <HeaderRight
+        element={headerRight}
+        searchAvailable={search.available}
+        searchActive={search.active}
+        setSearchInput={search.setSearchInput}
+        setSearchActive={search.setActive}
+      />
     </Appbar.Header>
   );
 };

@@ -1,11 +1,13 @@
+import { useFocusEffect } from '@react-navigation/native';
 import { BannerPlacement } from '@whitewater-guide/commons';
-import { Screen } from 'components/Screen';
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
-import { NavigationScreenComponent } from 'react-navigation';
+import { Screen } from '~/components/Screen';
 import { RegionBanners } from '../../../features/banners';
 import theme from '../../../theme';
+import RegionInfoMenu from './RegionInfoMenu';
 import RegionInfoView from './RegionInfoView';
+import { RegionInfoNavProps } from './types';
 
 const styles = StyleSheet.create({
   content: {
@@ -13,7 +15,15 @@ const styles = StyleSheet.create({
   },
 });
 
-const RegionInfoScreen: NavigationScreenComponent = () => {
+const RegionInfoScreen: React.FC<RegionInfoNavProps> = ({ navigation }) => {
+  useFocusEffect(
+    React.useCallback(() => {
+      navigation.dangerouslyGetParent()?.setOptions({
+        headerRight: () => <RegionInfoMenu />,
+      });
+    }, [navigation]),
+  );
+
   return (
     <Screen>
       <ScrollView contentContainerStyle={styles.content}>

@@ -1,6 +1,6 @@
-import Icon from 'components/Icon';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import Icon from '~/components/Icon';
 import { PHOTO_PADDING, PHOTO_SIZE } from '../../../features/media';
 import theme from '../../../theme';
 

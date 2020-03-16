@@ -1,61 +1,62 @@
-import { getHeaderRenderer } from 'components/header';
+import {
+  createStackNavigator,
+  StackNavigationOptions,
+} from '@react-navigation/stack';
 import React from 'react';
-import { register } from 'react-native-bundle-splitter';
-import { NavigationRouter, NavigationScreenComponent } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-import { StackNavigatorConfig } from '../../../utils/navigation';
-import Screens from '../../screen-names';
+import { useTranslation } from 'react-i18next';
+import Config from 'react-native-config';
+import { getHeaderRenderer } from '~/components/header';
+import { Screens } from '~/core/navigation';
 import AddSectionTabs from './AddSectionTabs';
 import { LazyGaugeScreen } from './gauge';
 import { LazyPhotoScreen } from './photo';
 import { LazyRiverScreen } from './river';
 import { LazyShapeScreen } from './shape';
+import SubmitButton from './SubmitButton';
+import { AddSectionStackParamsList } from './types';
 
-const routes = {
-  [Screens.Region.AddSection.Tabs.Root]: {
-    screen: AddSectionTabs,
-  },
-  [Screens.Region.AddSection.River]: {
-    screen: LazyRiverScreen,
-  },
-  [Screens.Region.AddSection.Gauge]: {
-    screen: LazyGaugeScreen,
-  },
-  [Screens.Region.AddSection.Shape]: {
-    screen: LazyShapeScreen,
-  },
-  [Screens.Region.AddSection.Photo]: {
-    screen: LazyPhotoScreen,
-  },
+const Stack = createStackNavigator<AddSectionStackParamsList>();
+
+const screenOptions: StackNavigationOptions = {
+  header: getHeaderRenderer(false),
+  gestureEnabled: false,
+  animationEnabled: Config.E2E_MODE !== 'true',
 };
 
-const config: StackNavigatorConfig = {
-  initialRouteName: Screens.Region.AddSection.Tabs.Root,
-  headerMode: 'screen',
-  defaultNavigationOptions: {
-    header: getHeaderRenderer(false),
-    gesturesEnabled: false,
-  },
-};
-
-const Navigator = createStackNavigator(routes, config);
-
-const LazyAddSectionStack = register({
-  require: () => require('./LazyAddSectionStack'),
-});
-
-export const AddSectionStack: NavigationScreenComponent & {
-  router?: NavigationRouter;
-} = React.memo((props) => {
+const AddSectionStack: React.FC = () => {
+  const { t } = useTranslation();
   return (
-    <LazyAddSectionStack>
-      <Navigator {...props} />
-    </LazyAddSectionStack>
+    <Stack.Navigator screenOptions={screenOptions} headerMode="screen">
+      <Stack.Screen
+        name={Screens.ADD_SECTION_TABS}
+        component={AddSectionTabs}
+        options={{
+          headerTitle: t('screens:addSection.headerTitle'),
+          headerRight: () => <SubmitButton />,
+        }}
+      />
+      <Stack.Screen
+        name={Screens.ADD_SECTION_RIVER}
+        component={LazyRiverScreen}
+        options={{ headerTitle: t('screens:addSection.river.title') }}
+      />
+      <Stack.Screen
+        name={Screens.ADD_SECTION_GAUGE}
+        component={LazyGaugeScreen}
+        options={{ headerTitle: t('screens:addSection.gauge.title') }}
+      />
+      <Stack.Screen
+        name={Screens.ADD_SECTION_SHAPE}
+        component={LazyShapeScreen}
+        options={{ headerTitle: t('screens:addSection.shape.title') }}
+      />
+      <Stack.Screen
+        name={Screens.ADD_SECTION_PHOTO}
+        component={LazyPhotoScreen}
+        options={{ headerTitle: t('screens:addSection.photo.title') }}
+      />
+    </Stack.Navigator>
   );
-});
-
-AddSectionStack.displayName = 'AddSectionStack';
-AddSectionStack.router = Navigator.router;
-AddSectionStack.navigationOptions = {
-  header: null,
 };
+
+export default AddSectionStack;

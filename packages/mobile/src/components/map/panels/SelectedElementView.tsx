@@ -1,9 +1,9 @@
 import { MapSelection } from '@whitewater-guide/clients';
-import BottomSheet from 'components/BottomSheet';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import Animated from 'react-native-reanimated';
+import BottomSheet from '~/components/BottomSheet';
 import theme from '../../../theme';
 import getSnapPoints from './getSnapPoints';
 import { SnapPoints } from './types';

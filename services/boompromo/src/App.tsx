@@ -16,13 +16,15 @@ class App extends React.PureComponent {
 
   constructor(props: any) {
     super(props);
-    this._auth = new WebAuthService(
-      API_HOST,
-      FACEBOOK_APP_ID,
-      this.resetApolloStore,
-      this.resetApolloStore,
-    );
+    this._auth = new WebAuthService(API_HOST, FACEBOOK_APP_ID);
+    this._auth.on('sign-in', this.resetApolloStore);
+    this._auth.on('sign-out', this.resetApolloStore);
     this._apollo = initApolloClient(this._auth);
+  }
+
+  componentWillUnmount() {
+    this._auth.off('sign-in');
+    this._auth.off('sign-out');
   }
 
   resetApolloStore = async () => {

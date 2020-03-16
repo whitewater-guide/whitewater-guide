@@ -1,8 +1,4 @@
-import {
-  MutationNotAllowedError,
-  TopLevelResolver,
-  UnknownError,
-} from '@apollo';
+import { TopLevelResolver, UnknownError } from '@apollo';
 import db, { rawUpsert } from '@db';
 import { GaugeRaw } from '@features/gauges';
 import { GaugeInput, PointInput } from '@whitewater-guide/commons';
@@ -35,15 +31,10 @@ const convertLocation = (
 };
 
 const autofillSource: TopLevelResolver<Vars> = async (
-  root,
+  _,
   { id },
   { dataSources },
 ) => {
-  const enabled = await dataSources.gorge.isSourceEnabled(id);
-  if (enabled) {
-    throw new MutationNotAllowedError('Cannot autofill source that is enabled');
-  }
-
   const gauges: GaugeRaw[] = await db()
     .select(['id', 'code', 'location_id'])
     .from('gauges')

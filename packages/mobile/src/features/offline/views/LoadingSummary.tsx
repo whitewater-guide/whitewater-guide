@@ -1,10 +1,10 @@
 import { useNetInfo } from '@react-native-community/netinfo';
 import { ApolloError } from 'apollo-client';
-import Icon from 'components/Icon';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { Button, Caption, Subheading } from 'react-native-paper';
+import Icon from '~/components/Icon';
 import theme from '../../../theme';
 
 const styles = StyleSheet.create({
@@ -25,6 +25,11 @@ interface Props {
 const LoadingSummary: React.FC<Props> = ({ error, refetch }) => {
   const { t } = useTranslation();
   const { isConnected } = useNetInfo();
+  const onPress = useCallback(() => {
+    if (refetch) {
+      refetch().catch(() => {});
+    }
+  }, [refetch]);
   if (error) {
     return (
       <View style={styles.container}>
@@ -35,7 +40,7 @@ const LoadingSummary: React.FC<Props> = ({ error, refetch }) => {
             <Subheading>{t('commons:checkConnection')}</Subheading>
           )}
         </Subheading>
-        <Button color={theme.colors.primary} compact={true} onPress={refetch}>
+        <Button color={theme.colors.primary} compact={true} onPress={onPress}>
           {t('commons:retry')}
         </Button>
       </View>

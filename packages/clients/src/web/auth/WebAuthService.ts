@@ -14,19 +14,10 @@ import { fbWebService } from './fb';
 export class WebAuthService extends BaseAuthService {
   private _fbAppId: string;
   private _fbSdkPromise!: Promise<any>;
-  private _onSignIn?: (resp: AuthResponse<SignInBody>) => Promise<void>;
-  private _onSignOut?: (forced?: boolean) => Promise<void>;
 
-  constructor(
-    baseUrl: string,
-    fbAppId: string,
-    onSignIn?: (resp: AuthResponse<SignInBody>) => Promise<void>,
-    onSignOut?: (forced?: boolean) => Promise<void>,
-  ) {
+  constructor(baseUrl: string, fbAppId: string) {
     super(baseUrl, true);
     this._fbAppId = fbAppId;
-    this._onSignIn = onSignIn;
-    this._onSignOut = onSignOut;
   }
 
   async init() {
@@ -75,9 +66,7 @@ export class WebAuthService extends BaseAuthService {
         web: true,
       });
     }
-    if (this._onSignIn) {
-      await this._onSignIn(resp);
-    }
+    this.emit('sign-in', false);
     return resp;
   }
 
@@ -86,9 +75,7 @@ export class WebAuthService extends BaseAuthService {
       ...payload,
       web: true,
     });
-    if (this._onSignIn) {
-      await this._onSignIn(resp);
-    }
+    this.emit('sign-in', true);
     return resp;
   }
 
@@ -110,9 +97,7 @@ export class WebAuthService extends BaseAuthService {
     } catch (e) {
       // Ignore
     }
-    if (this._onSignOut) {
-      await this._onSignOut(force);
-    }
+    this.emit('sign-out', force);
     return { success: true, status: 200 };
   }
 

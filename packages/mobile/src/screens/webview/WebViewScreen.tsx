@@ -1,27 +1,23 @@
 import markdown from '@whitewater-guide/translations/markdown';
-import Loading from 'components/Loading';
-import { Screen } from 'components/Screen';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';
-import { NavigationScreenComponent } from 'react-navigation';
+import Loading from '~/components/Loading';
+import { Screen } from '~/components/Screen';
 import { WEB_URL } from '../../utils/urls';
-
-interface NavParams {
-  fixture?: string;
-  title?: string;
-}
+import { WebViewNavProps } from './types';
 
 const renderLoading = () => <Loading />;
 
-const WebViewScreen: NavigationScreenComponent<NavParams> = ({
-  navigation,
-}) => {
-  const { i18n } = useTranslation();
-  const fixture = navigation.getParam('fixture');
+const WebViewScreen: React.FC<WebViewNavProps> = ({ navigation, route }) => {
+  const { i18n, t } = useTranslation();
+  const { fixture, title } = route.params;
   const resource = fixture && markdown[fixture];
   const lang = resource && resource[i18n.language] ? i18n.language : 'en';
+  React.useEffect(() => {
+    navigation.setOptions({ headerTitle: title });
+  }, [navigation.setOptions, title]);
 
   if (!lang) {
     return <Screen />;
