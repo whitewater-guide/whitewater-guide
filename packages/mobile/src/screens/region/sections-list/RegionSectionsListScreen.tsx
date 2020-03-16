@@ -1,10 +1,22 @@
+import { useFocusEffect } from '@react-navigation/native';
 import { useRegion, useSectionsList } from '@whitewater-guide/clients';
-import { Screen } from 'components/Screen';
 import React from 'react';
-import { NavigationScreenComponent } from 'react-navigation';
+import { Screen } from '~/components/Screen';
+import FilterButton from '~/screens/region/FilterButton';
 import SectionsList from './SectionsList';
+import { RegionSectionsNavProps } from './types';
 
-const RegionSectionsListScreen: NavigationScreenComponent = () => {
+const RegionSectionsListScreen: React.FC<RegionSectionsNavProps> = ({
+  navigation,
+}) => {
+  useFocusEffect(
+    React.useCallback(() => {
+      navigation.dangerouslyGetParent()?.setOptions({
+        headerRight: () => <FilterButton />,
+      });
+    }, [navigation]),
+  );
+
   const { sections, status, refresh } = useSectionsList();
   const { node } = useRegion();
   return (

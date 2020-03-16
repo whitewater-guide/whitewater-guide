@@ -1,11 +1,5 @@
-import React from 'react';
-// tslint:disable-next-line:no-submodule-imports
-import { NavigationStackOptions } from 'react-navigation-stack/lib/typescript/types';
-import registerScreen from '../../../utils/registerScreen';
+import { register } from 'react-native-bundle-splitter';
 
-export const LazyBuyScreen = registerScreen<NavigationStackOptions>({
+export const LazyBuyScreen = register({
   require: () => require('./BuyScreen'),
-  navigationOptions: {
-    header: null,
-  },
 });

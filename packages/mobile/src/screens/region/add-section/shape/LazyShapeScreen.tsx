@@ -1,11 +1,5 @@
-import React from 'react';
-import registerScreen from '../../../../utils/registerScreen';
-import DoneButton from './DoneButton';
+import { register } from 'react-native-bundle-splitter';
 
-export const LazyShapeScreen = registerScreen({
+export const LazyShapeScreen = register({
   require: () => require('./ShapeScreen'),
-  navigationOptions: {
-    headerTitle: 'screens:addSection.shape.title',
-    headerRight: <DoneButton />,
-  },
 });

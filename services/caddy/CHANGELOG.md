@@ -1,3 +1,13 @@
+## [0.0.148](https://github.com/doomsower/whitewater/compare/7329dabe5dc38f048877af7ffd71bfa76621f0bf...00dd3e76ce94102531afd2c01f7ea7cc73576eba) (2020-03-16)
+
+## [0.0.147](https://github.com/doomsower/whitewater/compare/dbcb26d330aeb35197c416b7b4af6fce20c9573d...7329dabe5dc38f048877af7ffd71bfa76621f0bf) (2020-03-16)
+
+### Features
+
+- upgrade to react-navigation v5 ([](https://github.com/doomsower/whitewater/commit/c230c41662a0f09a20680f59a243c58b9c3298e8))
+
+## [0.0.147-v5.0](https://github.com/doomsower/whitewater/compare/e471c050240b02dc38a319e37b3210b57f7f97ce...dbcb26d330aeb35197c416b7b4af6fce20c9573d) (2020-03-15)
+
 ## [0.0.146](https://github.com/doomsower/whitewater/compare/49c0bc30d6380ba3fc3d9adc2548f984bbe17420...e471c050240b02dc38a319e37b3210b57f7f97ce) (2020-03-04)
 
 ## [0.0.146](https://github.com/doomsower/whitewater/compare/bd4da27ab5c76e76f28db4adbd5ca0a10bf1713f...49c0bc30d6380ba3fc3d9adc2548f984bbe17420) (2020-03-03)

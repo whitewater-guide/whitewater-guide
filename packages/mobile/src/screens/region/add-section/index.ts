@@ -1,1 +1,1 @@
-export * from './AddSectionStack';
+export * from './LazyAddSectionScreen';

@@ -1,5 +1,6 @@
 import { useChart, useFormulas } from '@whitewater-guide/clients';
 import { Unit } from '@whitewater-guide/commons';
+import isNil from 'lodash/isNil';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import ActionSheet from 'react-native-actionsheet';
@@ -33,7 +34,7 @@ export const ChartFlowToggle: React.FC = React.memo(() => {
       unit === Unit.FLOW
         ? formulas.flows(latestMeasurement.flow)
         : formulas.levels(latestMeasurement.level);
-    value = numeric.toFixed(2);
+    value = isNil(numeric) ? '' : numeric.toFixed(2);
   }
   const unitName = unit === Unit.FLOW ? flowUnit! : levelUnit!;
   return (

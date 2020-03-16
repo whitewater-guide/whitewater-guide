@@ -1,10 +1,17 @@
-import { Region } from '@whitewater-guide/commons';
-import { WithTranslation } from 'react-i18next';
-import { NavigationScreenProp } from 'react-navigation';
+import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import {
+  RootDrawerParamsList,
+  RootStackParamsList,
+  Screens,
+} from '~/core/navigation';
 
-export type OuterProps = Pick<NavigationScreenProp<any, any>, 'navigate'>;
-export type InnerProps = OuterProps &
-  WithTranslation & {
-    openDownloadDialog: (region: Region) => void;
-    regionInProgress: string | null; // region being downloaded for offline use
-  } & { isFocused: boolean };
+export type RegionsListNavProp = CompositeNavigationProp<
+  StackNavigationProp<RootStackParamsList, Screens.REGIONS_LIST>,
+  StackNavigationProp<RootDrawerParamsList>
+>;
+
+export interface RegionsListNavProps {
+  navigation: RegionsListNavProp;
+  route: RouteProp<RootStackParamsList, Screens.REGIONS_LIST>;
+}

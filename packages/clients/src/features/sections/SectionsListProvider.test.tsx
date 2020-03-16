@@ -1,9 +1,9 @@
 import { render, RenderResult } from '@testing-library/react';
 import {
-  DefaultSectionSearchTerms,
+  DefaultSectionFilterOptions,
   Overwrite,
   Section,
-  SectionSearchTerms,
+  SectionFilterOptions,
 } from '@whitewater-guide/commons';
 import ApolloClient from 'apollo-client';
 import gql from 'graphql-tag';
@@ -70,7 +70,7 @@ interface TestOptions
     { cache?: ListSectionsResult }
   > {
   isConnected?: boolean;
-  searchTerms?: SectionSearchTerms;
+  filterOptions?: SectionFilterOptions;
   pollInterval?: number;
 }
 
@@ -81,7 +81,7 @@ interface Harness {
 const mountInHarness = (options: TestOptions): Harness => {
   const {
     isConnected = true,
-    searchTerms = null,
+    filterOptions = null,
     pollInterval = 0,
     cache,
     ...opts
@@ -99,7 +99,7 @@ const mountInHarness = (options: TestOptions): Harness => {
     <SectionsListProvider
       key="test_sections_list_loader"
       regionId={TEST_REGION_ID}
-      searchTerms={searchTerms}
+      filterOptions={filterOptions}
       isConnected={isConnected}
       client={FixedProvider.client}
       limit={PAGE_SIZE}
@@ -114,7 +114,7 @@ const mountInHarness = (options: TestOptions): Harness => {
         <SectionsListProvider
           key="test_sections_list_loader"
           regionId={TEST_REGION_ID}
-          searchTerms={searchTerms}
+          filterOptions={filterOptions}
           isConnected={isConnected}
           client={FixedProvider.client}
           limit={PAGE_SIZE}
@@ -645,8 +645,8 @@ it('should pass updates when is changed outside the query', async () => {
 it('should apply filters', async () => {
   mountInHarness({
     responses: mockedResponses,
-    searchTerms: {
-      ...DefaultSectionSearchTerms,
+    filterOptions: {
+      ...DefaultSectionFilterOptions,
       difficulty: [2.1, 2.9],
       duration: [0, 1000],
     },

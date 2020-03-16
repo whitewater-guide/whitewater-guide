@@ -3,6 +3,7 @@ import { User } from '@whitewater-guide/commons';
 import i18next from 'i18next';
 import React, { useEffect, useState } from 'react';
 import { initReactI18next } from 'react-i18next';
+import Config from 'react-native-config';
 import { getLocales } from 'react-native-localize';
 import { usePrevious } from '../utils/usePrevious';
 import formatters from './formatters';
@@ -37,7 +38,7 @@ export const I18nProvider: React.FC<Props> = ({
     const onMount = async () => {
       const [{ languageCode }] = getLocales();
       const language = (me && me.language) || languageCode || 'en';
-      const lng = language.substr(0, 2);
+      const lng = Config.E2E_MODE === 'true' ? 'cimode' : language.substr(0, 2);
       await _i18n.init({
         lng,
         fallbackLng: 'en',
@@ -55,8 +56,10 @@ export const I18nProvider: React.FC<Props> = ({
           nsMode: 'fallback',
         },
         resources,
+        appendNamespaceToCIMode: true,
       });
-      configDateFNS(_i18n.languages[0]);
+      const dfnsLng = Config.E2E_MODE === 'true' ? 'en' : _i18n.languages[0];
+      configDateFNS(dfnsLng);
       setReady(true);
       return;
     };

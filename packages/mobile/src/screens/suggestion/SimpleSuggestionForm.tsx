@@ -2,14 +2,14 @@ import {
   SuggestionInput,
   SuggestionInputSchema,
 } from '@whitewater-guide/commons';
-import CCNote from 'components/CCNote';
 import { Formik } from 'formik';
-import TextField from 'forms/TextField';
-import useValidate from 'forms/useValidate';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { KeyboardAvoidingView, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
+import CCNote from '~/components/CCNote';
+import TextField from '~/forms/TextField';
+import useValidate from '~/forms/useValidate';
 import theme from '../../theme';
 import getInitialValues from './getInitialValues';
 import useAddSuggestion from './useAddSuggestion';

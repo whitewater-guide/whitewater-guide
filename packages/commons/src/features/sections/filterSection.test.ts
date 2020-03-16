@@ -3,10 +3,10 @@ import { DeepPartial } from 'utility-types';
 import { TagCategory } from '../tags';
 import { getFilter } from './filterSection';
 import {
-  DefaultSectionSearchTerms,
+  DefaultSectionFilterOptions,
   Duration,
   Section,
-  SectionSearchTerms,
+  SectionFilterOptions,
 } from './types';
 
 const section: DeepPartial<Section> = {
@@ -133,11 +133,11 @@ const section: DeepPartial<Section> = {
 };
 
 const test = (
-  terms?: Partial<SectionSearchTerms>,
+  terms?: Partial<SectionFilterOptions>,
   extra?: DeepPartial<Section>,
 ) => {
   const definedTerms = terms && pickBy(terms, (v) => v !== undefined);
-  const filter = getFilter({ ...DefaultSectionSearchTerms, ...definedTerms });
+  const filter = getFilter({ ...DefaultSectionFilterOptions, ...definedTerms });
   return filter({ ...section, ...extra } as any);
 };
 

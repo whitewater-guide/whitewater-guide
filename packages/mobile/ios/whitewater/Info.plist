@@ -30,7 +30,9 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>211</string>
+	<string>219</string>
+	<key>CodePushDeploymentKey</key>
+	<string>$(CODEPUSH_DEPLOYMENT_KEY_IOS)</string>
 	<key>FacebookAppID</key>
 	<string>$(FACEBOOK_APP_ID)</string>
 	<key>FacebookDisplayName</key>
@@ -59,15 +61,15 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>It needs this permission to show you how close you are to this or that river</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>It needs this permission to show you how close you are to this or that river</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This permission is required to upload your photos</string>
 	<key>NSCameraUsageDescription</key>
 	<string>This permission is required to upload your photos</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>It needs this permission to show you how close you are to this or that river</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>It needs this permission to show you how close you are to this or that river</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>This permission is required to upload your photos</string>
+	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This permission is required to upload your photos</string>
 	<key>UIAppFonts</key>
 	<array>
@@ -75,7 +77,7 @@
 		<string>MaterialCommunityIcons.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
+	<string>BootSplash</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
@@ -86,7 +88,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>CodePushDeploymentKey</key>
-	<string>$(CODEPUSH_DEPLOYMENT_KEY_IOS)</string>
 </dict>
 </plist>

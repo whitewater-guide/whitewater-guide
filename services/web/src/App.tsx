@@ -25,13 +25,15 @@ class App extends React.PureComponent {
 
   constructor(props: any) {
     super(props);
-    this._auth = new WebAuthService(
-      API_HOST,
-      FACEBOOK_APP_ID,
-      this.onSignIn,
-      this.onSignOut,
-    );
+    this._auth = new WebAuthService(API_HOST, FACEBOOK_APP_ID);
+    this._auth.on('sign-in', this.onSignIn);
+    this._auth.on('sign-out', this.onSignOut);
     this._client = initApolloClient(this._auth);
+  }
+
+  componentWillUnmount() {
+    this._auth.off('sign-in');
+    this._auth.off('sign-out');
   }
 
   onSignIn = async () => {

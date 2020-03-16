@@ -1,14 +1,14 @@
 import deburr from 'lodash/deburr';
-import { Section, SectionSearchTerms } from './types';
+import { Section, SectionFilterOptions } from './types';
 
-export const getFilter = (terms: SectionSearchTerms | null) => (
+export const getFilter = (terms: SectionFilterOptions | null) => (
   section: Section,
 ): boolean => {
   if (!terms) {
     return true;
   }
   const {
-    searchString,
+    searchString = '',
     difficulty,
     duration,
     rating,

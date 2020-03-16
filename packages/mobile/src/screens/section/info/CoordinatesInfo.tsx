@@ -1,10 +1,10 @@
 import { arrayToLatLngString, useRegion } from '@whitewater-guide/clients';
 import { Coordinate, Section } from '@whitewater-guide/commons';
-import Icon from 'components/Icon';
-import { Left, Right, Row } from 'components/Row';
 import React, { useCallback } from 'react';
 import { Clipboard } from 'react-native';
 import { Paragraph, Subheading } from 'react-native-paper';
+import Icon from '~/components/Icon';
+import { Left, Right, Row } from '~/components/Row';
 import { usePremiumAccess, usePremiumGuard } from '../../../features/purchases';
 import { openGoogleMaps } from '../../../utils/maps';
 

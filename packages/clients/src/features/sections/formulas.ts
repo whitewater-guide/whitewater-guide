@@ -1,6 +1,7 @@
 import { GaugeBinding, Section } from '@whitewater-guide/commons';
 import { Parser } from 'expr-eval';
 import identity from 'lodash/identity';
+import isNil from 'lodash/isNil';
 import memoize from 'lodash/memoize';
 import { useMemo } from 'react';
 import { FlowFormula, Formulas } from './types';
@@ -9,8 +10,8 @@ const getRawFormula = memoize(
   (formula: string): FlowFormula => {
     try {
       const expression = Parser.parse(formula);
-      return (x: number) => {
-        return expression.evaluate({ x }) || 0;
+      return (x: number | null) => {
+        return isNil(x) ? null : expression.evaluate({ x }) || 0;
       };
     } catch {
       return identity;

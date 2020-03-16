@@ -12,6 +12,7 @@ const notIgnoredModules = [
   'apollo-client',
   'redux-persist-fs-storage',
   '@react-native-mapbox-gl/maps',
+  '@react-native-community/async-storage',
 ].join('|');
 
 module.exports = {
@@ -28,5 +29,10 @@ module.exports = {
     '<rootDir>/node_modules/react-native-gesture-handler/jestSetup.js',
     '<rootDir>/node_modules/@testing-library/react-native/cleanup-after-each',
   ],
-  testPathIgnorePatterns: ['<rootDir>/build/', '<rootDir>/node_modules/'],
+  reporters: ['default', 'jest-summary-reporter'],
+  testPathIgnorePatterns: [
+    '<rootDir>/build/',
+    '<rootDir>/e2e/',
+    '<rootDir>/node_modules/',
+  ],
 };

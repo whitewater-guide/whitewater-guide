@@ -54,14 +54,14 @@ input EditorSettingsInput {
   language: String
 }
 
-input UserFilter {
-  search: String
+input UserFilterOptions {
+  searchString: String
   editorsOnly: Boolean
 }
 
 type Query {
   me: User
-  findUsers(filter: UserFilter!): [User!] @admin
+  findUsers(filter: UserFilterOptions!): [User!] @admin
 }
 
 type Mutation {

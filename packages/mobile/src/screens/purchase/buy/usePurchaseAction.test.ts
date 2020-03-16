@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 // @ts-ignore
-import { _mockResponse, IAPErrorCode, ProductPurchase } from 'react-native-iap';
+import { IAPErrorCode, ProductPurchase, _mockResponse } from 'react-native-iap';
 import { IAPError } from '../../../features/purchases';
 import safeAcknowledgePurchase from './safeAcknowledgePurchase';
 import safeRestorePurchase from './safeRestorePurchase';
@@ -48,8 +48,11 @@ const RESTORE_ERROR = {
 const mockNavigate = jest.fn();
 const mockSavePurchase = jest.fn();
 
-jest.mock('react-navigation-hooks', () => ({
-  useNavigation: () => ({ navigate: mockNavigate }),
+jest.mock('@react-navigation/native', () => ({
+  ...require.requireActual('@react-navigation/native'),
+  useNavigation: () => ({
+    navigate: mockNavigate,
+  }),
 }));
 
 jest.mock('./useSavePurchase', () => () => mockSavePurchase);

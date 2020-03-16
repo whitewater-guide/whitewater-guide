@@ -1,14 +1,15 @@
 import { toRomanDifficulty } from '@whitewater-guide/commons';
-import CCNote from 'components/CCNote';
-import { Screen } from 'components/Screen';
-import ModalPickerField from 'forms/modal-picker';
-import TextField from 'forms/TextField';
 import times from 'lodash/times';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { NavigationScreenComponent } from 'react-navigation';
+import CCNote from '~/components/CCNote';
+import { Screen } from '~/components/Screen';
+import { Screens } from '~/core/navigation';
+import ModalPickerField from '~/forms/modal-picker';
+import TextField from '~/forms/TextField';
+import { AddSectionMainNavProps } from '~/screens/region/add-section/main/types';
 import theme from '../../../../theme';
 import PiToPlaceholder from './PiToPlaceholder';
 import RiverPlaceholder from './RiverPlaceholder';
@@ -43,51 +44,62 @@ const styles = StyleSheet.create({
   },
 });
 
-const MainScreen: NavigationScreenComponent = React.memo(() => {
-  const { t } = useTranslation();
-  return (
-    <Screen>
-      <KeyboardAwareScrollView
-        style={styles.scroll}
-        contentContainerStyle={styles.scrollContent}
-      >
-        <RiverPlaceholder />
-        <TextField
-          name="name"
-          label={t('screens:addSection.main.nameLabel')}
-          testID="name"
-        />
-        <View style={styles.difficultyRow}>
-          <View style={styles.box}>
-            <ModalPickerField<number>
-              label={t('commons:difficulty')}
-              name="difficulty"
-              valueToString={toRomanDifficulty}
-              options={DIFFICULTIES}
-              keyExtractor={keyExtractor}
-            />
+const MainScreen: React.FC<AddSectionMainNavProps> = React.memo(
+  ({ navigation }) => {
+    const { t } = useTranslation();
+
+    const onPitoPress = React.useCallback(() => {
+      navigation.navigate(Screens.ADD_SECTION_SHAPE);
+    }, [navigation.navigate]);
+
+    const onRiverPress = React.useCallback(() => {
+      navigation.navigate(Screens.ADD_SECTION_RIVER);
+    }, [navigation.navigate]);
+
+    return (
+      <Screen>
+        <KeyboardAwareScrollView
+          style={styles.scroll}
+          contentContainerStyle={styles.scrollContent}
+        >
+          <RiverPlaceholder onPress={onRiverPress} />
+          <TextField
+            name="name"
+            label={t('screens:addSection.main.nameLabel')}
+            testID="name"
+          />
+          <View style={styles.difficultyRow}>
+            <View style={styles.box}>
+              <ModalPickerField<number>
+                label={t('commons:difficulty')}
+                name="difficulty"
+                valueToString={toRomanDifficulty}
+                options={DIFFICULTIES}
+                keyExtractor={keyExtractor}
+              />
+            </View>
+            <Text style={styles.brackets}>{'('}</Text>
+            <View style={styles.box}>
+              <TextField
+                name="difficultyXtra"
+                autoCapitalize="characters"
+                autoCompleteType="off"
+                autoCorrect={false}
+                maxLength={8}
+                testID="difficultyXtra"
+                helperText={t('screens:addSection.main.difficultyXtraHelper')}
+              />
+            </View>
+            <Text style={styles.brackets}>{')'}</Text>
           </View>
-          <Text style={styles.brackets}>{'('}</Text>
-          <View style={styles.box}>
-            <TextField
-              name="difficultyXtra"
-              autoCapitalize="characters"
-              autoCompleteType="off"
-              autoCorrect={false}
-              maxLength={8}
-              testID="difficultyXtra"
-              helperText={t('screens:addSection.main.difficultyXtraHelper')}
-            />
-          </View>
-          <Text style={styles.brackets}>{')'}</Text>
-        </View>
-        <PiToPlaceholder index={0} />
-        <PiToPlaceholder index={1} />
-        <CCNote style={styles.ccNote} />
-      </KeyboardAwareScrollView>
-    </Screen>
-  );
-});
+          <PiToPlaceholder index={0} onPress={onPitoPress} />
+          <PiToPlaceholder index={1} onPress={onPitoPress} />
+          <CCNote style={styles.ccNote} />
+        </KeyboardAwareScrollView>
+      </Screen>
+    );
+  },
+);
 
 MainScreen.displayName = 'MainScreen';
 

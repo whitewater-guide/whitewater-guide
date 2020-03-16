@@ -1,7 +1,7 @@
 import { ChartProps, ChartProvider } from '@whitewater-guide/clients';
-import { Chart, ChartFlowToggle, ChartPeriodToggle } from 'components/chart';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { Chart, ChartFlowToggle, ChartPeriodToggle } from '~/components/chart';
 import theme from '../../../theme';
 import GaugeInfo from './GaugeInfo';
 
@@ -23,7 +23,7 @@ const ChartLayout: React.FC<ChartProps> = ({ gauge, section }) => {
   const formula = section && section.flows && section.flows.formula;
   return (
     <ChartProvider section={section} gauge={gauge}>
-      <View style={styles.container}>
+      <View style={styles.container} testID="chart-container">
         <View style={styles.container}>
           <Chart />
         </View>

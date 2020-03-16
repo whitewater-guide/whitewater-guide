@@ -1,10 +1,10 @@
-import Icon from 'components/Icon';
 import React, { useCallback } from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { useNavigation } from 'react-navigation-hooks';
-import { LocalPhoto } from '../../../../features/uploads';
-import theme from '../../../../theme';
-import Screens from '../../../screen-names';
+import Icon from '~/components/Icon';
+import { Screens } from '~/core/navigation';
+import { LocalPhoto } from '~/features/uploads';
+import theme from '~/theme';
+import { AddSectionPhotosNavProp } from './types';
 
 const styles = StyleSheet.create({
   image: {
@@ -25,40 +25,42 @@ const styles = StyleSheet.create({
 interface Props {
   index: number;
   photo?: LocalPhoto;
+  navigation: AddSectionPhotosNavProp;
   onClear: (index: number) => void;
 }
 
-const PhotoThumb: React.FC<Props> = React.memo(({ index, photo, onClear }) => {
-  const uri = photo ? (photo.file ? photo.file.uri : photo.url) : undefined;
-  const { navigate } = useNavigation();
+const PhotoThumb: React.FC<Props> = React.memo(
+  ({ index, photo, onClear, navigation }) => {
+    const uri = photo ? (photo.file ? photo.file.uri : photo.url) : undefined;
 
-  const onPress = useCallback(() => {
-    if (photo) {
-      navigate(Screens.Region.AddSection.Photo, {
-        index,
-        localPhotoId: photo.id,
-      });
-    }
-  }, [navigate, index, photo]);
+    const onPress = useCallback(() => {
+      if (photo) {
+        navigation.navigate(Screens.ADD_SECTION_PHOTO, {
+          index,
+          localPhotoId: photo.id,
+        });
+      }
+    }, [navigation.navigate, index, photo]);
 
-  const onRemove = useCallback(() => {
-    onClear(index);
-  }, [index, onClear]);
+    const onRemove = useCallback(() => {
+      onClear(index);
+    }, [index, onClear]);
 
-  return (
-    <View>
-      <TouchableOpacity onPress={onPress}>
-        <Image source={{ uri }} style={styles.image} />
-      </TouchableOpacity>
-      <Icon
-        icon="close-circle"
-        color={theme.colors.textLight}
-        style={styles.clear}
-        onPress={onRemove}
-      />
-    </View>
-  );
-});
+    return (
+      <View>
+        <TouchableOpacity onPress={onPress}>
+          <Image source={{ uri }} style={styles.image} />
+        </TouchableOpacity>
+        <Icon
+          icon="close-circle"
+          color={theme.colors.textLight}
+          style={styles.clear}
+          onPress={onRemove}
+        />
+      </View>
+    );
+  },
+);
 
 PhotoThumb.displayName = 'PhotoThumb';
 

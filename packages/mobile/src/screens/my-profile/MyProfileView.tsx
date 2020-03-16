@@ -1,10 +1,10 @@
 import { useAuth } from '@whitewater-guide/clients';
-import Paper from 'components/Paper';
-import RetryPlaceholder from 'components/RetryPlaceholder';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RefreshControl, ScrollView, StyleSheet } from 'react-native';
 import { Divider, Title } from 'react-native-paper';
+import Paper from '~/components/Paper';
+import RetryPlaceholder from '~/components/RetryPlaceholder';
 import theme from '../../theme';
 import MyLanguage from './MyLanguage';
 import { PurchasesListView } from './purchases';

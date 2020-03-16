@@ -1,22 +1,21 @@
 import { useTags } from '@whitewater-guide/clients';
 import { Duration, Durations } from '@whitewater-guide/commons';
-import Loading from 'components/Loading';
-import { Screen } from 'components/Screen';
-import ModalPickerField from 'forms/modal-picker';
-import NumericField from 'forms/NumericField';
-import RatingField from 'forms/RatingField';
-import TagsField from 'forms/TagsField';
 import groupBy from 'lodash/groupBy';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { NavigationScreenComponent } from 'react-navigation';
+import Loading from '~/components/Loading';
+import { Screen } from '~/components/Screen';
+import ModalPickerField from '~/forms/modal-picker';
+import NumericField from '~/forms/NumericField';
+import RatingField from '~/forms/RatingField';
+import TagsField from '~/forms/TagsField';
 import theme from '../../../../theme';
 
-const DURATIONS: Array<Duration | null> = [null].concat(Array.from(
-  Durations.entries(),
-).map(([k]) => k) as any);
+const DURATIONS: Array<Duration | null> = [null].concat(
+  Array.from(Durations.entries()).map(([k]) => k) as any,
+);
 const keyExtractor = (v: Duration | null) => (v ? v.toString() : 'null');
 
 const styles = StyleSheet.create({
@@ -28,7 +27,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const AttributesScreen: NavigationScreenComponent = React.memo(() => {
+const AttributesScreen = React.memo(() => {
   const { t } = useTranslation();
   const durationToString = useCallback(
     (v: Duration | null) => (v ? t(`durations:${v}`) : '-'),
@@ -51,6 +50,7 @@ const AttributesScreen: NavigationScreenComponent = React.memo(() => {
           name="distance"
           label={t('commons:length', { unit: 'km' })}
           keyboardType="numeric"
+          testID="distance"
         />
         <NumericField
           name="drop"

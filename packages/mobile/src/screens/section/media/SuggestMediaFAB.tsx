@@ -1,14 +1,12 @@
+import { useNavigation } from '@react-navigation/native';
 import { useSection } from '@whitewater-guide/clients';
 import React, { useCallback } from 'react';
 import { StyleSheet } from 'react-native';
+import Config from 'react-native-config';
 import { FAB } from 'react-native-paper';
-import { useNavigation } from 'react-navigation-hooks';
-import {
-  LocalPhoto,
-  useImagePicker,
-  useLocalPhotos,
-} from '../../../features/uploads';
-import Screens from '../../screen-names';
+import { Screens } from '~/core/navigation';
+import { LocalPhoto, useImagePicker, useLocalPhotos } from '~/features/uploads';
+import { SectionMediaNavProp } from './types';
 
 const styles = StyleSheet.create({
   fab: {
@@ -20,12 +18,12 @@ const styles = StyleSheet.create({
 });
 
 export const SuggestMediaFAB: React.FC = React.memo(() => {
-  const { navigate } = useNavigation();
+  const { navigate } = useNavigation<SectionMediaNavProp>();
   const { node } = useSection();
   const { upload } = useLocalPhotos();
   const onPick = useCallback(
     (photo: LocalPhoto) => {
-      navigate(Screens.Suggestion, {
+      navigate(Screens.SUGGESTION, {
         sectionId: node!.id,
         localPhotoId: photo.id,
       });
@@ -33,8 +31,23 @@ export const SuggestMediaFAB: React.FC = React.memo(() => {
     },
     [upload, navigate, node],
   );
-  const onPress = useImagePicker(onPick);
-  return <FAB style={styles.fab} icon="image-plus" onPress={onPress} />;
+  const onPress =
+    Config.E2E_MODE === 'true'
+      ? () => {
+          navigate(Screens.SUGGESTION, {
+            sectionId: node!.id,
+            localPhotoId: 'foo',
+          });
+        }
+      : useImagePicker(onPick);
+  return (
+    <FAB
+      style={styles.fab}
+      icon="image-plus"
+      onPress={onPress}
+      testID="suggest-media-fab"
+    />
+  );
 });
 
 SuggestMediaFAB.displayName = 'SuggestionFAB';

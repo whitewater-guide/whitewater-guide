@@ -6,7 +6,7 @@ it('should set loading to true', async () => {
   const service = new MockAuthService();
   await service.init();
   const listener = jest.fn();
-  service.listener = listener;
+  service.on('loading', listener);
   const res = await service.signIn('local', { email: 'foo', password: 'bar' });
   expect(listener).toHaveBeenCalledTimes(2);
   expect(listener).toHaveBeenNthCalledWith(1, true);
@@ -19,7 +19,7 @@ it('should set loading to false when method rejects', async () => {
   service.signIn.mockRejectedValueOnce(new Error('oops!'));
   await service.init();
   const listener = jest.fn();
-  service.listener = listener;
+  service.on('loading', listener);
   await expect(
     service.signIn('local', { email: 'foo', password: 'bar' }),
   ).rejects.toEqual(new Error('oops!'));
@@ -42,7 +42,7 @@ it('should return error when two methods are called concurrently', async () => {
   );
   await service.init();
   const listener = jest.fn();
-  service.listener = listener;
+  service.on('loading', listener);
   const res = await Promise.all([
     service.signIn('local', { email: 'foo', password: 'bar' }),
     service.signOut(),
@@ -70,7 +70,7 @@ it('refresh can be called any time', async () => {
   );
   await service.init();
   const listener = jest.fn();
-  service.listener = listener;
+  service.on('loading', listener);
   const res = await Promise.all([
     service.signIn('local', { email: 'foo', password: 'bar' }),
     service.refreshAccessToken(),
@@ -93,7 +93,7 @@ it('refresh can be called concurrently', async () => {
   );
   await service.init();
   const listener = jest.fn();
-  service.listener = listener;
+  service.on('loading', listener);
   const res = await Promise.all([
     service.refreshAccessToken(),
     service.refreshAccessToken(),
@@ -117,7 +117,7 @@ it('should ignore loading state when sign in is forced', async () => {
   );
   await service.init();
   const listener = jest.fn();
-  service.listener = listener;
+  service.on('loading', listener);
   const res = await Promise.all([
     service.signIn('local', { email: 'foo', password: 'bar' }),
     service.signOut(true),
@@ -126,4 +126,24 @@ it('should ignore loading state when sign in is forced', async () => {
   expect(listener).toHaveBeenNthCalledWith(1, true);
   expect(listener).toHaveBeenNthCalledWith(2, false);
   expect(res).toEqual([{ success: true }, { success: true }]);
+});
+
+it('should emit events', async () => {
+  const service = new MockAuthService();
+  const listener1 = jest.fn();
+  const listener2 = jest.fn();
+  const listener3 = jest.fn(async (v: boolean) => {
+    await Promise.resolve();
+  });
+  const rem1 = service.on('loading', listener1);
+  service.on('loading', listener2);
+  service.on('loading', listener3);
+  await service.testEmit('loading', true);
+  rem1();
+  await service.testEmit('loading', false);
+  service.off('loading');
+  await service.testEmit('loading', true);
+  expect(listener1.mock.calls).toEqual([[true]]);
+  expect(listener2.mock.calls).toEqual([[true], [false]]);
+  expect(listener3.mock.calls).toEqual([[true], [false]]);
 });

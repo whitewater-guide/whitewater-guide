@@ -4,9 +4,6 @@ import {
   WithNode,
 } from '@whitewater-guide/clients';
 import { Section, TagCategory } from '@whitewater-guide/commons';
-import Chips from 'components/Chips';
-import { Body, Left, Right, Row } from 'components/Row';
-import SimpleStarRating from 'components/SimpleStarRating';
 import groupBy from 'lodash/groupBy';
 import trim from 'lodash/trim';
 import upperFirst from 'lodash/upperFirst';
@@ -14,6 +11,9 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
 import { Paragraph, Subheading } from 'react-native-paper';
+import Chips from '~/components/Chips';
+import { Body, Left, Right, Row } from '~/components/Row';
+import SimpleStarRating from '~/components/SimpleStarRating';
 import { getSeasonLocalizer } from '../../../i18n';
 import theme from '../../../theme';
 import CoordinatesInfo from './CoordinatesInfo';

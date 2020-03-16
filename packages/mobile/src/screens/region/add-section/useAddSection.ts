@@ -1,12 +1,12 @@
+import { useNavigation } from '@react-navigation/native';
 import { getValidationErrors } from '@whitewater-guide/clients';
 import { SectionInput } from '@whitewater-guide/commons';
-import { useSnackbarMessage } from 'components/snackbar';
 import { FormikHelpers } from 'formik';
 import gql from 'graphql-tag';
 import { useCallback } from 'react';
 import { useMutation } from 'react-apollo';
 import { useTranslation } from 'react-i18next';
-import { useNavigation } from 'react-navigation-hooks';
+import { useSnackbarMessage } from '~/components/snackbar';
 import formToInput from './formToInput';
 import { SectionFormInput } from './types';
 

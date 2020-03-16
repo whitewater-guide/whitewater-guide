@@ -1,11 +1,11 @@
 import { Region } from '@whitewater-guide/commons';
-import Paper from 'components/Paper';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import Image from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 import { Caption, Title, TouchableRipple } from 'react-native-paper';
+import Paper from '~/components/Paper';
 import theme from '../../theme';
 import DownloadButton from './DownloadButton';
 import PremiumBadge from './PremiumBadge';
@@ -65,14 +65,18 @@ export const CARD_HEIGHT =
 
 interface Props {
   region: Region;
+  index: number;
 }
 
-export const RegionCard: React.FC<Props> = React.memo(({ region }) => {
+export const RegionCard: React.FC<Props> = React.memo(({ region, index }) => {
   const { t } = useTranslation();
   const cardProps = useCommonCardProps(region);
   const uri = region.coverImage.mobile || undefined;
   return (
-    <TouchableRipple onPress={cardProps.openRegion}>
+    <TouchableRipple
+      onPress={cardProps.openRegion}
+      testID={`RegionCard${index}`}
+    >
       <Paper style={styles.root}>
         <Image source={{ uri }} style={styles.image}>
           <LinearGradient
@@ -84,6 +88,7 @@ export const RegionCard: React.FC<Props> = React.memo(({ region }) => {
               downloadRegion={cardProps.downloadRegion}
               canMakePayments={cardProps.canMakePayments}
               regionInProgress={cardProps.regionInProgress}
+              offlineError={cardProps.offlineError}
               region={region}
             />
             <Title style={styles.title}>{region.name}</Title>

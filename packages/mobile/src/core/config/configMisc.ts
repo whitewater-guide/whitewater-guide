@@ -1,16 +1,12 @@
 import Mapbox from '@react-native-mapbox-gl/maps';
-import { Platform, UIManager, YellowBox } from 'react-native';
+import { UIManager } from 'react-native';
 import Config from 'react-native-config';
-import { useScreens } from 'react-native-screens';
+import { enableScreens } from 'react-native-screens';
 
 const configMisc = () => {
   console.disableYellowBox = true;
 
-  // TODO: possible react-native-screens and react-native-splash-screen conflict causing crashes
-  // https://github.com/kmagiera/react-native-screens/issues/54
-  if (Platform.OS === 'ios') {
-    useScreens();
-  }
+  enableScreens();
 
   if (UIManager.setLayoutAnimationEnabledExperimental) {
     UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -45,6 +41,22 @@ const configMisc = () => {
   //     ? global.originalFileReader
   //     : global.FileReader;
   // }
+
+  // Used to track infinite loops
+  // (function() {
+  //   const oldSetTimeout = global.setTimeout;
+  //   global.setTimeout = function(...args) {
+  //     const e = new Error('Looking for timers');
+  //     console.log('New timeout registered from %s', e.stack);
+  //     return oldSetTimeout.apply(this, args);
+  //   };
+  //   const oldSetInterval = global.setInterval;
+  //   global.setInterval = function(...args) {
+  //     const e = new Error('Looking for timers');
+  //     console.log('New interval registered from %s', e.stack);
+  //     return oldSetInterval.apply(this, args);
+  //   };
+  // })();
 };
 
 export default configMisc;

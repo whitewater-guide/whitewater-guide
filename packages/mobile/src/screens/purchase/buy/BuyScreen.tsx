@@ -1,12 +1,11 @@
-import { Screen } from 'components/Screen';
 import React from 'react';
-import { NavigationScreenComponent } from 'react-navigation';
-import { NavParams } from '../types';
+import { Screen } from '~/components/Screen';
 import BuyView from './BuyView';
+import { PurchaseBuyNavProps } from './types';
 import usePurchaseState from './usePurchaseState';
 
-const BuyScreen: NavigationScreenComponent = ({ screenProps }) => {
-  const { region, sectionId } = screenProps as NavParams;
+const BuyScreen: React.FC<PurchaseBuyNavProps> = ({ route }) => {
+  const { region, sectionId } = route.params;
   const state = usePurchaseState(region, sectionId);
   return (
     <Screen safe={true}>

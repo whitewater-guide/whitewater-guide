@@ -1,8 +1,9 @@
-import { Region } from '@whitewater-guide/commons';
-import WithNetworkError from 'components/WithNetworkError';
-import React, { useCallback } from 'react';
+import { useRegionsFilterOptions } from '@whitewater-guide/clients';
+import { filterRegions, Region } from '@whitewater-guide/commons';
+import React, { useCallback, useMemo } from 'react';
 import { FlatList, ListRenderItemInfo } from 'react-native';
-import theme from '../../theme';
+import WithNetworkError from '~/components/WithNetworkError';
+import theme from '~/theme';
 import { CARD_HEIGHT, RegionCard } from './RegionCard';
 import useRegionsListQuery from './useRegionsListQuery';
 
@@ -17,9 +18,16 @@ const rowsPerScreen = Math.ceil(theme.screenHeight / CARD_HEIGHT);
 
 const RegionsListView: React.FC = React.memo(() => {
   const { data, error, loading, refetch } = useRegionsListQuery();
+  const filter = useRegionsFilterOptions();
+  const regions = useMemo(
+    () => filterRegions(data ? data.regions.nodes : [], filter),
+    [filter, data],
+  );
 
   const renderItem = useCallback(
-    ({ item }: ListRenderItemInfo<Region>) => <RegionCard region={item} />,
+    ({ item, index }: ListRenderItemInfo<Region>) => (
+      <RegionCard region={item} index={index} />
+    ),
     [],
   );
 
@@ -31,7 +39,7 @@ const RegionsListView: React.FC = React.memo(() => {
       refetch={refetch}
     >
       <FlatList
-        data={data ? data.regions.nodes : []}
+        data={regions}
         getItemLayout={getItemLayout}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
@@ -40,6 +48,7 @@ const RegionsListView: React.FC = React.memo(() => {
         removeClippedSubviews={true}
         windowSize={10}
         initialNumToRender={rowsPerScreen}
+        testID="regions-list-flat-list"
       />
     </WithNetworkError>
   );

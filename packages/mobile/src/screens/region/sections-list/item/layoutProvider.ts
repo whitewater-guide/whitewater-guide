@@ -1,5 +1,5 @@
 import { LayoutProvider } from 'recyclerlistview';
-import theme from '../../../../theme';
+import theme from '~/theme';
 import { ITEM_HEIGHT } from './constants';
 
 export const layoutProvider = new LayoutProvider(

@@ -1,9 +1,10 @@
 import { useNetInfo } from '@react-native-community/netinfo';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, View } from 'react-native';
+import { Clipboard, Platform, StyleSheet, Text, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Caption } from 'react-native-paper';
-import theme from '../../../theme';
+import theme from '~/theme';
 
 const styles = StyleSheet.create({
   cacheWarningContainer: {
@@ -14,23 +15,54 @@ const styles = StyleSheet.create({
   error: {
     color: theme.colors.error,
   },
+  errorWrapper: {
+    flexDirection: 'row',
+  },
+  copy: {
+    fontFamily: Platform.select({
+      android: 'MaterialCommunityIcons',
+      ios: 'Material Design Icons',
+    }),
+    marginHorizontal: theme.margin.single,
+  },
 });
 
 interface Props {
-  error?: string | null;
+  error?: Error;
 }
+
+const Errors: React.FC<Required<Props>> = ({ error }) => {
+  const { isConnected } = useNetInfo();
+  const { t } = useTranslation();
+
+  const copyError = useCallback(() => {
+    if (error) {
+      Clipboard.setString(JSON.stringify(error, null, 2));
+    }
+  }, [error]);
+
+  return (
+    <React.Fragment>
+      <TouchableOpacity onPress={copyError}>
+        <Caption style={styles.error}>
+          {t('offline:dialog.downloadError')}
+          <Text style={styles.copy}>{' ' + String.fromCharCode(61839)}</Text>
+        </Caption>
+      </TouchableOpacity>
+      {!isConnected && (
+        <Caption style={styles.error}>{t('commons:checkConnection')}</Caption>
+      )}
+    </React.Fragment>
+  );
+};
 
 const Warnings: React.FC<Props> = ({ error }) => {
   const { t } = useTranslation();
-  const { isConnected } = useNetInfo();
+
   return (
     <View style={styles.cacheWarningContainer}>
-      {error && (
-        <Caption style={styles.error}>
-          {t(error)} {isConnected ? '' : t('commons:checkConnection')}
-        </Caption>
-      )}
-      <Caption>{t('offline:dialog:cacheWarning')}</Caption>
+      {error && <Errors error={error} />}
+      <Caption>{t('offline:dialog.cacheWarning')}</Caption>
     </View>
   );
 };

@@ -50,7 +50,7 @@ export function buildOneQuery<TGraphql, TSql>(
   id: string,
 ) {
   const query = buildQuery(tableName, options);
-  return query.where({ id });
+  return query.where({ id } as any);
 }
 
 export function buildBatchQuery<TGraphql, TSql>(

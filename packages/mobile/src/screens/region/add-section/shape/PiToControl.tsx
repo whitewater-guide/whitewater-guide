@@ -57,7 +57,11 @@ const PiToControl: React.FC<Props> = React.memo((props) => {
   }, [select, selected, index]);
 
   return (
-    <TouchableOpacity onPress={onPress} style={styles.touchable}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={styles.touchable}
+      testID={`pito-button-${index}`}
+    >
       <View style={[styles.container, index === selected && styles.selected]}>
         <View style={styles.titleWrapper}>
           <Image

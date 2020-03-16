@@ -1,10 +1,10 @@
-import ErrorBoundary from 'components/ErrorBoundary';
-import Loading from 'components/Loading';
-import Paper from 'components/Paper';
 import React from 'react';
 import { Query, QueryResult } from 'react-apollo';
 import { useTranslation } from 'react-i18next';
 import { Divider, Title } from 'react-native-paper';
+import ErrorBoundary from '~/components/ErrorBoundary';
+import Loading from '~/components/Loading';
+import Paper from '~/components/Paper';
 import { MY_PURCHASES_QUERY, Result } from './myPurchases.query';
 import PurchaseItem from './PurchaseItem';
 

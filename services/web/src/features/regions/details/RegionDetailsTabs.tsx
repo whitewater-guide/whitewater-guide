@@ -2,8 +2,8 @@ import Box from '@material-ui/core/Box';
 import {
   SectionsListContext,
   SectionsListProvider,
-  useFilterState,
   useRegion,
+  useSectionsFilterOptions,
 } from '@whitewater-guide/clients';
 import React from 'react';
 import { useApolloClient } from 'react-apollo';
@@ -20,7 +20,7 @@ const RegionDetailsTabs: React.FC = React.memo(() => {
   const region = useRegion();
   const { node } = region;
   const { match } = useRouter();
-  const searchTerms = useFilterState();
+  const filterOptions = useSectionsFilterOptions();
   if (!node) {
     return null;
   }
@@ -30,7 +30,7 @@ const RegionDetailsTabs: React.FC = React.memo(() => {
       regionId={regionId}
       client={client}
       limit={60}
-      searchTerms={searchTerms}
+      filterOptions={filterOptions}
     >
       {({ sections, count }: SectionsListContext) => (
         <React.Fragment>

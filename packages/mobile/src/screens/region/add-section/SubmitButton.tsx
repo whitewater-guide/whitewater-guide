@@ -39,6 +39,7 @@ const SubmitButton: React.FC = () => {
       onLayout={onLayout}
       disabled={!isValid}
       accessibilityLabel={t('commons:create')}
+      testID="add-section-submit-btn"
     >
       {t('commons:create')}
     </Button>

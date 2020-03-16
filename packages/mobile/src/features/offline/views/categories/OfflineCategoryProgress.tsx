@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Caption, Paragraph, ProgressBar } from 'react-native-paper';
-import theme from '../../../../theme';
+import theme from '~/theme';
 
 const styles = StyleSheet.create({
   progressContainer: {
@@ -18,6 +18,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   progressBar: {
+    alignSelf: 'stretch',
+  },
+  barWrapper: {
     alignSelf: 'stretch',
   },
 });
@@ -39,10 +42,12 @@ const OfflineCategoryProgress: React.FC<Props> = React.memo(
           <Paragraph>{label}</Paragraph>
           <Caption>{`${downloaded}/${total}`}</Caption>
         </View>
-        <ProgressBar
-          style={styles.progressBar}
-          progress={total === 0 ? 0 : downloaded / total}
-        />
+        <View style={styles.barWrapper}>
+          <ProgressBar
+            style={styles.progressBar}
+            progress={total === 0 ? 0 : downloaded / total}
+          />
+        </View>
       </View>
     );
   },

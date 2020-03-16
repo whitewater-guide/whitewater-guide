@@ -1,3 +1,22 @@
+## [0.0.422](https://github.com/doomsower/whitewater/compare/7329dabe5dc38f048877af7ffd71bfa76621f0bf...00dd3e76ce94102531afd2c01f7ea7cc73576eba) (2020-03-16)
+
+## [0.0.421](https://github.com/doomsower/whitewater/compare/dbcb26d330aeb35197c416b7b4af6fce20c9573d...7329dabe5dc38f048877af7ffd71bfa76621f0bf) (2020-03-16)
+
+### Features
+
+- upgrade to react-navigation v5 ([](https://github.com/doomsower/whitewater/commit/c230c41662a0f09a20680f59a243c58b9c3298e8))
+
+### Bug Fixes
+
+- harvest status resolver ([](https://github.com/doomsower/whitewater/commit/0788a84661479a1c0aca4222d08c9e25f01780c6))
+
+## [0.0.421-v5.0](https://github.com/doomsower/whitewater/compare/e471c050240b02dc38a319e37b3210b57f7f97ce...dbcb26d330aeb35197c416b7b4af6fce20c9573d) (2020-03-15)
+
+### Features
+
+- better filters wip ([](https://github.com/doomsower/whitewater/commit/ccd6a68fd84b2ca3d8be9fda5ce2ba87761ee1e4))
+- update backend and use latest filter changes ([](https://github.com/doomsower/whitewater/commit/872a35ac63f855a83c99e69e696868a46d1029bd))
+
 ## [0.0.420](https://github.com/doomsower/whitewater/compare/49c0bc30d6380ba3fc3d9adc2548f984bbe17420...e471c050240b02dc38a319e37b3210b57f7f97ce) (2020-03-04)
 
 ### Features

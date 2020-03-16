@@ -6,17 +6,6 @@ Object {
 }
 `;
 
-exports[`should be invalid for bad harvest_mode 1`] = `
-Object {
-  "harvestMode": Object {
-    "key": "yup:mixed.oneOf",
-    "options": Object {
-      "values": "allAtOnce, oneByOne",
-    },
-  },
-}
-`;
-
 exports[`should be invalid for bad region 1`] = `
 Object {
   "regions": Array [
@@ -30,12 +19,6 @@ Object {
 exports[`should be invalid for bad script 1`] = `
 Object {
   "script": Object {
-    "harvestMode": Object {
-      "key": "yup:mixed.oneOf",
-      "options": Object {
-        "values": "allAtOnce, oneByOne",
-      },
-    },
     "id": Object {
       "key": "yup:string.min",
       "options": Object {

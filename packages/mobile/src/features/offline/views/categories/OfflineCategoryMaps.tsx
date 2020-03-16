@@ -25,6 +25,4 @@ const OfflineCategoryMaps: React.FC<OfflineCategoryProps> = (props) => {
   );
 };
 
-OfflineCategoryMaps.displayName = 'OfflineCategoryMaps';
-
 export default OfflineCategoryMaps;

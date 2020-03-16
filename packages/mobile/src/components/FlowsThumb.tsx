@@ -6,6 +6,7 @@ import {
 } from '@whitewater-guide/clients';
 import { Section } from '@whitewater-guide/commons';
 import parseISO from 'date-fns/parseISO';
+import isNil from 'lodash/isNil';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
@@ -63,6 +64,9 @@ const FlowsThumb: React.FC<Props> = ({ section }) => {
         unit: levelUnit,
         value: formulas.levels(latestMeasurement.level),
       };
+  if (isNil(data.value)) {
+    return null;
+  }
   const fromNow = formatDistanceToNow(parseISO(latestMeasurement.timestamp), {
     addSuffix: true,
   });

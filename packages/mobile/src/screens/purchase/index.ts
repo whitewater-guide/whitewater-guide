@@ -1,1 +1,1 @@
-export * from './PurchaseStack';
+export * from './LazyPurchaseStack';

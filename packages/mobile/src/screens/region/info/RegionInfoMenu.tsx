@@ -1,19 +1,13 @@
-import { dataIdFromObject, RegionFragments } from '@whitewater-guide/clients';
-import { Region } from '@whitewater-guide/commons';
+import { useRegion } from '@whitewater-guide/clients';
 import React, { useCallback, useRef } from 'react';
-import { useApolloClient } from 'react-apollo';
 import { useTranslation } from 'react-i18next';
 import { Clipboard, Platform } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import { IconButton } from 'react-native-paper';
 import theme from '../../../theme';
 
-interface Props {
-  regionId?: string;
-}
-
-const RegionInfoMenu: React.FC<Props> = ({ regionId }) => {
-  const client = useApolloClient();
+const RegionInfoMenu: React.FC = () => {
+  const { node } = useRegion();
   const actionSheet = useRef<ActionSheet>(null);
   const [t] = useTranslation();
   const showMenu = useCallback(() => {
@@ -23,25 +17,21 @@ const RegionInfoMenu: React.FC<Props> = ({ regionId }) => {
   }, []);
   const onMenu = useCallback(
     (index: number) => {
-      if (index !== 0 || !regionId) {
+      if (index !== 0 || !node) {
         return;
       }
-      const region = client.readFragment<Pick<Region, 'description'>>({
-        fragment: RegionFragments.Description,
-        id: dataIdFromObject({ __typename: 'Region', id: regionId })!,
-      });
-      if (region && region.description) {
-        Clipboard.setString(region.description);
+      if (node.description) {
+        Clipboard.setString(node.description);
       }
     },
-    [client, regionId],
+    [node],
   );
   const options = [t('region:info.menu.clipboard'), t('commons:cancel')];
   return (
     <React.Fragment>
       <IconButton
         testID="region-info-menu-button"
-        icon={Platform.OS === 'ios' ? 'more-horiz' : 'more-vert'}
+        icon={Platform.OS === 'ios' ? 'dots-horizontal' : 'dots-vertical'}
         color={theme.colors.textLight}
         onPress={showMenu}
       />

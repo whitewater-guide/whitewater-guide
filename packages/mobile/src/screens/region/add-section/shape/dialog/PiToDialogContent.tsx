@@ -1,10 +1,11 @@
 import { FormikProps } from 'formik';
-import HelperText from 'forms/HelperText';
-import NumericField from 'forms/NumericField';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Button, Modal, Surface } from 'react-native-paper';
+import HelperText from '~/forms/HelperText';
+import NumericField from '~/forms/NumericField';
 import theme from '../../../../../theme';
 import { Shape } from '../../types';
 import { getShapeError, isShapeTouched } from '../../utils';
@@ -49,6 +50,11 @@ const styles = StyleSheet.create({
     minWidth: 80,
     marginLeft: theme.margin.single,
   },
+  modalContent: {
+    height: theme.screenHeight,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
 interface Props extends FormikProps<Shape> {
@@ -72,16 +78,16 @@ const PiToDialogContent: React.FC<Props> = React.memo((props) => {
       onDismiss={onDismiss}
       contentContainerStyle={StyleSheet.absoluteFill}
     >
-      <KeyboardAvoidingView
-        behavior="height"
-        style={styles.kav}
-        pointerEvents="box-none"
+      <KeyboardAwareScrollView
+        contentContainerStyle={styles.modalContent}
+        keyboardShouldPersistTaps="always"
       >
         <Surface style={styles.dialog}>
           <PiToPointHeader index={0} setFieldValue={setFieldValue} />
           <View style={styles.row} accessibilityHint={t('commons:putIn')}>
             <NumericField
               name="shape.0.1"
+              testID="shape_0_1"
               label={t('commons:latitude')}
               keyboardType="numeric"
               maxLength={7}
@@ -90,6 +96,7 @@ const PiToDialogContent: React.FC<Props> = React.memo((props) => {
             />
             <NumericField
               name="shape.0.0"
+              testID="shape_0_0"
               label={t('commons:longitude')}
               keyboardType="numeric"
               maxLength={8}
@@ -98,6 +105,7 @@ const PiToDialogContent: React.FC<Props> = React.memo((props) => {
             />
             <NumericField
               name="shape.0.2"
+              testID="shape_0_2"
               label={t('commons:altitude')}
               keyboardType="numeric"
               maxLength={4}
@@ -113,6 +121,7 @@ const PiToDialogContent: React.FC<Props> = React.memo((props) => {
           <View style={styles.row} accessibilityHint={t('commons:takeOut')}>
             <NumericField
               name="shape.1.1"
+              testID="shape_1_1"
               label={t('commons:latitude')}
               keyboardType="numeric"
               maxLength={8}
@@ -121,6 +130,7 @@ const PiToDialogContent: React.FC<Props> = React.memo((props) => {
             />
             <NumericField
               name="shape.1.0"
+              testID="shape_1_0"
               label={t('commons:longitude')}
               keyboardType="numeric"
               maxLength={7}
@@ -129,6 +139,7 @@ const PiToDialogContent: React.FC<Props> = React.memo((props) => {
             />
             <NumericField
               name="shape.1.2"
+              testID="shape_1_2"
               label={t('commons:altitude')}
               keyboardType="numeric"
               maxLength={4}
@@ -153,12 +164,13 @@ const PiToDialogContent: React.FC<Props> = React.memo((props) => {
               mode="contained"
               style={styles.okButton}
               accessibilityLabel={t('commons:ok')}
+              testID="shape-submit"
             >
               {t('commons:ok')}
             </Button>
           </View>
         </Surface>
-      </KeyboardAvoidingView>
+      </KeyboardAwareScrollView>
     </Modal>
   );
 });

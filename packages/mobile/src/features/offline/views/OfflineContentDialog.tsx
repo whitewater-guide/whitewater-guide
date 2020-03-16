@@ -1,31 +1,25 @@
-import noop from 'lodash/noop';
 import React from 'react';
-import { Dialog } from 'react-native-paper';
-import { useSelector } from 'react-redux';
-import { offlineContentSelectors } from '../selectors';
+import { useOfflineContent } from '../OfflineContentProvider';
 import LazyOfflineContentDialogView from './LazyOfflineContentDialogView';
 
-const OfflineContentDialog: React.FC = () => {
-  const { region, progress, inProgress, error } = useSelector(
-    offlineContentSelectors.dialogState,
-  );
+export const OfflineContentDialog: React.FC = () => {
+  const {
+    dialogRegion,
+    progress,
+    regionInProgress,
+    error,
+  } = useOfflineContent();
 
-  if (!region) {
+  if (!dialogRegion) {
     return null;
   }
 
   return (
-    <Dialog dismissable={false} onDismiss={noop} visible={true}>
-      <LazyOfflineContentDialogView
-        region={region}
-        inProgress={inProgress}
-        progress={progress}
-        error={error}
-      />
-    </Dialog>
+    <LazyOfflineContentDialogView
+      region={dialogRegion}
+      inProgress={!!regionInProgress}
+      progress={progress}
+      error={error}
+    />
   );
 };
-
-OfflineContentDialog.displayName = 'OfflineContentDialog';
-
-export default OfflineContentDialog;

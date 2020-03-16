@@ -1,5 +1,5 @@
-import registerScreen from '../../../utils/registerScreen';
+import { register } from 'react-native-bundle-splitter';
 
-export const LazySignInScreen = registerScreen({
+export const LazySignInScreen = register({
   require: () => require('./SignInScreen'),
 });

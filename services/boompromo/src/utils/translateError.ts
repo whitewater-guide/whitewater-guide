@@ -1,6 +1,6 @@
-import i18next from 'i18next';
+import { TFunction } from 'i18next';
 
-export const translateError = (t: i18next.TFunction, error: any) => {
+export const translateError = (t: TFunction, error: any) => {
   return error
     ? typeof error === 'string'
       ? t(error)

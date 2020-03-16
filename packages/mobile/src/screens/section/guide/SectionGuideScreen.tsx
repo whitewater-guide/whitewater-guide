@@ -1,13 +1,15 @@
+import { useFocusEffect } from '@react-navigation/native';
 import { useSection } from '@whitewater-guide/clients';
 import { BannerPlacement } from '@whitewater-guide/commons';
-import { Screen } from 'components/Screen';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { NavigationScreenComponent } from 'react-navigation';
+import { Screen } from '~/components/Screen';
 import { RegionBanners } from '../../../features/banners';
 import theme from '../../../theme';
 import SuggestionFAB from '../SuggestionFAB';
+import SectionGuideMenu from './SectionGuideMenu';
 import SectionGuideView from './SectionGuideView';
+import { SectionGuideNavProps } from './types';
 
 const styles = StyleSheet.create({
   content: {
@@ -18,8 +20,23 @@ const styles = StyleSheet.create({
   },
 });
 
-const SectionGuideScreen: NavigationScreenComponent = () => {
+const SectionGuideScreen: React.FC<SectionGuideNavProps> = ({ navigation }) => {
   const section = useSection();
+
+  useFocusEffect(
+    React.useCallback(() => {
+      navigation.dangerouslyGetParent()?.setOptions({
+        headerRight: () => <SectionGuideMenu section={section.node} />,
+      });
+
+      return () => {
+        navigation.dangerouslyGetParent()?.setOptions({
+          headerRight: () => null,
+        });
+      };
+    }, [navigation, section.node]),
+  );
+
   return (
     <Screen>
       <ScrollView contentContainerStyle={styles.content}>
@@ -30,7 +47,7 @@ const SectionGuideScreen: NavigationScreenComponent = () => {
         />
         <View style={styles.fabHelper} />
       </ScrollView>
-      <SuggestionFAB />
+      <SuggestionFAB testID="section-guide-fab" />
     </Screen>
   );
 };

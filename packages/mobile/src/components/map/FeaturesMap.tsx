@@ -4,7 +4,6 @@ import Mapbox, {
   SymbolLayerStyle,
 } from '@react-native-mapbox-gl/maps';
 import { MapProps } from '@whitewater-guide/clients';
-import { Point } from '@whitewater-guide/commons';
 import React from 'react';
 import { Platform } from 'react-native';
 import { BaseMap } from './BaseMap';
@@ -67,7 +66,13 @@ const NON_APPROXIMATE_FILTER = ['==', ['get', 'approximate'], false];
 type Props = MapProps & MapViewProps;
 
 const FeaturesMap: React.FC<Props> = React.memo((props) => {
-  const { mapType, detailed, locationPermissionGranted, initialBounds } = props;
+  const {
+    mapType,
+    detailed,
+    locationPermissionGranted,
+    initialBounds,
+    testID,
+  } = props;
   const [visibleBounds, onRegionDidChange] = useBoundsRef(initialBounds);
   const onPress = useSelectionHandler(
     props.sections,
@@ -90,6 +95,7 @@ const FeaturesMap: React.FC<Props> = React.memo((props) => {
       onPress={onPress}
       onRegionDidChange={onRegionDidChange}
       attributionPosition={ATTRIBUTION}
+      testID={testID}
     >
       <Mapbox.ShapeSource
         id="sectionsSource"

@@ -1,9 +1,5 @@
-import React from 'react';
-import registerScreen from '../../utils/registerScreen';
+import { register } from 'react-native-bundle-splitter';
 
-export const LazyMyProfileScreen = registerScreen({
+export const LazyMyProfileScreen = register({
   require: () => require('./MyProfileScreen'),
-  navigationOptions: {
-    headerTitle: 'myProfile:title',
-  },
 });

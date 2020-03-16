@@ -1,9 +1,9 @@
 import { Region } from '@whitewater-guide/commons';
-import Icon from 'components/Icon';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Caption, TouchableRipple } from 'react-native-paper';
+import Icon from '~/components/Icon';
 import theme from '../../theme';
 
 const styles = StyleSheet.create({
@@ -65,6 +65,7 @@ const PremiumBadge: React.FC<Props> = React.memo(
           hitSlop={PREMIUM_HIT_SLOP}
           style={styles.premiumTouchable}
           accessibilityLabel="buy premium"
+          testID="premium-btn"
         >
           <View style={styles.col}>
             <Caption style={styles.premium}>{t('commons:premium')}</Caption>

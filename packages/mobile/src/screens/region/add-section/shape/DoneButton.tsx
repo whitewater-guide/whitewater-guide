@@ -1,8 +1,8 @@
+import { useNavigation } from '@react-navigation/native';
 import { Coordinate3d } from '@whitewater-guide/commons';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'react-native-paper';
-import { useNavigation } from 'react-navigation-hooks';
 import theme from '../../../../theme';
 import notifier from './notifier';
 
@@ -27,6 +27,7 @@ const DoneButton: React.FC = () => {
       disabled={disabled}
       onPress={onPress}
       accessibilityLabel={t('commons:done')}
+      testID="add-section-shape-done-btn"
     >
       {t('commons:done')}
     </Button>

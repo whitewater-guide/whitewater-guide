@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 import { ApolloError } from 'apollo-client';
+import { Screens } from '~/core/navigation';
 import { IAPError, PremiumRegion, useIap } from '../../../features/purchases';
-import Screens from '../../screen-names';
 import usePremiumQuery from './usePremiumQuery';
 import usePurchaseAction from './usePurchaseAction';
 import usePurchaseState from './usePurchaseState';
@@ -12,8 +12,12 @@ const mockIap = jest.fn();
 const mockPremiumQuery = jest.fn();
 const mockPurchaseAction = jest.fn();
 
-jest.mock('react-navigation-hooks', () => ({
-  useNavigation: () => ({ navigate: mockNavigate, goBack: mockGoBack }),
+jest.mock('@react-navigation/native', () => ({
+  ...require.requireActual('@react-navigation/native'),
+  useNavigation: () => ({
+    navigate: mockNavigate,
+    goBack: mockGoBack,
+  }),
 }));
 jest.mock('../../../features/purchases', () => {
   const originalModule = jest.requireActual('../../../features/purchases');
@@ -192,7 +196,7 @@ it('should lead to already owned screen when already owned', () => {
   act(() => {
     result.current.onPress!();
   });
-  expect(mockNavigate).toHaveBeenCalledWith(Screens.Purchase.AlreadyHave);
+  expect(mockNavigate).toHaveBeenCalledWith(Screens.PURCHASE_ALREADY_HAVE);
   unmount();
 });
 
@@ -209,8 +213,8 @@ it('should lead to auth screen when not logged in', () => {
     result.current.onPress!();
   });
   expect(mockNavigate).toHaveBeenCalledWith({
-    routeName: Screens.Auth.Root,
-    key: Screens.Auth.Root,
+    name: Screens.AUTH_STACK,
+    key: Screens.AUTH_STACK,
   });
   unmount();
 });
@@ -227,7 +231,7 @@ it('should lead to verify screen when not verified', () => {
   act(() => {
     result.current.onPress!();
   });
-  expect(mockNavigate).toHaveBeenCalledWith(Screens.Purchase.Verify);
+  expect(mockNavigate).toHaveBeenCalledWith(Screens.PURCHASE_VERIFY);
   unmount();
 });
 

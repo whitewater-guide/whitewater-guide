@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import { useCallback, useEffect, useState } from 'react';
 import {
   IAPErrorCode,
@@ -7,13 +8,13 @@ import {
   purchaseUpdatedListener,
   requestPurchase,
 } from 'react-native-iap';
-import { useNavigation } from 'react-navigation-hooks';
 import useUpdateEffect from 'react-use/lib/useUpdateEffect';
-import { trackError } from '../../../core/errors';
-import { IAPError } from '../../../features/purchases';
-import Screens from '../../screen-names';
+import { trackError } from '~/core/errors';
+import { Screens } from '~/core/navigation';
+import { IAPError } from '~/features/purchases';
 import safeAcknowledgePurchase from './safeAcknowledgePurchase';
 import safeRestorePurchase from './safeRestorePurchase';
+import { PurchaseBuyNavProp } from './types';
 import useSavePurchase from './useSavePurchase';
 
 interface State {
@@ -25,7 +26,7 @@ interface State {
 }
 
 export default (sku: string | null, sectionId?: string) => {
-  const { navigate } = useNavigation();
+  const { navigate } = useNavigation<PurchaseBuyNavProp>();
   const [state, setState] = useState<State>({
     loading: false,
     saved: false,
@@ -104,7 +105,7 @@ export default (sku: string | null, sectionId?: string) => {
         return;
       }
 
-      navigate(Screens.Purchase.Success);
+      navigate(Screens.PURCHASE_SUCCESS);
     },
     [sku, state, setState, save, navigate],
   );

@@ -1,16 +1,16 @@
 import { useSection } from '@whitewater-guide/clients';
-import { Screen } from 'components/Screen';
 import React from 'react';
-import { NavigationScreenComponent } from 'react-navigation';
+import { Screen } from '~/components/Screen';
 import SuggestionFAB from '../SuggestionFAB';
 import SectionInfoView from './SectionInfoView';
+import { SectionInfoNavProps } from './types';
 
-const SectionInfoScreen: NavigationScreenComponent = () => {
+const SectionInfoScreen: React.FC<SectionInfoNavProps> = () => {
   const node = useSection();
   return (
     <Screen>
       <SectionInfoView section={node} />
-      <SuggestionFAB />
+      <SuggestionFAB testID="section-info-fab" />
     </Screen>
   );
 };

@@ -1,7 +1,7 @@
-import Icon from 'components/Icon';
 import React, { forwardRef, useCallback } from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { TextInput } from 'react-native-paper';
+import Icon from '~/components/Icon';
 import theme from '../../theme';
 import useFocus from '../useFocus';
 import PasswordStrengthIndicator from './PasswordStrengthIndicator';

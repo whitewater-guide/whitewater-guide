@@ -1,7 +1,7 @@
 export interface Measurement<TDate = string> {
   timestamp: TDate;
-  level: number;
-  flow: number;
+  level: number | null;
+  flow: number | null;
 }
 
 export enum Unit {

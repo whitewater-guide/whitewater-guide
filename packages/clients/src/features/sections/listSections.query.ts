@@ -13,6 +13,7 @@ export const LIST_SECTIONS = gql`
       @connection(key: "sections", filter: ["filter"]) {
       nodes {
         ...SectionCore
+        ...SectionRegionId
         ...SectionEnds
         ...SectionMeasurements
         ...SectionTags
@@ -22,6 +23,7 @@ export const LIST_SECTIONS = gql`
     }
   }
   ${SectionFragments.Core}
+  ${SectionFragments.RegionId}
   ${SectionFragments.Ends}
   ${SectionFragments.Measurements}
   ${SectionFragments.Tags}

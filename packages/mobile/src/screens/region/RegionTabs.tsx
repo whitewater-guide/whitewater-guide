@@ -1,70 +1,93 @@
-import React from 'react';
-import { register } from 'react-native-bundle-splitter';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import {
-  NavigationRouteConfigMap,
-  NavigationRouter,
-  NavigationScreenComponent,
-} from 'react-navigation';
-import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
-import theme from '../../theme';
-import Screens from '../screen-names';
-import HeaderRight from './HeaderRight';
+  MapSelectionProvider,
+  useRegion,
+  useSectionsList,
+} from '@whitewater-guide/clients';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import Icon from '~/components/Icon';
+import { SelectedPOIView, SelectedSectionView } from '~/components/map';
+import WithNetworkError from '~/components/WithNetworkError';
+import { Screens } from '~/core/navigation';
+import {
+  RegionTabsNavProps,
+  RegionTabsParamsList,
+} from '~/screens/region/types';
+import theme from '~/theme';
+import AddSectionFAB from './AddSectionFAB';
 import { LazyRegionInfoScreen } from './info';
 import { LazyRegionMapScreen } from './map';
-import RegionTitle from './RegionTitle';
 import { LazyRegionSectionsListScreen } from './sections-list';
+import SectionsProgress from './SectionsProgress';
 
-const routes: NavigationRouteConfigMap = {
-  [Screens.Region.Tabs.Map]: {
-    screen: LazyRegionMapScreen,
-  },
-  [Screens.Region.Tabs.SectionsList]: {
-    screen: LazyRegionSectionsListScreen,
-  },
-  [Screens.Region.Tabs.Info]: {
-    screen: LazyRegionInfoScreen,
-  },
-};
+const Tab = createMaterialBottomTabNavigator<RegionTabsParamsList>();
 
-const config = {
-  initialRouteName: Screens.Region.Tabs.Map,
-  backBehavior: 'none',
-  swipeEnabled: false,
-  animationEnabled: false,
-  tabBarOptions: {
-    activeTintColor: theme.colors.textLight,
-    allowFontScaling: true,
-  },
-  barStyle: {
-    backgroundColor: theme.colors.primary,
-  },
-  shifting: true,
-};
-
-const LazyRegionTabs = register({
-  require: () => require('./LazyRegionTabs'),
-});
-
-const Navigator = createMaterialBottomTabNavigator(routes, config);
-
-type NavComponent = NavigationScreenComponent & {
-  router?: NavigationRouter;
-};
-
-const RegionTabs: NavComponent = React.memo((props) => {
-  const { navigation } = props;
+const RegionTabs: React.FC<RegionTabsNavProps> = () => {
+  const { t } = useTranslation();
+  const sectionsList = useSectionsList();
+  const { error, loading, node, refetch } = useRegion();
   return (
-    <LazyRegionTabs>
-      <Navigator navigation={navigation} />
-    </LazyRegionTabs>
-  );
-});
+    <MapSelectionProvider>
+      <WithNetworkError
+        data={node}
+        loading={loading}
+        error={error}
+        refetch={refetch}
+      >
+        <Tab.Navigator
+          shifting={true}
+          backBehavior="none"
+          activeColor={theme.colors.textLight}
+          barStyle={{
+            backgroundColor: theme.colors.primary,
+          }}
+        >
+          <Tab.Screen
+            name={Screens.REGION_MAP}
+            component={LazyRegionMapScreen}
+            options={{
+              tabBarLabel: t('region:map.title'),
+              tabBarIcon: ({ color }) => <Icon icon="map" color={color} />,
+              tabBarTestID: 'region-tab-map',
+            }}
+          />
 
-RegionTabs.displayName = 'RegionTabs';
-RegionTabs.router = Navigator.router;
-RegionTabs.navigationOptions = ({ navigation }) => ({
-  headerTitle: <RegionTitle regionId={navigation.getParam('regionId')} />,
-  headerRight: <HeaderRight navigation={navigation} />,
-});
+          <Tab.Screen
+            name={Screens.REGION_SECTIONS_LIST}
+            component={LazyRegionSectionsListScreen}
+            options={{
+              tabBarLabel: t('region:sections.title'),
+              tabBarIcon: ({ color }) => (
+                <Icon icon="view-list" color={color} />
+              ),
+              tabBarTestID: 'region-tab-list',
+            }}
+          />
+
+          <Tab.Screen
+            name={Screens.REGION_INFO}
+            component={LazyRegionInfoScreen}
+            options={{
+              tabBarLabel: t('region:info.title'),
+              tabBarIcon: ({ color }) => (
+                <Icon icon="information" color={color} />
+              ),
+              tabBarTestID: 'region-tab-info',
+            }}
+          />
+        </Tab.Navigator>
+        <AddSectionFAB />
+        <SelectedPOIView />
+        <SelectedSectionView />
+        <SectionsProgress
+          status={sectionsList.status}
+          loaded={sectionsList.sections.length}
+          count={sectionsList.count}
+        />
+      </WithNetworkError>
+    </MapSelectionProvider>
+  );
+};
 
 export default RegionTabs;

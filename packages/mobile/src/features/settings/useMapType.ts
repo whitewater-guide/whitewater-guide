@@ -1,17 +1,12 @@
 import { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../core/redux';
-import { updateSettings } from './actions';
-import { AppSettings } from './types';
-
-const mapTypeSelector = (state: RootState) => state.settings.mapType;
+import { AppSettings, useAppSettings } from './AppSettingsProvider';
 
 export const useMapType = () => {
-  const dispatch = useDispatch();
-  const mapType = useSelector(mapTypeSelector);
+  const { settings, updateSettings } = useAppSettings();
+  const mapType = settings.mapType;
   const setMapType = useCallback(
-    (mt: AppSettings['mapType']) => dispatch(updateSettings({ mapType: mt })),
-    [dispatch],
+    (mt: AppSettings['mapType']) => updateSettings({ mapType: mt }),
+    [updateSettings],
   );
   return { mapType, setMapType };
 };

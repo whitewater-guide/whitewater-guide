@@ -1,15 +1,15 @@
 import { useMapSelection, useRegion } from '@whitewater-guide/clients';
 import { isPoint } from '@whitewater-guide/commons';
-import SelectedPOIHeader from 'components/map/panels/SelectedPOIHeader';
 import React, { useCallback, useRef } from 'react';
 import { StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Paragraph } from 'react-native-paper';
 import Animated from 'react-native-reanimated';
+import SelectedPOIHeader from '~/components/map/panels/SelectedPOIHeader';
 import { usePremiumGuard } from '../../../features/purchases';
 import theme from '../../../theme';
 import useLastNotNull from '../../../utils/useLastNotNull';
-import { NAVIGATE_BUTTON_HEIGHT, NavigateButton } from '../../NavigateButton';
+import { NavigateButton, NAVIGATE_BUTTON_HEIGHT } from '../../NavigateButton';
 import SelectedElementView from './SelectedElementView';
 
 const styles = StyleSheet.create({

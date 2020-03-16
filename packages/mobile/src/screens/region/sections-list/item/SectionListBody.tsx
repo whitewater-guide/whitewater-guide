@@ -1,11 +1,11 @@
 import { Section } from '@whitewater-guide/commons';
-import DifficultyThumb from 'components/DifficultyThumb';
-import FlowsThumb from 'components/FlowsThumb';
-import Icon from 'components/Icon';
-import SimpleStarRating from 'components/SimpleStarRating';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
+import DifficultyThumb from '~/components/DifficultyThumb';
+import FlowsThumb from '~/components/FlowsThumb';
+import Icon from '~/components/Icon';
+import SimpleStarRating from '~/components/SimpleStarRating';
 import theme from '../../../../theme';
 import { ITEM_HEIGHT } from './constants';
 
@@ -47,11 +47,12 @@ interface Props {
   section: Section;
   regionPremium: boolean;
   onPress: () => void;
+  testID?: string;
 }
 
 const SectionListBody: React.FC<Props> = React.memo(
-  ({ onPress, regionPremium, section }) => (
-    <RectButton onPress={onPress}>
+  ({ onPress, regionPremium, section, testID }) => (
+    <RectButton onPress={onPress} testID={testID}>
       <View style={styles.container}>
         <DifficultyThumb
           difficulty={section.difficulty}

@@ -2,7 +2,7 @@ import {
   Connection,
   NamedNode,
   Node,
-  TextSearchFilter,
+  SearchableFilterOptions,
   Timestamped,
 } from '../../apollo';
 import { Banner } from '../banners';
@@ -72,7 +72,11 @@ export interface RegionMediaSummary {
   maps: RegionMediaSummaryItem;
 }
 
-export type RegionsFilter = TextSearchFilter;
+export type RegionFilterOptions = SearchableFilterOptions;
+
+export const DefaultRegionFilterOptions: RegionFilterOptions = {
+  searchString: '',
+};
 
 export const isRegion = (node?: Node | null): node is Region =>
   !!node && node.__typename === 'Region';

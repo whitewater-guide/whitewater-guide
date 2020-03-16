@@ -1,8 +1,8 @@
-import StarRating from 'components/StarRating';
 import { useFormikContext } from 'formik';
 import React, { useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Paragraph } from 'react-native-paper';
+import StarRating from '~/components/StarRating';
 import theme from '../theme';
 
 const styles = StyleSheet.create({

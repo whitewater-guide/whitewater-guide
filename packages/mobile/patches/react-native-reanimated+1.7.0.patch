@@ -1,0 +1,13 @@
+diff --git a/node_modules/react-native-reanimated/mock.js b/node_modules/react-native-reanimated/mock.js
+index 43978f5..89c371e 100644
+--- a/node_modules/react-native-reanimated/mock.js
++++ b/node_modules/react-native-reanimated/mock.js
+@@ -23,7 +23,7 @@ const getValue = node => {
+   if (typeof node === "number") {
+     return node;
+   }
+-  return node[" __value"];
++  return node && node[" __value"];
+ };
+ 
+ class AnimatedValue {

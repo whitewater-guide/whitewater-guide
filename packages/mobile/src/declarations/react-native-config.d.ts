@@ -6,6 +6,7 @@ declare module 'react-native-config' {
     ENV_NAME: string;
     SENTRY_DSN: string;
     MAPBOX_ACCESS_TOKEN: string;
+    E2E_MODE?: 'true';
   }
 
   const Config: IConfig;

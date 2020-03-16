@@ -1,9 +1,9 @@
 import { NamedNode, NEW_ID } from '@whitewater-guide/commons';
-import Icon from 'components/Icon';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Subheading, TouchableRipple } from 'react-native-paper';
+import Icon from '~/components/Icon';
 import theme from '../../../../theme';
 
 const styles = StyleSheet.create({

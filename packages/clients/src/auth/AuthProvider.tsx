@@ -23,7 +23,7 @@ export const AuthProvider: React.FC<Props> = React.memo((props) => {
   const [initializing, setInitializing] = useState(true);
 
   useEffect(() => {
-    service.listener = setLoading;
+    service.on('loading', setLoading);
   }, [setLoading]);
 
   // try to refresh token when mounted
@@ -33,7 +33,7 @@ export const AuthProvider: React.FC<Props> = React.memo((props) => {
       .then(() => service.refreshAccessToken())
       .then(() => setInitializing(false));
     return () => {
-      service.listener = null;
+      service.off('loading');
     };
   }, []);
 

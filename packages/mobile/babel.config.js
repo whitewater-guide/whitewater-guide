@@ -7,8 +7,7 @@ module.exports = {
       {
         root: ['.'],
         alias: {
-          components: './src/components',
-          forms: './src/forms',
+          '~': './src',
         },
         cwd: 'packagejson',
       },

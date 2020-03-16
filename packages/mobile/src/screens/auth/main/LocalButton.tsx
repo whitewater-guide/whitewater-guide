@@ -1,8 +1,9 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useCallback } from 'react';
 import { Button } from 'react-native-paper';
 import MDCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useNavigation } from 'react-navigation-hooks';
-import Screens from '../../screen-names';
+import { Screens } from '~/core/navigation';
+import { AuthMainNavProp } from './types';
 
 interface Props {
   label: string;
@@ -21,12 +22,17 @@ const LocalButton: React.FC<Props> = ({ label }) => {
     [],
   );
   const paddedLabel = '  ' + label.trim();
-  const { navigate } = useNavigation();
-  const onPress = useCallback(() => navigate(Screens.Auth.Register), [
+  const { navigate } = useNavigation<AuthMainNavProp>();
+  const onPress = useCallback(() => navigate(Screens.AUTH_REGISTER), [
     navigate,
   ]);
   return (
-    <Button mode="contained" icon={renderIcon} onPress={onPress}>
+    <Button
+      mode="contained"
+      icon={renderIcon}
+      onPress={onPress}
+      testID="auth-main-local"
+    >
       {paddedLabel}
     </Button>
   );

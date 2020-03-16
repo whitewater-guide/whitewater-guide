@@ -1,9 +1,9 @@
-import Markdown from 'components/Markdown';
-import Spacer from 'components/Spacer';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, StyleSheet, View } from 'react-native';
 import { Button, Title } from 'react-native-paper';
+import Markdown from '~/components/Markdown';
+import Spacer from '~/components/Spacer';
 import { PremiumRegion } from '../../../features/purchases';
 import theme from '../../../theme';
 import CloseButton from './CloseButton';

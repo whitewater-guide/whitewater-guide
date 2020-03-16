@@ -1,19 +1,19 @@
 import { TopLevelResolver } from '@apollo';
 import db from '@db';
-import { UserFilter } from '@whitewater-guide/commons';
+import { UserFilterOptions } from '@whitewater-guide/commons';
 
 interface Vars {
-  filter: UserFilter;
+  filter: UserFilterOptions;
 }
 
 const findUsers: TopLevelResolver<Vars> = async (_, { filter }) => {
-  const { search, editorsOnly } = filter;
+  const { searchString, editorsOnly } = filter;
   let query = db().table('users');
-  if (search) {
+  if (searchString) {
     query = query.where((qb) =>
       qb
-        .where('name', 'ilike', `%${search}%`)
-        .orWhere('email', 'ilike', `%${search}%`),
+        .where('name', 'ilike', `%${searchString}%`)
+        .orWhere('email', 'ilike', `%${searchString}%`),
     );
   }
   if (editorsOnly) {

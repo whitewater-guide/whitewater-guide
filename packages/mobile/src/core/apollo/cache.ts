@@ -1,6 +1,6 @@
+import AsyncStorage from '@react-native-community/async-storage';
 import { configureApolloCache } from '@whitewater-guide/clients';
 import { CachePersistor } from 'apollo-cache-persist';
-import { AsyncStorage } from 'react-native';
 import { storage } from './storage';
 
 const SCHEMA_VERSION = '1'; // Must be a string.

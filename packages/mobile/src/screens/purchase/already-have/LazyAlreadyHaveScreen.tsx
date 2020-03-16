@@ -1,5 +1,5 @@
-import registerScreen from '../../../utils/registerScreen';
+import { register } from 'react-native-bundle-splitter';
 
-export const LazyAlreadyHaveScreen = registerScreen({
+export const LazyAlreadyHaveScreen = register({
   require: () => require('./AlreadyHaveScreen'),
 });

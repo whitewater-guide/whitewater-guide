@@ -1,8 +1,8 @@
 import Mapbox, { RegionChangeEvent } from '@react-native-mapbox-gl/maps';
 import { ColorStrings, useSectionsList } from '@whitewater-guide/clients';
-import { BaseMap } from 'components/map';
-import { useMapboxData } from 'components/map/hooks';
 import React, { forwardRef, RefAttributes } from 'react';
+import { BaseMap } from '~/components/map';
+import { useMapboxData } from '~/components/map/hooks';
 import { PUT_IN_PIN, TAKE_OUT_PIN } from '../../../../assets';
 import { PiToState } from './usePiToState';
 
@@ -13,6 +13,7 @@ const MapComponent = BaseMap as React.ComponentType<
     onRegionWillChange?: (e: RegionChangeEvent) => void;
     onPress?: () => void;
     regionDidChangeDebounceTime?: number;
+    testID?: string;
   } & RefAttributes<Mapbox.MapView>
 >;
 
@@ -88,7 +89,12 @@ const PiToMap = React.memo(
     const showPutIn = !!shape[0] && selected !== 0;
     const showTakeOut = !!shape[1] && selected !== 1;
     return (
-      <MapComponent ref={ref} {...mapProps} regionDidChangeDebounceTime={0}>
+      <MapComponent
+        ref={ref}
+        {...mapProps}
+        regionDidChangeDebounceTime={0}
+        testID="add-section-map"
+      >
         <Mapbox.Images images={IMAGES} />
 
         <Mapbox.ShapeSource id="sections" shape={sections}>

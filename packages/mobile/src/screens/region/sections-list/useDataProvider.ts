@@ -38,8 +38,12 @@ export default (sections: Section[], region: Region | null) => {
 
   const [provider, setProvider] = useState<DataProvider>(
     new DataProvider(
-      (r1: Node, r2: Node) => r1.id !== r2.id,
-      (index) => dataRef.current[index].id,
+      (r1?: Node, r2?: Node) => {
+        const id1 = r1?.id;
+        const id2 = r2?.id;
+        return !id1 || !id2 || id1 !== id2;
+      },
+      (index) => dataRef.current[index]?.id,
     ),
   );
 

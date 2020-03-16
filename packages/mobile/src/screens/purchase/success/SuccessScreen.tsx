@@ -1,12 +1,11 @@
-import { Screen } from 'components/Screen';
-import Spacer from 'components/Spacer';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Button, Paragraph, Subheading, Title } from 'react-native-paper';
-import { NavigationScreenComponent } from 'react-navigation';
-import theme from '../../../theme';
-import { NavParams } from '../types';
+import { Screen } from '~/components/Screen';
+import Spacer from '~/components/Spacer';
+import theme from '~/theme';
+import { PurchaseSuccessNavProps } from './types';
 
 const styles = StyleSheet.create({
   container: {
@@ -18,17 +17,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const SuccessScreen: NavigationScreenComponent = ({
+const SuccessScreen: React.FC<PurchaseSuccessNavProps> = ({
   navigation,
-  screenProps,
+  route,
 }) => {
-  const { region } = screenProps as NavParams;
+  const { region } = route.params;
   const { t } = useTranslation();
   const onComplete = useCallback(() => {
-    const parent = navigation.dangerouslyGetParent();
-    if (parent) {
-      parent.goBack();
-    }
+    navigation.dangerouslyGetParent()?.goBack();
   }, [navigation]);
   return (
     <Screen safe={true}>

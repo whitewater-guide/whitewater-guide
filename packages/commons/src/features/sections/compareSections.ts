@@ -1,9 +1,9 @@
 // @ts-ignore
 import deburr from 'lodash/deburr';
 import {
-  DefaultSectionSearchTerms,
+  DefaultSectionFilterOptions,
   Section,
-  SectionSearchTerms,
+  SectionFilterOptions,
   SectionSortBy,
 } from './types';
 
@@ -25,9 +25,9 @@ const comparators: { [key in SectionSortBy]: SectionComparator } = {
 };
 
 export const getSectionsComparator = (
-  terms: SectionSearchTerms | null,
+  terms: SectionFilterOptions | null,
 ): SectionComparator => {
-  const { sortBy, sortDirection } = terms || DefaultSectionSearchTerms;
+  const { sortBy, sortDirection } = terms || DefaultSectionFilterOptions;
   const comparator = comparators[sortBy];
   const x = sortDirection.toLowerCase() === 'asc' ? 1 : -1;
   return (a: Section, b: Section) => x * comparator(a, b);

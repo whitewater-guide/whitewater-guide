@@ -1,8 +1,8 @@
 import { fireEvent, render } from '@testing-library/react-native';
 import React from 'react';
 import { Clipboard } from 'react-native';
-import { usePremiumAccess } from '../../../features/purchases';
-import { openGoogleMaps } from '../../../utils/maps';
+import { usePremiumAccess } from '~/features/purchases';
+import { openGoogleMaps } from '~/utils/maps';
 import CoordinatesInfo from './CoordinatesInfo';
 
 const mockNavigate = jest.fn();
@@ -17,8 +17,11 @@ jest.mock('@whitewater-guide/clients', () => {
     },
   };
 });
-jest.mock('react-navigation-hooks', () => ({
-  useNavigation: () => ({ navigate: mockNavigate }),
+jest.mock('@react-navigation/native', () => ({
+  ...require.requireActual('@react-navigation/native'),
+  useNavigation: () => ({
+    navigate: mockNavigate,
+  }),
 }));
 jest.mock('../../../features/purchases/usePremiumAccess');
 jest.mock('../../../utils/maps', () => {

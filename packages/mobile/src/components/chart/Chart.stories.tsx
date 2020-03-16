@@ -24,7 +24,7 @@ const gauge: Gauge = {
   url: 'http://ya.ru',
   enabled: true,
   location: null,
-  latestMeasurement: null,
+  lastMeasurement: null,
   latestMeasurement: null,
   status: null,
   requestParams: null,

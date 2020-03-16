@@ -8,3 +8,8 @@ export type PremiumRegion = Pick<
 >;
 
 export type PremiumSection = Pick<Section, 'id' | 'demo'>;
+
+export interface PurchaseParams {
+  region: PremiumRegion;
+  sectionId?: string;
+}

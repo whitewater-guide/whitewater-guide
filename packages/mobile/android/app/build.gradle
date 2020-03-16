@@ -1,9 +1,11 @@
 apply plugin: "com.android.application"
 
 project.ext.envConfigFiles = [
-        debug: ".env.development",
-        releaseStaging: ".env.staging",
-        release: ".env.production",
+    // order matters
+    debugdetox: ".env.detox",
+    debug: ".env.development",
+    releaseStaging: ".env.staging",
+    release: ".env.production",
 ]
 project.ext.vectoricons = [
         iconFontNames: [ 'MaterialCommunityIcons.ttf', 'MaterialIcons.ttf' ]
@@ -90,6 +92,8 @@ import com.android.build.OutputFile
 project.ext.react = [
     entryFile: "index.js",
     enableHermes: false,  // clean and rebuild if changing
+    bundleInDebugDetox: true,
+    devDisabledInDebugDetox: true,
     bundleInReleaseStaging: true,
     devDisabledInReleaseStaging: true,
 ]
@@ -147,8 +151,10 @@ android {
         resValue "string", "build_config_package", "guide.whitewater"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 100601106
+        versionCode 100601119
         versionName "1.9.10"
+        testBuildType System.getProperty('testBuildType', 'debugDetox')
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     splits {
         abi {
@@ -177,6 +183,13 @@ android {
             resValue "string", "app_name", "WW DEBUG"
             applicationIdSuffix ".staging"
             multiDexEnabled true
+        }
+        debugDetox {
+            initWith debug
+            multiDexEnabled true
+            applicationIdSuffix ""
+            resValue "string", "app_name", "WW DETOX"
+            matchingFallbacks = ['debug']
         }
         release {
             resValue "string", "app_name", "whitewater.guide"
@@ -211,10 +224,19 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation 'com.android.support:multidex:1.0.3'
+    // Manual linking
+    implementation project(':react-native-fs')
+    // Require by detox
+    androidTestImplementation('com.wix:detox:+') { transitive = true }
+    androidTestImplementation 'junit:junit:4.12'
+    // Required by react-navigation
+    implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha02'
 
     if (enableHermes) {
       def hermesPath = "../../node_modules/hermes-engine/android/";
       debugImplementation files(hermesPath + "hermes-debug.aar")
+      debugDetoxImplementation files(hermesPath + "hermes-debug.aar")
       releaseImplementation files(hermesPath + "hermes-release.aar")
       releaseStagingImplementation files(hermesPath + "hermes-release.aar")
     } else {

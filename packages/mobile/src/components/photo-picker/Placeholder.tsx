@@ -25,6 +25,7 @@ interface Props {
   onChange: (value: LocalPhoto | null) => void;
   label?: string;
   style?: StyleProp<ViewStyle>;
+  testID?: string;
 }
 
 const Placeholder: React.FC<Props> = (props) => {
@@ -33,11 +34,12 @@ const Placeholder: React.FC<Props> = (props) => {
     onChange,
     style,
     label = 'components:photoPicker.placeholder',
+    testID,
   } = props;
   const { t } = useTranslation();
   const onPress = useImagePicker(onChange, localPhotoId);
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={onPress} testID={testID}>
       <View style={[commonStyles.root, style]}>
         <Icon
           icon="cloud-upload"

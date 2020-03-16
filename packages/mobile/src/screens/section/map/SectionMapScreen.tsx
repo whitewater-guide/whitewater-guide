@@ -1,10 +1,10 @@
 import { getSectionContentBounds, useSection } from '@whitewater-guide/clients';
-import { Map } from 'components/map';
-import { Screen } from 'components/Screen';
 import React, { useMemo } from 'react';
-import { NavigationScreenComponent } from 'react-navigation';
+import { Map } from '~/components/map';
+import { Screen } from '~/components/Screen';
+import { SectionMapNavProps } from './types';
 
-const SectionMapScreen: NavigationScreenComponent = () => {
+const SectionMapScreen: React.FC<SectionMapNavProps> = () => {
   const section = useSection();
   const initialBounds = useMemo(() => getSectionContentBounds(section.node), [
     section,
@@ -30,6 +30,7 @@ const SectionMapScreen: NavigationScreenComponent = () => {
           initialBounds={initialBounds!}
           pois={pois}
           detailed={true}
+          testID="section-map"
         />
       )}
     </Screen>

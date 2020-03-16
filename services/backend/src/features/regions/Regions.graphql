@@ -120,12 +120,12 @@ type RegionsList {
   count: Int!
 }
 
-input RegionsFilter {
-  search: String
+input RegionFilterOptions {
+  searchString: String
 }
 
 type Query {
-  regions(filter: RegionsFilter, page: Page): RegionsList!
+  regions(filter: RegionFilterOptions, page: Page): RegionsList!
   region(id: ID): Region
   regionEditors(regionId: ID!): [User!] @admin
 }

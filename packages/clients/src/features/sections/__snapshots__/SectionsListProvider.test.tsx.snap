@@ -81,6 +81,10 @@ Object {
           "kind": "Point.kind.1",
         },
         "rating": 1.5,
+        "region": Object {
+          "__typename": "Region",
+          "id": "Region.id.1",
+        },
         "river": Object {
           "__typename": "River",
           "altNames": Array [
@@ -195,6 +199,10 @@ Object {
           "kind": "Point.kind.4",
         },
         "rating": 2.5,
+        "region": Object {
+          "__typename": "Region",
+          "id": "Region.id.2",
+        },
         "river": Object {
           "__typename": "River",
           "altNames": Array [
@@ -309,6 +317,10 @@ Object {
           "kind": "Point.kind.7",
         },
         "rating": 3.5,
+        "region": Object {
+          "__typename": "Region",
+          "id": "Region.id.3",
+        },
         "river": Object {
           "__typename": "River",
           "altNames": Array [
@@ -423,6 +435,10 @@ Object {
           "kind": "Point.kind.10",
         },
         "rating": 4.5,
+        "region": Object {
+          "__typename": "Region",
+          "id": "Region.id.4",
+        },
         "river": Object {
           "__typename": "River",
           "altNames": Array [
@@ -537,6 +553,10 @@ Object {
           "kind": "Point.kind.13",
         },
         "rating": 5.5,
+        "region": Object {
+          "__typename": "Region",
+          "id": "Region.id.5",
+        },
         "river": Object {
           "__typename": "River",
           "altNames": Array [

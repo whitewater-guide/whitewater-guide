@@ -1,4 +1,9 @@
-import { NamedNode, Node, TextSearchFilter, Timestamped } from '../../apollo';
+import {
+  NamedNode,
+  Node,
+  SearchableFilterOptions,
+  Timestamped,
+} from '../../apollo';
 import { Group } from '../groups';
 import { Region } from '../regions';
 
@@ -32,7 +37,7 @@ export interface UserInput {
   email?: string | null;
 }
 
-export interface UserFilter extends TextSearchFilter {
+export interface UserFilterOptions extends SearchableFilterOptions {
   editorsOnly?: boolean;
 }
 

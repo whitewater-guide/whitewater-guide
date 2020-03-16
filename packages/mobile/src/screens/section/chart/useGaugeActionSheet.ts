@@ -1,11 +1,12 @@
+import { useNavigation } from '@react-navigation/native';
 import { Gauge } from '@whitewater-guide/commons';
-import useActionSheet from 'components/useActionSheet';
 import { MutableRefObject, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Linking } from 'react-native';
 import ActionSheet, { ActionSheetProps } from 'react-native-actionsheet';
-import { useNavigation } from 'react-navigation-hooks';
-import Screens from '../../screen-names';
+import useActionSheet from '~/components/useActionSheet';
+import { Screens } from '~/core/navigation';
+import { SectionChartNavProp } from './types';
 
 type UseGaugeSheet = [
   MutableRefObject<ActionSheet | null>,
@@ -16,7 +17,7 @@ type UseGaugeSheet = [
 const useGaugeActionSheet = (gauge: Gauge): UseGaugeSheet => {
   const [actionSheet, showActionSheet] = useActionSheet();
   const { t } = useTranslation();
-  const { navigate } = useNavigation();
+  const { navigate } = useNavigation<SectionChartNavProp>();
   const options = useMemo(
     () => [
       t('section:chart.gaugeMenu.aboutSource'),
@@ -32,12 +33,9 @@ const useGaugeActionSheet = (gauge: Gauge): UseGaugeSheet => {
           Linking.openURL(gauge.url).catch(() => {});
         }
       } else if (index === 0) {
-        navigate({
-          routeName: Screens.Plain,
-          params: {
-            title: t('section:chart.gaugeMenu.aboutSource'),
-            text: gauge.source.termsOfUse,
-          },
+        navigate(Screens.PLAIN, {
+          title: t('section:chart.gaugeMenu.aboutSource'),
+          text: gauge.source.termsOfUse,
         });
       }
     },

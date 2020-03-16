@@ -6,6 +6,7 @@ export const SECTION_DETAILS = gql`
   query sectionDetails($sectionId: ID) {
     section(id: $sectionId) {
       ...SectionCore
+      ...SectionRegionId
       ...SectionDescription
       ...SectionEnds
       ...SectionShape
@@ -16,6 +17,7 @@ export const SECTION_DETAILS = gql`
     }
   }
   ${SectionFragments.Core}
+  ${SectionFragments.RegionId}
   ${SectionFragments.Description}
   ${SectionFragments.Ends}
   ${SectionFragments.Shape}

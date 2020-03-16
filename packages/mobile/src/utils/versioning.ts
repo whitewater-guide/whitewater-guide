@@ -1,5 +1,6 @@
+import AsyncStorage from '@react-native-community/async-storage';
 import { useEffect } from 'react';
-import { AsyncStorage, Platform } from 'react-native';
+import { Platform } from 'react-native';
 import CodePush from 'react-native-code-push';
 import Config from 'react-native-config';
 
@@ -61,9 +62,10 @@ class Versioning {
 // TODO: component can later be used to notify users of what's new
 export const PreviousVersion: React.FC = () => {
   useEffect(() => {
-    AsyncStorage.setItem('@whitewater-guide/version', PJSON_VERSION).catch(
-      () => {},
-    );
+    AsyncStorage.setItem(
+      '@whitewater-guide/version',
+      PJSON_VERSION,
+    ).catch(() => {});
   }, []);
   return null;
 };

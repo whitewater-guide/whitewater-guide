@@ -30,10 +30,11 @@ const union = (value: number[], range: number[]) => {
 interface Props {
   value: number[];
   onChange: (value: number[]) => void;
+  testID?: string;
 }
 
 const SeasonNumeric: React.FC<Props> = React.memo((props) => {
-  const { value, onChange } = props;
+  const { value, onChange, testID } = props;
   const onToggle = useCallback(
     (index: number) => {
       onChange(xor(value, [index]).sort((a, b) => a - b));
@@ -64,7 +65,7 @@ const SeasonNumeric: React.FC<Props> = React.memo((props) => {
       onGestureEvent={panGestureHandler}
       onHandlerStateChange={panGestureHandler}
     >
-      <Animated.View style={styles.container}>
+      <Animated.View style={styles.container} testID={testID}>
         {times(12).map((i) => (
           <Month index={i} key={i}>
             <HalfMonth

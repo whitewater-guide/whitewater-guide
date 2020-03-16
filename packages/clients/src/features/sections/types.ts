@@ -1,4 +1,4 @@
-export type FlowFormula = (x: number) => number;
+export type FlowFormula = (x: number | null) => number | null;
 
 export interface Formulas {
   levels: FlowFormula;

@@ -11,7 +11,7 @@ import { anonContext, fakeContext, runQuery } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 
 const query = `
-  query findUsers($filter: UserFilter!){
+  query findUsers($filter: UserFilterOptions!){
     findUsers(filter: $filter) {
       id
       name
@@ -24,7 +24,7 @@ beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
 describe('resolvers chain', () => {
-  const variables = { filter: { search: 'user' } };
+  const variables = { filter: { searchString: 'user' } };
 
   it('anon should fail', async () => {
     const result = await runQuery(query, variables, anonContext());
@@ -46,7 +46,7 @@ describe('results', () => {
   it('should find many', async () => {
     const result = await runQuery(
       query,
-      { filter: { search: 'konstantin' } },
+      { filter: { searchString: 'konstantin' } },
       fakeContext(ADMIN),
     );
     expect(result.errors).toBeUndefined();
@@ -59,7 +59,7 @@ describe('results', () => {
   it('should find one by name', async () => {
     const result = await runQuery(
       query,
-      { filter: { search: 'uZn' } },
+      { filter: { searchString: 'uZn' } },
       fakeContext(ADMIN),
     );
     expect(result.errors).toBeUndefined();
@@ -71,7 +71,7 @@ describe('results', () => {
   it('should find one by email', async () => {
     const result = await runQuery(
       query,
-      { filter: { search: 'aOs' } },
+      { filter: { searchString: 'aOs' } },
       fakeContext(ADMIN),
     );
     expect(result.errors).toBeUndefined();
@@ -81,7 +81,7 @@ describe('results', () => {
   it('should return empty array when not found', async () => {
     const result = await runQuery(
       query,
-      { filter: { search: 'foo' } },
+      { filter: { searchString: 'foo' } },
       fakeContext(ADMIN),
     );
     expect(result.errors).toBeUndefined();
@@ -91,7 +91,7 @@ describe('results', () => {
   it('should find editors', async () => {
     const result = await runQuery(
       query,
-      { filter: { search: 'gmAil', editorsOnly: true } },
+      { filter: { searchString: 'gmAil', editorsOnly: true } },
       fakeContext(ADMIN),
     );
     expect(result.errors).toBeUndefined();
@@ -110,7 +110,7 @@ describe('results', () => {
   it('should find admins when looking for editors', async () => {
     const result = await runQuery(
       query,
-      { filter: { search: '', editorsOnly: true } },
+      { filter: { searchString: '', editorsOnly: true } },
       fakeContext(ADMIN),
     );
     expect(result.errors).toBeUndefined();

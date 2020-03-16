@@ -15,7 +15,7 @@ interface Props extends Omit<AutocompleteProps, 'options'> {
 export class UserFinder extends React.PureComponent<Props> {
   getVariables = (input: string | null): QVars => ({
     filter: {
-      search: input || '',
+      searchString: input || '',
       editorsOnly: this.props.editorsOnly,
     },
   });

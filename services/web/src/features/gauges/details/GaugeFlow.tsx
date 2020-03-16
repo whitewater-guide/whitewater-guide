@@ -2,6 +2,7 @@ import Grid from '@material-ui/core/Grid';
 import { formatDistanceToNow } from '@whitewater-guide/clients';
 import { Gauge } from '@whitewater-guide/commons';
 import parseISO from 'date-fns/parseISO';
+import isNil from 'lodash/isNil';
 import React from 'react';
 import { Row, Title } from '../../../layout/details';
 
@@ -22,10 +23,12 @@ const GaugeFlow: React.FC<Props> = React.memo(({ gauge }) => {
     <Row>
       <Title>Flow</Title>
       <Grid>
-        <span>
-          <b>{flow.toPrecision(3)}</b>
-          {` ${flowUnit} ${fromNow}`}
-        </span>
+        {!isNil(flow) && (
+          <span>
+            <b>{flow.toPrecision(3)}</b>
+            {` ${flowUnit} ${fromNow}`}
+          </span>
+        )}
       </Grid>
     </Row>
   );
