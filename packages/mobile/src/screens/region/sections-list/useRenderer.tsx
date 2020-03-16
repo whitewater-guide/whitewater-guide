@@ -1,5 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
-import { SectionsStatus } from '@whitewater-guide/clients';
+import {
+  SectionsStatus,
+  useSectionsSearchString,
+} from '@whitewater-guide/clients';
 import { Banner, isBanner, Section } from '@whitewater-guide/commons';
 import max from 'date-fns/max';
 import parseISO from 'date-fns/parseISO';
@@ -21,6 +24,7 @@ interface ExtendedState {
 export default (props: ListProps) => {
   const { region, sections, refresh, status } = props;
   const { navigate } = useNavigation<RegionSectionsNavProp>();
+  const searchString = useSectionsSearchString();
   const { canMakePayments } = useIap();
 
   const [extraState, setExtraState] = useState<ExtendedState>({
@@ -121,6 +125,7 @@ export default (props: ListProps) => {
   return {
     extendedState: {
       ...extraState,
+      searchString,
       lastTimestamp,
     },
     renderItem,
