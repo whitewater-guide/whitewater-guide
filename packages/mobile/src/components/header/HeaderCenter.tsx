@@ -23,6 +23,7 @@ interface Props {
   setSearchInput?: (input: string) => void;
   searchString: string;
   searchPlaceholderKey?: string;
+  searchInputRef: React.RefObject<TextInput>;
 }
 
 const HeaderCenter: React.FC<Props> = React.memo((props: Props) => {
@@ -33,11 +34,13 @@ const HeaderCenter: React.FC<Props> = React.memo((props: Props) => {
     searchActive,
     searchString,
     searchPlaceholderKey = 'commons:defaultSearchPlaceholder',
+    searchInputRef,
   } = props;
   const { t } = useTranslation();
   if (searchActive) {
     return (
       <TextInput
+        ref={searchInputRef}
         style={styles.input}
         placeholder={t(searchPlaceholderKey)}
         placeholderTextColor={theme.colors.border}
