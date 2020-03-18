@@ -42,6 +42,7 @@ const RegionTabs: React.FC<RegionTabsNavProps> = () => {
           barStyle={{
             backgroundColor: theme.colors.primary,
           }}
+          sceneAnimationEnabled={false}
         >
           <Tab.Screen
             name={Screens.REGION_MAP}
