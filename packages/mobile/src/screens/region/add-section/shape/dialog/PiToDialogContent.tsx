@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   dialog: {
+    width: theme.screenWidth * 0.8,
     backgroundColor: theme.colors.primaryBackground,
     borderRadius: theme.rounding.single,
     paddingBottom: theme.margin.single,
