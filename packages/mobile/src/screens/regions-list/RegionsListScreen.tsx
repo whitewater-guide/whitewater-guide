@@ -3,9 +3,8 @@ import {
   RegionsSearchStringContext,
   RegionsSearchStringSetterContext,
 } from '@whitewater-guide/clients';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import useEffectOnce from 'react-use/lib/useEffectOnce';
 import { getHeaderRenderer } from '~/components/header';
 import { Screen } from '~/components/Screen';
 import RegionsListView from './RegionsListView';
@@ -15,7 +14,7 @@ export const RegionsListScreen: React.FC<RegionsListNavProps> = ({
   navigation,
 }) => {
   const { t } = useTranslation();
-  useEffectOnce(() => {
+  useEffect(() => {
     navigation.setOptions({
       headerTitle: t('regionsList:title'),
       header: getHeaderRenderer(
@@ -24,7 +23,7 @@ export const RegionsListScreen: React.FC<RegionsListNavProps> = ({
         'regionsList:regionSearchPlaceholder',
       ),
     });
-  });
+  }, [t, navigation]);
 
   // This enables drawer gestures only on this screen
   useFocusEffect(
