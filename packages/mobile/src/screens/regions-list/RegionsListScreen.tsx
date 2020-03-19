@@ -1,8 +1,9 @@
+import { useFocusEffect } from '@react-navigation/native';
 import {
   RegionsSearchStringContext,
   RegionsSearchStringSetterContext,
 } from '@whitewater-guide/clients';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import useEffectOnce from 'react-use/lib/useEffectOnce';
 import { getHeaderRenderer } from '~/components/header';
@@ -24,6 +25,19 @@ export const RegionsListScreen: React.FC<RegionsListNavProps> = ({
       ),
     });
   });
+
+  // This enables drawer gestures only on this screen
+  useFocusEffect(
+    useCallback(() => {
+      navigation.dangerouslyGetParent()?.setOptions({ gestureEnabled: true });
+      return () => {
+        navigation
+          .dangerouslyGetParent()
+          ?.setOptions({ gestureEnabled: false });
+      };
+    }, [navigation]),
+  );
+
   return (
     <Screen>
       <RegionsListView />
