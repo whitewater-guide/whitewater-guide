@@ -5,15 +5,7 @@ import { StyleSheet } from 'react-native';
 import { Map } from '~/components/map';
 import { Screen } from '~/components/Screen';
 import FilterButton from '~/screens/region/FilterButton';
-import theme from '~/theme';
 import { RegionMapNavProps } from './types';
-
-const styles = StyleSheet.create({
-  container: {
-    width: theme.screenWidth,
-    height: theme.tabScreenHeight,
-  },
-});
 
 const RegionMapScreen: React.FC<RegionMapNavProps> = ({ navigation }) => {
   useFocusEffect(
@@ -27,7 +19,7 @@ const RegionMapScreen: React.FC<RegionMapNavProps> = ({ navigation }) => {
   const { node } = useRegion();
   const { sections } = useSectionsList();
   return (
-    <Screen style={styles.container}>
+    <Screen style={StyleSheet.absoluteFill}>
       {node && (
         <Map
           pois={node.pois}
