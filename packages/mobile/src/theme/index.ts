@@ -5,6 +5,11 @@ import {
 } from 'react-native-iphone-x-helper';
 import { DefaultTheme, Theme } from 'react-native-paper';
 
+// https://github.com/callstack/react-native-paper/blob/77fe132d5dbb220ebcac3ae0b83e6432ddfc12c3/src/components/BottomNavigation.tsx#L263
+const MATERIAL_BOTTOM_BAR_HEIGHT = 56;
+// https://github.com/callstack/react-native-paper/blob/77fe132d5dbb220ebcac3ae0b83e6432ddfc12c3/src/components/Appbar/Appbar.tsx#L35
+const DEFAULT_APPBAR_HEIGHT = 56;
+
 const colors = {
   primary: '#2196f3', // Blue 500
   logoBlue: '#0078b4',
@@ -82,10 +87,19 @@ const theme = {
   safeTop: getStatusBarHeight(true),
   unsafeTop: getStatusBarHeight(false),
   stackScreenHeight:
-    screenHeight - getStatusBarHeight(true) - getBottomSpace() - 56,
+    screenHeight -
+    getStatusBarHeight(true) -
+    getBottomSpace() -
+    DEFAULT_APPBAR_HEIGHT,
   tabScreenHeight:
-    screenHeight - getStatusBarHeight(true) - getBottomSpace() - 56 - 56,
+    screenHeight -
+    getStatusBarHeight(true) -
+    getBottomSpace() -
+    MATERIAL_BOTTOM_BAR_HEIGHT -
+    DEFAULT_APPBAR_HEIGHT,
   elevation: 2,
+  appbarHeight: DEFAULT_APPBAR_HEIGHT,
+  materialBottomBarHeight: MATERIAL_BOTTOM_BAR_HEIGHT,
 };
 
 export default theme;
