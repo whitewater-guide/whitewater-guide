@@ -50,12 +50,12 @@ const layerStyles: any = {
     textAllowOverlap: true,
   },
   putIn: {
-    iconImage: 'putIn',
+    iconImage: ['get', 'icon'],
     iconAnchor: 'bottom',
     iconAllowOverlap: true,
   },
   takeOut: {
-    iconImage: 'takeOut',
+    iconImage: ['get', 'icon'],
     iconAnchor: 'bottom',
     iconAllowOverlap: true,
   },
@@ -76,14 +76,28 @@ const PiToMap = React.memo(
 
     const putIn = shape[0]
       ? {
-          type: 'Point',
-          coordinates: shape[0],
+          type: 'Feature',
+          id: 'put-in-feature',
+          properties: {
+            icon: 'putIn',
+          },
+          geometry: {
+            type: 'Point',
+            coordinates: shape[0],
+          },
         }
       : NO_POINT;
     const takeOut = shape[1]
       ? {
-          type: 'Point',
-          coordinates: shape[1],
+          type: 'Feature',
+          id: 'take-out-feature',
+          properties: {
+            icon: 'takeOut',
+          },
+          geometry: {
+            type: 'Point',
+            coordinates: shape[1],
+          },
         }
       : NO_POINT;
     const showPutIn = !!shape[0] && selected !== 0;
