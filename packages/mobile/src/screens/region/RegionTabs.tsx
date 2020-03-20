@@ -41,7 +41,6 @@ const RegionTabs: React.FC<RegionTabsNavProps> = () => {
           activeColor={theme.colors.textLight}
           barStyle={{
             backgroundColor: theme.colors.primary,
-            height: theme.materialBottomBarHeight,
           }}
           sceneAnimationEnabled={false}
           keyboardHidesNavigationBar={true}

@@ -32,7 +32,6 @@ const SectionTabs: React.FC<SectionScreenNavProps> = ({ navigation }) => {
       activeColor={theme.colors.textLight}
       barStyle={{
         backgroundColor: theme.colors.primary,
-        height: theme.materialBottomBarHeight,
       }}
       initialRouteName={Screens.SECTION_INFO}
     >

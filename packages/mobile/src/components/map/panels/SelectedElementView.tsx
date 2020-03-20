@@ -17,13 +17,6 @@ const styles = StyleSheet.create({
   headerTouchable: {
     flex: 1,
   },
-  container: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: theme.screenWidth,
-    height: theme.stackScreenHeight,
-  },
 });
 
 // Value to compensate springiness when detecting open/closed state
@@ -144,11 +137,7 @@ class SelectedElementView extends React.PureComponent<Props> {
     // TODO: use custom bottom sheet because of Cancelled state hack
     // https://github.com/osdnk/react-native-reanimated-bottom-sheet/issues/69
     return (
-      <View
-        collapsable={false}
-        style={styles.container}
-        pointerEvents="box-none"
-      >
+      <React.Fragment>
         <Animated.View
           style={[
             StyleSheet.absoluteFill,
@@ -169,7 +158,7 @@ class SelectedElementView extends React.PureComponent<Props> {
           innerGestureHandlerRefs={innerGestureHandlerRefs}
           simultaneousHandlers={simultaneousHandlers}
         />
-      </View>
+      </React.Fragment>
     );
   }
 }
