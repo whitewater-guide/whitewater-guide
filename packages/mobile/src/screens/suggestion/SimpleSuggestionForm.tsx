@@ -19,8 +19,11 @@ const styles = StyleSheet.create({
     padding: theme.margin.single,
     flex: 1,
   },
-  description: {
+  descriptionWrapper: {
     flex: 1,
+  },
+  description: {
+    marginBottom: 24,
   },
 });
 
@@ -52,10 +55,10 @@ const SimpleSuggestionForm: React.FC<Props> = (props) => {
               name="description"
               autoFocus={true}
               multiline={true}
-              wrapperStyle={styles.description}
-              style={styles.description}
+              wrapperStyle={styles.descriptionWrapper}
               label={t('screens:suggestion.suggestionLabel')}
               placeholder={t('screens:suggestion.suggestionPlaceholder')}
+              fullHeight={true}
             />
             <CCNote />
             <Button

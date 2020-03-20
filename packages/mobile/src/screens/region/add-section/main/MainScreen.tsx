@@ -61,6 +61,7 @@ const MainScreen: React.FC<AddSectionMainNavProps> = React.memo(
         <KeyboardAwareScrollView
           style={styles.scroll}
           contentContainerStyle={styles.scrollContent}
+          extraHeight={100}
         >
           <RiverPlaceholder onPress={onRiverPress} />
           <TextField
