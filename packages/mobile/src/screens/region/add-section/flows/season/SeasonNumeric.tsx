@@ -35,6 +35,7 @@ interface Props {
 
 const SeasonNumeric: React.FC<Props> = React.memo((props) => {
   const { value, onChange, testID } = props;
+  const panHandlerRef: any = useRef();
   const onToggle = useCallback(
     (index: number) => {
       onChange(xor(value, [index]).sort((a, b) => a - b));
@@ -62,6 +63,7 @@ const SeasonNumeric: React.FC<Props> = React.memo((props) => {
 
   return (
     <PanGestureHandler
+      ref={panHandlerRef}
       onGestureEvent={panGestureHandler}
       onHandlerStateChange={panGestureHandler}
     >
@@ -69,11 +71,13 @@ const SeasonNumeric: React.FC<Props> = React.memo((props) => {
         {times(12).map((i) => (
           <Month index={i} key={i}>
             <HalfMonth
+              panHandlerRef={panHandlerRef}
               index={i * 2}
               onPress={onToggle}
               selected={selection.includes(i * 2)}
             />
             <HalfMonth
+              panHandlerRef={panHandlerRef}
               index={i * 2 + 1}
               onPress={onToggle}
               selected={selection.includes(i * 2 + 1)}
