@@ -1,4 +1,8 @@
-import { LocalPhotoStatus, useUploadLink } from '@whitewater-guide/clients';
+import {
+  i18nizeUploadError,
+  LocalPhotoStatus,
+  useUploadLink,
+} from '@whitewater-guide/clients';
 import React, { useCallback, useContext, useState } from 'react';
 import { trackError } from '../../core/errors';
 import { LocalPhoto } from './types';
@@ -51,7 +55,7 @@ export const UploadsProvider: React.FC = React.memo(({ children }) => {
               [id]: {
                 ...photos[id],
                 status: LocalPhotoStatus.READY,
-                error: e,
+                error: i18nizeUploadError(e),
               },
             }));
           });
