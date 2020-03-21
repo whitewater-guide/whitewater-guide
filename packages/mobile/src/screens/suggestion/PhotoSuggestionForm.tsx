@@ -81,6 +81,7 @@ const PhotoSuggestionForm: React.FC<Props> = React.memo((props) => {
               label={t('screens:suggestion.photoDescriptionLabel')}
               placeholder={t('screens:suggestion.photoDescriptionPlaceholder')}
               onFocus={handlers.onDescriptionFocus}
+              fullHeight={true}
             />
             <CCNote />
             <Button
