@@ -58,6 +58,7 @@ const Header: React.FC<Props> = (props) => {
         setSearchInput={search.setSearchInput}
         searchString={search.searchInput}
         searchPlaceholderKey={searchPlaceholderKey}
+        searchInputRef={search.searchInputRef}
       />
       <HeaderRight
         element={headerRight}

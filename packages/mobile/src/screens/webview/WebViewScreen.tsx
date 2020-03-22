@@ -1,5 +1,6 @@
+import { useFocusEffect } from '@react-navigation/native';
 import markdown from '@whitewater-guide/translations/markdown';
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';
@@ -15,11 +16,23 @@ const WebViewScreen: React.FC<WebViewNavProps> = ({ navigation, route }) => {
   const { fixture, title } = route.params;
   const resource = fixture && markdown[fixture];
   const lang = resource && resource[i18n.language] ? i18n.language : 'en';
+  const [visible, setVisible] = useState(false);
+
   React.useEffect(() => {
     navigation.setOptions({ headerTitle: title });
   }, [navigation.setOptions, title]);
 
-  if (!lang) {
+  // This prevents android crash
+  useFocusEffect(
+    useCallback(() => {
+      setVisible(true);
+      return () => {
+        setVisible(false);
+      };
+    }, [setVisible]),
+  );
+
+  if (!lang || !visible) {
     return <Screen />;
   }
   return (

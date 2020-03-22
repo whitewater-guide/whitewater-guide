@@ -18,13 +18,14 @@ const styles = StyleSheet.create({
   container: {
     width: theme.screenWidth,
     height: NAVIGATE_BUTTON_HEIGHT,
-    backgroundColor: theme.colors.primary,
+    backgroundColor: theme.colors.lightBackground,
   },
   right: {
     position: 'absolute',
     flexDirection: 'row',
     justifyContent: 'flex-end',
     height: NAVIGATE_BUTTON_HEIGHT,
+    backgroundColor: theme.colors.primary,
     right: 0,
   },
 });

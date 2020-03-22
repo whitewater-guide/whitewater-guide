@@ -2,8 +2,10 @@ import React from 'react';
 import {
   LayoutChangeEvent,
   SafeAreaView,
+  StyleProp,
   StyleSheet,
   View,
+  ViewStyle,
 } from 'react-native';
 import theme from '../theme';
 import ErrorBoundary from './ErrorBoundary';
@@ -22,17 +24,16 @@ export interface ScreenProps {
   padding?: boolean;
   onLayout?: (e: LayoutChangeEvent) => void;
   safe?: boolean;
+  style?: StyleProp<ViewStyle>;
 }
 
 export const Screen: React.FC<ScreenProps> = React.memo((props) => {
-  const { padding, children, safe, onLayout } = props;
+  const { padding, children, safe, onLayout, style } = props;
+  const realStyle = style || [styles.screen, padding && styles.padding];
   const ContentComponent = safe ? SafeAreaView : View;
   return (
     <ErrorBoundary>
-      <ContentComponent
-        style={[styles.screen, padding && styles.padding]}
-        onLayout={onLayout}
-      >
+      <ContentComponent style={realStyle} onLayout={onLayout}>
         {children}
       </ContentComponent>
     </ErrorBoundary>

@@ -1,34 +1,34 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { KeyboardAvoidingView, StyleSheet } from 'react-native';
+import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
 import { Screen } from '~/components/Screen';
 import TextField from '~/forms/TextField';
-import theme from '../../../../theme';
+import theme from '~/theme';
 
 const styles = StyleSheet.create({
   container: {
-    padding: theme.margin.single,
+    marginBottom: theme.margin.single,
     flex: 1,
   },
-  description: {
-    height: theme.stackScreenHeight - 100,
+  descriptionWrapper: {
+    flex: 1,
   },
 });
 
 const DescriptionScreen: React.FC = () => {
   const { t } = useTranslation();
   return (
-    <Screen>
+    <Screen padding={true}>
       <KeyboardAvoidingView
-        behavior="height"
+        behavior={Platform.OS === 'ios' ? 'height' : undefined}
         style={styles.container}
-        keyboardVerticalOffset={64 + theme.safeBottom + theme.safeTop}
+        keyboardVerticalOffset={120}
       >
         <TextField
           name="description"
           multiline={true}
-          wrapperStyle={styles.description}
-          style={styles.description}
+          wrapperStyle={styles.descriptionWrapper}
+          fullHeight={true}
           label={t('screens:addSection.description.label')}
           testID="description"
           textAlignVertical="top"

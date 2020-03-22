@@ -1,6 +1,7 @@
 import { useFocusEffect } from '@react-navigation/native';
 import { useRegion, useSectionsList } from '@whitewater-guide/clients';
 import React from 'react';
+import { StyleSheet } from 'react-native';
 import { Map } from '~/components/map';
 import { Screen } from '~/components/Screen';
 import FilterButton from '~/screens/region/FilterButton';
@@ -18,7 +19,7 @@ const RegionMapScreen: React.FC<RegionMapNavProps> = ({ navigation }) => {
   const { node } = useRegion();
   const { sections } = useSectionsList();
   return (
-    <Screen>
+    <Screen style={StyleSheet.absoluteFill}>
       {node && (
         <Map
           pois={node.pois}

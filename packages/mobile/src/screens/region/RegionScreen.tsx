@@ -8,7 +8,7 @@ import {
 import React from 'react';
 import { useApolloClient } from 'react-apollo';
 import ErrorBoundary from '~/components/ErrorBoundary';
-import theme from '../../theme';
+import theme from '~/theme';
 import RegionStack from './RegionStack';
 import { RegionScreenNavProps } from './types';
 

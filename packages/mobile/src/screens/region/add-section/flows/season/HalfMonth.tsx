@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
-import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
-import theme from '../../../../../theme';
+import { StyleSheet, View } from 'react-native';
+import { State, TapGestureHandler } from 'react-native-gesture-handler';
+import theme from '~/theme';
 
 const HEIGHT = 40;
 const WIDTH = (theme.screenWidth - 2 * theme.margin.single) / 6;
@@ -28,18 +29,30 @@ interface Props {
   index: number;
   onPress: (index: number) => void;
   selected: boolean;
+  panHandlerRef: any;
 }
 
 type HalfMonth = React.FC<Props> & { height: number; width: number };
 
 const HalfMonth: HalfMonth = Object.assign(
   React.memo((props: Props) => {
-    const { index, onPress, selected } = props;
-    const onClick = useCallback(() => onPress(index), [index, onPress]);
+    const { index, onPress, selected, panHandlerRef } = props;
+    const onTap = useCallback(
+      (e) => {
+        if (e.nativeEvent.state === State.END) {
+          onPress(index);
+        }
+      },
+      [index, onPress],
+    );
     return (
-      <TouchableWithoutFeedback style={styles.touchable} onPress={onClick}>
+      <TapGestureHandler
+        simultaneousHandlers={panHandlerRef}
+        onHandlerStateChange={onTap}
+        maxDurationMs={200}
+      >
         <View style={[styles.container, selected && styles.selected]} />
-      </TouchableWithoutFeedback>
+      </TapGestureHandler>
     );
   }),
   { height: HEIGHT, width: WIDTH },

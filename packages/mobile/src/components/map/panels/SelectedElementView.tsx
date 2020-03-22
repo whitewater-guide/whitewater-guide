@@ -3,7 +3,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import Animated from 'react-native-reanimated';
-import BottomSheet from '~/components/BottomSheet';
+import BottomSheet from 'reanimated-bottom-sheet';
 import theme from '../../../theme';
 import getSnapPoints from './getSnapPoints';
 import { SnapPoints } from './types';
@@ -106,6 +106,9 @@ class SelectedElementView extends React.PureComponent<Props> {
 
   onMaximize = () => {
     if (this._sheet.current) {
+      // this is workaround
+      // https://github.com/osdnk/react-native-reanimated-bottom-sheet/issues/16#issuecomment-576467991
+      this._sheet.current.snapTo(0);
       this._sheet.current.snapTo(0);
     }
   };
@@ -154,7 +157,6 @@ class SelectedElementView extends React.PureComponent<Props> {
           headerPosition={this._headerPosition}
           innerGestureHandlerRefs={innerGestureHandlerRefs}
           simultaneousHandlers={simultaneousHandlers}
-          enabledInnerScrolling={false}
         />
       </React.Fragment>
     );
