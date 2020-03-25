@@ -16,7 +16,7 @@ const WelcomeScreen: React.FC<AuthWelcomeNavProps> = ({
   route,
   navigation,
 }) => {
-  const { verified } = route.params;
+  const verified = route.params?.verified;
   const { t } = useTranslation();
   const { me } = useAuth();
   const user = me?.name || '';
