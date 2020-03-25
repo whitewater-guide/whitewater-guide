@@ -33,9 +33,10 @@ export const RegisterForm: React.FC = React.memo(() => {
   );
   const { service } = useAuth();
   const { navigate } = useNavigation<AuthRegisterNavProp>();
-  const onSuccess = useCallback(() => navigate(Screens.AUTH_WELCOME), [
-    navigate,
-  ]);
+  const onSuccess = useCallback(
+    () => navigate(Screens.AUTH_WELCOME, { verified: false }),
+    [navigate],
+  );
   const [submit] = useAuthSubmit(
     'screens:auth.register.',
     service.signUp,
