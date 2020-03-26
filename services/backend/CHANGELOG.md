@@ -1,3 +1,9 @@
+## [0.0.423](https://github.com/doomsower/whitewater/compare/fe1f9412bdbdc038a6aebb27f22947db16f6d5fd...9a7c751e2d43a27c5214b390fac109d154132725) (2020-03-26)
+
+### Bug Fixes
+
+- encodeURIComponent in gorge connector ([](https://github.com/doomsower/whitewater/commit/8abf99f5d702ed8a43f723c8a2a1f0f12ffe4b6f))
+
 ## [0.0.422](https://github.com/doomsower/whitewater/compare/ac5bb4bce69f8898999c3d835ff1da341b3d5c81...fe1f9412bdbdc038a6aebb27f22947db16f6d5fd) (2020-03-26)
 
 ## [0.0.422](https://github.com/doomsower/whitewater/compare/d1f012dcf0f518444e097a74af2da15f234ee90a...ac5bb4bce69f8898999c3d835ff1da341b3d5c81) (2020-03-26)
