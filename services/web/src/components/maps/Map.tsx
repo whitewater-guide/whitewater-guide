@@ -1,4 +1,5 @@
 import Box from '@material-ui/core/Box';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import {
   arrayToGmaps,
   MapProps,
@@ -6,13 +7,11 @@ import {
 } from '@whitewater-guide/clients';
 import { Coordinate, Coordinate3d } from '@whitewater-guide/commons';
 import React, { useMemo } from 'react';
-import GoogleMap, { InitialPosition } from './GoogleMap';
+import GoogleMap, { GoogleMapControlProps, InitialPosition } from './GoogleMap';
 import POIMarker from './POIMarker';
 import SectionLine from './SectionLine';
 import SelectedPOIWeb from './SelectedPOIWeb';
 import SelectedSectionWeb from './SelectedSectionWeb';
-
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -33,10 +32,11 @@ const useStyles = makeStyles((theme) =>
 interface Props extends MapProps {
   initialBounds: Coordinate3d[];
   detailed?: boolean;
+  controls?: Array<React.ReactElement<GoogleMapControlProps>>;
 }
 
 export const Map: React.FC<Props> = React.memo(
-  ({ initialBounds, sections, pois, detailed }) => {
+  ({ initialBounds, sections, pois, detailed, controls }) => {
     const classes = useStyles();
 
     const initialPosition: InitialPosition = useMemo(() => {
@@ -54,7 +54,7 @@ export const Map: React.FC<Props> = React.memo(
     return (
       <Box width={1} height={1} className={classes.mapRoot}>
         <MapSelectionProvider>
-          <GoogleMap initialPosition={initialPosition}>
+          <GoogleMap initialPosition={initialPosition} controls={controls}>
             {
               sections.map((s) => (
                 <SectionLine key={s.id} section={s} detailed={detailed} />
