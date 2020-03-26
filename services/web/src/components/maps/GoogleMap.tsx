@@ -1,5 +1,5 @@
 import React from 'react';
-import { findDOMNode } from 'react-dom';
+import { createPortal, findDOMNode } from 'react-dom';
 import ReactResizeDetector from 'react-resize-detector';
 import { Styles } from '../../styles';
 import { MapElementProps } from './types';
@@ -26,6 +26,10 @@ export interface InitialPosition {
   zoom?: number;
 }
 
+export interface GoogleMapControlProps {
+  position: google.maps.ControlPosition;
+}
+
 interface GoogleMapProps {
   onLoaded?: (map: google.maps.Map) => void;
   onZoom?: (zoom: number) => void;
@@ -35,6 +39,7 @@ interface GoogleMapProps {
   children:
     | React.ReactElement<MapElementProps>
     | Array<React.ReactElement<MapElementProps>>;
+  controls?: Array<React.ReactElement<GoogleMapControlProps>>;
 }
 
 interface State {
@@ -55,6 +60,7 @@ export default class GoogleMap extends React.Component<GoogleMapProps, State> {
   width: number = 0;
   height: number = 0;
   initialized: boolean = false;
+  customControlDivs: any = {};
 
   initialize = () => {
     if (this.initialized || this.height === 0 || !this.map) {
@@ -91,13 +97,19 @@ export default class GoogleMap extends React.Component<GoogleMapProps, State> {
     this.map.addListener('click', this.onClick);
 
     // Create custom zoom to fit control
-    const controlDiv = document.createElement('div');
-    addZoomToFit(controlDiv, this.map, this.onZoomToFit);
+    const zoomToFitcontrolDiv = document.createElement('div');
+    addZoomToFit(zoomToFitcontrolDiv, this.map, this.onZoomToFit);
 
     // controlDiv.index = 1;
     this.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(
-      controlDiv,
+      zoomToFitcontrolDiv,
     );
+
+    this.props.controls?.forEach((item) => {
+      const controlDiv = document.createElement('div');
+      this.customControlDivs[item.key!] = controlDiv;
+      this.map!.controls[item.props.position].push(controlDiv);
+    });
 
     this.initialize();
     if (this.props.onLoaded) {
@@ -172,6 +184,13 @@ export default class GoogleMap extends React.Component<GoogleMapProps, State> {
                 bounds: this.state.bounds,
               }),
           )}
+        {this.props.controls?.map((control) => {
+          const ctrlDiv = this.customControlDivs[control.key!];
+          if (!ctrlDiv) {
+            return null;
+          }
+          return createPortal(control, ctrlDiv);
+        })}
       </div>
     );
   }

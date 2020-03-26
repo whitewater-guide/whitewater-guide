@@ -3,6 +3,13 @@ import { Point } from '@whitewater-guide/commons';
 import React, { useEffect, useRef } from 'react';
 import { MapElementProps } from './types';
 
+const GaugeIcon = {
+  url: require('./gauge_marker.png'),
+  size: new google.maps.Size(26, 32),
+  origin: new google.maps.Point(0, 0),
+  anchor: new google.maps.Point(13, 16),
+};
+
 interface Props extends MapElementProps {
   poi: Point;
   clickable?: boolean;
@@ -21,10 +28,13 @@ const POIMarker: React.FC<Props> = (props) => {
       position: { lat: poi.coordinates[1], lng: poi.coordinates[0] },
       map,
       clickable,
-      icon: icon || {
-        path: google.maps.SymbolPath.CIRCLE,
-        scale: 3,
-      },
+      icon:
+        poi.kind === 'gauge'
+          ? GaugeIcon
+          : icon || {
+              path: google.maps.SymbolPath.CIRCLE,
+              scale: 3,
+            },
     });
     markerRef.current.addListener('click', () => onSelected(poi));
     return () => {

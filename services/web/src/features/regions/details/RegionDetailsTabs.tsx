@@ -9,11 +9,11 @@ import React from 'react';
 import { useApolloClient } from 'react-apollo';
 import { Route, Switch } from 'react-router';
 import useRouter from 'use-react-router';
-import { Map } from '../../../components/maps';
 import { NavTab, NavTabs } from '../../../components/navtabs';
 import { RiversList } from '../../rivers/list';
 import { SectionsList } from '../../sections/list';
 import RegionDetailsMain from './RegionDetailsMain';
+import RegionMapTab from './RegionMapTab';
 
 const RegionDetailsTabs: React.FC = React.memo(() => {
   const client = useApolloClient();
@@ -47,12 +47,7 @@ const RegionDetailsTabs: React.FC = React.memo(() => {
           <Box flex={1}>
             <Switch>
               <Route exact={true} path={`${match.path}/map`}>
-                <Map
-                  detailed={false}
-                  sections={sections}
-                  initialBounds={node.bounds}
-                  pois={node.pois}
-                />
+                <RegionMapTab region={node} sections={sections} />
               </Route>
 
               <Route exact={true} path={`${match.path}/rivers`}>
