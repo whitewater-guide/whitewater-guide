@@ -1,3 +1,9 @@
+## [0.0.424](https://github.com/doomsower/whitewater/compare/9a7c751e2d43a27c5214b390fac109d154132725...ba7cd19e81c9eb53702a571bcabdcb4096e39df6) (2020-03-26)
+
+### Bug Fixes
+
+- encodeURIComponent ([](https://github.com/doomsower/whitewater/commit/713f6ba8e6d4cf2a926fd3a948df76db70919dc8))
+
 ## [0.0.423](https://github.com/doomsower/whitewater/compare/fe1f9412bdbdc038a6aebb27f22947db16f6d5fd...9a7c751e2d43a27c5214b390fac109d154132725) (2020-03-26)
 
 ### Bug Fixes
