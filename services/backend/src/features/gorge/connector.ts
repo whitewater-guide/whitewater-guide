@@ -202,7 +202,9 @@ export class GorgeConnector implements DataSource<Context> {
   ): Promise<GorgeMeasurement[]> {
     try {
       const from = Math.ceil(new Date().getTime() / 1000) - 60 * 60 * 24 * days;
-      const url = `${GORGE_URL}/measurements/${script}/${code}?from=${from}`;
+      const url = encodeURIComponent(
+        `${GORGE_URL}/measurements/${script}/${code}?from=${from}`,
+      );
       const resp = await Axios.get<GorgeMeasurement[]>(url);
       return resp.data;
     } catch (err) {
@@ -239,7 +241,7 @@ export class GorgeConnector implements DataSource<Context> {
       ? `${GORGE_URL}/measurements/${scripts[0]}/${code}/latest`
       : `${GORGE_URL}/measurements/latest?scripts=${scripts.join(',')}`;
     try {
-      const resp = await Axios.get<GorgeMeasurement[]>(url);
+      const resp = await Axios.get<GorgeMeasurement[]>(encodeURIComponent(url));
       const result = new Map<string, GorgeMeasurement>();
       resp.data.forEach((m) => result.set(`${m.script}:${m.code}`, m));
       return result;
