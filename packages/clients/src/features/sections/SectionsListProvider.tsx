@@ -118,6 +118,8 @@ export class SectionsListProvider extends React.PureComponent<
       const { count, sections } = this.state;
       if (count === 0 || sections.length < count) {
         await this.loadInitial();
+      } else {
+        await this.loadUpdates();
       }
       await this.startPolling();
     }
