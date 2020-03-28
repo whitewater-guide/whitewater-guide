@@ -68,10 +68,10 @@
   resolved "https://registry.npmjs.org/@types/yup/-/yup-0.26.32.tgz#bd356fb405f3d641eff963854edf7ad854a8e829"
   integrity sha512-55WFAq8lNYXdRzSP1cenMFFXtPRe7PWsqn5y9ibqKHOQZ/cSLErkcnB1LE89M7W2TSXVDFtx+T7eFePkGoB+xw==
 
-"@whitewater-guide/commons@0.0.193":
-  version "0.0.193"
-  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.193.tgz#5fb278e909b3a232d6e86d40637446f1158fdc8d"
-  integrity sha512-xoQ+67JcWNrZWRMF40uYd+JkOoR6eMIoezleJYDnfVxMSa5nLjxQbDbhPd4TA7EmCkTos8xwh7/temLLUESiAw==
+"@whitewater-guide/commons@0.0.194":
+  version "0.0.194"
+  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.194.tgz#94438edf0dc9238e3a85fd30cdb2388f4fe88b87"
+  integrity sha512-qDUcehAMRBp/wCRe/D/1XaQ0hB1tM3+z6AkXY0L7b9K/SduOTnT9sJX9ZwwHCOA6lsWTWFnzuG9ljk5SyNzd/w==
   dependencies:
     "@types/yup" "^0.26.32"
     cron-validator "^1.1.1"
