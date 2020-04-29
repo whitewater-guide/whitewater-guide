@@ -1,6 +1,7 @@
-import { createSafeValidator } from '../../validation';
 import { RegionAdminSettings, RegionInput } from './types';
 import { RegionAdminSettingsSchema, RegionInputSchema } from './validation';
+
+import { createSafeValidator } from '@whitewater-guide/validation';
 
 describe('RegionInput', () => {
   const validator = createSafeValidator(RegionInputSchema);
@@ -10,7 +11,11 @@ describe('RegionInput', () => {
     id: 'ca844cf2-c3b9-11e8-a355-529269fb1459',
     name: 'region',
     description: 'description',
-    bounds: [[1, 1, 1], [2, 2, 2], [3, 3, 3]],
+    bounds: [
+      [1, 1, 1],
+      [2, 2, 2],
+      [3, 3, 3],
+    ],
     season: 'when it rains',
     seasonNumeric: [10, 11, 12],
     pois: [
@@ -53,7 +58,16 @@ describe('RegionInput', () => {
       'bad season numeric (too many items)',
       { ...correct, seasonNumeric: Array(30).fill(10) },
     ],
-    ['bad bounds', { ...correct, bounds: [[1, 2, 3], [2, 2, 2]] }],
+    [
+      'bad bounds',
+      {
+        ...correct,
+        bounds: [
+          [1, 2, 3],
+          [2, 2, 2],
+        ],
+      },
+    ],
     ['null bounds', { ...correct, bounds: null }],
     [
       'bad pois',

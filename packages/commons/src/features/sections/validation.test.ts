@@ -1,6 +1,3 @@
-import { NEW_ID } from '../../apollo';
-import { createSafeValidator } from '../../validation';
-import { MediaKind } from '../media';
 import {
   Duration,
   GaugeBinding,
@@ -12,6 +9,10 @@ import {
   SectionAdminSettingsSchema,
   SectionInputSchema,
 } from './validation';
+
+import { MediaKind } from '../media';
+import { NEW_ID } from '../../apollo';
+import { createSafeValidator } from '@whitewater-guide/validation';
 
 describe('GaugeBinding', () => {
   const validator = createSafeValidator(GaugeBindingSchema);

@@ -1,6 +1,7 @@
-import { createSafeValidator } from '../../validation';
-import { PointInput } from './types';
 import { CoordinateSchema, PointInputSchema } from './validation';
+
+import { PointInput } from './types';
+import { createSafeValidator } from '@whitewater-guide/validation';
 
 describe('loose coordinate schema', () => {
   const validator = createSafeValidator(CoordinateSchema);

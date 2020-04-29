@@ -1,7 +1,8 @@
 import * as yup from 'yup';
-import { yupTypes } from '../../validation';
-import { PointInputSchema } from '../points';
+
 import { GaugeInput } from './types';
+import { PointInputSchema } from '../points';
+import { yupTypes } from '@whitewater-guide/validation';
 
 export const GaugeInputSchema = yup
   .object<GaugeInput>({

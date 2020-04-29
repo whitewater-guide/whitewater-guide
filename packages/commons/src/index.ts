@@ -18,4 +18,3 @@ export * from './features/tags';
 export * from './features/users';
 export * from './i18n';
 export * from './utils';
-export * from './validation';

@@ -1,9 +1,10 @@
-import { createSafeValidator } from '../../validation';
-import { SuggestionInput } from './types';
 import {
   PhotoSuggestionInputSchema,
   SuggestionInputSchema,
 } from './validation';
+
+import { SuggestionInput } from './types';
+import { createSafeValidator } from '@whitewater-guide/validation';
 
 type TestValue = [string, SuggestionInput];
 

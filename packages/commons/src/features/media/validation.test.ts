@@ -1,6 +1,7 @@
-import { createSafeValidator } from '../../validation';
 import { MediaInput, MediaKind } from './types';
+
 import { MediaInputSchema } from './validation';
+import { createSafeValidator } from '@whitewater-guide/validation';
 
 const validator = createSafeValidator(MediaInputSchema);
 

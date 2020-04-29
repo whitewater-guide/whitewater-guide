@@ -1,6 +1,7 @@
 import * as yup from 'yup';
-import { yupTypes } from '../../validation';
+
 import { GroupInput } from './types';
+import { yupTypes } from '@whitewater-guide/validation';
 
 const GROUP_SKU = /^group\.\w{3,}$/;
 

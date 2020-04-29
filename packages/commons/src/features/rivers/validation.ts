@@ -1,6 +1,7 @@
 import * as yup from 'yup';
-import { yupTypes } from '../../validation';
+
 import { RiverInput } from './types';
+import { yupTypes } from '@whitewater-guide/validation';
 
 export const RiverInputSchema = yup
   .object<RiverInput>({
