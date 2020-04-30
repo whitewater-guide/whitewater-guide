@@ -1312,10 +1312,10 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@whitewater-guide/commons@0.0.195-validation.1":
-  version "0.0.195-validation.1"
-  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.195-validation.1.tgz#a021a593fac8dc6bbf0299904c581293c68e709d"
-  integrity sha512-OEEsszghjhThtfRQ5A4WF1BLpJ09uSeSWvd7iXBENy35edLbi09kXNJ65iM9C3toKrlGWqv/vrCuKZYqQc0lYw==
+"@whitewater-guide/commons@0.0.195":
+  version "0.0.195"
+  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.195.tgz#6b9604c9d80b50def0747d46ca4992c932431490"
+  integrity sha512-7O+mA9KgtHL0Dlhv8t9T4ZBWN+aYzo0m+zUvvD2CqFulvS375eYyLGnfy/fSr1Fs4a1skxru6XS7UJ+tb7zXAA==
   dependencies:
     "@types/yup" "^0.28.0"
     "@whitewater-guide/validation" "^1.0.1"
