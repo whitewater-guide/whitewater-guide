@@ -1,8 +1,4 @@
-import { Context } from '@apollo';
-import db from '@db';
-import { DataSource } from 'apollo-datasource';
 import Axios, { AxiosResponse } from 'axios';
-import DataLoader from 'dataloader';
 import {
   GorgeError,
   GorgeGauge,
@@ -12,6 +8,11 @@ import {
   GorgeStatus,
   JobRaw,
 } from './types';
+
+import { Context } from '@apollo';
+import DataLoader from 'dataloader';
+import { DataSource } from 'apollo-datasource';
+import db from '@db';
 
 const GORGE_HOST = 'gorge';
 const GORGE_PORT = '7080';
@@ -23,7 +24,7 @@ interface Key {
   code: string;
 }
 
-const DLOptions: DataLoader.Options<Key, GorgeMeasurement> = {
+const DLOptions: DataLoader.Options<Key, GorgeMeasurement, string> = {
   cacheKeyFn: ({ script, code }: Key) => `${script}:${code}`,
 };
 
@@ -37,7 +38,7 @@ export class GorgeConnector implements DataSource<Context> {
 
   constructor() {
     this._loadLatestBatch = this._loadLatestBatch.bind(this);
-    this._latest = new DataLoader<Key, GorgeMeasurement | null>(
+    this._latest = new DataLoader<Key, GorgeMeasurement | null, string>(
       this._loadLatestBatch,
       DLOptions,
     );

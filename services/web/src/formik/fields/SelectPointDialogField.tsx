@@ -2,12 +2,13 @@ import {
   Coordinate3d,
   CoordinateLoose,
   CoordinateSchema,
-  createSafeValidator,
 } from '@whitewater-guide/commons';
-import { useField } from 'formik';
 import React, { useCallback } from 'react';
+
 import { SelectGeometryDialog } from '../../components/maps';
+import { createSafeValidator } from '@whitewater-guide/validation';
 import { useFakeHandlers } from '../utils';
+import { useField } from 'formik';
 
 interface Props {
   name: string;

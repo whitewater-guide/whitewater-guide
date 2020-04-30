@@ -1,8 +1,12 @@
 // tslint:disable
-import 'react-app-polyfill/stable';
 import '@testing-library/jest-dom/extend-expect';
 import 'raf/polyfill';
+import 'react-app-polyfill/stable';
 import 'url-search-params-polyfill';
+
+import { initYup } from '@whitewater-guide/validation';
+
+initYup();
 
 window.google = {
   maps: {
@@ -19,6 +23,8 @@ window.google = {
       Polygon: class {},
       Feature: class {},
     },
+    Size: class {},
+    Point: class {},
   },
 };
 

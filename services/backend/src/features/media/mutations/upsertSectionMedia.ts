@@ -1,10 +1,9 @@
-import { isInputValidResolver, TopLevelResolver } from '@apollo';
-import {
-  MediaInput,
-  MediaInputSchema,
-  yupTypes,
-} from '@whitewater-guide/commons';
 import * as yup from 'yup';
+
+import { MediaInput, MediaInputSchema } from '@whitewater-guide/commons';
+import { TopLevelResolver, isInputValidResolver } from '@apollo';
+
+import { yupTypes } from '@whitewater-guide/validation';
 
 interface Vars {
   sectionId: string;

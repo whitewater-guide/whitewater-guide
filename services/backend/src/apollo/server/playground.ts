@@ -1,24 +1,25 @@
-import { PlaygroundConfig } from 'apollo-server';
-import { getIntrospectionQuery, graphql, GraphQLSchema } from 'graphql';
-import { FilterRootFields } from 'graphql-tools';
-// tslint:disable-next-line:no-submodule-imports
-import { RootFilter } from 'graphql-tools/dist/transforms/FilterRootFields';
-import { FilterFieldsWithDirective } from '../directives';
+import {
+  FieldFilter,
+  FilterObjectFields,
+  FilterRootFields,
+} from 'graphql-tools';
+import { GraphQLSchema, getIntrospectionQuery, graphql } from 'graphql';
 
-const rootFieldsFilter: RootFilter = (operation, fieldName, field) => {
+import { PlaygroundConfig } from 'apollo-server';
+
+const adminFieldsFilter: FieldFilter = (operation, fieldName, field) => {
   if (operation === 'Mutation') {
     return false;
   }
-  const isAdmin =
-    field.astNode &&
-    field.astNode.directives &&
-    field.astNode.directives.some((d) => d.name.value === 'admin');
+  const isAdmin = field?.astNode?.directives?.some(
+    (d) => d.name.value === 'admin',
+  );
   return !isAdmin;
 };
 
 const getPlaygroundSchema = (schema: GraphQLSchema) => {
-  const filterRootFields = new FilterRootFields(rootFieldsFilter);
-  const filterAdminFields = new FilterFieldsWithDirective('admin');
+  const filterRootFields = new FilterRootFields(adminFieldsFilter);
+  const filterAdminFields = new FilterObjectFields(adminFieldsFilter);
   return filterAdminFields.transformSchema(
     filterRootFields.transformSchema(schema),
   );

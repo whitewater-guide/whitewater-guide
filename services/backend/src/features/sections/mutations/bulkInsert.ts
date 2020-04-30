@@ -1,25 +1,26 @@
-import { isInputValidResolver, TopLevelResolver } from '@apollo';
-import db, { rawUpsert } from '@db';
-import { minioClient, TEMP } from '@minio';
+import * as yup from 'yup';
+
+import { Extract, Headers, extract } from 'tar-stream';
 import {
-  createSafeValidator,
   NEW_ID,
   NULL_SECTION_INPUT,
   SectionInput,
   SectionInputSchema,
-  yupTypes,
 } from '@whitewater-guide/commons';
-import { UserInputError } from 'apollo-server';
-import deepmerge from 'deepmerge';
+import { TEMP, minioClient } from '@minio';
+import { TopLevelResolver, isInputValidResolver } from '@apollo';
+import { checkForNewRiver, insertNewRiver } from './upsertUtils';
+import { createSafeValidator, yupTypes } from '@whitewater-guide/validation';
+import db, { rawUpsert } from '@db';
+
 import { EventIterator } from 'event-iterator';
 import JSONStream from 'jsonstream2';
 import { PassThrough } from 'stream';
-import { extract, Extract, Headers } from 'tar-stream';
-import * as yup from 'yup';
-import { createGunzip } from 'zlib';
-import { getLocalFileName } from '../../../minio/utils';
 import { RawSectionUpsertResult } from '../types';
-import { checkForNewRiver, insertNewRiver } from './upsertUtils';
+import { UserInputError } from 'apollo-server';
+import { createGunzip } from 'zlib';
+import deepmerge from 'deepmerge';
+import { getLocalFileName } from '../../../minio/utils';
 
 interface Vars {
   regionId: string;

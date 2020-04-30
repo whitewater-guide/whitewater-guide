@@ -1,14 +1,15 @@
 import { amber, green, grey, red } from '@material-ui/core/colors';
-import Grid from '@material-ui/core/Grid';
+
 import FontIcon from '@material-ui/core/Icon';
+import Grid from '@material-ui/core/Grid';
+import { HarvestStatus } from '@whitewater-guide/commons';
 import IconButton from '@material-ui/core/IconButton';
 import Popover from '@material-ui/core/Popover';
-import { formatDate } from '@whitewater-guide/clients';
-import { HarvestStatus } from '@whitewater-guide/commons';
-import differenceInHours from 'date-fns/differenceInHours';
-import parseISO from 'date-fns/parseISO';
 import React from 'react';
 import { Styles } from '../styles';
+import differenceInHours from 'date-fns/differenceInHours';
+import { formatDate } from '@whitewater-guide/clients';
+import parseISO from 'date-fns/parseISO';
 
 const styles: Styles = {
   popover: {
@@ -66,7 +67,7 @@ export class HarvestStatusIndicator extends React.PureComponent<Props, State> {
   render() {
     const { status, withText } = this.props;
     const { open, anchorEl } = this.state;
-    let color = grey[500];
+    let color: string = grey[500];
     let tsStyle = {};
     let countStyle = {};
     let statusText = 'unknown';

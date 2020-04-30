@@ -1,11 +1,13 @@
-import { isInputValidResolver, TopLevelResolver } from '@apollo';
-import db from '@db';
+import * as yup from 'yup';
+
 import {
   SectionAdminSettings,
   SectionAdminSettingsSchema,
-  yupTypes,
 } from '@whitewater-guide/commons';
-import * as yup from 'yup';
+import { TopLevelResolver, isInputValidResolver } from '@apollo';
+
+import db from '@db';
+import { yupTypes } from '@whitewater-guide/validation';
 
 interface Vars {
   id: string;

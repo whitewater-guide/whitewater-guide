@@ -1,13 +1,14 @@
-import { graphql, introspectionQuery } from 'graphql';
-import Router from 'koa-router';
+import { getIntrospectionQuery, graphql } from 'graphql';
 import { getSchema, getTypeDefs } from './schema';
+
+import Router from 'koa-router';
 
 export const graphqlRouter = new Router({ prefix: '/graphql' });
 
 if (process.env.APOLLO_EXPOSE_SCHEMA === 'true') {
   graphqlRouter.get('/schema.json', async (ctx) => {
     const schema = await getSchema();
-    await graphql(schema, introspectionQuery).then(
+    await graphql(schema, getIntrospectionQuery()).then(
       (result) => (ctx.body = result),
     );
   });

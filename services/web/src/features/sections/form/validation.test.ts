@@ -1,11 +1,8 @@
-import {
-  createSafeValidator,
-  Duration,
-  MediaKind,
-  TagCategory,
-} from '@whitewater-guide/commons';
+import { Duration, MediaKind, TagCategory } from '@whitewater-guide/commons';
+
 import { SectionFormData } from './types';
 import { SectionFormSchema } from './validation';
+import { createSafeValidator } from '@whitewater-guide/validation';
 
 const validator = createSafeValidator(SectionFormSchema);
 type TestValue = [string, SectionFormData];
@@ -26,7 +23,10 @@ const correct: SectionFormData = {
   levels: { minimum: 10, optimum: null },
   flows: { maximum: 11, approximate: true },
   flowsText: 'unknown',
-  shape: [[0, 0, 0], [0.1, 1, 0]],
+  shape: [
+    [0, 0, 0],
+    [0.1, 1, 0],
+  ],
   distance: 10,
   drop: 100,
   duration: Duration.LAPS,
@@ -117,7 +117,14 @@ const incorrectValues: TestValue[] = [
   ['bad shape (not enough points)', { ...correct, shape: [[1, 2, 3]] }],
   [
     'bad shape (bad point)',
-    { ...correct, shape: [[1, 2, 3], [300, 1, 1], [2, 3, 4]] },
+    {
+      ...correct,
+      shape: [
+        [1, 2, 3],
+        [300, 1, 1],
+        [2, 3, 4],
+      ],
+    },
   ],
   ['bad distance', { ...correct, distance: -100 }],
   ['bad drop', { ...correct, drop: -100 }],
