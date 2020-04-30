@@ -23,7 +23,7 @@
     "@sentry/node": "^5.14.2",
     "@turf/boolean-point-in-polygon": "^6.0.1",
     "@turf/helpers": "^6.1.4",
-    "@whitewater-guide/commons": "0.0.195-validation.0",
+    "@whitewater-guide/commons": "0.0.195-validation.1",
     "@whitewater-guide/gorge": "^1.2.2",
     "apollo-datasource": "^0.7.0",
     "apollo-server": "^2.11.0",
