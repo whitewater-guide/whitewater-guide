@@ -1,8 +1,9 @@
-import { getLocalPhotoSchema } from '@whitewater-guide/clients';
-import { yupTypes } from '@whitewater-guide/commons';
 import * as yup from 'yup';
+
 import { MAX_PHOTO_MEGAPIXELS } from '../../features/uploads';
 import { PhotoSuggestion } from './types';
+import { getLocalPhotoSchema } from '@whitewater-guide/clients';
+import { yupTypes } from '@whitewater-guide/validation';
 
 const LocalPhotoSchema = getLocalPhotoSchema({
   mpxOrResolution: MAX_PHOTO_MEGAPIXELS,

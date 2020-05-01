@@ -1,9 +1,8 @@
-import {
-  CoordinateSchema,
-  createSafeValidator,
-} from '@whitewater-guide/commons';
-import toArray from 'lodash/toArray';
 import * as yup from 'yup';
+
+import { CoordinateSchema } from '@whitewater-guide/commons';
+import { createSafeValidator } from '@whitewater-guide/validation';
+import toArray from 'lodash/toArray';
 
 export const schema = yup
   .object({

@@ -1,5 +1,3 @@
-import clamp from 'lodash/clamp';
-import React from 'react';
 import {
   Animated,
   GestureResponderEvent,
@@ -9,8 +7,11 @@ import {
   View,
   ViewProps,
 } from 'react-native';
-import theme from '../../theme';
 import Thumb, { THUMB_SCALE_RATIO } from './Thumb';
+
+import React from 'react';
+import clamp from 'lodash/clamp';
+import theme from '../../theme';
 
 // extra spacing enlarging the touchable area
 const TRACK_EXTRA_MARGIN_V = 5;
@@ -219,12 +220,18 @@ export class RangeSlider extends React.PureComponent<RangeSliderProps> {
         Animated.timing(this._selectedTrackLeftPx, {
           toValue: left,
           duration: 0,
+          useNativeDriver: true,
         }),
         Animated.timing(this._selectedTrackWidthPx, {
           toValue: width,
           duration: 0,
+          useNativeDriver: true,
         }),
-        Animated.timing(this._inverted, { toValue: inverted, duration: 0 }),
+        Animated.timing(this._inverted, {
+          toValue: inverted,
+          duration: 0,
+          useNativeDriver: true,
+        }),
       ]).start();
     }
   };
