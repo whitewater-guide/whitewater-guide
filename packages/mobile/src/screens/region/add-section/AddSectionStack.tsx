@@ -1,19 +1,20 @@
 import {
-  createStackNavigator,
   StackNavigationOptions,
+  createStackNavigator,
 } from '@react-navigation/stack';
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import Config from 'react-native-config';
-import { getHeaderRenderer } from '~/components/header';
-import { Screens } from '~/core/navigation';
+
+import { AddSectionStackParamsList } from './types';
 import AddSectionTabs from './AddSectionTabs';
+import Config from 'react-native-ultimate-config';
 import { LazyGaugeScreen } from './gauge';
 import { LazyPhotoScreen } from './photo';
 import { LazyRiverScreen } from './river';
 import { LazyShapeScreen } from './shape';
+import React from 'react';
+import { Screens } from '~/core/navigation';
 import SubmitButton from './SubmitButton';
-import { AddSectionStackParamsList } from './types';
+import { getHeaderRenderer } from '~/components/header';
+import { useTranslation } from 'react-i18next';
 
 const Stack = createStackNavigator<AddSectionStackParamsList>();
 

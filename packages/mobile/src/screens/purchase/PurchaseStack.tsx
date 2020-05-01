@@ -1,18 +1,19 @@
 import {
-  createStackNavigator,
   StackNavigationOptions,
+  createStackNavigator,
 } from '@react-navigation/stack';
-import React from 'react';
-import Config from 'react-native-config';
-import { getHeaderRenderer } from '~/components/header';
-import { Screens } from '~/core/navigation';
-import { PurchaseStackParamsList } from '~/screens/purchase/types';
-import theme from '../../theme';
+
+import Config from 'react-native-ultimate-config';
 import { LazyAlreadyHaveScreen } from './already-have';
 import { LazyBuyScreen } from './buy';
 import { LazySuccessScreen } from './success';
-import { PurchaseStackNavProps } from './types';
 import { LazyVerifyScreen } from './verify';
+import { PurchaseStackNavProps } from './types';
+import { PurchaseStackParamsList } from '~/screens/purchase/types';
+import React from 'react';
+import { Screens } from '~/core/navigation';
+import { getHeaderRenderer } from '~/components/header';
+import theme from '../../theme';
 
 const Stack = createStackNavigator<PurchaseStackParamsList>();
 

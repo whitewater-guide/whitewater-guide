@@ -1,8 +1,9 @@
-import React from 'react';
 import { Alert, Clipboard, StyleSheet, View } from 'react-native';
-import Config from 'react-native-config';
-import { Caption } from 'react-native-paper';
 import { CodePushVersion, versioning } from '../../utils/versioning';
+
+import { Caption } from 'react-native-paper';
+import Config from 'react-native-ultimate-config';
+import React from 'react';
 
 const styles = StyleSheet.create({
   container: {

@@ -1,8 +1,8 @@
+import Config from 'react-native-ultimate-config';
 import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
-import Config from 'react-native-config';
-import useEffectOnce from 'react-use/lib/useEffectOnce';
 import SplashScreen from '~/components/SplashScreen';
+import useEffectOnce from 'react-use/lib/useEffectOnce';
 import usePersistence from './usePersistence';
 import useTracking from './useTracking';
 

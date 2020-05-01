@@ -1075,7 +1075,6 @@ module.exports = [
   'node_modules/react-native-code-push/package-mixins.js',
   'node_modules/react-native-code-push/package.json',
   'node_modules/react-native-code-push/request-fetch-adapter.js',
-  'node_modules/react-native-config/index.js',
   'node_modules/react-native-fast-image/src/index.js',
   'node_modules/react-native-fast-image/src/preloaderManager.js',
   'node_modules/react-native-fbsdk/js/index.js',

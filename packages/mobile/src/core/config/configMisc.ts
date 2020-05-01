@@ -1,6 +1,6 @@
+import Config from 'react-native-ultimate-config';
 import Mapbox from '@react-native-mapbox-gl/maps';
 import { UIManager } from 'react-native';
-import Config from 'react-native-config';
 import { enableScreens } from 'react-native-screens';
 
 const configMisc = () => {

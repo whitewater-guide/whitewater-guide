@@ -1,14 +1,15 @@
-import { configDateFNS, useAuth } from '@whitewater-guide/clients';
-import { User } from '@whitewater-guide/commons';
-import i18next from 'i18next';
 import React, { useEffect, useState } from 'react';
-import { initReactI18next } from 'react-i18next';
-import Config from 'react-native-config';
-import { getLocales } from 'react-native-localize';
-import { usePrevious } from '../utils/usePrevious';
-import formatters from './formatters';
+import { configDateFNS, useAuth } from '@whitewater-guide/clients';
+
+import Config from 'react-native-ultimate-config';
 import { SUPPORTED_LANGUAGES } from './languages';
+import { User } from '@whitewater-guide/commons';
+import formatters from './formatters';
+import { getLocales } from 'react-native-localize';
+import i18next from 'i18next';
+import { initReactI18next } from 'react-i18next';
 import resources from './resources';
+import { usePrevious } from '../utils/usePrevious';
 
 interface Props {
   /**

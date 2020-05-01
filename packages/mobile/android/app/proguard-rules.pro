@@ -9,9 +9,6 @@
 
 # Add any project specific keep options here:
 
-# react-native-config
--keep class guide.whitewater.BuildConfig { *; }
-
 # react-native-iap
 -keepattributes *Annotation*
 -keepclassmembers class ** {

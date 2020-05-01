@@ -1,4 +1,4 @@
-declare module 'react-native-config' {
+declare module 'react-native-ultimate-config' {
   interface IConfig {
     BACKEND_PROTOCOL: string;
     BACKEND_HOST: string;

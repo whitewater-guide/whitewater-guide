@@ -1,8 +1,8 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import { useEffect } from 'react';
-import { Platform } from 'react-native';
 import CodePush from 'react-native-code-push';
-import Config from 'react-native-config';
+import Config from 'react-native-ultimate-config';
+import { Platform } from 'react-native';
+import { useEffect } from 'react';
 
 export interface CodePushVersion {
   local: string | null;
