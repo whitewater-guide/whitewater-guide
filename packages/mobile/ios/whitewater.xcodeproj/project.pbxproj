@@ -30,6 +30,7 @@
 		64AF84C193F15A12DA1CA69D /* Pods-whitewater.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whitewater.release.xcconfig"; path = "Target Support Files/Pods-whitewater/Pods-whitewater.release.xcconfig"; sourceTree = "<group>"; };
 		7501D47C2325A0DD00858828 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7501D47E2325A0DF00858828 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		753DF916245C3F88001083A3 /* whitewater-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "whitewater-Bridging-Header.h"; sourceTree = "<group>"; };
 		754353EC2324F784003F5BFE /* whitewater.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = whitewater.entitlements; path = whitewater/whitewater.entitlements; sourceTree = "<group>"; };
 		754354022324F81C003F5BFE /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		754AC1F02324F5A300DC7CED /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "whitewater/GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -66,6 +67,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				7501D47D2325A0DD00858828 /* InfoPlist.strings */,
+				753DF916245C3F88001083A3 /* whitewater-Bridging-Header.h */,
 			);
 			name = whitewater;
 			sourceTree = "<group>";
@@ -158,6 +160,7 @@
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 922TKPGBXZ;
+						LastSwiftMigration = 1120;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
@@ -398,6 +401,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = whitewater/whitewater.entitlements;
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 224;
@@ -414,6 +418,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = guide.whitewater;
 				PRODUCT_NAME = whitewater;
 				PROVISIONING_PROFILE_SPECIFIER = "match Development guide.whitewater";
+				SWIFT_OBJC_BRIDGING_HEADER = "whitewater-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -424,6 +431,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = whitewater/whitewater.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
@@ -440,6 +448,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = guide.whitewater;
 				PRODUCT_NAME = whitewater;
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore guide.whitewater";
+				SWIFT_OBJC_BRIDGING_HEADER = "whitewater-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -498,6 +508,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = whitewater/whitewater.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
@@ -514,6 +525,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = guide.whitewater;
 				PRODUCT_NAME = whitewater;
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore guide.whitewater";
+				SWIFT_OBJC_BRIDGING_HEADER = "whitewater-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Staging;
@@ -579,6 +592,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = whitewater/whitewater.entitlements;
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 224;
@@ -595,6 +609,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = guide.whitewater;
 				PRODUCT_NAME = whitewater;
 				PROVISIONING_PROFILE_SPECIFIER = "match Development guide.whitewater";
+				SWIFT_OBJC_BRIDGING_HEADER = "whitewater-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Detox;
