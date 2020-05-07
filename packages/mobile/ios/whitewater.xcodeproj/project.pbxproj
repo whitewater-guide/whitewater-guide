@@ -423,7 +423,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = guide.whitewater;
 				PRODUCT_NAME = whitewater;
-				PROVISIONING_PROFILE_SPECIFIER = "match Development guide.whitewater";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development guide.whitewater 1588864674";
 				SWIFT_OBJC_BRIDGING_HEADER = "whitewater-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -453,7 +453,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = guide.whitewater;
 				PRODUCT_NAME = whitewater;
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore guide.whitewater";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore guide.whitewater 1588864738";
 				SWIFT_OBJC_BRIDGING_HEADER = "whitewater-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -536,7 +536,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = guide.whitewater;
 				PRODUCT_NAME = whitewater;
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore guide.whitewater";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore guide.whitewater 1588864738";
 				SWIFT_OBJC_BRIDGING_HEADER = "whitewater-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -626,7 +626,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = guide.whitewater;
 				PRODUCT_NAME = whitewater;
-				PROVISIONING_PROFILE_SPECIFIER = "match Development guide.whitewater";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development guide.whitewater 1588864674";
 				SWIFT_OBJC_BRIDGING_HEADER = "whitewater-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
