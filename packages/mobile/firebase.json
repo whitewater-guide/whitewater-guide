@@ -1,5 +1,5 @@
 {
   "react-native": {
-    "messaging_android_notification_color": "#0078B4"
+    "messaging_android_notification_color": "@color/dodgerblue"
   }
 }
