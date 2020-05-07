@@ -1,29 +1,31 @@
-import { useMapSelection, useRegion } from '@whitewater-guide/clients';
-import { isPoint } from '@whitewater-guide/commons';
+import { NAVIGATE_BUTTON_HEIGHT, NavigateButton } from '../../NavigateButton';
 import React, { useCallback, useRef } from 'react';
-import { StyleSheet } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
-import { Paragraph } from 'react-native-paper';
+import { useMapSelection, useRegion } from '@whitewater-guide/clients';
+
 import Animated from 'react-native-reanimated';
-import SelectedPOIHeader from '~/components/map/panels/SelectedPOIHeader';
-import { usePremiumGuard } from '../../../features/purchases';
-import theme from '../../../theme';
-import useLastNotNull from '../../../utils/useLastNotNull';
-import { NavigateButton, NAVIGATE_BUTTON_HEIGHT } from '../../NavigateButton';
+import { Paragraph } from 'react-native-paper';
+import { ScrollView } from 'react-native-gesture-handler';
 import SelectedElementView from './SelectedElementView';
+import SelectedPOIHeader from '~/components/map/panels/SelectedPOIHeader';
+import { StyleSheet } from 'react-native';
+import { initialWindowSafeAreaInsets } from 'react-native-safe-area-context';
+import { isPoint } from '@whitewater-guide/commons';
+import theme from '~/theme';
+import useLastNotNull from '~/utils/useLastNotNull';
+import { usePremiumGuard } from '~/features/purchases';
 
 const styles = StyleSheet.create({
-  scroll: {
+  content: {
+    minHeight: theme.rowHeight * 3 + (initialWindowSafeAreaInsets?.bottom || 0),
     backgroundColor: theme.colors.primaryBackground,
-    height: theme.rowHeight * 3,
-  },
-  scrollContent: {
     padding: theme.margin.single,
   },
 });
 
 const SNAP_POINTS: [number, number, number] = [
-  NAVIGATE_BUTTON_HEIGHT + theme.rowHeight * 3,
+  NAVIGATE_BUTTON_HEIGHT +
+    theme.rowHeight * 3 +
+    (initialWindowSafeAreaInsets?.bottom || 0),
   NAVIGATE_BUTTON_HEIGHT,
   0,
 ];
@@ -36,20 +38,15 @@ export const SelectedPOIView: React.FC = React.memo(() => {
   // Keep section as state to prevent flash of empty content before panel hides
   const lastPoi = useLastNotNull(poi);
 
-  const renderHeader = useCallback(() => {
+  const renderContent = useCallback(() => {
     return (
-      <ScrollView
-        style={styles.scroll}
-        contentContainerStyle={styles.scrollContent}
-        ref={scroll}
-        bounces={false}
-      >
+      <ScrollView style={styles.content} ref={scroll}>
         <Paragraph>{lastPoi ? lastPoi.description : ''}</Paragraph>
       </ScrollView>
     );
   }, [lastPoi, scroll]);
 
-  const renderContent = useCallback(() => {
+  const renderHeader = useCallback(() => {
     return <SelectedPOIHeader poi={lastPoi} />;
   }, [lastPoi]);
 

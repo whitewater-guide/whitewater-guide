@@ -1,9 +1,11 @@
-import times from 'lodash/times';
 import * as yup from 'yup';
-import { yupTypes } from '../../validation';
-import { MediaInputSchema } from '../media';
+
 import { CoordinateSchema, PointInputSchema } from '../points';
 import { Durations, GaugeBinding, SectionInput } from './types';
+
+import { MediaInputSchema } from '../media';
+import times from 'lodash/times';
+import { yupTypes } from '@whitewater-guide/validation';
 
 export const GaugeBindingSchema = yup
   .object<GaugeBinding>({

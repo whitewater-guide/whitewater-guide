@@ -1,13 +1,5 @@
-import db, { holdTransaction, rollbackTransaction } from '@db';
-import { SectionsEditLogRaw } from '@features/sections';
-import {
-  fileExistsInBucket,
-  MEDIA,
-  MEDIA_BUCKET_DIR,
-  resetTestMinio,
-  TEMP,
-  TEMP_BUCKET_DIR,
-} from '@minio';
+import * as path from 'path';
+
 import {
   ADMIN,
   ADMIN_ID,
@@ -17,20 +9,6 @@ import {
   EDITOR_NO_EC_ID,
   TEST_USER,
 } from '@seeds/01_users';
-import { REGION_GALICIA, REGION_NORWAY } from '@seeds/04_regions';
-import { SOURCE_GALICIA_1, SOURCE_GEORGIA } from '@seeds/05_sources';
-import { GAUGE_GAL_1_1, GAUGE_GAL_1_2, GAUGE_GEO_1 } from '@seeds/06_gauges';
-import { RIVER_GAL_1, RIVER_GAL_2, RIVER_SJOA } from '@seeds/07_rivers';
-import { GALICIA_R1_S1, NORWAY_SJOA_AMOT } from '@seeds/09_sections';
-import { PHOTO_1, PHOTO_2 } from '@seeds/11_media';
-import { MEDIA_SUGGESTION_ID1 } from '@seeds/17_suggestions';
-import {
-  countRows,
-  fakeContext,
-  noUnstable,
-  runQuery,
-  UUID_REGEX,
-} from '@test';
 import {
   Duration,
   MediaInput,
@@ -38,10 +16,34 @@ import {
   NEW_ID,
   SectionInput,
 } from '@whitewater-guide/commons';
-import { copy } from 'fs-extra';
+import { GALICIA_R1_S1, NORWAY_SJOA_AMOT } from '@seeds/09_sections';
+import { GAUGE_GAL_1_1, GAUGE_GAL_1_2, GAUGE_GEO_1 } from '@seeds/06_gauges';
+import {
+  MEDIA,
+  MEDIA_BUCKET_DIR,
+  TEMP,
+  TEMP_BUCKET_DIR,
+  fileExistsInBucket,
+  resetTestMinio,
+} from '@minio';
+import { PHOTO_1, PHOTO_2 } from '@seeds/11_media';
+import { REGION_GALICIA, REGION_NORWAY } from '@seeds/04_regions';
+import { RIVER_GAL_1, RIVER_GAL_2, RIVER_SJOA } from '@seeds/07_rivers';
+import { SOURCE_GALICIA_1, SOURCE_GEORGIA } from '@seeds/05_sources';
+import {
+  UUID_REGEX,
+  countRows,
+  fakeContext,
+  noUnstable,
+  runQuery,
+} from '@test';
+import db, { holdTransaction, rollbackTransaction } from '@db';
+
 import { ExecutionResult } from 'graphql';
+import { MEDIA_SUGGESTION_ID1 } from '@seeds/17_suggestions';
+import { SectionsEditLogRaw } from '@features/sections';
+import { copy } from 'fs-extra';
 import set from 'lodash/fp/set';
-import * as path from 'path';
 
 jest.mock('../../gorge/connector');
 
@@ -489,8 +491,8 @@ describe('update', () => {
   });
 
   it('should increase updated_at timestamp', () => {
-    expect(updatedSection.createdAt).toBe(
-      originalSection!.created_at.toISOString(),
+    expect(new Date(updatedSection.createdAt).valueOf()).toEqual(
+      originalSection!.created_at.valueOf(),
     );
     expect(new Date(updatedSection.updatedAt).valueOf()).toBeGreaterThan(
       originalSection!.updated_at.valueOf(),

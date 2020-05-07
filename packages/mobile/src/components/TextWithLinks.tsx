@@ -1,6 +1,7 @@
-import MarkdownIt from 'markdown-it';
 import React, { useCallback } from 'react';
 import { StyleSheet, Text } from 'react-native';
+
+import MarkdownIt from 'markdown-it';
 import theme from '../theme';
 
 const parser = new MarkdownIt();
@@ -15,7 +16,7 @@ const split = (text: string) => {
 
   const nodes: Array<string | LinkNode> = [];
   let currentLink: LinkNode | null = null;
-  root.children.forEach((child) => {
+  root.children?.forEach((child) => {
     if (child.type === 'text') {
       if (currentLink) {
         currentLink.text = child.content;

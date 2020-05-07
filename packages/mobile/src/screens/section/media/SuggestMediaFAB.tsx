@@ -1,12 +1,13 @@
-import { useNavigation } from '@react-navigation/native';
-import { useSection } from '@whitewater-guide/clients';
+import { LocalPhoto, useImagePicker, useLocalPhotos } from '~/features/uploads';
 import React, { useCallback } from 'react';
-import { StyleSheet } from 'react-native';
-import Config from 'react-native-config';
+
+import Config from 'react-native-ultimate-config';
 import { FAB } from 'react-native-paper';
 import { Screens } from '~/core/navigation';
-import { LocalPhoto, useImagePicker, useLocalPhotos } from '~/features/uploads';
 import { SectionMediaNavProp } from './types';
+import { StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { useSection } from '@whitewater-guide/clients';
 
 const styles = StyleSheet.create({
   fab: {

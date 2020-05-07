@@ -1,6 +1,8 @@
 import * as yup from 'yup';
-import { yupTypes } from '../../validation';
+
 import { MediaInput, MediaKind } from './types';
+
+import { yupTypes } from '@whitewater-guide/validation';
 
 export const MediaInputSchema = yup
   .object<MediaInput>({

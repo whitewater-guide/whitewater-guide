@@ -1,18 +1,19 @@
-import { sectionHasChanged } from '@whitewater-guide/clients';
-import { Section } from '@whitewater-guide/commons';
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { PanGestureHandler } from 'react-native-gesture-handler';
-import Reanimated from 'react-native-reanimated';
 import {
-  NavigateButton,
   NAVIGATE_BUTTON_HEIGHT,
   NAVIGATE_BUTTON_WIDTH,
+  NavigateButton,
 } from '~/components/NavigateButton';
-import theme from '../../../../theme';
+import { StyleSheet, View } from 'react-native';
+import { SwipeableAnimation, runAnimation } from './animations';
+
 import { ItemProps } from '../types';
-import { runAnimation, SwipeableAnimation } from './animations';
+import { PanGestureHandler } from 'react-native-gesture-handler';
+import React from 'react';
+import Reanimated from 'react-native-reanimated';
+import { Section } from '@whitewater-guide/commons';
 import SectionListBody from './SectionListBody';
+import { sectionHasChanged } from '@whitewater-guide/clients';
+import theme from '../../../../theme';
 
 const styles = StyleSheet.create({
   container: {
@@ -40,10 +41,14 @@ export class SectionListItem extends React.Component<Props> {
   private readonly _animation: SwipeableAnimation;
   private readonly _scalePI: Reanimated.Node<number>;
   private readonly _scaleTO: Reanimated.Node<number>;
+  private readonly _animationStyle: any;
 
   constructor(props: Props) {
     super(props);
     this._animation = runAnimation(-2 * NAVIGATE_BUTTON_WIDTH, this.onOpen);
+    this._animationStyle = {
+      transform: [{ translateX: this._animation.position }],
+    };
     this._scaleTO = Reanimated.interpolate(this._animation.position, {
       inputRange: [-NAVIGATE_BUTTON_WIDTH, 0],
       outputRange: [1, 0],
@@ -125,11 +130,7 @@ export class SectionListItem extends React.Component<Props> {
           onGestureEvent={this._animation.gestureHandler}
           onHandlerStateChange={this._animation.gestureHandler}
         >
-          <Reanimated.View
-            style={
-              { transform: [{ translateX: this._animation.position }] } as any
-            }
-          >
+          <Reanimated.View style={this._animationStyle}>
             <SectionListBody
               regionPremium={regionPremium}
               section={item}

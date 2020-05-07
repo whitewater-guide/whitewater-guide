@@ -1,6 +1,8 @@
 import * as yup from 'yup';
-import { yupTypes } from '../../validation';
+
 import { TAG_CATEGORIES, TagInput } from './types';
+
+import { yupTypes } from '@whitewater-guide/validation';
 
 export const TagInputSchema = yup
   .object<TagInput>({

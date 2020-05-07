@@ -1,21 +1,22 @@
-import {
-  createStackNavigator,
-  StackNavigationOptions,
-} from '@react-navigation/stack';
-import React from 'react';
-import Config from 'react-native-config';
-import { getHeaderRenderer } from '~/components/header';
 import { RootStackNavProps, RootStackParamsList } from '~/core/navigation';
+import {
+  StackNavigationOptions,
+  createStackNavigator,
+} from '@react-navigation/stack';
+
+import Config from 'react-native-ultimate-config';
 import { LazyAuthStack } from '~/screens/auth';
 import { LazyMyProfileScreen } from '~/screens/my-profile';
 import { LazyPlainScreen } from '~/screens/plain';
 import { LazyPurchaseStack } from '~/screens/purchase';
 import { LazyRegionScreen } from '~/screens/region';
-import { RegionsListScreen } from '~/screens/regions-list';
 import { LazySectionScreen } from '~/screens/section';
 import { LazySuggestionScreen } from '~/screens/suggestion';
 import { LazyWebViewScreen } from '~/screens/webview';
+import React from 'react';
+import { RegionsListScreen } from '~/screens/regions-list';
 import { Screens } from './screen-names';
+import { getHeaderRenderer } from '~/components/header';
 import { useLinking } from './useLinking';
 import useSignOut from './useSignOut';
 

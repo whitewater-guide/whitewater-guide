@@ -1,19 +1,20 @@
-import { useAuth } from '@whitewater-guide/clients';
-import { MediaKind } from '@whitewater-guide/commons';
-import { useFormikContext } from 'formik';
-import React, { useCallback } from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
-import Config from 'react-native-config';
-import Icon from '~/components/Icon';
-import { Screens } from '~/core/navigation';
 import {
   LocalPhoto,
   useImagePicker,
   useLocalPhotos,
 } from '../../../../features/uploads';
-import theme from '../../../../theme';
 import { MediaFormInput, SectionFormInput } from '../types';
+import React, { useCallback } from 'react';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+
 import { AddSectionPhotosNavProp } from './types';
+import Config from 'react-native-ultimate-config';
+import Icon from '~/components/Icon';
+import { MediaKind } from '@whitewater-guide/commons';
+import { Screens } from '~/core/navigation';
+import theme from '../../../../theme';
+import { useAuth } from '@whitewater-guide/clients';
+import { useFormikContext } from 'formik';
 
 const styles = StyleSheet.create({
   container: {

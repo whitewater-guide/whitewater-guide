@@ -1,14 +1,15 @@
-import { useRegion } from '@whitewater-guide/clients';
-import { createSafeValidator } from '@whitewater-guide/commons';
-import { Formik } from 'formik';
 import React, { useMemo } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
+
 import { AddSectionNavProps } from '~/screens/region/add-section/types';
-import theme from '../../../theme';
 import AddSectionStack from './AddSectionStack';
+import { Formik } from 'formik';
 import { SectionFormInput } from './types';
-import useAddSection from './useAddSection';
 import { SectionFormSchema } from './validation';
+import { createSafeValidator } from '@whitewater-guide/validation';
+import theme from '../../../theme';
+import useAddSection from './useAddSection';
+import { useRegion } from '@whitewater-guide/clients';
 
 const styles = StyleSheet.create({
   safe: {

@@ -1,6 +1,7 @@
-import AsyncStorage from '@react-native-community/async-storage';
 import { useCallback, useEffect, useState } from 'react';
-import Config from 'react-native-config';
+
+import AsyncStorage from '@react-native-community/async-storage';
+import Config from 'react-native-ultimate-config';
 
 const PERSISTENCE_KEY = 'wwguide1';
 

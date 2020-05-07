@@ -7,23 +7,24 @@
 # Mail Server #
 ###############
 
-mail.backend: 'smtp' # Use dummy if you want to disable email entirely
-mail.host: 'localhost'
-mail.port: 25
-mail.username: ''
-mail.password: ''
-mail.use-tls: false
+# mail.backend: 'smtp'  # Use dummy if you want to disable email entirely
+mail.host: 'smtp'
+# mail.port: 25
+# mail.username: ''
+# mail.password: ''
+# mail.use-tls: false
 # The email address to send on behalf of
 mail.from: '{{ .Env.SENTRY_MAIL_FROM }}'
 
 # If you'd like to configure email replies, enable this.
-# mail.enable-replies: false
+# mail.enable-replies: true
 
 # When email-replies are enabled, this value is used in the Reply-To header
 # mail.reply-hostname: ''
 
 # If you're using mailgun for inbound mail, set your API key and configure a
 # route to forward to /api/hooks/mailgun/inbound/
+# Also don't forget to set `mail.enable-replies: true` above.
 # mail.mailgun-api-key: ''
 
 ###################
@@ -33,7 +34,7 @@ mail.from: '{{ .Env.SENTRY_MAIL_FROM }}'
 # If this file ever becomes compromised, it's important to regenerate your a new key
 # Changing this value will result in all current sessions being invalidated.
 # A new key can be generated with `$ sentry config generate-secret-key`
-# system.secret-key: 'changeme'
+system.secret-key: '{{ .Env.SENTRY_SECRET_KEY }}'
 
 # The ``redis.clusters`` setting is used, unsurprisingly, to configure Redis
 # clusters. These clusters can be then referred to by name when configuring
@@ -52,9 +53,11 @@ mail.from: '{{ .Env.SENTRY_MAIL_FROM }}'
 # Uploaded media uses these `filestore` settings. The available
 # backends are either `filesystem` or `s3`.
 
-# filestore.backend: 'filesystem'
-# filestore.options:
-#   location: '/tmp/sentry-files'
+filestore.backend: 'filesystem'
+filestore.options:
+  location: '/data/files'
+dsym.cache-path: '/data/dsym-cache'
+releasefile.cache-path: '/data/releasefile-cache'
 
 # filestore.backend: 's3'
 # filestore.options:
@@ -64,6 +67,29 @@ mail.from: '{{ .Env.SENTRY_MAIL_FROM }}'
 
 system.admin-email: '{{ .Env.SENTRY_ADMIN_EMAIL }}'
 system.url-prefix: '{{ .Env.SENTRY_URL_PREFIX }}'
-
 auth.allow-registration: false
 beacon.anonymous: true
+
+system.internal-url-prefix: 'http://web:9000'
+symbolicator.enabled: true
+symbolicator.options:
+  url: 'http://symbolicator:3021'
+
+transaction-events.force-disable-internal-project: true
+######################
+# GitHub Integration #
+######################
+
+# github-app.id: GITHUB_APP_ID
+# github-app.name: 'GITHUB_APP_NAME'
+# github-app.webhook-secret: 'GITHUB_WEBHOOK_SECRET' # Use only if configured in GitHub
+# github-app.client-id: 'GITHUB_CLIENT_ID'
+# github-app.client-secret: 'GITHUB_CLIENT_SECRET'
+# github-app.private-key: |
+#   -----BEGIN RSA PRIVATE KEY-----
+#   privatekeyprivatekeyprivatekeyprivatekey
+#   privatekeyprivatekeyprivatekeyprivatekey
+#   privatekeyprivatekeyprivatekeyprivatekey
+#   privatekeyprivatekeyprivatekeyprivatekey
+#   privatekeyprivatekeyprivatekeyprivatekey
+#   -----END RSA PRIVATE KEY-----

@@ -1,17 +1,15 @@
+import { Coordinate3d, CoordinateSchema } from '@whitewater-guide/commons';
+
+import Coordinates from 'coordinate-parser';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
-import {
-  Coordinate3d,
-  CoordinateSchema,
-  createSafeValidator,
-} from '@whitewater-guide/commons';
-import clipboard from 'clipboard-copy';
-import Coordinates from 'coordinate-parser';
-import isEmpty from 'lodash/isEmpty';
-import round from 'lodash/round';
+import { NumberInput } from './NumberInput';
 import React from 'react';
 import { Styles } from '../styles';
-import { NumberInput } from './NumberInput';
+import clipboard from 'clipboard-copy';
+import { createSafeValidator } from '@whitewater-guide/validation';
+import isEmpty from 'lodash/isEmpty';
+import round from 'lodash/round';
 
 const styles: Styles = {
   container: {

@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import { configureApolloCache } from '@whitewater-guide/clients';
 import { CachePersistor } from 'apollo-cache-persist';
+import { configureApolloCache } from '@whitewater-guide/clients';
 import { storage } from './storage';
 
 const SCHEMA_VERSION = '1'; // Must be a string.
@@ -13,7 +13,7 @@ export const apolloCachePersistor = new CachePersistor({
   storage,
   maxSize: false,
   debug: __DEV__,
-  debounce: 4000,
+  debounce: 5000,
 });
 
 export const assertCachePersistorVersion = async () => {

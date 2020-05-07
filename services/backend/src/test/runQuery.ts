@@ -1,7 +1,12 @@
-import { createTestClient } from 'apollo-server-testing';
-import { ExecutionResult } from 'graphql';
-import { createTestServer } from '../apollo/server';
+import { GraphQLError } from 'graphql';
 import { anonContext } from './context';
+import { createTestClient } from 'apollo-server-testing';
+import { createTestServer } from '../apollo/server';
+
+interface ExecutionResult<T> {
+  errors?: ReadonlyArray<GraphQLError>;
+  data?: T | null;
+}
 
 export const runQuery = async <T = any>(
   query: string,

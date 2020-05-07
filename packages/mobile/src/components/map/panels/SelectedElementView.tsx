@@ -1,17 +1,19 @@
-import { MapSelection } from '@whitewater-guide/clients';
-import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+
 import Animated from 'react-native-reanimated';
 import BottomSheet from 'reanimated-bottom-sheet';
-import theme from '../../../theme';
-import getSnapPoints from './getSnapPoints';
+import { MapSelection } from '@whitewater-guide/clients';
+import React from 'react';
 import { SnapPoints } from './types';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import getSnapPoints from './getSnapPoints';
+import theme from '~/theme';
 
 const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
     backgroundColor: theme.colors.primaryBackground,
   },
   headerTouchable: {

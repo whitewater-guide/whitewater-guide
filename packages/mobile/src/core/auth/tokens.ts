@@ -1,11 +1,12 @@
-import { TokenStorage } from '@whitewater-guide/clients';
-import Config from 'react-native-config';
 import {
+  RNSensitiveInfoOptions,
   deleteItem,
   getItem,
-  RNSensitiveInfoOptions,
   setItem,
 } from 'react-native-sensitive-info';
+
+import Config from 'react-native-ultimate-config';
+import { TokenStorage } from '@whitewater-guide/clients';
 
 const KEYCHAIN_SERVICE = `wwguide_${Config.ENV_NAME}`;
 const SHARED_PREFERENCES = `wwguide_${Config.ENV_NAME}`;

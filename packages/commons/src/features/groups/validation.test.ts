@@ -1,6 +1,6 @@
-import { createSafeValidator } from '../../validation';
 import { GroupInput } from './types';
 import { GroupInputSchema } from './validation';
+import { createSafeValidator } from '@whitewater-guide/validation';
 
 const validator = createSafeValidator(GroupInputSchema);
 

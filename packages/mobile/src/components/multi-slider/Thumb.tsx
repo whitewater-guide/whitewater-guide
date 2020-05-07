@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Animated,
   GestureResponderEvent,
@@ -7,6 +6,8 @@ import {
   PanResponderInstance,
   ViewProps,
 } from 'react-native';
+
+import React from 'react';
 
 export const THUMB_SCALE_RATIO = 1.3;
 
@@ -57,16 +58,22 @@ export default class Thumb extends React.PureComponent<Props> {
       Animated.timing(this._animatedScale, {
         toValue: THUMB_SCALE_RATIO,
         duration: 100,
+        useNativeDriver: true,
       }),
       Animated.timing(this._animatedLeft, {
         toValue: xTo - this.props.radius,
         duration: 0,
+        useNativeDriver: true,
       }),
     ]).start();
   };
 
   release = () => {
-    Animated.timing(this._animatedScale, { toValue: 1, duration: 100 }).start();
+    Animated.timing(this._animatedScale, {
+      toValue: 1,
+      duration: 100,
+      useNativeDriver: true,
+    }).start();
   };
 
   render() {

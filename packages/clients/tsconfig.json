@@ -6,7 +6,8 @@
     "target": "es5",
     "outDir": "dist",
     "sourceMap": true,
-    "declaration": true
+    "declaration": true,
+    "skipLibCheck": true
   },
   "include": ["./src/**/*.ts", "./declarations/**/*.d.ts"]
 }

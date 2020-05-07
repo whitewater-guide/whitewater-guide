@@ -1,14 +1,15 @@
-FROM sentry:9.1.1
+ARG SENTRY_IMAGE
+FROM ${SENTRY_IMAGE:-getsentry/sentry:latest}
 
-WORKDIR /usr/src/sentry
-
-# Add WORKDIR to PYTHONPATH so local python files don't need to be installed
-ENV PYTHONPATH /usr/src/sentry
-COPY config.template.yml sentry.conf.py /etc/sentry/
+COPY . /etc/sentry/
 
 ENV DOCKERIZE_VERSION v0.11.0
 RUN apt update \
- && apt install -y curl \
- && curl -sfL https://github.com/powerman/dockerize/releases/download/${DOCKERIZE_VERSION}/dockerize-$(uname -s)-$(uname -m) | install /dev/stdin /usr/local/bin/dockerize
+    && apt install -y curl \
+    && curl -sfL https://github.com/powerman/dockerize/releases/download/${DOCKERIZE_VERSION}/dockerize-$(uname -s)-$(uname -m) | install /dev/stdin /usr/local/bin/dockerize
 
-ENTRYPOINT ["/usr/local/bin/dockerize", "-template", "/etc/sentry/config.template.yml:/etc/sentry/config.yml", "/entrypoint.sh"]
+# Hook for installing additional plugins
+RUN if [ -s /usr/src/sentry/requirements.txt ]; then pip install -r /usr/src/sentry/requirements.txt; fi
+
+ENTRYPOINT ["/usr/local/bin/dockerize", "-template", "/etc/sentry/config.template.yml:/etc/sentry/config.yml", "/docker-entrypoint.sh"]
+# ENTRYPOINT exec /docker-entrypoint.sh $0 $@

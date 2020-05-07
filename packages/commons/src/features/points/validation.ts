@@ -1,9 +1,11 @@
+import * as yup from 'yup';
+
+import { CoordinateLoose, PointInput } from './types';
+
+import { POITypes } from './POITypes';
 import isArray from 'lodash/isArray';
 import isNumber from 'lodash/isNumber';
-import * as yup from 'yup';
-import { yupTypes } from '../../validation';
-import { POITypes } from './POITypes';
-import { CoordinateLoose, PointInput } from './types';
+import { yupTypes } from '@whitewater-guide/validation';
 
 export const CoordinateSchema: yup.Schema<CoordinateLoose> = yup
   .array<any>()

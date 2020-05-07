@@ -85,3 +85,6 @@ fastlane/.env.*
 /coverage/
 /src/test/typedefs.ts
 /*/sentry.properties
+
+# react-native-ultimate-config
+rnuc.xcconfig

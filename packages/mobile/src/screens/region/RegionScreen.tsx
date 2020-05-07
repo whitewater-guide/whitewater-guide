@@ -1,16 +1,20 @@
-import { useNetInfo } from '@react-native-community/netinfo';
 import {
   RegionProvider,
   SectionsFilterProvider,
   SectionsListProvider,
   useSectionsFilterOptions,
 } from '@whitewater-guide/clients';
-import React from 'react';
-import { useApolloClient } from 'react-apollo';
+
 import ErrorBoundary from '~/components/ErrorBoundary';
-import theme from '~/theme';
-import RegionStack from './RegionStack';
+import React from 'react';
 import { RegionScreenNavProps } from './types';
+import RegionStack from './RegionStack';
+import theme from '~/theme';
+import { useApolloClient } from 'react-apollo';
+import { useNetInfo } from '@react-native-community/netinfo';
+
+// Load smaller batch first to display asap
+const limitFn = (offset: number) => (offset ? 60 : 20);
 
 interface Props {
   regionId: string;
@@ -26,6 +30,7 @@ const InnerRegionScreen: React.FC<Props> = ({ regionId }) => {
       regionId={regionId}
       isConnected={isConnected}
       client={client}
+      limit={limitFn}
     >
       <RegionStack />
     </SectionsListProvider>

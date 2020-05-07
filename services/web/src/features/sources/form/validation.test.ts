@@ -1,6 +1,6 @@
-import { createSafeValidator } from '@whitewater-guide/commons';
 import { SourceFormData } from './types';
 import SourceFormSchema from './validation';
+import { createSafeValidator } from '@whitewater-guide/validation';
 
 const validator = createSafeValidator(SourceFormSchema);
 

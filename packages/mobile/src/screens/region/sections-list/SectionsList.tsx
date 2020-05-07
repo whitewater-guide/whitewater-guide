@@ -1,9 +1,10 @@
 import React, { forwardRef } from 'react';
-import { StyleSheet } from 'react-native';
-import { RecyclerListView } from 'recyclerlistview';
-import { layoutProvider } from './item';
-import NoSectionsPlaceholder from './NoSectionsPlaceholder';
+
 import { ListProps } from './types';
+import NoSectionsPlaceholder from './NoSectionsPlaceholder';
+import { RecyclerListView } from 'recyclerlistview';
+import { StyleSheet } from 'react-native';
+import { layoutProvider } from './item';
 import useDataProvider from './useDataProvider';
 import useRenderer from './useRenderer';
 

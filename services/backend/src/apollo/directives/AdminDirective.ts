@@ -4,21 +4,22 @@ import {
   ForbiddenError,
 } from 'apollo-server';
 import {
-  defaultFieldResolver,
   GraphQLField,
   GraphQLFieldResolver,
   GraphQLInterfaceType,
   GraphQLObjectType,
+  defaultFieldResolver,
 } from 'graphql';
-import { SchemaDirectiveVisitor } from 'graphql-tools';
+
 import { Context } from '../context';
+import { SchemaDirectiveVisitor } from 'graphql-tools';
 
 type Fields = GraphQLField<any, Context>;
 interface Details {
   objectType: GraphQLObjectType | GraphQLInterfaceType;
 }
 
-export class AdminDirective extends SchemaDirectiveVisitor {
+export class AdminDirective extends SchemaDirectiveVisitor<any, any> {
   visitFieldDefinition(field: Fields, { objectType }: Details) {
     // Throw errors for queries and mutations
     if (objectType.name === 'Mutation' || objectType.name === 'Query') {

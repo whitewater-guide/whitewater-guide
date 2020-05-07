@@ -1,6 +1,8 @@
 import * as yup from 'yup';
-import { yupTypes } from '../../validation';
+
 import { BannerKind, BannerPlacement } from './types';
+
+import { yupTypes } from '@whitewater-guide/validation';
 
 const BannerSourceSchema = yup
   .object({

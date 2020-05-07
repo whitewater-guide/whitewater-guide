@@ -1,7 +1,8 @@
-import { createSafeValidator } from '@whitewater-guide/commons';
-import deepmerge from 'deepmerge';
-import { DeepPartial } from 'utility-types';
 import { LocalPhoto, LocalPhotoStatus } from './types';
+
+import { DeepPartial } from 'utility-types';
+import { createSafeValidator } from '@whitewater-guide/validation';
+import deepmerge from 'deepmerge';
 import { getLocalPhotoSchema } from './validation';
 
 type Cases = Array<[string, DeepPartial<LocalPhoto>, any]>;

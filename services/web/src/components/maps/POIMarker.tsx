@@ -1,7 +1,8 @@
-import { useMapSelection } from '@whitewater-guide/clients';
-import { Point } from '@whitewater-guide/commons';
 import React, { useEffect, useRef } from 'react';
+
 import { MapElementProps } from './types';
+import { Point } from '@whitewater-guide/commons';
+import { useMapSelection } from '@whitewater-guide/clients';
 
 const GaugeIcon = {
   url: require('./gauge_marker.png'),

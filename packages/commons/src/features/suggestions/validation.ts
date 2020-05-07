@@ -1,6 +1,7 @@
 import * as yup from 'yup';
-import { yupTypes } from '../../validation';
+
 import { SuggestionInput } from './types';
+import { yupTypes } from '@whitewater-guide/validation';
 
 const makeSuggestingSchema = (photoRequired: boolean) =>
   yup

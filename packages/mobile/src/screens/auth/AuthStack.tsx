@@ -1,19 +1,20 @@
+import { AuthStackNavProps, AuthStackParamsList } from './types';
 import {
-  createStackNavigator,
   StackNavigationOptions,
+  createStackNavigator,
 } from '@react-navigation/stack';
-import React from 'react';
-import Config from 'react-native-config';
-import { getHeaderRenderer } from '~/components/header';
-import { Screens } from '~/core/navigation';
-import theme from '../../theme';
+
+import Config from 'react-native-ultimate-config';
 import { LazyForgotScreen } from './forgot';
 import { LazyMainScreen } from './main';
 import { LazyRegisterScreen } from './register';
 import { LazyResetScreen } from './reset';
 import { LazySignInScreen } from './signin';
-import { AuthStackNavProps, AuthStackParamsList } from './types';
 import { LazyWelcomeScreen } from './welcome';
+import React from 'react';
+import { Screens } from '~/core/navigation';
+import { getHeaderRenderer } from '~/components/header';
+import theme from '../../theme';
 
 const Stack = createStackNavigator<AuthStackParamsList>();
 

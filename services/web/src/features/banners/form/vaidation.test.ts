@@ -1,11 +1,9 @@
-import { LocalPhotoStatus } from '@whitewater-guide/clients';
-import {
-  BannerPlacement,
-  BannerResolutions,
-  createSafeValidator,
-} from '@whitewater-guide/commons';
+import { BannerPlacement, BannerResolutions } from '@whitewater-guide/commons';
+
 import { BannerFormData } from './types';
 import { BannerFormSchema } from './validation';
+import { LocalPhotoStatus } from '@whitewater-guide/clients';
+import { createSafeValidator } from '@whitewater-guide/validation';
 
 type TestValue = [string, BannerFormData];
 const validator = createSafeValidator(BannerFormSchema);

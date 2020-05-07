@@ -1,7 +1,9 @@
 import * as yup from 'yup';
-import { yupTypes } from '../../validation';
+
 import { CoordinateSchema, PointInputSchema } from '../points';
 import { RegionAdminSettings, RegionCoverImage, RegionInput } from './types';
+
+import { yupTypes } from '@whitewater-guide/validation';
 
 const REGION_SKU = /^region\.\w{3,}$/;
 

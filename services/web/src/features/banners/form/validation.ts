@@ -1,11 +1,13 @@
-import { getLocalPhotoSchema } from '@whitewater-guide/clients';
+import * as yup from 'yup';
+
 import {
   BannerInputSchema,
   BannerResolutions,
-  yupTypes,
 } from '@whitewater-guide/commons';
-import * as yup from 'yup';
+
 import { BannerFormData } from './types';
+import { getLocalPhotoSchema } from '@whitewater-guide/clients';
+import { yupTypes } from '@whitewater-guide/validation';
 
 const ImageSourceSchema = yup.object().test({
   name: 'is-correct-image-banner-source',

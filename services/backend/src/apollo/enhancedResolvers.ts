@@ -1,7 +1,9 @@
-import { TopLevelResolver } from '@apollo';
-import { createSafeValidator } from '@whitewater-guide/commons';
-import { AuthenticationError, UserInputError } from 'apollo-server';
 import * as yup from 'yup';
+
+import { AuthenticationError, UserInputError } from 'apollo-server';
+
+import { TopLevelResolver } from '@apollo';
+import { createSafeValidator } from '@whitewater-guide/validation';
 
 export const isAuthenticatedResolver = <Vars>(
   resolver: TopLevelResolver<Vars>,

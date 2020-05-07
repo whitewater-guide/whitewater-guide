@@ -9,9 +9,6 @@
 
 # Add any project specific keep options here:
 
-# react-native-config
--keep class guide.whitewater.BuildConfig { *; }
-
 # react-native-iap
 -keepattributes *Annotation*
 -keepclassmembers class ** {
@@ -31,3 +28,10 @@
 
 # react-native-svg
 -keep public class com.horcrux.svg.** {*;}
+
+# react-native-unitmate-config
+-keep class guide.whitewater.BuildConfig { *; }
+
+# hermes
+-keep class com.facebook.hermes.unicode.** { *; }
+-keep class com.facebook.jni.** { *; }
