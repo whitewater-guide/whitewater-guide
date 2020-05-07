@@ -1,12 +1,13 @@
 import {
-  createDrawerNavigator,
   DrawerContentComponentProps,
   DrawerContentOptions,
+  createDrawerNavigator,
 } from '@react-navigation/drawer';
-import React from 'react';
-import { Screens } from '~/core/navigation';
+
 import DrawerSidebar from './DrawerSidebar';
+import React from 'react';
 import RootStack from './RootStack';
+import { Screens } from '~/core/navigation';
 
 const Drawer = createDrawerNavigator();
 
@@ -18,6 +19,7 @@ export const RootDrawer: React.FC = () => {
   return (
     <Drawer.Navigator
       drawerContent={drawerContent}
+      initialRouteName={Screens.ROOT_STACK}
       screenOptions={{ gestureEnabled: false }}
     >
       <Drawer.Screen name={Screens.ROOT_STACK} component={RootStack} />

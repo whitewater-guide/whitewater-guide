@@ -82,7 +82,7 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-    enableHermes: false,  // clean and rebuild if changing
+    enableHermes: true,  // clean and rebuild if changing
     bundleInDebugDetox: true,
     devDisabledInDebugDetox: true,
     bundleInReleaseStaging: true,
@@ -143,7 +143,7 @@ android {
         resValue "string", "build_config_package", "guide.whitewater"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 100601137
+        versionCode 100601157
         versionName "1.9.13"
         testBuildType System.getProperty('testBuildType', 'debugDetox')
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'

@@ -99,7 +99,14 @@ async function run() {
     `${getNativeVersion()}-${deployment.toLowerCase()}-v0`,
     dist,
   );
-  uploadToSentry(platform, `guide.whitewater-${getNativeVersion()}`, dist);
+  uploadToSentry(
+    platform,
+    `guide.whitewater${
+      deployment === 'production' ? '' : '.' + deployment
+    }@${getNativeVersion()}+${dist}`,
+    dist,
+  );
+  // uploadToSentry(platform, `guide.whitewater-${getNativeVersion()}`, dist);
 
   console.info(`Uploaded release ${sentryVersion} to sentry`);
 }

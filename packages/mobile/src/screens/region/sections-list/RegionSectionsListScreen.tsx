@@ -1,10 +1,11 @@
-import { useFocusEffect } from '@react-navigation/native';
 import { useRegion, useSectionsList } from '@whitewater-guide/clients';
-import React from 'react';
-import { Screen } from '~/components/Screen';
+
 import FilterButton from '~/screens/region/FilterButton';
-import SectionsList from './SectionsList';
+import React from 'react';
 import { RegionSectionsNavProps } from './types';
+import { Screen } from '~/components/Screen';
+import SectionsList from './SectionsList';
+import { useFocusEffect } from '@react-navigation/native';
 
 const RegionSectionsListScreen: React.FC<RegionSectionsNavProps> = ({
   navigation,

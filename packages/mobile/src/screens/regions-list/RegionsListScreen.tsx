@@ -1,14 +1,15 @@
-import { useFocusEffect } from '@react-navigation/native';
+import React, { useCallback, useEffect } from 'react';
 import {
   RegionsSearchStringContext,
   RegionsSearchStringSetterContext,
 } from '@whitewater-guide/clients';
-import React, { useCallback, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { getHeaderRenderer } from '~/components/header';
-import { Screen } from '~/components/Screen';
-import RegionsListView from './RegionsListView';
+
 import { RegionsListNavProps } from './types';
+import RegionsListView from './RegionsListView';
+import { Screen } from '~/components/Screen';
+import { getHeaderRenderer } from '~/components/header';
+import { useFocusEffect } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 
 export const RegionsListScreen: React.FC<RegionsListNavProps> = ({
   navigation,

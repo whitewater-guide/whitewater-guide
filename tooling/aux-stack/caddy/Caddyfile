@@ -12,7 +12,7 @@
 
   gzip
 
-  proxy / web:9000 {
+  proxy / nginx:80 {
     transparent
   }
 

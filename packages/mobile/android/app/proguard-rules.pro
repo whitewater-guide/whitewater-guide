@@ -28,3 +28,10 @@
 
 # react-native-svg
 -keep public class com.horcrux.svg.** {*;}
+
+# react-native-unitmate-config
+-keep class guide.whitewater.BuildConfig { *; }
+
+# hermes
+-keep class com.facebook.hermes.unicode.** { *; }
+-keep class com.facebook.jni.** { *; }

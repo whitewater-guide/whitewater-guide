@@ -1,18 +1,19 @@
-import { useNavigation } from '@react-navigation/native';
+import { Banner, Section, isBanner } from '@whitewater-guide/commons';
+import { ListProps, RegionSectionsNavProp } from './types';
+import React, { useCallback, useMemo, useState } from 'react';
 import {
   SectionsStatus,
   useSectionsSearchString,
 } from '@whitewater-guide/clients';
-import { Banner, isBanner, Section } from '@whitewater-guide/commons';
-import max from 'date-fns/max';
-import parseISO from 'date-fns/parseISO';
-import React, { useCallback, useMemo, useState } from 'react';
+import { hasPremiumAccess, useIap } from '~/features/purchases';
+
+import { ListItem } from './item';
 import { RefreshControl } from 'react-native';
 import { Screens } from '~/core/navigation';
-import { hasPremiumAccess, useIap } from '~/features/purchases';
-import { ListItem } from './item';
 import { SectionListBanner } from './item/SectionListBanner';
-import { ListProps, RegionSectionsNavProp } from './types';
+import max from 'date-fns/max';
+import parseISO from 'date-fns/parseISO';
+import { useNavigation } from '@react-navigation/native';
 
 interface ExtendedState {
   swipedId: string;
@@ -38,10 +39,7 @@ export default (props: ListProps) => {
     () =>
       sections.reduce((acc, section) => {
         const dates = [acc, parseISO(section.updatedAt)];
-        const msm =
-          section.gauge &&
-          section.gauge.latestMeasurement &&
-          section.gauge.latestMeasurement.timestamp;
+        const msm = section.gauge?.latestMeasurement?.timestamp;
         if (msm) {
           dates.push(parseISO(msm));
         }

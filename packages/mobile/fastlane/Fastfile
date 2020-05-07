@@ -30,7 +30,7 @@ end
 before_all do |lane, options|
   yarn(
     command: "rnuc .env.#{ENV['ENV']}.yml",
-    package_path: "../package.json"
+    package_path: "package.json"
   )
   parse_package_json
 end
@@ -38,7 +38,7 @@ end
 after_all do |lane, options|
   yarn(
     command: "setup-dev-env",
-    package_path: "../package.json"
+    package_path: "package.json"
   )
 end
 
