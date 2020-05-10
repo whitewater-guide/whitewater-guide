@@ -1,3 +1,9 @@
+## [0.0.150](https://github.com/doomsower/whitewater/compare/827ad43c5ff3d8b8d6364b7b1c8bd6f84f4f631d...333418c2908d2bc09f18bbee7deb7597c326522e) (2020-05-10)
+
+### Bug Fixes
+
+- caddy ([](https://github.com/doomsower/whitewater/commit/8e37a534204c5e3885e802b6a36bd45087fc232e))
+
 ## [0.0.149](https://github.com/doomsower/whitewater/compare/a5408075cba1bec07adedc2eb36db0d04248bd58...827ad43c5ff3d8b8d6364b7b1c8bd6f84f4f631d) (2020-05-10)
 
 ### Bug Fixes
