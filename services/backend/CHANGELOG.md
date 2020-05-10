@@ -1,3 +1,55 @@
+## [0.0.426](https://github.com/doomsower/whitewater/compare/a5408075cba1bec07adedc2eb36db0d04248bd58...827ad43c5ff3d8b8d6364b7b1c8bd6f84f4f631d) (2020-05-10)
+
+### Bug Fixes
+
+- bug when we change sections river ([](https://github.com/doomsower/whitewater/commit/c59a2a31ab8c341fb72776ec81c9f0edf32591e0))
+- change section's gauge ([](https://github.com/doomsower/whitewater/commit/368b8632b392aed3bb3b6ac2291dbd0d7857f06e))
+- do not update demo attribute, except for admin mutation ([](https://github.com/doomsower/whitewater/commit/f80f95ff4b8a8ffade1ffd1ba91dcb784386ad0f)), closes [#460](https://github.com/doomsower/whitewater/issues/460)
+- encodeURIComponent ([](https://github.com/doomsower/whitewater/commit/713f6ba8e6d4cf2a926fd3a948df76db70919dc8))
+- encodeURIComponent in gorge connector ([](https://github.com/doomsower/whitewater/commit/8abf99f5d702ed8a43f723c8a2a1f0f12ffe4b6f))
+- expose introspection schema on staging ([](https://github.com/doomsower/whitewater/commit/cb0cf831a299f625b81b8fbec45aa1296cb01786))
+- fix introspection query ([](https://github.com/doomsower/whitewater/commit/47013beb3b7188bf8e2b3c44e57557bc7d17978c))
+- fix tests ([](https://github.com/doomsower/whitewater/commit/3b63d403c104273e9cb36b7eeb229bc747360834))
+- harvest status resolver ([](https://github.com/doomsower/whitewater/commit/0788a84661479a1c0aca4222d08c9e25f01780c6))
+- quantize coordinates ([](https://github.com/doomsower/whitewater/commit/98cf6480e70f15b13ea3124a9f418355f0fa0f86))
+- queries with deprecated fields ([](https://github.com/doomsower/whitewater/commit/c08fe73a32d1ee469df46ca2bd816225894526ef))
+- read secret correctly ([](https://github.com/doomsower/whitewater/commit/e282a377e2b610c3384b3f73b3dad2bd9fb2c41d))
+- upsertBanner for old banners ([](https://github.com/doomsower/whitewater/commit/2ba5059b16ecbd5da2444696e731efe4c89b3504))
+
+### Features
+
+- add createdBy to SuggestedSection ([](https://github.com/doomsower/whitewater/commit/cbfb59a96ad4d3b1c061dc3ad1a08f2f99231291))
+- add help needed field ([](https://github.com/doomsower/whitewater/commit/00bd4d4cce1d64148a69f2dc154b95e7f04fc951))
+- add sections with media ([](https://github.com/doomsower/whitewater/commit/bd33663dacc13f121b7944cfc74831853d7da1db))
+- allow 2d coorinates ([](https://github.com/doomsower/whitewater/commit/5b19c72f54c622e76fa321e292f99988d25d9546)), closes [#281](https://github.com/doomsower/whitewater/issues/281)
+- allow replacement of fcm token ([](https://github.com/doomsower/whitewater/commit/996069630d97a6cc57b2d64ab1e926e3a3f401a9))
+- approved suggestions are saved as demo ([](https://github.com/doomsower/whitewater/commit/e44995c359a682155f39ccb3885c7a7b7aa16bc2)), closes [#422](https://github.com/doomsower/whitewater/issues/422)
+- bulk import sections ([](https://github.com/doomsower/whitewater/commit/a6987e0aedac67615077ed2eed7f7cea5c30d0e5))
+- display next run ([](https://github.com/doomsower/whitewater/commit/9f2bbe27fbd69fbf4d1f7f0ed63b23065e1783c4))
+- gorge integration wip ([](https://github.com/doomsower/whitewater/commit/b8c319819597dc87fa2457a40494cfebbe2d914a))
+- iceland migration ([](https://github.com/doomsower/whitewater/commit/880493fbbf620b23b1d64c5973860186193b503c))
+- log acknowledged purchases ([](https://github.com/doomsower/whitewater/commit/d87080f61a01f4ccd11fd2ea58e12f8f1baa2040))
+- making it all tick together wip ([](https://github.com/doomsower/whitewater/commit/646f16fea929ad03bf12dadfb82341dc149b7954))
+- migartion to gorge wip ([](https://github.com/doomsower/whitewater/commit/59ae46c78c6bd195f07c17f38cae1e1044819b69))
+- migrating to gorge wip ([](https://github.com/doomsower/whitewater/commit/3979b92c61b3a266bcf9937c64c3b11ebe2dee52))
+- quantize coordinates ([](https://github.com/doomsower/whitewater/commit/7d85064306535bb6658d61b742f530b91e0ea4d2))
+- region->gauges connection now lists only linked gauges ([](https://github.com/doomsower/whitewater/commit/27ab7d4195e17066f59cad28c6d2b4562a4d27a2))
+- remove apollo engine ([](https://github.com/doomsower/whitewater/commit/9d5f10209dabc773a156aea3694fd56dd28f38ce))
+- remove harvest mode from backend ([](https://github.com/doomsower/whitewater/commit/11b1581913e0c4cde1a243b1a4aef327d1ddb133))
+- save purchase automatically acknowledges purchase on android ([](https://github.com/doomsower/whitewater/commit/77e42cc7030f4dac2cb0d1d12867bc51fde58213))
+- ug sections ([](https://github.com/doomsower/whitewater/commit/63b77ee7982e0b87165df98dea5317ddcf7ad69e))
+- update deps ([](https://github.com/doomsower/whitewater/commit/c77064a02260dc738535db5339e00bda964c8243))
+- update to rn61 and new iap ([](https://github.com/doomsower/whitewater/commit/db7ccc631e2b7064f49a9ca7e5c2df6350e3dea2))
+- update to rn62, hermes ([](https://github.com/doomsower/whitewater/commit/c14f869a34c4126b2fe05381901ee1291857c33a))
+- upgrade to react-navigation v5 ([](https://github.com/doomsower/whitewater/commit/c230c41662a0f09a20680f59a243c58b9c3298e8))
+- upsert section can handle media now ([](https://github.com/doomsower/whitewater/commit/bb24ffc6c615a57a8a9ca888d0146ee5a5cc9694))
+- use correct latestMeasurement field ([](https://github.com/doomsower/whitewater/commit/2a1d5a63b4f47f0a3419123b887e873f1b88e25e))
+
+### Other
+
+- fix all tests ([](https://github.com/doomsower/whitewater/commit/925d6a36b38031c61044d14d339a67206a85caaa))
+- remove node-schedule ([](https://github.com/doomsower/whitewater/commit/f1176f77e7c5919a09869627c822de000e57bc9f))
+
 ## [0.0.424](https://github.com/doomsower/whitewater/compare/ba7cd19e81c9eb53702a571bcabdcb4096e39df6...cc0470557abd6a94d9ac085a55746805f4730b62) (2020-04-15)
 
 ## [0.0.424](https://github.com/doomsower/whitewater/compare/9a7c751e2d43a27c5214b390fac109d154132725...ba7cd19e81c9eb53702a571bcabdcb4096e39df6) (2020-03-26)

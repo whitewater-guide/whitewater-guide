@@ -1,3 +1,23 @@
+## [0.0.57](https://github.com/doomsower/whitewater/compare/a5408075cba1bec07adedc2eb36db0d04248bd58...827ad43c5ff3d8b8d6364b7b1c8bd6f84f4f631d) (2020-05-10)
+
+### Features
+
+- add help needed field ([](https://github.com/doomsower/whitewater/commit/00bd4d4cce1d64148a69f2dc154b95e7f04fc951))
+- add sections with media ([](https://github.com/doomsower/whitewater/commit/bd33663dacc13f121b7944cfc74831853d7da1db))
+- allow 2d coorinates ([](https://github.com/doomsower/whitewater/commit/5b19c72f54c622e76fa321e292f99988d25d9546)), closes [#281](https://github.com/doomsower/whitewater/issues/281)
+- local refresh_dump ([](https://github.com/doomsower/whitewater/commit/4c7b41b5dfbb376d8bdd18560209a749ccce5285))
+- migartion to gorge wip ([](https://github.com/doomsower/whitewater/commit/59ae46c78c6bd195f07c17f38cae1e1044819b69))
+- migrating to gorge wip ([](https://github.com/doomsower/whitewater/commit/3979b92c61b3a266bcf9937c64c3b11ebe2dee52))
+- ug sections ([](https://github.com/doomsower/whitewater/commit/63b77ee7982e0b87165df98dea5317ddcf7ad69e))
+- update postgres to v 11 ([](https://github.com/doomsower/whitewater/commit/299f57098de70a39243cf7e0bdb3121a052a01be))
+- update refresh dump script ([](https://github.com/doomsower/whitewater/commit/c1e13458d05d873a7b29482ca4c2447f8bc3b616))
+- update staging sync ([](https://github.com/doomsower/whitewater/commit/ad6fa84c3bc7c868cdf5c7616bd41dd3d7534bdc))
+- update timescale ([](https://github.com/doomsower/whitewater/commit/24310016294bcbc86248b644cc10157c881f57aa))
+- update to rn61 and new iap ([](https://github.com/doomsower/whitewater/commit/db7ccc631e2b7064f49a9ca7e5c2df6350e3dea2))
+- upgrade to react-navigation v5 ([](https://github.com/doomsower/whitewater/commit/c230c41662a0f09a20680f59a243c58b9c3298e8))
+- use gorge container ([](https://github.com/doomsower/whitewater/commit/67b68d15a4a4faa49908123d3aa2f2f7fd429fe9))
+- version pg data dir ([](https://github.com/doomsower/whitewater/commit/064369dcfcf30152058b57df6edcc7d1884f29e6))
+
 ## [0.0.56](https://github.com/doomsower/whitewater/compare/ba7cd19e81c9eb53702a571bcabdcb4096e39df6...cc0470557abd6a94d9ac085a55746805f4730b62) (2020-04-15)
 
 ## [0.0.56](https://github.com/doomsower/whitewater/compare/9a7c751e2d43a27c5214b390fac109d154132725...ba7cd19e81c9eb53702a571bcabdcb4096e39df6) (2020-03-26)

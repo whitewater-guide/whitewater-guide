@@ -1,3 +1,56 @@
+## [0.1.424](https://github.com/doomsower/whitewater/compare/a5408075cba1bec07adedc2eb36db0d04248bd58...827ad43c5ff3d8b8d6364b7b1c8bd6f84f4f631d) (2020-05-10)
+
+### Features
+
+- add demo column ([](https://github.com/doomsower/whitewater/commit/c2a62756cf54f65fa91f8601e248192ec34fdac2))
+- add help needed field ([](https://github.com/doomsower/whitewater/commit/00bd4d4cce1d64148a69f2dc154b95e7f04fc951))
+- add sections with media ([](https://github.com/doomsower/whitewater/commit/bd33663dacc13f121b7944cfc74831853d7da1db))
+- allow 2d coorinates ([](https://github.com/doomsower/whitewater/commit/5b19c72f54c622e76fa321e292f99988d25d9546)), closes [#281](https://github.com/doomsower/whitewater/issues/281)
+- allow to change river of existing section ([](https://github.com/doomsower/whitewater/commit/d681b89aad79d071c2fcc1f57b6a6a928ec4e312))
+- bring back drawing controls when entire line is erased ([](https://github.com/doomsower/whitewater/commit/0c212c678aaff8a5c2a986754477b007ecaf2771))
+- bulk import sections ([](https://github.com/doomsower/whitewater/commit/a6987e0aedac67615077ed2eed7f7cea5c30d0e5))
+- display next run ([](https://github.com/doomsower/whitewater/commit/9f2bbe27fbd69fbf4d1f7f0ed63b23065e1783c4))
+- gauges on region map ([](https://github.com/doomsower/whitewater/commit/f9893e39203b266df93acadd4c613dd1a38b1ca7)), closes [#423](https://github.com/doomsower/whitewater/issues/423)
+- improve links in tables so they can be opened in new tab ([](https://github.com/doomsower/whitewater/commit/1e0082c0db54538b61889e96681620540be0af8b))
+- indicate hidden sections ([](https://github.com/doomsower/whitewater/commit/a55be38a5d33588b41b19790753cae340868b0cd)), closes [#420](https://github.com/doomsower/whitewater/issues/420)
+- making it all tick together wip ([](https://github.com/doomsower/whitewater/commit/646f16fea929ad03bf12dadfb82341dc149b7954))
+- migartion to gorge wip ([](https://github.com/doomsower/whitewater/commit/59ae46c78c6bd195f07c17f38cae1e1044819b69))
+- migrating to gorge wip ([](https://github.com/doomsower/whitewater/commit/3979b92c61b3a266bcf9937c64c3b11ebe2dee52))
+- new tags selector ([](https://github.com/doomsower/whitewater/commit/005df4e6fac074116f26fc644b5ea3233a11ef92))
+- open drawer items in new tabs ([](https://github.com/doomsower/whitewater/commit/92644497abd1a14878e13657b03e304e5b85494e))
+- permanent drawer for admins ([](https://github.com/doomsower/whitewater/commit/75c4491ec64a43d5886c76de015c3d75b435d4f7))
+- remember markdown state ([](https://github.com/doomsower/whitewater/commit/2978788a2fd73e4148ee84c335b884dae494de51))
+- round coordinates to 4 digits in web ui ([](https://github.com/doomsower/whitewater/commit/1b8d532713a3d79fd898d0df699f3c75c6ff497e))
+- show author of simple suggestion ([](https://github.com/doomsower/whitewater/commit/9c32d6e125a242408bef7cefb74a2ee94d77af66))
+- show author of suggested section ([](https://github.com/doomsower/whitewater/commit/51931b40082e129a16df1e37b118300dd766bd03))
+- ug sections ([](https://github.com/doomsower/whitewater/commit/63b77ee7982e0b87165df98dea5317ddcf7ad69e))
+- update deps ([](https://github.com/doomsower/whitewater/commit/c77064a02260dc738535db5339e00bda964c8243))
+- update to rn61 and new iap ([](https://github.com/doomsower/whitewater/commit/db7ccc631e2b7064f49a9ca7e5c2df6350e3dea2))
+- update to rn62, hermes ([](https://github.com/doomsower/whitewater/commit/c14f869a34c4126b2fe05381901ee1291857c33a))
+- upgrade to react-navigation v5 ([](https://github.com/doomsower/whitewater/commit/c230c41662a0f09a20680f59a243c58b9c3298e8))
+- upper case river & section name on submit ([](https://github.com/doomsower/whitewater/commit/5a0b04fb3ad7c35653678ab42f04d9bbc2a3252b))
+
+### Bug Fixes
+
+- crash on touched river selector ([](https://github.com/doomsower/whitewater/commit/72418d3ed7e163ef6786297170735d644cfe8722))
+- default to 'network-only' on autocomplete ([](https://github.com/doomsower/whitewater/commit/ca5f6b7c5f9c18a969f80e02e7363ba208990d9b))
+- do not validate section form on change ([](https://github.com/doomsower/whitewater/commit/916721b8b5b122bceebf0c5263cb6f8013dc8676))
+- fix coordinate input ([](https://github.com/doomsower/whitewater/commit/21ce002af893693d475de9f452bc72c6d1937ad6)), closes [#407](https://github.com/doomsower/whitewater/issues/407)
+- fix gostatic containers ([](https://github.com/doomsower/whitewater/commit/4349f8fce9c0446fa31325b7034cb55ed7f7d2fa))
+- gauge selector web uses correct query ([](https://github.com/doomsower/whitewater/commit/06bc86e7a707d0d6c3c9b910b541ec6e70493952))
+- open multicomplete on second click ([](https://github.com/doomsower/whitewater/commit/ce2b7bd84b36c0b05c0905615499d2ecb5178562)), closes [#408](https://github.com/doomsower/whitewater/issues/408)
+- opening poi dialog when fields are invalid ([](https://github.com/doomsower/whitewater/commit/04d8610045cf99327048946fda9084fdfd847b0c))
+- pressing add on empty coordinate input ([](https://github.com/doomsower/whitewater/commit/91e7e74ca948a9ea60c519e646fb28bc6ae0192b))
+- quantize coordinates ([](https://github.com/doomsower/whitewater/commit/98cf6480e70f15b13ea3124a9f418355f0fa0f86))
+- region finder query ([](https://github.com/doomsower/whitewater/commit/8a92a97049715b229c353c594614b4451319ebf2))
+- remove space from copied coordinates ([](https://github.com/doomsower/whitewater/commit/ab88c8b09013c858ffaf404e1f72126e2092c59d))
+- remove unused font-awesome ([](https://github.com/doomsower/whitewater/commit/28fffede8ab6aaa6fdce0e72cf21c0c385830672))
+- reposition popper after update ([](https://github.com/doomsower/whitewater/commit/b9791bd8425b78a61216ba3c1e9a4820662be8df)), closes [#408](https://github.com/doomsower/whitewater/issues/408)
+
+### Other
+
+- get rid of adapter buttons ([](https://github.com/doomsower/whitewater/commit/d9a21e964f88dc14ca4ecac76874a0aa74ce2c99))
+
 ## [0.1.422](https://github.com/doomsower/whitewater/compare/ba7cd19e81c9eb53702a571bcabdcb4096e39df6...cc0470557abd6a94d9ac085a55746805f4730b62) (2020-04-15)
 
 ## [0.1.422](https://github.com/doomsower/whitewater/compare/9a7c751e2d43a27c5214b390fac109d154132725...ba7cd19e81c9eb53702a571bcabdcb4096e39df6) (2020-03-26)

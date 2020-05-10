@@ -1,3 +1,14 @@
+## [0.0.63](https://github.com/doomsower/whitewater/compare/a5408075cba1bec07adedc2eb36db0d04248bd58...827ad43c5ff3d8b8d6364b7b1c8bd6f84f4f631d) (2020-05-10)
+
+### Features
+
+- add help needed field ([](https://github.com/doomsower/whitewater/commit/00bd4d4cce1d64148a69f2dc154b95e7f04fc951))
+- add sections with media ([](https://github.com/doomsower/whitewater/commit/bd33663dacc13f121b7944cfc74831853d7da1db))
+- allow 2d coorinates ([](https://github.com/doomsower/whitewater/commit/5b19c72f54c622e76fa321e292f99988d25d9546)), closes [#281](https://github.com/doomsower/whitewater/issues/281)
+- ug sections ([](https://github.com/doomsower/whitewater/commit/63b77ee7982e0b87165df98dea5317ddcf7ad69e))
+- update to rn61 and new iap ([](https://github.com/doomsower/whitewater/commit/db7ccc631e2b7064f49a9ca7e5c2df6350e3dea2))
+- upgrade to react-navigation v5 ([](https://github.com/doomsower/whitewater/commit/c230c41662a0f09a20680f59a243c58b9c3298e8))
+
 ## [0.0.62](https://github.com/doomsower/whitewater/compare/ba7cd19e81c9eb53702a571bcabdcb4096e39df6...cc0470557abd6a94d9ac085a55746805f4730b62) (2020-04-15)
 
 ## [0.0.62](https://github.com/doomsower/whitewater/compare/9a7c751e2d43a27c5214b390fac109d154132725...ba7cd19e81c9eb53702a571bcabdcb4096e39df6) (2020-03-26)
