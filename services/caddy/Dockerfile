@@ -25,4 +25,4 @@ COPY Caddyfile caddy-common.conf /etc/
 COPY subdomains /etc/subdomains
 
 ENTRYPOINT ["caddy"]
-CMD ["--conf", "/etc/Caddyfile", "--log", "stdout", "--agree=$ACME_AGREE"]
+CMD ["--conf", "/etc/Caddyfile", "--log", "stdout", "--agree"]
