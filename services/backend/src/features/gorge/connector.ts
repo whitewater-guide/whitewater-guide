@@ -1,13 +1,6 @@
+import * as gorge from '@whitewater-guide/gorge';
+
 import Axios, { AxiosResponse } from 'axios';
-import {
-  GorgeError,
-  GorgeGauge,
-  GorgeJob,
-  GorgeMeasurement,
-  GorgeScript,
-  GorgeStatus,
-  JobRaw,
-} from './types';
 
 import { Context } from '@apollo';
 import DataLoader from 'dataloader';
@@ -24,21 +17,21 @@ interface Key {
   code: string;
 }
 
-const DLOptions: DataLoader.Options<Key, GorgeMeasurement, string> = {
+const DLOptions: DataLoader.Options<Key, gorge.Measurement, string> = {
   cacheKeyFn: ({ script, code }: Key) => `${script}:${code}`,
 };
 
 export class GorgeConnector implements DataSource<Context> {
-  private _scripts?: GorgeScript[];
-  private _gauges?: GorgeGauge[];
-  private _gaugeStatuses?: Map<string, Map<string, GorgeStatus>>;
-  private _jobs?: Map<string, GorgeJob>;
-  private _jobsPromise?: Promise<AxiosResponse<GorgeJob[]>>;
-  private readonly _latest: DataLoader<Key, GorgeMeasurement | null>;
+  private _scripts?: gorge.ScriptDescriptor[];
+  private _gauges?: gorge.Gauge[];
+  private _gaugeStatuses?: Map<string, Map<string, gorge.Status>>;
+  private _jobs?: Map<string, gorge.JobDescription>;
+  private _jobsPromise?: Promise<AxiosResponse<gorge.JobDescription[]>>;
+  private readonly _latest: DataLoader<Key, gorge.Measurement | null>;
 
   constructor() {
     this._loadLatestBatch = this._loadLatestBatch.bind(this);
-    this._latest = new DataLoader<Key, GorgeMeasurement | null, string>(
+    this._latest = new DataLoader<Key, gorge.Measurement | null, string>(
       this._loadLatestBatch,
       DLOptions,
     );
@@ -50,15 +43,17 @@ export class GorgeConnector implements DataSource<Context> {
 
   private _handleError(err: any): Error {
     if (err.response) {
-      return new Error((err.response?.data as GorgeError)?.error);
+      return new Error(err.response?.data?.error);
     }
     return err;
   }
 
-  public async listScripts(): Promise<GorgeScript[]> {
+  public async listScripts(): Promise<gorge.ScriptDescriptor[]> {
     try {
       if (!this._scripts) {
-        const resp = await Axios.get<GorgeScript[]>(`${GORGE_URL}/scripts`);
+        const resp = await Axios.get<gorge.ScriptDescriptor[]>(
+          `${GORGE_URL}/scripts`,
+        );
         this._scripts = resp.data;
       }
     } catch (err) {
@@ -70,10 +65,10 @@ export class GorgeConnector implements DataSource<Context> {
   public async listGauges(
     script: string,
     requestParams: any,
-  ): Promise<GorgeGauge[]> {
+  ): Promise<gorge.Gauge[]> {
     try {
       if (!this._gauges) {
-        const resp = await Axios.post<GorgeGauge[]>(
+        const resp = await Axios.post<gorge.Gauge[]>(
           `${GORGE_URL}/upstream/${script}/gauges`,
           requestParams,
         );
@@ -85,11 +80,13 @@ export class GorgeConnector implements DataSource<Context> {
     return this._gauges || [];
   }
 
-  public async listJobs(): Promise<Map<string, GorgeJob>> {
+  public async listJobs(): Promise<Map<string, gorge.JobDescription>> {
     try {
       if (!this._jobs) {
         if (!this._jobsPromise) {
-          this._jobsPromise = Axios.get<GorgeJob[]>(`${GORGE_URL}/jobs`);
+          this._jobsPromise = Axios.get<gorge.JobDescription[]>(
+            `${GORGE_URL}/jobs`,
+          );
         }
         const resp = await this._jobsPromise;
         this._jobs = new Map(resp.data.map((j) => [j.id, j]));
@@ -102,7 +99,7 @@ export class GorgeConnector implements DataSource<Context> {
 
   public async getJobForSource(
     sourceId: string,
-  ): Promise<GorgeJob | undefined> {
+  ): Promise<gorge.JobDescription | undefined> {
     const jobs = await this.listJobs();
     return jobs.get(sourceId);
   }
@@ -114,14 +111,14 @@ export class GorgeConnector implements DataSource<Context> {
 
   public async getGaugeStatuses(
     sourceId: string,
-  ): Promise<Map<string, GorgeStatus>> {
+  ): Promise<Map<string, gorge.Status>> {
     try {
       if (!this._gaugeStatuses) {
         this._gaugeStatuses = new Map();
       }
       let sourceMap = this._gaugeStatuses.get(sourceId);
       if (!sourceMap) {
-        const resp = await Axios.get<Record<string, GorgeStatus>>(
+        const resp = await Axios.get<Record<string, gorge.Status>>(
           `${GORGE_URL}/jobs/${sourceId}/gauges`,
         );
         sourceMap = new Map();
@@ -146,8 +143,10 @@ export class GorgeConnector implements DataSource<Context> {
     }
   }
 
-  public async createJobForSource(sourceId: string): Promise<GorgeJob> {
-    const input: JobRaw = await db()
+  public async createJobForSource(
+    sourceId: string,
+  ): Promise<gorge.JobDescription> {
+    const input: gorge.JobDescription = await db()
       .select('*')
       .from('jobs_view')
       .where({ id: sourceId })
@@ -161,7 +160,10 @@ export class GorgeConnector implements DataSource<Context> {
       await this.deleteJobForSource(sourceId);
     }
     try {
-      const resp = await Axios.post<GorgeJob>(`${GORGE_URL}/jobs`, input);
+      const resp = await Axios.post<gorge.JobDescription>(
+        `${GORGE_URL}/jobs`,
+        input,
+      );
       const job = resp.data;
       // this._jobs should exist due to isSourceEnabled call above
       this._jobs?.set(job.id, job);
@@ -200,13 +202,13 @@ export class GorgeConnector implements DataSource<Context> {
     script: string,
     code: string,
     days: number,
-  ): Promise<GorgeMeasurement[]> {
+  ): Promise<gorge.Measurement[]> {
     try {
       const from = Math.ceil(new Date().getTime() / 1000) - 60 * 60 * 24 * days;
       const url = `${GORGE_URL}/measurements/${script}/${encodeURIComponent(
         code,
       )}?from=${from}`;
-      const resp = await Axios.get<GorgeMeasurement[]>(url);
+      const resp = await Axios.get<gorge.Measurement[]>(url);
       return resp.data;
     } catch (err) {
       throw this._handleError(err);
@@ -219,7 +221,7 @@ export class GorgeConnector implements DataSource<Context> {
 
   private async _loadLatestBatch(
     keys: Key[],
-  ): Promise<Array<GorgeMeasurement | null>> {
+  ): Promise<Array<gorge.Measurement | null>> {
     if (keys.length === 1) {
       const one = await this._getLatest([keys[0].script], keys[0].code);
       return [one.get(`${keys[0].script}:${keys[0].code}`)!];
@@ -234,7 +236,7 @@ export class GorgeConnector implements DataSource<Context> {
   private async _getLatest(
     scripts: string[],
     code?: string,
-  ): Promise<Map<string, GorgeMeasurement>> {
+  ): Promise<Map<string, gorge.Measurement>> {
     if (code && scripts.length !== 1) {
       throw new Error('gauge code can be used with single script only');
     }
@@ -244,8 +246,8 @@ export class GorgeConnector implements DataSource<Context> {
         )}/latest`
       : `${GORGE_URL}/measurements/latest?scripts=${scripts.join(',')}`;
     try {
-      const resp = await Axios.get<GorgeMeasurement[]>(url);
-      const result = new Map<string, GorgeMeasurement>();
+      const resp = await Axios.get<gorge.Measurement[]>(url);
+      const result = new Map<string, gorge.Measurement>();
       resp.data.forEach((m) => result.set(`${m.script}:${m.code}`, m));
       return result;
     } catch (err) {

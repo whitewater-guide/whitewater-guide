@@ -1,7 +1,7 @@
 import { Context } from '@apollo';
-import { GorgeStatus } from '@features/gorge';
-import { GraphQLFieldResolver } from 'graphql';
 import { GaugeRaw } from '../types';
+import { GraphQLFieldResolver } from 'graphql';
+import { Status } from '@whitewater-guide/gorge';
 
 const statusResolver: GraphQLFieldResolver<GaugeRaw, Context> = async (
   { code, source_id },
@@ -10,7 +10,7 @@ const statusResolver: GraphQLFieldResolver<GaugeRaw, Context> = async (
 ) => {
   const statuses: Map<
     string,
-    GorgeStatus
+    Status
   > = await dataSources.gorge.getGaugeStatuses(source_id);
   return statuses.get(code) || null;
 };

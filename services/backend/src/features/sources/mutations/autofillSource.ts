@@ -1,17 +1,18 @@
+import { GaugeInput, PointInput } from '@whitewater-guide/commons';
 import { TopLevelResolver, UnknownError } from '@apollo';
 import db, { rawUpsert } from '@db';
+
+import { Gauge } from '@whitewater-guide/gorge';
 import { GaugeRaw } from '@features/gauges';
-import { GaugeInput, PointInput } from '@whitewater-guide/commons';
-import keyBy from 'lodash/keyBy';
-import { GorgeGauge } from '../../gorge/types';
 import { SourceRaw } from '../types';
+import keyBy from 'lodash/keyBy';
 
 interface Vars {
   id: string;
 }
 
 const convertLocation = (
-  info: GorgeGauge,
+  info: Gauge,
   locationId: string | null,
 ): PointInput | null => {
   const { location, name } = info;
@@ -48,7 +49,7 @@ const autofillSource: TopLevelResolver<Vars> = async (
     .first();
 
   try {
-    const gaugesIn: GorgeGauge[] = await dataSources.gorge.listGauges(
+    const gaugesIn: Gauge[] = await dataSources.gorge.listGauges(
       script,
       request_params,
     );

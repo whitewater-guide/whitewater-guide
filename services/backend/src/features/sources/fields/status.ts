@@ -1,6 +1,6 @@
 import { Context } from '@apollo';
-import { GorgeJob } from '@features/gorge';
 import { GraphQLFieldResolver } from 'graphql';
+import { JobDescription } from '@whitewater-guide/gorge';
 import { SourceRaw } from '../types';
 
 const statusResolver: GraphQLFieldResolver<SourceRaw, Context> = async (
@@ -8,7 +8,7 @@ const statusResolver: GraphQLFieldResolver<SourceRaw, Context> = async (
   _,
   { dataSources },
 ) => {
-  const jobs: Map<string, GorgeJob> = await dataSources.gorge.listJobs();
+  const jobs: Map<string, JobDescription> = await dataSources.gorge.listJobs();
   const job = jobs.get(id);
   return job?.status;
 };

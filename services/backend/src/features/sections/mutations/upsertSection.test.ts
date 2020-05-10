@@ -28,7 +28,12 @@ import {
 } from '@minio';
 import { PHOTO_1, PHOTO_2 } from '@seeds/11_media';
 import { REGION_GALICIA, REGION_NORWAY } from '@seeds/04_regions';
-import { RIVER_GAL_1, RIVER_GAL_2, RIVER_SJOA } from '@seeds/07_rivers';
+import {
+  RIVER_BZHUZHA,
+  RIVER_GAL_1,
+  RIVER_GAL_2,
+  RIVER_SJOA,
+} from '@seeds/07_rivers';
 import { SOURCE_GALICIA_1, SOURCE_GEORGIA } from '@seeds/05_sources';
 import {
   UUID_REGEX,
@@ -40,6 +45,7 @@ import {
 import db, { holdTransaction, rollbackTransaction } from '@db';
 
 import { ExecutionResult } from 'graphql';
+import { GEORGIA_BZHUZHA_QUALI } from '../../../seeds/test/09_sections';
 import { MEDIA_SUGGESTION_ID1 } from '@seeds/17_suggestions';
 import { SectionsEditLogRaw } from '@features/sections';
 import { copy } from 'fs-extra';
@@ -959,4 +965,22 @@ it('should be able to change river of existing section', async () => {
   // observed bug led to creation of suggestion instead
   const [suggAfter] = await countRows(false, 'suggested_sections');
   expect(suggAfter).toBe(suggBefore);
+});
+
+it('#460 demo section in premium region should stay demo  after edit', async () => {
+  const data = {
+    ...updateData,
+    id: GEORGIA_BZHUZHA_QUALI,
+    river: {
+      id: RIVER_BZHUZHA,
+    },
+    gauge: null,
+  };
+  const res = await runQuery(
+    upsertQuery,
+    { section: data },
+    fakeContext(ADMIN),
+  );
+  expect(res.errors).toBeUndefined();
+  expect(res.data.upsertSection.demo).toBe(true);
 });
