@@ -1,24 +1,15 @@
-# Based on https://github.com/abiosoft/caddy-docker/blob/master/Dockerfile-no-stats
-# to include ratelimit plugin
-#
-# Builder
-#
-FROM abiosoft/caddy:builder as builder
+FROM golang:1.13-alpine as builder
+RUN apk add --no-cache git gcc musl-dev
+RUN mkdir /www /caddy
+COPY ./builder.sh /usr/bin/builder.sh
+ARG version="1.0.5"
+ARG enable_telemetry="true"
+RUN VERSION=${version} /bin/sh /usr/bin/builder.sh
 
-ARG version="1.0.1"
-ARG plugins="git,ratelimit"
 
-# process wrapper
-RUN go get -v github.com/abiosoft/parent
+FROM alpine:3.11.6
 
-RUN VERSION=${version} PLUGINS=${plugins} ENABLE_TELEMETRY=false /bin/sh /usr/bin/builder.sh
-
-#
-# Final stage
-#
-FROM alpine:3.10
-
-ARG version="1.0.1"
+ARG version="1.0.5"
 
 ENV ACME_AGREE="true"
 ENV ENABLE_TELEMETRY="false"
@@ -33,8 +24,5 @@ WORKDIR /srv
 COPY Caddyfile caddy-common.conf /etc/
 COPY subdomains /etc/subdomains
 
-# install process wrapper
-COPY --from=builder /go/bin/parent /bin/parent
-
-ENTRYPOINT ["/bin/parent", "caddy"]
+ENTRYPOINT ["caddy"]
 CMD ["--conf", "/etc/Caddyfile", "--log", "stdout", "--agree=$ACME_AGREE"]
