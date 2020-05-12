@@ -1,3 +1,10 @@
+## [0.0.211](https://github.com/doomsower/whitewater/compare/cc0470557abd6a94d9ac085a55746805f4730b62...e9c1f580bf6041747a1205d2611587e2377298ee) (2020-05-12)
+
+### Features
+
+- update deps ([](https://github.com/doomsower/whitewater/commit/c77064a02260dc738535db5339e00bda964c8243))
+- update to rn62, hermes ([](https://github.com/doomsower/whitewater/commit/c14f869a34c4126b2fe05381901ee1291857c33a))
+
 ## [0.0.211](https://github.com/doomsower/whitewater/compare/684822bd348c07f9e62a5c80589061c369cd78b9...c1b6e1fe3b97b37056901454a548094d6de51ba4) (2020-05-11)
 
 ## [0.0.211](https://github.com/doomsower/whitewater/compare/333418c2908d2bc09f18bbee7deb7597c326522e...684822bd348c07f9e62a5c80589061c369cd78b9) (2020-05-10)
