@@ -78,7 +78,7 @@ services:
   # Gorge to harvest some data
   gorge:
     <<: *ww-single-host
-    image: docker.pkg.github.com/whitewater-guide/gorge/gorge:1.7.0
+    image: docker.pkg.github.com/whitewater-guide/gorge/gorge:1.9.1
     command: ['--pg-db', 'gorge', '--db-chunk-size', '1000']
     env_file:
       - ${DOCKER_ENV_FILE}
