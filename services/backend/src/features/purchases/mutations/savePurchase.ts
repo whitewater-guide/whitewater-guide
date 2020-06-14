@@ -27,7 +27,10 @@ interface Vars {
 
 const Struct = yup.object({
   purchase: PurchaseInputSchema,
-  sectionId: yupTypes.uuid(true, true),
+  sectionId: yupTypes
+    .uuid()
+    .notRequired()
+    .nullable(),
 });
 
 const processBoomstarterPurchase = async (

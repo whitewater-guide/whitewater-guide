@@ -46,7 +46,7 @@ interface IterableFile {
 }
 
 function iterableFiles(filesStream: Extract) {
-  return new EventIterator<IterableFile>((push, stop, fail) => {
+  return new EventIterator<IterableFile>(({ push, stop, fail }) => {
     const onEntry = (headers: Headers, stream: PassThrough, next: () => void) =>
       push({ headers, stream, next });
     filesStream.addListener('entry', onEntry);

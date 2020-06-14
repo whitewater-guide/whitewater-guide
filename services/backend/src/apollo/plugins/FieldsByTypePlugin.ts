@@ -16,8 +16,7 @@ type DidResolveOpListener = GraphQLRequestListener<
  * This plugin taps into query execution and sets fieldsByType on context
  * Uses cache internally
  */
-export class FieldsByTypePlugin
-  implements ApolloServerPlugin, GraphQLRequestListener<Context> {
+export class FieldsByTypePlugin implements ApolloServerPlugin {
   private _cache: Map<string, FieldsByType> = new Map();
 
   constructor(private readonly _schema: GraphQLSchema) {}
