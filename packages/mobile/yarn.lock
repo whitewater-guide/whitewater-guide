@@ -3055,6 +3055,11 @@
   resolved "https://registry.npmjs.org/@types/yup/-/yup-0.28.0.tgz#bddd4c7bc3cb23109d87b77d4607f983a9595768"
   integrity sha512-M11FLKWuwvJo1HjL6oXXl7lXEjpvkW1vK+OA9qFQu1SGDY7Sh36FmvxFd2PoYkrUamKbluWQ+1ZMd+tbgQmwmg==
 
+"@types/yup@^0.29.3":
+  version "0.29.3"
+  resolved "https://registry.npmjs.org/@types/yup/-/yup-0.29.3.tgz#5a85024796bffe0eb01601bfc180fe218356dba4"
+  integrity sha512-XxZFKnxzTfm+DR8MMBA35UUXfUPmjPpi8HJ90VZg7q/LIbtiOhVGJ26gNnATcflcpnIyf2Qm9A+oEhswaqoDpA==
+
 "@types/zen-observable@0.8.0", "@types/zen-observable@^0.8.0":
   version "0.8.0"
   resolved "https://registry.npmjs.org/@types/zen-observable/-/zen-observable-0.8.0.tgz#8b63ab7f1aa5321248aad5ac890a485656dcea4d"
@@ -3218,14 +3223,14 @@
     "@webassemblyjs/wast-parser" "1.9.0"
     "@xtuc/long" "4.2.2"
 
-"@whitewater-guide/clients@0.0.312-perf.0":
-  version "0.0.312-perf.0"
-  resolved "https://registry.npmjs.org/@whitewater-guide/clients/-/clients-0.0.312-perf.0.tgz#be60d31da48dd4cc0c459e3ec76a5e0e2b4350a8"
-  integrity sha512-7frdGNbGM+P9R6dYAdbQOi0tweMACgTBBtvadAnxgirz1337890+bSv5KYc3EdoO1EfHR2U+BQpOVOYILD2/6g==
+"@whitewater-guide/clients@0.0.312":
+  version "0.0.312"
+  resolved "https://registry.npmjs.org/@whitewater-guide/clients/-/clients-0.0.312.tgz#219657f007eafa2e2b4241a02a5ff998daa27766"
+  integrity sha512-UD//uE0QMHd4aWAuDn9kx4pV4cbI9JJ4U5oPuoz/4uk5cwaUwcH3fg3efjF+LBLP01rt0D5M/DUxq/9TrqpytA==
   dependencies:
     "@turf/bearing" "^6.0.1"
     "@turf/helpers" "^6.1.4"
-    "@whitewater-guide/commons" "0.0.196-perf.0"
+    "@whitewater-guide/commons" "0.0.196"
     "@whitewater-guide/validation" "^1.0.2"
     apollo-link "^1.2.14"
     apollo-link-error "https://github.com/doomsower/apollo-link/releases/download/error-async/apollo-link-error-1.1.10-vnext.tgz"
@@ -3248,26 +3253,26 @@
     url-parse "^1.4.7"
     yup "^0.28.5"
 
-"@whitewater-guide/commons@0.0.196-perf.0":
-  version "0.0.196-perf.0"
-  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.196-perf.0.tgz#b08baa1cdc49b526145d589f0240619f4b7bf186"
-  integrity sha512-VifpXCHzgyXvMOu22KydSHEzQY6+uyF585ym0IbpuQuq+/hnvgVkQPgylBAOg3AMU+mFKvRVWP95GzHEjK7zmA==
+"@whitewater-guide/commons@0.0.196":
+  version "0.0.196"
+  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.196.tgz#f85dee0628a6739944645b4444d07c751abdb1f7"
+  integrity sha512-41j7WRHJ9dsGb51F3hf91AU34ReMDnv6fFQ1CXaF1l+8I0PAscWagsLi8VkDD+bOiy4L7sQ+a9EzHIZvAnhM6w==
   dependencies:
-    "@types/yup" "^0.28.0"
-    "@whitewater-guide/validation" "^1.0.1"
+    "@types/yup" "^0.29.3"
+    "@whitewater-guide/validation" "^1.1.5"
     cron-validator "^1.1.1"
     deepmerge "^4.2.2"
     expr-eval "^2.0.2"
     lodash "^4.17.15"
-    validator "^13.0.0"
-    yup "^0.28.5"
+    validator "^13.1.1"
+    yup "^0.29.1"
 
 "@whitewater-guide/translations@^2.2.0":
   version "2.2.0"
   resolved "https://registry.npmjs.org/@whitewater-guide/translations/-/translations-2.2.0.tgz#ba9d82d492df0294a5c18d11f1774801a127153b"
   integrity sha512-5Dy6o86ViMxpwjY+08hmMtCVhlp0QXvaNwYyUhGumVq40GrYvHCZMWH3Ctu6BohiT8iv8LdWjwtLG6PQUU10Dw==
 
-"@whitewater-guide/validation@^1.0.1", "@whitewater-guide/validation@^1.0.2":
+"@whitewater-guide/validation@^1.0.2":
   version "1.0.2"
   resolved "https://registry.npmjs.org/@whitewater-guide/validation/-/validation-1.0.2.tgz#b69b702cb084faa0996f8f617438785b41e56a1f"
   integrity sha512-fd5VeVG+8bIakhIhdyR/DRabWel17ScZvT3VKLaB4VhvoJfPsLT/BZjrgrP5bFOlpf0xYAuFpDO6yWHaN6KYGA==
@@ -3278,6 +3283,18 @@
     tslib "^1.11.1"
     validator "^13.0.0"
     yup "^0.28.5"
+
+"@whitewater-guide/validation@^1.1.5":
+  version "1.1.5"
+  resolved "https://registry.npmjs.org/@whitewater-guide/validation/-/validation-1.1.5.tgz#9207544e0194f564fefed06e2c97db8b40378477"
+  integrity sha512-VFaUFXmd6H/ZvhVpsOUlj284rOWoYxLvZBLRfQzAMcZFzrzTc8yy+/NZ0P2a3deHwe3HPzbCHfyy0jwl76l1Ng==
+  dependencies:
+    cron-validator "^1.1.1"
+    expr-eval "^2.0.2"
+    lodash "^4.17.15"
+    tslib "^2.0.0"
+    validator "^13.0.0"
+    yup "^0.29.1"
 
 "@wry/context@^0.4.0":
   version "0.4.4"
@@ -15519,6 +15536,11 @@ tslib@^1.11.2:
   resolved "https://registry.npmjs.org/tslib/-/tslib-1.11.2.tgz#9c79d83272c9a7aaf166f73915c9667ecdde3cc9"
   integrity sha512-tTSkux6IGPnUGUd1XAZHcpu85MOkIl5zX49pO+jfsie3eP0B6pyhOlLXm3cAC6T7s+euSDDUUV+Acop5WmtkVg==
 
+tslib@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/tslib/-/tslib-2.0.0.tgz#18d13fc2dce04051e20f074cc8387fd8089ce4f3"
+  integrity sha512-lTqkx847PI7xEDYJntxZH89L2/aXInsyF2luSafe/+0fHOMjlBNXdH6th7f70qxLDhul7KZK0zC8V5ZIyHl0/g==
+
 tsutils@^3.17.1:
   version "3.17.1"
   resolved "https://registry.npmjs.org/tsutils/-/tsutils-3.17.1.tgz#ed719917f11ca0dee586272b2ac49e015a2dd759"
@@ -15963,6 +15985,11 @@ validator@^13.0.0:
   version "13.0.0"
   resolved "https://registry.npmjs.org/validator/-/validator-13.0.0.tgz#0fb6c6bb5218ea23d368a8347e6d0f5a70e3bcab"
   integrity sha512-anYx5fURbgF04lQV18nEQWZ/3wHGnxiKdG4aL8J+jEDsm98n/sU/bey+tYk6tnGJzm7ioh5FoqrAiQ6m03IgaA==
+
+validator@^13.1.1:
+  version "13.1.1"
+  resolved "https://registry.npmjs.org/validator/-/validator-13.1.1.tgz#f8811368473d2173a9d8611572b58c5783f223bf"
+  integrity sha512-8GfPiwzzRoWTg7OV1zva1KvrSemuMkv07MA9TTl91hfhe+wKrsrgVN4H2QSFd/U/FhiU3iWPYVgvbsOGwhyFWw==
 
 validator@~9.4.1:
   version "9.4.1"
@@ -16996,6 +17023,19 @@ yup@^0.28.5:
   version "0.28.5"
   resolved "https://registry.npmjs.org/yup/-/yup-0.28.5.tgz#85cabb4000d3623ef69be81551190692e631a8a5"
   integrity sha512-7JZcvpUGUxMKoaEtcoMEM8lCWRaueGNH/A3EhL/UWqfbFm3uloiI+x59Yq4nzhbbYWUTwAsCteaZOJ+VbqI1uw==
+  dependencies:
+    "@babel/runtime" "^7.9.6"
+    fn-name "~3.0.0"
+    lodash "^4.17.15"
+    lodash-es "^4.17.11"
+    property-expr "^2.0.2"
+    synchronous-promise "^2.0.10"
+    toposort "^2.0.2"
+
+yup@^0.29.1:
+  version "0.29.1"
+  resolved "https://registry.npmjs.org/yup/-/yup-0.29.1.tgz#35d25aab470a0c3950f66040ba0ff4b1b6efe0d9"
+  integrity sha512-U7mPIbgfQWI6M3hZCJdGFrr+U0laG28FxMAKIgNvgl7OtyYuUoc4uy9qCWYHZjh49b8T7Ug8NNDdiMIEytcXrQ==
   dependencies:
     "@babel/runtime" "^7.9.6"
     fn-name "~3.0.0"
