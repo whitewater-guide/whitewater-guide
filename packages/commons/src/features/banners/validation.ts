@@ -13,7 +13,10 @@ const BannerSourceSchema = yup
 
 export const BannerInputSchema = yup
   .object({
-    id: yupTypes.uuid(true),
+    id: yupTypes
+      .uuid()
+      .defined()
+      .nullable(),
     slug: yupTypes.slug(),
     name: yupTypes.nonEmptyString(),
     priority: yup.number().integer(),

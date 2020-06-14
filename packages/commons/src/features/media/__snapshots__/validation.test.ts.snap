@@ -109,6 +109,6 @@ Object {
 
 exports[`should be invalid for undefined uuid 1`] = `
 Object {
-  "id": "yup:string.uuid",
+  "id": "yup:mixed.defined",
 }
 `;

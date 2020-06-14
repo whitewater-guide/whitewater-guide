@@ -25,7 +25,11 @@ export const UserInputSchema = yup
 
 export const EditorSettingsSchema = yup
   .object<EditorSettings>({
-    language: yup.string().oneOf(LANGUAGES),
+    language: yup
+      .string()
+      .oneOf(LANGUAGES)
+      .defined()
+      .nullable(false),
   })
   .strict(true)
   .noUnknown();

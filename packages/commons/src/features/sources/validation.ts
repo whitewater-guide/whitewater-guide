@@ -4,7 +4,10 @@ import { yupTypes } from '@whitewater-guide/validation';
 
 export const SourceInputSchema = yup
   .object({
-    id: yupTypes.uuid(true),
+    id: yupTypes
+      .uuid()
+      .defined()
+      .nullable(),
     name: yupTypes.nonEmptyString(),
     termsOfUse: yup
       .string()

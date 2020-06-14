@@ -28,15 +28,32 @@ const SimpleTagSchema = yup
 
 export const SectionInputSchema = yup
   .object<SectionInput>({
-    id: yupTypes.uuid(true),
-    name: yupTypes.nonEmptyString(),
-    altNames: yup
-      .array()
-      .of(yupTypes.nonEmptyString())
+    id: yupTypes
+      .uuid()
       .defined()
       .nullable(),
-    description: yup.string().nullable(),
-    season: yup.string().nullable(),
+    name: yupTypes
+      .nonEmptyString()
+      .defined()
+      .nullable(false),
+    altNames: yup
+      .array()
+      .of(
+        yupTypes
+          .nonEmptyString()
+          .defined()
+          .nullable(false),
+      )
+      .defined()
+      .nullable(),
+    description: yup
+      .string()
+      .defined()
+      .nullable(),
+    season: yup
+      .string()
+      .defined()
+      .nullable(),
     seasonNumeric: yup
       .array()
       .of(
@@ -50,15 +67,28 @@ export const SectionInputSchema = yup
       .max(24)
       .defined(),
 
-    river: yupTypes.newNode(),
-    gauge: yupTypes.node().nullable(),
+    river: yupTypes
+      .newNode()
+      .defined()
+      .nullable(false) as any,
+    gauge: yupTypes
+      .node()
+      .defined()
+      .nullable(),
     region: yupTypes
       .namedNode()
       .notRequired()
       .nullable(),
-    levels: GaugeBindingSchema.clone().nullable(),
-    flows: GaugeBindingSchema.clone().nullable(),
-    flowsText: yup.string().nullable(),
+    levels: GaugeBindingSchema.clone()
+      .defined()
+      .nullable(),
+    flows: GaugeBindingSchema.clone()
+      .defined()
+      .nullable(),
+    flowsText: yup
+      .string()
+      .defined()
+      .nullable(),
 
     shape: yup
       .array()
@@ -68,13 +98,16 @@ export const SectionInputSchema = yup
     distance: yup
       .number()
       .positive()
+      .defined()
       .nullable(),
     drop: yup
       .number()
+      .defined()
       .positive()
       .nullable(),
     duration: yup
       .mixed()
+      .defined()
       .oneOf(Array.from(Durations.keys()).concat(null as any))
       .nullable(),
     difficulty: yup
@@ -83,22 +116,39 @@ export const SectionInputSchema = yup
       .required(),
     difficultyXtra: yup
       .string()
+      .defined()
       .max(32)
       .nullable(),
-    rating: yup.mixed().oneOf(times(11, (i) => i * 0.5).concat(null as any)),
+    rating: yup
+      .mixed()
+      .defined()
+      .oneOf(times(11, (i) => i * 0.5).concat(null as any)),
     tags: yup
       .array()
-      .of(SimpleTagSchema.clone())
-      .defined(),
+      .of(SimpleTagSchema.clone().defined())
+      .defined() as any,
     pois: yup
       .array()
-      .of(PointInputSchema.clone())
+      .of(PointInputSchema.clone().defined())
       .defined(),
-    media: yup.array().of(MediaInputSchema.clone()),
+    media: yup
+      .array()
+      .of(MediaInputSchema.clone().defined())
+      .defined()
+      .nullable(false),
     hidden: yup.bool().required(),
-    helpNeeded: yup.string().nullable(),
-    createdBy: yupTypes.uuid(true, true),
-    suggestionId: yupTypes.uuid(true, true),
+    helpNeeded: yup
+      .string()
+      .defined()
+      .nullable(),
+    createdBy: yupTypes
+      .uuid()
+      .notRequired()
+      .nullable(),
+    suggestionId: yupTypes
+      .uuid()
+      .notRequired()
+      .nullable(),
     importId: yup.string().nullable(),
   })
   .strict(true)

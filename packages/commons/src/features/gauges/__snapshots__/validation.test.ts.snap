@@ -23,6 +23,12 @@ Object {
   "source": Object {
     "id": "yup:string.uuid",
   },
+  "url": Object {
+    "key": "yup:string.url",
+    "options": Object {
+      "path": "url",
+    },
+  },
 }
 `;
 
@@ -50,7 +56,7 @@ Object {
 
 exports[`should be invalid for undefined code 1`] = `
 Object {
-  "code": "yup:mixed.defined",
+  "code": "yup:varchar.nonEmpty",
 }
 `;
 
