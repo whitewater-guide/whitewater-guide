@@ -4426,3 +4426,79 @@ footer .newsletter-form .alert a:hover, footer .newsletter-form .alert a:focus {
     font-size: 18px;
   }
 }
+.indiegogo-item{
+  width: auto;
+  height: 320px;
+  margin-bottom: 45px;
+  margin-right: 20px;
+}
+.indiegogo-item img{
+    width: auto;
+    height: 320px;
+    text-align: center;
+    margin: 0 auto;
+    object-fit: cover;
+}
+.indiegogo-item img.last{
+  height: 230px;
+}
+.indiegogo-item.last{
+  height: 230px;
+  }
+  .indiegogo p {
+    font-size: 24px;
+    font-weight: 200;
+    line-height: 36px;
+    margin-bottom: 30px;
+}
+
+.indiegogo-text ol li{
+font-size: 21px;
+    font-weight: 200;
+    line-height: 30px;
+    margin-bottom: 20px;
+}
+.flex-maps{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.indiegogo-text{
+  text-align: left;
+}
+.indiegogo-text ol{
+  margin-left: 30px;
+}
+
+@media  (max-width: 1199px) {
+.indiegogo-item img, .indiegogo-item {
+    height: 240px;
+    }
+}
+@media  (max-width: 1023px) {
+
+.indiegogo-item img, .indiegogo-item {
+    height: 210px;
+}
+.indiegogo-item img.last, .indiegogo-item.last {
+    height: 165px;
+}
+
+}
+
+
+
+@media  (max-width: 767px) {
+.indiegogo-item, .indiegogo-item.last {
+    width: 100%;
+    height: auto;
+    margin-bottom: 45px;
+}
+.indiegogo-item img, .indiegogo-item img.last {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    margin: 0 auto;
+    max-width: 100%;
+}
+}
