@@ -110,7 +110,6 @@ export const SectionInputSchema = yup
     media: yup
       .array()
       .of(MediaInputSchema.clone().defined())
-      .defined()
       .nullable(false),
     hidden: yup.bool().required(),
     helpNeeded: yup.string().nullable(),
