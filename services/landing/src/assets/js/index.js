@@ -33,6 +33,14 @@ $(document).ready( function() {
 	$('.page-video-wrapper').fitVids();
 
 
+/*----------------------/
+	/* OPEN FANCYBOX
+	/*---------------------*/
+
+
+$(".mysuperimg").fancybox({ }); 
+
+
 	/*-----------------------------/
 	/* FEATURE CONTENT SLIDER
 	/*---------------------------*/
