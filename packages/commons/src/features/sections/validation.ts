@@ -44,16 +44,9 @@ export const SectionInputSchema = yup
           .defined()
           .nullable(false),
       )
-      .defined()
       .nullable(),
-    description: yup
-      .string()
-      .defined()
-      .nullable(),
-    season: yup
-      .string()
-      .defined()
-      .nullable(),
+    description: yup.string().nullable(),
+    season: yup.string().nullable(),
     seasonNumeric: yup
       .array()
       .of(
@@ -71,24 +64,14 @@ export const SectionInputSchema = yup
       .newNode()
       .defined()
       .nullable(false) as any,
-    gauge: yupTypes
-      .node()
-      .defined()
-      .nullable(),
+    gauge: yupTypes.node().nullable(),
     region: yupTypes
       .namedNode()
       .notRequired()
       .nullable(),
-    levels: GaugeBindingSchema.clone()
-      .defined()
-      .nullable(),
-    flows: GaugeBindingSchema.clone()
-      .defined()
-      .nullable(),
-    flowsText: yup
-      .string()
-      .defined()
-      .nullable(),
+    levels: GaugeBindingSchema.clone().nullable(),
+    flows: GaugeBindingSchema.clone().nullable(),
+    flowsText: yup.string().nullable(),
 
     shape: yup
       .array()
@@ -98,16 +81,13 @@ export const SectionInputSchema = yup
     distance: yup
       .number()
       .positive()
-      .defined()
       .nullable(),
     drop: yup
       .number()
-      .defined()
       .positive()
       .nullable(),
     duration: yup
       .mixed()
-      .defined()
       .oneOf(Array.from(Durations.keys()).concat(null as any))
       .nullable(),
     difficulty: yup
@@ -116,13 +96,9 @@ export const SectionInputSchema = yup
       .required(),
     difficultyXtra: yup
       .string()
-      .defined()
       .max(32)
       .nullable(),
-    rating: yup
-      .mixed()
-      .defined()
-      .oneOf(times(11, (i) => i * 0.5).concat(null as any)),
+    rating: yup.mixed().oneOf(times(11, (i) => i * 0.5).concat(null as any)),
     tags: yup
       .array()
       .of(SimpleTagSchema.clone().defined())
@@ -137,10 +113,7 @@ export const SectionInputSchema = yup
       .defined()
       .nullable(false),
     hidden: yup.bool().required(),
-    helpNeeded: yup
-      .string()
-      .defined()
-      .nullable(),
+    helpNeeded: yup.string().nullable(),
     createdBy: yupTypes
       .uuid()
       .notRequired()
@@ -150,7 +123,7 @@ export const SectionInputSchema = yup
       .notRequired()
       .nullable(),
     importId: yup.string().nullable(),
-  })
+  } as any)
   .strict(true)
   .noUnknown();
 
