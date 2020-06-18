@@ -236,11 +236,13 @@ describe('update', () => {
     expect(updatedSource.id).toBe(optionalSource.id);
   });
 
-  it('should update updated_at timestamp', () => {
-    expect(updatedSource.createdAt).toBe(oldSource!.created_at.toISOString());
-    expect(new Date(updatedSource.updatedAt).valueOf()).toBeGreaterThan(
-      oldSource!.updated_at.valueOf(),
-    );
+  it('should update updated_at timestamp', async () => {
+    const { created_at, updated_at } = await db()
+      .table('sources')
+      .where({ id: optionalSource.id })
+      .first();
+    expect(created_at).toEqual(oldSource!.created_at);
+    expect(updated_at > oldSource!.updated_at).toBe(true);
   });
 
   it('should update connected regions', async () => {

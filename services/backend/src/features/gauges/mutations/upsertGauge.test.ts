@@ -276,10 +276,12 @@ describe('update', () => {
   });
 
   it('should update updated_at timestamp', async () => {
-    expect(updatedGauge.createdAt).toBe(oldGauge!.created_at.toISOString());
-    expect(new Date(updatedGauge.updatedAt).valueOf()).toBeGreaterThan(
-      oldGauge!.updated_at.valueOf(),
-    );
+    const { created_at, updated_at } = await db()
+      .table('gauges')
+      .where({ id: input.id })
+      .first();
+    expect(created_at).toEqual(oldGauge!.created_at);
+    expect(updated_at > oldGauge!.updated_at).toBe(true);
   });
 
   it('should update location', async () => {

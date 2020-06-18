@@ -32,7 +32,11 @@ const minimalRegion: RegionInput = {
   id: null,
   name: 'Minimal region',
   description: null,
-  bounds: [[10, 20, 0], [10, 10, 0], [20, 20, 0]],
+  bounds: [
+    [10, 20, 0],
+    [10, 10, 0],
+    [20, 20, 0],
+  ],
   season: null,
   seasonNumeric: [],
   pois: [],
@@ -42,7 +46,11 @@ const fullRegion: RegionInput = {
   id: null,
   name: 'Full region',
   description: 'Full region description',
-  bounds: [[10, 20, 0], [10, 10], [20, 20, null]],
+  bounds: [
+    [10, 20, 0],
+    [10, 10],
+    [20, 20, null],
+  ],
   season: 'season description',
   seasonNumeric: [1, 2, 3],
   pois: [],
@@ -291,11 +299,13 @@ describe('update', () => {
     expect(updatedRegion.id).toBe(fullRegionUpdate.id);
   });
 
-  it('should update updated_at timestamp', () => {
-    expect(updatedRegion.createdAt).toBe(oldRegion!.created_at.toISOString());
-    expect(new Date(updatedRegion.updatedAt).valueOf()).toBeGreaterThan(
-      oldRegion!.updated_at.valueOf(),
-    );
+  it('should update updated_at timestamp', async () => {
+    const { created_at, updated_at } = await db()
+      .table('regions_view')
+      .where({ id: fullRegionUpdate.id })
+      .first();
+    expect(created_at).toEqual(oldRegion!.created_at);
+    expect(updated_at > oldRegion!.updated_at).toBe(true);
   });
 
   it('should change the number of pois', async () => {
@@ -363,7 +373,11 @@ describe('i18n', () => {
     id: REGION_ECUADOR,
     name: 'Пустой регион',
     description: null,
-    bounds: [[10, 20, 0], [10, 10, 0], [20, 20, 0]],
+    bounds: [
+      [10, 20, 0],
+      [10, 10, 0],
+      [20, 20, 0],
+    ],
     season: null,
     seasonNumeric: [],
     pois: [],
@@ -406,7 +420,12 @@ describe('i18n', () => {
     const region = {
       id: 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34',
       seasonNumeric: [20, 21],
-      bounds: [[-114, 46, 0], [-115, 46, 0], [-115, 47, 0], [-114, 47, 0]],
+      bounds: [
+        [-114, 46, 0],
+        [-115, 46, 0],
+        [-115, 47, 0],
+        [-114, 47, 0],
+      ],
       name: 'Сменил имя',
       description: 'Сменил описание',
       season: 'осень осень',

@@ -214,11 +214,13 @@ describe('update', () => {
     expect(updatedRiver.id).toBe(update.id);
   });
 
-  it('should update updated_at timestamp', () => {
-    expect(updatedRiver.createdAt).toBe(oldRiver!.created_at.toISOString());
-    expect(new Date(updatedRiver.updatedAt).valueOf()).toBeGreaterThan(
-      oldRiver!.updated_at.valueOf(),
-    );
+  it('should update updated_at timestamp', async () => {
+    const { created_at, updated_at } = await db()
+      .table('rivers_view')
+      .where({ id: update.id })
+      .first();
+    expect(created_at).toEqual(oldRiver!.created_at);
+    expect(updated_at > oldRiver!.updated_at).toBe(true);
   });
 
   it('should not modify created_by', async () => {

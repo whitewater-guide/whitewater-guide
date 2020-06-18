@@ -496,13 +496,13 @@ describe('update', () => {
     expect(rivers - rBefore).toBe(0);
   });
 
-  it('should increase updated_at timestamp', () => {
-    expect(new Date(updatedSection.createdAt).valueOf()).toEqual(
-      originalSection!.created_at.valueOf(),
-    );
-    expect(new Date(updatedSection.updatedAt).valueOf()).toBeGreaterThan(
-      originalSection!.updated_at.valueOf(),
-    );
+  it('should increase updated_at timestamp', async () => {
+    const { created_at, updated_at } = await db()
+      .table('sections_view')
+      .where({ id: updateData.id })
+      .first();
+    expect(created_at).toEqual(originalSection!.created_at);
+    expect(updated_at > originalSection!.updated_at).toBe(true);
   });
 
   it('should change the number of pois', async () => {
