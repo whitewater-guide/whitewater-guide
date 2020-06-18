@@ -6,6 +6,7 @@ import { Gauge } from '@whitewater-guide/gorge';
 import { GaugeRaw } from '@features/gauges';
 import { SourceRaw } from '../types';
 import keyBy from 'lodash/keyBy';
+import log from '@log';
 
 interface Vars {
   id: string;
@@ -67,11 +68,15 @@ const autofillSource: TopLevelResolver<Vars> = async (
         requestParams: null,
         url: g.url || null,
       };
-      const gOut = await rawUpsert(db(), 'SELECT upsert_gauge(?, ?)', [
-        input,
-        'en',
-      ]);
-      gaugesOut.push(gOut);
+      try {
+        const gOut = await rawUpsert(db(), 'SELECT upsert_gauge(?, ?)', [
+          input,
+          'en',
+        ]);
+        gaugesOut.push(gOut);
+      } catch (e) {
+        log.error({ extra: { input }, error: e });
+      }
     }
     return gaugesOut;
   } catch (err) {
