@@ -1,3 +1,16 @@
+## [0.0.428](https://github.com/doomsower/whitewater/compare/73149652dc43da84db387293ed012fc6354a0361...2ff36ad0cbe4c5509e2a38dc45d68aa13e7a7eb0) (2020-06-24)
+
+### Features
+
+- add federation and logbook ([](https://github.com/doomsower/whitewater/commit/9ec1c3488db1700d23f18d9d85bd16844942d6f2))
+- some updates, but tests are broken ([](https://github.com/doomsower/whitewater/commit/b40c51bd8b53a127144e229cc2c32e81b768ef28))
+- update backend deps ([](https://github.com/doomsower/whitewater/commit/dc02ef77ab87b48b7d483b31e4f70d38a3d1ebf6))
+
+### Bug Fixes
+
+- autofill error ([](https://github.com/doomsower/whitewater/commit/7a8b7347b02433a8d88efaf61f510459fa68271b))
+- flaky timestamps in tests ([](https://github.com/doomsower/whitewater/commit/759cc83a76001b094c1b8578309c21375df3e85f))
+
 ## [0.0.426](https://github.com/doomsower/whitewater/compare/e196f986e99a91fdbd50df2483bfdfae46bbccc4...0dd8ad50de95b557fe833dcb2346c8596bb49d4b) (2020-05-18)
 
 ## [0.0.426](https://github.com/doomsower/whitewater/compare/f9db3a6c95023ae696cad7c823cb86d9c87b8661...e196f986e99a91fdbd50df2483bfdfae46bbccc4) (2020-05-17)
