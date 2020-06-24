@@ -1,3 +1,9 @@
+## [0.0.429](https://github.com/doomsower/whitewater/compare/2ff36ad0cbe4c5509e2a38dc45d68aa13e7a7eb0...ef73adc669877a2957c15185fb6a44f83116683b) (2020-06-24)
+
+### Other
+
+- tilde for module aliases ([](https://github.com/doomsower/whitewater/commit/e1770b8545d591d46f07c83cc50ff30e9d71df99))
+
 ## [0.0.428](https://github.com/doomsower/whitewater/compare/73149652dc43da84db387293ed012fc6354a0361...2ff36ad0cbe4c5509e2a38dc45d68aa13e7a7eb0) (2020-06-24)
 
 ### Features
