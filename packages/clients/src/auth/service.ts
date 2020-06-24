@@ -215,13 +215,13 @@ export abstract class BaseAuthService implements AuthService {
     this.refreshAccessToken = this._dedupeRefreshToken.bind(
       this,
       this.refreshAccessToken,
-    ) as any;
-    this.signIn = this._callUnlessLoading.bind(this, this.signIn) as any;
+    );
+    this.signIn = this._callUnlessLoading.bind(this, this.signIn);
     const signOutUnlessLoading = this._callUnlessLoading.bind(
       this,
       this.signOut,
-    ) as any;
-    const forceSignOut = this.signOut.bind(this) as any;
+    );
+    const forceSignOut = this.signOut.bind(this);
     this.signOut = (force: boolean) => {
       if (force) {
         return forceSignOut(true);
@@ -229,16 +229,13 @@ export abstract class BaseAuthService implements AuthService {
         return signOutUnlessLoading(false);
       }
     };
-    this.signUp = this._callUnlessLoading.bind(this, this.signUp) as any;
-    this.requestReset = this._callUnlessLoading.bind(
-      this,
-      this.requestReset,
-    ) as any;
-    this.reset = this._callUnlessLoading.bind(this, this.reset) as any;
+    this.signUp = this._callUnlessLoading.bind(this, this.signUp);
+    this.requestReset = this._callUnlessLoading.bind(this, this.requestReset);
+    this.reset = this._callUnlessLoading.bind(this, this.reset);
     this.requestVerification = this._callUnlessLoading.bind(
       this,
       this.requestVerification,
-    ) as any;
+    );
     this._initialized = true;
     return Promise.resolve();
   }

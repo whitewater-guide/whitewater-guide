@@ -37,14 +37,12 @@ export interface ResetPayload {
   password: string;
 }
 
-export type AuthResponse<T = {}> = Overwrite<
-  AuthBody<T>,
-  // this is for forms
-  {
-    error?: { [key: string]: any };
-    status: number; // 0 indicates network error (fetch throws)
-  }
->;
+export type AuthResponse<T = {}> = T & {
+  error?: { [key: string]: any };
+  success: boolean;
+  error_id?: string;
+  status: number; // 0 indicates network error (fetch throws)
+};
 
 export interface WithMe {
   me: User | null;
