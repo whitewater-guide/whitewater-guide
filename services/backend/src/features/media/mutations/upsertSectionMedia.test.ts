@@ -1,12 +1,12 @@
-import db, { holdTransaction, rollbackTransaction } from '@db';
-import { SectionsEditLogRaw } from '@features/sections';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { SectionsEditLogRaw } from '~/features/sections';
 import {
   fileExistsInBucket,
   MEDIA,
   resetTestMinio,
   TEMP,
   TEMP_BUCKET_DIR,
-} from '@minio';
+} from '~/minio';
 import {
   ADMIN,
   ADMIN_ID,
@@ -14,11 +14,11 @@ import {
   EDITOR_NO_EC,
   EDITOR_NO_EC_ID,
   TEST_USER,
-} from '@seeds/01_users';
-import { REGION_NORWAY } from '@seeds/04_regions';
-import { RIVER_SJOA } from '@seeds/07_rivers';
-import { GALICIA_R1_S1, NORWAY_SJOA_AMOT } from '@seeds/09_sections';
-import { PHOTO_1, PHOTO_2 } from '@seeds/11_media';
+} from '~/seeds/test/01_users';
+import { REGION_NORWAY } from '~/seeds/test/04_regions';
+import { RIVER_SJOA } from '~/seeds/test/07_rivers';
+import { GALICIA_R1_S1, NORWAY_SJOA_AMOT } from '~/seeds/test/09_sections';
+import { PHOTO_1, PHOTO_2 } from '~/seeds/test/11_media';
 import {
   anonContext,
   countRows,
@@ -27,7 +27,7 @@ import {
   noUnstable,
   runQuery,
   UUID_REGEX,
-} from '@test';
+} from '~/test';
 import {
   ApolloErrorCodes,
   MediaInput,

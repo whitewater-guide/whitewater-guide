@@ -2,10 +2,10 @@ import * as gorge from '@whitewater-guide/gorge';
 
 import Axios, { AxiosResponse } from 'axios';
 
-import { Context } from '@apollo';
+import { Context } from '~/apollo';
 import DataLoader from 'dataloader';
 import { DataSource } from 'apollo-datasource';
-import db from '@db';
+import db from '~/db';
 
 const GORGE_HOST = 'gorge';
 const GORGE_PORT = '7080';

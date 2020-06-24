@@ -1,5 +1,5 @@
 import Knex from 'knex';
-import { runSqlFile } from '@db';
+import { runSqlFile } from '~/db';
 
 /**
  * This migration adds logbooks

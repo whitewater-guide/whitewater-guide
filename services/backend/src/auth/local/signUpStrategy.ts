@@ -1,5 +1,5 @@
-import db from '@db';
-import { UserRaw, UserRawInput } from '@features/users';
+import db from '~/db';
+import { UserRaw, UserRawInput } from '~/features/users';
 import { LANGUAGES } from '@whitewater-guide/commons';
 import { hash } from 'bcrypt';
 import Negotiator from 'negotiator';

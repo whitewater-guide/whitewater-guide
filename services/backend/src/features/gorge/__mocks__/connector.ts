@@ -1,4 +1,4 @@
-import { Context } from '@apollo';
+import { Context } from '~/apollo';
 import { DataSource, DataSourceConfig } from 'apollo-datasource';
 import compareDesc from 'date-fns/compareDesc';
 import differenceInDays from 'date-fns/differenceInDays';

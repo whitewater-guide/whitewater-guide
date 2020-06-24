@@ -1,13 +1,13 @@
-import { holdTransaction, rollbackTransaction } from '@db';
+import { holdTransaction, rollbackTransaction } from '~/db';
 import {
   EDITOR_GA_EC,
   EDITOR_NO,
   TEST_USER,
   TEST_USER_ID,
-} from '@seeds/01_users';
-import { REGION_NORWAY } from '@seeds/04_regions';
-import { SUGGESTED_SECTION_ID1 } from '@seeds/17_suggestions';
-import { anonContext, fakeContext, runQuery } from '@test';
+} from '~/seeds/test/01_users';
+import { REGION_NORWAY } from '~/seeds/test/04_regions';
+import { SUGGESTED_SECTION_ID1 } from '~/seeds/test/17_suggestions';
+import { anonContext, fakeContext, runQuery } from '~/test';
 import {
   ApolloErrorCodes,
   NEW_ID,

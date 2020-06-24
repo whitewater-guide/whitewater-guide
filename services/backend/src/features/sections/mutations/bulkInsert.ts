@@ -7,11 +7,11 @@ import {
   SectionInput,
   SectionInputSchema,
 } from '@whitewater-guide/commons';
-import { TEMP, minioClient } from '@minio';
-import { TopLevelResolver, isInputValidResolver } from '@apollo';
+import { TEMP, minioClient } from '~/minio';
+import { TopLevelResolver, isInputValidResolver } from '~/apollo';
 import { checkForNewRiver, insertNewRiver } from './upsertUtils';
 import { createSafeValidator, yupTypes } from '@whitewater-guide/validation';
-import db, { rawUpsert } from '@db';
+import db, { rawUpsert } from '~/db';
 
 import { EventIterator } from 'event-iterator';
 import JSONStream from 'jsonstream2';

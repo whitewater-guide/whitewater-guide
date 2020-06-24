@@ -1,4 +1,4 @@
-import log from '@log';
+import log from '~/log';
 import { AVATARS, BANNERS, COVERS, MEDIA, TEMP } from './buckets';
 import { minioClient } from './client';
 import {

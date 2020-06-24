@@ -1,5 +1,5 @@
-import { RawTimestamped } from '@db';
-import { RegionRaw } from '@features/regions';
+import { RawTimestamped } from '~/db';
+import { RegionRaw } from '~/features/regions';
 import { NamedNode } from '@whitewater-guide/commons';
 
 export interface RiverRaw extends NamedNode, RawTimestamped {

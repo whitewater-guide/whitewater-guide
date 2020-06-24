@@ -1,5 +1,5 @@
-import { rawUpsert } from '@db';
-import { KMLSection, parseKML } from '@utils';
+import { rawUpsert } from '~/db';
+import { KMLSection, parseKML } from '~/utils';
 import Knex from 'knex';
 import groupBy from 'lodash/groupBy';
 

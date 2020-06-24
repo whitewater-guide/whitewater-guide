@@ -1,23 +1,23 @@
-import db, { holdTransaction, rollbackTransaction } from '@db';
-import { GorgeConnector } from '@features/gorge';
-import { SectionsEditLogRaw } from '@features/sections';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { GorgeConnector } from '~/features/gorge';
+import { SectionsEditLogRaw } from '~/features/sections';
 import {
   EDITOR_GA_EC,
   EDITOR_GA_EC_ID,
   EDITOR_NO_EC,
   TEST_USER,
-} from '@seeds/01_users';
-import { REGION_GALICIA } from '@seeds/04_regions';
-import { SOURCE_GALICIA_1 } from '@seeds/05_sources';
-import { RIVER_GAL_1 } from '@seeds/07_rivers';
-import { GALICIA_R1_S1 } from '@seeds/09_sections';
+} from '~/seeds/test/01_users';
+import { REGION_GALICIA } from '~/seeds/test/04_regions';
+import { SOURCE_GALICIA_1 } from '~/seeds/test/05_sources';
+import { RIVER_GAL_1 } from '~/seeds/test/07_rivers';
+import { GALICIA_R1_S1 } from '~/seeds/test/09_sections';
 import {
   anonContext,
   countRows,
   fakeContext,
   runQuery,
   UUID_REGEX,
-} from '@test';
+} from '~/test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 
 jest.mock('../../gorge/connector');

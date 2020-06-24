@@ -1,7 +1,7 @@
-import { holdTransaction, rollbackTransaction } from '@db';
-import { fileExistsInBucket, resetTestMinio, TEMP } from '@minio';
-import { TEST_USER, TEST_USER_ID } from '@seeds/01_users';
-import { fakeContext, runQuery } from '@test';
+import { holdTransaction, rollbackTransaction } from '~/db';
+import { fileExistsInBucket, resetTestMinio, TEMP } from '~/minio';
+import { TEST_USER, TEST_USER_ID } from '~/seeds/test/01_users';
+import { fakeContext, runQuery } from '~/test';
 import superagent from 'superagent';
 
 const { PROTOCOL, MINIO_DOMAIN } = process.env;

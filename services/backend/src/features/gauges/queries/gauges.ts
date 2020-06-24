@@ -1,4 +1,4 @@
-import { ListQuery, TopLevelResolver } from '@apollo';
+import { ListQuery, TopLevelResolver } from '~/apollo';
 import { GaugesFilter } from '@whitewater-guide/commons';
 import { QueryBuilder } from 'knex';
 

@@ -1,12 +1,12 @@
 import { GaugeInput, PointInput } from '@whitewater-guide/commons';
-import { TopLevelResolver, UnknownError } from '@apollo';
-import db, { rawUpsert } from '@db';
+import { TopLevelResolver, UnknownError } from '~/apollo';
+import db, { rawUpsert } from '~/db';
 
 import { Gauge } from '@whitewater-guide/gorge';
-import { GaugeRaw } from '@features/gauges';
+import { GaugeRaw } from '~/features/gauges';
 import { SourceRaw } from '../types';
 import keyBy from 'lodash/keyBy';
-import log from '@log';
+import log from '~/log';
 
 interface Vars {
   id: string;

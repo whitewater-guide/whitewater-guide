@@ -1,4 +1,4 @@
-import { createViews, dropViews } from '@db';
+import { createViews, dropViews } from '~/db';
 import Knex from 'knex';
 import { createTable } from './utils';
 

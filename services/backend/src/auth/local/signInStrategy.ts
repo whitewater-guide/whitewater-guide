@@ -1,5 +1,5 @@
-import db from '@db';
-import { UserRaw } from '@features/users';
+import db from '~/db';
+import { UserRaw } from '~/features/users';
 import { compare } from 'bcrypt';
 import { Strategy } from 'passport-local';
 

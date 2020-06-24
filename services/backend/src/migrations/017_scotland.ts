@@ -1,5 +1,5 @@
 // tslint:disable:no-console
-import { GaugeRaw } from '@features/gauges';
+import { GaugeRaw } from '~/features/gauges';
 import { readJSONSync } from 'fs-extra';
 import Knex from 'knex';
 import { getTransform, InputSection, normalize } from './017/transform';

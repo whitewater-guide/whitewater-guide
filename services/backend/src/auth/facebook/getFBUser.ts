@@ -1,5 +1,5 @@
-import db from '@db';
-import { UserRaw } from '@features/users';
+import db from '~/db';
+import { UserRaw } from '~/features/users';
 import { LANGUAGES, SocialMediaProvider } from '@whitewater-guide/commons';
 import get from 'lodash/get';
 import Negotiator from 'negotiator';

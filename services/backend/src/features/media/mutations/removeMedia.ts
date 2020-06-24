@@ -1,6 +1,6 @@
-import { TopLevelResolver } from '@apollo';
-import db from '@db';
-import { MEDIA, minioClient } from '@minio';
+import { TopLevelResolver } from '~/apollo';
+import db from '~/db';
+import { MEDIA, minioClient } from '~/minio';
 import { MediaKind } from '@whitewater-guide/commons';
 import { insertLog } from '../utils';
 

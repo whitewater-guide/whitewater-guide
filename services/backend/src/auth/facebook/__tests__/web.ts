@@ -1,7 +1,11 @@
-import { holdTransaction, rollbackTransaction } from '@db';
-import { redis } from '@redis';
-import { ADMIN_FB_PROFILE, ADMIN_ID, NEW_FB_PROFILE } from '@seeds/01_users';
-import { countRows, UUID_REGEX } from '@test';
+import { holdTransaction, rollbackTransaction } from '~/db';
+import { redis } from '~/redis';
+import {
+  ADMIN_FB_PROFILE,
+  ADMIN_ID,
+  NEW_FB_PROFILE,
+} from '~/seeds/test/01_users';
+import { countRows, UUID_REGEX } from '~/test';
 import { AuthBody, SignInBody } from '@whitewater-guide/commons';
 import { CookieAccessInfo } from 'cookiejar';
 import Koa from 'koa';

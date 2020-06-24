@@ -1,11 +1,11 @@
-import db, { holdTransaction, rollbackTransaction } from '@db';
-import { redis } from '@redis';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { redis } from '~/redis';
 import {
   ADMIN_ID,
   UNVERIFIED_USER2_ID,
   UNVERIFIED_USER3_ID,
   UNVERIFIED_USER_ID,
-} from '@seeds/01_users';
+} from '~/seeds/test/01_users';
 import Koa from 'koa';
 import agent from 'supertest-koa-agent';
 import { createApp } from '../../../app';

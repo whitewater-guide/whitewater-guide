@@ -10,8 +10,8 @@ jest.mock('mailchimp-api-v3', () => {
   });
 });
 
-import { holdTransaction, rollbackTransaction } from '@db';
-import { runQuery } from '@test';
+import { holdTransaction, rollbackTransaction } from '~/db';
+import { runQuery } from '~/test';
 import MailChimp from 'mailchimp-api-v3';
 
 const mutation = `

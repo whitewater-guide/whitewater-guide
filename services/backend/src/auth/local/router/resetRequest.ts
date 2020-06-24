@@ -1,5 +1,5 @@
-import db from '@db';
-import { UserRaw } from '@features/users';
+import db from '~/db';
+import { UserRaw } from '~/features/users';
 import { Middleware } from 'koa';
 import isEmail from 'validator/lib/isEmail';
 import { MailType, sendMail } from '../../mail';

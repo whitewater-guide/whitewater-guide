@@ -1,4 +1,4 @@
-import { holdTransaction, rollbackTransaction } from '@db';
+import { holdTransaction, rollbackTransaction } from '~/db';
 import {
   ADMIN,
   BOOM_USER_1500,
@@ -7,15 +7,15 @@ import {
   EDITOR_NO_EC,
   TEST_USER,
   TEST_USER2,
-} from '@seeds/01_users';
+} from '~/seeds/test/01_users';
 import {
   NUM_REGIONS,
   REGION_ECUADOR,
   REGION_GALICIA,
   REGION_GEORGIA,
   REGION_NORWAY,
-} from '@seeds/04_regions';
-import { anonContext, fakeContext, noTimestamps, runQuery } from '@test';
+} from '~/seeds/test/04_regions';
+import { anonContext, fakeContext, noTimestamps, runQuery } from '~/test';
 import countBy from 'lodash/countBy';
 
 beforeEach(holdTransaction);

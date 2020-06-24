@@ -1,4 +1,4 @@
-import { WithLanguage } from '@apollo';
+import { WithLanguage } from '~/apollo';
 import { NamedNode } from '@whitewater-guide/commons';
 
 export interface GroupRaw extends NamedNode, WithLanguage {

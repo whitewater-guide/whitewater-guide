@@ -1,5 +1,5 @@
-import { createViews, dropViews, runSqlFile } from '@db';
-import { MEDIA, minioClient } from '@minio';
+import { createViews, dropViews, runSqlFile } from '~/db';
+import { MEDIA, minioClient } from '~/minio';
 import Knex from 'knex';
 import { BucketItem } from 'minio';
 

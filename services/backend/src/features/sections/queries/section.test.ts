@@ -1,4 +1,4 @@
-import { holdTransaction, rollbackTransaction } from '@db';
+import { holdTransaction, rollbackTransaction } from '~/db';
 import {
   ADMIN,
   BOOM_USER_1500,
@@ -7,7 +7,7 @@ import {
   EDITOR_NO_EC,
   TEST_USER,
   TEST_USER2,
-} from '@seeds/01_users';
+} from '~/seeds/test/01_users';
 import {
   GALICIA_R1_S1,
   GALICIA_R1_S2,
@@ -16,8 +16,8 @@ import {
   GEORGIA_BZHUZHA_QUALI,
   NORWAY_FINNA_GORGE,
   NORWAY_SJOA_AMOT,
-} from '@seeds/09_sections';
-import { anonContext, fakeContext, noTimestamps, runQuery } from '@test';
+} from '~/seeds/test/09_sections';
+import { anonContext, fakeContext, noTimestamps, runQuery } from '~/test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 
 beforeEach(holdTransaction);

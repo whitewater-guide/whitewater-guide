@@ -1,4 +1,4 @@
-import { ListQuery, TopLevelResolver } from '@apollo';
+import { ListQuery, TopLevelResolver } from '~/apollo';
 import { SectionsFilter } from '../types';
 
 interface Vars extends ListQuery {

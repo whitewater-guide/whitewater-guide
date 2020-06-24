@@ -1,4 +1,4 @@
-import db, { holdTransaction, rollbackTransaction } from '@db';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
 import {
   ADMIN,
   ADMIN_ID,
@@ -6,11 +6,11 @@ import {
   EDITOR_NO,
   TEST_USER,
   TEST_USER_ID,
-} from '@seeds/01_users';
+} from '~/seeds/test/01_users';
 import {
   MEDIA_SUGGESTION_ID1,
   MEDIA_SUGGESTION_ID2,
-} from '@seeds/17_suggestions';
+} from '~/seeds/test/17_suggestions';
 import {
   anonContext,
   countRows,
@@ -18,7 +18,7 @@ import {
   runQuery,
   TIMESTAMP_REGEX,
   UUID_REGEX,
-} from '@test';
+} from '~/test';
 import {
   ApolloErrorCodes,
   MediaKind,

@@ -1,5 +1,5 @@
-import { BaseConnector, FieldsMap } from '@db/connectors';
-import { NS_LAST_OP, redis } from '@redis';
+import { BaseConnector, FieldsMap } from '~/db/connectors';
+import { NS_LAST_OP, redis } from '~/redis';
 
 import { Source } from '@whitewater-guide/commons';
 import { SourceRaw } from './types';

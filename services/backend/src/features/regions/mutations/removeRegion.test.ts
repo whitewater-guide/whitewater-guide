@@ -1,7 +1,7 @@
-import { holdTransaction, rollbackTransaction } from '@db';
-import { ADMIN, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
-import { REGION_ECUADOR, REGION_GALICIA } from '@seeds/04_regions';
-import { anonContext, countRows, fakeContext, runQuery } from '@test';
+import { holdTransaction, rollbackTransaction } from '~/db';
+import { ADMIN, EDITOR_NO_EC, TEST_USER } from '~/seeds/test/01_users';
+import { REGION_ECUADOR, REGION_GALICIA } from '~/seeds/test/04_regions';
+import { anonContext, countRows, fakeContext, runQuery } from '~/test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 
 let rpBefore: number;

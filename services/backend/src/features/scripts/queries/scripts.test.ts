@@ -1,5 +1,5 @@
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
-import { anonContext, fakeContext, runQuery } from '@test';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
+import { anonContext, fakeContext, runQuery } from '~/test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 
 jest.mock('../../gorge/connector');

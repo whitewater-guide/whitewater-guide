@@ -1,4 +1,4 @@
-import { FieldResolvers } from '@apollo';
+import { FieldResolvers } from '~/apollo';
 import { Point } from '@whitewater-guide/commons';
 import { PointRaw } from '../types';
 

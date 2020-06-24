@@ -1,6 +1,6 @@
-import { UnknownError } from '@apollo';
-import db from '@db';
-import { BaseConnector, FieldsMap, ManyBuilderOptions } from '@db/connectors';
+import { UnknownError } from '~/apollo';
+import db from '~/db';
+import { BaseConnector, FieldsMap, ManyBuilderOptions } from '~/db/connectors';
 import { Section } from '@whitewater-guide/commons';
 import { AuthenticationError, ForbiddenError } from 'apollo-server';
 import { GraphQLResolveInfo } from 'graphql';

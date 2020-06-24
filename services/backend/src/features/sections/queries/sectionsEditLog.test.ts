@@ -1,13 +1,18 @@
-import { holdTransaction, rollbackTransaction } from '@db';
-import { ADMIN, ADMIN_ID, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
-import { REGION_GEORGIA } from '@seeds/04_regions';
+import { holdTransaction, rollbackTransaction } from '~/db';
+import {
+  ADMIN,
+  ADMIN_ID,
+  EDITOR_GA_EC,
+  TEST_USER,
+} from '~/seeds/test/01_users';
+import { REGION_GEORGIA } from '~/seeds/test/04_regions';
 import {
   SECTION_EDIT_LOG_ENTRY_1,
   SECTION_EDIT_LOG_ENTRY_2,
   SECTION_EDIT_LOG_ENTRY_3,
   SECTION_EDIT_LOG_ENTRY_4,
-} from '@seeds/15_sections_edit_log';
-import { anonContext, fakeContext, runQuery } from '@test';
+} from '~/seeds/test/15_sections_edit_log';
+import { anonContext, fakeContext, runQuery } from '~/test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 
 beforeEach(holdTransaction);

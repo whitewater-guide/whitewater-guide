@@ -1,5 +1,5 @@
-import { isInputValidResolver, TopLevelResolver } from '@apollo';
-import db, { rawUpsert } from '@db';
+import { isInputValidResolver, TopLevelResolver } from '~/apollo';
+import db, { rawUpsert } from '~/db';
 import { RiverInput, RiverInputSchema } from '@whitewater-guide/commons';
 import * as yup from 'yup';
 

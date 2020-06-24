@@ -1,4 +1,4 @@
-import { ListQuery, TopLevelResolver } from '@apollo';
+import { ListQuery, TopLevelResolver } from '~/apollo';
 
 const sources: TopLevelResolver<ListQuery> = async (
   _,

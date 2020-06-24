@@ -1,13 +1,13 @@
-import { holdTransaction, rollbackTransaction } from '@db';
+import { holdTransaction, rollbackTransaction } from '~/db';
 import {
   ADMIN,
   ADMIN_ID,
   EDITOR_GA_EC,
   EDITOR_GA_EC_ID,
   TEST_USER,
-} from '@seeds/01_users';
-import { REGION_GALICIA } from '@seeds/04_regions';
-import { anonContext, countRows, fakeContext, runQuery } from '@test';
+} from '~/seeds/test/01_users';
+import { REGION_GALICIA } from '~/seeds/test/04_regions';
+import { anonContext, countRows, fakeContext, runQuery } from '~/test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 
 let reBefore: number;

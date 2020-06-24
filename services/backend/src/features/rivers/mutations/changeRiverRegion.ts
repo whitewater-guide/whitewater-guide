@@ -1,5 +1,5 @@
-import { MutationNotAllowedError, TopLevelResolver } from '@apollo';
-import db from '@db';
+import { MutationNotAllowedError, TopLevelResolver } from '~/apollo';
+import db from '~/db';
 
 interface Vars {
   riverId: string;

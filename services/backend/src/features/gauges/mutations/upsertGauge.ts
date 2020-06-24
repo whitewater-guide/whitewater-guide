@@ -1,5 +1,5 @@
-import { isInputValidResolver, TopLevelResolver } from '@apollo';
-import db, { rawUpsert } from '@db';
+import { isInputValidResolver, TopLevelResolver } from '~/apollo';
+import db, { rawUpsert } from '~/db';
 import { GaugeInput, GaugeInputSchema } from '@whitewater-guide/commons';
 import * as yup from 'yup';
 import { GaugeRaw } from '../types';

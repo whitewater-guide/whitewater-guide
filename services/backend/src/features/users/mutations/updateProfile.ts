@@ -1,5 +1,5 @@
-import { isInputValidResolver } from '@apollo';
-import db from '@db';
+import { isInputValidResolver } from '~/apollo';
+import db from '~/db';
 import { UserInput, UserInputSchema } from '@whitewater-guide/commons';
 import { AuthenticationError } from 'apollo-server';
 import pickBy from 'lodash/pickBy';

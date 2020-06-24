@@ -1,6 +1,6 @@
-import { holdTransaction, rollbackTransaction } from '@db';
-import { GAUGE_GAL_1_1, GAUGE_GAL_2_1 } from '@seeds/06_gauges';
-import { runQuery, TIMESTAMP_REGEX } from '@test';
+import { holdTransaction, rollbackTransaction } from '~/db';
+import { GAUGE_GAL_1_1, GAUGE_GAL_2_1 } from '~/seeds/test/06_gauges';
+import { runQuery, TIMESTAMP_REGEX } from '~/test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 import { GALICIA_R1_S1 } from '../../../seeds/test/09_sections';
 

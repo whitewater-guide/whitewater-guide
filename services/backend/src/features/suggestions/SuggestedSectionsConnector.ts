@@ -1,6 +1,6 @@
-import { Context } from '@apollo';
-import { knex } from '@db';
-import { BaseConnector, FieldsMap } from '@db/connectors';
+import { Context } from '~/apollo';
+import { knex } from '~/db';
+import { BaseConnector, FieldsMap } from '~/db/connectors';
 import { SectionInput, SuggestedSection } from '@whitewater-guide/commons';
 import { DataSourceConfig } from 'apollo-datasource';
 import { SuggestedSectionRaw } from './types';

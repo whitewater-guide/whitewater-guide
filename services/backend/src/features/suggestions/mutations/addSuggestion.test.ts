@@ -1,17 +1,17 @@
-import db, { holdTransaction, rollbackTransaction } from '@db';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
 import {
   fileExistsInBucket,
   MEDIA,
   resetTestMinio,
   TEMP_BUCKET_DIR,
-} from '@minio';
+} from '~/minio';
 import {
   BOOM_USER_1500,
   BOOM_USER_1500_ID,
   EDITOR_GE,
   EDITOR_GE_ID,
-} from '@seeds/01_users';
-import { GEORGIA_BZHUZHA_EXTREME } from '@seeds/09_sections';
+} from '~/seeds/test/01_users';
+import { GEORGIA_BZHUZHA_EXTREME } from '~/seeds/test/09_sections';
 import {
   anonContext,
   countRows,
@@ -19,7 +19,7 @@ import {
   runQuery,
   TIMESTAMP_REGEX,
   UUID_REGEX,
-} from '@test';
+} from '~/test';
 import {
   MediaKind,
   SuggestionInput,

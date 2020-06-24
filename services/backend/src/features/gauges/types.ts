@@ -1,6 +1,6 @@
-import { WithLanguage } from '@apollo';
-import { RawTimestamped } from '@db';
-import { PointRaw } from '@features/points';
+import { WithLanguage } from '~/apollo';
+import { RawTimestamped } from '~/db';
+import { PointRaw } from '~/features/points';
 import { NamedNode } from '@whitewater-guide/commons';
 
 export interface GaugeRaw extends NamedNode, RawTimestamped, WithLanguage {

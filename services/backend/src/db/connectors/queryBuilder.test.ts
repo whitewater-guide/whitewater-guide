@@ -1,4 +1,4 @@
-import { holdTransaction, rollbackTransaction } from '@db';
+import { holdTransaction, rollbackTransaction } from '~/db';
 import gqf from 'graphql-fields';
 import {
   buildBatchQuery,

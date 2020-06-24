@@ -1,4 +1,4 @@
-import { BaseConnector, FieldsMap } from '@db/connectors';
+import { BaseConnector, FieldsMap } from '~/db/connectors';
 import { River } from '@whitewater-guide/commons';
 import { RiverRaw } from './types';
 

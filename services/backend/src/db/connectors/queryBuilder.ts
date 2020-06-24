@@ -1,4 +1,4 @@
-import db from '@db';
+import db from '~/db';
 import DataLoader from 'dataloader';
 import { GraphQLResolveInfo } from 'graphql';
 import gqf from 'graphql-fields';

@@ -1,7 +1,7 @@
-import db, { holdTransaction, rollbackTransaction } from '@db';
-import { GorgeConnector } from '@features/gorge';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
-import { SOURCE_GALICIA_1, SOURCE_GEORGIA } from '@seeds/05_sources';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { GorgeConnector } from '~/features/gorge';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
+import { SOURCE_GALICIA_1, SOURCE_GEORGIA } from '~/seeds/test/05_sources';
 import {
   anonContext,
   fakeContext,
@@ -10,7 +10,7 @@ import {
   noTimestamps,
   noUnstable,
   runQuery,
-} from '@test';
+} from '~/test';
 import { ApolloErrorCodes, SourceInput } from '@whitewater-guide/commons';
 import { SourceRaw } from '../types';
 

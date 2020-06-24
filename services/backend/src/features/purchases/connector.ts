@@ -1,7 +1,7 @@
-import { Context, ContextUser } from '@apollo';
-import db from '@db';
-import { GroupRaw } from '@features/groups';
-import { RegionRaw } from '@features/regions';
+import { Context, ContextUser } from '~/apollo';
+import db from '~/db';
+import { GroupRaw } from '~/features/groups';
+import { RegionRaw } from '~/features/regions';
 import { DataSource, DataSourceConfig } from 'apollo-datasource';
 import { TransactionRaw } from './types';
 
@@ -35,7 +35,10 @@ export class PurchasesConnector implements DataSource<Context> {
     if (!this._purchasedGroups) {
       this._purchasedGroups = await db()
         .table('groups_view')
-        .whereIn('sku', transactions.map((t) => t.product_id))
+        .whereIn(
+          'sku',
+          transactions.map((t) => t.product_id),
+        )
         .andWhere({ language: this._language });
     }
     return this._purchasedGroups || [];
@@ -46,7 +49,10 @@ export class PurchasesConnector implements DataSource<Context> {
     if (!this._purchasedSingleRegions) {
       this._purchasedSingleRegions = await db()
         .table('regions_view')
-        .whereIn('sku', transactions.map((t) => t.product_id))
+        .whereIn(
+          'sku',
+          transactions.map((t) => t.product_id),
+        )
         .andWhere({ language: this._language });
     }
     return this._purchasedSingleRegions || [];

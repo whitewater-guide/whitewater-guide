@@ -1,6 +1,6 @@
-import db, { holdTransaction, rollbackTransaction } from '@db';
-import { redis } from '@redis';
-import { BOOM_USER_3500_ID } from '@seeds/01_users';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { redis } from '~/redis';
+import { BOOM_USER_3500_ID } from '~/seeds/test/01_users';
 import Koa from 'koa';
 import agent from 'supertest-koa-agent';
 import { createApp } from '../../../app';

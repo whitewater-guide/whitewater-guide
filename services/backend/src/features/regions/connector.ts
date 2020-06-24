@@ -1,5 +1,5 @@
-import db from '@db';
-import { BaseConnector, FieldsMap, ManyBuilderOptions } from '@db/connectors';
+import db from '~/db';
+import { BaseConnector, FieldsMap, ManyBuilderOptions } from '~/db/connectors';
 import { Region } from '@whitewater-guide/commons';
 import { GraphQLResolveInfo } from 'graphql';
 import { QueryBuilder } from 'knex';

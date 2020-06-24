@@ -1,7 +1,7 @@
-import { holdTransaction, rollbackTransaction } from '@db';
-import { ADMIN, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
-import { NORWAY_SJOA_AMOT } from '@seeds/09_sections';
-import { anonContext, fakeContext, runQuery } from '@test';
+import { holdTransaction, rollbackTransaction } from '~/db';
+import { ADMIN, EDITOR_NO_EC, TEST_USER } from '~/seeds/test/01_users';
+import { NORWAY_SJOA_AMOT } from '~/seeds/test/09_sections';
+import { anonContext, fakeContext, runQuery } from '~/test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 
 const mutation = `

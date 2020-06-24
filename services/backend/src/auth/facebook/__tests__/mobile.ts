@@ -1,13 +1,13 @@
-import db, { holdTransaction, rollbackTransaction } from '@db';
-import { redis } from '@redis';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { redis } from '~/redis';
 import {
   ADMIN_FB_PROFILE,
   ADMIN_ID,
   NEW_FB_PROFILE,
   NEW_FB_PROFILE_NO_EMAIL,
   NEW_FB_PROFILE_W_LOCALE,
-} from '@seeds/01_users';
-import { countRows, UUID_REGEX } from '@test';
+} from '~/seeds/test/01_users';
+import { countRows, UUID_REGEX } from '~/test';
 import { AuthBody, SignInBody } from '@whitewater-guide/commons';
 import Koa from 'koa';
 import get from 'lodash/get';

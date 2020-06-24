@@ -1,4 +1,4 @@
-import { LoginRaw, UserRawInput } from '@features/users';
+import { LoginRaw, UserRawInput } from '~/features/users';
 import { hashSync } from 'bcrypt';
 import Knex from 'knex';
 import set from 'lodash/fp/set';

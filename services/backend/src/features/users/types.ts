@@ -1,4 +1,4 @@
-import { RawTimestamped } from '@db';
+import { RawTimestamped } from '~/db';
 import {
   EditorSettings,
   Overwrite,

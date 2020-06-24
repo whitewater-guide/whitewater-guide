@@ -4,9 +4,9 @@ import {
   SectionAdminSettings,
   SectionAdminSettingsSchema,
 } from '@whitewater-guide/commons';
-import { TopLevelResolver, isInputValidResolver } from '@apollo';
+import { TopLevelResolver, isInputValidResolver } from '~/apollo';
 
-import db from '@db';
+import db from '~/db';
 import { yupTypes } from '@whitewater-guide/validation';
 
 interface Vars {

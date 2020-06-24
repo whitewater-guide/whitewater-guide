@@ -1,15 +1,15 @@
-import db, { holdTransaction, rollbackTransaction } from '@db';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
 import {
   fileExistsInBucket,
   initMinio,
   resetTestMinio,
   TEMP,
   TEMP_BUCKET_DIR,
-} from '@minio';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
-import { REGION_GALICIA } from '@seeds/04_regions';
-import { GAUGE_GAL_1_1 } from '@seeds/06_gauges';
-import { countRows, fakeContext, runQuery } from '@test';
+} from '~/minio';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
+import { REGION_GALICIA } from '~/seeds/test/04_regions';
+import { GAUGE_GAL_1_1 } from '~/seeds/test/06_gauges';
+import { countRows, fakeContext, runQuery } from '~/test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 import { copy } from 'fs-extra';
 import path from 'path';

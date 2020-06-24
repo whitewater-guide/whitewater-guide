@@ -1,7 +1,7 @@
-import db, { holdTransaction, rollbackTransaction } from '@db';
-import { ADMIN, EDITOR_NO_EC } from '@seeds/01_users';
-import { RIVER_BZHUZHA, RIVER_GAL_1, RIVER_SJOA } from '@seeds/07_rivers';
-import { fakeContext, noTimestamps, runQuery } from '@test';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { ADMIN, EDITOR_NO_EC } from '~/seeds/test/01_users';
+import { RIVER_BZHUZHA, RIVER_GAL_1, RIVER_SJOA } from '~/seeds/test/07_rivers';
+import { fakeContext, noTimestamps, runQuery } from '~/test';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);

@@ -1,4 +1,4 @@
-import { holdTransaction, rollbackTransaction } from '@db';
+import { holdTransaction, rollbackTransaction } from '~/db';
 import {
   ADMIN,
   ADMIN_ID,
@@ -6,8 +6,8 @@ import {
   EDITOR_NO_EC,
   EDITOR_NO_EC_ID,
   TEST_USER_ID,
-} from '@seeds/01_users';
-import { anonContext, fakeContext, runQuery } from '@test';
+} from '~/seeds/test/01_users';
+import { anonContext, fakeContext, runQuery } from '~/test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 
 const query = `

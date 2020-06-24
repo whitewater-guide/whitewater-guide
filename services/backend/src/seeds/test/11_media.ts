@@ -1,4 +1,4 @@
-import { MediaRaw } from '@features/media';
+import { MediaRaw } from '~/features/media';
 import { MediaKind } from '@whitewater-guide/commons';
 import Knex from 'knex';
 import { ADMIN_ID } from './01_users';

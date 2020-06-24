@@ -1,5 +1,5 @@
-import { holdTransaction, rollbackTransaction } from '@db';
-import { SOURCE_GALICIA_1 } from '@seeds/05_sources';
+import { holdTransaction, rollbackTransaction } from '~/db';
+import { SOURCE_GALICIA_1 } from '~/seeds/test/05_sources';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { GorgeConnector } from './connector';

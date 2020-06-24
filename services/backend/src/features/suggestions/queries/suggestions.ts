@@ -1,4 +1,4 @@
-import { isAuthenticatedResolver, ListQuery, TopLevelResolver } from '@apollo';
+import { isAuthenticatedResolver, ListQuery, TopLevelResolver } from '~/apollo';
 import { SuggestionsFilter } from '@whitewater-guide/commons';
 import { ForbiddenError } from 'apollo-server-errors';
 import { QueryBuilder } from 'knex';

@@ -1,7 +1,7 @@
-import db, { holdTransaction, rollbackTransaction } from '@db';
-import { redis } from '@redis';
-import { ADMIN, ADMIN_FB_PROFILE, NEW_FB_PROFILE } from '@seeds/01_users';
-import { countRows, UUID_REGEX } from '@test';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { redis } from '~/redis';
+import { ADMIN, ADMIN_FB_PROFILE, NEW_FB_PROFILE } from '~/seeds/test/01_users';
+import { countRows, UUID_REGEX } from '~/test';
 import { Cookie, CookieAccessInfo } from 'cookiejar';
 import Koa from 'koa';
 import get from 'lodash/get';

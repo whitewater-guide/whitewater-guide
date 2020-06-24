@@ -1,23 +1,23 @@
-import db, { holdTransaction, rollbackTransaction } from '@db';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
 import {
   BOOM_USER_3500,
   BOOM_USER_3500_ID,
   TEST_USER,
   TEST_USER2,
-} from '@seeds/01_users';
+} from '~/seeds/test/01_users';
 import {
   REGION_ECUADOR,
   REGION_GEORGIA,
   REGION_NORWAY,
-} from '@seeds/04_regions';
-import { GEORGIA_BZHUZHA_EXTREME } from '@seeds/09_sections';
+} from '~/seeds/test/04_regions';
+import { GEORGIA_BZHUZHA_EXTREME } from '~/seeds/test/09_sections';
 import {
   BOOM_PROMO_EU_CIS_ACTIVE,
   BOOM_PROMO_LATIN_REDEEMED,
   BOOM_PROMO_REGION_ACTIVE,
   BOOM_PROMO_REGION_REDEEMED,
-} from '@seeds/12_boom_promos';
-import { anonContext, fakeContext, runQuery, UUID_REGEX } from '@test';
+} from '~/seeds/test/12_boom_promos';
+import { anonContext, fakeContext, runQuery, UUID_REGEX } from '~/test';
 import {
   ApolloErrorCodes,
   PurchaseInput,
@@ -59,7 +59,7 @@ const mutation = `
       }
       section {
         id
-        description 
+        description
       }
     }
   }
@@ -246,26 +246,26 @@ describe('boomstarter', () => {
 });
 
 describe('ios', () => {
-  it.each([['with section', mutation], ['without section', mutationWOSection]])(
-    'should return single region %s',
-    async (_, m) => {
-      const purchase: PurchaseInput = {
-        platform: PurchasePlatform.ios,
-        transactionId: '__transaction_id__',
-        productId: 'region.ecuador',
-        receipt: '{}',
-      };
-      const result = await runQuery(m, { purchase }, fakeContext(TEST_USER2));
-      expect(result.errors).toBeUndefined();
-      expect(result.data.savePurchase.regions).toEqual([
-        {
-          id: REGION_ECUADOR,
-          sku: 'region.ecuador',
-          hasPremiumAccess: true,
-        },
-      ]);
-    },
-  );
+  it.each([
+    ['with section', mutation],
+    ['without section', mutationWOSection],
+  ])('should return single region %s', async (_, m) => {
+    const purchase: PurchaseInput = {
+      platform: PurchasePlatform.ios,
+      transactionId: '__transaction_id__',
+      productId: 'region.ecuador',
+      receipt: '{}',
+    };
+    const result = await runQuery(m, { purchase }, fakeContext(TEST_USER2));
+    expect(result.errors).toBeUndefined();
+    expect(result.data.savePurchase.regions).toEqual([
+      {
+        id: REGION_ECUADOR,
+        sku: 'region.ecuador',
+        hasPremiumAccess: true,
+      },
+    ]);
+  });
 
   it('should return single region and section', async () => {
     const purchase: PurchaseInput = {
@@ -297,27 +297,27 @@ describe('ios', () => {
 });
 
 describe('android', () => {
-  it.each([['with section', mutation], ['without section', mutationWOSection]])(
-    'should return single region %s',
-    async (_, m) => {
-      const purchase: PurchaseInput = {
-        platform: PurchasePlatform.android,
-        transactionId: '__transaction_id__',
-        productId: 'region.ecuador',
-        receipt:
-          '{"packageName": "guide.whitewater", "productId": "region.ecuador", "purchaseToken": "someToken"}',
-      };
-      const result = await runQuery(m, { purchase }, fakeContext(TEST_USER2));
-      expect(result.errors).toBeUndefined();
-      expect(result.data.savePurchase.regions).toEqual([
-        {
-          id: REGION_ECUADOR,
-          sku: 'region.ecuador',
-          hasPremiumAccess: true,
-        },
-      ]);
-    },
-  );
+  it.each([
+    ['with section', mutation],
+    ['without section', mutationWOSection],
+  ])('should return single region %s', async (_, m) => {
+    const purchase: PurchaseInput = {
+      platform: PurchasePlatform.android,
+      transactionId: '__transaction_id__',
+      productId: 'region.ecuador',
+      receipt:
+        '{"packageName": "guide.whitewater", "productId": "region.ecuador", "purchaseToken": "someToken"}',
+    };
+    const result = await runQuery(m, { purchase }, fakeContext(TEST_USER2));
+    expect(result.errors).toBeUndefined();
+    expect(result.data.savePurchase.regions).toEqual([
+      {
+        id: REGION_ECUADOR,
+        sku: 'region.ecuador',
+        hasPremiumAccess: true,
+      },
+    ]);
+  });
 
   it('should return single region and section', async () => {
     const purchase: PurchaseInput = {

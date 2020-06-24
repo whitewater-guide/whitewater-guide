@@ -1,6 +1,6 @@
-import { FieldResolvers } from '@apollo';
-import { timestampResolvers } from '@db';
-import { Imgproxy } from '@utils';
+import { FieldResolvers } from '~/apollo';
+import { timestampResolvers } from '~/db';
+import { Imgproxy } from '~/utils';
 import { Media, MediaKind } from '@whitewater-guide/commons';
 import { ImageArgs, MediaRaw } from '../types';
 

@@ -1,4 +1,4 @@
-import { Context } from '@apollo';
+import { Context } from '~/apollo';
 import { GraphQLFieldResolver } from 'graphql';
 import gqf from 'graphql-fields';
 import { SectionRaw } from '../types';

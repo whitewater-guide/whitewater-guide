@@ -1,4 +1,4 @@
-import log from '@log';
+import log from '~/log';
 import { MAX_FILE_SIZE, MIN_FILE_SIZE } from '@whitewater-guide/commons';
 import { UserInputError } from 'apollo-server-errors';
 import { CopyConditions } from 'minio';

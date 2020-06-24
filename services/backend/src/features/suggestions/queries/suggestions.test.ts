@@ -1,14 +1,14 @@
-import { holdTransaction, rollbackTransaction } from '@db';
+import { holdTransaction, rollbackTransaction } from '~/db';
 import {
   ADMIN,
   BOOM_USER_1500,
   EDITOR_NO,
   TEST_USER,
   TEST_USER_ID,
-} from '@seeds/01_users';
-import { NORWAY_SJOA_AMOT } from '@seeds/09_sections';
-import { EDIT_SUGGESTION_ID1 } from '@seeds/17_suggestions';
-import { anonContext, fakeContext, runQuery, TIMESTAMP_REGEX } from '@test';
+} from '~/seeds/test/01_users';
+import { NORWAY_SJOA_AMOT } from '~/seeds/test/09_sections';
+import { EDIT_SUGGESTION_ID1 } from '~/seeds/test/17_suggestions';
+import { anonContext, fakeContext, runQuery, TIMESTAMP_REGEX } from '~/test';
 import { ApolloErrorCodes, SuggestionStatus } from '@whitewater-guide/commons';
 
 beforeEach(holdTransaction);

@@ -1,7 +1,7 @@
-import { Context, isInputValidResolver, TopLevelResolver } from '@apollo';
-import db, { rawUpsert } from '@db';
-import { SectionRaw } from '@features/sections';
-import { getLocalFileName, MEDIA, minioClient, moveTempImage } from '@minio';
+import { Context, isInputValidResolver, TopLevelResolver } from '~/apollo';
+import db, { rawUpsert } from '~/db';
+import { SectionRaw } from '~/features/sections';
+import { getLocalFileName, MEDIA, minioClient, moveTempImage } from '~/minio';
 import {
   MediaKind,
   NEW_ID,

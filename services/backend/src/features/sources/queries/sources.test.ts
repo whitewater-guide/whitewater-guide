@@ -1,6 +1,6 @@
-import { ADMIN, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
-import { anonContext, fakeContext, noTimestamps, runQuery } from '@test';
-import { holdTransaction, rollbackTransaction } from '@db';
+import { ADMIN, EDITOR_NO_EC, TEST_USER } from '~/seeds/test/01_users';
+import { anonContext, fakeContext, noTimestamps, runQuery } from '~/test';
+import { holdTransaction, rollbackTransaction } from '~/db';
 
 jest.mock('../../gorge/connector');
 

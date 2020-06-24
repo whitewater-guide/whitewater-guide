@@ -1,5 +1,5 @@
-import { FieldResolvers } from '@apollo';
-import { timestampResolvers } from '@db';
+import { FieldResolvers } from '~/apollo';
+import { timestampResolvers } from '~/db';
 import { Region } from '@whitewater-guide/commons';
 import { RegionRaw } from '../types';
 import banners from './banners';

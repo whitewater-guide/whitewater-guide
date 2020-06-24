@@ -1,4 +1,4 @@
-import { RegionRaw } from '@features/regions';
+import { RegionRaw } from '~/features/regions';
 import Knex from 'knex';
 
 export type RegionRow = Pick<RegionRaw, 'id' | 'name' | 'bounds'>;

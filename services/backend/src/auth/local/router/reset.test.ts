@@ -1,11 +1,11 @@
-import db, { holdTransaction, rollbackTransaction } from '@db';
-import { redis } from '@redis';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { redis } from '~/redis';
 import {
   ADMIN_ID,
   EDITOR_GA_EC_ID,
   EDITOR_NO_ID,
   TEST_USER_ID,
-} from '@seeds/01_users';
+} from '~/seeds/test/01_users';
 import { compare } from 'bcrypt';
 import Koa from 'koa';
 import superagent from 'superagent';

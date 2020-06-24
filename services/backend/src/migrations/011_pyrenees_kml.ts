@@ -1,5 +1,5 @@
-import { rawUpsert } from '@db';
-import { KMLSection } from '@utils';
+import { rawUpsert } from '~/db';
+import { KMLSection } from '~/utils';
 import { Coordinate3d } from '@whitewater-guide/commons';
 import { readdirSync, readFileSync } from 'fs';
 import { Feature, FeatureCollection, LineString } from 'geojson';

@@ -1,8 +1,8 @@
-import db, { holdTransaction, rollbackTransaction } from '@db';
-import { GorgeConnector } from '@features/gorge';
-import { ADMIN, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
-import { SOURCE_GALICIA_1, SOURCE_NORWAY } from '@seeds/05_sources';
-import { GAUGE_GAL_1_1, GAUGE_GAL_2_1 } from '@seeds/06_gauges';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { GorgeConnector } from '~/features/gorge';
+import { ADMIN, EDITOR_NO_EC, TEST_USER } from '~/seeds/test/01_users';
+import { SOURCE_GALICIA_1, SOURCE_NORWAY } from '~/seeds/test/05_sources';
+import { GAUGE_GAL_1_1, GAUGE_GAL_2_1 } from '~/seeds/test/06_gauges';
 import {
   anonContext,
   countRows,
@@ -11,7 +11,7 @@ import {
   isUUID,
   noUnstable,
   runQuery,
-} from '@test';
+} from '~/test';
 import { ApolloErrorCodes, GaugeInput } from '@whitewater-guide/commons';
 import { GaugeRaw } from '../types';
 

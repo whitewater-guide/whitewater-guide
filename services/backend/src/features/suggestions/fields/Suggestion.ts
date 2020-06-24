@@ -1,5 +1,5 @@
-import { FieldResolvers } from '@apollo';
-import { Imgproxy } from '@utils';
+import { FieldResolvers } from '~/apollo';
+import { Imgproxy } from '~/utils';
 import { Suggestion } from '@whitewater-guide/commons';
 import { ImageArgs, SuggestionRaw } from '../types';
 

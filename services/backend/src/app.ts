@@ -1,8 +1,8 @@
-import { useAuth, useLegacyAuth } from '@auth';
-import db from '@db';
-import log from '@log';
-import { redis } from '@redis';
-import { addPingRoute } from '@utils';
+import { useAuth, useLegacyAuth } from '~/auth';
+import db from '~/db';
+import log from '~/log';
+import { redis } from '~/redis';
+import { addPingRoute } from '~/utils';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import { corsMiddleware } from './cors';

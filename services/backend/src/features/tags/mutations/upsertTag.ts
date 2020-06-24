@@ -1,5 +1,5 @@
-import { Context, isInputValidResolver } from '@apollo';
-import db, { rawUpsert } from '@db';
+import { Context, isInputValidResolver } from '~/apollo';
+import db, { rawUpsert } from '~/db';
 import { TagInput, TagInputSchema } from '@whitewater-guide/commons';
 import * as yup from 'yup';
 

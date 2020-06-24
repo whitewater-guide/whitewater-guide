@@ -1,6 +1,6 @@
-import { UnknownError } from '@apollo';
-import db, { rawUpsert } from '@db';
-import { RiverRaw } from '@features/rivers';
+import { UnknownError } from '~/apollo';
+import db, { rawUpsert } from '~/db';
+import { RiverRaw } from '~/features/rivers';
 import { NEW_ID, RiverInput, SectionInput } from '@whitewater-guide/commons';
 import { UserInputError } from 'apollo-server-errors';
 

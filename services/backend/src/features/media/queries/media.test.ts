@@ -1,6 +1,6 @@
-import { holdTransaction, rollbackTransaction } from '@db';
-import { BLOG_1, PHOTO_1, PHOTO_2, VIDEO_1 } from '@seeds/11_media';
-import { anonContext, noTimestamps, runQuery } from '@test';
+import { holdTransaction, rollbackTransaction } from '~/db';
+import { BLOG_1, PHOTO_1, PHOTO_2, VIDEO_1 } from '~/seeds/test/11_media';
+import { anonContext, noTimestamps, runQuery } from '~/test';
 
 const { PROTOCOL, MINIO_DOMAIN } = process.env;
 

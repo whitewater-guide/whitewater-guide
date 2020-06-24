@@ -1,4 +1,4 @@
-import { BaseConnector, FieldsMap, ManyBuilderOptions } from '@db/connectors';
+import { BaseConnector, FieldsMap, ManyBuilderOptions } from '~/db/connectors';
 import { Group } from '@whitewater-guide/commons';
 import { GraphQLResolveInfo } from 'graphql';
 import { QueryBuilder } from 'knex';

@@ -1,5 +1,5 @@
-import { WithLanguage } from '@apollo';
-import { RawTimestamped } from '@db';
+import { WithLanguage } from '~/apollo';
+import { RawTimestamped } from '~/db';
 import { NamedNode } from '@whitewater-guide/commons';
 
 /**

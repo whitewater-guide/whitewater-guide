@@ -1,8 +1,8 @@
-import { holdTransaction, rollbackTransaction } from '@db';
-import { redis } from '@redis';
-import { ADMIN, ADMIN_FB_PROFILE, ADMIN_ID } from '@seeds/01_users';
-import { REGION_GALICIA } from '@seeds/04_regions';
-import { GALICIA_REGION_DESCR_BANNER2 } from '@seeds/14_banners';
+import { holdTransaction, rollbackTransaction } from '~/db';
+import { redis } from '~/redis';
+import { ADMIN, ADMIN_FB_PROFILE, ADMIN_ID } from '~/seeds/test/01_users';
+import { REGION_GALICIA } from '~/seeds/test/04_regions';
+import { GALICIA_REGION_DESCR_BANNER2 } from '~/seeds/test/14_banners';
 import jsonwebtoken from 'jsonwebtoken';
 import Koa from 'koa';
 import FacebookTokenStrategy from 'passport-facebook-token';

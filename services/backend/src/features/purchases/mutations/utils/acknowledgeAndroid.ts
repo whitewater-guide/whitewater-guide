@@ -1,4 +1,4 @@
-import log from '@log';
+import log from '~/log';
 import { PurchaseInput } from '@whitewater-guide/commons';
 import { readJSON } from 'fs-extra';
 import Verifier, {

@@ -1,4 +1,4 @@
-import { createConnectors } from '@db/connectors';
+import { createConnectors } from '~/db/connectors';
 import { ApolloServer } from 'apollo-server-koa';
 import { readJSON } from 'fs-extra';
 import * as Koa from 'koa';

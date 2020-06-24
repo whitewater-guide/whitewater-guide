@@ -1,15 +1,15 @@
-import db, { holdTransaction, rollbackTransaction } from '@db';
-import { GorgeConnector } from '@features/gorge';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
-import { SOURCE_GALICIA_1, SOURCE_RUSSIA } from '@seeds/05_sources';
-import { GAUGE_GAL_1_1 } from '@seeds/06_gauges';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { GorgeConnector } from '~/features/gorge';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
+import { SOURCE_GALICIA_1, SOURCE_RUSSIA } from '~/seeds/test/05_sources';
+import { GAUGE_GAL_1_1 } from '~/seeds/test/06_gauges';
 import {
   anonContext,
   countRows,
   fakeContext,
   noUnstable,
   runQuery,
-} from '@test';
+} from '~/test';
 import { ApolloErrorCodes, Gauge } from '@whitewater-guide/commons';
 import { ExecutionResult } from 'graphql';
 

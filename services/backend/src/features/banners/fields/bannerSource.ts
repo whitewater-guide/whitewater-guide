@@ -1,5 +1,5 @@
-import { FieldResolvers } from '@apollo';
-import { Imgproxy } from '@utils';
+import { FieldResolvers } from '~/apollo';
+import { Imgproxy } from '~/utils';
 import { BannerKind, BannerSource } from '@whitewater-guide/commons';
 import { BannerSourceArgs, BannerSourceRaw } from '../types';
 

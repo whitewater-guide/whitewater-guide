@@ -1,4 +1,4 @@
-import log from '@log';
+import log from '~/log';
 import httpShutdown from 'http-shutdown';
 import { App } from './app';
 

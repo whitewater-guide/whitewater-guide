@@ -1,7 +1,7 @@
-import { isInputValidResolver, TopLevelResolver } from '@apollo';
-import db, { rawUpsert } from '@db';
-import { BannerRaw } from '@features/banners';
-import { BANNERS, getLocalFileName, minioClient, moveTempImage } from '@minio';
+import { isInputValidResolver, TopLevelResolver } from '~/apollo';
+import db, { rawUpsert } from '~/db';
+import { BannerRaw } from '~/features/banners';
+import { BANNERS, getLocalFileName, minioClient, moveTempImage } from '~/minio';
 import {
   BannerInput,
   BannerInputSchema,

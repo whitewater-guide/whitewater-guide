@@ -5,7 +5,7 @@ import {
   Context,
   MutationNotAllowedError,
   isInputValidResolver,
-} from '@apollo';
+} from '~/apollo';
 import {
   PurchaseInput,
   PurchaseInputSchema,
@@ -16,7 +16,7 @@ import { isValidated, validate } from 'in-app-purchase';
 
 import { AuthenticationError } from 'apollo-server';
 import { acknowledgeAndroid } from './utils';
-import db from '@db';
+import db from '~/db';
 import logger from '../logger';
 import { yupTypes } from '@whitewater-guide/validation';
 

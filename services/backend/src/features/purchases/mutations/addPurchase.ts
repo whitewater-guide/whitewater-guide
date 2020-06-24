@@ -2,8 +2,8 @@ import {
   Context,
   isInputValidResolver,
   MutationNotAllowedError,
-} from '@apollo';
-import db from '@db';
+} from '~/apollo';
+import db from '~/db';
 import {
   PurchaseInput,
   PurchaseInputSchema,

@@ -1,17 +1,17 @@
-import { holdTransaction, rollbackTransaction } from '@db';
+import { holdTransaction, rollbackTransaction } from '~/db';
 import {
   BOOM_USER_1500,
   BOOM_USER_3500,
   EDITOR_NO_EC,
   TEST_USER,
   TEST_USER2,
-} from '@seeds/01_users';
+} from '~/seeds/test/01_users';
 import {
   REGION_ECUADOR,
   REGION_GEORGIA,
   REGION_NORWAY,
-} from '@seeds/04_regions';
-import { anonContext, fakeContext, runQuery } from '@test';
+} from '~/seeds/test/04_regions';
+import { anonContext, fakeContext, runQuery } from '~/test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 
 beforeEach(holdTransaction);

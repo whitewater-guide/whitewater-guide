@@ -1,13 +1,13 @@
-import db, { holdTransaction, rollbackTransaction } from '@db';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
-import { GROUP_EU } from '@seeds/03_groups';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
+import { GROUP_EU } from '~/seeds/test/03_groups';
 import {
   anonContext,
   countRows,
   fakeContext,
   runQuery,
   UUID_REGEX,
-} from '@test';
+} from '~/test';
 import { ApolloErrorCodes, GroupInput } from '@whitewater-guide/commons';
 
 let gBefore: number;

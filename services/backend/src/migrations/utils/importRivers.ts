@@ -1,4 +1,4 @@
-import { rawUpsert } from '@db';
+import { rawUpsert } from '~/db';
 import Knex from 'knex';
 import deburr from 'lodash/deburr';
 

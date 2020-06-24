@@ -1,6 +1,6 @@
-import { Context } from '@apollo';
-import db from '@db';
-import { BaseConnector, FieldsMap, ManyBuilderOptions } from '@db/connectors';
+import { Context } from '~/apollo';
+import db from '~/db';
+import { BaseConnector, FieldsMap, ManyBuilderOptions } from '~/db/connectors';
 import { Banner } from '@whitewater-guide/commons';
 import { DataSourceConfig } from 'apollo-datasource';
 import { GraphQLResolveInfo } from 'graphql';

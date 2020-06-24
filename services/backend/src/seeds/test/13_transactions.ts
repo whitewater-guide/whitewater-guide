@@ -1,4 +1,4 @@
-import { TransactionRaw } from '@features/purchases';
+import { TransactionRaw } from '~/features/purchases';
 import { PurchasePlatform } from '@whitewater-guide/commons';
 import Knex from 'knex';
 import { BOOM_USER_1500_ID, BOOM_USER_3500_ID, TEST_USER_ID } from './01_users';

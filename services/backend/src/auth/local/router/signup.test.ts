@@ -1,6 +1,6 @@
-import db, { holdTransaction, rollbackTransaction } from '@db';
-import { redis } from '@redis';
-import { countRows, UUID_REGEX } from '@test';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { redis } from '~/redis';
+import { countRows, UUID_REGEX } from '~/test';
 import { CookieAccessInfo } from 'cookiejar';
 import Koa from 'koa';
 import superagent from 'superagent';

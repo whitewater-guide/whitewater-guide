@@ -1,4 +1,4 @@
-import { Context, ContextUser } from '@apollo';
+import { Context, ContextUser } from '~/apollo';
 import { DataSource, DataSourceConfig } from 'apollo-datasource';
 import DataLoader from 'dataloader';
 import { GraphQLResolveInfo } from 'graphql';

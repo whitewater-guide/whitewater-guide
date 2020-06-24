@@ -1,14 +1,14 @@
-import { BaseConnector, FieldsMap, ManyBuilderOptions } from '@db/connectors';
-import db from '@db/db';
-import { rawUpsert } from '@db/rawUpsert';
-import log from '@log';
+import { BaseConnector, FieldsMap, ManyBuilderOptions } from '~/db/connectors';
+import db from '~/db/db';
+import { rawUpsert } from '~/db/rawUpsert';
+import log from '~/log';
 import {
   getLocalFileName,
   MEDIA,
   minioClient,
   moveTempImage,
   TEMP,
-} from '@minio';
+} from '~/minio';
 import { Media, MediaInput, MediaKind } from '@whitewater-guide/commons';
 import { UserInputError } from 'apollo-server-errors';
 import { GraphQLResolveInfo } from 'graphql';

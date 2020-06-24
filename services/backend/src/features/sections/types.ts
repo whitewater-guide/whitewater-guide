@@ -1,5 +1,5 @@
-import { RawTimestamped } from '@db';
-import { PointRaw } from '@features/points';
+import { RawTimestamped } from '~/db';
+import { PointRaw } from '~/features/points';
 import {
   Coordinate3d,
   NamedNode,

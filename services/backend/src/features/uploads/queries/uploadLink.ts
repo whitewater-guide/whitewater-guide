@@ -1,6 +1,6 @@
-import { TopLevelResolver } from '@apollo';
-import db from '@db';
-import { getTempPostPolicy } from '@minio';
+import { TopLevelResolver } from '~/apollo';
+import db from '~/db';
+import { getTempPostPolicy } from '~/minio';
 
 const uploadLink: TopLevelResolver = async (_, __, { user }) => {
   const { id } = await db()

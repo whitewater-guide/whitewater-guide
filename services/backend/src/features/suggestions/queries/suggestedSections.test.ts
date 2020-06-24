@@ -1,13 +1,13 @@
-import { holdTransaction, rollbackTransaction } from '@db';
+import { holdTransaction, rollbackTransaction } from '~/db';
 import {
   ADMIN,
   BOOM_USER_1500,
   EDITOR_NO,
   TEST_USER,
   TEST_USER_ID,
-} from '@seeds/01_users';
-import { REGION_NORWAY } from '@seeds/04_regions';
-import { anonContext, fakeContext, runQuery, TIMESTAMP_REGEX } from '@test';
+} from '~/seeds/test/01_users';
+import { REGION_NORWAY } from '~/seeds/test/04_regions';
+import { anonContext, fakeContext, runQuery, TIMESTAMP_REGEX } from '~/test';
 import {
   ApolloErrorCodes,
   NEW_ID,

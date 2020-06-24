@@ -1,10 +1,10 @@
-import { holdTransaction, rollbackTransaction } from '@db';
-import { GEORGIA_BZHUZHA_QUALI } from '@seeds/09_sections';
+import { holdTransaction, rollbackTransaction } from '~/db';
+import { GEORGIA_BZHUZHA_QUALI } from '~/seeds/test/09_sections';
 import agent from 'supertest-koa-agent';
 import { createApolloServer } from '../../apollo/server';
 import { createApp } from '../../app';
 import { getAccessToken } from '../../auth/jwt';
-import { BOOM_USER_1500_ID } from '@seeds/01_users';
+import { BOOM_USER_1500_ID } from '~/seeds/test/01_users';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);

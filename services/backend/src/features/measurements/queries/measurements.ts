@@ -1,5 +1,5 @@
-import { TopLevelResolver, UnknownError } from '@apollo';
-import db from '@db';
+import { TopLevelResolver, UnknownError } from '~/apollo';
+import db from '~/db';
 import { UserInputError } from 'apollo-server';
 
 interface Vars {

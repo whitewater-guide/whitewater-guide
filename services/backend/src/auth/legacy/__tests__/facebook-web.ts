@@ -1,12 +1,12 @@
-import { holdTransaction, rollbackTransaction } from '@db';
-import { redis } from '@redis';
+import { holdTransaction, rollbackTransaction } from '~/db';
+import { redis } from '~/redis';
 import {
   ADMIN,
   ADMIN_FB_PROFILE,
   ADMIN_ID,
   NEW_FB_PROFILE,
-} from '@seeds/01_users';
-import { countRows, UUID_REGEX } from '@test';
+} from '~/seeds/test/01_users';
+import { countRows, UUID_REGEX } from '~/test';
 import { CookieAccessInfo } from 'cookiejar';
 import Koa from 'koa';
 import get from 'lodash/get';

@@ -1,5 +1,5 @@
-import db, { holdTransaction, rollbackTransaction } from '@db';
-import { RiverRaw } from '@features/rivers';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { RiverRaw } from '~/features/rivers';
 import {
   ADMIN_ID,
   EDITOR_GA_EC,
@@ -7,9 +7,9 @@ import {
   EDITOR_NO,
   EDITOR_NO_EC,
   TEST_USER,
-} from '@seeds/01_users';
-import { REGION_GALICIA, REGION_NORWAY } from '@seeds/04_regions';
-import { RIVER_GAL_1, RIVER_SJOA } from '@seeds/07_rivers';
+} from '~/seeds/test/01_users';
+import { REGION_GALICIA, REGION_NORWAY } from '~/seeds/test/04_regions';
+import { RIVER_GAL_1, RIVER_SJOA } from '~/seeds/test/07_rivers';
 import {
   anonContext,
   countRows,
@@ -19,7 +19,7 @@ import {
   noTimestamps,
   noUnstable,
   runQuery,
-} from '@test';
+} from '~/test';
 import { ApolloErrorCodes, RiverInput } from '@whitewater-guide/commons';
 
 let rBefore: number;

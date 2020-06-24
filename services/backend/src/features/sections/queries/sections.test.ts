@@ -1,9 +1,14 @@
-import db, { holdTransaction, rollbackTransaction } from '@db';
-import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
-import { REGION_NORWAY } from '@seeds/04_regions';
-import { RIVER_BZHUZHA, RIVER_GAL_1 } from '@seeds/07_rivers';
-import { SECTIONS_TOTAL, SECTIONS_VISIBLE } from '@seeds/09_sections';
-import { anonContext, fakeContext, noTimestamps, runQuery } from '@test';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
+import {
+  ADMIN,
+  EDITOR_GA_EC,
+  EDITOR_NO_EC,
+  TEST_USER,
+} from '~/seeds/test/01_users';
+import { REGION_NORWAY } from '~/seeds/test/04_regions';
+import { RIVER_BZHUZHA, RIVER_GAL_1 } from '~/seeds/test/07_rivers';
+import { SECTIONS_TOTAL, SECTIONS_VISIBLE } from '~/seeds/test/09_sections';
+import { anonContext, fakeContext, noTimestamps, runQuery } from '~/test';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);

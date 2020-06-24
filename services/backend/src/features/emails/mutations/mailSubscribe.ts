@@ -1,4 +1,4 @@
-import { TopLevelResolver } from '@apollo';
+import { TopLevelResolver } from '~/apollo';
 import MailChimp from 'mailchimp-api-v3';
 import logger from '../logger';
 

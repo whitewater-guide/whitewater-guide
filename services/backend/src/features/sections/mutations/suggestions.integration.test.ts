@@ -1,8 +1,8 @@
-import db, { holdTransaction, rollbackTransaction } from '@db/db';
-import { EDITOR_NO, EDITOR_NO_ID, TEST_USER_ID } from '@seeds/01_users';
-import { REGION_NORWAY } from '@seeds/04_regions';
-import { SUGGESTED_SECTION_ID1 } from '@seeds/17_suggestions';
-import { fakeContext, runQuery, UUID_REGEX } from '@test';
+import db, { holdTransaction, rollbackTransaction } from '~/db/db';
+import { EDITOR_NO, EDITOR_NO_ID, TEST_USER_ID } from '~/seeds/test/01_users';
+import { REGION_NORWAY } from '~/seeds/test/04_regions';
+import { SUGGESTED_SECTION_ID1 } from '~/seeds/test/17_suggestions';
+import { fakeContext, runQuery, UUID_REGEX } from '~/test';
 import { SuggestionStatus } from '@whitewater-guide/commons';
 
 beforeEach(holdTransaction);

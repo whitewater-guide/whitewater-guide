@@ -1,5 +1,5 @@
-import { FieldResolvers } from '@apollo';
-import { timestampResolvers } from '@db';
+import { FieldResolvers } from '~/apollo';
+import { timestampResolvers } from '~/db';
 import { Gauge } from '@whitewater-guide/commons';
 import { GaugeRaw } from '../types';
 import latestMeasurement from './latestMeasurement';

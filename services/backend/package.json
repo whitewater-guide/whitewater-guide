@@ -170,16 +170,7 @@
     "wtfnode": "^0.8.1"
   },
   "_moduleAliases": {
-    "@apollo": "dist/apollo",
-    "@auth": "dist/auth",
-    "@db": "dist/db",
-    "@features": "dist/features",
-    "@log": "dist/log",
-    "@minio": "dist/minio",
-    "@redis": "dist/redis",
-    "@seeds": "dist/seeds",
-    "@test": "dist/test",
-    "@utils": "dist/utils"
+    "~": "dist"
   },
   "resolutions": {
     "**/micromatch": "^4.0.0",

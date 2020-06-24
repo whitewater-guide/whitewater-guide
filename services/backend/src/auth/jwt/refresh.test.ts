@@ -1,7 +1,7 @@
-import { holdTransaction, rollbackTransaction } from '@db';
-import { redis } from '@redis';
-import { ADMIN_ID } from '@seeds/01_users';
-import { BLACKLISTED_REFRESH_TOKEN } from '@seeds/16_tokens_blacklist';
+import { holdTransaction, rollbackTransaction } from '~/db';
+import { redis } from '~/redis';
+import { ADMIN_ID } from '~/seeds/test/01_users';
+import { BLACKLISTED_REFRESH_TOKEN } from '~/seeds/test/16_tokens_blacklist';
 import { CookieAccessInfo } from 'cookiejar';
 import jsonwebtoken from 'jsonwebtoken';
 import Koa from 'koa';

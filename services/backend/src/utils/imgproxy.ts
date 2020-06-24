@@ -1,4 +1,4 @@
-import { Bucket } from '@minio';
+import { Bucket } from '~/minio';
 import crypto from 'crypto';
 import castArray from 'lodash/castArray';
 

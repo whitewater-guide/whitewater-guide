@@ -1,8 +1,8 @@
-import { Context } from '@apollo';
-import db, { knex } from '@db';
-import { BaseConnector, FieldsMap } from '@db/connectors';
-import log from '@log';
-import { redis } from '@redis';
+import { Context } from '~/apollo';
+import db, { knex } from '~/db';
+import { BaseConnector, FieldsMap } from '~/db/connectors';
+import log from '~/log';
+import { redis } from '~/redis';
 import { SocialMediaProvider, User } from '@whitewater-guide/commons';
 import { DataSourceConfig } from 'apollo-datasource';
 import { AuthenticationError, ForbiddenError } from 'apollo-server-errors';

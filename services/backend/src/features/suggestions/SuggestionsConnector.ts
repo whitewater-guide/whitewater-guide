@@ -1,5 +1,5 @@
-import { Context } from '@apollo';
-import { BaseConnector, FieldsMap } from '@db/connectors';
+import { Context } from '~/apollo';
+import { BaseConnector, FieldsMap } from '~/db/connectors';
 import { Suggestion } from '@whitewater-guide/commons';
 import { DataSourceConfig } from 'apollo-datasource';
 import { SuggestionRaw } from './types';
