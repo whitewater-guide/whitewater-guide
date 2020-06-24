@@ -3223,40 +3223,40 @@
     "@webassemblyjs/wast-parser" "1.9.0"
     "@xtuc/long" "4.2.2"
 
-"@whitewater-guide/clients@0.0.314":
-  version "0.0.314"
-  resolved "https://registry.npmjs.org/@whitewater-guide/clients/-/clients-0.0.314.tgz#a526cc9f434b85739bf73dfa5d0eabe31fde3985"
-  integrity sha512-o20LR1eIa5uM+cviESgav5U8SMmS9ggf/gK1Z2Rvh+EKcnza4NILSDge8i/yXeHk9nZukeuvqsB2gNXZdlRS1A==
+"@whitewater-guide/clients@0.0.316":
+  version "0.0.316"
+  resolved "https://registry.npmjs.org/@whitewater-guide/clients/-/clients-0.0.316.tgz#16c1eec3d14aa2bd684997ffe353f0348c54d20b"
+  integrity sha512-kvyYdN09Vyu3zJSuChwu/vpZd/a7IZvZUWEZ16KtGRBVuuw7MQlMX/wZvbR0WaPdHdDthTedxy/VEAubgqC70g==
   dependencies:
     "@turf/bearing" "^6.0.1"
     "@turf/helpers" "^6.1.4"
-    "@whitewater-guide/commons" "0.0.198"
-    "@whitewater-guide/validation" "^1.0.2"
+    "@whitewater-guide/commons" "0.0.200"
+    "@whitewater-guide/validation" "^1.1.5"
     apollo-link "^1.2.14"
     apollo-link-error "https://github.com/doomsower/apollo-link/releases/download/error-async/apollo-link-error-1.1.10-vnext.tgz"
     apollo-link-http "^1.5.17"
     apollo-link-http-common "^0.2.16"
     apollo-link-schema "^1.2.5"
-    apollo-utilities "^1.3.3"
+    apollo-utilities "^1.3.4"
     async-retry "^1.3.1"
     color "^3.1.1"
     d3-scale "^3.2.1"
     deepmerge "^4.2.2"
     expr-eval "^2.0.2"
     graphql-tools "^5.0.0"
-    graphql-type-json "^0.3.1"
+    graphql-type-json "^0.3.2"
     lodash "^4.17.15"
-    qs "^6.9.3"
-    react-use "14.2.0"
+    qs "^6.9.4"
+    react-use "15.3.0"
     shortid "^2.2.15"
     typescript-fsa "^3.0.0"
     url-parse "^1.4.7"
-    yup "^0.28.5"
+    yup "^0.29.1"
 
-"@whitewater-guide/commons@0.0.198":
-  version "0.0.198"
-  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.198.tgz#3b0dd29550e18e946f1bf80fe3dd6f3933115ea9"
-  integrity sha512-cSD/+Q2fHx1SWJsJlHwgNcUMjR7UHfbnFIssHhcza9U8hx8pQ2Lun6hRjueR2uS0P7jKdtl+qB/K7VPranA1HA==
+"@whitewater-guide/commons@0.0.200":
+  version "0.0.200"
+  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.200.tgz#580ed59dc1e5a142dc698530eb34bcb3e478872c"
+  integrity sha512-IOm2NqrBdMtFasmoA87QN+oKthy/1MSyhrvL5hwbB/HFreroErcSoTHNrAdZOluPgalfi0HnbFjpOhwBYjSkLg==
   dependencies:
     "@types/yup" "^0.29.3"
     "@whitewater-guide/validation" "^1.1.5"
@@ -3753,6 +3753,16 @@ apollo-utilities@1.3.3, apollo-utilities@^1.3.0, apollo-utilities@^1.3.3:
   version "1.3.3"
   resolved "https://registry.npmjs.org/apollo-utilities/-/apollo-utilities-1.3.3.tgz#f1854715a7be80cd810bc3ac95df085815c0787c"
   integrity sha512-F14aX2R/fKNYMvhuP2t9GD9fggID7zp5I96MF5QeKYWDWTrkRdHRp4+SVfXUVN+cXOaB/IebfvRtzPf25CM0zw==
+  dependencies:
+    "@wry/equality" "^0.1.2"
+    fast-json-stable-stringify "^2.0.0"
+    ts-invariant "^0.4.0"
+    tslib "^1.10.0"
+
+apollo-utilities@^1.3.4:
+  version "1.3.4"
+  resolved "https://registry.npmjs.org/apollo-utilities/-/apollo-utilities-1.3.4.tgz#6129e438e8be201b6c55b0f13ce49d2c7175c9cf"
+  integrity sha512-pk2hiWrCXMAy2fRPwEyhvka+mqwzeP60Jr1tRYi5xru+3ko94HI9o6lK0CT33/w4RDlxWchmdhDCrvdr+pHCig==
   dependencies:
     "@wry/equality" "^0.1.2"
     fast-json-stable-stringify "^2.0.0"
@@ -7330,6 +7340,11 @@ fast-deep-equal@^3.1.1:
   resolved "https://registry.npmjs.org/fast-deep-equal/-/fast-deep-equal-3.1.1.tgz#545145077c501491e33b15ec408c294376e94ae4"
   integrity sha512-8UEa58QDLauDNfpbrX55Q9jrGHThw2ZMdOky5Gl1CDtVeJDPVrG4Jxx1N8jw2gkWaff5UUuX1KJd+9zGe2B+ZA==
 
+fast-deep-equal@^3.1.3:
+  version "3.1.3"
+  resolved "https://registry.npmjs.org/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz#3a7d56b559d6cbc3eb512325244e619a65c6c525"
+  integrity sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==
+
 fast-glob@^2.0.2:
   version "2.2.7"
   resolved "https://registry.npmjs.org/fast-glob/-/fast-glob-2.2.7.tgz#6953857c3afa475fff92ee6015d52da70a4cd39d"
@@ -8240,10 +8255,10 @@ graphql-tools@^5.0.0:
     tslib "^1.11.1"
     uuid "^7.0.3"
 
-graphql-type-json@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.npmjs.org/graphql-type-json/-/graphql-type-json-0.3.1.tgz#47fca2b1fa7adc0758d165b33580d7be7a6cf548"
-  integrity sha512-1lPkUXQ2L8o+ERLzVAuc3rzc/E6pGF+6HnjihCVTK0VzR0jCuUd92FqNxoHdfILXqOn2L6b4y47TBxiPyieUVA==
+graphql-type-json@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.npmjs.org/graphql-type-json/-/graphql-type-json-0.3.2.tgz#f53a851dbfe07bd1c8157d24150064baab41e115"
+  integrity sha512-J+vjof74oMlCWXSvt0DOf2APEdZOCdubEvGDUAlqH//VBYcOYsGgRW7Xzorr44LvkjiuvecWc8fChxuZZbChtg==
 
 graphql@*, graphql@^14.0.0, graphql@^15.0.0:
   version "15.0.0"
@@ -12779,10 +12794,15 @@ qs@6.7.0:
   resolved "https://registry.npmjs.org/qs/-/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
   integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
 
-qs@6.9.3, qs@^6.4.0, qs@^6.6.0, qs@^6.7.0, qs@^6.9.1, qs@^6.9.3:
+qs@6.9.3, qs@^6.4.0, qs@^6.6.0, qs@^6.7.0, qs@^6.9.1:
   version "6.9.3"
   resolved "https://registry.npmjs.org/qs/-/qs-6.9.3.tgz#bfadcd296c2d549f1dffa560619132c977f5008e"
   integrity sha512-EbZYNarm6138UKKq46tdx08Yo/q9ZhFoAXAI1meAFd2GtbRDhbZY2WQSICskT0c5q99aFzLG1D4nvTk9tqfXIw==
+
+qs@^6.9.4:
+  version "6.9.4"
+  resolved "https://registry.npmjs.org/qs/-/qs-6.9.4.tgz#9090b290d1f91728d3c22e54843ca44aea5ab687"
+  integrity sha512-A1kFqHekCTM7cz0udomYUoYNWjBebHm/5wzU/XqrBRBNWectVH0QIiN+NEcZ0Dte5hvzHwbr8+XQmguPhJ6WdQ==
 
 qs@~6.5.2:
   version "6.5.2"
@@ -13469,7 +13489,32 @@ react-timer-mixin@^0.13.3:
   resolved "https://registry.npmjs.org/react-timer-mixin/-/react-timer-mixin-0.13.4.tgz#75a00c3c94c13abe29b43d63b4c65a88fc8264d3"
   integrity sha512-4+ow23tp/Tv7hBM5Az5/Be/eKKF7DIvJ09voz5LyHGQaqqz9WV8YMs31eFvcYQs7d451LSg7kDJV70XYN/Ug/Q==
 
-react-use@14.2.0, react-use@^14.2.0:
+react-universal-interface@^0.6.2:
+  version "0.6.2"
+  resolved "https://registry.npmjs.org/react-universal-interface/-/react-universal-interface-0.6.2.tgz#5e8d438a01729a4dbbcbeeceb0b86be146fe2b3b"
+  integrity sha512-dg8yXdcQmvgR13RIlZbTRQOoUrDciFVoSBZILwjE2LFISxZZ8loVJKAkuzswl5js8BHda79bIb2b84ehU8IjXw==
+
+react-use@15.3.0:
+  version "15.3.0"
+  resolved "https://registry.npmjs.org/react-use/-/react-use-15.3.0.tgz#42946aa6e7bf571104173439cc7b7e26a4ca4c51"
+  integrity sha512-4fFSn2eVbmRPlxHFeBy8uiCyrwMzavMs4hvzeDUFszijda9ZM6S0ElleqKHS+SmwpMFEFIk7dIzzJQZzJYcAXw==
+  dependencies:
+    "@types/js-cookie" "2.2.6"
+    "@xobotyi/scrollbar-width" "1.9.5"
+    copy-to-clipboard "^3.2.0"
+    fast-deep-equal "^3.1.3"
+    fast-shallow-equal "^1.0.0"
+    js-cookie "^2.2.1"
+    nano-css "^5.2.1"
+    react-universal-interface "^0.6.2"
+    resize-observer-polyfill "^1.5.1"
+    screenfull "^5.0.0"
+    set-harmonic-interval "^1.0.1"
+    throttle-debounce "^2.1.0"
+    ts-easing "^0.2.0"
+    tslib "^2.0.0"
+
+react-use@^14.2.0:
   version "14.2.0"
   resolved "https://registry.npmjs.org/react-use/-/react-use-14.2.0.tgz#abac033fae5e358599b7e38084ff11b02e5d4868"
   integrity sha512-vwC7jsBsiDENLrXGPqIH3W4mMS2j24h5jp4ol3jiiUQzZhCaG+ihumrShJxBI59hXso1pLHAePRQAg/fJjDcaQ==
