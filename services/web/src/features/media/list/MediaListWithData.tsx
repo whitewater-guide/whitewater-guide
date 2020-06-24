@@ -1,7 +1,6 @@
 import { useRegion } from '@whitewater-guide/clients';
 import { MediaKind } from '@whitewater-guide/commons';
 import React, { Suspense, useCallback } from 'react';
-import ErrorBoundary from 'react-error-boundary';
 import useRouter from 'use-react-router';
 import { Loading } from '../../../components';
 import { LocalPhoto } from '../../../utils/files';
@@ -45,17 +44,15 @@ export const MediaListWithData: React.FC = React.memo(() => {
     return <Loading />;
   }
   return (
-    <ErrorBoundary>
-      <Suspense fallback={<Loading />}>
-        <LazyMediaList
-          media={media}
-          editable={!!region && region.editable}
-          onRemove={removeMedia}
-          onEdit={onEdit}
-          onAdd={onAdd}
-        />
-      </Suspense>
-    </ErrorBoundary>
+    <Suspense fallback={<Loading />}>
+      <LazyMediaList
+        media={media}
+        editable={!!region && region.editable}
+        onRemove={removeMedia}
+        onEdit={onEdit}
+        onAdd={onAdd}
+      />
+    </Suspense>
   );
 });
 
