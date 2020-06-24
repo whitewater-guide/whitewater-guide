@@ -1,4 +1,4 @@
-type User {
+type User @key(fields: "id") {
   # Unique id
   id: ID!
   # Username

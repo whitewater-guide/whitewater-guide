@@ -44,4 +44,7 @@ export const sectionFieldResolvers: FieldResolvers<SectionRaw, Section> = {
   gauge,
   helpNeeded: (s) => s.help_needed,
   ...timestampResolvers,
+  __resolveReference: (s, { dataSources }) => {
+    return dataSources.sections.getById(s.id);
+  },
 };

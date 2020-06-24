@@ -10,22 +10,22 @@ import { FieldsByTypePlugin } from '../plugins';
 import { getPlaygroundConfig } from './playground';
 import { graphqlRouter } from './router';
 import { getSchema } from './schema';
+import { createGateway } from './gateway';
 
 export const createApolloServer = async (app: Koa) => {
-  const pJson = await readJSON(resolve(process.cwd(), 'package.json'));
-  const schema = await getSchema();
+  const gateway = await createGateway();
+  const { schema } = await gateway.load();
   const playground = await getPlaygroundConfig(schema);
   const server = new ApolloServer({
-    schema,
+    gateway,
     context: newContext,
     dataSources: createConnectors,
     formatError,
     debug: process.env.NODE_ENV === 'development',
     introspection: process.env.APOLLO_EXPOSE_SCHEMA === 'true',
     playground,
-    // @ts-ignore
-    schemaTag: pJson.version,
     plugins: [new FieldsByTypePlugin(schema)],
+    subscriptions: false,
   });
 
   server.applyMiddleware({

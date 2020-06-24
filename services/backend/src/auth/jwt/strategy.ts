@@ -4,13 +4,15 @@ import { ACCESS_TOKEN_COOKIE } from '../constants';
 import cookieJWTExtractor from './cookie-jwt-extractor';
 import logger from './logger';
 
+export const jwtFromRequest = ExtractJwt.fromExtractors([
+  ExtractJwt.fromAuthHeaderAsBearerToken(),
+  cookieJWTExtractor(ACCESS_TOKEN_COOKIE),
+]);
+
 export const jwtStrategy = new Strategy(
   {
     secretOrKey: process.env.ACCESS_TOKEN_SECRET,
-    jwtFromRequest: ExtractJwt.fromExtractors([
-      ExtractJwt.fromAuthHeaderAsBearerToken(),
-      cookieJWTExtractor(ACCESS_TOKEN_COOKIE),
-    ]),
+    jwtFromRequest,
   },
   (token: AccessTokenPayload, done) => {
     if ((token as any).refresh) {

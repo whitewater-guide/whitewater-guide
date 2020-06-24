@@ -71,6 +71,18 @@
       "localRoot": "${workspaceFolder}/services/backend",
       "remoteRoot": "/opt/app",
       "trace": "verbose"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Backend Jest Current File",
+      "cwd": "${workspaceFolder}/services/backend/",
+      "envFile": "${workspaceFolder}/services/backend/.env.test",
+      "program": "${workspaceFolder}/services/backend/node_modules/.bin/jest",
+      "args": ["${fileBasenameNoExtension}", "--config", "jest.config.js"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": true
     }
   ]
 }

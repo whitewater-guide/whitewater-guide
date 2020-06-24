@@ -79,6 +79,7 @@ services:
   gorge:
     <<: *ww-single-host
     image: docker.pkg.github.com/whitewater-guide/gorge/gorge:1.15.0
+    restart: always
     command: ['--pg-db', 'gorge', '--db-chunk-size', '1000']
     env_file:
       - ${DOCKER_ENV_FILE}
@@ -87,6 +88,16 @@ services:
     depends_on:
       - db
       - redis
+
+  logbook:
+    <<: *ww-single-host
+    image: docker.pkg.github.com/whitewater-guide/logbook/server:1.0.9
+    restart: always
+    read_only: true
+    depends_on:
+      - db
+    env_file:
+      - ../services/logbook/${DOCKER_ENV_FILE}
 
   # Caddy reverse proxy
   caddy:

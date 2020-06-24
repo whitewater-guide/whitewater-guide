@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`user should put and anon should get logbook entry: anon reads 1`] = `
+Object {
+  "data": Object {
+    "logbookDescents": Object {
+      "edges": Array [
+        Object {
+          "cursor": "djE6MTo5NDkzNTI0MDAwMDA=",
+          "node": Object {
+            "comment": "comment",
+            "duration": 3600,
+            "level": Object {
+              "unit": "cfs",
+              "value": 20,
+            },
+            "public": true,
+            "section": Object {
+              "difficulty": 2,
+              "putIn": null,
+              "region": "Georgia",
+              "river": "Bzhuzha",
+              "section": "Lower",
+              "takeOut": null,
+              "upstreamData": null,
+              "upstreamId": "f73b533c-5db4-11e8-9c2d-fa7ae01bbebc",
+              "upstreamSection": Object {
+                "difficulty": 2.5,
+                "id": "f73b533c-5db4-11e8-9c2d-fa7ae01bbebc",
+                "name": "Qualification",
+                "river": Object {
+                  "id": "b80554ba-5db4-11e8-9c2d-fa7ae01bbebc",
+                  "name": "Bzhuzha",
+                },
+              },
+            },
+            "startedAt": "2000-01-31T21:00:00.000Z",
+            "upstreamData": Object {
+              "foo": "bar",
+            },
+            "userId": "e8224a5e-5d00-11e8-9c2d-fa7ae01bbebc",
+          },
+        },
+      ],
+      "pageInfo": Object {
+        "endCursor": "djE6MTo5NDkzNTI0MDAwMDA=",
+        "hasMore": false,
+      },
+    },
+  },
+}
+`;
+
+exports[`user should put and anon should get logbook entry: user creates 1`] = `
+Object {
+  "data": Object {
+    "upsertLogbookDescent": Object {
+      "comment": "comment",
+      "duration": 3600,
+      "level": Object {
+        "unit": "cfs",
+        "value": 20,
+      },
+      "public": true,
+      "section": Object {
+        "difficulty": 2,
+        "putIn": null,
+        "region": "Georgia",
+        "river": "Bzhuzha",
+        "section": "Lower",
+        "takeOut": null,
+        "upstreamData": null,
+        "upstreamId": "f73b533c-5db4-11e8-9c2d-fa7ae01bbebc",
+        "upstreamSection": Object {
+          "difficulty": 2.5,
+          "id": "f73b533c-5db4-11e8-9c2d-fa7ae01bbebc",
+          "name": "Qualification",
+          "river": Object {
+            "id": "b80554ba-5db4-11e8-9c2d-fa7ae01bbebc",
+            "name": "Bzhuzha",
+          },
+        },
+      },
+      "startedAt": "2000-01-31T21:00:00.000Z",
+      "upstreamData": Object {
+        "foo": "bar",
+      },
+      "userId": "e8224a5e-5d00-11e8-9c2d-fa7ae01bbebc",
+    },
+  },
+}
+`;

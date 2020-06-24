@@ -1,10 +1,17 @@
 import { Page } from '@whitewater-guide/commons';
-import { GraphQLFieldResolver } from 'graphql';
+import { GraphQLFieldResolver, GraphQLResolveInfo } from 'graphql';
 import { Context } from './context';
 
 export type FieldResolvers<TRaw, TOut> = {
   [P in keyof TOut]?: GraphQLFieldResolver<TRaw, Context>;
-} & { __resolveType?: GraphQLFieldResolver<TRaw, Context> };
+} & {
+  __resolveType?: GraphQLFieldResolver<TRaw, Context>;
+  __resolveReference?: (
+    data: Partial<TRaw>,
+    ctx: Context,
+    info: GraphQLResolveInfo,
+  ) => any;
+};
 
 export interface ListQuery {
   page?: Page;

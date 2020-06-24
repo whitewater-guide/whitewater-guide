@@ -22,7 +22,7 @@ input GaugeBindingInput {
   formula: String
 }
 
-type Section {
+type Section @key(fields: "id") {
   # Unique section ID
   id: ID!
   # Human-friendly section name (without river name, e.g. just 'Upper')
