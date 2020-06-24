@@ -1,4 +1,5 @@
-import { AuthBody, Overwrite, User } from '@whitewater-guide/commons';
+import { AuthBody, User } from '@whitewater-guide/commons';
+import { Overwrite } from 'utility-types';
 
 export interface TokenStorage {
   setAccessToken: (value: string | null) => Promise<void>;

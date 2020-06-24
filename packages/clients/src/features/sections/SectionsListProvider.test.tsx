@@ -1,10 +1,10 @@
 import { render, RenderResult } from '@testing-library/react';
 import {
   DefaultSectionFilterOptions,
-  Overwrite,
   Section,
   SectionFilterOptions,
 } from '@whitewater-guide/commons';
+import { Overwrite } from 'utility-types';
 import ApolloClient from 'apollo-client';
 import gql from 'graphql-tag';
 import { MockList } from 'graphql-tools';
