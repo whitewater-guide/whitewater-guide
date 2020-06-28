@@ -58,7 +58,7 @@ services:
 
   logbook:
     container_name: logbook
-    image: docker.pkg.github.com/whitewater-guide/logbook/server:1.1.1
+    image: docker.pkg.github.com/whitewater-guide/logbook/server:1.1.2
     restart: always
     depends_on:
       - db
