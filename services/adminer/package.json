@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/adminer",
   "private": true,
-  "version": "0.0.41-logbook-web.0",
+  "version": "0.0.42",
   "license": "UNLICENSED",
   "description": "adminer for whitewater.guide stack",
   "main": "index.js",

@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/caddy",
   "private": true,
-  "version": "0.0.152-logbook-web.0",
+  "version": "0.0.153",
   "license": "UNLICENSED",
   "description": "caddy for whitewater.guide",
   "repository": "https://github.com/doomsower/whitewater.git",
