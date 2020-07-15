@@ -4,7 +4,7 @@ import React from 'react';
 import { VictoryLabel } from 'victory-native';
 
 export const TimeLabel: React.FC<TimeLabelProps> = React.memo(
-  ({ days, ...props }) => {
+  ({ days, highlightedDate, ...props }) => {
     if (props.datum && days >= 30 && !isSunday(props.datum as any)) {
       return null;
     }
