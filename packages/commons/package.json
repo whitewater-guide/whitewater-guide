@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/commons",
   "private": false,
-  "version": "0.0.201-logbook-web.2",
+  "version": "0.0.201",
   "license": "UNLICENSED",
   "description": "shared code for whitewater.guide backend and frontend",
   "main": "dist/index.js",

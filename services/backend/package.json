@@ -26,7 +26,7 @@
     "@sentry/node": "^5.19.0",
     "@turf/boolean-point-in-polygon": "^6.0.1",
     "@turf/helpers": "^6.1.4",
-    "@whitewater-guide/commons": "0.0.201-logbook-web.2",
+    "@whitewater-guide/commons": "0.0.201",
     "@whitewater-guide/gorge": "^1.16.1",
     "@whitewater-guide/validation": "^1.1.5",
     "apollo-datasource": "^0.7.2",
