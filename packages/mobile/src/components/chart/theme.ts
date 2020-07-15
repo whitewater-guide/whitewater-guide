@@ -57,7 +57,7 @@ const strokeDasharray = '10, 5';
 const strokeLinecap = 'round';
 const strokeLinejoin = 'round';
 
-const VictoryTheme: any = {
+export const VictoryTheme: any = {
   area: assign(
     {
       style: {
@@ -269,5 +269,3 @@ const VictoryTheme: any = {
     baseProps,
   ),
 };
-
-export default VictoryTheme;

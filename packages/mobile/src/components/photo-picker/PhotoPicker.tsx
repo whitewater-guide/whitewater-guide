@@ -3,11 +3,12 @@ import { StyleProp, ViewStyle } from 'react-native';
 import LocalPhotoView from '~/components/photo-picker/LocalPhotoView';
 import { LocalPhoto } from '../../features/uploads';
 import Placeholder from './Placeholder';
+import { ImageStyle } from 'react-native-fast-image';
 
 export interface PhotoPickerProps {
   value: LocalPhoto | null;
   onChange: (value: LocalPhoto) => void;
-  style?: StyleProp<ViewStyle>;
+  style?: StyleProp<ImageStyle | ViewStyle>;
   label?: string;
   localPhotoId: string;
   testID?: string;
@@ -19,7 +20,7 @@ export const PhotoPicker: React.FC<PhotoPickerProps> = React.memo((props) => {
     <LocalPhotoView
       value={value}
       onChange={onChange}
-      style={style}
+      style={style as ImageStyle}
       localPhotoId={localPhotoId}
       testID={testID}
     />

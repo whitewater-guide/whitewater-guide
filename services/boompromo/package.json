@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/boompromo",
   "private": true,
-  "version": "0.0.212",
+  "version": "0.0.213-logbook-web.1",
   "license": "UNLICENSED",
   "homepage": "/promo/",
   "scripts": {
@@ -18,8 +18,8 @@
     "@craco/craco": "^5.6.4",
     "@material-ui/core": "4.10.2",
     "@material-ui/styles": "^4.10.0",
-    "@whitewater-guide/clients": "0.0.316",
-    "@whitewater-guide/commons": "0.0.200",
+    "@whitewater-guide/clients": "0.0.317-logbook-web.12",
+    "@whitewater-guide/commons": "0.0.201-logbook-web.2",
     "@whitewater-guide/translations": "^2.2.0",
     "apollo-cache": "^1.3.5",
     "apollo-cache-inmemory": "^1.6.6",

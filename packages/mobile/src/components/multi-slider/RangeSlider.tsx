@@ -220,17 +220,17 @@ export class RangeSlider extends React.PureComponent<RangeSliderProps> {
         Animated.timing(this._selectedTrackLeftPx, {
           toValue: left,
           duration: 0,
-          useNativeDriver: true,
+          useNativeDriver: false,
         }),
         Animated.timing(this._selectedTrackWidthPx, {
           toValue: width,
           duration: 0,
-          useNativeDriver: true,
+          useNativeDriver: false,
         }),
         Animated.timing(this._inverted, {
           toValue: inverted,
           duration: 0,
-          useNativeDriver: true,
+          useNativeDriver: false,
         }),
       ]).start();
     }

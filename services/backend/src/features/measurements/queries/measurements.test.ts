@@ -10,8 +10,8 @@ beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
 const query = `
-  query measurements($gaugeId: ID, $sectionId: ID, $days: Int!){
-    measurements(gaugeId: $gaugeId, sectionId: $sectionId, days: $days) {
+  query measurements($gaugeId: ID, $sectionId: ID, $days: Int, $filter: MeasurementsFilter){
+    measurements(gaugeId: $gaugeId, sectionId: $sectionId, days: $days, filter: $filter) {
       timestamp
       level
       flow
@@ -39,6 +39,18 @@ it('should should limit by number of days', async () => {
   expect(r.data!.measurements).toHaveLength(4);
   r = await runQuery(query, { gaugeId: GAUGE_GAL_1_1, days: 2 });
   expect(r.data!.measurements).toHaveLength(5);
+});
+
+it('should should limit by range', async () => {
+  const r = await runQuery(query, {
+    gaugeId: GAUGE_GAL_1_1,
+    filter: {
+      from: new Date(Date.now() - 2.5 * 60 * 60 * 1000).toISOString(),
+      to: new Date(Date.now() - 1.5 * 60 * 60 * 1000).toISOString(),
+    },
+  });
+  expect(r.errors).toBeUndefined();
+  expect(r.data!.measurements).toHaveLength(1);
 });
 
 it('should query by section', async () => {
@@ -79,4 +91,19 @@ it('should handle deprecated query', async () => {
     flow: null,
     level: 1.2,
   });
+});
+
+it('should handle query with deprecated non-nullable days and without filter', async () => {
+  const q = `
+    query measurements($gaugeId: ID, $sectionId: ID, $days: Int!){
+      measurements(gaugeId: $gaugeId, sectionId: $sectionId, days: $days) {
+        timestamp
+        level
+        flow
+      }
+    }
+  `;
+  const r = await runQuery(q, { gaugeId: GAUGE_GAL_1_1, days: 1 });
+  expect(r.errors).toBeUndefined();
+  expect(r.data!.measurements).toHaveLength(4);
 });

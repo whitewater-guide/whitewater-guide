@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/landing",
   "private": true,
-  "version": "0.0.63",
+  "version": "0.0.64-logbook-web.0",
   "license": "UNLICENSED",
   "description": "Static landing pages for whitewater.guide",
   "scripts": {

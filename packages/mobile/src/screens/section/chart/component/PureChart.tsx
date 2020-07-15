@@ -6,10 +6,9 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import Loading from '../Loading';
-import ChartView from './ChartView';
-import { NoChart } from './NoChart';
-import VictoryTheme from './theme';
+import { NoChart, VictoryTheme } from '~/components/chart';
+import Loading from '~/components/Loading';
+import ChartComponent from './ChartComponent';
 
 const styles = StyleSheet.create({
   container: {
@@ -26,7 +25,7 @@ interface Props extends ChartViewProps {
 }
 
 const PureChart: React.FC<Props> = React.memo((props) => {
-  const { section, gauge, loading, data, days, unit } = props;
+  const { section, gauge, loading, data, filter, unit } = props;
   const [layout, setLayout] = useState<LayoutRectangle | null>(null);
   const onLayout = useCallback(
     (event: LayoutChangeEvent) => {
@@ -43,10 +42,10 @@ const PureChart: React.FC<Props> = React.memo((props) => {
   return (
     <View style={styles.container} onLayout={onLayout}>
       {!!layout && layout.width !== 0 && layout.height !== 0 && (
-        <ChartView
+        <ChartComponent
           unit={unit}
           gauge={gauge}
-          days={days}
+          filter={filter}
           data={data}
           section={section}
           width={layout.width}

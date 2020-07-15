@@ -1,3 +1,13 @@
+## [0.1.426-logbook-web.1](https://github.com/doomsower/whitewater/compare/14346c26c7ef736745eb947c3bfdc4ccd9545f71...ed9229df9cafb7663cc44a8ffb45e2ea66df94a7) (2020-07-07)
+
+## [0.1.426-logbook-web.0](https://github.com/doomsower/whitewater/compare/7311e3d6696b2fa28685ed0135e3a1cd255a474c...14346c26c7ef736745eb947c3bfdc4ccd9545f71) (2020-07-05)
+
+### Features
+
+- descents list wip ([](https://github.com/doomsower/whitewater/commit/4d442baec2b6cef88d1c919f0f4d6b3b99580582))
+- form and list wip ([](https://github.com/doomsower/whitewater/commit/3a42ea908d7bee4565858c528ab14788e7f30e18))
+- logbook routes ([](https://github.com/doomsower/whitewater/commit/f5ed60874b7dbf864016151c8494ba646d041db5))
+
 ## [0.1.425](https://github.com/doomsower/whitewater/compare/5f574b3da32c4a9f6502fa729254834418220ae8...7311e3d6696b2fa28685ed0135e3a1cd255a474c) (2020-06-28)
 
 ## [0.1.425](https://github.com/doomsower/whitewater/compare/4b977f58b50b2716f7929b1124c39da48710cb76...5f574b3da32c4a9f6502fa729254834418220ae8) (2020-06-28)

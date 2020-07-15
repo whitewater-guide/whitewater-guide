@@ -5,6 +5,7 @@ export interface PathsOpts {
   riverId?: string;
   sectionId?: string;
   bannerId?: string;
+  descentId?: string;
   prefix?: string;
   suffix?: string;
 }
@@ -17,6 +18,7 @@ const to = (opts: PathsOpts) => {
     riverId,
     sectionId,
     bannerId,
+    descentId,
     prefix = '',
     suffix = '',
   } = opts;
@@ -38,6 +40,9 @@ const to = (opts: PathsOpts) => {
   }
   if (bannerId) {
     return `${prefix}/banners/${bannerId}${suffix}`;
+  }
+  if (descentId) {
+    return `${prefix}/logbook/${descentId}${suffix}`;
   }
   return '/404';
 };

@@ -5,7 +5,7 @@ import React from 'react';
 import { Platform, StyleProp, StyleSheet, Text } from 'react-native';
 import SimpleMarkdown, {
   getUniqueID,
-  PluginContainer,
+  MarkdownIt,
   RenderRules,
 } from 'react-native-markdown-display';
 import theme from '../theme';
@@ -49,7 +49,7 @@ const defaultStyles: StyleSheet.NamedStyles<any> = StyleSheet.create({
   },
 });
 
-const plugins = [new PluginContainer(Attributes)];
+const markdownItInstance = MarkdownIt({ typographer: true }).use(Attributes);
 
 const rules: RenderRules = {
   strong: (node, children) => {
@@ -77,7 +77,11 @@ const Markdown: React.FC<Props> = ({ children, styles }) => {
     ? deepmerge(StyleSheet.flatten(defaultStyles), styles)
     : defaultStyles;
   return (
-    <SimpleMarkdown rules={rules} style={actualStyles} plugins={plugins}>
+    <SimpleMarkdown
+      rules={rules}
+      style={actualStyles}
+      markdownit={markdownItInstance}
+    >
       {children}
     </SimpleMarkdown>
   );

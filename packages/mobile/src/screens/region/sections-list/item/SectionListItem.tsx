@@ -13,7 +13,7 @@ import Reanimated from 'react-native-reanimated';
 import { Section } from '@whitewater-guide/commons';
 import SectionListBody from './SectionListBody';
 import { sectionHasChanged } from '@whitewater-guide/clients';
-import theme from '../../../../theme';
+import theme from '~/theme';
 
 const styles = StyleSheet.create({
   container: {

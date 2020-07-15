@@ -1,11 +1,13 @@
 import { TopLevelResolver, UnknownError } from '~/apollo';
 import db from '~/db';
 import { UserInputError } from 'apollo-server';
+import { MeasurementsFilter } from '@whitewater-guide/commons';
 
 interface Vars {
   gaugeId?: string;
   sectionId?: string;
-  days: number;
+  days?: number | null;
+  filter?: MeasurementsFilter<Date> | null;
 }
 
 const gaugeQuery = (gaugeId: string) =>
@@ -34,15 +36,25 @@ export const query = (gaugeId?: string, sectionId?: string) => {
 
 const measurementsResolver: TopLevelResolver<Vars> = async (
   _,
-  { gaugeId, sectionId, days },
+  { gaugeId, sectionId, days, filter },
   { dataSources },
 ) => {
+  if (!days && !filter) {
+    const from = new Date();
+    from.setTime(from.getTime() - 7 * 24 * 60 * 60 * 1000);
+    filter = { from };
+  }
+  if (days && !filter) {
+    const from = new Date();
+    from.setTime(from.getTime() - days * 24 * 60 * 60 * 1000);
+    filter = { from };
+  }
   const gauge = await query(gaugeId, sectionId);
   if (!gauge) {
     throw new UnknownError('gauge not found');
   }
   const { script, code } = gauge;
-  const result = await dataSources.gorge.getMeasurements(script, code, days);
+  const result = await dataSources.gorge.getMeasurements(script, code, filter);
   return result;
 };
 

@@ -9,24 +9,22 @@ import {
   SOURCE_GALICIA_2,
   SOURCE_NORWAY,
 } from '../../../seeds/test/05_sources';
-import {
-  GorgeGauge,
-  GorgeJob,
-  GorgeMeasurement,
-  GorgeScript,
-  GorgeStatus,
-} from '../types';
+import * as gorge from '@whitewater-guide/gorge';
+import { MeasurementsFilter } from '@whitewater-guide/commons';
 
 const hoursAgo = (hours: number) =>
   new Date(Date.now() - hours * 60 * 60 * 1000).toISOString();
-const daysAgo = (days: number) => hoursAgo(24 * days);
+const almostDaysAgo = (days: number) => hoursAgo(24 * days - 1);
 
 const { GorgeConnector: Original } = jest.requireActual('../connector.ts');
 
 export const mockUpdateJobForSource = jest.fn();
 
 export class GorgeConnector extends Original implements DataSource<Context> {
-  private _jobs: Map<string, GorgeJob> = new Map<string, GorgeJob>([
+  private _jobs: Map<string, gorge.JobDescription> = new Map<
+    string,
+    gorge.JobDescription
+  >([
     [
       SOURCE_GALICIA_1,
       {
@@ -34,6 +32,7 @@ export class GorgeConnector extends Original implements DataSource<Context> {
         script: 'galicia',
         gauges: {},
         cron: '',
+        options: {},
       },
     ],
     [
@@ -43,6 +42,7 @@ export class GorgeConnector extends Original implements DataSource<Context> {
         script: 'galicia2',
         gauges: {},
         cron: '',
+        options: {},
       },
     ],
     [
@@ -52,6 +52,7 @@ export class GorgeConnector extends Original implements DataSource<Context> {
         script: 'alps',
         gauges: {},
         cron: '10 * * * *',
+        options: {},
       },
     ],
     [
@@ -61,10 +62,11 @@ export class GorgeConnector extends Original implements DataSource<Context> {
         script: 'norway',
         gauges: {},
         cron: '',
+        options: {},
       },
     ],
   ]);
-  private _measurements: GorgeMeasurement[] = [
+  private _measurements: gorge.Measurement[] = [
     {
       script: 'galicia',
       code: 'gal1',
@@ -89,14 +91,14 @@ export class GorgeConnector extends Original implements DataSource<Context> {
     {
       script: 'galicia',
       code: 'gal1',
-      timestamp: daysAgo(1),
+      timestamp: almostDaysAgo(1),
       flow: 30.1,
       level: 2.5,
     },
     {
       script: 'galicia',
       code: 'gal1',
-      timestamp: daysAgo(2),
+      timestamp: almostDaysAgo(2),
       flow: 33.1,
       level: 2.9,
     },
@@ -124,19 +126,19 @@ export class GorgeConnector extends Original implements DataSource<Context> {
     {
       script: 'galicia',
       code: 'gal2',
-      timestamp: daysAgo(1),
+      timestamp: almostDaysAgo(1),
       flow: 66.5,
       level: 45.8,
     },
     {
       script: 'galicia',
       code: 'gal2',
-      timestamp: daysAgo(2),
+      timestamp: almostDaysAgo(2),
       flow: 80.1,
       level: 49.3,
     },
   ];
-  private _gauges: GorgeGauge[] = [
+  private _gauges: gorge.Gauge[] = [
     {
       name: 'Russia gauge 1',
       location: { latitude: 11, longitude: 22, altitude: 33 },
@@ -177,27 +179,27 @@ export class GorgeConnector extends Original implements DataSource<Context> {
 
   initialize?(config: DataSourceConfig<Context>): void {}
 
-  public async listScripts(): Promise<GorgeScript[]> {
+  public async listScripts(): Promise<gorge.ScriptDescriptor[]> {
     return Promise.resolve([
-      { name: 'all_at_once', mode: 'allAtOnce' },
-      { name: 'one_by_one', mode: 'oneByOne' },
+      { name: 'all_at_once', mode: 0, description: 'All at once' },
+      { name: 'one_by_one', mode: 1, description: 'One by one' },
     ]);
   }
 
   public async listGauges(
     script: string,
     requestParams: any,
-  ): Promise<GorgeGauge[]> {
+  ): Promise<gorge.Gauge[]> {
     return this._gauges.filter((g) => g.script === script);
   }
 
-  public async listJobs(): Promise<Map<string, GorgeJob>> {
+  public async listJobs(): Promise<Map<string, gorge.JobDescription>> {
     return Promise.resolve(this._jobs);
   }
 
   public async getGaugeStatuses(
     sourceId: string,
-  ): Promise<Map<string, GorgeStatus>> {
+  ): Promise<Map<string, gorge.Status>> {
     return Promise.resolve(new Map());
   }
 
@@ -209,12 +211,15 @@ export class GorgeConnector extends Original implements DataSource<Context> {
     return Promise.resolve();
   }
 
-  public async createJobForSource(sourceId: string): Promise<GorgeJob> {
-    const fake: GorgeJob = {
+  public async createJobForSource(
+    sourceId: string,
+  ): Promise<gorge.JobDescription> {
+    const fake: gorge.JobDescription = {
       id: sourceId,
       script: 'all_at_once',
       gauges: {},
       cron: '',
+      options: {},
     };
     this._jobs.set(sourceId, fake);
     return Promise.resolve(fake);
@@ -237,15 +242,19 @@ export class GorgeConnector extends Original implements DataSource<Context> {
   public async getMeasurements(
     script: string,
     code: string,
-    days: number,
-  ): Promise<GorgeMeasurement[]> {
+    filter: MeasurementsFilter<Date>,
+  ): Promise<gorge.Measurement[]> {
+    const { from, to } = filter;
     return Promise.resolve(
-      this._measurements.filter(
-        (m) =>
+      this._measurements.filter((m) => {
+        const ts = parseISO(m.timestamp);
+        return (
           m.script === script &&
           m.code === code &&
-          differenceInDays(new Date(), parseISO(m.timestamp)) <= days,
-      ),
+          (!from || ts >= from) &&
+          (!to || ts <= to)
+        );
+      }),
     );
   }
 }

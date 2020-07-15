@@ -1,1 +1,47 @@
-{}
+{
+  "en": {
+    "screens": {
+      "descent": {
+        "headerTitle": "Descent info",
+        "notFound": "Descent not found",
+        "info": {
+          "startedAt": "Started at",
+          "level": "Level",
+          "commentHeader": "My comments"
+        }
+      },
+      "descentForm": {
+        "comment": {
+          "commentLabel": "Comment",
+          "commentPlaceholder": "Your comment",
+          "headerTitle": "Add comment",
+          "publicLabel": "Other users can see this"
+        },
+        "createButton": "Create descent",
+        "createSuccessMessage": "Descent created",
+        "date": {
+          "headerTitle": "Select date",
+          "startedAt": "Started at"
+        },
+        "level": {
+          "headerTitle": "Select level",
+          "unitLabel": "Unit",
+          "valueLabel": "Value"
+        },
+        "section": {
+          "addListItem": "Add new section",
+          "headerTitle": "Select section",
+          "listSectionNewItem": "New section",
+          "listSectionRecent": "Recently descended",
+          "listSectionSearchDb": "Search result",
+          "listSectionSearchLogbook": "My logbook sections"
+        },
+        "updateButton": "Update descent",
+        "updateSuccessMessage": "Descent updated"
+      },
+      "logbook": {
+        "headerTitle": "My Logbook"
+      }
+    }
+  }
+}

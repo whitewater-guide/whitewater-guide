@@ -1,45 +1,51 @@
-import { Unit } from '@whitewater-guide/commons';
-import React, { useMemo, useState } from 'react';
-import { useQuery } from 'react-apollo';
-import { MeasurementsVars, MEASUREMENTS_QUERY } from '../measurements';
-import { PureChartProvider } from './PureChartProvider';
-import { ChartProps } from './types';
+import { MeasurementsFilter, Unit } from '@whitewater-guide/commons';
+import React, { useMemo, useState, useContext } from 'react';
+import { ChartContext, ChartProps, WithMeasurements } from './types';
+import { useChartMeasurements } from './useChartMeasurements';
+import subDays from 'date-fns/subDays';
 
-export const ChartProvider: React.FC<ChartProps> = React.memo((props) => {
-  const { gauge, section, children } = props;
-  const [days, onChangeDays] = useState(1);
+const ChartCtx = React.createContext<ChartContext & WithMeasurements>(
+  {} as any,
+);
+
+interface Props extends ChartProps {
+  initialFilter?: MeasurementsFilter<Date>;
+}
+
+export const ChartProvider: React.FC<Props> = React.memo((props) => {
+  const { gauge, section, initialFilter, children } = props;
+  const [filter, onChangeFilter] = useState<MeasurementsFilter<Date>>(
+    initialFilter || {
+      from: subDays(new Date(), 1),
+    },
+  );
   const [unit, onChangeUnit] = useState(
     gauge.flowUnit ? Unit.FLOW : Unit.LEVEL,
   );
   const unitChangeable = useMemo(() => !!gauge.flowUnit && !!gauge.levelUnit, [
     gauge,
   ]);
-  const variables = useMemo(() => {
-    const vars: MeasurementsVars = { days, gaugeId: gauge.id };
-    if (section) {
-      vars.sectionId = section.id;
-    }
-    return vars;
-  }, [days, gauge, section]);
-  const query = useQuery(MEASUREMENTS_QUERY, {
-    variables,
-    fetchPolicy: 'cache-and-network',
-  });
+
+  const measurements = useChartMeasurements(filter, gauge, section);
 
   return (
-    <PureChartProvider
-      days={days}
-      onChangeDays={onChangeDays}
-      unit={unit}
-      unitChangeable={unitChangeable}
-      onChangeUnit={onChangeUnit}
-      gauge={gauge}
-      section={section}
-      queryProps={query}
+    <ChartCtx.Provider
+      value={{
+        measurements,
+        filter,
+        onChangeFilter,
+        unit,
+        unitChangeable,
+        onChangeUnit,
+        gauge,
+        section,
+      }}
     >
       {children}
-    </PureChartProvider>
+    </ChartCtx.Provider>
   );
 });
 
 ChartProvider.displayName = 'ChartProvider';
+
+export const useChart = () => useContext(ChartCtx);

@@ -1,10 +1,10 @@
+import { MeasurementsFilter } from '@whitewater-guide/commons';
 import * as gorge from '@whitewater-guide/gorge';
-
-import Axios, { AxiosResponse } from 'axios';
-
-import { Context } from '~/apollo';
-import DataLoader from 'dataloader';
 import { DataSource } from 'apollo-datasource';
+import Axios, { AxiosResponse } from 'axios';
+import DataLoader from 'dataloader';
+import { stringify } from 'querystring';
+import { Context } from '~/apollo';
 import db from '~/db';
 
 const GORGE_HOST = 'gorge';
@@ -43,7 +43,7 @@ export class GorgeConnector implements DataSource<Context> {
 
   private _handleError(err: any): Error {
     if (err.response) {
-      return new Error(err.response?.data?.error);
+      return new Error(err.response?.data?.status);
     }
     return err;
   }
@@ -201,13 +201,16 @@ export class GorgeConnector implements DataSource<Context> {
   public async getMeasurements(
     script: string,
     code: string,
-    days: number,
+    filter: MeasurementsFilter<Date>,
   ): Promise<gorge.Measurement[]> {
     try {
-      const from = Math.ceil(new Date().getTime() / 1000) - 60 * 60 * 24 * days;
-      const url = `${GORGE_URL}/measurements/${script}/${encodeURIComponent(
-        code,
-      )}?from=${from}`;
+      const from = filter.from
+        ? Math.ceil(filter.from.getTime() / 1000)
+        : undefined;
+      const to = filter.to ? Math.ceil(filter.to.getTime() / 1000) : undefined;
+      const url =
+        `${GORGE_URL}/measurements/${script}/${encodeURIComponent(code)}?` +
+        stringify({ from, to });
       const resp = await Axios.get<gorge.Measurement[]>(url);
       return resp.data;
     } catch (err) {

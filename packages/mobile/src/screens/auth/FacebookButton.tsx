@@ -40,7 +40,7 @@ export const FacebookButton: React.FC<Props> = React.memo(({ label }) => {
   const renderIcon = useCallback(
     ({ size, color }: any) => (
       <MDCommunity
-        name="facebook-box"
+        name="facebook"
         size={1.8 * size}
         color={color}
         style={{ width: 1.8 * size }}

@@ -1,6 +1,7 @@
 export * from './AutocompleteField';
 export * from './CheckboxField';
 export * from './CoordinateArray';
+export * from './DateTimeField';
 export * from './DrawingMapField';
 export * from './ImageUploadField';
 export * from './KmlUploaderField';

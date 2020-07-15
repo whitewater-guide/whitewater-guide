@@ -1,0 +1,13 @@
+diff --git a/node_modules/react-native-keyboard-aware-scroll-view/lib/KeyboardAwareHOC.js b/node_modules/react-native-keyboard-aware-scroll-view/lib/KeyboardAwareHOC.js
+index 4bf0ed0..51a91d7 100644
+--- a/node_modules/react-native-keyboard-aware-scroll-view/lib/KeyboardAwareHOC.js
++++ b/node_modules/react-native-keyboard-aware-scroll-view/lib/KeyboardAwareHOC.js
+@@ -546,7 +546,7 @@ function KeyboardAwareHOC(
+ // listenToKeyboardEvents(ScrollView);
+ // listenToKeyboardEvents(options)(Comp);
+ const listenToKeyboardEvents = (configOrComp: any) => {
+-  if (typeof configOrComp === 'object') {
++  if (typeof configOrComp === 'object' && !configOrComp.displayName) {
+     return (Comp: Function) => KeyboardAwareHOC(Comp, configOrComp)
+   } else {
+     return KeyboardAwareHOC(configOrComp)

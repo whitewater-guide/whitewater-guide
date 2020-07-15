@@ -1,4 +1,10 @@
-import { Gauge, Measurement, Section, Unit } from '@whitewater-guide/commons';
+import {
+  Gauge,
+  Measurement,
+  Section,
+  Unit,
+  MeasurementsFilter,
+} from '@whitewater-guide/commons';
 
 export interface ChartProps {
   gauge: Gauge;
@@ -6,8 +12,8 @@ export interface ChartProps {
 }
 
 export interface ChartContext extends ChartProps {
-  days: number;
-  onChangeDays: (days: number) => void;
+  filter: MeasurementsFilter<Date>;
+  onChangeFilter: (value: MeasurementsFilter<Date>) => void;
   unit: Unit;
   unitChangeable: boolean;
   onChangeUnit: (unit: Unit) => void;

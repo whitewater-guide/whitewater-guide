@@ -2,12 +2,12 @@ import { useChart } from '@whitewater-guide/clients';
 import React from 'react';
 import PureChart from './PureChart';
 
-export const Chart: React.FC = React.memo(() => {
+export const Chart: React.FC = () => {
   const {
     gauge,
     section,
     measurements: { loading, data },
-    days,
+    filter,
     unit,
   } = useChart();
   return (
@@ -16,10 +16,10 @@ export const Chart: React.FC = React.memo(() => {
       data={data}
       unit={unit}
       gauge={gauge}
-      days={days}
+      filter={filter}
       section={section}
     />
   );
-});
+};
 
 Chart.displayName = 'Chart';

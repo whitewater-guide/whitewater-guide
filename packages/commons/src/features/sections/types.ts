@@ -145,6 +145,7 @@ export interface SectionsFilter {
   riverId?: string;
   regionId?: string;
   updatedAfter?: Date;
+  search?: string;
 }
 
 export interface SectionAdminSettings {

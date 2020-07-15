@@ -5,9 +5,9 @@ import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import ActionSheet from 'react-native-actionsheet';
 import { Paragraph, Subheading } from 'react-native-paper';
-import Icon from '../Icon';
-import { Left, Right, Row } from '../Row';
-import useActionSheet from '../useActionSheet';
+import Icon from '~/components/Icon';
+import { Left, Right, Row } from '~/components/Row';
+import useActionSheet from '~/components/useActionSheet';
 import ChartFlowToggleUnit from './ChartFlowToggleUnit';
 
 export const ChartFlowToggle: React.FC = React.memo(() => {

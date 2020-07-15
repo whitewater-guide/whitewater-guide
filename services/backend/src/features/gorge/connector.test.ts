@@ -3,14 +3,7 @@ import { SOURCE_GALICIA_1 } from '~/seeds/test/05_sources';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { GorgeConnector } from './connector';
-import {
-  GorgeError,
-  GorgeGauge,
-  GorgeJob,
-  GorgeMeasurement,
-  GorgeScript,
-  GorgeStatus,
-} from './types';
+import * as gorge from '@whitewater-guide/gorge';
 
 const mock = new MockAdapter(axios);
 
@@ -20,12 +13,12 @@ beforeEach(async () => {
 });
 afterEach(rollbackTransaction);
 
-const ERROR: GorgeError = { error: 'script failed' };
+const ERROR: gorge.ErrorResponse = { status: 'script failed' };
 
 it('should list scripts', async () => {
-  const scripts: GorgeScript[] = [
-    { name: 'all_at_once', mode: 'allAtOnce' },
-    { name: 'one_by_one', mode: 'oneByOne' },
+  const scripts: gorge.ScriptDescriptor[] = [
+    { name: 'all_at_once', mode: 0, description: 'All at once' },
+    { name: 'one_by_one', mode: 1, description: 'One by one' },
   ];
   mock.onGet(/.*\/scripts/).replyOnce(200, scripts);
   const connector = new GorgeConnector();
@@ -36,11 +29,11 @@ it('should list scripts', async () => {
 it('should handle list scripts error', async () => {
   mock.onGet(/.*\/scripts/).replyOnce(500, ERROR);
   const connector = new GorgeConnector();
-  await expect(connector.listScripts()).rejects.toThrow(ERROR.error);
+  await expect(connector.listScripts()).rejects.toThrow(ERROR.status);
 });
 
 it('should list gauges', async () => {
-  const gauges: GorgeGauge[] = [
+  const gauges: gorge.Gauge[] = [
     {
       code: 'g000',
       name: 'gauge 0',
@@ -75,11 +68,11 @@ it('should handle list gauges error', async () => {
   const connector = new GorgeConnector();
   await expect(
     connector.listGauges('all_at_once', { gauges: 1 }),
-  ).rejects.toThrow(ERROR.error);
+  ).rejects.toThrow(ERROR.status);
 });
 
 it('should list jobs', async () => {
-  const jobs: GorgeJob[] = [
+  const jobs: gorge.JobDescription[] = [
     {
       id: '35964e89-4482-40af-8a15-ad9e7d970212',
       cron: '* * * * *',
@@ -104,11 +97,11 @@ it('should list jobs', async () => {
 it('should handle list jobs error', async () => {
   mock.onGet(/.*\/jobs/).replyOnce(500, ERROR);
   const connector = new GorgeConnector();
-  await expect(connector.listJobs()).rejects.toThrow(ERROR.error);
+  await expect(connector.listJobs()).rejects.toThrow(ERROR.status);
 });
 
 it('should dedupe list jobs calls', async () => {
-  const jobs: GorgeJob[] = [
+  const jobs: gorge.JobDescription[] = [
     {
       id: '35964e89-4482-40af-8a15-ad9e7d970212',
       cron: '* * * * *',
@@ -132,7 +125,7 @@ it('should dedupe list jobs calls', async () => {
 });
 
 it('should get job', async () => {
-  const jobs: GorgeJob[] = [
+  const jobs: gorge.JobDescription[] = [
     {
       id: '35964e89-4482-40af-8a15-ad9e7d970212',
       cron: '* * * * *',
@@ -162,11 +155,11 @@ it('should handle get job error', async () => {
   const connector = new GorgeConnector();
   await expect(
     connector.getJobForSource('35964e89-4482-40af-8a15-ad9e7d970212'),
-  ).rejects.toThrow(ERROR.error);
+  ).rejects.toThrow(ERROR.status);
 });
 
 it('should get gauge statuses', async () => {
-  const gauges: Record<string, GorgeStatus> = {
+  const gauges: Record<string, gorge.Status> = {
     g000: {
       count: 1,
       success: true,
@@ -193,7 +186,7 @@ it('should handle get gauge statuses error', async () => {
   const connector = new GorgeConnector();
   await expect(
     connector.getGaugeStatuses('35964e89-4482-40af-8a15-ad9e7d970212'),
-  ).rejects.toThrow(ERROR.error);
+  ).rejects.toThrow(ERROR.status);
 });
 
 it('should delete job', async () => {
@@ -213,11 +206,11 @@ it('should handle delete job error', async () => {
   const connector = new GorgeConnector();
   await expect(
     connector.deleteJobForSource('35964e89-4482-40af-8a15-ad9e7d970212'),
-  ).rejects.toThrow(ERROR.error);
+  ).rejects.toThrow(ERROR.status);
 });
 
 it('should get measurements', async () => {
-  const measurements: GorgeMeasurement[] = [
+  const measurements: gorge.Measurement[] = [
     {
       script: 'one_by_one',
       code: 'g000',
@@ -231,7 +224,9 @@ it('should get measurements', async () => {
     .replyOnce(200, measurements);
   const connector = new GorgeConnector();
   await expect(
-    connector.getMeasurements('one_by_one', 'g000', 1),
+    connector.getMeasurements('one_by_one', 'g000', {
+      from: new Date(2018, 1, 1),
+    }),
   ).resolves.toEqual(measurements);
 });
 
@@ -241,16 +236,19 @@ it('should handle get measurements error', async () => {
     .replyOnce(500, ERROR);
   const connector = new GorgeConnector();
   await expect(
-    connector.getMeasurements('one_by_one', 'g000', 1),
-  ).rejects.toThrow(ERROR.error);
+    connector.getMeasurements('one_by_one', 'g000', {
+      from: new Date(2018, 1, 1),
+    }),
+  ).rejects.toThrow(ERROR.status);
 });
 
 describe('create job', () => {
-  const job: GorgeJob = {
+  const job: gorge.JobDescription = {
     id: SOURCE_GALICIA_1,
     cron: '0 * * * *',
     gauges: { gal1: { foo: 'bar' } },
     script: 'galicia',
+    options: {},
   };
 
   it('should create job', async () => {
@@ -288,16 +286,17 @@ describe('create job', () => {
     const connector = new GorgeConnector();
     await expect(
       connector.createJobForSource(SOURCE_GALICIA_1),
-    ).rejects.toThrow(ERROR.error);
+    ).rejects.toThrow(ERROR.status);
   });
 });
 
 describe('toggle job', () => {
-  const job: GorgeJob = {
+  const job: gorge.JobDescription = {
     id: SOURCE_GALICIA_1,
     cron: '0 * * * *',
     gauges: { gal1: { foo: 'bar' } },
     script: 'galicia',
+    options: {},
   };
 
   it('should enable enabled source without calls', async () => {
@@ -359,7 +358,7 @@ describe('toggle job', () => {
 
 describe('latest', () => {
   it('should get latest measurement for single gauge', async () => {
-    const measurements: GorgeMeasurement[] = [
+    const measurements: gorge.Measurement[] = [
       {
         script: 'one_by_one',
         code: 'g000',
@@ -378,7 +377,7 @@ describe('latest', () => {
   });
 
   it('should get latest measurements for multiple sources', async () => {
-    const measurements: GorgeMeasurement[] = [
+    const measurements: gorge.Measurement[] = [
       {
         script: 'one_by_one',
         code: 'o000',
@@ -428,11 +427,11 @@ describe('latest', () => {
         connector.getLatest('one_by_one', 'o000'),
         connector.getLatest('all_at_once', 'a000'),
       ]),
-    ).rejects.toThrow(ERROR.error);
+    ).rejects.toThrow(ERROR.status);
   });
 
   it('should handle empty latest measurements', async () => {
-    const measurements: GorgeMeasurement[] = [
+    const measurements: gorge.Measurement[] = [
       {
         script: 'one_by_one',
         code: 'o000',

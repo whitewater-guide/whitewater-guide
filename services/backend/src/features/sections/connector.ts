@@ -68,7 +68,7 @@ export class SectionsConnector extends BaseConnector<Section, SectionRaw> {
     const query = super.getMany(info, options);
     this.addHiddenWhere(query);
 
-    const { riverId, regionId, updatedAfter } = filter;
+    const { riverId, regionId, updatedAfter, search } = filter;
     if (riverId) {
       query.where({ river_id: riverId });
     } else if (regionId) {
@@ -76,6 +76,18 @@ export class SectionsConnector extends BaseConnector<Section, SectionRaw> {
     }
     if (updatedAfter) {
       query.where('sections_view.updated_at', '>', updatedAfter);
+    }
+    if (search) {
+      const searchStr = `%${search.trim().toLocaleLowerCase()}%`;
+      query.where(function() {
+        this.where('sections_view.name', 'ILIKE', searchStr)
+          .orWhere('sections_view.river_name', 'ILIKE', searchStr)
+          .orWhereExists(function() {
+            this.select('*')
+              .from(db().raw('unnest(sections_view.alt_names) namez'))
+              .where('namez', 'ILIKE', searchStr);
+          });
+      });
     }
 
     return query;

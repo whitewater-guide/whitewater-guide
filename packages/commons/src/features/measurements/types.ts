@@ -16,3 +16,8 @@ export interface HarvestStatus<TDate = string> {
   next: TDate;
   error: string | null;
 }
+
+export interface MeasurementsFilter<TDate = string> {
+  from?: TDate | null;
+  to?: TDate | null;
+}

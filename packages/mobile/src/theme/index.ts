@@ -3,7 +3,7 @@ import {
   getBottomSpace,
   getStatusBarHeight,
 } from 'react-native-iphone-x-helper';
-import { DefaultTheme, Theme } from 'react-native-paper';
+import { DefaultTheme } from 'react-native-paper';
 
 // https://github.com/callstack/react-native-paper/blob/77fe132d5dbb220ebcac3ae0b83e6432ddfc12c3/src/components/BottomNavigation.tsx#L263
 const MATERIAL_BOTTOM_BAR_HEIGHT = 56;
@@ -104,7 +104,7 @@ const theme = {
 
 export default theme;
 
-export const PaperTheme: Theme = {
+export const PaperTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,

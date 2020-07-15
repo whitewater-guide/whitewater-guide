@@ -1,3 +1,15 @@
+## [0.0.431-logbook-web.1](https://github.com/doomsower/whitewater/compare/14346c26c7ef736745eb947c3bfdc4ccd9545f71...ed9229df9cafb7663cc44a8ffb45e2ea66df94a7) (2020-07-07)
+
+### Features
+
+- range filter in measurements resolver ([](https://github.com/doomsower/whitewater/commit/f7d6290d9b46fb72fc6e95c82ded4d154e57fc9d))
+
+## [0.0.431-logbook-web.0](https://github.com/doomsower/whitewater/compare/7311e3d6696b2fa28685ed0135e3a1cd255a474c...14346c26c7ef736745eb947c3bfdc4ccd9545f71) (2020-07-05)
+
+### Features
+
+- add global sections search ([](https://github.com/doomsower/whitewater/commit/82c54d477e47b7cc23f2b0d99ecf9b9b82ce8e28))
+
 ## [0.0.430](https://github.com/doomsower/whitewater/compare/5f574b3da32c4a9f6502fa729254834418220ae8...7311e3d6696b2fa28685ed0135e3a1cd255a474c) (2020-06-28)
 
 ## [0.0.430](https://github.com/doomsower/whitewater/compare/4b977f58b50b2716f7929b1124c39da48710cb76...5f574b3da32c4a9f6502fa729254834418220ae8) (2020-06-28)
