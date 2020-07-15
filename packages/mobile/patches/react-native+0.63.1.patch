@@ -1,0 +1,14 @@
+diff --git a/node_modules/react-native/scripts/react-native-xcode.sh b/node_modules/react-native/scripts/react-native-xcode.sh
+index 328085f..3b0cffe 100755
+--- a/node_modules/react-native/scripts/react-native-xcode.sh
++++ b/node_modules/react-native/scripts/react-native-xcode.sh
+@@ -123,6 +123,9 @@ fi
+
+ BUNDLE_FILE="$DEST/main.jsbundle"
+
++# TODO: This line is a workaround: https://github.com/facebook/react-native/issues/29351
++cd $PROJECT_DIR/..
++
+ "$NODE_BINARY" $NODE_ARGS "$CLI_PATH" $BUNDLE_COMMAND \
+   $CONFIG_ARG \
+   --entry-file "$ENTRY_FILE" \

@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/caddy",
   "private": true,
-  "version": "0.0.153",
+  "version": "0.0.154",
   "license": "UNLICENSED",
   "description": "caddy for whitewater.guide",
   "repository": "https://github.com/doomsower/whitewater.git",

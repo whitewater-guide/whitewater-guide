@@ -1,3 +1,15 @@
+## [0.1.427](https://github.com/doomsower/whitewater/compare/97e5e99927dff833bb0c4687ac41697e596760fe...dfce87f2b162c585c80beca70be1d932665ab89d) (2020-07-15)
+
+## [0.1.426](https://github.com/doomsower/whitewater/compare/ed9229df9cafb7663cc44a8ffb45e2ea66df94a7...97e5e99927dff833bb0c4687ac41697e596760fe) (2020-07-15)
+
+### Bug Fixes
+
+- web charts ([](https://github.com/doomsower/whitewater/commit/e82bc7d1295f75aba2fa1bf9687edd5842a8e3c4))
+
+### Features
+
+- logbooks mobile ([](https://github.com/doomsower/whitewater/commit/b16559391e66d63ad6311f579ffe9c8af861e716))
+
 ## [0.1.426-logbook-web.1](https://github.com/doomsower/whitewater/compare/14346c26c7ef736745eb947c3bfdc4ccd9545f71...ed9229df9cafb7663cc44a8ffb45e2ea66df94a7) (2020-07-07)
 
 ## [0.1.426-logbook-web.0](https://github.com/doomsower/whitewater/compare/7311e3d6696b2fa28685ed0135e3a1cd255a474c...14346c26c7ef736745eb947c3bfdc4ccd9545f71) (2020-07-05)

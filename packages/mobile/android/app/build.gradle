@@ -143,8 +143,8 @@ android {
         resValue "string", "build_config_package", "guide.whitewater"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 100601160
-        versionName "1.10.0"
+        versionCode 100601170
+        versionName "1.11.0"
         testBuildType System.getProperty('testBuildType', 'debugDetox')
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
@@ -225,15 +225,15 @@ dependencies {
     debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.flipper'
     }
-    implementation 'com.android.support:multidex:1.0.3'
+    // implementation 'com.android.support:multidex:1.0.3'
     // Manual linking
     implementation project(':react-native-fs')
     // Require by detox
     androidTestImplementation('com.wix:detox:+') { transitive = true }
     androidTestImplementation 'junit:junit:4.12'
     // Required by react-navigation
-    implementation 'androidx.appcompat:appcompat:1.2.0-alpha03'
-    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-beta01'
+    implementation 'androidx.appcompat:appcompat:1.2.0-rc01'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
     if (enableHermes) {
       def hermesPath = "../../node_modules/hermes-engine/android/";
@@ -255,9 +255,3 @@ task copyDownloadableDepsToLibs(type: Copy) {
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
 apply plugin: 'com.google.gms.google-services'
-
-// TODO: this is a temporary workaround
-// https://github.com/microsoft/react-native-code-push/issues/1448
-// https://github.com/microsoft/react-native-code-push/issues/1640
-// https://github.com/microsoft/react-native-code-push/pull/1669
-com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true
