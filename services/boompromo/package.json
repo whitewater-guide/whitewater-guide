@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/boompromo",
   "private": true,
-  "version": "0.0.213-logbook-web.1",
+  "version": "0.0.213",
   "license": "UNLICENSED",
   "homepage": "/promo/",
   "scripts": {
