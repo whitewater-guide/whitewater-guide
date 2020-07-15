@@ -284,8 +284,9 @@ platform :android do
       upload_metadata: true,
       version_file_name: '../app.json',
     )
-    code_push
-    sentry
+    # TODO: temporary disable: https://github.com/microsoft/react-native-code-push/issues/1886
+    # code_push
+    # sentry
   end
 
   lane :production do |options|
