@@ -2,7 +2,7 @@
 
 exports[`should return sections 1`] = `
 Object {
-  "count": 6,
+  "count": 8,
   "nodes": Array [
     Object {
       "gauge": Object {
@@ -89,6 +89,36 @@ Object {
       "river": Object {
         "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
         "name": "Gal_Riv_One",
+      },
+    },
+    Object {
+      "gauge": null,
+      "hidden": false,
+      "id": "7104f00c-31ad-4375-992e-5efebef813dd",
+      "name": "Bridge to bridge",
+      "rating": 4,
+      "region": Object {
+        "id": "2caf75ca-7625-11e7-b5a5-be2e44b06b34",
+        "name": "Ecuador",
+      },
+      "river": Object {
+        "id": "5ece96ad-59a7-4cc1-a092-b5cd2f464131",
+        "name": "Quijos",
+      },
+    },
+    Object {
+      "gauge": null,
+      "hidden": false,
+      "id": "2ffe67e5-6394-4341-9ae3-415271ce71fd",
+      "name": "Cheese house",
+      "rating": 4.5,
+      "region": Object {
+        "id": "2caf75ca-7625-11e7-b5a5-be2e44b06b34",
+        "name": "Ecuador",
+      },
+      "river": Object {
+        "id": "5ece96ad-59a7-4cc1-a092-b5cd2f464131",
+        "name": "Quijos",
       },
     },
     Object {

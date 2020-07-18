@@ -1,7 +1,6 @@
-import { SuggestionStatus } from '@whitewater-guide/commons';
 import Knex from 'knex';
-import { createTable } from './utils';
 import { addUpdatedAtTrigger } from '~/db';
+import { createTable } from './utils';
 
 /**
  * This patch adds descents (logbook entries)
@@ -14,13 +13,13 @@ export const up = async (db: Knex) => {
       .defaultTo(db.raw('uuid_generate_v1mc()'))
       .primary();
 
+    table.specificType('ord_id', 'serial').index();
+
     table
       .uuid('parent_id')
       .references('id')
       .inTable('descents')
       .onDelete('SET NULL');
-
-    table.increments('ord_id').index();
 
     table
       .uuid('user_id')
@@ -32,7 +31,8 @@ export const up = async (db: Knex) => {
       .uuid('section_id')
       .notNullable()
       .references('id')
-      .inTable('sections');
+      .inTable('sections')
+      .onDelete('CASCADE');
 
     table.text('comment');
 

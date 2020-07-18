@@ -1,8 +1,12 @@
+import { ApolloErrorCodes } from '@whitewater-guide/commons';
 import { holdTransaction, rollbackTransaction } from '~/db';
 import { ADMIN, EDITOR_NO_EC, TEST_USER } from '~/seeds/test/01_users';
-import { REGION_ECUADOR, REGION_GALICIA } from '~/seeds/test/04_regions';
+import {
+  REGION_ECUADOR,
+  REGION_GALICIA,
+  REGION_LAOS,
+} from '~/seeds/test/04_regions';
 import { anonContext, countRows, fakeContext, runQuery } from '~/test';
-import { ApolloErrorCodes } from '@whitewater-guide/commons';
 
 let rpBefore: number;
 let rBefore: number;
@@ -58,7 +62,7 @@ describe('effects', () => {
   let result: any;
 
   beforeEach(async () => {
-    result = await runQuery(query, ecuador, fakeContext(ADMIN));
+    result = await runQuery(query, { id: REGION_LAOS }, fakeContext(ADMIN));
   });
 
   afterEach(() => {
@@ -67,7 +71,7 @@ describe('effects', () => {
 
   it('should return deleted region id', () => {
     expect(result.errors).toBeUndefined();
-    expect(result.data.removeRegion).toBe(REGION_ECUADOR);
+    expect(result.data.removeRegion).toBe(REGION_LAOS);
   });
 
   it('should remove from tables', async () => {

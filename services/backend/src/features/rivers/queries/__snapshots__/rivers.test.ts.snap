@@ -2,7 +2,7 @@
 
 exports[`should return rivers 1`] = `
 Object {
-  "count": 5,
+  "count": 6,
   "nodes": Array [
     Object {
       "altNames": Array [],
@@ -76,6 +76,28 @@ Object {
       "sections": Object {
         "count": 0,
         "nodes": Array [],
+      },
+    },
+    Object {
+      "altNames": Array [],
+      "id": "5ece96ad-59a7-4cc1-a092-b5cd2f464131",
+      "name": "Quijos",
+      "region": Object {
+        "id": "2caf75ca-7625-11e7-b5a5-be2e44b06b34",
+        "name": "Ecuador",
+      },
+      "sections": Object {
+        "count": 2,
+        "nodes": Array [
+          Object {
+            "id": "7104f00c-31ad-4375-992e-5efebef813dd",
+            "name": "Bridge to bridge",
+          },
+          Object {
+            "id": "2ffe67e5-6394-4341-9ae3-415271ce71fd",
+            "name": "Cheese house",
+          },
+        ],
       },
     },
     Object {

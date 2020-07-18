@@ -7,7 +7,7 @@ import {
   EDITOR_NO_EC_ID,
   EDITOR_NO_ID,
 } from './01_users';
-import { ECUADOR_PT_1, GALICIA_PT_1, GALICIA_PT_2 } from './02_points';
+import { LAOS_PT_1, GALICIA_PT_1, GALICIA_PT_2 } from './02_points';
 import { GROUP_ALL, GROUP_EU, GROUP_EU_CIS, GROUP_LATIN } from './03_groups';
 
 function getBounds(bounds: Coordinate3d[] | null) {
@@ -53,7 +53,11 @@ const regions = [
     premium: true,
     sku: 'region.ecuador',
     season_numeric: [],
-    bounds: getBounds([[1, 0, 0], [0, 1, 0], [1, 1, 0]]),
+    bounds: getBounds([
+      [1, 0, 0],
+      [0, 1, 0],
+      [1, 1, 0],
+    ]),
     cover_image: {
       mobile: 'ecuador_mobile_cover.jpg',
     },
@@ -65,7 +69,11 @@ const regions = [
     sku: 'region.norway',
     season_numeric: [],
     maps_size: 123456789,
-    bounds: getBounds([[4, 5, 0], [7, 8, 0], [5, 6, 0]]),
+    bounds: getBounds([
+      [4, 5, 0],
+      [7, 8, 0],
+      [5, 6, 0],
+    ]),
   },
   {
     id: REGION_GEORGIA,
@@ -154,7 +162,7 @@ const regionsRu = [
 const regionsPoints = [
   { region_id: REGION_GALICIA, point_id: GALICIA_PT_1 },
   { region_id: REGION_GALICIA, point_id: GALICIA_PT_2 },
-  { region_id: REGION_ECUADOR, point_id: ECUADOR_PT_1 },
+  { region_id: REGION_LAOS, point_id: LAOS_PT_1 },
 ];
 
 const regionsEditors = [

@@ -6,7 +6,7 @@ import { runSqlFile } from '~/db';
  * This allows to transactionally delete river when its last section is deleted
  */
 export const up = async (db: Knex) => {
-  await runSqlFile(db, './dist/migrations/035/remove_section.sql');
+  await runSqlFile(db, './dist/migrations/034/remove_section.sql');
 };
 
 export const down = async (db: Knex) => {

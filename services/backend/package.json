@@ -20,8 +20,6 @@
     "version": "yarn build"
   },
   "dependencies": {
-    "@apollo/federation": "^0.18.0",
-    "@apollo/gateway": "^0.18.0",
     "@koa/cors": "3.1.0",
     "@sentry/node": "^5.19.2",
     "@turf/boolean-point-in-polygon": "^6.0.1",

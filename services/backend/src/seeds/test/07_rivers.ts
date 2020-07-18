@@ -1,12 +1,18 @@
 import Knex from 'knex';
 import { ADMIN_ID } from './01_users';
-import { REGION_GALICIA, REGION_GEORGIA, REGION_NORWAY } from './04_regions';
+import {
+  REGION_GALICIA,
+  REGION_GEORGIA,
+  REGION_NORWAY,
+  REGION_ECUADOR,
+} from './04_regions';
 
 export const RIVER_SJOA = 'd4396dac-d528-11e7-9296-cec278b6b50a';
 export const RIVER_FINNA = 'e7a25ab6-d528-11e7-9296-cec278b6b50a';
 export const RIVER_GAL_1 = 'a8416664-bfe3-11e7-abc4-cec278b6b50a';
 export const RIVER_GAL_2 = 'd69dbabc-bfe3-11e7-abc4-cec278b6b50a';
 export const RIVER_BZHUZHA = 'b80554ba-5db4-11e8-9c2d-fa7ae01bbebc';
+export const RIVER_QUIJOS = '5ece96ad-59a7-4cc1-a092-b5cd2f464131';
 
 const rivers = [
   {
@@ -29,6 +35,10 @@ const rivers = [
   {
     id: RIVER_BZHUZHA,
     region_id: REGION_GEORGIA,
+  },
+  {
+    id: RIVER_QUIJOS,
+    region_id: REGION_ECUADOR,
   },
 ];
 
@@ -60,6 +70,11 @@ const riversEn = [
     river_id: RIVER_BZHUZHA,
     language: 'en',
     name: 'Bzhuzha',
+  },
+  {
+    river_id: RIVER_QUIJOS,
+    language: 'en',
+    name: 'Quijos',
   },
 ];
 

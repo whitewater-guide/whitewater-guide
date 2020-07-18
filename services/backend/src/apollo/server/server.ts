@@ -1,8 +1,6 @@
-import { createConnectors } from '~/db/connectors';
 import { ApolloServer } from 'apollo-server-koa';
-import { readJSON } from 'fs-extra';
 import * as Koa from 'koa';
-import { resolve } from 'path';
+import { createConnectors } from '~/db/connectors';
 import { Context, newContext } from '../context';
 import { formatError } from '../formatError';
 import { logger } from '../logger';
@@ -10,14 +8,12 @@ import { FieldsByTypePlugin } from '../plugins';
 import { getPlaygroundConfig } from './playground';
 import { graphqlRouter } from './router';
 import { getSchema } from './schema';
-import { createGateway } from './gateway';
 
 export const createApolloServer = async (app: Koa) => {
-  const gateway = await createGateway();
-  const { schema } = await gateway.load();
+  const schema = await getSchema();
   const playground = await getPlaygroundConfig(schema);
   const server = new ApolloServer({
-    gateway,
+    schema,
     context: newContext,
     dataSources: createConnectors,
     formatError,
@@ -25,7 +21,6 @@ export const createApolloServer = async (app: Koa) => {
     introspection: process.env.APOLLO_EXPOSE_SCHEMA === 'true',
     playground,
     plugins: [new FieldsByTypePlugin(schema)],
-    subscriptions: false,
   });
 
   server.applyMiddleware({

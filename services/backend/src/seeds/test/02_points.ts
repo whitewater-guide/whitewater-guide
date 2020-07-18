@@ -10,7 +10,7 @@ function getCoordinates(coordinates: Coordinate3d): string {
 
 export const GALICIA_PT_1 = '573f995a-d55f-4faf-8f11-5a6016ab562f';
 export const GALICIA_PT_2 = 'd7530317-efac-44a7-92ff-8d045b2ac893';
-export const ECUADOR_PT_1 = 'a52dfcc6-3716-11e8-b467-0ed5f89f718b';
+export const LAOS_PT_1 = 'a52dfcc6-3716-11e8-b467-0ed5f89f718b';
 
 const points = [
   {
@@ -24,7 +24,7 @@ const points = [
     kind: 'other',
   },
   {
-    id: ECUADOR_PT_1,
+    id: LAOS_PT_1,
     coordinates: getCoordinates([4, 3, 343]),
     kind: 'other',
   },
@@ -59,10 +59,10 @@ const pointsEn = [
     description: 'r1p2 description',
   },
   {
-    point_id: ECUADOR_PT_1,
+    point_id: LAOS_PT_1,
     language: 'en',
-    name: 'Ecuador Point 1',
-    description: 'ecuador point description',
+    name: 'Laos Point 1',
+    description: 'Laos point 1 description',
   },
   {
     point_id: 'ca0bee06-d445-11e7-9296-cec278b6b50a',

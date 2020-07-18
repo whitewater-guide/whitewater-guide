@@ -120,7 +120,7 @@ describe('results', () => {
     expect(regions.count).toBe(NUM_REGIONS);
     // Check name
     expect(result.data!.regions.nodes).toMatchObject([
-      { rivers: { count: 0 } }, // Ecuador
+      { rivers: { count: 1 } }, // Ecuador
       { rivers: { count: 2 } }, // galicia
       { rivers: { count: 1 } }, // georgia
       { rivers: { count: 0 } }, // laos

@@ -20,15 +20,15 @@ type Descent {
   comment: String
   public: Boolean
 
-  createdAt: DateTime
-  updatedAt: DateTime
+  createdAt: Date
+  updatedAt: Date
 }
 
 input DescentInput {
   id: ID
 
   sectionId: ID!
-  startedAt: DateTime!
+  startedAt: Date!
   duration: Int
 
   level: DescentLevelInput
@@ -47,8 +47,8 @@ type DescentsConnection {
 }
 
 input DescentsFilter {
-  startDate: DateTime
-  endDate: DateTime
+  startDate: Date
+  endDate: Date
   difficulty: [Float!]
 
   userId: String

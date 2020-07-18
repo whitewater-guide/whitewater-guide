@@ -8,6 +8,7 @@ import {
   RIVER_FINNA,
   RIVER_GAL_1,
   RIVER_SJOA,
+  RIVER_QUIJOS,
 } from './07_rivers';
 
 function getLineString(shape: Coordinate3d[] | null) {
@@ -29,11 +30,13 @@ export const NORWAY_FINNA_GORGE = '8688e656-5b4b-11e8-9c2d-fa7ae01bbebc';
 export const GEORGIA_BZHUZHA_LONG = 'e6e0e826-5db4-11e8-9c2d-fa7ae01bbebc';
 export const GEORGIA_BZHUZHA_QUALI = 'f73b533c-5db4-11e8-9c2d-fa7ae01bbebc';
 export const GEORGIA_BZHUZHA_EXTREME = '9e9c0366-84e2-11e8-adc0-fa7ae01bbebc';
+export const ECUADOR_QUIJOS_BRIDGE = '7104f00c-31ad-4375-992e-5efebef813dd';
+export const ECUADOR_QUIJOS_CHEESE = '2ffe67e5-6394-4341-9ae3-415271ce71fd';
 
-export const SECTIONS_TOTAL = 7;
-export const SECTIONS_VISIBLE = 6;
+export const SECTIONS_TOTAL = 9;
+export const SECTIONS_VISIBLE = 8;
 export const SECTIONS_HIDDEN = 1;
-export const SECTIONS_DEMO = 1;
+export const SECTIONS_DEMO = 3;
 
 const sections = [
   {
@@ -229,6 +232,83 @@ const sections = [
     hidden: false,
     demo: true,
   },
+  {
+    id: ECUADOR_QUIJOS_BRIDGE,
+    river_id: RIVER_QUIJOS,
+    season_numeric: [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+    ],
+    shape: getLineString([
+      [-77.9205, -0.4607, 0],
+      [-77.8961, -0.4594, 0],
+    ]),
+    distance: 3.2,
+    drop: null,
+    duration: Duration.LAPS,
+    difficulty: 4.5,
+    rating: 4,
+    hidden: false,
+    demo: true,
+  },
+  {
+    id: ECUADOR_QUIJOS_CHEESE,
+    river_id: RIVER_QUIJOS,
+    season_numeric: [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+    ],
+    shape: getLineString([
+      [-77.967, -0.4376, 0],
+      [-77.9322, -0.4593, 0],
+    ]),
+    distance: 5,
+    drop: null,
+    duration: Duration.LAPS,
+    difficulty: 4.5,
+    rating: 4.5,
+    hidden: false,
+    demo: true,
+  },
 ];
 
 const sectionsEn = [
@@ -288,6 +368,22 @@ const sectionsEn = [
     description: 'Bzhuzha Extreme race description',
     season: 'Bzhuzha Extreme race season',
     flows_text: 'Bzhuzha Extreme race flows text',
+  },
+  {
+    section_id: ECUADOR_QUIJOS_CHEESE,
+    language: 'en',
+    name: 'Cheese house',
+    description: 'Quijos Cheese House description',
+    season: 'Quijos Cheese House season',
+    flows_text: 'Quijos Cheese House flows text',
+  },
+  {
+    section_id: ECUADOR_QUIJOS_BRIDGE,
+    language: 'en',
+    name: 'Bridge to bridge',
+    description: 'Quijos Bridge to bridge description',
+    season: 'Quijos Bridge to bridge season',
+    flows_text: 'Quijos Bridge to bridge flows text',
   },
 ];
 
