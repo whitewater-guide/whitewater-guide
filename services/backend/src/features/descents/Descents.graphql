@@ -16,7 +16,7 @@ type Descent {
   section: Section!
   startedAt: Date!
   duration: Int
-  level: Level
+  level: DescentLevel
   comment: String
   public: Boolean
 
@@ -31,7 +31,7 @@ input DescentInput {
   startedAt: DateTime!
   duration: Int
 
-  level: LevelInput
+  level: DescentLevelInput
   comment: String
   public: Boolean
 }
@@ -51,10 +51,9 @@ input DescentsFilter {
   endDate: DateTime
   difficulty: [Float!]
 
-  userID: String
-  sectionID: String
+  userId: String
+  sectionId: String
   sectionName: String
-  upstreamSectionID: String
 }
 
 type Query {

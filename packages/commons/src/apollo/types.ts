@@ -5,10 +5,16 @@ export interface Node {
   id: string;
 }
 
-export interface Page {
+export interface Page<TCursor = any> {
   __typename?: 'Page';
   limit?: number;
   offset?: number;
+  cursor?: TCursor;
+}
+
+export interface PageInfo<TCursor = any> {
+  endCursor?: TCursor;
+  hasMore: boolean;
 }
 
 export interface Connection<T> {
