@@ -22,6 +22,11 @@ input Page {
   after: Cursor
 }
 
+type PageInfo {
+  endCursor: Cursor
+  hasMore: Boolean!
+}
+
 schema {
   query: Query
   mutation: Mutation
