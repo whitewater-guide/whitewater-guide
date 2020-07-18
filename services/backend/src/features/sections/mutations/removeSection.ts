@@ -1,5 +1,5 @@
 import { TopLevelResolver } from '~/apollo';
-import db from '~/db';
+import db, { rawUpsert } from '~/db';
 
 interface Vars {
   id: string;
@@ -28,12 +28,10 @@ const removeSection: TopLevelResolver<Vars> = async (
     .where('regions_view.language', language)
     .where('sections_view.id', id)
     .first();
-  const result = await db()
-    .table('sections')
-    .del()
-    .where({ id })
-    .returning('id');
-  if (result && result.length && deleted) {
+
+  const result: any = await rawUpsert(db(), 'SELECT remove_section(?)', [id]);
+
+  if (result && deleted) {
     const { source_id, ...rest } = deleted;
     await db()
       .insert({
@@ -46,7 +44,7 @@ const removeSection: TopLevelResolver<Vars> = async (
   if (deleted?.source_id) {
     await dataSources.gorge.updateJobForSource(deleted?.source_id);
   }
-  return result && result.length ? result[0] : null;
+  return result ? result.id : null;
 };
 
 export default removeSection;

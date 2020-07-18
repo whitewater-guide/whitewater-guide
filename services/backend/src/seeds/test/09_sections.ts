@@ -3,7 +3,12 @@ import Knex from 'knex';
 import { LineString, Point } from 'wkx';
 import { ADMIN_ID } from './01_users';
 import { GAUGE_GAL_1_1, GAUGE_GEO_1, GAUGE_GEO_4 } from './06_gauges';
-import { RIVER_BZHUZHA, RIVER_FINNA, RIVER_GAL_1 } from './07_rivers';
+import {
+  RIVER_BZHUZHA,
+  RIVER_FINNA,
+  RIVER_GAL_1,
+  RIVER_SJOA,
+} from './07_rivers';
 
 function getLineString(shape: Coordinate3d[] | null) {
   let lineString = null;
@@ -64,8 +69,8 @@ const sections = [
   },
   {
     id: GALICIA_R1_S2,
-    river_id: 'a8416664-bfe3-11e7-abc4-cec278b6b50a', // Gal_riv_one
-    gauge_id: 'aba8c106-aaa0-11e7-abc4-cec278b6b50a', // Galicia gauge 1
+    river_id: RIVER_GAL_1,
+    gauge_id: GAUGE_GAL_1_1,
     season_numeric: [0, 1, 2, 3, 4],
     levels: {
       minimum: 100,
@@ -93,8 +98,8 @@ const sections = [
     rating: 2.5,
   },
   {
-    id: NORWAY_SJOA_AMOT, // Amot
-    river_id: 'd4396dac-d528-11e7-9296-cec278b6b50a', // Sjoa
+    id: NORWAY_SJOA_AMOT,
+    river_id: RIVER_SJOA,
     season_numeric: [10, 11, 12, 13, 14, 15, 16],
     shape: getLineString([
       [1, 1, 0],

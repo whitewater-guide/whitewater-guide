@@ -6,11 +6,12 @@ import {
   EDITOR_GA_EC_ID,
   EDITOR_NO_EC,
   TEST_USER,
+  ADMIN,
 } from '~/seeds/test/01_users';
 import { REGION_GALICIA } from '~/seeds/test/04_regions';
 import { SOURCE_GALICIA_1 } from '~/seeds/test/05_sources';
-import { RIVER_GAL_1 } from '~/seeds/test/07_rivers';
-import { GALICIA_R1_S1 } from '~/seeds/test/09_sections';
+import { RIVER_GAL_1, RIVER_FINNA } from '~/seeds/test/07_rivers';
+import { GALICIA_R1_S1, NORWAY_FINNA_GORGE } from '~/seeds/test/09_sections';
 import {
   anonContext,
   countRows,
@@ -126,5 +127,24 @@ describe('effects', () => {
     expect(spy).toHaveBeenCalledWith(SOURCE_GALICIA_1);
   });
 
+  it('should not remove river when one of many sections is deleted', async () => {
+    const { count } = await db(false)
+      .table('rivers')
+      .count('*')
+      .where({ id: RIVER_GAL_1 })
+      .first();
+    expect(count).toBe('1');
+  });
+
   it.todo('should remove media');
+});
+
+it('should also remove river if this was the only section on the river', async () => {
+  await runQuery(query, { id: NORWAY_FINNA_GORGE }, fakeContext(ADMIN));
+  const { count } = await db(false)
+    .table('rivers')
+    .count('*')
+    .where({ id: RIVER_FINNA })
+    .first();
+  expect(count).toBe('0');
 });

@@ -337,7 +337,7 @@ describe('jobs', () => {
 
 describe('i18n', () => {
   const inputPt: GaugeInput = {
-    id: 'aba8c106-aaa0-11e7-abc4-cec278b6b50a', // gal1
+    id: GAUGE_GAL_1_1,
     source: { id: '6d0d717e-aa9d-11e7-abc4-cec278b6b50a' },
     name: 'galicia gauge pt',
     code: 'gal1',
@@ -374,7 +374,7 @@ describe('i18n', () => {
     const flowUnit = await db()
       .table('gauges_view')
       .select('flow_unit')
-      .where({ language: 'en', id: 'aba8c106-aaa0-11e7-abc4-cec278b6b50a' })
+      .where({ language: 'en', id: GAUGE_GAL_1_1 })
       .first();
     expect(flowUnit.flow_unit).toBe('cm3/s');
   });

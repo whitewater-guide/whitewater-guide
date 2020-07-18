@@ -1,7 +1,7 @@
 import { holdTransaction, rollbackTransaction } from '~/db';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
 import { SOURCE_GALICIA_1, SOURCE_NORWAY } from '~/seeds/test/05_sources';
-import { GAUGE_NOR_2 } from '~/seeds/test/06_gauges';
+import { GAUGE_NOR_2, GAUGE_GAL_1_1 } from '~/seeds/test/06_gauges';
 import { anonContext, fakeContext, noTimestamps, runQuery } from '~/test';
 import { Source } from '@whitewater-guide/commons';
 
@@ -227,7 +227,7 @@ describe('connections', () => {
       expect(source.gauges.nodes).toHaveLength(2);
       expect(source.gauges.nodes).toMatchObject([
         {
-          id: 'aba8c106-aaa0-11e7-abc4-cec278b6b50a',
+          id: GAUGE_GAL_1_1,
           name: 'Galicia gauge 1',
           code: 'gal1',
         },
