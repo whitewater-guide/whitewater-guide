@@ -13,3 +13,8 @@ export interface DescentRaw extends RawTimestamped {
   level_unit: string | null;
   public: boolean;
 }
+
+export interface ShareToken {
+  descent: string;
+  section: string;
+}

@@ -57,10 +57,10 @@ input DescentsFilter {
 }
 
 type Query {
-  logbookDescent(id: ID, shareToken: String): Descent
-  logbookDescentShareToken(id: ID!): String
+  descent(id: ID, shareToken: String): Descent
+  descentShareToken(id: ID!): String
 
-  logbookDescents(filter: DescentsFilter, page: Page): DescentsConnection
+  descents(filter: DescentsFilter, page: Page): DescentsConnection
   myDescents(filter: DescentsFilter, page: Page): DescentsConnection
 }
 

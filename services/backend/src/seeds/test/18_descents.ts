@@ -1,6 +1,6 @@
 import Knex from 'knex';
 import { DescentRaw } from '~/features/descents/types';
-import { ADMIN_ID, BOOM_USER_1500_ID, EDITOR_NO_ID } from './01_users';
+import { BOOM_USER_1500_ID, TEST_USER2_ID, TEST_USER_ID } from './01_users';
 import {
   ECUADOR_QUIJOS_BRIDGE,
   ECUADOR_QUIJOS_CHEESE,
@@ -13,9 +13,9 @@ import {
   NORWAY_SJOA_AMOT,
 } from './09_sections';
 
-export const USER_1 = ADMIN_ID;
-export const USER_2 = BOOM_USER_1500_ID;
-export const USER_3 = EDITOR_NO_ID;
+const USER_1 = TEST_USER_ID;
+const USER_2 = TEST_USER2_ID;
+const USER_3 = BOOM_USER_1500_ID;
 
 export const SECTION_1 = GALICIA_R1_S1;
 export const SECTION_2 = GALICIA_R1_S2;
@@ -37,6 +37,11 @@ export const DESCENT_07 = 'ac323bc5-47e7-43cf-b3dd-e029cf96fcf4';
 export const DESCENT_08 = '902c52f3-5165-443b-b4a7-2e9c27b48538';
 export const DESCENT_09 = '900ede8f-b605-4dd6-a9b2-9b2628f79254';
 export const DESCENT_10 = '7f712c8a-45a9-4fd5-966a-c8b4d07f36df';
+
+export const DESCENT_2_SHARE_TOKEN =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXNjZW50IjoiM2ZiMmIxZGEtNjY0OS00MjllLThiMGUtMGNiYmRhMDU1ZGE3Iiwic2VjdGlvbiI6ImU3ZDAzZTAxLTQ5MjctNGFlMS04MmJmLWE5ZTE5NWU1OWRiNiJ9.-l5oX12jib_nibeTqbMlIZZhEKIKjElNljStujLSHzA';
+export const DESCENT_4_SHARE_TOKEN =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXNjZW50IjoiZmZkNmJhNDEtZDdlNS00ZmJmLTgzNDctMjQ4MWQ1ODM2NzRlIiwic2VjdGlvbiI6ImY5MDM1MzU1LTA0OTktNGQxYy05Y2NkLWM5OTA5ZGJhZDQ5YSJ9.nK9brw2qiiccfYBgyjvyzXDcX51YPdBFR5MQNelZZX4';
 
 const descents: Array<Partial<DescentRaw>> = [
   {

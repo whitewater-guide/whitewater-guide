@@ -30,6 +30,7 @@
 | REFRESH_TOKEN_SECRET         | <random_secret>                                            | Secret for refresh JWT signing                                                                                        |
 | ACCESS_TOKEN_EXPIRES         | num seconds (600)                                          | JWT access token lifespan                                                                                             |
 | SENTRY_DSN                   | <url>                                                      | Sentry endpoint for logging                                                                                           |
+| DESCENTS_TOKEN_SECRET        | <random_secret>                                            | Secret for descent sharing token                                                                                      |
 
 # Testing
 

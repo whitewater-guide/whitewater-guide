@@ -126,24 +126,3 @@ export function buildConnectionQuery<TGraphql, TSql>(
     { ...manyOptions, count: !!count },
   );
 }
-
-export function maybePrimeCache<V extends { id: string }>(
-  oneFields: Set<string>,
-  manyFields: Set<string>,
-  query: Knex.QueryBuilder,
-  cache: DataLoader<string, V | null>,
-) {
-  let hasAllFields = true;
-  for (const f of oneFields.values()) {
-    if (!manyFields.has(f)) {
-      hasAllFields = false;
-      break;
-    }
-  }
-  if (hasAllFields) {
-    query.then((values: V[]) => {
-      values.forEach((v) => cache.prime(v.id, v));
-      return values;
-    });
-  }
-}

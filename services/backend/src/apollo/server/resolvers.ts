@@ -1,4 +1,5 @@
 import { bannersResolvers } from '~/features/banners';
+import { descentResolvers } from '~/features/descents';
 import { emailsResolvers } from '~/features/emails';
 import { gaugesResolvers } from '~/features/gauges';
 import { groupsResolvers } from '~/features/groups';
@@ -18,9 +19,11 @@ import { usersResolvers } from '~/features/users';
 import { GraphQLDateTime } from 'graphql-iso-date';
 import GraphQLJSON from 'graphql-type-json';
 import merge from 'lodash/merge';
+import { CursorScalar } from '../cursor';
 
 export const resolvers = merge(
   bannersResolvers,
+  descentResolvers,
   emailsResolvers,
   gaugesResolvers,
   groupsResolvers,
@@ -40,5 +43,6 @@ export const resolvers = merge(
   {
     Date: GraphQLDateTime,
     JSON: GraphQLJSON,
+    Cursor: CursorScalar,
   },
 );

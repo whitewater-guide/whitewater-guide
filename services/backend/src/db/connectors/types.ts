@@ -28,6 +28,7 @@ export type Where<TSql> =
 
 export interface ManyBuilderOptions<TSql> {
   count?: boolean;
+  after?: string;
   page?: Page;
   orderBy?: OrderBy[];
   where?: Where<TSql>;
