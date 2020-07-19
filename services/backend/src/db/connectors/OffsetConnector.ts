@@ -7,7 +7,7 @@ import { BaseConnector } from './BaseConnector';
 import { ManyBuilderOptions } from './types';
 import { QueryBuilder } from 'knex';
 
-export class OffsetConnector<TGraphql, TSql extends { id: string }>
+export abstract class OffsetConnector<TGraphql, TSql extends { id: string }>
   extends BaseConnector<TGraphql, TSql>
   implements DataSource<Context> {
   public getMany(

@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should build correct query 1`] = `
+select
+    id,
+    ord_id,
+    birthday,
+    name,
+    count(*) OVER ()
+from
+    test_table
+where
+    name = 'foo'
+    and (birthday, ord_id) < (2020 - 01 - 01,
+        4)
+order by
+    birthday desc,
+    ord_id desc
+limit 3
+
+`;
