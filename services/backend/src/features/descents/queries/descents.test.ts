@@ -37,6 +37,7 @@ const query = `
 
           section {
             id
+            difficulty
 
             region {
               id
@@ -63,16 +64,22 @@ const getIds = (result: any): string[] =>
   result.descents?.edges.map(({ node }: any) => node.id) || [];
 
 it('should match snapshot', async () => {
-  const result = await runQuery(query, {}, fakeContext(TEST_USER));
+  const result: any = await runQuery(query, {}, fakeContext(TEST_USER));
+  // tslint:disable-next-line: no-console
+  console.log(
+    result.data.descents?.edges.map(
+      ({ node }: any) => node.section.river.name + ' - ' + node.section.name,
+    ) || [],
+  );
   expect(result).toMatchSnapshot();
 });
 
 it.each([
-  ['anon should not see private sections', undefined, false],
-  ['non-owner should not see private sections', TEST_USER2, false],
-  ['owner should see private sections', TEST_USER, true],
+  ['anon should not see private descents', undefined, false],
+  ['non-owner should not see private descents', TEST_USER2, false],
+  ['owner should see private descents', TEST_USER, true],
 ])('%s', async (_, user, visible) => {
-  const result = await runQuery(query, {}, user);
+  const result = await runQuery(query, {}, fakeContext(user));
   const actual = getIds(result.data).includes(DESCENT_02);
   expect(actual).toBe(visible);
 });
@@ -82,8 +89,8 @@ type FilterTestCase = [string, DescentsFilter, string[]];
 it.each<FilterTestCase>([
   [
     'difficulty',
-    { difficulty: [2.5, 3] },
-    [DESCENT_07, DESCENT_03, DESCENT_02],
+    { difficulty: [3.5, 4] },
+    [DESCENT_05, DESCENT_03, DESCENT_10, DESCENT_04, DESCENT_01],
   ],
   [
     'open date range',
@@ -133,7 +140,7 @@ it.each<FilterTestCase>([
     let result = await runQuery(
       query,
       { filter, page: { limit: 1 } },
-      TEST_USER,
+      fakeContext(TEST_USER),
     );
     expect(result.errors).toBeUndefined();
     expect(getIds(result.data)).toEqual([id1]);
@@ -147,7 +154,7 @@ it.each<FilterTestCase>([
           after: result.data.descents?.pageInfo.endCursor,
         },
       },
-      TEST_USER,
+      fakeContext(TEST_USER),
     );
     expect(result.errors).toBeUndefined();
     expect(getIds(result.data)).toEqual([id2]);
@@ -161,7 +168,7 @@ it.each<FilterTestCase>([
           after: result.data.descents?.pageInfo.endCursor,
         },
       },
-      TEST_USER,
+      fakeContext(TEST_USER),
     );
     expect(result.errors).toBeUndefined();
     expect(getIds(result.data)).toEqual(restIds);

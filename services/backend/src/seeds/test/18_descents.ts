@@ -55,9 +55,9 @@ const descents: Array<Partial<DescentRaw>> = [
     level_unit: 'm3/s',
     level_value: 99.9,
 
-    started_at: new Date(2020, 1, 1),
-    created_at: new Date(2020, 1, 1),
-    updated_at: new Date(2020, 1, 1),
+    started_at: new Date(Date.UTC(2020, 0, 1)),
+    created_at: new Date(Date.UTC(2020, 0, 1)),
+    updated_at: new Date(Date.UTC(2020, 0, 1)),
   },
   {
     id: DESCENT_02,
@@ -70,9 +70,9 @@ const descents: Array<Partial<DescentRaw>> = [
     level_unit: 'm',
     level_value: 0.9,
 
-    started_at: new Date(2020, 1, 2),
-    created_at: new Date(2020, 1, 2),
-    updated_at: new Date(2020, 1, 2),
+    started_at: new Date(Date.UTC(2020, 0, 2)),
+    created_at: new Date(Date.UTC(2020, 0, 2)),
+    updated_at: new Date(Date.UTC(2020, 0, 2)),
   },
   {
     id: DESCENT_03,
@@ -85,9 +85,9 @@ const descents: Array<Partial<DescentRaw>> = [
     level_unit: null,
     level_value: null,
 
-    started_at: new Date(2020, 1, 3),
-    created_at: new Date(2020, 1, 3),
-    updated_at: new Date(2020, 1, 3),
+    started_at: new Date(Date.UTC(2020, 0, 3)),
+    created_at: new Date(Date.UTC(2020, 0, 3)),
+    updated_at: new Date(Date.UTC(2020, 0, 3)),
   },
   {
     id: DESCENT_04,
@@ -100,9 +100,9 @@ const descents: Array<Partial<DescentRaw>> = [
     level_unit: 'm3/s',
     level_value: 99.9,
 
-    started_at: new Date(2020, 1, 1),
-    created_at: new Date(2020, 1, 4),
-    updated_at: new Date(2020, 1, 4),
+    started_at: new Date(Date.UTC(2020, 0, 1)),
+    created_at: new Date(Date.UTC(2020, 0, 4)),
+    updated_at: new Date(Date.UTC(2020, 0, 4)),
   },
   {
     id: DESCENT_05,
@@ -115,9 +115,9 @@ const descents: Array<Partial<DescentRaw>> = [
     level_unit: null,
     level_value: 4,
 
-    started_at: new Date(2020, 1, 5),
-    created_at: new Date(2020, 1, 5),
-    updated_at: new Date(2020, 1, 5),
+    started_at: new Date(Date.UTC(2020, 0, 5)),
+    created_at: new Date(Date.UTC(2020, 0, 5)),
+    updated_at: new Date(Date.UTC(2020, 0, 5)),
   },
   {
     id: DESCENT_06,
@@ -130,9 +130,9 @@ const descents: Array<Partial<DescentRaw>> = [
     level_unit: 'cm',
     level_value: 320,
 
-    started_at: new Date(2020, 1, 6),
-    created_at: new Date(2020, 1, 6),
-    updated_at: new Date(2020, 1, 6),
+    started_at: new Date(Date.UTC(2020, 0, 6)),
+    created_at: new Date(Date.UTC(2020, 0, 6)),
+    updated_at: new Date(Date.UTC(2020, 0, 6)),
   },
   {
     id: DESCENT_07,
@@ -145,9 +145,9 @@ const descents: Array<Partial<DescentRaw>> = [
     level_unit: 'cm',
     level_value: 211,
 
-    started_at: new Date(2020, 1, 7),
-    created_at: new Date(2020, 1, 7),
-    updated_at: new Date(2020, 1, 7),
+    started_at: new Date(Date.UTC(2020, 0, 7)),
+    created_at: new Date(Date.UTC(2020, 0, 7)),
+    updated_at: new Date(Date.UTC(2020, 0, 7)),
   },
   {
     id: DESCENT_08,
@@ -160,9 +160,9 @@ const descents: Array<Partial<DescentRaw>> = [
     level_unit: 'cfs',
     level_value: 100,
 
-    started_at: new Date(2020, 1, 8),
-    created_at: new Date(2020, 1, 8),
-    updated_at: new Date(2020, 1, 8),
+    started_at: new Date(Date.UTC(2020, 0, 8)),
+    created_at: new Date(Date.UTC(2020, 0, 8)),
+    updated_at: new Date(Date.UTC(2020, 0, 8)),
   },
   {
     id: DESCENT_09,
@@ -175,9 +175,9 @@ const descents: Array<Partial<DescentRaw>> = [
     level_unit: 'cfs',
     level_value: 100,
 
-    started_at: new Date(2020, 1, 9),
-    created_at: new Date(2020, 1, 9),
-    updated_at: new Date(2020, 1, 9),
+    started_at: new Date(Date.UTC(2020, 0, 9)),
+    created_at: new Date(Date.UTC(2020, 0, 9)),
+    updated_at: new Date(Date.UTC(2020, 0, 9)),
   },
   {
     id: DESCENT_10,
@@ -190,9 +190,9 @@ const descents: Array<Partial<DescentRaw>> = [
     level_unit: 'm3/s',
     level_value: 99.9,
 
-    started_at: new Date(2020, 1, 1),
-    created_at: new Date(2020, 1, 10),
-    updated_at: new Date(2020, 1, 10),
+    started_at: new Date(Date.UTC(2020, 0, 1)),
+    created_at: new Date(Date.UTC(2020, 0, 10)),
+    updated_at: new Date(Date.UTC(2020, 0, 10)),
   },
 ];
 

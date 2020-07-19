@@ -1,17 +1,18 @@
-import { Descent, DescentsFilter } from '@whitewater-guide/commons';
+import {
+  Descent,
+  DescentsFilter,
+  RelayConnection,
+} from '@whitewater-guide/commons';
 import { DataSourceConfig } from 'apollo-datasource';
-import { ForbiddenError } from 'apollo-server';
-import { GraphQLResolveInfo } from 'graphql';
+import { ForbiddenError, UserInputError } from 'apollo-server';
 import jwt from 'jsonwebtoken';
 import { QueryBuilder } from 'knex';
 import { Context } from '~/apollo';
 import db from '~/db';
-import {
-  FieldsMap,
-  ManyBuilderOptions,
-  OffsetConnector,
-} from '~/db/connectors';
+import { FieldsMap, ManyBuilderOptions } from '~/db/connectors';
+import { RelayConnector } from '~/db/connectors/RelayConnector';
 import { DescentRaw, ShareToken } from './types';
+import { Cursor } from '~/apollo/cursor';
 
 const FIELDS_MAP: FieldsMap<Descent, DescentRaw> = {
   section: 'section_id',
@@ -19,10 +20,10 @@ const FIELDS_MAP: FieldsMap<Descent, DescentRaw> = {
 };
 
 interface GetManyOptions extends ManyBuilderOptions<DescentRaw> {
-  filter?: DescentsFilter;
+  filter?: DescentsFilter | null;
 }
 
-export class DescentsConnector extends OffsetConnector<Descent, DescentRaw> {
+export class DescentsConnector extends RelayConnector<Descent, DescentRaw> {
   constructor() {
     super();
     this._tableName = 'descents';
@@ -39,6 +40,11 @@ export class DescentsConnector extends OffsetConnector<Descent, DescentRaw> {
     super.initialize(config);
     // Descents are not i18ned
     this._language = undefined;
+  }
+
+  protected getAfterClause(cursor: Cursor): string {
+    const afterval = new Date(Number(cursor.value)).toISOString();
+    return `("descents"."started_at", "descents"."ord_id") < ('${afterval}', ${cursor.ordId})`;
   }
 
   public buildGenericQuery(): QueryBuilder {
@@ -106,5 +112,76 @@ export class DescentsConnector extends OffsetConnector<Descent, DescentRaw> {
     return jwt.sign(token, process.env.DESCENTS_TOKEN_SECRET!, {
       noTimestamp: true,
     });
+  }
+
+  public async getMany(
+    options: GetManyOptions,
+  ): Promise<RelayConnection<any, Cursor>> {
+    const query = super.getManyQuery(options);
+
+    // Only public or owned descents
+    if (this._user?.id) {
+      const uid = this._user?.id;
+      query.where(function() {
+        this.where('public', true).orWhere('user_id', uid);
+      });
+    } else {
+      query.where('public', true);
+    }
+
+    const { difficulty, startDate, endDate, sectionId, sectionName, userId } =
+      options.filter || {};
+
+    if (difficulty) {
+      if (difficulty.length !== 2) {
+        throw new UserInputError('difficulty filter must contain two values');
+      }
+      query.whereExists(function() {
+        this.select('*')
+          .from('sections')
+          .whereRaw('"sections"."id" = "descents"."section_id"')
+          .where('sections.difficulty', '>=', difficulty[0])
+          .where('sections.difficulty', '<=', difficulty[1]);
+      });
+    }
+
+    if (startDate) {
+      query.where('started_at', '>=', startDate);
+    }
+
+    if (endDate) {
+      query.where('started_at', '<=', endDate);
+    }
+
+    if (sectionId) {
+      query.where({ section_id: sectionId });
+    }
+
+    if (userId) {
+      query.where({ user_id: userId });
+    }
+
+    if (sectionName) {
+      const searchStr = `%${sectionName.trim().toLocaleLowerCase()}%`;
+      query.whereExists(function() {
+        this.select('*')
+          .from('sections_view')
+          .where('sections_view.id', '=', 'descents.section_id')
+          .andWhere(function() {
+            this.where('sections_view.name', 'ILIKE', searchStr)
+              .orWhere('sections_view.river_name', 'ILIKE', searchStr)
+              .orWhereExists(function() {
+                this.select('*')
+                  .from(db().raw('unnest(sections_view.alt_names) namez'))
+                  .where('namez', 'ILIKE', searchStr);
+              });
+          });
+      });
+    }
+
+    const result = await query;
+    return result?.length
+      ? this.itemsToConnection(result, result[0].count, 'started_at')
+      : { edges: [], pageInfo: { hasMore: false, endCursor: null } };
   }
 }

@@ -6,6 +6,7 @@ import db from '~/db';
 import { BaseConnector } from './BaseConnector';
 import { ManyBuilderOptions } from './types';
 import { Cursor } from '~/apollo/cursor';
+import { RelayConnection } from '@whitewater-guide/commons';
 
 export abstract class RelayConnector<TGraphql, TSql extends { id: string }>
   extends BaseConnector<TGraphql, TSql>
@@ -15,7 +16,7 @@ export abstract class RelayConnector<TGraphql, TSql extends { id: string }>
 
   protected abstract getAfterClause(cursor: Cursor): string;
 
-  public getMany(options: ManyBuilderOptions<TSql> = {}): QueryBuilder {
+  public getManyQuery(options: ManyBuilderOptions<TSql> = {}): QueryBuilder {
     const query = this.buildGenericQuery().select(db().raw(`count(*) OVER()`));
 
     // Simple filtering
@@ -53,5 +54,32 @@ export abstract class RelayConnector<TGraphql, TSql extends { id: string }>
     }
 
     return query;
+  }
+
+  public itemsToConnection<TItem = any>(
+    items: any[] | undefined,
+    total: number,
+    orderBy?: string,
+  ): RelayConnection<TItem, Cursor> {
+    const edges =
+      items?.map((node) => {
+        let value = orderBy ? node[orderBy] : undefined;
+        if (value instanceof Date) {
+          value = value.getTime().toString(10);
+        }
+        return {
+          cursor: {
+            ordId: node.ord_id,
+            value,
+          },
+          node,
+        };
+      }) || [];
+    const hasMore = edges.length < total;
+    if (!edges.length) {
+      return { edges, pageInfo: { hasMore, endCursor: null } };
+    }
+    const endEdge = edges[edges.length - 1];
+    return { edges, pageInfo: { hasMore, endCursor: endEdge.cursor } };
   }
 }
