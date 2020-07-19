@@ -10,7 +10,7 @@
     "convert": "ts-node index.ts"
   },
   "dependencies": {
-    "@whitewater-guide/commons": "0.0.202-suggestionsv2.0"
+    "@whitewater-guide/commons": "0.0.202-suggestionsv2.1"
   },
   "devDependencies": {
     "@types/fs-extra": "^8.1.0",
