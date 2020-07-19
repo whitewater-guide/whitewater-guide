@@ -1,8 +1,8 @@
-import { Context } from '~/apollo';
-import { knex } from '~/db';
-import { BaseConnector, FieldsMap } from '~/db/connectors';
 import { SectionInput, SuggestedSection } from '@whitewater-guide/commons';
 import { DataSourceConfig } from 'apollo-datasource';
+import { Context } from '~/apollo';
+import { knex } from '~/db';
+import { FieldsMap, OffsetConnector } from '~/db/connectors';
 import { SuggestedSectionRaw } from './types';
 
 const FIELDS_MAP: FieldsMap<
@@ -15,7 +15,7 @@ const FIELDS_MAP: FieldsMap<
   createdBy: 'section',
 };
 
-export class SuggestedSectionsConnector extends BaseConnector<
+export class SuggestedSectionsConnector extends OffsetConnector<
   SuggestedSection<SectionInput>,
   SuggestedSectionRaw
 > {

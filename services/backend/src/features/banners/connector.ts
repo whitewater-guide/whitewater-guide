@@ -1,10 +1,14 @@
-import { Context } from '~/apollo';
-import db from '~/db';
-import { BaseConnector, FieldsMap, ManyBuilderOptions } from '~/db/connectors';
 import { Banner } from '@whitewater-guide/commons';
 import { DataSourceConfig } from 'apollo-datasource';
 import { GraphQLResolveInfo } from 'graphql';
 import { QueryBuilder } from 'knex';
+import { Context } from '~/apollo';
+import db from '~/db';
+import {
+  FieldsMap,
+  ManyBuilderOptions,
+  OffsetConnector,
+} from '~/db/connectors';
 import { BannerRaw } from './types';
 
 const FIELDS_MAP: FieldsMap<Banner, BannerRaw> = {
@@ -17,7 +21,7 @@ interface GetManyOptions extends ManyBuilderOptions<BannerRaw> {
   regionId?: string;
 }
 
-export class BannersConnector extends BaseConnector<Banner, BannerRaw> {
+export class BannersConnector extends OffsetConnector<Banner, BannerRaw> {
   constructor() {
     super();
     this._tableName = 'banners';

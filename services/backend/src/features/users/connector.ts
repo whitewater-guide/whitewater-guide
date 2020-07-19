@@ -1,13 +1,13 @@
-import { Context } from '~/apollo';
-import db, { knex } from '~/db';
-import { BaseConnector, FieldsMap } from '~/db/connectors';
-import log from '~/log';
-import { redis } from '~/redis';
 import { SocialMediaProvider, User } from '@whitewater-guide/commons';
 import { DataSourceConfig } from 'apollo-datasource';
 import { AuthenticationError, ForbiddenError } from 'apollo-server-errors';
 import axios from 'axios';
 import get from 'lodash/get';
+import { Context } from '~/apollo';
+import db, { knex } from '~/db';
+import { FieldsMap, OffsetConnector } from '~/db/connectors';
+import log from '~/log';
+import { redis } from '~/redis';
 import { UserRaw } from './types';
 
 const { FB_APP_ID, FB_SECRET } = process.env;
@@ -40,7 +40,7 @@ const Keys = new Map<keyof PermissionsQuery, string>([
   ['regionId', 'regions_editors.region_id'],
 ]);
 
-export class UsersConnector extends BaseConnector<User, UserRaw> {
+export class UsersConnector extends OffsetConnector<User, UserRaw> {
   constructor() {
     super();
     this._tableName = 'users';

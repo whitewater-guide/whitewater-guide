@@ -1,7 +1,6 @@
-import { BaseConnector, FieldsMap } from '~/db/connectors';
-import { NS_LAST_OP, redis } from '~/redis';
-
 import { Source } from '@whitewater-guide/commons';
+import { FieldsMap, OffsetConnector } from '~/db/connectors';
+import { NS_LAST_OP, redis } from '~/redis';
 import { SourceRaw } from './types';
 
 const FIELDS_MAP: FieldsMap<Source, SourceRaw> = {
@@ -11,7 +10,7 @@ const FIELDS_MAP: FieldsMap<Source, SourceRaw> = {
   regions: null,
 };
 
-export class SourcesConnector extends BaseConnector<Source, SourceRaw> {
+export class SourcesConnector extends OffsetConnector<Source, SourceRaw> {
   constructor() {
     super();
     this._tableName = 'sources_view';

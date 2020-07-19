@@ -1,5 +1,5 @@
-import { BaseConnector, FieldsMap } from '~/db/connectors';
 import { River } from '@whitewater-guide/commons';
+import { FieldsMap, OffsetConnector } from '~/db/connectors';
 import { RiverRaw } from './types';
 
 const FIELDS_MAP: FieldsMap<River, RiverRaw> = {
@@ -7,7 +7,7 @@ const FIELDS_MAP: FieldsMap<River, RiverRaw> = {
   sections: null,
 };
 
-export class RiversConnector extends BaseConnector<River, RiverRaw> {
+export class RiversConnector extends OffsetConnector<River, RiverRaw> {
   constructor() {
     super();
     this._tableName = 'rivers_view';

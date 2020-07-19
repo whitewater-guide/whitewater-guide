@@ -1,10 +1,14 @@
-import { UnknownError } from '~/apollo';
-import db from '~/db';
-import { BaseConnector, FieldsMap, ManyBuilderOptions } from '~/db/connectors';
 import { Section } from '@whitewater-guide/commons';
 import { AuthenticationError, ForbiddenError } from 'apollo-server';
 import { GraphQLResolveInfo } from 'graphql';
 import { QueryBuilder } from 'knex';
+import { UnknownError } from '~/apollo';
+import db from '~/db';
+import {
+  FieldsMap,
+  ManyBuilderOptions,
+  OffsetConnector,
+} from '~/db/connectors';
 import { SectionRaw, SectionsFilter } from './types';
 
 interface GetManyOptions extends ManyBuilderOptions<SectionRaw> {
@@ -22,7 +26,7 @@ const FIELDS_MAP: FieldsMap<Section, SectionRaw> = {
   media: null,
 };
 
-export class SectionsConnector extends BaseConnector<Section, SectionRaw> {
+export class SectionsConnector extends OffsetConnector<Section, SectionRaw> {
   constructor() {
     super();
     this._tableName = 'sections_view';

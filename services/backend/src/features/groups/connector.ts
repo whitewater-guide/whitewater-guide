@@ -1,7 +1,11 @@
-import { BaseConnector, FieldsMap, ManyBuilderOptions } from '~/db/connectors';
 import { Group } from '@whitewater-guide/commons';
 import { GraphQLResolveInfo } from 'graphql';
 import { QueryBuilder } from 'knex';
+import {
+  FieldsMap,
+  ManyBuilderOptions,
+  OffsetConnector,
+} from '~/db/connectors';
 import { GroupRaw } from './types';
 
 const FIELDS_MAP: FieldsMap<Group, GroupRaw> = {
@@ -12,7 +16,7 @@ interface GetManyOptions extends ManyBuilderOptions<GroupRaw> {
   regionId?: string;
 }
 
-export class GroupsConnector extends BaseConnector<Group, GroupRaw> {
+export class GroupsConnector extends OffsetConnector<Group, GroupRaw> {
   constructor() {
     super();
     this._tableName = 'groups_view';

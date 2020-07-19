@@ -27,8 +27,6 @@ export type Where<TSql> =
   | Knex.Raw;
 
 export interface ManyBuilderOptions<TSql> {
-  count?: boolean;
-  after?: string;
   page?: Page;
   orderBy?: OrderBy[];
   where?: Where<TSql>;

@@ -1,5 +1,5 @@
-import { BaseConnector, FieldsMap } from '~/db/connectors';
 import { Gauge } from '@whitewater-guide/commons';
+import { FieldsMap, OffsetConnector } from '~/db/connectors';
 import { GaugeRaw } from './types';
 
 const FIELDS_MAP: FieldsMap<Gauge, GaugeRaw> = {
@@ -9,7 +9,7 @@ const FIELDS_MAP: FieldsMap<Gauge, GaugeRaw> = {
   source: ['source_id', 'script'],
 };
 
-export class GaugesConnector extends BaseConnector<Gauge, GaugeRaw> {
+export class GaugesConnector extends OffsetConnector<Gauge, GaugeRaw> {
   constructor() {
     super();
     this._tableName = 'gauges_view';

@@ -1,8 +1,12 @@
-import db from '~/db';
-import { BaseConnector, FieldsMap, ManyBuilderOptions } from '~/db/connectors';
 import { Region } from '@whitewater-guide/commons';
 import { GraphQLResolveInfo } from 'graphql';
 import { QueryBuilder } from 'knex';
+import db from '~/db';
+import {
+  FieldsMap,
+  ManyBuilderOptions,
+  OffsetConnector,
+} from '~/db/connectors';
 import { RegionRaw } from './types';
 
 const FIELDS_MAP: FieldsMap<Region, RegionRaw> = {
@@ -16,7 +20,7 @@ const FIELDS_MAP: FieldsMap<Region, RegionRaw> = {
   banners: null,
 };
 
-export class RegionsConnector extends BaseConnector<Region, RegionRaw> {
+export class RegionsConnector extends OffsetConnector<Region, RegionRaw> {
   constructor() {
     super();
     this._tableName = 'regions_view';
