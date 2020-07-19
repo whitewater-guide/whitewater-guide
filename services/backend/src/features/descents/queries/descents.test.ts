@@ -65,12 +65,6 @@ const getIds = (result: any): string[] =>
 
 it('should match snapshot', async () => {
   const result: any = await runQuery(query, {}, fakeContext(TEST_USER));
-  // tslint:disable-next-line: no-console
-  console.log(
-    result.data.descents?.edges.map(
-      ({ node }: any) => node.section.river.name + ' - ' + node.section.name,
-    ) || [],
-  );
   expect(result).toMatchSnapshot();
 });
 
@@ -122,17 +116,9 @@ it.each<FilterTestCase>([
   [
     'section (full) name',
     {
-      sectionName: 'oR',
+      sectionName: 'eCa',
     },
-    [
-      DESCENT_07,
-      DESCENT_05,
-      DESCENT_03,
-      DESCENT_02,
-      DESCENT_10,
-      DESCENT_04,
-      DESCENT_01,
-    ],
+    [DESCENT_02, DESCENT_10, DESCENT_04, DESCENT_01],
   ],
 ])(
   `should filter and paginate by %s`,

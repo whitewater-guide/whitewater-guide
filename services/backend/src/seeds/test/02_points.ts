@@ -88,7 +88,7 @@ const pointsRu = [
   {
     point_id: 'ca0bee06-d445-11e7-9296-cec278b6b50a',
     language: 'ru',
-    name: 'Галисия Река 1 Секция 1 Порог',
+    name: 'Нижняя Порог',
     description: 'Какой-то порог',
   },
 ];

@@ -6,6 +6,42 @@ Object {
   "nodes": Array [
     Object {
       "gauge": Object {
+        "id": "aba8c106-aaa0-11e7-abc4-cec278b6b50a",
+        "name": "Galicia gauge 1",
+      },
+      "hidden": false,
+      "id": "2b01742c-d443-11e7-9296-cec278b6b50a",
+      "name": "Lower",
+      "rating": 4.5,
+      "region": Object {
+        "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
+        "name": "Galicia",
+      },
+      "river": Object {
+        "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
+        "name": "Beca",
+      },
+    },
+    Object {
+      "gauge": Object {
+        "id": "aba8c106-aaa0-11e7-abc4-cec278b6b50a",
+        "name": "Galicia gauge 1",
+      },
+      "hidden": false,
+      "id": "3a6e3210-d529-11e7-9296-cec278b6b50a",
+      "name": "Upper",
+      "rating": 2.5,
+      "region": Object {
+        "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
+        "name": "Galicia",
+      },
+      "river": Object {
+        "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
+        "name": "Beca",
+      },
+    },
+    Object {
+      "gauge": Object {
         "id": "53af2e2c-19fe-11e8-accf-0ed5f89f718b",
         "name": "Georgian gauge 4",
       },
@@ -53,42 +89,6 @@ Object {
       "river": Object {
         "id": "b80554ba-5db4-11e8-9c2d-fa7ae01bbebc",
         "name": "Bzhuzha",
-      },
-    },
-    Object {
-      "gauge": Object {
-        "id": "aba8c106-aaa0-11e7-abc4-cec278b6b50a",
-        "name": "Galicia gauge 1",
-      },
-      "hidden": false,
-      "id": "2b01742c-d443-11e7-9296-cec278b6b50a",
-      "name": "Gal_riv_1_sec_1",
-      "rating": 4.5,
-      "region": Object {
-        "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
-        "name": "Galicia",
-      },
-      "river": Object {
-        "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
-        "name": "Gal_Riv_One",
-      },
-    },
-    Object {
-      "gauge": Object {
-        "id": "aba8c106-aaa0-11e7-abc4-cec278b6b50a",
-        "name": "Galicia gauge 1",
-      },
-      "hidden": false,
-      "id": "3a6e3210-d529-11e7-9296-cec278b6b50a",
-      "name": "Gal_riv_1_sec_2",
-      "rating": 2.5,
-      "region": Object {
-        "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
-        "name": "Galicia",
-      },
-      "river": Object {
-        "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
-        "name": "Gal_Riv_One",
       },
     },
     Object {

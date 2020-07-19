@@ -166,7 +166,7 @@ export class DescentsConnector extends RelayConnector<Descent, DescentRaw> {
       query.whereExists(function() {
         this.select('*')
           .from('sections_view')
-          .where('sections_view.id', '=', 'descents.section_id')
+          .whereRaw('"sections_view"."id" = "descents"."section_id"')
           .andWhere(function() {
             this.where('sections_view.name', 'ILIKE', searchStr)
               .orWhere('sections_view.river_name', 'ILIKE', searchStr)

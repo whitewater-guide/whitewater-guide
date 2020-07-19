@@ -104,14 +104,14 @@ Object {
             "section": Object {
               "difficulty": 4.5,
               "id": "3a6e3210-d529-11e7-9296-cec278b6b50a",
-              "name": "Gal_riv_1_sec_2",
+              "name": "Upper",
               "region": Object {
                 "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
                 "name": "Galicia",
               },
               "river": Object {
                 "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
-                "name": "Gal_Riv_One",
+                "name": "Beca",
               },
             },
             "startedAt": "2020-01-02T00:00:00.000Z",
@@ -133,14 +133,14 @@ Object {
             "section": Object {
               "difficulty": 3.5,
               "id": "2b01742c-d443-11e7-9296-cec278b6b50a",
-              "name": "Gal_riv_1_sec_1",
+              "name": "Lower",
               "region": Object {
                 "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
                 "name": "Galicia",
               },
               "river": Object {
                 "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
-                "name": "Gal_Riv_One",
+                "name": "Beca",
               },
             },
             "startedAt": "2020-01-10T00:00:00.000Z",
@@ -162,14 +162,14 @@ Object {
             "section": Object {
               "difficulty": 3.5,
               "id": "2b01742c-d443-11e7-9296-cec278b6b50a",
-              "name": "Gal_riv_1_sec_1",
+              "name": "Lower",
               "region": Object {
                 "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
                 "name": "Galicia",
               },
               "river": Object {
                 "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
-                "name": "Gal_Riv_One",
+                "name": "Beca",
               },
             },
             "startedAt": "2020-01-04T00:00:00.000Z",
@@ -191,14 +191,14 @@ Object {
             "section": Object {
               "difficulty": 3.5,
               "id": "2b01742c-d443-11e7-9296-cec278b6b50a",
-              "name": "Gal_riv_1_sec_1",
+              "name": "Lower",
               "region": Object {
                 "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
                 "name": "Galicia",
               },
               "river": Object {
                 "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
-                "name": "Gal_Riv_One",
+                "name": "Beca",
               },
             },
             "startedAt": "2020-01-01T00:00:00.000Z",

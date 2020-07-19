@@ -9,7 +9,7 @@ import {
   TEST_USER,
 } from '~/seeds/test/01_users';
 import { REGION_GALICIA, REGION_NORWAY } from '~/seeds/test/04_regions';
-import { RIVER_GAL_1, RIVER_SJOA } from '~/seeds/test/07_rivers';
+import { RIVER_GAL_BECA, RIVER_SJOA } from '~/seeds/test/07_rivers';
 import {
   anonContext,
   countRows,
@@ -160,7 +160,7 @@ describe('insert', () => {
 
 describe('update', () => {
   const update: RiverInput = {
-    id: RIVER_GAL_1,
+    id: RIVER_GAL_BECA,
     name: 'Upsert River',
     altNames: ['upserted', 'oopserted'],
     region: {

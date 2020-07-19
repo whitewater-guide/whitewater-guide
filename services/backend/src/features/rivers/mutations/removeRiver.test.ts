@@ -1,6 +1,6 @@
 import { holdTransaction, rollbackTransaction } from '~/db';
 import { EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '~/seeds/test/01_users';
-import { RIVER_GAL_1, RIVER_GAL_2 } from '~/seeds/test/07_rivers';
+import { RIVER_GAL_BECA, RIVER_GAL_CABE } from '~/seeds/test/07_rivers';
 import { anonContext, countRows, fakeContext, runQuery } from '~/test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 
@@ -17,8 +17,8 @@ const query = `
   }
 `;
 
-const riverWithSections = { id: RIVER_GAL_1 };
-const riverWithoutSections = { id: RIVER_GAL_2 };
+const riverWithSections = { id: RIVER_GAL_BECA };
+const riverWithoutSections = { id: RIVER_GAL_CABE };
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);

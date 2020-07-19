@@ -2,7 +2,7 @@ import { MediaRaw } from '~/features/media';
 import { MediaKind } from '@whitewater-guide/commons';
 import Knex from 'knex';
 import { ADMIN_ID } from './01_users';
-import { GALICIA_R1_S1, NORWAY_SJOA_AMOT } from './09_sections';
+import { GALICIA_BECA_LOWER, NORWAY_SJOA_AMOT } from './09_sections';
 
 export const BLOG_1 = 'a326622c-1ee5-11e8-b467-0ed5f89f718b';
 export const PHOTO_1 = 'a32664ca-1ee5-11e8-b467-0ed5f89f718b';
@@ -93,7 +93,7 @@ const sectionsMedia = [
   { section_id: NORWAY_SJOA_AMOT, media_id: PHOTO_1 },
   { section_id: NORWAY_SJOA_AMOT, media_id: PHOTO_2 },
   { section_id: NORWAY_SJOA_AMOT, media_id: VIDEO_1 },
-  { section_id: GALICIA_R1_S1, media_id: VIDEO_2 },
+  { section_id: GALICIA_BECA_LOWER, media_id: VIDEO_2 },
 ];
 
 export async function seed(db: Knex) {

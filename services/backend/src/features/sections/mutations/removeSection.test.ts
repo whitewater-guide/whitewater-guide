@@ -10,8 +10,11 @@ import {
 } from '~/seeds/test/01_users';
 import { REGION_GALICIA } from '~/seeds/test/04_regions';
 import { SOURCE_GALICIA_1 } from '~/seeds/test/05_sources';
-import { RIVER_GAL_1, RIVER_FINNA } from '~/seeds/test/07_rivers';
-import { GALICIA_R1_S1, NORWAY_FINNA_GORGE } from '~/seeds/test/09_sections';
+import { RIVER_GAL_BECA, RIVER_FINNA } from '~/seeds/test/07_rivers';
+import {
+  GALICIA_BECA_LOWER,
+  NORWAY_FINNA_GORGE,
+} from '~/seeds/test/09_sections';
 import {
   anonContext,
   countRows,
@@ -47,7 +50,7 @@ const query = `
   }
 `;
 
-const id = GALICIA_R1_S1; // Galicia River 1 Section 1
+const id = GALICIA_BECA_LOWER; // Galicia River 1 Section 1
 
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
@@ -111,9 +114,9 @@ describe('effects', () => {
     expect(entry).toMatchObject({
       id: expect.stringMatching(UUID_REGEX),
       section_id: id,
-      section_name: 'Gal_riv_1_sec_1',
-      river_id: RIVER_GAL_1,
-      river_name: 'Gal_Riv_One',
+      section_name: 'Lower',
+      river_id: RIVER_GAL_BECA,
+      river_name: 'Beca',
       region_id: REGION_GALICIA,
       region_name: 'Galicia',
       editor_id: EDITOR_GA_EC_ID,
@@ -131,7 +134,7 @@ describe('effects', () => {
     const { count } = await db(false)
       .table('rivers')
       .count('*')
-      .where({ id: RIVER_GAL_1 })
+      .where({ id: RIVER_GAL_BECA })
       .first();
     expect(count).toBe('1');
   });

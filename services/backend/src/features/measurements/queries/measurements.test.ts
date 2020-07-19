@@ -2,7 +2,7 @@ import { holdTransaction, rollbackTransaction } from '~/db';
 import { GAUGE_GAL_1_1, GAUGE_GAL_2_1 } from '~/seeds/test/06_gauges';
 import { runQuery, TIMESTAMP_REGEX } from '~/test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import { GALICIA_R1_S1 } from '../../../seeds/test/09_sections';
+import { GALICIA_BECA_LOWER } from '../../../seeds/test/09_sections';
 
 jest.mock('../../gorge/connector');
 
@@ -54,7 +54,7 @@ it('should should limit by range', async () => {
 });
 
 it('should query by section', async () => {
-  const r = await runQuery(query, { sectionId: GALICIA_R1_S1, days: 1 });
+  const r = await runQuery(query, { sectionId: GALICIA_BECA_LOWER, days: 1 });
   expect(r.errors).toBeUndefined();
   expect(r.data!.measurements).toHaveLength(4);
   expect(r.data!.measurements[0]).toMatchObject({

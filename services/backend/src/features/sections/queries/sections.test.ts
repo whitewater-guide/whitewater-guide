@@ -6,12 +6,12 @@ import {
   TEST_USER,
 } from '~/seeds/test/01_users';
 import { REGION_NORWAY } from '~/seeds/test/04_regions';
-import { RIVER_BZHUZHA, RIVER_GAL_1 } from '~/seeds/test/07_rivers';
+import { RIVER_BZHUZHA, RIVER_GAL_BECA } from '~/seeds/test/07_rivers';
 import {
   SECTIONS_TOTAL,
   SECTIONS_VISIBLE,
   GEORGIA_BZHUZHA_LONG,
-  GALICIA_R1_S1,
+  GALICIA_BECA_LOWER,
 } from '~/seeds/test/09_sections';
 import { anonContext, fakeContext, noTimestamps, runQuery } from '~/test';
 
@@ -102,7 +102,8 @@ it('should limit', async () => {
   const result = await runQuery(query, { page: { limit: 1 } });
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.sections.nodes.length', 1);
-  expect(result).toHaveProperty('data.sections.nodes.0.name', 'Extreme race');
+  expect(result).toHaveProperty('data.sections.nodes.0.river.name', 'Beca');
+  expect(result).toHaveProperty('data.sections.nodes.0.name', 'Lower');
   expect(result).toHaveProperty('data.sections.count', SECTIONS_VISIBLE);
 });
 
@@ -136,7 +137,7 @@ it('should fall back to english when not translated', async () => {
 });
 
 it('should filter by river', async () => {
-  const result = await runQuery(query, { filter: { riverId: RIVER_GAL_1 } });
+  const result = await runQuery(query, { filter: { riverId: RIVER_GAL_BECA } });
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.sections.nodes.length', 2);
   expect(result).toHaveProperty('data.sections.count', 2);
@@ -153,7 +154,7 @@ it('should search by name', async () => {
   const result = await runQuery(query, { filter: { search: 'long ' } });
   expect(result.errors).toBeUndefined();
   const ids = result.data.sections.nodes.map((n: any) => n.id);
-  expect(ids).toEqual([GEORGIA_BZHUZHA_LONG, GALICIA_R1_S1]);
+  expect(ids).toEqual([GALICIA_BECA_LOWER, GEORGIA_BZHUZHA_LONG]);
 });
 
 it('should filter recently updated', async () => {

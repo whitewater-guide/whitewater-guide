@@ -84,11 +84,11 @@ Object {
   "nodes": Array [
     Object {
       "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
-      "name": "Gal_Riv_One",
+      "name": "Beca",
     },
     Object {
       "id": "d69dbabc-bfe3-11e7-abc4-cec278b6b50a",
-      "name": "Gal_riv_two",
+      "name": "Cabe",
     },
   ],
 }
@@ -100,11 +100,11 @@ Object {
   "nodes": Array [
     Object {
       "id": "2b01742c-d443-11e7-9296-cec278b6b50a",
-      "name": "Gal_riv_1_sec_1",
+      "name": "Lower",
     },
     Object {
       "id": "3a6e3210-d529-11e7-9296-cec278b6b50a",
-      "name": "Gal_riv_1_sec_2",
+      "name": "Upper",
     },
   ],
 }

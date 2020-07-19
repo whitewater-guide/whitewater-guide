@@ -6,7 +6,7 @@ import { GAUGE_GAL_1_1, GAUGE_GEO_1, GAUGE_GEO_4 } from './06_gauges';
 import {
   RIVER_BZHUZHA,
   RIVER_FINNA,
-  RIVER_GAL_1,
+  RIVER_GAL_BECA,
   RIVER_SJOA,
   RIVER_QUIJOS,
 } from './07_rivers';
@@ -23,8 +23,8 @@ function getLineString(shape: Coordinate3d[] | null) {
   return lineString;
 }
 
-export const GALICIA_R1_S1 = '2b01742c-d443-11e7-9296-cec278b6b50a';
-export const GALICIA_R1_S2 = '3a6e3210-d529-11e7-9296-cec278b6b50a';
+export const GALICIA_BECA_LOWER = '2b01742c-d443-11e7-9296-cec278b6b50a';
+export const GALICIA_BECA_UPPER = '3a6e3210-d529-11e7-9296-cec278b6b50a';
 export const NORWAY_SJOA_AMOT = '21f2351e-d52a-11e7-9296-cec278b6b50a';
 export const NORWAY_FINNA_GORGE = '8688e656-5b4b-11e8-9c2d-fa7ae01bbebc';
 export const GEORGIA_BZHUZHA_LONG = 'e6e0e826-5db4-11e8-9c2d-fa7ae01bbebc';
@@ -40,8 +40,8 @@ export const SECTIONS_DEMO = 3;
 
 const sections = [
   {
-    id: GALICIA_R1_S1,
-    river_id: RIVER_GAL_1,
+    id: GALICIA_BECA_LOWER,
+    river_id: RIVER_GAL_BECA,
     gauge_id: GAUGE_GAL_1_1,
     season_numeric: [0, 1, 2, 3, 4],
     levels: {
@@ -71,8 +71,8 @@ const sections = [
     created_by: ADMIN_ID,
   },
   {
-    id: GALICIA_R1_S2,
-    river_id: RIVER_GAL_1,
+    id: GALICIA_BECA_UPPER,
+    river_id: RIVER_GAL_BECA,
     gauge_id: GAUGE_GAL_1_1,
     season_numeric: [0, 1, 2, 3, 4],
     levels: {
@@ -313,21 +313,21 @@ const sections = [
 
 const sectionsEn = [
   {
-    section_id: GALICIA_R1_S1,
+    section_id: GALICIA_BECA_LOWER,
     language: 'en',
-    name: 'Gal_riv_1_sec_1',
+    name: 'Lower',
     alt_names: ['Long one'],
-    description: 'Gal_riv_1_sec_1 description',
-    season: 'Gal_riv_1_sec_1 season',
-    flows_text: 'Gal_riv_1_sec_1 flows text',
+    description: 'Lower description',
+    season: 'Lower season',
+    flows_text: 'Lower flows text',
   },
   {
-    section_id: GALICIA_R1_S2,
+    section_id: GALICIA_BECA_UPPER,
     language: 'en',
-    name: 'Gal_riv_1_sec_2',
+    name: 'Upper',
     description: null,
-    season: 'Gal_riv_1_sec_2 season',
-    flows_text: 'Gal_riv_1_sec_2 flows text',
+    season: 'Upper season',
+    flows_text: 'Upper flows text',
   },
   {
     section_id: NORWAY_SJOA_AMOT,
@@ -389,20 +389,20 @@ const sectionsEn = [
 
 const sectionsRu = [
   {
-    section_id: GALICIA_R1_S1,
+    section_id: GALICIA_BECA_LOWER,
     language: 'ru',
-    name: 'Галисия река 1 секция 1',
-    description: 'Галисия река 1 секция 1 описание',
-    season: 'Галисия река 1 секция 1 сезон',
-    flows_text: 'Галисия река 1 секция 1 уровни',
+    name: 'Нижняя',
+    description: 'Нижняя Беса описание',
+    season: 'Нижняя Беса сезон',
+    flows_text: 'Нижняя Беса уровни',
   },
   {
-    section_id: GALICIA_R1_S2,
+    section_id: GALICIA_BECA_UPPER,
     language: 'ru',
-    name: 'Галисия река 1 секция 2',
+    name: 'Верхняя',
     description: null,
-    season: 'Галисия река 2 секция 1 сезон',
-    flows_text: 'Галисия река 1 секция 2 уровни',
+    season: 'Верхняя Беса сезон',
+    flows_text: 'Верхняя Беса уровни',
   },
   {
     section_id: NORWAY_SJOA_AMOT,
@@ -440,18 +440,18 @@ const sectionsRu = [
 
 // Only for galician river 1 section 1
 const sectionsTags = [
-  { section_id: GALICIA_R1_S1, tag_id: 'waterfalls' },
-  { section_id: GALICIA_R1_S1, tag_id: 'undercuts' },
+  { section_id: GALICIA_BECA_LOWER, tag_id: 'waterfalls' },
+  { section_id: GALICIA_BECA_LOWER, tag_id: 'undercuts' },
 ];
 
 // Only for galician river 1 section 1
 const sectionsPoints = [
   {
-    section_id: GALICIA_R1_S1,
+    section_id: GALICIA_BECA_LOWER,
     point_id: 'ca0bee06-d445-11e7-9296-cec278b6b50a',
   }, // Rapid
   {
-    section_id: GALICIA_R1_S1,
+    section_id: GALICIA_BECA_LOWER,
     point_id: 'ef6f80ea-d445-11e7-9296-cec278b6b50a',
   }, // Portage
 ];

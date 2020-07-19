@@ -168,14 +168,14 @@ Object {
       33,
       0,
     ],
-    "name": "Gal_Riv_One - Playrun: Put-in",
+    "name": "Beca - Playrun: Put-in",
   },
   "rating": 5,
   "region": Object {
     "name": "Galicia",
   },
   "river": Object {
-    "name": "Gal_Riv_One",
+    "name": "Beca",
   },
   "season": "Playrun season",
   "seasonNumeric": Array [
@@ -217,7 +217,7 @@ Object {
       43,
       0,
     ],
-    "name": "Gal_Riv_One - Playrun: Take-out",
+    "name": "Beca - Playrun: Take-out",
   },
 }
 `;

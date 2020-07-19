@@ -212,10 +212,7 @@ describe('connections', () => {
     );
     expect(result.data!.region.rivers.nodes).toHaveLength(1);
     expect(result.data!.region.rivers.count).toBe(2);
-    expect(result).toHaveProperty(
-      'data.region.rivers.nodes.0.name',
-      'Gal_riv_two',
-    );
+    expect(result).toHaveProperty('data.region.rivers.nodes.0.name', 'Cabe');
   });
 
   it('should get gauges', async () => {
