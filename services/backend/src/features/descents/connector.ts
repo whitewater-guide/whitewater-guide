@@ -80,4 +80,22 @@ export class DescentsConnector extends BaseConnector<Descent, DescentRaw> {
 
     return result || null;
   }
+
+  public async getShareToken(id: string) {
+    const row = await db()
+      .table('descents')
+      .select(['user_id', 'section_id'])
+      .where({ id })
+      .first();
+    if (row.user_id !== this._context.user?.id) {
+      throw new ForbiddenError('forbidden');
+    }
+    const token: ShareToken = {
+      descent: id,
+      section: row.section_id as any,
+    };
+    return jwt.sign(token, process.env.DESCENTS_TOKEN_SECRET!, {
+      noTimestamp: true,
+    });
+  }
 }

@@ -9,7 +9,7 @@ const descentShareToken: TopLevelResolver<Vars> = async (
   { id },
   { dataSources },
 ) => {
-  return null;
+  return dataSources.descents.getShareToken(id);
 };
 
 export default descentShareToken;
