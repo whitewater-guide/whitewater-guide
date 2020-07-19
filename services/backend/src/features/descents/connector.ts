@@ -1,17 +1,22 @@
-import { Descent } from '@whitewater-guide/commons';
+import { Descent, DescentsFilter } from '@whitewater-guide/commons';
 import { DataSourceConfig } from 'apollo-datasource';
 import { ForbiddenError } from 'apollo-server';
 import jwt from 'jsonwebtoken';
 import { QueryBuilder } from 'knex';
 import { Context } from '~/apollo';
 import db from '~/db';
-import { BaseConnector, FieldsMap } from '~/db/connectors';
+import { BaseConnector, FieldsMap, ManyBuilderOptions } from '~/db/connectors';
 import { DescentRaw, ShareToken } from './types';
+import { GraphQLResolveInfo } from 'graphql';
 
 const FIELDS_MAP: FieldsMap<Descent, DescentRaw> = {
   section: 'section_id',
   level: ['level_unit', 'level_value'],
 };
+
+interface GetManyOptions extends ManyBuilderOptions<DescentRaw> {
+  filter?: DescentsFilter;
+}
 
 export class DescentsConnector extends BaseConnector<Descent, DescentRaw> {
   constructor() {
@@ -97,5 +102,12 @@ export class DescentsConnector extends BaseConnector<Descent, DescentRaw> {
     return jwt.sign(token, process.env.DESCENTS_TOKEN_SECRET!, {
       noTimestamp: true,
     });
+  }
+
+  getMany(
+    info: GraphQLResolveInfo,
+    { filter = {}, ...options }: GetManyOptions = {},
+  ) {
+    const query = super.getMany(info, options);
   }
 }
