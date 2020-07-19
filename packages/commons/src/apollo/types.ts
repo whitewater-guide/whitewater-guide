@@ -5,16 +5,13 @@ export interface Node {
   id: string;
 }
 
-export interface Page<TCursor = any> {
+export interface Page<TCursor = string> {
   __typename?: 'Page';
   limit?: number;
+  // For offset-style pagination
   offset?: number;
-  cursor?: TCursor;
-}
-
-export interface PageInfo<TCursor = any> {
-  endCursor?: TCursor;
-  hasMore: boolean;
+  // For relay-style pagination
+  after?: TCursor;
 }
 
 export interface Connection<T> {
@@ -48,4 +45,20 @@ export interface UploadLink {
   postURL: string;
   formData: { [key: string]: string };
   key: string | null;
+}
+
+// Relay-styles edge
+export interface Edge<TNode, TCursor = string> {
+  node: TNode;
+  cursor: TCursor;
+}
+
+export interface PageInfo<TCursor = string> {
+  endCursor?: TCursor;
+  hasMore: boolean;
+}
+
+export interface RelayConnection<TNode, TCursor = string> {
+  edges: Array<Edge<TNode, TCursor>>;
+  pageInfo: PageInfo<TCursor>;
 }
