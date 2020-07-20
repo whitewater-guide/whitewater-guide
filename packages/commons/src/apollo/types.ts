@@ -54,7 +54,7 @@ export interface Edge<TNode, TCursor = string> {
 }
 
 export interface PageInfo<TCursor = string> {
-  endCursor?: TCursor;
+  endCursor?: TCursor | null;
   hasMore: boolean;
 }
 
