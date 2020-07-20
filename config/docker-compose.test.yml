@@ -55,23 +55,3 @@ services:
         source: ../dev-mount/minio/log/
         target: /var/log
     read_only: true
-
-  logbook:
-    container_name: logbook
-    image: docker.pkg.github.com/whitewater-guide/logbook/server:1.1.2
-    restart: always
-    depends_on:
-      - db
-    ports:
-      - '3003:3333'
-    environment:
-      NODE_ENV: development
-      LOG_LEVEL: debug
-      POSTGRES_HOST: db
-      POSTGRES_DB: wwguide
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: whitewater
-      JWT_SECRET: __access_token_secret__
-      JWT_UID_KEY: id
-      APOLLO_EXPOSE_SCHEMA: 'true'
-      APOLLO_EXPOSE_PLAYGROUND: 'true'

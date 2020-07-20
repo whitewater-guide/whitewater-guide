@@ -89,16 +89,6 @@ services:
       - db
       - redis
 
-  logbook:
-    <<: *ww-single-host
-    image: docker.pkg.github.com/whitewater-guide/logbook/server:1.1.2
-    restart: always
-    read_only: true
-    depends_on:
-      - db
-    env_file:
-      - ../services/logbook/${DOCKER_ENV_FILE}
-
   # Caddy reverse proxy
   caddy:
     <<: *ww-single-host
