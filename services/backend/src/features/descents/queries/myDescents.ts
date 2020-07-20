@@ -1,15 +1,21 @@
-import { TopLevelResolver } from '~/apollo';
+import { DescentsFilter, Page } from '@whitewater-guide/commons';
+import { TopLevelResolver, isAuthenticatedResolver } from '~/apollo';
 
 interface Vars {
-  id: string;
+  filter: DescentsFilter;
+  page: Page;
 }
 
 const myDescents: TopLevelResolver<Vars> = async (
   _,
-  { id },
-  { dataSources },
+  { filter, page },
+  { dataSources, user },
 ) => {
-  return null;
+  const result = await dataSources.descents.getMany({
+    filter: { ...filter, userId: user?.id },
+    page,
+  });
+  return result;
 };
 
-export default myDescents;
+export default isAuthenticatedResolver(myDescents);
