@@ -2,6 +2,7 @@ import {
   Descent,
   DescentsFilter,
   RelayConnection,
+  DescentInput,
 } from '@whitewater-guide/commons';
 import { DataSourceConfig } from 'apollo-datasource';
 import { ForbiddenError, UserInputError } from 'apollo-server';
@@ -201,5 +202,63 @@ export class DescentsConnector extends RelayConnector<Descent, DescentRaw> {
       .delete()
       .from('descents')
       .where({ id });
+  }
+
+  public async upsert(input: DescentInput, token?: string | null) {
+    let shared: ShareToken | undefined;
+    if (token) {
+      shared = jwt.verify(token, process.env.DESCENTS_TOKEN_SECRET!) as any;
+    }
+
+    const parentDescentCTE = db()
+      .select(['id', 'parent_id'])
+      .from('descents')
+      .where({ id: shared?.descent || null })
+      .unionAll(function() {
+        this.select(['descents.id', 'descents.parent_id'])
+          .from('parent_descents')
+          .join('descents', 'parent_descents.parent_id', 'descents.id');
+      });
+
+    const raw: Partial<DescentRaw> = {
+      parent_id: db().raw(
+        '(SELECT parent_descents.id FROM parent_descents WHERE parent_descents.parent_id IS NULL)',
+      ) as any,
+      user_id: this._user!.id,
+      section_id: input.sectionId,
+      started_at: new Date(input.startedAt),
+
+      comment: input.comment || null,
+      duration: input.duration || null,
+      level_value: input.level?.value ?? null,
+      level_unit: input.level?.unit ?? null,
+      public: input.public || false,
+    };
+    if (input.id) {
+      raw.id = input.id;
+    }
+
+    const result = await db().raw(
+      `WITH RECURSIVE parent_descents( id, parent_id ) AS (?) ? ON CONFLICT (id)
+      DO UPDATE SET
+        parent_id   = EXCLUDED.parent_id,
+        section_id  = EXCLUDED.section_id,
+        started_at  = EXCLUDED.started_at,
+        comment     = EXCLUDED.comment,
+        duration    = EXCLUDED.duration,
+        level_value = EXCLUDED.level_value,
+        level_unit  = EXCLUDED.level_unit,
+        public      = EXCLUDED.public
+      RETURNING *
+    `,
+      [
+        parentDescentCTE,
+        db()
+          .table('descents')
+          .insert(raw),
+      ],
+    );
+
+    return result.rows[0];
   }
 }
