@@ -1,3 +1,25 @@
+## [0.0.433](https://github.com/doomsower/whitewater/compare/dfce87f2b162c585c80beca70be1d932665ab89d...a7e81d46c45c8c65df2239584bb25899f685b7ff) (2020-07-20)
+
+### Features
+
+- common types for descents ([](https://github.com/doomsower/whitewater/commit/2d2b38fd8cb44588754a5e138c6108f804e17b25))
+- copy descents query tests ([](https://github.com/doomsower/whitewater/commit/71ffffec9b75525e4d3b9a9531c6b9a0e60d05dd))
+- delete descent resolver ([](https://github.com/doomsower/whitewater/commit/2632334bf42557ddeb3443cb82bbb109aa2d2d9d))
+- delete river when its last section is deleted ([](https://github.com/doomsower/whitewater/commit/37014e8ded1ebf64462a48f4809d6294bc5a3647))
+- descent share token query ([](https://github.com/doomsower/whitewater/commit/3f6e6abe6dd1a5a258572e6860a8f8150b37bcb1))
+- descents resolver ([](https://github.com/doomsower/whitewater/commit/248a9d42ab06ccb3b03da5575fd4930c991ce90d))
+- descents wip ([](https://github.com/doomsower/whitewater/commit/8ff6a6c2ca85b8c61250af26f3e90db58754a61e))
+- ditch federation and prepare descent seeds ([](https://github.com/doomsower/whitewater/commit/aabd702e619d416033c955490ee6647aaae89e79))
+- get descent query ([](https://github.com/doomsower/whitewater/commit/9ac713d7c3262145522ec2caf1815d40be8012dd))
+- my descents resolver ([](https://github.com/doomsower/whitewater/commit/b03e23f345df484a8de54585c2cf2ed13511f0e8))
+- relay-style connector ([](https://github.com/doomsower/whitewater/commit/27947a7a2e1cd50f525f236dd0e9731d061c1562))
+- upsert descent mutation ([](https://github.com/doomsower/whitewater/commit/b7333d5e8eed3ab52761fcbd4a38cc681a69071b))
+
+### Other
+
+- human-friendly names for galician test data ([](https://github.com/doomsower/whitewater/commit/48530dc67e3bf2f2fee363228aa3268e3652e625))
+- offset and relay connectors ([](https://github.com/doomsower/whitewater/commit/3ab00a01113efbfb0326b931b76ca26a7f693b50))
+
 ## [0.0.432](https://github.com/doomsower/whitewater/compare/97e5e99927dff833bb0c4687ac41697e596760fe...dfce87f2b162c585c80beca70be1d932665ab89d) (2020-07-15)
 
 ## [0.0.431](https://github.com/doomsower/whitewater/compare/ed9229df9cafb7663cc44a8ffb45e2ea66df94a7...97e5e99927dff833bb0c4687ac41697e596760fe) (2020-07-15)
