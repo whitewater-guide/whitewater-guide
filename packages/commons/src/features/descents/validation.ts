@@ -28,6 +28,7 @@ export const DescentInputSchema = yup
     duration: yup
       .number()
       .integer()
+      .min(0)
       .notRequired()
       .nullable(),
     level: DescentLevelInputSchema.clone()
