@@ -20,8 +20,8 @@ export const DescentInputSchema = yup
       .uuid()
       .notRequired()
       .nullable(),
-    sectionId: yup
-      .string()
+    sectionId: yupTypes
+      .uuid()
       .required()
       .nullable(false),
     startedAt: yup.date().required() as any,
