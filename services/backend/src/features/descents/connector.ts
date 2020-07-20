@@ -184,4 +184,22 @@ export class DescentsConnector extends RelayConnector<Descent, DescentRaw> {
       ? this.itemsToConnection(result, result[0].count, 'started_at')
       : { edges: [], pageInfo: { hasMore: false, endCursor: null } };
   }
+
+  public async deleteById(id: string) {
+    const row = await db()
+      .select(['user_id'])
+      .from('descents')
+      .where({ id })
+      .first();
+    if (!row?.user_id) {
+      throw new UserInputError('not found');
+    }
+    if (row.user_id !== this._user?.id) {
+      throw new ForbiddenError('forbidden');
+    }
+    await db()
+      .delete()
+      .from('descents')
+      .where({ id });
+  }
 }
