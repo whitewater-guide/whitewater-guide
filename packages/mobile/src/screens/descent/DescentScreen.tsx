@@ -13,10 +13,10 @@ const DescentScreen: React.FC<DescentNavProps> = ({ route }) => {
 
   if (loading) {
     element = <Loading />;
-  } else if (!data?.logbookDescent) {
+  } else if (!data?.descent) {
     element = <DescentNotFound />;
   } else {
-    element = <DescentInfo descent={data?.logbookDescent} />;
+    element = <DescentInfo descent={data.descent} />;
   }
   return <Screen safe={true}>{element}</Screen>;
 };

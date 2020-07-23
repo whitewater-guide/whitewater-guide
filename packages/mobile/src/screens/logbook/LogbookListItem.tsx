@@ -1,11 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
-import { LogbookDescent } from '@whitewater-guide/logbook-schema';
 import format from 'date-fns/format';
 import React, { useCallback } from 'react';
 import { ListRenderItemInfo, Pressable, StyleSheet, View } from 'react-native';
 import { Caption, Subheading } from 'react-native-paper';
 import { RootStackNav, Screens } from '~/core/navigation';
 import theme from '~/theme';
+import { Descent } from '@whitewater-guide/commons';
 
 const ITEM_HEIGHT = 64;
 
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  descent: LogbookDescent;
+  descent: Descent;
 }
 
 const LogbookListItem: React.FC<Props> = ({ descent }) => {
@@ -40,7 +40,7 @@ const LogbookListItem: React.FC<Props> = ({ descent }) => {
       <View style={styles.container}>
         <View style={styles.rows}>
           <Subheading>
-            {descent.section.river + ' - ' + descent.section.section}
+            {descent.section.river.name + ' - ' + descent.section.name}
           </Subheading>
           <Caption>
             {format(new Date(descent.startedAt), 'dd LLLL yyyy HH:mm')}
@@ -66,7 +66,7 @@ export const getItemLayout = (data: any, index: number) => ({
 
 export const useRenderDescent = () =>
   useCallback(
-    ({ item }: ListRenderItemInfo<LogbookDescent>) => (
+    ({ item }: ListRenderItemInfo<Descent>) => (
       <LogbookListItem descent={item} />
     ),
     [],

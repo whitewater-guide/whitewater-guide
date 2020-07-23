@@ -1,33 +1,29 @@
-import React, { useState, useCallback } from 'react';
+import { Section } from '@whitewater-guide/commons';
+import { useFormikContext } from 'formik';
+import React, { useCallback } from 'react';
+import { Screens } from '~/core/navigation';
+import { DescentFormScreen } from '../DescentFormContext';
+import { DescentFormData } from '../types';
 import SectionSearch from './SectionSearch';
 import { DescentFormSectionNavProps } from './types';
-import { DescentFormScreen, useUpstreamSection } from '../DescentFormContext';
-import { useFormikContext } from 'formik';
-import { DescentFormData } from '../types';
-import { LogbookSectionInput } from '@whitewater-guide/logbook-schema';
-import { Screens } from '~/core/navigation';
 
 export const DescentFormSectionScreen: React.FC<DescentFormSectionNavProps> = ({
   navigation,
 }) => {
   const { navigate } = navigation;
-  const [searchMode, setSearchMode] = useState(true);
-  const { setUpstreamSection } = useUpstreamSection();
-  const formik = useFormikContext<DescentFormData>();
+  const { setFieldValue, values } = useFormikContext<DescentFormData>();
 
   const setSection = useCallback(
-    (section: LogbookSectionInput) => {
-      formik.setFieldValue('section', section);
+    (section: Section) => {
+      setFieldValue('section', section);
       navigate(Screens.DESCENT_FORM_DATE);
     },
-    [formik, navigate, setUpstreamSection],
+    [setFieldValue, navigate],
   );
 
   return (
     <DescentFormScreen padding={true}>
-      {searchMode ? (
-        <SectionSearch setSearchMode={setSearchMode} onSelect={setSection} />
-      ) : null}
+      <SectionSearch onSelect={setSection} section={values.section} />
     </DescentFormScreen>
   );
 };

@@ -1,56 +1,70 @@
+import { Section } from '@whitewater-guide/commons';
 import React from 'react';
-import { ItemType, LOADING_ITEM_PREFIX, NEW_SECTION } from './types';
-import { LogbookSectionInput } from '@whitewater-guide/logbook-schema';
-import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
-import { ITEM_HEIGHT } from './constants';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import DifficultyThumb from '~/components/DifficultyThumb';
 import theme from '~/theme';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import Icon from '~/components/Icon';
-import { useTranslation } from 'react-i18next';
-import SectionListItem from './SectionListItem';
+import { ITEM_HEIGHT } from './constants';
 
 const styles = StyleSheet.create({
   container: {
-    height: ITEM_HEIGHT,
-    alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor: theme.colors.lightBackground,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: theme.colors.border,
+    padding: theme.margin.single,
+    height: ITEM_HEIGHT,
     flexDirection: 'row',
+    alignItems: 'center',
   },
-  addText: {
+  rows: {
+    flex: 1,
+    justifyContent: 'space-between',
+  },
+  riverName: {
     fontSize: 14,
+    fontWeight: '500',
     color: theme.colors.textMain,
+  },
+  sectionName: {
+    color: theme.colors.textMain,
+    fontSize: 14,
+  },
+  regionName: {
+    color: theme.colors.textNote,
+    fontSize: 12,
   },
 });
 
 interface Props {
-  item: ItemType;
-  onSelect?: (value: LogbookSectionInput) => void;
-  onAdd?: () => void;
+  section: Section;
+  onPress?: (section: Section) => void;
 }
 
-const SearchListItem: React.FC<Props> = ({ item, onAdd, onSelect }) => {
-  const { t } = useTranslation();
-  if (item.id === NEW_SECTION) {
-    return (
-      <TouchableOpacity onPress={onAdd}>
-        <View style={styles.container}>
-          <Icon icon="plus" />
-          <Text>{t('screens:descentForm.section.addListItem')}</Text>
-        </View>
-      </TouchableOpacity>
-    );
-  }
-  if (item.id.indexOf(LOADING_ITEM_PREFIX) === 0) {
-    return (
+const SearchListItem: React.FC<Props> = React.memo(({ section, onPress }) => {
+  const handlePress = () => {
+    onPress?.(section);
+  };
+
+  return (
+    <TouchableOpacity onPress={handlePress}>
       <View style={styles.container}>
-        <ActivityIndicator color={theme.colors.primary} />
+        <View style={styles.rows}>
+          <Text style={styles.sectionName} numberOfLines={1}>
+            <Text style={styles.riverName}>{section.river.name}</Text>
+            {' - '}
+            {section.name}
+          </Text>
+          <Text style={styles.regionName} numberOfLines={1}>
+            {section.region.name}
+          </Text>
+        </View>
+        <DifficultyThumb
+          noBorder={true}
+          difficulty={section.difficulty}
+          difficultyXtra={(section as any).difficultyXtra}
+        />
       </View>
-    );
-  }
-  return <SectionListItem onPress={onSelect} section={item as any} />;
-};
+    </TouchableOpacity>
+  );
+});
+
+SearchListItem.displayName = 'SearchListItem';
 
 export default SearchListItem;

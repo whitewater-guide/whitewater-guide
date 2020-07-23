@@ -1,5 +1,3 @@
-import { useNavigation } from '@react-navigation/native';
-import { useMapSelection } from '@whitewater-guide/clients';
 import React, { useCallback } from 'react';
 import { StyleSheet } from 'react-native';
 import { FAB } from 'react-native-paper';

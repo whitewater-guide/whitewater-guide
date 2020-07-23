@@ -1,8 +1,7 @@
 import React from 'react';
-import DescentFormStack from './DescentFormStack';
 import { DescentFormProvider } from './DescentFormContext';
+import DescentFormStack from './DescentFormStack';
 import { DescentFormNavProps } from './types';
-import ErrorBoundary from '~/components/ErrorBoundary';
 
 const DescentFormScreen: React.FC<DescentFormNavProps> = (props) => {
   return (

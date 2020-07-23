@@ -1,14 +1,18 @@
-import { Measurement, Unit, Section, Gauge } from '@whitewater-guide/commons';
-import { LevelInput } from '@whitewater-guide/logbook-schema';
-import { useEffect } from 'react';
+import {
+  DescentLevelInput,
+  Gauge,
+  Measurement,
+  Unit,
+} from '@whitewater-guide/commons';
 import differenceInMilliseconds from 'date-fns/differenceInMilliseconds';
 import sortBy from 'lodash/sortBy';
+import { useEffect } from 'react';
 
 interface Props {
   data: Array<Measurement<Date>>;
   unit: Unit;
   gauge: Gauge;
-  onLoaded: (value?: LevelInput) => void;
+  onLoaded: (value?: DescentLevelInput) => void;
   startedAt: Date;
 }
 

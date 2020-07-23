@@ -1,35 +1,33 @@
-import React, { useState, useCallback } from 'react';
+import { Section } from '@whitewater-guide/commons';
+import React, { useState } from 'react';
 import { Searchbar } from 'react-native-paper';
-import SectionSearchList from './SectionSearchList';
-import useSearchItems from './useSearchItems';
 import useDebounce from 'react-use/lib/useDebounce';
-import { LogbookSectionInput } from '@whitewater-guide/logbook-schema';
+import SectionSearchList from './SectionSearchList';
+import { useSearchSections } from './useSearchSections';
 
 // tslint:disable-next-line: no-empty-interface
 interface Props {
-  onSelect?: (value: LogbookSectionInput) => void;
-  setSearchMode?: (mode: boolean) => void;
+  onSelect?: (value: Section) => void;
+  section?: Section;
 }
 
-const SectionSearch: React.FC<Props> = ({ setSearchMode, onSelect }) => {
-  const [search, setSearch] = useState('');
-  const [debouncedSearch, setDebouncedSearch] = React.useState('');
+const SectionSearch: React.FC<Props> = ({ section, onSelect }) => {
+  const [search, setSearch] = useState(section?.name ?? '');
+  const [debouncedSearch, setDebouncedSearch] = React.useState(
+    section?.name ?? '',
+  );
 
   useDebounce(() => setDebouncedSearch(search), 200, [
     search,
     setDebouncedSearch,
   ]);
 
-  const data = useSearchItems(debouncedSearch);
-
-  const onAdd = useCallback(() => {
-    setSearchMode?.(false);
-  }, [setSearchMode]);
+  const data = useSearchSections(debouncedSearch);
 
   return (
     <React.Fragment>
       <Searchbar placeholder="Search" onChangeText={setSearch} value={search} />
-      <SectionSearchList data={data} onAdd={onAdd} onSelect={onSelect} />
+      <SectionSearchList data={data} onSelect={onSelect} />
     </React.Fragment>
   );
 };

@@ -1,5 +1,4 @@
 import { useChart } from '@whitewater-guide/clients';
-import { LevelInput } from '@whitewater-guide/logbook-schema';
 import React, { useCallback, useState } from 'react';
 import {
   LayoutChangeEvent,
@@ -11,6 +10,7 @@ import { NoChart, VictoryTheme } from '~/components/chart';
 import Loading from '~/components/Loading';
 import DescentChartComponent from './DescentChartComponent';
 import useOnDataLoaded from './useOnDataLoaded';
+import { DescentLevelInput } from '@whitewater-guide/commons';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 
 interface Props {
   startedAt: Date;
-  onLoaded: (value?: LevelInput) => void;
+  onLoaded: (value?: DescentLevelInput) => void;
 }
 
 export const DescentChart: React.FC<Props> = ({ onLoaded, startedAt }) => {

@@ -4,18 +4,17 @@ import {
   RouteProp,
 } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { DescentInput, Section } from '@whitewater-guide/commons';
 import {
   RootDrawerParamsList,
   RootStackParamsList,
   Screens,
 } from '~/core/navigation';
-import { LogbookDescentInput } from '@whitewater-guide/logbook-schema';
-import { Overwrite } from '@whitewater-guide/commons';
 
-export type DescentFormData = Overwrite<
-  LogbookDescentInput,
-  { startedAt: Date }
->;
+export type DescentFormData = Omit<DescentInput, 'startedAt' | 'sectionId'> & {
+  startedAt: Date;
+  section: Section;
+};
 
 export type DescentFormNavProp = CompositeNavigationProp<
   StackNavigationProp<RootStackParamsList, Screens.DESCENT_FORM>,

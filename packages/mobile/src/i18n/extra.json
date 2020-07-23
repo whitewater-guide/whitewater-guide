@@ -31,10 +31,8 @@
         "section": {
           "addListItem": "Add new section",
           "headerTitle": "Select section",
-          "listSectionNewItem": "New section",
           "listSectionRecent": "Recently descended",
-          "listSectionSearchDb": "Search result",
-          "listSectionSearchLogbook": "My logbook sections"
+          "listSectionSearch": "Search results"
         },
         "updateButton": "Update descent",
         "updateSuccessMessage": "Descent updated"

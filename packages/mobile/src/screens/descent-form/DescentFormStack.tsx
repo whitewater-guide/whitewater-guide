@@ -3,16 +3,15 @@ import {
   StackNavigationOptions,
 } from '@react-navigation/stack';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import Config from 'react-native-ultimate-config';
 import { getHeaderRenderer } from '~/components/header';
 import { Screens } from '~/core/navigation';
-import theme from '~/theme';
 import { DescentFormCommentScreen } from './comment';
 import { DescentFormDateScreen } from './date';
 import { DescentFormLevelScreen } from './level';
 import { DescentFormSectionScreen } from './section';
 import { DescentFormParamsList } from './types';
-import { useTranslation } from 'react-i18next';
 
 const Stack = createStackNavigator<DescentFormParamsList>();
 

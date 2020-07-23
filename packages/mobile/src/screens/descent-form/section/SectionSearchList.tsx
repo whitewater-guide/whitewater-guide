@@ -1,14 +1,15 @@
+import { Section } from '@whitewater-guide/commons';
 import React, { useCallback } from 'react';
 import {
   SectionList,
   SectionListRenderItemInfo,
   StyleSheet,
 } from 'react-native';
+import Loading from '~/components/Loading';
 import theme from '~/theme';
 import SearchListItem from './SearchListItem';
 import SectionHeader from './SectionHeader';
-import { ItemType, SearchData } from './types';
-import { LogbookSectionInput } from '@whitewater-guide/logbook-schema';
+import { SearchResults } from './useSearchSections';
 
 const styles = StyleSheet.create({
   list: {
@@ -24,22 +25,24 @@ const renderSectionHeader = ({ section }: any) => (
 );
 
 interface Props {
-  data: SearchData;
-  onSelect?: (value: LogbookSectionInput) => void;
-  onAdd?: () => void;
+  data: SearchResults;
+  onSelect?: (value: Section) => void;
 }
 
-const SectionSearchList: React.FC<Props> = ({ data, onAdd, onSelect }) => {
+const SectionSearchList: React.FC<Props> = ({ data, onSelect }) => {
   const renderItem = useCallback(
-    ({ item }: SectionListRenderItemInfo<ItemType>) => {
-      return <SearchListItem item={item} onAdd={onAdd} onSelect={onSelect} />;
+    ({ item }: SectionListRenderItemInfo<Section>) => {
+      return <SearchListItem section={item} onPress={onSelect} />;
     },
-    [onAdd, onSelect],
+    [onSelect],
   );
+  if (data.loading) {
+    return <Loading />;
+  }
   return (
     <SectionList
       style={styles.list}
-      sections={data}
+      sections={data.result}
       keyExtractor={keyExtractor}
       renderItem={renderItem}
       renderSectionHeader={renderSectionHeader}

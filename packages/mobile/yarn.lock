@@ -3554,11 +3554,6 @@
     validator "^13.1.1"
     yup "^0.29.1"
 
-"@whitewater-guide/logbook-schema@^1.1.2":
-  version "1.1.2"
-  resolved "https://registry.npmjs.org/@whitewater-guide/logbook-schema/-/logbook-schema-1.1.2.tgz#050365a88277f9e038e2d9019dd43e27f153cc4f"
-  integrity sha512-H0Y1O7pXYiBwFZ32XCET/rIzQdiyq48VwmyCXKt+wuIRliFvvajpgKtqPmP6yHtUgAf2HFJRJllDqQofguVGQg==
-
 "@whitewater-guide/translations@^2.2.0":
   version "2.2.0"
   resolved "https://registry.npmjs.org/@whitewater-guide/translations/-/translations-2.2.0.tgz#ba9d82d492df0294a5c18d11f1774801a127153b"

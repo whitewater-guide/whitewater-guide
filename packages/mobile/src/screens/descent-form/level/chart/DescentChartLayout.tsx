@@ -1,11 +1,10 @@
 import { ChartProvider } from '@whitewater-guide/clients';
-import { Section, Unit } from '@whitewater-guide/commons';
-import { LevelInput } from '@whitewater-guide/logbook-schema';
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import theme from '~/theme';
-import subDays from 'date-fns/subDays';
+import { DescentLevelInput, Section } from '@whitewater-guide/commons';
 import addDays from 'date-fns/addDays';
+import subDays from 'date-fns/subDays';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import theme from '~/theme';
 import { DescentChart } from './DescentChart';
 import DescentChartFlowToggle from './DescentChartFlowToggle';
 
@@ -22,7 +21,7 @@ const styles = StyleSheet.create({
 interface Props {
   startedAt: Date;
   section: Section;
-  onLoaded: (value?: LevelInput) => void;
+  onLoaded: (value?: DescentLevelInput) => void;
 }
 
 export const DescentChartLayout: React.FC<Props> = React.memo(

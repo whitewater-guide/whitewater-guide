@@ -1,19 +1,40 @@
-import {
-  LogbookDescent,
-  LogbookDescentAll,
-} from '@whitewater-guide/logbook-schema';
+import { Descent } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 import { useQuery } from 'react-apollo';
 import { DescentFormData, DescentFormNavProps } from './types';
 
 const DESCENT_FORM_QUERY = gql`
-  query getLogbookDescent($descentId: ID, $shareToken: String) {
-    logbookDescent(id: $descentId, shareToken: $shareToken) {
-      ...logbookDescentAll
+  query getDescent($descentId: ID, $shareToken: String) {
+    descent(id: $descentId, shareToken: $shareToken) {
+      id
+
+      startedAt
+      duration
+      level {
+        value
+        unit
+      }
+      comment
+      public
+
+      createdAt
+      updatedAt
+
+      section {
+        id
+        name
+        river {
+          id
+          name
+        }
+        region {
+          id
+          name
+        }
+      }
     }
   }
-  ${LogbookDescentAll}
 `;
 
 interface QVars {
@@ -22,66 +43,44 @@ interface QVars {
 }
 
 interface QResult {
-  logbookDescent?: LogbookDescent;
+  Descent?: Descent;
 }
 
 export default (props: DescentFormNavProps['route']['params']) => {
-  const { descentId, shareToken, section } = props;
+  const { descentId, shareToken, formData } = props;
+  const formDataRef = useRef(formData);
+
   const { data, error, loading } = useQuery<QResult, QVars>(
     DESCENT_FORM_QUERY,
     {
       fetchPolicy: 'network-only',
       variables: { descentId, shareToken },
-      skip: !!section,
+      skip: !!formData,
     },
   );
 
-  const initialData: DescentFormData = useMemo(() => {
-    if (section) {
+  const initialData: Partial<DescentFormData> = useMemo(() => {
+    if (formDataRef.current) {
+      return formDataRef.current;
+    }
+    if (!data?.Descent) {
       return {
-        section: {
-          region: section.region.name,
-          difficulty: section.difficulty,
-          river: section.river.name,
-          section: section.name,
-          putIn: {
-            lat: section.putIn.coordinates[1],
-            lng: section.putIn.coordinates[0],
-          },
-          takeOut: {
-            lat: section.takeOut.coordinates[1],
-            lng: section.takeOut.coordinates[0],
-          },
-          upstreamId: section.id,
-        },
         startedAt: new Date(),
         public: true,
       };
     }
-    if (!data?.logbookDescent) {
-      return {
-        section: {
-          region: 'Foo',
-          difficulty: 3,
-          river: 'Bar',
-          section: 'Baz',
-        },
-        startedAt: new Date(),
-        public: true,
-      };
-    }
+    const { startedAt, level, ...rest } = data.Descent;
     return {
-      ...data.logbookDescent,
-      startedAt: new Date(data?.logbookDescent?.startedAt),
-      level: data.logbookDescent.level?.value
+      ...rest,
+      startedAt: new Date(startedAt),
+      level: level?.value
         ? {
-            value: data.logbookDescent.level.value,
-            unit: data.logbookDescent.level.unit,
+            value: level.value,
+            unit: level.unit,
           }
         : undefined,
-      public: true,
     };
-  }, [section, data]);
+  }, [formDataRef, data]);
 
   return { initialData, loading, error };
 };

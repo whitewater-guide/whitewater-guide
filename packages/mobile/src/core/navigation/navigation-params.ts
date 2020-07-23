@@ -1,8 +1,8 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { ParamListBase, RouteProp } from '@react-navigation/native';
 import { PurchaseParams } from '~/features/purchases/types';
+import { DescentFormData } from '~/screens/descent-form';
 import { Screens } from './screen-names';
-import { Section } from '@whitewater-guide/commons';
 
 export interface RootDrawerParamsList extends ParamListBase {
   [Screens.ROOT_STACK]: undefined;
@@ -31,7 +31,7 @@ export interface RootStackParamsList extends ParamListBase {
   [Screens.DESCENT_FORM]: {
     descentId?: string;
     shareToken?: string;
-    section?: Section;
+    formData?: Partial<DescentFormData>;
   };
   [Screens.DESCENT]: {
     descentId: string;

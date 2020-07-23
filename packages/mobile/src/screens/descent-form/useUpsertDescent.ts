@@ -1,9 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
 import { getValidationErrors } from '@whitewater-guide/clients';
-import {
-  LogbookDescentAll,
-  MutationUpsertLogbookDescentArgs,
-} from '@whitewater-guide/logbook-schema';
 import { FormikHelpers } from 'formik';
 import gql from 'graphql-tag';
 import { useCallback } from 'react';
@@ -13,34 +9,57 @@ import { useSnackbarMessage } from '~/components/snackbar';
 import { DescentFormData } from './types';
 
 const UPSERT_DESCENT = gql`
-  mutation upsertLogbookDescent(
-    $descent: LogbookDescentInput!
-    $shareToken: String
-  ) {
-    upsertLogbookDescent(descent: $descent, shareToken: $shareToken) {
-      ...logbookDescentAll
+  mutation upsertDescent($descent: DescentInput!, $shareToken: String) {
+    upsertDescent(descent: $descent, shareToken: $shareToken) {
+      id
+
+      startedAt
+      duration
+      level {
+        value
+        unit
+      }
+      comment
+      public
+
+      createdAt
+      updatedAt
+
+      section {
+        id
+        name
+        river {
+          id
+          name
+        }
+        region {
+          id
+          name
+        }
+      }
     }
   }
-  ${LogbookDescentAll}
 `;
 
 export default () => {
   const { t } = useTranslation();
-  const [mutate] = useMutation<any, MutationUpsertLogbookDescentArgs>(
-    UPSERT_DESCENT,
-  );
+  const [mutate] = useMutation(UPSERT_DESCENT);
   const { goBack } = useNavigation();
   const setSnackbar = useSnackbarMessage();
   return useCallback(
-    (data: DescentFormData, helpers: FormikHelpers<DescentFormData>) =>
+    (
+      { startedAt, section, ...data }: DescentFormData,
+      helpers: FormikHelpers<DescentFormData>,
+    ) =>
       mutate({
         variables: {
           descent: {
             ...data,
-            startedAt: data.startedAt.toISOString(),
+            sectionId: section.id,
+            startedAt: startedAt.toISOString(),
           },
         },
-        refetchQueries: ['listMyLogbookDescents'],
+        refetchQueries: ['listMyDescents'],
       })
         .then((resp) => {
           if (resp.errors) {

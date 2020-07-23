@@ -1,7 +1,6 @@
 import React from 'react';
-import { SectionType } from './types';
-import { Text, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { StyleSheet, Text } from 'react-native';
 import theme from '~/theme';
 
 const styles = StyleSheet.create({
@@ -13,7 +12,7 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  id: SectionType;
+  id: string;
 }
 
 const SectionHeader: React.FC<Props> = ({ id }) => {

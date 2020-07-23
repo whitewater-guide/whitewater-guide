@@ -1,17 +1,11 @@
-import { LogbookDescent } from '@whitewater-guide/logbook-schema';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import {
-  Paragraph,
-  Subheading,
-  Title,
-  Caption,
-  Headline,
-} from 'react-native-paper';
+import { Paragraph, Subheading, Title, Caption } from 'react-native-paper';
 import { Left, Right, Row } from '~/components/Row';
 import theme from '~/theme';
 import format from 'date-fns/format';
+import { Descent } from '@whitewater-guide/commons';
 
 const styles = StyleSheet.create({
   content: {
@@ -31,7 +25,7 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  descent: LogbookDescent;
+  descent: Descent;
 }
 
 const DescentInfo = ({ descent }: Props) => {
@@ -39,8 +33,10 @@ const DescentInfo = ({ descent }: Props) => {
   return (
     <ScrollView contentContainerStyle={styles.content}>
       <View style={styles.title}>
-        <Title>{descent.section.river + '- ' + descent.section.section}</Title>
-        <Caption>{descent.section.region}</Caption>
+        <Title>
+          {descent.section.river.name + '- ' + descent.section.name}
+        </Title>
+        <Caption>{descent.section.region.name}</Caption>
       </View>
 
       <Row>

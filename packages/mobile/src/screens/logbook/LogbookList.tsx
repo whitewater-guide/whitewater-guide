@@ -1,4 +1,4 @@
-import { LogbookDescent } from '@whitewater-guide/logbook-schema';
+import { Descent } from '@whitewater-guide/commons';
 import React from 'react';
 import { FlatList } from 'react-native';
 import {
@@ -6,10 +6,10 @@ import {
   useRenderDescent,
 } from '~/screens/logbook/LogbookListItem';
 
-const keyExtractor = (descent: LogbookDescent) => descent.id;
+const keyExtractor = (descent: Descent) => descent.id;
 
 interface Props {
-  descents: LogbookDescent[];
+  descents: Descent[];
 }
 
 const LogbookList: React.FC<Props> = ({ descents }) => {

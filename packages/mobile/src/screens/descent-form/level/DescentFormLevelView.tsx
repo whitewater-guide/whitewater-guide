@@ -1,5 +1,5 @@
-import { LevelInput } from '@whitewater-guide/logbook-schema';
-import { useField, useFormikContext } from 'formik';
+import { DescentLevelInput } from '@whitewater-guide/commons';
+import { useFormikContext } from 'formik';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'react-native-paper';
@@ -7,7 +7,7 @@ import { Screens } from '~/core/navigation';
 import NumericField from '~/forms/NumericField';
 import TextField from '~/forms/TextField';
 import { DescentFormDateNavProps } from '~/screens/descent-form/date/types';
-import { DescentFormScreen, useUpstreamSection } from '../DescentFormContext';
+import { DescentFormScreen } from '../DescentFormContext';
 import { DescentFormData } from '../types';
 import { DescentChartLayout } from './chart';
 
@@ -16,11 +16,12 @@ const DescentFormLevelView: React.FC<DescentFormDateNavProps> = ({
 }) => {
   const { navigate } = navigation;
   const { t } = useTranslation();
-  const { upstreamSection } = useUpstreamSection();
-  const [{ value: startedAt }] = useField<Date>('startedAt');
-  const { setFieldValue } = useFormikContext<DescentFormData>();
+  const {
+    setFieldValue,
+    values: { startedAt, section },
+  } = useFormikContext<DescentFormData>();
   const onLoaded = useCallback(
-    (value?: LevelInput) => {
+    (value?: DescentLevelInput) => {
       setFieldValue('level', value);
     },
     [setFieldValue],
@@ -41,9 +42,9 @@ const DescentFormLevelView: React.FC<DescentFormDateNavProps> = ({
         autoCorrect={false}
         autoCompleteType="off"
       />
-      {upstreamSection?.gauge && (
+      {section.gauge && (
         <DescentChartLayout
-          section={upstreamSection}
+          section={section}
           startedAt={startedAt}
           onLoaded={onLoaded}
         />

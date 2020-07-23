@@ -1,68 +1,78 @@
-import { Connection, Section } from '@whitewater-guide/commons';
 import {
-  LogbookSectionAll,
-  LogbookSectionsConnection,
-} from '@whitewater-guide/logbook-schema';
+  Connection,
+  Descent,
+  RelayConnection,
+  Section,
+} from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 import { useMemo } from 'react';
 import { useQuery } from 'react-apollo';
 
+const fragment = gql`
+  fragment descentSearchSection on Section {
+    id
+    name
+    difficulty
+    river {
+      id
+      name
+    }
+    region {
+      id
+      name
+    }
+    levels {
+      minimum
+      maximum
+      optimum
+      impossible
+      approximate
+    }
+    flows {
+      minimum
+      maximum
+      optimum
+      impossible
+      approximate
+    }
+    gauge {
+      id
+      name
+      levelUnit
+      flowUnit
+    }
+    putIn {
+      id
+      coordinates
+    }
+    takeOut {
+      id
+      coordinates
+    }
+  }
+`;
+
 const SEARCH_SECTIONS = gql`
   query searchSections($search: String) {
-    logbook: myLogbookSections(filter: { name: $search }) {
-      edges {
-        node {
-          ...logbookSectionAll
-        }
+    sections(filter: { search: $search }, page: { limit: 20 }) {
+      nodes {
+        ...descentSearchSection
       }
     }
 
-    db: sections(filter: { search: $search }) {
-      nodes {
-        id
-        name
-        difficulty
-        river {
+    myDescents(page: { limit: 20 }) {
+      edges {
+        node {
           id
-          name
-        }
-        region {
-          id
-          name
-        }
-        levels {
-          minimum
-          maximum
-          optimum
-          impossible
-          approximate
-        }
-        flows {
-          minimum
-          maximum
-          optimum
-          impossible
-          approximate
-        }
-        gauge {
-          id
-          name
-          levelUnit
-          flowUnit
-        }
-        putIn {
-          id
-          coordinates
-        }
-        takeOut {
-          id
-          coordinates
+
+          section {
+            ...descentSearchSection
+          }
         }
       }
-      count
     }
   }
-  ${LogbookSectionAll}
+  ${fragment}
 `;
 
 interface QVars {
@@ -70,26 +80,29 @@ interface QVars {
 }
 
 interface QResult {
-  logbook: LogbookSectionsConnection;
-  db: Connection<Section>;
+  sections: Connection<Section>;
+  myDescents: RelayConnection<Descent>;
 }
 
-const useSearchSections = (search: string) => {
+export const useSearchSections = (search: string) => {
   const query = useQuery<QResult, QVars>(SEARCH_SECTIONS, {
     fetchPolicy: 'no-cache',
     skip: !search,
     variables: { search },
   });
-  const { data } = query;
+  const { data, loading } = query;
 
   const result = useMemo(
-    () => ({
-      logbook: data?.logbook.edges.map((e) => e.node) || [],
-      db: data?.db.nodes || [],
-    }),
+    () => [
+      {
+        id: 'Recent',
+        data: data?.myDescents.edges.map((e) => e.node.section) || [],
+      },
+      { id: 'Search', data: data?.sections.nodes || [] },
+    ],
     [data],
   );
-  return { ...query, ...result };
+  return { loading, result };
 };
 
-export default useSearchSections;
+export type SearchResults = ReturnType<typeof useSearchSections>;

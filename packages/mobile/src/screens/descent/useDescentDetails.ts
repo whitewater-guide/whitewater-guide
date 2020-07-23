@@ -1,17 +1,38 @@
-import {
-  LogbookDescent,
-  LogbookDescentAll,
-} from '@whitewater-guide/logbook-schema';
 import gql from 'graphql-tag';
 import { useQuery } from 'react-apollo';
+import { Descent } from '@whitewater-guide/commons';
 
 const DESCENT_DETAILS_QUERY = gql`
-  query logbookDescentDetails($descentId: ID) {
-    logbookDescent(id: $descentId) {
-      ...logbookDescentAll
+  query descentDetails($descentId: ID) {
+    descent(id: $descentId) {
+      id
+
+      startedAt
+      duration
+      level {
+        value
+        unit
+      }
+      comment
+      public
+
+      createdAt
+      updatedAt
+
+      section {
+        id
+        name
+        river {
+          id
+          name
+        }
+        region {
+          id
+          name
+        }
+      }
     }
   }
-  ${LogbookDescentAll}
 `;
 
 interface QVars {
@@ -20,7 +41,7 @@ interface QVars {
 }
 
 interface QResult {
-  logbookDescent?: LogbookDescent;
+  descent?: Descent;
 }
 
 export default (descentId: string) =>
