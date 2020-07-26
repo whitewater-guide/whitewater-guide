@@ -22,7 +22,15 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const ITEMS = [
+interface DrawerEntry {
+  title: string;
+  path: string;
+  admin?: boolean;
+  editor?: boolean;
+  authenticated?: boolean;
+}
+
+const ITEMS: DrawerEntry[] = [
   { title: 'Regions', path: '/regions', admin: false },
   { title: 'Sources', path: '/sources', admin: false },
   { title: 'Tags', path: '/tags', admin: true },
