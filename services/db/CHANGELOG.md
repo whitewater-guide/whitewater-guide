@@ -1,3 +1,9 @@
+## [0.0.63](https://github.com/doomsower/whitewater/compare/662bf57bd2fefd04dca4bb0be9f6adf5c6f814c5...5d99a781cf33884d1fa71ced28978f3b8915d104) (2020-07-26)
+
+### Features
+
+- descents form ([](https://github.com/doomsower/whitewater/commit/c106e58c8368157a16a4b2a49ebedea5c5823bdd))
+
 ## [0.0.61-descent.1](https://github.com/doomsower/whitewater/compare/fdbef729d1102a3c374ac8d114c7ba195447b1a7...662bf57bd2fefd04dca4bb0be9f6adf5c6f814c5) (2020-07-26)
 
 ### Features

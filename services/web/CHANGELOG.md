@@ -1,3 +1,14 @@
+## [0.1.431](https://github.com/doomsower/whitewater/compare/662bf57bd2fefd04dca4bb0be9f6adf5c6f814c5...5d99a781cf33884d1fa71ced28978f3b8915d104) (2020-07-26)
+
+### Bug Fixes
+
+- drawer ([](https://github.com/doomsower/whitewater/commit/ea117389f08f912d1509aa5e4049fc4141dabdc5))
+
+### Features
+
+- descents form ([](https://github.com/doomsower/whitewater/commit/c106e58c8368157a16a4b2a49ebedea5c5823bdd))
+- remove logbook from web ([](https://github.com/doomsower/whitewater/commit/6d4b88c1086c86a3f7a74b178915da62713da012))
+
 ## [0.1.429-descent.0](https://github.com/doomsower/whitewater/compare/fdbef729d1102a3c374ac8d114c7ba195447b1a7...662bf57bd2fefd04dca4bb0be9f6adf5c6f814c5) (2020-07-26)
 
 ## [0.1.429-descent.0](https://github.com/doomsower/whitewater/compare/4492e6abf257d83199b6be9b6b69fff294feef8c...fdbef729d1102a3c374ac8d114c7ba195447b1a7) (2020-07-25)
