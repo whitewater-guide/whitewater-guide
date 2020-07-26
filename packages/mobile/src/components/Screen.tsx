@@ -13,7 +13,6 @@ import ErrorBoundary from './ErrorBoundary';
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    // backgroundColor: theme.colors.primaryBackground,
   },
   padding: {
     padding: theme.margin.single,

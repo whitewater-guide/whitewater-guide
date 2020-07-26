@@ -1,23 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Loading from '~/components/Loading';
 import { Screen } from '~/components/Screen';
 import DescentInfo from './DescentInfo';
+import DescentMenu from './DescentMenu';
 import DescentNotFound from './DescentNotFound';
 import { DescentNavProps } from './types';
 import useDescentDetails from './useDescentDetails';
 
-const DescentScreen: React.FC<DescentNavProps> = ({ route }) => {
+const DescentScreen: React.FC<DescentNavProps> = ({ navigation, route }) => {
   const { descentId } = route.params;
   const { loading, data } = useDescentDetails(descentId);
+  const descent = data?.descent;
   let element: React.ReactNode = null;
 
   if (loading) {
     element = <Loading />;
-  } else if (!data?.descent) {
+  } else if (!descent) {
     element = <DescentNotFound />;
   } else {
-    element = <DescentInfo descent={data.descent} />;
+    element = <DescentInfo descent={descent} />;
   }
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () =>
+        descent ? <DescentMenu descent={descent} /> : undefined,
+    });
+  }, [descent, navigation]);
+
   return <Screen safe={true}>{element}</Screen>;
 };
 export default DescentScreen;

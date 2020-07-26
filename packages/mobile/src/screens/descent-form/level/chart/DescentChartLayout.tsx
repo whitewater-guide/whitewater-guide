@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  startedAt: Date;
+  startedAt: string;
   section: Section;
   onLoaded: (value?: DescentLevelInput) => void;
 }
@@ -27,8 +27,8 @@ interface Props {
 export const DescentChartLayout: React.FC<Props> = React.memo(
   ({ section, onLoaded, startedAt }) => {
     const initialFilter = {
-      from: subDays(startedAt, 1),
-      to: addDays(startedAt, 1),
+      from: subDays(new Date(startedAt), 1),
+      to: addDays(new Date(startedAt), 1),
     };
 
     return (
@@ -39,7 +39,7 @@ export const DescentChartLayout: React.FC<Props> = React.memo(
       >
         <View style={styles.container}>
           <View style={styles.container}>
-            <DescentChart startedAt={startedAt} onLoaded={onLoaded} />
+            <DescentChart startedAt={new Date(startedAt)} onLoaded={onLoaded} />
           </View>
           <View style={styles.controls}>
             <DescentChartFlowToggle />

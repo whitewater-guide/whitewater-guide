@@ -5,6 +5,7 @@ import {
   Section,
 } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
+import uniqBy from 'lodash/uniqBy';
 import { useMemo } from 'react';
 import { useQuery } from 'react-apollo';
 
@@ -84,25 +85,32 @@ interface QResult {
   myDescents: RelayConnection<Descent>;
 }
 
-export const useSearchSections = (search: string) => {
+export function useSearchSections(search: string, mandatory?: Section) {
   const query = useQuery<QResult, QVars>(SEARCH_SECTIONS, {
     fetchPolicy: 'no-cache',
-    skip: !search,
     variables: { search },
   });
   const { data, loading } = query;
 
-  const result = useMemo(
-    () => [
-      {
-        id: 'Recent',
-        data: data?.myDescents.edges.map((e) => e.node.section) || [],
-      },
-      { id: 'Search', data: data?.sections.nodes || [] },
-    ],
-    [data],
-  );
+  const result = useMemo(() => {
+    const recent = uniqBy(
+      data?.myDescents.edges.map((e) => e.node.section) || [],
+      'id',
+    );
+    const found = search ? data?.sections.nodes || [] : [];
+    if (mandatory && !found.some((s) => s.id === mandatory.id)) {
+      found.unshift(mandatory);
+    }
+    const all = [];
+    if (recent.length) {
+      all.push({ id: 'Recent', data: recent });
+    }
+    if (search) {
+      all.push({ id: 'Search', data: found });
+    }
+    return all;
+  }, [data, search, mandatory]);
   return { loading, result };
-};
+}
 
 export type SearchResults = ReturnType<typeof useSearchSections>;

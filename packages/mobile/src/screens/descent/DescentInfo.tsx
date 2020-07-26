@@ -1,11 +1,12 @@
+import { Descent } from '@whitewater-guide/commons';
+import format from 'date-fns/format';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { Paragraph, Subheading, Title, Caption } from 'react-native-paper';
+import { Caption, Paragraph, Subheading, Title } from 'react-native-paper';
 import { Left, Right, Row } from '~/components/Row';
+import descentLevelToString from '~/features/descents/descentLevelToString';
 import theme from '~/theme';
-import format from 'date-fns/format';
-import { Descent } from '@whitewater-guide/commons';
 
 const styles = StyleSheet.create({
   content: {
@@ -55,9 +56,7 @@ const DescentInfo = ({ descent }: Props) => {
           <Subheading>{t('screens:descent.info.level')}</Subheading>
         </Left>
         <Right>
-          <Paragraph>
-            {descent.level?.value + ' ' + descent.level?.unit}
-          </Paragraph>
+          <Paragraph>{descentLevelToString(descent.level)}</Paragraph>
         </Right>
       </Row>
 

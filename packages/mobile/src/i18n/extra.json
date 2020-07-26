@@ -2,13 +2,21 @@
   "en": {
     "screens": {
       "descent": {
+        "deleteConfirmation": "Are you sure you want to delete this descent?",
         "headerTitle": "Descent info",
-        "notFound": "Descent not found",
         "info": {
-          "startedAt": "Started at",
+          "commentHeader": "My comments",
           "level": "Level",
-          "commentHeader": "My comments"
-        }
+          "startedAt": "Started at"
+        },
+        "menu": {
+          "copy": "Copy to clipboard",
+          "delete": "Delete",
+          "duplicate": "Duplicate",
+          "edit": "Edit",
+          "title": "Actions"
+        },
+        "notFound": "Descent not found"
       },
       "descentForm": {
         "comment": {
@@ -38,6 +46,7 @@
         "updateSuccessMessage": "Descent updated"
       },
       "logbook": {
+        "empty": "Your logbook is empty",
         "headerTitle": "My Logbook"
       }
     }

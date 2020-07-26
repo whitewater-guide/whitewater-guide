@@ -1,14 +1,12 @@
 import React from 'react';
-import { LogbookNavProps } from './types';
-import useMyDescents from './useMyDescents';
-import LogbookList from './LogbookList';
 import { AddDescentFAB } from './AddDescentFAB';
+import LogbookList from './LogbookList';
+import { LogbookNavProps } from './types';
 
 const LogbookView: React.FC<LogbookNavProps> = ({ navigation }) => {
-  const { descents } = useMyDescents();
   return (
     <React.Fragment>
-      <LogbookList descents={descents} />
+      <LogbookList />
       <AddDescentFAB navigate={navigation.navigate} />
     </React.Fragment>
   );

@@ -1,18 +1,15 @@
 import { Descent } from '@whitewater-guide/commons';
+import { NetworkStatus } from 'apollo-client';
 import React from 'react';
 import { FlatList } from 'react-native';
-import {
-  getItemLayout,
-  useRenderDescent,
-} from '~/screens/logbook/LogbookListItem';
+import LogbookEmpty from './LogbookEmpty';
+import { getItemLayout, useRenderDescent } from './LogbookListItem';
+import useMyDescents from './useMyDescents';
 
 const keyExtractor = (descent: Descent) => descent.id;
 
-interface Props {
-  descents: Descent[];
-}
-
-const LogbookList: React.FC<Props> = ({ descents }) => {
+const LogbookList: React.FC = () => {
+  const { descents, networkStatus, refetch, loadMore } = useMyDescents();
   const renderItem = useRenderDescent();
   return (
     <FlatList
@@ -20,7 +17,11 @@ const LogbookList: React.FC<Props> = ({ descents }) => {
       renderItem={renderItem}
       getItemLayout={getItemLayout}
       keyExtractor={keyExtractor}
+      refreshing={networkStatus === NetworkStatus.refetch}
+      ListEmptyComponent={<LogbookEmpty />}
+      onRefresh={refetch}
       testID="descents-list"
+      onEndReached={loadMore}
     />
   );
 };

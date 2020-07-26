@@ -16,7 +16,7 @@ const colors = {
   primaryDarker: '#1769aa',
   accent: '#FF9900',
   lightBackground: '#FFFFFF',
-  primaryBackground: '#FAFAFA', // Grey 50,
+  primaryBackground: 'rgb(242,242,242)',
   border: '#e0e0e0', // Grey 300
   componentBorder: '#9E9E9E', // Grey 500
   textMain: '#343434',

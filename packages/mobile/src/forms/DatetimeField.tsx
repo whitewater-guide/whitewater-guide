@@ -1,7 +1,7 @@
-import DatePicker from 'react-native-date-picker';
 import { useFormikContext } from 'formik';
 import React, { useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
+import DatePicker from 'react-native-date-picker';
 import { Paragraph } from 'react-native-paper';
 import theme from '../theme';
 
@@ -19,18 +19,19 @@ const styles = StyleSheet.create({
 interface Props {
   name: string;
   label: string;
+  asString?: boolean;
 }
 
 const DatetimeField: React.FC<Props> = React.memo((props) => {
-  const { name, label } = props;
+  const { name, label, asString = false } = props;
   const { values, setFieldTouched, setFieldValue } = useFormikContext<any>();
-  const value = values[name] || new Date();
+  const value = new Date(values[name]) || new Date();
   const onChange = useCallback(
     (v: Date) => {
       setFieldTouched(name, true);
-      setFieldValue(name, v);
+      setFieldValue(name, asString ? v.toISOString() : v);
     },
-    [name, setFieldValue, setFieldTouched],
+    [name, setFieldValue, setFieldTouched, asString],
   );
   return (
     <React.Fragment>

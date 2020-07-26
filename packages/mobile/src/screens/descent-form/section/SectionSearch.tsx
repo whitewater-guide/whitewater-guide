@@ -1,4 +1,4 @@
-import { Section } from '@whitewater-guide/commons';
+import { Section, sectionName } from '@whitewater-guide/commons';
 import React, { useState } from 'react';
 import { Searchbar } from 'react-native-paper';
 import useDebounce from 'react-use/lib/useDebounce';
@@ -12,9 +12,9 @@ interface Props {
 }
 
 const SectionSearch: React.FC<Props> = ({ section, onSelect }) => {
-  const [search, setSearch] = useState(section?.name ?? '');
+  const [search, setSearch] = useState(sectionName(section));
   const [debouncedSearch, setDebouncedSearch] = React.useState(
-    section?.name ?? '',
+    sectionName(section),
   );
 
   useDebounce(() => setDebouncedSearch(search), 200, [
@@ -22,7 +22,7 @@ const SectionSearch: React.FC<Props> = ({ section, onSelect }) => {
     setDebouncedSearch,
   ]);
 
-  const data = useSearchSections(debouncedSearch);
+  const data = useSearchSections(debouncedSearch, section);
 
   return (
     <React.Fragment>

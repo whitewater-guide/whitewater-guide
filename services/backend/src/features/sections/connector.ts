@@ -81,15 +81,19 @@ export class SectionsConnector extends OffsetConnector<Section, SectionRaw> {
     if (updatedAfter) {
       query.where('sections_view.updated_at', '>', updatedAfter);
     }
-    if (search) {
-      const searchStr = `%${search.trim().toLocaleLowerCase()}%`;
+    const searchStr = search?.trim().toLocaleLowerCase();
+    if (searchStr) {
       query.where(function() {
-        this.where('sections_view.name', 'ILIKE', searchStr)
-          .orWhere('sections_view.river_name', 'ILIKE', searchStr)
+        this.where('sections_view.name', 'ILIKE', `%${searchStr}%`)
+          .orWhere('sections_view.river_name', 'ILIKE', `%${searchStr}%`)
+          .orWhereRaw(
+            `similarity("sections_view"."river_name" || ' ' || "sections_view"."name", ?::text) > 0.5`,
+            searchStr,
+          )
           .orWhereExists(function() {
             this.select('*')
               .from(db().raw('unnest(sections_view.alt_names) namez'))
-              .where('namez', 'ILIKE', searchStr);
+              .where('namez', 'ILIKE', `%${searchStr}%`);
           });
       });
     }

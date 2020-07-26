@@ -1,17 +1,17 @@
+import { DescentsFilter } from '@whitewater-guide/commons';
 import { holdTransaction, rollbackTransaction } from '~/db';
-import { fakeContext, runQuery } from '~/test';
 import { TEST_USER, TEST_USER2, TEST_USER_ID } from '~/seeds/test/01_users';
 import {
-  DESCENT_02,
-  SECTION_1,
-  DESCENT_07,
-  DESCENT_03,
-  DESCENT_05,
   DESCENT_01,
-  DESCENT_10,
+  DESCENT_02,
+  DESCENT_03,
   DESCENT_04,
+  DESCENT_05,
+  DESCENT_07,
+  DESCENT_10,
+  SECTION_1,
 } from '~/seeds/test/18_descents';
-import { DescentsFilter } from '@whitewater-guide/commons';
+import { fakeContext, runQuery } from '~/test';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -114,7 +114,7 @@ it.each<FilterTestCase>([
     [DESCENT_10, DESCENT_04, DESCENT_01],
   ],
   [
-    'section (full) name',
+    'section name',
     {
       sectionName: 'eCa',
     },

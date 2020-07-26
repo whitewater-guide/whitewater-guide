@@ -1,11 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
+import { Descent } from '@whitewater-guide/commons';
 import format from 'date-fns/format';
 import React, { useCallback } from 'react';
 import { ListRenderItemInfo, Pressable, StyleSheet, View } from 'react-native';
 import { Caption, Subheading } from 'react-native-paper';
 import { RootStackNav, Screens } from '~/core/navigation';
+import descentLevelToString from '~/features/descents/descentLevelToString';
 import theme from '~/theme';
-import { Descent } from '@whitewater-guide/commons';
 
 const ITEM_HEIGHT = 64;
 
@@ -48,9 +49,7 @@ const LogbookListItem: React.FC<Props> = ({ descent }) => {
         </View>
         {descent.level && (
           <View style={styles.levelBlock}>
-            <Subheading>
-              {descent.level.value + ' ' + descent.level.unit}
-            </Subheading>
+            <Subheading>{descentLevelToString(descent.level)}</Subheading>
           </View>
         )}
       </View>

@@ -11,8 +11,7 @@ import {
   Screens,
 } from '~/core/navigation';
 
-export type DescentFormData = Omit<DescentInput, 'startedAt' | 'sectionId'> & {
-  startedAt: Date;
+export type DescentFormData = Omit<DescentInput, 'sectionId'> & {
   section: Section;
 };
 

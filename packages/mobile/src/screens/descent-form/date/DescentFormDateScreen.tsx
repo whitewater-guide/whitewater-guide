@@ -2,11 +2,11 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Button } from 'react-native-paper';
+import { Screens } from '~/core/navigation';
 import DatetimeField from '~/forms/DatetimeField';
 import theme from '~/theme';
 import { DescentFormScreen } from '../DescentFormContext';
 import { DescentFormDateNavProps } from './types';
-import { Screens } from '~/core/navigation';
 
 const styles = StyleSheet.create({
   content: {
@@ -29,6 +29,7 @@ export const DescentFormDateScreen: React.FC<DescentFormDateNavProps> = ({
       <View style={styles.content}>
         <DatetimeField
           name="startedAt"
+          asString={true}
           label={t('screens:descentForm.date.startedAt')}
         />
         <Button mode="contained" onPress={onNext}>

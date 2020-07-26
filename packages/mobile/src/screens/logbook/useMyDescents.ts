@@ -10,7 +10,8 @@ import { useQuery } from 'react-apollo';
 
 const LIST_MY_DESCENTS = gql`
   query listMyDescents($filter: DescentsFilter, $page: Page) {
-    myDescents(filter: $filter, page: $page) {
+    myDescents(filter: $filter, page: $page)
+      @connection(key: "myDescents", filter: ["filter"]) {
       edges {
         node {
           id
@@ -23,9 +24,6 @@ const LIST_MY_DESCENTS = gql`
           }
           comment
           public
-
-          createdAt
-          updatedAt
 
           section {
             id
@@ -56,13 +54,40 @@ interface QResult {
 }
 
 const useMyDescents = () => {
-  const query = useQuery<QResult, QVars>(LIST_MY_DESCENTS);
-  const { data } = query;
-  const descents = useMemo(
-    () => data?.myDescents.edges.map((e) => e.node) || [],
-    [data],
+  const query = useQuery<QResult, QVars>(LIST_MY_DESCENTS, {
+    fetchPolicy: 'cache-and-network',
+    notifyOnNetworkStatusChange: true,
+  });
+  const { data, fetchMore, ...rest } = query;
+  const props = useMemo(
+    () => ({
+      descents: data?.myDescents?.edges?.map((e) => e.node) || [],
+      loadMore: () =>
+        fetchMore({
+          variables: {
+            page: {
+              after: data?.myDescents.pageInfo.endCursor,
+            },
+          },
+          updateQuery: (previousResult: any, { fetchMoreResult }: any) => {
+            const newEdges = fetchMoreResult.myDescents.edges;
+            const pageInfo = fetchMoreResult.myDescents.pageInfo;
+
+            return newEdges.length
+              ? {
+                  myDescents: {
+                    __typename: previousResult.myDescents.__typename,
+                    edges: [...previousResult.myDescents.edges, ...newEdges],
+                    pageInfo,
+                  },
+                }
+              : previousResult;
+          },
+        }),
+    }),
+    [data, fetchMore],
   );
-  return { ...query, descents };
+  return { ...rest, ...props };
 };
 
 export default useMyDescents;

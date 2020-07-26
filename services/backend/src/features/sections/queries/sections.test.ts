@@ -8,10 +8,10 @@ import {
 import { REGION_NORWAY } from '~/seeds/test/04_regions';
 import { RIVER_BZHUZHA, RIVER_GAL_BECA } from '~/seeds/test/07_rivers';
 import {
+  GALICIA_BECA_LOWER,
+  GEORGIA_BZHUZHA_LONG,
   SECTIONS_TOTAL,
   SECTIONS_VISIBLE,
-  GEORGIA_BZHUZHA_LONG,
-  GALICIA_BECA_LOWER,
 } from '~/seeds/test/09_sections';
 import { anonContext, fakeContext, noTimestamps, runQuery } from '~/test';
 
@@ -155,6 +155,15 @@ it('should search by name', async () => {
   expect(result.errors).toBeUndefined();
   const ids = result.data.sections.nodes.map((n: any) => n.id);
   expect(ids).toEqual([GALICIA_BECA_LOWER, GEORGIA_BZHUZHA_LONG]);
+});
+
+it('should search full name (river + section)', async () => {
+  const result = await runQuery(query, {
+    filter: { search: ' bzhuzha long ' },
+  });
+  expect(result.errors).toBeUndefined();
+  const ids = result.data.sections.nodes.map((n: any) => n.id);
+  expect(ids).toEqual([GEORGIA_BZHUZHA_LONG]);
 });
 
 it('should filter recently updated', async () => {

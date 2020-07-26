@@ -1,6 +1,6 @@
+import { Descent } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 import { useQuery } from 'react-apollo';
-import { Descent } from '@whitewater-guide/commons';
 
 const DESCENT_DETAILS_QUERY = gql`
   query descentDetails($descentId: ID) {
@@ -44,7 +44,9 @@ interface QResult {
   descent?: Descent;
 }
 
-export default (descentId: string) =>
-  useQuery<QResult, QVars>(DESCENT_DETAILS_QUERY, {
+export default function useDescentDetails(descentId: string) {
+  return useQuery<QResult, QVars>(DESCENT_DETAILS_QUERY, {
     variables: { descentId },
+    fetchPolicy: 'cache-and-network',
   });
+}

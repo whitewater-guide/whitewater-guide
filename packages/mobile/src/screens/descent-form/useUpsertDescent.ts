@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { getValidationErrors } from '@whitewater-guide/clients';
+import { omitTypename } from '@whitewater-guide/commons';
 import { FormikHelpers } from 'formik';
 import gql from 'graphql-tag';
 import { useCallback } from 'react';
@@ -48,15 +49,14 @@ export default () => {
   const setSnackbar = useSnackbarMessage();
   return useCallback(
     (
-      { startedAt, section, ...data }: DescentFormData,
+      { section, ...data }: DescentFormData,
       helpers: FormikHelpers<DescentFormData>,
     ) =>
       mutate({
         variables: {
           descent: {
-            ...data,
+            ...omitTypename(data),
             sectionId: section.id,
-            startedAt: startedAt.toISOString(),
           },
         },
         refetchQueries: ['listMyDescents'],

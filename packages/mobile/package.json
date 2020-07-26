@@ -89,6 +89,7 @@
     "lodash": "^4.17.19",
     "markdown-it": "11.0.0",
     "markdown-it-attrs": "^3.0.3",
+    "nanoid": "^3.1.10",
     "react": "16.13.1",
     "react-apollo": "^3.1.5",
     "react-i18next": "11.7.0",

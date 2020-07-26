@@ -13,7 +13,8 @@
       "~",
       "@whitewater-guide/clients",
       "@whitewater-guide/translations",
-      "uuid"
+      "uuid",
+      "nanoid"
     ],
     "no-implicit-dependencies": [true, "dev", ["~"]]
   }

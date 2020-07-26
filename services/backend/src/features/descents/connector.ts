@@ -1,19 +1,19 @@
 import {
   Descent,
+  DescentInput,
   DescentsFilter,
   RelayConnection,
-  DescentInput,
 } from '@whitewater-guide/commons';
 import { DataSourceConfig } from 'apollo-datasource';
 import { ForbiddenError, UserInputError } from 'apollo-server';
 import jwt from 'jsonwebtoken';
 import { QueryBuilder } from 'knex';
 import { Context } from '~/apollo';
+import { Cursor } from '~/apollo/cursor';
 import db from '~/db';
 import { FieldsMap, ManyBuilderOptions } from '~/db/connectors';
 import { RelayConnector } from '~/db/connectors/RelayConnector';
 import { DescentRaw, ShareToken } from './types';
-import { Cursor } from '~/apollo/cursor';
 
 const FIELDS_MAP: FieldsMap<Descent, DescentRaw> = {
   section: 'section_id',
@@ -163,18 +163,23 @@ export class DescentsConnector extends RelayConnector<Descent, DescentRaw> {
     }
 
     if (sectionName) {
-      const searchStr = `%${sectionName.trim().toLocaleLowerCase()}%`;
+      const searchStr = sectionName.trim().toLocaleLowerCase();
+      const isearchStr = `%${searchStr}%`;
       query.whereExists(function() {
         this.select('*')
           .from('sections_view')
           .whereRaw('"sections_view"."id" = "descents"."section_id"')
           .andWhere(function() {
-            this.where('sections_view.name', 'ILIKE', searchStr)
-              .orWhere('sections_view.river_name', 'ILIKE', searchStr)
+            this.where('sections_view.name', 'ILIKE', isearchStr)
+              .orWhere('sections_view.river_name', 'ILIKE', isearchStr)
+              .orWhereRaw(
+                `similarity("sections_view"."river_name" || ' ' || "sections_view"."name", ?::text) > 0.5`,
+                searchStr,
+              )
               .orWhereExists(function() {
                 this.select('*')
                   .from(db().raw('unnest(sections_view.alt_names) namez'))
-                  .where('namez', 'ILIKE', searchStr);
+                  .where('namez', 'ILIKE', isearchStr);
               });
           });
       });
