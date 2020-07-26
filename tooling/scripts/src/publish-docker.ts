@@ -64,6 +64,7 @@ async function publish() {
   }
 
   dockerLogin();
+  info('Pushing: ' + services.join(', '));
   const pushResult = spawnSync(
     'docker-compose',
     ['-f', stackFile, 'push', ...services],
