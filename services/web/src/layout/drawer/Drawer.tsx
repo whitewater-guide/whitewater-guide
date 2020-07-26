@@ -30,7 +30,6 @@ const ITEMS = [
   { title: 'Banners', path: '/banners', admin: true },
   { title: 'History of edits', path: '/history', admin: true },
   { title: 'User suggestions', path: '/suggestions', editor: true },
-  { title: 'Logbook', path: '/logbook', authenticated: true },
 ];
 
 interface Props {
