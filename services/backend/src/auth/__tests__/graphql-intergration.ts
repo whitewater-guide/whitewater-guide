@@ -1,13 +1,13 @@
-import { holdTransaction, rollbackTransaction } from '~/db';
-import { redis } from '~/redis';
-import { ADMIN, ADMIN_FB_PROFILE, ADMIN_ID } from '~/seeds/test/01_users';
-import { REGION_GALICIA } from '~/seeds/test/04_regions';
-import { GALICIA_REGION_DESCR_BANNER2 } from '~/seeds/test/14_banners';
 import jsonwebtoken from 'jsonwebtoken';
 import Koa from 'koa';
 import FacebookTokenStrategy from 'passport-facebook-token';
 import { SuperTest, Test } from 'supertest';
 import agent from 'supertest-koa-agent';
+import { holdTransaction, rollbackTransaction } from '~/db';
+import { redis } from '~/redis';
+import { ADMIN, ADMIN_FB_PROFILE, ADMIN_ID } from '~/seeds/test/01_users';
+import { REGION_GALICIA } from '~/seeds/test/04_regions';
+import { GALICIA_REGION_DESCR_BANNER2 } from '~/seeds/test/14_banners';
 import { createApolloServer } from '../../apollo/server';
 import { createApp } from '../../app';
 import { getRefreshToken } from '../jwt';
@@ -86,28 +86,6 @@ beforeEach(async () => {
 afterEach(async () => {
   await rollbackTransaction();
   redis.removeAllListeners();
-});
-
-describe('legacy', () => {
-  const ROUTE = '/auth/facebook/token?access_token=__existing_access_token__';
-
-  it('should return my profile', async () => {
-    const testAgent = agent(app);
-    await testAgent.get(ROUTE);
-    const response = await testAgent.post('/graphql').send(TEST_QUERY);
-
-    expect(response.status).toBe(200);
-    expect(response.body).toEqual(ADMIN_RESPONSE);
-  });
-
-  it('should mutate', async () => {
-    const testAgent = agent(app);
-    await testAgent.get(ROUTE);
-    const response = await testAgent.post('/graphql').send(TEST_MUTATION);
-
-    expect(response.status).toBe(200);
-    expect(response.body).toEqual(MUTATION_RESPONSE);
-  });
 });
 
 describe('facebook', () => {
