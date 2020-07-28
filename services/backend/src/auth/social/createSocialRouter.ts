@@ -1,21 +1,25 @@
-import { AuthBody } from '@whitewater-guide/commons';
+import { AuthBody, SocialMediaProvider } from '@whitewater-guide/commons';
 import Router from 'koa-router';
 import { sendCredentials } from '../jwt';
+import authLogger from '../logger';
 import { KoaPassport } from '../types';
 import { fcmMiddleware, setReturnTo } from '../utils';
-import logger from './logger';
 
-export const initFacebookRouter = (passport: KoaPassport) => {
+export function createSocialRouter(
+  passport: KoaPassport,
+  provider: SocialMediaProvider,
+  method: 'get' | 'post' = 'get',
+) {
   const router = new Router({
-    prefix: '/auth/facebook',
+    prefix: `/auth/${provider}`,
   });
 
-  router.get(
+  router[method](
     '/signin',
     setReturnTo,
     async (ctx, next) => {
       await passport.authenticate(
-        'facebook',
+        provider,
         { session: false },
         async (err, user, info) => {
           if (err || !user) {
@@ -25,7 +29,11 @@ export const initFacebookRouter = (passport: KoaPassport) => {
               error: 'token auth failed',
             };
             ctx.body = body;
-            logger.error({ message: 'token auth failed', error: err });
+            authLogger.error({
+              message: 'token auth failed',
+              extra: { provider },
+              error: err,
+            });
             return;
           }
           const isNew = info ? info.isNew : undefined;
@@ -38,4 +46,4 @@ export const initFacebookRouter = (passport: KoaPassport) => {
   );
 
   return router;
-};
+}

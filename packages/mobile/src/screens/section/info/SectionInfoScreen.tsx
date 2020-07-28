@@ -1,7 +1,7 @@
 import { useSection } from '@whitewater-guide/clients';
 import React from 'react';
 import { Screen } from '~/components/Screen';
-import SuggestionFAB from '../SuggestionFAB';
+import SectionFAB from '../SectionFAB';
 import SectionInfoView from './SectionInfoView';
 import { SectionInfoNavProps } from './types';
 
@@ -10,7 +10,7 @@ const SectionInfoScreen: React.FC<SectionInfoNavProps> = () => {
   return (
     <Screen>
       <SectionInfoView section={node} />
-      <SuggestionFAB testID="section-info-fab" />
+      <SectionFAB testID="section-info-fab" />
     </Screen>
   );
 };

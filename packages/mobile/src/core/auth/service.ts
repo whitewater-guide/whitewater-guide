@@ -1,3 +1,8 @@
+import appleAuth, {
+  AppleAuthError,
+  AppleAuthRequestOperation,
+  AppleAuthRequestScope,
+} from '@invertase/react-native-apple-authentication';
 import messaging from '@react-native-firebase/messaging';
 import {
   AuthResponse,
@@ -94,7 +99,7 @@ export class MobileAuthService extends BaseAuthService {
     type: 'local',
     credentials: Credentials,
   ): Promise<AuthResponse<SignInBody>>;
-  signIn(type: 'facebook'): Promise<AuthResponse<SignInBody>>;
+  signIn(type: 'facebook' | 'apple'): Promise<AuthResponse<SignInBody>>;
   async signIn(
     type: AuthType,
     credentials?: Credentials,
@@ -138,6 +143,8 @@ export class MobileAuthService extends BaseAuthService {
         access_token: at.accessToken,
         fcm_token: this._fcmToken,
       });
+    } else if (type === 'apple') {
+      resp = await this.signInWithApple();
     } else {
       resp = await this._post('/auth/local/signin', {
         ...credentials,
@@ -147,6 +154,33 @@ export class MobileAuthService extends BaseAuthService {
     await this.postSignIn(resp);
     this._fcmTokenSent = true;
     return resp;
+  }
+
+  private async signInWithApple(): Promise<AuthResponse<SignInBody>> {
+    try {
+      const appleResp = await appleAuth.performRequest({
+        requestedOperation: AppleAuthRequestOperation.LOGIN,
+        requestedScopes: [
+          AppleAuthRequestScope.EMAIL,
+          AppleAuthRequestScope.FULL_NAME,
+        ],
+      });
+      // tslint:disable-next-line: no-console
+      return await this._post('/auth/apple/signin', {
+        ...appleResp,
+        fcm_token: this._fcmToken,
+      });
+    } catch (err) {
+      if (err.code === AppleAuthError.CANCELED) {
+        return {
+          success: false,
+          error: { form: 'user_canceled' },
+          status: 400,
+        };
+      } else {
+        return { success: false, error: { form: err }, status: 400 };
+      }
+    }
   }
 
   private async postSignIn(

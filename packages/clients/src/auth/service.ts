@@ -23,7 +23,7 @@ export interface AuthService {
     type: 'local',
     credentials: Credentials,
   ): Promise<AuthResponse<SignInBody>>;
-  signIn(type: 'facebook'): Promise<AuthResponse<SignInBody>>;
+  signIn(type: 'facebook' | 'apple'): Promise<AuthResponse<SignInBody>>;
   signIn(
     type: AuthType,
     credentials?: Credentials,

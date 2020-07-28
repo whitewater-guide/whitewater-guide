@@ -1820,10 +1820,10 @@
     semver "^7.3.2"
     tsutils "^3.17.1"
 
-"@whitewater-guide/commons@0.0.204":
-  version "0.0.204"
-  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.204.tgz#5d057a8f3883e22aff80836dd1dfceb5bacb429f"
-  integrity sha512-f+Nin3/6smdllkZ+YtyECjtrfS7rfPL5N6vvlsHK6+eNqwHoEMAk8KqpeRJpL8rNlXBpIT4lpSxULydBTwBKFQ==
+"@whitewater-guide/commons@0.0.205-apple.0":
+  version "0.0.205-apple.0"
+  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.205-apple.0.tgz#b62e286d91a72a37fd01ff4e6eb8dd9ffb2f47c3"
+  integrity sha512-jK5KjGpIhoXoRoX0uTeVEAJRi4sEWW2ZEg7qX4UGTbpbCQ1KzzVt0p3X6yXbjYQNYsUdjktwoeZ22Gju+48MTQ==
   dependencies:
     "@types/yup" "^0.29.3"
     "@whitewater-guide/validation" "^1.1.5"
@@ -2268,6 +2268,15 @@ append-buffer@^1.0.2:
   dependencies:
     buffer-equal "^1.0.0"
 
+apple-signin-auth@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.npmjs.org/apple-signin-auth/-/apple-signin-auth-1.0.6.tgz#c7dbdca81a4f2e9d8654851acbc7b7c3a9580910"
+  integrity sha512-1l0b9NeXwC7fTauLTLhQEkBgHu4Xt+ZnRZ4bVCVmCrY+Mqfemqhy/jRMUaeSXMdsZK2Z8c5IVvrsCn2dg2GapQ==
+  dependencies:
+    jsonwebtoken "^8.5.1"
+    node-fetch "^2.6.0"
+    node-rsa "^1.0.8"
+
 aproba@^1.0.3:
   version "1.2.0"
   resolved "https://registry.npmjs.org/aproba/-/aproba-1.2.0.tgz#6802e6264efd18c790a1b0d517f0f2627bf2c94a"
@@ -2391,7 +2400,7 @@ asap@~2.0.3:
   resolved "https://registry.npmjs.org/asap/-/asap-2.0.6.tgz#e50347611d7e690943208bbdafebcbc2fb866d46"
   integrity sha1-5QNHYR1+aQlDIIu9r+vLwvuGbUY=
 
-asn1@~0.2.3:
+asn1@^0.2.4, asn1@~0.2.3:
   version "0.2.4"
   resolved "https://registry.npmjs.org/asn1/-/asn1-0.2.4.tgz#8d2475dfab553bb33e77b54e59e880bb8ce23136"
   integrity sha512-jxwzQpLQjSmWXgwaCZE9Nz+glAG01yF1QnWgbhGwHI5A6FRIEY6IVqtHhIepHqI7/kyEyQEagBC5mBEFlIYvdg==
@@ -7700,7 +7709,7 @@ node-addon-api@^3.0.0:
   resolved "https://registry.npmjs.org/node-addon-api/-/node-addon-api-3.0.1.tgz#990544a2607ec3f538443df4858f8c40089b7783"
   integrity sha512-YUpjl57P55u2yUaKX5Bgy4t5s6SCNYMg+62XNg+k41aYbBL1NgWrZfcgljR5MxDxHDjzl0qHDNtH6SkW4DXNCA==
 
-node-fetch@2.6.0, node-fetch@^2.1.2, node-fetch@^2.2.0:
+node-fetch@2.6.0, node-fetch@^2.1.2, node-fetch@^2.2.0, node-fetch@^2.6.0:
   version "2.6.0"
   resolved "https://registry.npmjs.org/node-fetch/-/node-fetch-2.6.0.tgz#e633456386d4aa55863f676a7ab0daa8fdecb0fd"
   integrity sha512-8dG4H5ujfvFiqDmVu9fQ5bOHUC15JMjMY/Zumv26oOvvVJjM67KF8koCWIabKQ1GJIa9r2mMZscBq/TbdOcmNA==
@@ -7750,6 +7759,13 @@ node-pre-gyp@0.15.0:
     rimraf "^2.6.1"
     semver "^5.3.0"
     tar "^4.4.2"
+
+node-rsa@^1.0.8:
+  version "1.1.1"
+  resolved "https://registry.npmjs.org/node-rsa/-/node-rsa-1.1.1.tgz#efd9ad382097782f506153398496f79e4464434d"
+  integrity sha512-Jd4cvbJMryN21r5HgxQOpMEqv+ooke/korixNNK3mGqfGJmy0M77WDDzo/05969+OkMy3XW1UuZsSmW9KQm7Fw==
+  dependencies:
+    asn1 "^0.2.4"
 
 node-source-walk@^4.0.0, node-source-walk@^4.2.0:
   version "4.2.0"
@@ -8173,6 +8189,13 @@ pascalcase@^0.1.1:
   version "0.1.1"
   resolved "https://registry.npmjs.org/pascalcase/-/pascalcase-0.1.1.tgz#b363e55e8006ca6fe21784d2db22bd15d7917f14"
   integrity sha1-s2PlXoAGym/iF4TS2yK9FdeRfxQ=
+
+passport-custom@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.npmjs.org/passport-custom/-/passport-custom-1.1.1.tgz#71db3d7ec1d7d0085e8768507f61b26d88051c0a"
+  integrity sha512-/2m7jUGxmCYvoqenLB9UrmkCgPt64h8ZtV+UtuQklZ/Tn1NpKBeOorCYkB/8lMRoiZ5hUrCoMmDtxCS/d38mlg==
+  dependencies:
+    passport-strategy "1.x.x"
 
 passport-facebook-token@^4.0.0:
   version "4.0.0"

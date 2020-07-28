@@ -43,9 +43,7 @@ const LogbookListItem: React.FC<Props> = ({ descent }) => {
           <Subheading>
             {descent.section.river.name + ' - ' + descent.section.name}
           </Subheading>
-          <Caption>
-            {format(new Date(descent.startedAt), 'dd LLLL yyyy HH:mm')}
-          </Caption>
+          <Caption>{format(new Date(descent.startedAt), 'PP p')}</Caption>
         </View>
         {descent.level && (
           <View style={styles.levelBlock}>

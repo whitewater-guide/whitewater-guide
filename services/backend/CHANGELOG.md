@@ -1,3 +1,36 @@
+## [0.0.438-apple.5](https://github.com/doomsower/whitewater/compare/584b3252b25408c4b54af5f4df4134d9c699554e...c9713f7f65dfe49f913b52b04e6a2d67ecfb1420) (2020-07-27)
+
+### Features
+
+- sign in with apple ([](https://github.com/doomsower/whitewater/commit/ec5719f079aaf7c6fb9109d3ac91a131325d1a4a))
+
+## [0.0.438-apple.4](https://github.com/doomsower/whitewater/compare/2ac31c235c901f5383b50c5af578559efd368c9e...584b3252b25408c4b54af5f4df4134d9c699554e) (2020-07-27)
+
+### Features
+
+- use post for apple route ([](https://github.com/doomsower/whitewater/commit/10968cbc04f5f8522af66b721470ff92299066ef))
+
+## [0.0.438-apple.3](https://github.com/doomsower/whitewater/compare/c9c1e2536d82881f7dcb91021670cbc53e8662d9...2ac31c235c901f5383b50c5af578559efd368c9e) (2020-07-26)
+
+### Bug Fixes
+
+- appl package ([](https://github.com/doomsower/whitewater/commit/16de9a8760901096d84a9972795d316ce2e7aff4))
+
+## [0.0.438-apple.2](https://github.com/doomsower/whitewater/compare/234a0f84e82ecd434438516b9f68a1e1726b2852...c9c1e2536d82881f7dcb91021670cbc53e8662d9) (2020-07-26)
+
+## [0.0.438-apple.1](https://github.com/doomsower/whitewater/compare/d1106419e3007e266d94a284c12b4cd3984b2266...234a0f84e82ecd434438516b9f68a1e1726b2852) (2020-07-26)
+
+## [0.0.438-apple.0](https://github.com/doomsower/whitewater/compare/f7720ae627f6e5e276a64c52d8a76004af13fe64...d1106419e3007e266d94a284c12b4cd3984b2266) (2020-07-26)
+
+### Features
+
+- remove legacy auth ([](https://github.com/doomsower/whitewater/commit/20290e5264f6b2494be4012c5e9282f0e995f063))
+- sign in with apple ([](https://github.com/doomsower/whitewater/commit/42e82d8cfef2a5358a4db021aa808999d6cff09d))
+
+### Other
+
+- extract common social login methods ([](https://github.com/doomsower/whitewater/commit/1597e0605c68292d01a69775b87adbdde028dc01))
+
 ## [0.0.437](https://github.com/doomsower/whitewater/compare/69fdd1af80a4b22b4088243c18eb181cf7faeab0...f7720ae627f6e5e276a64c52d8a76004af13fe64) (2020-07-26)
 
 ## [0.0.436](https://github.com/doomsower/whitewater/compare/5d99a781cf33884d1fa71ced28978f3b8915d104...69fdd1af80a4b22b4088243c18eb181cf7faeab0) (2020-07-26)

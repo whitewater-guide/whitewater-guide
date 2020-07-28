@@ -2,9 +2,9 @@ import { useSection } from '@whitewater-guide/clients';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Screen } from '~/components/Screen';
-import theme from '../../../theme';
+import theme from '~/theme';
+import SectionFAB from '../SectionFAB';
 import SectionMediaScreenContent from './SectionMediaScreenContent';
-import SuggestMediaFAB from './SuggestMediaFAB';
 import { SectionMediaNavProps } from './types';
 
 const styles = StyleSheet.create({
@@ -24,7 +24,7 @@ const SectionMediaScreen: React.FC<SectionMediaNavProps> = () => {
         <SectionMediaScreenContent section={node} />
         <View style={styles.fabHelper} />
       </ScrollView>
-      <SuggestMediaFAB />
+      <SectionFAB />
     </Screen>
   );
 };

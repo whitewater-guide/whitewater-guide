@@ -1,6 +1,11 @@
 {
   "en": {
     "screens": {
+      "addSection": {
+        "photo": {
+          "title": "Add photo"
+        }
+      },
       "descent": {
         "deleteConfirmation": "Are you sure you want to delete this descent?",
         "headerTitle": "Descent info",
@@ -29,7 +34,10 @@
         "createSuccessMessage": "Descent created",
         "date": {
           "headerTitle": "Select date",
-          "startedAt": "Started at"
+          "started": {
+            "date": "Date",
+            "time": "Started at"
+          }
         },
         "level": {
           "headerTitle": "Select level",
@@ -48,6 +56,19 @@
       "logbook": {
         "empty": "Your logbook is empty",
         "headerTitle": "My Logbook"
+      },
+      "region": {
+        "fab": {
+          "addDescent": "Add descent",
+          "addSection": "Add section"
+        }
+      },
+      "section": {
+        "fab": {
+          "addDescent": "Add descent",
+          "addPhoto": "Add photo",
+          "addSuggestion": "Suggest changes"
+        }
       }
     }
   }

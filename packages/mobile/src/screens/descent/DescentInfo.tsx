@@ -45,9 +45,7 @@ const DescentInfo = ({ descent }: Props) => {
           <Subheading>{t('screens:descent.info.startedAt')}</Subheading>
         </Left>
         <Right>
-          <Paragraph>
-            {format(new Date(descent.startedAt), 'dd LLLL yyyy HH:mm')}
-          </Paragraph>
+          <Paragraph>{format(new Date(descent.startedAt), 'PP p')}</Paragraph>
         </Right>
       </Row>
 

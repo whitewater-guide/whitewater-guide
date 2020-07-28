@@ -3,9 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import { Screens } from '~/core/navigation';
-import DatetimeField from '~/forms/DatetimeField';
 import theme from '~/theme';
 import { DescentFormScreen } from '../DescentFormContext';
+import DatePicker from './DatePicker';
 import { DescentFormDateNavProps } from './types';
 
 const styles = StyleSheet.create({
@@ -27,11 +27,7 @@ export const DescentFormDateScreen: React.FC<DescentFormDateNavProps> = ({
   return (
     <DescentFormScreen safe={true}>
       <View style={styles.content}>
-        <DatetimeField
-          name="startedAt"
-          asString={true}
-          label={t('screens:descentForm.date.startedAt')}
-        />
+        <DatePicker name="startedAt" />
         <Button mode="contained" onPress={onNext}>
           {t('commons:next')}
         </Button>

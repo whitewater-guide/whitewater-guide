@@ -1,5 +1,4 @@
-import { AuthBody, User } from '@whitewater-guide/commons';
-import { Overwrite } from 'utility-types';
+import { User } from '@whitewater-guide/commons';
 
 export interface TokenStorage {
   setAccessToken: (value: string | null) => Promise<void>;
@@ -8,7 +7,7 @@ export interface TokenStorage {
   getRefreshToken: () => Promise<string | null>;
 }
 
-export type AuthType = 'local' | 'facebook';
+export type AuthType = 'local' | 'facebook' | 'apple';
 
 export interface Credentials {
   email: string;

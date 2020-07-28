@@ -1,7 +1,6 @@
 import FacebookTokenStrategy from 'passport-facebook-token';
-import { MailType, sendMail } from '../mail';
+import { sendWelcome } from '../mail';
 import getFBUser from './getFBUser';
-import logger from './logger';
 
 export const facebookStrategy = new FacebookTokenStrategy(
   {
@@ -12,30 +11,9 @@ export const facebookStrategy = new FacebookTokenStrategy(
   },
   async (req, accessToken, refreshToken, profile, done) => {
     try {
-      const { isNew, user } = await getFBUser(
-        profile,
-        {
-          accessToken,
-          refreshToken,
-        },
-        req,
-      );
-      if (user && user.email && isNew) {
-        try {
-          await sendMail(MailType.WELCOME_VERIFIED, user.email, {
-            user: { id: user.id, name: user.name || '' },
-          });
-        } catch (e) {
-          logger.error({
-            extra: {
-              email: user.email,
-              error: e.message,
-            },
-            tags: {
-              code: 'signup.send.verification.error',
-            },
-          });
-        }
+      const { isNew, user } = await getFBUser(profile, req);
+      if (user && isNew) {
+        await sendWelcome(user);
       }
       done(null, user, { isNew });
     } catch (err) {
