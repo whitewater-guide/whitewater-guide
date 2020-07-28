@@ -1,3 +1,9 @@
+## [0.0.220](https://github.com/doomsower/whitewater/compare/c9713f7f65dfe49f913b52b04e6a2d67ecfb1420...ec7e61ace05e19285647ababe56f2b442b45aeed) (2020-07-28)
+
+### Features
+
+- fabs and apple sign in ([](https://github.com/doomsower/whitewater/commit/c1d75c4cb311f5014117d12c3ffcae732b905c77))
+
 ## [0.0.219-apple.1](https://github.com/doomsower/whitewater/compare/584b3252b25408c4b54af5f4df4134d9c699554e...c9713f7f65dfe49f913b52b04e6a2d67ecfb1420) (2020-07-27)
 
 ## [0.0.219-apple.1](https://github.com/doomsower/whitewater/compare/2ac31c235c901f5383b50c5af578559efd368c9e...584b3252b25408c4b54af5f4df4134d9c699554e) (2020-07-27)
