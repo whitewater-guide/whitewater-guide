@@ -174,11 +174,9 @@ android {
         debug {
             resValue "string", "app_name", "WW DEBUG"
             applicationIdSuffix ".staging"
-            multiDexEnabled true
         }
         debugDetox {
             initWith debug
-            multiDexEnabled true
             applicationIdSuffix ""
             resValue "string", "app_name", "WW DETOX"
             matchingFallbacks = ['debug']
@@ -226,7 +224,6 @@ dependencies {
     debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.flipper'
     }
-    // implementation 'com.android.support:multidex:1.0.3'
     // Manual linking
     implementation project(':react-native-fs')
     // Require by detox
