@@ -1528,10 +1528,10 @@
   resolved "https://registry.npmjs.org/@types/zen-observable/-/zen-observable-0.8.0.tgz#8b63ab7f1aa5321248aad5ac890a485656dcea4d"
   integrity sha512-te5lMAWii1uEJ4FwLjzdlbw3+n0FZNOvFXHxQDKeT0dilh7HOzdMzV2TrJVUzq8ep7J4Na8OUYPRLSQkJHAlrg==
 
-"@whitewater-guide/commons@0.0.205-apple.0":
-  version "0.0.205-apple.0"
-  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.205-apple.0.tgz#b62e286d91a72a37fd01ff4e6eb8dd9ffb2f47c3"
-  integrity sha512-jK5KjGpIhoXoRoX0uTeVEAJRi4sEWW2ZEg7qX4UGTbpbCQ1KzzVt0p3X6yXbjYQNYsUdjktwoeZ22Gju+48MTQ==
+"@whitewater-guide/commons@0.0.205":
+  version "0.0.205"
+  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.205.tgz#8a531480617924e16c1e07843990e02f2e23e4a3"
+  integrity sha512-UvDLYhlz4wdeQx3u621qlrJvbGUuIE7ZNUz7+LlQTwuv+BL+dXLs59Ts+IiUlvVk2tDvhZgUj8OjzWHv/orRKw==
   dependencies:
     "@types/yup" "^0.29.3"
     "@whitewater-guide/validation" "^1.1.5"

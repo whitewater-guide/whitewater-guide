@@ -2,7 +2,7 @@
   "name": "@whitewater-guide/commons",
   "private": false,
   "sideEffects": false,
-  "version": "0.0.205-apple.0",
+  "version": "0.0.205",
   "license": "UNLICENSED",
   "description": "shared code for whitewater.guide backend and frontend",
   "main": "dist/index.js",
