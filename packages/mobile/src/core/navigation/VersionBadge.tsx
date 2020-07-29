@@ -17,29 +17,24 @@ const styles = StyleSheet.create({
 
 interface State {
   humanVersion: string;
-  sentryVersion: string;
 }
 
 class VersionBadge extends React.PureComponent<{}, State> {
   state: State = {
     humanVersion: '',
-    sentryVersion: '',
   };
 
   async componentDidMount() {
     const humanVersion = await versioning.getHumanVersion();
-    const sentryVersion = await versioning.getSentryVersion();
-    this.setState({ humanVersion, sentryVersion });
+    this.setState({ humanVersion });
   }
 
   showDetails = () => {
-    const { sentryVersion } = this.state;
     const { androidBuildNumber, iosBuildNumber } = require('../../../app.json');
 
     const info = `Version: ${PJSON_VERSION}
 Build: ${iosBuildNumber} / ${androidBuildNumber}
-Environment: ${Config.ENV_NAME}
-Sentry: ${sentryVersion}`;
+Environment: ${Config.ENV_NAME}`;
 
     Alert.alert('Version info', info, [
       { text: 'Copy', onPress: () => Clipboard.setString(info) },

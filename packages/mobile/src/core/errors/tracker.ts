@@ -1,5 +1,5 @@
 import analytics from '@react-native-firebase/analytics';
-import * as Sentry from '@sentry/react-native';
+// import * as Sentry from '@sentry/react-native';
 
 interface Trace {
   logger: string;
@@ -32,30 +32,30 @@ class ErrorTracker {
       this._queue.push(trace);
       return;
     }
-    Sentry.withScope((scope) => {
-      scope.setTag('logger', logger);
-      if (transactionId) {
-        scope.setTransaction(transactionId);
-      }
-      if (extra) {
-        scope.setExtras(extra);
-      }
-      Sentry.captureException(error);
-    });
+    // Sentry.withScope((scope) => {
+    //   scope.setTag('logger', logger);
+    //   if (transactionId) {
+    //     scope.setTransaction(transactionId);
+    //   }
+    //   if (extra) {
+    //     scope.setExtras(extra);
+    //   }
+    //   Sentry.captureException(error);
+    // });
   };
 
   setScreen = (screen: string, params: any) => {
-    Sentry.addBreadcrumb({
-      category: 'navigation',
-      level: Sentry.Severity.Info,
-      message: screen,
-      data: params,
-    });
+    // Sentry.addBreadcrumb({
+    //   category: 'navigation',
+    //   level: Sentry.Severity.Info,
+    //   message: screen,
+    //   data: params,
+    // });
     analytics().setCurrentScreen(screen);
   };
 
   setUser = (user: any) => {
-    Sentry.setUser(user);
+    // Sentry.setUser(user);
   };
 }
 

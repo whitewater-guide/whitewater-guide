@@ -2,7 +2,6 @@
 #
 # Ensure this file is checked in to source control!
 gem 'fastlane-plugin-aws_s3'
-gem 'fastlane-plugin-sentry'
 gem 'fastlane-plugin-property_file_read'
 gem 'fastlane-plugin-versioning_android'
 gem 'fastlane-plugin-versioning_ios'

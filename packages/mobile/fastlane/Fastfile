@@ -105,27 +105,6 @@ platform :ios do
     )
   end
 
-  lane :sentry do |options|
-    ENV["SENTRY_PROPERTIES"] = "#{ENV['IOS_PROJECT_PATH']}/sentry.properties"
-    download_dsyms(
-      version: ENV["IOS_VERSION"],
-      build_number: ENV["IOS_BUILD_NUMBER"],
-      username: ENV["IOS_USER_ID"],
-      team_id: ENV["IOS_ITC_TEAM_ID"],
-      app_identifier: ENV["IOS_APP_IDENTIFIER"],
-      output_directory: "#{Dir.pwd}/../#{ENV['IOS_PROJECT_PATH']}",
-    )
-    sh("yarn", "sentry-cli", "upload-dsym", ENV['IOS_PROJECT_PATH'])
-    sh(
-      "node",
-      "../scripts/uploadToSentry.js",
-      "--platform",
-      "ios",
-      "--deployment",
-      ENV["CODEPUSH_DEPLOYMENT"],
-    )
-  end
-
   lane :bump do |options|
     appJsonFile = File.read("../app.json")
     appJson = JSON.parse(appJsonFile)
@@ -170,7 +149,6 @@ platform :ios do
       skip_submission: true,
       skip_waiting_for_build_processing: true,
     )
-    code_push
   end
 
   lane :production do |options|
@@ -190,7 +168,6 @@ platform :ios do
       skip_submission: true,
       skip_waiting_for_build_processing: true,
     )
-    code_push
   end
 
 end
@@ -233,18 +210,6 @@ platform :android do
     end
   end
 
-  lane :sentry do |options|
-    ENV["SENTRY_PROPERTIES"] = "#{ENV['IOS_PROJECT_PATH']}/sentry.properties"
-    sh(
-      "node",
-      "../scripts/uploadToSentry.js",
-      "--platform",
-      "android",
-      "--deployment",
-      ENV["CODEPUSH_DEPLOYMENT"],
-    )
-  end
-
   lane :staging do |options|
     unless options[:skipBuild]
       bump
@@ -261,9 +226,6 @@ platform :android do
       upload_metadata: true,
       version_file_name: '../app.json',
     )
-    # TODO: temporary disable: https://github.com/microsoft/react-native-code-push/issues/1886
-    # code_push
-    # sentry
   end
 
   lane :production do |options|
@@ -278,8 +240,6 @@ platform :android do
         ENV['ANDROID_X64_APK_PATH'],
       ],
     )
-    code_push
-    sentry
   end
 
 end

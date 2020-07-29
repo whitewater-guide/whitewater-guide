@@ -1,7 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import { useEffect } from 'react';
 import { Platform } from 'react-native';
-import Config from 'react-native-ultimate-config';
 
 class Versioning {
   getHumanVersion = async () => {
@@ -14,10 +13,6 @@ class Versioning {
       ? iosBuildNumber
       : androidBuildNumber
     ).toString();
-  };
-
-  getSentryVersion = async () => {
-    return `${PJSON_VERSION}-${Config.ENV_NAME}`;
   };
 }
 
