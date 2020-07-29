@@ -54,14 +54,14 @@ const fragment = gql`
 `;
 
 const SEARCH_SECTIONS = gql`
-  query searchSections($search: String) {
+  query searchSections($search: String, $skipRecent: Boolean!) {
     sections(filter: { search: $search }, page: { limit: 20 }) {
       nodes {
         ...descentSearchSection
       }
     }
 
-    myDescents(page: { limit: 20 }) {
+    myDescents(page: { limit: 20 }) @skip(if: $skipRecent) {
       edges {
         node {
           id
@@ -78,23 +78,24 @@ const SEARCH_SECTIONS = gql`
 
 interface QVars {
   search: string;
+  skipRecent: boolean;
 }
 
 interface QResult {
   sections: Connection<Section>;
-  myDescents: RelayConnection<Descent>;
+  myDescents?: RelayConnection<Descent>;
 }
 
 export function useSearchSections(search: string, mandatory?: Section) {
   const query = useQuery<QResult, QVars>(SEARCH_SECTIONS, {
     fetchPolicy: 'no-cache',
-    variables: { search },
+    variables: { search, skipRecent: !!search },
   });
   const { data, loading } = query;
 
   const result = useMemo(() => {
     const recent = uniqBy(
-      data?.myDescents.edges.map((e) => e.node.section) || [],
+      data?.myDescents?.edges.map((e) => e.node.section) || [],
       'id',
     );
     const found = search ? data?.sections.nodes || [] : [];
