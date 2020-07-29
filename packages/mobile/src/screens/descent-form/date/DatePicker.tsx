@@ -2,7 +2,7 @@ import format from 'date-fns/format';
 import { useFormikContext } from 'formik';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Platform, TouchableOpacity, View } from 'react-native';
+import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import DatePickerDialog from './DatePickerDialog';
 
@@ -14,7 +14,7 @@ const DatePicker: React.FC<Props> = React.memo(({ name }) => {
   const { t } = useTranslation();
   const { values, setFieldTouched, setFieldValue } = useFormikContext<any>();
   const [mode, setMode] = useState<'date' | 'time' | undefined>();
-  const value = new Date(values[name]) || new Date();
+  const value = values[name] ? new Date(values[name]) : new Date();
   const onChange = useCallback(
     (e: any, v: Date) => {
       if (Platform.OS === 'android') {
@@ -31,7 +31,7 @@ const DatePicker: React.FC<Props> = React.memo(({ name }) => {
 
   return (
     <View>
-      <TouchableOpacity onPress={() => setMode('date')}>
+      <View>
         <TextInput
           label={t('screens:descentForm.date.startedAt.date')}
           value={format(value, 'PPP')}
@@ -39,9 +39,13 @@ const DatePicker: React.FC<Props> = React.memo(({ name }) => {
           editable={false}
           autoFocus={false}
         />
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={StyleSheet.absoluteFill}
+          onPress={() => setMode('date')}
+        />
+      </View>
 
-      <TouchableOpacity onPress={() => setMode('time')}>
+      <View>
         <TextInput
           label={t('screens:descentForm.date.startedAt.time')}
           value={format(value, 'p')}
@@ -49,7 +53,11 @@ const DatePicker: React.FC<Props> = React.memo(({ name }) => {
           editable={false}
           autoFocus={false}
         />
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={StyleSheet.absoluteFill}
+          onPress={() => setMode('time')}
+        />
+      </View>
 
       <DatePickerDialog
         mode={mode}
