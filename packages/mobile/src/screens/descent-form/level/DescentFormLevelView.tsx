@@ -42,7 +42,7 @@ const DescentFormLevelView: React.FC<DescentFormDateNavProps> = ({
         autoCorrect={false}
         autoCompleteType="off"
       />
-      {section.gauge && (
+      {section?.gauge && (
         <DescentChartLayout
           section={section}
           startedAt={startedAt}
