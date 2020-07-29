@@ -1,8 +1,9 @@
 import { useFormikContext } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { KeyboardAvoidingView, StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Button } from 'react-native-paper';
+import KeyboardSpacer from '~/components/keyboard-spacer';
 import CheckboxField from '~/forms/CheckboxField';
 import TextField from '~/forms/TextField';
 import theme from '~/theme';
@@ -27,11 +28,7 @@ const DescentFormCommentView: React.FC = () => {
     DescentFormData
   >();
   return (
-    <KeyboardAvoidingView
-      behavior="height"
-      style={styles.container}
-      keyboardVerticalOffset={100 + theme.safeBottom + theme.safeTop}
-    >
+    <View style={styles.container}>
       <TextField
         name="comment"
         autoFocus={true}
@@ -56,7 +53,8 @@ const DescentFormCommentView: React.FC = () => {
             : 'screens:descentForm.createButton',
         )}
       </Button>
-    </KeyboardAvoidingView>
+      <KeyboardSpacer />
+    </View>
   );
 };
 

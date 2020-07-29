@@ -35,7 +35,7 @@ export const RegionFAB: React.FC = React.memo(() => {
       {
         icon: 'calendar-plus',
         label: t('screens:region.fab.addDescent'),
-        onPress: () => navigate(Screens.DESCENT_FORM),
+        onPress: () => navigate(Screens.DESCENT_FORM, {}),
       },
     ],
     [navigate, t],
