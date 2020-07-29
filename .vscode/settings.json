@@ -38,6 +38,9 @@
   "[sql]": {
     "editor.formatOnSave": false
   },
+  "[java]": {
+    "editor.formatOnSave": false
+  },
   "editor.codeActionsOnSave": ["source.organizeImports"],
   "typescript.tsdk": "node_modules/typescript/lib",
   "java.configuration.updateBuildConfiguration": "disabled",
