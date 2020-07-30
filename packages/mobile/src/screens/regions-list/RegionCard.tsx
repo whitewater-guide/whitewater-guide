@@ -1,4 +1,3 @@
-import * as Sentry from '@sentry/react-native';
 import { Region } from '@whitewater-guide/commons';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -86,10 +85,7 @@ export const RegionCard: React.FC<Props> = React.memo(({ region, index }) => {
             locations={[0.0, 0.75, 1.0]}
           >
             <DownloadButton
-              // tslint:disable-next-line: jsx-no-lambda
-              downloadRegion={() => {
-                throw new Error('test');
-              }}
+              downloadRegion={cardProps.downloadRegion}
               canMakePayments={cardProps.canMakePayments}
               regionInProgress={cardProps.regionInProgress}
               offlineError={cardProps.offlineError}
@@ -112,10 +108,7 @@ export const RegionCard: React.FC<Props> = React.memo(({ region, index }) => {
           <PremiumBadge
             region={region}
             canMakePayments={cardProps.canMakePayments}
-            // tslint:disable-next-line: jsx-no-lambda
-            buyRegion={() => {
-              Sentry.nativeCrash();
-            }}
+            buyRegion={cardProps.buyRegion}
           />
         </View>
       </Paper>
