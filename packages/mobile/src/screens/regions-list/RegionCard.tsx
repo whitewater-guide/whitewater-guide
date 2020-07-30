@@ -1,16 +1,16 @@
-import { Caption, Title, TouchableRipple } from 'react-native-paper';
+import * as Sentry from '@sentry/react-native';
+import { Region } from '@whitewater-guide/commons';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
-
-import DownloadButton from './DownloadButton';
 import Image from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
+import { Caption, Title, TouchableRipple } from 'react-native-paper';
 import Paper from '~/components/Paper';
-import PremiumBadge from './PremiumBadge';
-import React from 'react';
-import { Region } from '@whitewater-guide/commons';
 import theme from '../../theme';
+import DownloadButton from './DownloadButton';
+import PremiumBadge from './PremiumBadge';
 import useCommonCardProps from './useCommonCardProps';
-import { useTranslation } from 'react-i18next';
 
 const FOOTER_HEIGHT = 40;
 
@@ -86,7 +86,10 @@ export const RegionCard: React.FC<Props> = React.memo(({ region, index }) => {
             locations={[0.0, 0.75, 1.0]}
           >
             <DownloadButton
-              downloadRegion={cardProps.downloadRegion}
+              // tslint:disable-next-line: jsx-no-lambda
+              downloadRegion={() => {
+                throw new Error('test');
+              }}
               canMakePayments={cardProps.canMakePayments}
               regionInProgress={cardProps.regionInProgress}
               offlineError={cardProps.offlineError}
@@ -109,7 +112,10 @@ export const RegionCard: React.FC<Props> = React.memo(({ region, index }) => {
           <PremiumBadge
             region={region}
             canMakePayments={cardProps.canMakePayments}
-            buyRegion={cardProps.buyRegion}
+            // tslint:disable-next-line: jsx-no-lambda
+            buyRegion={() => {
+              Sentry.nativeCrash();
+            }}
           />
         </View>
       </Paper>
