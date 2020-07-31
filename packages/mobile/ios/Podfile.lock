@@ -381,7 +381,7 @@ PODS:
     - React
   - react-native-safe-area-context (3.1.1):
     - React
-  - react-native-sensitive-info (5.5.7):
+  - react-native-sensitive-info (5.5.8):
     - React
   - react-native-startup-time (1.3.0):
     - React
@@ -800,7 +800,7 @@ SPEC CHECKSUMS:
   react-native-mapbox-gl: 18785637738ca8b25c3633db431d6614ec7fc9bf
   react-native-netinfo: a53b00d949b6456913aaf507d9dba90c4008c611
   react-native-safe-area-context: 344b969c45af3d8464d36e8dea264942992ef033
-  react-native-sensitive-info: 66fd6bb3dcb0a2f3f979a9f95bb893186d7bb9e6
+  react-native-sensitive-info: 400c6e3d27945e15c8cddb5b4b92233c85ee06f8
   react-native-startup-time: 740451fcbc7e3c8f67b036365387401ab917de1c
   react-native-ultimate-config: e627ebb3dcd8018c6142e150000dbc67576f29d9
   react-native-webview: 136107c8fc07efc95be59e519710cdc05822ad40
