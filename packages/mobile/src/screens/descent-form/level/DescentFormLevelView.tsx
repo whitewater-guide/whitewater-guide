@@ -7,7 +7,6 @@ import { Screens } from '~/core/navigation';
 import NumericField from '~/forms/NumericField';
 import TextField from '~/forms/TextField';
 import { DescentFormDateNavProps } from '~/screens/descent-form/date/types';
-import { DescentFormScreen } from '../DescentFormContext';
 import { DescentFormData } from '../types';
 import { DescentChartLayout } from './chart';
 
@@ -30,7 +29,7 @@ const DescentFormLevelView: React.FC<DescentFormDateNavProps> = ({
     navigate(Screens.DESCENT_FORM_COMMENT);
   }, [navigate]);
   return (
-    <DescentFormScreen padding={true}>
+    <React.Fragment>
       <NumericField
         name="level.value"
         label={t('screens:descentForm.level.valueLabel')}
@@ -52,7 +51,7 @@ const DescentFormLevelView: React.FC<DescentFormDateNavProps> = ({
       <Button mode="contained" onPress={onNext}>
         {t('commons:next')}
       </Button>
-    </DescentFormScreen>
+    </React.Fragment>
   );
 };
 

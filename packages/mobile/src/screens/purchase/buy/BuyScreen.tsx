@@ -8,7 +8,7 @@ const BuyScreen: React.FC<PurchaseBuyNavProps> = ({ route }) => {
   const { region, sectionId } = route.params;
   const state = usePurchaseState(region, sectionId);
   return (
-    <Screen safe={true}>
+    <Screen safeBottom={true}>
       <BuyView region={region} purchaseState={state} />
     </Screen>
   );

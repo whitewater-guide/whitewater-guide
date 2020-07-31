@@ -1,13 +1,13 @@
 import React from 'react';
+import { DescentFormDateNavProps } from '~/screens/descent-form/date/types';
 import { DescentFormScreen } from '../DescentFormContext';
 import DescentFormLevelView from './DescentFormLevelView';
-import { DescentFormDateNavProps } from '~/screens/descent-form/date/types';
 
 export const DescentFormLevelScreen: React.FC<DescentFormDateNavProps> = (
   props,
 ) => {
   return (
-    <DescentFormScreen safe={true}>
+    <DescentFormScreen safeBottom={true} padding={true}>
       <DescentFormLevelView {...props} />
     </DescentFormScreen>
   );

@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
 
 export const AuthScreenBase: React.FC = ({ children }) => {
   return (
-    <Screen safe={true}>
+    <Screen safeBottom={true}>
       <KeyboardAwareScrollView>
         <View style={styles.body}>
           <View style={styles.logoWrapper}>

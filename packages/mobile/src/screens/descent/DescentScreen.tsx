@@ -28,6 +28,6 @@ const DescentScreen: React.FC<DescentNavProps> = ({ navigation, route }) => {
     });
   }, [descent, navigation]);
 
-  return <Screen safe={true}>{element}</Screen>;
+  return <Screen safeBottom={true}>{element}</Screen>;
 };
 export default DescentScreen;

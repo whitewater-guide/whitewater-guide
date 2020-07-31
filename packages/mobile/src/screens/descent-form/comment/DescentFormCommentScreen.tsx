@@ -5,7 +5,7 @@ import { DescentFormCommentNavProps } from './types';
 
 export const DescentFormCommentScreen: React.FC<DescentFormCommentNavProps> = () => {
   return (
-    <DescentFormScreen safe={true}>
+    <DescentFormScreen safeBottom={true}>
       <DescentFormCommentView />
     </DescentFormScreen>
   );
