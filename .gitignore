@@ -8,3 +8,4 @@ node_modules/
 lerna-changed.json
 ww-meta.json
 /packages/mobile59/
+*.log

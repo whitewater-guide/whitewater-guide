@@ -53,14 +53,18 @@ export const uploadFile = async (
   Object.entries(rawFormData).forEach(([k, v]) => formData.append(k, v));
   formData.append('file', file as any);
 
-  const resp = await fetch(link.postURL, {
-    body: formData,
-    method: 'post',
-    signal: abortController ? abortController.signal : undefined,
-  });
-  if (resp.status === 204) {
-    return resp.headers.get('Location')!;
+  try {
+    const resp = await fetch(link.postURL, {
+      body: formData,
+      method: 'post',
+      signal: abortController ? abortController.signal : undefined,
+    });
+    if (resp.status === 204) {
+      return resp.headers.get('Location')!;
+    }
+    const text = await resp.text();
+    throw new UploadFileError(text, resp.status);
+  } catch (e) {
+    throw new UploadFileError(e.message, 503);
   }
-  const text = await resp.text();
-  throw new UploadFileError(text, resp.status);
 };
