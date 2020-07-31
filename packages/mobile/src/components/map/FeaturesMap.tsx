@@ -57,7 +57,7 @@ const layerStyles: Record<
 
 const ATTRIBUTION =
   Platform.OS === 'ios' ? { bottom: 8, left: 100 } : undefined;
-const HIT_BOX = { width: 44, height: 44 };
+const HIT_BOX = { width: 50, height: 50 };
 const POI_FILTER = ['==', '$type', 'Point'];
 // line-dasharray is not data-driven, split into 2 layers with filters
 const APPROXIMATE_FILTER = ['==', ['get', 'approximate'], true];
@@ -122,7 +122,12 @@ const FeaturesMap: React.FC<Props> = React.memo((props) => {
         />
       </Mapbox.ShapeSource>
 
-      <Mapbox.ShapeSource id="arrowsSource" shape={arrows} hitbox={HIT_BOX}>
+      <Mapbox.ShapeSource
+        id="arrowsSource"
+        shape={arrows}
+        hitbox={HIT_BOX}
+        onPress={detailed ? undefined : onPress}
+      >
         <Mapbox.SymbolLayer id="arrows" style={layerStyles.arrow} />
       </Mapbox.ShapeSource>
 
