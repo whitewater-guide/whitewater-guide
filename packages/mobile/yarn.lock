@@ -3541,10 +3541,10 @@
     "@webassemblyjs/wast-parser" "1.9.0"
     "@xtuc/long" "4.2.2"
 
-"@whitewater-guide/clients@0.0.322":
-  version "0.0.322"
-  resolved "https://registry.npmjs.org/@whitewater-guide/clients/-/clients-0.0.322.tgz#c8775723a1cfc91baac86543b9e52bf76803317f"
-  integrity sha512-DW9VlzkiKtBhk+5oCkS2cVjBmWcyiKlTpcLR20xIHRulRdyt319xc0PYLWtDqG+1zgVYBN4HoPJjWgq3VfraCw==
+"@whitewater-guide/clients@0.0.323":
+  version "0.0.323"
+  resolved "https://registry.npmjs.org/@whitewater-guide/clients/-/clients-0.0.323.tgz#7e17634b40f9c08af0e2c969e3c9b49ba79296e1"
+  integrity sha512-JBIoPLVNh3YnydbEuwoCsoP6bPbbcIs6BwrhM9jmxYMsfqeZOb9N6o6tAcQhH94X5M3s5BNnfNDt2XRgmB4Mkg==
   dependencies:
     "@turf/bearing" "^6.0.1"
     "@turf/helpers" "^6.1.4"
