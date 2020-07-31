@@ -11,7 +11,7 @@ import ModalPickerField from '~/forms/modal-picker';
 import NumericField from '~/forms/NumericField';
 import RatingField from '~/forms/RatingField';
 import TagsField from '~/forms/TagsField';
-import theme from '../../../../theme';
+import theme from '~/theme';
 
 const DURATIONS: Array<Duration | null> = [null].concat(
   Array.from(Durations.entries()).map(([k]) => k) as any,

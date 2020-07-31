@@ -4,7 +4,6 @@ import addDays from 'date-fns/addDays';
 import subDays from 'date-fns/subDays';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import theme from '~/theme';
 import { DescentChart } from './DescentChart';
 import DescentChartFlowToggle from './DescentChartFlowToggle';
 
@@ -13,8 +12,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'stretch',
   },
-  controls: {
-    height: 4 * theme.rowHeight,
+  chart: {
+    flex: 1,
+    alignSelf: 'stretch',
   },
 });
 
@@ -38,12 +38,10 @@ export const DescentChartLayout: React.FC<Props> = React.memo(
         initialFilter={initialFilter}
       >
         <View style={styles.container}>
-          <View style={styles.container}>
+          <View style={styles.chart}>
             <DescentChart startedAt={new Date(startedAt)} onLoaded={onLoaded} />
           </View>
-          <View style={styles.controls}>
-            <DescentChartFlowToggle />
-          </View>
+          <DescentChartFlowToggle />
         </View>
       </ChartProvider>
     );

@@ -1,16 +1,13 @@
+import { useLayout } from '@react-native-community/hooks';
 import { useChart } from '@whitewater-guide/clients';
-import React, { useCallback, useState } from 'react';
-import {
-  LayoutChangeEvent,
-  LayoutRectangle,
-  StyleSheet,
-  View,
-} from 'react-native';
+import { DescentLevelInput } from '@whitewater-guide/commons';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import { NoChart, VictoryTheme } from '~/components/chart';
 import Loading from '~/components/Loading';
+import theme from '~/theme';
 import DescentChartComponent from './DescentChartComponent';
 import useOnDataLoaded from './useOnDataLoaded';
-import { DescentLevelInput } from '@whitewater-guide/commons';
 
 const styles = StyleSheet.create({
   container: {
@@ -36,13 +33,7 @@ export const DescentChart: React.FC<Props> = ({ onLoaded, startedAt }) => {
     unit,
   } = useChart();
   useOnDataLoaded({ data, unit, startedAt, gauge, onLoaded });
-  const [layout, setLayout] = useState<LayoutRectangle | null>(null);
-  const onLayout = useCallback(
-    (event: LayoutChangeEvent) => {
-      setLayout(event.nativeEvent.layout);
-    },
-    [layout, setLayout],
-  );
+  const { height, width, onLayout } = useLayout();
   if (loading) {
     return <Loading />;
   }
@@ -51,15 +42,15 @@ export const DescentChart: React.FC<Props> = ({ onLoaded, startedAt }) => {
   }
   return (
     <View style={styles.container} onLayout={onLayout}>
-      {!!layout && layout.width !== 0 && layout.height !== 0 && (
+      {!!height && (
         <DescentChartComponent
           unit={unit}
           gauge={gauge}
           filter={filter}
           data={data}
           section={section}
-          width={layout.width}
-          height={layout.height}
+          width={width}
+          height={Math.min(height, theme.screenWidth - 40)}
           padding={{ top: 20, bottom: 54, left: 48, right: 16 }}
           theme={VictoryTheme}
           highlightedDate={startedAt}

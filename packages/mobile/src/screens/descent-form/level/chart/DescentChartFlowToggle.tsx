@@ -26,6 +26,9 @@ const DescentChartFlowToggle: React.FC = () => {
     },
     [onChangeUnit],
   );
+  if (!unitChangeable) {
+    return null;
+  }
   return (
     <View style={styles.container}>
       <Paragraph>
