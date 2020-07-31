@@ -34,6 +34,7 @@ const SectionTabs: React.FC<SectionScreenNavProps> = ({ navigation }) => {
         backgroundColor: theme.colors.primary,
       }}
       initialRouteName={Screens.SECTION_INFO}
+      keyboardHidesNavigationBar={false}
     >
       <Tab.Screen
         name={Screens.SECTION_MAP}

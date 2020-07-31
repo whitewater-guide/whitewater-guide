@@ -43,7 +43,7 @@ const RegionTabs: React.FC<RegionTabsNavProps> = () => {
             backgroundColor: theme.colors.primary,
           }}
           sceneAnimationEnabled={false}
-          keyboardHidesNavigationBar={true}
+          keyboardHidesNavigationBar={false}
         >
           <Tab.Screen
             name={Screens.REGION_MAP}
