@@ -1,3 +1,9 @@
+## [0.1.436](https://github.com/doomsower/whitewater/compare/24e55b9de68a7c4fd9b447e0d933a6943e6a495b...0c1bf719e4c460c29888565d46269496f633a1de) (2020-08-01)
+
+### Bug Fixes
+
+- fix mediaimage ([](https://github.com/doomsower/whitewater/commit/7a49a4f2158f93ea866aa3edad7277e444cd043f))
+
 ## [0.1.435](https://github.com/doomsower/whitewater/compare/ec7e61ace05e19285647ababe56f2b442b45aeed...24e55b9de68a7c4fd9b447e0d933a6943e6a495b) (2020-08-01)
 
 ### Features
