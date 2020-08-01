@@ -1,3 +1,4 @@
+import { init } from '@sentry/react';
 import React from 'react';
 import ReactDOM from 'react-dom';
 // tslint:disable-next-line:no-submodule-imports
@@ -8,7 +9,7 @@ import './i18n';
 import './index.css';
 
 if (process.env.NODE_ENV === 'production' && process.env.REACT_APP_SENTRY_DSN) {
-  Sentry.init({
+  init({
     dsn: process.env.REACT_APP_SENTRY_DSN,
     release: `v${process.env.REACT_APP_VERSION}`,
     environment: API_HOST.includes('local')

@@ -1,17 +1,17 @@
-import { Severity } from '@sentry/types';
+import { addBreadcrumb, Severity } from '@sentry/react';
 import React, { useEffect } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
 
 const HistoryWatcher = withRouter((props: RouteComponentProps<any>) => {
   useEffect(() => {
     // Adblockers will kill sentry
-    if (!!(global as any).Sentry) {
-      Sentry.addBreadcrumb({
-        category: 'router',
-        message: props.location.pathname,
-        level: Severity.Info,
-      });
-    }
+    // if (!!(global as any).Sentry) {
+    addBreadcrumb({
+      category: 'router',
+      message: props.location.pathname,
+      level: Severity.Info,
+    });
+    // }
   }, [props.location.pathname]);
   return null;
 });
