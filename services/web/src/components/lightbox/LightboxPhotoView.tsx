@@ -23,9 +23,10 @@ interface Props {
 }
 
 const LightboxPhotoView: React.FC<Props> = ({ data }) => {
+  const src = data.image || data.url;
   return (
     <div style={styles.container}>
-      <MediaImg src={data.image || data.url || undefined} style={styles.img} />
+      {src && <MediaImg src={src} style={styles.img} />}
     </div>
   );
 };
