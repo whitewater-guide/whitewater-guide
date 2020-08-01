@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet } from 'react-native';
+import { StyleProp, StyleSheet, TextStyle } from 'react-native';
 import { HelperText as PaperHelperText } from 'react-native-paper';
 import theme from '~/theme';
 
@@ -20,10 +20,11 @@ interface Props {
   error?: any;
   warning?: boolean;
   noPad?: boolean;
+  style?: StyleProp<TextStyle>;
 }
 
 const HelperText: React.FC<Props> = React.memo(
-  ({ touched, error, noPad, helperText, warning, prefix = '' }) => {
+  ({ touched, error, noPad, helperText, warning, style, prefix = '' }) => {
     const { t } = useTranslation();
     let errorText = '';
     if (error) {
@@ -41,7 +42,7 @@ const HelperText: React.FC<Props> = React.memo(
       <PaperHelperText
         type={isError ? 'error' : 'info'}
         visible={isError || !!helperText}
-        style={[noPad && styles.noPad, warning && styles.warning]}
+        style={[noPad && styles.noPad, warning && styles.warning, style]}
       >
         {errorText || helperText}
       </PaperHelperText>

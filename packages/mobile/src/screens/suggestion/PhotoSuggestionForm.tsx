@@ -1,14 +1,10 @@
 import { Formik } from 'formik';
 import React, { useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  KeyboardAvoidingView,
-  ScrollView,
-  StyleSheet,
-  TextInput,
-} from 'react-native';
+import { ScrollView, StyleSheet, TextInput } from 'react-native';
 import { Button } from 'react-native-paper';
 import CCNote from '~/components/CCNote';
+import FullScreenKAV from '~/components/FullScreenKAV';
 import PhotoUploadField from '~/forms/photo-upload';
 import TextField from '~/forms/TextField';
 import theme from '../../theme';
@@ -26,9 +22,6 @@ const styles = StyleSheet.create({
   content: {
     height: theme.stackScreenHeight,
     padding: theme.margin.single,
-  },
-  description: {
-    flex: 1,
   },
 });
 
@@ -52,11 +45,7 @@ const PhotoSuggestionForm: React.FC<Props> = React.memo((props) => {
   return (
     <Formik<PhotoSuggestion> {...form} validateOnMount={true}>
       {({ isSubmitting, isValid, submitForm }) => (
-        <KeyboardAvoidingView
-          behavior="height"
-          style={styles.container}
-          keyboardVerticalOffset={75 + theme.safeBottom}
-        >
+        <FullScreenKAV>
           <ScrollView
             ref={scroll}
             style={styles.container}
@@ -76,12 +65,10 @@ const PhotoSuggestionForm: React.FC<Props> = React.memo((props) => {
               name="description"
               ref={descriptionRef}
               multiline={true}
-              wrapperStyle={styles.description}
-              style={styles.description}
+              fullHeight={true}
               label={t('screens:suggestion.photoDescriptionLabel')}
               placeholder={t('screens:suggestion.photoDescriptionPlaceholder')}
               onFocus={handlers.onDescriptionFocus}
-              fullHeight={true}
             />
             <CCNote />
             <Button
@@ -93,7 +80,7 @@ const PhotoSuggestionForm: React.FC<Props> = React.memo((props) => {
               {t('screens:suggestion.submitPhoto')}
             </Button>
           </ScrollView>
-        </KeyboardAvoidingView>
+        </FullScreenKAV>
       )}
     </Formik>
   );

@@ -1,8 +1,9 @@
 import { useFormikContext } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { KeyboardAvoidingView, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
+import FullScreenKAV from '~/components/FullScreenKAV';
 import CheckboxField from '~/forms/CheckboxField';
 import TextField from '~/forms/TextField';
 import theme from '~/theme';
@@ -11,13 +12,6 @@ import { DescentFormData } from '../types';
 const styles = StyleSheet.create({
   container: {
     padding: theme.margin.single,
-    flex: 1,
-  },
-  descriptionWrapper: {
-    flex: 1,
-  },
-  description: {
-    marginBottom: 24,
   },
 });
 
@@ -27,16 +21,11 @@ const DescentFormCommentView: React.FC = () => {
     DescentFormData
   >();
   return (
-    <KeyboardAvoidingView
-      behavior="height"
-      style={styles.container}
-      keyboardVerticalOffset={64 + theme.safeBottom + theme.safeTop}
-    >
+    <FullScreenKAV contentStyle={styles.container}>
       <TextField
         name="comment"
         autoFocus={true}
         multiline={true}
-        wrapperStyle={styles.descriptionWrapper}
         label={t('screens:descentForm.comment.commentLabel')}
         placeholder={t('screens:descentForm.comment.commentPlaceholder')}
         fullHeight={true}
@@ -56,7 +45,7 @@ const DescentFormCommentView: React.FC = () => {
             : 'screens:descentForm.createButton',
         )}
       </Button>
-    </KeyboardAvoidingView>
+    </FullScreenKAV>
   );
 };
 

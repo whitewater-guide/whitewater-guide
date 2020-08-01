@@ -58,6 +58,7 @@ export const SectionFAB: React.FC<Props> = ({ testID }) => {
                     formData: {
                       section: node!,
                       startedAt: new Date().toISOString(),
+                      public: true,
                     },
                   },
                   state: {
