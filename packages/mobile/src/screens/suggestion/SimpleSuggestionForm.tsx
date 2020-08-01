@@ -5,25 +5,22 @@ import {
 import { Formik } from 'formik';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { KeyboardAvoidingView, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 import CCNote from '~/components/CCNote';
+import FullScreenKAV from '~/components/FullScreenKAV';
 import TextField from '~/forms/TextField';
 import useValidate from '~/forms/useValidate';
-import theme from '../../theme';
+import theme from '~/theme';
 import getInitialValues from './getInitialValues';
 import useAddSuggestion from './useAddSuggestion';
 
 const styles = StyleSheet.create({
   container: {
     padding: theme.margin.single,
-    flex: 1,
   },
-  descriptionWrapper: {
-    flex: 1,
-  },
-  description: {
-    marginBottom: 24,
+  helperText: {
+    marginTop: theme.margin.half,
   },
 });
 
@@ -39,11 +36,7 @@ const SimpleSuggestionForm: React.FC<Props> = (props) => {
   const onSubmit = useAddSuggestion();
   const validate = useValidate(SuggestionInputSchema);
   return (
-    <KeyboardAvoidingView
-      behavior="height"
-      style={styles.container}
-      keyboardVerticalOffset={64 + theme.safeBottom + theme.safeTop}
-    >
+    <FullScreenKAV contentStyle={styles.container}>
       <Formik<SuggestionInput>
         initialValues={initialValues}
         onSubmit={onSubmit}
@@ -55,10 +48,10 @@ const SimpleSuggestionForm: React.FC<Props> = (props) => {
               name="description"
               autoFocus={true}
               multiline={true}
-              wrapperStyle={styles.descriptionWrapper}
+              fullHeight={true}
               label={t('screens:suggestion.suggestionLabel')}
               placeholder={t('screens:suggestion.suggestionPlaceholder')}
-              fullHeight={true}
+              helperTextStyle={styles.helperText}
             />
             <CCNote />
             <Button
@@ -71,7 +64,7 @@ const SimpleSuggestionForm: React.FC<Props> = (props) => {
           </React.Fragment>
         )}
       </Formik>
-    </KeyboardAvoidingView>
+    </FullScreenKAV>
   );
 };
 

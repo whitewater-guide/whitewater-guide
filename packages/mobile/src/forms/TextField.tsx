@@ -1,6 +1,12 @@
 import { useField } from 'formik';
 import React, { forwardRef, useCallback, useState } from 'react';
-import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import {
+  StyleProp,
+  StyleSheet,
+  TextStyle,
+  View,
+  ViewStyle,
+} from 'react-native';
 import { TextInput } from 'react-native-paper';
 import HelperText from './HelperText';
 import useFocus from './useFocus';
@@ -9,7 +15,7 @@ import useReactNativeHandlers from './useReactNativeHandlers';
 type TextInputProps = React.ComponentProps<typeof TextInput>;
 
 const styles = StyleSheet.create({
-  inputWrapper: {
+  fullHeight: {
     flex: 1,
   },
 });
@@ -18,6 +24,7 @@ type Props = {
   name: string;
   helperText?: string;
   wrapperStyle?: StyleProp<ViewStyle>;
+  helperTextStyle?: StyleProp<TextStyle>;
   displayError?: boolean;
   fullHeight?: boolean;
 } & Omit<TextInputProps, 'value' | 'onChangeText' | 'onChange'>;
@@ -30,6 +37,7 @@ const TextField = React.memo(
         displayError = true,
         wrapperStyle,
         helperText,
+        helperTextStyle,
         fullHeight,
         ...props
       },
@@ -46,8 +54,8 @@ const TextField = React.memo(
         [setHeight],
       );
       return (
-        <View style={wrapperStyle}>
-          <View style={fullHeight && styles.inputWrapper} onLayout={onLayout}>
+        <View style={[fullHeight && styles.fullHeight, wrapperStyle]}>
+          <View style={fullHeight && styles.fullHeight} onLayout={onLayout}>
             <TextInput
               {...props}
               style={[props.style, fullHeight && !!height && { height }]}
@@ -65,6 +73,7 @@ const TextField = React.memo(
               touched={meta.touched}
               error={meta.error}
               helperText={helperText}
+              style={helperTextStyle}
             />
           )}
         </View>

@@ -1,15 +1,12 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { LayoutChangeEvent, StyleSheet } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { StyleSheet } from 'react-native';
+import FullScreenKAV from '~/components/FullScreenKAV';
 import PhotoUploadField from '~/forms/photo-upload';
 import TextField from '~/forms/TextField';
 import theme from '~/theme';
 
 const styles = StyleSheet.create({
-  description: {
-    flex: 1,
-  },
   content: {
     padding: theme.margin.single,
   },
@@ -22,24 +19,10 @@ interface Props {
 
 const SectionPhotoForm: React.FC<Props> = React.memo((props) => {
   const { index, localPhotoId } = props;
-  const [height, setHeight] = useState(0);
   const { t } = useTranslation();
-  const onLayout = useCallback(
-    (e: LayoutChangeEvent) => {
-      setHeight(e.nativeEvent.layout.height);
-    },
-    [setHeight],
-  );
 
   return (
-    <KeyboardAwareScrollView
-      style={StyleSheet.absoluteFill}
-      onLayout={onLayout}
-      contentContainerStyle={[
-        styles.content,
-        height ? { height } : StyleSheet.absoluteFillObject,
-      ]}
-    >
+    <FullScreenKAV contentStyle={styles.content}>
       <PhotoUploadField
         name={`media.${index}.photo`}
         localPhotoId={localPhotoId}
@@ -55,13 +38,11 @@ const SectionPhotoForm: React.FC<Props> = React.memo((props) => {
       <TextField
         name={`media.${index}.description`}
         multiline={true}
-        wrapperStyle={styles.description}
-        style={styles.description}
         fullHeight={true}
         label={t('screens:suggestion.photoDescriptionLabel')}
         placeholder={t('screens:suggestion.photoDescriptionPlaceholder')}
       />
-    </KeyboardAwareScrollView>
+    </FullScreenKAV>
   );
 });
 
