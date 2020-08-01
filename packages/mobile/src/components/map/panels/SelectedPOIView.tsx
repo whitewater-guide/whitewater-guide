@@ -1,18 +1,17 @@
-import { NAVIGATE_BUTTON_HEIGHT, NavigateButton } from '../../NavigateButton';
-import React, { useCallback, useRef } from 'react';
 import { useMapSelection, useRegion } from '@whitewater-guide/clients';
-
-import Animated from 'react-native-reanimated';
-import { Paragraph } from 'react-native-paper';
-import { ScrollView } from 'react-native-gesture-handler';
-import SelectedElementView from './SelectedElementView';
-import SelectedPOIHeader from '~/components/map/panels/SelectedPOIHeader';
-import { StyleSheet } from 'react-native';
-import { initialWindowSafeAreaInsets } from 'react-native-safe-area-context';
 import { isPoint } from '@whitewater-guide/commons';
+import React, { useCallback, useRef } from 'react';
+import { StyleSheet } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
+import { Paragraph } from 'react-native-paper';
+import Animated from 'react-native-reanimated';
+import { initialWindowSafeAreaInsets } from 'react-native-safe-area-context';
+import SelectedPOIHeader from '~/components/map/panels/SelectedPOIHeader';
+import { usePremiumGuard } from '~/features/purchases';
 import theme from '~/theme';
 import useLastNotNull from '~/utils/useLastNotNull';
-import { usePremiumGuard } from '~/features/purchases';
+import { NavigateButton, NAVIGATE_BUTTON_HEIGHT } from '../../NavigateButton';
+import SelectedElementView from './SelectedElementView';
 
 const styles = StyleSheet.create({
   content: {
@@ -73,7 +72,7 @@ export const SelectedPOIView: React.FC = React.memo(() => {
       renderHeader={renderHeader}
       renderButtons={renderButtons}
       renderContent={renderContent}
-      selection={poi}
+      selection={selection}
       onSelected={onSelected}
       simultaneousHandlers={scroll}
     />

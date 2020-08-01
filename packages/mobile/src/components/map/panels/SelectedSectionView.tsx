@@ -5,10 +5,10 @@ import Animated from 'react-native-reanimated';
 import { usePremiumGuard } from '../../../features/purchases';
 import theme from '../../../theme';
 import useLastNotNull from '../../../utils/useLastNotNull';
-import { NAVIGATE_BUTTON_HEIGHT, NavigateButton } from '../../NavigateButton';
+import { NavigateButton, NAVIGATE_BUTTON_HEIGHT } from '../../NavigateButton';
 import {
-  SECTION_DETAILS_BUTTON_HEIGHT,
   SectionDetailsButton,
+  SECTION_DETAILS_BUTTON_HEIGHT,
 } from './SectionDetailsButton';
 import { FLOWS_ROW_HEIGHT } from './SectionFlowsRow';
 import SelectedElementView from './SelectedElementView';
@@ -52,12 +52,12 @@ export const SelectedSectionView: React.FC = React.memo(() => {
         <React.Fragment>
           <NavigateButton
             labelKey="commons:putIn"
-            point={lastSection ? lastSection.putIn : null}
+            point={lastSection?.putIn}
             premiumGuard={premiumGuard}
             scale={scale}
           />
           <NavigateButton
-            point={lastSection ? lastSection.takeOut : null}
+            point={lastSection?.takeOut}
             labelKey="commons:takeOut"
             premiumGuard={premiumGuard}
             scale={scale}
@@ -74,7 +74,7 @@ export const SelectedSectionView: React.FC = React.memo(() => {
       renderHeader={renderHeader}
       renderButtons={renderButtons}
       renderContent={renderContent}
-      selection={section}
+      selection={selection}
       onSelected={onSelected}
     />
   );
