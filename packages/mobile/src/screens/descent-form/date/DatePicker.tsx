@@ -61,6 +61,7 @@ const DatePicker: React.FC<Props> = React.memo(({ name }) => {
             helperText={t('screens:descentForm.date.futureWarning')}
             touched={true}
             warning={true}
+            noPad={true}
           />
         )}
         <TouchableOpacity
