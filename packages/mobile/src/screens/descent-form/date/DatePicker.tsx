@@ -1,9 +1,11 @@
+import addHours from 'date-fns/addHours';
 import format from 'date-fns/format';
 import { useFormikContext } from 'formik';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
+import HelperText from '~/forms/HelperText';
 import DatePickerDialog from './DatePickerDialog';
 
 interface Props {
@@ -14,6 +16,7 @@ const DatePicker: React.FC<Props> = React.memo(({ name }) => {
   const { t } = useTranslation();
   const { values, setFieldTouched, setFieldValue } = useFormikContext<any>();
   const [mode, setMode] = useState<'date' | 'time' | undefined>();
+  const future = useRef(addHours(new Date(), 3));
   const value = values[name] ? new Date(values[name]) : new Date();
   const onChange = useCallback(
     (e: any, v: Date) => {
@@ -53,6 +56,13 @@ const DatePicker: React.FC<Props> = React.memo(({ name }) => {
           editable={false}
           autoFocus={false}
         />
+        {value > future.current && (
+          <HelperText
+            helperText={t('screens:descentForm.date.futureWarning')}
+            touched={true}
+            warning={true}
+          />
+        )}
         <TouchableOpacity
           style={StyleSheet.absoluteFill}
           onPress={() => setMode('time')}

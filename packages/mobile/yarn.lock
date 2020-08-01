@@ -3650,10 +3650,10 @@
     validator "^13.1.1"
     yup "^0.29.1"
 
-"@whitewater-guide/translations@^2.3.3":
-  version "2.3.3"
-  resolved "https://registry.npmjs.org/@whitewater-guide/translations/-/translations-2.3.3.tgz#65b354f1a6be9594bf643dbf2efd92b6d8eb4179"
-  integrity sha512-htg/62BTxdoYrmxECQHyCxcA6/1sPDbSBGjAeko42DKz4LkyKcKG+oYGbUzaUHN368A8+/CgzOBvZoEeG36K7A==
+"@whitewater-guide/translations@^2.3.4":
+  version "2.3.4"
+  resolved "https://registry.npmjs.org/@whitewater-guide/translations/-/translations-2.3.4.tgz#705e27392c4d5d777ec13d3f26f7fa1f4b4648ab"
+  integrity sha512-W9nBNja/SIdodabq4dpwzB47Lk1J3v3XoluVqsQzuquUa8F+vG/LvxEBEjiDdT8u00xiFoY6gvraKUVgQstB4w==
 
 "@whitewater-guide/validation@^1.1.5":
   version "1.1.5"
