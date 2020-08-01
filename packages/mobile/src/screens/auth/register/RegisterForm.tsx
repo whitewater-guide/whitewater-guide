@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Button, Title } from 'react-native-paper';
 import { Screens } from '~/core/navigation';
+import HelperText from '~/forms/HelperText';
 import PasswordField from '~/forms/password-field';
 import TextField from '~/forms/TextField';
 import theme from '~/theme';
@@ -60,7 +61,7 @@ export const RegisterForm: React.FC = React.memo(() => {
       validationSchema={getValidationSchema()}
       onSubmit={submit}
     >
-      {({ isSubmitting, handleSubmit }) => (
+      {({ isSubmitting, errors, handleSubmit }) => (
         <React.Fragment>
           <View>
             <Title>{t('screens:auth.register.title')}</Title>
@@ -96,14 +97,23 @@ export const RegisterForm: React.FC = React.memo(() => {
               onSubmitEditing={handleSubmit as any}
             />
           </View>
-          <Button
-            loading={isSubmitting}
-            mode="contained"
-            style={styles.submitButton}
-            onPress={isSubmitting ? undefined : (handleSubmit as any)}
-          >
-            {t('screens:auth.register.submit')}
-          </Button>
+          <View>
+            {(errors as any)?.form && (
+              <HelperText
+                error={t((errors as any).form)}
+                touched={true}
+                noPad={true}
+              />
+            )}
+            <Button
+              loading={isSubmitting}
+              mode="contained"
+              style={styles.submitButton}
+              onPress={isSubmitting ? undefined : (handleSubmit as any)}
+            >
+              {t('screens:auth.register.submit')}
+            </Button>
+          </View>
         </React.Fragment>
       )}
     </Formik>

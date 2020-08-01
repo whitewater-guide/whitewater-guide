@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 import { Screens } from '~/core/navigation';
+import HelperText from '~/forms/HelperText';
 import PasswordField from '~/forms/password-field';
 import TextField from '~/forms/TextField';
 import theme from '../../../theme';
@@ -57,7 +58,7 @@ export const SignInForm: React.FC = () => {
       validationSchema={getValidationSchema()}
       onSubmit={submit}
     >
-      {({ isSubmitting, handleSubmit }) => (
+      {({ isSubmitting, errors, handleSubmit }) => (
         <React.Fragment>
           <TextField
             name="email"
@@ -87,6 +88,13 @@ export const SignInForm: React.FC = () => {
           >
             {t('screens:auth.signin.forgot')}
           </Button>
+          {(errors as any)?.form && (
+            <HelperText
+              error={t((errors as any).form)}
+              touched={true}
+              noPad={true}
+            />
+          )}
           <Button
             mode="contained"
             loading={isSubmitting}

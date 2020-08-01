@@ -3,6 +3,7 @@ import { getValidationErrors } from '@whitewater-guide/clients';
 import { omitTypename } from '@whitewater-guide/commons';
 import { FormikHelpers } from 'formik';
 import gql from 'graphql-tag';
+import isNil from 'lodash/isNil';
 import { useCallback } from 'react';
 import { useMutation } from 'react-apollo';
 import { useTranslation } from 'react-i18next';
@@ -49,13 +50,14 @@ export default () => {
   const setSnackbar = useSnackbarMessage();
   return useCallback(
     (
-      { section, ...data }: DescentFormData,
+      { section, level, ...data }: DescentFormData,
       helpers: FormikHelpers<DescentFormData>,
     ) =>
       mutate({
         variables: {
           descent: {
             ...omitTypename(data),
+            level: isNil(level?.value) ? null : level,
             sectionId: section.id,
           },
         },

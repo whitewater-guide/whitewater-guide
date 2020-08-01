@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 
 interface Props {
   labelKey: string;
-  point: Point | null;
+  point?: Point | null;
   premiumGuard: () => boolean;
   scale?: Animated.Node<number>;
 }
