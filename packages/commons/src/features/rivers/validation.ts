@@ -5,13 +5,19 @@ import { yupTypes } from '@whitewater-guide/validation';
 
 export const RiverInputSchema = yup
   .object<RiverInput>({
-    id: yupTypes.uuid(true),
-    name: yupTypes.nonEmptyString(),
-    region: yupTypes.node(),
+    id: yupTypes
+      .uuid()
+      .defined()
+      .nullable(),
+    name: yupTypes
+      .nonEmptyString()
+      .defined()
+      .nullable(false),
+    region: yupTypes.node().defined(),
     importId: yup.string().nullable(),
     altNames: yup
       .array()
-      .of(yupTypes.nonEmptyString())
+      .of(yupTypes.nonEmptyString().defined())
       .defined()
       .nullable(),
   })

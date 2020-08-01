@@ -28,12 +28,22 @@ const SimpleTagSchema = yup
 
 export const SectionInputSchema = yup
   .object<SectionInput>({
-    id: yupTypes.uuid(true),
-    name: yupTypes.nonEmptyString(),
+    id: yupTypes
+      .uuid()
+      .defined()
+      .nullable(),
+    name: yupTypes
+      .nonEmptyString()
+      .defined()
+      .nullable(false),
     altNames: yup
       .array()
-      .of(yupTypes.nonEmptyString())
-      .defined()
+      .of(
+        yupTypes
+          .nonEmptyString()
+          .defined()
+          .nullable(false),
+      )
       .nullable(),
     description: yup.string().nullable(),
     season: yup.string().nullable(),
@@ -50,7 +60,10 @@ export const SectionInputSchema = yup
       .max(24)
       .defined(),
 
-    river: yupTypes.newNode(),
+    river: yupTypes
+      .newNode()
+      .defined()
+      .nullable(false) as any,
     gauge: yupTypes.node().nullable(),
     region: yupTypes
       .namedNode()
@@ -88,19 +101,28 @@ export const SectionInputSchema = yup
     rating: yup.mixed().oneOf(times(11, (i) => i * 0.5).concat(null as any)),
     tags: yup
       .array()
-      .of(SimpleTagSchema.clone())
-      .defined(),
+      .of(SimpleTagSchema.clone().defined())
+      .defined() as any,
     pois: yup
       .array()
-      .of(PointInputSchema.clone())
+      .of(PointInputSchema.clone().defined())
       .defined(),
-    media: yup.array().of(MediaInputSchema.clone()),
+    media: yup
+      .array()
+      .of(MediaInputSchema.clone().defined())
+      .nullable(false),
     hidden: yup.bool().required(),
     helpNeeded: yup.string().nullable(),
-    createdBy: yupTypes.uuid(true, true),
-    suggestionId: yupTypes.uuid(true, true),
+    createdBy: yupTypes
+      .uuid()
+      .notRequired()
+      .nullable(),
+    suggestionId: yupTypes
+      .uuid()
+      .notRequired()
+      .nullable(),
     importId: yup.string().nullable(),
-  })
+  } as any)
   .strict(true)
   .noUnknown();
 

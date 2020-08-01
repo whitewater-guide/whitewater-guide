@@ -1,4 +1,4 @@
-import { createViews, dropViews } from '@db';
+import { createViews, dropViews } from '~/db';
 import Knex, { ColumnBuilder } from 'knex';
 
 const VIEWS = [

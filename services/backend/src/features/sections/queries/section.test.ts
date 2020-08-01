@@ -1,4 +1,4 @@
-import { holdTransaction, rollbackTransaction } from '@db';
+import { holdTransaction, rollbackTransaction } from '~/db';
 import {
   ADMIN,
   BOOM_USER_1500,
@@ -7,17 +7,17 @@ import {
   EDITOR_NO_EC,
   TEST_USER,
   TEST_USER2,
-} from '@seeds/01_users';
+} from '~/seeds/test/01_users';
 import {
-  GALICIA_R1_S1,
-  GALICIA_R1_S2,
+  GALICIA_BECA_LOWER,
+  GALICIA_BECA_UPPER,
   GEORGIA_BZHUZHA_EXTREME,
   GEORGIA_BZHUZHA_LONG,
   GEORGIA_BZHUZHA_QUALI,
   NORWAY_FINNA_GORGE,
   NORWAY_SJOA_AMOT,
-} from '@seeds/09_sections';
-import { anonContext, fakeContext, noTimestamps, runQuery } from '@test';
+} from '~/seeds/test/09_sections';
+import { anonContext, fakeContext, noTimestamps, runQuery } from '~/test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 
 beforeEach(holdTransaction);
@@ -180,7 +180,7 @@ describe('data', () => {
       }
     }
   `;
-    const result = await runQuery(gaugeQuery, { id: GALICIA_R1_S1 });
+    const result = await runQuery(gaugeQuery, { id: GALICIA_BECA_LOWER });
     expect(result.errors).toBeUndefined();
     expect(result).toHaveProperty('data.section.gauge.name', 'Galicia gauge 1');
   });
@@ -235,7 +235,7 @@ describe('data', () => {
   it('should return empty string for free region when description is null', async () => {
     const result = await runQuery(
       query,
-      { id: GALICIA_R1_S2 },
+      { id: GALICIA_BECA_UPPER },
       fakeContext(TEST_USER2),
     );
     expect(result.errors).toBeUndefined();

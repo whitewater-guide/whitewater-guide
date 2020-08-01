@@ -1,4 +1,4 @@
-import { Connectors } from '@db/connectors';
+import { Connectors } from '~/db/connectors';
 import { LANGUAGES } from '@whitewater-guide/commons';
 import * as koa from 'koa';
 import get from 'lodash/get';

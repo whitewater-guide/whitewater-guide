@@ -1,5 +1,5 @@
 import Knex from 'knex';
-import { runSqlFile } from '@db';
+import { runSqlFile } from '~/db';
 
 /**
  * This fixes bug #460, where updating section causes demo field to reset

@@ -18,7 +18,7 @@ interface Props {
   label: string;
 }
 
-export const FacebookButton: React.FC<Props> = React.memo(({ label }) => {
+export const FacebookButton: React.FC<Props> = ({ label }) => {
   const { service, loading } = useAuth();
   const { navigate } = useNavigation<AuthStackNavProp>();
   const [fbPressed, setFbPressed] = useState(false);
@@ -40,7 +40,7 @@ export const FacebookButton: React.FC<Props> = React.memo(({ label }) => {
   const renderIcon = useCallback(
     ({ size, color }: any) => (
       <MDCommunity
-        name="facebook-box"
+        name="facebook"
         size={1.8 * size}
         color={color}
         style={{ width: 1.8 * size }}
@@ -63,6 +63,4 @@ export const FacebookButton: React.FC<Props> = React.memo(({ label }) => {
       {paddedLabel}
     </Button>
   );
-});
-
-FacebookButton.displayName = 'FacebookButton';
+};

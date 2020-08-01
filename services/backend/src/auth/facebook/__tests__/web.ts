@@ -1,7 +1,3 @@
-import { holdTransaction, rollbackTransaction } from '@db';
-import { redis } from '@redis';
-import { ADMIN_FB_PROFILE, ADMIN_ID, NEW_FB_PROFILE } from '@seeds/01_users';
-import { countRows, UUID_REGEX } from '@test';
 import { AuthBody, SignInBody } from '@whitewater-guide/commons';
 import { CookieAccessInfo } from 'cookiejar';
 import Koa from 'koa';
@@ -9,9 +5,17 @@ import FacebookTokenStrategy from 'passport-facebook-token';
 import superagent from 'superagent';
 import { SuperTest, Test } from 'supertest';
 import agent from 'supertest-koa-agent';
+import { holdTransaction, rollbackTransaction } from '~/db';
+import { redis } from '~/redis';
+import {
+  ADMIN_FB_PROFILE,
+  ADMIN_ID,
+  NEW_FB_PROFILE,
+} from '~/seeds/test/01_users';
+import { countRows, UUID_REGEX } from '~/test';
 import { createApp } from '../../../app';
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from '../../constants';
-import { MailType, sendMail } from '../../mail';
+import { sendWelcome } from '../../mail';
 
 jest.mock('../../mail');
 const ROUTE = '/auth/facebook/signin?web=true&';
@@ -100,17 +104,13 @@ describe('new user', () => {
   });
 
   it('should send welcome email', async () => {
-    expect(sendMail).toHaveBeenCalledWith(
-      MailType.WELCOME_VERIFIED,
-      'new.profile@mail.com',
-      {
-        user: {
-          id: expect.stringMatching(UUID_REGEX),
-          name: `${NEW_FB_PROFILE.name!.givenName} ${
-            NEW_FB_PROFILE.name!.familyName
-          }`,
-        },
-      },
+    expect(sendWelcome).toHaveBeenCalledWith(
+      expect.objectContaining({
+        id: expect.stringMatching(UUID_REGEX),
+        name: `${NEW_FB_PROFILE.name!.givenName} ${
+          NEW_FB_PROFILE.name!.familyName
+        }`,
+      }),
     );
   });
 });
@@ -180,6 +180,6 @@ describe('existing user', () => {
   });
 
   it('should not send welcome email', async () => {
-    expect(sendMail).not.toHaveBeenCalled();
+    expect(sendWelcome).not.toHaveBeenCalled();
   });
 });

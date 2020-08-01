@@ -3,7 +3,7 @@ import {
   addUpdatedAtTrigger,
   removeUpdatedAtFunction,
   runSqlFile,
-} from '@db';
+} from '~/db';
 import { POITypes } from '@whitewater-guide/commons';
 import Knex from 'knex';
 import { createTable } from './utils';

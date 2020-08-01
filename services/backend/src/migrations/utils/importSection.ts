@@ -1,4 +1,4 @@
-import { rawUpsert } from '@db';
+import { rawUpsert } from '~/db';
 import { SectionInput } from '@whitewater-guide/commons';
 import Knex from 'knex';
 

@@ -55,9 +55,9 @@ type Props = RouteComponentProps<RouterParams>;
 const SectionForm: React.FC<Props> = ({ match, location }) => {
   const query = qs.parse(location.search.substr(1));
   const { regionId, sectionId } = match.params;
-  const riverId = query.riverId;
-  const copyFromId = query.copy;
-  const fromSuggestedId = query.fromSuggestedId;
+  const riverId = query.riverId as string;
+  const copyFromId = query.copy as string;
+  const fromSuggestedId = query.fromSuggestedId as string;
   const queryToForm = useMemo(() => makeQueryToForm(!!copyFromId), [
     copyFromId,
   ]);

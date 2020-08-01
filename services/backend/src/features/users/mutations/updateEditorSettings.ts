@@ -1,5 +1,5 @@
-import { isAuthenticatedResolver, isInputValidResolver } from '@apollo';
-import db from '@db';
+import { isAuthenticatedResolver, isInputValidResolver } from '~/apollo';
+import db from '~/db';
 import {
   EditorSettings,
   EditorSettingsSchema,

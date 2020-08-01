@@ -2,8 +2,44 @@
 
 exports[`should return sections 1`] = `
 Object {
-  "count": 6,
+  "count": 8,
   "nodes": Array [
+    Object {
+      "gauge": Object {
+        "id": "aba8c106-aaa0-11e7-abc4-cec278b6b50a",
+        "name": "Galicia gauge 1",
+      },
+      "hidden": false,
+      "id": "2b01742c-d443-11e7-9296-cec278b6b50a",
+      "name": "Lower",
+      "rating": 4.5,
+      "region": Object {
+        "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
+        "name": "Galicia",
+      },
+      "river": Object {
+        "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
+        "name": "Beca",
+      },
+    },
+    Object {
+      "gauge": Object {
+        "id": "aba8c106-aaa0-11e7-abc4-cec278b6b50a",
+        "name": "Galicia gauge 1",
+      },
+      "hidden": false,
+      "id": "3a6e3210-d529-11e7-9296-cec278b6b50a",
+      "name": "Upper",
+      "rating": 2.5,
+      "region": Object {
+        "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
+        "name": "Galicia",
+      },
+      "river": Object {
+        "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
+        "name": "Beca",
+      },
+    },
     Object {
       "gauge": Object {
         "id": "53af2e2c-19fe-11e8-accf-0ed5f89f718b",
@@ -56,39 +92,33 @@ Object {
       },
     },
     Object {
-      "gauge": Object {
-        "id": "aba8c106-aaa0-11e7-abc4-cec278b6b50a",
-        "name": "Galicia gauge 1",
-      },
+      "gauge": null,
       "hidden": false,
-      "id": "2b01742c-d443-11e7-9296-cec278b6b50a",
-      "name": "Gal_riv_1_sec_1",
-      "rating": 4.5,
+      "id": "7104f00c-31ad-4375-992e-5efebef813dd",
+      "name": "Bridge to bridge",
+      "rating": 4,
       "region": Object {
-        "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
-        "name": "Galicia",
+        "id": "2caf75ca-7625-11e7-b5a5-be2e44b06b34",
+        "name": "Ecuador",
       },
       "river": Object {
-        "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
-        "name": "Gal_Riv_One",
+        "id": "5ece96ad-59a7-4cc1-a092-b5cd2f464131",
+        "name": "Quijos",
       },
     },
     Object {
-      "gauge": Object {
-        "id": "aba8c106-aaa0-11e7-abc4-cec278b6b50a",
-        "name": "Galicia gauge 1",
-      },
+      "gauge": null,
       "hidden": false,
-      "id": "3a6e3210-d529-11e7-9296-cec278b6b50a",
-      "name": "Gal_riv_1_sec_2",
-      "rating": 2.5,
+      "id": "2ffe67e5-6394-4341-9ae3-415271ce71fd",
+      "name": "Cheese house",
+      "rating": 4.5,
       "region": Object {
-        "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
-        "name": "Galicia",
+        "id": "2caf75ca-7625-11e7-b5a5-be2e44b06b34",
+        "name": "Ecuador",
       },
       "river": Object {
-        "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
-        "name": "Gal_Riv_One",
+        "id": "5ece96ad-59a7-4cc1-a092-b5cd2f464131",
+        "name": "Quijos",
       },
     },
     Object {

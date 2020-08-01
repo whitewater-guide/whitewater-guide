@@ -2,8 +2,8 @@ import {
   isInputValidResolver,
   MutationNotAllowedError,
   TopLevelResolver,
-} from '@apollo';
-import db, { rawUpsert } from '@db';
+} from '~/apollo';
+import db, { rawUpsert } from '~/db';
 import { SourceInput, SourceInputSchema } from '@whitewater-guide/commons';
 import * as yup from 'yup';
 

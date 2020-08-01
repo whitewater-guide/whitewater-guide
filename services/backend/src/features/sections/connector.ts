@@ -1,10 +1,14 @@
-import { UnknownError } from '@apollo';
-import db from '@db';
-import { BaseConnector, FieldsMap, ManyBuilderOptions } from '@db/connectors';
 import { Section } from '@whitewater-guide/commons';
 import { AuthenticationError, ForbiddenError } from 'apollo-server';
 import { GraphQLResolveInfo } from 'graphql';
 import { QueryBuilder } from 'knex';
+import { UnknownError } from '~/apollo';
+import db from '~/db';
+import {
+  FieldsMap,
+  ManyBuilderOptions,
+  OffsetConnector,
+} from '~/db/connectors';
 import { SectionRaw, SectionsFilter } from './types';
 
 interface GetManyOptions extends ManyBuilderOptions<SectionRaw> {
@@ -22,7 +26,7 @@ const FIELDS_MAP: FieldsMap<Section, SectionRaw> = {
   media: null,
 };
 
-export class SectionsConnector extends BaseConnector<Section, SectionRaw> {
+export class SectionsConnector extends OffsetConnector<Section, SectionRaw> {
   constructor() {
     super();
     this._tableName = 'sections_view';
@@ -68,7 +72,7 @@ export class SectionsConnector extends BaseConnector<Section, SectionRaw> {
     const query = super.getMany(info, options);
     this.addHiddenWhere(query);
 
-    const { riverId, regionId, updatedAfter } = filter;
+    const { riverId, regionId, updatedAfter, search } = filter;
     if (riverId) {
       query.where({ river_id: riverId });
     } else if (regionId) {
@@ -76,6 +80,22 @@ export class SectionsConnector extends BaseConnector<Section, SectionRaw> {
     }
     if (updatedAfter) {
       query.where('sections_view.updated_at', '>', updatedAfter);
+    }
+    const searchStr = search?.trim().toLocaleLowerCase();
+    if (searchStr) {
+      query.where(function() {
+        this.where('sections_view.name', 'ILIKE', `%${searchStr}%`)
+          .orWhere('sections_view.river_name', 'ILIKE', `%${searchStr}%`)
+          .orWhereRaw(
+            `similarity("sections_view"."river_name" || ' ' || "sections_view"."name", ?::text) > 0.5`,
+            searchStr,
+          )
+          .orWhereExists(function() {
+            this.select('*')
+              .from(db().raw('unnest(sections_view.alt_names) namez'))
+              .where('namez', 'ILIKE', `%${searchStr}%`);
+          });
+      });
     }
 
     return query;

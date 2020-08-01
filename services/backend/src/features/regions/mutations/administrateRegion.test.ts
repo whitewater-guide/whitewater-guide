@@ -1,8 +1,8 @@
-import { holdTransaction, rollbackTransaction } from '@db';
-import { COVERS, fileExistsInBucket, resetTestMinio, TEMP } from '@minio';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
-import { REGION_GALICIA } from '@seeds/04_regions';
-import { anonContext, fakeContext, runQuery } from '@test';
+import { holdTransaction, rollbackTransaction } from '~/db';
+import { COVERS, fileExistsInBucket, resetTestMinio, TEMP } from '~/minio';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
+import { REGION_GALICIA } from '~/seeds/test/04_regions';
+import { anonContext, fakeContext, runQuery } from '~/test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 import set from 'lodash/fp/set';
 

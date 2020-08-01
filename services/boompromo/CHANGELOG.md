@@ -1,8 +1,68 @@
-## [0.0.211](https://github.com/doomsower/whitewater/compare/cd78f2ad58bbe857fd61db4d9e67b4c04ad75441...ef032681c57980db6440a97d657655d5919d8562) (2020-06-04)
+## [0.0.221](https://github.com/doomsower/whitewater/compare/ec7e61ace05e19285647ababe56f2b442b45aeed...24e55b9de68a7c4fd9b447e0d933a6943e6a495b) (2020-08-01)
 
-## [0.0.211](https://github.com/doomsower/whitewater/compare/a2edf08b88a867407ce9bde9f1d5f4fb3e587e7a...cd78f2ad58bbe857fd61db4d9e67b4c04ad75441) (2020-06-04)
+## [0.0.220](https://github.com/doomsower/whitewater/compare/c9713f7f65dfe49f913b52b04e6a2d67ecfb1420...ec7e61ace05e19285647ababe56f2b442b45aeed) (2020-07-28)
 
-## [0.0.211](https://github.com/doomsower/whitewater/compare/c1b6e1fe3b97b37056901454a548094d6de51ba4...a2edf08b88a867407ce9bde9f1d5f4fb3e587e7a) (2020-05-30)
+### Features
+
+- fabs and apple sign in ([](https://github.com/doomsower/whitewater/commit/c1d75c4cb311f5014117d12c3ffcae732b905c77))
+
+## [0.0.219-apple.1](https://github.com/doomsower/whitewater/compare/584b3252b25408c4b54af5f4df4134d9c699554e...c9713f7f65dfe49f913b52b04e6a2d67ecfb1420) (2020-07-27)
+
+## [0.0.219-apple.1](https://github.com/doomsower/whitewater/compare/2ac31c235c901f5383b50c5af578559efd368c9e...584b3252b25408c4b54af5f4df4134d9c699554e) (2020-07-27)
+
+## [0.0.219-apple.1](https://github.com/doomsower/whitewater/compare/c9c1e2536d82881f7dcb91021670cbc53e8662d9...2ac31c235c901f5383b50c5af578559efd368c9e) (2020-07-26)
+
+## [0.0.219-apple.1](https://github.com/doomsower/whitewater/compare/234a0f84e82ecd434438516b9f68a1e1726b2852...c9c1e2536d82881f7dcb91021670cbc53e8662d9) (2020-07-26)
+
+## [0.0.219-apple.1](https://github.com/doomsower/whitewater/compare/d1106419e3007e266d94a284c12b4cd3984b2266...234a0f84e82ecd434438516b9f68a1e1726b2852) (2020-07-26)
+
+## [0.0.219-apple.0](https://github.com/doomsower/whitewater/compare/f7720ae627f6e5e276a64c52d8a76004af13fe64...d1106419e3007e266d94a284c12b4cd3984b2266) (2020-07-26)
+
+## [0.0.218](https://github.com/doomsower/whitewater/compare/69fdd1af80a4b22b4088243c18eb181cf7faeab0...f7720ae627f6e5e276a64c52d8a76004af13fe64) (2020-07-26)
+
+## [0.0.217](https://github.com/doomsower/whitewater/compare/5d99a781cf33884d1fa71ced28978f3b8915d104...69fdd1af80a4b22b4088243c18eb181cf7faeab0) (2020-07-26)
+
+## [0.0.217](https://github.com/doomsower/whitewater/compare/662bf57bd2fefd04dca4bb0be9f6adf5c6f814c5...5d99a781cf33884d1fa71ced28978f3b8915d104) (2020-07-26)
+
+### Features
+
+- descents form ([](https://github.com/doomsower/whitewater/commit/c106e58c8368157a16a4b2a49ebedea5c5823bdd))
+
+## [0.0.216-descent.0](https://github.com/doomsower/whitewater/compare/fdbef729d1102a3c374ac8d114c7ba195447b1a7...662bf57bd2fefd04dca4bb0be9f6adf5c6f814c5) (2020-07-26)
+
+## [0.0.216-descent.0](https://github.com/doomsower/whitewater/compare/4492e6abf257d83199b6be9b6b69fff294feef8c...fdbef729d1102a3c374ac8d114c7ba195447b1a7) (2020-07-25)
+
+## [0.0.216-descent.0](https://github.com/doomsower/whitewater/compare/a7e81d46c45c8c65df2239584bb25899f685b7ff...4492e6abf257d83199b6be9b6b69fff294feef8c) (2020-07-25)
+
+## [0.0.215](https://github.com/doomsower/whitewater/compare/dfce87f2b162c585c80beca70be1d932665ab89d...a7e81d46c45c8c65df2239584bb25899f685b7ff) (2020-07-20)
+
+## [0.0.214](https://github.com/doomsower/whitewater/compare/97e5e99927dff833bb0c4687ac41697e596760fe...dfce87f2b162c585c80beca70be1d932665ab89d) (2020-07-15)
+
+## [0.0.213](https://github.com/doomsower/whitewater/compare/ed9229df9cafb7663cc44a8ffb45e2ea66df94a7...97e5e99927dff833bb0c4687ac41697e596760fe) (2020-07-15)
+
+### Features
+
+- logbooks mobile ([](https://github.com/doomsower/whitewater/commit/b16559391e66d63ad6311f579ffe9c8af861e716))
+
+## [0.0.213-logbook-web.1](https://github.com/doomsower/whitewater/compare/14346c26c7ef736745eb947c3bfdc4ccd9545f71...ed9229df9cafb7663cc44a8ffb45e2ea66df94a7) (2020-07-07)
+
+## [0.0.213-logbook-web.0](https://github.com/doomsower/whitewater/compare/7311e3d6696b2fa28685ed0135e3a1cd255a474c...14346c26c7ef736745eb947c3bfdc4ccd9545f71) (2020-07-05)
+
+## [0.0.212](https://github.com/doomsower/whitewater/compare/5f574b3da32c4a9f6502fa729254834418220ae8...7311e3d6696b2fa28685ed0135e3a1cd255a474c) (2020-06-28)
+
+## [0.0.212](https://github.com/doomsower/whitewater/compare/4b977f58b50b2716f7929b1124c39da48710cb76...5f574b3da32c4a9f6502fa729254834418220ae8) (2020-06-28)
+
+## [0.0.212](https://github.com/doomsower/whitewater/compare/d1326d9a3fb28edcd03731281544b6b4206e6389...4b977f58b50b2716f7929b1124c39da48710cb76) (2020-06-28)
+
+## [0.0.212](https://github.com/doomsower/whitewater/compare/ef73adc669877a2957c15185fb6a44f83116683b...d1326d9a3fb28edcd03731281544b6b4206e6389) (2020-06-24)
+
+## [0.0.212](https://github.com/doomsower/whitewater/compare/2ff36ad0cbe4c5509e2a38dc45d68aa13e7a7eb0...ef73adc669877a2957c15185fb6a44f83116683b) (2020-06-24)
+
+## [0.0.212](https://github.com/doomsower/whitewater/compare/73149652dc43da84db387293ed012fc6354a0361...2ff36ad0cbe4c5509e2a38dc45d68aa13e7a7eb0) (2020-06-24)
+
+### Bug Fixes
+
+- promo validation schema ([](https://github.com/doomsower/whitewater/commit/a5c1f9c291a80b0b7fa9ff747cc2bddb1f021691))
 
 ## [0.0.211](https://github.com/doomsower/whitewater/compare/e196f986e99a91fdbd50df2483bfdfae46bbccc4...0dd8ad50de95b557fe833dcb2346c8596bb49d4b) (2020-05-18)
 

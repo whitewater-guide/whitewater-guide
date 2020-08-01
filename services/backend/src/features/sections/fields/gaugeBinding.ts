@@ -1,4 +1,4 @@
-import { FieldResolvers } from '@apollo';
+import { FieldResolvers } from '~/apollo';
 import { GaugeBinding } from '@whitewater-guide/commons';
 
 // Stored as JSONb in postgres

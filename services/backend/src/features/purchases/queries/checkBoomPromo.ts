@@ -1,5 +1,5 @@
-import { isAuthenticatedResolver, TopLevelResolver } from '@apollo';
-import db from '@db';
+import { isAuthenticatedResolver, TopLevelResolver } from '~/apollo';
+import db from '~/db';
 import { BoomPromoRaw } from '../types';
 
 interface Vars {
@@ -25,7 +25,7 @@ const checkBoomPromo: TopLevelResolver<Vars> = isAuthenticatedResolver(
       })
       .first();
     const promo:
-      | BoomPromoRaw & { name: string | null }
+      | (BoomPromoRaw & { name: string | null })
       | undefined = await query;
     if (!promo) {
       return null;

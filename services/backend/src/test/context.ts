@@ -1,5 +1,5 @@
-import { Context } from '@apollo';
-import { UserRawInput } from '@features/users';
+import { Context } from '~/apollo';
+import { UserRawInput } from '~/features/users';
 
 export const fakeContext = (
   user?: UserRawInput,

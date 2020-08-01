@@ -1,4 +1,4 @@
-import { FieldResolvers } from '@apollo';
+import { FieldResolvers } from '~/apollo';
 import { HarvestStatus } from '@whitewater-guide/commons';
 
 interface HarvestStatusRaw {

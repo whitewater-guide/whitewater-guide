@@ -1,4 +1,4 @@
-import { GaugeRaw } from '@features/gauges';
+import { GaugeRaw } from '~/features/gauges';
 import { SectionInput } from '@whitewater-guide/commons';
 
 export interface InputSection {

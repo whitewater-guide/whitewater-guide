@@ -1,7 +1,6 @@
 import { LocalPhotoStatus } from '@whitewater-guide/clients';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Platform } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 import shortid from 'shortid';
 import { LocalPhoto } from './types';
@@ -33,13 +32,14 @@ export const useImagePicker = (
         maxHeight: MAX_PHOTO_DIMENSION,
       },
       (opts) => {
-        const { fileName, uri, type, width, height, fileSize } = opts;
+        const { fileName, uri, path, type, width, height, fileSize } = opts;
         if (!uri) {
           return; // cancelled
         }
         const file = {
           name: fileName || 'photo.jpg',
-          uri: Platform.OS === 'android' ? uri : uri.replace('file://', ''),
+          // uri: Platform.OS === 'android' ? uri : uri.replace('file://', ''),
+          uri,
           type: type || 'image/jpeg',
           size: fileSize,
         };

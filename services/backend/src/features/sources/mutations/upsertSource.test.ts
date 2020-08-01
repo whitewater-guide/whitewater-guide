@@ -1,7 +1,7 @@
-import db, { holdTransaction, rollbackTransaction } from '@db';
-import { GorgeConnector } from '@features/gorge';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
-import { SOURCE_GALICIA_1, SOURCE_GEORGIA } from '@seeds/05_sources';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { GorgeConnector } from '~/features/gorge';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
+import { SOURCE_GALICIA_1, SOURCE_GEORGIA } from '~/seeds/test/05_sources';
 import {
   anonContext,
   fakeContext,
@@ -10,7 +10,7 @@ import {
   noTimestamps,
   noUnstable,
   runQuery,
-} from '@test';
+} from '~/test';
 import { ApolloErrorCodes, SourceInput } from '@whitewater-guide/commons';
 import { SourceRaw } from '../types';
 
@@ -236,11 +236,13 @@ describe('update', () => {
     expect(updatedSource.id).toBe(optionalSource.id);
   });
 
-  it('should update updated_at timestamp', () => {
-    expect(updatedSource.createdAt).toBe(oldSource!.created_at.toISOString());
-    expect(new Date(updatedSource.updatedAt).valueOf()).toBeGreaterThan(
-      oldSource!.updated_at.valueOf(),
-    );
+  it('should update updated_at timestamp', async () => {
+    const { created_at, updated_at } = await db()
+      .table('sources')
+      .where({ id: optionalSource.id })
+      .first();
+    expect(created_at).toEqual(oldSource!.created_at);
+    expect(updated_at > oldSource!.updated_at).toBe(true);
   });
 
   it('should update connected regions', async () => {

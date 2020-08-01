@@ -1,6 +1,6 @@
-import { isInputValidResolver, TopLevelResolver } from '@apollo';
-import db from '@db';
-import { getLocalFileName, MEDIA, moveTempImage } from '@minio';
+import { isInputValidResolver, TopLevelResolver } from '~/apollo';
+import db from '~/db';
+import { getLocalFileName, MEDIA, moveTempImage } from '~/minio';
 import {
   MediaKind,
   SuggestionInput,

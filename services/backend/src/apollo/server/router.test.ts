@@ -1,5 +1,5 @@
-import { holdTransaction, rollbackTransaction } from '@db';
-import { redis } from '@redis';
+import { holdTransaction, rollbackTransaction } from '~/db';
+import { redis } from '~/redis';
 import Koa from 'koa';
 import agent from 'supertest-koa-agent';
 import { createApp } from '../../app';

@@ -1,8 +1,8 @@
-import { holdTransaction, rollbackTransaction } from '@db';
-import { BANNERS, fileExistsInBucket, resetTestMinio } from '@minio';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
-import { GALICIA_REGION_DESCR_BANNER2 } from '@seeds/14_banners';
-import { anonContext, countRows, fakeContext, runQuery } from '@test';
+import { holdTransaction, rollbackTransaction } from '~/db';
+import { BANNERS, fileExistsInBucket, resetTestMinio } from '~/minio';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
+import { GALICIA_REGION_DESCR_BANNER2 } from '~/seeds/test/14_banners';
+import { anonContext, countRows, fakeContext, runQuery } from '~/test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 
 const query = `

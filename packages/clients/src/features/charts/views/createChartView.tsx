@@ -35,7 +35,8 @@ export const createChartView = (
       unit,
       gauge,
       section,
-      days,
+      filter,
+      highlightedDate,
       children,
       ...victoryProps
     } = props;
@@ -52,9 +53,19 @@ export const createChartView = (
         <AxisComponent
           crossAxis={true}
           tickFormat={meta.xTickFormat}
-          tickCount={meta.xTickCount}
-          tickLabelComponent={<TimeLabelComponent period={meta.period} />}
-          gridComponent={<TimeGridComponent period={meta.period} />}
+          tickValues={meta.xTickValues}
+          tickLabelComponent={
+            <TimeLabelComponent
+              days={meta.days}
+              highlightedDate={highlightedDate}
+            />
+          }
+          gridComponent={
+            <TimeGridComponent
+              days={meta.days}
+              highlightedDate={highlightedDate}
+            />
+          }
         />
         <AxisComponent
           crossAxis={true}

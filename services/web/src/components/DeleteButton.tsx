@@ -5,7 +5,7 @@ import { ConfirmationDialog } from './ConfirmationDialog';
 
 interface Props {
   id?: string;
-  deleteHandler: (id?: string) => void;
+  deleteHandler?: (id?: string) => void;
   disabled?: boolean;
   renderButton?: (
     onClick: React.MouseEventHandler<{}>,
@@ -27,7 +27,7 @@ export class DeleteButton extends React.PureComponent<Props, State> {
   confirmDialog = () => {
     this.closeDialog();
     const { id, deleteHandler } = this.props;
-    deleteHandler(id);
+    deleteHandler?.(id);
   };
 
   renderButton = () => {

@@ -1,4 +1,4 @@
-import { isAuthenticatedResolver, TopLevelResolver } from '@apollo';
+import { isAuthenticatedResolver, TopLevelResolver } from '~/apollo';
 
 const promoRegions: TopLevelResolver = isAuthenticatedResolver(
   async (_, vars, { dataSources }, info) => {

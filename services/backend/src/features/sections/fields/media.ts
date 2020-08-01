@@ -1,4 +1,4 @@
-import { Context, ListQuery } from '@apollo';
+import { Context, ListQuery } from '~/apollo';
 import { GraphQLFieldResolver } from 'graphql';
 import { SectionRaw } from '../types';
 

@@ -1,5 +1,5 @@
-import { NodeQuery, TopLevelResolver } from '@apollo';
-import db from '@db';
+import { NodeQuery, TopLevelResolver } from '~/apollo';
+import db from '~/db';
 
 const removeTag: TopLevelResolver<NodeQuery> = async (
   root,

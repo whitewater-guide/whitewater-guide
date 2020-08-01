@@ -1,4 +1,4 @@
-import { NodeQuery, TopLevelResolver } from '@apollo';
+import { NodeQuery, TopLevelResolver } from '~/apollo';
 
 const section: TopLevelResolver<NodeQuery> = async (
   _,

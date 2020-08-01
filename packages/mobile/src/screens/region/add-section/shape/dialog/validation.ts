@@ -20,6 +20,7 @@ export const schema = yup
       ],
     };
   })
+  .defined()
   .noUnknown();
 
 export const validator = createSafeValidator(schema, {

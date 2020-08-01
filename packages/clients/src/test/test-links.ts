@@ -75,10 +75,11 @@ export class MockLink extends ApolloLink {
     );
 
     if (!response || typeof responseIndex === 'undefined') {
+      const q = print(operation.query as any);
       throw new Error(
-        `No more mocked responses for the query: ${print(
-          operation.query,
-        )}, variables: ${JSON.stringify(operation.variables)}`,
+        `No more mocked responses for the query: ${q}, variables: ${JSON.stringify(
+          operation.variables,
+        )}`,
       );
     }
 

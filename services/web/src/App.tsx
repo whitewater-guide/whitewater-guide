@@ -1,5 +1,7 @@
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { MuiThemeProvider } from '@material-ui/core/styles';
+import DateFnsUtils from '@date-io/date-fns';
 import {
   AuthProvider,
   AuthService,
@@ -50,20 +52,22 @@ class App extends React.PureComponent {
       <React.Fragment>
         <CssBaseline />
         <MuiThemeProvider theme={theme}>
-          <ApolloProvider client={this._client}>
-            <AuthProvider
-              service={this._auth}
-              renderInitializing={<Loading />}
-              query={MY_PROFILE_QUERY}
-            >
-              <TagsProvider>
-                <BrowserRouter>
-                  <SentryRouterBreadcrumbs />
-                  <RootLayout />
-                </BrowserRouter>
-              </TagsProvider>
-            </AuthProvider>
-          </ApolloProvider>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <ApolloProvider client={this._client}>
+              <AuthProvider
+                service={this._auth}
+                renderInitializing={<Loading />}
+                query={MY_PROFILE_QUERY}
+              >
+                <TagsProvider>
+                  <BrowserRouter>
+                    <SentryRouterBreadcrumbs />
+                    <RootLayout />
+                  </BrowserRouter>
+                </TagsProvider>
+              </AuthProvider>
+            </ApolloProvider>
+          </MuiPickersUtilsProvider>
         </MuiThemeProvider>
       </React.Fragment>
     );

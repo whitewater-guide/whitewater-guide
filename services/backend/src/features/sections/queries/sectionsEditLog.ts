@@ -1,6 +1,6 @@
-import { ListQuery, TopLevelResolver } from '@apollo';
-import db from '@db';
-import { SectionsEditLogRaw } from '@features/sections';
+import { ListQuery, TopLevelResolver } from '~/apollo';
+import db from '~/db';
+import { SectionsEditLogRaw } from '~/features/sections';
 import { Page, SectionsEditLogFilter } from '@whitewater-guide/commons';
 
 interface Vars extends ListQuery {

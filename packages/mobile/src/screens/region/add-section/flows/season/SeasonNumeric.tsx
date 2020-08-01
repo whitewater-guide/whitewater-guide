@@ -27,14 +27,15 @@ const union = (value: number[], range: number[]) => {
   return result.sort((a, b) => a - b);
 };
 
-interface Props {
+interface SeasonNumericProps {
   value: number[];
   onChange: (value: number[]) => void;
   testID?: string;
+  waitFor?: React.Ref<any> | Array<React.Ref<any>>;
 }
 
-const SeasonNumeric: React.FC<Props> = React.memo((props) => {
-  const { value, onChange, testID } = props;
+const SeasonNumeric: React.FC<SeasonNumericProps> = React.memo((props) => {
+  const { value, onChange, testID, waitFor } = props;
   const panHandlerRef: any = useRef();
   const onToggle = useCallback(
     (index: number) => {
@@ -66,6 +67,7 @@ const SeasonNumeric: React.FC<Props> = React.memo((props) => {
       ref={panHandlerRef}
       onGestureEvent={panGestureHandler}
       onHandlerStateChange={panGestureHandler}
+      waitFor={waitFor}
     >
       <Animated.View style={styles.container} testID={testID}>
         {times(12).map((i) => (

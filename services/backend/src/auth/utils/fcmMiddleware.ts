@@ -1,4 +1,4 @@
-import db from '@db';
+import db from '~/db';
 import { Middleware } from 'koa';
 import get from 'lodash/get';
 

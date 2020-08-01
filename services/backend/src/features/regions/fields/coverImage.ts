@@ -1,5 +1,5 @@
-import { FieldResolvers } from '@apollo';
-import { Imgproxy } from '@utils';
+import { FieldResolvers } from '~/apollo';
+import { Imgproxy } from '~/utils';
 import { RegionCoverImage } from '@whitewater-guide/commons';
 import { CoverArgs, CoverImageRaw } from '../types';
 

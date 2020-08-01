@@ -1,4 +1,4 @@
-import { addUpdatedAtTrigger, createViews, dropViews, runSqlFile } from '@db';
+import { addUpdatedAtTrigger, createViews, dropViews, runSqlFile } from '~/db';
 import Knex from 'knex';
 import { createTable } from './utils';
 

@@ -1,22 +1,21 @@
 import {
+  createStackNavigator,
+  StackNavigationOptions,
+} from '@react-navigation/stack';
+import {
   SectionsSearchStringContext,
   SectionsSearchStringSetterContext,
   useRegion,
 } from '@whitewater-guide/clients';
-import {
-  StackNavigationOptions,
-  createStackNavigator,
-} from '@react-navigation/stack';
-
+import React from 'react';
 import Config from 'react-native-ultimate-config';
+import { getHeaderRenderer } from '~/components/header';
+import { Screens } from '~/core/navigation';
+import { RegionStackParamsList } from '~/screens/region/types';
 import { LazyAddSectionScreen } from './add-section';
 import { LazyFilterScreen } from './filter';
-import React from 'react';
-import { RegionStackParamsList } from '~/screens/region/types';
 import RegionTabs from './RegionTabs';
 import RegionTitle from './RegionTitle';
-import { Screens } from '~/core/navigation';
-import { getHeaderRenderer } from '~/components/header';
 
 const Stack = createStackNavigator<RegionStackParamsList>();
 
@@ -41,7 +40,13 @@ const RegionStack: React.FC = () => {
           headerTitle: () => <RegionTitle region={node} />,
         }}
       />
-      <Stack.Screen name={Screens.FILTER} component={LazyFilterScreen} />
+      <Stack.Screen
+        name={Screens.FILTER}
+        component={LazyFilterScreen}
+        options={{
+          header: getHeaderRenderer(false),
+        }}
+      />
       <Stack.Screen
         name={Screens.ADD_SECTION_SCREEN}
         component={LazyAddSectionScreen}

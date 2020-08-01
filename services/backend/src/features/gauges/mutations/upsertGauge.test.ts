@@ -1,8 +1,8 @@
-import db, { holdTransaction, rollbackTransaction } from '@db';
-import { GorgeConnector } from '@features/gorge';
-import { ADMIN, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
-import { SOURCE_GALICIA_1, SOURCE_NORWAY } from '@seeds/05_sources';
-import { GAUGE_GAL_1_1, GAUGE_GAL_2_1 } from '@seeds/06_gauges';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { GorgeConnector } from '~/features/gorge';
+import { ADMIN, EDITOR_NO_EC, TEST_USER } from '~/seeds/test/01_users';
+import { SOURCE_GALICIA_1, SOURCE_NORWAY } from '~/seeds/test/05_sources';
+import { GAUGE_GAL_1_1, GAUGE_GAL_2_1 } from '~/seeds/test/06_gauges';
 import {
   anonContext,
   countRows,
@@ -11,7 +11,7 @@ import {
   isUUID,
   noUnstable,
   runQuery,
-} from '@test';
+} from '~/test';
 import { ApolloErrorCodes, GaugeInput } from '@whitewater-guide/commons';
 import { GaugeRaw } from '../types';
 
@@ -276,10 +276,12 @@ describe('update', () => {
   });
 
   it('should update updated_at timestamp', async () => {
-    expect(updatedGauge.createdAt).toBe(oldGauge!.created_at.toISOString());
-    expect(new Date(updatedGauge.updatedAt).valueOf()).toBeGreaterThan(
-      oldGauge!.updated_at.valueOf(),
-    );
+    const { created_at, updated_at } = await db()
+      .table('gauges')
+      .where({ id: input.id })
+      .first();
+    expect(created_at).toEqual(oldGauge!.created_at);
+    expect(updated_at > oldGauge!.updated_at).toBe(true);
   });
 
   it('should update location', async () => {
@@ -335,7 +337,7 @@ describe('jobs', () => {
 
 describe('i18n', () => {
   const inputPt: GaugeInput = {
-    id: 'aba8c106-aaa0-11e7-abc4-cec278b6b50a', // gal1
+    id: GAUGE_GAL_1_1,
     source: { id: '6d0d717e-aa9d-11e7-abc4-cec278b6b50a' },
     name: 'galicia gauge pt',
     code: 'gal1',
@@ -372,7 +374,7 @@ describe('i18n', () => {
     const flowUnit = await db()
       .table('gauges_view')
       .select('flow_unit')
-      .where({ language: 'en', id: 'aba8c106-aaa0-11e7-abc4-cec278b6b50a' })
+      .where({ language: 'en', id: GAUGE_GAL_1_1 })
       .first();
     expect(flowUnit.flow_unit).toBe('cm3/s');
   });

@@ -1,5 +1,5 @@
 import { ScriptDescriptor } from '@whitewater-guide/gorge';
-import { TopLevelResolver } from '@apollo';
+import { TopLevelResolver } from '~/apollo';
 
 const scripts: TopLevelResolver = async (_, __, { dataSources }) => {
   const data: ScriptDescriptor[] = await dataSources.gorge.listScripts();

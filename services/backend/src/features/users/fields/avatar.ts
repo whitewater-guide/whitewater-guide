@@ -1,5 +1,5 @@
-import { Context } from '@apollo';
-import { UserRaw } from '@features/users';
+import { Context } from '~/apollo';
+import { UserRaw } from '~/features/users';
 import { GraphQLFieldResolver } from 'graphql';
 
 const avatar: GraphQLFieldResolver<UserRaw, Context> = (

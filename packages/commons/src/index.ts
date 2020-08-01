@@ -2,6 +2,7 @@ export * from './apollo';
 export * from './auth';
 export * from './features';
 export * from './features/banners';
+export * from './features/descents';
 export * from './features/gauges';
 export * from './features/groups';
 export * from './features/measurements';

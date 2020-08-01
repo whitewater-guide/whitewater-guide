@@ -22,7 +22,15 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const ITEMS = [
+interface DrawerEntry {
+  title: string;
+  path: string;
+  admin?: boolean;
+  editor?: boolean;
+  authenticated?: boolean;
+}
+
+const ITEMS: DrawerEntry[] = [
   { title: 'Regions', path: '/regions', admin: false },
   { title: 'Sources', path: '/sources', admin: false },
   { title: 'Tags', path: '/tags', admin: true },
@@ -39,7 +47,7 @@ interface Props {
 
 export const Drawer: React.FC<Props> = ({ onClose, isOpen }) => {
   const classes = useStyles();
-  const { location, history } = useRouter();
+  const { location } = useRouter();
   const permanent = usePermanentDrawer();
   const { me } = useAuth();
   const value = '/' + location.pathname.split('/')[1];
@@ -54,7 +62,10 @@ export const Drawer: React.FC<Props> = ({ onClose, isOpen }) => {
       variant={permanent ? 'permanent' : 'temporary'}
     >
       <List component="nav">
-        {ITEMS.map(({ path, title, admin, editor }) => {
+        {ITEMS.map(({ path, title, admin, editor, authenticated }) => {
+          if (authenticated && !me) {
+            return null;
+          }
           if (admin && !(me && me.admin)) {
             return null;
           }

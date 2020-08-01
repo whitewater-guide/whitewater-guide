@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
     marginBottom: theme.margin.single,
   },
   overlay: {
-    position: 'absolute',
     ...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(0, 0, 0, 0.25)',
     alignItems: 'center',

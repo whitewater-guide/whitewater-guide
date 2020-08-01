@@ -1,4 +1,4 @@
-import { Context } from '@apollo';
+import { Context } from '~/apollo';
 import { GaugeRaw } from '../types';
 import { GraphQLFieldResolver } from 'graphql';
 import { Status } from '@whitewater-guide/gorge';

@@ -7,9 +7,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   View,
-  ViewStyle,
 } from 'react-native';
-import Image from 'react-native-fast-image';
+import Image, { ImageStyle } from 'react-native-fast-image';
 import { LocalPhoto } from '../../features/uploads';
 import theme from '../../theme';
 import Icon from '../Icon';
@@ -28,7 +27,7 @@ interface Props {
   localPhotoId: string;
   value: LocalPhoto;
   onChange: (value: LocalPhoto | null) => void;
-  style?: StyleProp<ViewStyle>;
+  style?: StyleProp<ImageStyle>;
   testID?: string;
 }
 

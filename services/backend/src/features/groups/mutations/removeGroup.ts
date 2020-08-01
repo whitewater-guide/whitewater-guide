@@ -1,5 +1,5 @@
-import { MutationNotAllowedError, NodeQuery, TopLevelResolver } from '@apollo';
-import db from '@db';
+import { MutationNotAllowedError, NodeQuery, TopLevelResolver } from '~/apollo';
+import db from '~/db';
 
 const removeGroup: TopLevelResolver = async (root, { id }: NodeQuery) => {
   const { all_regions } = await db()

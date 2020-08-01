@@ -44,11 +44,17 @@ export const CoordinateSchema: yup.Schema<CoordinateLoose> = yup
 
 export const PointInputSchema = yup
   .object<PointInput>({
-    id: yupTypes.uuid(true),
+    id: yupTypes
+      .uuid()
+      .defined()
+      .nullable(),
     name: yup.string().nullable(),
     description: yup.string().nullable(),
     coordinates: CoordinateSchema.clone(),
-    kind: yup.mixed().oneOf(POITypes),
+    kind: yup
+      .mixed()
+      .defined()
+      .oneOf(POITypes),
   })
   .strict(true)
   .noUnknown();

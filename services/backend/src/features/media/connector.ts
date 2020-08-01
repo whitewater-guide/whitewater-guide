@@ -1,18 +1,22 @@
-import { BaseConnector, FieldsMap, ManyBuilderOptions } from '@db/connectors';
-import db from '@db/db';
-import { rawUpsert } from '@db/rawUpsert';
-import log from '@log';
+import { Media, MediaInput, MediaKind } from '@whitewater-guide/commons';
+import { UserInputError } from 'apollo-server-errors';
+import { GraphQLResolveInfo } from 'graphql';
+import { QueryBuilder } from 'knex';
+import {
+  FieldsMap,
+  ManyBuilderOptions,
+  OffsetConnector,
+} from '~/db/connectors';
+import db from '~/db/db';
+import { rawUpsert } from '~/db/rawUpsert';
+import log from '~/log';
 import {
   getLocalFileName,
   MEDIA,
   minioClient,
   moveTempImage,
   TEMP,
-} from '@minio';
-import { Media, MediaInput, MediaKind } from '@whitewater-guide/commons';
-import { UserInputError } from 'apollo-server-errors';
-import { GraphQLResolveInfo } from 'graphql';
-import { QueryBuilder } from 'knex';
+} from '~/minio';
 import { insertLog, logDiffer } from './/utils';
 import { MediaRaw } from './types';
 
@@ -25,7 +29,7 @@ interface GetManyOptions extends ManyBuilderOptions<MediaRaw> {
   sectionId: string;
 }
 
-export class MediaConnector extends BaseConnector<Media, MediaRaw> {
+export class MediaConnector extends OffsetConnector<Media, MediaRaw> {
   constructor() {
     super();
     this._tableName = 'media_view';

@@ -37,7 +37,7 @@ const ChartLayout: React.FC = () => {
     unit,
     gauge,
     section,
-    days,
+    filter,
   } = useChart();
   if (loading) {
     return <Loading />;
@@ -58,7 +58,7 @@ const ChartLayout: React.FC = () => {
                   width={width}
                   height={height}
                   data={data}
-                  days={days}
+                  filter={filter}
                   gauge={gauge}
                   unit={unit}
                   section={section}

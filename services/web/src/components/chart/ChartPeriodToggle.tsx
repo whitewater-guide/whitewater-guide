@@ -2,7 +2,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import { useChart } from '@whitewater-guide/clients';
+import { useChart, useDailyChart } from '@whitewater-guide/clients';
 import React, { useCallback } from 'react';
 
 const INPUT_PROS = {
@@ -12,10 +12,11 @@ const INPUT_PROS = {
 
 const ChartPeriodToggle: React.FC = () => {
   const {
-    days,
-    onChangeDays,
+    filter,
+    onChangeFilter,
     measurements: { loading },
   } = useChart();
+  const { days, onChangeDays } = useDailyChart(filter, onChangeFilter);
   const onChange = useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) =>
       onChangeDays(Number(e.target.value)),

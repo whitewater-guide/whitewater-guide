@@ -142,6 +142,7 @@ input SectionsFilter {
   riverId: ID
   regionId: ID
   updatedAfter: Date
+  search: String
 }
 
 type SectionEditLogEntry {

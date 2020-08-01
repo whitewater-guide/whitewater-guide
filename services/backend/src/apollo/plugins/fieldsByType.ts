@@ -48,7 +48,8 @@ const inspectField = (
     return;
   }
   const selections: SelectionNode[] = get(field, 'selectionSet.selections', []);
-  const fieldType = unwrap(type.getFields()[field.name.value].type);
+  const fields = type.getFields();
+  const fieldType = unwrap(fields[field.name.value].type);
   inspectSelections(selections, fieldType, fragments, acc);
 };
 

@@ -1,5 +1,5 @@
-import { TopLevelResolver } from '@apollo';
-import db from '@db';
+import { TopLevelResolver } from '~/apollo';
+import db from '~/db';
 import { Node } from '@whitewater-guide/commons';
 
 interface Vars {

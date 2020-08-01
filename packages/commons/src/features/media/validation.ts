@@ -6,7 +6,10 @@ import { yupTypes } from '@whitewater-guide/validation';
 
 export const MediaInputSchema = yup
   .object<MediaInput>({
-    id: yupTypes.uuid(true),
+    id: yupTypes
+      .uuid()
+      .defined()
+      .nullable(),
     description: yup
       .string()
       .defined()
@@ -15,8 +18,14 @@ export const MediaInputSchema = yup
       .string()
       .defined()
       .nullable(),
-    url: yupTypes.nonEmptyString(),
-    kind: yup.mixed().oneOf(Object.values(MediaKind)),
+    url: yupTypes
+      .nonEmptyString()
+      .defined()
+      .nullable(false),
+    kind: yup
+      .mixed()
+      .defined()
+      .oneOf(Object.values(MediaKind)),
     resolution: yup
       .array()
       .defined()
@@ -25,12 +34,14 @@ export const MediaInputSchema = yup
       .of(
         yup
           .number()
+          .defined()
           .integer()
           .positive(),
       )
       .nullable(),
     weight: yup
       .number()
+      .defined()
       .integer()
       .nullable(),
   })

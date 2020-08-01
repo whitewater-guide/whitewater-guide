@@ -1,4 +1,4 @@
-import { runSqlFile } from '@db';
+import { runSqlFile } from '~/db';
 import Knex from 'knex';
 
 /**

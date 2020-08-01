@@ -4,11 +4,11 @@ require('module-alias/register');
 
 import { createApolloServer } from './apollo/server';
 import { createApp } from './app';
-import db from '@db';
-import { initIAP } from '@features/purchases';
-import { initMinio } from '@minio';
+import db from '~/db';
+import { initIAP } from '~/features/purchases';
+import { initMinio } from '~/minio';
 import { init as initSentry } from '@sentry/node';
-import log from '@log';
+import log from '~/log';
 import startServer from './server';
 
 async function startup() {

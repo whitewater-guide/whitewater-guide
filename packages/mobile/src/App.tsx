@@ -9,7 +9,6 @@ import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { StyleSheet, View } from 'react-native';
 import NativeSplashScreen from 'react-native-bootsplash';
-import codePush from 'react-native-code-push';
 import { Provider as PaperProvider } from 'react-native-paper';
 import Loading from '~/components/Loading';
 import { Snackbar, SnackbarProvider } from '~/components/snackbar';
@@ -112,10 +111,4 @@ class App extends React.PureComponent {
   }
 }
 
-export default __DEV__
-  ? App
-  : codePush({
-      checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
-      installMode: codePush.InstallMode.ON_NEXT_RESUME,
-      minimumBackgroundDuration: 60 * 5,
-    })(App);
+export default App;

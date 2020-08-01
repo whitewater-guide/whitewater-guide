@@ -1,25 +1,25 @@
-import { Gauge, Measurement, Section, Unit } from '@whitewater-guide/commons';
+import {
+  Gauge,
+  Measurement,
+  Section,
+  Unit,
+  MeasurementsFilter,
+} from '@whitewater-guide/commons';
 import React from 'react';
 import { VictoryAxisProps } from 'victory-axis';
 import { VictoryChartProps } from 'victory-chart';
 import { TextAnchorType, VictoryLabelProps } from 'victory-core';
 import { VictoryLineProps } from 'victory-line';
 
-export enum Period {
-  DAY = 'day',
-  WEEK = 'week',
-  MONTH = 'month',
-}
-
 export interface ChartMeta {
+  days: number;
   domain: {
     x: [Date, Date];
     y: [number, number];
   };
   yTickValues: number[];
-  period: Period;
+  xTickValues: Date[];
   xTickFormat: (date: Date) => string;
-  xTickCount: number;
 }
 
 export interface ChartViewProps {
@@ -29,21 +29,30 @@ export interface ChartViewProps {
   unit: Unit;
   gauge: Gauge;
   section?: Section;
-  days: number;
+  filter: MeasurementsFilter<Date>;
+  highlightedDate?: Date;
+}
+
+export interface TimeAxisSettings {
+  tickFormat: string;
+  tickCount: number;
 }
 
 export interface ChartMetaSettings {
   yDeltaRatio?: number;
   yTicks?: number;
+  timeAxisSettings?: TimeAxisSettings;
 }
 
 export interface TimeLabelProps extends VictoryLabelProps {
-  period: Period;
+  days: number;
+  highlightedDate?: Date;
 }
 
 export interface TimeGridProps extends VictoryLineProps {
-  period: Period;
+  days: number;
   datum?: Date;
+  highlightedDate?: Date;
 }
 
 export interface HorizontalTickProps {

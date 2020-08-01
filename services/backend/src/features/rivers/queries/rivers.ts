@@ -1,4 +1,4 @@
-import { ListQuery, TopLevelResolver } from '@apollo';
+import { ListQuery, TopLevelResolver } from '~/apollo';
 import { RiversFilter } from '@whitewater-guide/commons';
 
 interface Vars extends ListQuery {

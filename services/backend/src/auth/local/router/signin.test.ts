@@ -1,7 +1,7 @@
-import db, { holdTransaction, rollbackTransaction } from '@db';
-import { redis } from '@redis';
-import { EDITOR_GA_EC_ID } from '@seeds/01_users';
-import { countRows } from '@test';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { redis } from '~/redis';
+import { EDITOR_GA_EC_ID } from '~/seeds/test/01_users';
+import { countRows } from '~/test';
 import { CookieAccessInfo } from 'cookiejar';
 import Koa from 'koa';
 import superagent from 'superagent';

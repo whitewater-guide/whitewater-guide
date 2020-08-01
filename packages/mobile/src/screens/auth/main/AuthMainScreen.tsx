@@ -1,11 +1,12 @@
 import { useAuth } from '@whitewater-guide/clients';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import { Button, Caption } from 'react-native-paper';
 import Divider from '~/components/Divider';
 import { Screens } from '~/core/navigation';
 import theme from '../../../theme';
+import AppleButton from '../AppleButton';
 import { AuthScreenBase } from '../AuthScreenBase';
 import { FacebookButton } from '../FacebookButton';
 import LocalButton from './LocalButton';
@@ -42,6 +43,7 @@ const AuthMainScreen: React.FC<AuthMainNavProps> = ({ navigation }) => {
       <View>
         <LocalButton label={t('screens:auth.main.local')} />
         <FacebookButton label={t('screens:auth.main.facebook')} />
+        {Platform.OS === 'ios' && <AppleButton />}
         <Caption style={styles.caption}>
           {t('screens:auth.main.legalNotice') + ' '}
           <Text style={styles.link} onPress={showPolicy}>

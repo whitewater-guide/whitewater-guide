@@ -1,8 +1,6 @@
-import { createConnectors } from '@db/connectors';
 import { ApolloServer } from 'apollo-server-koa';
-import { readJSON } from 'fs-extra';
 import * as Koa from 'koa';
-import { resolve } from 'path';
+import { createConnectors } from '~/db/connectors';
 import { Context, newContext } from '../context';
 import { formatError } from '../formatError';
 import { logger } from '../logger';
@@ -12,7 +10,6 @@ import { graphqlRouter } from './router';
 import { getSchema } from './schema';
 
 export const createApolloServer = async (app: Koa) => {
-  const pJson = await readJSON(resolve(process.cwd(), 'package.json'));
   const schema = await getSchema();
   const playground = await getPlaygroundConfig(schema);
   const server = new ApolloServer({
@@ -23,8 +20,6 @@ export const createApolloServer = async (app: Koa) => {
     debug: process.env.NODE_ENV === 'development',
     introspection: process.env.APOLLO_EXPOSE_SCHEMA === 'true',
     playground,
-    // @ts-ignore
-    schemaTag: pJson.version,
     plugins: [new FieldsByTypePlugin(schema)],
   });
 

@@ -6,13 +6,22 @@ import { yupTypes } from '@whitewater-guide/validation';
 
 export const PurchaseInputSchema = yup
   .object<PurchaseInput>({
-    platform: yup.mixed().oneOf(Object.values(PurchasePlatform)),
-    transactionId: yupTypes.nonEmptyString(),
+    platform: yup
+      .mixed()
+      .defined()
+      .oneOf(Object.values(PurchasePlatform)),
+    transactionId: yupTypes
+      .nonEmptyString()
+      .defined()
+      .nullable(false),
     transactionDate: yup
       .date()
       .notRequired()
       .nullable(),
-    productId: yupTypes.nonEmptyString(),
+    productId: yupTypes
+      .nonEmptyString()
+      .defined()
+      .nullable(false),
     receipt: yup
       .string()
       .notRequired()

@@ -1,4 +1,4 @@
-import db, { holdTransaction, rollbackTransaction } from '@db';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
 import {
   ADMIN,
   BOOM_USER_1500,
@@ -6,29 +6,29 @@ import {
   EDITOR_GE,
   EDITOR_NO_EC,
   TEST_USER,
-} from '@seeds/01_users';
+} from '~/seeds/test/01_users';
 import {
   REGION_GALICIA,
   REGION_GEORGIA,
   REGION_LAOS,
   REGION_NORWAY,
-} from '@seeds/04_regions';
-import { GAUGE_GAL_1_1 } from '@seeds/06_gauges';
-import { GEORGIA_BZHUZHA_LONG } from '@seeds/09_sections';
+} from '~/seeds/test/04_regions';
+import { GAUGE_GAL_1_1 } from '~/seeds/test/06_gauges';
+import { GEORGIA_BZHUZHA_LONG } from '~/seeds/test/09_sections';
 import {
   ALL_SECTION_ROW_BANNER,
   ALL_SECTION_ROW_BANNER_DISABLED,
   GALICIA_REGION_DESCR_BANNER,
   GALICIA_REGION_DESCR_BANNER2,
   GALICIA_SECTION_ROW_BANNER,
-} from '@seeds/14_banners';
+} from '~/seeds/test/14_banners';
 import {
   anonContext,
   fakeContext,
   noTimestamps,
   runQuery,
   TIMESTAMP_REGEX,
-} from '@test';
+} from '~/test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 
 jest.mock('../../gorge/connector');
@@ -212,10 +212,7 @@ describe('connections', () => {
     );
     expect(result.data!.region.rivers.nodes).toHaveLength(1);
     expect(result.data!.region.rivers.count).toBe(2);
-    expect(result).toHaveProperty(
-      'data.region.rivers.nodes.0.name',
-      'Gal_riv_two',
-    );
+    expect(result).toHaveProperty('data.region.rivers.nodes.0.name', 'Cabe');
   });
 
   it('should get gauges', async () => {

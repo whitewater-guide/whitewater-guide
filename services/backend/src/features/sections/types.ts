@@ -1,5 +1,5 @@
-import { RawTimestamped } from '@db';
-import { PointRaw } from '@features/points';
+import { RawTimestamped } from '~/db';
+import { PointRaw } from '~/features/points';
 import {
   Coordinate3d,
   NamedNode,
@@ -64,6 +64,7 @@ export interface SectionsFilter {
   riverId?: string;
   regionId?: string;
   updatedAfter?: Date;
+  search?: string;
 }
 
 export interface SectionsEditLogRaw {

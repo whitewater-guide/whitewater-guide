@@ -1,7 +1,7 @@
-import { holdTransaction, rollbackTransaction } from '@db';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
-import { GAUGE_GAL_1_1 } from '@seeds/06_gauges';
-import { anonContext, fakeContext, noTimestamps, runQuery } from '@test';
+import { holdTransaction, rollbackTransaction } from '~/db';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
+import { GAUGE_GAL_1_1 } from '~/seeds/test/06_gauges';
+import { anonContext, fakeContext, noTimestamps, runQuery } from '~/test';
 
 jest.mock('../../gorge/connector.ts');
 

@@ -30,16 +30,8 @@
 | REFRESH_TOKEN_SECRET         | <random_secret>                                            | Secret for refresh JWT signing                                                                                        |
 | ACCESS_TOKEN_EXPIRES         | num seconds (600)                                          | JWT access token lifespan                                                                                             |
 | SENTRY_DSN                   | <url>                                                      | Sentry endpoint for logging                                                                                           |
+| DESCENTS_TOKEN_SECRET        | <random_secret>                                            | Secret for descent sharing token                                                                                      |
 
 # Testing
 
 Integration tests require postgres and minio. To launch test environment, run `test:env` npm script from root project.
-
-# Module aliases
-
-To use module alias like `@features/regions` it should be added to 4 places:
-
-- `paths` in `tsconfig.json`
-- `no-implicit-dependencies` rule of `tslint.json`
-- `moduleNameMapper` in `jest.config.json`
-- `_moduleAliases` in `package.json` (so that compiled js can use aliases)

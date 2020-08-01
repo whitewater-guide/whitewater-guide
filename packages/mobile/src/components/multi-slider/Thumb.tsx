@@ -58,12 +58,12 @@ export default class Thumb extends React.PureComponent<Props> {
       Animated.timing(this._animatedScale, {
         toValue: THUMB_SCALE_RATIO,
         duration: 100,
-        useNativeDriver: true,
+        useNativeDriver: false,
       }),
       Animated.timing(this._animatedLeft, {
         toValue: xTo - this.props.radius,
         duration: 0,
-        useNativeDriver: true,
+        useNativeDriver: false,
       }),
     ]).start();
   };
@@ -72,7 +72,7 @@ export default class Thumb extends React.PureComponent<Props> {
     Animated.timing(this._animatedScale, {
       toValue: 1,
       duration: 100,
-      useNativeDriver: true,
+      useNativeDriver: false,
     }).start();
   };
 

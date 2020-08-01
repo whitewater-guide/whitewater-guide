@@ -1,4 +1,4 @@
-import { GaugeRaw } from '@features/gauges';
+import { GaugeRaw } from '~/features/gauges';
 import Knex from 'knex';
 
 export const getRiverzoneGaugeIds = async (

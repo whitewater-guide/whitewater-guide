@@ -1,13 +1,3 @@
-import db, { holdTransaction, rollbackTransaction } from '@db';
-import { redis } from '@redis';
-import {
-  ADMIN_FB_PROFILE,
-  ADMIN_ID,
-  NEW_FB_PROFILE,
-  NEW_FB_PROFILE_NO_EMAIL,
-  NEW_FB_PROFILE_W_LOCALE,
-} from '@seeds/01_users';
-import { countRows, UUID_REGEX } from '@test';
 import { AuthBody, SignInBody } from '@whitewater-guide/commons';
 import Koa from 'koa';
 import get from 'lodash/get';
@@ -16,8 +6,18 @@ import FacebookTokenStrategy from 'passport-facebook-token';
 import superagent from 'superagent';
 import { SuperTest, Test } from 'supertest';
 import agent from 'supertest-koa-agent';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { redis } from '~/redis';
+import {
+  ADMIN_FB_PROFILE,
+  ADMIN_ID,
+  NEW_FB_PROFILE,
+  NEW_FB_PROFILE_NO_EMAIL,
+  NEW_FB_PROFILE_W_LOCALE,
+} from '~/seeds/test/01_users';
+import { countRows, UUID_REGEX } from '~/test';
 import { createApp } from '../../../app';
-import { MailType, sendMail } from '../../mail';
+import { sendWelcome } from '../../mail';
 
 jest.mock('../../mail');
 
@@ -145,19 +145,14 @@ describe.each([
   });
 
   it('should send welcome email', async () => {
-    const email = get(mockProfile, 'emails.0.value');
-    if (email) {
-      expect(sendMail).toHaveBeenCalledWith(MailType.WELCOME_VERIFIED, email, {
-        user: {
-          id: expect.stringMatching(UUID_REGEX),
-          name: `${mockProfile.name!.givenName} ${
-            mockProfile.name!.familyName
-          }`,
-        },
-      });
-    } else {
-      expect(sendMail).not.toHaveBeenCalled();
-    }
+    const email = get(mockProfile, 'emails.0.value', null);
+    expect(sendWelcome).toHaveBeenCalledWith(
+      expect.objectContaining({
+        id: expect.stringMatching(UUID_REGEX),
+        name: `${mockProfile.name!.givenName} ${mockProfile.name!.familyName}`,
+        email,
+      }),
+    );
   });
 });
 
@@ -283,7 +278,7 @@ describe('existing user', () => {
   });
 
   it('should not send welcome email', async () => {
-    expect(sendMail).not.toHaveBeenCalled();
+    expect(sendWelcome).not.toHaveBeenCalled();
   });
 });
 

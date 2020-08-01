@@ -1,5 +1,5 @@
-import { MutationNotAllowedError, TopLevelResolver } from '@apollo';
-import db, { knex } from '@db';
+import { MutationNotAllowedError, TopLevelResolver } from '~/apollo';
+import db, { knex } from '~/db';
 import { SuggestionStatus } from '@whitewater-guide/commons';
 import { UserInputError } from 'apollo-server-errors';
 

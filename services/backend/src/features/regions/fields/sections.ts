@@ -1,5 +1,5 @@
-import { Context, ListQuery } from '@apollo';
-import { SectionsFilter } from '@features/sections';
+import { Context, ListQuery } from '~/apollo';
+import { SectionsFilter } from '~/features/sections';
 import { GraphQLFieldResolver } from 'graphql';
 import { RegionRaw } from '../types';
 

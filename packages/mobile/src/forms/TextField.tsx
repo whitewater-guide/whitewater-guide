@@ -50,7 +50,7 @@ const TextField = React.memo(
           <View style={fullHeight && styles.inputWrapper} onLayout={onLayout}>
             <TextInput
               {...props}
-              style={[props.style, fullHeight && height && { height }]}
+              style={[props.style, fullHeight && !!height && { height }]}
               mode="outlined"
               ref={inputRef as any}
               value={field.value}

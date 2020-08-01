@@ -1,5 +1,5 @@
-import { FieldResolvers } from '@apollo';
-import { timestampResolvers } from '@db';
+import { FieldResolvers } from '~/apollo';
+import { timestampResolvers } from '~/db';
 import { User } from '@whitewater-guide/commons';
 import { UserRaw } from '../types';
 import avatar from './avatar';

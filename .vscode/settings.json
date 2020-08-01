@@ -38,6 +38,11 @@
   "[sql]": {
     "editor.formatOnSave": false
   },
+  "[java]": {
+    "editor.formatOnSave": false
+  },
+  "editor.codeActionsOnSave": ["source.organizeImports"],
   "typescript.tsdk": "node_modules/typescript/lib",
-  "java.configuration.updateBuildConfiguration": "disabled"
+  "java.configuration.updateBuildConfiguration": "disabled",
+  "i18next.i18nPaths": "/Volumes/Projects/whitewater/packages/clients/dist/i18n,/Volumes/Projects/whitewater/packages/clients/src/i18n,/Volumes/Projects/whitewater/packages/commons/dist/i18n,/Volumes/Projects/whitewater/packages/commons/src/i18n,/Volumes/Projects/whitewater/packages/mobile/src/i18n,/Volumes/Projects/whitewater/services/boompromo/src/i18n,/Volumes/Projects/whitewater/services/web/src/i18n,/Volumes/Projects/whitewater/packages/mobile/ios/Pods/Folly/folly/lang,/Volumes/Projects/whitewater/packages/mobile/ios/Pods/boost-for-react-native/boost/locale,/Volumes/Projects/whitewater/packages/mobile/build/ios/CodePush/assets/src/i18n"
 }

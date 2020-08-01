@@ -12,9 +12,17 @@ const LocalPhotoSchema = getLocalPhotoSchema({
 export const PhotoSuggestionInputSchema = yup
   .object<PhotoSuggestion>({
     section: yupTypes.node().defined(),
-    description: yup.string().nullable(true),
-    copyright: yup.string().nullable(true),
-    photo: LocalPhotoSchema.clone(),
+    description: yup
+      .string()
+      .defined()
+      .nullable(true),
+    copyright: yup
+      .string()
+      .defined()
+      .nullable(true),
+    photo: LocalPhotoSchema.clone()
+      .defined()
+      .nullable(false) as any,
   })
   .strict(true)
   .noUnknown();

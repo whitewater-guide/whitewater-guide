@@ -11,19 +11,20 @@ const LocalPhotoSchema = getLocalPhotoSchema({
   mpxOrResolution: MAX_PHOTO_MEGAPIXELS,
 });
 
-const MediaFormSchema: yup.Schema<
-  MediaFormInput
-> = MediaInputSchema.clone().shape({
-  url: yup.mixed().oneOf([undefined]),
-  resolution: yup.mixed().oneOf([undefined]),
-  photo: LocalPhotoSchema,
-});
-
-export const SectionFormSchema: yup.Schema<
-  SectionFormInput
-> = SectionInputSchema.clone()
+const MediaFormSchema: yup.Schema<MediaFormInput> = MediaInputSchema.clone()
   .shape({
-    media: yup.array().of(MediaFormSchema),
+    url: yup.mixed().oneOf([undefined]),
+    resolution: yup.mixed().oneOf([undefined]),
+    photo: LocalPhotoSchema.clone()
+      .defined()
+      .nullable(false),
   })
+  .defined();
+
+export const SectionFormSchema: yup.Schema<SectionFormInput> = SectionInputSchema.clone()
+  .shape({
+    media: yup.array().of(MediaFormSchema.clone()),
+  })
+  .defined()
   .strict(true)
   .noUnknown(true);

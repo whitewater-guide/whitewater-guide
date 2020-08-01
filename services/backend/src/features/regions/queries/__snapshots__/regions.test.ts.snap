@@ -28,19 +28,7 @@ Array [
     "hidden": false,
     "id": "2caf75ca-7625-11e7-b5a5-be2e44b06b34",
     "name": "Ecuador",
-    "pois": Array [
-      Object {
-        "coordinates": Array [
-          4,
-          3,
-          343,
-        ],
-        "description": "ecuador point description",
-        "id": "a52dfcc6-3716-11e8-b467-0ed5f89f718b",
-        "kind": "other",
-        "name": "Ecuador Point 1",
-      },
-    ],
+    "pois": Array [],
     "premium": true,
     "season": null,
     "seasonNumeric": Array [],
@@ -180,7 +168,19 @@ Array [
     "hidden": true,
     "id": "a84d7eda-37f3-11e8-b467-0ed5f89f718b",
     "name": "Laos",
-    "pois": Array [],
+    "pois": Array [
+      Object {
+        "coordinates": Array [
+          4,
+          3,
+          343,
+        ],
+        "description": "Laos point 1 description",
+        "id": "a52dfcc6-3716-11e8-b467-0ed5f89f718b",
+        "kind": "other",
+        "name": "Laos Point 1",
+      },
+    ],
     "premium": false,
     "season": "laos season",
     "seasonNumeric": Array [

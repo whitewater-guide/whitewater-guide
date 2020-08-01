@@ -1,13 +1,13 @@
-import { holdTransaction, rollbackTransaction } from '@db';
+import { holdTransaction, rollbackTransaction } from '~/db';
 import {
   ADMIN,
   EDITOR_GA_EC,
   EDITOR_GA_EC_ID,
   TEST_USER,
-} from '@seeds/01_users';
-import { GROUP_EU } from '@seeds/03_groups';
-import { REGION_ECUADOR, REGION_GALICIA } from '@seeds/04_regions';
-import { anonContext, countRows, fakeContext, runQuery } from '@test';
+} from '~/seeds/test/01_users';
+import { GROUP_EU } from '~/seeds/test/03_groups';
+import { REGION_ECUADOR, REGION_GALICIA } from '~/seeds/test/04_regions';
+import { anonContext, countRows, fakeContext, runQuery } from '~/test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 
 let rgBefore: number;

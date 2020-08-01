@@ -8,7 +8,7 @@ import {
   EDITOR_NO_EC,
   EDITOR_NO_EC_ID,
   TEST_USER,
-} from '@seeds/01_users';
+} from '~/seeds/test/01_users';
 import {
   Duration,
   MediaInput,
@@ -16,8 +16,12 @@ import {
   NEW_ID,
   SectionInput,
 } from '@whitewater-guide/commons';
-import { GALICIA_R1_S1, NORWAY_SJOA_AMOT } from '@seeds/09_sections';
-import { GAUGE_GAL_1_1, GAUGE_GAL_1_2, GAUGE_GEO_1 } from '@seeds/06_gauges';
+import { GALICIA_BECA_LOWER, NORWAY_SJOA_AMOT } from '~/seeds/test/09_sections';
+import {
+  GAUGE_GAL_1_1,
+  GAUGE_GAL_1_2,
+  GAUGE_GEO_1,
+} from '~/seeds/test/06_gauges';
 import {
   MEDIA,
   MEDIA_BUCKET_DIR,
@@ -25,29 +29,29 @@ import {
   TEMP_BUCKET_DIR,
   fileExistsInBucket,
   resetTestMinio,
-} from '@minio';
-import { PHOTO_1, PHOTO_2 } from '@seeds/11_media';
-import { REGION_GALICIA, REGION_NORWAY } from '@seeds/04_regions';
+} from '~/minio';
+import { PHOTO_1, PHOTO_2 } from '~/seeds/test/11_media';
+import { REGION_GALICIA, REGION_NORWAY } from '~/seeds/test/04_regions';
 import {
   RIVER_BZHUZHA,
-  RIVER_GAL_1,
-  RIVER_GAL_2,
+  RIVER_GAL_BECA,
+  RIVER_GAL_CABE,
   RIVER_SJOA,
-} from '@seeds/07_rivers';
-import { SOURCE_GALICIA_1, SOURCE_GEORGIA } from '@seeds/05_sources';
+} from '~/seeds/test/07_rivers';
+import { SOURCE_GALICIA_1, SOURCE_GEORGIA } from '~/seeds/test/05_sources';
 import {
   UUID_REGEX,
   countRows,
   fakeContext,
   noUnstable,
   runQuery,
-} from '@test';
-import db, { holdTransaction, rollbackTransaction } from '@db';
+} from '~/test';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
 
 import { ExecutionResult } from 'graphql';
 import { GEORGIA_BZHUZHA_QUALI } from '../../../seeds/test/09_sections';
-import { MEDIA_SUGGESTION_ID1 } from '@seeds/17_suggestions';
-import { SectionsEditLogRaw } from '@features/sections';
+import { MEDIA_SUGGESTION_ID1 } from '~/seeds/test/17_suggestions';
+import { SectionsEditLogRaw } from '~/features/sections';
 import { copy } from 'fs-extra';
 import set from 'lodash/fp/set';
 
@@ -224,9 +228,9 @@ const newRiverSection = {
 
 const updateData: SectionInput = {
   ...existingRiverSection,
-  id: GALICIA_R1_S1, // galician river 1 section 1
+  id: GALICIA_BECA_LOWER, // galician river 1 section 1
   river: {
-    id: RIVER_GAL_1,
+    id: RIVER_GAL_BECA,
   },
   gauge: {
     id: GAUGE_GAL_1_1, // Galicia gauge 1
@@ -496,13 +500,13 @@ describe('update', () => {
     expect(rivers - rBefore).toBe(0);
   });
 
-  it('should increase updated_at timestamp', () => {
-    expect(new Date(updatedSection.createdAt).valueOf()).toEqual(
-      originalSection!.created_at.valueOf(),
-    );
-    expect(new Date(updatedSection.updatedAt).valueOf()).toBeGreaterThan(
-      originalSection!.updated_at.valueOf(),
-    );
+  it('should increase updated_at timestamp', async () => {
+    const { created_at, updated_at } = await db()
+      .table('sections_view')
+      .where({ id: updateData.id })
+      .first();
+    expect(created_at).toEqual(originalSection!.created_at);
+    expect(updated_at > originalSection!.updated_at).toBe(true);
   });
 
   it('should change the number of pois', async () => {
@@ -573,7 +577,7 @@ describe('update', () => {
       section_id: updateData.id,
       section_name: updateData.name,
       river_id: updateData.river.id,
-      river_name: 'Gal_Riv_One',
+      river_name: 'Beca',
       region_id: REGION_GALICIA,
       region_name: 'Galicia',
       editor_id: EDITOR_GA_EC_ID,
@@ -862,7 +866,7 @@ describe('gorge jobs', () => {
       {
         section: {
           ...existingRiverSection,
-          river: { id: RIVER_GAL_1 },
+          river: { id: RIVER_GAL_BECA },
           gauge: { id: GAUGE_GAL_1_1 },
         },
       },
@@ -878,7 +882,7 @@ describe('gorge jobs', () => {
       {
         section: {
           ...existingRiverSection,
-          river: { id: RIVER_GAL_1 },
+          river: { id: RIVER_GAL_BECA },
           gauge: null,
         },
       },
@@ -894,7 +898,7 @@ describe('gorge jobs', () => {
       {
         section: {
           ...existingRiverSection,
-          river: { id: RIVER_GAL_1 },
+          river: { id: RIVER_GAL_BECA },
           gauge: { id: GAUGE_GAL_1_1 },
         },
       },
@@ -957,7 +961,7 @@ it('should sanitize input', async () => {
 it('should be able to change river of existing section', async () => {
   const res = await runQuery(
     upsertQuery,
-    { section: { ...updateData, river: { id: RIVER_GAL_2 } } },
+    { section: { ...updateData, river: { id: RIVER_GAL_CABE } } },
     fakeContext(EDITOR_GA_EC),
   );
   expect(res.errors).toBeUndefined();

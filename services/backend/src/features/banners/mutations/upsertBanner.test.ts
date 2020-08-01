@@ -1,4 +1,4 @@
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
 import {
   ApolloErrorCodes,
   BannerInput,
@@ -11,22 +11,22 @@ import {
   TEMP_BUCKET_DIR,
   fileExistsInBucket,
   resetTestMinio,
-} from '@minio';
+} from '~/minio';
 import {
   GALICIA_REGION_DESCR_BANNER,
   GALICIA_REGION_DESCR_BANNER2,
-} from '@seeds/14_banners';
-import { REGION_GALICIA, REGION_NORWAY } from '@seeds/04_regions';
+} from '~/seeds/test/14_banners';
+import { REGION_GALICIA, REGION_NORWAY } from '~/seeds/test/04_regions';
 import {
   UUID_REGEX,
   anonContext,
   countRows,
   fakeContext,
   runQuery,
-} from '@test';
-import db, { holdTransaction, rollbackTransaction } from '@db';
+} from '~/test';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
 
-import { GROUP_LATIN } from '@seeds/03_groups';
+import { GROUP_LATIN } from '~/seeds/test/03_groups';
 import { copy } from 'fs-extra';
 import path from 'path';
 

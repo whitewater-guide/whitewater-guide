@@ -1,7 +1,7 @@
-import { holdTransaction, rollbackTransaction } from '@db';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
-import { SOURCE_GALICIA_1, SOURCE_NORWAY } from '@seeds/05_sources';
-import { anonContext, fakeContext, runQuery } from '@test';
+import { holdTransaction, rollbackTransaction } from '~/db';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
+import { SOURCE_GALICIA_1, SOURCE_NORWAY } from '~/seeds/test/05_sources';
+import { anonContext, fakeContext, runQuery } from '~/test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 
 jest.mock('../../gorge/connector');

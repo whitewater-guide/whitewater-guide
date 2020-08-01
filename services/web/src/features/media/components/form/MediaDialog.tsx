@@ -2,7 +2,6 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import { MediaKind } from '@whitewater-guide/commons';
 import React from 'react';
-import ErrorBoundary from 'react-error-boundary';
 import { LocalPhoto } from '../../../../utils/files';
 import MediaFormActions from './MediaFormActions';
 import MediaFormTitle from './MediaFormTitle';
@@ -24,13 +23,11 @@ const MediaDialog: React.FC<Props> = React.memo((props) => {
     <Dialog open={open} disableBackdropClick={true} maxWidth="xl">
       <MediaFormTitle prefix={prefix} />
       <DialogContent>
-        <ErrorBoundary>
-          {kind === MediaKind.photo ? (
-            <PhotoForm prefix={prefix} localPhoto={localPhoto} />
-          ) : (
-            <NonPhotoForm prefix={prefix} />
-          )}
-        </ErrorBoundary>
+        {kind === MediaKind.photo ? (
+          <PhotoForm prefix={prefix} localPhoto={localPhoto} />
+        ) : (
+          <NonPhotoForm prefix={prefix} />
+        )}
       </DialogContent>
       <MediaFormActions
         prefix={prefix}

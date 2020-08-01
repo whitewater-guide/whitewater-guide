@@ -1,4 +1,4 @@
-import { addBreadcrumb, init } from '@sentry/browser';
+import { addBreadcrumb, init } from '@sentry/react';
 // tslint:disable-next-line:no-submodule-imports
 import '@testing-library/jest-dom/extend-expect';
 

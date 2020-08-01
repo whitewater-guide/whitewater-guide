@@ -1,10 +1,10 @@
-import db, { holdTransaction, rollbackTransaction } from '@db';
-import { GorgeConnector } from '@features/gorge';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
-import { SOURCE_GALICIA_1 } from '@seeds/05_sources';
-import { GAUGE_GAL_1_1 } from '@seeds/06_gauges';
-import { GALICIA_R1_S1 } from '@seeds/09_sections';
-import { anonContext, countRows, fakeContext, runQuery } from '@test';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { GorgeConnector } from '~/features/gorge';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
+import { SOURCE_GALICIA_1 } from '~/seeds/test/05_sources';
+import { GAUGE_GAL_1_1 } from '~/seeds/test/06_gauges';
+import { GALICIA_BECA_LOWER } from '~/seeds/test/09_sections';
+import { anonContext, countRows, fakeContext, runQuery } from '~/test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 import { ExecutionResult } from 'graphql';
 
@@ -95,7 +95,7 @@ describe('effects', () => {
     const s = await db()
       .select('gauge_id')
       .from('sections')
-      .where({ id: GALICIA_R1_S1 })
+      .where({ id: GALICIA_BECA_LOWER })
       .first();
     expect(s.gauge_id).toBeNull();
   });

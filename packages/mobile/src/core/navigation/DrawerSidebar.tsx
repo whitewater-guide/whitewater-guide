@@ -7,7 +7,7 @@ import { Divider } from 'react-native-paper';
 import Logo from '~/components/Logo';
 import Spacer from '~/components/Spacer';
 import { Screens } from '~/core/navigation';
-import theme from '../../theme';
+import theme from '~/theme';
 import DrawerItem from './DrawerItem';
 import VersionBadge from './VersionBadge';
 
@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
 
 const DrawerSidebar: React.FC<DrawerContentComponentProps> = (props) => {
   const { navigation } = props;
+
   const navigate = useCallback(
     (name: string, params: any, key?: string) => {
       // @ts-ignore
@@ -33,6 +34,19 @@ const DrawerSidebar: React.FC<DrawerContentComponentProps> = (props) => {
     },
     [navigation],
   );
+
+  const reset = useCallback(
+    (name: string, params: any, key?: string) => {
+      // @ts-ignore
+      navigation.closeDrawer();
+      navigation.reset({
+        index: 0,
+        routes: [{ name, key, params }],
+      });
+    },
+    [navigation],
+  );
+
   const [t] = useTranslation();
   const { me } = useAuth();
   return (
@@ -63,7 +77,14 @@ const DrawerSidebar: React.FC<DrawerContentComponentProps> = (props) => {
         label={t('drawer:regions')}
         icon="view-list"
         routeName={Screens.REGIONS_LIST}
-        onPress={navigate}
+        onPress={reset}
+      />
+      <DrawerItem
+        label={t('drawer:logbook')}
+        icon="notebook"
+        routeName={me ? Screens.LOGBOOK : Screens.AUTH_STACK}
+        onPress={me ? reset : navigate}
+        navKey={me ? undefined : Screens.AUTH_STACK}
       />
       <DrawerItem
         label={t('drawer:faq')}

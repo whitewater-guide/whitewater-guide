@@ -1,12 +1,16 @@
-import db, { holdTransaction, rollbackTransaction } from '@db';
-import { BOOM_USER_3500, BOOM_USER_3500_ID, TEST_USER } from '@seeds/01_users';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
+import {
+  BOOM_USER_3500,
+  BOOM_USER_3500_ID,
+  TEST_USER,
+} from '~/seeds/test/01_users';
 import {
   BOOM_PROMO_EU_CIS_ACTIVE,
   BOOM_PROMO_LATIN_REDEEMED,
   BOOM_PROMO_REGION_ACTIVE,
   BOOM_PROMO_REGION_REDEEMED,
-} from '@seeds/12_boom_promos';
-import { anonContext, fakeContext, runQuery, UUID_REGEX } from '@test';
+} from '~/seeds/test/12_boom_promos';
+import { anonContext, fakeContext, runQuery, UUID_REGEX } from '~/test';
 import {
   ApolloErrorCodes,
   PurchaseInput,

@@ -1,7 +1,11 @@
-import db, { holdTransaction, rollbackTransaction } from '@db';
-import { ADMIN, EDITOR_NO_EC } from '@seeds/01_users';
-import { RIVER_BZHUZHA, RIVER_GAL_1, RIVER_SJOA } from '@seeds/07_rivers';
-import { fakeContext, noTimestamps, runQuery } from '@test';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { ADMIN, EDITOR_NO_EC } from '~/seeds/test/01_users';
+import {
+  RIVER_BZHUZHA,
+  RIVER_GAL_BECA,
+  RIVER_SJOA,
+} from '~/seeds/test/07_rivers';
+import { fakeContext, noTimestamps, runQuery } from '~/test';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -30,7 +34,7 @@ const query = `
 `;
 
 it('should return river', async () => {
-  const result = await runQuery(query, { id: RIVER_GAL_1 });
+  const result = await runQuery(query, { id: RIVER_GAL_BECA });
   expect(result.errors).toBeUndefined();
   const river = result.data!.river;
   expect(noTimestamps(river)).toMatchSnapshot();
@@ -64,7 +68,7 @@ it('should fall back to english when not translated', async () => {
 });
 
 it('should get sections', async () => {
-  const result = await runQuery(query, { id: RIVER_GAL_1 });
+  const result = await runQuery(query, { id: RIVER_GAL_BECA });
   expect(result.data!.river.sections).toMatchSnapshot();
 });
 

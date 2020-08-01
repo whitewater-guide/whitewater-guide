@@ -5,12 +5,15 @@ let _schema: yup.ObjectSchema<RequestResetPayload>;
 
 const getValidationSchema = () => {
   if (!_schema) {
-    _schema = yup.object().shape({
-      email: yup
-        .string()
-        .email()
-        .required(),
-    });
+    _schema = yup
+      .object()
+      .shape({
+        email: yup
+          .string()
+          .email()
+          .required(),
+      })
+      .defined();
   }
   return _schema;
 };

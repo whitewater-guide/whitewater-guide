@@ -1,9 +1,8 @@
+import React from 'react';
 import { Alert, Clipboard, StyleSheet, View } from 'react-native';
-import { CodePushVersion, versioning } from '../../utils/versioning';
-
 import { Caption } from 'react-native-paper';
 import Config from 'react-native-ultimate-config';
-import React from 'react';
+import { versioning } from '~/utils/versioning';
 
 const styles = StyleSheet.create({
   container: {
@@ -17,41 +16,25 @@ const styles = StyleSheet.create({
 });
 
 interface State {
-  codePushVersion: CodePushVersion;
   humanVersion: string;
-  sentryVersion: string;
 }
 
 class VersionBadge extends React.PureComponent<{}, State> {
   state: State = {
-    codePushVersion: {
-      local: null,
-      pending: null,
-      remote: null,
-    },
     humanVersion: '',
-    sentryVersion: '',
   };
 
   async componentDidMount() {
-    const codePushVersion = await versioning.getCodePushVersion();
     const humanVersion = await versioning.getHumanVersion();
-    const sentryVersion = await versioning.getSentryVersion();
-    this.setState({ humanVersion, codePushVersion, sentryVersion });
+    this.setState({ humanVersion });
   }
 
   showDetails = () => {
-    const { codePushVersion, sentryVersion } = this.state;
-    const { local, pending, remote } = codePushVersion;
     const { androidBuildNumber, iosBuildNumber } = require('../../../app.json');
 
     const info = `Version: ${PJSON_VERSION}
 Build: ${iosBuildNumber} / ${androidBuildNumber}
-Environment: ${Config.ENV_NAME}
-Sentry: ${sentryVersion}
-CodePush local: ${local}
-CodePush pending: ${pending}
-CodePush remote: ${remote}`;
+Environment: ${Config.ENV_NAME}`;
 
     Alert.alert('Version info', info, [
       { text: 'Copy', onPress: () => Clipboard.setString(info) },

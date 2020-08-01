@@ -1,0 +1,19 @@
+diff --git a/node_modules/react-native-paper/src/components/.DS_Store b/node_modules/react-native-paper/src/components/.DS_Store
+new file mode 100644
+index 0000000..8b0b90b
+Binary files /dev/null and b/node_modules/react-native-paper/src/components/.DS_Store differ
+diff --git a/node_modules/react-native-paper/src/components/TextInput/TextInputOutlined.tsx b/node_modules/react-native-paper/src/components/TextInput/TextInputOutlined.tsx
+index f97e78e..1fa8b63 100644
+--- a/node_modules/react-native-paper/src/components/TextInput/TextInputOutlined.tsx
++++ b/node_modules/react-native-paper/src/components/TextInput/TextInputOutlined.tsx
+@@ -172,7 +172,9 @@ class TextInputOutlined extends React.Component<ChildTextInputProps> {
+ 
+     const pad = calculatePadding(paddingSettings);
+ 
+-    const paddingOut = adjustPaddingOut({ ...paddingSettings, pad });
++    // Patch for multiline fields
++    const paddingOut = { paddingTop: pad, paddingBottom: pad };
++    // const paddingOut = adjustPaddingOut({ ...paddingSettings, pad });
+ 
+     const baseLabelTranslateY =
+       -labelHalfHeight - (topPosition + OUTLINE_MINIMIZED_LABEL_Y_OFFSET);

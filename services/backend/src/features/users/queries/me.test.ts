@@ -1,5 +1,5 @@
-import { holdTransaction, rollbackTransaction } from '@db';
-import { redis } from '@redis';
+import { holdTransaction, rollbackTransaction } from '~/db';
+import { redis } from '~/redis';
 import {
   ADMIN,
   BOOM_USER_3500,
@@ -7,10 +7,10 @@ import {
   EDITOR_GA_EC,
   TEST_USER,
   TEST_USER_ID,
-} from '@seeds/01_users';
-import { GROUP_ALL } from '@seeds/03_groups';
-import { REGION_ECUADOR, REGION_GEORGIA } from '@seeds/04_regions';
-import { anonContext, fakeContext, runQuery } from '@test';
+} from '~/seeds/test/01_users';
+import { GROUP_ALL } from '~/seeds/test/03_groups';
+import { REGION_ECUADOR, REGION_GEORGIA } from '~/seeds/test/04_regions';
+import { anonContext, fakeContext, runQuery } from '~/test';
 import axios from 'axios';
 
 jest.mock('axios');

@@ -1,5 +1,5 @@
-import { MutationNotAllowedError, TopLevelResolver } from '@apollo';
-import db from '@db';
+import { MutationNotAllowedError, TopLevelResolver } from '~/apollo';
+import db from '~/db';
 import { MediaKind, SuggestionStatus } from '@whitewater-guide/commons';
 import { UserInputError } from 'apollo-server-errors';
 import { SuggestionRaw } from '../types';

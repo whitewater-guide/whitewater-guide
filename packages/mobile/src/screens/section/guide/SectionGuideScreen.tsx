@@ -6,7 +6,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { Screen } from '~/components/Screen';
 import { RegionBanners } from '../../../features/banners';
 import theme from '../../../theme';
-import SuggestionFAB from '../SuggestionFAB';
+import SectionFAB from '../SectionFAB';
 import SectionGuideMenu from './SectionGuideMenu';
 import SectionGuideView from './SectionGuideView';
 import { SectionGuideNavProps } from './types';
@@ -47,7 +47,7 @@ const SectionGuideScreen: React.FC<SectionGuideNavProps> = ({ navigation }) => {
         />
         <View style={styles.fabHelper} />
       </ScrollView>
-      <SuggestionFAB testID="section-guide-fab" />
+      <SectionFAB testID="section-guide-fab" />
     </Screen>
   );
 };

@@ -1,0 +1,70 @@
+type DescentLevel {
+  unit: String
+  value: Float
+}
+
+input DescentLevelInput {
+  unit: String
+  value: Float!
+}
+
+type Descent {
+  id: ID!
+
+  user: User!
+
+  section: Section!
+  startedAt: Date!
+  duration: Int
+  level: DescentLevel
+  comment: String
+  public: Boolean
+
+  createdAt: Date
+  updatedAt: Date
+}
+
+input DescentInput {
+  id: ID
+
+  sectionId: ID!
+  startedAt: Date!
+  duration: Int
+
+  level: DescentLevelInput
+  comment: String
+  public: Boolean
+}
+
+type DescentEdge {
+  node: Descent!
+  cursor: Cursor!
+}
+
+type DescentsConnection {
+  edges: [DescentEdge!]!
+  pageInfo: PageInfo!
+}
+
+input DescentsFilter {
+  startDate: Date
+  endDate: Date
+  difficulty: [Float!]
+
+  userId: String
+  sectionId: String
+  sectionName: String
+}
+
+type Query {
+  descent(id: ID, shareToken: String): Descent
+  descentShareToken(id: ID!): String
+
+  descents(filter: DescentsFilter, page: Page): DescentsConnection
+  myDescents(filter: DescentsFilter, page: Page): DescentsConnection
+}
+
+type Mutation {
+  upsertDescent(descent: DescentInput!, shareToken: String): Descent
+  deleteDescent(id: ID!): Boolean
+}

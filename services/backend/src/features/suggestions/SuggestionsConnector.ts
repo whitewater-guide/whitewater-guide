@@ -1,7 +1,7 @@
-import { Context } from '@apollo';
-import { BaseConnector, FieldsMap } from '@db/connectors';
 import { Suggestion } from '@whitewater-guide/commons';
 import { DataSourceConfig } from 'apollo-datasource';
+import { Context } from '~/apollo';
+import { FieldsMap, OffsetConnector } from '~/db/connectors';
 import { SuggestionRaw } from './types';
 
 const FIELDS_MAP: FieldsMap<Suggestion, SuggestionRaw> = {
@@ -9,7 +9,7 @@ const FIELDS_MAP: FieldsMap<Suggestion, SuggestionRaw> = {
   image: 'filename',
 };
 
-export class SuggestionsConnector extends BaseConnector<
+export class SuggestionsConnector extends OffsetConnector<
   Suggestion,
   SuggestionRaw
 > {

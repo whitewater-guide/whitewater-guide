@@ -1,4 +1,4 @@
-import { AuthBody, Overwrite, User } from '@whitewater-guide/commons';
+import { User } from '@whitewater-guide/commons';
 
 export interface TokenStorage {
   setAccessToken: (value: string | null) => Promise<void>;
@@ -7,7 +7,7 @@ export interface TokenStorage {
   getRefreshToken: () => Promise<string | null>;
 }
 
-export type AuthType = 'local' | 'facebook';
+export type AuthType = 'local' | 'facebook' | 'apple';
 
 export interface Credentials {
   email: string;
@@ -36,14 +36,12 @@ export interface ResetPayload {
   password: string;
 }
 
-export type AuthResponse<T = {}> = Overwrite<
-  AuthBody<T>,
-  // this is for forms
-  {
-    error?: { [key: string]: any };
-    status: number; // 0 indicates network error (fetch throws)
-  }
->;
+export type AuthResponse<T = {}> = T & {
+  error?: { [key: string]: any };
+  success: boolean;
+  error_id?: string;
+  status: number; // 0 indicates network error (fetch throws)
+};
 
 export interface WithMe {
   me: User | null;

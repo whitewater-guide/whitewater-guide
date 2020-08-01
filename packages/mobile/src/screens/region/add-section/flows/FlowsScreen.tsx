@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { ScrollView } from 'react-native-gesture-handler';
+import { listenToKeyboardEvents } from 'react-native-keyboard-aware-scroll-view';
 import { Title } from 'react-native-paper';
 import { Screen } from '~/components/Screen';
 import NumericField from '~/forms/NumericField';
 import TextField from '~/forms/TextField';
-import theme from '../../../../theme';
+import theme from '~/theme';
 import GaugePlaceholder from './GaugePlaceholder';
 import { SeasonNumericField } from './season';
 import { AddSectionFlowsNavProps } from './types';
+
+const KAVScroll = listenToKeyboardEvents(ScrollView);
 
 const styles = StyleSheet.create({
   content: {
@@ -20,13 +23,15 @@ const styles = StyleSheet.create({
 const FlowsScreen: React.FC<AddSectionFlowsNavProps> = React.memo(
   ({ navigation }) => {
     const { t } = useTranslation();
+    const scrollViewRef = useRef();
     return (
       <Screen>
-        <KeyboardAwareScrollView contentContainerStyle={styles.content}>
+        <KAVScroll ref={scrollViewRef} contentContainerStyle={styles.content}>
           <Title>{t('commons:season')}</Title>
           <SeasonNumericField
             name="seasonNumeric"
             testID="season-numeric-picker"
+            waitFor={scrollViewRef}
           />
           <TextField
             name="season"
@@ -84,7 +89,7 @@ const FlowsScreen: React.FC<AddSectionFlowsNavProps> = React.memo(
             name="levels.impossible"
             label={t('screens:addSection.flows.levels.imp')}
           />
-        </KeyboardAwareScrollView>
+        </KAVScroll>
       </Screen>
     );
   },

@@ -1,8 +1,8 @@
-import { BANNERS, minioClient } from '@minio';
-import { NodeQuery, TopLevelResolver } from '@apollo';
+import { BANNERS, minioClient } from '~/minio';
+import { NodeQuery, TopLevelResolver } from '~/apollo';
 
 import { BannerKind } from '@whitewater-guide/commons';
-import db from '@db';
+import db from '~/db';
 
 const removeBanner: TopLevelResolver = async (root, { id }: NodeQuery) => {
   const result: any = await db()

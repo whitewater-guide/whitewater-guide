@@ -1,4 +1,4 @@
-import db from '@db';
+import db from '~/db';
 import { Context } from 'koa';
 import Router from 'koa-router';
 import get from 'lodash/get';

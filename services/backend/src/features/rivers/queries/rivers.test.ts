@@ -1,8 +1,8 @@
-import { holdTransaction, rollbackTransaction } from '@db';
-import { EDITOR_NO_EC } from '@seeds/01_users';
-import { REGION_GALICIA } from '@seeds/04_regions';
-import { RIVERS_TOTAL } from '@seeds/07_rivers';
-import { fakeContext, noTimestamps, runQuery } from '@test';
+import { holdTransaction, rollbackTransaction } from '~/db';
+import { EDITOR_NO_EC } from '~/seeds/test/01_users';
+import { REGION_GALICIA } from '~/seeds/test/04_regions';
+import { RIVERS_TOTAL } from '~/seeds/test/07_rivers';
+import { fakeContext, noTimestamps, runQuery } from '~/test';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -45,7 +45,7 @@ it('should limit', async () => {
   const result = await runQuery(query, { page: { limit: 1 } });
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.rivers.nodes.length', 1);
-  expect(result).toHaveProperty('data.rivers.nodes.0.name', 'Bzhuzha');
+  expect(result).toHaveProperty('data.rivers.nodes.0.name', 'Beca');
   expect(result).toHaveProperty('data.rivers.count', RIVERS_TOTAL);
 });
 
@@ -53,7 +53,7 @@ it('should paginate', async () => {
   const result = await runQuery(query, { page: { limit: 1, offset: 1 } });
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.rivers.nodes.length', 1);
-  expect(result).toHaveProperty('data.rivers.nodes.0.name', 'Finna');
+  expect(result).toHaveProperty('data.rivers.nodes.0.name', 'Bzhuzha');
   expect(result).toHaveProperty('data.rivers.count', RIVERS_TOTAL);
 });
 
@@ -62,7 +62,7 @@ it('should be able to specify language', async () => {
   expect(result.errors).toBeUndefined();
   expect(result.data!.rivers.nodes).toEqual(
     expect.arrayContaining([
-      expect.objectContaining({ name: 'Гал_Река_Один' }),
+      expect.objectContaining({ name: 'Беса' }),
       expect.objectContaining({ name: 'Шоа' }),
       expect.objectContaining({ name: 'Finna' }),
     ]),
@@ -87,7 +87,7 @@ it('should filter by region', async () => {
 
 it('should search by name', async () => {
   const result = await runQuery(query, {
-    filter: { regionId: REGION_GALICIA, search: 'one' },
+    filter: { regionId: REGION_GALICIA, search: 'eca' },
   });
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.rivers.nodes.length', 1);
@@ -101,6 +101,6 @@ it('should return sections', async () => {
   expect(result).toHaveProperty('data.rivers.nodes.0.sections.count', 2);
   expect(result).toHaveProperty(
     'data.rivers.nodes.0.sections.nodes.0.name',
-    'Gal_riv_1_sec_1',
+    'Lower',
   );
 });

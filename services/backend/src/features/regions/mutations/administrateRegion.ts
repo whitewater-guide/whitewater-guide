@@ -2,9 +2,9 @@ import {
   isInputValidResolver,
   MutationNotAllowedError,
   TopLevelResolver,
-} from '@apollo';
-import db from '@db';
-import { COVERS, getLocalFileName, minioClient, moveTempImage } from '@minio';
+} from '~/apollo';
+import db from '~/db';
+import { COVERS, getLocalFileName, minioClient, moveTempImage } from '~/minio';
 import {
   RegionAdminSettings,
   RegionAdminSettingsSchema,

@@ -9,6 +9,7 @@ const makeSuggestingSchema = (photoRequired: boolean) =>
       section: yupTypes.node().defined(),
       description: yup
         .string()
+        .defined()
         .nullable(true)
         .test({
           name: 'correct-description',
@@ -17,9 +18,13 @@ const makeSuggestingSchema = (photoRequired: boolean) =>
             return photoRequired || !!v || !!this.parent.filename;
           },
         }),
-      copyright: yup.string().nullable(true),
+      copyright: yup
+        .string()
+        .defined()
+        .nullable(true),
       filename: yup
         .string()
+        .defined()
         .nullable(!photoRequired)
         .test({
           name: 'correct-filename',
@@ -49,7 +54,7 @@ const makeSuggestingSchema = (photoRequired: boolean) =>
           test(v) {
             return !!v ? !!this.parent.filename : !this.parent.filename;
           },
-        }),
+        }) as any,
     })
     .strict(true)
     .noUnknown();

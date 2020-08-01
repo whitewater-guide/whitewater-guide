@@ -1,10 +1,10 @@
-import { BaseConnector, FieldsMap } from '@db/connectors';
 import { Tag } from '@whitewater-guide/commons';
+import { FieldsMap, OffsetConnector } from '~/db/connectors';
 import { TagRaw } from './types';
 
 const FIELDS_MAP: FieldsMap<Tag, TagRaw> = {};
 
-export class TagsConnector extends BaseConnector<Tag, TagRaw> {
+export class TagsConnector extends OffsetConnector<Tag, TagRaw> {
   constructor() {
     super();
     this._tableName = 'tags_view';

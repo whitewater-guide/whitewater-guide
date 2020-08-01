@@ -1,4 +1,4 @@
-import { TopLevelResolver } from '@apollo';
+import { TopLevelResolver } from '~/apollo';
 
 const me: TopLevelResolver = async (_, __, { user, dataSources }) => {
   if (!user) {

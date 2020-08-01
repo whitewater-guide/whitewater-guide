@@ -43,6 +43,7 @@ export interface UserFilterOptions extends SearchableFilterOptions {
 
 export enum SocialMediaProvider {
   FACEBOOK = 'facebook',
+  APPLE = 'apple',
 }
 
 export interface SocialMediaAccount extends Node {

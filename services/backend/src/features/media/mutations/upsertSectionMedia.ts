@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 
 import { MediaInput, MediaInputSchema } from '@whitewater-guide/commons';
-import { TopLevelResolver, isInputValidResolver } from '@apollo';
+import { TopLevelResolver, isInputValidResolver } from '~/apollo';
 
 import { yupTypes } from '@whitewater-guide/validation';
 

@@ -1,4 +1,4 @@
-import db from '@db';
+import db from '~/db';
 import { RefreshTokenPayload } from '@whitewater-guide/commons';
 import { decode, verify } from 'jsonwebtoken';
 import { Middleware } from 'koa';

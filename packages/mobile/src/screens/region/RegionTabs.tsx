@@ -15,9 +15,9 @@ import {
   RegionTabsParamsList,
 } from '~/screens/region/types';
 import theme from '~/theme';
-import AddSectionFAB from './AddSectionFAB';
 import { LazyRegionInfoScreen } from './info';
 import { LazyRegionMapScreen } from './map';
+import RegionFAB from './RegionFAB';
 import { LazyRegionSectionsListScreen } from './sections-list';
 import SectionsProgress from './SectionsProgress';
 
@@ -43,7 +43,7 @@ const RegionTabs: React.FC<RegionTabsNavProps> = () => {
             backgroundColor: theme.colors.primary,
           }}
           sceneAnimationEnabled={false}
-          keyboardHidesNavigationBar={true}
+          keyboardHidesNavigationBar={false}
         >
           <Tab.Screen
             name={Screens.REGION_MAP}
@@ -79,7 +79,7 @@ const RegionTabs: React.FC<RegionTabsNavProps> = () => {
             }}
           />
         </Tab.Navigator>
-        <AddSectionFAB />
+        <RegionFAB />
         <SelectedPOIView />
         <SelectedSectionView />
         <SectionsProgress

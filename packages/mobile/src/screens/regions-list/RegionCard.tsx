@@ -1,16 +1,15 @@
-import { Caption, Title, TouchableRipple } from 'react-native-paper';
+import { Region } from '@whitewater-guide/commons';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
-
-import DownloadButton from './DownloadButton';
 import Image from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
+import { Caption, Title, TouchableRipple } from 'react-native-paper';
 import Paper from '~/components/Paper';
-import PremiumBadge from './PremiumBadge';
-import React from 'react';
-import { Region } from '@whitewater-guide/commons';
 import theme from '../../theme';
+import DownloadButton from './DownloadButton';
+import PremiumBadge from './PremiumBadge';
 import useCommonCardProps from './useCommonCardProps';
-import { useTranslation } from 'react-i18next';
 
 const FOOTER_HEIGHT = 40;
 

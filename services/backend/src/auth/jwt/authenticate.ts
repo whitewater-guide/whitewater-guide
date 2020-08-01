@@ -1,4 +1,4 @@
-import db from '@db';
+import db from '~/db';
 import { AccessTokenPayload } from '@whitewater-guide/commons';
 import { TokenExpiredError } from 'jsonwebtoken';
 import get from 'lodash/get';

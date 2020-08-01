@@ -6,17 +6,20 @@ let _schema: yup.ObjectSchema<Credentials>;
 
 const getValidationSchema = () => {
   if (!_schema) {
-    _schema = yup.object().shape({
-      email: yup
-        .string()
-        .email()
-        .required(),
-      password: yup
-        .string()
-        .trim()
-        .min(PASSWORD_MIN_LENGTH)
-        .required(),
-    });
+    _schema = yup
+      .object()
+      .shape({
+        email: yup
+          .string()
+          .email()
+          .required(),
+        password: yup
+          .string()
+          .trim()
+          .min(PASSWORD_MIN_LENGTH)
+          .required(),
+      })
+      .defined();
   }
   return _schema;
 };

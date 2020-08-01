@@ -9,8 +9,14 @@ const REGION_SKU = /^region\.\w{3,}$/;
 
 export const RegionInputSchema = yup
   .object<RegionInput>({
-    id: yupTypes.uuid(true),
-    name: yupTypes.nonEmptyString(),
+    id: yupTypes
+      .uuid()
+      .defined()
+      .nullable(),
+    name: yupTypes
+      .nonEmptyString()
+      .defined()
+      .nullable(false),
     description: yup
       .string()
       .defined()
@@ -35,22 +41,32 @@ export const RegionInputSchema = yup
       .array()
       .of(CoordinateSchema)
       .defined()
+      .nullable(false)
       .min(3),
-    pois: yup.array(PointInputSchema).defined(),
+    pois: yup
+      .array(PointInputSchema.clone().defined())
+      .defined()
+      .nullable(false),
   })
   .strict(true)
   .noUnknown();
 
 export const RegionCoverImageSchema = yup
   .object<RegionCoverImage>({
-    mobile: yupTypes.nonEmptyString().nullable(),
+    mobile: yupTypes
+      .nonEmptyString()
+      .defined()
+      .nullable(),
   })
   .strict(true)
   .noUnknown();
 
 export const RegionAdminSettingsSchema = yup
   .object<RegionAdminSettings>({
-    id: yupTypes.uuid(),
+    id: yupTypes
+      .uuid()
+      .defined()
+      .nullable(false),
     hidden: yup.bool().defined(),
     premium: yup.bool().defined(),
     sku: yup
@@ -63,7 +79,7 @@ export const RegionAdminSettingsSchema = yup
       .number()
       .integer()
       .defined(),
-    coverImage: RegionCoverImageSchema.clone(),
+    coverImage: RegionCoverImageSchema.clone().defined(),
   })
   .strict(true)
   .noUnknown();

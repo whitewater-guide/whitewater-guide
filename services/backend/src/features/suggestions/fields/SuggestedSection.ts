@@ -1,4 +1,4 @@
-import { FieldResolvers } from '@apollo';
+import { FieldResolvers } from '~/apollo';
 import { SectionInput, SuggestedSection } from '@whitewater-guide/commons';
 import { SuggestedSectionRaw } from '../types';
 

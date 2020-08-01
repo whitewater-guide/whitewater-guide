@@ -1,33 +1,20 @@
 import { Unit } from '@whitewater-guide/commons';
-import { scaleLinear } from 'd3-scale';
+import { scaleLinear, scaleTime } from 'd3-scale';
+import differenceInDays from 'date-fns/differenceInDays';
 import subDays from 'date-fns/subDays';
 import compact from 'lodash/compact';
-import filter from 'lodash/filter';
+import filterFn from 'lodash/filter';
 import isFinite from 'lodash/isFinite';
 import { formatDate } from '../../../i18n';
-import { ChartMeta, ChartMetaSettings, ChartViewProps, Period } from './types';
-
-const TimeAxisSettings = {
-  [Period.DAY]: {
-    tickFormat: 'HH:mm',
-    tickCount: 6,
-  },
-  [Period.WEEK]: {
-    tickFormat: 'EEE do',
-    tickCount: 7,
-  },
-  [Period.MONTH]: {
-    tickFormat: 'do MMM',
-    tickCount: 31,
-  },
-};
+import { getDefaultTimeAxisSettings } from './defaults';
+import { ChartMeta, ChartMetaSettings, ChartViewProps } from './types';
 
 export const computeChartMeta = (
   props: ChartViewProps,
   settings?: ChartMetaSettings,
 ): ChartMeta => {
-  const { data, days, unit, section, width, height } = props;
-  const { yDeltaRatio = 8, yTicks = 5 } = settings || {};
+  const { data, filter, unit, section, height, highlightedDate } = props;
+  const { yDeltaRatio = 8, yTicks = 5, timeAxisSettings } = settings || {};
   let result = data.reduce(
     ([min, max], { [unit]: value }: any) => [
       Math.min(value, min),
@@ -43,11 +30,11 @@ export const computeChartMeta = (
     result = [
       Math.min.apply(
         null,
-        filter([result[0], minimum, maximum, optimum], isFinite),
+        filterFn([result[0], minimum, maximum, optimum], isFinite),
       ),
       Math.max.apply(
         null,
-        filter([result[1], minimum, maximum, optimum], isFinite),
+        filterFn([result[1], minimum, maximum, optimum], isFinite),
       ),
     ];
     ticks = compact([minimum, maximum, optimum, impossible]);
@@ -61,26 +48,28 @@ export const computeChartMeta = (
       .ticks(yTicks),
   );
 
-  // Cannot set _xDomain on chart explicitly, so workaround by adding data
-  const xDomain: [Date, Date] = [subDays(new Date(), days), new Date()];
+  const to = filter.to || new Date();
+  const from = filter.from || subDays(to, 1);
+  const xDomain: [Date, Date] = [from, to];
 
-  let period = Period.DAY;
-  if (days > 7) {
-    period = Period.MONTH;
-  } else if (days > 1) {
-    period = Period.WEEK;
-  }
-  const timeAxisSettings = TimeAxisSettings[period];
+  const days = differenceInDays(from, to);
+  const xAxisSettings = timeAxisSettings || getDefaultTimeAxisSettings(days);
   const xTickFormat = (date: Date) =>
-    formatDate(date, timeAxisSettings.tickFormat);
-  const xTickCount = timeAxisSettings.tickCount;
+    formatDate(date, xAxisSettings.tickFormat);
+  const xTickValues = scaleTime()
+    .domain(xDomain)
+    .ticks(xAxisSettings.tickCount);
+  if (highlightedDate) {
+    xTickValues.push(highlightedDate);
+  }
+
   return {
-    period,
+    days,
     domain: {
       x: xDomain,
       y: yDomain,
     },
-    xTickCount,
+    xTickValues,
     xTickFormat,
     yTickValues,
   };

@@ -19,7 +19,7 @@ const SuggestionScreen: React.FC<SuggestionNavProps> = ({
     });
   });
   return (
-    <Screen safe={true}>
+    <Screen safeBottom={true}>
       {localPhotoId ? (
         <PhotoSuggestionForm
           sectionId={sectionId}

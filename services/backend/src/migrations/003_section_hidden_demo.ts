@@ -1,4 +1,4 @@
-import { createViews, dropViews, runSqlFile } from '@db';
+import { createViews, dropViews, runSqlFile } from '~/db';
 import Knex from 'knex';
 
 /**

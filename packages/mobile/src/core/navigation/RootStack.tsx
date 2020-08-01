@@ -19,6 +19,10 @@ import { Screens } from './screen-names';
 import { getHeaderRenderer } from '~/components/header';
 import { useLinking } from './useLinking';
 import useSignOut from './useSignOut';
+import { LazyLogbookScreen } from '~/screens/logbook';
+import { LazyDescentScreen } from '~/screens/descent';
+import { LazyDescentFormScreen } from '~/screens/descent-form';
+import { useTranslation } from 'react-i18next';
 
 const Stack = createStackNavigator<RootStackParamsList>();
 
@@ -29,6 +33,7 @@ const screenOptions: StackNavigationOptions = {
 };
 
 const RootStack: React.FC<RootStackNavProps> = ({ navigation }) => {
+  const { t } = useTranslation();
   useLinking(navigation);
   useSignOut(navigation);
   return (
@@ -57,6 +62,17 @@ const RootStack: React.FC<RootStackNavProps> = ({ navigation }) => {
       <Stack.Screen
         name={Screens.PURCHASE_STACK}
         component={LazyPurchaseStack}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen name={Screens.LOGBOOK} component={LazyLogbookScreen} />
+      <Stack.Screen
+        name={Screens.DESCENT}
+        component={LazyDescentScreen}
+        options={{ headerTitle: t('screens:descent.headerTitle') }}
+      />
+      <Stack.Screen
+        name={Screens.DESCENT_FORM}
+        component={LazyDescentFormScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen name={Screens.MY_PROFILE} component={LazyMyProfileScreen} />

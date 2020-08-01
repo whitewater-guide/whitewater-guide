@@ -1,11 +1,8 @@
 import { SectionInputSchema, TagInputSchema } from '@whitewater-guide/commons';
 import * as yup from 'yup';
 import { MdEditorSchema } from '../../../formik';
-import { SectionFormData } from './types';
 
-export const SectionFormSchema: yup.Schema<
-  SectionFormData
-> = SectionInputSchema.clone()
+export const SectionFormSchema = SectionInputSchema.clone()
   .shape({
     tags: yup.mixed().oneOf([undefined]),
     description: MdEditorSchema.clone(),

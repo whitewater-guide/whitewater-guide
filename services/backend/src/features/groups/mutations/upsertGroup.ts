@@ -1,5 +1,5 @@
-import { isInputValidResolver } from '@apollo';
-import db, { rawUpsert } from '@db';
+import { isInputValidResolver } from '~/apollo';
+import db, { rawUpsert } from '~/db';
 import { GroupInput, GroupInputSchema } from '@whitewater-guide/commons';
 import * as yup from 'yup';
 

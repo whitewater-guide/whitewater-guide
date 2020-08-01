@@ -1,11 +1,11 @@
-import { holdTransaction, rollbackTransaction } from '@db';
+import { holdTransaction, rollbackTransaction } from '~/db';
 import {
   ADMIN,
   ADMIN_ID,
   EDITOR_GA_EC,
   EDITOR_GA_EC_ID,
-} from '@seeds/01_users';
-import { anonContext, fakeContext, runQuery } from '@test';
+} from '~/seeds/test/01_users';
+import { anonContext, fakeContext, runQuery } from '~/test';
 import { ApolloErrorCodes, EditorSettings } from '@whitewater-guide/commons';
 
 beforeEach(holdTransaction);

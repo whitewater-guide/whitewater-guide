@@ -1,4 +1,4 @@
-import { NodeQuery, TopLevelResolver } from '@apollo';
+import { NodeQuery, TopLevelResolver } from '~/apollo';
 
 const media: TopLevelResolver<NodeQuery> = (_, { id }, { dataSources }) =>
   dataSources.media.getById(id);

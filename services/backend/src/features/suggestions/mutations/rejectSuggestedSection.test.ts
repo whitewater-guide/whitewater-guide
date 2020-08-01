@@ -1,7 +1,7 @@
-import { holdTransaction, rollbackTransaction } from '@db';
-import { EDITOR_GA_EC, EDITOR_NO, TEST_USER } from '@seeds/01_users';
-import { SUGGESTED_SECTION_ID1 } from '@seeds/17_suggestions';
-import { anonContext, fakeContext, runQuery } from '@test';
+import { holdTransaction, rollbackTransaction } from '~/db';
+import { EDITOR_GA_EC, EDITOR_NO, TEST_USER } from '~/seeds/test/01_users';
+import { SUGGESTED_SECTION_ID1 } from '~/seeds/test/17_suggestions';
+import { anonContext, fakeContext, runQuery } from '~/test';
 import { ApolloErrorCodes, SuggestionStatus } from '@whitewater-guide/commons';
 
 beforeEach(holdTransaction);

@@ -1,4 +1,4 @@
-import { NodeQuery, TopLevelResolver } from '@apollo';
+import { NodeQuery, TopLevelResolver } from '~/apollo';
 import { RegionRaw } from '../types';
 
 const region: TopLevelResolver<NodeQuery> = async (

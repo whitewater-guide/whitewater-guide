@@ -24,7 +24,7 @@ import com.android.build.OutputFile
  *   // the entry file for bundle generation
  *   entryFile: "index.android.js",
  *
- *   // https://facebook.github.io/react-native/docs/performance#enable-the-ram-format
+ *   // https://reactnative.dev/docs/performance#enable-the-ram-format
  *   bundleCommand: "ram-bundle",
  *
  *   // whether to bundle JS and assets in debug mode
@@ -91,7 +91,7 @@ project.ext.react = [
 
 apply from: "../../node_modules/react-native/react.gradle"
 apply from: "../../node_modules/react-native-ultimate-config/android/rnuc.gradle"
-apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
+apply from: "../../node_modules/@sentry/react-native/sentry.gradle"
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -143,8 +143,8 @@ android {
         resValue "string", "build_config_package", "guide.whitewater"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 100601160
-        versionName "1.10.0"
+        versionCode 100601185
+        versionName "1.11.0"
         testBuildType System.getProperty('testBuildType', 'debugDetox')
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
@@ -174,11 +174,9 @@ android {
         debug {
             resValue "string", "app_name", "WW DEBUG"
             applicationIdSuffix ".staging"
-            multiDexEnabled true
         }
         debugDetox {
             initWith debug
-            multiDexEnabled true
             applicationIdSuffix ""
             resValue "string", "app_name", "WW DETOX"
             matchingFallbacks = ['debug']
@@ -195,12 +193,6 @@ android {
             resValue "string", "app_name", "WW STAGING"
             matchingFallbacks = ['release']
         }
-    }
-    packagingOptions {
-        pickFirst "lib/armeabi-v7a/libc++_shared.so"
-        pickFirst "lib/arm64-v8a/libc++_shared.so"
-        pickFirst "lib/x86/libc++_shared.so"
-        pickFirst "lib/x86_64/libc++_shared.so"
     }
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
@@ -227,19 +219,19 @@ dependencies {
     }
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.flipper'
+        exclude group:'com.squareup.okhttp3', module:'okhttp'
     }
     debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.flipper'
     }
-    implementation 'com.android.support:multidex:1.0.3'
     // Manual linking
     implementation project(':react-native-fs')
     // Require by detox
     androidTestImplementation('com.wix:detox:+') { transitive = true }
     androidTestImplementation 'junit:junit:4.12'
     // Required by react-navigation
-    implementation 'androidx.appcompat:appcompat:1.2.0-alpha03'
-    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-beta01'
+    implementation 'androidx.appcompat:appcompat:1.2.0-rc01'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
     if (enableHermes) {
       def hermesPath = "../../node_modules/hermes-engine/android/";
@@ -261,9 +253,3 @@ task copyDownloadableDepsToLibs(type: Copy) {
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
 apply plugin: 'com.google.gms.google-services'
-
-// TODO: this is a temporary workaround
-// https://github.com/microsoft/react-native-code-push/issues/1448
-// https://github.com/microsoft/react-native-code-push/issues/1640
-// https://github.com/microsoft/react-native-code-push/pull/1669
-com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true

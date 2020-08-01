@@ -1,5 +1,5 @@
-import db, { holdTransaction, rollbackTransaction } from '@db';
-import { RiverRaw } from '@features/rivers';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { RiverRaw } from '~/features/rivers';
 import {
   ADMIN_ID,
   EDITOR_GA_EC,
@@ -7,9 +7,9 @@ import {
   EDITOR_NO,
   EDITOR_NO_EC,
   TEST_USER,
-} from '@seeds/01_users';
-import { REGION_GALICIA, REGION_NORWAY } from '@seeds/04_regions';
-import { RIVER_GAL_1, RIVER_SJOA } from '@seeds/07_rivers';
+} from '~/seeds/test/01_users';
+import { REGION_GALICIA, REGION_NORWAY } from '~/seeds/test/04_regions';
+import { RIVER_GAL_BECA, RIVER_SJOA } from '~/seeds/test/07_rivers';
 import {
   anonContext,
   countRows,
@@ -19,7 +19,7 @@ import {
   noTimestamps,
   noUnstable,
   runQuery,
-} from '@test';
+} from '~/test';
 import { ApolloErrorCodes, RiverInput } from '@whitewater-guide/commons';
 
 let rBefore: number;
@@ -160,7 +160,7 @@ describe('insert', () => {
 
 describe('update', () => {
   const update: RiverInput = {
-    id: RIVER_GAL_1,
+    id: RIVER_GAL_BECA,
     name: 'Upsert River',
     altNames: ['upserted', 'oopserted'],
     region: {
@@ -214,11 +214,13 @@ describe('update', () => {
     expect(updatedRiver.id).toBe(update.id);
   });
 
-  it('should update updated_at timestamp', () => {
-    expect(updatedRiver.createdAt).toBe(oldRiver!.created_at.toISOString());
-    expect(new Date(updatedRiver.updatedAt).valueOf()).toBeGreaterThan(
-      oldRiver!.updated_at.valueOf(),
-    );
+  it('should update updated_at timestamp', async () => {
+    const { created_at, updated_at } = await db()
+      .table('rivers_view')
+      .where({ id: update.id })
+      .first();
+    expect(created_at).toEqual(oldRiver!.created_at);
+    expect(updated_at > oldRiver!.updated_at).toBe(true);
   });
 
   it('should not modify created_by', async () => {

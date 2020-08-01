@@ -5,7 +5,6 @@ import {
   BannerResolutions,
 } from '@whitewater-guide/commons';
 
-import { BannerFormData } from './types';
 import { getLocalPhotoSchema } from '@whitewater-guide/clients';
 import { yupTypes } from '@whitewater-guide/validation';
 
@@ -34,8 +33,8 @@ const WebViewSourceSchema = yup
   .url()
   .required();
 
-export const BannerFormSchema: yup.Schema<BannerFormData> = BannerInputSchema.clone().shape(
-  {
+export const BannerFormSchema = BannerInputSchema.clone()
+  .shape({
     extras: yupTypes.jsonString().nullable(),
     regions: yup.array().of(yupTypes.namedNode()),
     groups: yup.array().of(yupTypes.namedNode()),
@@ -55,5 +54,5 @@ export const BannerFormSchema: yup.Schema<BannerFormData> = BannerInputSchema.cl
         }
       },
     }),
-  },
-);
+  })
+  .defined();

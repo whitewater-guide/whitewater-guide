@@ -1,4 +1,4 @@
-import { TopLevelResolver } from '@apollo';
+import { TopLevelResolver } from '~/apollo';
 
 interface Vars {
   regionId?: string;

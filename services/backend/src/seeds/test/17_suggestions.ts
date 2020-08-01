@@ -8,7 +8,7 @@ import {
   TEST_USER_ID,
 } from './01_users';
 import { REGION_GEORGIA, REGION_NORWAY } from './04_regions';
-import { GALICIA_R1_S1, NORWAY_SJOA_AMOT } from './09_sections';
+import { GALICIA_BECA_LOWER, NORWAY_SJOA_AMOT } from './09_sections';
 
 export const EDIT_SUGGESTION_ID1 = '5af79398-b3ba-11e9-a2a3-2a2ae2dbcce4';
 export const EDIT_SUGGESTION_ID2 = '5af79622-b3ba-11e9-a2a3-2a2ae2dbcce4';
@@ -36,7 +36,7 @@ const suggestions: Array<Partial<SuggestionRaw>> = [
   },
   {
     id: EDIT_SUGGESTION_ID3,
-    section_id: GALICIA_R1_S1,
+    section_id: GALICIA_BECA_LOWER,
     description: 'edit suggestion 3',
     status: SuggestionStatus.REJECTED,
     resolved_by: ADMIN_ID,
@@ -52,7 +52,7 @@ const suggestions: Array<Partial<SuggestionRaw>> = [
   },
   {
     id: MEDIA_SUGGESTION_ID2,
-    section_id: GALICIA_R1_S1,
+    section_id: GALICIA_BECA_LOWER,
     copyright: 'copyleft2',
     filename: 'media_suggestion2.jpg',
     resolution: [100, 100],
@@ -62,7 +62,7 @@ const suggestions: Array<Partial<SuggestionRaw>> = [
   },
   {
     id: MEDIA_SUGGESTION_ID3,
-    section_id: GALICIA_R1_S1,
+    section_id: GALICIA_BECA_LOWER,
     copyright: 'copyleft3',
     filename: 'media_suggestion3.jpg',
     resolution: [100, 100],
@@ -88,7 +88,10 @@ const suggestedSections = [
         id: REGION_NORWAY,
         name: 'Norway',
       },
-      shape: [[1, 1, 0], [2, 2, 0]],
+      shape: [
+        [1, 1, 0],
+        [2, 2, 0],
+      ],
       difficulty: 4,
       hidden: true,
       tags: [],
@@ -112,7 +115,10 @@ const suggestedSections = [
         id: REGION_GEORGIA,
         name: 'Georgia',
       },
-      shape: [[2, 2, 0], [3, 2, 0]],
+      shape: [
+        [2, 2, 0],
+        [3, 2, 0],
+      ],
       difficulty: 3,
       hidden: true,
       tags: [],

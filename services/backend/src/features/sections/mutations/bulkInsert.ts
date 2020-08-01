@@ -7,11 +7,11 @@ import {
   SectionInput,
   SectionInputSchema,
 } from '@whitewater-guide/commons';
-import { TEMP, minioClient } from '@minio';
-import { TopLevelResolver, isInputValidResolver } from '@apollo';
+import { TEMP, minioClient } from '~/minio';
+import { TopLevelResolver, isInputValidResolver } from '~/apollo';
 import { checkForNewRiver, insertNewRiver } from './upsertUtils';
 import { createSafeValidator, yupTypes } from '@whitewater-guide/validation';
-import db, { rawUpsert } from '@db';
+import db, { rawUpsert } from '~/db';
 
 import { EventIterator } from 'event-iterator';
 import JSONStream from 'jsonstream2';
@@ -46,7 +46,7 @@ interface IterableFile {
 }
 
 function iterableFiles(filesStream: Extract) {
-  return new EventIterator<IterableFile>((push, stop, fail) => {
+  return new EventIterator<IterableFile>(({ push, stop, fail }) => {
     const onEntry = (headers: Headers, stream: PassThrough, next: () => void) =>
       push({ headers, stream, next });
     filesStream.addListener('entry', onEntry);

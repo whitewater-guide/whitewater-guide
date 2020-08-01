@@ -1,4 +1,4 @@
-import { BannerRaw } from '@features/banners';
+import { BannerRaw } from '~/features/banners';
 import { BannerKind, BannerPlacement } from '@whitewater-guide/commons';
 import Knex from 'knex';
 import { GROUP_ALL } from './03_groups';

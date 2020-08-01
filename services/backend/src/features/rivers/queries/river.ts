@@ -1,4 +1,4 @@
-import { NodeQuery, TopLevelResolver } from '@apollo';
+import { NodeQuery, TopLevelResolver } from '~/apollo';
 
 const river: TopLevelResolver<NodeQuery> = async (_, { id }, { dataSources }) =>
   dataSources.rivers.getById(id);

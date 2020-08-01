@@ -1,4 +1,4 @@
-import { listResolvers } from '@apollo';
+import { listResolvers } from '~/apollo';
 import { bannerResolvers, bannerSourceResolvers } from './fields';
 import Mutation from './mutations';
 import Query from './queries';
