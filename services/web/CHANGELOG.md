@@ -1,3 +1,9 @@
+## [0.1.435](https://github.com/doomsower/whitewater/compare/ec7e61ace05e19285647ababe56f2b442b45aeed...24e55b9de68a7c4fd9b447e0d933a6943e6a495b) (2020-08-01)
+
+### Features
+
+- use hosted sentry ([](https://github.com/doomsower/whitewater/commit/6f5de957ed5b36433c658f4cfc0129dfd2c51f96))
+
 ## [0.1.434](https://github.com/doomsower/whitewater/compare/c9713f7f65dfe49f913b52b04e6a2d67ecfb1420...ec7e61ace05e19285647ababe56f2b442b45aeed) (2020-07-28)
 
 ### Features
