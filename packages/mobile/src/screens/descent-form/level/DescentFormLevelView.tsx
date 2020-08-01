@@ -53,6 +53,7 @@ const DescentFormLevelView: React.FC<DescentFormDateNavProps> = ({
           <TextField
             name="level.unit"
             label={t('screens:descentForm.level.unitLabel')}
+            helperText={t('screens:descentForm.level.unitHelper')}
             autoCapitalize="none"
             autoCorrect={false}
             autoCompleteType="off"
