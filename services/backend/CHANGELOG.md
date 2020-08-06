@@ -1,3 +1,9 @@
+## [0.0.441](https://github.com/doomsower/whitewater/compare/81fd775ae152178216f60a6d5b1a58b84938c722...c604b24c901e92b803d1984ddfd1561ebb685d53) (2020-08-06)
+
+### Bug Fixes
+
+- difference in days: correct arguments ([](https://github.com/doomsower/whitewater/commit/7e0ec8eb20918c62172123bdfe7cb255deac6e4b))
+
 ## [0.0.440](https://github.com/doomsower/whitewater/compare/0c1bf719e4c460c29888565d46269496f633a1de...81fd775ae152178216f60a6d5b1a58b84938c722) (2020-08-06)
 
 ### Features
