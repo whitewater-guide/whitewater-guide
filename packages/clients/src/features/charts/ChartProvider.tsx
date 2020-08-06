@@ -1,8 +1,8 @@
 import { MeasurementsFilter, Unit } from '@whitewater-guide/commons';
-import React, { useMemo, useState, useContext } from 'react';
+import subDays from 'date-fns/subDays';
+import React, { useContext, useMemo, useState } from 'react';
 import { ChartContext, ChartProps, WithMeasurements } from './types';
 import { useChartMeasurements } from './useChartMeasurements';
-import subDays from 'date-fns/subDays';
 
 const ChartCtx = React.createContext<ChartContext & WithMeasurements>(
   {} as any,
@@ -17,6 +17,7 @@ export const ChartProvider: React.FC<Props> = React.memo((props) => {
   const [filter, onChangeFilter] = useState<MeasurementsFilter<Date>>(
     initialFilter || {
       from: subDays(new Date(), 1),
+      to: new Date(),
     },
   );
   const [unit, onChangeUnit] = useState(
