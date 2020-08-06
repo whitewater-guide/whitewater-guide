@@ -8,15 +8,6 @@ interface Props {
   sourceId: string;
 }
 
-const renderButton = (
-  onClick: React.MouseEventHandler<{}>,
-  disabled: boolean,
-) => (
-  <Button variant="contained" onClick={onClick} disabled={disabled}>
-    Remove all
-  </Button>
-);
-
 const RemoveAllGaugesButton: React.FC<Props> = ({ sourceId }) => (
   <Mutation<Result, Vars>
     mutation={REMOVE_ALL_GAUGES}
@@ -24,7 +15,9 @@ const RemoveAllGaugesButton: React.FC<Props> = ({ sourceId }) => (
     refetchQueries={['listGauges']}
   >
     {(mutate) => (
-      <DeleteButton deleteHandler={mutate as any} renderButton={renderButton} />
+      <DeleteButton deleteHandler={mutate as any}>
+        <Button variant="contained">Remove all</Button>
+      </DeleteButton>
     )}
   </Mutation>
 );

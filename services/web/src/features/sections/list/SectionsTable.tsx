@@ -1,10 +1,7 @@
 import Box from '@material-ui/core/Box';
 import Icon from '@material-ui/core/Icon';
-import SvgIcon from '@material-ui/core/SvgIcon';
-import Tooltip from '@material-ui/core/Tooltip';
 import Rating from '@material-ui/lab/Rating';
 import {
-  AdminOnly,
   formatDistanceToNow,
   getBindingFormula,
   getSectionColor,
@@ -18,17 +15,14 @@ import React from 'react';
 import { Column, IndexRange, TableProps } from 'react-virtualized';
 import {
   AdminColumn,
-  ClickBlocker,
-  DeleteButton,
   EditorColumn,
-  IconLink,
   isEmptyRow,
   TableCellRenderer,
   UnstyledLink,
 } from '../../../components';
 import { Table } from '../../../components/tables';
-import { paths } from '../../../utils';
 import NameFilter from './NameFilter';
+import SectionMenu from './SectionMenu';
 import { OuterProps } from './types';
 
 interface Props extends OuterProps {
@@ -159,25 +153,13 @@ export default class SectionsTable extends React.PureComponent<Props> {
     if (isEmptyRow(rowData)) {
       return null;
     }
-    const sectionId = rowData.id;
     const { regionId } = this.props;
     return (
-      <ClickBlocker>
-        <IconLink to={paths.settings({ regionId, sectionId })} icon="edit" />
-        <DeleteButton id={sectionId} deleteHandler={this.props.onRemove} />
-        <Tooltip title="Duplicate">
-          <IconLink
-            to={paths.to({ regionId, sectionId: `new?copy=${sectionId}` })}
-          >
-            <SvgIcon>
-              <path d="M11,17H4A2,2 0 0,1 2,15V3A2,2 0 0,1 4,1H16V3H4V15H11V13L15,16L11,19V17M19,21V7H8V13H6V7A2,2 0 0,1 8,5H19A2,2 0 0,1 21,7V21A2,2 0 0,1 19,23H8A2,2 0 0,1 6,21V19H8V21H19Z" />
-            </SvgIcon>
-          </IconLink>
-        </Tooltip>
-        <AdminOnly>
-          <IconLink to={paths.admin({ regionId, sectionId })} icon="settings" />
-        </AdminOnly>
-      </ClickBlocker>
+      <SectionMenu
+        section={rowData}
+        regionId={regionId}
+        deleteHandler={this.props.onRemove}
+      />
     );
   };
 
@@ -244,11 +226,10 @@ export default class SectionsTable extends React.PureComponent<Props> {
           cellRenderer={this.renderHidden}
         />
         <Column
-          width={192}
+          width={100}
           label="Actions"
           dataKey="actions"
           headerClassName="actions"
-          className="centered"
           cellRenderer={this.renderActions}
         />
       </Table>

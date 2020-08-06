@@ -1,6 +1,5 @@
-import { useAuth } from '@whitewater-guide/clients';
 import { SuggestionStatus } from '@whitewater-guide/commons';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useQuery } from 'react-apollo';
 import { Loading } from '../../../components';
 import {
@@ -11,23 +10,11 @@ import {
 import SuggestionResolveDialog from './SuggestionResolveDialog';
 import SuggestionsTableInfinite from './SuggestionsTableInfinite';
 
-const ADMIN_STATUSES = [
-  SuggestionStatus.PENDING,
-  SuggestionStatus.ACCEPTED,
-  SuggestionStatus.REJECTED,
-];
-
-const EDITOR_STATUSES = [SuggestionStatus.PENDING];
+const DEFAULT_STATUSES = [SuggestionStatus.PENDING];
 
 export const SimpleSuggestions: React.FC = () => {
-  const { me } = useAuth();
   const [resolveId, setResolveId] = useState<string | null>(null);
-  const [statusFilter, setStatusFilter] = useState(
-    me && me.admin ? ADMIN_STATUSES : EDITOR_STATUSES,
-  );
-  useEffect(() => {
-    setStatusFilter(me && me.admin ? ADMIN_STATUSES : EDITOR_STATUSES);
-  }, [me && me.admin]);
+  const [statusFilter, setStatusFilter] = useState(DEFAULT_STATUSES);
   const closeResolveDialog = useCallback(() => {
     setResolveId(null);
   }, [setResolveId]);

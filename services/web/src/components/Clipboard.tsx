@@ -3,19 +3,39 @@ import IconButton from '@material-ui/core/IconButton';
 import clipboard from 'clipboard-copy';
 import React, { useCallback } from 'react';
 
-interface Props {
-  text?: string;
+interface Clickable {
+  onClick: React.MouseEventHandler<any>;
+  ref?: any;
 }
 
-export const Clipboard: React.FC<Props> = ({ text }) => {
-  const onClick = useCallback(() => {
-    if (text) {
-      clipboard(text).catch(() => {});
-    }
-  }, [text]);
-  return (
-    <IconButton onClick={onClick} color="secondary">
-      <Icon>file_copy</Icon>
-    </IconButton>
-  );
-};
+interface Props {
+  text?: string;
+  onCopy?: (e: React.MouseEvent<any>, text: string) => void;
+  children?: React.ReactElement<Clickable>;
+}
+
+export const Clipboard = React.forwardRef(
+  ({ text, onCopy, children }: Props, ref: any) => {
+    const onClick = useCallback(
+      (e: React.MouseEvent<any>) => {
+        e.stopPropagation();
+        if (text) {
+          clipboard(text).catch(() => {});
+          onCopy?.(e, text);
+        }
+      },
+      [text, onCopy],
+    );
+
+    return children ? (
+      React.cloneElement(React.Children.only(children), {
+        onClick,
+        ref,
+      })
+    ) : (
+      <IconButton onClick={onClick} ref={ref}>
+        <Icon>file_copy</Icon>
+      </IconButton>
+    );
+  },
+);

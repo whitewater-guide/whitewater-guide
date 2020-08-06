@@ -5,7 +5,9 @@ import React, { useState } from 'react';
 import { Query, QueryResult } from 'react-apollo';
 import { Autocomplete } from './Autocomplete';
 import itemToString from './itemToString';
-import { AutocompleteProps } from './types';
+import { AutocompleteFilterOptions, AutocompleteProps } from './types';
+
+const filterOptions: AutocompleteFilterOptions = { matchInput: true };
 
 export interface QueryAutocompleteProps
   extends Omit<AutocompleteProps, 'options'> {
@@ -38,6 +40,7 @@ export const QueryAutocomplete: React.FC<QueryAutocompleteProps> = (props) => {
             inputValue={inputValue}
             onInputValueChange={setInputValue}
             options={options}
+            filterOptions={filterOptions}
           />
         );
       }}

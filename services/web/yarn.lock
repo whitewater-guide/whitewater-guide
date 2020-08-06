@@ -2,16 +2,19 @@
 # yarn lockfile v1
 
 
-"@apollo/client@^3.0.0-beta.48":
-  version "3.0.0-rc.8"
-  resolved "https://registry.npmjs.org/@apollo/client/-/client-3.0.0-rc.8.tgz#70643547ed8bb10d1d96f64320c3510a57f0cf6a"
-  integrity sha512-8Sw4Htao2mZb4vERbvMj9GOf4x/+CLYNuF5gULY7TtMWG4ZANLxbe1DeFCicxVo2xRVQ960nf5vVJhxKcjDOQA==
+"@apollo/client@^3.0.0":
+  version "3.1.2"
+  resolved "https://registry.npmjs.org/@apollo/client/-/client-3.1.2.tgz#e384f691706c46aef4d9234b63a03ccc06e9c33c"
+  integrity sha512-GaA/J0CDSSNe0HVm1abeOIJA3M4fs9Ih7wF2z1AI2SLqv5TBLvwBxh0+0+jCSntPZ3gnDQvR7MHjmXota5V1LQ==
   dependencies:
     "@types/zen-observable" "^0.8.0"
-    "@wry/equality" "^0.1.9"
+    "@wry/context" "^0.5.2"
+    "@wry/equality" "^0.2.0"
     fast-json-stable-stringify "^2.0.0"
-    graphql-tag "^2.10.2"
+    graphql-tag "^2.11.0"
+    hoist-non-react-statics "^3.3.2"
     optimism "^0.12.1"
+    prop-types "^15.7.2"
     symbol-observable "^1.2.0"
     ts-invariant "^0.4.4"
     tslib "^1.10.0"
@@ -3333,10 +3336,17 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-test-renderer@*", "@types/react-test-renderer@^16.9.2":
+"@types/react-test-renderer@*":
   version "16.9.2"
   resolved "https://registry.npmjs.org/@types/react-test-renderer/-/react-test-renderer-16.9.2.tgz#e1c408831e8183e5ad748fdece02214a7c2ab6c5"
   integrity sha512-4eJr1JFLIAlWhzDkBCkhrOIWOvOxcCAfQh+jiKg7l/nNZcCIL2MHl2dZhogIFKyHzedVWHaVP1Yydq/Ruu4agw==
+  dependencies:
+    "@types/react" "*"
+
+"@types/react-test-renderer@^16.9.3":
+  version "16.9.3"
+  resolved "https://registry.npmjs.org/@types/react-test-renderer/-/react-test-renderer-16.9.3.tgz#96bab1860904366f4e848b739ba0e2f67bcae87e"
+  integrity sha512-wJ7IlN5NI82XMLOyHSa+cNN4Z0I+8/YaLl04uDgcZ+W+ExWCmCiVTLT/7fRNqzy4OhStZcUwIqLNF7q+AdW43Q==
   dependencies:
     "@types/react" "*"
 
@@ -3494,6 +3504,11 @@
   version "0.29.3"
   resolved "https://registry.npmjs.org/@types/yup/-/yup-0.29.3.tgz#5a85024796bffe0eb01601bfc180fe218356dba4"
   integrity sha512-XxZFKnxzTfm+DR8MMBA35UUXfUPmjPpi8HJ90VZg7q/LIbtiOhVGJ26gNnATcflcpnIyf2Qm9A+oEhswaqoDpA==
+
+"@types/yup@^0.29.4":
+  version "0.29.4"
+  resolved "https://registry.npmjs.org/@types/yup/-/yup-0.29.4.tgz#f7b1f9978180d5155663c1cd0ecdc41a72c23d81"
+  integrity sha512-OQ7gZRQb7eSbGu5h57tbK67sgX8UH5wbuqPORTFBG7qiBtOkEf1dXAr0QULyHIeRwaGLPYxPXiQru+40ClR6ng==
 
 "@types/zen-observable@^0.8.0":
   version "0.8.0"
@@ -3895,10 +3910,10 @@
     prosemirror-view "^1.11.6"
     tslib "^1.10.0"
 
-"@whitewater-guide/translations@^2.3.3":
-  version "2.3.3"
-  resolved "https://registry.npmjs.org/@whitewater-guide/translations/-/translations-2.3.3.tgz#65b354f1a6be9594bf643dbf2efd92b6d8eb4179"
-  integrity sha512-htg/62BTxdoYrmxECQHyCxcA6/1sPDbSBGjAeko42DKz4LkyKcKG+oYGbUzaUHN368A8+/CgzOBvZoEeG36K7A==
+"@whitewater-guide/translations@^2.3.5":
+  version "2.3.5"
+  resolved "https://registry.npmjs.org/@whitewater-guide/translations/-/translations-2.3.5.tgz#c6b937b380c0a7a4d790fe413fafea33fe38b9ef"
+  integrity sha512-yhPX2RZvnD4+amm6/I6SjqPYCfEoHenYSUs6fUtI2EvjvHrwwB9sZBw1VHdp+txLMUSbwidZ/OE37M2ngfVYLg==
 
 "@whitewater-guide/validation@^1.1.5":
   version "1.1.5"
@@ -4280,12 +4295,12 @@ apollo-link-schema@^1.2.5:
     apollo-link "^1.2.14"
     tslib "^1.9.3"
 
-apollo-link-token-refresh@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.npmjs.org/apollo-link-token-refresh/-/apollo-link-token-refresh-0.3.1.tgz#85be840abe98e53451b7ddc3960a44557b2bd7fb"
-  integrity sha512-OpZfHtuVAydlwHimdPRZCMb7XmWRkqliG3IMtGQhrPoqYR3x20aXb5Q9bpsHgQ3nI51o/1QLA3/kM3rss/O8Zw==
+apollo-link-token-refresh@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.npmjs.org/apollo-link-token-refresh/-/apollo-link-token-refresh-0.3.2.tgz#60773790b0f111d674dd358e1e53a660a6f56b35"
+  integrity sha512-4us703pt1RyW8NOLCUtCVLbnse2gux43W9mePzfAHKeNsj8d6rzRE4IDIS+6GEb/jay36uw8E7BvX5X9k6Ivkw==
   dependencies:
-    "@apollo/client" "^3.0.0-beta.48"
+    "@apollo/client" "^3.0.0"
 
 apollo-link@1.2.14, apollo-link@^1.0.0, apollo-link@^1.2.11, apollo-link@^1.2.12, apollo-link@^1.2.14:
   version "1.2.14"
@@ -8672,11 +8687,6 @@ graphql-tag@2.11.0, graphql-tag@^2.11.0:
   version "2.11.0"
   resolved "https://registry.npmjs.org/graphql-tag/-/graphql-tag-2.11.0.tgz#1deb53a01c46a7eb401d6cb59dec86fa1cccbffd"
   integrity sha512-VmsD5pJqWJnQZMUeRwrDhfgoyqcfwEkvtpANqcoUG8/tOLkwNgU9mzub/Mc78OJMhHjx7gfAMTxzdG43VGg3bA==
-
-graphql-tag@^2.10.2:
-  version "2.10.3"
-  resolved "https://registry.npmjs.org/graphql-tag/-/graphql-tag-2.10.3.tgz#ea1baba5eb8fc6339e4c4cf049dabe522b0edf03"
-  integrity sha512-4FOv3ZKfA4WdOKJeHdz6B3F/vxBLSgmBcGeAFPf4n1F64ltJUvOOerNj0rsJxONQGdhUMynQIvd6LzB+1J5oKA==
 
 graphql-tools@^5.0.0:
   version "5.0.0"
@@ -17682,10 +17692,10 @@ yup@^0.29.1:
     synchronous-promise "^2.0.10"
     toposort "^2.0.2"
 
-yup@^0.29.2:
-  version "0.29.2"
-  resolved "https://registry.npmjs.org/yup/-/yup-0.29.2.tgz#5302abd9024cca335b987793f8df868e410b7b67"
-  integrity sha512-FbAAeopli+TnpZ8Lzv2M72wltLw58iWBT7wW8FuAPFPb3CelXmSKCXQbV1o4keywpIK1BZ0ULTLv2s3w1CfOwA==
+yup@^0.29.3:
+  version "0.29.3"
+  resolved "https://registry.npmjs.org/yup/-/yup-0.29.3.tgz#69a30fd3f1c19f5d9e31b1cf1c2b851ce8045fea"
+  integrity sha512-RNUGiZ/sQ37CkhzKFoedkeMfJM0vNQyaz+wRZJzxdKE7VfDeVKH8bb4rr7XhRLbHJz5hSjoDNwMEIaKhuMZ8gQ==
   dependencies:
     "@babel/runtime" "^7.10.5"
     fn-name "~3.0.0"

@@ -24,7 +24,10 @@ const filterOptions = <T extends NamedNode>(
     matchInput = defaultMatcher,
   } = settings;
   const matcher = matchInput === true ? noMatcher : matchInput;
-  return take(options.filter((o) => matcher(input, o)), limit);
+  return take(
+    options.filter((o) => matcher(input, o)),
+    limit,
+  );
 };
 
 export default filterOptions;

@@ -12,8 +12,8 @@ interface Props {
   description?: string;
   cancelTitle?: string;
   invertedAccents?: boolean;
-  onCancel: () => void;
-  onConfirm: () => void;
+  onCancel: (e: React.MouseEvent<any>) => void;
+  onConfirm: (e: React.MouseEvent<any>) => void;
 }
 
 export const ConfirmationDialog: React.FC<Props> = (props) => {

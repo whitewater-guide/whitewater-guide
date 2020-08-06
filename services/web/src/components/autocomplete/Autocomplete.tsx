@@ -114,6 +114,7 @@ export class Autocomplete<
                     <AutocompleteMenuItem
                       key={item.id}
                       option={item}
+                      optionToString={this.props.optionToString}
                       index={index}
                       highlightedIndex={highlightedIndex}
                       selectedItem={value}

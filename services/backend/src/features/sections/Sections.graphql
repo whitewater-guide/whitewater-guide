@@ -182,6 +182,9 @@ type Mutation {
   upsertSection(section: SectionInput!): Section
   removeSection(id: ID!): ID
   administrateSection(id: ID!, settings: SectionAdminSettings!): Section @admin
+  # Merges source section into destination section
+  # source section will be deleted, its logbooks, media and POIs will be reattached to destination section instead
+  mergeSections(sourceId: ID!, destinationId: ID!): Boolean
   # This mutation will fetch tar.gz archive and insert sections in it
   # Each JSON file in archive must be array of Partial<SectionInput> objects
   # TODO: also upload photos from archive

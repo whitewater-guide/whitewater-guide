@@ -6,6 +6,7 @@ import React, { useCallback, useMemo } from 'react';
 import {
   AutoSizer,
   Index,
+  RowMouseEventHandlerParams,
   Table as VirtualizedTable,
   TableProps,
 } from 'react-virtualized';
@@ -111,8 +112,10 @@ export const Table = React.memo(
         [classes],
       );
       const onRowClick = useCallback(
-        ({ index }: Index) => {
-          if (onNodeClick) {
+        ({ index, event }: RowMouseEventHandlerParams) => {
+          // prevent events frombbling through portals
+          // https://github.com/mui-org/material-ui/issues/15705#issuecomment-492713374
+          if (onNodeClick && event.currentTarget.contains(event.target)) {
             onNodeClick(data[index].id);
           }
         },
