@@ -1,16 +1,15 @@
-import { Context } from '~/apollo';
+import { MeasurementsFilter } from '@whitewater-guide/commons';
+import * as gorge from '@whitewater-guide/gorge';
 import { DataSource, DataSourceConfig } from 'apollo-datasource';
 import compareDesc from 'date-fns/compareDesc';
-import differenceInDays from 'date-fns/differenceInDays';
 import parseISO from 'date-fns/parseISO';
+import { Context } from '~/apollo';
 import {
   SOURCE_ALPS,
   SOURCE_GALICIA_1,
   SOURCE_GALICIA_2,
   SOURCE_NORWAY,
 } from '../../../seeds/test/05_sources';
-import * as gorge from '@whitewater-guide/gorge';
-import { MeasurementsFilter } from '@whitewater-guide/commons';
 
 const hoursAgo = (hours: number) =>
   new Date(Date.now() - hours * 60 * 60 * 1000).toISOString();

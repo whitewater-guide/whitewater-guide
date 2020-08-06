@@ -17,7 +17,6 @@ export const ChartProvider: React.FC<Props> = React.memo((props) => {
   const [filter, onChangeFilter] = useState<MeasurementsFilter<Date>>(
     initialFilter || {
       from: subDays(new Date(), 1),
-      to: new Date(),
     },
   );
   const [unit, onChangeUnit] = useState(
