@@ -7819,11 +7819,6 @@ flatten@^1.0.2:
   resolved "https://registry.npmjs.org/flatten/-/flatten-1.0.3.tgz#c1283ac9f27b368abc1e36d1ff7b04501a30356b"
   integrity sha512-dVsPA/UwQ8+2uoFe5GHtiBMu48dWLTdsuEd7CKGlZlD78r1TTWBvDuFaFGKCo/ZfEr95Uk56vZoX86OsHkUeIg==
 
-flipper-plugin-react-native-performance@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.npmjs.org/flipper-plugin-react-native-performance/-/flipper-plugin-react-native-performance-0.5.0.tgz#7f33ca9d1d8f4cbccdb82633ed4f9bfd807859a3"
-  integrity sha512-QsxoyE4m1MrJeprOk6j3rFS8I9BVuI3Y+TnhvOiCpCMf46MukJKFRVtveR0rgdXe/o3tuSdquyToYE8IuvWY6A==
-
 flush-write-stream@^1.0.0:
   version "1.1.1"
   resolved "https://registry.npmjs.org/flush-write-stream/-/flush-write-stream-1.1.1.tgz#8dd7d873a1babc207d94ead0c2e0e44276ebf2e8"
@@ -13103,16 +13098,6 @@ react-native-fit-image@^1.5.5:
   dependencies:
     prop-types "^15.5.10"
 
-react-native-flipper@^0.37.0:
-  version "0.37.0"
-  resolved "https://registry.yarnpkg.com/react-native-flipper/-/react-native-flipper-0.37.0.tgz#15187696e7361553952a83c77dcf53e508261662"
-  integrity sha512-ZnL31EfUoXpFY4zddm/8hW6hh7+wr1VXFV+2s9TWx5F9XQ/bNVFsP+2/bbTVwYE678caZOpmHxkWebkVb2PTtA==
-
-react-native-flipper@^0.52.1:
-  version "0.52.1"
-  resolved "https://registry.yarnpkg.com/react-native-flipper/-/react-native-flipper-0.52.1.tgz#068eb5cd1da4c896ea43923f570f1c74ce5b5ca8"
-  integrity sha512-+Rje0uRUuk/k32odEHsaAXC1CmQ/jKn8h3RBBZlVi3GFAWYpbIZpPspE/s7yFa9B7rcS6fHZbewrf9IfM7FiWA==
-
 react-native-fs@^2.14.1:
   version "2.16.6"
   resolved "https://registry.npmjs.org/react-native-fs/-/react-native-fs-2.16.6.tgz#2901789a43210a35a0ef0a098019bbef3af395fd"
@@ -13968,13 +13953,6 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
   dependencies:
     hash-base "^3.0.0"
     inherits "^2.0.1"
-
-rn-async-storage-flipper@^0.0.9:
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/rn-async-storage-flipper/-/rn-async-storage-flipper-0.0.9.tgz#8b658f3953925f0cee4a5f9ae309316d85e868be"
-  integrity sha512-HBNBW+t7SpsCSivESpX+enyWEZJ6hgL8qbaDVoQp8PAQ3rM1e1+sOETwINaYjuWChSrIe+u3Kk5enVZGZ1hbuQ==
-  dependencies:
-    react-native-flipper "^0.37.0"
 
 rsvp@^4.8.4:
   version "4.8.5"

@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import RNAsyncStorageFlipper from 'rn-async-storage-flipper';
 import Layers from '~/components/map/layers';
 
 export interface AppSettings {
@@ -43,10 +42,6 @@ export const AppSettingsProvider: React.FC = ({ children }) => {
   const [settings, setSettings] = useState(DEFAULT_APP_SETTINGS);
 
   useEffect(() => {
-    // We recommend to invoke the function inside a componentDidMount or useEffect
-    if (__DEV__) {
-      RNAsyncStorageFlipper(AsyncStorage);
-    }
     loadSettings().then(setSettings);
   }, [setSettings]);
 

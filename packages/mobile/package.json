@@ -171,7 +171,6 @@
     "detox": "^17.3.3",
     "dotenv": "^8.2.0",
     "fetch-mock": "^9.10.5",
-    "flipper-plugin-react-native-performance": "^0.5.0",
     "jest": "^26.2.2",
     "jest-summary-reporter": "^0.0.2",
     "jsonwebtoken": "^8.5.1",
@@ -179,12 +178,10 @@
     "metro-react-native-babel-preset": "^0.61.0",
     "patch-package": "^6.2.2",
     "postinstall-postinstall": "^2.1.0",
-    "react-native-flipper": "^0.52.1",
     "react-native-mock-render": "^0.1.9",
     "react-native-performance-monitor": "^1.2.1",
     "react-native-storybook-loader": "^2.0.1",
     "react-test-renderer": "16.13.1",
-    "rn-async-storage-flipper": "^0.0.9",
     "typescript": "^3.9.7"
   },
   "resolutions": {
