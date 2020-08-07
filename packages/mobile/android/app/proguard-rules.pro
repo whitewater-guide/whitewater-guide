@@ -39,3 +39,12 @@
 # react-native-date-picker
 -keep public class net.time4j.android.ApplicationStarter
 -keep public class net.time4j.PrettyTime
+
+# flipper
+-keep class com.facebook.flipper.** { *; }
+
+-dontwarn com.facebook.litho.**
+-dontwarn com.facebook.flipper.**
+-dontwarn com.facebook.yoga.**
+-dontwarn org.mozilla.**
+-dontwarn  com.facebook.fbui.**
