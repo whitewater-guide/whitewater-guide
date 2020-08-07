@@ -1,5 +1,25 @@
+import {
+  ApolloErrorCodes,
+  Duration,
+  MediaInput,
+  MediaKind,
+  NEW_ID,
+  SectionInput,
+} from '@whitewater-guide/commons';
+import { copy } from 'fs-extra';
+import { ExecutionResult } from 'graphql';
+import set from 'lodash/fp/set';
 import * as path from 'path';
-
+import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { SectionsEditLogRaw } from '~/features/sections';
+import {
+  fileExistsInBucket,
+  MEDIA,
+  MEDIA_BUCKET_DIR,
+  resetTestMinio,
+  TEMP,
+  TEMP_BUCKET_DIR,
+} from '~/minio';
 import {
   ADMIN,
   ADMIN_ID,
@@ -9,51 +29,30 @@ import {
   EDITOR_NO_EC_ID,
   TEST_USER,
 } from '~/seeds/test/01_users';
-import {
-  Duration,
-  MediaInput,
-  MediaKind,
-  NEW_ID,
-  SectionInput,
-} from '@whitewater-guide/commons';
-import { GALICIA_BECA_LOWER, NORWAY_SJOA_AMOT } from '~/seeds/test/09_sections';
+import { REGION_GALICIA, REGION_NORWAY } from '~/seeds/test/04_regions';
+import { SOURCE_GALICIA_1, SOURCE_GEORGIA } from '~/seeds/test/05_sources';
 import {
   GAUGE_GAL_1_1,
   GAUGE_GAL_1_2,
   GAUGE_GEO_1,
 } from '~/seeds/test/06_gauges';
 import {
-  MEDIA,
-  MEDIA_BUCKET_DIR,
-  TEMP,
-  TEMP_BUCKET_DIR,
-  fileExistsInBucket,
-  resetTestMinio,
-} from '~/minio';
-import { PHOTO_1, PHOTO_2 } from '~/seeds/test/11_media';
-import { REGION_GALICIA, REGION_NORWAY } from '~/seeds/test/04_regions';
-import {
   RIVER_BZHUZHA,
   RIVER_GAL_BECA,
   RIVER_GAL_CABE,
   RIVER_SJOA,
 } from '~/seeds/test/07_rivers';
-import { SOURCE_GALICIA_1, SOURCE_GEORGIA } from '~/seeds/test/05_sources';
+import { GALICIA_BECA_LOWER, NORWAY_SJOA_AMOT } from '~/seeds/test/09_sections';
+import { PHOTO_1, PHOTO_2 } from '~/seeds/test/11_media';
+import { MEDIA_SUGGESTION_ID1 } from '~/seeds/test/17_suggestions';
 import {
-  UUID_REGEX,
   countRows,
   fakeContext,
   noUnstable,
   runQuery,
+  UUID_REGEX,
 } from '~/test';
-import db, { holdTransaction, rollbackTransaction } from '~/db';
-
-import { ExecutionResult } from 'graphql';
 import { GEORGIA_BZHUZHA_QUALI } from '../../../seeds/test/09_sections';
-import { MEDIA_SUGGESTION_ID1 } from '~/seeds/test/17_suggestions';
-import { SectionsEditLogRaw } from '~/features/sections';
-import { copy } from 'fs-extra';
-import set from 'lodash/fp/set';
 
 jest.mock('../../gorge/connector');
 
@@ -307,8 +306,12 @@ it('should fail on invalid input', async () => {
   expect(result).toHaveGraphqlValidationError();
 });
 
+it('anon should not create suggestion', async () => {
+  const result = await runQuery(upsertQuery, { section: newRiverSection });
+  expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
+});
+
 it.each([
-  ['anon', undefined],
   ['user', TEST_USER],
   ['non-owning editor', EDITOR_GA_EC],
 ])('%s should create suggestion', async (_, user: any) => {
