@@ -1,11 +1,11 @@
-import { RawTimestamped } from '~/db';
-import { PointRaw } from '~/features/points';
 import {
   Coordinate3d,
   NamedNode,
   SectionEditAction,
   Tag,
 } from '@whitewater-guide/commons';
+import { RawTimestamped } from '~/db';
+import { PointRaw } from '~/features/points';
 
 export interface GaugeBindingRaw {
   minimum?: number;
@@ -34,6 +34,7 @@ export interface SectionRaw extends NamedNode, RawTimestamped {
   hidden: boolean;
   demo: boolean;
   premium: boolean;
+  verified: boolean | null;
   help_needed: string | null;
 
   season_numeric: number[];
@@ -58,13 +59,6 @@ export interface SectionRaw extends NamedNode, RawTimestamped {
   count: number | null; // window function count
 
   created_by: string | null;
-}
-
-export interface SectionsFilter {
-  riverId?: string;
-  regionId?: string;
-  updatedAfter?: Date;
-  search?: string;
 }
 
 export interface SectionsEditLogRaw {

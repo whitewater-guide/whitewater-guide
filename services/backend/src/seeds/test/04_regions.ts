@@ -1,28 +1,16 @@
-import { Coordinate3d } from '@whitewater-guide/commons';
+import { OTHERS_REGION_ID } from '@whitewater-guide/commons';
 import Knex from 'knex';
-import { Point, Polygon } from 'wkx';
+import { getBounds } from '../../utils';
 import {
   EDITOR_GA_EC_ID,
   EDITOR_GE_ID,
   EDITOR_NO_EC_ID,
   EDITOR_NO_ID,
 } from './01_users';
-import { LAOS_PT_1, GALICIA_PT_1, GALICIA_PT_2 } from './02_points';
+import { GALICIA_PT_1, GALICIA_PT_2, LAOS_PT_1 } from './02_points';
 import { GROUP_ALL, GROUP_EU, GROUP_EU_CIS, GROUP_LATIN } from './03_groups';
 
-function getBounds(bounds: Coordinate3d[] | null) {
-  let rawBounds = null;
-  if (bounds && bounds.length > 0) {
-    const polygon: Polygon = new Polygon(bounds.map((p) => new Point(...p)));
-    // Close the ring
-    polygon.exteriorRing.push(new Point(...bounds[0]));
-    polygon.srid = 4326;
-    rawBounds = polygon.toEwkt();
-  }
-  return rawBounds;
-}
-
-export const NUM_REGIONS = 5;
+export const NUM_REGIONS = 6;
 
 export const REGION_GALICIA = 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34';
 export const REGION_ECUADOR = '2caf75ca-7625-11e7-b5a5-be2e44b06b34';
@@ -102,6 +90,19 @@ const regions = [
       [22.66, 102.5, 0],
     ]),
   },
+  {
+    id: OTHERS_REGION_ID,
+    hidden: false,
+    premium: false,
+    sku: null,
+    season_numeric: [],
+    bounds: getBounds([
+      [-179, -89, 0],
+      [-179, 89, 0],
+      [179, 89, 0],
+      [179, -89, 0],
+    ]),
+  },
 ];
 
 const regionsEn = [
@@ -139,6 +140,13 @@ const regionsEn = [
     name: 'Laos',
     description: 'laos description',
     season: 'laos season',
+  },
+  {
+    region_id: OTHERS_REGION_ID,
+    language: 'en',
+    name: 'Others',
+    description: null,
+    season: null,
   },
 ];
 

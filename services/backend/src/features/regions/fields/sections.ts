@@ -1,6 +1,6 @@
-import { Context, ListQuery } from '~/apollo';
-import { SectionsFilter } from '~/features/sections';
+import { SectionsFilter } from '@whitewater-guide/commons';
 import { GraphQLFieldResolver } from 'graphql';
+import { Context, ListQuery } from '~/apollo';
 import { RegionRaw } from '../types';
 
 interface Vars extends ListQuery {

@@ -8,7 +8,6 @@ import { FormikTab } from '../../../formik/helpers';
 import addToList from './addToList';
 import formToMutation from './formToMutation';
 import makeQueryToForm from './makeQueryToForm';
-import RejectSuggestedButton from './RejectSuggestedButton';
 import { QResult, QVars, SECTION_FORM_QUERY } from './sectionForm.query';
 import { SectionFormFlows } from './SectionFormFlows';
 import { SectionFormMain } from './SectionFormMain';
@@ -57,7 +56,6 @@ const SectionForm: React.FC<Props> = ({ match, location }) => {
   const { regionId, sectionId } = match.params;
   const riverId = query.riverId as string;
   const copyFromId = query.copy as string;
-  const fromSuggestedId = query.fromSuggestedId as string;
   const queryToForm = useMemo(() => makeQueryToForm(!!copyFromId), [
     copyFromId,
   ]);
@@ -68,7 +66,6 @@ const SectionForm: React.FC<Props> = ({ match, location }) => {
       variables: {
         regionId,
         riverId,
-        fromSuggestedId,
         sectionId: sectionId || copyFromId,
       },
     },
@@ -84,17 +81,16 @@ const SectionForm: React.FC<Props> = ({ match, location }) => {
   const gauges = formik.rawData ? formik.rawData.gauges : null;
   const bounds = region ? region.bounds : null;
   const tags = formik.rawData ? formik.rawData.tags : [];
+  const needsVerification =
+    !formik.rawData?.section.verified && !!formik.rawData?.section.id;
 
   return (
     <FormikCard<QResult, SectionFormData>
-      header={fromSuggestedId ? 'Suggested section' : header}
+      header={header}
       {...formik}
       validationSchema={SectionFormSchema}
-      submitLabel={fromSuggestedId ? 'Accept' : undefined}
+      submitLabel={needsVerification ? 'Verify and save' : undefined}
       validateOnChange={false}
-      extraActions={
-        <RejectSuggestedButton suggestedSectionId={fromSuggestedId} />
-      }
     >
       <HashTabs variant="fullWidth">
         <FormikTab fields={MainFields} label="Basic" value="#main" />

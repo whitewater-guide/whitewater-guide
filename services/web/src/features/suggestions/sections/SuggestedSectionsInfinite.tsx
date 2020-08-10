@@ -1,5 +1,4 @@
 import { getListMerger } from '@whitewater-guide/clients';
-import { SuggestionStatus } from '@whitewater-guide/commons';
 import React, { useCallback } from 'react';
 import { ObservableQueryFields } from 'react-apollo';
 import { Index, InfiniteLoader } from 'react-virtualized';
@@ -7,20 +6,13 @@ import { QResult, QVars } from './suggestedSections.query';
 import SuggestedSectionsTable from './SuggestedSectionsTable';
 
 interface Props {
-  suggestedSections: QResult['suggestedSections'];
+  suggestedSections: QResult['sections'];
   fetchMore: ObservableQueryFields<QResult, QVars>['fetchMore'];
-  statusFilter: SuggestionStatus[];
-  setStatusFilter: (value: SuggestionStatus[]) => void;
 }
 
 export const SuggestedSectionsInfinite: React.FC<Props> = React.memo(
   (props) => {
-    const {
-      suggestedSections,
-      fetchMore,
-      statusFilter,
-      setStatusFilter,
-    } = props;
+    const { suggestedSections, fetchMore } = props;
 
     const isRowLoaded = useCallback(
       ({ index }: Index) => {
@@ -51,8 +43,6 @@ export const SuggestedSectionsInfinite: React.FC<Props> = React.memo(
             registerChild={registerChild}
             data={suggestedSections.nodes || []}
             onRowsRendered={onRowsRendered}
-            statusFilter={statusFilter}
-            setStatusFilter={setStatusFilter}
           />
         )}
       </InfiniteLoader>

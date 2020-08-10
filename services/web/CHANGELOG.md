@@ -1,4 +1,40 @@
-## [0.1.438](https://github.com/doomsower/whitewater/compare/81fd775ae152178216f60a6d5b1a58b84938c722...c604b24c901e92b803d1984ddfd1561ebb685d53) (2020-08-06)
+## [0.1.438-suggestionsv2.4](https://github.com/doomsower/whitewater/compare/753c9a629ecc72cf3a4a312aed53225ed65c06ea...c058ae3ae9224104eac6f9ba932eb45435b6012a) (2020-08-08)
+
+### Features
+
+- web form for approving suggested sections ([](https://github.com/doomsower/whitewater/commit/6cca6bd26adad40952f8f239c2864eaa63597782))
+
+## [0.1.438-suggestionsv2.3](https://github.com/doomsower/whitewater/compare/3d997d1c55fbe5da2f8d9167b3dab5abe3be451e...753c9a629ecc72cf3a4a312aed53225ed65c06ea) (2020-08-08)
+
+### Features
+
+- createdBy resolver, correctly set demo attribute ([](https://github.com/doomsower/whitewater/commit/553103171d7be059b9d8fb4b399db9efa36e670d))
+- web ui for suggested sections ([](https://github.com/doomsower/whitewater/commit/50abede912ea1a1af3b453eabdcb902c3f5c31d2))
+
+### Bug Fixes
+
+- notifications badge ([](https://github.com/doomsower/whitewater/commit/ebd38d77b90b2f2cc52e7156413f68259c4edf38))
+
+## [0.1.438-suggestionsv2.2](https://github.com/doomsower/whitewater/compare/22b79dedf4450fda606ae372412145552b34549f...3d997d1c55fbe5da2f8d9167b3dab5abe3be451e) (2020-08-08)
+
+## [0.1.438-suggestionsv2.1](https://github.com/doomsower/whitewater/compare/673c748364a1886ff74121e921c16d9494281090...22b79dedf4450fda606ae372412145552b34549f) (2020-08-08)
+
+## [0.1.438-suggestionsv2.0](https://github.com/doomsower/whitewater/compare/ef032681c57980db6440a97d657655d5919d8562...673c748364a1886ff74121e921c16d9494281090) (2020-08-08)
+
+### Features
+
+- descents form ([](https://github.com/doomsower/whitewater/commit/c106e58c8368157a16a4b2a49ebedea5c5823bdd))
+- fabs and apple sign in ([](https://github.com/doomsower/whitewater/commit/c1d75c4cb311f5014117d12c3ffcae732b905c77))
+- logbooks mobile ([](https://github.com/doomsower/whitewater/commit/b16559391e66d63ad6311f579ffe9c8af861e716))
+- merge sections ([](https://github.com/doomsower/whitewater/commit/382550259f76a5e78c4e88343ac3566a825da6bc))
+- remove logbook from web ([](https://github.com/doomsower/whitewater/commit/6d4b88c1086c86a3f7a74b178915da62713da012))
+- use hosted sentry ([](https://github.com/doomsower/whitewater/commit/6f5de957ed5b36433c658f4cfc0129dfd2c51f96))
+
+### Bug Fixes
+
+- drawer ([](https://github.com/doomsower/whitewater/commit/ea117389f08f912d1509aa5e4049fc4141dabdc5))
+- fix mediaimage ([](https://github.com/doomsower/whitewater/commit/7a49a4f2158f93ea866aa3edad7277e444cd043f))
+- web charts ([](https://github.com/doomsower/whitewater/commit/e82bc7d1295f75aba2fa1bf9687edd5842a8e3c4))
 
 ## [0.1.437](https://github.com/doomsower/whitewater/compare/0c1bf719e4c460c29888565d46269496f633a1de...81fd775ae152178216f60a6d5b1a58b84938c722) (2020-08-06)
 

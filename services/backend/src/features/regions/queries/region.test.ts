@@ -1,3 +1,4 @@
+import { ApolloErrorCodes } from '@whitewater-guide/commons';
 import db, { holdTransaction, rollbackTransaction } from '~/db';
 import {
   ADMIN,
@@ -29,7 +30,6 @@ import {
   runQuery,
   TIMESTAMP_REGEX,
 } from '~/test';
-import { ApolloErrorCodes } from '@whitewater-guide/commons';
 
 jest.mock('../../gorge/connector');
 
@@ -398,11 +398,13 @@ describe('connections', () => {
         }
       }
     `;
-    const [u2] = await db()
+    const up = await db()
       .update({ rating: 1 })
       .from('sections')
       .where({ id: GEORGIA_BZHUZHA_LONG })
       .returning('updated_at');
+    let u2: Date = up[0] as any;
+    u2 = new Date(u2.getTime() - 300);
     const result = await runQuery(
       sectionsQuery,
       { id: REGION_GEORGIA, filter: { updatedAfter: u2.toISOString() } },

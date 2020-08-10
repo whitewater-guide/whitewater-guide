@@ -13,18 +13,12 @@ import {
   NamedNode,
   Region,
   Section,
-  SectionInput,
   Tag,
 } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 
 export const SECTION_FORM_QUERY = gql`
-  query sectionForm(
-    $sectionId: ID
-    $riverId: ID
-    $regionId: ID
-    $fromSuggestedId: ID
-  ) {
+  query sectionForm($sectionId: ID, $riverId: ID, $regionId: ID) {
     section(id: $sectionId) {
       ...SectionCore
       ...SectionDescription
@@ -53,10 +47,7 @@ export const SECTION_FORM_QUERY = gql`
         ...GaugeBindingAll
       }
       flowsText
-    }
-    suggestedSection(id: $fromSuggestedId) {
-      id
-      section
+      verified
     }
     river(id: $riverId) {
       id
@@ -91,7 +82,6 @@ export interface QVars {
   sectionId?: string;
   riverId?: string;
   regionId?: string;
-  fromSuggestedId?: string;
 }
 
 export interface QResult {
@@ -104,6 +94,7 @@ export interface QResult {
       Section,
       'levels' | 'flows' | 'flowsText'
     > & {
+      verified?: boolean | null;
       media: {
         nodes: Array<
           Pick<
@@ -125,9 +116,5 @@ export interface QResult {
     bounds: Region['bounds'];
   };
   gauges: Required<Connection<NamedNode>>;
-  suggestedSection: {
-    id: string;
-    section: SectionInput;
-  } | null;
   tags: Tag[];
 }

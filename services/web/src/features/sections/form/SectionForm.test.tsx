@@ -18,7 +18,11 @@ jest.mock('validator/lib/isUUID', () => () => true);
 
 const mocks: RecursiveMockResolver = {
   Section: () => ({
-    shape: () => [[0, 0, 0], [1, 1, 1], [2, 2, 2]],
+    shape: () => [
+      [0, 0, 0],
+      [1, 1, 1],
+      [2, 2, 2],
+    ],
     duration: (
       _: any,
       __: any,
@@ -79,7 +83,10 @@ const mocks: RecursiveMockResolver = {
       levels: null,
       flows: null,
       flowsText: null,
-      shape: [[1, 2, 3], [4, 5, 6]],
+      shape: [
+        [1, 2, 3],
+        [4, 5, 6],
+      ],
       distance: null,
       drop: null,
       duration: null,
@@ -91,7 +98,6 @@ const mocks: RecursiveMockResolver = {
       hidden: true,
       helpNeeded: null,
       createdBy: 'author',
-      suggestionId: '__suggestion_id__',
       media: [],
     };
     return inp;
@@ -108,7 +114,6 @@ describe('existing section', () => {
   const renderIt = () =>
     renderForm(<SectionForm {...(route as any)} />, {
       mocks,
-      Query: { suggestedSection: () => null },
     });
 
   it('should begin in loading state', () => {
@@ -141,7 +146,7 @@ describe('new section', () => {
     },
   };
   const options: MockedProviderOptions = {
-    Query: { section: () => null, suggestedSection: () => null },
+    Query: { section: () => null },
     mocks,
   };
   const renderIt = () =>
@@ -188,7 +193,6 @@ describe('duplicate section', () => {
         id: () => '__copy_id__',
       }),
     },
-    Query: { suggestedSection: () => null },
   };
   const renderIt = () =>
     renderForm(<SectionForm {...(route as any)} />, options);
@@ -210,41 +214,6 @@ describe('duplicate section', () => {
     const name = await findByLabelText('Name');
     fireEvent.change(name, { target: { value: 'foo' } });
     const button = await findByText('Create');
-    fireEvent.click(button);
-    await expect(findByText(FORM_SUCCEEDED)).resolves.toBeTruthy();
-  });
-});
-
-describe('from suggestion', () => {
-  const route: DeepPartial<RouteComponentProps<RouterParams>> = {
-    match: { params: { regionId: 'bar' } },
-    location: {
-      search: '?fromSuggestedId=__suggestion_id__',
-    },
-  };
-  const options: MockedProviderOptions = {
-    mocks,
-    Query: { section: () => null },
-  };
-  const renderIt = () =>
-    renderForm(<SectionForm {...(route as any)} />, options);
-
-  it('should begin in loading state', () => {
-    const { getByRole, getByLabelText } = renderIt();
-    expect(getByRole('progressbar')).toBeTruthy();
-    expect(() => getByLabelText('Name')).toThrow();
-  });
-
-  it('should provide initial data', async () => {
-    const { findByLabelText, findByText } = renderIt();
-    await expect(findByLabelText('Name')).resolves.toHaveValue('Suggested');
-    await expect(findByText('Accept')).resolves.toBeTruthy();
-    await expect(findByText('Reject')).resolves.toBeTruthy();
-  });
-
-  it('should submit form', async () => {
-    const { findByText } = renderIt();
-    const button = await findByText('Accept');
     fireEvent.click(button);
     await expect(findByText(FORM_SUCCEEDED)).resolves.toBeTruthy();
   });

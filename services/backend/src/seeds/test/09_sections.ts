@@ -1,14 +1,14 @@
 import { Coordinate3d, Duration } from '@whitewater-guide/commons';
 import Knex from 'knex';
 import { LineString, Point } from 'wkx';
-import { ADMIN_ID } from './01_users';
+import { ADMIN_ID, TEST_USER2_ID } from './01_users';
 import { GAUGE_GAL_1_1, GAUGE_GEO_1, GAUGE_GEO_4 } from './06_gauges';
 import {
   RIVER_BZHUZHA,
   RIVER_FINNA,
   RIVER_GAL_BECA,
-  RIVER_SJOA,
   RIVER_QUIJOS,
+  RIVER_SJOA,
 } from './07_rivers';
 
 function getLineString(shape: Coordinate3d[] | null) {
@@ -69,6 +69,7 @@ const sections = [
     difficulty_xtra: 'X',
     rating: 4.5,
     created_by: ADMIN_ID,
+    verified: false,
   },
   {
     id: GALICIA_BECA_UPPER,
@@ -99,6 +100,7 @@ const sections = [
     difficulty: 4.5,
     difficulty_xtra: 'VI',
     rating: 2.5,
+    verified: true,
   },
   {
     id: NORWAY_SJOA_AMOT,
@@ -114,6 +116,7 @@ const sections = [
     difficulty: 4,
     rating: 5,
     help_needed: 'Suggest POIs please',
+    created_by: TEST_USER2_ID,
   },
   {
     id: NORWAY_FINNA_GORGE,

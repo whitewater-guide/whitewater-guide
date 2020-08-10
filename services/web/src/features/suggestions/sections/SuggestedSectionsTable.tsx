@@ -1,31 +1,25 @@
 import { formatDate } from '@whitewater-guide/clients';
-import { SuggestionStatus } from '@whitewater-guide/commons';
+import { Section } from '@whitewater-guide/commons';
 import parseISO from 'date-fns/parseISO';
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Column, TableProps } from 'react-virtualized';
 import {
-  AdminColumn,
+  IconLink,
   isEmptyRow,
   Table,
   TableCellRenderer,
 } from '../../../components';
-import { StatusFilter } from '../components';
-import { ListedSuggestedSection } from './suggestedSections.query';
-import SuggestedSectionStatusView from './SuggestedSectionStatusView';
+import { paths } from '../../../utils';
 
-const renderCreatedAt: TableCellRenderer<ListedSuggestedSection> = ({
-  rowData,
-}) => {
+const renderCreatedAt: TableCellRenderer<Section> = ({ rowData }) => {
   if (isEmptyRow(rowData)) {
     return null;
   }
   return formatDate(parseISO(rowData.createdAt), 'dd MMM yyyy');
 };
 
-const renderRegion: TableCellRenderer<ListedSuggestedSection> = ({
-  rowData,
-}) => {
+const renderRegion: TableCellRenderer<Section> = ({ rowData }) => {
   if (isEmptyRow(rowData)) {
     return null;
   }
@@ -33,9 +27,7 @@ const renderRegion: TableCellRenderer<ListedSuggestedSection> = ({
   return <Link to={`/regions/${region.id}`}>{region.name}</Link>;
 };
 
-const renderSection: TableCellRenderer<ListedSuggestedSection> = ({
-  rowData,
-}) => {
+const renderSection: TableCellRenderer<Section> = ({ rowData }) => {
   if (isEmptyRow(rowData)) {
     return null;
   }
@@ -43,52 +35,37 @@ const renderSection: TableCellRenderer<ListedSuggestedSection> = ({
   return `${river.name} - ${name}`;
 };
 
-const renderAuthor: TableCellRenderer<ListedSuggestedSection> = ({
-  rowData,
-}) => {
+const renderAuthor: TableCellRenderer<Section> = ({ rowData }) => {
   if (isEmptyRow(rowData)) {
     return null;
   }
-  const { createdBy } = rowData;
-  return createdBy ? createdBy.name : '';
+  return rowData?.createdBy?.name || '';
+};
+const renderActions: TableCellRenderer<Section> = ({ rowData }) => {
+  if (isEmptyRow(rowData)) {
+    return null;
+  }
+  return (
+    <IconLink
+      to={paths.settings({
+        regionId: rowData.region.id,
+        sectionId: rowData.id,
+      })}
+      icon="edit"
+    />
+  );
 };
 
 interface OwnProps {
-  data: ListedSuggestedSection[];
+  data: Section[];
   registerChild: (registeredChild: any) => void;
-  statusFilter: SuggestionStatus[];
-  setStatusFilter: (value: SuggestionStatus[]) => void;
 }
 
 type Props = OwnProps &
   Omit<TableProps, 'rowGetter' | 'rowCount' | 'rowHeight' | 'headerHeight'>;
 
 const SuggestedSectionsTable: React.FC<Props> = React.memo((props) => {
-  const {
-    data,
-    registerChild,
-    onRowsRendered,
-    onPressResolve,
-    statusFilter,
-    setStatusFilter,
-  } = props;
-
-  const renderResolveButton: TableCellRenderer<
-    ListedSuggestedSection
-  > = useCallback(
-    ({ rowData }) => {
-      if (isEmptyRow(rowData)) {
-        return null;
-      }
-      return <SuggestedSectionStatusView suggestedSection={rowData} />;
-    },
-    [onPressResolve],
-  );
-
-  const renderStatusHeader = useCallback(
-    () => <StatusFilter status={statusFilter} onChange={setStatusFilter} />,
-    [statusFilter, setStatusFilter],
-  );
+  const { data, registerChild, onRowsRendered, onPressResolve } = props;
 
   return (
     <Table ref={registerChild} data={data} onRowsRendered={onRowsRendered}>
@@ -100,30 +77,31 @@ const SuggestedSectionsTable: React.FC<Props> = React.memo((props) => {
       />
       <Column
         width={100}
+        flexGrow={1}
         label="Region"
         dataKey="region"
         cellRenderer={renderRegion}
       />
       <Column
         width={200}
-        flexGrow={1}
+        flexGrow={5}
         label="Name"
         dataKey="name"
         cellRenderer={renderSection}
       />
-      <AdminColumn
+      <Column
         width={120}
+        flexGrow={1}
         dataKey="createdBy"
         label="Author"
         cellRenderer={renderAuthor}
       />
       <Column
-        width={120}
-        dataKey="status"
-        label="Status"
+        width={100}
+        dataKey="createdBy"
+        label="Actions"
         headerClassName="actions"
-        headerRenderer={renderStatusHeader}
-        cellRenderer={renderResolveButton}
+        cellRenderer={renderActions}
       />
     </Table>
   );

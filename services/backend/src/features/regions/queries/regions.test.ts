@@ -1,3 +1,4 @@
+import countBy from 'lodash/countBy';
 import { holdTransaction, rollbackTransaction } from '~/db';
 import {
   ADMIN,
@@ -16,7 +17,6 @@ import {
   REGION_NORWAY,
 } from '~/seeds/test/04_regions';
 import { anonContext, fakeContext, noTimestamps, runQuery } from '~/test';
-import countBy from 'lodash/countBy';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -61,14 +61,14 @@ describe('permissions', () => {
     expect(result.errors).toBeUndefined();
     expect(countBy(result.data!.regions.nodes, 'editable')).toMatchObject({
       true: 2,
-      false: 2,
+      false: 3,
     });
   });
 
   it('editor should not see hidden regions without permission', async () => {
     const result = await runQuery(query, undefined, fakeContext(EDITOR_GA_EC));
     expect(result.errors).toBeUndefined();
-    expect(result.data!.regions.count).toBe(3);
+    expect(result.data!.regions.count).toBe(4);
     expect(result.data!.regions.nodes).not.toContainEqual(
       expect.objectContaining({ id: REGION_NORWAY }),
     );
@@ -77,16 +77,16 @@ describe('permissions', () => {
   it('anons should not see hidden regions', async () => {
     const result = await runQuery(query, {}, anonContext());
     expect(result.errors).toBeUndefined();
-    expect(result.data!.regions.count).toBe(3);
-    expect(result.data!.regions.nodes).toHaveLength(3);
+    expect(result.data!.regions.count).toBe(4);
+    expect(result.data!.regions.nodes).toHaveLength(4);
     expect(result.data!.regions.nodes[0].hidden).toBe(null);
   });
 
   it('users should not see hidden regions', async () => {
     const result = await runQuery(query, {}, fakeContext(TEST_USER));
     expect(result.errors).toBeUndefined();
-    expect(result.data!.regions.count).toBe(3);
-    expect(result.data!.regions.nodes).toHaveLength(3);
+    expect(result.data!.regions.count).toBe(4);
+    expect(result.data!.regions.nodes).toHaveLength(4);
     expect(result.data!.regions.nodes[0].hidden).toBe(null);
   });
 });
@@ -125,6 +125,7 @@ describe('results', () => {
       { rivers: { count: 1 } }, // georgia
       { rivers: { count: 0 } }, // laos
       { rivers: { count: 2 } }, // norway
+      { rivers: { count: 0 } }, // other
     ]);
   });
 
@@ -149,6 +150,7 @@ describe('results', () => {
       { gauges: { count: 2 } }, // georgia
       { gauges: { count: 0 } }, // laos
       { gauges: { count: 1 } }, // norway
+      { gauges: { count: 0 } }, // others
     ]);
   });
 

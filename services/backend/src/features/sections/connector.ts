@@ -1,4 +1,4 @@
-import { Section } from '@whitewater-guide/commons';
+import { Section, SectionsFilter } from '@whitewater-guide/commons';
 import { AuthenticationError, ForbiddenError } from 'apollo-server';
 import { GraphQLResolveInfo } from 'graphql';
 import { QueryBuilder } from 'knex';
@@ -9,7 +9,7 @@ import {
   ManyBuilderOptions,
   OffsetConnector,
 } from '~/db/connectors';
-import { SectionRaw, SectionsFilter } from './types';
+import { SectionRaw } from './types';
 
 interface GetManyOptions extends ManyBuilderOptions<SectionRaw> {
   filter?: SectionsFilter;
@@ -72,15 +72,47 @@ export class SectionsConnector extends OffsetConnector<Section, SectionRaw> {
     const query = super.getMany(info, options);
     this.addHiddenWhere(query);
 
-    const { riverId, regionId, updatedAfter, search } = filter;
+    const {
+      riverId,
+      regionId,
+      updatedAfter,
+      search,
+      verified,
+      editable,
+    } = filter;
+
+    if (verified) {
+      query.where({ verified });
+    } else if (verified === false) {
+      query.where(function() {
+        this.where('sections_view.verified', '=', false).orWhereNull(
+          'sections_view.verified',
+        );
+      });
+    }
+
     if (riverId) {
       query.where({ river_id: riverId });
     } else if (regionId) {
       query.where({ region_id: regionId });
     }
+
     if (updatedAfter) {
       query.where('sections_view.updated_at', '>', updatedAfter);
     }
+
+    if (editable && !!this._user && !this._user.admin) {
+      const uid = this._user?.id;
+      query.whereExists(function(this: QueryBuilder) {
+        this.select('*')
+          .from('regions_editors')
+          .where('regions_editors.user_id', uid)
+          .whereRaw(
+            '"regions_editors"."region_id" = "sections_view"."region_id"',
+          );
+      });
+    }
+
     const searchStr = search?.trim().toLocaleLowerCase();
     if (searchStr) {
       query.where(function() {
