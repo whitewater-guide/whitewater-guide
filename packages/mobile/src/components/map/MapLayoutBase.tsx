@@ -15,7 +15,7 @@ import { MapViewProps } from './types';
 
 interface Props {
   detailed?: boolean;
-  initialBounds: CoordinateLoose[];
+  initialBounds?: CoordinateLoose[];
   mapView: React.ReactElement<MapViewProps>;
   cameraRef?: MutableRefObject<Mapbox.Camera | null>;
 }

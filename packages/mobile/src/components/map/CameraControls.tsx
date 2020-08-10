@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
 
 interface Props {
   locationPermissionGranted: boolean;
-  initialBounds: CoordinateLoose[];
+  initialBounds?: CoordinateLoose[];
 }
 
 const maybeGetMyLocation = async (locationPermissionGranted: boolean) => {
@@ -72,12 +72,14 @@ const CameraControls: React.FC<Props> = React.memo(
         });
       }
     }, [camera]);
+
     const onBoundsPress = useCallback(() => {
-      if (camera) {
+      if (camera && initialBounds) {
         const [ne, sw] = getBBox(initialBounds);
         camera.fitBounds(ne, sw, theme.margin.single, 600);
       }
-    }, [camera]);
+    }, [camera, initialBounds]);
+
     if (Platform.OS === 'ios') {
       return (
         <View style={styles.container}>
@@ -86,11 +88,13 @@ const CameraControls: React.FC<Props> = React.memo(
             style={styles.icon}
             onPress={onLocationPress}
           />
-          <Icon
-            icon="crop-free"
-            style={[styles.icon, styles.secondIcon]}
-            onPress={onBoundsPress}
-          />
+          {!!initialBounds && (
+            <Icon
+              icon="crop-free"
+              style={[styles.icon, styles.secondIcon]}
+              onPress={onBoundsPress}
+            />
+          )}
         </View>
       );
     }
@@ -103,12 +107,14 @@ const CameraControls: React.FC<Props> = React.memo(
         >
           <Icon icon="crosshairs-gps" />
         </RectButton>
-        <RectButton
-          style={[styles.rectButton, styles.icon, styles.secondIcon]}
-          onPress={onBoundsPress}
-        >
-          <Icon icon="crop-free" />
-        </RectButton>
+        {!!initialBounds && (
+          <RectButton
+            style={[styles.rectButton, styles.icon, styles.secondIcon]}
+            onPress={onBoundsPress}
+          >
+            <Icon icon="crop-free" />
+          </RectButton>
+        )}
       </View>
     );
   },

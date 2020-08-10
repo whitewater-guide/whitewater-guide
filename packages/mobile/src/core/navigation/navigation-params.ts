@@ -1,5 +1,6 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { ParamListBase, RouteProp } from '@react-navigation/native';
+import { Region } from '@whitewater-guide/commons';
 import { PurchaseParams } from '~/features/purchases/types';
 import { DescentFormData } from '~/screens/descent-form';
 import { Screens } from './screen-names';
@@ -36,6 +37,7 @@ export interface RootStackParamsList extends ParamListBase {
   [Screens.DESCENT]: {
     descentId: string;
   };
+  [Screens.ADD_SECTION_SCREEN]: { region?: Region | null };
 }
 
 export type RootStackNav = DrawerNavigationProp<

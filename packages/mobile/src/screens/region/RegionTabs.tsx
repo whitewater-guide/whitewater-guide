@@ -79,7 +79,7 @@ const RegionTabs: React.FC<RegionTabsNavProps> = () => {
             }}
           />
         </Tab.Navigator>
-        <RegionFAB />
+        <RegionFAB region={node} />
         <SelectedPOIView />
         <SelectedSectionView />
         <SectionsProgress
