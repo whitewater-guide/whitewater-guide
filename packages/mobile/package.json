@@ -75,6 +75,7 @@
     "coordinate-parser": "^1.0.3",
     "date-fns": "^2.15.0",
     "deepmerge": "^4.2.2",
+    "fast-json-stable-stringify": "^2.1.0",
     "flat": "^5.0.2",
     "formik": "2.1.5",
     "graphql": "^15.3.0",

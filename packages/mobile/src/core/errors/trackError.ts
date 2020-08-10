@@ -1,4 +1,5 @@
 import { AppError } from '@whitewater-guide/clients';
+import stringify from 'fast-json-stable-stringify';
 import { tracker } from './tracker';
 
 export const trackError = (
@@ -13,7 +14,8 @@ export const trackError = (
       logger,
       transactionId: error.id,
       extra: {
-        original: error.original,
+        // @ts-ignore
+        original: stringify(error.original, { cycles: true }),
       },
     });
   } else {
