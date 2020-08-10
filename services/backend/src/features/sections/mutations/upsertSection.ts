@@ -116,9 +116,13 @@ const maybeUpdateJobs = async (
       .pluck('source_id');
     sids = uniq(sids);
     if (sids) {
-      await Promise.all(
-        sids.map((sid) => dataSources.gorge.updateJobForSource(sid)),
-      );
+      try {
+        await Promise.all(
+          sids.map((sid) => dataSources.gorge.updateJobForSource(sid)),
+        );
+      } catch {
+        // ignore
+      }
     }
   }
 };
