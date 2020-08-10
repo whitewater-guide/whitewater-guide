@@ -1,3 +1,13 @@
+## [0.0.441](https://github.com/doomsower/whitewater/compare/c604b24c901e92b803d1984ddfd1561ebb685d53...916a22468af4209cb7e320cba3566449ad4962e9) (2020-08-10)
+
+### Features
+
+- new suggestions mechanism ([](https://github.com/doomsower/whitewater/commit/406651c49a4793df92690ee34013b186ee4657c6))
+
+### Other
+
+- update secrets ([](https://github.com/doomsower/whitewater/commit/1c28bfb33d04c4b63dfa5e9d4bf099ceb2abbbdb))
+
 ## [0.0.441-suggestionsv2.4](https://github.com/doomsower/whitewater/compare/753c9a629ecc72cf3a4a312aed53225ed65c06ea...c058ae3ae9224104eac6f9ba932eb45435b6012a) (2020-08-08)
 
 ### Features
