@@ -2,7 +2,6 @@
 declare module '@react-native-mapbox-gl/maps' {
   import { Feature, Geometry, Point } from '@turf/helpers';
   import { Component } from 'react';
-
   import {
     NativeSyntheticEvent,
     ViewProperties,
@@ -281,6 +280,11 @@ declare module '@react-native-mapbox-gl/maps' {
     resume: () => void;
   }
 
+  export interface OfflineError {
+    message: string;
+    name: string;
+  }
+
   export class OfflineManager {
     createPack(
       options: OfflineCreatePackOptions,
@@ -288,7 +292,7 @@ declare module '@react-native-mapbox-gl/maps' {
         pack: OfflinePack,
         progress: OfflinePackStatus,
       ) => void,
-      errorListener?: (pack: OfflinePack, error: any) => void,
+      errorListener?: (pack: OfflinePack, error: OfflineError) => void,
     ): void;
 
     deletePack(name: string): Promise<void>;

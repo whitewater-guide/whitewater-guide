@@ -56,8 +56,8 @@ export const OfflineContentProvider: React.FC = ({ children }) => {
     regionInProgress,
     download,
     setDialogRegion,
-    progress: downloader.progress,
-    error: downloader.error,
+    progress: regionInProgress ? downloader.progress : {},
+    error: regionInProgress ? downloader.error : undefined,
   };
 
   return (

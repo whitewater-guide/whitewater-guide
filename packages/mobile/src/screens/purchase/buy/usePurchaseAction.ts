@@ -36,7 +36,7 @@ export default (sku: string | null, sectionId?: string) => {
   const save = useSavePurchase(sectionId);
 
   useEffect(() => {
-    const sub = purchaseUpdatedListener(async (purchase: InAppPurchase) => {
+    const sub = purchaseUpdatedListener((purchase: InAppPurchase) => {
       if (purchase.productId !== sku) {
         return;
       }

@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import { CachePersistor } from 'apollo-cache-persist';
 import { configureApolloCache } from '@whitewater-guide/clients';
+import { CachePersistor } from 'apollo-cache-persist';
+import { trackError } from '../errors';
 import { storage } from './storage';
 
 const SCHEMA_VERSION = '1'; // Must be a string.
@@ -23,7 +24,11 @@ export const assertCachePersistorVersion = async () => {
   if (currentVersion === SCHEMA_VERSION) {
     // If the current version matches the latest version,
     // we're good to go and can restore the cache.
-    await apolloCachePersistor.restore();
+    try {
+      await apolloCachePersistor.restore();
+    } catch (e) {
+      trackError('apollo-cache-persistor', e);
+    }
   } else {
     // Otherwise, we'll want to purge the outdated persisted cache
     // and mark ourselves as having updated to the latest version.

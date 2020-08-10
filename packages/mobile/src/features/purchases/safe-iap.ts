@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import {
   endConnectionAndroid,
   getProducts,
@@ -9,18 +10,28 @@ import { IAPError } from './IAPError';
 
 const LOGGER = 'iap';
 
+const isBillingUnavailable = (e: Error) =>
+  Platform.OS === 'android' &&
+  e.message?.indexOf('Billing is unavailable') === 0;
+
 const safeEndConnection = async () => {
   try {
     await endConnectionAndroid();
   } catch {}
 };
 
+// Initializes IAP connection. Returns true if user can make payments
 export const safeInitConnection = async (): Promise<boolean> => {
   let result = true;
   try {
     result = !!(await initConnection());
   } catch (e) {
-    trackError(LOGGER, e);
+    // This is not error, just android emulator
+    if (isBillingUnavailable(e)) {
+      result = false;
+    } else {
+      trackError(LOGGER, e);
+    }
   } finally {
     await safeEndConnection();
   }
@@ -33,8 +44,13 @@ export const safeGetProducts = async (skus: string[]) => {
   try {
     products = await getProducts(skus);
   } catch (e) {
-    error = new IAPError('screens:purchase.buy.errors.fetchProduct', e.message);
-    trackError(LOGGER, error);
+    if (!isBillingUnavailable(e)) {
+      error = new IAPError(
+        'screens:purchase.buy.errors.fetchProduct',
+        e.message,
+      );
+      trackError(LOGGER, error);
+    }
   } finally {
     await safeEndConnection();
   }
