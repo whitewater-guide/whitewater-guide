@@ -2,7 +2,7 @@
   "name": "@whitewater-guide/commons",
   "private": false,
   "sideEffects": false,
-  "version": "0.0.206-suggestionsv2.4",
+  "version": "0.0.207",
   "license": "UNLICENSED",
   "description": "shared code for whitewater.guide backend and frontend",
   "main": "dist/index.js",
