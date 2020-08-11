@@ -72,7 +72,7 @@ export const SelectedPOIView: React.FC = React.memo(() => {
       renderHeader={renderHeader}
       renderButtons={renderButtons}
       renderContent={renderContent}
-      selection={selection}
+      selection={poi}
       onSelected={onSelected}
       simultaneousHandlers={scroll}
     />

@@ -74,7 +74,7 @@ export const SelectedSectionView: React.FC = React.memo(() => {
       renderHeader={renderHeader}
       renderButtons={renderButtons}
       renderContent={renderContent}
-      selection={selection}
+      selection={section}
       onSelected={onSelected}
     />
   );

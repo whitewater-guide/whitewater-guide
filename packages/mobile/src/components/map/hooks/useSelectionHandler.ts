@@ -1,4 +1,4 @@
-import { ShapeSourcePressEvent } from '@react-native-mapbox-gl/maps';
+import { OnPressEvent } from '@react-native-mapbox-gl/maps';
 import area from '@turf/area';
 import bbox from '@turf/bbox';
 import bboxPolygon from '@turf/bbox-polygon';
@@ -7,15 +7,26 @@ import square from '@turf/square';
 import { BBox, useMapSelection } from '@whitewater-guide/clients';
 import { isSection, Point, Section } from '@whitewater-guide/commons';
 import { MutableRefObject, useCallback } from 'react';
-import { NativeSyntheticEvent } from 'react-native';
 import theme from '../../../theme';
-import isNativeSyntheticEvent from '../../../utils/isNativeSyntheticEvent';
 import { useCamera } from './useCamera';
 
 const getSectionMiddle = (section: Section): [number, number] => {
   const [pLng, pLat] = section.putIn.coordinates;
   const [tLng, tLat] = section.takeOut.coordinates;
   return [(pLng + tLng) / 2, (pLat + tLat) / 2];
+};
+
+const getFeature = (e: Feature | OnPressEvent<any>) => {
+  if ('features' in e) {
+    if (e.features?.length) {
+      return {
+        id: e.features[0].id,
+        geometry: e.features[0].geometry,
+      };
+    }
+    return null;
+  }
+  return e.id ? { id: e.id, geometry: e.geometry } : null;
 };
 
 export const useSelectionHandler = (
@@ -27,24 +38,19 @@ export const useSelectionHandler = (
   const { onSelected } = useMapSelection();
   const camera = useCamera();
   const onPress = useCallback(
-    (e: Feature | NativeSyntheticEvent<ShapeSourcePressEvent<{}>>) => {
-      if (!isNativeSyntheticEvent(e)) {
+    (e: Feature | OnPressEvent<any>) => {
+      const feature = getFeature(e);
+      if (!feature) {
         onSelected(null);
         return;
       }
-      const {
-        nativeEvent: { payload },
-      } = e;
-      const {
-        geometry: { type },
-        id,
-      } = payload;
+      const { id, geometry } = feature;
+      const { type } = geometry;
       const nodes: Array<Section | Point> =
         type === 'LineString' ? sections : pois;
       const node = nodes.find((el) => el.id === id);
       if (node) {
         if (isSection(node) && !sectionSelectable) {
-          e.preventDefault();
           return;
         }
         onSelected(node);
@@ -54,7 +60,7 @@ export const useSelectionHandler = (
             const boundsArea = area(
               bboxPolygon([minLng, minLat, maxLng, maxLat]),
             );
-            const squared = square(bbox(payload.geometry));
+            const squared = square(bbox(geometry));
             const sectionArea = area(bboxPolygon(squared));
             if (sectionArea < boundsArea) {
               camera.moveTo(getSectionMiddle(node), 300);
@@ -70,6 +76,8 @@ export const useSelectionHandler = (
             camera.moveTo(node.coordinates, 300);
           }
         }
+      } else {
+        onSelected(null);
       }
     },
     [onSelected, sections, pois, camera, sectionSelectable],
