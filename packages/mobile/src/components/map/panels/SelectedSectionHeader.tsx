@@ -5,6 +5,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Paragraph, Subheading } from 'react-native-paper';
 import DifficultyThumb from '~/components/DifficultyThumb';
+import UnverifiedBadge from '~/components/UnverifiedBadge';
 import theme from '../../../theme';
 import Icon from '../../Icon';
 import { NAVIGATE_BUTTON_HEIGHT } from '../../NavigateButton';
@@ -74,8 +75,12 @@ const SelectedSectionHeader: React.FC<Props> = React.memo(
                 </View>
               )}
           </View>
-          <View style={styles.starsContainer}>
-            <SimpleStarRating value={get(section, 'rating', 0) || 0} />
+          <View style={styles.row}>
+            <SimpleStarRating
+              value={section?.rating}
+              style={styles.starsContainer}
+            />
+            {section?.verified === false && <UnverifiedBadge />}
           </View>
         </View>
         <DifficultyThumb

@@ -70,7 +70,7 @@ const SectionInfoView: React.FC<Props> = ({ section }) => {
           <Subheading>{t('commons:rating')}</Subheading>
         </Left>
         <Right>
-          <SimpleStarRating value={node.rating || 0} />
+          <SimpleStarRating value={node.rating} />
         </Right>
       </Row>
 
