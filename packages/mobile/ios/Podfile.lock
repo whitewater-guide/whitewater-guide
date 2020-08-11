@@ -458,7 +458,7 @@ PODS:
     - React
   - RNCMaskedView (0.1.10):
     - React
-  - RNDateTimePicker (2.6.1):
+  - RNDateTimePicker (3.0.0):
     - React
   - RNFastImage (7.1.0):
     - React
@@ -484,7 +484,7 @@ PODS:
     - React
   - RNLocalize (1.4.1):
     - React
-  - RNReanimated (1.11.0):
+  - RNReanimated (1.12.0):
     - React
   - RNScreens (2.10.1):
     - React
@@ -815,7 +815,7 @@ SPEC CHECKSUMS:
   RNBootSplash: b3836aa90c5bec690c6cd3c9ab355fcf98d0fe1d
   RNCAsyncStorage: d059c3ee71738c39834a627476322a5a8cd5bf36
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
-  RNDateTimePicker: 83540fb5d71f28bd34990d8fabccb8d91e5d957e
+  RNDateTimePicker: f47a6309133c6d013ad6942fc83b753b3f6e41d6
   RNFastImage: c5dd7458d2ad421e990ee42a19e93c678bed1aa8
   RNFBAnalytics: 43b6cdfb3f3c8ddd4425260aa246a5f73d7f71c3
   RNFBApp: d55b3a69d199cff25ecf4f3bf41a86c47aa37d57
@@ -824,7 +824,7 @@ SPEC CHECKSUMS:
   RNGestureHandler: b6b359bb800ae399a9c8b27032bdbf7c18f08a08
   RNIap: e7fe0e9b31260fbefb7def5bb6a7911345a6a04e
   RNLocalize: 49634a6a605dcdeb319e9c42a5c2f1aec508694b
-  RNReanimated: f05ea1c5ee07891aaefee662f073f4944c87ac4d
+  RNReanimated: 9c475f9b272232351d94a1a781e8b7580bac1ff4
   RNScreens: b748efec66e095134c7166ca333b628cd7e6f3e2
   RNSentry: 2bae4ffee2e66376ef42cb845a494c3bde17bc56
   RNSVG: ce9d996113475209013317e48b05c21ee988d42e

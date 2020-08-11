@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import Loading from '~/components/Loading';
 import theme from '~/theme';
+import AddNewHeader from './AddNewHeader';
 import { ITEM_HEIGHT } from './constants';
 import SearchListItem from './SearchListItem';
 import SectionHeader from './SectionHeader';
@@ -56,6 +57,7 @@ const SectionSearchList: React.FC<Props> = ({ data, onSelect }) => {
       keyExtractor={keyExtractor}
       renderItem={renderItem}
       renderSectionHeader={renderSectionHeader}
+      ListHeaderComponent={<AddNewHeader />}
     />
   );
 };

@@ -1,5 +1,5 @@
 import Mapbox, { RegionChangeEvent } from '@react-native-mapbox-gl/maps';
-import { SectionInput } from '@whitewater-guide/commons';
+import { CoordinateLoose, SectionInput } from '@whitewater-guide/commons';
 import { useFormikContext } from 'formik';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -30,6 +30,13 @@ const styles = StyleSheet.create({
     left: theme.screenWidth / 2 - 28,
   },
 });
+
+const WORLD_BOUNDS: CoordinateLoose[] = [
+  [-179, -89],
+  [-179, 89],
+  [179, 89],
+  [179, -89],
+];
 
 const PiToField: React.FC = React.memo(() => {
   const region = useAddSectionRegion();
@@ -84,7 +91,7 @@ const PiToField: React.FC = React.memo(() => {
       <View style={styles.mapWrapper}>
         <MapLayoutBase
           cameraRef={cameraRef}
-          initialBounds={region?.bounds}
+          initialBounds={region?.bounds || WORLD_BOUNDS}
           mapView={<PiToMap ref={mapRef} {...state} {...handlers} />}
         >
           <PiToOverlay selected={state.selected} moving={moving} />

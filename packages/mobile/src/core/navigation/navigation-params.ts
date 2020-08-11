@@ -37,7 +37,10 @@ export interface RootStackParamsList extends ParamListBase {
   [Screens.DESCENT]: {
     descentId: string;
   };
-  [Screens.ADD_SECTION_SCREEN]: { region?: Region | null };
+  [Screens.ADD_SECTION_SCREEN]: {
+    region?: Region | null;
+    fromDescentFormKey?: string;
+  };
 }
 
 export type RootStackNav = DrawerNavigationProp<

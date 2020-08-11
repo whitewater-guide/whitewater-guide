@@ -53,7 +53,7 @@ const AddSectionScreen: React.FC<AddSectionNavProps> = ({ route }) => {
     [],
   );
 
-  const addSection = useAddSection();
+  const addSection = useAddSection(route.params?.fromDescentFormKey);
 
   return (
     <Formik<SectionFormInput>
