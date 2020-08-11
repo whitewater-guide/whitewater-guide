@@ -47,7 +47,6 @@ export const SECTION_FORM_QUERY = gql`
         ...GaugeBindingAll
       }
       flowsText
-      verified
     }
     river(id: $riverId) {
       id
