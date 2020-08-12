@@ -1,3 +1,13 @@
+## [0.1.439](https://github.com/doomsower/whitewater/compare/916a22468af4209cb7e320cba3566449ad4962e9...febf96235fd4db34a554ae42ee677dc6dc2e03e2) (2020-08-12)
+
+### Bug Fixes
+
+- web charts ([](https://github.com/doomsower/whitewater/commit/4c1b8faac6b97bf5eb467f72f5e53673374592d2))
+
+### Features
+
+- add verified to core fragments ([](https://github.com/doomsower/whitewater/commit/12addca5cd94039a66bb7d71927001cb9245f8ad))
+
 ## [0.1.438](https://github.com/doomsower/whitewater/compare/c604b24c901e92b803d1984ddfd1561ebb685d53...916a22468af4209cb7e320cba3566449ad4962e9) (2020-08-10)
 
 ### Features
