@@ -29,6 +29,9 @@ const styles: Styles = {
   chartContainer: {
     flex: 1,
   },
+  inner: {
+    height: '100%',
+  },
 };
 
 const ChartLayout: React.FC = () => {
@@ -48,7 +51,7 @@ const ChartLayout: React.FC = () => {
       <div style={styles.chartContainer}>
         <ReactResizeDetector handleHeight={true} handleWidth={true}>
           {({ width, height }: any) => (
-            <div>
+            <div style={styles.inner}>
               {noData ? (
                 <div style={{ width, height }}>
                   <NoData hasGauge={true} />
