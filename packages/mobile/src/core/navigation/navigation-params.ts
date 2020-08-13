@@ -30,6 +30,7 @@ export interface RootStackParamsList extends ParamListBase {
   [Screens.MY_PROFILE]: undefined;
   [Screens.LOGBOOK]: undefined;
   [Screens.DESCENT_FORM]: {
+    regionId?: string;
     descentId?: string;
     shareToken?: string;
     formData?: Partial<DescentFormData>;

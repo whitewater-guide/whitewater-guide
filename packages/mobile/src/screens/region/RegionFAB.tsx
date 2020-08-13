@@ -40,7 +40,7 @@ export const RegionFAB = React.memo(({ region }: Props) => {
       {
         icon: 'calendar-plus',
         label: t('screens:region.fab.addDescent'),
-        onPress: () => navigate(Screens.DESCENT_FORM, {}),
+        onPress: () => navigate(Screens.DESCENT_FORM, { regionId: region?.id }),
       },
     ],
     [navigate, region, t],

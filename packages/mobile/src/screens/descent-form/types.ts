@@ -26,7 +26,7 @@ export interface DescentFormNavProps {
 }
 
 export interface DescentFormParamsList extends ParamListBase {
-  [Screens.DESCENT_FORM_SECTION]: undefined;
+  [Screens.DESCENT_FORM_SECTION]: { regionId?: string } | undefined;
   [Screens.DESCENT_FORM_DATE]: undefined;
   [Screens.DESCENT_FORM_LEVEL]: undefined;
   [Screens.DESCENT_FORM_COMMENT]: undefined;
