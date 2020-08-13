@@ -12,9 +12,7 @@ const styles = StyleSheet.create({
 interface Props {
   contentStyle?: StyleProp<ViewStyle>;
 }
-
-const OFFSET =
-  (Platform.OS === 'ios' ? 32 : 64) + theme.safeBottom + theme.safeTop;
+const OFFSET = (Platform.OS === 'ios' ? 72 : 64) + theme.safeBottom;
 
 const FullScreenKAV: React.FC<Props> = ({ contentStyle, children }) => {
   return (

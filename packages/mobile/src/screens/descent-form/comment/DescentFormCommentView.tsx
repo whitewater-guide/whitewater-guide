@@ -1,7 +1,7 @@
 import { useFormikContext } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 import FullScreenKAV from '~/components/FullScreenKAV';
 import CheckboxField from '~/forms/CheckboxField';
@@ -24,7 +24,10 @@ const DescentFormCommentView: React.FC = () => {
     <FullScreenKAV contentStyle={styles.container}>
       <TextField
         name="comment"
-        autoFocus={true}
+        autoFocus={
+          Platform.OS ===
+          'android' /* Due to keyboard avoiding view inconsistent behavior */
+        }
         multiline={true}
         label={t('screens:descentForm.comment.commentLabel')}
         placeholder={t('screens:descentForm.comment.commentPlaceholder')}
