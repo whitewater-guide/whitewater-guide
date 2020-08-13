@@ -29,7 +29,8 @@ const SNAP_POINTS: [number, number, number] = [
   0,
 ];
 
-export const SelectedPOIView: React.FC = React.memo(() => {
+// tslint:disable-next-line: no-shadowed-variable
+export const SelectedPOIView: React.FC = React.memo(function SelectedPOIView() {
   const scroll = useRef<ScrollView | null>(null);
   const region = useRegion();
   const { selection, onSelected } = useMapSelection();
