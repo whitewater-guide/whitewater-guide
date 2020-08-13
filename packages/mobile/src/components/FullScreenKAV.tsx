@@ -1,13 +1,7 @@
 import React from 'react';
-import {
-  KeyboardAvoidingView,
-  Platform,
-  StyleProp,
-  StyleSheet,
-  View,
-  ViewStyle,
-} from 'react-native';
+import { Platform, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import theme from '~/theme';
+import KeyboardAvoidingView from './KeyboardAvoidingView';
 
 const styles = StyleSheet.create({
   container: {
