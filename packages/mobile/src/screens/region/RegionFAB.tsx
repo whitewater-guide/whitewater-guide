@@ -19,7 +19,8 @@ interface Props {
   region?: Region | null;
 }
 
-export const RegionFAB = React.memo(({ region }: Props) => {
+// tslint:disable-next-line: no-shadowed-variable
+export const RegionFAB = React.memo(function RegionFAB({ region }: Props) {
   const { t } = useTranslation();
   const { navigate } = useNavigation();
   const { onSelected, selection } = useMapSelection();

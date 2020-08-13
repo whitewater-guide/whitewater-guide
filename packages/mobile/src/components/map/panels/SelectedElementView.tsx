@@ -54,6 +54,8 @@ class SelectedElementView extends React.PureComponent<Props> {
   private readonly _buttonsScale: Animated.Node<number>;
   private readonly _initialSnap: number;
 
+  private _deselectOnHideTimeout?: number;
+
   constructor(props: Props) {
     super(props);
     const snapPoints = getSnapPoints(props.snapPoints);
@@ -103,11 +105,16 @@ class SelectedElementView extends React.PureComponent<Props> {
 
   onHide = ([hidden]: any) => {
     if (hidden && !!this.props.selection) {
-      this.props.onSelected(null);
+      // workaround for #495
+      // sometimes when tapping on header onHide will be triggered before onMaximize
+      this._deselectOnHideTimeout = setTimeout(() => {
+        this.props.onSelected(null);
+      }, 200);
     }
   };
 
   onMaximize = () => {
+    clearTimeout(this._deselectOnHideTimeout);
     if (this._sheet.current) {
       // this is workaround
       // https://github.com/osdnk/react-native-reanimated-bottom-sheet/issues/16#issuecomment-576467991
