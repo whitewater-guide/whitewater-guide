@@ -1,13 +1,12 @@
-import { StyleSheet, View } from 'react-native';
-
-import Animated from 'react-native-reanimated';
-import BottomSheet from 'reanimated-bottom-sheet';
 import { MapSelection } from '@whitewater-guide/clients';
 import React from 'react';
-import { SnapPoints } from './types';
+import { StyleSheet, View } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import getSnapPoints from './getSnapPoints';
+import Animated from 'react-native-reanimated';
+import BottomSheet from 'reanimated-bottom-sheet';
 import theme from '~/theme';
+import getSnapPoints from './getSnapPoints';
+import { SnapPoints } from './types';
 
 const styles = StyleSheet.create({
   header: {
@@ -53,6 +52,7 @@ class SelectedElementView extends React.PureComponent<Props> {
   private readonly _overlayBackground: Animated.Node<number>;
   private readonly _watchHide: Animated.Node<number>;
   private readonly _buttonsScale: Animated.Node<number>;
+  private readonly _initialSnap: number;
 
   constructor(props: Props) {
     super(props);
@@ -86,6 +86,7 @@ class SelectedElementView extends React.PureComponent<Props> {
       outputRange: [1.0, 0.0],
       extrapolate: Extrapolate.CLAMP,
     });
+    this._initialSnap = props.selection ? 0 : 2;
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -152,7 +153,7 @@ class SelectedElementView extends React.PureComponent<Props> {
         <Animated.Code exec={this._watchHide} />
         <BottomSheet
           ref={this._sheet}
-          initialSnap={2}
+          initialSnap={this._initialSnap}
           snapPoints={snapPoints}
           renderContent={renderContent}
           renderHeader={this.renderHeader}
