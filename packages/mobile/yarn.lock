@@ -13626,10 +13626,10 @@ readdirp@~3.4.0:
   dependencies:
     picomatch "^2.2.1"
 
-reanimated-bottom-sheet@^1.0.0-alpha.20:
-  version "1.0.0-alpha.20"
-  resolved "https://registry.npmjs.org/reanimated-bottom-sheet/-/reanimated-bottom-sheet-1.0.0-alpha.20.tgz#fc586b594a8e8c3e2a49821cfaaccd8c03f80660"
-  integrity sha512-bcXVkmJLL6SOoIPWU2dIJnT7+78a5tDi9eaE6ESsEewZ10lpfJhjfCCFrngPZKPhatQ6mjCJSYEAL+fwbXCiJw==
+reanimated-bottom-sheet@^1.0.0-alpha.21:
+  version "1.0.0-alpha.21"
+  resolved "https://registry.npmjs.org/reanimated-bottom-sheet/-/reanimated-bottom-sheet-1.0.0-alpha.21.tgz#0931766c07c27abb2f97e43a820eae5ad468a9f2"
+  integrity sha512-JqOeHBfUauXwhkTiMy2a/W+NVB35paDseuqTVRY5MS4KEnTLbFSGMVVKljnq6ZpSMSHU93csv6oT2rSWKgUxMA==
 
 rechoir@^0.6.2:
   version "0.6.2"
