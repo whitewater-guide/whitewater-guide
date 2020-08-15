@@ -3212,10 +3212,10 @@
   dependencies:
     "@types/istanbul-lib-report" "*"
 
-"@types/jest@^26.0.9":
-  version "26.0.9"
-  resolved "https://registry.npmjs.org/@types/jest/-/jest-26.0.9.tgz#0543b57da5f0cd949c5f423a00c56c492289c989"
-  integrity sha512-k4qFfJ5AUKrWok5KYXp2EPm89b0P/KZpl7Vg4XuOTVVQEhLDBDBU3iBFrjjdgd8fLw96aAtmnwhXHl63bWeBQQ==
+"@types/jest@^26.0.10":
+  version "26.0.10"
+  resolved "https://registry.npmjs.org/@types/jest/-/jest-26.0.10.tgz#8faf7e9756c033c39014ae76a7329efea00ea607"
+  integrity sha512-i2m0oyh8w/Lum7wWK/YOZJakYF8Mx08UaKA1CtbmFeDquVhAEdA7znacsVSf2hJ1OQ/OfVMGN90pw/AtzF8s/Q==
   dependencies:
     jest-diff "^25.2.1"
     pretty-format "^25.2.1"
@@ -3478,10 +3478,10 @@
   resolved "https://registry.npmjs.org/@types/yup/-/yup-0.29.3.tgz#5a85024796bffe0eb01601bfc180fe218356dba4"
   integrity sha512-XxZFKnxzTfm+DR8MMBA35UUXfUPmjPpi8HJ90VZg7q/LIbtiOhVGJ26gNnATcflcpnIyf2Qm9A+oEhswaqoDpA==
 
-"@types/yup@^0.29.4":
-  version "0.29.4"
-  resolved "https://registry.npmjs.org/@types/yup/-/yup-0.29.4.tgz#f7b1f9978180d5155663c1cd0ecdc41a72c23d81"
-  integrity sha512-OQ7gZRQb7eSbGu5h57tbK67sgX8UH5wbuqPORTFBG7qiBtOkEf1dXAr0QULyHIeRwaGLPYxPXiQru+40ClR6ng==
+"@types/yup@^0.29.5":
+  version "0.29.5"
+  resolved "https://registry.npmjs.org/@types/yup/-/yup-0.29.5.tgz#3c870d5a7d6d36f927fa27a8774ec899bae1990d"
+  integrity sha512-meq6eww0Xm2hSa4suRVxDHBI6D1p7Qz9ZWz2D2Lq1tdrxG5Jhl3AhAPAMJ3LwVF5TjWs7bTYYtXMakB85IZOIw==
 
 "@types/zen-observable@0.8.0", "@types/zen-observable@^0.8.0":
   version "0.8.0"
@@ -3690,10 +3690,10 @@
     validator "^13.1.1"
     yup "^0.29.1"
 
-"@whitewater-guide/translations@^2.3.8":
-  version "2.3.8"
-  resolved "https://registry.npmjs.org/@whitewater-guide/translations/-/translations-2.3.8.tgz#cb33d80d2165fa64836b7f260c519aaaa7ff51d6"
-  integrity sha512-cPFnZN8VxXPFh8PP4FerVtNGqzZ9BL3tjy1nmEMryarjsIq69pguAC+Q3ccFdurkQSalYqSpKRRbs0d1EaxJBg==
+"@whitewater-guide/translations@^2.3.9":
+  version "2.3.9"
+  resolved "https://registry.npmjs.org/@whitewater-guide/translations/-/translations-2.3.9.tgz#788508065be0425a2369728a9214f9a1408ad3f9"
+  integrity sha512-Y375a7zRwrI6M7TDCsoImIiD8kS7drbKyk9JNEnS5qQ7E47ZKRFjTagQ5IbDquzr2429WLLEv32lbVZgyUhPCg==
 
 "@whitewater-guide/validation@^1.1.5":
   version "1.1.5"
@@ -10537,6 +10537,11 @@ lodash@4.17.19, lodash@4.x.x, lodash@^4.15.0, lodash@^4.17.10, lodash@^4.17.11, 
   resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
   integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
 
+lodash@^4.17.20:
+  version "4.17.20"
+  resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
+  integrity sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
+
 log-symbols@^2.2.0:
   version "2.2.0"
   resolved "https://registry.npmjs.org/log-symbols/-/log-symbols-2.2.0.tgz#5740e1c5d6f0dfda4ad9323b5332107ef6b4c40a"
@@ -13626,10 +13631,10 @@ readdirp@~3.4.0:
   dependencies:
     picomatch "^2.2.1"
 
-reanimated-bottom-sheet@^1.0.0-alpha.21:
-  version "1.0.0-alpha.21"
-  resolved "https://registry.npmjs.org/reanimated-bottom-sheet/-/reanimated-bottom-sheet-1.0.0-alpha.21.tgz#0931766c07c27abb2f97e43a820eae5ad468a9f2"
-  integrity sha512-JqOeHBfUauXwhkTiMy2a/W+NVB35paDseuqTVRY5MS4KEnTLbFSGMVVKljnq6ZpSMSHU93csv6oT2rSWKgUxMA==
+reanimated-bottom-sheet@^1.0.0-alpha.22:
+  version "1.0.0-alpha.22"
+  resolved "https://registry.npmjs.org/reanimated-bottom-sheet/-/reanimated-bottom-sheet-1.0.0-alpha.22.tgz#01a200946f1a461f01f1e773e5b4961c2df2e53b"
+  integrity sha512-NxecCn+2iA4YzkFuRK5/b86GHHS2OhZ9VRgiM4q18AC20YE/psRilqxzXCKBEvkOjP5AaAvY0yfE7EkEFBjTvw==
 
 rechoir@^0.6.2:
   version "0.6.2"
