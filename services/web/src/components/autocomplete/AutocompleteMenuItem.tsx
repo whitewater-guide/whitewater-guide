@@ -2,16 +2,26 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { NamedNode } from '@whitewater-guide/commons';
 import React from 'react';
 
+const defaultOptionToString = ({ name }: NamedNode) => name;
+
 interface Props {
   option: NamedNode;
   index?: number;
   highlightedIndex: number | null;
   selectedItem: NamedNode | null;
   itemProps?: any;
+  optionToString?: (option: NamedNode) => React.ReactElement;
 }
 
 const AutocompleteMenuItem: React.FC<Props> = (props) => {
-  const { option, index, itemProps, highlightedIndex, selectedItem } = props;
+  const {
+    option,
+    optionToString = defaultOptionToString,
+    index,
+    itemProps,
+    highlightedIndex,
+    selectedItem,
+  } = props;
   const isHighlighted = highlightedIndex === index;
   const isSelected = selectedItem && selectedItem.id === option.id;
 
@@ -24,7 +34,7 @@ const AutocompleteMenuItem: React.FC<Props> = (props) => {
         fontWeight: isSelected ? 500 : 400,
       }}
     >
-      {option.name}
+      {optionToString(option)}
     </MenuItem>
   );
 };

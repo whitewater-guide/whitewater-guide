@@ -1,60 +1,61 @@
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
-import React from 'react';
+import React, { useState } from 'react';
 import { ConfirmationDialog } from './ConfirmationDialog';
+
+interface ButtonProps {
+  onClick: React.MouseEventHandler<{}>;
+  disabled?: boolean;
+}
 
 interface Props {
   id?: string;
-  deleteHandler?: (id?: string) => void;
   disabled?: boolean;
-  renderButton?: (
-    onClick: React.MouseEventHandler<{}>,
-    disabled?: boolean,
-  ) => React.ReactNode;
+  deleteHandler?: (id?: string) => void;
+  children?: React.ReactElement<ButtonProps>;
 }
 
-interface State {
-  dialogOpen: boolean;
-}
+export const DeleteButton = React.memo(
+  ({ id, disabled, deleteHandler, children }: Props) => {
+    const [dialogOpen, setDialogOpen] = useState(false);
 
-export class DeleteButton extends React.PureComponent<Props, State> {
-  state: State = { dialogOpen: false };
+    const openDialog = (e: React.MouseEvent<any>) => {
+      e.stopPropagation();
+      setDialogOpen(true);
+    };
 
-  openDialog = () => this.setState({ dialogOpen: true });
+    const closeDialog = (e: React.MouseEvent<any>) => {
+      e.stopPropagation();
+      setDialogOpen(false);
+    };
 
-  closeDialog = () => this.setState({ dialogOpen: false });
+    const confirmDialog = (e: React.MouseEvent<any>) => {
+      e.stopPropagation();
+      setDialogOpen(false);
+      deleteHandler?.(id);
+    };
 
-  confirmDialog = () => {
-    this.closeDialog();
-    const { id, deleteHandler } = this.props;
-    deleteHandler?.(id);
-  };
-
-  renderButton = () => {
-    const { renderButton, disabled } = this.props;
-    if (renderButton) {
-      return renderButton(this.openDialog, disabled);
-    }
-    return (
-      <IconButton disabled={disabled} onClick={this.openDialog}>
-        <Icon>delete_forever</Icon>
-      </IconButton>
-    );
-  };
-
-  render() {
     return (
       <React.Fragment>
-        {this.renderButton()}
-        {this.state.dialogOpen && (
+        {children ? (
+          React.cloneElement(React.Children.only(children), {
+            onClick: openDialog,
+            disabled,
+          })
+        ) : (
+          <IconButton disabled={disabled} onClick={openDialog}>
+            <Icon>delete_forever</Icon>
+          </IconButton>
+        )}
+        {dialogOpen && (
           <ConfirmationDialog
             title="Delete object?"
             description="Are you sure to delete this object?"
-            onCancel={this.closeDialog}
-            onConfirm={this.confirmDialog}
+            onCancel={closeDialog}
+            onConfirm={confirmDialog}
           />
         )}
       </React.Fragment>
     );
-  }
-}
+  },
+);

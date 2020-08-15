@@ -1,4 +1,5 @@
 import MapboxGL, {
+  OfflineError,
   OfflinePack,
   OfflinePackStatus,
 } from '@react-native-mapbox-gl/maps';
@@ -6,6 +7,7 @@ import { getBBox } from '@whitewater-guide/clients';
 import { Region } from '@whitewater-guide/commons';
 import Layers from '~/components/map/layers';
 import { trackError } from '~/core/errors';
+import { MapboxOfflineError } from '../errors';
 import { MapboxOfflinePackState, OfflineProgress } from '../types';
 
 export default class MapDownloader {
@@ -84,9 +86,12 @@ export default class MapDownloader {
     }
   };
 
-  private onPackError = (_: OfflinePack, e: Error) => {
-    trackError('offlineMaps', e);
-    this.onProgress(0);
-    this._reject(e);
+  private onPackError = (_: OfflinePack, e: OfflineError) => {
+    const error = new MapboxOfflineError(e);
+    if (!error.recoverable) {
+      trackError('offlineMaps', error, e);
+      this.onProgress(0);
+      this._reject(error);
+    }
   };
 }

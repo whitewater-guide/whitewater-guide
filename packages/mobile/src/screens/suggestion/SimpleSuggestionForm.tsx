@@ -5,7 +5,7 @@ import {
 import { Formik } from 'formik';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 import CCNote from '~/components/CCNote';
 import FullScreenKAV from '~/components/FullScreenKAV';
@@ -46,7 +46,10 @@ const SimpleSuggestionForm: React.FC<Props> = (props) => {
           <React.Fragment>
             <TextField
               name="description"
-              autoFocus={true}
+              autoFocus={
+                Platform.OS ===
+                'android' /* Due to keyboard avoiding view inconsistent behavior */
+              }
               multiline={true}
               fullHeight={true}
               label={t('screens:suggestion.suggestionLabel')}

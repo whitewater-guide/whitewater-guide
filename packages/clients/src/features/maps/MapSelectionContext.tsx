@@ -22,20 +22,4 @@ export const MapSelectionProvider: React.FC = React.memo(({ children }) => {
 
 MapSelectionProvider.displayName = 'MapSelectionProvider';
 
-export const MapSelectionConsumer = MapSelectionContext.Consumer;
-
 export const useMapSelection = () => React.useContext(MapSelectionContext);
-
-export function withMapSelection<Props>(
-  Component: React.ComponentType<Props & MapSelection>,
-): React.ComponentType<Props> {
-  const Wrapper: React.FC<Props> = (props: Props) => {
-    const { selection, onSelected } = useMapSelection();
-    return (
-      <Component {...props} selection={selection} onSelected={onSelected} />
-    );
-  };
-  Wrapper.displayName = 'withMapSelection';
-
-  return Wrapper;
-}

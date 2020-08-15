@@ -132,6 +132,7 @@ export abstract class BaseAuthService implements AuthService {
         success: false,
         error: {
           form: 'fetch_error',
+          original: e,
         },
         status: 0,
       };

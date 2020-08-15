@@ -1,3 +1,4 @@
+import { ApolloErrorCodes } from '@whitewater-guide/commons';
 import { holdTransaction, rollbackTransaction } from '~/db';
 import {
   ADMIN,
@@ -18,7 +19,6 @@ import {
   NORWAY_SJOA_AMOT,
 } from '~/seeds/test/09_sections';
 import { anonContext, fakeContext, noTimestamps, runQuery } from '~/test';
-import { ApolloErrorCodes } from '@whitewater-guide/commons';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -72,6 +72,10 @@ const query = `
         name
       }
       createdAt
+      createdBy {
+        id
+        name
+      }
       updatedAt
       pois {
         id
@@ -83,6 +87,7 @@ const query = `
       hidden
       helpNeeded
       demo
+      verified
     }
   }
 `;

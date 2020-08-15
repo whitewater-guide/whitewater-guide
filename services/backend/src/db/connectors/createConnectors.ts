@@ -12,10 +12,7 @@ export function createConnectors() {
   const { SectionsConnector } = require('~/features/sections');
   const { SourcesConnector } = require('~/features/sources');
   const { TagsConnector } = require('~/features/tags');
-  const {
-    SuggestionsConnector,
-    SuggestedSectionsConnector,
-  } = require('~/features/suggestions');
+  const { SuggestionsConnector } = require('~/features/suggestions');
   const { UsersConnector } = require('~/features/users');
   return {
     banners: new BannersConnector(),
@@ -30,7 +27,6 @@ export function createConnectors() {
     sections: new SectionsConnector(),
     sources: new SourcesConnector(),
     suggestions: new SuggestionsConnector(),
-    suggestedSections: new SuggestedSectionsConnector(),
     tags: new TagsConnector(),
     users: new UsersConnector(),
   };

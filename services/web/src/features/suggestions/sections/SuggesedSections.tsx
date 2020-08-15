@@ -1,6 +1,4 @@
-import { useAuth } from '@whitewater-guide/clients';
-import { SuggestionStatus } from '@whitewater-guide/commons';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useQuery } from 'react-apollo';
 import { Loading } from '../../../components';
 import {
@@ -10,44 +8,26 @@ import {
 } from './suggestedSections.query';
 import SuggestedSectionsInfinite from './SuggestedSectionsInfinite';
 
-const ADMIN_STATUSES = [
-  SuggestionStatus.PENDING,
-  SuggestionStatus.ACCEPTED,
-  SuggestionStatus.REJECTED,
-];
-
-const EDITOR_STATUSES = [SuggestionStatus.PENDING];
-
 export const SuggesedSections: React.FC = () => {
-  const { me } = useAuth();
-  const [statusFilter, setStatusFilter] = useState(
-    me && me.admin ? ADMIN_STATUSES : EDITOR_STATUSES,
-  );
-  useEffect(() => {
-    setStatusFilter(me && me.admin ? ADMIN_STATUSES : EDITOR_STATUSES);
-  }, [me && me.admin]);
-
   const { data, loading, fetchMore } = useQuery<QResult, QVars>(
     SUGGESTED_SECTIONS_QUERY,
     {
       fetchPolicy: 'network-only',
       variables: {
-        filter: { status: statusFilter },
+        filter: { editable: true, verified: false },
       },
     },
   );
 
-  if (loading && !(data && data.suggestedSections)) {
+  if (loading && !(data && data.sections)) {
     return <Loading />;
   }
 
   return (
     <React.Fragment>
       <SuggestedSectionsInfinite
-        suggestedSections={data!.suggestedSections}
+        suggestedSections={data!.sections}
         fetchMore={fetchMore}
-        statusFilter={statusFilter}
-        setStatusFilter={setStatusFilter}
       />
     </React.Fragment>
   );

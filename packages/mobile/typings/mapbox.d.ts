@@ -2,22 +2,23 @@
 declare module '@react-native-mapbox-gl/maps' {
   import { Feature, Geometry, Point } from '@turf/helpers';
   import { Component } from 'react';
-
-  import {
-    NativeSyntheticEvent,
-    ViewProperties,
-    ViewStyle,
-  } from 'react-native';
+  import { ViewProperties, ViewStyle } from 'react-native';
 
   export interface ScreenPoint {
     screenPointX: number;
     screenPointY: number;
   }
 
-  export interface ShapeSourcePressEvent<P> {
-    type: 'shapesourcelayerpress';
-    target: number;
-    payload: Feature<Geometry, P>;
+  export interface OnPressEvent<P> {
+    features: Array<Feature<Geometry, P>>;
+    coordinates: {
+      latitude: number;
+      longitude: number;
+    };
+    point: {
+      x: number;
+      y: number;
+    };
   }
 
   export type RegionChangeEvent = Feature<
@@ -281,6 +282,11 @@ declare module '@react-native-mapbox-gl/maps' {
     resume: () => void;
   }
 
+  export interface OfflineError {
+    message: string;
+    name: string;
+  }
+
   export class OfflineManager {
     createPack(
       options: OfflineCreatePackOptions,
@@ -288,7 +294,7 @@ declare module '@react-native-mapbox-gl/maps' {
         pack: OfflinePack,
         progress: OfflinePackStatus,
       ) => void,
-      errorListener?: (pack: OfflinePack, error: any) => void,
+      errorListener?: (pack: OfflinePack, error: OfflineError) => void,
     ): void;
 
     deletePack(name: string): Promise<void>;
@@ -555,7 +561,7 @@ declare module '@react-native-mapbox-gl/maps' {
     buffer?: number;
     tolerance?: number;
     images?: any;
-    onPress?: (e: NativeSyntheticEvent<ShapeSourcePressEvent<P>>) => void;
+    onPress?: (e: OnPressEvent<any>) => void;
     hitbox?: any;
   }
 

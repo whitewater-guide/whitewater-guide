@@ -34,6 +34,5 @@ export const NULL_SECTION_INPUT: SectionInput = {
   helpNeeded: null,
 
   createdBy: null,
-  suggestionId: null,
   importId: null,
 };

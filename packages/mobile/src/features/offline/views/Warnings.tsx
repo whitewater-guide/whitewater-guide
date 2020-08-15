@@ -5,6 +5,7 @@ import { Clipboard, Platform, StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Caption } from 'react-native-paper';
 import theme from '~/theme';
+import { MapboxOfflineErrors } from '../errors';
 
 const styles = StyleSheet.create({
   cacheWarningContainer: {
@@ -41,11 +42,16 @@ const Errors: React.FC<Required<Props>> = ({ error }) => {
     }
   }, [error]);
 
+  const errorKey =
+    error?.name === MapboxOfflineErrors.TILE_LIMIT_EXCEEDED
+      ? 'offline:dialog.tileLimitError'
+      : 'offline:dialog.downloadError';
+
   return (
     <React.Fragment>
       <TouchableOpacity onPress={copyError}>
         <Caption style={styles.error}>
-          {t('offline:dialog.downloadError')}
+          {t(errorKey)}
           <Text style={styles.copy}>{' ' + String.fromCharCode(61839)}</Text>
         </Caption>
       </TouchableOpacity>

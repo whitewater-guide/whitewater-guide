@@ -7,11 +7,12 @@ import { useSearchSections } from './useSearchSections';
 
 // tslint:disable-next-line: no-empty-interface
 interface Props {
+  regionId?: string;
   onSelect?: (value: Section) => void;
   section?: Section;
 }
 
-const SectionSearch: React.FC<Props> = ({ section, onSelect }) => {
+const SectionSearch: React.FC<Props> = ({ regionId, section, onSelect }) => {
   const [search, setSearch] = useState(sectionName(section));
   const [debouncedSearch, setDebouncedSearch] = React.useState(
     sectionName(section),
@@ -22,7 +23,7 @@ const SectionSearch: React.FC<Props> = ({ section, onSelect }) => {
     setDebouncedSearch,
   ]);
 
-  const data = useSearchSections(debouncedSearch, section);
+  const data = useSearchSections(debouncedSearch, section, regionId);
 
   return (
     <React.Fragment>

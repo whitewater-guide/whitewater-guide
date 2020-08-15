@@ -1820,10 +1820,10 @@
     semver "^7.3.2"
     tsutils "^3.17.1"
 
-"@whitewater-guide/commons@0.0.205":
-  version "0.0.205"
-  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.205.tgz#8a531480617924e16c1e07843990e02f2e23e4a3"
-  integrity sha512-UvDLYhlz4wdeQx3u621qlrJvbGUuIE7ZNUz7+LlQTwuv+BL+dXLs59Ts+IiUlvVk2tDvhZgUj8OjzWHv/orRKw==
+"@whitewater-guide/commons@0.0.208":
+  version "0.0.208"
+  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.208.tgz#df41c88141eda587ad04ac5c960b53ddbb953fba"
+  integrity sha512-ln0/odOadGzDnlDBaFNBOx3eblp9Fprj2/nMNzvXfwW3lGWG9tYqlioyxSUxbCoypO8QKnszZYXCJM6lqE7y/w==
   dependencies:
     "@types/yup" "^0.29.3"
     "@whitewater-guide/validation" "^1.1.5"

@@ -52,7 +52,7 @@ export const computeChartMeta = (
   const from = filter.from || subDays(to, 1);
   const xDomain: [Date, Date] = [from, to];
 
-  const days = differenceInDays(from, to);
+  const days = differenceInDays(to, from);
   const xAxisSettings = timeAxisSettings || getDefaultTimeAxisSettings(days);
   const xTickFormat = (date: Date) =>
     formatDate(date, xAxisSettings.tickFormat);

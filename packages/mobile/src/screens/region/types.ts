@@ -22,7 +22,6 @@ export interface RegionScreenNavProps {
 
 export interface RegionStackParamsList extends ParamListBase {
   [Screens.REGION_TABS]: undefined;
-  [Screens.ADD_SECTION_SCREEN]: undefined;
   [Screens.FILTER]: undefined;
 }
 

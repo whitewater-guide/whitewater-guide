@@ -1,28 +1,28 @@
-import { RootStackNavProps, RootStackParamsList } from '~/core/navigation';
 import {
-  StackNavigationOptions,
   createStackNavigator,
+  StackNavigationOptions,
 } from '@react-navigation/stack';
-
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import Config from 'react-native-ultimate-config';
+import { getHeaderRenderer } from '~/components/header';
+import { RootStackNavProps, RootStackParamsList } from '~/core/navigation';
+import { LazyAddSectionScreen } from '~/screens/add-section';
 import { LazyAuthStack } from '~/screens/auth';
+import { LazyDescentScreen } from '~/screens/descent';
+import { LazyDescentFormScreen } from '~/screens/descent-form';
+import { LazyLogbookScreen } from '~/screens/logbook';
 import { LazyMyProfileScreen } from '~/screens/my-profile';
 import { LazyPlainScreen } from '~/screens/plain';
 import { LazyPurchaseStack } from '~/screens/purchase';
 import { LazyRegionScreen } from '~/screens/region';
+import { RegionsListScreen } from '~/screens/regions-list';
 import { LazySectionScreen } from '~/screens/section';
 import { LazySuggestionScreen } from '~/screens/suggestion';
 import { LazyWebViewScreen } from '~/screens/webview';
-import React from 'react';
-import { RegionsListScreen } from '~/screens/regions-list';
 import { Screens } from './screen-names';
-import { getHeaderRenderer } from '~/components/header';
 import { useLinking } from './useLinking';
 import useSignOut from './useSignOut';
-import { LazyLogbookScreen } from '~/screens/logbook';
-import { LazyDescentScreen } from '~/screens/descent';
-import { LazyDescentFormScreen } from '~/screens/descent-form';
-import { useTranslation } from 'react-i18next';
 
 const Stack = createStackNavigator<RootStackParamsList>();
 
@@ -73,6 +73,11 @@ const RootStack: React.FC<RootStackNavProps> = ({ navigation }) => {
       <Stack.Screen
         name={Screens.DESCENT_FORM}
         component={LazyDescentFormScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={Screens.ADD_SECTION_SCREEN}
+        component={LazyAddSectionScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen name={Screens.MY_PROFILE} component={LazyMyProfileScreen} />

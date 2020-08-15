@@ -1,9 +1,7 @@
 import { Dimensions, PixelRatio, StyleSheet } from 'react-native';
-import {
-  getBottomSpace,
-  getStatusBarHeight,
-} from 'react-native-iphone-x-helper';
+import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { DefaultTheme } from 'react-native-paper';
+import { initialWindowMetrics } from 'react-native-safe-area-context';
 
 // https://github.com/callstack/react-native-paper/blob/77fe132d5dbb220ebcac3ae0b83e6432ddfc12c3/src/components/BottomNavigation.tsx#L263
 const MATERIAL_BOTTOM_BAR_HEIGHT = 56;
@@ -83,18 +81,18 @@ const theme = {
   screenHeight,
   screenWidthPx: Math.round(screenWidth * PixelRatio.get()),
   screenHeightPx: Math.round(screenHeight * PixelRatio.get()),
-  safeBottom: getBottomSpace(),
+  safeBottom: initialWindowMetrics?.insets.bottom || 0,
   safeTop: getStatusBarHeight(true),
   unsafeTop: getStatusBarHeight(false),
   stackScreenHeight:
     screenHeight -
     getStatusBarHeight(true) -
-    getBottomSpace() -
+    (initialWindowMetrics?.insets.bottom || 0) -
     DEFAULT_APPBAR_HEIGHT,
   tabScreenHeight:
     screenHeight -
     getStatusBarHeight(true) -
-    getBottomSpace() -
+    (initialWindowMetrics?.insets.bottom || 0) -
     MATERIAL_BOTTOM_BAR_HEIGHT -
     DEFAULT_APPBAR_HEIGHT,
   elevation: 2,

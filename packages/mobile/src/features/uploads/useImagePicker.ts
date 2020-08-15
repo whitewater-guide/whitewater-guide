@@ -3,6 +3,7 @@ import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import ImagePicker from 'react-native-image-picker';
 import shortid from 'shortid';
+import { trackError } from '~/core/errors';
 import { LocalPhoto } from './types';
 
 export const MAX_PHOTO_DIMENSION = 1920;
@@ -32,8 +33,21 @@ export const useImagePicker = (
         maxHeight: MAX_PHOTO_DIMENSION,
       },
       (opts) => {
-        const { fileName, uri, path, type, width, height, fileSize } = opts;
-        if (!uri) {
+        const {
+          fileName,
+          uri,
+          didCancel,
+          error,
+          type,
+          width,
+          height,
+          fileSize,
+        } = opts;
+        if (error) {
+          trackError('imagePicker', new Error(error));
+          return;
+        }
+        if (!uri || didCancel) {
           return; // cancelled
         }
         const file = {

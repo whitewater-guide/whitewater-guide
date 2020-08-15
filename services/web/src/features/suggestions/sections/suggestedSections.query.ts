@@ -1,14 +1,14 @@
 import {
   Connection,
   Page,
-  SuggestedSection,
-  SuggestionsFilter,
+  Section,
+  SectionsFilter,
 } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 
 export const SUGGESTED_SECTIONS_QUERY = gql`
-  query suggestedSections($filter: SuggestionsFilter, $page: Page) {
-    suggestedSections(filter: $filter, page: $page)
+  query suggestedSections($filter: SectionsFilter, $page: Page) {
+    sections(filter: $filter, page: $page)
       @connection(key: "suggestedSections", suggestions: ["filter"]) {
       nodes {
         id
@@ -26,7 +26,6 @@ export const SUGGESTED_SECTIONS_QUERY = gql`
           name
         }
         name
-        status
       }
       count
     }
@@ -34,12 +33,10 @@ export const SUGGESTED_SECTIONS_QUERY = gql`
 `;
 
 export interface QVars {
-  filter?: SuggestionsFilter;
+  filter?: SectionsFilter;
   page?: Page;
 }
 
-export type ListedSuggestedSection = Omit<SuggestedSection, 'section'>;
-
 export interface QResult {
-  suggestedSections: Required<Connection<ListedSuggestedSection>>;
+  sections: Required<Connection<Section>>;
 }

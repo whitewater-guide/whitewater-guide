@@ -18,7 +18,7 @@ const DescentFormScreen: React.FC<DescentFormNavProps> = (props) => {
       onSubmit={upsertDescent}
     >
       <DescentFormProvider {...props}>
-        <DescentFormStack />
+        <DescentFormStack regionId={props.route.params?.regionId} />
       </DescentFormProvider>
     </Formik>
   );

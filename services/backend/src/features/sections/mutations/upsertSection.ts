@@ -1,17 +1,19 @@
+import {
+  MediaKind,
+  NEW_ID,
+  OTHERS_REGION_ID,
+  SectionInput,
+  SectionInputSchema,
+} from '@whitewater-guide/commons';
+import { ForbiddenError } from 'apollo-server';
+import { DiffPatcher } from 'jsondiffpatch';
+import uniq from 'lodash/uniq';
+import * as yup from 'yup';
 import { Context, isInputValidResolver, TopLevelResolver } from '~/apollo';
 import db, { rawUpsert } from '~/db';
 import { SectionRaw } from '~/features/sections';
 import { getLocalFileName, MEDIA, minioClient, moveTempImage } from '~/minio';
-import {
-  MediaKind,
-  NEW_ID,
-  SectionInput,
-  SectionInputSchema,
-  SuggestionStatus,
-} from '@whitewater-guide/commons';
-import { DiffPatcher } from 'jsondiffpatch';
-import uniq from 'lodash/uniq';
-import * as yup from 'yup';
+import { isAuthenticatedResolver } from '../../../apollo/enhancedResolvers';
 import { RawSectionUpsertResult } from '../types';
 import { checkForNewRiver, insertNewRiver } from './upsertUtils';
 
@@ -44,19 +46,13 @@ const checkIsEditor = async (
 ) => {
   const query =
     section.river.id === NEW_ID
-      ? { regionId: section.region!.id }
+      ? { regionId: section.region?.id ?? OTHERS_REGION_ID }
       : {
           sectionId: section.id,
           riverId: section.river.id,
         };
   const isEditor = await dataSources.users.checkEditorPermissions(query);
   return isEditor;
-};
-
-const insertAsSuggestion = async (section: SectionInput) => {
-  await db()
-    .insert({ section })
-    .into('suggested_sections');
 };
 
 const saveLog = async (
@@ -77,22 +73,6 @@ const saveLog = async (
       diff: old && differ.diff(old, current),
     })
     .into('sections_edit_log');
-};
-
-const approveSuggestion = async (
-  { suggestionId }: SectionInput,
-  user: Context['user'],
-) => {
-  if (suggestionId) {
-    await db()
-      .table('suggested_sections')
-      .update({
-        status: SuggestionStatus.ACCEPTED,
-        resolved_at: db().fn.now(),
-        resolved_by: user!.id,
-      })
-      .where({ id: suggestionId });
-  }
 };
 
 const moveAllMedia = async (ids: string[] | null) => {
@@ -136,9 +116,13 @@ const maybeUpdateJobs = async (
       .pluck('source_id');
     sids = uniq(sids);
     if (sids) {
-      await Promise.all(
-        sids.map((sid) => dataSources.gorge.updateJobForSource(sid)),
-      );
+      try {
+        await Promise.all(
+          sids.map((sid) => dataSources.gorge.updateJobForSource(sid)),
+        );
+      } catch {
+        // ignore
+      }
     }
   }
 };
@@ -161,10 +145,8 @@ const resolver: TopLevelResolver<Vars> = async (
   const shouldInsertRiver = checkForNewRiver(section);
 
   const isEditor = await checkIsEditor(section, dataSources);
-
-  if (!isEditor) {
-    await insertAsSuggestion(section);
-    return null;
+  if (section.id && !isEditor) {
+    throw new ForbiddenError('only editors can edit existing sections');
   }
 
   if (shouldInsertRiver) {
@@ -177,7 +159,7 @@ const resolver: TopLevelResolver<Vars> = async (
   const result: RawSectionUpsertResult = await rawUpsert(
     db(),
     'SELECT upsert_section(?, ?)',
-    [section, language],
+    [{ ...section, verified: isEditor }, language],
   );
   if (!result) {
     return null;
@@ -186,7 +168,6 @@ const resolver: TopLevelResolver<Vars> = async (
   if (newSection) {
     await Promise.all([
       saveLog(user, newSection, old),
-      approveSuggestion(section, user),
       moveAllMedia(upsertedMediaIds),
       deleteUnusedFiles(deletedMediaUrls),
       maybeUpdateJobs(dataSources, newSection, old),
@@ -196,6 +177,8 @@ const resolver: TopLevelResolver<Vars> = async (
   return newSection || null;
 };
 
-const upsertSection = isInputValidResolver(Struct, resolver);
+const upsertSection = isAuthenticatedResolver(
+  isInputValidResolver(Struct, resolver),
+);
 
 export default upsertSection;

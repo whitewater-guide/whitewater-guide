@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { useMapSelection } from '@whitewater-guide/clients';
+import { Region } from '@whitewater-guide/commons';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
@@ -14,7 +15,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export const RegionFAB: React.FC = React.memo(() => {
+interface Props {
+  region?: Region | null;
+}
+
+// tslint:disable-next-line: no-shadowed-variable
+export const RegionFAB = React.memo(function RegionFAB({ region }: Props) {
   const { t } = useTranslation();
   const { navigate } = useNavigation();
   const { onSelected, selection } = useMapSelection();
@@ -30,15 +36,15 @@ export const RegionFAB: React.FC = React.memo(() => {
       {
         icon: 'map-plus',
         label: t('screens:region.fab.addSection'),
-        onPress: () => navigate(Screens.ADD_SECTION_SCREEN),
+        onPress: () => navigate(Screens.ADD_SECTION_SCREEN, { region }),
       },
       {
         icon: 'calendar-plus',
         label: t('screens:region.fab.addDescent'),
-        onPress: () => navigate(Screens.DESCENT_FORM, {}),
+        onPress: () => navigate(Screens.DESCENT_FORM, { regionId: region?.id }),
       },
     ],
-    [navigate, t],
+    [navigate, region, t],
   );
   return (
     <FAB.Group

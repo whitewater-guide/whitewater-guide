@@ -20,26 +20,28 @@ const getStarIcon = (n: number, value: number) => {
 };
 
 interface Props {
-  value: number;
+  value?: number | null;
   style?: StyleProp<ViewStyle>;
 }
 
 const SimpleStarRating: React.FC<Props> = React.memo((props) => {
   const { value, style } = props;
+  if (value === null || value === undefined) {
+    return null;
+  }
   return (
     <View style={[styles.container, style]}>
-      {!!value &&
-        [1, 2, 3, 4, 5].map((n) => (
-          <Icon
-            key={n}
-            narrow={true}
-            icon={getStarIcon(n, value)}
-            size={14}
-            color={
-              value ? theme.colors.componentBorder : 'rgba(158, 158, 158, 0.4)'
-            }
-          />
-        ))}
+      {[1, 2, 3, 4, 5].map((n) => (
+        <Icon
+          key={n}
+          narrow={true}
+          icon={getStarIcon(n, value)}
+          size={14}
+          color={
+            value ? theme.colors.componentBorder : 'rgba(158, 158, 158, 0.4)'
+          }
+        />
+      ))}
     </View>
   );
 });

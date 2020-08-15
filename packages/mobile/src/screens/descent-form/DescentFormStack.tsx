@@ -21,7 +21,11 @@ const screenOptions: StackNavigationOptions = {
   animationEnabled: Config.E2E_MODE !== 'true',
 };
 
-const DescentFormStack: React.FC = () => {
+interface Props {
+  regionId?: string;
+}
+
+const DescentFormStack: React.FC<Props> = ({ regionId }) => {
   const { t } = useTranslation();
   return (
     <Stack.Navigator screenOptions={screenOptions} headerMode="screen">
@@ -29,6 +33,7 @@ const DescentFormStack: React.FC = () => {
         name={Screens.DESCENT_FORM_SECTION}
         component={DescentFormSectionScreen}
         options={{ headerTitle: t('screens:descentForm.section.headerTitle') }}
+        initialParams={{ regionId }}
       />
       <Stack.Screen
         name={Screens.DESCENT_FORM_DATE}

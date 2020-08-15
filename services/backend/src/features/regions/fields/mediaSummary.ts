@@ -1,8 +1,7 @@
+import { RegionMediaSummary, SectionsFilter } from '@whitewater-guide/commons';
+import { GraphQLFieldResolver } from 'graphql';
 import { Context, ListQuery } from '~/apollo';
 import db from '~/db';
-import { SectionsFilter } from '~/features/sections';
-import { RegionMediaSummary } from '@whitewater-guide/commons';
-import { GraphQLFieldResolver } from 'graphql';
 import { RegionRaw } from '../types';
 
 interface Vars extends ListQuery {

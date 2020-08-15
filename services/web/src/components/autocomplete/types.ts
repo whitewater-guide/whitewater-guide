@@ -22,6 +22,7 @@ export interface AutocompleteMenuProps extends PopperFwdProps {
 
 export interface AutocompleteProps<T extends NamedNode = NamedNode> {
   options: T[];
+  optionToString?: (option: NamedNode) => React.ReactElement;
   value: T | null;
   onChange: (value: T | null) => void;
 

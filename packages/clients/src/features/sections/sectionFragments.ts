@@ -27,6 +27,7 @@ const Core = gql`
     hidden
     helpNeeded
     demo
+    verified
 
     season
     seasonNumeric
@@ -47,6 +48,7 @@ export type SectionCore = SectionName &
     | 'hidden'
     | 'helpNeeded'
     | 'demo'
+    | 'verified'
     | 'season'
     | 'seasonNumeric'
     | 'distance'
