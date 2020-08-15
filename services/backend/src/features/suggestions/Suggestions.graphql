@@ -46,33 +46,11 @@ input SuggestionsFilter {
   userId: String
 }
 
-type SuggestedSection {
-  id: ID!
-  status: SuggestionStatus
-  createdAt: Date!
-  createdBy: User
-  region: Region!
-  river: River!
-  name: String!
-  section: JSON!
-}
-
-type SuggestedSectionsList {
-  nodes: [SuggestedSection]!
-  count: Int!
-}
-
 type Mutation {
   resolveSuggestion(id: ID!, status: SuggestionStatus!): Suggestion
   addSuggestion(suggestion: SuggestionInput!): Suggestion
-  rejectSuggestedSection(id: ID!): SuggestedSection
 }
 
 type Query {
   suggestions(page: Page, filter: SuggestionsFilter): SuggestionsList
-  suggestedSections(
-    page: Page
-    filter: SuggestionsFilter
-  ): SuggestedSectionsList
-  suggestedSection(id: ID): SuggestedSection
 }

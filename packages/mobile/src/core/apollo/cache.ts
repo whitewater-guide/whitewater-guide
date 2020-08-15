@@ -4,7 +4,7 @@ import { CachePersistor } from 'apollo-cache-persist';
 import { trackError } from '../errors';
 import { storage } from './storage';
 
-const SCHEMA_VERSION = '1'; // Must be a string.
+const SCHEMA_VERSION = '2'; // Must be a string.
 const SCHEMA_VERSION_KEY = 'apollo-schema-version';
 
 export const inMemoryCache = configureApolloCache();

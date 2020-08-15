@@ -68,10 +68,12 @@ export interface Section extends NamedNode, Timestamped {
   hidden: boolean;
   helpNeeded: string | null;
   demo: boolean;
+  verified?: boolean | null;
 
   tags: Tag[];
-
   pois: Point[];
+
+  createdBy?: User | null;
 
   // --- connections
   media?: Connection<Media>;
@@ -110,7 +112,6 @@ export interface SectionInput {
   helpNeeded: string | null;
 
   createdBy?: string | null;
-  suggestionId?: string | null;
   importId?: string | null;
 }
 
@@ -146,6 +147,8 @@ export interface SectionsFilter {
   regionId?: string;
   updatedAfter?: Date;
   search?: string;
+  verified?: boolean | null;
+  editable?: boolean | null;
 }
 
 export interface SectionAdminSettings {

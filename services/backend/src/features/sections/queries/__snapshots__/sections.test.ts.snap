@@ -21,6 +21,7 @@ Object {
         "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
         "name": "Beca",
       },
+      "verified": false,
     },
     Object {
       "gauge": Object {
@@ -39,6 +40,7 @@ Object {
         "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
         "name": "Beca",
       },
+      "verified": true,
     },
     Object {
       "gauge": Object {
@@ -57,6 +59,7 @@ Object {
         "id": "b80554ba-5db4-11e8-9c2d-fa7ae01bbebc",
         "name": "Bzhuzha",
       },
+      "verified": null,
     },
     Object {
       "gauge": Object {
@@ -75,6 +78,7 @@ Object {
         "id": "b80554ba-5db4-11e8-9c2d-fa7ae01bbebc",
         "name": "Bzhuzha",
       },
+      "verified": null,
     },
     Object {
       "gauge": null,
@@ -90,6 +94,7 @@ Object {
         "id": "b80554ba-5db4-11e8-9c2d-fa7ae01bbebc",
         "name": "Bzhuzha",
       },
+      "verified": null,
     },
     Object {
       "gauge": null,
@@ -105,6 +110,7 @@ Object {
         "id": "5ece96ad-59a7-4cc1-a092-b5cd2f464131",
         "name": "Quijos",
       },
+      "verified": null,
     },
     Object {
       "gauge": null,
@@ -120,6 +126,7 @@ Object {
         "id": "5ece96ad-59a7-4cc1-a092-b5cd2f464131",
         "name": "Quijos",
       },
+      "verified": null,
     },
     Object {
       "gauge": null,
@@ -135,6 +142,7 @@ Object {
         "id": "d4396dac-d528-11e7-9296-cec278b6b50a",
         "name": "Sjoa",
       },
+      "verified": null,
     },
   ],
 }

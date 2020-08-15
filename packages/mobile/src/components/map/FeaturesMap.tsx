@@ -122,12 +122,7 @@ const FeaturesMap: React.FC<Props> = React.memo((props) => {
         />
       </Mapbox.ShapeSource>
 
-      <Mapbox.ShapeSource
-        id="arrowsSource"
-        shape={arrows}
-        hitbox={HIT_BOX}
-        onPress={detailed ? undefined : onPress}
-      >
+      <Mapbox.ShapeSource id="arrowsSource" shape={arrows} hitbox={HIT_BOX}>
         <Mapbox.SymbolLayer id="arrows" style={layerStyles.arrow} />
       </Mapbox.ShapeSource>
 

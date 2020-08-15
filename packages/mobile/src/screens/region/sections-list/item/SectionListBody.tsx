@@ -6,7 +6,8 @@ import DifficultyThumb from '~/components/DifficultyThumb';
 import FlowsThumb from '~/components/FlowsThumb';
 import Icon from '~/components/Icon';
 import SimpleStarRating from '~/components/SimpleStarRating';
-import theme from '../../../../theme';
+import UnverifiedBadge from '~/components/UnverifiedBadge';
+import theme from '~/theme';
 import { ITEM_HEIGHT } from './constants';
 
 const styles = StyleSheet.create({
@@ -77,8 +78,13 @@ const SectionListBody: React.FC<Props> = React.memo(
               </View>
             )}
           </View>
-          <View style={styles.starsContainer}>
-            <SimpleStarRating value={section.rating || 0} />
+          <View style={styles.row}>
+            <SimpleStarRating
+              value={section.rating}
+              style={styles.starsContainer}
+            />
+
+            {section.verified === false && <UnverifiedBadge />}
           </View>
         </View>
         <FlowsThumb section={section} />

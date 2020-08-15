@@ -4,6 +4,7 @@ import {
   MediaInput,
   MediaKind,
   NEW_ID,
+  OTHERS_REGION_ID,
   SectionInput,
 } from '@whitewater-guide/commons';
 import { copy } from 'fs-extra';
@@ -25,6 +26,7 @@ import {
   ADMIN_ID,
   EDITOR_GA_EC,
   EDITOR_GA_EC_ID,
+  EDITOR_NO,
   EDITOR_NO_EC,
   EDITOR_NO_EC_ID,
   TEST_USER,
@@ -40,11 +42,11 @@ import {
   RIVER_BZHUZHA,
   RIVER_GAL_BECA,
   RIVER_GAL_CABE,
+  RIVER_QUIJOS,
   RIVER_SJOA,
 } from '~/seeds/test/07_rivers';
 import { GALICIA_BECA_LOWER, NORWAY_SJOA_AMOT } from '~/seeds/test/09_sections';
 import { PHOTO_1, PHOTO_2 } from '~/seeds/test/11_media';
-import { MEDIA_SUGGESTION_ID1 } from '~/seeds/test/17_suggestions';
 import {
   countRows,
   fakeContext,
@@ -63,17 +65,15 @@ let pBefore: number;
 let rBefore: number;
 let sBefore: number;
 let tBefore: number;
-let suggBefore: number;
 
 beforeAll(async () => {
-  [spBefore, pBefore, rBefore, sBefore, tBefore, suggBefore] = await countRows(
+  [spBefore, pBefore, rBefore, sBefore, tBefore] = await countRows(
     true,
     'sections_points',
     'points',
     'rivers',
     'sections',
     'sections_tags',
-    'suggested_sections',
   );
 });
 
@@ -145,6 +145,7 @@ const upsertQuery = `
       updatedAt
       hidden
       helpNeeded
+      verified
       demo
       pois {
         id
@@ -312,32 +313,18 @@ it('anon should not create suggestion', async () => {
 });
 
 it.each([
-  ['user', TEST_USER],
-  ['non-owning editor', EDITOR_GA_EC],
-])('%s should create suggestion', async (_, user: any) => {
+  ['user', 'unverified', false, TEST_USER],
+  ['non-owning editor', 'unverified', false, EDITOR_GA_EC],
+  ['editor', 'verified', true, EDITOR_NO],
+  ['admin', 'verified', true, ADMIN],
+])('%s should create %s section', async (_, __, verified, user) => {
   const result = await runQuery(
     upsertQuery,
     { section: newRiverSection },
     fakeContext(user),
   );
   expect(result.errors).toBeUndefined();
-  const [spAfter, pAfter, rAfter, sAfter, tAfter, suggAfter] = await countRows(
-    false,
-    'sections_points',
-    'points',
-    'rivers',
-    'sections',
-    'sections_tags',
-    'suggested_sections',
-  );
-  expect([
-    spAfter - spBefore,
-    pAfter - pBefore,
-    rAfter - rBefore,
-    sAfter - sBefore,
-    tAfter - tBefore,
-    suggAfter - suggBefore,
-  ]).toEqual([0, 0, 0, 0, 0, 1]);
+  expect(result.data.upsertSection.verified).toEqual(verified);
 });
 
 describe('insert', () => {
@@ -457,6 +444,44 @@ describe('insert with new river', () => {
   });
 });
 
+it('should create river in others region when region is not provided', async () => {
+  const { region, ...section } = newRiverSection;
+  const result = await runQuery(
+    upsertQuery,
+    { section },
+    fakeContext(TEST_USER),
+  );
+  expect(result.errors).toBeUndefined();
+  expect(result.data.upsertSection).toMatchObject({
+    river: {
+      id: expect.stringMatching(UUID_REGEX),
+      name: 'Rauma',
+    },
+    region: {
+      id: OTHERS_REGION_ID,
+    },
+  });
+});
+
+it.each([
+  ['anon', 'not ', ApolloErrorCodes.UNAUTHENTICATED, undefined],
+  ['user', 'not ', ApolloErrorCodes.FORBIDDEN, TEST_USER],
+  ['non-owning editor', 'not ', ApolloErrorCodes.FORBIDDEN, EDITOR_NO],
+  ['editor', '', undefined, EDITOR_GA_EC],
+  ['admin', '', undefined, ADMIN],
+])('%s should %supdate section', async (_, __, error, user) => {
+  const result = await runQuery(
+    upsertQuery,
+    { section: updateData },
+    fakeContext(user),
+  );
+  if (error) {
+    expect(result).toHaveGraphqlError(error);
+  } else {
+    expect(result.errors).toBeUndefined();
+  }
+});
+
 describe('update', () => {
   let updateResult: any;
   let updatedSection: any;
@@ -491,6 +516,10 @@ describe('update', () => {
     expect(updateResult.errors).toBeUndefined();
     expect(updatedSection.id).toBe(updateData.id);
     expect(noUnstable(updatedSection)).toMatchSnapshot();
+  });
+
+  it('should change section from unverfied to verified when editing it', async () => {
+    expect(updatedSection.verified).toBe(true);
   });
 
   it('should not change total number of sections', async () => {
@@ -732,7 +761,6 @@ describe('media', () => {
   const insertSection: SectionInput = {
     ...existingRiverSection,
     media,
-    suggestionId: MEDIA_SUGGESTION_ID1,
   };
   const updateSection: SectionInput = {
     ...existingRiverSection,
@@ -968,26 +996,66 @@ it('should be able to change river of existing section', async () => {
     fakeContext(EDITOR_GA_EC),
   );
   expect(res.errors).toBeUndefined();
-  // expect(res.data.upsertSection.river.id).toBe(RIVER_GAL_2);
-  // observed bug led to creation of suggestion instead
-  const [suggAfter] = await countRows(false, 'suggested_sections');
-  expect(suggAfter).toBe(suggBefore);
+  expect(res.data.upsertSection.river.id).toBe(RIVER_GAL_CABE);
 });
 
-it('#460 demo section in premium region should stay demo  after edit', async () => {
-  const data = {
-    ...updateData,
-    id: GEORGIA_BZHUZHA_QUALI,
-    river: {
-      id: RIVER_BZHUZHA,
-    },
-    gauge: null,
-  };
-  const res = await runQuery(
-    upsertQuery,
-    { section: data },
-    fakeContext(ADMIN),
-  );
-  expect(res.errors).toBeUndefined();
-  expect(res.data.upsertSection.demo).toBe(true);
+describe('demo sections', () => {
+  it('new section should not be demo when created by editor in premium region', async () => {
+    const res = await runQuery(
+      upsertQuery,
+      { section: { ...updateData, id: null, river: { id: RIVER_QUIJOS } } },
+      fakeContext(EDITOR_GA_EC),
+    );
+    expect(res.errors).toBeUndefined();
+    expect(res.data.upsertSection.demo).toBe(false);
+  });
+
+  it('new section should be demo when created by non-editor in premium region', async () => {
+    const res = await runQuery(
+      upsertQuery,
+      { section: { ...updateData, id: null, river: { id: RIVER_QUIJOS } } },
+      fakeContext(TEST_USER),
+    );
+    expect(res.errors).toBeUndefined();
+    expect(res.data.upsertSection.demo).toBe(true);
+  });
+
+  it('new section should not be demo when created by editor in free region', async () => {
+    const res = await runQuery(
+      upsertQuery,
+      { section: { ...updateData, id: null, river: { id: RIVER_GAL_CABE } } },
+      fakeContext(EDITOR_GA_EC),
+    );
+    expect(res.errors).toBeUndefined();
+    expect(res.data.upsertSection.demo).toBe(false);
+  });
+
+  it('new section should not be demo when created by non-editor in free region', async () => {
+    const res = await runQuery(
+      upsertQuery,
+      { section: { ...updateData, id: null, river: { id: RIVER_GAL_CABE } } },
+      fakeContext(TEST_USER),
+    );
+    expect(res.errors).toBeUndefined();
+    expect(res.data.upsertSection.demo).toBe(false);
+  });
+
+  // issue #460
+  it('in premium region should stay demo after edit', async () => {
+    const data = {
+      ...updateData,
+      id: GEORGIA_BZHUZHA_QUALI,
+      river: {
+        id: RIVER_BZHUZHA,
+      },
+      gauge: null,
+    };
+    const res = await runQuery(
+      upsertQuery,
+      { section: data },
+      fakeContext(ADMIN),
+    );
+    expect(res.errors).toBeUndefined();
+    expect(res.data.upsertSection.demo).toBe(true);
+  });
 });

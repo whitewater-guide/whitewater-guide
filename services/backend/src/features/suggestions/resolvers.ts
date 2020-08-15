@@ -8,5 +8,4 @@ export const suggestionsResolvers = {
   Query,
   Mutation,
   SuggestionsList: listResolvers,
-  SuggestedSectionsList: listResolvers,
 };

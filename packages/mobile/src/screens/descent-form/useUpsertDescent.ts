@@ -77,7 +77,10 @@ export default () => {
           }
         })
         .catch((error: Error) => {
-          setSnackbar(error);
+          setSnackbar({
+            short: t('common:networkError'),
+            error: true,
+          });
         }),
     [mutate, goBack, setSnackbar, t],
   );

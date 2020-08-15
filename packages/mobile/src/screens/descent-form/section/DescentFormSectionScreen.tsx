@@ -9,9 +9,11 @@ import { DescentFormSectionNavProps } from './types';
 
 export const DescentFormSectionScreen: React.FC<DescentFormSectionNavProps> = ({
   navigation,
+  route,
 }) => {
   const { navigate } = navigation;
   const { setFieldValue, values } = useFormikContext<DescentFormData>();
+  const regionId = route.params?.regionId;
 
   const setSection = useCallback(
     (section: Section) => {
@@ -23,7 +25,11 @@ export const DescentFormSectionScreen: React.FC<DescentFormSectionNavProps> = ({
 
   return (
     <DescentFormScreen padding={true}>
-      <SectionSearch onSelect={setSection} section={values.section} />
+      <SectionSearch
+        onSelect={setSection}
+        section={values.section}
+        regionId={regionId}
+      />
     </DescentFormScreen>
   );
 };

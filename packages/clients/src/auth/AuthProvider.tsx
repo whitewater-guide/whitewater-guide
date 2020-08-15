@@ -31,7 +31,7 @@ export const AuthProvider: React.FC<Props> = React.memo((props) => {
     service
       .init()
       .then(() => service.refreshAccessToken())
-      .then(() => setInitializing(false));
+      .finally(() => setInitializing(false));
     return () => {
       service.off('loading');
     };

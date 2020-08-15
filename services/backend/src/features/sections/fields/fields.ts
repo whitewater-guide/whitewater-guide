@@ -1,7 +1,8 @@
+import { Section } from '@whitewater-guide/commons';
 import { FieldResolvers } from '~/apollo';
 import { timestampResolvers } from '~/db';
-import { Section } from '@whitewater-guide/commons';
 import { SectionRaw } from '../types';
+import createdBy from './createdBy';
 import description from './description';
 import gauge from './gauge';
 import media from './media';
@@ -42,6 +43,7 @@ export const sectionFieldResolvers: FieldResolvers<SectionRaw, Section> = {
   region,
   river,
   gauge,
+  createdBy,
   helpNeeded: (s) => s.help_needed,
   ...timestampResolvers,
 };

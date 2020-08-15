@@ -54,8 +54,11 @@ const fragment = gql`
 `;
 
 const SEARCH_SECTIONS = gql`
-  query searchSections($search: String, $skipRecent: Boolean!) {
-    sections(filter: { search: $search }, page: { limit: 20 }) {
+  query searchSections($search: String, $skipRecent: Boolean!, $regionId: ID) {
+    sections(
+      filter: { search: $search, regionId: $regionId }
+      page: { limit: 20 }
+    ) {
       nodes {
         ...descentSearchSection
       }
@@ -78,6 +81,7 @@ const SEARCH_SECTIONS = gql`
 
 interface QVars {
   search: string;
+  regionId?: string;
   skipRecent: boolean;
 }
 
@@ -86,10 +90,14 @@ interface QResult {
   myDescents?: RelayConnection<Descent>;
 }
 
-export function useSearchSections(search: string, mandatory?: Section) {
+export function useSearchSections(
+  search: string,
+  mandatory?: Section,
+  regionId?: string,
+) {
   const query = useQuery<QResult, QVars>(SEARCH_SECTIONS, {
     fetchPolicy: 'no-cache',
-    variables: { search, skipRecent: !!search },
+    variables: { search, regionId, skipRecent: !!search },
   });
   const { data, loading } = query;
 

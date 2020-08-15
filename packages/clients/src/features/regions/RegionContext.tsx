@@ -5,11 +5,10 @@ import React, { useContext, useMemo } from 'react';
 import { Query } from 'react-apollo';
 import { queryResultToNode, WithNode } from '../../apollo';
 import {
-  REGION_DETAILS,
   RegionDetailsResult,
   RegionDetailsVars,
+  REGION_DETAILS,
 } from './regionDetails.query';
-import { WithRegion } from './types';
 
 export const RegionContext = React.createContext<WithNode<Region | null>>({
   node: null,
@@ -64,15 +63,3 @@ export const RegionProvider: React.FC<Props> = React.memo((props) => {
 RegionProvider.displayName = 'RegionProvider';
 
 export const useRegion = () => useContext(RegionContext);
-
-export function withRegion(
-  Component: React.ComponentType<Props & WithRegion>,
-): React.ComponentType<Props> {
-  const Wrapper: React.FC<Props> = (props: Props) => {
-    const region = useRegion();
-    return <Component {...props} region={region} />;
-  };
-  Wrapper.displayName = 'withRegion';
-
-  return Wrapper;
-}

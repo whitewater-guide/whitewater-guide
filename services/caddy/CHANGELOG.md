@@ -1,3 +1,31 @@
+## [0.0.159](https://github.com/doomsower/whitewater/compare/f09732fd25d44632e0be235eaecff61253acf5ec...cc18436470d10e3dc4ac3db805bfa6b6e2840515) (2020-08-15)
+
+## [0.0.159](https://github.com/doomsower/whitewater/compare/febf96235fd4db34a554ae42ee677dc6dc2e03e2...f09732fd25d44632e0be235eaecff61253acf5ec) (2020-08-15)
+
+## [0.0.159](https://github.com/doomsower/whitewater/compare/916a22468af4209cb7e320cba3566449ad4962e9...febf96235fd4db34a554ae42ee677dc6dc2e03e2) (2020-08-12)
+
+## [0.0.159](https://github.com/doomsower/whitewater/compare/c604b24c901e92b803d1984ddfd1561ebb685d53...916a22468af4209cb7e320cba3566449ad4962e9) (2020-08-10)
+
+### Features
+
+- new suggestions mechanism ([](https://github.com/doomsower/whitewater/commit/406651c49a4793df92690ee34013b186ee4657c6))
+
+## [0.0.159-suggestionsv2.0](https://github.com/doomsower/whitewater/compare/753c9a629ecc72cf3a4a312aed53225ed65c06ea...c058ae3ae9224104eac6f9ba932eb45435b6012a) (2020-08-08)
+
+## [0.0.159-suggestionsv2.0](https://github.com/doomsower/whitewater/compare/3d997d1c55fbe5da2f8d9167b3dab5abe3be451e...753c9a629ecc72cf3a4a312aed53225ed65c06ea) (2020-08-08)
+
+## [0.0.159-suggestionsv2.0](https://github.com/doomsower/whitewater/compare/22b79dedf4450fda606ae372412145552b34549f...3d997d1c55fbe5da2f8d9167b3dab5abe3be451e) (2020-08-08)
+
+## [0.0.159-suggestionsv2.0](https://github.com/doomsower/whitewater/compare/673c748364a1886ff74121e921c16d9494281090...22b79dedf4450fda606ae372412145552b34549f) (2020-08-08)
+
+## [0.0.159-suggestionsv2.0](https://github.com/doomsower/whitewater/compare/ef032681c57980db6440a97d657655d5919d8562...673c748364a1886ff74121e921c16d9494281090) (2020-08-08)
+
+### Features
+
+- descents form ([](https://github.com/doomsower/whitewater/commit/c106e58c8368157a16a4b2a49ebedea5c5823bdd))
+- fabs and apple sign in ([](https://github.com/doomsower/whitewater/commit/c1d75c4cb311f5014117d12c3ffcae732b905c77))
+- logbooks mobile ([](https://github.com/doomsower/whitewater/commit/b16559391e66d63ad6311f579ffe9c8af861e716))
+
 ## [0.0.158](https://github.com/doomsower/whitewater/compare/0c1bf719e4c460c29888565d46269496f633a1de...81fd775ae152178216f60a6d5b1a58b84938c722) (2020-08-06)
 
 ## [0.0.158](https://github.com/doomsower/whitewater/compare/24e55b9de68a7c4fd9b447e0d933a6943e6a495b...0c1bf719e4c460c29888565d46269496f633a1de) (2020-08-01)

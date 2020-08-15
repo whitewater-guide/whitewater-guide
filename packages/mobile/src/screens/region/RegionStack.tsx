@@ -12,7 +12,6 @@ import Config from 'react-native-ultimate-config';
 import { getHeaderRenderer } from '~/components/header';
 import { Screens } from '~/core/navigation';
 import { RegionStackParamsList } from '~/screens/region/types';
-import { LazyAddSectionScreen } from './add-section';
 import { LazyFilterScreen } from './filter';
 import RegionTabs from './RegionTabs';
 import RegionTitle from './RegionTitle';
@@ -46,11 +45,6 @@ const RegionStack: React.FC = () => {
         options={{
           header: getHeaderRenderer(false),
         }}
-      />
-      <Stack.Screen
-        name={Screens.ADD_SECTION_SCREEN}
-        component={LazyAddSectionScreen}
-        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );

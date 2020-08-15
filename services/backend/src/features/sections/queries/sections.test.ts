@@ -2,6 +2,7 @@ import db, { holdTransaction, rollbackTransaction } from '~/db';
 import {
   ADMIN,
   EDITOR_GA_EC,
+  EDITOR_NO,
   EDITOR_NO_EC,
   TEST_USER,
 } from '~/seeds/test/01_users';
@@ -10,10 +11,12 @@ import { RIVER_BZHUZHA, RIVER_GAL_BECA } from '~/seeds/test/07_rivers';
 import {
   GALICIA_BECA_LOWER,
   GEORGIA_BZHUZHA_LONG,
+  NORWAY_SJOA_AMOT,
   SECTIONS_TOTAL,
   SECTIONS_VISIBLE,
 } from '~/seeds/test/09_sections';
 import { anonContext, fakeContext, noTimestamps, runQuery } from '~/test';
+import { GALICIA_BECA_UPPER } from '../../../seeds/test/09_sections';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -38,6 +41,7 @@ const query = `
           name
         }
         hidden
+        verified
       }
       count
     }
@@ -168,11 +172,13 @@ it('should search full name (river + section)', async () => {
 
 it('should filter recently updated', async () => {
   const id = '21f2351e-d52a-11e7-9296-cec278b6b50a';
-  const [u2] = await db()
+  const update = await db()
     .update({ rating: 1 })
     .from('sections')
     .where({ id })
     .returning('updated_at');
+  let u2: Date = update[0] as any;
+  u2 = new Date(u2.getTime() - 300);
   const result = await runQuery(query, {
     filter: { updatedAfter: u2.toISOString() },
   });
@@ -180,6 +186,75 @@ it('should filter recently updated', async () => {
   expect(result).toHaveProperty('data.sections.nodes.length', 1);
   expect(result).toHaveProperty('data.sections.count', 1);
   expect(result).toHaveProperty('data.sections.nodes.0.rating', 1);
+});
+
+it('should filter verified', async () => {
+  const result = await runQuery(query, {
+    filter: { verified: true },
+  });
+  expect(result.errors).toBeUndefined();
+  expect(
+    result.data.sections.nodes.find((n: any) => n.id === GALICIA_BECA_UPPER),
+  ).toBeTruthy();
+});
+
+it('should filter non-verified', async () => {
+  const result = await runQuery(query, {
+    filter: { verified: false },
+  });
+  expect(result.errors).toBeUndefined();
+  expect(
+    result.data.sections.nodes.find((n: any) => n.id === GALICIA_BECA_UPPER),
+  ).toBeUndefined();
+  expect(
+    result.data.sections.nodes.find((n: any) => n.id === GALICIA_BECA_LOWER),
+  ).toBeTruthy();
+  expect(
+    result.data.sections.nodes.find((n: any) => n.id === NORWAY_SJOA_AMOT),
+  ).toBeTruthy();
+});
+
+describe('filter editable', () => {
+  it.each([
+    ['anon', undefined],
+    ['user', TEST_USER],
+  ])('%s should get empty list', async (_, user: any) => {
+    const result = await runQuery(
+      query,
+      {
+        filter: { editable: true },
+      },
+      fakeContext(user),
+    );
+    expect(result.data.sections).toMatchObject({ nodes: [], count: 0 });
+  });
+
+  it('admin should have all sections as editable', async () => {
+    const result = await runQuery(
+      query,
+      {
+        filter: { editable: true },
+      },
+      fakeContext(ADMIN),
+    );
+    expect(result.data.sections.nodes).toHaveLength(SECTIONS_TOTAL);
+  });
+
+  it('editor get his editable sections', async () => {
+    const result = await runQuery(
+      query,
+      {
+        filter: { editable: true },
+      },
+      fakeContext(EDITOR_NO),
+    );
+    expect(result.data.sections.nodes).toContainEqual(
+      expect.objectContaining({ id: NORWAY_SJOA_AMOT }),
+    );
+    expect(result.data.sections.nodes).not.toContainEqual(
+      expect.objectContaining({ id: GALICIA_BECA_LOWER }),
+    );
+  });
 });
 
 it('should fire two queries for sections->region with only region name queried', async () => {

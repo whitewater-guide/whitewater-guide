@@ -24,7 +24,8 @@ const SNAP_POINTS: [number, number, number] = [
   0,
 ];
 
-export const SelectedSectionView: React.FC = React.memo(() => {
+// tslint:disable-next-line: no-shadowed-variable
+export const SelectedSectionView = React.memo(function SelectedSectionView() {
   const region = useRegion();
   const { selection, onSelected } = useMapSelection();
   const section = isSection(selection) ? selection : null;
@@ -74,7 +75,7 @@ export const SelectedSectionView: React.FC = React.memo(() => {
       renderHeader={renderHeader}
       renderButtons={renderButtons}
       renderContent={renderContent}
-      selection={selection}
+      selection={section}
       onSelected={onSelected}
     />
   );

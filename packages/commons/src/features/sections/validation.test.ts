@@ -1,3 +1,6 @@
+import { createSafeValidator } from '@whitewater-guide/validation';
+import { NEW_ID } from '../../apollo';
+import { MediaKind } from '../media';
 import {
   Duration,
   GaugeBinding,
@@ -9,10 +12,6 @@ import {
   SectionAdminSettingsSchema,
   SectionInputSchema,
 } from './validation';
-
-import { MediaKind } from '../media';
-import { NEW_ID } from '../../apollo';
-import { createSafeValidator } from '@whitewater-guide/validation';
 
 describe('GaugeBinding', () => {
   const validator = createSafeValidator(GaugeBindingSchema);
@@ -132,7 +131,6 @@ describe('SectionInput', () => {
         rating: null,
         season: null,
         createdBy: null,
-        suggestionId: null,
         helpNeeded: null,
         importId: null,
       },
@@ -154,7 +152,6 @@ describe('SectionInput', () => {
         rating: undefined,
         season: undefined,
         createdBy: undefined,
-        suggestionId: undefined,
         helpNeeded: undefined,
         importId: undefined,
       } as any,
@@ -162,10 +159,6 @@ describe('SectionInput', () => {
     [
       'with createdBy',
       { ...correct, createdBy: '880e1a40-bd02-11e9-9cb5-2a2ae2dbcce4' },
-    ],
-    [
-      'with suggestionId',
-      { ...correct, createdBy: '8ef42282-bd02-11e9-9cb5-2a2ae2dbcce4' },
     ],
     ['with importId', { ...correct, importId: 'whatever' }],
     ['empty description', { ...correct, description: '' }],

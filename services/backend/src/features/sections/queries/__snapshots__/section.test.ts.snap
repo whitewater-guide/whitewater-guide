@@ -2,6 +2,10 @@
 
 exports[`data should return simple data 1`] = `
 Object {
+  "createdBy": Object {
+    "id": "65fa3f3a-62a7-11e8-adc0-fa7ae01bbebc",
+    "name": "Test user 2",
+  },
   "demo": false,
   "description": "Amot description",
   "difficulty": 4,
@@ -63,5 +67,6 @@ Object {
     "kind": "take-out",
     "name": "Sjoa - Amot: Take-out",
   },
+  "verified": null,
 }
 `;

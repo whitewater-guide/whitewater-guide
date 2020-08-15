@@ -1,3 +1,91 @@
+## [0.0.442](https://github.com/doomsower/whitewater/compare/f09732fd25d44632e0be235eaecff61253acf5ec...cc18436470d10e3dc4ac3db805bfa6b6e2840515) (2020-08-15)
+
+## [0.0.442](https://github.com/doomsower/whitewater/compare/febf96235fd4db34a554ae42ee677dc6dc2e03e2...f09732fd25d44632e0be235eaecff61253acf5ec) (2020-08-15)
+
+## [0.0.442](https://github.com/doomsower/whitewater/compare/916a22468af4209cb7e320cba3566449ad4962e9...febf96235fd4db34a554ae42ee677dc6dc2e03e2) (2020-08-12)
+
+### Bug Fixes
+
+- ignore gorge error in upsertSection ([](https://github.com/doomsower/whitewater/commit/13e49c1ea6d386ab16ff9d2ad9c77cfce2e1f73a))
+
+## [0.0.441](https://github.com/doomsower/whitewater/compare/c604b24c901e92b803d1984ddfd1561ebb685d53...916a22468af4209cb7e320cba3566449ad4962e9) (2020-08-10)
+
+### Features
+
+- new suggestions mechanism ([](https://github.com/doomsower/whitewater/commit/406651c49a4793df92690ee34013b186ee4657c6))
+
+### Other
+
+- update secrets ([](https://github.com/doomsower/whitewater/commit/1c28bfb33d04c4b63dfa5e9d4bf099ceb2abbbdb))
+
+## [0.0.441-suggestionsv2.4](https://github.com/doomsower/whitewater/compare/753c9a629ecc72cf3a4a312aed53225ed65c06ea...c058ae3ae9224104eac6f9ba932eb45435b6012a) (2020-08-08)
+
+### Features
+
+- web form for approving suggested sections ([](https://github.com/doomsower/whitewater/commit/6cca6bd26adad40952f8f239c2864eaa63597782))
+
+## [0.0.441-suggestionsv2.3](https://github.com/doomsower/whitewater/compare/3d997d1c55fbe5da2f8d9167b3dab5abe3be451e...753c9a629ecc72cf3a4a312aed53225ed65c06ea) (2020-08-08)
+
+### Features
+
+- createdBy resolver, correctly set demo attribute ([](https://github.com/doomsower/whitewater/commit/553103171d7be059b9d8fb4b399db9efa36e670d))
+- expose createdBy, remove suggestionId ([](https://github.com/doomsower/whitewater/commit/64f041e40fa35edd587101852d89d5e258a29f53))
+
+## [0.0.441-suggestionsv2.2](https://github.com/doomsower/whitewater/compare/22b79dedf4450fda606ae372412145552b34549f...3d997d1c55fbe5da2f8d9167b3dab5abe3be451e) (2020-08-08)
+
+### Features
+
+- filter editable sections ([](https://github.com/doomsower/whitewater/commit/e60cc9d724fb66c22c10e13b00960d9d122bc3ce))
+
+## [0.0.441-suggestionsv2.1](https://github.com/doomsower/whitewater/compare/673c748364a1886ff74121e921c16d9494281090...22b79dedf4450fda606ae372412145552b34549f) (2020-08-08)
+
+### Bug Fixes
+
+- move wkx to deps ([](https://github.com/doomsower/whitewater/commit/f06ef865a01eb563f1ae38245bc4a5e7e4979d2e))
+
+## [0.0.441-suggestionsv2.0](https://github.com/doomsower/whitewater/compare/ef032681c57980db6440a97d657655d5919d8562...673c748364a1886ff74121e921c16d9494281090) (2020-08-08)
+
+### Features
+
+- add constant for others region ([](https://github.com/doomsower/whitewater/commit/0924db1c57779948401eaf685dfbff155588e33d))
+- add federation and logbook ([](https://github.com/doomsower/whitewater/commit/9ec1c3488db1700d23f18d9d85bd16844942d6f2))
+- add verified attribute ([](https://github.com/doomsower/whitewater/commit/8eee5aded79e8fcd06cf97947daa71f85e908104))
+- add verified filter ([](https://github.com/doomsower/whitewater/commit/711f229a250302c77c62898908b894beb9018df2))
+- anons are not allowed to create suggestions ([](https://github.com/doomsower/whitewater/commit/d125e5280c5004e0ed1cdaf120154beebf275522))
+- common types for descents ([](https://github.com/doomsower/whitewater/commit/2d2b38fd8cb44588754a5e138c6108f804e17b25))
+- copy descents query tests ([](https://github.com/doomsower/whitewater/commit/71ffffec9b75525e4d3b9a9531c6b9a0e60d05dd))
+- create new rivers in others region ([](https://github.com/doomsower/whitewater/commit/db7e5ec3a7cef1425aa4f1dc0fc3b82a035f0f8a))
+- delete descent resolver ([](https://github.com/doomsower/whitewater/commit/2632334bf42557ddeb3443cb82bbb109aa2d2d9d))
+- delete river when its last section is deleted ([](https://github.com/doomsower/whitewater/commit/37014e8ded1ebf64462a48f4809d6294bc5a3647))
+- descent share token query ([](https://github.com/doomsower/whitewater/commit/3f6e6abe6dd1a5a258572e6860a8f8150b37bcb1))
+- descents form ([](https://github.com/doomsower/whitewater/commit/c106e58c8368157a16a4b2a49ebedea5c5823bdd))
+- descents resolver ([](https://github.com/doomsower/whitewater/commit/248a9d42ab06ccb3b03da5575fd4930c991ce90d))
+- descents wip ([](https://github.com/doomsower/whitewater/commit/8ff6a6c2ca85b8c61250af26f3e90db58754a61e))
+- ditch federation and prepare descent seeds ([](https://github.com/doomsower/whitewater/commit/aabd702e619d416033c955490ee6647aaae89e79))
+- fabs and apple sign in ([](https://github.com/doomsower/whitewater/commit/c1d75c4cb311f5014117d12c3ffcae732b905c77))
+- get descent query ([](https://github.com/doomsower/whitewater/commit/9ac713d7c3262145522ec2caf1815d40be8012dd))
+- logbooks mobile ([](https://github.com/doomsower/whitewater/commit/b16559391e66d63ad6311f579ffe9c8af861e716))
+- merge sections ([](https://github.com/doomsower/whitewater/commit/382550259f76a5e78c4e88343ac3566a825da6bc))
+- my descents resolver ([](https://github.com/doomsower/whitewater/commit/b03e23f345df484a8de54585c2cf2ed13511f0e8))
+- relay-style connector ([](https://github.com/doomsower/whitewater/commit/27947a7a2e1cd50f525f236dd0e9731d061c1562))
+- remove legacy auth ([](https://github.com/doomsower/whitewater/commit/20290e5264f6b2494be4012c5e9282f0e995f063))
+- remove suggested sections, add verified attribute ([](https://github.com/doomsower/whitewater/commit/9cf4b3a86e3fbafae154ce87658d4a038b7b2cef))
+- some updates, but tests are broken ([](https://github.com/doomsower/whitewater/commit/b40c51bd8b53a127144e229cc2c32e81b768ef28))
+- update backend deps ([](https://github.com/doomsower/whitewater/commit/dc02ef77ab87b48b7d483b31e4f70d38a3d1ebf6))
+- upsert descent mutation ([](https://github.com/doomsower/whitewater/commit/b7333d5e8eed3ab52761fcbd4a38cc681a69071b))
+
+### Bug Fixes
+
+- filter by verified ([](https://github.com/doomsower/whitewater/commit/0763944f44ca177a1bbe65a8c37486f275520317))
+- flaky timestamps in tests ([](https://github.com/doomsower/whitewater/commit/759cc83a76001b094c1b8578309c21375df3e85f))
+- patch-package on prod ([](https://github.com/doomsower/whitewater/commit/ad338079da3e65a55b005c0d27488e1cfc2b4fed))
+
+### Other
+
+- human-friendly names for galician test data ([](https://github.com/doomsower/whitewater/commit/48530dc67e3bf2f2fee363228aa3268e3652e625))
+- offset and relay connectors ([](https://github.com/doomsower/whitewater/commit/3ab00a01113efbfb0326b931b76ca26a7f693b50))
+- tilde for module aliases ([](https://github.com/doomsower/whitewater/commit/e1770b8545d591d46f07c83cc50ff30e9d71df99))
+
 ## [0.0.440](https://github.com/doomsower/whitewater/compare/0c1bf719e4c460c29888565d46269496f633a1de...81fd775ae152178216f60a6d5b1a58b84938c722) (2020-08-06)
 
 ### Features

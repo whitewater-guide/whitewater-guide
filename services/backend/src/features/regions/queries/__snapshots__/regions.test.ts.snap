@@ -223,5 +223,42 @@ Array [
     "seasonNumeric": Array [],
     "sku": "region.norway",
   },
+  Object {
+    "bounds": Array [
+      Array [
+        -179,
+        -89,
+        0,
+      ],
+      Array [
+        -179,
+        89,
+        0,
+      ],
+      Array [
+        179,
+        89,
+        0,
+      ],
+      Array [
+        179,
+        -89,
+        0,
+      ],
+    ],
+    "coverImage": Object {
+      "mobile": null,
+    },
+    "description": null,
+    "editable": true,
+    "hidden": false,
+    "id": "7e535c02-8624-46a1-a865-d88fe4557361",
+    "name": "Others",
+    "pois": Array [],
+    "premium": false,
+    "season": null,
+    "seasonNumeric": Array [],
+    "sku": null,
+  },
 ]
 `;

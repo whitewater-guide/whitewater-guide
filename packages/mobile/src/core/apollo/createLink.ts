@@ -17,7 +17,7 @@ export const createLink = (auth: AuthService) =>
       if (error.type === 'fetch') {
         const { isConnected } = await NetInfo.fetch();
         if (isConnected) {
-          trackError('errorLink', error);
+          trackError('errorLink', error, { isConnected });
         }
       } else {
         trackError('errorLink', error);

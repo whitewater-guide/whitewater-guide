@@ -76,6 +76,8 @@ type Section {
   createdAt: Date
   # When was this section last modified
   updatedAt: Date
+  # Original author
+  createdBy: User
   # Photos, videos and blogs
   media(page: Page): SectionMediaConnection!
   # Points of interest
@@ -87,6 +89,8 @@ type Section {
   demo: Boolean
   # What should be changed about this section?
   helpNeeded: String
+  # true if this section has been reviewed by our moderators
+  verified: Boolean
 }
 
 type SectionMediaConnection {
@@ -124,7 +128,6 @@ input SectionInput {
   hidden: Boolean!
   helpNeeded: String
   createdBy: ID
-  suggestionId: ID
   # Optional field for imported data
   importId: String
 }
@@ -143,6 +146,9 @@ input SectionsFilter {
   regionId: ID
   updatedAfter: Date
   search: String
+  verified: Boolean
+  # list only the sections that current user can edit
+  editable: Boolean
 }
 
 type SectionEditLogEntry {

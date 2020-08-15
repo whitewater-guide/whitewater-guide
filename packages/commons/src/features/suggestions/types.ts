@@ -1,5 +1,5 @@
-import { NamedNode, Node, NodeRef } from '../../apollo';
-import { Section, SectionInput } from '../sections';
+import { Node, NodeRef } from '../../apollo';
+import { Section } from '../sections';
 import { User } from '../users';
 
 export enum SuggestionStatus {
@@ -32,16 +32,6 @@ export interface SuggestionInput {
   copyright: string | null;
   filename: string | null;
   resolution: number[] | null;
-}
-
-export interface SuggestedSection<SectionType = string> extends Node {
-  createdAt: string;
-  createdBy: User | null;
-  status: SuggestionStatus;
-  region: NamedNode;
-  river: NamedNode;
-  name: string;
-  section: SectionType;
 }
 
 export interface SuggestionsFilter {
