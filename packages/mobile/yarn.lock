@@ -3690,10 +3690,10 @@
     validator "^13.1.1"
     yup "^0.29.1"
 
-"@whitewater-guide/translations@^2.3.9":
-  version "2.3.9"
-  resolved "https://registry.npmjs.org/@whitewater-guide/translations/-/translations-2.3.9.tgz#788508065be0425a2369728a9214f9a1408ad3f9"
-  integrity sha512-Y375a7zRwrI6M7TDCsoImIiD8kS7drbKyk9JNEnS5qQ7E47ZKRFjTagQ5IbDquzr2429WLLEv32lbVZgyUhPCg==
+"@whitewater-guide/translations@^2.4.2":
+  version "2.4.2"
+  resolved "https://registry.npmjs.org/@whitewater-guide/translations/-/translations-2.4.2.tgz#522d7b1e3f465c4cf11189fa2b34d8e4344b65b6"
+  integrity sha512-Ln1bzJPg1WmWhfgzM/Lx0hdfkRwglu0aggdEOvsr91jyhjmI+xzQKXwLbqMA6xf0CKxxtpuGZBY6ZQ0+/L2euw==
 
 "@whitewater-guide/validation@^1.1.5":
   version "1.1.5"
@@ -13378,10 +13378,10 @@ react-native-vector-icons@^7.0.0:
     prop-types "^15.7.2"
     yargs "^15.0.2"
 
-react-native-webview@^10.4.1:
-  version "10.4.1"
-  resolved "https://registry.npmjs.org/react-native-webview/-/react-native-webview-10.4.1.tgz#87abc1c48df9d81ee7efc7708fcabe0fc3ea4b90"
-  integrity sha512-qC8lHeP6paHsT3Tiuiga3XHouvQQVhxEJtBDgyYjzX+CbZ5S9+bthkOahhkuP+nlLJMPmIPN7HtpvdGnrqyAFg==
+react-native-webview@^10.6.0:
+  version "10.6.0"
+  resolved "https://registry.npmjs.org/react-native-webview/-/react-native-webview-10.6.0.tgz#83a574871a52540fec6b8a813f8f6432a07429c8"
+  integrity sha512-y1/zYx9LuoiPVSM3oxf77WQjRebaYG22Kya4lr2tmIESaR1GkKzwKSpKPyEZYfu8U/WNRSrrS/i78o+R1aQRTA==
   dependencies:
     escape-string-regexp "2.0.0"
     invariant "2.2.4"
