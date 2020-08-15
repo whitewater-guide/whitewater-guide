@@ -95,6 +95,15 @@ const DrawerSidebar: React.FC<DrawerContentComponentProps> = (props) => {
       />
       <Spacer />
       <DrawerItem
+        label={t('commons:backers')}
+        routeName={Screens.WEB_VIEW}
+        params={{
+          fixture: 'backers',
+          title: t('commons:backers'),
+        }}
+        onPress={navigate}
+      />
+      <DrawerItem
         label={t('commons:termsOfService')}
         routeName={Screens.WEB_VIEW}
         params={{

@@ -3,7 +3,7 @@ import { useMapSelection } from '@whitewater-guide/clients';
 import { Region } from '@whitewater-guide/commons';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { FAB } from 'react-native-paper';
 import useFABAuth from '~/components/useFABAuth';
 import { Screens } from '~/core/navigation';
@@ -11,7 +11,8 @@ import theme from '~/theme';
 
 const styles = StyleSheet.create({
   fabRoot: {
-    paddingBottom: theme.margin.double + 56 + theme.safeBottom,
+    paddingBottom:
+      theme.margin.double + 56 + (Platform.OS === 'ios' ? theme.safeBottom : 0),
   },
 });
 
