@@ -2,7 +2,7 @@ import { strToFloat } from '@whitewater-guide/clients';
 import { useFormikContext } from 'formik';
 import get from 'lodash/get';
 import React, { forwardRef, useCallback, useEffect, useState } from 'react';
-import { StyleProp, View, ViewStyle } from 'react-native';
+import { StyleProp, TextStyle, View, ViewStyle } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import HelperText from './HelperText';
 import useFocus from './useFocus';
@@ -17,11 +17,23 @@ type Props = {
   name: string;
   wrapperStyle?: StyleProp<ViewStyle>;
   displayError?: boolean;
+  helperText?: string;
+  helperTextStyle?: StyleProp<TextStyle>;
 } & Omit<TextInputProps, 'value' | 'onChangeText' | 'onChange'>;
 
 const NumericField = React.memo(
   forwardRef<any, Props>(
-    ({ name, displayError = true, wrapperStyle, ...props }, ref) => {
+    (
+      {
+        name,
+        displayError = true,
+        wrapperStyle,
+        helperText,
+        helperTextStyle,
+        ...props
+      },
+      ref,
+    ) => {
       const {
         errors,
         touched,
@@ -71,7 +83,14 @@ const NumericField = React.memo(
             keyboardType="numeric"
             error={isTouched && !!error}
           />
-          {displayError && <HelperText touched={isTouched} error={error} />}
+          {(displayError || !!helperText) && (
+            <HelperText
+              touched={isTouched}
+              error={error}
+              helperText={helperText}
+              style={helperTextStyle}
+            />
+          )}
         </View>
       );
     },

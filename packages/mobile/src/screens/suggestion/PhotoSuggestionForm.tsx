@@ -50,6 +50,7 @@ const PhotoSuggestionForm: React.FC<Props> = React.memo((props) => {
             ref={scroll}
             style={styles.container}
             contentContainerStyle={styles.content}
+            keyboardShouldPersistTaps="always"
           >
             <PhotoUploadField name="photo" localPhotoId={localPhotoId} />
             <TextField

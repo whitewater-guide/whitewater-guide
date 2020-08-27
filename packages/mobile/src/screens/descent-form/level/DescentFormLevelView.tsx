@@ -49,6 +49,7 @@ const DescentFormLevelView: React.FC<DescentFormDateNavProps> = ({
           <NumericField
             name="level.value"
             label={t('screens:descentForm.level.valueLabel')}
+            helperText={section.gauge ? `@ ${section.gauge.name}` : undefined}
           />
           <TextField
             name="level.unit"
