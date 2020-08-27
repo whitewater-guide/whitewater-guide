@@ -82,7 +82,7 @@ const SectionForm: React.FC<Props> = ({ match, location }) => {
   const bounds = region ? region.bounds : null;
   const tags = formik.rawData ? formik.rawData.tags : [];
   const needsVerification =
-    !formik.rawData?.section.verified && !!formik.rawData?.section.id;
+    !formik.rawData?.section?.verified && !!formik.rawData?.section?.id;
 
   return (
     <FormikCard<QResult, SectionFormData>
