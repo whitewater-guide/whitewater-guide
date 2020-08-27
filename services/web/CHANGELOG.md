@@ -1,3 +1,9 @@
+## [0.1.440](https://github.com/doomsower/whitewater/compare/cc18436470d10e3dc4ac3db805bfa6b6e2840515...fd61bd385191f221c42dd418e0d38e35a76f0b8c) (2020-08-27)
+
+### Bug Fixes
+
+- new section form ([](https://github.com/doomsower/whitewater/commit/ab8e2548f703ed5223da941dac4c767b4e36e055))
+
 ## [0.1.439](https://github.com/doomsower/whitewater/compare/f09732fd25d44632e0be235eaecff61253acf5ec...cc18436470d10e3dc4ac3db805bfa6b6e2840515) (2020-08-15)
 
 ## [0.1.439](https://github.com/doomsower/whitewater/compare/febf96235fd4db34a554ae42ee677dc6dc2e03e2...f09732fd25d44632e0be235eaecff61253acf5ec) (2020-08-15)
