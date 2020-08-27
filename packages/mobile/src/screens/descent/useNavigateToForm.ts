@@ -45,7 +45,7 @@ export default () => {
         ? {
             formData: {
               section: descent.section,
-              startedAt: new Date(),
+              startedAt: new Date().toISOString(),
               public: descent.public,
             },
           }

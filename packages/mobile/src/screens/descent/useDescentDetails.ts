@@ -30,6 +30,19 @@ const DESCENT_DETAILS_QUERY = gql`
           id
           name
         }
+        flows {
+          minimum
+          maximum
+          optimum
+          impossible
+          approximate
+        }
+        gauge {
+          id
+          name
+          levelUnit
+          flowUnit
+        }
       }
     }
   }
