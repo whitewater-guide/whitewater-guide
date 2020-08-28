@@ -15,12 +15,15 @@ import React from 'react';
 import { Column, IndexRange, TableProps } from 'react-virtualized';
 import {
   AdminColumn,
+  ClickBlocker,
   EditorColumn,
+  IconLink,
   isEmptyRow,
   TableCellRenderer,
   UnstyledLink,
 } from '../../../components';
 import { Table } from '../../../components/tables';
+import { paths } from '../../../utils';
 import NameFilter from './NameFilter';
 import SectionMenu from './SectionMenu';
 import { OuterProps } from './types';
@@ -155,11 +158,17 @@ export default class SectionsTable extends React.PureComponent<Props> {
     }
     const { regionId } = this.props;
     return (
-      <SectionMenu
-        section={rowData}
-        regionId={regionId}
-        deleteHandler={this.props.onRemove}
-      />
+      <ClickBlocker>
+        <IconLink
+          to={paths.settings({ regionId, sectionId: rowData.id })}
+          icon="edit"
+        />
+        <SectionMenu
+          section={rowData}
+          regionId={regionId}
+          deleteHandler={this.props.onRemove}
+        />
+      </ClickBlocker>
     );
   };
 
@@ -225,8 +234,8 @@ export default class SectionsTable extends React.PureComponent<Props> {
           headerClassName="centered"
           cellRenderer={this.renderHidden}
         />
-        <Column
-          width={100}
+        <EditorColumn
+          width={120}
           label="Actions"
           dataKey="actions"
           headerClassName="actions"

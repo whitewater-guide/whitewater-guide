@@ -1,7 +1,40 @@
 import { yupTypes } from '@whitewater-guide/validation';
 import * as yup from 'yup';
-import { isInputValidResolver, TopLevelResolver } from '~/apollo';
+import { Context, isInputValidResolver, TopLevelResolver } from '~/apollo';
 import db from '~/db';
+import { SectionRaw } from '../types';
+import { differ } from './utils';
+
+const getLogSaver = async (
+  user: Context['user'],
+  sourceId: string,
+  destinationId: string,
+) => {
+  const sections: SectionRaw[] = await db()
+    .select('*')
+    .from('sections_view')
+    .whereIn('id', [sourceId, destinationId]);
+  const src = sections.find(({ id }) => id === sourceId);
+  const dst = sections.find(({ id }) => id === destinationId);
+  if (!src || !dst) {
+    return () => Promise.resolve();
+  }
+  return async () => {
+    await db()
+      .insert({
+        section_id: dst.id,
+        section_name: dst.name,
+        river_id: dst.river_id,
+        river_name: dst.river_name,
+        region_id: dst.region_id,
+        region_name: dst.region_name,
+        action: 'merged',
+        editor_id: user!.id,
+        diff: differ.diff(src, {}),
+      })
+      .into('sections_edit_log');
+  };
+};
 
 interface Vars {
   sourceId: string;
@@ -22,10 +55,11 @@ const Struct = yup.object<Vars>({
 const mergeSections: TopLevelResolver<Vars> = async (
   _,
   { sourceId, destinationId },
-  { dataSources },
+  { dataSources, user },
 ) => {
   await dataSources.sections.assertEditorPermissions(sourceId);
   await dataSources.sections.assertEditorPermissions(destinationId);
+  const saveLog = await getLogSaver(user, sourceId, destinationId);
   await db().raw(
     `
     WITH update_pois AS (
@@ -49,6 +83,7 @@ const mergeSections: TopLevelResolver<Vars> = async (
       sourceId,
     ],
   );
+  await saveLog();
 
   return true;
 };

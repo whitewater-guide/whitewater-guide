@@ -1,3 +1,9 @@
+## [0.1.441](https://github.com/doomsower/whitewater/compare/fd61bd385191f221c42dd418e0d38e35a76f0b8c...0168738e4ee92bfd239508284e8ee264c5c1d6e3) (2020-08-28)
+
+### Features
+
+- extract edit from section menu ([](https://github.com/doomsower/whitewater/commit/fc3154a4580cbdab37bf0d79c775e38bf9edc16e))
+
 ## [0.1.440](https://github.com/doomsower/whitewater/compare/cc18436470d10e3dc4ac3db805bfa6b6e2840515...fd61bd385191f221c42dd418e0d38e35a76f0b8c) (2020-08-27)
 
 ### Bug Fixes

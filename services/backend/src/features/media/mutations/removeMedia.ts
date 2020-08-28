@@ -1,7 +1,7 @@
+import { MediaKind } from '@whitewater-guide/commons';
 import { TopLevelResolver } from '~/apollo';
 import db from '~/db';
 import { MEDIA, minioClient } from '~/minio';
-import { MediaKind } from '@whitewater-guide/commons';
 import { insertLog } from '../utils';
 
 interface Vars {
@@ -19,7 +19,7 @@ const removeMedia: TopLevelResolver<Vars> = async (
     .from('sections_media')
     .where({ media_id: id })
     .first();
-  const [result] = await db()
+  const [result]: any[] = await db()
     .table('media')
     .del()
     .where({ id })

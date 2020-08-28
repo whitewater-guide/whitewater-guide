@@ -6,7 +6,6 @@ import {
   SectionInputSchema,
 } from '@whitewater-guide/commons';
 import { ForbiddenError } from 'apollo-server';
-import { DiffPatcher } from 'jsondiffpatch';
 import uniq from 'lodash/uniq';
 import * as yup from 'yup';
 import { Context, isInputValidResolver, TopLevelResolver } from '~/apollo';
@@ -16,18 +15,7 @@ import { getLocalFileName, MEDIA, minioClient, moveTempImage } from '~/minio';
 import { isAuthenticatedResolver } from '../../../apollo/enhancedResolvers';
 import { RawSectionUpsertResult } from '../types';
 import { checkForNewRiver, insertNewRiver } from './upsertUtils';
-
-const differ = new DiffPatcher({
-  propertyFilter: (name: keyof SectionRaw) => {
-    return (
-      name !== 'created_at' &&
-      name !== 'created_by' &&
-      name !== 'updated_at' &&
-      name !== 'language' &&
-      name !== 'region_name'
-    );
-  },
-});
+import { differ } from './utils';
 
 const transformSection = (section: SectionInput): SectionInput => {
   return {

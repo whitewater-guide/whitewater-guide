@@ -10,7 +10,7 @@ const removeGauge: TopLevelResolver<Vars> = async (
   { id },
   { dataSources },
 ) => {
-  const [result] = await db()
+  const [result]: any[] = await db()
     .table('gauges')
     .del()
     .where({ id })
