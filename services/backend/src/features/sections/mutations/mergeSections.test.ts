@@ -1,13 +1,27 @@
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import { holdTransaction, rollbackTransaction } from '~/db';
-import { EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
+import { ExecutionResult } from 'graphql';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
+import {
+  EDITOR_GA_EC,
+  EDITOR_GA_EC_ID,
+  TEST_USER,
+} from '~/seeds/test/01_users';
+import { REGION_GALICIA } from '~/seeds/test/04_regions';
+import { RIVER_GAL_BECA } from '~/seeds/test/07_rivers';
 import {
   GALICIA_BECA_LOWER,
   GALICIA_BECA_UPPER,
   NORWAY_FINNA_GORGE,
   NORWAY_SJOA_AMOT,
 } from '~/seeds/test/09_sections';
-import { anonContext, countRows, fakeContext, runQuery } from '~/test';
+import {
+  anonContext,
+  countRows,
+  fakeContext,
+  runQuery,
+  UUID_REGEX,
+} from '~/test';
+import { SectionsEditLogRaw } from '../types';
 
 let sBefore: number;
 let pBefore: number;
@@ -32,8 +46,6 @@ const query = `
     mergeSections(sourceId: $sourceId, destinationId: $destinationId)
   }
 `;
-
-const id = GALICIA_BECA_LOWER; // Galicia River 1 Section 1
 
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
@@ -64,24 +76,52 @@ describe('resolvers chain', () => {
   });
 });
 
-it('should reparent pois, media and descents', async () => {
-  const result = await runQuery(
-    query,
-    { sourceId: GALICIA_BECA_LOWER, destinationId: GALICIA_BECA_UPPER },
-    fakeContext(EDITOR_GA_EC),
-  );
-  expect(result.errors).toBeUndefined();
-  const [sAfter, pAfter, mAfter, dAfter] = await countRows(
-    false,
-    'sections',
-    'points',
-    'media',
-    'descents',
-  );
-  expect([
-    sAfter - sBefore,
-    pAfter - pBefore,
-    mAfter - mBefore,
-    dAfter - dBefore,
-  ]).toEqual([-1, 0, 0, 0]);
+describe('effects', () => {
+  let result: ExecutionResult<any>;
+
+  beforeEach(async () => {
+    result = await runQuery(
+      query,
+      { sourceId: GALICIA_BECA_LOWER, destinationId: GALICIA_BECA_UPPER },
+      fakeContext(EDITOR_GA_EC),
+    );
+    expect(result.errors).toBeUndefined();
+  });
+
+  it('should reparent pois, media and descents', async () => {
+    const [sAfter, pAfter, mAfter, dAfter] = await countRows(
+      false,
+      'sections',
+      'points',
+      'media',
+      'descents',
+    );
+    expect([
+      sAfter - sBefore,
+      pAfter - pBefore,
+      mAfter - mBefore,
+      dAfter - dBefore,
+    ]).toEqual([-1, 0, 0, 0]);
+  });
+
+  it('should log this event', async () => {
+    const entry: SectionsEditLogRaw = await db(false)
+      .table('sections_edit_log')
+      .orderBy('created_at', 'desc')
+      .select('*')
+      .first();
+    expect(entry).toMatchObject({
+      id: expect.stringMatching(UUID_REGEX),
+      section_id: GALICIA_BECA_UPPER,
+      section_name: 'Upper',
+      river_id: RIVER_GAL_BECA,
+      river_name: 'Beca',
+      region_id: REGION_GALICIA,
+      region_name: 'Galicia',
+      editor_id: EDITOR_GA_EC_ID,
+      action: 'merged',
+      diff: expect.objectContaining({ id: [GALICIA_BECA_LOWER, 0, 0] }),
+      created_at: expect.any(Date),
+    });
+  });
 });
