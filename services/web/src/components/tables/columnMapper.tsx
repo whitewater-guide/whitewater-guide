@@ -35,7 +35,7 @@ const columnMapper = (isAdmin: boolean, isEditor: boolean) => (
       : null;
   }
   if (column.type === EditorColumn) {
-    return isEditor
+    return isAdmin || isEditor
       ? React.createElement(
           Column as React.ComponentClass<any>,
           mapRenderers(column.props),

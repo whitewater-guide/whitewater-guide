@@ -55,12 +55,6 @@ const SectionMenu = React.memo(
           </Clipboard>
 
           <SectionMenuItem
-            icon="edit"
-            label="Edit"
-            to={paths.settings({ regionId, sectionId })}
-          />
-
-          <SectionMenuItem
             icon="file_copy"
             label="Duplicate"
             to={paths.to({ regionId, sectionId: `new?copy=${sectionId}` })}
