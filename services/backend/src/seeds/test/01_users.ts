@@ -1,8 +1,8 @@
-import { LoginRaw, UserRawInput } from '~/features/users';
 import { hashSync } from 'bcrypt';
 import Knex from 'knex';
 import set from 'lodash/fp/set';
 import { Profile } from 'passport-facebook';
+import { LoginRaw, UserRawInput } from '~/features/users';
 import { SALT_ROUNDS } from '../../auth/constants';
 
 export const ADMIN_ID = 'bed59990-749d-11e7-8cf7-a6006ad3dba0';
@@ -153,6 +153,17 @@ export const ADMIN_FB_ACCOUNT: LoginRaw = {
   username: 'Ivan Ivanov',
   tokens: { accessToken: '__admin_fb_access_token__' },
   profile: ADMIN_FB_PROFILE,
+  created_at: new Date(Date.UTC(2017, 1, 1)),
+  updated_at: new Date(Date.UTC(2017, 1, 1)),
+};
+
+export const ADMIN_APPLE_ACCOUNT: LoginRaw = {
+  user_id: ADMIN_ID,
+  id: '__apple_admin_id__',
+  provider: 'apple',
+  username: 'Ivan Ivanov',
+  tokens: {},
+  profile: {},
   created_at: new Date(Date.UTC(2017, 1, 1)),
   updated_at: new Date(Date.UTC(2017, 1, 1)),
 };
@@ -407,7 +418,7 @@ export async function seed(db: Knex) {
   await db.table('accounts').del();
   await db.raw('ALTER TABLE users DISABLE TRIGGER ALL');
   await db.table('users').insert(users);
-  await db.table('accounts').insert(ADMIN_FB_ACCOUNT);
+  await db.table('accounts').insert([ADMIN_FB_ACCOUNT, ADMIN_APPLE_ACCOUNT]);
   await db.table('fcm_tokens').insert(fcmTokens);
   await db.raw('ALTER TABLE users ENABLE TRIGGER ALL');
 }

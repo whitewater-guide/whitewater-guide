@@ -36,8 +36,7 @@ export function createSocialRouter(
             });
             return;
           }
-          const isNew = info ? info.isNew : undefined;
-          sendCredentials(ctx, user, isNew);
+          sendCredentials(ctx, user, info?.isNew);
         },
       )(ctx, next);
       await next();

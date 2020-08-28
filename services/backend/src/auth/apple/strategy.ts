@@ -17,7 +17,7 @@ export const apppleStrategy = new Strategy(async (req, done) => {
     const language = negotiateLanguage(req, ['en']);
 
     const username = fullName
-      ? [fullName.familyName, fullName.givenName].filter((i) => !!i).join(' ')
+      ? [fullName.givenName, fullName.familyName].filter((i) => !!i).join(' ')
       : 'Unknown User';
     const { isNew, user } = await storeUser(
       SocialMediaProvider.APPLE,
@@ -32,7 +32,8 @@ export const apppleStrategy = new Strategy(async (req, done) => {
     if (user && isNew) {
       await sendWelcome(user);
     }
-    done(null, user);
+    // @ts-ignore
+    done(null, user, { isNew });
   } catch (err) {
     done(err, null);
   }

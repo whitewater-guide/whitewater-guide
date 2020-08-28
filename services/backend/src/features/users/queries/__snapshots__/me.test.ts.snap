@@ -7,6 +7,10 @@ Object {
       "id": "__fb_admin_id__",
       "provider": "facebook",
     },
+    Object {
+      "id": "__apple_admin_id__",
+      "provider": "apple",
+    },
   ],
   "admin": true,
   "avatar": "https://ww.guide/pic.jpg",
