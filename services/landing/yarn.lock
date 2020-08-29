@@ -7,10 +7,10 @@
   resolved "https://registry.npmjs.org/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
   integrity sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==
 
-"@whitewater-guide/translations@^2.4.1":
-  version "2.4.1"
-  resolved "https://registry.npmjs.org/@whitewater-guide/translations/-/translations-2.4.1.tgz#5d9eb148983ca37caee30db4ac15d19f4d3725aa"
-  integrity sha512-BDLq5LAZMpbsUOCfAoyyvPAxerY0Vj1YBQYHweMb57kUInp/WLuT6NAvJ680a0S3laBfkhNRkmm5GDoHXtYM2g==
+"@whitewater-guide/translations@^2.4.3":
+  version "2.4.3"
+  resolved "https://registry.npmjs.org/@whitewater-guide/translations/-/translations-2.4.3.tgz#b051d53031c779e54467d80a57a1b32c0df8d758"
+  integrity sha512-w+zAtjURehFKsuAbyCfbSBs1i8iuTfiuAsN6WXtK0Od0INcSpvnNsySPttGNJpq71FqlB0UKJWL1OJQjZNyb+A==
 
 accepts@~1.3.4:
   version "1.3.7"
