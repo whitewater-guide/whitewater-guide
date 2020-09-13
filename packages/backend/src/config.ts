@@ -1,6 +1,9 @@
 import AWS from 'aws-sdk';
+import { readJSON } from 'fs-extra';
 
 class Config {
+  private _googleServiceAccount: any;
+
   public NODE_ENV = process.env.NODE_ENV || 'production';
   public logLevel =
     process.env.NODE_ENV === 'test'
@@ -49,6 +52,17 @@ class Config {
 
   public FB_APP_ID = process.env.FB_APP_ID;
   public FB_SECRET = process.env.FB_SECRET;
+
+  public async getGoogleServiceAccount() {
+    if (!this._googleServiceAccount) {
+      if (process.env.NODE_ENV !== 'production') {
+        this._googleServiceAccount = await readJSON(
+          'google_service_account.json',
+        );
+      }
+    }
+    return this._googleServiceAccount;
+  }
 }
 
 const config = new Config();

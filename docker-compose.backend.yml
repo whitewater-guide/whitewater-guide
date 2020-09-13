@@ -16,6 +16,7 @@ services:
       - ./packages/backend/.env
       - ./packages/backend/.env.local
     environment:
+      - NODE_ENV=development
       - POSTGRES_HOST=db
       - MINIO_HOST=minio
       - GORGE_HOST=gorge

@@ -1,10 +1,4 @@
-import config from '~/config';
-
-import {
-  getImgproxyURL,
-  getProcessingOpts,
-  stringifyProcessingOpts,
-} from './imgproxy';
+import { getProcessingOpts, stringifyProcessingOpts } from './imgproxy';
 
 describe('stringifyProcessingOpts', () => {
   it('should correctly concat', () => {
@@ -77,17 +71,4 @@ describe('getProcessingOpts', () => {
       ).toEqual({ w: expected });
     },
   );
-});
-
-describe('getImgproxyURL', () => {
-  it('should return signed url', () => {
-    // real example from dev server
-    expect(
-      getImgproxyURL('media', '06715218-8982-11e8-a214-d7075e85c400', {
-        h: 180,
-      }),
-    ).toBe(
-      `${config.contentPublicURL}/kaL35prbuKgQbuoX47_ZLgY2VOmy2nsvCMpvEuPtnzc/h:180/czM6Ly9jb250ZW50LTEvbWVkaWEvMDY3MTUyMTgtODk4Mi0xMWU4LWEyMTQtZDcwNzVlODVjNDAw.jpg`,
-    );
-  });
 });
