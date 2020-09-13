@@ -1,5 +1,0 @@
-**/*.*
-!Caddyfile
-!caddy-common.conf
-!subdomains
-!builder.sh

@@ -1,9 +1,9 @@
 import {
   Gauge,
   Measurement,
+  MeasurementsFilter,
   Section,
   Unit,
-  MeasurementsFilter,
 } from '@whitewater-guide/commons';
 
 export interface ChartProps {

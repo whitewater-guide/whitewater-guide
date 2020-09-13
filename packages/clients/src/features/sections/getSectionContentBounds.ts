@@ -1,4 +1,5 @@
 import { Coordinate3d, Section } from '@whitewater-guide/commons';
+
 import { getSectionPOIs } from './getSectionPOIs';
 
 export const getSectionContentBounds = (

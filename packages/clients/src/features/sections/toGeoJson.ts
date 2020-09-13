@@ -11,6 +11,7 @@ import {
   Section,
   sectionName,
 } from '@whitewater-guide/commons';
+
 import { getSectionColor } from './getSectionColor';
 
 const removeAlt = ([lng, lat]: CoordinateLoose): Coordinate2d => [lng, lat];

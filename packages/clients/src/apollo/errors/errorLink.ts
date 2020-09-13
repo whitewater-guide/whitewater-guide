@@ -2,6 +2,7 @@ import { AuthBody } from '@whitewater-guide/commons';
 import { ApolloCache } from 'apollo-cache';
 import { onError } from 'apollo-link-error';
 import get from 'lodash/get';
+
 import { AppError, AppErrorType } from './AppError';
 import { APP_ERROR_QUERY, AppErrorQueryResult } from './appError.query';
 import { isApolloServerError } from './utils';

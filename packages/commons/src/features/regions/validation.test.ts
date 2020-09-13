@@ -1,7 +1,7 @@
+import { createSafeValidator } from '@whitewater-guide/validation';
+
 import { RegionAdminSettings, RegionInput } from './types';
 import { RegionAdminSettingsSchema, RegionInputSchema } from './validation';
-
-import { createSafeValidator } from '@whitewater-guide/validation';
 
 describe('RegionInput', () => {
   const validator = createSafeValidator(RegionInputSchema);

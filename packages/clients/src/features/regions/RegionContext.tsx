@@ -3,11 +3,12 @@ import { FetchPolicy, NetworkStatus } from 'apollo-client';
 import { DocumentNode } from 'graphql';
 import React, { useContext, useMemo } from 'react';
 import { Query } from 'react-apollo';
+
 import { queryResultToNode, WithNode } from '../../apollo';
 import {
+  REGION_DETAILS,
   RegionDetailsResult,
   RegionDetailsVars,
-  REGION_DETAILS,
 } from './regionDetails.query';
 
 export const RegionContext = React.createContext<WithNode<Region | null>>({

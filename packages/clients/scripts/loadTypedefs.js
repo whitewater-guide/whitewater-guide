@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const fs = require('fs');
-const https = require('https');
 const http = require('http');
+const https = require('https');
 const path = require('path');
 
 const typedefsPath =
@@ -22,22 +23,21 @@ function copyLocalDefs() {
 
 function saveTypedefs(response) {
   const writer = fs.createWriteStream(path.resolve(typedefsPath));
-  writer.write('/* tslint:disable */\n');
   writer.write(
     '// this file contains GRAPHQL typedefs and it was automatically downloaded from server\n',
   );
   writer.write('const typeDefs = `');
-  response.on('data', function(chunk) {
+  response.on('data', function (chunk) {
     writer.write(chunk);
   });
-  response.on('end', function() {
+  response.on('end', function () {
     writer.end('`;\n\nexport default typeDefs;\n');
   });
 }
 
 function fetch(url, successCallback, errorCallback) {
   const protocol = url.startsWith('https') ? https : http;
-  const req = protocol.get(url, function(response) {
+  const req = protocol.get(url, function (response) {
     if (response.statusCode >= 200 && response.statusCode < 300) {
       successCallback(response);
     } else {

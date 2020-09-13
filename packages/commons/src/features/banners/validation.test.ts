@@ -1,8 +1,8 @@
-import { BannerInput, BannerKind, BannerPlacement } from './types';
-
-import { BannerInputSchema } from './validation';
 import { createSafeValidator } from '@whitewater-guide/validation';
 import omit from 'lodash/omit';
+
+import { BannerInput, BannerKind, BannerPlacement } from './types';
+import { BannerInputSchema } from './validation';
 
 describe('BannerInputStruct', () => {
   type TestValue = [string, BannerInput];

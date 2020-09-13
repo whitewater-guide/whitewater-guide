@@ -123,6 +123,7 @@ Object {
           "kind": "Point.kind.2",
         },
         "updatedAt": 2017-02-01T21:00:00.000Z,
+        "verified": false,
       },
       Object {
         "__typename": "Section",
@@ -241,6 +242,7 @@ Object {
           "kind": "Point.kind.5",
         },
         "updatedAt": 2017-02-02T21:00:00.000Z,
+        "verified": true,
       },
       Object {
         "__typename": "Section",
@@ -359,6 +361,7 @@ Object {
           "kind": "Point.kind.8",
         },
         "updatedAt": 2017-02-03T21:00:00.000Z,
+        "verified": false,
       },
       Object {
         "__typename": "Section",
@@ -477,6 +480,7 @@ Object {
           "kind": "Point.kind.11",
         },
         "updatedAt": 2017-02-04T21:00:00.000Z,
+        "verified": true,
       },
       Object {
         "__typename": "Section",
@@ -595,6 +599,7 @@ Object {
           "kind": "Point.kind.14",
         },
         "updatedAt": 2017-02-05T21:00:00.000Z,
+        "verified": false,
       },
     ],
   },

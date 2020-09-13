@@ -1,5 +1,6 @@
 import { GaugeBinding } from '@whitewater-guide/commons';
 import React from 'react';
+
 import { getColorForValue } from '../../sections';
 import { HorizontalGridProps } from './types';
 

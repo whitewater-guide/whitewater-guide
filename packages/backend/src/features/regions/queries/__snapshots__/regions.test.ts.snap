@@ -1,0 +1,246 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`results admin should get all regions 1`] = `
+Array [
+  Object {
+    "bounds": Array [
+      Array [
+        1,
+        0,
+        0,
+      ],
+      Array [
+        0,
+        1,
+        0,
+      ],
+      Array [
+        1,
+        1,
+        0,
+      ],
+    ],
+    "description": null,
+    "editable": true,
+    "hidden": false,
+    "id": "2caf75ca-7625-11e7-b5a5-be2e44b06b34",
+    "name": "Ecuador",
+    "pois": Array [],
+    "premium": true,
+    "season": null,
+    "seasonNumeric": Array [],
+    "sku": "region.ecuador",
+  },
+  Object {
+    "bounds": Array [
+      Array [
+        -114,
+        46,
+        0,
+      ],
+      Array [
+        -115,
+        46,
+        0,
+      ],
+      Array [
+        -115,
+        47,
+        0,
+      ],
+      Array [
+        -114,
+        47,
+        0,
+      ],
+    ],
+    "description": "Description of Galicia",
+    "editable": true,
+    "hidden": false,
+    "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
+    "name": "Galicia",
+    "pois": Array [
+      Object {
+        "coordinates": Array [
+          20,
+          30,
+          40,
+        ],
+        "description": "r1p1 description",
+        "id": "573f995a-d55f-4faf-8f11-5a6016ab562f",
+        "kind": "kayak-shop",
+        "name": "Region 1 Point 1",
+      },
+      Object {
+        "coordinates": Array [
+          11,
+          22,
+          33,
+        ],
+        "description": "r1p2 description",
+        "id": "d7530317-efac-44a7-92ff-8d045b2ac893",
+        "kind": "other",
+        "name": "Region 1 Point 2",
+      },
+    ],
+    "premium": false,
+    "season": "Late autumn - early spring",
+    "seasonNumeric": Array [
+      20,
+      21,
+    ],
+    "sku": null,
+  },
+  Object {
+    "bounds": Array [
+      Array [
+        43.51,
+        39.97,
+        0,
+      ],
+      Array [
+        41.93,
+        46.39,
+        0,
+      ],
+      Array [
+        41.05,
+        46.52,
+        0,
+      ],
+      Array [
+        41.51,
+        41.58,
+        0,
+      ],
+    ],
+    "description": "description of Georgia",
+    "editable": true,
+    "hidden": false,
+    "id": "8e119768-37f3-11e8-b467-0ed5f89f718b",
+    "name": "Georgia",
+    "pois": Array [],
+    "premium": true,
+    "season": "spring, summer, autumn",
+    "seasonNumeric": Array [
+      11,
+      12,
+    ],
+    "sku": "region.georgia",
+  },
+  Object {
+    "bounds": Array [
+      Array [
+        20.72,
+        80.38,
+        0,
+      ],
+      Array [
+        14.2,
+        74.58,
+        0,
+      ],
+      Array [
+        15.05,
+        71.9,
+        0,
+      ],
+      Array [
+        22.66,
+        77.5,
+        0,
+      ],
+    ],
+    "description": "laos description",
+    "editable": true,
+    "hidden": true,
+    "id": "a84d7eda-37f3-11e8-b467-0ed5f89f718b",
+    "name": "Laos",
+    "pois": Array [
+      Object {
+        "coordinates": Array [
+          4,
+          3,
+          343,
+        ],
+        "description": "Laos point 1 description",
+        "id": "a52dfcc6-3716-11e8-b467-0ed5f89f718b",
+        "kind": "other",
+        "name": "Laos Point 1",
+      },
+    ],
+    "premium": false,
+    "season": "laos season",
+    "seasonNumeric": Array [
+      3,
+      4,
+      5,
+      6,
+    ],
+    "sku": null,
+  },
+  Object {
+    "bounds": Array [
+      Array [
+        4,
+        5,
+        0,
+      ],
+      Array [
+        7,
+        8,
+        0,
+      ],
+      Array [
+        5,
+        6,
+        0,
+      ],
+    ],
+    "description": null,
+    "editable": true,
+    "hidden": true,
+    "id": "b968e2b2-76c5-11e7-b5a5-be2e44b06b34",
+    "name": "Norway",
+    "pois": Array [],
+    "premium": true,
+    "season": null,
+    "seasonNumeric": Array [],
+    "sku": "region.norway",
+  },
+  Object {
+    "bounds": Array [
+      Array [
+        -179,
+        -89,
+        0,
+      ],
+      Array [
+        -179,
+        89,
+        0,
+      ],
+      Array [
+        179,
+        89,
+        0,
+      ],
+      Array [
+        179,
+        -89,
+        0,
+      ],
+    ],
+    "description": null,
+    "editable": true,
+    "hidden": false,
+    "id": "7e535c02-8624-46a1-a865-d88fe4557361",
+    "name": "Others",
+    "pois": Array [],
+    "premium": false,
+    "season": null,
+    "seasonNumeric": Array [],
+    "sku": null,
+  },
+]
+`;

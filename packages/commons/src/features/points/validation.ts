@@ -1,11 +1,10 @@
-import * as yup from 'yup';
-
-import { CoordinateLoose, PointInput } from './types';
-
-import { POITypes } from './POITypes';
+import { yupTypes } from '@whitewater-guide/validation';
 import isArray from 'lodash/isArray';
 import isNumber from 'lodash/isNumber';
-import { yupTypes } from '@whitewater-guide/validation';
+import * as yup from 'yup';
+
+import { POITypes } from './POITypes';
+import { CoordinateLoose, PointInput } from './types';
 
 export const CoordinateSchema: yup.Schema<CoordinateLoose> = yup
   .array<any>()
@@ -44,17 +43,11 @@ export const CoordinateSchema: yup.Schema<CoordinateLoose> = yup
 
 export const PointInputSchema = yup
   .object<PointInput>({
-    id: yupTypes
-      .uuid()
-      .defined()
-      .nullable(),
+    id: yupTypes.uuid().defined().nullable(),
     name: yup.string().nullable(),
     description: yup.string().nullable(),
     coordinates: CoordinateSchema.clone(),
-    kind: yup
-      .mixed()
-      .defined()
-      .oneOf(POITypes),
+    kind: yup.mixed().defined().oneOf(POITypes),
   })
   .strict(true)
   .noUnknown();

@@ -1,4 +1,5 @@
 import deburr from 'lodash/deburr';
+
 import { Section, SectionFilterOptions } from './types';
 
 export const getFilter = (terms: SectionFilterOptions | null) => (

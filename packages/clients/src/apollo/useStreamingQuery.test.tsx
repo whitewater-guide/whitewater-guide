@@ -3,6 +3,7 @@ import { renderHook } from '@testing-library/react-hooks';
 import { Connection, NamedNode, Page } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 import React from 'react';
+
 import { useStreamingQuery } from './useStreamingQuery';
 
 const QUERY = gql`

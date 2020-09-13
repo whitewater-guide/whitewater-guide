@@ -2,6 +2,7 @@ import { ApolloClient } from 'apollo-client';
 import { DocumentNode } from 'graphql';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
+
 import { configureApolloCache } from '../apollo';
 import { mockSingleLink } from './test-links';
 
@@ -44,7 +45,6 @@ export function createFixedProvider<TResult = any, TVars = any>(
     client.writeQuery(cache);
   }
 
-  // tslint:disable-next-line:prefer-object-spread
   const result: FixedProviderStatic = Object.assign(FixedProvider, { client });
   return result;
 }

@@ -1,5 +1,6 @@
 import { DefaultRegionFilterOptions } from '@whitewater-guide/commons';
 import { useContext } from 'react';
+
 import { createGenericFilter } from '../../utils';
 
 const SF = createGenericFilter(DefaultRegionFilterOptions);

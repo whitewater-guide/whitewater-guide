@@ -1,5 +1,6 @@
 import { RefreshBody, ResetBody, SignInBody } from '@whitewater-guide/commons';
 import { qs } from 'url-parse';
+
 import { fetchRetry } from '../utils';
 import { inflateError } from './inflateError';
 import {
@@ -54,9 +55,9 @@ export interface AuthService {
 export abstract class BaseAuthService implements AuthService {
   protected readonly _baseUrl: string;
   protected readonly _credentials: RequestInit['credentials'];
-  private _loading: boolean = false;
+  private _loading = false;
   private _listeners: Map<string | symbol, Listener[]> = new Map();
-  private _initialized: boolean = false;
+  private _initialized = false;
   private _refreshing: Promise<AuthResponse<RefreshBody>> | null = null;
 
   protected constructor(baseUrl: string, credentials?: boolean) {

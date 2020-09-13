@@ -143,10 +143,9 @@ const getVimeoThumb = async (
   return Promise.resolve(null);
 };
 
-// tslint:disable-next-line:no-inferrable-types
 export const getVideoThumb = async (
   url?: string | null,
-  minHeight: number = 32,
+  minHeight = 32,
 ): Promise<VideoThumb | null> => {
   if (!url) {
     return null;

@@ -1,7 +1,7 @@
+import { yupTypes } from '@whitewater-guide/validation';
 import * as yup from 'yup';
 
 import { SuggestionInput } from './types';
-import { yupTypes } from '@whitewater-guide/validation';
 
 const makeSuggestingSchema = (photoRequired: boolean) =>
   yup
@@ -18,10 +18,7 @@ const makeSuggestingSchema = (photoRequired: boolean) =>
             return photoRequired || !!v || !!this.parent.filename;
           },
         }),
-      copyright: yup
-        .string()
-        .defined()
-        .nullable(true),
+      copyright: yup.string().defined().nullable(true),
       filename: yup
         .string()
         .defined()
@@ -41,18 +38,13 @@ const makeSuggestingSchema = (photoRequired: boolean) =>
         .defined()
         .min(2)
         .max(2)
-        .of(
-          yup
-            .number()
-            .integer()
-            .positive(),
-        )
+        .of(yup.number().integer().positive())
         .nullable(!photoRequired)
         .test({
           name: 'correct-resolution',
           message: 'yup:mixed.required',
           test(v) {
-            return !!v ? !!this.parent.filename : !this.parent.filename;
+            return v ? !!this.parent.filename : !this.parent.filename;
           },
         }) as any,
     })

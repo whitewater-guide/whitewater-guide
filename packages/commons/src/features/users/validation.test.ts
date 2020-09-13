@@ -1,6 +1,7 @@
+import { createSafeValidator } from '@whitewater-guide/validation';
+
 import { UserInput } from './types';
 import { UserInputSchema } from './validation';
-import { createSafeValidator } from '@whitewater-guide/validation';
 
 const validator = createSafeValidator(UserInputSchema);
 

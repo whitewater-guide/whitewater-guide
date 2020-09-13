@@ -1,4 +1,5 @@
 import { CoordinateLoose } from '@whitewater-guide/commons';
+
 import { getBBox } from './getBBox';
 
 export function getBoundsDeltaRegion(

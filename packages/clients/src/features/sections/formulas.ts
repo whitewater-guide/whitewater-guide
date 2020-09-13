@@ -4,6 +4,7 @@ import identity from 'lodash/identity';
 import isNil from 'lodash/isNil';
 import memoize from 'lodash/memoize';
 import { useMemo } from 'react';
+
 import { FlowFormula, Formulas } from './types';
 
 const getRawFormula = memoize(

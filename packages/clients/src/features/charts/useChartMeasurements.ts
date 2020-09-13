@@ -1,18 +1,19 @@
-import { useQuery } from 'react-apollo';
-import { MEASUREMENTS_QUERY } from '../measurements';
 import {
-  MeasurementsVars,
-  MeasurementsResult,
-} from '../measurements/measurements.query';
-import { WithMeasurements } from './types';
-import { useMemo } from 'react';
-import { useFormulas } from '../sections';
-import {
-  Section,
+  Gauge,
   Measurement,
   MeasurementsFilter,
-  Gauge,
+  Section,
 } from '@whitewater-guide/commons';
+import { useMemo } from 'react';
+import { useQuery } from 'react-apollo';
+
+import { MEASUREMENTS_QUERY } from '../measurements';
+import {
+  MeasurementsResult,
+  MeasurementsVars,
+} from '../measurements/measurements.query';
+import { useFormulas } from '../sections';
+import { WithMeasurements } from './types';
 
 const empty: Array<Measurement<string>> = [];
 

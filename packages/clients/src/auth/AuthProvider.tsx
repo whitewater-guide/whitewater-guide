@@ -1,6 +1,7 @@
 import { DocumentNode } from 'graphql';
 import React, { useEffect, useState } from 'react';
 import { Query } from 'react-apollo';
+
 import { AuthContext, AuthState } from './context';
 import { MY_PROFILE_QUERY } from './myProfile.query';
 import { AuthService } from './service';

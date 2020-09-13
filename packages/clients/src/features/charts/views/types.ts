@@ -1,9 +1,9 @@
 import {
   Gauge,
   Measurement,
+  MeasurementsFilter,
   Section,
   Unit,
-  MeasurementsFilter,
 } from '@whitewater-guide/commons';
 import React from 'react';
 import { VictoryAxisProps } from 'victory-axis';

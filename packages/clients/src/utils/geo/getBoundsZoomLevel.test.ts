@@ -1,4 +1,5 @@
 import { Coordinate2d } from '@whitewater-guide/commons';
+
 import { getBoundsZoomLevel } from './getBoundsZoomLevel';
 
 it('Get zoom should match google maps', () => {

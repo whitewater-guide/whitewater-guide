@@ -5,6 +5,7 @@ import subDays from 'date-fns/subDays';
 import compact from 'lodash/compact';
 import filterFn from 'lodash/filter';
 import isFinite from 'lodash/isFinite';
+
 import { formatDate } from '../../../i18n';
 import { getDefaultTimeAxisSettings } from './defaults';
 import { ChartMeta, ChartMetaSettings, ChartViewProps } from './types';
@@ -42,11 +43,7 @@ export const computeChartMeta = (
 
   const yDelta = (yDeltaRatio * (result[1] - result[0])) / height!;
   const yDomain: [number, number] = [result[0] - yDelta, result[1] + yDelta];
-  const yTickValues = ticks.concat(
-    scaleLinear()
-      .domain(yDomain)
-      .ticks(yTicks),
-  );
+  const yTickValues = ticks.concat(scaleLinear().domain(yDomain).ticks(yTicks));
 
   const to = filter.to || new Date();
   const from = filter.from || subDays(to, 1);

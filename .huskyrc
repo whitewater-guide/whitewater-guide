@@ -1,6 +1,6 @@
 {
   "hooks": {
-    "pre-commit": "node tooling/scripts/bin/pre-commit.js",
+    "pre-commit": "yarn pretty-quick --staged && yarn lint-staged && yarn trash-junk .",
     "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
   }
 }

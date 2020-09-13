@@ -1,7 +1,0 @@
-/docker-stack-development.yml
-/docker-stack-local.yml
-/docker-stack-staging.yml
-/docker-stack-production.yml
-.env.*
-!.env.*.secret
-/.aws-ecr

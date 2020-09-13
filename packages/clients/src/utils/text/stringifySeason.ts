@@ -1,4 +1,5 @@
 import times from 'lodash/times';
+
 import { getMonthName } from '../../i18n/getMonthName';
 
 type Range = [number, number];
@@ -53,7 +54,7 @@ function loopAroundNewYear(seasons: number[]): number[] {
   result.splice(0, shift);
   result = result.concat(tail);
   return result;
-} // tslint:disable-next-line:no-inferrable-types
+}
 
 /**
  * Stringifies season
@@ -64,7 +65,7 @@ function loopAroundNewYear(seasons: number[]): number[] {
  */
 export function stringifySeason(
   seasonNumeric?: number[],
-  range: boolean = false,
+  range = false,
   localize: (key: string) => string = defaultLocalize,
 ): string {
   if (!seasonNumeric || seasonNumeric.length === 0) {

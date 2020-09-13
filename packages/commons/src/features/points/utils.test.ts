@@ -18,7 +18,13 @@ describe('withZeroAlt', () => {
   });
 
   it('should convert array of coordinates', () => {
-    expect(withZeroAlt([[1, 2], [3, 4, null], [5, 6, 7]])).toEqual([
+    expect(
+      withZeroAlt([
+        [1, 2],
+        [3, 4, null],
+        [5, 6, 7],
+      ]),
+    ).toEqual([
       [1, 2, 0],
       [3, 4, 0],
       [5, 6, 7],

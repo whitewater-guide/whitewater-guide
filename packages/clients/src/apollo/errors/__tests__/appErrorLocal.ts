@@ -1,5 +1,6 @@
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
+
 import { AppError } from '../AppError';
 import { APP_ERROR_MUTATION, AppErrorMutationVars } from '../appError.mutation';
 import { APP_ERROR_QUERY, AppErrorQueryResult } from '../appError.query';

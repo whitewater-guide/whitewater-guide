@@ -1,5 +1,6 @@
 import { NamedNode, Point, River, Section } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
+
 import { GaugeFragments } from '../gauges';
 
 const Name = gql`

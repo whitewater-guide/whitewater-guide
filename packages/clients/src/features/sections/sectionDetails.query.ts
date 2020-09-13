@@ -1,5 +1,6 @@
 import { Section } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
+
 import { SectionFragments } from './sectionFragments';
 
 export const SECTION_DETAILS = gql`

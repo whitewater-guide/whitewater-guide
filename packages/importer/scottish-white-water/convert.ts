@@ -31,10 +31,7 @@ const romanMap = [
 
 export default (input: Entry): DeepPartial<SectionInput> => {
   let difficultyXtra = input.grade.includes('(')
-    ? input.grade
-        .split('(')
-        .pop()
-        ?.replace(')', '')
+    ? input.grade.split('(').pop()?.replace(')', '')
     : undefined;
   if (difficultyXtra) {
     romanMap.forEach(([a, r]) => {

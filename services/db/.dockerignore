@@ -1,9 +1,0 @@
-.env.*
-Dockerfile
-package.json
-/config/x-dev-restore.sh
-/config/*.bak
-/scripts
-/.env
-CHANGELOG.md
-README.md

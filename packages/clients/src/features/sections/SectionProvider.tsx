@@ -2,6 +2,7 @@ import { Section } from '@whitewater-guide/commons';
 import { NetworkStatus } from 'apollo-client';
 import React, { useContext } from 'react';
 import { QueryHookOptions, useQuery } from 'react-apollo';
+
 import { queryResultToNode, WithNode } from '../../apollo';
 import {
   SECTION_DETAILS,

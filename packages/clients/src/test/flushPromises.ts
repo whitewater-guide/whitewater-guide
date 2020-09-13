@@ -1,4 +1,4 @@
-export async function flushPromises(ticks: number = 1) {
+export async function flushPromises(ticks = 1) {
   for (let i = 0; i < ticks; i++) {
     await flushPromise();
   }

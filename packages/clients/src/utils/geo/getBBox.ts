@@ -27,5 +27,8 @@ export function getBBox(
     return flatBox;
   }
   const [minLng, maxLng, minLat, maxLat] = flatBox;
-  return [[maxLng, maxLat], [minLng, minLat]];
+  return [
+    [maxLng, maxLat],
+    [minLng, minLat],
+  ];
 }

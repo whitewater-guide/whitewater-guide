@@ -1,4 +1,5 @@
 import isNil from 'lodash/isNil';
+
 import { Node } from '../../apollo';
 import { Coordinate, Coordinate3d, CoordinateLoose, Point } from './types';
 

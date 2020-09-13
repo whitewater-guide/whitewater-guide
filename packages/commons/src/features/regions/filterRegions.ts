@@ -1,4 +1,5 @@
 import deburr from 'lodash/deburr';
+
 import { NamedNode } from '../../apollo';
 import { RegionFilterOptions } from './types';
 

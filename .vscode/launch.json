@@ -6,83 +6,9 @@
   "configurations": [
     {
       "type": "node",
-      "request": "launch",
-      "name": "Mobile Jest Current File",
-      "cwd": "${workspaceFolder}/packages/mobile/",
-      "program": "${workspaceFolder}/packages/mobile/node_modules/.bin/jest",
-      "args": ["${fileBasenameNoExtension}", "--config", "jest.config.js"],
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen",
-      "disableOptimisticBPs": true,
-      "windows": {
-        "program": "${workspaceFolder}/packages/mobile/node_modules/jest/bin/jest"
-      }
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Web Jest Current File",
-      "cwd": "${workspaceRoot}/services/web",
-      "runtimeExecutable": "${workspaceRoot}/services/web/node_modules/.bin/react-scripts",
-      "args": [
-        "test",
-        "${fileBasenameNoExtension}",
-        "--env",
-        "jest-environment-jsdom-sixteen",
-        "--runInBand",
-        "--no-cache",
-        "--watchAll=false"
-      ],
-      "protocol": "inspector",
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen",
-      "env": { "CI": "true" },
-      "disableOptimisticBPs": true
-    },
-    {
-      "name": "Jest backend",
-      "type": "node",
       "request": "attach",
-      "port": 9230,
-      "address": "localhost",
-      "protocol": "inspector",
-      "restart": true,
-      "disableOptimisticBPs": true,
-      "showAsyncStacks": true,
-      "skipFiles": ["<node_internals>/**/*.js"]
-      // "outFiles": ["${workspaceFolder}/services/backend/dist/**/*.js"],
-      // "sourceMaps": true,
-      // "trace": "verbose"
-    },
-    {
-      "name": "Backend",
-      "type": "node",
-      "request": "attach",
-      "port": 5775,
-      "address": "localhost",
-      "protocol": "inspector",
-      "restart": true,
-      "disableOptimisticBPs": true,
-      "showAsyncStacks": true,
-      "skipFiles": ["<node_internals>/**/*.js"],
-      "sourceMaps": true,
-      "cwd": "${workspaceFolder}/services/backend",
-      "outFiles": ["${workspaceFolder}/services/backend/dist/**/*.js"],
-      "localRoot": "${workspaceFolder}/services/backend",
-      "remoteRoot": "/opt/app",
-      "trace": "verbose"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Backend Jest Current File",
-      "cwd": "${workspaceFolder}/services/backend/",
-      // "envFile": "${workspaceFolder}/services/backend/.env.test",
-      "program": "${workspaceFolder}/services/backend/node_modules/.bin/jest",
-      "args": ["${fileBasenameNoExtension}", "--config", "jest.config.js"],
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen",
-      "disableOptimisticBPs": true
+      "name": "[Backend] attach to jest",
+      "port": 9229
     }
   ]
 }

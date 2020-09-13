@@ -1,4 +1,5 @@
 import { createSafeValidator } from '@whitewater-guide/validation';
+
 import { NEW_ID } from '../../apollo';
 import { MediaKind } from '../media';
 import {

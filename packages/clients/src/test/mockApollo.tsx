@@ -7,10 +7,11 @@ import {
 import { ApolloClient } from 'apollo-client';
 import { SchemaLink } from 'apollo-link-schema';
 import { GraphQLFieldResolver, GraphQLResolveInfo } from 'graphql';
-import { addMockFunctionsToSchema, makeExecutableSchema } from 'graphql-tools';
+import { addMocksToSchema, makeExecutableSchema } from 'graphql-tools';
 import GraphQLJSON from 'graphql-type-json';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
+
 import { configureApolloCache } from '../apollo';
 
 export interface QueryMap {
@@ -63,6 +64,7 @@ export const mockApolloClient = (
   let typeDefs: any = [];
   try {
     // set global.__GRAPHQL_TYPEDEFS_MODULE__ in jest's setupTests file
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const typedefsModule = global.__GRAPHQL_TYPEDEFS_MODULE__;
     typeDefs = typedefsModule.default;
@@ -125,7 +127,7 @@ export const mockApolloClient = (
     },
   };
 
-  addMockFunctionsToSchema({
+  addMocksToSchema({
     schema,
     mocks: {
       ...primitiveMocks,
@@ -158,6 +160,5 @@ export const mockApolloProvider = (
     <ApolloProvider client={client}>{children}</ApolloProvider>
   );
 
-  // tslint:disable-next-line:prefer-object-spread
   return Object.assign(MP, { client });
 };

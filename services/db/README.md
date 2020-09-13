@@ -6,7 +6,7 @@ All the other files should be `.dockerignore`'d
 # Development
 
 In development environment database will start blank. However, it can be seeded with full database dump from production or staging.
-To do this, two files, `config/dump.bak` and `config/x-dev-restore.sh` are mounted as docker volumes to development stack.
+To do this, two files, `config/dump.bak` and `config/x-development.sh` are mounted as docker volumes to development stack.
 
 To produce dump file, use script `scripts/refresh_dump.sh`. This script has two parameters:
 
@@ -19,4 +19,4 @@ It'll use AWS credentials from dev machine, because I'm lazy to pass read-only c
 
 There are npm scripts that are shortcuts to `refresh_dump.sh`
 
-**Important**: during development, db files are stored on named volume. So `postgres-initdb` and `x-dev-restore` restore will run only if volume is blank. If you want to refresh your dump, you have to remove the named volume and restart db container;
+**Important**: during development, db files are stored on named volume. So `postgres-initdb` and `x-development` restore will run only if volume is blank. If you want to refresh your dump, you have to remove the named volume and restart db container;

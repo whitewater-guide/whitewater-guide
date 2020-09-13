@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": false,
+    "baseUrl": "./",
+    "paths": {
+      "~/*": ["./src/*"],
+      "@test": ["./test/index.ts"]
+    },
+    "outDir": "dist"
+  },
+  "include": ["src/**/*", "test/**/*", "declarations/**/*"],
+  "exclude": ["node_modules"]
+}

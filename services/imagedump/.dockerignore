@@ -1,6 +1,0 @@
-Dockerfile
-.gitignore
-.dockerignore
-.env.*
-package.json
-CHANGELOG.md

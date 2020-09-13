@@ -1,5 +1,6 @@
 import pickBy from 'lodash/pickBy';
 import { DeepPartial } from 'utility-types';
+
 import { TagCategory } from '../tags';
 import { getFilter } from './filterSection';
 import {
@@ -132,7 +133,7 @@ const section: DeepPartial<Section> = {
   ],
 };
 
-const test = (
+const testFn = (
   terms?: Partial<SectionFilterOptions>,
   extra?: DeepPartial<Section>,
 ) => {
@@ -142,39 +143,39 @@ const test = (
 };
 
 it('should satisfy default filter', () => {
-  expect(test()).toBe(true);
+  expect(testFn()).toBe(true);
 });
 
 describe('names', () => {
   it('name, case-insensitive', () => {
-    expect(test({ searchString: 'box' })).toBe(true);
+    expect(testFn({ searchString: 'box' })).toBe(true);
   });
 
   it('name, with diacritics', () => {
-    expect(test({ searchString: 'böx' })).toBe(true);
+    expect(testFn({ searchString: 'böx' })).toBe(true);
   });
 
   it('river name, case-insensitive', () => {
-    expect(test({ searchString: 'shlu' })).toBe(true);
+    expect(testFn({ searchString: 'shlu' })).toBe(true);
   });
 
   it('river name, with diacritics', () => {
-    expect(test({ searchString: 'shlū' })).toBe(true);
+    expect(testFn({ searchString: 'shlū' })).toBe(true);
   });
 
   it('alt name', () => {
-    expect(test({ searchString: 'foo' })).toBe(true);
+    expect(testFn({ searchString: 'foo' })).toBe(true);
   });
   it('alt name, with diacritics', () => {
-    expect(test({ searchString: 'fÖo' })).toBe(true);
+    expect(testFn({ searchString: 'fÖo' })).toBe(true);
   });
 
   it('river alt name', () => {
-    expect(test({ searchString: 'ash' })).toBe(true);
+    expect(testFn({ searchString: 'ash' })).toBe(true);
   });
 
   it('river alt name, with diacritics', () => {
-    expect(test({ searchString: 'Äsh' })).toBe(true);
+    expect(testFn({ searchString: 'Äsh' })).toBe(true);
   });
 });
 
@@ -183,12 +184,12 @@ describe('difficulty', () => {
     it.each([[[5, 5]], [[4.5, 5]], [[5, 5.5]], [[0, 6]], [undefined]])(
       '%s should pass',
       (difficulty: any) => {
-        expect(test({ difficulty })).toBe(true);
+        expect(testFn({ difficulty })).toBe(true);
       },
     );
 
     it.each([[[1, 4]], [[5.5, 6]]])('%s should fail', (difficulty: any) => {
-      expect(test({ difficulty })).toBe(false);
+      expect(testFn({ difficulty })).toBe(false);
     });
   });
 
@@ -196,12 +197,12 @@ describe('difficulty', () => {
     it.each([[[0, 0]], [[0, 1]], [[0, 6]], [undefined]])(
       '%s should pass',
       (difficulty: any) => {
-        expect(test({ difficulty }, { difficulty: 0 })).toBe(true);
+        expect(testFn({ difficulty }, { difficulty: 0 })).toBe(true);
       },
     );
 
     it.each([[[1, 6]]])('%s should fail', (difficulty: any) => {
-      expect(test({ difficulty }, { difficulty: 0 })).toBe(false);
+      expect(testFn({ difficulty }, { difficulty: 0 })).toBe(false);
     });
   });
 
@@ -209,12 +210,12 @@ describe('difficulty', () => {
     it.each([[[6, 6]], [[5, 6]], [[0, 6]], [undefined]])(
       '%s should pass',
       (difficulty: any) => {
-        expect(test({ difficulty }, { difficulty: 6 })).toBe(true);
+        expect(testFn({ difficulty }, { difficulty: 6 })).toBe(true);
       },
     );
 
     it.each([[[0, 5]]])('%s should fail', (difficulty: any) => {
-      expect(test({ difficulty }, { difficulty: 6 })).toBe(false);
+      expect(testFn({ difficulty }, { difficulty: 6 })).toBe(false);
     });
   });
 });
@@ -228,14 +229,14 @@ describe('duration', () => {
       [[Duration.LAPS, Duration.MULTIDAY]],
       [undefined],
     ])('%s should pass', (duration: any) => {
-      expect(test({ duration })).toBe(true);
+      expect(testFn({ duration })).toBe(true);
     });
 
     it.each([
       [[Duration.LAPS, Duration.LAPS]],
       [[Duration.DAYRUN, Duration.MULTIDAY]],
     ])('%s should fail', (duration: any) => {
-      expect(test({ duration })).toBe(false);
+      expect(testFn({ duration })).toBe(false);
     });
   });
 
@@ -246,13 +247,13 @@ describe('duration', () => {
       [[Duration.LAPS, Duration.MULTIDAY]],
       [undefined],
     ])('%s should pass', (duration: any) => {
-      expect(test({ duration }, { duration: Duration.LAPS })).toBe(true);
+      expect(testFn({ duration }, { duration: Duration.LAPS })).toBe(true);
     });
 
     it.each([[[Duration.TWICE, Duration.MULTIDAY]]])(
       '%s should fail',
       (duration: any) => {
-        expect(test({ duration }, { duration: Duration.LAPS })).toBe(false);
+        expect(testFn({ duration }, { duration: Duration.LAPS })).toBe(false);
       },
     );
   });
@@ -264,13 +265,15 @@ describe('duration', () => {
       [[Duration.LAPS, Duration.MULTIDAY]],
       [undefined],
     ])('%s should pass', (duration: any) => {
-      expect(test({ duration }, { duration: Duration.MULTIDAY })).toBe(true);
+      expect(testFn({ duration }, { duration: Duration.MULTIDAY })).toBe(true);
     });
 
     it.each([[[Duration.LAPS, Duration.OVERNIGHTER]]])(
       '%s should fail',
       (duration: any) => {
-        expect(test({ duration }, { duration: Duration.MULTIDAY })).toBe(false);
+        expect(testFn({ duration }, { duration: Duration.MULTIDAY })).toBe(
+          false,
+        );
       },
     );
   });
@@ -282,25 +285,25 @@ describe('duration', () => {
     [[Duration.LAPS, Duration.MULTIDAY]],
     [undefined],
   ])('null value and %s should pass', (duration: any) => {
-    expect(test({ duration }, { duration: null })).toBe(true);
+    expect(testFn({ duration }, { duration: null })).toBe(true);
   });
 });
 
 describe('tags', () => {
   it('with present tag', () => {
-    expect(test({ withTags: ['dam'] })).toBe(true);
+    expect(testFn({ withTags: ['dam'] })).toBe(true);
   });
 
   it('with missing tag', () => {
-    expect(test({ withTags: ['4x4'] })).toBe(false);
+    expect(testFn({ withTags: ['4x4'] })).toBe(false);
   });
 
   it('without present tag', () => {
-    expect(test({ withoutTags: ['dam'] })).toBe(false);
+    expect(testFn({ withoutTags: ['dam'] })).toBe(false);
   });
 
   it('without missing tag', () => {
-    expect(test({ withoutTags: ['4x4'] })).toBe(true);
+    expect(testFn({ withoutTags: ['4x4'] })).toBe(true);
   });
 });
 
@@ -308,18 +311,18 @@ describe('season', () => {
   it.each([[undefined], [[0, 23]], [[3, 3]], [[3, 4]], [[4, 3]]])(
     'empty array should pass %s',
     (seasonNumeric: any) => {
-      expect(test({ seasonNumeric }, { seasonNumeric: [] })).toBe(true);
+      expect(testFn({ seasonNumeric }, { seasonNumeric: [] })).toBe(true);
     },
   );
 
   it.each([[[8, 8]], [[9, 9]], [[9, 14]], [[4, 8]], [[16, 17]], [12, 1]])(
     '%s should pass',
     (seasonNumeric: any) => {
-      expect(test({ seasonNumeric })).toBe(true);
+      expect(testFn({ seasonNumeric })).toBe(true);
     },
   );
 
   it.each([[[10, 13]], [[17, 7]]])('%s should fail', (seasonNumeric: any) => {
-    expect(test({ seasonNumeric })).toBe(false);
+    expect(testFn({ seasonNumeric })).toBe(false);
   });
 });

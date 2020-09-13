@@ -1,5 +1,6 @@
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { toIdValue } from 'apollo-utilities';
+
 import { dataIdFromObject } from './dataIdFromObject';
 
 export const configureApolloCache = () =>
@@ -22,6 +23,7 @@ export const configureApolloCache = () =>
           // This is brittle. Inspect first argument to see query store keys
           // 'offline_sections' is @connection directive cache
           const offlineStoreKey = `offline_sections({"filter":{"regionId":"${regionId}"}})`;
+          // eslint-disable-next-line no-prototype-builtins
           if (store.hasOwnProperty(offlineStoreKey)) {
             return {
               generated: false,

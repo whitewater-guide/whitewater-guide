@@ -1,7 +1,9 @@
+/* eslint-disable jest/no-done-callback */
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloLink, execute, Observable } from 'apollo-link';
 import { throwServerError } from 'apollo-link-http-common';
 import gql from 'graphql-tag';
+
 import { AppError } from './AppError';
 import { APP_ERROR_QUERY, AppErrorQueryResult } from './appError.query';
 import { errorLink, JWT_EXPIRED_CTX_KEY } from './errorLink';
@@ -38,6 +40,7 @@ describe('network errors', () => {
         } else {
           return new Observable((observer) => {
             forwarded = true;
+            // eslint-disable-next-line jest/no-conditional-expect
             expect(operation.getContext()).toHaveProperty(
               JWT_EXPIRED_CTX_KEY,
               true,
@@ -247,6 +250,7 @@ describe('graphql errors', () => {
         } else {
           return new Observable((observer) => {
             forwarded = true;
+            // eslint-disable-next-line jest/no-conditional-expect
             expect(operation.getContext()).toHaveProperty(
               JWT_EXPIRED_CTX_KEY,
               true,

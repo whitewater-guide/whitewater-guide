@@ -1,21 +1,14 @@
 import * as yup from 'yup';
+
 import { isLocalPhoto } from './types';
 import { validateResolution } from './validateResolution';
 
-const url = yup
-  .string()
-  .url()
-  .required();
+const url = yup.string().url().required();
 const resolution = yup
   .array()
   .min(2)
   .max(2)
-  .of(
-    yup
-      .number()
-      .integer()
-      .required(),
-  );
+  .of(yup.number().integer().required());
 
 interface Options {
   mpxOrResolution?: number | [number, number];

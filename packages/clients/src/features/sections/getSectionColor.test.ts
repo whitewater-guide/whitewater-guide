@@ -1,6 +1,7 @@
 import { GaugeBinding } from '@whitewater-guide/commons';
 import color from 'color';
 import mapValues from 'lodash/mapValues';
+
 import {
   ColorizeSection,
   Colors,
@@ -12,27 +13,16 @@ import {
 const ColorStrings = mapValues(Colors, (c) => c.hsl().string());
 
 const Mixes = {
-  MaxImp: hslMix(Colors.maximum, Colors.impossible)
-    .hsl()
-    .string(),
-  OptImp: hslMix(Colors.optimum, Colors.impossible)
-    .hsl()
-    .string(),
-  OptMax: hslMix(Colors.optimum, Colors.maximum)
-    .hsl()
-    .string(),
-  MinOpt: hslMix(Colors.minimum, Colors.optimum)
-    .hsl()
-    .string(),
-  DryMin: hslMix(Colors.dry, Colors.minimum)
-    .hsl()
-    .string(),
+  MaxImp: hslMix(Colors.maximum, Colors.impossible).hsl().string(),
+  OptImp: hslMix(Colors.optimum, Colors.impossible).hsl().string(),
+  OptMax: hslMix(Colors.optimum, Colors.maximum).hsl().string(),
+  MinOpt: hslMix(Colors.minimum, Colors.optimum).hsl().string(),
+  DryMin: hslMix(Colors.dry, Colors.minimum).hsl().string(),
 };
 
-// tslint:disable-next-line:no-inferrable-types
 const makeSection = (
   binding: Omit<GaugeBinding, 'approximate'>,
-  value: number = 0,
+  value = 0,
 ): ColorizeSection => ({
   flows: {
     ...binding,
@@ -174,7 +164,7 @@ it('should return prefer flow to level', () => {
   expect(getSectionColor(input)).toBe(ColorStrings.optimum);
 });
 
-describe('00 - When not enough input data, it should ', () => {
+describe('00 - When not enough input data, it should', () => {
   const binding = {
     minimum: null,
     optimum: null,
@@ -190,7 +180,7 @@ describe('00 - When not enough input data, it should ', () => {
   });
 });
 
-describe('01 - When only IMP is provided, it should ', () => {
+describe('01 - When only IMP is provided, it should', () => {
   const binding = {
     minimum: null,
     optimum: null,
@@ -216,7 +206,7 @@ describe('01 - When only IMP is provided, it should ', () => {
   });
 });
 
-describe('02 - When only MAX is provided, it should ', () => {
+describe('02 - When only MAX is provided, it should', () => {
   const binding = {
     minimum: null,
     optimum: null,
@@ -235,14 +225,14 @@ describe('02 - When only MAX is provided, it should ', () => {
       ColorStrings.maximum,
     );
   });
-  test('handle VAL < MAX', () => {
+  test('handle VAL > MAX', () => {
     expect(getSectionColor(makeSection(binding, 30))).toBe(
       ColorStrings.maximum,
     );
   });
 });
 
-describe('03 - When only MAX and ABS_MAX is provided, it should ', () => {
+describe('03 - When only MAX and ABS_MAX is provided, it should', () => {
   const binding = {
     minimum: null,
     optimum: null,
@@ -276,7 +266,7 @@ describe('03 - When only MAX and ABS_MAX is provided, it should ', () => {
   });
 });
 
-describe('04 - When only OPT is provided, it should ', () => {
+describe('04 - When only OPT is provided, it should', () => {
   const binding = {
     minimum: null,
     optimum: 20,
@@ -298,7 +288,7 @@ describe('04 - When only OPT is provided, it should ', () => {
   });
 });
 
-describe('05 - When OPT and IMP is provided, it should ', () => {
+describe('05 - When OPT and IMP is provided, it should', () => {
   const binding = {
     minimum: null,
     optimum: 20,
@@ -332,7 +322,7 @@ describe('05 - When OPT and IMP is provided, it should ', () => {
   });
 });
 
-describe('06 - When OPT and MAX is provided, it should ', () => {
+describe('06 - When OPT and MAX is provided, it should', () => {
   const binding = {
     minimum: null,
     optimum: 20,
@@ -366,7 +356,7 @@ describe('06 - When OPT and MAX is provided, it should ', () => {
   });
 });
 
-describe('07 - When OPT, MAX and IMP are provided, it should ', () => {
+describe('07 - When OPT, MAX and IMP are provided, it should', () => {
   const binding = {
     minimum: null,
     optimum: 20,
@@ -408,7 +398,7 @@ describe('07 - When OPT, MAX and IMP are provided, it should ', () => {
   });
 });
 
-describe('08 - When only MIN is provided, it should ', () => {
+describe('08 - When only MIN is provided, it should', () => {
   const binding = {
     minimum: 20,
     optimum: null,
@@ -438,7 +428,7 @@ describe('08 - When only MIN is provided, it should ', () => {
   });
 });
 
-describe('09 - When MIN and IMP are provided, it should ', () => {
+describe('09 - When MIN and IMP are provided, it should', () => {
   const binding = {
     minimum: 20,
     optimum: null,
@@ -476,7 +466,7 @@ describe('09 - When MIN and IMP are provided, it should ', () => {
   });
 });
 
-describe('10 - When MIN and MAX are provided, it should ', () => {
+describe('10 - When MIN and MAX are provided, it should', () => {
   const binding = {
     minimum: 20,
     optimum: null,
@@ -514,7 +504,7 @@ describe('10 - When MIN and MAX are provided, it should ', () => {
   });
 });
 
-describe('11 - When MIN, MAX and IMP are provided, it should ', () => {
+describe('11 - When MIN, MAX and IMP are provided, it should', () => {
   const binding = {
     minimum: 20,
     optimum: null,
@@ -560,7 +550,7 @@ describe('11 - When MIN, MAX and IMP are provided, it should ', () => {
   });
 });
 
-describe('12 - When MIN and OPT are provided, it should ', () => {
+describe('12 - When MIN and OPT are provided, it should', () => {
   const binding = {
     minimum: 20,
     optimum: 40,
@@ -596,7 +586,7 @@ describe('12 - When MIN and OPT are provided, it should ', () => {
   });
 });
 
-describe('13 - When MIN, OPT and IMP are provided, it should ', () => {
+describe('13 - When MIN, OPT and IMP are provided, it should', () => {
   const binding = {
     minimum: 20,
     optimum: 40,
@@ -644,7 +634,7 @@ describe('13 - When MIN, OPT and IMP are provided, it should ', () => {
   });
 });
 
-describe('14 - When MIN, OPT and MAX are provided, it should ', () => {
+describe('14 - When MIN, OPT and MAX are provided, it should', () => {
   const binding = {
     minimum: 20,
     optimum: 40,
@@ -692,7 +682,7 @@ describe('14 - When MIN, OPT and MAX are provided, it should ', () => {
   });
 });
 
-describe('15 - When MIN, OPT, MAX and IMP are provided, it should ', () => {
+describe('15 - When MIN, OPT, MAX and IMP are provided, it should', () => {
   const binding = {
     minimum: 20,
     optimum: 40,

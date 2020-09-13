@@ -4,11 +4,12 @@ import {
   Section,
   SectionFilterOptions,
 } from '@whitewater-guide/commons';
-import { Overwrite } from 'utility-types';
 import ApolloClient from 'apollo-client';
 import gql from 'graphql-tag';
 import { MockList } from 'graphql-tools';
 import React from 'react';
+import { Overwrite } from 'utility-types';
+
 import { dataIdFromObject } from '../../apollo';
 import {
   createFixedProvider,
@@ -19,9 +20,9 @@ import {
 } from '../../test';
 import { POLL_REGION_MEASUREMENTS } from '../regions';
 import {
+  LIST_SECTIONS,
   ListSectionsResult,
   ListSectionsVars,
-  LIST_SECTIONS,
 } from './listSections.query';
 import { SectionsListProvider } from './SectionsListProvider';
 import { SectionsStatus } from './types';
@@ -104,8 +105,9 @@ const mountInHarness = (options: TestOptions): Harness => {
       client={FixedProvider.client}
       limit={PAGE_SIZE}
       pollInterval={pollInterval}
-      children={children}
-    />,
+    >
+      {children}
+    </SectionsListProvider>,
   );
   client = FixedProvider.client;
   return {
@@ -119,9 +121,10 @@ const mountInHarness = (options: TestOptions): Harness => {
           client={FixedProvider.client}
           limit={PAGE_SIZE}
           pollInterval={pollInterval}
-          children={children}
           {...props}
-        />,
+        >
+          {children}
+        </SectionsListProvider>,
       );
     },
   };
@@ -507,7 +510,7 @@ it('should fire polling query immediately', async () => {
   await flushPromises(10);
   const spy = jest.spyOn(MockLink.prototype, 'request');
   // unwind to point before before first interval
-  jest.runTimersToTime(POLL_INTERVAL * 0.5);
+  jest.advanceTimersByTime(POLL_INTERVAL * 0.5);
   expect(spy).toHaveBeenLastCalledWith(
     expect.objectContaining({
       operationName: 'pollRegionMeasurements',
@@ -524,7 +527,7 @@ it('should poll latestMeasurements', async () => {
   });
   await flushPromises(10);
   const spy = jest.spyOn(MockLink.prototype, 'request');
-  jest.runTimersToTime(POLL_INTERVAL * 2.5);
+  jest.advanceTimersByTime(POLL_INTERVAL * 2.5);
   expect(spy).toHaveBeenLastCalledWith(
     expect.objectContaining({
       operationName: 'pollRegionMeasurements',
@@ -556,7 +559,7 @@ it.each([
     const spy = jest.spyOn(MockLink.prototype, 'request');
     harness.update({ isConnected: true });
     await flushPromises(10);
-    jest.runTimersToTime(POLL_INTERVAL * 2.5);
+    jest.advanceTimersByTime(POLL_INTERVAL * 2.5);
     expect(spy).toHaveBeenLastCalledWith(
       expect.objectContaining({
         operationName: 'pollRegionMeasurements',
@@ -573,11 +576,11 @@ it('should pass latestMeasurements updated via poll', async () => {
     pollInterval: POLL_INTERVAL,
   });
   await flushPromises(10);
-  jest.runTimersToTime(POLL_INTERVAL * 0.5);
+  jest.advanceTimersByTime(POLL_INTERVAL * 0.5);
   await flushPromises(10);
-  jest.runTimersToTime(POLL_INTERVAL * 0.6);
+  jest.advanceTimersByTime(POLL_INTERVAL * 0.6);
   await flushPromises(10);
-  jest.runTimersToTime(POLL_INTERVAL * 1.1);
+  jest.advanceTimersByTime(POLL_INTERVAL * 1.1);
   await flushPromises(10);
   expect(children.mock.calls.pop()).toHaveProperty(
     '0.sections.0.gauge.latestMeasurement.flow',
@@ -610,7 +613,7 @@ it('should pass latestMeasurements updated via poll after coming back online', a
   await flushPromises(10);
   harness.update({ isConnected: true });
   await flushPromises(10);
-  jest.runTimersToTime(POLL_INTERVAL * 2.5);
+  jest.advanceTimersByTime(POLL_INTERVAL * 2.5);
   await flushPromises(10);
   expect(children.mock.calls.pop()).toHaveProperty(
     '0.sections.0.gauge.latestMeasurement.flow',

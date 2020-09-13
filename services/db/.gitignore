@@ -1,4 +1,2 @@
 .env
-!.env.*.secret
-/config/*.bak
-/config/*.csv
+/config/dump/

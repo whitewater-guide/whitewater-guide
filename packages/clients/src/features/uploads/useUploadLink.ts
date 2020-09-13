@@ -2,6 +2,7 @@ import { UploadLink } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 import { useCallback, useRef, useState } from 'react';
 import { useApolloClient } from 'react-apollo';
+
 import { FileLike } from './types';
 import { uploadFile } from './uploadFile';
 

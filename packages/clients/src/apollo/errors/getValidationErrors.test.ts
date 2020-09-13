@@ -1,5 +1,6 @@
 import { ApolloError } from 'apollo-client';
 import { GraphQLError } from 'graphql';
+
 import { getValidationErrors } from './getValidationErrors';
 
 it('should work for ApolloError', () => {

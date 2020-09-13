@@ -2,6 +2,7 @@ import { Unit } from '@whitewater-guide/commons';
 import React, { useMemo } from 'react';
 import { VictoryChartProps } from 'victory-chart';
 import { VictoryCommonProps } from 'victory-core';
+
 import { computeChartMeta } from './computeChartMeta';
 import HorizontalGrid from './HorizontalGrid';
 import HorizontalLabel from './HorizontalLabel';

@@ -1,0 +1,12 @@
+{
+  // This version for tsconfig-paths in production, with paths pointing to dist
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "baseUrl": "./",
+    "paths": {
+      "~/*": ["./dist/*"]
+    },
+    "outDir": "dist"
+  }
+}

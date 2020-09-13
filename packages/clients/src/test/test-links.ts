@@ -1,4 +1,3 @@
-// tslint:disable
 /**
  * Copied from https://github.com/apollographql/react-apollo/blob/master/src/test-links.ts to avoid babel/jest issues
  * Changes: added removeConnectionDirectiveFromDocument
@@ -14,7 +13,6 @@ import {
   addTypenameToDocument,
   removeConnectionDirectiveFromDocument,
 } from 'apollo-utilities';
-
 import { print } from 'graphql/language/printer';
 import isEqual from 'lodash/isEqual';
 
@@ -37,10 +35,10 @@ export interface MockedSubscription {
 }
 
 export class MockLink extends ApolloLink {
-  public addTypename: boolean = true;
+  public addTypename = true;
   private mockedResponsesByKey: { [key: string]: MockedResponse[] } = {};
 
-  constructor(mockedResponses: MockedResponse[], addTypename: boolean = true) {
+  constructor(mockedResponses: MockedResponse[], addTypename = true) {
     super();
     this.addTypename = addTypename;
     if (mockedResponses)
@@ -119,7 +117,6 @@ export class MockLink extends ApolloLink {
 }
 
 function requestToKey(request: GraphQLRequest, addTypename: Boolean): string {
-  // @ts-ignore
   const cleanQuery = removeConnectionDirectiveFromDocument(request.query);
   const queryString =
     request.query &&

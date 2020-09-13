@@ -1,0 +1,19 @@
+{
+  "watch": ["src"],
+  "ext": "ts,json,kml,graphql,mjml",
+  "ignore": [
+    "**/*.test.ts",
+    "**/__tests__/**/*",
+    "**/__mocks__/**/*",
+    "src/test/*",
+    "src/seeds/test/*"
+  ],
+  "delay": "10",
+  "execMap": {
+    "ts": "node -r ts-node/register -r tsconfig-paths/register -r dotenv-flow/config --inspect"
+  },
+  "env": {
+    "NODE_ENV": "development",
+    "TS_NODE_FILES": "true"
+  }
+}

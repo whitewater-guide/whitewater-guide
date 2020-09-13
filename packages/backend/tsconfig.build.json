@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false
+  },
+  "include": ["./src", "./declarations"],
+  "exclude": [
+    "**/*.test.ts",
+    "**/__tests__/**/*",
+    "**/__mocks__/**/*",
+    "./src/seeds/test/*"
+  ]
+}

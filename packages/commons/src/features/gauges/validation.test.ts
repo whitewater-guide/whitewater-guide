@@ -1,6 +1,7 @@
+import { createSafeValidator } from '@whitewater-guide/validation';
+
 import { GaugeInput } from './types';
 import { GaugeInputSchema } from './validation';
-import { createSafeValidator } from '@whitewater-guide/validation';
 
 const validator = createSafeValidator(GaugeInputSchema);
 

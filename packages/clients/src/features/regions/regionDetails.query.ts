@@ -1,5 +1,6 @@
 import { Region } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
+
 import { RegionFragments } from './regionFraments';
 
 export const REGION_DETAILS = (width?: number) => gql`

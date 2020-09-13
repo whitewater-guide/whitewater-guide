@@ -1,7 +1,9 @@
-import { MockedProvider, MockedResponse } from '@apollo/react-testing';
 import '@testing-library/jest-dom/extend-expect';
+
+import { MockedProvider, MockedResponse } from '@apollo/react-testing';
 import { fireEvent, render, RenderResult } from '@testing-library/react';
 import React from 'react';
+
 import { flushPromises } from '../test';
 import { AuthProvider } from './AuthProvider';
 import { AuthContext } from './context';

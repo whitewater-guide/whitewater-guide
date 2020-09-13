@@ -1,7 +1,7 @@
-import { PurchaseInput, PurchasePlatform } from './types';
-
-import { PurchaseInputSchema } from './validation';
 import { createSafeValidator } from '@whitewater-guide/validation';
+
+import { PurchaseInput, PurchasePlatform } from './types';
+import { PurchaseInputSchema } from './validation';
 
 const validator = createSafeValidator(PurchaseInputSchema);
 

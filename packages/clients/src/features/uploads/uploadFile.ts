@@ -1,4 +1,5 @@
 import { UploadLink } from '@whitewater-guide/commons';
+
 import { getDotExt } from './getDotExt';
 import { FileLike } from './types';
 
@@ -52,6 +53,7 @@ export const uploadFile = async (
   // console.log(JSON.stringify(rawFormData, null, 2));
   Object.entries(rawFormData).forEach(([k, v]) => formData.append(k, v));
   formData.append('file', file as any);
+  formData.append('Content-Type', file.type);
 
   try {
     const resp = await fetch(link.postURL, {

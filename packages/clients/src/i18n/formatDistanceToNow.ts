@@ -1,4 +1,5 @@
 import _formatDistanceToNow from 'date-fns/formatDistanceToNow';
+
 import { __DATE_FNS_LOCALE__ } from './configDateFNS';
 
 export const formatDistanceToNow = (

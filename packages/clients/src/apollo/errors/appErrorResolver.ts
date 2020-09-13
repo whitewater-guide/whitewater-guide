@@ -1,4 +1,5 @@
 import { ApolloCache } from 'apollo-cache';
+
 import { LocalResolver } from '../types';
 import { AppError } from './AppError';
 import { APP_ERROR_QUERY, AppErrorQueryResult } from './appError.query';

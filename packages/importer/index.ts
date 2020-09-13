@@ -2,6 +2,7 @@ import { createWriteStream, lstatSync } from 'fs';
 import { readdirSync, readJSONSync, writeJsonSync } from 'fs-extra';
 import { resolve } from 'path';
 import rimraf from 'rimraf';
+// eslint-disable-next-line import/default
 import tar from 'tar';
 
 const dirs = readdirSync(__dirname);
@@ -20,7 +21,8 @@ for (const dir of dirs) {
   const converFile = resolve(__dirname, dir, 'convert.ts');
   const targzFile = resolve(__dirname, dir, 'data.tar.gz');
   rimraf.sync(targzFile);
-  // tslint:disable-next-line:no-var-requires
+
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const convert = require(converFile).default;
   const input = readJSONSync(inputFile);
   const output = input.map(convert);

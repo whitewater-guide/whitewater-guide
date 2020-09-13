@@ -1,6 +1,7 @@
 import { Tag } from '@whitewater-guide/commons';
 import React, { useContext } from 'react';
 import { Query, QueryResult } from 'react-apollo';
+
 import { LIST_TAGS, Result } from './listTags.query';
 
 export interface TagsContext {

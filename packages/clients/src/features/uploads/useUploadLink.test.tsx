@@ -2,6 +2,7 @@ import { MockedProvider } from '@apollo/react-testing';
 import { act, renderHook } from '@testing-library/react-hooks';
 import { GraphQLError } from 'graphql';
 import React from 'react';
+
 import { uploadFile } from './uploadFile';
 import { UPLOAD_LINK_QUERY, useUploadLink } from './useUploadLink';
 
@@ -56,14 +57,13 @@ beforeEach(() => {
 
 it('should update uploading state', async () => {
   const wrapper: React.FC = ({ children }) => (
-    // @ts-ignore
-    <MockedProvider mocks={querySuccess}>{children}</MockedProvider>
+    <MockedProvider mocks={querySuccess}>{children as any}</MockedProvider>
   );
   (uploadFile as jest.Mock).mockResolvedValue('file-url.jpg');
   const { result, waitForNextUpdate } = renderHook(() => useUploadLink(), {
     wrapper,
   });
-  let uploadResult: string = '';
+  let uploadResult = '';
   const fileLike = {
     name: 'foo.jpg',
     type: 'image/jpeg',
@@ -91,8 +91,7 @@ it.each([
   ['apollo graphql error', graphqlError],
 ])('should work correctly if upload fails due to %s', async (_, mocks: any) => {
   const wrapper: React.FC = ({ children }) => (
-    // @ts-ignore
-    <MockedProvider mocks={mocks}>{children}</MockedProvider>
+    <MockedProvider mocks={mocks}>{children as any}</MockedProvider>
   );
   if (mocks === querySuccess) {
     (uploadFile as jest.Mock).mockRejectedValue(new Error('boom!'));

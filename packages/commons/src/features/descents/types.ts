@@ -1,4 +1,4 @@
-import { Timestamped, PageInfo } from '../../apollo';
+import { PageInfo, Timestamped } from '../../apollo';
 import { Section } from '../sections';
 import { User } from '../users';
 

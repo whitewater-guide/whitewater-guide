@@ -5,7 +5,6 @@ import {
   NodeRef,
   Timestamped,
 } from '../../apollo';
-
 import { Gauge } from '../gauges';
 import { HarvestStatus } from '../measurements';
 import { Region } from '../regions';

@@ -1,23 +1,23 @@
+import {
+  applySearch,
+  Section,
+  SectionFilterOptions,
+} from '@whitewater-guide/commons';
 import ApolloClient, {
   ApolloQueryResult,
   NetworkStatus,
   ObservableQuery,
 } from 'apollo-client';
+import React, { useContext } from 'react';
+
+import { getListMerger } from '../../apollo';
+import { POLL_REGION_MEASUREMENTS, PollVars } from '../regions';
 import {
   LIST_SECTIONS,
   ListSectionsResult,
   ListSectionsVars,
 } from './listSections.query';
-import { POLL_REGION_MEASUREMENTS, PollVars } from '../regions';
-import React, { useContext } from 'react';
-import {
-  Section,
-  SectionFilterOptions,
-  applySearch,
-} from '@whitewater-guide/commons';
-
 import { SectionsStatus } from './types';
-import { getListMerger } from '../../apollo';
 
 export interface InnerState {
   sections: Section[];
@@ -59,7 +59,7 @@ export class SectionsListProvider extends React.PureComponent<
   _pollQuery!: ObservableQuery<any, PollVars>;
   _subscription: ZenObservable.Subscription | undefined;
   _pollSub: ZenObservable.Subscription | undefined;
-  _mounted: boolean = false;
+  _mounted = false;
   _lastUpdatedId?: string;
 
   constructor(props: Props) {
@@ -170,7 +170,7 @@ export class SectionsListProvider extends React.PureComponent<
    * @param offset
    * @param updatedAfter
    */
-  loadSections = async (offset: number = 0, updatedAfter?: Date) => {
+  loadSections = async (offset = 0, updatedAfter?: Date) => {
     const { isConnected, regionId, limit } = this.props;
     const nLimit = typeof limit === 'function' ? limit(offset) : limit;
     if (!this._mounted || !regionId || !isConnected) {

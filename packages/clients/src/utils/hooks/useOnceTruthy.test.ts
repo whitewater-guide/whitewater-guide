@@ -1,4 +1,5 @@
 import { renderHook } from '@testing-library/react-hooks';
+
 import { useOnceTruthy } from './useOnceTruthy';
 
 it('should work with initial falsy condition', () => {

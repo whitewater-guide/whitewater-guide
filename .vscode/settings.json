@@ -1,48 +1,25 @@
 {
-  "sqltools.connections": [
-    {
-      "database": "wwguide",
-      "dialect": "PostgreSQL",
-      "name": "ww-tests",
-      "password": "whitewater",
-      "port": 5432,
-      "server": "localhost",
-      "username": "postgres"
-    },
-    {
-      "database": "gorge",
-      "dialect": "PostgreSQL",
-      "name": "ww-dev-gorge",
-      "password": "whitewater",
-      "port": 5432,
-      "server": "localhost",
-      "username": "postgres"
-    },
-    {
-      "database": "wwguide",
-      "dialect": "PostgreSQL",
-      "name": "ww-dev-db",
-      "password": "whitewater",
-      "port": 5432,
-      "server": "localhost",
-      "username": "postgres"
-    }
-  ],
-  "search.exclude": {
-    "**/dist": true,
-    "**/build": true,
-    "**/node_modules": true,
-    "**/yarn.lock": true,
-    "**/yarn-error.log": true
+  "[java]": {
+    "editor.formatOnSave": false
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[sql]": {
     "editor.formatOnSave": false
   },
-  "[java]": {
-    "editor.formatOnSave": false
+  "editor.codeActionsOnSave": [
+    "source.organizeImports",
+    "source.fixAll.eslint"
+  ],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "search.exclude": {
+    "**/build": true,
+    "**/dist": true,
+    "**/node_modules": true,
+    "**/yarn-error.log": true,
+    "**/yarn.lock": true
   },
-  "editor.codeActionsOnSave": ["source.organizeImports"],
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "java.configuration.updateBuildConfiguration": "disabled",
-  "i18next.i18nPaths": "/Volumes/Projects/whitewater/packages/clients/dist/i18n,/Volumes/Projects/whitewater/packages/clients/src/i18n,/Volumes/Projects/whitewater/packages/commons/dist/i18n,/Volumes/Projects/whitewater/packages/commons/src/i18n,/Volumes/Projects/whitewater/packages/mobile/src/i18n,/Volumes/Projects/whitewater/services/boompromo/src/i18n,/Volumes/Projects/whitewater/services/web/src/i18n,/Volumes/Projects/whitewater/packages/mobile/ios/Pods/Folly/folly/lang,/Volumes/Projects/whitewater/packages/mobile/ios/Pods/boost-for-react-native/boost/locale,/Volumes/Projects/whitewater/packages/mobile/build/ios/CodePush/assets/src/i18n"
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

@@ -1,4 +1,5 @@
 import { CoordinateLoose } from '@whitewater-guide/commons';
+
 import { getBBox } from './getBBox';
 
 function zoom(mapPx: number, worldPx: number, fraction: number) {

@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+
 import { AppError } from './AppError';
 
 export const APP_ERROR_MUTATION = gql`

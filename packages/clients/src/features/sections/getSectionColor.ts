@@ -1,8 +1,8 @@
-/* tslint:disable:no-bitwise */
 import { GaugeBinding, Measurement, Section } from '@whitewater-guide/commons';
 import color from 'color';
 import isFunction from 'lodash/isFunction';
 import mapValues from 'lodash/mapValues';
+
 import { getBindingFormula } from './formulas';
 
 interface DryBinding extends GaugeBinding {
@@ -112,8 +112,7 @@ function getCol(
   return 5;
 }
 
-/* tslint:disable-next-line:no-inferrable-types */
-export function hslMix(color1: color, color2: color, ratio: number = 0.5) {
+export function hslMix(color1: color, color2: color, ratio = 0.5) {
   const [h1, s1, l1] = color1.hsl().array();
   const [h2, s2, l2] = color2.hsl().array();
   const dh = h2 - h1;

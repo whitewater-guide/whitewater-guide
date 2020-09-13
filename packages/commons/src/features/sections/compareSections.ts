@@ -1,5 +1,5 @@
-// @ts-ignore
 import deburr from 'lodash/deburr';
+
 import {
   DefaultSectionFilterOptions,
   Section,

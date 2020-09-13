@@ -1,4 +1,5 @@
 import { ServerError } from 'apollo-link-http-common';
+
 import { AuthResponse } from './types';
 
 export const createApolloServerError = (resp: AuthResponse) => {

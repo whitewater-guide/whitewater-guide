@@ -1,8 +1,7 @@
+import { yupTypes } from '@whitewater-guide/validation';
 import * as yup from 'yup';
 
 import { BannerKind, BannerPlacement } from './types';
-
-import { yupTypes } from '@whitewater-guide/validation';
 
 const BannerSourceSchema = yup
   .object({
@@ -13,10 +12,7 @@ const BannerSourceSchema = yup
 
 export const BannerInputSchema = yup
   .object({
-    id: yupTypes
-      .uuid()
-      .defined()
-      .nullable(),
+    id: yupTypes.uuid().defined().nullable(),
     slug: yupTypes.slug(),
     name: yupTypes.nonEmptyString(),
     priority: yup.number().integer(),
