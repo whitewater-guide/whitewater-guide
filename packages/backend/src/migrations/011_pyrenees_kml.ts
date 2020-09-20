@@ -20,7 +20,7 @@ export const up = async (db: Knex) => {
   if (process.env.NODE_ENV === 'test') {
     return;
   }
-  const kmlFiles = readdirSync(path.resolve(__dirname, 'migrations/011'), {
+  const kmlFiles = readdirSync(path.resolve(__dirname, '011'), {
     encoding: 'utf8',
   });
 
