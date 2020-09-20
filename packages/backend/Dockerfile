@@ -1,4 +1,4 @@
-FROM node:14.10.1 AS builder
+FROM node:14.11.0 AS builder
 
 WORKDIR /opt/app
 
@@ -12,7 +12,7 @@ RUN yarn workspace @whitewater-guide/commons build
 RUN yarn workspace @whitewater-guide/backend build
 
 # Skip development modules
-FROM node:14.10.1 AS production
+FROM node:14.11.0 AS production
 
 WORKDIR /opt/app
 
