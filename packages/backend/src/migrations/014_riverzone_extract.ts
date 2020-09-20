@@ -27,10 +27,17 @@ export const up = async (db: Knex) => {
   if (process.env.NODE_ENV === 'test') {
     return;
   }
-  let { sections } = await parseRiverzoneDump();
+  let sections: RzSection[] = [];
+  try {
+    const dump = await parseRiverzoneDump();
+    sections = dump.sections;
+  } catch {}
   const dumpSize = sections.length;
   console.info('[META] Riverzone.eu region stats:');
   console.info(`[META] \t total sections in dump: ${dumpSize}`);
+  if (dumpSize === 0) {
+    return;
+  }
   const good: RzSection[] = [];
   let bad: RzSection[] = [];
   for (const s of sections) {
