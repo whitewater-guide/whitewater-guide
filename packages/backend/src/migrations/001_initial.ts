@@ -12,6 +12,9 @@ import {
 import { createTable } from './utils';
 
 export const up = async (db: Knex) => {
+  await db.schema.raw('CREATE EXTENSION IF NOT EXISTS "postgis"');
+  await db.schema.raw('CREATE EXTENSION IF NOT EXISTS "pg_trgm"');
+  await db.schema.raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
   await runSqlFile(db, path.resolve(__dirname, '001/language_code.sql'));
   await runSqlFile(db, path.resolve(__dirname, '001/tag_category.sql'));
   await runSqlFile(db, path.resolve(__dirname, '001/media_kind.sql'));
