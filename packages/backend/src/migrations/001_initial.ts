@@ -471,8 +471,6 @@ export const up = async (db: Knex) => {
   await db.schema.raw(
     'CREATE UNIQUE INDEX measurements_idx ON measurements (script, code, timestamp DESC)',
   );
-  // Init timescale!
-  await db.schema.raw("SELECT create_hypertable('measurements', 'timestamp');");
 
   // Media
   await createTable(db, 'media', (table) => {
