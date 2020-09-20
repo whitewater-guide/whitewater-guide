@@ -1,5 +1,7 @@
 import { createTransport } from 'nodemailer';
 
+import config from '~/config';
+
 import logger from '../logger';
 import { render } from './templates';
 import {
@@ -12,12 +14,12 @@ import {
 } from './types';
 
 const transport = createTransport({
-  host: process.env.MAIL_SMTP_SERVER,
+  host: config.MAIL_SMTP_SERVER,
   port: 465,
   secure: true,
   auth: {
-    user: process.env.MAIL_NOREPLY_BOX,
-    pass: process.env.MAIL_PASSWORD,
+    user: config.MAIL_NOREPLY_BOX,
+    pass: config.MAIL_PASSWORD,
   },
   logger: logger as any,
 });
@@ -60,7 +62,7 @@ export async function sendMail(
   email: string,
   payload: any,
 ): Promise<void> {
-  const { PROTOCOL, API_DOMAIN } = process.env;
+  const { PROTOCOL, API_DOMAIN } = config;
   const data = {
     ...payload,
     baseURL: `${PROTOCOL}://${API_DOMAIN}`,
@@ -69,11 +71,11 @@ export async function sendMail(
   await transport.sendMail({
     from: {
       name: 'whitewater.guide',
-      address: process.env.MAIL_NOREPLY_BOX!,
+      address: config.MAIL_NOREPLY_BOX,
     },
     sender: {
       name: 'whitewater.guide',
-      address: process.env.MAIL_INFO_BOX!,
+      address: config.MAIL_INFO_BOX,
     },
     to: email,
     subject: SUBJECTS.get(type),

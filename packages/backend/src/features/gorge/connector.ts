@@ -6,10 +6,11 @@ import DataLoader from 'dataloader';
 import { stringify } from 'querystring';
 
 import { Context } from '~/apollo';
+import config from '~/config';
 import db from '~/db';
 
-const GORGE_HOST = process.env.GORGE_HOST || 'gorge';
-const GORGE_PORT = process.env.GORGE_PORT || '7080';
+const GORGE_HOST = config.GORGE_HOST;
+const GORGE_PORT = config.GORGE_PORT;
 const GORGE_PATH = '';
 const GORGE_URL = `http://${GORGE_HOST}:${GORGE_PORT}${GORGE_PATH}`;
 

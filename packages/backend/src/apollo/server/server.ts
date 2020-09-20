@@ -1,6 +1,7 @@
 import { ApolloServer } from 'apollo-server-koa';
 import * as Koa from 'koa';
 
+import config from '~/config';
 import { createConnectors } from '~/db/connectors';
 
 import { Context, newContext } from '../context';
@@ -19,8 +20,8 @@ export const createApolloServer = async (app: Koa) => {
     context: newContext,
     dataSources: createConnectors,
     formatError,
-    debug: process.env.NODE_ENV === 'development',
-    introspection: process.env.NODE_ENV === 'development',
+    debug: config.NODE_ENV === 'development',
+    introspection: config.NODE_ENV === 'development',
     playground,
     plugins: [new FieldsByTypePlugin(schema)],
   });

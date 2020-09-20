@@ -1,12 +1,14 @@
 import FacebookTokenStrategy from 'passport-facebook-token';
 
+import config from '~/config';
+
 import { sendWelcome } from '../mail';
 import getFBUser from './getFBUser';
 
 export const facebookStrategy = new FacebookTokenStrategy(
   {
-    clientID: process.env.FB_APP_ID!,
-    clientSecret: process.env.FB_SECRET!,
+    clientID: config.FB_APP_ID,
+    clientSecret: config.FB_SECRET,
     profileFields: ['name', 'email', 'picture', 'link', 'locale'],
     passReqToCallback: true,
   },

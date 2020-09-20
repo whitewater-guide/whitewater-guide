@@ -1,3 +1,4 @@
+/* eslint-disable node/no-process-env */
 import { createStream } from 'byline';
 import { createReadStream } from 'fs';
 import { Client } from 'pg';
@@ -56,9 +57,9 @@ class WritableSqlStream extends Writable {
     // Do not use knex, it will turn ? into bindings and break youtube links, for example
     this.client = new Client({
       user: 'postgres',
-      host: process.env.POSTGRES_HOST!,
-      database: process.env.POSTGRES_DB!,
-      password: process.env.POSTGRES_PASSWORD!,
+      host: process.env.POSTGRES_HOST,
+      database: process.env.POSTGRES_DB,
+      password: process.env.POSTGRES_PASSWORD,
     });
     this.client.connect();
   }

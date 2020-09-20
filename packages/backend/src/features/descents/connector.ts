@@ -11,6 +11,7 @@ import { QueryBuilder } from 'knex';
 
 import { Context } from '~/apollo';
 import { Cursor } from '~/apollo/cursor';
+import config from '~/config';
 import db from '~/db';
 import { FieldsMap, ManyBuilderOptions } from '~/db/connectors';
 import { RelayConnector } from '~/db/connectors/RelayConnector';
@@ -72,7 +73,7 @@ export class DescentsConnector extends RelayConnector<Descent, DescentRaw> {
     if (!id && shareToken) {
       const decoded: ShareToken = jwt.verify(
         shareToken,
-        process.env.DESCENTS_TOKEN_SECRET!,
+        config.DESCENTS_TOKEN_SECRET,
       ) as any;
       if (!decoded.descent) {
         throw new ForbiddenError('share token does not contain descent id');
@@ -112,7 +113,7 @@ export class DescentsConnector extends RelayConnector<Descent, DescentRaw> {
       descent: id,
       section: row.section_id as any,
     };
-    return jwt.sign(token, process.env.DESCENTS_TOKEN_SECRET!, {
+    return jwt.sign(token, config.DESCENTS_TOKEN_SECRET, {
       noTimestamp: true,
     });
   }
@@ -211,7 +212,7 @@ export class DescentsConnector extends RelayConnector<Descent, DescentRaw> {
   public async upsert(input: DescentInput, token?: string | null) {
     let shared: ShareToken | undefined;
     if (token) {
-      shared = jwt.verify(token, process.env.DESCENTS_TOKEN_SECRET!) as any;
+      shared = jwt.verify(token, config.DESCENTS_TOKEN_SECRET) as any;
     }
 
     const parentDescentCTE = db()

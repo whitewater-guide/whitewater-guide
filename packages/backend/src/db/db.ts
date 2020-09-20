@@ -1,3 +1,4 @@
+/* eslint-disable node/no-process-env */
 import Knex from 'knex';
 
 import knexConfig from './knexfile';

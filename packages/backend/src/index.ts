@@ -6,15 +6,16 @@ import log from '~/log';
 
 import { createApolloServer } from './apollo/server';
 import { createApp } from './app';
+import config from './config';
 import startServer from './server';
 
 async function startup() {
   await waitForDb();
-  if (process.env.SENTRY_DSN) {
+  if (config.SENTRY_DSN) {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const pjson = require('../package.json');
     initSentry({
-      dsn: process.env.SENTRY_DSN,
+      dsn: config.SENTRY_DSN,
       release: pjson.version,
       integrations: (integrations) => {
         // integrations will be all default integrations

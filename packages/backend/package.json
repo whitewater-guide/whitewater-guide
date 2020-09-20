@@ -1,10 +1,13 @@
 {
   "name": "@whitewater-guide/backend",
   "private": true,
-  "version": "0.0.445",
+  "version": "0.0.446",
   "main": "index.js",
   "author": "Konstantin Kuznetsov",
   "license": "UNLICENSED",
+  "engines": {
+    "node": ">=14"
+  },
   "scripts": {
     "assets": "cpy '**/*' '!**/*.ts' ../dist/ --cwd=src/ --no-overwrite --parents",
     "clean": "rimraf dist/*",

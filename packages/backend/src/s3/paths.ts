@@ -1,3 +1,4 @@
+/* eslint-disable node/no-process-env */
 export type S3Prefix = 'temp' | 'media' | 'avatars' | 'covers' | 'banners';
 
 const isTest = process.env.JEST_WORKER_ID;

@@ -6,6 +6,7 @@ import db from '~/db';
 import log from '~/log';
 import { addPingRoute } from '~/utils';
 
+import config from './config';
 import { corsMiddleware } from './cors';
 
 export type App = Koa & {
@@ -15,7 +16,7 @@ export type App = Koa & {
 export const createApp = (): App => {
   const app = new Koa();
   app.silent = true;
-  app.proxy = process.env.NODE_ENV === 'production';
+  app.proxy = config.NODE_ENV === 'production';
   app.on('error', (err) => log.error(err));
 
   app.use(corsMiddleware);

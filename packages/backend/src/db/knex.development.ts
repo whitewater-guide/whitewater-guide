@@ -1,3 +1,4 @@
+/* eslint-disable node/no-process-env */
 import knex from 'knex';
 
 import { FsDevMigrations } from './FsDevMigrations';
@@ -5,11 +6,11 @@ import { FsDevMigrations } from './FsDevMigrations';
 const development: knex.Config = {
   client: 'pg',
   connection: {
-    host: process.env.POSTGRES_HOST!,
+    host: process.env.POSTGRES_HOST,
     port: 5432,
-    database: process.env.POSTGRES_DB!,
+    database: process.env.POSTGRES_DB,
     user: 'postgres',
-    password: process.env.POSTGRES_PASSWORD!,
+    password: process.env.POSTGRES_PASSWORD,
     keepAlive: true,
   },
   migrations: {

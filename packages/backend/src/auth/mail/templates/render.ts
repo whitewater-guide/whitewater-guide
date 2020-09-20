@@ -3,7 +3,10 @@ import template from 'lodash/template';
 import mjml2html from 'mjml';
 import { resolve } from 'path';
 
+import config from '~/config';
+
 import { MailType } from '../types';
+
 const { readFile } = promises;
 
 const TEMPLATES = new Map<MailType, (data: any) => string>();
@@ -14,7 +17,7 @@ export const render = async (type: MailType, data: any): Promise<string> => {
     const mjmlFile = resolve(__dirname, `${type}.mjml`);
     const mjmlRaw = await readFile(mjmlFile, { encoding: 'utf8' });
     const { html, errors } = mjml2html(mjmlRaw, {
-      minify: process.env.NODE_ENV === 'production',
+      minify: config.NODE_ENV === 'production',
       filePath: mjmlFile,
     });
     if (errors.length) {

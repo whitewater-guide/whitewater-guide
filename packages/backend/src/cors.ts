@@ -3,9 +3,7 @@ import { parse } from 'tldts';
 
 import log from '~/log';
 
-const CORS_WHITELIST = process.env.CORS_WHITELIST
-  ? process.env.CORS_WHITELIST!.split(',')
-  : [];
+import config from './config';
 
 export const getCorsMiddleware = (whitelist: string[], appURL: string) => {
   const appDomain = parse(appURL, { validHosts: ['localhost'] }).domain;
@@ -33,6 +31,6 @@ export const getCorsMiddleware = (whitelist: string[], appURL: string) => {
 };
 
 export const corsMiddleware = getCorsMiddleware(
-  CORS_WHITELIST,
-  process.env.API_DOMAIN!,
+  config.CORS_WHITELIST,
+  config.API_DOMAIN,
 );

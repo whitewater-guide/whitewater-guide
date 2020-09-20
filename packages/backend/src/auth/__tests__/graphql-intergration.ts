@@ -5,6 +5,7 @@ import FacebookTokenStrategy from 'passport-facebook-token';
 import { SuperTest, Test } from 'supertest';
 import agent from 'supertest-koa-agent';
 
+import config from '~/config';
 import { holdTransaction, rollbackTransaction } from '~/db';
 import { ADMIN, ADMIN_FB_PROFILE, ADMIN_ID } from '~/seeds/test/01_users';
 import { REGION_GALICIA } from '~/seeds/test/04_regions';
@@ -177,7 +178,7 @@ it('should not work when refresh token is used as access token', async () => {
 it('should not work when access token expired', async () => {
   const accessToken = sign(
     { id: ADMIN_ID, iat: Math.floor(Date.now() / 1000) - 60 * 20 },
-    process.env.ACCESS_TOKEN_SECRET!,
+    config.ACCESS_TOKEN_SECRET,
     { expiresIn: '10m' },
   );
   const testAgent = agent(app);

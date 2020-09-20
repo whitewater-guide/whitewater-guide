@@ -28,7 +28,7 @@ export class S3Client {
     uploadedBy?: string,
   ): Promise<PostPolicy> {
     // Only allow content size in range 10KB to 10MB in production
-    const minSize = process.env.NODE_ENV === 'production' ? MIN_FILE_SIZE : 1;
+    const minSize = config.NODE_ENV === 'production' ? MIN_FILE_SIZE : 1;
     const Conditions = [
       ['starts-with', '$Content-Type', 'image/'],
       ['starts-with', '$key', key ? `${TEMP}/${key}` : `${TEMP}/`],

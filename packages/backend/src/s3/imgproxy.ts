@@ -134,11 +134,7 @@ export const getImgproxyURL = (
   const processingOptions = opts ? stringifyProcessingOpts(opts) : '';
   const path = `/${processingOptions}/${encodedUrl}.jpg`;
 
-  const signature = sign(
-    process.env.IMGPROXY_SALT,
-    path,
-    process.env.IMGPROXY_KEY,
-  );
+  const signature = sign(config.IMGPROXY_SALT, path, config.IMGPROXY_KEY);
   return `${config.contentPublicURL}/${signature}${path}`;
 };
 

@@ -1,10 +1,11 @@
 import { compare } from 'bcrypt';
 import { Middleware } from 'koa';
 
+import config from '~/config';
 import db from '~/db';
 import { UserRaw } from '~/features/users';
 
-const VERIFIED_URL = `${process.env.PROTOCOL}://${process.env.ROOT_DOMAIN}/verified.html`;
+const VERIFIED_URL = `${config.PROTOCOL}://${config.ROOT_DOMAIN}/verified.html`;
 
 const verification: Middleware<any, any> = async (ctx) => {
   const { id, token } = ctx.request.query;

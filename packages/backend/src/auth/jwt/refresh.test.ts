@@ -3,6 +3,7 @@ import { sign } from 'jsonwebtoken';
 import Koa from 'koa';
 import agent from 'supertest-koa-agent';
 
+import config from '~/config';
 import { holdTransaction, rollbackTransaction } from '~/db';
 import { ADMIN_ID } from '~/seeds/test/01_users';
 import { BLACKLISTED_REFRESH_TOKEN } from '~/seeds/test/16_tokens_blacklist';
@@ -61,10 +62,7 @@ describe('mobile', () => {
   });
 
   it('should fail if id is missing', async () => {
-    const refreshToken = sign(
-      { refresh: true },
-      process.env.REFRESH_TOKEN_SECRET!,
-    );
+    const refreshToken = sign({ refresh: true }, config.REFRESH_TOKEN_SECRET);
 
     const resp = await request(refreshToken);
     expect(resp.status).toBe(400);
@@ -88,7 +86,7 @@ describe('mobile', () => {
   it('should send new access token on success', async () => {
     const refreshToken = sign(
       { id: ADMIN_ID, refresh: true },
-      process.env.REFRESH_TOKEN_SECRET!,
+      config.REFRESH_TOKEN_SECRET,
     );
 
     const resp = await request(refreshToken);
@@ -160,10 +158,7 @@ describe('web', () => {
 
   it('should fail if id is missing', async () => {
     const testAgent = agent(app);
-    const refreshToken = sign(
-      { refresh: true },
-      process.env.REFRESH_TOKEN_SECRET!,
-    );
+    const refreshToken = sign({ refresh: true }, config.REFRESH_TOKEN_SECRET);
 
     testAgent.jar.setCookie(
       `${REFRESH_TOKEN_COOKIE}=${refreshToken}`,
@@ -220,7 +215,7 @@ describe('web', () => {
     const testAgent = agent(app);
     const refreshToken = sign(
       { id: ADMIN_ID, refresh: true },
-      process.env.REFRESH_TOKEN_SECRET!,
+      config.REFRESH_TOKEN_SECRET,
     );
     testAgent.jar.setCookie(
       `${REFRESH_TOKEN_COOKIE}=${refreshToken}`,

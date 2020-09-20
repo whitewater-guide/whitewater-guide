@@ -3,6 +3,8 @@ import { GraphQLSchema } from 'graphql';
 import { fileLoader, mergeTypes } from 'merge-graphql-schemas';
 import { join } from 'path';
 
+import config from '~/config';
+
 import { AdminDirective } from '../directives';
 import { logger } from '../logger';
 import { resolvers } from './resolvers';
@@ -12,7 +14,7 @@ let schema: GraphQLSchema;
 
 async function loadSchema() {
   const typesArray = fileLoader(
-    join(process.cwd(), process.env.NODE_ENV === 'production' ? 'dist' : 'src'),
+    join(process.cwd(), config.NODE_ENV === 'production' ? 'dist' : 'src'),
     {
       recursive: true,
       extensions: ['.graphql'],

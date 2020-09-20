@@ -1,3 +1,4 @@
+/* eslint-disable node/no-process-env */
 import AWS from 'aws-sdk';
 import { readJSON } from 'fs-extra';
 
@@ -14,7 +15,7 @@ class Config {
   public PROTOCOL = this.NODE_ENV === 'production' ? 'https' : 'http';
   public ROOT_DOMAIN = process.env.ROOT_DOMAIN;
   public API_DOMAIN = `api.${this.ROOT_DOMAIN}`;
-  public CORS_WHITELIST = process.env.CORS_WHITELIST;
+  public CORS_WHITELIST = process.env.CORS_WHITELIST?.split(',') || [];
   public SENTRY_DSN = process.env.SENTRY_DSN;
 
   public MAIL_SMTP_SERVER = process.env.MAIL_SMTP_SERVER;
@@ -23,10 +24,6 @@ class Config {
   public MAIL_INFO_BOX = process.env.MAIL_INFO_BOX;
   public MAILCHIMP_API_KEY = process.env.MAILCHIMP_API_KEY;
   public MAILCHIMP_LIST_ID = process.env.MAILCHIMP_LIST_ID;
-
-  // public POSTGRES_HOST = process.env.POSTGRES_HOST;
-  // public POSTGRES_DB = process.env.POSTGRES_DB;
-  // public POSTGRES_PASSWORD = process.env.POSTGRES_PASSWORD;
 
   public s3?: AWS.S3.Types.ClientConfiguration = {
     // https://docs.min.io/docs/how-to-use-aws-sdk-for-javascript-with-minio-server.html
@@ -55,7 +52,11 @@ class Config {
 
   public async getGoogleServiceAccount() {
     if (!this._googleServiceAccount) {
-      if (process.env.NODE_ENV !== 'production') {
+      if (process.env.GOOGLE_SERVICE_ACCOUNT) {
+        this._googleServiceAccount = JSON.parse(
+          process.env.GOOGLE_SERVICE_ACCOUNT,
+        );
+      } else {
         this._googleServiceAccount = await readJSON(
           'google_service_account.json',
         );

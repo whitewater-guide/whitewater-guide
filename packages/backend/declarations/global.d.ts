@@ -47,5 +47,7 @@ declare namespace NodeJS {
 
     FB_APP_ID: string;
     FB_SECRET: string;
+
+    GOOGLE_SERVICE_ACCOUNT?: string;
   }
 }

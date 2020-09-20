@@ -1,3 +1,4 @@
+/* eslint-disable node/no-process-env */
 import { Client } from 'pg';
 import waitForExpect from 'wait-for-expect';
 

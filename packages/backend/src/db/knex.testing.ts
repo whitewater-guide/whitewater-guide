@@ -1,13 +1,14 @@
+/* eslint-disable node/no-process-env */
 import knex from 'knex';
 
 const test: knex.Config = {
   client: 'pg',
   connection: {
-    host: process.env.POSTGRES_HOST!,
+    host: process.env.POSTGRES_HOST,
     port: 5432,
     database: 'wwtest',
     user: 'postgres',
-    password: process.env.POSTGRES_PASSWORD!,
+    password: process.env.POSTGRES_PASSWORD,
   },
   pool: {
     min: 0,

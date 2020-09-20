@@ -6,6 +6,8 @@ import {
 import { ParameterizedContext } from 'koa';
 import { IRouterParamContext } from 'koa-router';
 
+import config from '~/config';
+
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from '../constants';
 import { getAccessToken, getRefreshToken } from './tokens';
 
@@ -34,13 +36,13 @@ export const sendCredentials = (
   if (ctx.query.web || (ctx.request.body && ctx.request.body.web)) {
     ctx.cookies.set(ACCESS_TOKEN_COOKIE, accessToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: config.NODE_ENV === 'production',
       maxAge: 24 * 60 * 60 * 1000,
       signed: false,
     });
     ctx.cookies.set(REFRESH_TOKEN_COOKIE, refreshToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: config.NODE_ENV === 'production',
       expires: new Date(2038, 0, 1),
       path: '/auth/jwt/refresh',
       signed: false,

@@ -2,6 +2,7 @@ import { RefreshTokenPayload } from '@whitewater-guide/commons';
 import { decode, verify } from 'jsonwebtoken';
 import { Middleware } from 'koa';
 
+import config from '~/config';
 import db from '~/db';
 
 import { REFRESH_TOKEN_COOKIE } from '../constants';
@@ -22,7 +23,7 @@ export const refreshJWT: Middleware<any, any> = async (ctx, next) => {
 
   let payload: RefreshTokenPayload;
   try {
-    payload = verify(token, process.env.REFRESH_TOKEN_SECRET!) as any;
+    payload = verify(token, config.REFRESH_TOKEN_SECRET) as any;
   } catch (err) {
     let id: string | undefined;
     try {

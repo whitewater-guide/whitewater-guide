@@ -5,13 +5,14 @@ import axios from 'axios';
 import get from 'lodash/get';
 
 import { Context } from '~/apollo';
+import config from '~/config';
 import db, { knex } from '~/db';
 import { FieldsMap, OffsetConnector } from '~/db/connectors';
 import log from '~/log';
 
 import { UserRaw } from './types';
 
-const { FB_APP_ID, FB_SECRET } = process.env;
+const { FB_APP_ID, FB_SECRET } = config;
 
 const FIELDS_MAP: FieldsMap<User, UserRaw> = {
   purchasedRegions: null,

@@ -32,7 +32,7 @@ class Logger {
       pino({
         level: config.logLevel,
         prettyPrint:
-          process.env.NODE_ENV === 'development'
+          config.NODE_ENV === 'development'
             ? ({
                 colorize: true,
                 levelFirst: true,
@@ -51,7 +51,7 @@ class Logger {
     { error, extra, message, tags, userId }: Payload,
     level: Severity,
   ) => {
-    if (!process.env.SENTRY_DSN) {
+    if (!config.SENTRY_DSN) {
       return;
     }
     if (error) {
