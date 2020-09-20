@@ -9,7 +9,7 @@ import config from '~/config';
 export const getAccessToken = (userId: string) => {
   const payload: AccessTokenPayload = { id: userId };
   return sign(payload, config.ACCESS_TOKEN_SECRET, {
-    expiresIn: parseInt(config.ACCESS_TOKEN_EXPIRES, 10),
+    expiresIn: config.ACCESS_TOKEN_EXPIRES,
   });
 };
 

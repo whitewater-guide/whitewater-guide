@@ -37,7 +37,6 @@ declare namespace NodeJS {
     IMGPROXY_SALT: string;
 
     ACCESS_TOKEN_SECRET: string;
-    ACCESS_TOKEN_EXPIRES: string;
     REFRESH_TOKEN_SECRET: string;
 
     DESCENTS_TOKEN_SECRET: string;

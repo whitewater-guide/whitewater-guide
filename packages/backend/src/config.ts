@@ -40,7 +40,7 @@ class Config {
   public IMGPROXY_SALT = process.env.IMGPROXY_SALT;
 
   public ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET;
-  public ACCESS_TOKEN_EXPIRES = process.env.ACCESS_TOKEN_EXPIRES;
+  public ACCESS_TOKEN_EXPIRES = this.NODE_ENV === 'production' ? 1800 : 60;
   public REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET;
   public DESCENTS_TOKEN_SECRET = process.env.DESCENTS_TOKEN_SECRET;
 
