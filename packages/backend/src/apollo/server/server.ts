@@ -23,7 +23,7 @@ export const createApolloServer = async (app: Koa) => {
     debug: config.NODE_ENV === 'development',
     introspection: config.NODE_ENV === 'development',
     playground,
-    plugins: [new FieldsByTypePlugin(schema)],
+    plugins: [new FieldsByTypePlugin(schema) as any],
   });
 
   server.applyMiddleware({
@@ -48,6 +48,6 @@ export const createTestServer = async (
     debug: false,
     introspection: false,
     playground: false,
-    plugins: [new FieldsByTypePlugin(schema)],
+    plugins: [new FieldsByTypePlugin(schema) as any],
   });
 };
