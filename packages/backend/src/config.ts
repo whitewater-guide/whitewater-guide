@@ -10,7 +10,7 @@ class Config {
     process.env.NODE_ENV === 'test'
       ? 'silent'
       : process.env.NODE_ENV === 'production'
-      ? 'warn'
+      ? 'info'
       : 'debug';
   public PROTOCOL = this.NODE_ENV === 'production' ? 'https' : 'http';
   public ROOT_DOMAIN = process.env.ROOT_DOMAIN;
