@@ -1,6 +1,9 @@
 import { State } from 'react-native-gesture-handler';
 import Animated from 'react-native-reanimated';
-import { snapPoint as getSnapPoint, spring } from 'react-native-redash';
+import {
+  snapPoint as getSnapPoint,
+  spring,
+} from 'react-native-redash/lib/module/v1';
 
 const {
   Value,

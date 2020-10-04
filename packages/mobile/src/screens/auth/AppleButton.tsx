@@ -34,7 +34,7 @@ const AppleButton: React.FC = () => {
     <NativeAppleButton
       buttonStyle={NativeAppleButton.Style.BLACK}
       buttonType={NativeAppleButton.Type.SIGN_UP}
-      onPress={loading ? undefined : signInWithApple}
+      onPress={loading ? (undefined as any) : signInWithApple}
       style={styles.button}
     />
   );

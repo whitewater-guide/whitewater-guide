@@ -4,6 +4,7 @@
     "no-submodule-imports": [
       true,
       "react-native-vector-icons",
+      "react-native-redash",
       "lodash",
       "react-use",
       "date-fns",
