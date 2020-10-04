@@ -8,5 +8,11 @@
       "~/*": ["src/*"]
     }
   },
-  "include": ["src/**/*", "storybook/**/*", "e2e/**/*", "typings/**/*"]
+  "include": [
+    "src/**/*",
+    "storybook/**/*",
+    "e2e/**/*",
+    "typings/**/*",
+    "node_modules/react-native-redash/lib/typescript/v1/index.d.ts"
+  ]
 }
