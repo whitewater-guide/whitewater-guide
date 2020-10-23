@@ -69,6 +69,7 @@ export const SelectedPOIView: React.FC = React.memo(function SelectedPOIView() {
 
   return (
     <SelectedElementView
+      selectionType="Point"
       snapPoints={SNAP_POINTS}
       renderHeader={renderHeader}
       renderButtons={renderButtons}

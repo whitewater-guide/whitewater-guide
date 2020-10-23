@@ -20,20 +20,12 @@ const styles = StyleSheet.create({
   },
 });
 
-// Value to compensate springiness when detecting open/closed state
 const HIDE_THRESHOLD_OVERSHOOT = 10;
 
-const {
-  Value,
-  Extrapolate,
-  call,
-  greaterOrEq,
-  color,
-  interpolate,
-  onChange,
-} = Animated;
+const { Value, Extrapolate, color, interpolate } = Animated;
 
 interface Props extends MapSelection {
+  selectionType: 'Point' | 'Section';
   snapPoints: SnapPoints;
   renderHeader: () => React.ReactNode;
   renderButtons: (scale?: Animated.Node<number>) => React.ReactNode;
@@ -50,11 +42,8 @@ class SelectedElementView extends React.PureComponent<Props> {
   private readonly _sheet = React.createRef<BottomSheet>();
   private readonly _headerPosition: Animated.Value<number>;
   private readonly _overlayBackground: Animated.Node<number>;
-  private readonly _watchHide: Animated.Node<number>;
   private readonly _buttonsScale: Animated.Node<number>;
   private readonly _initialSnap: number;
-
-  private _deselectOnHideTimeout?: number;
 
   constructor(props: Props) {
     super(props);
@@ -71,14 +60,6 @@ class SelectedElementView extends React.PureComponent<Props> {
         outputRange: [0.5, 0.0],
         extrapolate: Extrapolate.CLAMP,
       }),
-    );
-    const hideThreshold = greaterOrEq(
-      this._headerPosition,
-      snapPoints[0] - snapPoints[1] + HIDE_THRESHOLD_OVERSHOOT,
-    );
-    this._watchHide = onChange(
-      hideThreshold,
-      call([hideThreshold], this.onHide),
     );
     this._buttonsScale = interpolate(this._headerPosition, {
       inputRange: [
@@ -103,18 +84,13 @@ class SelectedElementView extends React.PureComponent<Props> {
     }
   }
 
-  onHide = ([hidden]: any) => {
-    if (hidden && !!this.props.selection) {
-      // workaround for #495
-      // sometimes when tapping on header onHide will be triggered before onMaximize
-      this._deselectOnHideTimeout = setTimeout(() => {
-        this.props.onSelected(null);
-      }, 200);
+  onCloseEnd = () => {
+    if (this.props.selection?.__typename === this.props.selectionType) {
+      this.props.onSelected(null);
     }
   };
 
   onMaximize = () => {
-    clearTimeout(this._deselectOnHideTimeout);
     if (this._sheet.current) {
       // this is workaround
       // https://github.com/osdnk/react-native-reanimated-bottom-sheet/issues/16#issuecomment-576467991
@@ -157,8 +133,8 @@ class SelectedElementView extends React.PureComponent<Props> {
           ]}
           pointerEvents="none"
         />
-        <Animated.Code exec={this._watchHide} />
         <BottomSheet
+          onCloseEnd={this.onCloseEnd}
           ref={this._sheet}
           initialSnap={this._initialSnap}
           snapPoints={snapPoints}
