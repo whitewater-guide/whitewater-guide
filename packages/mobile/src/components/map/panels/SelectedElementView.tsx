@@ -120,8 +120,6 @@ class SelectedElementView extends React.PureComponent<Props> {
       simultaneousHandlers,
     } = this.props;
     const snapPoints = getSnapPoints(this.props.snapPoints);
-    // TODO: use custom bottom sheet because of Cancelled state hack
-    // https://github.com/osdnk/react-native-reanimated-bottom-sheet/issues/69
     return (
       <React.Fragment>
         <Animated.View
