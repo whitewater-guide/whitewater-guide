@@ -76,7 +76,7 @@ const SectionFlowsRow: React.FC<Props> = React.memo(({ section }) => {
   }
   const color = getSectionColor(section);
   const preferFlow = flows && gauge.latestMeasurement.flow;
-  const binding = (preferFlow ? flows : levels)!;
+  const binding = preferFlow ? flows : levels;
   const label = preferFlow ? t('commons:flow') : t('commons:level');
   const unitName = preferFlow ? gauge.flowUnit : gauge.levelUnit;
   const value = preferFlow
@@ -104,17 +104,17 @@ const SectionFlowsRow: React.FC<Props> = React.memo(({ section }) => {
         <Caption style={styles.timeLine}>{fromNow}</Caption>
       </View>
       <View style={styles.binding}>
-        {binding.minimum && (
+        {binding?.minimum && (
           <Caption style={styles.minimum}>{`${binding.minimum} ${t(
             'commons:min',
           )}`}</Caption>
         )}
-        {binding.optimum && (
+        {binding?.optimum && (
           <Caption style={styles.optimum}>{`${binding.optimum} ${t(
             'commons:opt',
           )}`}</Caption>
         )}
-        {binding.maximum && (
+        {binding?.maximum && (
           <Caption style={styles.maximum}>{`${binding.maximum} ${t(
             'commons:max',
           )}`}</Caption>
