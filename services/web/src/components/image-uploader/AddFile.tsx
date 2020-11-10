@@ -28,7 +28,7 @@ export const AddFile: React.FC<Props> = ({ onAdd, mpxOrResolution }) => {
     (acceptedFiles: File[]) => {
       toLocalPhoto(acceptedFiles[0], mpxOrResolution).then(onAdd);
     },
-    [onAdd],
+    [onAdd, mpxOrResolution],
   );
 
   return (
