@@ -146,8 +146,6 @@ services:
     env_file:
       - ${DOCKER_ENV_FILE}
       - ../services/pgdump/${DOCKER_ENV_FILE}
-    depends_on:
-      - db
 
   # Backup images from minio to s3
   imagedump:
@@ -165,5 +163,3 @@ services:
     env_file:
       - ${DOCKER_ENV_FILE}
       - ../services/imagedump/${DOCKER_ENV_FILE}
-    depends_on:
-      - minio

@@ -18,11 +18,6 @@ services:
       context: ../services/backend
       labels:
         guide.whitewater: ''
-    depends_on:
-      - db
-      - redis
-      - minio
-      - gorge
     secrets:
       - google_service_account
 
@@ -72,8 +67,6 @@ services:
       labels:
         guide.whitewater: ''
     read_only: true
-    depends_on:
-      - imageproxy
 
   # Gorge to harvest some data
   gorge:
@@ -85,9 +78,6 @@ services:
       - ${DOCKER_ENV_FILE}
       - ../services/gorge/${DOCKER_ENV_FILE}
     read_only: true
-    depends_on:
-      - db
-      - redis
 
   # Caddy reverse proxy
   caddy:
