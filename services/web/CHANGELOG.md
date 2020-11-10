@@ -1,3 +1,16 @@
+## [0.1.442](https://github.com/doomsower/whitewater/compare/841afbc870334810e8bc97b2fd7feecc3e15bfc5...dfdab182804e48ac892c8bfb2895d67c4e5b4039) (2020-11-10)
+
+## [0.1.442](https://github.com/doomsower/whitewater/compare/9b542371d05c19d740e5bc4db615c03464893ff0...841afbc870334810e8bc97b2fd7feecc3e15bfc5) (2020-11-10)
+
+### Bug Fixes
+
+- banner height bug ([](https://github.com/doomsower/whitewater/commit/ff27e7237378dc7f1dd35df00ebc6e47d596f51c)), closes [#516](https://github.com/doomsower/whitewater/issues/516)
+- do not show loading progress on cancel button ([](https://github.com/doomsower/whitewater/commit/d023e4a5222a4f74a10336d71a302d6e18d22f9e))
+
+### Features
+
+- improve section duplication experience ([](https://github.com/doomsower/whitewater/commit/68d77f45e7f1b29882670c83da7e331c48ac09b9)), closes [#519](https://github.com/doomsower/whitewater/issues/519)
+
 ## [0.1.441](https://github.com/doomsower/whitewater/compare/0168738e4ee92bfd239508284e8ee264c5c1d6e3...9b542371d05c19d740e5bc4db615c03464893ff0) (2020-08-29)
 
 ## [0.1.441](https://github.com/doomsower/whitewater/compare/fd61bd385191f221c42dd418e0d38e35a76f0b8c...0168738e4ee92bfd239508284e8ee264c5c1d6e3) (2020-08-28)
