@@ -1,3 +1,10 @@
+## [0.0.446](https://github.com/doomsower/whitewater/compare/fcdba786c102a2f7009162d87306040ab06c2994...765df0f69df19428872814869cf71d5c0206a0ac) (2020-11-14)
+
+### Features
+
+- default language for points too ([](https://github.com/doomsower/whitewater/commit/c7aa482fbe31deae78abf32d0bdc86299ee9685f))
+- nullify empty translation columns ([](https://github.com/doomsower/whitewater/commit/586f494f1f8a670480c44772eb2ff340e6cb21db))
+
 ## [0.0.444](https://github.com/doomsower/whitewater/compare/dfdab182804e48ac892c8bfb2895d67c4e5b4039...fcdba786c102a2f7009162d87306040ab06c2994) (2020-11-14)
 
 ### Features
