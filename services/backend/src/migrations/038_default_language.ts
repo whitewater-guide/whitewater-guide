@@ -162,12 +162,19 @@ export const up = async (db: Knex) => {
     table.specificType('default_lang', 'language_code').nullable();
   });
   // Select default language based on section language, for gauges coalesce to eng
-  await db.raw(`UPDATE points SET default_lang = COALESCE(langz.default_lang, 'en')
-    FROM (
+  await db.raw(`
+    WITH pt_langz AS (
       SELECT sections_points.point_id, sections.default_lang
       FROM sections_points INNER JOIN sections on sections.id = sections_points.section_id
-    ) langz WHERE points.id = langz.point_id
+    )
+    UPDATE points
+    SET
+      default_lang = pt_langz.default_lang
+    FROM
+      pt_langz
+    WHERE pt_langz.point_id = points.id
   `);
+  await db.raw(`UPDATE points SET default_lang = COALESCE(default_lang, 'en')`);
   await db.raw(`
     UPDATE points_translations
     SET
