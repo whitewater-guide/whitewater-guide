@@ -1,3 +1,9 @@
+## [0.0.444](https://github.com/doomsower/whitewater/compare/dfdab182804e48ac892c8bfb2895d67c4e5b4039...fcdba786c102a2f7009162d87306040ab06c2994) (2020-11-14)
+
+### Features
+
+- coalsce translations to default language instead of english ([](https://github.com/doomsower/whitewater/commit/be50a10d801fde2e972566bc8f5feceb7fa3adc5))
+
 ## [0.0.443](https://github.com/doomsower/whitewater/compare/841afbc870334810e8bc97b2fd7feecc3e15bfc5...dfdab182804e48ac892c8bfb2895d67c4e5b4039) (2020-11-10)
 
 ## [0.0.443](https://github.com/doomsower/whitewater/compare/9b542371d05c19d740e5bc4db615c03464893ff0...841afbc870334810e8bc97b2fd7feecc3e15bfc5) (2020-11-10)
