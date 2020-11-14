@@ -69,6 +69,12 @@ export const up = async (db: Knex) => {
     FROM translations
     WHERE translations.region_id = regions.id
   `);
+  await db.raw(`
+    UPDATE regions_translations
+    SET
+      description = NULLIF(TRIM(description), ''),
+      season = NULLIF(TRIM(season), '')
+  `);
   await db.schema.alterTable('regions', (table) => {
     table
       .specificType('default_lang', 'language_code')
@@ -107,6 +113,13 @@ export const up = async (db: Knex) => {
     FROM translations
     WHERE translations.section_id = sections.id
   `);
+  await db.raw(`
+    UPDATE sections_translations
+    SET
+      description = NULLIF(TRIM(description), ''),
+      season = NULLIF(TRIM(season), ''),
+      flows_text = NULLIF(TRIM(flows_text), '')
+  `);
   await db.schema.alterTable('sections', (table) => {
     table
       .specificType('default_lang', 'language_code')
@@ -125,6 +138,12 @@ export const up = async (db: Knex) => {
     SET default_lang = translations.language
     FROM translations
     WHERE translations.media_id = media.id
+  `);
+  await db.raw(`
+    UPDATE media_translations
+    SET
+      description = NULLIF(TRIM(description), ''),
+      copyright = NULLIF(TRIM(copyright), '')
   `);
   await db.schema.alterTable('media', (table) => {
     table
@@ -148,6 +167,12 @@ export const up = async (db: Knex) => {
       SELECT sections_points.point_id, sections.default_lang
       FROM sections_points INNER JOIN sections on sections.id = sections_points.section_id
     ) langz WHERE points.id = langz.point_id
+  `);
+  await db.raw(`
+    UPDATE points_translations
+    SET
+      description = NULLIF(TRIM(description), ''),
+      name = NULLIF(TRIM(name), '')
   `);
   await db.schema.alterTable('points', (table) => {
     table
