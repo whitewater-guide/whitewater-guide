@@ -1,3 +1,9 @@
+## [0.0.447](https://github.com/doomsower/whitewater/compare/765df0f69df19428872814869cf71d5c0206a0ac...1ccfcb86ebb1cfd308fb1bfd81a2ed714cdda4d6) (2020-11-14)
+
+### Bug Fixes
+
+- points default language ([](https://github.com/doomsower/whitewater/commit/936cb8cc8ee8e76320ee4cb5cea54a888a6426cf))
+
 ## [0.0.446](https://github.com/doomsower/whitewater/compare/fcdba786c102a2f7009162d87306040ab06c2994...765df0f69df19428872814869cf71d5c0206a0ac) (2020-11-14)
 
 ### Features
