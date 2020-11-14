@@ -17,31 +17,37 @@ const points = [
     id: GALICIA_PT_1,
     coordinates: getCoordinates([20, 30, 40]),
     kind: 'kayak-shop',
+    default_lang: 'en',
   },
   {
     id: GALICIA_PT_2,
     coordinates: getCoordinates([11, 22, 33]),
     kind: 'other',
+    default_lang: 'en',
   },
   {
     id: LAOS_PT_1,
     coordinates: getCoordinates([4, 3, 343]),
     kind: 'other',
+    default_lang: 'en',
   },
   {
     id: '0c86ff2c-bbdd-11e7-abc4-cec278b6b50a', // gauge gal1
     coordinates: getCoordinates([1.1, 2.2, 3.3]),
     kind: 'gauge',
+    default_lang: 'en',
   },
   {
     id: 'ca0bee06-d445-11e7-9296-cec278b6b50a', // Galicia River 1 Section 1
     coordinates: getCoordinates([1.2, 3.2, 4.3]),
     kind: 'rapid',
+    default_lang: 'en',
   },
   {
     id: 'ef6f80ea-d445-11e7-9296-cec278b6b50a', // Galicia River 1 Section 1
     coordinates: getCoordinates([5, 6, 7]),
     kind: 'portage',
+    default_lang: 'en',
   },
 ];
 

@@ -1,7 +1,15 @@
 import Knex from 'knex';
 import { createViews, dropViews, runSqlFile } from '~/db';
 
-const VIEWS = ['gauges', 'sources', 'sections', 'rivers', 'regions'];
+const VIEWS = [
+  'gauges',
+  'sources',
+  'media',
+  'sections',
+  'rivers',
+  'regions',
+  'points',
+];
 
 /**
  * This patch adds default language to regions, rivers and sections
@@ -126,6 +134,29 @@ export const up = async (db: Knex) => {
   });
   await runSqlFile(db, './dist/migrations/038/upsert_section_media.sql');
 
+  // Points
+  // timestamps were missing
+  await db.schema.table('points_translations', (table) => {
+    table.timestamps(false, true);
+  });
+  await db.schema.table('points', (table) => {
+    table.specificType('default_lang', 'language_code').nullable();
+  });
+  // Select default language based on section language, for gauges coalesce to eng
+  await db.raw(`UPDATE points SET default_lang = COALESCE(langz.default_lang, 'en')
+    FROM (
+      SELECT sections_points.point_id, sections.default_lang
+      FROM sections_points INNER JOIN sections on sections.id = sections_points.section_id
+    ) langz WHERE points.id = langz.point_id
+  `);
+  await db.schema.alterTable('points', (table) => {
+    table
+      .specificType('default_lang', 'language_code')
+      .notNullable()
+      .alter();
+  });
+  await runSqlFile(db, './dist/migrations/038/upsert_points.sql');
+
   await createViews(db, 38, ...VIEWS);
 };
 
@@ -150,6 +181,9 @@ export const down = async (db: Knex) => {
   await db.schema.table('media', (table) => {
     table.dropColumn('default_lang');
   });
+  await db.schema.table('points', (table) => {
+    table.dropColumn('default_lang');
+  });
 
   await createViews(db, 37, ...VIEWS);
 
@@ -159,6 +193,7 @@ export const down = async (db: Knex) => {
   await runSqlFile(db, './dist/migrations/032/upsert_river.sql');
   await runSqlFile(db, './dist/migrations/037/upsert_section.sql');
   await runSqlFile(db, './dist/migrations/025/upsert_section_media.sql');
+  await runSqlFile(db, './dist/migrations/001/upsert_points.sql');
 };
 
 export const configuration = { transaction: true };

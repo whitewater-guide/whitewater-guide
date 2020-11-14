@@ -47,3 +47,18 @@ it('should be able to specify language', async () => {
     expect.arrayContaining(['Фото 1 описание', 'Photo 2 description']),
   );
 });
+
+it('should fall back to default language', async () => {
+  const result = await runQuery(
+    query,
+    { sectionId: NORWAY_SJOA_AMOT },
+    anonContext('pt'),
+  );
+  expect(result.errors).toBeUndefined();
+  const descriptions = result.data!.mediaBySection.nodes.map(
+    (n: any) => n.description,
+  );
+  expect(descriptions).toEqual(
+    expect.arrayContaining(['Photo 1 description', 'Photo 2 description']),
+  );
+});
