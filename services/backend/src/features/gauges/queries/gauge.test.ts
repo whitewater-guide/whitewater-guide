@@ -95,7 +95,7 @@ it('should be able to specify language', async () => {
   expect(result.data!.gauge.name).toBe('Галисийская линейка 1');
 });
 
-it('should fall back to english when translation is not provided', async () => {
+it('should fall back to default language when translation is not provided', async () => {
   const result = await runQuery(
     query,
     { id: GAUGE_GAL_1_1 },

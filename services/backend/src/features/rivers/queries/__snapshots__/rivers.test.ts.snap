@@ -2,7 +2,7 @@
 
 exports[`should return rivers 1`] = `
 Object {
-  "count": 6,
+  "count": 7,
   "nodes": Array [
     Object {
       "altNames": Array [],
@@ -76,6 +76,24 @@ Object {
       "sections": Object {
         "count": 0,
         "nodes": Array [],
+      },
+    },
+    Object {
+      "altNames": Array [],
+      "id": "72d18088-eebb-4f62-a359-186bc93ccb71",
+      "name": "Mzymta",
+      "region": Object {
+        "id": "a2056850-23ae-434d-b06c-7ea1900e5de2",
+        "name": "Russia",
+      },
+      "sections": Object {
+        "count": 1,
+        "nodes": Array [
+          Object {
+            "id": "b06c0a6e-9975-4a46-8a77-580a4f453973",
+            "name": "Paseka",
+          },
+        ],
       },
     },
     Object {

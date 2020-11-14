@@ -3,6 +3,7 @@ import { ADMIN, EDITOR_NO_EC } from '~/seeds/test/01_users';
 import {
   RIVER_BZHUZHA,
   RIVER_GAL_BECA,
+  RIVER_MZYMTA,
   RIVER_SJOA,
 } from '~/seeds/test/07_rivers';
 import { fakeContext, noTimestamps, runQuery } from '~/test';
@@ -110,4 +111,22 @@ it('should fire two queries for river->sections->river', async () => {
   await runQuery(q, { id: RIVER_BZHUZHA }, fakeContext(ADMIN));
   db().removeListener('query', queryMock);
   expect(queryMock).toHaveBeenCalledTimes(2);
+});
+
+describe('i18n', () => {
+  it('should fall back to default language not translated', async () => {
+    const result = await runQuery(
+      query,
+      { id: RIVER_MZYMTA },
+      fakeContext(EDITOR_NO_EC, 'pt'),
+    );
+    expect(result.errors).toBeUndefined();
+    const river = result.data!.river;
+    expect(river).toMatchObject({
+      name: 'Мзымта',
+      region: {
+        name: 'Россия',
+      },
+    });
+  });
 });

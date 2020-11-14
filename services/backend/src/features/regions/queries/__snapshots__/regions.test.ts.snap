@@ -260,5 +260,42 @@ Array [
     "seasonNumeric": Array [],
     "sku": null,
   },
+  Object {
+    "bounds": Array [
+      Array [
+        -17,
+        -89,
+        0,
+      ],
+      Array [
+        -17,
+        89,
+        0,
+      ],
+      Array [
+        17,
+        89,
+        0,
+      ],
+      Array [
+        17,
+        -89,
+        0,
+      ],
+    ],
+    "coverImage": Object {
+      "mobile": null,
+    },
+    "description": null,
+    "editable": true,
+    "hidden": false,
+    "id": "a2056850-23ae-434d-b06c-7ea1900e5de2",
+    "name": "Russia",
+    "pois": Array [],
+    "premium": false,
+    "season": null,
+    "seasonNumeric": Array [],
+    "sku": null,
+  },
 ]
 `;

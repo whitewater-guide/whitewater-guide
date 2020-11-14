@@ -17,6 +17,7 @@ import {
   GEORGIA_BZHUZHA_QUALI,
   NORWAY_FINNA_GORGE,
   NORWAY_SJOA_AMOT,
+  RUSSIA_MZYMTA_PASEKA,
 } from '~/seeds/test/09_sections';
 import { anonContext, fakeContext, noTimestamps, runQuery } from '~/test';
 
@@ -263,17 +264,17 @@ describe('i18n', () => {
     });
   });
 
-  it('should fall back to english when not translated', async () => {
+  it('should fall back to default language when not translated', async () => {
     const result = await runQuery(
       query,
-      { id: NORWAY_SJOA_AMOT },
+      { id: RUSSIA_MZYMTA_PASEKA },
       fakeContext(EDITOR_NO_EC, 'pt'),
     );
     expect(result.errors).toBeUndefined();
     expect(result.data!.section).toMatchObject({
-      name: 'Amot',
-      description: 'Amot description',
-      distance: 3.2,
+      name: 'Пасека',
+      description: 'Пасека описание',
+      distance: 2.2,
     });
   });
 });

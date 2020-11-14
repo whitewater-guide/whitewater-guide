@@ -1,14 +1,14 @@
-import db, { holdTransaction, rollbackTransaction } from '~/db';
 import { DescentInput } from '@whitewater-guide/commons';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { TEST_USER, TEST_USER2 } from '~/seeds/test/01_users';
 import { GEORGIA_BZHUZHA_QUALI } from '~/seeds/test/09_sections';
-import { runQuery, fakeContext, UUID_REGEX, TIMESTAMP_REGEX } from '~/test';
 import {
   DESCENT_01,
   DESCENT_02,
   DESCENT_2_SHARE_TOKEN,
   DESCENT_4_SHARE_TOKEN,
 } from '~/seeds/test/18_descents';
-import { TEST_USER2, TEST_USER } from '~/seeds/test/01_users';
+import { fakeContext, runQuery, TIMESTAMP_REGEX, UUID_REGEX } from '~/test';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -44,7 +44,7 @@ const mutation = `
 
 const descent: DescentInput = {
   sectionId: GEORGIA_BZHUZHA_QUALI,
-  startedAt: new Date(2000, 1, 1).toISOString() as any,
+  startedAt: new Date(Date.UTC(2000, 1, 1)).toISOString() as any,
   duration: 3600,
   comment: 'comment',
   level: {
@@ -131,7 +131,7 @@ it('should update', async () => {
       name: 'Qualification',
     },
 
-    startedAt: new Date(Date.UTC(2020, 0, 1)).toISOString(),
+    startedAt: new Date(Date.UTC(2000, 1, 1)).toISOString(),
     duration: 3600,
     comment: 'comment',
     level: {

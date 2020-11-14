@@ -1,6 +1,6 @@
-import { MediaRaw } from '~/features/media';
 import { MediaKind } from '@whitewater-guide/commons';
 import Knex from 'knex';
+import { MediaRaw } from '~/features/media';
 import { ADMIN_ID } from './01_users';
 import { GALICIA_BECA_LOWER, NORWAY_SJOA_AMOT } from './09_sections';
 
@@ -15,6 +15,7 @@ const media: Array<Partial<MediaRaw>> = [
     id: BLOG_1,
     kind: MediaKind.blog,
     url: 'http://some.blog',
+    default_lang: 'en',
   },
   {
     id: PHOTO_1,
@@ -24,6 +25,7 @@ const media: Array<Partial<MediaRaw>> = [
     weight: 1,
     created_by: ADMIN_ID,
     size: 100000,
+    default_lang: 'en',
   },
   {
     id: PHOTO_2,
@@ -31,18 +33,21 @@ const media: Array<Partial<MediaRaw>> = [
     url: PHOTO_2, // Exists in seed minio data
     resolution: [1024, 768],
     size: 333333,
+    default_lang: 'en',
   },
   {
     id: VIDEO_1,
     kind: MediaKind.video,
     url: 'http://some.video',
     resolution: [1920, 1080],
+    default_lang: 'en',
   },
   {
     id: VIDEO_2,
     kind: MediaKind.video,
     url: 'http://some2.video',
     resolution: [1920, 1080],
+    default_lang: 'en',
   },
 ];
 
@@ -102,6 +107,6 @@ export async function seed(db: Knex) {
   await db.table('sections_media').del();
 
   await db.table('media').insert(media);
-  await db.table('media_translations').insert([...mediaEn, ...mediaRu]);
+  await db.table('media_translations').insert([...mediaRu, ...mediaEn]);
   await db.table('sections_media').insert(sectionsMedia);
 }

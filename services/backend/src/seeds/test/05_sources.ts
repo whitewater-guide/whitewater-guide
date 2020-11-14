@@ -14,31 +14,37 @@ const sources = [
     script: 'galicia',
     cron: '0 * * * *',
     url: 'http://ya.ru',
+    default_lang: 'en',
   },
   {
     id: SOURCE_GALICIA_2,
     script: 'galicia2',
     cron: null,
     url: 'http://yandex.ru',
+    default_lang: 'en',
   },
   {
     id: SOURCE_ALPS,
     script: 'alps',
     cron: '10 * * * *',
     url: 'http://yandex.ru',
+    default_lang: 'en',
   },
   {
     id: SOURCE_NORWAY,
     script: 'norway',
+    default_lang: 'en',
   },
   {
     id: SOURCE_GEORGIA,
     script: 'one_by_one',
+    default_lang: 'en',
   },
   {
     id: SOURCE_RUSSIA,
     script: 'russia',
     request_params: JSON.stringify({ foo: 'bar' }),
+    default_lang: 'ru',
   },
 ];
 
@@ -77,6 +83,11 @@ const sourcesRu = [
     language: 'ru',
     name: 'Галисия',
     terms_of_use: 'Правила пользования галисией',
+  },
+  {
+    source_id: SOURCE_RUSSIA,
+    language: 'ru',
+    name: 'Россия',
   },
 ];
 

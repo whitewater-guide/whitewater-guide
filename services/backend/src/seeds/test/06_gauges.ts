@@ -29,21 +29,25 @@ const gauges = [
     flow_unit: 'm3/s',
     request_params: JSON.stringify({ foo: 'bar' }),
     url: 'http://ya.ru',
+    default_lang: 'en',
   },
   {
     id: GAUGE_GAL_1_2,
     source_id: SOURCE_GALICIA_1,
     code: 'gal2',
+    default_lang: 'en',
   },
   {
     id: GAUGE_GAL_2_1,
     source_id: SOURCE_GALICIA_2,
     code: 'gal2_1',
+    default_lang: 'en',
   },
   {
     id: GAUGE_GAL_2_2,
     source_id: SOURCE_GALICIA_2,
     code: 'gal2_2',
+    default_lang: 'en',
   },
   {
     id: GAUGE_NOR_1,
@@ -53,41 +57,49 @@ const gauges = [
     flow_unit: 'm3/s',
     request_params: JSON.stringify({ nor: 'way' }),
     url: 'http://yarr.ru',
+    default_lang: 'en',
   },
   {
     id: GAUGE_NOR_2,
     source_id: SOURCE_NORWAY,
     code: 'nor2',
+    default_lang: 'en',
   },
   {
     id: GAUGE_NOR_3,
     source_id: SOURCE_NORWAY,
     code: 'nor3',
+    default_lang: 'en',
   },
   {
     id: GAUGE_NOR_4,
     source_id: SOURCE_NORWAY,
     code: 'nor4',
+    default_lang: 'en',
   },
   {
     id: GAUGE_GEO_1,
     source_id: SOURCE_GEORGIA,
     code: 'geo1',
+    default_lang: 'en',
   },
   {
     id: GAUGE_GEO_2,
     source_id: SOURCE_GEORGIA,
     code: 'geo2',
+    default_lang: 'en',
   },
   {
     id: GAUGE_GEO_3,
     source_id: SOURCE_GEORGIA,
     code: 'geo3',
+    default_lang: 'en',
   },
   {
     id: GAUGE_GEO_4,
     source_id: SOURCE_GEORGIA,
     code: 'geo4',
+    default_lang: 'en',
   },
 ];
 

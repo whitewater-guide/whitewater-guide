@@ -10,13 +10,14 @@ import {
 import { GALICIA_PT_1, GALICIA_PT_2, LAOS_PT_1 } from './02_points';
 import { GROUP_ALL, GROUP_EU, GROUP_EU_CIS, GROUP_LATIN } from './03_groups';
 
-export const NUM_REGIONS = 6;
+export const NUM_REGIONS = 7;
 
 export const REGION_GALICIA = 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34';
 export const REGION_ECUADOR = '2caf75ca-7625-11e7-b5a5-be2e44b06b34';
 export const REGION_NORWAY = 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34';
 export const REGION_GEORGIA = '8e119768-37f3-11e8-b467-0ed5f89f718b';
 export const REGION_LAOS = 'a84d7eda-37f3-11e8-b467-0ed5f89f718b';
+export const REGION_RUSSIA = 'a2056850-23ae-434d-b06c-7ea1900e5de2';
 
 const regions = [
   {
@@ -34,6 +35,7 @@ const regions = [
     cover_image: {
       mobile: 'galicia_mobile_cover.jpg',
     },
+    default_lang: 'en',
   },
   {
     id: REGION_ECUADOR,
@@ -49,6 +51,7 @@ const regions = [
     cover_image: {
       mobile: 'ecuador_mobile_cover.jpg',
     },
+    default_lang: 'en',
   },
   {
     id: REGION_NORWAY,
@@ -62,6 +65,7 @@ const regions = [
       [7, 8, 0],
       [5, 6, 0],
     ]),
+    default_lang: 'en',
   },
   {
     id: REGION_GEORGIA,
@@ -75,6 +79,7 @@ const regions = [
       [41.05, 46.52, 0],
       [41.51, 41.58, 0],
     ]),
+    default_lang: 'en',
   },
   {
     id: REGION_LAOS,
@@ -89,6 +94,7 @@ const regions = [
       [15.05, 108.1, 0],
       [22.66, 102.5, 0],
     ]),
+    default_lang: 'en',
   },
   {
     id: OTHERS_REGION_ID,
@@ -102,6 +108,21 @@ const regions = [
       [179, 89, 0],
       [179, -89, 0],
     ]),
+    default_lang: 'en',
+  },
+  {
+    id: REGION_RUSSIA,
+    hidden: false,
+    premium: false,
+    sku: null,
+    season_numeric: [],
+    bounds: getBounds([
+      [-17, -89, 0],
+      [-17, 89, 0],
+      [17, 89, 0],
+      [17, -89, 0],
+    ]),
+    default_lang: 'ru',
   },
 ];
 
@@ -148,6 +169,14 @@ const regionsEn = [
     description: null,
     season: null,
   },
+  {
+    region_id: REGION_RUSSIA,
+    language: 'en',
+    name: 'Russia',
+    description: null,
+    season: null,
+    created_at: '2020-01-01',
+  },
 ];
 
 const regionsRu = [
@@ -164,6 +193,14 @@ const regionsRu = [
     name: 'Грузия',
     description: 'описание Грузии',
     season: 'осень лето весна',
+  },
+  {
+    region_id: REGION_RUSSIA,
+    language: 'ru',
+    name: 'Россия',
+    description: null,
+    season: null,
+    created_at: '2019-01-01',
   },
 ];
 
