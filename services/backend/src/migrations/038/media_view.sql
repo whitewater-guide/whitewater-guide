@@ -13,8 +13,8 @@ CREATE OR REPLACE VIEW media_view AS
     media.updated_at,
     media.created_by,
     media.size,
-    COALESCE(media_translations.description, default_trans.description) as description,
-    COALESCE(media_translations.copyright, default_trans.copyright) as copyright
+    COALESCE(media_translations.description, eng.description, default_trans.description) as description,
+    COALESCE(media_translations.copyright, eng.copyright, default_trans.copyright) as copyright
   FROM langs
     CROSS JOIN media
     LEFT OUTER JOIN media_translations
@@ -22,3 +22,6 @@ CREATE OR REPLACE VIEW media_view AS
     LEFT OUTER JOIN media_translations default_trans
         ON media.id = default_trans.media_id
          AND media.default_lang = default_trans.language
+    LEFT OUTER JOIN media_translations eng
+        ON media.id = eng.media_id
+         AND eng.language = 'en'

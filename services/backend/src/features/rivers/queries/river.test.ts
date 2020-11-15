@@ -114,11 +114,43 @@ it('should fire two queries for river->sections->river', async () => {
 });
 
 describe('i18n', () => {
-  it('should fall back to default language not translated', async () => {
+  it('should be able to specify language', async () => {
+    const result = await runQuery(
+      query,
+      { id: RIVER_BZHUZHA },
+      fakeContext(ADMIN, 'ru'),
+    );
+    expect(result.errors).toBeUndefined();
+    const river = result.data!.river;
+    expect(river).toMatchObject({
+      name: 'Бжужа',
+      region: {
+        name: 'Грузия',
+      },
+    });
+  });
+
+  it('should fall back to english when not translated', async () => {
+    const result = await runQuery(
+      query,
+      { id: RIVER_BZHUZHA },
+      fakeContext(ADMIN, 'fr'),
+    );
+    expect(result.errors).toBeUndefined();
+    const river = result.data!.river;
+    expect(river).toMatchObject({
+      name: 'Bzhuzha',
+      region: {
+        name: 'Georgia',
+      },
+    });
+  });
+
+  it('should fall back to default language when both desired and english translations are not provided', async () => {
     const result = await runQuery(
       query,
       { id: RIVER_MZYMTA },
-      fakeContext(EDITOR_NO_EC, 'pt'),
+      fakeContext(ADMIN, 'fr'),
     );
     expect(result.errors).toBeUndefined();
     const river = result.data!.river;

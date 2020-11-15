@@ -46,7 +46,7 @@ Array [
 exports[`source without gauges should return gauges 1`] = `
 Array [
   Object {
-    "code": "ru1",
+    "code": "em1",
     "flowUnit": null,
     "levelUnit": "m",
     "location": Object {
@@ -57,15 +57,15 @@ Array [
       ],
       "kind": "gauge",
     },
-    "name": "Russia gauge 1",
+    "name": "Empty gauge 1",
     "requestParams": null,
     "source": Object {
-      "name": "Russia",
+      "name": "Empty",
     },
     "url": "http://ww.guide/ru1",
   },
   Object {
-    "code": "ru2",
+    "code": "em2",
     "flowUnit": "m3/s",
     "levelUnit": "m",
     "location": Object {
@@ -76,10 +76,10 @@ Array [
       ],
       "kind": "gauge",
     },
-    "name": "Russia gauge 2",
+    "name": "Empty gauge 2",
     "requestParams": null,
     "source": Object {
-      "name": "Russia",
+      "name": "Empty",
     },
     "url": "http://ww.guide/ru2",
   },

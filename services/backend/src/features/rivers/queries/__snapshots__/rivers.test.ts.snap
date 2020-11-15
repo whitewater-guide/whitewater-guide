@@ -80,24 +80,6 @@ Object {
     },
     Object {
       "altNames": Array [],
-      "id": "72d18088-eebb-4f62-a359-186bc93ccb71",
-      "name": "Mzymta",
-      "region": Object {
-        "id": "a2056850-23ae-434d-b06c-7ea1900e5de2",
-        "name": "Russia",
-      },
-      "sections": Object {
-        "count": 1,
-        "nodes": Array [
-          Object {
-            "id": "b06c0a6e-9975-4a46-8a77-580a4f453973",
-            "name": "Paseka",
-          },
-        ],
-      },
-    },
-    Object {
-      "altNames": Array [],
       "id": "5ece96ad-59a7-4cc1-a092-b5cd2f464131",
       "name": "Quijos",
       "region": Object {
@@ -135,6 +117,24 @@ Object {
           Object {
             "id": "21f2351e-d52a-11e7-9296-cec278b6b50a",
             "name": "Amot",
+          },
+        ],
+      },
+    },
+    Object {
+      "altNames": Array [],
+      "id": "72d18088-eebb-4f62-a359-186bc93ccb71",
+      "name": "Мзымта",
+      "region": Object {
+        "id": "a2056850-23ae-434d-b06c-7ea1900e5de2",
+        "name": "Россия",
+      },
+      "sections": Object {
+        "count": 1,
+        "nodes": Array [
+          Object {
+            "id": "b06c0a6e-9975-4a46-8a77-580a4f453973",
+            "name": "Пасека",
           },
         ],
       },

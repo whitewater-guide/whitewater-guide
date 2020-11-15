@@ -591,24 +591,25 @@ describe('i18n', () => {
       fakeContext(EDITOR_NO_EC, 'ru'),
     );
     expect(result.data!.region.name).toBe('Галисия');
+    expect(result.data!.region.seasonNumeric).toEqual([20, 21]);
   });
 
-  it('should fall back to default language not translated', async () => {
+  it('should fall back to english when not translated', async () => {
+    const result = await runQuery(
+      query,
+      { id: REGION_GALICIA },
+      fakeContext(EDITOR_NO_EC, 'pt'),
+    );
+    expect(result.data!.region.name).toBe('Galicia');
+  });
+
+  it('should fall back to default language when both desired and english translations are not provided', async () => {
     const result = await runQuery(
       query,
       { id: REGION_RUSSIA },
       fakeContext(EDITOR_NO_EC, 'pt'),
     );
     expect(result.data!.region.name).toBe('Россия');
-  });
-
-  it('should be able to get basic attributes without translation', async () => {
-    const result = await runQuery(
-      query,
-      { id: REGION_GALICIA },
-      fakeContext(EDITOR_NO_EC, 'pt'),
-    );
-    expect(result.data!.region.seasonNumeric).toEqual([20, 21]);
   });
 });
 

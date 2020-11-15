@@ -8,11 +8,11 @@ CREATE OR REPLACE VIEW sections_view AS
       -- graphql cannot return null for non-nullable field
       -- but if the name hasn't been translated into some language
       -- it will return null
-      COALESCE(sections_translations.name, default_trans.name, 'Not translated') as name,
-      COALESCE(sections_translations.alt_names, default_trans.alt_names, '{}'::VARCHAR[]) as alt_names,
-      COALESCE(sections_translations.description, default_trans.description) as description,
-      COALESCE(sections_translations.season, default_trans.season) as season,
-      COALESCE(sections_translations.flows_text, default_trans.flows_text) as flows_text,
+      COALESCE(sections_translations.name, eng.name, default_trans.name, 'Not translated') as name,
+      COALESCE(sections_translations.alt_names, eng.alt_names, default_trans.alt_names, '{}'::VARCHAR[]) as alt_names,
+      COALESCE(sections_translations.description, eng.description, default_trans.description) as description,
+      COALESCE(sections_translations.season, eng.season, default_trans.season) as season,
+      COALESCE(sections_translations.flows_text, eng.flows_text, default_trans.flows_text) as flows_text,
       sections.season_numeric,
       sections.levels,
       sections.flows,
@@ -58,6 +58,9 @@ CREATE OR REPLACE VIEW sections_view AS
            LEFT OUTER JOIN sections_translations default_trans
                       ON sections.id = default_trans.section_id
                         AND sections.default_lang = default_trans.language
+           LEFT OUTER JOIN sections_translations eng
+                      ON sections.id = eng.section_id
+                        AND eng.language = 'en'
            INNER JOIN rivers_view
                       ON sections.river_id = rivers_view.id
                         AND rivers_view.language = langs.language

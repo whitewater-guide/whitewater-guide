@@ -6,8 +6,8 @@ CREATE OR REPLACE VIEW points_view AS
     points.id,
     points.premium,
     langs.language,
-    COALESCE(points_translations.name, default_trans.name, 'Not translated') as name,
-    COALESCE(points_translations.description, default_trans.description, 'Not translated') as description,
+    COALESCE(points_translations.name, eng.name, default_trans.name, 'Not translated') as name,
+    COALESCE(points_translations.description, eng.description, default_trans.description, 'Not translated') as description,
     points.kind,
     (ST_AsGeoJSON(points.coordinates, 4) :: JSON) AS coordinates
   FROM langs
@@ -17,3 +17,6 @@ CREATE OR REPLACE VIEW points_view AS
     LEFT OUTER JOIN points_translations default_trans
       ON points.id = default_trans.point_id
         AND points.default_lang = default_trans.language
+    LEFT OUTER JOIN points_translations eng
+      ON points.id = eng.point_id
+        AND eng.language = 'en'

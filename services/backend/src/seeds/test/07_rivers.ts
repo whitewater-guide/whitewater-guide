@@ -89,12 +89,6 @@ const riversEn = [
     language: 'en',
     name: 'Quijos',
   },
-  {
-    river_id: RIVER_MZYMTA,
-    language: 'en',
-    name: 'Mzymta',
-    created_at: '2020-01-01',
-  },
 ];
 
 const riversRu = [

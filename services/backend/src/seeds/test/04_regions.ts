@@ -169,14 +169,6 @@ const regionsEn = [
     description: null,
     season: null,
   },
-  {
-    region_id: REGION_RUSSIA,
-    language: 'en',
-    name: 'Russia',
-    description: null,
-    season: null,
-    created_at: '2020-01-01',
-  },
 ];
 
 const regionsRu = [

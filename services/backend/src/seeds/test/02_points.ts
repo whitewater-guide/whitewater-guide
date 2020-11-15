@@ -10,7 +10,10 @@ function getCoordinates(coordinates: Coordinate3d): string {
 
 export const GALICIA_PT_1 = '573f995a-d55f-4faf-8f11-5a6016ab562f';
 export const GALICIA_PT_2 = 'd7530317-efac-44a7-92ff-8d045b2ac893';
+export const LOWER_BECA_PT_1 = 'ca0bee06-d445-11e7-9296-cec278b6b50a';
+export const LOWER_BECA_PT_2 = 'ef6f80ea-d445-11e7-9296-cec278b6b50a';
 export const LAOS_PT_1 = 'a52dfcc6-3716-11e8-b467-0ed5f89f718b';
+export const RUSSIA_MZYMTA_PASEKA_PT_1 = '47cf3103-4120-402b-b714-9319ac092dbe';
 
 const points = [
   {
@@ -38,16 +41,22 @@ const points = [
     default_lang: 'en',
   },
   {
-    id: 'ca0bee06-d445-11e7-9296-cec278b6b50a', // Galicia River 1 Section 1
+    id: LOWER_BECA_PT_1,
     coordinates: getCoordinates([1.2, 3.2, 4.3]),
     kind: 'rapid',
     default_lang: 'en',
   },
   {
-    id: 'ef6f80ea-d445-11e7-9296-cec278b6b50a', // Galicia River 1 Section 1
+    id: LOWER_BECA_PT_2,
     coordinates: getCoordinates([5, 6, 7]),
     kind: 'portage',
     default_lang: 'en',
+  },
+  {
+    id: RUSSIA_MZYMTA_PASEKA_PT_1,
+    coordinates: getCoordinates([8, 9, 10]),
+    kind: 'portage',
+    default_lang: 'ru',
   },
 ];
 
@@ -55,14 +64,14 @@ const pointsEn = [
   {
     point_id: GALICIA_PT_1,
     language: 'en',
-    name: 'Region 1 Point 1',
-    description: 'r1p1 description',
+    name: 'Galicia Point 1',
+    description: 'Galicia Point 1 description',
   },
   {
     point_id: GALICIA_PT_2,
     language: 'en',
-    name: 'Region 1 Point 2',
-    description: 'r1p2 description',
+    name: 'Galicia Point 2',
+    description: 'Galicia Point 2 description',
   },
   {
     point_id: LAOS_PT_1,
@@ -71,15 +80,15 @@ const pointsEn = [
     description: 'Laos point 1 description',
   },
   {
-    point_id: 'ca0bee06-d445-11e7-9296-cec278b6b50a',
+    point_id: LOWER_BECA_PT_1,
     language: 'en',
-    name: 'Galicia Riv 1 Sec 1 Rapid',
+    name: 'Lower Beca Rapid',
     description: 'Some rapid',
   },
   {
-    point_id: 'ef6f80ea-d445-11e7-9296-cec278b6b50a',
+    point_id: LOWER_BECA_PT_2,
     language: 'en',
-    name: 'Galicia Riv 1 Sec 1 Portage',
+    name: 'Lower Beca Portage',
     description: 'Some portage',
   },
 ];
@@ -92,10 +101,16 @@ const pointsRu = [
     description: 'р1т1 описание',
   },
   {
-    point_id: 'ca0bee06-d445-11e7-9296-cec278b6b50a',
+    point_id: LOWER_BECA_PT_1,
     language: 'ru',
-    name: 'Нижняя Порог',
+    name: 'Нижняя Беса Порог',
     description: 'Какой-то порог',
+  },
+  {
+    point_id: RUSSIA_MZYMTA_PASEKA_PT_1,
+    language: 'ru',
+    name: 'Обнос прорыва',
+    description: 'По правому берегу',
   },
 ];
 

@@ -1,7 +1,13 @@
+import { ApolloErrorCodes, Gauge } from '@whitewater-guide/commons';
+import { ExecutionResult } from 'graphql';
 import db, { holdTransaction, rollbackTransaction } from '~/db';
 import { GorgeConnector } from '~/features/gorge';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
-import { SOURCE_GALICIA_1, SOURCE_RUSSIA } from '~/seeds/test/05_sources';
+import {
+  SOURCE_EMPTY,
+  SOURCE_GALICIA_1,
+  SOURCE_RUSSIA,
+} from '~/seeds/test/05_sources';
 import { GAUGE_GAL_1_1 } from '~/seeds/test/06_gauges';
 import {
   anonContext,
@@ -10,8 +16,6 @@ import {
   noUnstable,
   runQuery,
 } from '~/test';
-import { ApolloErrorCodes, Gauge } from '@whitewater-guide/commons';
-import { ExecutionResult } from 'graphql';
 
 jest.mock('../../gorge/connector');
 
@@ -112,11 +116,7 @@ describe('source without gauges', () => {
 
   beforeEach(async () => {
     result = null;
-    result = await runQuery(
-      mutation,
-      { id: SOURCE_RUSSIA },
-      fakeContext(ADMIN),
-    );
+    result = await runQuery(mutation, { id: SOURCE_EMPTY }, fakeContext(ADMIN));
     expect(result.errors).toBeUndefined();
   });
 

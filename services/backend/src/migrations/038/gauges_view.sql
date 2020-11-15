@@ -29,11 +29,7 @@ SELECT
     WHERE
       sources.id = gauges.source_id
   ) as script,
-  COALESCE(
-    gauges_translations.name,
-    default_trans.name,
-    'Gauge ' || gauges.code
-  ) as name,
+  COALESCE(gauges_translations.name, eng.name, default_trans.name, 'Gauge ' || gauges.code) as name,
   (
     SELECT
       row_to_json(points_view)
@@ -45,9 +41,12 @@ SELECT
       1
   ) as location
 FROM langs
-CROSS JOIN gauges
-LEFT OUTER JOIN gauges_translations ON gauges.id = gauges_translations.gauge_id
-  AND gauges_translations.language = langs.language
-LEFT OUTER JOIN gauges_translations default_trans
-        ON gauges.id = default_trans.gauge_id
-         AND gauges.default_lang = default_trans.language
+  CROSS JOIN gauges
+  LEFT OUTER JOIN gauges_translations ON gauges.id = gauges_translations.gauge_id
+    AND gauges_translations.language = langs.language
+  LEFT OUTER JOIN gauges_translations default_trans
+          ON gauges.id = default_trans.gauge_id
+          AND gauges.default_lang = default_trans.language
+  LEFT OUTER JOIN gauges_translations eng
+          ON gauges.id = eng.gauge_id
+          AND eng.language = 'en'

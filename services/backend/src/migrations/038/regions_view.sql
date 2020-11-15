@@ -5,9 +5,9 @@ CREATE OR REPLACE VIEW regions_view AS
   SELECT
     regions.id,
     langs.language,
-    COALESCE(regions_translations.name, default_trans.name, 'Not translated') as name,
-    COALESCE(regions_translations.description, default_trans.description) as description,
-    COALESCE(regions_translations.season, default_trans.season) as season,
+    COALESCE(regions_translations.name, eng.name, default_trans.name, 'Not translated') as name,
+    COALESCE(regions_translations.description, eng.description, default_trans.description) as description,
+    COALESCE(regions_translations.season, eng.season, default_trans.season) as season,
     regions.season_numeric,
     regions.hidden,
     regions.premium,
@@ -31,3 +31,6 @@ CREATE OR REPLACE VIEW regions_view AS
     LEFT OUTER JOIN regions_translations default_trans
         ON regions.id = default_trans.region_id
          AND regions.default_lang = default_trans.language
+    LEFT OUTER JOIN regions_translations eng
+        ON regions.id = eng.region_id
+         AND eng.language = 'en'

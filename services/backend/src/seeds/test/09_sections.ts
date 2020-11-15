@@ -2,6 +2,11 @@ import { Coordinate3d, Duration } from '@whitewater-guide/commons';
 import Knex from 'knex';
 import { LineString, Point } from 'wkx';
 import { ADMIN_ID, TEST_USER2_ID } from './01_users';
+import {
+  LOWER_BECA_PT_1,
+  LOWER_BECA_PT_2,
+  RUSSIA_MZYMTA_PASEKA_PT_1,
+} from './02_points';
 import { GAUGE_GAL_1_1, GAUGE_GEO_1, GAUGE_GEO_4 } from './06_gauges';
 import {
   RIVER_BZHUZHA,
@@ -365,17 +370,17 @@ const sectionsEn = [
     language: 'en',
     name: 'Lower',
     alt_names: ['Long one'],
-    description: 'Lower description',
-    season: 'Lower season',
-    flows_text: 'Lower flows text',
+    description: 'Lower Beca description',
+    season: 'Lower Beca season',
+    flows_text: 'Lower Beca flows text',
   },
   {
     section_id: GALICIA_BECA_UPPER,
     language: 'en',
     name: 'Upper',
     description: null,
-    season: 'Upper season',
-    flows_text: 'Upper flows text',
+    season: 'Upper Beca season',
+    flows_text: 'Upper Beca flows text',
   },
   {
     section_id: NORWAY_SJOA_AMOT,
@@ -432,15 +437,6 @@ const sectionsEn = [
     description: 'Quijos Bridge to bridge description',
     season: 'Quijos Bridge to bridge season',
     flows_text: 'Quijos Bridge to bridge flows text',
-  },
-  {
-    section_id: RUSSIA_MZYMTA_PASEKA,
-    language: 'en',
-    name: 'Paseka',
-    description: 'Paseka description',
-    season: 'Paseka season',
-    flows_text: 'Paseka flows text',
-    created_at: '2020-01-01',
   },
 ];
 
@@ -514,11 +510,15 @@ const sectionsTags = [
 const sectionsPoints = [
   {
     section_id: GALICIA_BECA_LOWER,
-    point_id: 'ca0bee06-d445-11e7-9296-cec278b6b50a',
+    point_id: LOWER_BECA_PT_1,
   }, // Rapid
   {
     section_id: GALICIA_BECA_LOWER,
-    point_id: 'ef6f80ea-d445-11e7-9296-cec278b6b50a',
+    point_id: LOWER_BECA_PT_2,
+  }, // Portage
+  {
+    section_id: RUSSIA_MZYMTA_PASEKA,
+    point_id: RUSSIA_MZYMTA_PASEKA_PT_1,
   }, // Portage
 ];
 

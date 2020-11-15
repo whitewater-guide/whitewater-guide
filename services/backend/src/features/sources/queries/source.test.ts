@@ -109,7 +109,19 @@ describe('i18n', () => {
     });
   });
 
-  it('should fall back to default language when not translated', async () => {
+  it('should fall back to english when not translated', async () => {
+    const result = await runQuery(
+      query,
+      { id: SOURCE_GALICIA_1 },
+      fakeContext(ADMIN, 'fr'),
+    );
+    expect(result.data!.source).toMatchObject({
+      name: 'Galicia',
+      cron: '0 * * * *',
+    });
+  });
+
+  it('should fall back to default language when both desired and english translations are not provided', async () => {
     const result = await runQuery(
       query,
       { id: SOURCE_RUSSIA },
