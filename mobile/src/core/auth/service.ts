@@ -1,9 +1,4 @@
-import appleAuth, {
-  AppleAuthError,
-  AppleAuthRequestOperation,
-  AppleAuthRequestScope,
-} from '@invertase/react-native-apple-authentication';
-// eslint-disable-next-line import/default
+import appleAuth from '@invertase/react-native-apple-authentication';
 import messaging from '@react-native-firebase/messaging';
 import {
   AuthResponse,
@@ -161,18 +156,16 @@ export class MobileAuthService extends BaseAuthService {
   private async signInWithApple(): Promise<AuthResponse<SignInBody>> {
     try {
       const appleResp = await appleAuth.performRequest({
-        requestedOperation: AppleAuthRequestOperation.LOGIN,
-        requestedScopes: [
-          AppleAuthRequestScope.EMAIL,
-          AppleAuthRequestScope.FULL_NAME,
-        ],
+        requestedOperation: appleAuth.Operation.LOGIN,
+        requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
       });
+      // tslint:disable-next-line: no-console
       return await this._post('/auth/apple/signin', {
         ...appleResp,
         fcm_token: this._fcmToken,
       });
     } catch (err) {
-      if (err.code === AppleAuthError.CANCELED) {
+      if (err.code === appleAuth.Error.CANCELED) {
         return {
           success: false,
           error: { form: 'user_canceled' },

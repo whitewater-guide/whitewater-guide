@@ -8,6 +8,12 @@
   "[sql]": {
     "editor.formatOnSave": false
   },
+  "compareFolders.excludeFilter": [
+    "**/node_modules",
+    "**/.git",
+    "**/build",
+    "**/dist"
+  ],
   "editor.codeActionsOnSave": [
     "source.organizeImports",
     "source.fixAll.eslint"

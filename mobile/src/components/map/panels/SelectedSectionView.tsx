@@ -71,6 +71,7 @@ export const SelectedSectionView = React.memo(function SelectedSectionView() {
 
   return (
     <SelectedElementView
+      selectionType="Section"
       snapPoints={SNAP_POINTS}
       renderHeader={renderHeader}
       renderButtons={renderButtons}
