@@ -4,6 +4,7 @@ import db, { holdTransaction, rollbackTransaction } from '~/db';
 import { ADMIN, EDITOR_NO_EC, TEST_USER } from '~/seeds/test/01_users';
 import { REGION_GALICIA } from '~/seeds/test/04_regions';
 import { SOURCE_NORWAY } from '~/seeds/test/05_sources';
+import { TOTAL_GAUGES } from '~/seeds/test/06_gauges';
 
 jest.mock('../../gorge/connector.ts');
 
@@ -70,14 +71,14 @@ it('should return gauges', async () => {
   expect(result.errors).toBeUndefined();
   expect(result.data).toBeDefined();
   expect(result.data!.gauges).toBeDefined();
-  expect(result.data!.gauges.count).toBe(12);
+  expect(result.data!.gauges.count).toBe(TOTAL_GAUGES);
   expect(result.data!.gauges.nodes.map(noTimestamps)).toMatchSnapshot();
 });
 
 it('should be able to specify language', async () => {
   const result = await runQuery(query, {}, fakeContext(ADMIN, 'ru'));
   expect(result.errors).toBeUndefined();
-  expect(result.data!.gauges.count).toBe(12);
+  expect(result.data!.gauges.count).toBe(TOTAL_GAUGES);
   const names = result.data!.gauges.nodes.map((node: any) => node.name);
   expect(names).toEqual(expect.arrayContaining(['Галисийская линейка 1']));
 });
@@ -85,7 +86,7 @@ it('should be able to specify language', async () => {
 it('should fall back to english', async () => {
   const result = await runQuery(query, {}, fakeContext(ADMIN, 'ru'));
   expect(result.errors).toBeUndefined();
-  expect(result.data!.gauges.count).toBe(12);
+  expect(result.data!.gauges.count).toBe(TOTAL_GAUGES);
   const names = result.data!.gauges.nodes.map((node: any) => node.name);
   expect(names).toEqual(expect.arrayContaining(['Georgian gauge 3']));
 });

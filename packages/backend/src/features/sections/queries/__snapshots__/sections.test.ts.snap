@@ -2,7 +2,7 @@
 
 exports[`should return sections 1`] = `
 Object {
-  "count": 8,
+  "count": 9,
   "nodes": Array [
     Object {
       "gauge": Object {
@@ -141,6 +141,22 @@ Object {
       "river": Object {
         "id": "d4396dac-d528-11e7-9296-cec278b6b50a",
         "name": "Sjoa",
+      },
+      "verified": null,
+    },
+    Object {
+      "gauge": null,
+      "hidden": false,
+      "id": "b06c0a6e-9975-4a46-8a77-580a4f453973",
+      "name": "Пасека",
+      "rating": 4,
+      "region": Object {
+        "id": "a2056850-23ae-434d-b06c-7ea1900e5de2",
+        "name": "Россия",
+      },
+      "river": Object {
+        "id": "72d18088-eebb-4f62-a359-186bc93ccb71",
+        "name": "Мзымта",
       },
       "verified": null,
     },

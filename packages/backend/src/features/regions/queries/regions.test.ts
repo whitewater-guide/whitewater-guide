@@ -59,14 +59,14 @@ describe('permissions', () => {
     expect(result.errors).toBeUndefined();
     expect(countBy(result.data!.regions.nodes, 'editable')).toMatchObject({
       true: 2,
-      false: 3,
+      false: 4,
     });
   });
 
   it('editor should not see hidden regions without permission', async () => {
     const result = await runQuery(query, undefined, fakeContext(EDITOR_GA_EC));
     expect(result.errors).toBeUndefined();
-    expect(result.data!.regions.count).toBe(4);
+    expect(result.data!.regions.count).toBe(5);
     expect(result.data!.regions.nodes).not.toContainEqual(
       expect.objectContaining({ id: REGION_NORWAY }),
     );
@@ -75,16 +75,16 @@ describe('permissions', () => {
   it('anons should not see hidden regions', async () => {
     const result = await runQuery(query, {}, anonContext());
     expect(result.errors).toBeUndefined();
-    expect(result.data!.regions.count).toBe(4);
-    expect(result.data!.regions.nodes).toHaveLength(4);
+    expect(result.data!.regions.count).toBe(5);
+    expect(result.data!.regions.nodes).toHaveLength(5);
     expect(result.data!.regions.nodes[0].hidden).toBe(null);
   });
 
   it('users should not see hidden regions', async () => {
     const result = await runQuery(query, {}, fakeContext(TEST_USER));
     expect(result.errors).toBeUndefined();
-    expect(result.data!.regions.count).toBe(4);
-    expect(result.data!.regions.nodes).toHaveLength(4);
+    expect(result.data!.regions.count).toBe(5);
+    expect(result.data!.regions.nodes).toHaveLength(5);
     expect(result.data!.regions.nodes[0].hidden).toBe(null);
   });
 });
@@ -124,6 +124,7 @@ describe('results', () => {
       { rivers: { count: 0 } }, // laos
       { rivers: { count: 2 } }, // norway
       { rivers: { count: 0 } }, // other
+      { rivers: { count: 1 } }, // russia
     ]);
   });
 
@@ -149,6 +150,7 @@ describe('results', () => {
       { gauges: { count: 0 } }, // laos
       { gauges: { count: 1 } }, // norway
       { gauges: { count: 0 } }, // others
+      { gauges: { count: 0 } }, // russia
     ]);
   });
 

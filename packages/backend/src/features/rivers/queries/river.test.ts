@@ -5,6 +5,7 @@ import { ADMIN, EDITOR_NO_EC } from '~/seeds/test/01_users';
 import {
   RIVER_BZHUZHA,
   RIVER_GAL_BECA,
+  RIVER_MZYMTA,
   RIVER_SJOA,
 } from '~/seeds/test/07_rivers';
 
@@ -111,4 +112,54 @@ it('should fire two queries for river->sections->river', async () => {
   await runQuery(q, { id: RIVER_BZHUZHA }, fakeContext(ADMIN));
   db().removeListener('query', queryMock);
   expect(queryMock).toHaveBeenCalledTimes(2);
+});
+
+describe('i18n', () => {
+  it('should be able to specify language', async () => {
+    const result = await runQuery(
+      query,
+      { id: RIVER_BZHUZHA },
+      fakeContext(ADMIN, 'ru'),
+    );
+    expect(result.errors).toBeUndefined();
+    const river = result.data!.river;
+    expect(river).toMatchObject({
+      name: 'Бжужа',
+      region: {
+        name: 'Грузия',
+      },
+    });
+  });
+
+  it('should fall back to english when not translated', async () => {
+    const result = await runQuery(
+      query,
+      { id: RIVER_BZHUZHA },
+      fakeContext(ADMIN, 'fr'),
+    );
+    expect(result.errors).toBeUndefined();
+    const river = result.data!.river;
+    expect(river).toMatchObject({
+      name: 'Bzhuzha',
+      region: {
+        name: 'Georgia',
+      },
+    });
+  });
+
+  it('should fall back to default language when both desired and english translations are not provided', async () => {
+    const result = await runQuery(
+      query,
+      { id: RIVER_MZYMTA },
+      fakeContext(ADMIN, 'fr'),
+    );
+    expect(result.errors).toBeUndefined();
+    const river = result.data!.river;
+    expect(river).toMatchObject({
+      name: 'Мзымта',
+      region: {
+        name: 'Россия',
+      },
+    });
+  });
 });

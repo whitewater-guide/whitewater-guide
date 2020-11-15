@@ -3,11 +3,17 @@ import Knex from 'knex';
 import { LineString, Point } from 'wkx';
 
 import { ADMIN_ID, TEST_USER2_ID } from './01_users';
+import {
+  LOWER_BECA_PT_1,
+  LOWER_BECA_PT_2,
+  RUSSIA_MZYMTA_PASEKA_PT_1,
+} from './02_points';
 import { GAUGE_GAL_1_1, GAUGE_GEO_1, GAUGE_GEO_4 } from './06_gauges';
 import {
   RIVER_BZHUZHA,
   RIVER_FINNA,
   RIVER_GAL_BECA,
+  RIVER_MZYMTA,
   RIVER_QUIJOS,
   RIVER_SJOA,
 } from './07_rivers';
@@ -33,9 +39,10 @@ export const GEORGIA_BZHUZHA_QUALI = 'f73b533c-5db4-11e8-9c2d-fa7ae01bbebc';
 export const GEORGIA_BZHUZHA_EXTREME = '9e9c0366-84e2-11e8-adc0-fa7ae01bbebc';
 export const ECUADOR_QUIJOS_BRIDGE = '7104f00c-31ad-4375-992e-5efebef813dd';
 export const ECUADOR_QUIJOS_CHEESE = '2ffe67e5-6394-4341-9ae3-415271ce71fd';
+export const RUSSIA_MZYMTA_PASEKA = 'b06c0a6e-9975-4a46-8a77-580a4f453973';
 
-export const SECTIONS_TOTAL = 9;
-export const SECTIONS_VISIBLE = 8;
+export const SECTIONS_TOTAL = 10;
+export const SECTIONS_VISIBLE = 9;
 export const SECTIONS_HIDDEN = 1;
 export const SECTIONS_DEMO = 3;
 
@@ -71,6 +78,7 @@ const sections = [
     rating: 4.5,
     created_by: ADMIN_ID,
     verified: false,
+    default_lang: 'en',
   },
   {
     id: GALICIA_BECA_UPPER,
@@ -102,6 +110,7 @@ const sections = [
     difficulty_xtra: 'VI',
     rating: 2.5,
     verified: true,
+    default_lang: 'en',
   },
   {
     id: NORWAY_SJOA_AMOT,
@@ -118,6 +127,7 @@ const sections = [
     rating: 5,
     help_needed: 'Suggest POIs please',
     created_by: TEST_USER2_ID,
+    default_lang: 'en',
   },
   {
     id: NORWAY_FINNA_GORGE,
@@ -133,6 +143,7 @@ const sections = [
     difficulty: 4,
     rating: 4,
     hidden: true,
+    default_lang: 'en',
   },
   {
     id: GEORGIA_BZHUZHA_LONG,
@@ -168,6 +179,7 @@ const sections = [
     rating: 5,
     hidden: false,
     demo: false,
+    default_lang: 'en',
   },
   {
     id: GEORGIA_BZHUZHA_EXTREME,
@@ -202,6 +214,7 @@ const sections = [
     rating: 5,
     hidden: false,
     demo: false,
+    default_lang: 'en',
   },
   {
     id: GEORGIA_BZHUZHA_QUALI,
@@ -235,6 +248,7 @@ const sections = [
     rating: 5,
     hidden: false,
     demo: true,
+    default_lang: 'en',
   },
   {
     id: ECUADOR_QUIJOS_BRIDGE,
@@ -271,6 +285,7 @@ const sections = [
     rating: 4,
     hidden: false,
     demo: true,
+    default_lang: 'en',
   },
   {
     id: ECUADOR_QUIJOS_CHEESE,
@@ -312,6 +327,41 @@ const sections = [
     rating: 4.5,
     hidden: false,
     demo: true,
+    default_lang: 'en',
+  },
+  {
+    id: RUSSIA_MZYMTA_PASEKA,
+    river_id: RIVER_MZYMTA,
+    season_numeric: [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+    ],
+    shape: getLineString([
+      [43.6465, 40.3454, 0],
+      [43.6613, 40.3404, 0],
+    ]),
+    distance: 2.2,
+    drop: null,
+    duration: Duration.LAPS,
+    difficulty: 4,
+    rating: 4,
+    hidden: false,
+    demo: false,
+    default_lang: 'ru',
   },
 ];
 
@@ -321,17 +371,17 @@ const sectionsEn = [
     language: 'en',
     name: 'Lower',
     alt_names: ['Long one'],
-    description: 'Lower description',
-    season: 'Lower season',
-    flows_text: 'Lower flows text',
+    description: 'Lower Beca description',
+    season: 'Lower Beca season',
+    flows_text: 'Lower Beca flows text',
   },
   {
     section_id: GALICIA_BECA_UPPER,
     language: 'en',
     name: 'Upper',
     description: null,
-    season: 'Upper season',
-    flows_text: 'Upper flows text',
+    season: 'Upper Beca season',
+    flows_text: 'Upper Beca flows text',
   },
   {
     section_id: NORWAY_SJOA_AMOT,
@@ -440,6 +490,15 @@ const sectionsRu = [
     season: 'Бжужа Экстрим сезонность',
     flows_text: 'Бжужа Экстрим уровни',
   },
+  {
+    section_id: RUSSIA_MZYMTA_PASEKA,
+    language: 'ru',
+    name: 'Пасека',
+    description: 'Пасека описание',
+    season: 'Пасека сезонность',
+    flows_text: 'Пасека уровни',
+    created_at: '2019-01-01',
+  },
 ];
 
 // Only for galician river 1 section 1
@@ -452,11 +511,15 @@ const sectionsTags = [
 const sectionsPoints = [
   {
     section_id: GALICIA_BECA_LOWER,
-    point_id: 'ca0bee06-d445-11e7-9296-cec278b6b50a',
+    point_id: LOWER_BECA_PT_1,
   }, // Rapid
   {
     section_id: GALICIA_BECA_LOWER,
-    point_id: 'ef6f80ea-d445-11e7-9296-cec278b6b50a',
+    point_id: LOWER_BECA_PT_2,
+  }, // Portage
+  {
+    section_id: RUSSIA_MZYMTA_PASEKA,
+    point_id: RUSSIA_MZYMTA_PASEKA_PT_1,
   }, // Portage
 ];
 

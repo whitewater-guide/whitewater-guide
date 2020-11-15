@@ -3,7 +3,11 @@ import { Source } from '@whitewater-guide/commons';
 
 import { holdTransaction, rollbackTransaction } from '~/db';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
-import { SOURCE_GALICIA_1, SOURCE_NORWAY } from '~/seeds/test/05_sources';
+import {
+  SOURCE_GALICIA_1,
+  SOURCE_NORWAY,
+  SOURCE_RUSSIA,
+} from '~/seeds/test/05_sources';
 import { GAUGE_GAL_1_1, GAUGE_NOR_2 } from '~/seeds/test/06_gauges';
 
 jest.mock('../../gorge/connector');
@@ -110,11 +114,23 @@ describe('i18n', () => {
     const result = await runQuery(
       query,
       { id: SOURCE_GALICIA_1 },
-      fakeContext(ADMIN, 'pt'),
+      fakeContext(ADMIN, 'fr'),
     );
     expect(result.data!.source).toMatchObject({
       name: 'Galicia',
       cron: '0 * * * *',
+    });
+  });
+
+  it('should fall back to default language when both desired and english translations are not provided', async () => {
+    const result = await runQuery(
+      query,
+      { id: SOURCE_RUSSIA },
+      fakeContext(ADMIN, 'pt'),
+    );
+    expect(result.data!.source).toMatchObject({
+      name: 'Россия',
+      requestParams: { foo: 'bar' },
     });
   });
 });

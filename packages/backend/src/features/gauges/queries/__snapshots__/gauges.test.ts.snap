@@ -205,5 +205,21 @@ Array [
     },
     "url": null,
   },
+  Object {
+    "code": "ru1",
+    "enabled": false,
+    "flowUnit": null,
+    "id": "b58d9662-c1b1-43f0-a399-dcbd12c6e113",
+    "levelUnit": null,
+    "location": null,
+    "name": "Российская линейка 1",
+    "requestParams": null,
+    "source": Object {
+      "enabled": false,
+      "id": "8e37e9d2-1d7b-11e8-b467-0ed5f89f718b",
+      "name": "Россия",
+    },
+    "url": null,
+  },
 ]
 `;

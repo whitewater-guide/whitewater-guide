@@ -3,7 +3,7 @@
 exports[`connections should count gauges 1`] = `
 Object {
   "sources": Object {
-    "count": 6,
+    "count": 7,
     "nodes": Array [
       Object {
         "gauges": Object {
@@ -11,6 +11,13 @@ Object {
         },
         "id": "1628c0a2-1a0a-11e8-accf-0ed5f89f718b",
         "name": "Alps",
+      },
+      Object {
+        "gauges": Object {
+          "count": 0,
+        },
+        "id": "ce81ed89-5558-49d1-86f6-1fa8bcd944bb",
+        "name": "Empty",
       },
       Object {
         "gauges": Object {
@@ -42,10 +49,10 @@ Object {
       },
       Object {
         "gauges": Object {
-          "count": 0,
+          "count": 1,
         },
         "id": "8e37e9d2-1d7b-11e8-b467-0ed5f89f718b",
-        "name": "Russia",
+        "name": "Россия",
       },
     ],
   },
@@ -55,11 +62,18 @@ Object {
 exports[`connections should count regions 1`] = `
 Object {
   "sources": Object {
-    "count": 6,
+    "count": 7,
     "nodes": Array [
       Object {
         "id": "1628c0a2-1a0a-11e8-accf-0ed5f89f718b",
         "name": "Alps",
+        "regions": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "id": "ce81ed89-5558-49d1-86f6-1fa8bcd944bb",
+        "name": "Empty",
         "regions": Object {
           "count": 0,
         },
@@ -94,7 +108,7 @@ Object {
       },
       Object {
         "id": "8e37e9d2-1d7b-11e8-b467-0ed5f89f718b",
-        "name": "Russia",
+        "name": "Россия",
         "regions": Object {
           "count": 0,
         },
@@ -114,6 +128,17 @@ Array [
     "requestParams": null,
     "script": "alps",
     "url": "http://yandex.ru",
+  },
+  Object {
+    "cron": null,
+    "enabled": false,
+    "id": "ce81ed89-5558-49d1-86f6-1fa8bcd944bb",
+    "name": "Empty",
+    "requestParams": Object {
+      "foo": "bar",
+    },
+    "script": "empty",
+    "url": null,
   },
   Object {
     "cron": "0 * * * *",
@@ -155,7 +180,7 @@ Array [
     "cron": null,
     "enabled": false,
     "id": "8e37e9d2-1d7b-11e8-b467-0ed5f89f718b",
-    "name": "Russia",
+    "name": "Россия",
     "requestParams": Object {
       "foo": "bar",
     },

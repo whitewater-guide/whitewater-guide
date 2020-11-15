@@ -36,6 +36,7 @@ import {
   EDITOR_NO_EC_ID,
   TEST_USER,
 } from '~/seeds/test/01_users';
+import { LOWER_BECA_PT_1 } from '~/seeds/test/02_points';
 import { REGION_GALICIA, REGION_NORWAY } from '~/seeds/test/04_regions';
 import { SOURCE_GALICIA_1, SOURCE_GEORGIA } from '~/seeds/test/05_sources';
 import {
@@ -238,8 +239,8 @@ const updateData: SectionInput = {
   // Delete 1 POI, update 1 poi, add 2 POIs
   pois: [
     {
-      id: 'ca0bee06-d445-11e7-9296-cec278b6b50a',
-      name: 'Updated poi name', // was 'Galicia Riv 1 Sec 1 Rapid',
+      id: LOWER_BECA_PT_1,
+      name: 'Updated poi name',
       description: 'Updated poi description ', // was 'Some rapid',
       kind: 'other', // was rapid
       coordinates: [2.1, 2.3, 3.4], // was [1.2, 3.2, 4.3]
@@ -578,7 +579,7 @@ describe('update', () => {
     const point = await db()
       .table('points_view')
       .select('name')
-      .where({ id: 'ca0bee06-d445-11e7-9296-cec278b6b50a', language: 'en' })
+      .where({ id: LOWER_BECA_PT_1, language: 'en' })
       .first();
     expect(point.name).toBe('Updated poi name');
   });
@@ -708,7 +709,7 @@ describe('i18n', () => {
       ...updateData,
       pois: [
         {
-          id: 'ca0bee06-d445-11e7-9296-cec278b6b50a',
+          id: LOWER_BECA_PT_1,
           name: 'Русской имя', // was 'Galicia Riv 1 Sec 1 Rapid',
           description: 'Русское описание ', // was 'Some rapid',
           kind: 'other', // was rapid

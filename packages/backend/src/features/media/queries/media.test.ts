@@ -1,7 +1,7 @@
 import { anonContext, runQuery } from '@test';
 
 import { holdTransaction, rollbackTransaction } from '~/db';
-import { BLOG_1, PHOTO_1, PHOTO_2, VIDEO_1 } from '~/seeds/test/11_media';
+import { BLOG_1, PASEKA_BLOG_1, PHOTO_1, VIDEO_1 } from '~/seeds/test/11_media';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -69,24 +69,6 @@ it('should return null when id not specified', async () => {
   expect(result.data!.media).toBeNull();
 });
 
-it('should be able to specify language', async () => {
-  const result = await runQuery(query, { id: PHOTO_1 }, anonContext('ru'));
-  expect(result).toHaveProperty('data.media.description', 'Фото 1 описание');
-});
-
-it('should fall back to english when not translated', async () => {
-  const result = await runQuery(query, { id: PHOTO_2 }, anonContext('ru'));
-  expect(result).toHaveProperty(
-    'data.media.description',
-    'Photo 2 description',
-  );
-});
-
-it('should be able to get basic attributes without translation', async () => {
-  const result = await runQuery(query, { id: PHOTO_1 }, anonContext('pt'));
-  expect(result).toHaveProperty('data.media.kind', 'photo');
-});
-
 it('should full urls for photos', async () => {
   const result = await runQuery(query, { id: PHOTO_1 });
   expect(result.data!.media.url).toBe(`imgproxy://media/${PHOTO_1}`);
@@ -95,4 +77,32 @@ it('should full urls for photos', async () => {
 it('should preserve external url for non-photos', async () => {
   const result = await runQuery(query, { id: BLOG_1 });
   expect(result.data!.media.url).toBe('http://some.blog');
+});
+
+describe('i18n', () => {
+  it('should be able to specify language', async () => {
+    const result = await runQuery(query, { id: PHOTO_1 }, anonContext('ru'));
+    expect(result).toHaveProperty('data.media.description', 'Фото 1 описание');
+    expect(result).toHaveProperty('data.media.kind', 'photo');
+  });
+
+  it('should fall back to english when not translated', async () => {
+    const result = await runQuery(query, { id: PHOTO_1 }, anonContext('pt'));
+    expect(result).toHaveProperty(
+      'data.media.description',
+      'Photo 1 description',
+    );
+  });
+
+  it('should fall back to default language when both desired and english translations are not provided', async () => {
+    const result = await runQuery(
+      query,
+      { id: PASEKA_BLOG_1 },
+      anonContext('pt'),
+    );
+    expect(result).toHaveProperty(
+      'data.media.description',
+      'Блог про Пасеку описание',
+    );
+  });
 });

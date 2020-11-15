@@ -9,7 +9,7 @@ import { ButtonProgress } from '../components';
 
 const useStyles = makeStyles(({ spacing }) =>
   createStyles({
-    cancelWrapper: {
+    cancel: {
       marginLeft: spacing(1),
     },
   }),
@@ -40,19 +40,17 @@ const FormikCardActions: React.FC<Props> = React.memo(
             {submitLabel}
           </Button>
         </ButtonProgress>
+
         {extraActions}
-        <ButtonProgress
-          loading={loading || isSubmitting}
-          className={classes.cancelWrapper}
+
+        <Button
+          className={classes.cancel}
+          variant="contained"
+          onClick={onCancel}
+          disabled={loading || isSubmitting}
         >
-          <Button
-            variant="contained"
-            onClick={onCancel}
-            disabled={loading || isSubmitting}
-          >
-            Cancel
-          </Button>
-        </ButtonProgress>
+          Cancel
+        </Button>
       </CardActions>
     );
   },

@@ -4,6 +4,7 @@ import { RawTimestamped } from '~/db';
 
 export interface MediaRaw extends Node, RawTimestamped {
   language: string;
+  default_lang: string;
   kind: MediaKind;
   description: string | null;
   copyright: string | null;
