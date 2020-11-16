@@ -10,7 +10,7 @@ import gql from 'graphql-tag';
 export const LIST_GAUGES = gql`
   query listGauges($filter: GaugesFilter, $page: Page) {
     gauges(filter: $filter, page: $page)
-    @connection(key: "gauges", filter: ["filter"]) {
+      @connection(key: "gauges", filter: ["filter"]) {
       nodes {
         ...GaugeCore
         ...GaugeLocation

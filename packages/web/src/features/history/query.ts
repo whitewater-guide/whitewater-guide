@@ -9,7 +9,7 @@ import gql from 'graphql-tag';
 export const SECTONS_EDIT_HISTORY_QUERY = gql`
   query sectionsEditLog($filter: SectionsEditLogFilter, $page: Page) {
     history: sectionsEditLog(filter: $filter, page: $page)
-    @connection(key: "history", filter: ["filter"]) {
+      @connection(key: "history", filter: ["filter"]) {
       nodes {
         id
         section {

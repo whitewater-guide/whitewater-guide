@@ -12,7 +12,7 @@ import { PHOTO_SIZE_PX } from '../media';
 export const OFFLINE_SECTIONS = gql`
   query listSections($page: Page, $filter: SectionsFilter) {
     sections(page: $page, filter: $filter)
-    @connection(key: "offline_sections", filter: ["filter"]) {
+      @connection(key: "offline_sections", filter: ["filter"]) {
       nodes {
         ...SectionCore
         ...SectionRegionId

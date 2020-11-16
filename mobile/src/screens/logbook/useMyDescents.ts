@@ -11,7 +11,7 @@ import { useQuery } from 'react-apollo';
 const LIST_MY_DESCENTS = gql`
   query listMyDescents($filter: DescentsFilter, $page: Page) {
     myDescents(filter: $filter, page: $page)
-    @connection(key: "myDescents", filter: ["filter"]) {
+      @connection(key: "myDescents", filter: ["filter"]) {
       edges {
         node {
           id

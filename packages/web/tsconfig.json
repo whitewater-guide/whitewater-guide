@@ -1,28 +1,9 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "noEmit": true,
-    "noEmitOnError": false,
-    "outDir": "build/dist",
-    "module": "esnext",
-    "target": "es5",
-    "sourceMap": true,
-    "rootDir": "src",
-    "skipLibCheck": true,
     "allowJs": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve"
+    "module": "esnext",
+    "isolatedModules": true
   },
-  "exclude": [
-    "__mocks__",
-    "node_modules",
-    "build",
-    "scripts",
-    "acceptance-tests",
-    "webpack",
-    "jest",
-    "src/setupTests.ts"
-  ],
   "include": ["src"]
 }

@@ -10,7 +10,7 @@ import gql from 'graphql-tag';
 export const LIST_RIVERS = gql`
   query listRivers($page: Page, $filter: RiversFilter) {
     rivers(page: $page, filter: $filter)
-    @connection(key: "rivers", filter: ["filter"]) {
+      @connection(key: "rivers", filter: ["filter"]) {
       nodes {
         id
         name

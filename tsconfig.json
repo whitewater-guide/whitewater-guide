@@ -9,6 +9,7 @@
     "sourceMap": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
     "importHelpers": true,
     "noEmitHelpers": true,
     "jsx": "react",

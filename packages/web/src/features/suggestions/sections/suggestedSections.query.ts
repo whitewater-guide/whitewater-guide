@@ -9,7 +9,7 @@ import gql from 'graphql-tag';
 export const SUGGESTED_SECTIONS_QUERY = gql`
   query suggestedSections($filter: SectionsFilter, $page: Page) {
     sections(filter: $filter, page: $page)
-    @connection(key: "suggestedSections", suggestions: ["filter"]) {
+      @connection(key: "suggestedSections", suggestions: ["filter"]) {
       nodes {
         id
         createdAt

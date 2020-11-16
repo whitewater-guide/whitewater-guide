@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 export const TEST_OFFLINE_SECTIONS = gql`
   query listSections($page: Page, $filter: SectionsFilter) {
     sections(page: $page, filter: $filter)
-    @connection(key: "offline_sections", filter: ["filter"]) {
+      @connection(key: "offline_sections", filter: ["filter"]) {
       nodes {
         id
         media {

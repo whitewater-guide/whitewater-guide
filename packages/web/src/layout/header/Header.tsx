@@ -11,6 +11,7 @@ import { Breadcrumbs } from '../../components/breadcrumbs';
 import { EditorOnly } from '../../components/EditorOnly';
 import breadcrumbRoutes from '../breadcrumbRoutes';
 import { DRAWER_WIDTH, usePermanentDrawer } from '../drawer';
+import logo from './logo.png';
 import { AuthMenu } from './menu';
 import { NotificationsMenu } from './notifications';
 
@@ -22,9 +23,6 @@ const useStyles = makeStyles((theme) =>
     },
   }),
 );
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const logo = require('./logo.png');
 
 interface Props {
   onToggleDrawer?: () => void;

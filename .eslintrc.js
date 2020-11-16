@@ -8,7 +8,13 @@ module.exports = {
       modules: true,
     },
   },
-  plugins: ['@typescript-eslint', 'jest', 'import', 'simple-import-sort'],
+  plugins: [
+    '@typescript-eslint',
+    'jest',
+    'import',
+    'react-hooks',
+    'simple-import-sort',
+  ],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/eslint-recommended',
@@ -60,6 +66,7 @@ module.exports = {
       files: ['**/*.test.{ts,tsx}', '**/__mocks__/**/*.{ts,tsx}'],
       rules: {
         '@typescript-eslint/no-explicit-any': 'off',
+        '@typescript-eslint/no-non-null-assertion': 'off',
       },
     },
   ],
