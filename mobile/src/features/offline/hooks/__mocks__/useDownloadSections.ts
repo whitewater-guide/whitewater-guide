@@ -16,14 +16,14 @@ interface Hook {
 
 export default (
   onProgress: (p: Partial<OfflineProgress>) => void,
-  opts?: any,
+  _opts?: any,
 ): Hook => {
   const [state, setState] = useState({ loading: false });
   const download = useMemo(
     () => async (
-      regionId: string,
+      _regionId: string,
       estimatedTotal: number,
-      photoChannel: PhotoChannel,
+      _photoChannel: PhotoChannel,
     ) => {
       setState({ loading: true });
       await sleep(1);

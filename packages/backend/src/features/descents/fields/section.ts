@@ -10,7 +10,6 @@ const sectionResolver: GraphQLFieldResolver<DescentRaw, Context> = (
   { section_id },
   _,
   { dataSources, fieldsByType },
-  info,
 ) => {
   const sectionFields = fieldsByType.get('Section');
 

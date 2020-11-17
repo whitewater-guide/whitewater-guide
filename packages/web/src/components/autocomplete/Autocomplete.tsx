@@ -38,10 +38,7 @@ export class Autocomplete<
     }
   };
 
-  onChange = (
-    selectedItem: T | null,
-    stateAndHelpers: ControllerStateAndHelpers<T>,
-  ) => {
+  onChange = (selectedItem: T | null) => {
     // this method exists only to stop react from complaining
     // about second argument being passed to useState hook's setter
     this.props.onChange(selectedItem);

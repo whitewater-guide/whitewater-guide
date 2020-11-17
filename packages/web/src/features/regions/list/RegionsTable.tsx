@@ -51,7 +51,7 @@ const RegionsTable: React.FC<Props> = React.memo((props) => {
   const onRegionClick = useCallback(
     (id: string) =>
       history.push(paths.to({ regionId: id, suffix: '/sections' })),
-    [history.push],
+    [history],
   );
 
   const renderActions: TableCellRenderer<ListedRegion> = useCallback(

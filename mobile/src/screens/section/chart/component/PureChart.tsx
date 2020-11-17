@@ -33,7 +33,7 @@ const PureChart: React.FC<Props> = React.memo((props) => {
     (event: LayoutChangeEvent) => {
       setLayout(event.nativeEvent.layout);
     },
-    [layout, setLayout],
+    [setLayout],
   );
   if (loading) {
     return <Loading />;

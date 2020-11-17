@@ -65,7 +65,7 @@ type ProcessingOpts = { [key in Option]?: OptionValue | undefined };
 
 export const stringifyProcessingOpts = (opts: ProcessingOpts) => {
   return Object.entries(opts)
-    .filter(([k, v]) => v !== undefined)
+    .filter(([_, v]) => v !== undefined)
     .map(([k, v]) => [k, ...castArray(v)].join(':'))
     .join('/');
 };

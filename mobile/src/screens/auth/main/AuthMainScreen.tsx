@@ -33,13 +33,13 @@ const AuthMainScreen: React.FC<AuthMainNavProps> = ({ navigation }) => {
       fixture: 'privacy_policy',
       title: t('commons:privacyPolicy'),
     });
-  }, [navigate]);
+  }, [navigate, t]);
   const showTerms = useCallback(() => {
     navigate(Screens.WEB_VIEW, {
       fixture: 'terms_and_conditions',
       title: t('commons:termsOfService'),
     });
-  }, [navigate]);
+  }, [navigate, t]);
   return (
     <AuthScreenBase>
       <View>

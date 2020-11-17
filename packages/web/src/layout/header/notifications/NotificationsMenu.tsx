@@ -2,8 +2,8 @@ import Badge from '@material-ui/core/Badge';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import React, { useCallback } from 'react';
-import useRouter from 'use-react-router';
+import React, { memo, useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import useSuggestionsCount from './useSuggestionsCount';
 
@@ -15,13 +15,11 @@ const useStyles = makeStyles(({ spacing }) =>
   }),
 );
 
-export const NotificationsMenu: React.FC = React.memo(() => {
-  const { history } = useRouter();
+export const NotificationsMenu = memo(() => {
+  const { push } = useHistory();
   const classes = useStyles();
   const count = useSuggestionsCount();
-  const onClick = useCallback(() => history.push('/suggestions'), [
-    history.push,
-  ]);
+  const onClick = useCallback(() => push('/suggestions'), [push]);
   if (count === null) {
     return null;
   }

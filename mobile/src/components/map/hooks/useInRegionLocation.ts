@@ -38,5 +38,5 @@ export const useInRegionLocation = (
         }
       })
       .catch(() => {});
-  }, [camera, locationPermissionGranted]);
+  }, [camera, locationPermissionGranted, bounds]);
 };

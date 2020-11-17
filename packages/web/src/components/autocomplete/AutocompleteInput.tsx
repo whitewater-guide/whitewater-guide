@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField, { StandardTextFieldProps } from '@material-ui/core/TextField';
 import React, { forwardRef } from 'react';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     flexWrap: 'wrap',
   },

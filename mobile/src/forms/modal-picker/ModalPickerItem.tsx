@@ -26,7 +26,7 @@ interface Props<V> {
 
 function ModalPickerItem<V>(props: Props<V>) {
   const { value, selected, label, onPress, style } = props;
-  const onClick = useCallback(() => onPress(value), [props]);
+  const onClick = useCallback(() => onPress(value), [value, onPress]);
   return (
     <TouchableRipple
       style={[styles.container, selected === value && styles.selected, style]}

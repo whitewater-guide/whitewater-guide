@@ -1,10 +1,9 @@
 import { useStreamingQuery } from '@whitewater-guide/clients';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import useRouter from 'use-react-router';
 
 import { useDeleteMutation } from '../../../apollo';
 import { Loading } from '../../../components';
-import { squashConnection } from '../../../formik/utils';
 import ChangeRegionDialog from './ChangeRegionDialog';
 import { LIST_RIVERS, QResult, QVars } from './listRivers.query';
 import { REMOVE_RIVER } from './removeRiver.mutation';

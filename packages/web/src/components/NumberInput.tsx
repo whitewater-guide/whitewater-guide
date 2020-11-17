@@ -42,7 +42,7 @@ export const NumberInput: React.FC<Props> = React.memo((props) => {
     if (value !== strToFloat(valueStr)) {
       setValueStr(numToStr(value));
     }
-  }, [value]);
+  }, [value, valueStr, setValueStr]);
 
   return <Input {...rest} type="text" value={valueStr} onChange={onChange} />;
 });

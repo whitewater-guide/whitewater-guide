@@ -5,7 +5,7 @@ import React, { useCallback } from 'react';
 
 import { GoogleMapControlProps } from '../../../components/maps/GoogleMap';
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       height: 40,

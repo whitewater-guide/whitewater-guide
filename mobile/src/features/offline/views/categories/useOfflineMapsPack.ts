@@ -33,7 +33,7 @@ const useOfflineMapsPack = () => {
         setLoading(false);
       }
     });
-  }, [isMounted]);
+  }, [isMounted, regionId]);
 
   const deletePack = useCallback(() => {
     MapboxGL.offlineManager

@@ -29,6 +29,7 @@ module.exports = {
     'plugin:import/typescript',
   ],
   env: {
+    browser: true,
     node: true,
   },
   rules: {
@@ -36,12 +37,18 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-empty-function': 'off',
+    // TODO: clean up
+    '@typescript-eslint/no-explicit-any': 'off',
+    // TDOO: clean up
+    '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/no-unused-vars': [
       'warn',
       { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
     ],
-    // this rule will complain on things like React.memo and React.PureComponent
+    // TODO: this rule will complain on things like React.memo and React.PureComponent
     'import/no-named-as-default-member': 'off',
+    // TODO: fix
+    'import/no-named-as-default': 'off',
     'import/order': 'off',
     'jest/no-test-callback': 'off',
     'no-console': ['error', { allow: ['info', 'warn', 'error'] }],

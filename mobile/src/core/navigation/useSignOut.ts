@@ -7,12 +7,13 @@ import { apolloCachePersistor } from '~/core/apollo';
 import { RootStackNav } from './navigation-params';
 import { Screens } from './screen-names';
 
-export default (navigation: RootStackNav) => {
+export default ({ reset }: RootStackNav) => {
   const { service } = useAuth();
   const apollo = useApolloClient();
+
   useEffect(() => {
-    return service.on('sign-out', async (force: boolean) => {
-      navigation.reset({
+    return service.on('sign-out', async (_force: boolean) => {
+      reset({
         index: 0,
         routes: [
           {
@@ -29,5 +30,5 @@ export default (navigation: RootStackNav) => {
       await apollo.resetStore();
       apolloCachePersistor.resume();
     });
-  }, []);
+  }, [service, apollo, reset]);
 };

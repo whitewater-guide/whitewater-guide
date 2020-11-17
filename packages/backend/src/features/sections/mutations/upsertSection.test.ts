@@ -445,7 +445,7 @@ describe('insert with new river', () => {
 });
 
 it('should create river in others region when region is not provided', async () => {
-  const { region, ...section } = newRiverSection;
+  const { region: _, ...section } = newRiverSection;
   const result = await runQuery(
     upsertQuery,
     { section },

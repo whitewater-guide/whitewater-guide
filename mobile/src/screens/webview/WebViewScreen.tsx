@@ -14,15 +14,16 @@ import { WebViewNavProps } from './types';
 const renderLoading = () => <Loading />;
 
 const WebViewScreen: React.FC<WebViewNavProps> = ({ navigation, route }) => {
-  const { i18n, t } = useTranslation();
+  const { i18n } = useTranslation();
+  const { setOptions } = navigation;
   const { fixture, title } = route.params;
   const resource = fixture && markdown[fixture];
   const lang = resource && resource[i18n.language] ? i18n.language : 'en';
   const [visible, setVisible] = useState(false);
 
   React.useEffect(() => {
-    navigation.setOptions({ headerTitle: title });
-  }, [navigation.setOptions, title]);
+    setOptions({ headerTitle: title });
+  }, [setOptions, title]);
 
   // This prevents android crash
   useFocusEffect(

@@ -4,7 +4,6 @@ import {
   BannerRatios,
   NamedNode,
 } from '@whitewater-guide/commons';
-import { useFormikContext } from 'formik';
 import snakeCase from 'lodash/snakeCase';
 import upperFirst from 'lodash/upperCase';
 import React from 'react';
@@ -36,7 +35,6 @@ interface Props {
 }
 
 export const BannerFormMain: React.FC<Props> = React.memo((props) => {
-  const { errors, values } = useFormikContext();
   const { match } = useRouter<RouterParams>();
   return (
     <Box padding={1} overflow="auto">

@@ -4,7 +4,7 @@ import MUICardContent, {
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     cardContent: {
       width: '100%',

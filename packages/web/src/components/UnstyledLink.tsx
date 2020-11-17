@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { paths, PathsOpts } from '../utils';
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     link: {
       textDecoration: 'none',

@@ -29,7 +29,7 @@ const HistoryTableContainer: React.FC<Props> = ({ onDiffOpen }) => {
       query={SECTONS_EDIT_HISTORY_QUERY}
       variables={variables}
     >
-      {({ data, loading, fetchMore }) => {
+      {({ data, fetchMore }) => {
         return (
           <HistoryTableInfinite
             history={(data && data.history) || EMPTY_HISTORY}

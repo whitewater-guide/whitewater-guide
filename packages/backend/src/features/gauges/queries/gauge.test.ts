@@ -132,7 +132,7 @@ it('should return latest measurement', async () => {
     }
   }
 `;
-  const result = await runQuery(query, { id: GAUGE_GAL_1_1 });
+  const result = await runQuery(q, { id: GAUGE_GAL_1_1 });
   expect(result.errors).toBeUndefined();
   expect(result.data!.gauge.latestMeasurement).toMatchInlineSnapshot(
     `undefined`,

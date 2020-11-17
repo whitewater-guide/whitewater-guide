@@ -21,8 +21,8 @@ const ChartFlowToggleUnit: React.FC<Props> = React.memo(({ unit }) => {
   const { t } = useTranslation();
   const [pulse, setPulse] = useState(-1);
   useEffect(() => {
-    setPulse(pulse + 1);
-  }, [unit]);
+    setPulse((p) => p + 1);
+  }, [unit, setPulse]);
   if (pulse > 0) {
     return (
       <Animatable.Text

@@ -20,7 +20,7 @@ export class IconButtonWithData<TData> extends React.PureComponent<
   };
 
   render() {
-    const { data, icon, onPress, ...props } = this.props;
+    const { data: _data, onPress: _onPress, icon, ...props } = this.props;
     return (
       <IconButton {...props} onClick={this.onClick}>
         <Icon>{icon}</Icon>

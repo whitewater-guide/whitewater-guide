@@ -82,10 +82,10 @@ class ConfirmStep extends React.Component<
       region,
       promo,
       me,
-      prev,
-      t,
-      tReady,
-      i18n,
+      prev: _prev,
+      t: _t,
+      tReady: _tReady,
+      i18n: _i18n,
       ...stepContentProps
     } = this.props;
     const { error, loading, success } = this.state;

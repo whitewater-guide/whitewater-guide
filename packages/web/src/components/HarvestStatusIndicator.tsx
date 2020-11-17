@@ -1,3 +1,4 @@
+/* eslint-disable import/no-duplicates */
 import { amber, green, grey, red } from '@material-ui/core/colors';
 import Grid from '@material-ui/core/Grid';
 import FontIcon from '@material-ui/core/Icon';

@@ -34,9 +34,9 @@ export const createChartView = (
     const {
       data,
       unit,
-      gauge,
+      gauge: _,
       section,
-      filter,
+      filter: __,
       highlightedDate,
       children,
       ...victoryProps

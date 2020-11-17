@@ -1,5 +1,4 @@
 import {
-  AuthResponse,
   AuthService,
   createApolloServerError,
   JWT_EXPIRED_CTX_KEY,

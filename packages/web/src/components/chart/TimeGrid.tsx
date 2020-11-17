@@ -4,7 +4,7 @@ import React from 'react';
 import { LineSegment } from 'victory';
 
 const TimeGrid: React.FC<TimeGridProps> = React.memo(
-  ({ days, highlightedDate, ...props }) => {
+  ({ days, highlightedDate: _, ...props }) => {
     const style: any = { ...props.style };
     if (props.datum && days >= 30 && isSunday(props.datum)) {
       style.stroke = '#AAA';

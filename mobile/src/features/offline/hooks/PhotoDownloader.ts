@@ -46,7 +46,7 @@ export class PhotoDownloader {
     }
   }
 
-  private onProgress = (urls: string[], loaded: number, total: number) => {
+  private onProgress = (urls: string[], loaded: number, _total: number) => {
     this._onProgress({ media: [this._counter + loaded, this._estimatedTotal] });
   };
 }

@@ -4,7 +4,7 @@ import React from 'react';
 import { Line } from 'victory-native';
 
 export const DescentTimeGrid: React.FC<TimeGridProps> = React.memo(
-  ({ days, highlightedDate, ...props }) => {
+  ({ days: _, highlightedDate, ...props }) => {
     const style: any = { ...props.style };
     if (highlightedDate && isEqual(highlightedDate, props.datum as any)) {
       style.stroke = '#AAA';

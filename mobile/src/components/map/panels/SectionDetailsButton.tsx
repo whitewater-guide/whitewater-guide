@@ -31,7 +31,7 @@ export const SectionDetailsButton: React.FC<Props> = memo(({ sectionId }) => {
     if (sectionId && node) {
       navigate(Screens.SECTION_SCREEN, { sectionId });
     }
-  }, [sectionId, navigate]);
+  }, [sectionId, navigate, node]);
   // TODO: works on android only: https://github.com/kmagiera/react-native-gesture-handler/pull/537
   if (Platform.OS === 'android') {
     return (

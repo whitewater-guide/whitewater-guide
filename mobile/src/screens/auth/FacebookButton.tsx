@@ -37,7 +37,7 @@ export const FacebookButton: React.FC<Props> = ({ label }) => {
         navigate(Screens.REGIONS_LIST);
       }
     });
-  }, [service.signIn, navigate, setFbPressed]);
+  }, [service, navigate, setFbPressed]);
 
   const renderIcon = useCallback(
     ({ size, color }: any) => (

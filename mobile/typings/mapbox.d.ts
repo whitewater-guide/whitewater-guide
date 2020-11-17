@@ -549,7 +549,7 @@ declare module '@react-native-mapbox-gl/maps' {
     textStyle?: ViewStyle;
   }
 
-  interface ShapeSourceProps<P = any> {
+  interface ShapeSourceProps {
     id?: string;
     url?: string;
     shape?: any;

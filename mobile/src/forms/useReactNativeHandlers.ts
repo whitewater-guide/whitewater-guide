@@ -1,37 +1,35 @@
 import { FieldInputProps } from 'formik';
-import { useCallback } from 'react';
+import { useMemo } from 'react';
 
 const useReactNativeHandlers = <T = any>(
-  field: FieldInputProps<T>,
+  { name, onChange, onBlur }: FieldInputProps<T>,
   onBlurProp?: any,
 ) => {
-  const onChange = useCallback(
-    (value: T) => {
-      const event = {
-        target: {
-          name: field.name,
-          value,
-        },
-      };
-      field.onChange(event);
-    },
-    [field.onChange],
+  return useMemo(
+    () => ({
+      onChange: (value: T) => {
+        const event = {
+          target: {
+            name,
+            value,
+          },
+        };
+        onChange(event);
+      },
+      onBlur: (e: any) => {
+        if (onBlurProp) {
+          onBlurProp(e);
+        }
+        const event = {
+          target: {
+            name,
+          },
+        };
+        onBlur(event);
+      },
+    }),
+    [name, onChange, onBlur, onBlurProp],
   );
-  const onBlur = useCallback(
-    (e) => {
-      if (onBlurProp) {
-        onBlurProp(e);
-      }
-      const event = {
-        target: {
-          name: field.name,
-        },
-      };
-      field.onBlur(event);
-    },
-    [field.onBlur, onBlurProp],
-  );
-  return { onChange, onBlur };
 };
 
 export default useReactNativeHandlers;

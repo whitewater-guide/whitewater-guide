@@ -3,7 +3,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import React from 'react';
 
-const useStyles = makeStyles(({ palette, spacing }) =>
+const useStyles = makeStyles(({ palette }) =>
   createStyles({
     wrapper: {
       position: 'relative',

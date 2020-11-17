@@ -18,10 +18,11 @@ export const PasswordField: React.FC<Props> = React.memo((props) => {
     setShowPassword((show) => !show);
   }, [setShowPassword]);
   const [field] = useField<string | null>(name);
+  const { onChange } = field;
   const value = field.value || '';
-  const onChange = useCallback(
+  const handleChange = useCallback(
     (e) => {
-      field.onChange({
+      onChange({
         target: {
           ...e.target,
           name,
@@ -29,7 +30,7 @@ export const PasswordField: React.FC<Props> = React.memo((props) => {
         },
       });
     },
-    [field.onChange, name],
+    [onChange, name],
   );
   const id = `textfield-${name}`;
   return (
@@ -40,7 +41,7 @@ export const PasswordField: React.FC<Props> = React.memo((props) => {
         type={showPassword ? 'text' : 'password'}
         name={name}
         value={value}
-        onChange={onChange}
+        onChange={handleChange}
         {...inputProps}
         endAdornment={
           <InputAdornment position="end">

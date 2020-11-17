@@ -47,6 +47,7 @@ export const useStreamingQuery = <QResult, QVars extends { page?: Page }>(
         updateQuery: getListMerger(connectionField as any),
       }).catch(() => {});
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loaded, total, connectionField]);
 
   return { data, ...rest };

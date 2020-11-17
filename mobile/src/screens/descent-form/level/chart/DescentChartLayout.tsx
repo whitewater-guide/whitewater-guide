@@ -1,3 +1,4 @@
+/* eslint-disable import/no-duplicates */
 import { ChartProvider } from '@whitewater-guide/clients';
 import { DescentLevelInput, Section } from '@whitewater-guide/commons';
 import addDays from 'date-fns/addDays';

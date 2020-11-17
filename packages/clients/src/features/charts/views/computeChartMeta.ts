@@ -1,3 +1,4 @@
+/* eslint-disable import/no-duplicates */
 import { Unit } from '@whitewater-guide/commons';
 import { scaleLinear, scaleTime } from 'd3-scale';
 import differenceInDays from 'date-fns/differenceInDays';

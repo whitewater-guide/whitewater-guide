@@ -32,16 +32,6 @@ const mockUser: MockedResponse = {
     },
   },
 };
-const mockAnon: MockedResponse = {
-  request: {
-    query: MY_PROFILE_QUERY,
-  },
-  result: {
-    data: {
-      me: null,
-    },
-  },
-};
 
 const AuthConsumer: React.FC = () => (
   <AuthContext.Consumer>

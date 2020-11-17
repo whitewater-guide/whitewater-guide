@@ -54,7 +54,7 @@ const AddSectionScreen: React.FC<AddSectionNavProps> = ({ route }) => {
       hidden: false,
       helpNeeded: null,
     }),
-    [],
+    [region],
   );
 
   const addSection = useAddSection(route.params?.fromDescentFormKey);

@@ -73,11 +73,7 @@ describe('effects', () => {
   });
 
   it('should remove from tables', async () => {
-    const result = await runQuery(
-      query,
-      riverWithoutSections,
-      fakeContext(EDITOR_GA_EC),
-    );
+    await runQuery(query, riverWithoutSections, fakeContext(EDITOR_GA_EC));
     const [rAfter, rtAfter] = await countRows(
       false,
       'rivers',

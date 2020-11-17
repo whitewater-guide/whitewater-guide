@@ -36,7 +36,7 @@ export function FormikCard<QResult, FData>(props: Props<QResult, FData>) {
   // any is because validate function can return error (https://github.com/jaredpalmer/formik/blob/217a49e6243a41a318a8973d18a7e1535b7880d5/src/Formik.tsx#L168)
   const validate: any = useMemo(
     () => validationSchema && createSafeValidator(validationSchema),
-    [],
+    [validationSchema],
   );
 
   const submitLabel =

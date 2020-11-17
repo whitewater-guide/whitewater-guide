@@ -8,6 +8,7 @@ import shortid from 'shortid';
 import { getImageResolution } from './getImageResolution';
 
 export interface FileWithPreview extends File {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   preview: any;
 }
 

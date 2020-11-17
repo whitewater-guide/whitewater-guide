@@ -57,7 +57,7 @@ const TagsField: React.FC<Props> = React.memo((props) => {
       }
       setFieldValue(name, newSelected);
     },
-    [selected, setFieldValue, setFieldTouched],
+    [name, selected, setFieldValue, setFieldTouched],
   );
   return (
     <View>

@@ -74,7 +74,7 @@ export class S3Client {
     if (to.indexOf('/') >= 0) {
       throw new Error('to file name expected, but found: ' + to);
     }
-    const [fromName, fromExt] = from.split('.');
+    const [_, fromExt] = from.split('.');
     const [toName, toExt] = to.split('.');
     if (fromExt && toExt && fromExt !== toExt) {
       throw new Error(`attempt to change file extension: ${from} -> ${to}`);

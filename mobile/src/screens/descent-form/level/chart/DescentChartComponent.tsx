@@ -5,7 +5,6 @@ import {
   HorizontalGrid,
   HorizontalLabel,
   HorizontalTick,
-  TimeLabel,
 } from '~/components/chart';
 
 import { DescentTimeGrid } from './DescentTimeGrid';

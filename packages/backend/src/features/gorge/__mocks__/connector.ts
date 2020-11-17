@@ -1,6 +1,7 @@
+/* eslint-disable import/no-duplicates */
 import { MeasurementsFilter } from '@whitewater-guide/commons';
 import * as gorge from '@whitewater-guide/gorge';
-import { DataSource, DataSourceConfig } from 'apollo-datasource';
+import { DataSource } from 'apollo-datasource';
 import compareDesc from 'date-fns/compareDesc';
 import parseISO from 'date-fns/parseISO';
 
@@ -178,7 +179,7 @@ export class GorgeConnector extends Original implements DataSource<Context> {
     },
   ];
 
-  initialize?(config: DataSourceConfig<Context>): void {}
+  initialize?(): void {}
 
   public async listScripts(): Promise<gorge.ScriptDescriptor[]> {
     return Promise.resolve([
@@ -187,10 +188,7 @@ export class GorgeConnector extends Original implements DataSource<Context> {
     ]);
   }
 
-  public async listGauges(
-    script: string,
-    requestParams: any,
-  ): Promise<gorge.Gauge[]> {
+  public async listGauges(script: string): Promise<gorge.Gauge[]> {
     return this._gauges.filter((g) => g.script === script);
   }
 
@@ -198,9 +196,7 @@ export class GorgeConnector extends Original implements DataSource<Context> {
     return Promise.resolve(this._jobs);
   }
 
-  public async getGaugeStatuses(
-    sourceId: string,
-  ): Promise<Map<string, gorge.Status>> {
+  public async getGaugeStatuses(): Promise<Map<string, gorge.Status>> {
     return Promise.resolve(new Map());
   }
 

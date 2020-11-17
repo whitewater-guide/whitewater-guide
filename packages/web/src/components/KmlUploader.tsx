@@ -70,7 +70,7 @@ export class KmlUploader extends React.PureComponent<Props, State> {
     return (
       <React.Fragment>
         <Dropzone onDrop={this.onDrop} multiple={false} accept=".kml">
-          {({ getRootProps, getInputProps, isDragActive }) => {
+          {({ getRootProps, getInputProps }) => {
             return (
               <div {...getRootProps()} style={styles.dz}>
                 <Button color="primary" variant="contained" fullWidth={true}>

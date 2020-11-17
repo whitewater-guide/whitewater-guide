@@ -9,6 +9,7 @@ const useNilCoordinates = (name: string) => {
   const { values, setFieldValue } = useFormikContext<any>();
   const value: PointInput = values[name];
   const prevValue = usePrevious(value);
+
   return useEffect(() => {
     if (
       value &&
@@ -17,7 +18,7 @@ const useNilCoordinates = (name: string) => {
     ) {
       setFieldValue(name, null);
     }
-  }, [value, setFieldValue]);
+  }, [name, prevValue, value, setFieldValue]);
 };
 
 export default useNilCoordinates;

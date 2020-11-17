@@ -72,7 +72,7 @@ const CameraControls: React.FC<Props> = React.memo(
           }
         });
       }
-    }, [camera]);
+    }, [camera, locationPermissionGranted]);
 
     const onBoundsPress = useCallback(() => {
       if (camera && initialBounds) {

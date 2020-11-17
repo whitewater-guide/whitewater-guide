@@ -18,7 +18,7 @@ export const ImageUploadField: React.FC<Props> = React.memo((props) => {
       handleChange({ target: { name, value } });
       handleBlur({ target: { name, value } });
     },
-    [handleChange, handleBlur],
+    [name, handleChange, handleBlur],
   );
   return (
     <FormikFormControl name={name}>

@@ -17,7 +17,7 @@ import { paths } from '../../utils';
 import { InfoWindow } from './InfoWindow';
 import { MapElementProps } from './types';
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       overflow: 'hidden',

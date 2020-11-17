@@ -6,7 +6,7 @@ import { ListedSuggestion } from './listSuggestions.query';
 import LongDescriptionDialog from './LongDescriptionDialog';
 import SuggestionThumb from './SuggestionThumb';
 
-const useStyles = makeStyles(({ spacing }) =>
+const useStyles = makeStyles(() =>
   createStyles({
     container: {
       display: 'flex',

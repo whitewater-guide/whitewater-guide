@@ -4,7 +4,7 @@ import React from 'react';
 import { ImageUploaderProps } from '../../../../components/image-uploader';
 import { ImageUploadField } from '../../../../formik/fields';
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       padding: 0,

@@ -91,7 +91,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = React.memo(
             });
         }
       },
-      [onChange],
+      [onChange, upload],
     );
 
     return (

@@ -88,7 +88,7 @@ export const SectionFAB: React.FC<Props> = ({ testID }) => {
             : onPickAndUpload,
       },
     ],
-    [navigate, dispatch, node, onPickAndUpload],
+    [navigate, dispatch, node, onPickAndUpload, t],
   );
   return (
     <FAB.Group

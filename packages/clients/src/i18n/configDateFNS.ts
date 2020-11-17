@@ -1,3 +1,4 @@
+/* eslint-disable import/no-duplicates */
 import { LANGUAGES } from '@whitewater-guide/commons';
 import de from 'date-fns/locale/de';
 import en from 'date-fns/locale/en-US';

@@ -108,7 +108,7 @@ export const Table = React.memo(
           { [classes.tableRowHover]: index !== -1 },
           { [classes.tableRowEven]: index % 2 === 0 },
         ),
-      [classes],
+      [classes, onNodeClick],
     );
     const onRowClick = useCallback(
       ({ index, event }: RowMouseEventHandlerParams) => {

@@ -71,7 +71,6 @@ const PiToDialogContent: React.FC<Props> = React.memo((props) => {
     isValid,
     touched,
     errors,
-    values,
     setFieldValue,
     onDismiss,
   } = props;

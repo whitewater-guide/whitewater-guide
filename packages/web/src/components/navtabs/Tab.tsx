@@ -22,13 +22,14 @@ export const NavTab: React.FC<Props> = React.memo((props) => {
 NavTab.displayName = 'NavTab';
 
 export const HashTab: React.FC<Props> = React.memo((props) => {
+  const { value } = props;
   const { location, history } = useRouter();
   const onClick = useCallback(
     (e: React.MouseEvent) => {
       e.preventDefault();
-      history.replace({ ...location, hash: props.value });
+      history.replace({ ...location, hash: value });
     },
-    [history, props.value],
+    [history, location, value],
   );
   return <Tab {...props} onClick={onClick} />;
 });

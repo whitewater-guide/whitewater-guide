@@ -66,6 +66,7 @@ export const I18nProvider: React.FC<Props> = ({
     };
 
     onMount();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -81,7 +82,7 @@ export const I18nProvider: React.FC<Props> = ({
     if (onUserLanguageChange && !!me && !!prevMe) {
       onUserLanguageChange(language);
     }
-  }, [me, onUserLanguageChange]);
+  }, [me, prevMe, onUserLanguageChange]);
 
   return (ready ? children : null) as any;
 };

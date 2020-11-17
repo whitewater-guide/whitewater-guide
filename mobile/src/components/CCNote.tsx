@@ -15,12 +15,13 @@ interface Props {
 const CCNote: React.FC<Props> = React.memo(({ style }) => {
   const { navigate } = useNavigation();
   const { t } = useTranslation();
+
   const onPress = useCallback(() => {
     navigate(Screens.WEB_VIEW, {
       fixture: 'terms_and_conditions',
       title: t('commons:termsOfService'),
     });
-  }, [navigate]);
+  }, [navigate, t]);
 
   return (
     <Caption style={style}>

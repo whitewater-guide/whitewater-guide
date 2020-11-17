@@ -34,7 +34,7 @@ export const Snackbar: React.FC = React.memo(() => {
             onPress: () => Clipboard.setString(message.full!),
           }
         : undefined,
-    [message],
+    [message, t],
   );
   return (
     <PaperSnackbar

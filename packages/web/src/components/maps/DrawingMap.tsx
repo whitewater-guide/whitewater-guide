@@ -141,7 +141,7 @@ export class DrawingMap extends React.Component<Props> {
         scale: 1,
       };
       const latLng = { lat: points[0][1], lng: points[0][0] };
-      const marker = new google.maps.Marker({
+      new google.maps.Marker({
         position: latLng,
         map: this.map,
         draggable: false,

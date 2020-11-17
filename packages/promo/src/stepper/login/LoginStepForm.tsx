@@ -39,7 +39,7 @@ type Props = Omit<StepProps, 'classes'> &
 const initialValues: Credentials = { email: '', password: '' };
 
 const LoginStepForm: React.FC<Props> = (props) => {
-  const { classes, next, ...stepContentProps } = props;
+  const { classes: _, next, ...stepContentProps } = props;
   const { service, loading } = useAuth();
   const localSignIn = useCallback(
     (values: Credentials) => service.signIn('local', values),
@@ -53,7 +53,7 @@ const LoginStepForm: React.FC<Props> = (props) => {
           next();
         }
       }),
-    [next],
+    [next, service],
   );
 
   return (

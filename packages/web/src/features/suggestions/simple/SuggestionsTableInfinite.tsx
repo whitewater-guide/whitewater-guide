@@ -23,35 +23,34 @@ export const SuggestionsTableInfinite: React.FC<Props> = React.memo((props) => {
     statusFilter,
     setStatusFilter,
   } = props;
+  const { nodes, count } = suggestions;
 
   const isRowLoaded = useCallback(
     ({ index }: Index) => {
-      const { nodes } = suggestions;
       return !!nodes && !!nodes[index];
     },
-    [suggestions.nodes],
+    [nodes],
   );
 
   const loadMore = useCallback(() => {
-    const { nodes } = suggestions;
     return fetchMore({
       variables: {
         page: { offset: nodes ? nodes.length : 0 },
       },
       updateQuery: getListMerger('suggestions'),
     });
-  }, [suggestions, fetchMore]);
+  }, [nodes, fetchMore]);
 
   return (
     <InfiniteLoader
       isRowLoaded={isRowLoaded}
       loadMoreRows={loadMore}
-      rowCount={suggestions.count}
+      rowCount={count}
     >
       {({ onRowsRendered, registerChild }) => (
         <SuggestionsTable
           registerChild={registerChild}
-          data={suggestions.nodes || []}
+          data={nodes || []}
           onRowsRendered={onRowsRendered}
           onPressResolve={onPressResolve}
           statusFilter={statusFilter}

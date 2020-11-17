@@ -13,16 +13,16 @@ interface Hook {
   ) => Promise<null | Error>;
 }
 
-export default (onProgress: (p: Partial<OfflineProgress>) => void): Hook => {
+export default (_onProgress: (p: Partial<OfflineProgress>) => void): Hook => {
   const [state, setState] = useState<any>({ loading: false });
   const download = useMemo(
-    () => async (estimTotal: number, channel: PhotoChannel) => {
+    () => async (_estimTotal: number, _channel: PhotoChannel) => {
       setState({ loading: true });
       await sleep(1);
       setState({ loading: false, error: new Error('oops') });
       return new Error('oops');
     },
-    [setState, onProgress],
+    [setState],
   );
 
   return {

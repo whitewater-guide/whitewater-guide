@@ -44,6 +44,7 @@ const POIMarker: React.FC<Props> = (props) => {
         markerRef.current.setMap(null);
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [map]);
   return null;
 };

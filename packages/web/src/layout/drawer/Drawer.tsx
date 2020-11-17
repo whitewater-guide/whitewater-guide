@@ -1,7 +1,7 @@
 import Box from '@material-ui/core/Box';
 import MUIDrawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { useAuth } from '@whitewater-guide/clients';
 import React from 'react';
@@ -11,7 +11,7 @@ import { DRAWER_WIDTH } from './constants';
 import DrawerItem from './DrawerItem';
 import { usePermanentDrawer } from './usePermanentDrawer';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     drawer: {
       width: DRAWER_WIDTH,

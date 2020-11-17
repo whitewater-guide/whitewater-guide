@@ -16,7 +16,7 @@ import { SelectField, SelectFieldPresets } from './select';
 import { SelectPointDialogField } from './SelectPointDialogField';
 import { TextField } from './TextField';
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     centered: {
       display: 'flex',

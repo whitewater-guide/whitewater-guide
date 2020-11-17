@@ -98,7 +98,7 @@ it.each([
 ])('should be resumed after %s', async (_, mocks) => {
   const onProgress = jest.fn();
   const photoChannel = new PhotoChannel();
-  const { result, wait } = render(mocks, {
+  const { result } = render(mocks, {
     onProgress,
   });
   let returned;

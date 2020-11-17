@@ -88,12 +88,12 @@ class EnterCodeStep extends React.PureComponent<
 
   render() {
     const {
-      client,
-      next,
-      prev,
-      t,
-      tReady,
-      i18n,
+      client: _client,
+      next: _next,
+      prev: _prev,
+      t: _t,
+      tReady: _tReady,
+      i18n: _i18n,
       ...stepContentProps
     } = this.props;
     const { value, error, loading } = this.state;

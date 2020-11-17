@@ -6,7 +6,7 @@ import { Required } from 'utility-types';
 
 import { LocalPhoto, toLocalPhoto } from '../../utils/files';
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     dz: {
       alignItems: 'center',

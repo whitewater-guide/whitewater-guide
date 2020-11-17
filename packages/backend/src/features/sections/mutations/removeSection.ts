@@ -32,7 +32,7 @@ const removeSection: TopLevelResolver<Vars> = async (
   const result: any = await rawUpsert(db(), 'SELECT remove_section(?)', [id]);
 
   if (result && deleted) {
-    const { source_id, ...rest } = deleted;
+    const { source_id: _, ...rest } = deleted;
     await db()
       .insert({
         ...rest,

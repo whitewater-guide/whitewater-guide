@@ -65,6 +65,7 @@ const SectionLine = React.memo(({ section, map, zoom, detailed }: Props) => {
         lineRef.current.setMap(null);
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [map]);
 
   useEffect(() => {

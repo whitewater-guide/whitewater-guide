@@ -11,25 +11,26 @@ const isEvent = (event: any) =>
 
 export function useFakeHandlers(name: string): FakeHandlers {
   const [field] = useField(name);
+  const { onChange, onBlur } = field;
   const { setFieldValue, setFieldTouched } = useFormikContext<any>();
 
   return useMemo(
     () => ({
       onBlur: (eventOrValue: any) => {
         if (isEvent(eventOrValue)) {
-          field.onBlur(eventOrValue);
+          onBlur(eventOrValue);
         } else {
           setFieldTouched(name, true);
         }
       },
       onChange: (eventOrValue: any) => {
         if (isEvent(eventOrValue)) {
-          field.onChange(eventOrValue);
+          onChange(eventOrValue);
         } else {
           setFieldValue(name, eventOrValue);
         }
       },
     }),
-    [name, field.onChange, field.onBlur, setFieldTouched, setFieldValue],
+    [name, onChange, onBlur, setFieldTouched, setFieldValue],
   );
 }

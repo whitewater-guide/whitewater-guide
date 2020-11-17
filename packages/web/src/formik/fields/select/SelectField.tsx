@@ -60,7 +60,7 @@ export const SelectField: React.FC<SelectFieldProps> = React.memo((props) => {
         setFieldValue(name, optionToValue(option));
       }
     },
-    [name, setFieldValue, options, optionToValue],
+    [name, setFieldValue, options, optionToValue, optionToKey],
   );
 
   const findKey = useCallback(
@@ -70,7 +70,7 @@ export const SelectField: React.FC<SelectFieldProps> = React.memo((props) => {
         ? optionToKey(options[0])
         : optionToKey(option);
     },
-    [options, optionToValue, optionToKey],
+    [options, optionToKey, valueToKey],
   );
 
   const selectedKey = useMemo(() => findKey(value), [value, findKey]);

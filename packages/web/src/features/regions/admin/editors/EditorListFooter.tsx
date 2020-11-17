@@ -12,13 +12,15 @@ interface Props {
 }
 
 const EditorListFooter: React.FC<Props> = React.memo((props) => {
+  const { onAdd } = props;
   const [user, setUser] = useState<NamedNode | null>(null);
-  const onAdd = useCallback(
+
+  const handleAdd = useCallback(
     (id: string) => {
-      props.onAdd(id);
+      onAdd(id);
       setUser(null);
     },
-    [props.onAdd, setUser],
+    [onAdd, setUser],
   );
 
   return (
@@ -30,7 +32,7 @@ const EditorListFooter: React.FC<Props> = React.memo((props) => {
         <IconButtonWithData
           data={user ? user.id : null}
           icon="add"
-          onPress={onAdd}
+          onPress={handleAdd}
           disabled={!user}
         />
       </ListItemSecondaryAction>

@@ -3,4 +3,5 @@ interface Window {
 }
 
 // defined using custom babel plugin, scripts/babel/index.js
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const PJSON_VERSION: string;

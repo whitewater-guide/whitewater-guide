@@ -154,7 +154,7 @@ export default class KeyboardAvoidingView extends React.Component<
       children,
       contentContainerStyle,
       enabled,
-      keyboardVerticalOffset,
+      keyboardVerticalOffset: _,
       style,
       ...props
     } = this.props;

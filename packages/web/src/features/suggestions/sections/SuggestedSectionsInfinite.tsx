@@ -14,35 +14,34 @@ interface Props {
 export const SuggestedSectionsInfinite: React.FC<Props> = React.memo(
   (props) => {
     const { suggestedSections, fetchMore } = props;
+    const { nodes, count } = suggestedSections;
 
     const isRowLoaded = useCallback(
       ({ index }: Index) => {
-        const { nodes } = suggestedSections;
         return !!nodes && !!nodes[index];
       },
-      [suggestedSections.nodes],
+      [nodes],
     );
 
     const loadMore = useCallback(() => {
-      const { nodes } = suggestedSections;
       return fetchMore({
         variables: {
           page: { offset: nodes ? nodes.length : 0 },
         },
         updateQuery: getListMerger('suggestedSections' as any),
       });
-    }, [suggestedSections, fetchMore]);
+    }, [nodes, fetchMore]);
 
     return (
       <InfiniteLoader
         isRowLoaded={isRowLoaded}
         loadMoreRows={loadMore}
-        rowCount={suggestedSections.count}
+        rowCount={count}
       >
         {({ onRowsRendered, registerChild }) => (
           <SuggestedSectionsTable
             registerChild={registerChild}
-            data={suggestedSections.nodes || []}
+            data={nodes || []}
             onRowsRendered={onRowsRendered}
           />
         )}

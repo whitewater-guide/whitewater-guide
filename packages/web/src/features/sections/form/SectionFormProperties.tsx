@@ -3,7 +3,6 @@ import { Durations } from '@whitewater-guide/commons';
 import groupBy from 'lodash/groupBy';
 import React from 'react';
 
-import { AutocompleteMenuProps } from '../../../components/autocomplete';
 import {
   NumberField,
   SeasonPickerField,
@@ -27,15 +26,6 @@ const DurationsSelectPreset: SelectFieldPreset<
   optionToKey: (o) => (o === null ? 'null' : o[0]),
   optionToLabel: (o) => (o === null ? 'unknown' : o[1]),
   valueToKey: (v) => (v === null ? 'null' : v),
-};
-
-const tagsMenuProps: AutocompleteMenuProps = {
-  placement: 'bottom-start',
-  modifiers: {
-    flip: {
-      enabled: true,
-    },
-  },
 };
 
 interface Props {

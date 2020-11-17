@@ -1,8 +1,4 @@
-import {
-  NavigationState,
-  useNavigation,
-  useRoute,
-} from '@react-navigation/native';
+import { NavigationState, useNavigation } from '@react-navigation/native';
 import { Descent } from '@whitewater-guide/commons';
 import { nanoid } from 'nanoid/non-secure';
 import { useCallback } from 'react';
@@ -38,8 +34,7 @@ const replaceDetailsWithForm = (
 };
 
 export default () => {
-  const navigation = useNavigation<RootStackNav>();
-  const route = useRoute();
+  const { reset, dangerouslyGetState } = useNavigation<RootStackNav>();
   return useCallback(
     (descent: Descent, duplicate = false) => {
       const params: RootStackParamsList[Screens.DESCENT_FORM] = duplicate
@@ -53,10 +48,8 @@ export default () => {
         : {
             descentId: descent.id,
           };
-      navigation.reset(
-        replaceDetailsWithForm(navigation.dangerouslyGetState(), params),
-      );
+      reset(replaceDetailsWithForm(dangerouslyGetState(), params));
     },
-    [navigation, route],
+    [reset, dangerouslyGetState],
   );
 };

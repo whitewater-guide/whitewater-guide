@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
 
 export const SignOutButton: React.FC = () => {
   const { service, loading } = useAuth();
-  const signOut = useCallback(() => service.signOut(), [service.signOut]);
+  const signOut = useCallback(() => service.signOut(), [service]);
   const [t] = useTranslation();
   const onPress = useCallback(() => {
     Alert.alert(t('auth:logoutDialogTitle'), t('auth:logoutDialogMessage'), [

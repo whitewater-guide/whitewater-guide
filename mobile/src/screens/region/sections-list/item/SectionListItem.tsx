@@ -105,7 +105,7 @@ export class SectionListItem extends React.Component<Props> {
   };
 
   render() {
-    const { item, hasPremiumAccess, regionPremium, testID } = this.props;
+    const { item, regionPremium, testID } = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.right}>

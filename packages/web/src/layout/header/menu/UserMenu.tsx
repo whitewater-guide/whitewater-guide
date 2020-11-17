@@ -15,7 +15,7 @@ const TRANSFORM_ORIGIN: PopoverOrigin = {
   horizontal: 'right',
 };
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     avatar: {
       cursor: 'pointer',
@@ -42,7 +42,7 @@ const UserMenu: React.FC = React.memo(() => {
   const onSignOut = useCallback(() => {
     setAnchor(null);
     service.signOut();
-  }, [setAnchor, service.signOut]);
+  }, [setAnchor, service]);
 
   return (
     <React.Fragment>

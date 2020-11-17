@@ -15,7 +15,7 @@ import logo from './logo.png';
 import { AuthMenu } from './menu';
 import { NotificationsMenu } from './notifications';
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     appBar: {
       width: `calc(100% - ${DRAWER_WIDTH}px)`,

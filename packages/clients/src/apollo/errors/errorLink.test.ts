@@ -30,7 +30,7 @@ describe('network errors', () => {
         if (timesCalled === 0) {
           timesCalled++;
           // simulate the first request being an error
-          return new Observable((observer) => {
+          return new Observable(() => {
             throwServerError(
               { status: 401 },
               { success: false, error: 'jwt.expired' },
@@ -134,7 +134,7 @@ describe('network errors', () => {
     const link = ApolloLink.from([
       errorLink(cache),
       new ApolloLink(() => {
-        return new Observable((observer) => {
+        return new Observable(() => {
           throwServerError(
             { status: 401 },
             { success: false, error: 'unauthenticated' },
@@ -164,7 +164,7 @@ describe('network errors', () => {
     const link = ApolloLink.from([
       errorLink(cache, handleError),
       new ApolloLink(() => {
-        return new Observable((observer) => {
+        return new Observable(() => {
           throwServerError(
             { status: 500 },
             { success: false, error: 'internal server error' },
@@ -197,7 +197,7 @@ describe('network errors', () => {
     const link = ApolloLink.from([
       errorLink(cache, handleError),
       new ApolloLink(() => {
-        return new Observable((observer) => {
+        return new Observable(() => {
           throw new Error('fetch failed');
         });
       }),
@@ -279,7 +279,7 @@ describe('graphql errors', () => {
 
     const link = ApolloLink.from([
       errorLink(cache),
-      new ApolloLink((operation) => {
+      new ApolloLink(() => {
         if (timesCalled === 0) {
           timesCalled++;
           // simulate the first request being an error
@@ -322,10 +322,11 @@ describe('graphql errors', () => {
   });
 });
 
+// eslint-disable-next-line jest/expect-expect
 it('completes if no error', (done) => {
   const link = ApolloLink.from([
     errorLink(new InMemoryCache()),
-    new ApolloLink((operation) => {
+    new ApolloLink(() => {
       return Observable.of({ data: { foo: true } });
     }),
   ]);

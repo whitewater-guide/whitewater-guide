@@ -30,7 +30,7 @@ const AppleButton: React.FC = () => {
         navigate(Screens.REGIONS_LIST);
       }
     });
-  }, [service.signIn, navigate]);
+  }, [service, navigate]);
   return (
     <NativeAppleButton
       buttonStyle={NativeAppleButton.Style.BLACK}

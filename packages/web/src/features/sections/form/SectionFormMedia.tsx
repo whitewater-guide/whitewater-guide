@@ -46,7 +46,7 @@ export const SectionFormMedia: React.FC = React.memo(() => {
       setFieldValue(`media.${index}` as any, { ...defaultValue, kind });
       setDialogState({ index, photo });
     },
-    [values, media, setFieldValue, setDialogState],
+    [media, setFieldValue, setDialogState],
   );
 
   const onRemove = useCallback(

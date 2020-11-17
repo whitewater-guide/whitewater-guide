@@ -26,7 +26,7 @@ const MarkdownComponent: React.FC<FieldInputProps<MdEditorValue>> = ({
     () => ({
       className: classes.toolbar,
     }),
-    [],
+    [classes],
   );
   return (
     <MdEditor

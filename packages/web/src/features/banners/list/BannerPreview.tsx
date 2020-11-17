@@ -8,7 +8,7 @@ import {
 import React from 'react';
 import Iframe from 'react-iframe';
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     container: {
       width: 512,

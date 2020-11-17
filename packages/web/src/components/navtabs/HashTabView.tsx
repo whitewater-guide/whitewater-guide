@@ -12,9 +12,11 @@ export const HashTabView: React.FC<Props> = (props) => {
   const { location } = useRouter();
   const hash = location.hash || '#main';
   const [loaded, setLoaded] = useState(hash === value);
+
   useEffect(() => {
     setLoaded((v) => v || hash === value);
-  }, [hash, setLoaded]);
+  }, [hash, value, setLoaded]);
+
   if (lazy && !loaded) {
     return null;
   }

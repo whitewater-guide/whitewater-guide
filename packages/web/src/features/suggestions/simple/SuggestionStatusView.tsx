@@ -6,7 +6,7 @@ import React from 'react';
 import { ListedSuggestion } from './listSuggestions.query';
 import SuggestionResolveButton from './SuggestionResolveButton';
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     wrapper: {
       display: 'flex',

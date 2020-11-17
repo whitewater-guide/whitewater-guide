@@ -1,7 +1,7 @@
 import Koa from 'koa';
 import agent from 'supertest-koa-agent';
 
-import db, { holdTransaction, rollbackTransaction } from '~/db/db';
+import db, { holdTransaction, rollbackTransaction } from '~/db';
 import { TEST_USER_ID } from '~/seeds/test/01_users';
 
 import { createApp } from '../../app';
@@ -61,13 +61,13 @@ describe('set fcm token', () => {
   });
 
   it('should replace existing token', async () => {
-    const { success, tokens } = await request('foo', '__user_fcm_token__');
+    const { tokens } = await request('foo', '__user_fcm_token__');
     expect(tokens).toHaveLength(1);
     expect(tokens).toContainEqual({ token: 'foo' });
   });
 
   it('should not fail on when attempting to replace non-existing token', async () => {
-    const { success, tokens } = await request('foo', 'bar');
+    const { tokens } = await request('foo', 'bar');
     expect(tokens).toHaveLength(2);
     expect(tokens).toContainEqual({ token: 'foo' });
     expect(tokens).toContainEqual({ token: '__user_fcm_token__' });

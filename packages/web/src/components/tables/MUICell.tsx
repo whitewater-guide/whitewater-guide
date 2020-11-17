@@ -22,15 +22,13 @@ interface Props {
   variant?: TableCellProps['variant'];
 }
 
-export const MUICell: React.FC<Props> = React.memo(
-  ({ className, variant, children }) => {
-    const classes = useStyles();
-    return (
-      <TableCell component="div" classes={classes} variant={variant}>
-        {children}
-      </TableCell>
-    );
-  },
-);
+export const MUICell: React.FC<Props> = React.memo(({ variant, children }) => {
+  const classes = useStyles();
+  return (
+    <TableCell component="div" classes={classes} variant={variant}>
+      {children}
+    </TableCell>
+  );
+});
 
 MUICell.displayName = 'MUICell';

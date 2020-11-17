@@ -46,7 +46,7 @@ const LayersSelector: React.FC = React.memo(() => {
     [t],
   );
 
-  const { mapType, setMapType } = useMapType();
+  const { setMapType } = useMapType();
 
   const onMenu = useCallback(
     (index: number) => {

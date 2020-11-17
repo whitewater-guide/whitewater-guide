@@ -81,7 +81,7 @@ export const useSelectionHandler = (
         onSelected(null);
       }
     },
-    [onSelected, sections, pois, camera, sectionSelectable],
+    [onSelected, sections, pois, camera, sectionSelectable, visibleBounds],
   );
   return onPress;
 };

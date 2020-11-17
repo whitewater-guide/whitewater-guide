@@ -32,7 +32,7 @@ export const RegisterForm: React.FC = React.memo(() => {
       imperial: false,
       language: i18n.language,
     }),
-    [],
+    [i18n],
   );
   const { service } = useAuth();
   const { navigate } = useNavigation<AuthRegisterNavProp>();

@@ -10,12 +10,13 @@ import HelperText from '~/forms/HelperText';
 import { AddSectionFlowsNavProps } from '~/screens/add-section/flows/types';
 
 const GaugePlaceholder: React.FC<Partial<AddSectionFlowsNavProps>> = React.memo(
-  ({ navigation }) => {
+  (props) => {
+    const navigate = props.navigation?.navigate;
     const [{ value }, meta] = useField<NamedNode | null>('gauge');
     const { t } = useTranslation();
     const onPress = React.useCallback(() => {
-      navigation?.navigate(Screens.ADD_SECTION_GAUGE);
-    }, [navigation?.navigate]);
+      navigate?.(Screens.ADD_SECTION_GAUGE);
+    }, [navigate]);
     return (
       <TouchableWithoutFeedback onPress={onPress} testID="gauge-placeholder">
         <View pointerEvents="box-only">

@@ -33,16 +33,17 @@ interface Props {
 
 const PhotoThumb: React.FC<Props> = React.memo(
   ({ index, photo, onClear, navigation }) => {
+    const { navigate } = navigation;
     const uri = photo ? (photo.file ? photo.file.uri : photo.url) : undefined;
 
     const onPress = useCallback(() => {
       if (photo) {
-        navigation.navigate(Screens.ADD_SECTION_PHOTO, {
+        navigate(Screens.ADD_SECTION_PHOTO, {
           index,
           localPhotoId: photo.id,
         });
       }
-    }, [navigation.navigate, index, photo]);
+    }, [navigate, index, photo]);
 
     const onRemove = useCallback(() => {
       onClear(index);

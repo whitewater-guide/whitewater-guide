@@ -132,7 +132,7 @@ it('should emit events', async () => {
   const service = new MockAuthService();
   const listener1 = jest.fn();
   const listener2 = jest.fn();
-  const listener3 = jest.fn(async (v: boolean) => {
+  const listener3 = jest.fn(async () => {
     await Promise.resolve();
   });
   const rem1 = service.on('loading', listener1);

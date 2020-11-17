@@ -78,7 +78,7 @@ export default () => {
             goBack();
           }
         })
-        .catch((error: Error) => {
+        .catch(() => {
           setSnackbar({
             short: t('common:networkError'),
             error: true,

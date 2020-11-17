@@ -26,11 +26,10 @@ import {
   MEDIA_SUGGESTION_ID2,
 } from '~/seeds/test/17_suggestions';
 
-let sBefore: number;
 let mBefore: number;
 
 beforeAll(async () => {
-  [sBefore, mBefore] = await countRows(true, 'suggestions', 'media');
+  [mBefore] = await countRows(true, 'media');
 });
 
 beforeEach(holdTransaction);

@@ -5,7 +5,7 @@ import React, { useCallback } from 'react';
 import { matchPath, useHistory, useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     link: {
       textDecoration: 'none',

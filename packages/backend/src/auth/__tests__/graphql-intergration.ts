@@ -92,7 +92,6 @@ afterEach(async () => {
 describe('facebook', () => {
   describe('mobile', () => {
     let accessToken: string;
-    let refreshToken: string;
 
     beforeEach(async () => {
       const testAgent = agent(app);
@@ -100,7 +99,6 @@ describe('facebook', () => {
         '/auth/facebook/signin?access_token=__existing_access_token__',
       );
       accessToken = resp.body.accessToken;
-      refreshToken = resp.body.refreshToken;
     });
 
     it('should return my profile', async () => {

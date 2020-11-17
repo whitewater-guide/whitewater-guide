@@ -17,7 +17,7 @@ export const FormikFormControl: React.FC<Props> = React.memo((props) => {
     errorFieldName,
     inputId,
     children,
-    id,
+    id: _id,
     ...formControlProps
   } = props;
   const { errors, touched, submitCount } = useFormikContext<any>();

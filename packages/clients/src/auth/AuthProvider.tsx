@@ -25,7 +25,7 @@ export const AuthProvider: React.FC<Props> = React.memo((props) => {
 
   useEffect(() => {
     service.on('loading', setLoading);
-  }, [setLoading]);
+  }, [service, setLoading]);
 
   // try to refresh token when mounted
   useEffect(() => {
@@ -36,6 +36,7 @@ export const AuthProvider: React.FC<Props> = React.memo((props) => {
     return () => {
       service.off('loading');
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (initializing) {

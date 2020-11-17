@@ -34,6 +34,7 @@ interface Props {
 }
 
 const AddPhotoButton: React.FC<Props> = React.memo(({ index, navigation }) => {
+  const { navigate } = navigation;
   const { values, setFieldValue, setFieldTouched } = useFormikContext<
     SectionFormInput
   >();
@@ -58,7 +59,7 @@ const AddPhotoButton: React.FC<Props> = React.memo(({ index, navigation }) => {
         weight: null,
         photo,
       });
-      navigation.navigate(Screens.ADD_SECTION_PHOTO, {
+      navigate(Screens.ADD_SECTION_PHOTO, {
         localPhotoId: photo.id,
         index,
       });
@@ -66,13 +67,13 @@ const AddPhotoButton: React.FC<Props> = React.memo(({ index, navigation }) => {
         setFieldTouched(`media.${index}.photo` as any, true);
       });
     },
-    [push, navigation.navigate, upload, setFieldTouched, index],
+    [push, navigate, me, upload, setFieldTouched, index],
   );
 
   const onPress =
     Config.E2E_MODE === 'true'
       ? () => {
-          navigation.navigate(Screens.ADD_SECTION_PHOTO, {
+          navigate(Screens.ADD_SECTION_PHOTO, {
             localPhotoId: 'fooo',
             index,
           });

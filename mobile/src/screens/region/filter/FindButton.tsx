@@ -34,7 +34,8 @@ export const FindButton: React.FC<Props> = ({ searchState, regionId }) => {
   const onPress = useCallback(() => {
     setSearchState(terms);
     goBack();
-  }, [terms, setSearchState]);
+  }, [terms, setSearchState, goBack]);
+
   const { data } = useQuery<ListSectionsResult, ListSectionsVars>(
     LIST_SECTIONS,
     { fetchPolicy: 'cache-only', variables: { filter: { regionId } } },

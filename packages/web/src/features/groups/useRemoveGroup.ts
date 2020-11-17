@@ -1,4 +1,3 @@
-import { GroupInput } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 import { useCallback } from 'react';
 import { useMutation } from 'react-apollo';

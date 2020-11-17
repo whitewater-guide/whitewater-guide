@@ -59,7 +59,7 @@ export function ModalPickerField<V>(props: Props<V>) {
   const onPress = useCallback(() => {
     setOpen(true);
     setFieldTouched(name, true);
-  }, [setFieldTouched, setOpen]);
+  }, [name, setFieldTouched, setOpen]);
 
   const close = useCallback(() => setOpen(false), [setOpen]);
 
@@ -68,7 +68,7 @@ export function ModalPickerField<V>(props: Props<V>) {
       setFieldValue(name, value);
       close();
     },
-    [setFieldValue, close],
+    [name, setFieldValue, close],
   );
   return (
     <React.Fragment>

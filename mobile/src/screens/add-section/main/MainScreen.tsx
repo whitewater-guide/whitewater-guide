@@ -46,63 +46,62 @@ const styles = StyleSheet.create({
   },
 });
 
-const MainScreen: React.FC<AddSectionMainNavProps> = React.memo(
-  ({ navigation }) => {
-    const { t } = useTranslation();
+const MainScreen: React.FC<AddSectionMainNavProps> = React.memo((props) => {
+  const navigate = props.navigation.navigate;
+  const { t } = useTranslation();
 
-    const onPitoPress = React.useCallback(() => {
-      navigation.navigate(Screens.ADD_SECTION_SHAPE);
-    }, [navigation.navigate]);
+  const onPitoPress = React.useCallback(() => {
+    navigate(Screens.ADD_SECTION_SHAPE);
+  }, [navigate]);
 
-    const onRiverPress = React.useCallback(() => {
-      navigation.navigate(Screens.ADD_SECTION_RIVER);
-    }, [navigation.navigate]);
+  const onRiverPress = React.useCallback(() => {
+    navigate(Screens.ADD_SECTION_RIVER);
+  }, [navigate]);
 
-    return (
-      <Screen>
-        <KeyboardAwareScrollView
-          style={styles.scroll}
-          contentContainerStyle={styles.scrollContent}
-          extraHeight={100}
-        >
-          <RiverPlaceholder onPress={onRiverPress} />
-          <TextField
-            name="name"
-            label={t('screens:addSection.main.nameLabel')}
-            testID="name"
-          />
-          <View style={styles.difficultyRow}>
-            <View style={styles.box}>
-              <ModalPickerField<number>
-                label={t('commons:difficulty')}
-                name="difficulty"
-                valueToString={toRomanDifficulty}
-                options={DIFFICULTIES}
-                keyExtractor={keyExtractor}
-              />
-            </View>
-            <Text style={styles.brackets}>{'('}</Text>
-            <View style={styles.box}>
-              <TextField
-                name="difficultyXtra"
-                autoCapitalize="characters"
-                autoCompleteType="off"
-                autoCorrect={false}
-                maxLength={8}
-                testID="difficultyXtra"
-                helperText={t('screens:addSection.main.difficultyXtraHelper')}
-              />
-            </View>
-            <Text style={styles.brackets}>{')'}</Text>
+  return (
+    <Screen>
+      <KeyboardAwareScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.scrollContent}
+        extraHeight={100}
+      >
+        <RiverPlaceholder onPress={onRiverPress} />
+        <TextField
+          name="name"
+          label={t('screens:addSection.main.nameLabel')}
+          testID="name"
+        />
+        <View style={styles.difficultyRow}>
+          <View style={styles.box}>
+            <ModalPickerField<number>
+              label={t('commons:difficulty')}
+              name="difficulty"
+              valueToString={toRomanDifficulty}
+              options={DIFFICULTIES}
+              keyExtractor={keyExtractor}
+            />
           </View>
-          <PiToPlaceholder index={0} onPress={onPitoPress} />
-          <PiToPlaceholder index={1} onPress={onPitoPress} />
-          <CCNote style={styles.ccNote} />
-        </KeyboardAwareScrollView>
-      </Screen>
-    );
-  },
-);
+          <Text style={styles.brackets}>{'('}</Text>
+          <View style={styles.box}>
+            <TextField
+              name="difficultyXtra"
+              autoCapitalize="characters"
+              autoCompleteType="off"
+              autoCorrect={false}
+              maxLength={8}
+              testID="difficultyXtra"
+              helperText={t('screens:addSection.main.difficultyXtraHelper')}
+            />
+          </View>
+          <Text style={styles.brackets}>{')'}</Text>
+        </View>
+        <PiToPlaceholder index={0} onPress={onPitoPress} />
+        <PiToPlaceholder index={1} onPress={onPitoPress} />
+        <CCNote style={styles.ccNote} />
+      </KeyboardAwareScrollView>
+    </Screen>
+  );
+});
 
 MainScreen.displayName = 'MainScreen';
 

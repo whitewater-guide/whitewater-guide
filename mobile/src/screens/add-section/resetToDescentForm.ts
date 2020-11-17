@@ -4,7 +4,7 @@ import { Section } from '@whitewater-guide/commons';
 import { Screens } from '~/core/navigation';
 
 export function resetToDescentForm(
-  { index, routes, ...rest }: NavigationState,
+  { index: _index, routes, ...rest }: NavigationState,
   section?: Section | null,
 ) {
   const descentFormIndex = routes.findIndex(

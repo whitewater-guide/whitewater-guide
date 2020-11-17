@@ -1,6 +1,6 @@
 import Knex from 'knex';
 
-import { createViews, dropViews, runSqlFile } from '~/db';
+import { createViews, dropViews } from '~/db';
 
 const VIEWS = ['sections', 'rivers', 'regions'];
 

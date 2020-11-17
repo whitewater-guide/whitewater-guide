@@ -61,7 +61,7 @@ describe('simple schema', () => {
 it('should be valid for no url schema', () => {
   const NoUrlSchema = getLocalPhotoSchema({ urlRequired: false });
   const validator = createSafeValidator(NoUrlSchema);
-  const { url, ...rest } = full;
+  const { url: _, ...rest } = full;
   expect(validator(rest)).toBeNull();
 });
 

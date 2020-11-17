@@ -13,8 +13,6 @@ import { PaperTheme } from '../src/theme';
 import { loadStories } from './storyLoader';
 
 addDecorator((story: any) => {
-  const Screen = () => story();
-
   return (
     <I18nProvider>
       <PaperProvider theme={PaperTheme}>{story()}</PaperProvider>

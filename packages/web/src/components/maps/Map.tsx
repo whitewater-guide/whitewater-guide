@@ -14,7 +14,7 @@ import SectionLine from './SectionLine';
 import SelectedPOIWeb from './SelectedPOIWeb';
 import SelectedSectionWeb from './SelectedSectionWeb';
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     mapRoot: {
       '& .gm-style-iw': {

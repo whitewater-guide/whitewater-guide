@@ -52,7 +52,7 @@ const PiToField: React.FC = React.memo(() => {
   const [moving, setMoving] = useState(false);
   const handlers = useMemo(
     () => ({
-      onRegionWillChange: (e: RegionChangeEvent) => {
+      onRegionWillChange: () => {
         setMoving(true);
       },
       // onRegionIsChanging: (e: RegionChangeEvent) => {
@@ -86,6 +86,7 @@ const PiToField: React.FC = React.memo(() => {
       setFieldTouched('shape', true);
       setFieldValue('shape', shapeRef.current);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

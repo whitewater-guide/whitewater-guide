@@ -65,7 +65,7 @@ const PasswordStrengthIndicator: React.FC<Props> = React.memo(
         setTextWidth(size.width);
       };
       measure().catch(() => {});
-    }, []);
+    }, [t]);
     const [width, setWidth] = useState(0);
     const onLayout = useCallback(
       (e: LayoutChangeEvent) => {

@@ -61,9 +61,9 @@ export default (isCopy?: boolean) => (result: QResult): SectionFormData => {
   const {
     tags,
     description,
-    demo,
+    demo: _demo,
     media,
-    verified,
+    verified: _verified,
     ...section
   } = result.section;
 

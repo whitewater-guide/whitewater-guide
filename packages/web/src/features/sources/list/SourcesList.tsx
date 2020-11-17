@@ -13,7 +13,7 @@ import { REMOVE_SOURCE } from './removeSource.mutation';
 import SourcesTable from './SourcesTable';
 import useToggleSource from './useToggleSource';
 
-export const SourcesList: React.FC = React.memo((props) => {
+export const SourcesList: React.FC = React.memo(() => {
   const { history } = useRouter();
   const { data, loading } = useQuery<QResult>(LIST_SOURCES, {
     fetchPolicy: 'cache-and-network',

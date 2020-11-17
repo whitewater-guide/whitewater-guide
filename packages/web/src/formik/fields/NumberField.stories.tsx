@@ -2,7 +2,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { storiesOf } from '@storybook/react';
 import { Formik } from 'formik';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 
 import { NumberField } from './NumberField';
 
@@ -19,15 +19,12 @@ const Story: React.FC<StoryProps> = ({ initialValue, children }) => {
     // eslint-disable-next-line no-console
     console.log(v.value, typeof v.value);
   }, []);
-  const initialValues: Shape = useMemo(
-    () => ({
-      value: initialValue,
-    }),
-    [],
-  );
   return (
     <Grid container={true} spacing={1}>
-      <Formik<Shape> onSubmit={onSubmit} initialValues={initialValues}>
+      <Formik<Shape>
+        onSubmit={onSubmit}
+        initialValues={{ value: initialValue }}
+      >
         {({ submitForm }) => (
           <React.Fragment>
             <Grid item={true} xs={4}>

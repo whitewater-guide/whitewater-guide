@@ -56,7 +56,7 @@ class SelectRegionStepView extends React.Component<Props, State> {
   onChange = (region: Region | null) => this.setState({ region });
 
   render() {
-    const { classes, prev, next, ...stepProps } = this.props;
+    const { classes, prev: _prev, next: _next, ...stepProps } = this.props;
     const { region } = this.state;
     return (
       <StepContent {...stepProps}>

@@ -12,13 +12,14 @@ export default (region: Region) => {
   const { navigate } = useNavigation<RegionsListNavProp>();
   const { canMakePayments } = useIap();
   const offline = useOfflineContent();
+  const { setDialogRegion } = offline;
 
   const premiumGuard = usePremiumGuard(region);
   const downloadRegion = useCallback(() => {
     if (premiumGuard()) {
-      offline.setDialogRegion(region);
+      setDialogRegion(region);
     }
-  }, [offline.setDialogRegion, region, premiumGuard]);
+  }, [setDialogRegion, region, premiumGuard]);
 
   const buyRegion = useCallback(() => {
     navigate(Screens.PURCHASE_STACK, { region });

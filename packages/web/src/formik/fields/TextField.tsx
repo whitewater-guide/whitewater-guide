@@ -14,10 +14,11 @@ interface Props extends InputProps {
 export const TextField: React.FC<Props> = React.memo((props) => {
   const { name, errorFieldName, label, ...inputProps } = props;
   const [field] = useField<string | null>(name);
+  const { onChange } = field;
   const value = field.value || '';
-  const onChange = useCallback(
+  const handleChange = useCallback(
     (e) => {
-      field.onChange({
+      onChange({
         target: {
           ...e.target,
           name,
@@ -25,7 +26,7 @@ export const TextField: React.FC<Props> = React.memo((props) => {
         },
       });
     },
-    [field.onChange, name],
+    [onChange, name],
   );
   const id = `textfield-${name}`;
   return (
@@ -40,7 +41,7 @@ export const TextField: React.FC<Props> = React.memo((props) => {
         {...field}
         name={name}
         value={value}
-        onChange={onChange}
+        onChange={handleChange}
         {...inputProps}
         id={id}
         aria-describedby={`${id}-error`}

@@ -21,7 +21,7 @@ export const SnackbarProvider: React.FC = React.memo(({ children }) => {
         });
       }
     },
-    [setMessage],
+    [setMessage, t],
   );
   return (
     <SnackbarContext.Provider value={message}>

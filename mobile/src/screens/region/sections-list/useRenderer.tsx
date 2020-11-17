@@ -1,3 +1,4 @@
+/* eslint-disable import/no-duplicates */
 import { useNavigation } from '@react-navigation/native';
 import {
   SectionsStatus,
@@ -71,7 +72,7 @@ export default (props: ListProps) => {
     if (region) {
       navigate(Screens.PURCHASE_STACK, { region });
     }
-  }, [region]);
+  }, [region, navigate]);
 
   const renderItem = useCallback(
     (

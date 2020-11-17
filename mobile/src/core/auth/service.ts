@@ -179,7 +179,7 @@ export class MobileAuthService extends BaseAuthService {
 
   private async postSignIn(
     resp: AuthResponse<SignInBody>,
-    afterSignup = false,
+    _afterSignup = false,
   ) {
     const { success, id, accessToken, refreshToken } = resp;
     if (!success) {

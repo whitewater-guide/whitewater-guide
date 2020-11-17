@@ -10,7 +10,7 @@ import React, { useCallback, useState } from 'react';
 import { DrawingMap } from './DrawingMap';
 import { DrawingMode } from './types';
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     content: {
       width: '90vw',

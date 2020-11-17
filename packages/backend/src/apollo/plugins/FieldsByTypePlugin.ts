@@ -13,7 +13,7 @@ export class FieldsByTypePlugin {
 
   constructor(private readonly _schema: GraphQLSchema) {}
 
-  requestDidStart(ctx: any) {
+  requestDidStart() {
     return this as any;
   }
 

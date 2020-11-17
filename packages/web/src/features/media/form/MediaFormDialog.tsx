@@ -16,7 +16,7 @@ type Props = UseApolloFormik<QResult, MediaInput>;
 const MediaFormDialog: React.FC<Props> = React.memo((props) => {
   const { onSubmit, loading, initialValues } = props;
   const { history, location } = useRouter();
-  const onCancel = useCallback(() => history.goBack(), [history.goBack]);
+  const onCancel = useCallback(() => history.goBack(), [history]);
   const localPhoto: LocalPhoto | undefined =
     location.state && (location.state as any).file;
 

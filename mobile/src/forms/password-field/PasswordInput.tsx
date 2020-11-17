@@ -34,27 +34,36 @@ export interface PasswordInputProps {
 
 export const PasswordInput = React.memo(
   forwardRef<any, PasswordInputProps & TextInputProps>(
-    ({ showStrengthIndicator, strengthIndicatorStyle, ...props }, ref) => {
+    (
+      {
+        showStrengthIndicator,
+        strengthIndicatorStyle,
+        onFocus,
+        onBlur,
+        ...props
+      },
+      ref,
+    ) => {
       const [secureTextEntry, setSecureTextEntry] = React.useState(true);
       const [eyeVisible, setEyeVisible] = React.useState(false);
       const inputRef = useFocus(ref);
-      const onFocus = useCallback(
+      const handleFocus = useCallback(
         (e) => {
           setEyeVisible(true);
-          if (props.onFocus) {
-            props.onFocus(e);
+          if (onFocus) {
+            onFocus(e);
           }
         },
-        [props.onFocus, setEyeVisible],
+        [onFocus, setEyeVisible],
       );
-      const onBlur = useCallback(
+      const handleBlur = useCallback(
         (e) => {
           setEyeVisible(false);
-          if (props.onBlur) {
-            props.onBlur(e);
+          if (onBlur) {
+            onBlur(e);
           }
         },
-        [props.onBlur, setEyeVisible],
+        [onBlur, setEyeVisible],
       );
       const toggle = useCallback(() => setSecureTextEntry(!secureTextEntry), [
         setSecureTextEntry,
@@ -70,8 +79,8 @@ export const PasswordInput = React.memo(
               textContentType="password"
               mode="outlined"
               {...props}
-              onFocus={onFocus}
-              onBlur={onBlur}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
               secureTextEntry={secureTextEntry}
             />
             {eyeVisible && (

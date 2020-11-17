@@ -25,13 +25,14 @@ interface Props {
 const CoordinateArrayInner: React.FC<FieldArrayRenderProps> = React.memo(
   (props) => {
     const { form, name, push, remove } = props;
+    const { setFieldValue } = form;
     const coordinates: Coordinate3d[] = props.form.values[props.name];
     const lastIndex = coordinates.length - 1;
     const classes = useStyles();
 
     const onReverse = useCallback(() => {
-      form.setFieldValue(name, coordinates.reverse());
-    }, [form.setFieldValue, name, coordinates]);
+      setFieldValue(name, coordinates.reverse());
+    }, [setFieldValue, name, coordinates]);
 
     return (
       <div className={classes.container}>
