@@ -13,6 +13,7 @@ import {
   REGION_GEORGIA,
   REGION_LAOS,
   REGION_NORWAY,
+  REGION_RUSSIA,
 } from '~/seeds/test/04_regions';
 import { GAUGE_GAL_1_1 } from '~/seeds/test/06_gauges';
 import { GEORGIA_BZHUZHA_LONG } from '~/seeds/test/09_sections';
@@ -590,6 +591,7 @@ describe('i18n', () => {
       fakeContext(EDITOR_NO_EC, 'ru'),
     );
     expect(result.data!.region.name).toBe('Галисия');
+    expect(result.data!.region.seasonNumeric).toEqual([20, 21]);
   });
 
   it('should fall back to english when not translated', async () => {
@@ -601,13 +603,13 @@ describe('i18n', () => {
     expect(result.data!.region.name).toBe('Galicia');
   });
 
-  it('should be able to get basic attributes without translation', async () => {
+  it('should fall back to default language when both desired and english translations are not provided', async () => {
     const result = await runQuery(
       query,
-      { id: REGION_GALICIA },
+      { id: REGION_RUSSIA },
       fakeContext(EDITOR_NO_EC, 'pt'),
     );
-    expect(result.data!.region.seasonNumeric).toEqual([20, 21]);
+    expect(result.data!.region.name).toBe('Россия');
   });
 });
 

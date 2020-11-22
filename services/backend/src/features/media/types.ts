@@ -1,8 +1,9 @@
-import { RawTimestamped } from '~/db';
 import { MediaKind, Node, UploadLink } from '@whitewater-guide/commons';
+import { RawTimestamped } from '~/db';
 
 export interface MediaRaw extends Node, RawTimestamped {
   language: string;
+  default_lang: string;
   kind: MediaKind;
   description: string | null;
   copyright: string | null;

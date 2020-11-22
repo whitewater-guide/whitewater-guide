@@ -139,22 +139,22 @@ export class GorgeConnector extends Original implements DataSource<Context> {
   ];
   private _gauges: gorge.Gauge[] = [
     {
-      name: 'Russia gauge 1',
+      name: 'Empty gauge 1',
       location: { latitude: 11, longitude: 22, altitude: 33 },
       url: 'http://ww.guide/ru1',
       flowUnit: '',
       levelUnit: 'm',
-      code: 'ru1',
-      script: 'russia',
+      code: 'em1',
+      script: 'empty',
     },
     {
-      name: 'Russia gauge 2',
+      name: 'Empty gauge 2',
       location: { latitude: 44, longitude: 55, altitude: 66 },
       url: 'http://ww.guide/ru2',
       flowUnit: 'm3/s',
       levelUnit: 'm',
-      code: 'ru2',
-      script: 'russia',
+      code: 'em2',
+      script: 'empty',
     },
     {
       name: 'Galicia GAUGE 1',

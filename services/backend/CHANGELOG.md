@@ -1,3 +1,28 @@
+## [0.0.448](https://github.com/doomsower/whitewater/compare/1ccfcb86ebb1cfd308fb1bfd81a2ed714cdda4d6...f37e02dba69e34178143e1b3487fd16a61fe2376) (2020-11-15)
+
+### Features
+
+- fallback to eng, then to default language ([](https://github.com/doomsower/whitewater/commit/b274ed8ced68ec06625d24b144ea68bf627930a2))
+
+## [0.0.447](https://github.com/doomsower/whitewater/compare/765df0f69df19428872814869cf71d5c0206a0ac...1ccfcb86ebb1cfd308fb1bfd81a2ed714cdda4d6) (2020-11-14)
+
+### Bug Fixes
+
+- points default language ([](https://github.com/doomsower/whitewater/commit/936cb8cc8ee8e76320ee4cb5cea54a888a6426cf))
+
+## [0.0.446](https://github.com/doomsower/whitewater/compare/fcdba786c102a2f7009162d87306040ab06c2994...765df0f69df19428872814869cf71d5c0206a0ac) (2020-11-14)
+
+### Features
+
+- default language for points too ([](https://github.com/doomsower/whitewater/commit/c7aa482fbe31deae78abf32d0bdc86299ee9685f))
+- nullify empty translation columns ([](https://github.com/doomsower/whitewater/commit/586f494f1f8a670480c44772eb2ff340e6cb21db))
+
+## [0.0.444](https://github.com/doomsower/whitewater/compare/dfdab182804e48ac892c8bfb2895d67c4e5b4039...fcdba786c102a2f7009162d87306040ab06c2994) (2020-11-14)
+
+### Features
+
+- coalsce translations to default language instead of english ([](https://github.com/doomsower/whitewater/commit/be50a10d801fde2e972566bc8f5feceb7fa3adc5))
+
 ## [0.0.443](https://github.com/doomsower/whitewater/compare/841afbc870334810e8bc97b2fd7feecc3e15bfc5...dfdab182804e48ac892c8bfb2895d67c4e5b4039) (2020-11-10)
 
 ## [0.0.443](https://github.com/doomsower/whitewater/compare/9b542371d05c19d740e5bc4db615c03464893ff0...841afbc870334810e8bc97b2fd7feecc3e15bfc5) (2020-11-10)

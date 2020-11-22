@@ -4,6 +4,7 @@ import {
   SOURCE_GALICIA_2,
   SOURCE_GEORGIA,
   SOURCE_NORWAY,
+  SOURCE_RUSSIA,
 } from './05_sources';
 
 export const GAUGE_GAL_1_1 = 'aba8c106-aaa0-11e7-abc4-cec278b6b50a';
@@ -18,6 +19,7 @@ export const GAUGE_GEO_1 = '53af2530-19fe-11e8-accf-0ed5f89f718b';
 export const GAUGE_GEO_2 = '53af279c-19fe-11e8-accf-0ed5f89f718b';
 export const GAUGE_GEO_3 = '53af2bb6-19fe-11e8-accf-0ed5f89f718b';
 export const GAUGE_GEO_4 = '53af2e2c-19fe-11e8-accf-0ed5f89f718b';
+export const GAUGE_RU_1 = 'b58d9662-c1b1-43f0-a399-dcbd12c6e113';
 
 const gauges = [
   {
@@ -29,21 +31,25 @@ const gauges = [
     flow_unit: 'm3/s',
     request_params: JSON.stringify({ foo: 'bar' }),
     url: 'http://ya.ru',
+    default_lang: 'en',
   },
   {
     id: GAUGE_GAL_1_2,
     source_id: SOURCE_GALICIA_1,
     code: 'gal2',
+    default_lang: 'en',
   },
   {
     id: GAUGE_GAL_2_1,
     source_id: SOURCE_GALICIA_2,
     code: 'gal2_1',
+    default_lang: 'en',
   },
   {
     id: GAUGE_GAL_2_2,
     source_id: SOURCE_GALICIA_2,
     code: 'gal2_2',
+    default_lang: 'en',
   },
   {
     id: GAUGE_NOR_1,
@@ -53,41 +59,55 @@ const gauges = [
     flow_unit: 'm3/s',
     request_params: JSON.stringify({ nor: 'way' }),
     url: 'http://yarr.ru',
+    default_lang: 'en',
   },
   {
     id: GAUGE_NOR_2,
     source_id: SOURCE_NORWAY,
     code: 'nor2',
+    default_lang: 'en',
   },
   {
     id: GAUGE_NOR_3,
     source_id: SOURCE_NORWAY,
     code: 'nor3',
+    default_lang: 'en',
   },
   {
     id: GAUGE_NOR_4,
     source_id: SOURCE_NORWAY,
     code: 'nor4',
+    default_lang: 'en',
   },
   {
     id: GAUGE_GEO_1,
     source_id: SOURCE_GEORGIA,
     code: 'geo1',
+    default_lang: 'en',
   },
   {
     id: GAUGE_GEO_2,
     source_id: SOURCE_GEORGIA,
     code: 'geo2',
+    default_lang: 'en',
   },
   {
     id: GAUGE_GEO_3,
     source_id: SOURCE_GEORGIA,
     code: 'geo3',
+    default_lang: 'en',
   },
   {
     id: GAUGE_GEO_4,
     source_id: SOURCE_GEORGIA,
     code: 'geo4',
+    default_lang: 'en',
+  },
+  {
+    id: GAUGE_RU_1,
+    source_id: SOURCE_RUSSIA,
+    code: 'ru1',
+    default_lang: 'ru',
   },
 ];
 
@@ -152,6 +172,11 @@ const gaugesRu = [
     gauge_id: GAUGE_GAL_1_2,
     language: 'ru',
     name: 'Галисийская линейка 2',
+  },
+  {
+    gauge_id: GAUGE_RU_1,
+    language: 'ru',
+    name: 'Российская линейка 1',
   },
 ];
 

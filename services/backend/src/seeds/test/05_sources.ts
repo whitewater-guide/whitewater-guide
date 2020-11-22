@@ -7,6 +7,7 @@ export const SOURCE_ALPS = '1628c0a2-1a0a-11e8-accf-0ed5f89f718b';
 export const SOURCE_NORWAY = '786251d4-aa9d-11e7-abc4-cec278b6b50a';
 export const SOURCE_GEORGIA = '53af1a54-19fe-11e8-accf-0ed5f89f718b';
 export const SOURCE_RUSSIA = '8e37e9d2-1d7b-11e8-b467-0ed5f89f718b';
+export const SOURCE_EMPTY = 'ce81ed89-5558-49d1-86f6-1fa8bcd944bb';
 
 const sources = [
   {
@@ -14,33 +15,47 @@ const sources = [
     script: 'galicia',
     cron: '0 * * * *',
     url: 'http://ya.ru',
+    default_lang: 'en',
   },
   {
     id: SOURCE_GALICIA_2,
     script: 'galicia2',
     cron: null,
     url: 'http://yandex.ru',
+    default_lang: 'en',
   },
   {
     id: SOURCE_ALPS,
     script: 'alps',
     cron: '10 * * * *',
     url: 'http://yandex.ru',
+    default_lang: 'en',
   },
   {
     id: SOURCE_NORWAY,
     script: 'norway',
+    default_lang: 'en',
   },
   {
     id: SOURCE_GEORGIA,
     script: 'one_by_one',
+    default_lang: 'en',
   },
   {
     id: SOURCE_RUSSIA,
     script: 'russia',
     request_params: JSON.stringify({ foo: 'bar' }),
+    default_lang: 'ru',
+  },
+  {
+    id: SOURCE_EMPTY,
+    script: 'empty',
+    request_params: JSON.stringify({ foo: 'bar' }),
+    default_lang: 'en',
   },
 ];
+
+export const TOTAL_SOURCES = sources.length;
 
 const sourcesEn = [
   {
@@ -66,8 +81,8 @@ const sourcesEn = [
     name: 'Alps',
   },
   {
-    source_id: SOURCE_RUSSIA,
-    name: 'Russia',
+    source_id: SOURCE_EMPTY,
+    name: 'Empty',
   },
 ];
 
@@ -77,6 +92,11 @@ const sourcesRu = [
     language: 'ru',
     name: 'Галисия',
     terms_of_use: 'Правила пользования галисией',
+  },
+  {
+    source_id: SOURCE_RUSSIA,
+    language: 'ru',
+    name: 'Россия',
   },
 ];
 

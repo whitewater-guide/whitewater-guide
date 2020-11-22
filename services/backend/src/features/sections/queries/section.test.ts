@@ -17,6 +17,7 @@ import {
   GEORGIA_BZHUZHA_QUALI,
   NORWAY_FINNA_GORGE,
   NORWAY_SJOA_AMOT,
+  RUSSIA_MZYMTA_PASEKA,
 } from '~/seeds/test/09_sections';
 import { anonContext, fakeContext, noTimestamps, runQuery } from '~/test';
 
@@ -252,28 +253,59 @@ describe('i18n', () => {
   it('should be able to specify language', async () => {
     const result = await runQuery(
       query,
-      { id: NORWAY_SJOA_AMOT },
-      fakeContext(EDITOR_NO_EC, 'ru'),
+      { id: GALICIA_BECA_LOWER },
+      fakeContext(ADMIN, 'ru'),
     );
     expect(result.errors).toBeUndefined();
     expect(result.data!.section).toMatchObject({
-      name: 'Амот',
-      description: 'Амот описание',
-      distance: 3.2,
+      description: 'Нижняя Беса описание',
+      distance: 11.1,
+      name: 'Нижняя',
+      pois: [
+        {
+          name: 'Нижняя Беса Порог',
+        },
+        {
+          name: 'Lower Beca Portage',
+        },
+      ],
     });
   });
 
   it('should fall back to english when not translated', async () => {
     const result = await runQuery(
       query,
-      { id: NORWAY_SJOA_AMOT },
+      { id: GALICIA_BECA_LOWER },
+      fakeContext(ADMIN, 'fr'),
+    );
+    expect(result.errors).toBeUndefined();
+    expect(result.data!.section).toMatchObject({
+      description: 'Lower Beca description',
+      distance: 11.1,
+      name: 'Lower',
+      pois: [
+        {
+          name: 'Lower Beca Rapid',
+        },
+        {
+          name: 'Lower Beca Portage',
+        },
+      ],
+    });
+  });
+
+  it('should fall back to default language when both desired and english translations are not provided', async () => {
+    const result = await runQuery(
+      query,
+      { id: RUSSIA_MZYMTA_PASEKA },
       fakeContext(EDITOR_NO_EC, 'pt'),
     );
     expect(result.errors).toBeUndefined();
     expect(result.data!.section).toMatchObject({
-      name: 'Amot',
-      description: 'Amot description',
-      distance: 3.2,
+      name: 'Пасека',
+      description: 'Пасека описание',
+      distance: 2.2,
+      pois: [{ name: 'Обнос прорыва' }],
     });
   });
 });

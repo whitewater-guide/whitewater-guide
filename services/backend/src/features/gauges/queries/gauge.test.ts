@@ -1,6 +1,6 @@
 import { holdTransaction, rollbackTransaction } from '~/db';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
-import { GAUGE_GAL_1_1 } from '~/seeds/test/06_gauges';
+import { GAUGE_GAL_1_1, GAUGE_RU_1 } from '~/seeds/test/06_gauges';
 import { anonContext, fakeContext, noTimestamps, runQuery } from '~/test';
 
 jest.mock('../../gorge/connector.ts');
@@ -85,36 +85,6 @@ it('should return null when id not specified', async () => {
   expect(result.data!.gauge).toBeNull();
 });
 
-it('should be able to specify language', async () => {
-  const result = await runQuery(
-    query,
-    { id: GAUGE_GAL_1_1 },
-    fakeContext(ADMIN, 'ru'),
-  );
-  expect(result.errors).toBeUndefined();
-  expect(result.data!.gauge.name).toBe('Галисийская линейка 1');
-});
-
-it('should fall back to english when translation is not provided', async () => {
-  const result = await runQuery(
-    query,
-    { id: GAUGE_GAL_1_1 },
-    fakeContext(ADMIN, 'fr'),
-  );
-  expect(result.errors).toBeUndefined();
-  expect(result.data!.gauge.name).toBe('Galicia gauge 1');
-});
-
-it('should be able to get basic attributes without translation', async () => {
-  const result = await runQuery(
-    query,
-    { id: GAUGE_GAL_1_1 },
-    fakeContext(ADMIN, 'pt'),
-  );
-  expect(result.errors).toBeUndefined();
-  expect(result.data!.gauge.url).toBe('http://ya.ru');
-});
-
 it('it should return latest measurement', async () => {
   const q = `
   query gaugeDetails($id: ID){
@@ -133,4 +103,37 @@ it('it should return latest measurement', async () => {
   expect(result.data!.gauge.latestMeasurement).toMatchInlineSnapshot(
     `undefined`,
   );
+});
+
+describe('i18n', () => {
+  it('should be able to specify language', async () => {
+    const result = await runQuery(
+      query,
+      { id: GAUGE_GAL_1_1 },
+      fakeContext(ADMIN, 'ru'),
+    );
+    expect(result.errors).toBeUndefined();
+    expect(result.data!.gauge.name).toBe('Галисийская линейка 1');
+    expect(result.data!.gauge.url).toBe('http://ya.ru');
+  });
+
+  it('should fall back to english when translation is not provided', async () => {
+    const result = await runQuery(
+      query,
+      { id: GAUGE_GAL_1_1 },
+      fakeContext(ADMIN, 'fr'),
+    );
+    expect(result.errors).toBeUndefined();
+    expect(result.data!.gauge.name).toBe('Galicia gauge 1');
+  });
+
+  it('should fall back to default language when both desired and english translations are not provided', async () => {
+    const result = await runQuery(
+      query,
+      { id: GAUGE_RU_1 },
+      fakeContext(ADMIN, 'fr'),
+    );
+    expect(result.errors).toBeUndefined();
+    expect(result.data!.gauge.name).toBe('Российская линейка 1');
+  });
 });
