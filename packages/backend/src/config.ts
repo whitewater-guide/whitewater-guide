@@ -25,14 +25,17 @@ class Config {
   public MAILCHIMP_API_KEY = process.env.MAILCHIMP_API_KEY;
   public MAILCHIMP_LIST_ID = process.env.MAILCHIMP_LIST_ID;
 
-  public s3?: AWS.S3.Types.ClientConfiguration = {
-    // https://docs.min.io/docs/how-to-use-aws-sdk-for-javascript-with-minio-server.html
-    accessKeyId: process.env.MINIO_ACCESS_KEY,
-    secretAccessKey: process.env.MINIO_SECRET_KEY,
-    endpoint: `http://${process.env.MINIO_HOST}:${process.env.MINIO_PORT}`,
-    s3ForcePathStyle: true, // needed with minio?
-    signatureVersion: 'v4',
-  };
+  public s3?: AWS.S3.Types.ClientConfiguration =
+    process.env.NODE_ENV === 'production'
+      ? undefined
+      : {
+          // https://docs.min.io/docs/how-to-use-aws-sdk-for-javascript-with-minio-server.html
+          accessKeyId: process.env.MINIO_ACCESS_KEY,
+          secretAccessKey: process.env.MINIO_SECRET_KEY,
+          endpoint: `http://${process.env.MINIO_HOST}:${process.env.MINIO_PORT}`,
+          s3ForcePathStyle: true, // needed with minio?
+          signatureVersion: 'v4',
+        };
   public contentPublicURL =
     process.env.CONTENT_PUBLIC_URL || `content.${this.ROOT_DOMAIN}`;
 
