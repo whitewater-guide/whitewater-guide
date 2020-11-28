@@ -24,6 +24,7 @@
     "staging:sync": "tooling/scripts/sh/staging_sync.sh",
     "production:deploy": "node tooling/scripts/bin/deploy.js --env=production --machine=ww-production",
     "production:update": "node tooling/scripts/bin/update.js --env=production --machine=ww-production",
+    "production:dump": "tooling/scripts/sh/dump_4_aws.sh",
     "libs": "node tooling/scripts/bin/publish-libs.js",
     "services": "node tooling/scripts/bin/publish-docker.js",
     "test:env": "node tooling/scripts/bin/test_start.js",
