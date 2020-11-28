@@ -10,6 +10,6 @@ dev-mount/
 
 .DS_Store
 
-.env.local
+.env.*
 
 *.log

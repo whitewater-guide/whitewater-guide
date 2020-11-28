@@ -3,7 +3,8 @@
   "compilerOptions": {
     "allowJs": true,
     "module": "esnext",
-    "isolatedModules": true
+    "isolatedModules": true,
+    "jsx": "react-jsx"
   },
   "include": ["src"]
 }
