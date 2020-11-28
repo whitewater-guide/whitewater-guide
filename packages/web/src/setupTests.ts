@@ -25,7 +25,7 @@ window.google = {
     Size: class {},
     Point: class {},
   },
-};
+} as any;
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
