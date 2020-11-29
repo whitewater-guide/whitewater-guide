@@ -37,7 +37,7 @@ class Config {
           signatureVersion: 'v4',
         };
   public contentPublicURL =
-    process.env.CONTENT_PUBLIC_URL || `content.${this.ROOT_DOMAIN}`;
+    process.env.CONTENT_PUBLIC_URL || `https://content.${this.ROOT_DOMAIN}`;
 
   public IMGPROXY_KEY = process.env.IMGPROXY_KEY;
   public IMGPROXY_SALT = process.env.IMGPROXY_SALT;

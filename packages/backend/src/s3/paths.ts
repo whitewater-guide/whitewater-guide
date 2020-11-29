@@ -6,7 +6,7 @@ const isTest = process.env.JEST_WORKER_ID;
 
 export const CONTENT_BUCKET = isTest
   ? `content-${process.env.JEST_WORKER_ID}`
-  : config.contentPublicURL;
+  : `content.${config.ROOT_DOMAIN}`;
 
 export const TEMP = 'temp';
 export const MEDIA = 'media';
