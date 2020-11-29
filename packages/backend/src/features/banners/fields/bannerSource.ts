@@ -12,15 +12,14 @@ export const bannerSourceResolvers: FieldResolvers<
   // @deprecated, keep for old clients
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  src: (raw, { width }: BannerSourceArgs) => {
-    const { kind, url, src } = raw;
-    const realURL = url || src;
-    if (kind === BannerKind.WebView) {
-      return realURL;
+  src: (raw, { width }: BannerSourceArgs, context) => {
+    const { kind, url } = raw;
+    if (kind === BannerKind.WebView || context.legacy) {
+      return url;
     }
     return Imgproxy.url(
       'banners',
-      realURL,
+      url,
       Imgproxy.getProcessingOpts(width, undefined, [
         2048,
         1600,
@@ -32,14 +31,13 @@ export const bannerSourceResolvers: FieldResolvers<
     );
   },
   url: (raw, { width }: BannerSourceArgs) => {
-    const { kind, url, src } = raw;
-    const realURL = url || src;
+    const { kind, url } = raw;
     if (kind === BannerKind.WebView) {
-      return realURL;
+      return url;
     }
     return Imgproxy.url(
       'banners',
-      realURL!,
+      url,
       Imgproxy.getProcessingOpts(width, undefined, [
         2048,
         1600,
@@ -51,5 +49,5 @@ export const bannerSourceResolvers: FieldResolvers<
     );
   },
   // @deprecated
-  ratio: ({ ratio }) => ratio || 1,
+  ratio: () => 1,
 };

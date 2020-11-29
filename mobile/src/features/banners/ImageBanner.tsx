@@ -1,5 +1,5 @@
 import { Banner } from '@whitewater-guide/commons';
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   Linking,
   StyleProp,
@@ -31,46 +31,34 @@ interface Props {
   onPress?: () => void;
 }
 
-export default class ImageBanner extends React.PureComponent<Props> {
-  onPress = async () => {
-    const {
-      banner: { link },
-      onPress,
-    } = this.props;
-    if (!link) {
-      return;
-    }
-    if (onPress) {
-      onPress();
-    }
+const ImageBanner: React.FC<Props> = (props) => {
+  const { banner, style, onPress } = props;
+  const { placement, extras, source, link } = banner;
 
-    // TODO: track event
-    try {
-      Linking.openURL(link);
-    } catch (e) {
-      /*Ignore*/
+  const handlePress = useCallback(() => {
+    if (link) {
+      onPress?.();
+      Linking.openURL(link).catch(() => {});
     }
-  };
+  }, [onPress, link]);
 
-  render() {
-    const { banner, style } = this.props;
-    const { placement, extras, source } = banner;
-    return (
-      <View
-        style={[
-          styles.container,
-          aspectRatios[placement],
-          style,
-          extras && extras.style,
-        ]}
-      >
-        <TouchableWithoutFeedback onPress={this.onPress}>
-          <FastImage
-            source={{ uri: source.url }}
-            style={[styles.image, aspectRatios[placement]]}
-          />
-        </TouchableWithoutFeedback>
-      </View>
-    );
-  }
-}
+  return (
+    <View
+      style={[
+        styles.container,
+        aspectRatios[placement],
+        style,
+        extras && extras.style,
+      ]}
+    >
+      <TouchableWithoutFeedback onPress={handlePress}>
+        <FastImage
+          source={{ uri: source.url }}
+          style={[styles.image, aspectRatios[placement]]}
+        />
+      </TouchableWithoutFeedback>
+    </View>
+  );
+};
+
+export default ImageBanner;

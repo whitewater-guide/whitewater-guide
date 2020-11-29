@@ -28,6 +28,7 @@ Object {
       "slug": "all_section_row_banner_disabled",
       "source": Object {
         "kind": "WebView",
+        "src": "http://whitewater.guide/all_section_row_banner_disabled",
         "url": "http://whitewater.guide/all_section_row_banner_disabled",
       },
     },
@@ -55,6 +56,7 @@ Object {
       "slug": "galicia_region_descr_banner2",
       "source": Object {
         "kind": "Image",
+        "src": "imgproxy://w:1024/banners/banner_4.jpg",
         "url": "imgproxy://w:1024/banners/banner_4.jpg",
       },
     },
@@ -82,6 +84,7 @@ Object {
       "slug": "all_section_row_banner",
       "source": Object {
         "kind": "WebView",
+        "src": "http://whitewater.guide/all_section_row_banner",
         "url": "http://whitewater.guide/all_section_row_banner",
       },
     },
@@ -111,6 +114,7 @@ Object {
       "slug": "norway_section_media_banner",
       "source": Object {
         "kind": "WebView",
+        "src": "http://whitewater.guide/norway_section_media_banner",
         "url": "http://whitewater.guide/norway_section_media_banner",
       },
     },
@@ -138,6 +142,7 @@ Object {
       "slug": "galicia_section_row_banner",
       "source": Object {
         "kind": "WebView",
+        "src": "http://whitewater.guide/galicia_section_row_banner",
         "url": "http://whitewater.guide/galicia_section_row_banner",
       },
     },
@@ -165,6 +170,7 @@ Object {
       "slug": "galicia_region_descr_banner",
       "source": Object {
         "kind": "WebView",
+        "src": "http://whitewater.guide/galicia_region_descr_banner",
         "url": "http://whitewater.guide/galicia_region_descr_banner",
       },
     },

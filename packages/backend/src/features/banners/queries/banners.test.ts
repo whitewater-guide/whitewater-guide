@@ -21,6 +21,7 @@ query listBanners {
       source {
         kind
         url(width: 1000)
+        src(width: 1000)
       }
       link
       extras

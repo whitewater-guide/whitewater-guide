@@ -42,7 +42,7 @@ const upsertBannerResolver: TopLevelResolver<Vars> = async (_, vars) => {
     const sameImage = oldBanner.source.url === banner.source.url;
     shouldMoveTempImage = shouldMoveTempImage && !sameImage;
     if (wasImage && oldBanner.source && (!isImage || !sameImage)) {
-      const objectName = oldBanner.source.url || oldBanner.source.src;
+      const objectName = oldBanner.source.url;
       if (objectName) {
         await s3Client.removeFile(BANNERS, objectName);
       }

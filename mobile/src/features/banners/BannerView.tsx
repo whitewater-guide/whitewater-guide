@@ -1,7 +1,6 @@
-// eslint-disable-next-line import/default
 import analytics from '@react-native-firebase/analytics';
 import { Banner, BannerKind } from '@whitewater-guide/commons';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { StyleProp, View, ViewStyle } from 'react-native';
 
 import ImageBanner from './ImageBanner';
@@ -13,28 +12,24 @@ interface Props {
   style?: StyleProp<ViewStyle>;
 }
 
-export class BannerView extends React.PureComponent<Props> {
-  onPress = () => {
-    analytics().logEvent(`Banner_${this.props.banner.slug}`, {});
-  };
+export const BannerView: React.FC<Props> = (props) => {
+  const { banner, containerStyle } = props;
+  const {
+    slug,
+    source: { kind },
+    extras,
+  } = banner;
 
-  renderBanner = () => {
-    const { banner } = this.props;
-    if (banner.source.kind === BannerKind.Image) {
-      return <ImageBanner {...this.props} onPress={this.onPress} />;
-    }
-    return <WebViewBanner {...this.props} onPress={this.onPress} />;
-  };
+  const onPress = useCallback(() => {
+    analytics().logEvent(`Banner_${slug}`, {});
+  }, [slug]);
 
-  render() {
-    const {
-      containerStyle,
-      banner: { extras },
-    } = this.props;
-    return (
-      <View style={[containerStyle, extras && extras.containerStyle]}>
-        {this.renderBanner()}
-      </View>
-    );
-  }
-}
+  const BannerComponent =
+    kind === BannerKind.Image ? ImageBanner : WebViewBanner;
+
+  return (
+    <View style={[containerStyle, extras?.containerStyle]}>
+      <BannerComponent {...props} onPress={onPress} />
+    </View>
+  );
+};

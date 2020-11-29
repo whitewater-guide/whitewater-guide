@@ -42,7 +42,6 @@ const banners: BannerRaw[] = [
     placement: BannerPlacement.MOBILE_SECTION_ROW,
     source: {
       kind: BannerKind.WebView,
-      ratio: 4,
       url: 'http://whitewater.guide/galicia_section_row_banner',
     },
     link: 'http://go.to/galicia_section_row_banner',
@@ -99,7 +98,6 @@ const banners: BannerRaw[] = [
     placement: BannerPlacement.MOBILE_SECTION_ROW,
     source: {
       kind: BannerKind.WebView,
-      ratio: 4,
       url: 'http://whitewater.guide/all_section_row_banner_disabled',
     },
     link: 'http://go.to/all_section_row_banner_disabled',
