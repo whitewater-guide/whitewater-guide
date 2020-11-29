@@ -38,7 +38,6 @@ describe('response', () => {
       postURL: `http://${MINIO_HOST}:${MINIO_PORT}/${CONTENT_BUCKET}`,
       formData: {
         bucket: CONTENT_BUCKET,
-        key: expect.any(String),
         Policy: expect.any(String),
         'X-Amz-Algorithm': 'AWS4-HMAC-SHA256',
         'X-Amz-Credential': expect.any(String),
@@ -48,9 +47,6 @@ describe('response', () => {
       },
       key: expect.any(String),
     });
-    expect(result.data!.uploadLink.formData.key).toBe(
-      result.data!.uploadLink.key,
-    );
   });
 });
 

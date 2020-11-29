@@ -52,8 +52,8 @@ export const uploadFile = async (
   const rawFormData = { ...link.formData, key };
   // console.log(JSON.stringify(rawFormData, null, 2));
   Object.entries(rawFormData).forEach(([k, v]) => formData.append(k, v));
-  formData.append('file', file as any);
   formData.append('Content-Type', file.type);
+  formData.append('file', file as any);
 
   try {
     const resp = await fetch(link.postURL, {

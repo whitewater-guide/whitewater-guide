@@ -29,38 +29,33 @@ export class S3Client {
   ): Promise<PostPolicy> {
     // Only allow content size in range 10KB to 10MB in production
     const minSize = config.NODE_ENV === 'production' ? MIN_FILE_SIZE : 1;
-    const Conditions = [
-      ['starts-with', '$Content-Type', 'image/'],
-      ['starts-with', '$key', key ? `${TEMP}/${key}` : `${TEMP}/`],
-      ['content-length-range', minSize, MAX_FILE_SIZE],
-    ];
+
+    const params: AWS.S3.PresignedPost.Params = {
+      Bucket: CONTENT_BUCKET,
+      Expires: 30 * 60, // 30 minutes
+      Conditions: [
+        ['starts-with', '$Content-Type', 'image/'],
+        ['starts-with', '$key', key ? `${TEMP}/${key}` : `${TEMP}/`],
+        ['content-length-range', minSize, MAX_FILE_SIZE],
+      ],
+      // Fields: {
+      //   key: key ? `${TEMP}/${key}` : `${TEMP}/\${filename}`,
+      // },
+    };
 
     if (uploadedBy) {
-      Conditions.push(['eq', '$x-amz-meta-uploaded-by', uploadedBy]);
+      params.Conditions!.push(['eq', '$x-amz-meta-uploaded-by', uploadedBy]);
+      params.Fields = { 'x-amz-meta-uploaded-by': uploadedBy };
     }
 
     return new Promise((resolve, reject) => {
-      this.client.createPresignedPost(
-        {
-          Bucket: CONTENT_BUCKET,
-          Expires: 30 * 60, // 30 minutes
-          Conditions,
-        },
-        (err, data) => {
-          if (err) {
-            reject(err);
-          } else {
-            if (uploadedBy) {
-              Conditions.push(['eq', '$x-amz-meta-uploaded-by', uploadedBy]);
-              data.fields['x-amz-meta-uploaded-by'] = uploadedBy;
-            }
-            data.fields['key'] = key
-              ? `${TEMP}/${key}`
-              : `${TEMP}/\${filename}`;
-            resolve({ postURL: data.url, formData: data.fields });
-          }
-        },
-      );
+      this.client.createPresignedPost(params, (err, data) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve({ postURL: data.url, formData: data.fields });
+        }
+      });
     });
   }
 
