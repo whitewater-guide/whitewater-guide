@@ -1,6 +1,6 @@
+import { BannerKind, BannerSource } from '@whitewater-guide/commons';
 import { FieldResolvers } from '~/apollo';
 import { Imgproxy } from '~/utils';
-import { BannerKind, BannerSource } from '@whitewater-guide/commons';
 import { BannerSourceArgs, BannerSourceRaw } from '../types';
 
 export const bannerSourceResolvers: FieldResolvers<
@@ -10,14 +10,13 @@ export const bannerSourceResolvers: FieldResolvers<
   // @deprecated, keep for old clients
   // @ts-ignore
   src: (raw, { width }: BannerSourceArgs, context) => {
-    const { kind, url, src } = raw;
-    const realURL = url || src;
+    const { kind, url } = raw;
     if (kind === BannerKind.WebView || context.legacy) {
-      return realURL;
+      return url;
     }
     return Imgproxy.url(
       'banners',
-      realURL,
+      url,
       Imgproxy.getProcessingOpts(width, undefined, [
         2048,
         1600,
@@ -29,14 +28,13 @@ export const bannerSourceResolvers: FieldResolvers<
     );
   },
   url: (raw, { width }: BannerSourceArgs, context) => {
-    const { kind, url, src } = raw;
-    const realURL = url || src;
+    const { kind, url } = raw;
     if (kind === BannerKind.WebView || context.legacy) {
-      return realURL;
+      return url;
     }
     return Imgproxy.url(
       'banners',
-      realURL!,
+      url,
       Imgproxy.getProcessingOpts(width, undefined, [
         2048,
         1600,
@@ -48,5 +46,5 @@ export const bannerSourceResolvers: FieldResolvers<
     );
   },
   // @deprecated
-  ratio: ({ ratio }) => ratio || 1,
+  ratio: () => 1,
 };

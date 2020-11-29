@@ -68,10 +68,10 @@
   resolved "https://registry.npmjs.org/@types/yup/-/yup-0.29.3.tgz#5a85024796bffe0eb01601bfc180fe218356dba4"
   integrity sha512-XxZFKnxzTfm+DR8MMBA35UUXfUPmjPpi8HJ90VZg7q/LIbtiOhVGJ26gNnATcflcpnIyf2Qm9A+oEhswaqoDpA==
 
-"@whitewater-guide/commons@0.0.208":
-  version "0.0.208"
-  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.208.tgz#df41c88141eda587ad04ac5c960b53ddbb953fba"
-  integrity sha512-ln0/odOadGzDnlDBaFNBOx3eblp9Fprj2/nMNzvXfwW3lGWG9tYqlioyxSUxbCoypO8QKnszZYXCJM6lqE7y/w==
+"@whitewater-guide/commons@0.0.210":
+  version "0.0.210"
+  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.210.tgz#0b172d5e558bb4f4f0ea53c9c59296758c3b7991"
+  integrity sha512-WcQnQiTGGJb7FAQF+NWA6z8DXULr5oOS4JslRDzur2K6Fl7AvZU9srAnh6NW10mRUwNR4Wzgau0w3efD0oRvtw==
   dependencies:
     "@types/yup" "^0.29.3"
     "@whitewater-guide/validation" "^1.1.5"

@@ -56,8 +56,7 @@ const Banners = (width?: number) => {
             enabled
             source {
               kind
-              ratio
-              src(width: ${width})
+              url(width: ${width})
             }
             link
             extras
@@ -77,8 +76,7 @@ const Banners = (width?: number) => {
           enabled
           source {
             kind
-            ratio
-            src
+            url
           }
           link
           extras
