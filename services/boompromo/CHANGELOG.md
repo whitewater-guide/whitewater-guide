@@ -1,3 +1,9 @@
+## [0.0.225](https://github.com/doomsower/whitewater/compare/f37e02dba69e34178143e1b3487fd16a61fe2376...d8733b2b42518b30c751ae5e4843f316aa888f66) (2020-11-29)
+
+### Bug Fixes
+
+- banner issues ([](https://github.com/doomsower/whitewater/commit/740f92f86287e70ea0f5b47a1c3284cc32614651))
+
 ## [0.0.224](https://github.com/doomsower/whitewater/compare/1ccfcb86ebb1cfd308fb1bfd81a2ed714cdda4d6...f37e02dba69e34178143e1b3487fd16a61fe2376) (2020-11-15)
 
 ## [0.0.224](https://github.com/doomsower/whitewater/compare/765df0f69df19428872814869cf71d5c0206a0ac...1ccfcb86ebb1cfd308fb1bfd81a2ed714cdda4d6) (2020-11-14)
