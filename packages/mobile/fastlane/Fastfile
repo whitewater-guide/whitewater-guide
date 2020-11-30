@@ -46,11 +46,11 @@ end
 
 platform :ios do
   lane :check_live_version do
-    Spaceship::Tunes.login(ENV["IOS_USER_ID"])
-    Spaceship::Tunes.client.team_id = ENV["IOS_ITC_TEAM_ID"]
-    app = Spaceship::Tunes::Application.find(ENV["IOS_APP_IDENTIFIER"])
-    liveVersion = app.live_version.version
-    if ENV["IOS_VERSION"] == liveVersion
+    liveVersion = app_store_build_number(
+      app_identifier: ENV["IOS_APP_IDENTIFIER"],
+      username: ENV["IOS_USER_ID"]
+    )
+    if liveVersion.to_s == ENV["IOS_BUILD_NUMBER"]
       UI.user_error!("Current iOS version (#{ENV['IOS_VERSION']}) is same as #{liveVersion}. You must bump package.json version")
     end
   end
