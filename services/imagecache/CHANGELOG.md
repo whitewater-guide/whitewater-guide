@@ -1,3 +1,5 @@
+## [0.0.32](https://github.com/doomsower/whitewater/compare/d8733b2b42518b30c751ae5e4843f316aa888f66...9f8fb9ad788431d4d200fe1370950c1badbea890) (2020-11-30)
+
 ## [0.0.32](https://github.com/doomsower/whitewater/compare/f37e02dba69e34178143e1b3487fd16a61fe2376...d8733b2b42518b30c751ae5e4843f316aa888f66) (2020-11-29)
 
 ## [0.0.32](https://github.com/doomsower/whitewater/compare/1ccfcb86ebb1cfd308fb1bfd81a2ed714cdda4d6...f37e02dba69e34178143e1b3487fd16a61fe2376) (2020-11-15)
