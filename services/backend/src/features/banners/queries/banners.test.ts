@@ -1,8 +1,8 @@
+import { ApolloErrorCodes } from '@whitewater-guide/commons';
 import { holdTransaction, rollbackTransaction } from '~/db';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
 import { BANNERS_COUNT } from '~/seeds/test/14_banners';
 import { anonContext, fakeContext, runQuery } from '~/test';
-import { ApolloErrorCodes } from '@whitewater-guide/commons';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -20,6 +20,7 @@ query listBanners {
       source {
         kind
         url(width: 1000)
+        src(width: 1000)
       }
       link
       extras

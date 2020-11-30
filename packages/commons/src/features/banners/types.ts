@@ -16,7 +16,6 @@ export enum BannerKind {
 
 export interface BannerSource {
   kind: BannerKind;
-  ratio: number | null;
   url: string;
 }
 

@@ -1,13 +1,13 @@
-import { isInputValidResolver, TopLevelResolver } from '~/apollo';
-import db, { rawUpsert } from '~/db';
-import { BannerRaw } from '~/features/banners';
-import { BANNERS, getLocalFileName, minioClient, moveTempImage } from '~/minio';
 import {
   BannerInput,
   BannerInputSchema,
   BannerKind,
 } from '@whitewater-guide/commons';
 import * as yup from 'yup';
+import { isInputValidResolver, TopLevelResolver } from '~/apollo';
+import db, { rawUpsert } from '~/db';
+import { BannerRaw } from '~/features/banners';
+import { BANNERS, getLocalFileName, minioClient, moveTempImage } from '~/minio';
 
 interface Vars {
   banner: BannerInput;
@@ -41,7 +41,7 @@ const upsertBannerResolver: TopLevelResolver<Vars> = async (_, vars) => {
     const sameImage = oldBanner.source.url === banner.source.url;
     shouldMoveTempImage = shouldMoveTempImage && !sameImage;
     if (wasImage && oldBanner.source && (!isImage || !sameImage)) {
-      const objectName = oldBanner.source.url || oldBanner.source.src;
+      const objectName = oldBanner.source.url;
       if (objectName) {
         await minioClient.removeObject(BANNERS, objectName);
       }
