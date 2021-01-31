@@ -138,7 +138,7 @@ services:
         constraints: [node.role == manager]
     labels:
       guide.whitewater: ''
-    image: 'ghcr.io/whitewater-guide/pg_dump_restore:1.8.1'
+    image: 'ghcr.io/whitewater-guide/pg_dump_restore:1.8.2'
     # read_only: true
     environment:
       SCHEDULE: '@daily'
