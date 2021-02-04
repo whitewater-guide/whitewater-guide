@@ -57,9 +57,7 @@ export const ImageUploaderPreview = React.memo(
     const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
     const { src, lightbox } = useMemo(() => {
-      const file = value ? value.file : undefined;
-      const url = value ? value.url : undefined;
-      const source = url ? url : file ? file.preview : undefined;
+      const source = value?.file?.preview ?? value?.url;
       const items: LightboxItem[] = [
         {
           copyright: null,

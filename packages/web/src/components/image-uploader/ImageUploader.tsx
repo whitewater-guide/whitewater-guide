@@ -1,10 +1,10 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { i18nizeUploadError, useUploadLink } from '@whitewater-guide/clients';
 import clsx from 'clsx';
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback } from 'react';
 import { Required } from 'utility-types';
 
-import { cleanupPreview, LocalPhoto } from '../../utils/files';
+import { LocalPhoto } from '../../utils/files';
 import { DeleteButton } from '../DeleteButton';
 import AddFile from './AddFile';
 import Filename from './Filename';
@@ -66,15 +66,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = React.memo(
       mpxOrResolution,
     } = props;
     const classez = useStyles();
-    const prev = useRef(value);
     const { upload } = useUploadLink();
-
-    useEffect(() => {
-      if (prev.current !== value && prev.current && prev.current.file) {
-        cleanupPreview(prev.current.file);
-      }
-      prev.current = value;
-    }, [value]);
 
     const handleDelete = useCallback(() => onChange(null), [onChange]);
 
