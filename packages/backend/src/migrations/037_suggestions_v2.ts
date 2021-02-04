@@ -10,7 +10,7 @@ import { createViews, dropViews, rawUpsert, runSqlFile } from '~/db';
 
 import { createTable } from './utils';
 
-const VIEWS = ['sections'];
+const VIEWS = ['gauges', 'sections'];
 
 /**
  * This patch removes suggested sections table and adds 'verified' attribute to sections instead
