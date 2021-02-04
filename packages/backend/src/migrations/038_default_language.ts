@@ -201,7 +201,7 @@ export const down = async (db: Knex) => {
   await createViews(db, 37, ...VIEWS);
 
   await runSqlFile(db, path.resolve(__dirname, '031/upsert_source.sql'));
-  await runSqlFile(db, path.resolve(__dirname, '031/upsert_gauges.sql'));
+  await runSqlFile(db, path.resolve(__dirname, '031/upsert_gauge.sql'));
   await runSqlFile(db, path.resolve(__dirname, '001/upsert_region.sql'));
   await runSqlFile(db, path.resolve(__dirname, '032/upsert_river.sql'));
   await runSqlFile(db, path.resolve(__dirname, '037/upsert_section.sql'));
