@@ -91,7 +91,7 @@ export class S3Client {
     newFileName?: string,
   ): Promise<void> {
     try {
-      const filename = url.split('/').pop();
+      const filename = this.getLocalFileName(url);
       if (!filename) {
         throw new Error('moveTempImage: filename not found');
       }
