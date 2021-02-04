@@ -39,9 +39,6 @@ export class S3Client {
         ['starts-with', '$key', key ? `${TEMP}/${key}` : `${TEMP}/`],
         ['content-length-range', minSize, MAX_FILE_SIZE],
       ],
-      // Fields: {
-      //   key: key ? `${TEMP}/${key}` : `${TEMP}/\${filename}`,
-      // },
     };
 
     if (uploadedBy) {
