@@ -6,7 +6,7 @@ import { S3Prefix } from '~/s3';
 
 import { CONTENT_BUCKET } from './paths';
 
-const urlSafeBase64 = (input: string | Buffer) => {
+const urlSafeBase64Encode = (input: string | Buffer) => {
   const buffer =
     typeof input === 'string' ? Buffer.from(input, 'utf8') : Buffer.from(input);
   return buffer
@@ -16,13 +16,29 @@ const urlSafeBase64 = (input: string | Buffer) => {
     .replace(/=+$/g, '');
 };
 
+const urlSafeBase64Decode = (input: string): string => {
+  const n = input.length % 4;
+  const padded = input + '='.repeat(n > 0 ? 4 - n : n);
+  const base64String = padded.replace(/-/g, '+').replace(/_/g, '/');
+  return Buffer.from(base64String, 'base64').toString('utf8');
+};
+
 const hexDecode = (hex: string) => Buffer.from(hex, 'hex');
 
 const sign = (salt: string, target: string, secret: string) => {
   const hmac = crypto.createHmac('sha256', hexDecode(secret));
   hmac.update(hexDecode(salt));
   hmac.update(target);
-  return urlSafeBase64(hmac.digest());
+  return urlSafeBase64Encode(hmac.digest());
+};
+
+const verify = (
+  value: string,
+  signature: string,
+  salt: string,
+  secret: string,
+) => {
+  return signature === sign(salt, value, secret);
 };
 
 type Option =
@@ -130,7 +146,7 @@ export const getImgproxyURL = (
   opts: ProcessingOpts | null,
 ) => {
   const url = `s3://${CONTENT_BUCKET}/${prefix}/${file}`;
-  const encodedUrl = urlSafeBase64(url);
+  const encodedUrl = urlSafeBase64Encode(url);
   const processingOptions = opts ? stringifyProcessingOpts(opts) : '';
   const path = `/${processingOptions}/${encodedUrl}.jpg`;
 
@@ -138,7 +154,51 @@ export const getImgproxyURL = (
   return `${config.contentPublicURL}/${signature}${path}`;
 };
 
+/**
+ * Returns filename from public-facing content URL
+ * Verifies imgproxy signature
+ * @param url e.g. https://content.whitewater.guide/<IMGPROXY mumbo-jumbo>
+ */
+export const decodeContentURL = (url: string): string => {
+  if (!url.startsWith(config.contentPublicURL)) {
+    throw new Error('Invalid content URL');
+  }
+  const [_publicURL, signature, processingOpts, encodedFilename] = url
+    .replace(config.contentPublicURL, '')
+    .split('/');
+  if (
+    !verify(
+      `/${processingOpts}/${encodedFilename}`,
+      signature,
+      config.IMGPROXY_SALT,
+      config.IMGPROXY_KEY,
+    )
+  ) {
+    throw new Error('Invalid content URL signature');
+  }
+  const base64Filename = encodedFilename.split('.').shift();
+  if (!base64Filename) {
+    throw new Error('Content URL must end with extension');
+  }
+  const s3URL = urlSafeBase64Decode(base64Filename);
+
+  if (
+    // It's hard to provide test URL with same JEST_WORKER_ID
+    // eslint-disable-next-line node/no-process-env
+    process.env.NODE_ENV !== 'test' &&
+    !s3URL.startsWith(`s3://${CONTENT_BUCKET}`)
+  ) {
+    throw new Error('Content URL must point to S3');
+  }
+  const result = s3URL.split('/').pop();
+  if (!result) {
+    throw new Error('Content points to empty filename');
+  }
+  return result;
+};
+
 export const Imgproxy = {
   url: getImgproxyURL,
   getProcessingOpts,
+  decodeContentURL,
 };

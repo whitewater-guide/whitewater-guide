@@ -1,4 +1,10 @@
-import { getProcessingOpts, stringifyProcessingOpts } from './imgproxy';
+import {
+  decodeContentURL,
+  getProcessingOpts,
+  stringifyProcessingOpts,
+} from './imgproxy';
+
+jest.unmock('./imgproxy');
 
 describe('stringifyProcessingOpts', () => {
   it('should correctly concat', () => {
@@ -71,4 +77,12 @@ describe('getProcessingOpts', () => {
       ).toEqual({ w: expected });
     },
   );
+});
+
+it('should decode content URL', () => {
+  expect(
+    decodeContentURL(
+      `${process.env.CONTENT_PUBLIC_URL}/Jcaagbygy338IdfbNfTXADI6cEyOm2Kxo-I2eAxtI_k//czM6Ly9jb250ZW50LTEvbWVkaWEvMWJkMGM4ZTAtNjcwMi0xMWViLWJiMTYtYWY0OWRlMmU3MmJiLmpwZw.jpg`,
+    ),
+  ).toBe('1bd0c8e0-6702-11eb-bb16-af49de2e72bb.jpg');
 });

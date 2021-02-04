@@ -10,6 +10,7 @@ module.exports = {
   ...Original,
   Imgproxy: {
     ...Original.Imgproxy,
+    decodeContentURL: (url: string): string => url.split('/').pop()!,
     url: getImgproxyURL,
   },
 };

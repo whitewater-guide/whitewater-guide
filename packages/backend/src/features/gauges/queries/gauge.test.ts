@@ -4,6 +4,8 @@ import { holdTransaction, rollbackTransaction } from '~/db';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
 import { GAUGE_GAL_1_1, GAUGE_RU_1 } from '~/seeds/test/06_gauges';
 
+import { TIMESTAMP_REGEX } from '../../../../test/isTimestamp';
+
 jest.mock('../../gorge/connector.ts');
 
 beforeEach(holdTransaction);
@@ -134,11 +136,9 @@ it('should return latest measurement', async () => {
 `;
   const result = await runQuery(q, { id: GAUGE_GAL_1_1 });
   expect(result.errors).toBeUndefined();
-  expect(result.data!.gauge.latestMeasurement).toMatchInlineSnapshot(`
-    Object {
-      "flow": null,
-      "level": 1.2,
-      "timestamp": "2020-11-29T11:14:45.560Z",
-    }
-  `);
+  expect(result.data!.gauge.latestMeasurement).toEqual({
+    flow: null,
+    level: 1.2,
+    timestamp: expect.stringMatching(TIMESTAMP_REGEX),
+  });
 });

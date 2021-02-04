@@ -11,7 +11,8 @@ from
     test_table
 where
     name = 'foo'
-    and (birthday, ord_id) < (2020 - 01 - 01,
+    and (birthday,
+        ord_id) < (2020 - 01 - 01,
         4)
 order by
     birthday desc,

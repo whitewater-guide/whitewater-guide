@@ -3,6 +3,8 @@ import { fileExistsInBucket, resetTestMinio } from '@test';
 import { S3Client } from './client';
 import { AVATARS, CONTENT_BUCKET, TEMP } from './paths';
 
+jest.unmock('./imgproxy');
+
 describe('getTempPostPolicy', () => {
   it('should return correct postURL and formData without key', async () => {
     const client = new S3Client();
@@ -10,7 +12,6 @@ describe('getTempPostPolicy', () => {
     expect(result).toEqual({
       formData: {
         bucket: CONTENT_BUCKET,
-        key: 'temp/${filename}',
         Policy: expect.any(String),
         'X-Amz-Algorithm': 'AWS4-HMAC-SHA256',
         'X-Amz-Credential': expect.any(String),
@@ -27,7 +28,6 @@ describe('getTempPostPolicy', () => {
     expect(result).toEqual({
       formData: {
         bucket: CONTENT_BUCKET,
-        key: 'temp/myfile333.jpg',
         Policy: expect.any(String),
         'X-Amz-Algorithm': 'AWS4-HMAC-SHA256',
         'X-Amz-Credential': expect.any(String),
@@ -44,7 +44,6 @@ describe('getTempPostPolicy', () => {
     expect(result).toEqual({
       formData: {
         bucket: CONTENT_BUCKET,
-        key: 'temp/myfile333.jpg',
         Policy: expect.any(String),
         'X-Amz-Algorithm': 'AWS4-HMAC-SHA256',
         'X-Amz-Credential': expect.any(String),
@@ -126,5 +125,37 @@ describe('moveTempImage', () => {
       '4bfdb23e6fd7255f908d0a0de979bf3d',
     );
     expect(exists).toBe(true);
+  });
+});
+
+describe('getLocalFileName', () => {
+  it.each([
+    ['null', null],
+    ['undefined', undefined],
+    ['empty string', ''],
+  ])('should handle %s', (_, v) => {
+    const client = new S3Client();
+    expect(client.getLocalFileName(v)).toBeNull();
+  });
+
+  it.each([
+    [
+      'location tag as returned by uploading to presigned post url',
+      'https://s3.amazonaws.com/content.whitewater-dev.com/temp%2F1bd0c8e0-6702-11eb-bb16-af49de2e72bb.jpg',
+    ],
+    ['simple filename', '1bd0c8e0-6702-11eb-bb16-af49de2e72bb.jpg'],
+    [
+      's3 key (relative to bucket)',
+      'media/1bd0c8e0-6702-11eb-bb16-af49de2e72bb.jpg',
+    ],
+    [
+      'public content url',
+      `${process.env.CONTENT_PUBLIC_URL}/Jcaagbygy338IdfbNfTXADI6cEyOm2Kxo-I2eAxtI_k//czM6Ly9jb250ZW50LTEvbWVkaWEvMWJkMGM4ZTAtNjcwMi0xMWViLWJiMTYtYWY0OWRlMmU3MmJiLmpwZw.jpg`,
+    ],
+  ])('should handle %s', (_, v) => {
+    const client = new S3Client();
+    expect(client.getLocalFileName(v)).toBe(
+      '1bd0c8e0-6702-11eb-bb16-af49de2e72bb.jpg',
+    );
   });
 });

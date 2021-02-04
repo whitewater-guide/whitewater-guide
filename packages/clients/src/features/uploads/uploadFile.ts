@@ -62,8 +62,7 @@ export const uploadFile = async (
       signal: abortController ? abortController.signal : undefined,
     });
     if (resp.status === 204) {
-      const location = resp.headers.get('Location')!;
-      return decodeURIComponent(location).split('/').pop()!;
+      return resp.headers.get('Location')!;
     }
     const text = await resp.text();
     throw new UploadFileError(text, resp.status);

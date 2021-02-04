@@ -4,6 +4,7 @@ import AWS from 'aws-sdk';
 import config from '~/config';
 import log from '~/log';
 
+import { Imgproxy } from './imgproxy';
 import { CONTENT_BUCKET, S3Prefix, TEMP } from './paths';
 
 const logger = log.child({ module: 's3' });
@@ -117,14 +118,25 @@ export class S3Client {
     }
   }
 
+  /**
+   * Gets local filename (just filename, not s3 key prefixes) for various URLs that we get as mutation inputs
+   * It's quite complicated because it handles various legacy situations, check out tests
+   * @param url
+   */
   public getLocalFileName(url?: string | null): string | null {
     if (!url) {
       return null;
     }
-    if (url.startsWith('http://') || url.startsWith('https://')) {
-      return url.split('/').pop() || null;
+    if (url.startsWith(config.contentPublicURL)) {
+      return Imgproxy.decodeContentURL(url);
     }
-    return url;
+    const path = url.split('/').pop();
+    if (!path) {
+      return null;
+    }
+    // For some reason presigned s3 post results in locating where key is URL encoded
+    // e.g. https://s3.amazonaws.com/content.whitewater-dev.com/temp%2F1bd0c8e0-6702-11eb-bb16-af49de2e72bb.jpg
+    return decodeURIComponent(path).split('/').pop() ?? null;
   }
 
   public async removeFile(prefix: S3Prefix, filename: string) {
