@@ -50,7 +50,6 @@ export const uploadFile = async (
   const ext = getDotExt(file);
   const key = link.key ? `${link.key}${ext}` : filename;
   const rawFormData = { ...link.formData, key };
-  // console.log(JSON.stringify(rawFormData, null, 2));
   Object.entries(rawFormData).forEach(([k, v]) => formData.append(k, v));
   formData.append('Content-Type', file.type);
   formData.append('file', file as any);

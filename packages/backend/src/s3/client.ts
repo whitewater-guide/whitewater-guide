@@ -35,7 +35,8 @@ export class S3Client {
       Bucket: CONTENT_BUCKET,
       Expires: 30 * 60, // 30 minutes
       Conditions: [
-        ['starts-with', '$Content-Type', 'image/'],
+        // TODO: (legacy) old mobile clients do not add Content-Type and so this is temporary disabled
+        // ['starts-with', '$Content-Type', 'image/'],
         ['starts-with', '$key', key ? `${TEMP}/${key}` : `${TEMP}/`],
         ['content-length-range', minSize, MAX_FILE_SIZE],
       ],
