@@ -21,6 +21,7 @@ const useStyles = makeStyles(({ spacing }) =>
       flexGrow: 0,
       width: 'max-content',
       padding: spacing(),
+      paddingLeft: 0,
     },
     main: {
       display: 'flex',
