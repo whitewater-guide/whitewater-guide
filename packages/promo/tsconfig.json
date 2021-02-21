@@ -4,7 +4,8 @@
     "allowJs": true,
     "module": "esnext",
     "isolatedModules": true,
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "jsx": "react-jsx"
   },
   "include": ["src"]
 }
