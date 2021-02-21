@@ -73,10 +73,6 @@ export async function sendMail(
       name: 'whitewater.guide',
       address: config.MAIL_NOREPLY_BOX,
     },
-    sender: {
-      name: 'whitewater.guide',
-      address: config.MAIL_INFO_BOX,
-    },
     to: email,
     subject: SUBJECTS.get(type),
     html,

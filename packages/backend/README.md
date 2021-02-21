@@ -22,8 +22,7 @@
 | MAILCHIMP_API_KEY            | <random_secret>                                            | Mailchimp API key                                                                                                     |
 | MAILCHIMP_LIST_ID            | <random_id>                                                | Mailchimp list id for site subscriptions                                                                              |
 | MAIL_SMTP_SERVER             | smtp.google.com                                            | SMTP server for direct emails                                                                                         |
-| MAIL_NOREPLY_BOX             | noreply@whitewater.guide                                   | Address to actually send email from                                                                                   |
-| MAIL_INFO_BOX                | info@whitewater.guide                                      | Address to appear as sender                                                                                           |
+| MAIL_NOREPLY_BOX             | noreply@whitewater.guide                                   | Address to send email from                                                                                            |
 | MAIL_PASSWORD                | <random_secret>                                            | Password from noreply box                                                                                             |
 | ACCESS_TOKEN_SECRET          | <random_secret>                                            | Secret for access JWT signing                                                                                         |
 | REFRESH_TOKEN_SECRET         | <random_secret>                                            | Secret for refresh JWT signing                                                                                        |

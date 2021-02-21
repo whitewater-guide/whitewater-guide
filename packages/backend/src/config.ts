@@ -21,7 +21,6 @@ class Config {
   public MAIL_SMTP_SERVER = process.env.MAIL_SMTP_SERVER;
   public MAIL_PASSWORD = process.env.MAIL_PASSWORD;
   public MAIL_NOREPLY_BOX = process.env.MAIL_NOREPLY_BOX;
-  public MAIL_INFO_BOX = process.env.MAIL_INFO_BOX;
   public MAILCHIMP_API_KEY = process.env.MAILCHIMP_API_KEY;
   public MAILCHIMP_LIST_ID = process.env.MAILCHIMP_LIST_ID;
 

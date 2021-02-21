@@ -19,7 +19,6 @@ declare namespace NodeJS {
     MAIL_SMTP_SERVER: string;
     MAIL_PASSWORD: string;
     MAIL_NOREPLY_BOX: string;
-    MAIL_INFO_BOX: string;
     MAILCHIMP_API_KEY: string;
     MAILCHIMP_LIST_ID: string;
 
