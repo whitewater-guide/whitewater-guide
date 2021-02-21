@@ -11,8 +11,8 @@ import { CONTENT_BUCKET, TEMP } from '~/s3';
 import { TEST_USER, TEST_USER_ID } from '~/seeds/test/01_users';
 
 const query = `
-  query uploadLink {
-    uploadLink {
+  query uploadLink($version: PostPolicyVersion) {
+    uploadLink(version: $version) {
       postURL
       formData
       key
@@ -30,9 +30,12 @@ afterEach(rollbackTransaction);
 afterAll(() => resetTestMinio(true));
 
 describe('response', () => {
-  it('should return correct result', async () => {
+  it.each([
+    ['current version', { version: 'V3' }],
+    ['legacy mobile version', {}],
+  ])('should return correct result for %s', async (_, vars) => {
     const { MINIO_HOST, MINIO_PORT } = process.env;
-    const result = await runQuery(query, variables, fakeContext(TEST_USER));
+    const result = await runQuery(query, vars, fakeContext(TEST_USER));
     expect(result.errors).toBeUndefined();
     expect(result.data!.uploadLink).toEqual({
       postURL: `http://${MINIO_HOST}:${MINIO_PORT}/${CONTENT_BUCKET}`,

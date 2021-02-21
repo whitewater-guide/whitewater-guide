@@ -14,6 +14,8 @@ export interface PostPolicy {
   formData: { [key: string]: any };
 }
 
+export type PostPolicyVersion = 'V3';
+
 export class S3Client {
   private _client: AWS.S3 | undefined;
 
@@ -27,6 +29,7 @@ export class S3Client {
   public async getTempPostPolicy(
     key?: string | null,
     uploadedBy?: string,
+    version?: PostPolicyVersion,
   ): Promise<PostPolicy> {
     // Only allow content size in range 10KB to 10MB in production
     const minSize = config.NODE_ENV === 'production' ? MIN_FILE_SIZE : 1;
@@ -35,11 +38,11 @@ export class S3Client {
       Bucket: CONTENT_BUCKET,
       Expires: 30 * 60, // 30 minutes
       Conditions: [
-        // TODO: (legacy) old mobile clients do not add Content-Type and so this is temporary disabled
-        // ['starts-with', '$Content-Type', 'image/'],
+        // Legacy mobile clients do not add Content-Type and so this is temporary disabled
+        version === 'V3' ? ['starts-with', '$Content-Type', 'image/'] : [],
         ['starts-with', '$key', key ? `${TEMP}/${key}` : `${TEMP}/`],
         ['content-length-range', minSize, MAX_FILE_SIZE],
-      ],
+      ].filter((c) => c.length > 0),
     };
 
     if (uploadedBy) {

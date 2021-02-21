@@ -1,3 +1,7 @@
+enum PostPolicyVersion {
+  V3
+}
+
 type UploadLink {
   postURL: String!
   formData: JSON!
@@ -5,5 +9,5 @@ type UploadLink {
 }
 
 type Query {
-  uploadLink: UploadLink
+  uploadLink(version: PostPolicyVersion): UploadLink
 }

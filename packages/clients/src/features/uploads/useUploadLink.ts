@@ -7,8 +7,8 @@ import { FileLike } from './types';
 import { uploadFile } from './uploadFile';
 
 export const UPLOAD_LINK_QUERY = gql`
-  query getUploadLink {
-    uploadLink {
+  query getUploadLink($version: PostPolicyVersion) {
+    uploadLink(version: $version) {
       formData
       key
       postURL
@@ -39,6 +39,7 @@ export const useUploadLink = (): UseUploadLink => {
       return client
         .query<QResult>({
           query: UPLOAD_LINK_QUERY,
+          variables: { version: 'V3' },
           fetchPolicy: 'no-cache',
           errorPolicy: 'none',
         })

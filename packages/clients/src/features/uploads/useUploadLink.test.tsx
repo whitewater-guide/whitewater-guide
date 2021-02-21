@@ -10,6 +10,7 @@ const querySuccess = [
   {
     request: {
       query: UPLOAD_LINK_QUERY,
+      variables: { version: 'V3' },
     },
     result: {
       data: {
