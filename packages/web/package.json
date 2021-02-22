@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/web",
   "private": true,
-  "version": "0.1.442",
+  "version": "0.1.443",
   "license": "UNLICENSED",
   "scripts": {
     "start": "react-scripts start",
@@ -62,7 +62,6 @@
     "react-iframe": "^1.8.0",
     "react-image": "^4.0.3",
     "react-images": "^1.1.7",
-    "react-jss": "^10.5.1",
     "react-resize-detector": "^6.6.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
@@ -91,7 +90,6 @@
     "@types/react": "17.0.2",
     "@types/react-dom": "^17.0.1",
     "@types/react-dropzone": "^5.1.0",
-    "@types/react-jss": "^10.0.0",
     "@types/react-resize-detector": "^5.0.0",
     "@types/react-router": "^5.1.11",
     "@types/react-router-dom": "^5.1.7",

@@ -5,7 +5,7 @@ import { Styles } from '../../../../styles';
 import { LocalPhoto } from '../../../../utils/files';
 import Dropzone from './Dropzone';
 import NoMedia from './NoMedia';
-import Thumb from './Thumb';
+import Thumb from './thumb';
 import { MediaOrInput } from './types';
 
 const styles: Styles = {
