@@ -11,6 +11,7 @@ const types = Object.values(MailType).map((t) => [t]);
 it.each(types)('should match snapshot for "%s"', async (type: any) => {
   const data = {
     baseURL: 'https://whitewater.guide',
+    contentURL: 'https://content.whitewater.guide',
     user: {
       id: '__user_id__',
       name: 'User Name',

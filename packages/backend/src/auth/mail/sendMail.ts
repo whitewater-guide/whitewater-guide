@@ -62,10 +62,11 @@ export async function sendMail(
   email: string,
   payload: any,
 ): Promise<void> {
-  const { PROTOCOL, API_DOMAIN } = config;
+  const { PROTOCOL, API_DOMAIN, contentPublicURL } = config;
   const data = {
     ...payload,
     baseURL: `${PROTOCOL}://${API_DOMAIN}`,
+    contentURL: contentPublicURL,
   };
   const html = await render(type, data);
   await transport.sendMail({
