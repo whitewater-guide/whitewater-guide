@@ -7,9 +7,8 @@ Most likely, it won't work on Windows because of various issues with symlinks, d
 
 These things need to be installed:
 
-- node.js 10.15+
-  - prefer to install via `n`
-  - `ln -s $(which node) /usr/local/bin/node` is recommended in case when you need to debug from xcode
+- node.js 14.15+
+  - prefer to install via `nvm`, the project contains `.nvmrc` file
 - Latest docker for mac (tested with `Docker v18.09.1`, `docker-compose v1.23.2`, `docker-machine v0.16.1`)
 - [watchman](https://facebook.github.io/watchman/)
 - [git-secret](http://git-secret.io/)

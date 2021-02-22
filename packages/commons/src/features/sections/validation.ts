@@ -6,8 +6,9 @@ import { MediaInputSchema } from '../media';
 import { CoordinateSchema, PointInputSchema } from '../points';
 import { Durations, GaugeBinding, SectionInput } from './types';
 
-export const GaugeBindingSchema = yup
-  .object<GaugeBinding>({
+export const GaugeBindingSchema: yup.SchemaOf<GaugeBinding> = yup
+  .object({
+    __typename: yup.mixed().optional(),
     minimum: yup.number().nullable(),
     maximum: yup.number().nullable(),
     optimum: yup.number().nullable(),
@@ -25,8 +26,8 @@ const SimpleTagSchema = yup
   .strict(true)
   .noUnknown();
 
-export const SectionInputSchema = yup
-  .object<SectionInput>({
+export const SectionInputSchema: yup.SchemaOf<SectionInput> = yup
+  .object({
     id: yupTypes.uuid().defined().nullable(),
     name: yupTypes.nonEmptyString().defined().nullable(false),
     altNames: yup

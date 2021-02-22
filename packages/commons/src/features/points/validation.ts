@@ -6,8 +6,8 @@ import * as yup from 'yup';
 import { POITypes } from './POITypes';
 import { CoordinateLoose, PointInput } from './types';
 
-export const CoordinateSchema: yup.Schema<CoordinateLoose> = yup
-  .array<any>()
+export const CoordinateSchema: yup.SchemaOf<CoordinateLoose> = yup
+  .array()
   .max(3)
   .test({
     name: 'is-coordinate3d-lng',
@@ -39,14 +39,14 @@ export const CoordinateSchema: yup.Schema<CoordinateLoose> = yup
         this.createError({ path, message: 'yup:number.altitude' })
       );
     },
-  }) as any;
+  });
 
-export const PointInputSchema = yup
-  .object<PointInput>({
+export const PointInputSchema: yup.SchemaOf<PointInput> = yup
+  .object({
     id: yupTypes.uuid().defined().nullable(),
     name: yup.string().nullable(),
     description: yup.string().nullable(),
-    coordinates: CoordinateSchema.clone(),
+    coordinates: CoordinateSchema.clone() as any,
     kind: yup.mixed().defined().oneOf(POITypes),
   })
   .strict(true)

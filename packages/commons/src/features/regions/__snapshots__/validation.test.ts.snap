@@ -34,7 +34,7 @@ Object {
 
 exports[`RegionAdminSettings should be invalid for extra fields 1`] = `
 Object {
-  "undefined": Object {
+  "": Object {
     "key": "yup:object.noUnknown",
     "options": Object {
       "path": "this",
@@ -125,7 +125,7 @@ Object {
 
 exports[`RegionInput should be invalid for extra fields 1`] = `
 Object {
-  "undefined": Object {
+  "": Object {
     "key": "yup:object.noUnknown",
     "options": Object {
       "path": "this",

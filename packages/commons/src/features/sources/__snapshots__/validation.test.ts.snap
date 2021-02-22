@@ -53,7 +53,7 @@ Object {
 
 exports[`SourceInput should be invalid for extra fields 1`] = `
 Object {
-  "undefined": Object {
+  "": Object {
     "key": "yup:object.noUnknown",
     "options": Object {
       "path": "this",

@@ -3,8 +3,8 @@ import * as yup from 'yup';
 
 import { MediaInput, MediaKind } from './types';
 
-export const MediaInputSchema = yup
-  .object<MediaInput>({
+export const MediaInputSchema: yup.SchemaOf<MediaInput> = yup
+  .object({
     id: yupTypes.uuid().defined().nullable(),
     description: yup.string().defined().nullable(),
     copyright: yup.string().defined().nullable(),
@@ -16,7 +16,7 @@ export const MediaInputSchema = yup
       .min(2)
       .max(2)
       .of(yup.number().defined().integer().positive())
-      .nullable(),
+      .nullable() as any,
     weight: yup.number().defined().integer().nullable(),
   })
   .strict(true)

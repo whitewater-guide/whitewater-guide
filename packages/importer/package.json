@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/importer",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "UNLICENSED",
   "description": "json converter for whitewater.guide importing",
   "repository": "https://github.com/doomsower/whitewater.git",
@@ -10,13 +10,13 @@
     "convert": "ts-node index.ts"
   },
   "dependencies": {
-    "@whitewater-guide/commons": "0.0.208"
+    "@whitewater-guide/commons": "*"
   },
   "devDependencies": {
-    "@types/fs-extra": "^9.0.1",
+    "@types/fs-extra": "^9.0.7",
     "@types/rimraf": "^3.0.0",
-    "@types/tar": "^4.0.3",
-    "fs-extra": "^9.0.1",
-    "tar": "^6.0.1"
+    "@types/tar": "^4.0.4",
+    "fs-extra": "^9.1.0",
+    "tar": "^6.1.0"
   }
 }

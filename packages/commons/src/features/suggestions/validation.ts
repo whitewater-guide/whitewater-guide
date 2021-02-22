@@ -3,9 +3,9 @@ import * as yup from 'yup';
 
 import { SuggestionInput } from './types';
 
-const makeSuggestingSchema = (photoRequired: boolean) =>
-  yup
-    .object<SuggestionInput>({
+function makeSuggestingSchema(photoRequired: boolean): any {
+  return yup
+    .object({
       section: yupTypes.node().defined(),
       description: yup
         .string()
@@ -22,7 +22,7 @@ const makeSuggestingSchema = (photoRequired: boolean) =>
       filename: yup
         .string()
         .defined()
-        .nullable(!photoRequired)
+        .nullable(!photoRequired as any)
         .test({
           name: 'correct-filename',
           message: 'yup:mixed.required',
@@ -39,7 +39,7 @@ const makeSuggestingSchema = (photoRequired: boolean) =>
         .min(2)
         .max(2)
         .of(yup.number().integer().positive())
-        .nullable(!photoRequired)
+        .nullable(!photoRequired as any)
         .test({
           name: 'correct-resolution',
           message: 'yup:mixed.required',
@@ -50,7 +50,12 @@ const makeSuggestingSchema = (photoRequired: boolean) =>
     })
     .strict(true)
     .noUnknown();
+}
 
-export const SuggestionInputSchema = makeSuggestingSchema(false);
+export const SuggestionInputSchema: yup.SchemaOf<SuggestionInput> = makeSuggestingSchema(
+  false,
+);
 
-export const PhotoSuggestionInputSchema = makeSuggestingSchema(true);
+export const PhotoSuggestionInputSchema: yup.SchemaOf<SuggestionInput> = makeSuggestingSchema(
+  true,
+);

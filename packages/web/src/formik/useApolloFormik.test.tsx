@@ -211,7 +211,7 @@ describe('submit success', () => {
         mocks: [queryNotFound, mutationSuccess],
         onSuccess,
       });
-      wait = rendered.wait;
+      wait = rendered.waitFor;
       act(() => {
         rendered.result.current.onSubmit({ f: 'input' }, helpers);
       });
@@ -243,27 +243,27 @@ describe('submit success', () => {
 
   it('should go back', async () => {
     const goBack = jest.spyOn(mockHistory, 'goBack');
-    const { result, wait } = renderWrapper({
+    const { result, waitFor } = renderWrapper({
       mocks: [queryNotFound, mutationSuccess],
     });
     act(() => {
       result.current.onSubmit({ f: 'input' }, helpers);
     });
-    await wait(() => {
+    await waitFor(() => {
       expect(goBack).toHaveBeenCalled();
     });
   });
 
   it('should navigate', async () => {
     const replace = jest.spyOn(mockHistory, 'replace');
-    const { result, wait } = renderWrapper({
+    const { result, waitFor } = renderWrapper({
       mocks: [queryNotFound, mutationSuccess],
       onSuccess: 'hell',
     });
     act(() => {
       result.current.onSubmit({ f: 'input' }, helpers);
     });
-    await wait(() => {
+    await waitFor(() => {
       expect(replace).toHaveBeenCalledWith('hell');
     });
   });
@@ -271,13 +271,13 @@ describe('submit success', () => {
 
 describe('submit error', () => {
   it('should set graphql form error', async () => {
-    const { result, wait } = renderWrapper({
+    const { result, waitFor } = renderWrapper({
       mocks: [queryNotFound, mutationSuccess],
     });
     act(() => {
       result.current.onSubmit({ f: 'mocked_provider_muss' }, helpers);
     });
-    await wait(() => {
+    await waitFor(() => {
       expect(helpers.setSubmitting).toHaveBeenCalledWith(false);
       expect(helpers.setErrors).toHaveBeenCalledWith({});
       expect(helpers.setStatus).toHaveBeenCalledWith({
@@ -288,13 +288,13 @@ describe('submit error', () => {
   });
 
   it('should set form validation errors', async () => {
-    const { result, wait } = renderWrapper({
+    const { result, waitFor } = renderWrapper({
       mocks: [queryNotFound, mutationValidationError],
     });
     act(() => {
       result.current.onSubmit({ f: 'input' }, helpers);
     });
-    await wait(() => {
+    await waitFor(() => {
       expect(helpers.setErrors).toHaveBeenCalledWith({ m: 'field_error' });
       expect(helpers.setSubmitting).toHaveBeenCalledWith(false);
       expect(helpers.setStatus).toHaveBeenLastCalledWith({

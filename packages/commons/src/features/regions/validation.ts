@@ -6,8 +6,8 @@ import { RegionAdminSettings, RegionCoverImage, RegionInput } from './types';
 
 const REGION_SKU = /^region\.\w{3,}$/;
 
-export const RegionInputSchema = yup
-  .object<RegionInput>({
+export const RegionInputSchema: yup.SchemaOf<RegionInput> = yup
+  .object({
     id: yupTypes.uuid().defined().nullable(),
     name: yupTypes.nonEmptyString().defined().nullable(false),
     description: yup.string().defined().nullable(),
@@ -26,15 +26,16 @@ export const RegionInputSchema = yup
   .strict(true)
   .noUnknown();
 
-export const RegionCoverImageSchema = yup
-  .object<RegionCoverImage>({
+export const RegionCoverImageSchema: yup.SchemaOf<RegionCoverImage> = yup
+  .object({
+    __typename: yup.string().optional(),
     mobile: yupTypes.nonEmptyString().defined().nullable(),
   })
   .strict(true)
   .noUnknown();
 
-export const RegionAdminSettingsSchema = yup
-  .object<RegionAdminSettings>({
+export const RegionAdminSettingsSchema: yup.SchemaOf<RegionAdminSettings> = yup
+  .object({
     id: yupTypes.uuid().defined().nullable(false),
     hidden: yup.bool().defined(),
     premium: yup.bool().defined(),

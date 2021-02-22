@@ -23,7 +23,7 @@ Object {
 
 exports[`loose coordinate schema wrong array length 1`] = `
 Object {
-  "undefined": Object {
+  "": Object {
     "key": "yup:array.max",
     "options": Object {
       "max": 3,

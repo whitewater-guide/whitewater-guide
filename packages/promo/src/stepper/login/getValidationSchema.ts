@@ -2,7 +2,7 @@ import { Credentials } from '@whitewater-guide/clients';
 import { PASSWORD_MIN_LENGTH } from '@whitewater-guide/commons';
 import * as yup from 'yup';
 
-let _schema: yup.ObjectSchema<Credentials>;
+let _schema: yup.SchemaOf<Credentials>;
 
 const getValidationSchema = () => {
   if (!_schema) {

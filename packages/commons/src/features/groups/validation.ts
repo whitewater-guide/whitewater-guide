@@ -5,8 +5,8 @@ import { GroupInput } from './types';
 
 const GROUP_SKU = /^group\.\w{3,}$/;
 
-export const GroupInputSchema = yup
-  .object<GroupInput>({
+export const GroupInputSchema: yup.SchemaOf<GroupInput> = yup
+  .object({
     id: yupTypes.uuid().defined().nullable(),
     name: yupTypes.nonEmptyString().defined().nullable(false),
     sku: yup

@@ -2,7 +2,7 @@
   "name": "@whitewater-guide/commons",
   "private": false,
   "sideEffects": false,
-  "version": "0.0.208",
+  "version": "0.0.209",
   "license": "UNLICENSED",
   "description": "shared code for whitewater.guide backend and frontend",
   "main": "dist/cjs/index.js",
@@ -25,17 +25,16 @@
     "test": "jest"
   },
   "dependencies": {
-    "@whitewater-guide/validation": "^1.1.5",
-    "cron-validator": "^1.1.1",
+    "@whitewater-guide/validation": "^1.2.0",
+    "cron-validator": "^1.2.1",
     "deepmerge": "^4.2.2",
     "expr-eval": "^2.0.2",
-    "lodash": "^4.17.15",
-    "validator": "^13.1.1",
-    "yup": "^0.29.1"
+    "lodash": "^4.17.21",
+    "validator": "^13.5.2",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.156",
-    "@types/validator": "^13.1.0",
-    "@types/yup": "^0.29.3"
+    "@types/lodash": "^4.14.168",
+    "@types/validator": "^13.1.3"
   }
 }

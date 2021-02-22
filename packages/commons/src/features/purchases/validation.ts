@@ -3,8 +3,8 @@ import * as yup from 'yup';
 
 import { PurchaseInput, PurchasePlatform } from './types';
 
-export const PurchaseInputSchema = yup
-  .object<PurchaseInput>({
+export const PurchaseInputSchema: yup.SchemaOf<PurchaseInput> = yup
+  .object({
     platform: yup.mixed().defined().oneOf(Object.values(PurchasePlatform)),
     transactionId: yupTypes.nonEmptyString().defined().nullable(false),
     transactionDate: yup.date().notRequired().nullable(),
