@@ -7,7 +7,8 @@
   "repository": "https://github.com/doomsower/whitewater.git",
   "author": "doomsower <K.Kuznetcov@gmail.com>",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "mobile"
   ],
   "scripts": {
     "lint": "eslint \"**/*.{js,ts,tsx}\"",

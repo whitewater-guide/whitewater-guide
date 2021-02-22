@@ -39,7 +39,7 @@ export class MobileAuthService extends BaseAuthService {
     await super.init();
     messaging()
       .getToken()
-      .then((token) => {
+      .then((token: any) => {
         this._fcmToken = token;
       })
       .catch(() => {});

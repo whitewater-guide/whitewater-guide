@@ -29,10 +29,17 @@ export const AuthProvider: React.FC<Props> = React.memo((props) => {
 
   // try to refresh token when mounted
   useEffect(() => {
-    service
-      .init()
-      .then(() => service.refreshAccessToken())
-      .finally(() => setInitializing(false));
+    const start = async () => {
+      try {
+        await service.init();
+        await service.refreshAccessToken();
+      } finally {
+        setInitializing(false);
+      }
+    };
+
+    start();
+
     return () => {
       service.off('loading');
     };

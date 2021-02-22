@@ -1,26 +1,14 @@
-// const modulePaths = require('./packager/modulePaths');
-// const resolve = require('path').resolve;
-// const fs = require('fs');
-//
-// const config = {
-//   transformer: {
-//     getTransformOptions: () => {
-//       const moduleMap = {};
-//       modulePaths.forEach((path) => {
-//         if (fs.existsSync(path)) {
-//           moduleMap[resolve(path)] = true;
-//         }
-//       });
-//       return {
-//         preloadedModules: moduleMap,
-//         transform: { inlineRequires: { blacklist: moduleMap } },
-//       };
-//     },
-//   },
-// };
-//
-// module.exports = config;
+/* eslint-disable @typescript-eslint/no-var-requires */
+const blacklist = require('metro-config/src/defaults/blacklist');
+const path = require('path');
+
+// https://medium.com/@huntie/a-concise-guide-to-configuring-react-native-with-yarn-workspaces-d7efa71b6906
 module.exports = {
+  watchFolders: [
+    path.resolve(__dirname, '..', 'node_modules'),
+    path.resolve(__dirname, '..', 'packages', 'commons'),
+    path.resolve(__dirname, '..', 'packages', 'clients'),
+  ],
   transformer: {
     getTransformOptions: async () => ({
       transform: {
@@ -28,5 +16,8 @@ module.exports = {
         inlineRequires: true,
       },
     }),
+  },
+  resolver: {
+    blacklistRE: blacklist([/mobile\/node_modules\/react\/.*/]),
   },
 };
