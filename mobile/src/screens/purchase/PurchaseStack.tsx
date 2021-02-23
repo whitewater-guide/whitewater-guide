@@ -3,6 +3,7 @@ import {
   StackNavigationOptions,
 } from '@react-navigation/stack';
 import React from 'react';
+import { initialWindowMetrics } from 'react-native-safe-area-context';
 import Config from 'react-native-ultimate-config';
 
 import { getHeaderRenderer } from '~/components/header';
@@ -11,8 +12,8 @@ import {
   PurchaseStackNavProps,
   PurchaseStackParamsList,
 } from '~/screens/purchase/types';
+import theme from '~/theme';
 
-import theme from '../../theme';
 import { LazyAlreadyHaveScreen } from './already-have';
 import { LazyBuyScreen } from './buy';
 import { LazySuccessScreen } from './success';
@@ -32,6 +33,7 @@ const screenOptions: StackNavigationOptions = {
   headerTintColor: theme.colors.primary,
   cardStyle: {
     backgroundColor: theme.colors.primaryBackground,
+    marginTop: initialWindowMetrics?.insets.top,
   },
 };
 
