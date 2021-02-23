@@ -19,8 +19,9 @@ import {
 import { AppState, AppStateStatus, Platform } from 'react-native';
 import { AccessToken, LoginManager, LoginResult } from 'react-native-fbsdk';
 
-import { BACKEND_URL } from '../../utils/urls';
-import waitUntilActive from '../../utils/waitUntilActive';
+import { BACKEND_URL } from '~/utils/urls';
+import waitUntilActive from '~/utils/waitUntilActive';
+
 import { tracker, trackError } from '../errors';
 import { tokenStorage } from './tokens';
 

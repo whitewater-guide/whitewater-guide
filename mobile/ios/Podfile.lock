@@ -478,7 +478,7 @@ PODS:
     - React
   - RNGestureHandler (1.10.2):
     - React-Core
-  - RNIap (5.2.11):
+  - RNIap (5.2.12):
     - React-Core
   - RNLocalize (2.0.2):
     - React-Core
@@ -493,7 +493,7 @@ PODS:
     - React
   - RNTextSize (4.0.0-rc.1):
     - React
-  - RNVectorIcons (8.0.0):
+  - RNVectorIcons (8.1.0):
     - React-Core
   - SDWebImage (5.10.4):
     - SDWebImage/Core (= 5.10.4)
@@ -818,14 +818,14 @@ SPEC CHECKSUMS:
   RNFBMessaging: 1823217d31e942531cc3f51fb5367dcbc69c1e10
   RNFS: 2bd9eb49dc82fa9676382f0585b992c424cd59df
   RNGestureHandler: e66feb0fda7da74ea6a3094656b3c1efe05f5c07
-  RNIap: 2e6b6268cdff295e977fdbc25710f9ab7fdd3af2
+  RNIap: 0181957f53aa72f77b4b60b0a32c65114ded58db
   RNLocalize: 43f6c30d8e19ad92282ae434d310fb463b31f419
   RNReanimated: e03f7425cb7a38dcf1b644d680d1bfc91c3337ad
   RNScreens: b6c9607e6fe47c1b6e2f1910d2acd46dd7ecea3a
   RNSentry: 7104cdfc1072ccb86015d9c8f210d81ae76806c1
   RNSVG: ce9d996113475209013317e48b05c21ee988d42e
   RNTextSize: 7efa06531c6bb7ab6ed070b4ce0d1248cf06fcdf
-  RNVectorIcons: f67a1abce2ec73e62fe4606e8110e95a832bc859
+  RNVectorIcons: 31cebfcf94e8cf8686eb5303ae0357da64d7a5a4
   SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
   SDWebImageWebPCoder: 947093edd1349d820c40afbd9f42acb6cdecd987
   Sentry: 9d055e2de30a77685e86b219acf02e59b82091fc

@@ -1,0 +1,84 @@
+diff --git a/node_modules/react-native-paper/src/components/TextInput/TextInputOutlined.tsx b/node_modules/react-native-paper/src/components/TextInput/TextInputOutlined.tsx
+index b4a2adc..d0dfacd 100644
+--- a/node_modules/react-native-paper/src/components/TextInput/TextInputOutlined.tsx
++++ b/node_modules/react-native-paper/src/components/TextInput/TextInputOutlined.tsx
+@@ -1,42 +1,41 @@
++import color from 'color';
+ import * as React from 'react';
+ import {
+-  View,
+-  TextInput as NativeTextInput,
+-  StyleSheet,
+-  I18nManager,
+-  Platform,
+-  TextStyle,
+-  ColorValue,
++  ColorValue, I18nManager,
++  Platform, StyleSheet, TextInput as NativeTextInput,
++
++
++
++  TextStyle, View
+ } from 'react-native';
+-import color from 'color';
++import { AdornmentSide, AdornmentType } from './Adornment/enums';
+ import TextInputAdornment, {
+   getAdornmentConfig,
+   getAdornmentStyleAdjustmentForNativeInput,
+-  TextInputAdornmentProps,
++  TextInputAdornmentProps
+ } from './Adornment/TextInputAdornment';
++import {
++  ADORNMENT_OFFSET, ADORNMENT_SIZE, LABEL_WIGGLE_X_OFFSET, MAXIMIZED_LABEL_FONT_SIZE,
++  MINIMIZED_LABEL_FONT_SIZE
++} from './constants';
++import {
++  calculateInputHeight, calculateLabelTopPosition,
++
++
+ 
++
++
++  calculateOutlinedIconAndAffixTopPosition, calculatePadding,
++
++
++  interpolatePlaceholder, Padding
++} from './helpers';
+ import InputLabel from './Label/InputLabel';
+ import LabelBackground from './Label/LabelBackground';
+-import type { RenderProps, ChildTextInputProps } from './types';
++import type { ChildTextInputProps, RenderProps } from './types';
++
+ 
+-import {
+-  MAXIMIZED_LABEL_FONT_SIZE,
+-  MINIMIZED_LABEL_FONT_SIZE,
+-  LABEL_WIGGLE_X_OFFSET,
+-  ADORNMENT_SIZE,
+-  ADORNMENT_OFFSET,
+-} from './constants';
+ 
+-import {
+-  calculateLabelTopPosition,
+-  calculateInputHeight,
+-  calculatePadding,
+-  adjustPaddingOut,
+-  Padding,
+-  interpolatePlaceholder,
+-  calculateOutlinedIconAndAffixTopPosition,
+-} from './helpers';
+-import { AdornmentType, AdornmentSide } from './Adornment/enums';
+ 
+ const OUTLINE_MINIMIZED_LABEL_Y_OFFSET = -6;
+ const LABEL_PADDING_TOP = 8;
+@@ -175,7 +174,9 @@ class TextInputOutlined extends React.Component<ChildTextInputProps> {
+ 
+     const pad = calculatePadding(paddingSettings);
+ 
+-    const paddingOut = adjustPaddingOut({ ...paddingSettings, pad });
++    // Patch for multiline fields
++    const paddingOut = { paddingTop: pad, paddingBottom: pad };
++    //const paddingOut = adjustPaddingOut({ ...paddingSettings, pad });
+ 
+     const baseLabelTranslateY =
+       -labelHalfHeight - (topPosition + OUTLINE_MINIMIZED_LABEL_Y_OFFSET);
