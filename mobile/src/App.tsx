@@ -1,3 +1,4 @@
+import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 import {
   AuthProvider,
   AuthService,
@@ -87,14 +88,16 @@ class App extends React.PureComponent {
                         <AppSettingsProvider>
                           <IapProvider>
                             <OfflineContentProvider>
-                              <NavigationRoot>
-                                <PreviousVersion />
-                                <View style={StyleSheet.absoluteFill}>
-                                  <RootDrawer />
-                                  <OfflineContentDialog />
-                                </View>
-                                <Snackbar />
-                              </NavigationRoot>
+                              <ActionSheetProvider>
+                                <NavigationRoot>
+                                  <PreviousVersion />
+                                  <View style={StyleSheet.absoluteFill}>
+                                    <RootDrawer />
+                                    <OfflineContentDialog />
+                                  </View>
+                                  <Snackbar />
+                                </NavigationRoot>
+                              </ActionSheetProvider>
                             </OfflineContentProvider>
                           </IapProvider>
                         </AppSettingsProvider>

@@ -7,7 +7,7 @@ import Config from 'react-native-ultimate-config';
 
 import useFABAuth from '~/components/useFABAuth';
 import { Screens } from '~/core/navigation';
-import { LocalPhoto, useImagePicker, useLocalPhotos } from '~/features/uploads';
+import { useImagePicker, useLocalPhotos } from '~/features/uploads';
 import { SectionScreenNavProp } from '~/screens/section/types';
 
 interface Props {
@@ -16,25 +16,25 @@ interface Props {
 
 export const SectionFAB: React.FC<Props> = ({ testID }) => {
   const fabState = useFABAuth();
-  const { navigate, dangerouslyGetParent } = useNavigation<
-    SectionScreenNavProp
-  >();
+  const {
+    navigate,
+    dangerouslyGetParent,
+  } = useNavigation<SectionScreenNavProp>();
   const { dispatch } = dangerouslyGetParent();
   const { node } = useSection();
   const { t } = useTranslation();
 
   const { upload } = useLocalPhotos();
-  const onPick = useCallback(
-    (photo: LocalPhoto) => {
+  const onImagePicker = useCallback(
+    (localPhotoId: string) => {
       navigate(Screens.SUGGESTION, {
         sectionId: node!.id,
-        localPhotoId: photo.id,
+        localPhotoId,
       });
-      upload(photo);
     },
-    [upload, navigate, node],
+    [navigate, node],
   );
-  const onPickAndUpload = useImagePicker(onPick);
+  const onPickAndUpload = useImagePicker(upload, onImagePicker);
 
   const actions = useMemo(
     () => [

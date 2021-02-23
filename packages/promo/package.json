@@ -37,12 +37,12 @@
     "react-apollo": "^3.1.5",
     "react-dom": "^17.0.1",
     "react-i18next": "^11.8.7",
-    "react-scripts": "^4.0.2",
+    "react-scripts": "^4.0.3",
     "yup": "^0.32.9"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "6.1.18",
-    "@storybook/react": "6.1.18",
+    "@storybook/addon-actions": "6.1.19",
+    "@storybook/react": "6.1.19",
     "@testing-library/react-hooks": "^5.0.3",
     "@types/lodash": "^4.14.168",
     "@types/react": "^17.0.2",

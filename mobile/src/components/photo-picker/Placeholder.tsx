@@ -9,8 +9,9 @@ import {
 } from 'react-native';
 import { Subheading } from 'react-native-paper';
 
-import { LocalPhoto, useImagePicker } from '../../features/uploads';
-import theme, { PaperTheme } from '../../theme';
+import { LocalPhoto, useImagePicker } from '~/features/uploads';
+import theme, { PaperTheme } from '~/theme';
+
 import Icon from '../Icon';
 import { commonStyles } from './styles';
 
@@ -38,7 +39,7 @@ const Placeholder: React.FC<Props> = (props) => {
     testID,
   } = props;
   const { t } = useTranslation();
-  const onPress = useImagePicker(onChange, localPhotoId);
+  const onPress = useImagePicker(onChange, undefined, localPhotoId);
   return (
     <TouchableOpacity onPress={onPress} testID={testID}>
       <View style={[commonStyles.root, style]}>

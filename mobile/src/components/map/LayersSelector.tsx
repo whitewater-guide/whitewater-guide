@@ -1,14 +1,13 @@
+import { useActionSheet } from '@expo/react-native-action-sheet';
 import sortBy from 'lodash/sortBy';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, StyleSheet } from 'react-native';
-import ActionSheet from 'react-native-actionsheet';
 import { RectButton } from 'react-native-gesture-handler';
 
 import { useMapType } from '../../features/settings';
 import theme from '../../theme';
 import Icon from '../Icon';
-import useActionSheet from '../useActionSheet';
 import Layers from './layers';
 
 const styles = StyleSheet.create({
@@ -38,47 +37,35 @@ const LAYERS_ARRAY = sortBy(Object.values(Layers), 'order');
 const NUM_LAYERS = LAYERS_ARRAY.length;
 
 const LayersSelector: React.FC = React.memo(() => {
-  const [actionSheet, showMenu] = useActionSheet();
-
+  const { showActionSheetWithOptions } = useActionSheet();
   const { t } = useTranslation();
-  const options = useMemo(
-    () => LAYERS_ARRAY.map(({ key }) => t(key)).concat(t('commons:cancel')),
-    [t],
-  );
-
   const { setMapType } = useMapType();
 
-  const onMenu = useCallback(
-    (index: number) => {
-      if (index === NUM_LAYERS) {
-        return;
-      }
-      setMapType(LAYERS_ARRAY[index].url);
-    },
-    [setMapType],
-  );
+  const showMenu = useCallback(() => {
+    const options = LAYERS_ARRAY.map(({ key }) => t(key)).concat(
+      t('commons:cancel'),
+    );
+    showActionSheetWithOptions(
+      {
+        title: t('region:map.layers.prompt'),
+        options,
+        cancelButtonIndex: NUM_LAYERS,
+      },
+      (i) => {
+        if (i < NUM_LAYERS) {
+          setMapType(LAYERS_ARRAY[i].url);
+        }
+      },
+    );
+  }, [showActionSheetWithOptions, setMapType, t]);
 
   // TODO: works on android only: https://github.com/kmagiera/react-native-gesture-handler/pull/537
-  const icon =
-    Platform.OS === 'ios' ? (
-      <Icon icon="layers" style={styles.icon} onPress={showMenu} />
-    ) : (
-      <RectButton onPress={showMenu} style={[styles.icon, styles.rectButton]}>
-        <Icon icon="layers" />
-      </RectButton>
-    );
-
-  return (
-    <React.Fragment>
-      {icon}
-      <ActionSheet
-        ref={actionSheet}
-        title={t('region:map.layers.prompt')}
-        options={options}
-        cancelButtonIndex={NUM_LAYERS}
-        onPress={onMenu}
-      />
-    </React.Fragment>
+  return Platform.OS === 'ios' ? (
+    <Icon icon="layers" style={styles.icon} onPress={showMenu} />
+  ) : (
+    <RectButton onPress={showMenu} style={[styles.icon, styles.rectButton]}>
+      <Icon icon="layers" />
+    </RectButton>
   );
 });
 

@@ -7,12 +7,11 @@ import upperFirst from 'lodash/upperFirst';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
-import ActionSheet from 'react-native-actionsheet';
 import { Paragraph, Subheading } from 'react-native-paper';
 
 import { Left, Right, Row } from '~/components/Row';
+import theme from '~/theme';
 
-import theme from '../../../theme';
 import GaugeWarning from './GaugeValueWarning';
 import useGaugeActionSheet from './useGaugeActionSheet';
 
@@ -59,7 +58,7 @@ const GaugeInfo: React.FC<Props> = (props) => {
   const { name, latestMeasurement } = gauge;
 
   const { t } = useTranslation();
-  const [sheet, showSheet, sheetProps] = useGaugeActionSheet(gauge);
+  const showMenu = useGaugeActionSheet(gauge);
 
   const isOutdated = latestMeasurement
     ? differenceInDays(new Date(), parseISO(latestMeasurement.timestamp)) > 1
@@ -104,7 +103,7 @@ const GaugeInfo: React.FC<Props> = (props) => {
             </View>
           )}
           <View style={styles.linkWrapper}>
-            <Paragraph style={styles.link} onPress={showSheet}>
+            <Paragraph style={styles.link} onPress={showMenu}>
               {upperFirst(name)}
             </Paragraph>
           </View>
@@ -124,13 +123,6 @@ const GaugeInfo: React.FC<Props> = (props) => {
           )}
         </Right>
       </Row>
-
-      <ActionSheet
-        ref={sheet}
-        title={t('section:chart.gaugeMenu.title')}
-        cancelButtonIndex={2}
-        {...sheetProps}
-      />
     </React.Fragment>
   );
 };

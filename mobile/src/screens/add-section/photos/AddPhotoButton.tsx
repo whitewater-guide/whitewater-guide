@@ -7,13 +7,9 @@ import Config from 'react-native-ultimate-config';
 
 import Icon from '~/components/Icon';
 import { Screens } from '~/core/navigation';
+import { LocalPhoto, useImagePicker, useLocalPhotos } from '~/features/uploads';
+import theme from '~/theme';
 
-import {
-  LocalPhoto,
-  useImagePicker,
-  useLocalPhotos,
-} from '../../../features/uploads';
-import theme from '../../../theme';
 import { MediaFormInput, SectionFormInput } from '../types';
 import { AddSectionPhotosNavProp } from './types';
 
@@ -35,9 +31,11 @@ interface Props {
 
 const AddPhotoButton: React.FC<Props> = React.memo(({ index, navigation }) => {
   const { navigate } = navigation;
-  const { values, setFieldValue, setFieldTouched } = useFormikContext<
-    SectionFormInput
-  >();
+  const {
+    values,
+    setFieldValue,
+    setFieldTouched,
+  } = useFormikContext<SectionFormInput>();
 
   const push = useCallback(
     (input: MediaFormInput) => {
