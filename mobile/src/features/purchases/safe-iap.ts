@@ -1,6 +1,6 @@
 import { Platform } from 'react-native';
 import {
-  endConnectionAndroid,
+  endConnection,
   getProducts,
   initConnection,
   Product,
@@ -17,7 +17,7 @@ const isBillingUnavailable = (e: Error) =>
 
 const safeEndConnection = async () => {
   try {
-    await endConnectionAndroid();
+    await endConnection();
   } catch {
     /* Ignore */
   }
