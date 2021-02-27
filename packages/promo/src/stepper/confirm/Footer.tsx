@@ -7,9 +7,7 @@ import {
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-const IMAGE_BASE = process.env.STORYBOOK_ENABLED
-  ? ''
-  : `${process.env.PUBLIC_URL}/static/`;
+const IMAGE_BASE = `${process.env.PUBLIC_URL}/static/`;
 
 const styles = (theme: Theme) =>
   createStyles({

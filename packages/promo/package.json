@@ -11,8 +11,7 @@
     "start:beta": "HTTPS=true REACT_APP_API=https://api.beta.whitewater.guide react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "storybook": "STORYBOOK_ENABLED=true start-storybook -s ./public/static -p 6006 -c .storybook"
+    "eject": "react-scripts eject"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.3",
@@ -30,26 +29,21 @@
     "graphql": "^14.7.0",
     "graphql-tag": "^2.11.0",
     "graphql-tools": "^6.2.6",
-    "i18next": "^19.8.9",
+    "i18next": "^19.9.0",
     "i18next-browser-languagedetector": "^6.0.1",
     "lodash": "^4.17.21",
     "react": "^17.0.1",
     "react-apollo": "^3.1.5",
     "react-dom": "^17.0.1",
-    "react-i18next": "^11.8.7",
+    "react-i18next": "^11.8.8",
     "react-scripts": "^4.0.3",
     "yup": "^0.32.9"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "6.1.19",
-    "@storybook/react": "6.1.19",
     "@testing-library/react-hooks": "^5.0.3",
     "@types/lodash": "^4.14.168",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
-    "@types/storybook__addon-actions": "^5.2.1",
-    "@types/storybook__react": "^5.2.1",
-    "apollo-storybook-react": "^0.2.4",
     "babel-loader": "^8.2.2",
     "jest-watch-typeahead": "^0.6.1",
     "react-test-renderer": "^17.0.1"

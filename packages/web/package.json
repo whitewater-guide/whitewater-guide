@@ -13,7 +13,6 @@
     "pretest": "node node_modules/@whitewater-guide/clients/scripts/loadTypedefs.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "storybook": "STORYBOOK_ENABLED=true start-storybook -s ./public/storybook -p 6006 -c .storybook",
     "version": "yarn build"
   },
   "dependencies": {
@@ -45,7 +44,7 @@
     "graphql": "^14.7.0",
     "graphql-tag": "2.11.0",
     "history": "^4.9.0",
-    "i18next": "^19.8.9",
+    "i18next": "^19.9.0",
     "immutability-helper": "^3.1.1",
     "jsondiffpatch": "^0.4.1",
     "lodash": "^4.17.21",
@@ -58,7 +57,7 @@
     "react-debounce-render": "^7.0.0",
     "react-dom": "17.0.1",
     "react-dropzone": "^11.3.1",
-    "react-i18next": "^11.8.7",
+    "react-i18next": "^11.8.8",
     "react-iframe": "^1.8.0",
     "react-image": "^4.0.3",
     "react-images": "^1.1.7",
@@ -77,8 +76,6 @@
   },
   "devDependencies": {
     "@apollo/react-testing": "^3.1.4",
-    "@storybook/addon-actions": "6.1.19",
-    "@storybook/react": "6.1.19",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/react-hooks": "^5.0.3",
@@ -102,7 +99,7 @@
     "react-test-renderer": "17.0.1",
     "rewiremock": "^3.14.3",
     "source-map-explorer": "^2.5.2",
-    "ts-jest": "^26.5.1",
+    "ts-jest": "^26.5.2",
     "url-search-params-polyfill": "^8.1.0"
   },
   "browserslist": [

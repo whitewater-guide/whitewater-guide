@@ -1,7 +1,6 @@
 import 'react-native-gesture-handler';
 
 import { AppRegistry } from 'react-native';
-// import App from './storybook';
 import MDCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 

@@ -476,15 +476,15 @@ PODS:
     - RNFBApp
   - RNFS (2.16.6):
     - React
-  - RNGestureHandler (1.10.2):
+  - RNGestureHandler (1.10.3):
     - React-Core
-  - RNIap (5.2.12):
+  - RNIap (5.2.13):
     - React-Core
   - RNLocalize (2.0.2):
     - React-Core
   - RNReanimated (1.13.2):
     - React-Core
-  - RNScreens (2.17.1):
+  - RNScreens (2.18.0):
     - React-Core
   - RNSentry (2.2.1):
     - React-Core
@@ -817,11 +817,11 @@ SPEC CHECKSUMS:
   RNFBApp: 02bde3edecf2e9694b908a5d3504e03449980f20
   RNFBMessaging: 1823217d31e942531cc3f51fb5367dcbc69c1e10
   RNFS: 2bd9eb49dc82fa9676382f0585b992c424cd59df
-  RNGestureHandler: e66feb0fda7da74ea6a3094656b3c1efe05f5c07
-  RNIap: 0181957f53aa72f77b4b60b0a32c65114ded58db
+  RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
+  RNIap: 339516d965769d84f43522bbca25bc8ecfea8d1d
   RNLocalize: 43f6c30d8e19ad92282ae434d310fb463b31f419
   RNReanimated: e03f7425cb7a38dcf1b644d680d1bfc91c3337ad
-  RNScreens: b6c9607e6fe47c1b6e2f1910d2acd46dd7ecea3a
+  RNScreens: f0d7a2a440a8ba9f4574ca1ddb3368f473891be4
   RNSentry: 7104cdfc1072ccb86015d9c8f210d81ae76806c1
   RNSVG: ce9d996113475209013317e48b05c21ee988d42e
   RNTextSize: 7efa06531c6bb7ab6ed070b4ce0d1248cf06fcdf

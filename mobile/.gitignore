@@ -64,7 +64,6 @@ buck-out/
 /ios/prebuild.log
 /ww-commons/
 /ww-clients/
-/storybook/storyLoader.ts
 
 # Fastlane
 dist

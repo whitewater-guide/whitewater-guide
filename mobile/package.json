@@ -10,12 +10,9 @@
     "clean-all": "(yarn ios:clean) && (yarn android:clean) && yarn clean",
     "pretest": "mkdir -p src/test && node node_modules/@whitewater-guide/clients/scripts/loadTypedefs.js",
     "test": "jest",
-    "prestorybook": "rnstl",
-    "storybook": "start-storybook -p 7007",
     "setup-dev-env": "rnuc .env.development.yml",
     "android": "yarn setup-dev-env && react-native run-android --appIdSuffix staging",
     "android:clean": "(cd android && ./gradlew clean) && rm -rf android/build && rm -rf android/app/build",
-    "android:screenshot": "adb exec-out screencap -p > ~/Pictures/ww_screen_$(date +%s).png",
     "android:staging": "fastlane android staging --env staging",
     "android:production": "fastlane android production --env production",
     "android:uninstall": "adb uninstall guide.whitewater.staging || adb uninstall guide.whitewater",
@@ -26,7 +23,6 @@
     "ios:setup_push": "fastlane ios setup_push --env staging",
     "ios:staging": "fastlane ios staging --env staging",
     "ios:production": "fastlane ios production --env production",
-    "ios:fix-xcode": "react-native-schemes-manager all",
     "ios:uninstall": "xcrun simctl uninstall booted su.swapp",
     "ios:linking": "xcrun simctl openurl booted",
     "ios:e2e": "detox test -c ios.sim.debug",
@@ -50,8 +46,8 @@
     ]
   },
   "dependencies": {
-    "@invertase/react-native-apple-authentication": "^2.1.0",
     "@expo/react-native-action-sheet": "^3.8.0",
+    "@invertase/react-native-apple-authentication": "^2.1.0",
     "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/datetimepicker": "^3.0.9",
     "@react-native-community/hooks": "^2.6.0",
@@ -97,7 +93,7 @@
     "graphql": "^14.7.0",
     "graphql-tag": "^2.11.0",
     "graphql-tools": "^6.2.6",
-    "i18next": "^19.8.9",
+    "i18next": "^19.9.0",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
     "markdown-it": "11.0.1",
@@ -106,7 +102,7 @@
     "postinstall-postinstall": "^2.1.0",
     "react": "17.0.1",
     "react-apollo": "^3.1.5",
-    "react-i18next": "11.8.7",
+    "react-i18next": "11.8.8",
     "react-native": "0.63.4",
     "react-native-actionsheet": "^2.4.2",
     "react-native-animatable": "^1.3.3",
@@ -116,8 +112,8 @@
     "react-native-debugger-open": "^0.3.25",
     "react-native-fast-image": "https://github.com/doomsower/react-native-fast-image/releases/download/7.1.0/react-native-fast-image-7.1.0.tgz",
     "react-native-fbsdk": "^3.0.0",
-    "react-native-gesture-handler": "^1.10.2",
-    "react-native-iap": "5.2.12",
+    "react-native-gesture-handler": "^1.10.3",
+    "react-native-iap": "5.2.13",
     "react-native-image-picker": "3.2.1",
     "react-native-image-zoom-viewer": "^3.0.1",
     "react-native-iphone-x-helper": "^1.3.1",
@@ -130,7 +126,7 @@
     "react-native-reanimated": "^1.13.2",
     "react-native-redash": "^15.11.1",
     "react-native-safe-area-context": "^3.1.9",
-    "react-native-screens": "^2.17.1",
+    "react-native-screens": "^2.18.0",
     "react-native-sensitive-info": "^5.5.8",
     "react-native-startup-time": "^1.3.0",
     "react-native-svg": "^12.1.0",
@@ -153,12 +149,9 @@
   },
   "devDependencies": {
     "@apollo/react-testing": "^3.1.4",
-    "@babel/core": "^7.13.1",
-    "@babel/runtime": "^7.13.4",
-    "@sentry/cli": "^1.62.0",
-    "@storybook/addon-actions": "^6.1.19",
-    "@storybook/react-native": "5.3.25",
-    "@storybook/react-native-server": "^5.3.23",
+    "@babel/core": "^7.13.8",
+    "@babel/runtime": "^7.13.8",
+    "@sentry/cli": "^1.63.0",
     "@testing-library/react-hooks": "^5.0.3",
     "@testing-library/react-native": "^7.1.0",
     "@types/detox": "^17.14.0",
@@ -192,17 +185,7 @@
     "patch-package": "^6.2.2",
     "react-native-mock-render": "^0.1.9",
     "react-native-performance-monitor": "^1.2.1",
-    "react-native-storybook-loader": "^2.0.2",
     "react-test-renderer": "^17.0.1"
-  },
-  "config": {
-    "react-native-storybook-loader": {
-      "searchDir": [
-        "./src"
-      ],
-      "pattern": "**/*.stories.tsx",
-      "outputFile": "./storybook/storyLoader.ts"
-    }
   },
   "detox": {
     "configurations": {
