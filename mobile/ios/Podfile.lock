@@ -1,5 +1,4 @@
 PODS:
-  - "@react-native-mapbox-gl-mapbox-static (5.9.0)"
   - boost-for-react-native (1.63.0)
   - BVLinearGradient (2.5.6):
     - React
@@ -50,17 +49,17 @@ PODS:
     - FirebaseCoreDiagnostics (~> 7.4)
     - GoogleUtilities/Environment (~> 7.0)
     - GoogleUtilities/Logger (~> 7.0)
-  - FirebaseCoreDiagnostics (7.6.0):
+  - FirebaseCoreDiagnostics (7.7.0):
     - GoogleDataTransport (~> 8.0)
     - GoogleUtilities/Environment (~> 7.0)
     - GoogleUtilities/Logger (~> 7.0)
     - nanopb (~> 2.30907.0)
-  - FirebaseInstallations (7.6.0):
+  - FirebaseInstallations (7.7.0):
     - FirebaseCore (~> 7.0)
     - GoogleUtilities/Environment (~> 7.0)
     - GoogleUtilities/UserDefaults (~> 7.0)
     - PromisesObjC (~> 1.2)
-  - FirebaseInstanceID (7.6.0):
+  - FirebaseInstanceID (7.7.0):
     - FirebaseCore (~> 7.0)
     - FirebaseInstallations (~> 7.0)
     - GoogleUtilities/Environment (~> 7.0)
@@ -72,7 +71,7 @@ PODS:
     - GoogleUtilities/Environment (~> 7.0)
     - GoogleUtilities/Reachability (~> 7.0)
     - GoogleUtilities/UserDefaults (~> 7.0)
-  - Flipper (0.75.0):
+  - Flipper (0.78.0):
     - Flipper-Folly (~> 2.5)
     - Flipper-RSocket (~> 1.3)
   - Flipper-DoubleConversion (1.1.7)
@@ -86,36 +85,36 @@ PODS:
   - Flipper-PeerTalk (0.0.4)
   - Flipper-RSocket (1.3.0):
     - Flipper-Folly (~> 2.5)
-  - FlipperKit (0.75.0):
-    - FlipperKit/Core (= 0.75.0)
-  - FlipperKit/Core (0.75.0):
-    - Flipper (~> 0.75.0)
+  - FlipperKit (0.78.0):
+    - FlipperKit/Core (= 0.78.0)
+  - FlipperKit/Core (0.78.0):
+    - Flipper (~> 0.78.0)
     - FlipperKit/CppBridge
     - FlipperKit/FBCxxFollyDynamicConvert
     - FlipperKit/FBDefines
     - FlipperKit/FKPortForwarding
-  - FlipperKit/CppBridge (0.75.0):
-    - Flipper (~> 0.75.0)
-  - FlipperKit/FBCxxFollyDynamicConvert (0.75.0):
+  - FlipperKit/CppBridge (0.78.0):
+    - Flipper (~> 0.78.0)
+  - FlipperKit/FBCxxFollyDynamicConvert (0.78.0):
     - Flipper-Folly (~> 2.5)
-  - FlipperKit/FBDefines (0.75.0)
-  - FlipperKit/FKPortForwarding (0.75.0):
+  - FlipperKit/FBDefines (0.78.0)
+  - FlipperKit/FKPortForwarding (0.78.0):
     - CocoaAsyncSocket (~> 7.6)
     - Flipper-PeerTalk (~> 0.0.4)
-  - FlipperKit/FlipperKitHighlightOverlay (0.75.0)
-  - FlipperKit/FlipperKitLayoutPlugin (0.75.0):
+  - FlipperKit/FlipperKitHighlightOverlay (0.78.0)
+  - FlipperKit/FlipperKitLayoutPlugin (0.78.0):
     - FlipperKit/Core
     - FlipperKit/FlipperKitHighlightOverlay
     - FlipperKit/FlipperKitLayoutTextSearchable
     - YogaKit (~> 1.18)
-  - FlipperKit/FlipperKitLayoutTextSearchable (0.75.0)
-  - FlipperKit/FlipperKitNetworkPlugin (0.75.0):
+  - FlipperKit/FlipperKitLayoutTextSearchable (0.78.0)
+  - FlipperKit/FlipperKitNetworkPlugin (0.78.0):
     - FlipperKit/Core
-  - FlipperKit/FlipperKitReactPlugin (0.75.0):
+  - FlipperKit/FlipperKitReactPlugin (0.78.0):
     - FlipperKit/Core
-  - FlipperKit/FlipperKitUserDefaultsPlugin (0.75.0):
+  - FlipperKit/FlipperKitUserDefaultsPlugin (0.78.0):
     - FlipperKit/Core
-  - FlipperKit/SKIOSNetworkPlugin (0.75.0):
+  - FlipperKit/SKIOSNetworkPlugin (0.78.0):
     - FlipperKit/Core
     - FlipperKit/FlipperKitNetworkPlugin
   - Folly (2020.01.13.00):
@@ -156,15 +155,15 @@ PODS:
   - GoogleUtilities/UserDefaults (7.2.2):
     - GoogleUtilities/Logger
   - libevent (2.1.12)
-  - libwebp (1.1.0):
-    - libwebp/demux (= 1.1.0)
-    - libwebp/mux (= 1.1.0)
-    - libwebp/webp (= 1.1.0)
-  - libwebp/demux (1.1.0):
+  - libwebp (1.2.0):
+    - libwebp/demux (= 1.2.0)
+    - libwebp/mux (= 1.2.0)
+    - libwebp/webp (= 1.2.0)
+  - libwebp/demux (1.2.0):
     - libwebp/webp
-  - libwebp/mux (1.1.0):
+  - libwebp/mux (1.2.0):
     - libwebp/demux
-  - libwebp/webp (1.1.0)
+  - libwebp/webp (1.2.0)
   - Mapbox-iOS-SDK (5.9.0):
     - MapboxMobileEvents (= 0.10.2)
   - MapboxMobileEvents (0.10.2)
@@ -358,19 +357,11 @@ PODS:
   - react-native-image-picker (3.2.1):
     - React-Core
   - react-native-mapbox-gl (8.1.0):
-    - "@react-native-mapbox-gl-mapbox-static (~> 5.9.0)"
     - Mapbox-iOS-SDK (~> 5.9.0)
     - React
     - React-Core
     - react-native-mapbox-gl/DynamicLibrary (= 8.1.0)
-    - react-native-mapbox-gl/StaticLibraryFixer (= 8.1.0)
   - react-native-mapbox-gl/DynamicLibrary (8.1.0):
-    - "@react-native-mapbox-gl-mapbox-static (~> 5.9.0)"
-    - Mapbox-iOS-SDK (~> 5.9.0)
-    - React
-    - React-Core
-  - react-native-mapbox-gl/StaticLibraryFixer (8.1.0):
-    - "@react-native-mapbox-gl-mapbox-static (~> 5.9.0)"
     - Mapbox-iOS-SDK (~> 5.9.0)
     - React
     - React-Core
@@ -590,7 +581,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - "@react-native-mapbox-gl-mapbox-static"
     - boost-for-react-native
     - CocoaAsyncSocket
     - FBSDKCoreKit
@@ -741,7 +731,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  "@react-native-mapbox-gl-mapbox-static": 83c0e0ba33597bb694735ffb136d3d96780af37d
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   BVLinearGradient: e3aad03778a456d77928f594a649e96995f1c872
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
@@ -754,24 +743,24 @@ SPEC CHECKSUMS:
   Firebase: e1e089d9aac215a52442583f818ab61de3c4581b
   FirebaseAnalytics: 9f8f4feab1f3fddf4e4515f8f022fe6aa9e51043
   FirebaseCore: 0a43b7f1c5b36f3358cd703011ca4c7e0df55870
-  FirebaseCoreDiagnostics: ee1184d51da3293335b83355aad20f537acc24cf
-  FirebaseInstallations: 6e4e77396559bc2ae0504823837ed737b1c7e47f
-  FirebaseInstanceID: cf243611700eddc916b093353adbd4da822cfa63
+  FirebaseCoreDiagnostics: 179bf3831213451c8addd036aca7fcf5492ec154
+  FirebaseInstallations: 42c86e7b02ff75b7f27f85833bf5dcb5f38a9774
+  FirebaseInstanceID: cf940324a20ac14a27ad1e931d15ac9d335526db
   FirebaseMessaging: 4b9b2850fcfcaac2820097ee3703ba6cfff3df84
-  Flipper: 3f82babd570275ba9b6d0edea513fd799e10d32a
+  Flipper: 9290a54bab5ec3a5ed985ef56c17a5f0d8dcf7c6
   Flipper-DoubleConversion: 38631e41ef4f9b12861c67d17cb5518d06badc41
   Flipper-Folly: f7a3caafbd74bda4827954fd7a6e000e36355489
   Flipper-Glog: 1dfd6abf1e922806c52ceb8701a3599a79a200a6
   Flipper-PeerTalk: 116d8f857dc6ef55c7a5a75ea3ceaafe878aadc9
   Flipper-RSocket: 602921fee03edacf18f5d6f3d3594ba477f456e5
-  FlipperKit: 010b20d426bc9189df8423ee28bad9c6ed07f57e
+  FlipperKit: f3c70dd5ec92e2fd1128c3572ca93eacf3bbb55a
   Folly: b73c3869541e86821df3c387eb0af5f65addfab4
   glog: 40a13f7840415b9a77023fbcae0f1e6f43192af3
   GoogleAppMeasurement: c542a2feaac9ab98fd074e8f1a02c3585bbfbd47
   GoogleDataTransport: 1024b1a4dfbd7a0e92cb20d7e0a6f1fb66b449a4
   GoogleUtilities: 31c5b01f978a70c6cff2afc6272b3f1921614b43
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
-  libwebp: 946cb3063cea9236285f7e9a8505d806d30e07f3
+  libwebp: e90b9c01d99205d03b6bb8f2c8c415e5a4ef66f0
   Mapbox-iOS-SDK: a5915700ec84bc1a7f8b3e746d474789e35b7956
   MapboxMobileEvents: 2bc0ca2eedb627b73cf403258dce2b2fa98074a6
   nanopb: 59221d7f958fb711001e6a449489542d92ae113e
@@ -789,7 +778,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
   react-native-fbsdk: 8e92c7a334fd8d9c2b5d8b8fcd7ae2c314161099
   react-native-image-picker: 64d12e81f3d9dad0af107fe6536b295d51932ec0
-  react-native-mapbox-gl: eec7e5be5b874cfceb79fcfe24d595411015153a
+  react-native-mapbox-gl: b5331005305d6779b7e2f9444b5169c12b82b863
   react-native-netinfo: e849fc21ca2f4128a5726c801a82fc6f4a6db50d
   react-native-safe-area-context: b6e0e284002381d2ff29fa4fff42b4d8282e3c94
   react-native-sensitive-info: 400c6e3d27945e15c8cddb5b4b92233c85ee06f8
@@ -833,6 +822,6 @@ SPEC CHECKSUMS:
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
   zxcvbn-ios: fef98b7c80f1512ff0eec47ac1fa399fc00f7e3c
 
-PODFILE CHECKSUM: a81b5073fbd287798c50f78ec0a26a232b9b58f1
+PODFILE CHECKSUM: 0416ed434667f0f39b2b9df58a139ce93cf31fdd
 
 COCOAPODS: 1.10.1

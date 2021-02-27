@@ -22,4 +22,22 @@ target 'whitewater' do
   post_install do |installer|
     flipper_post_install(installer)
   end
+
+  # TODO
+  # Temporary workaround for cocoapods 1.10 https://github.com/react-native-mapbox-gl/maps/issues/1097#issuecomment-781647269
+  pre_install do |installer|
+    fix_mapbox_events(installer)
+  end
+end
+
+# TODO
+# Temporary workaround for cocoapods 1.10 https://github.com/react-native-mapbox-gl/maps/issues/1097#issuecomment-781647269
+def fix_mapbox_events(installer)
+  installer.pod_targets.each do |pod|
+    if pod.name == 'MapboxMobileEvents'
+      def pod.build_type;
+        Pod::BuildType.dynamic_framework
+      end
+    end
+  end
 end

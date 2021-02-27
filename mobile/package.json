@@ -19,7 +19,7 @@
     "android:linking": "./scripts/android_linking.sh",
     "android:e2e": "detox test -c android.sim.debug",
     "ios": "yarn setup-dev-env && yarn react-native run-ios",
-    "ios:clean": "rm -rf ios/build/* && cd ios && pod deintegrate && rm Podfile.lock",
+    "ios:clean": "rm -rf ios/build/* && rm -rf $HOME/Library/Developer/Xcode/DerivedData/* && cd ios && pod deintegrate && rm Podfile.lock",
     "ios:setup_push": "fastlane ios setup_push --env staging",
     "ios:staging": "fastlane ios staging --env staging",
     "ios:production": "fastlane ios production --env production",
