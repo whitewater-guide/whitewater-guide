@@ -42,8 +42,8 @@ const useStyles = makeStyles(() =>
 interface Props {
   media: MediaOrInput;
   editable?: boolean;
-  onEdit?: (e: React.MouseEvent<{}>) => void;
-  onRemove?: (e: React.MouseEvent<{}>) => void;
+  onEdit?: (e: React.MouseEvent) => void;
+  onRemove?: (e: React.MouseEvent) => void;
 }
 
 const BrokenImage: FC<Props> = ({ editable, media, onEdit, onRemove }) => {

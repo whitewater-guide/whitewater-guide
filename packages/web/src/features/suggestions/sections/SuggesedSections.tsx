@@ -20,14 +20,14 @@ export const SuggesedSections: React.FC = () => {
     },
   );
 
-  if (loading && !(data && data.sections)) {
+  if (loading && !data?.sections) {
     return <Loading />;
   }
 
   return (
     <React.Fragment>
       <SuggestedSectionsInfinite
-        suggestedSections={data!.sections}
+        suggestedSections={data?.sections}
         fetchMore={fetchMore}
       />
     </React.Fragment>

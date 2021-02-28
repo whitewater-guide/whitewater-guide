@@ -7,7 +7,9 @@ export default () => {
   const [mutate] = useMutation<any, MVars>(TOGGLE_SOURCE);
   return useCallback(
     (id: string, enabled: boolean) =>
-      mutate({ variables: { id, enabled } }).catch(() => {}),
+      mutate({ variables: { id, enabled } }).catch(() => {
+        // ignore, maybe show snackbar later
+      }),
     [mutate],
   );
 };

@@ -6,6 +6,7 @@ import {
 import { SectionsStatus } from '@whitewater-guide/clients';
 import { Region, Section } from '@whitewater-guide/commons';
 import set from 'lodash/fp/set';
+import noop from 'lodash/noop';
 import React from 'react';
 
 import { SectionsList } from './SectionsList';
@@ -101,7 +102,7 @@ it('should be updated when measurements are updated', () => {
     <SectionsList ref={ref} {...props} />,
   );
   const recycler = getByTestId('sections-list-recycler');
-  jest.spyOn(ref.current, 'scrollToOffset').mockImplementation(() => {});
+  jest.spyOn(ref.current, 'scrollToOffset').mockImplementation(noop);
   fireEvent(
     recycler,
     new NativeTestEvent('sizeChanged', { width: 500, height: 1000 }),

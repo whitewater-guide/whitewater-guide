@@ -16,5 +16,6 @@ export const UPSERT_GAUGE = gql`
 `;
 
 export interface MVars {
+  // eslint-disable-next-line @typescript-eslint/ban-types
   gauge: GaugeInput<object | null>;
 }

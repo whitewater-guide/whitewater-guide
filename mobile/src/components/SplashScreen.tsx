@@ -7,7 +7,9 @@ const SplashScreen = () => {
   useEffect(() => {
     return () => {
       NativeSplashScreen.hide();
-      enablePushNotifications().catch(() => {});
+      enablePushNotifications().catch(() => {
+        // Do not care if we fail to enable push notifications
+      });
     };
   }, []);
   return null;

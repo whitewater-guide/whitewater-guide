@@ -1,5 +1,6 @@
 import { Page } from '@whitewater-guide/commons';
 import { GraphQLFieldResolver } from 'graphql';
+import { Required } from 'utility-types';
 
 import { Context } from './context';
 
@@ -19,8 +20,12 @@ export interface WithLanguage {
   language: string;
 }
 
-export type TopLevelResolver<Vars = {}> = GraphQLFieldResolver<
+export type TopLevelResolver<Vars = unknown> = GraphQLFieldResolver<
   any,
   Context,
   Vars
 >;
+
+export type AuthenticatedTopLevelResolver<
+  Vars = unknown
+> = GraphQLFieldResolver<any, Required<Context, 'user'>, Vars>;

@@ -13,7 +13,7 @@ import {
 
 import columnMapper from './columnMapper';
 import { TABLE_HEADER_HEIGHT, TABLE_ROW_HEIGHT } from './constants';
-import { EmptyRow } from './types';
+import { EMPTY_ROW } from './types';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -97,7 +97,7 @@ export const Table = React.memo(
     }, [region, me]);
 
     const rowGetter = useCallback(
-      ({ index }: Index) => data[index] || EmptyRow,
+      ({ index }: Index) => data[index] || EMPTY_ROW,
       [data],
     );
     const getRowClassName = useCallback(

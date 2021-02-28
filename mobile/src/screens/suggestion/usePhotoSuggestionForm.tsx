@@ -26,14 +26,16 @@ export default (sectionId: string, localPhotoId: string) => {
   const onSubmit = useCallback(
     (suggestion: PhotoSuggestion, helpers: FormikHelpers<any>) => {
       const { photo, ...rest } = suggestion;
-      return addSuggestion(
-        {
-          ...rest,
-          filename: photo.url!,
-          resolution: photo.resolution,
-        },
-        helpers,
-      );
+      return photo.url
+        ? addSuggestion(
+            {
+              ...rest,
+              filename: photo.url,
+              resolution: photo.resolution,
+            },
+            helpers,
+          )
+        : undefined;
     },
     [addSuggestion],
   );

@@ -30,7 +30,7 @@ const PurchaseItem: React.FC<Props> = ({ last, region, group }) => {
   if (!region && !group) {
     return null;
   }
-  const title = region ? region.name : group!.name;
+  const title = region ? region.name : group?.name;
   const description = region
     ? t('myProfile:purchases.region')
     : t('myProfile:purchases.group');

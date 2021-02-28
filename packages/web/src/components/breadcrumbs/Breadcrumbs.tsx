@@ -27,7 +27,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ routes }) => {
       aria-label="Breadcrumb"
       classes={{ root: classes.breadcrumbs }}
     >
-      {breadcrumbs.map((breadcrumb, i) => {
+      {breadcrumbs.map((breadcrumb: BreadcrumbMatch, i) => {
         const isLast = i === breadcrumbs.length - 1;
         return (
           <Breadcrumb

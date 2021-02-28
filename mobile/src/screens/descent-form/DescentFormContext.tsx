@@ -22,7 +22,7 @@ interface DescentFormContext {
   formScreenKey: string;
 }
 
-const DescentFormContext = React.createContext<DescentFormContext>({
+const DescentFormCtx = React.createContext<DescentFormContext>({
   loading: true,
   formScreenKey: '',
 });
@@ -46,9 +46,9 @@ export const DescentFormProvider: React.FC<DescentFormNavProps> = ({
 }) => {
   const loading = useInitialDescent(route.params);
   return (
-    <DescentFormContext.Provider value={{ loading, formScreenKey: route.key }}>
+    <DescentFormCtx.Provider value={{ loading, formScreenKey: route.key }}>
       {children}
-    </DescentFormContext.Provider>
+    </DescentFormCtx.Provider>
   );
 };
 
@@ -77,7 +77,7 @@ export const DescentFormScreen: React.FC<ScreenProps> = ({
   children,
   ...props
 }) => {
-  const { loading, formScreenKey } = useContext(DescentFormContext);
+  const { loading, formScreenKey } = useContext(DescentFormCtx);
   useNavHydrateFormik(formScreenKey);
   return <Screen {...props}>{loading ? <Loading /> : children}</Screen>;
 };

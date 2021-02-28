@@ -103,7 +103,7 @@ export class Multicomplete<
                   },
                   onChange: (event) => {
                     this.handleInputChange(event);
-                    onChange!(event as any);
+                    onChange?.(event as any);
                   },
                   onClick: (event) => {
                     if (

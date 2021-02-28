@@ -23,8 +23,8 @@ export interface ChartMeta {
 }
 
 export interface ChartViewProps {
-  width?: number;
-  height?: number;
+  width: number;
+  height: number;
   data: Array<Measurement<Date>>;
   unit: Unit;
   gauge: Gauge;

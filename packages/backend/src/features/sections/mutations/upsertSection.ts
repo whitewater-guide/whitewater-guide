@@ -9,12 +9,18 @@ import { ForbiddenError } from 'apollo-server-koa';
 import uniq from 'lodash/uniq';
 import * as yup from 'yup';
 
-import { Context, isInputValidResolver, TopLevelResolver } from '~/apollo';
+import {
+  AuthenticatedTopLevelResolver,
+  Context,
+  ContextUser,
+  isAuthenticatedResolver,
+  isInputValidResolver,
+  UnknownError,
+} from '~/apollo';
 import db, { rawUpsert } from '~/db';
 import { SectionRaw } from '~/features/sections';
 import { MEDIA, s3Client } from '~/s3';
 
-import { isAuthenticatedResolver } from '../../../apollo/enhancedResolvers';
 import { RawSectionUpsertResult } from '../types';
 import { checkForNewRiver, insertNewRiver } from './upsertUtils';
 import { differ } from './utils';
@@ -22,10 +28,12 @@ import { differ } from './utils';
 const transformSection = (section: SectionInput): SectionInput => {
   return {
     ...section,
-    media: (section.media ?? []).map((item) => {
-      return item.kind === MediaKind.photo
-        ? { ...item, url: s3Client.getLocalFileName(item.url)! }
-        : item;
+    media: section.media.map((item) => {
+      const url = s3Client.getLocalFileName(item.url);
+      if (!url) {
+        throw new UnknownError('photo url invalid');
+      }
+      return item.kind === MediaKind.photo ? { ...item, url } : item;
     }),
   };
 };
@@ -46,7 +54,7 @@ const checkIsEditor = async (
 };
 
 const saveLog = async (
-  user: Context['user'],
+  user: ContextUser,
   current: SectionRaw,
   old?: SectionRaw,
 ) => {
@@ -59,7 +67,7 @@ const saveLog = async (
       region_id: current.region_id,
       region_name: current.region_name,
       action: old ? 'update' : 'create',
-      editor_id: user!.id,
+      editor_id: user.id,
       diff: old && differ.diff(old, current),
     })
     .into('sections_edit_log');
@@ -84,7 +92,11 @@ const deleteUnusedFiles = async (urls: string[] | null) => {
     return;
   }
   return Promise.all(
-    urls.map((url) => s3Client.removeFile(MEDIA, url).catch(() => {})),
+    urls.map((url) =>
+      s3Client.removeFile(MEDIA, url).catch(() => {
+        // ignore files that we cannot remove
+      }),
+    ),
   );
 };
 
@@ -123,12 +135,12 @@ const Struct = yup.object({
   section: SectionInputSchema,
 });
 
-const resolver: TopLevelResolver<Vars> = async (
+const resolver: AuthenticatedTopLevelResolver<Vars> = async (
   _,
   vars,
   { user, language, dataSources },
 ) => {
-  const createdBy = vars.section.createdBy || (user ? user.id : null);
+  const createdBy = vars.section.createdBy || user.id;
   const section = transformSection({ ...vars.section, createdBy });
   const shouldInsertRiver = checkForNewRiver(section);
 

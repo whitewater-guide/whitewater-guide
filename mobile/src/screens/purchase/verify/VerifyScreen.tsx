@@ -38,10 +38,11 @@ const VerifyScreen: React.FC<PurchaseVerifyNavProps> = ({ navigation }) => {
 
   const [sending, setSending] = useState(false);
   const onSend = useCallback(() => {
+    if (!me) {
+      return;
+    }
     setSending(true);
-    service
-      .requestVerification({ id: me!.id })
-      .finally(() => setSending(false));
+    service.requestVerification({ id: me.id }).finally(() => setSending(false));
   }, [service, me, setSending]);
 
   const onContinue = useCallback(() => {
@@ -51,7 +52,7 @@ const VerifyScreen: React.FC<PurchaseVerifyNavProps> = ({ navigation }) => {
     <Screen safeBottom={true}>
       <View style={styles.container}>
         <Subheading>
-          {t('screens:purchase.verify.greeting', { name: me!.name })}
+          {t('screens:purchase.verify.greeting', { name: me?.name })}
         </Subheading>
         <Paragraph>{t('screens:purchase.verify.description')}</Paragraph>
         <Button

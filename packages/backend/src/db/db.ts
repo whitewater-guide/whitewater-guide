@@ -35,7 +35,9 @@ export const holdTransaction = () => {
       testTransaction = tx;
       tmp.resolve();
     })
-    .catch(() => {});
+    .catch(() => {
+      // ignore
+    });
   return p;
 };
 

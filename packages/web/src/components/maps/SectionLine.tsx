@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-redeclare */
 import { getSectionColor, useMapSelection } from '@whitewater-guide/clients';
 import { Point, Section } from '@whitewater-guide/commons';
 import React, { useEffect, useRef } from 'react';

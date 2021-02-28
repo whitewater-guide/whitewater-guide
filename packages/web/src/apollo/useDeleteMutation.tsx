@@ -15,7 +15,9 @@ export const useDeleteMutation = (
   });
   return useCallback(
     (id: string) => {
-      mutate({ variables: { id } }).catch(() => {});
+      mutate({ variables: { id } }).catch(() => {
+        // ignore errors
+      });
     },
     [mutate],
   );

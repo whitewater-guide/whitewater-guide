@@ -43,7 +43,9 @@ export class MobileAuthService extends BaseAuthService {
       .then((token: any) => {
         this._fcmToken = token;
       })
-      .catch(() => {});
+      .catch(() => {
+        // We do not care if it fails
+      });
     messaging().onTokenRefresh(this._sendFcmToken);
     AppState.addEventListener('change', this.onAppStateChange);
   }
@@ -88,7 +90,9 @@ export class MobileAuthService extends BaseAuthService {
           this._sendFcmToken(token);
           this._fcmTokenSent = true;
         })
-        .catch(() => {});
+        .catch(() => {
+          // we do not care if messaging fails
+        });
     }
     return resp;
   }
@@ -208,11 +212,9 @@ export class MobileAuthService extends BaseAuthService {
   async signOut(force = false) {
     const opts = await this._getBearerHeader();
     // no await on purpose
-    this._get(
-      '/auth/logout',
-      { fcm_token: this._fcmToken },
-      opts,
-    ).catch(() => {});
+    this._get('/auth/logout', { fcm_token: this._fcmToken }, opts).catch(() => {
+      // there's nothing we can do really, continue to log out normally
+    });
 
     await tokenStorage.setAccessToken(null);
     await tokenStorage.setRefreshToken(null);

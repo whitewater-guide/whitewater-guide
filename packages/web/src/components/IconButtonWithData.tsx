@@ -14,9 +14,7 @@ export class IconButtonWithData<TData> extends React.PureComponent<
 > {
   onClick = () => {
     const { data, onPress } = this.props;
-    if (onPress) {
-      onPress(data);
-    }
+    onPress?.(data);
   };
 
   render() {

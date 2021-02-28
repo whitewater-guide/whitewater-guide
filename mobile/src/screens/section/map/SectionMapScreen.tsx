@@ -26,10 +26,10 @@ const SectionMapScreen: React.FC<SectionMapNavProps> = () => {
   }, [section]);
   return (
     <Screen>
-      {section.node && (
+      {section.node && initialBounds && (
         <Map
           sections={[section.node]}
-          initialBounds={initialBounds!}
+          initialBounds={initialBounds}
           pois={pois}
           detailed={true}
           testID="section-map"

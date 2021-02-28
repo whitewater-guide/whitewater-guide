@@ -28,7 +28,9 @@ const useGaugeActionSheet = (gauge: Gauge) => {
       (index: number) => {
         if (index === 1) {
           if (gauge.url) {
-            Linking.openURL(gauge.url).catch(() => {});
+            Linking.openURL(gauge.url).catch(() => {
+              // do not care if cannot open it
+            });
           }
         } else if (index === 0) {
           navigate(Screens.PLAIN, {

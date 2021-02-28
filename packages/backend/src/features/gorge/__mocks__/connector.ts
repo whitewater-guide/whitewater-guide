@@ -179,7 +179,9 @@ export class GorgeConnector extends Original implements DataSource<Context> {
     },
   ];
 
-  initialize?(): void {}
+  initialize?(): void {
+    // empty mock
+  }
 
   public async listScripts(): Promise<gorge.ScriptDescriptor[]> {
     return Promise.resolve([

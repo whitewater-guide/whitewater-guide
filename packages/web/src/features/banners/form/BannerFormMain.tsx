@@ -22,7 +22,7 @@ import { RouterParams } from './types';
 
 const PLACEMENTS = Object.values(BannerPlacement).map((placement) => {
   const name = upperFirst(snakeCase(placement)).replace(/_/g, ' ');
-  const size = '2048x' + Math.ceil(2048 / BannerRatios.get(placement)!);
+  const size = '2048x' + Math.ceil(2048 / BannerRatios[placement]);
   return {
     id: placement,
     name: `${name} (${size})`,

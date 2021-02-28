@@ -9,6 +9,8 @@ interface LatLngLiteral {
  * Converts our coordinate to google maps format
  * @param array
  */
+export function arrayToGmaps(array?: null): null;
+export function arrayToGmaps(array: CoordinateLoose): LatLngLiteral;
 export function arrayToGmaps(
   array?: CoordinateLoose | null,
 ): LatLngLiteral | null {

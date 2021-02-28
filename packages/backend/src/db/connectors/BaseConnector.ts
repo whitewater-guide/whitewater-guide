@@ -51,7 +51,7 @@ export abstract class BaseConnector<TGraphql, TSql extends { id: string }>
   public buildGenericQuery(): QueryBuilder {
     const fields: Set<keyof TGraphql> = this._fieldsByType.get(
       this._graphqlTypeName,
-    )! as any;
+    ) as any;
 
     const sqlFieldsSet: Set<keyof TSql> = new Set<keyof TSql>(this._sqlFields);
     for (const graphqlField of fields.values()) {

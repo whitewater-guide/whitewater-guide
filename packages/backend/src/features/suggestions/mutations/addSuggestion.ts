@@ -21,7 +21,7 @@ interface Vars {
 }
 
 const addSuggestion: TopLevelResolver<Vars> = async (
-  root,
+  _,
   { suggestion },
   { dataSources, user },
 ) => {
@@ -36,7 +36,7 @@ const addSuggestion: TopLevelResolver<Vars> = async (
     filename: s3Client.getLocalFileName(suggestion.filename),
     resolution: suggestion.resolution,
     created_by: user ? user.id : null,
-    resolved_by: autoApprove ? user!.id : null,
+    resolved_by: autoApprove ? user?.id : null,
     resolved_at: autoApprove ? (db().fn.now() as any) : null,
     status: autoApprove ? SuggestionStatus.ACCEPTED : SuggestionStatus.PENDING,
   };

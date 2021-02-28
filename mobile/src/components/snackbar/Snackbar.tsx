@@ -28,9 +28,10 @@ export const Snackbar: React.FC = React.memo(() => {
   }, [message, setVisible]);
   const action = useMemo(
     () =>
-      message && message.full
+      message?.full
         ? {
             label: t('commons:copy'),
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             onPress: () => Clipboard.setString(message.full!),
           }
         : undefined,

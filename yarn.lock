@@ -1764,9 +1764,9 @@
     tslib "~2.1.0"
 
 "@graphql-tools/import@^6.2.4", "@graphql-tools/import@^6.2.6":
-  version "6.2.6"
-  resolved "https://registry.npmjs.org/@graphql-tools/import/-/import-6.2.6.tgz#c5f899f0b87e9fe0523b889be8a59cb30aa164ad"
-  integrity sha512-/0H/bDjNK1MnKonk8fMbB7wIYU6QLCwbQOHtSHbFJ4j2qki5CqfAxpF+fGX6KovDtkdigcgRMvSKKi14oiuHPA==
+  version "6.3.0"
+  resolved "https://registry.npmjs.org/@graphql-tools/import/-/import-6.3.0.tgz#171472b425ea7cba4a612ad524b96bd206ae71b6"
+  integrity sha512-zmaVhJ3UPjzJSb005Pjn2iWvH+9AYRXI4IUiTi14uPupiXppJP3s7S25Si3+DbHpFwurDF2nWRxBLiFPWudCqw==
   dependencies:
     resolve-from "5.0.0"
     tslib "~2.1.0"
@@ -10821,7 +10821,7 @@ eslint-plugin-es@^3.0.0:
     eslint-utils "^2.0.0"
     regexpp "^3.0.0"
 
-eslint-plugin-flowtype@^5.2.0:
+eslint-plugin-flowtype@^5.2.0, eslint-plugin-flowtype@^5.3.1:
   version "5.3.1"
   resolved "https://registry.npmjs.org/eslint-plugin-flowtype/-/eslint-plugin-flowtype-5.3.1.tgz#df6227e28c61d967b825c1327a27818bbb2ad325"
   integrity sha512-mziJD+zw+VTwLtF9qLIxYac0GJCbSEDyqMLP5ENzQeNY5EOxbAfitMFLo+UItjYOISQdh1BCobwE2d4i1o+9Rw==
@@ -10855,7 +10855,7 @@ eslint-plugin-jest@^24.1.0, eslint-plugin-jest@^24.1.5:
   dependencies:
     "@typescript-eslint/experimental-utils" "^4.0.1"
 
-eslint-plugin-jsx-a11y@^6.3.1:
+eslint-plugin-jsx-a11y@^6.3.1, eslint-plugin-jsx-a11y@^6.4.1:
   version "6.4.1"
   resolved "https://registry.npmjs.org/eslint-plugin-jsx-a11y/-/eslint-plugin-jsx-a11y-6.4.1.tgz#a2d84caa49756942f42f1ffab9002436391718fd"
   integrity sha512-0rGPJBbwHoGNPU73/QCLP/vveMlM1b1Z9PponxO87jfr6tuH5ligXbDT6nHSSzBC8ovX2Z+BQu7Bk5D/Xgq9zg==
@@ -10918,7 +10918,7 @@ eslint-plugin-simple-import-sort@^7.0.0:
   resolved "https://registry.npmjs.org/eslint-plugin-simple-import-sort/-/eslint-plugin-simple-import-sort-7.0.0.tgz#a1dad262f46d2184a90095a60c66fef74727f0f8"
   integrity sha512-U3vEDB5zhYPNfxT5TYR7u01dboFZp+HNpnGhkDB2g/2E4wZ/g1Q9Ton8UwCLfRV9yAKyYqDh62oHOamvkFxsvw==
 
-eslint-plugin-testing-library@^3.9.2:
+eslint-plugin-testing-library@^3.10.1, eslint-plugin-testing-library@^3.9.2:
   version "3.10.1"
   resolved "https://registry.npmjs.org/eslint-plugin-testing-library/-/eslint-plugin-testing-library-3.10.1.tgz#4dd02306d601c3238fdabf1d1dbc5f2a8e85d531"
   integrity sha512-nQIFe2muIFv2oR2zIuXE4vTbcFNx8hZKRzgHZqJg8rfopIWwoTwtlbCCNELT/jXzVe1uZF68ALGYoDXjLczKiQ==
@@ -19757,9 +19757,9 @@ postinstall-postinstall@^2.1.0:
   integrity sha512-7hQX6ZlZXIoRiWNrbMQaLzUUfH+sSx39u8EJ9HYuDc1kLo9IXKWjM5RSquZN1ad5GnH8CGFM78fsAAQi3OKEEQ==
 
 precinct@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.npmjs.org/precinct/-/precinct-7.0.0.tgz#37334165dee5d28f469202a910787cb2fb6a9186"
-  integrity sha512-ayTxq+fdaoowk4HvdfBs7bChg4ToqdRxjZqy3611dppelGF8UHQZrLta3GolRLoHSJQtKfBGA35IvW8K3tRR7A==
+  version "7.1.0"
+  resolved "https://registry.npmjs.org/precinct/-/precinct-7.1.0.tgz#a0311e0b59029647eaf57c2d30b8efa9c85d129a"
+  integrity sha512-I1RkW5PX51/q6Xl39//D7x9NgaKNGHpR5DCNaoxP/b2+KbzzXDNhauJUMV17KSYkJA41CSpwYUPRtRoNxbshWA==
   dependencies:
     commander "^2.20.3"
     debug "^4.3.1"
@@ -23051,9 +23051,9 @@ string-width@^3.0.0, string-width@^3.1.0:
     strip-ansi "^5.1.0"
 
 string-width@^4.0.0, string-width@^4.1.0, string-width@^4.2.0:
-  version "4.2.1"
-  resolved "https://registry.npmjs.org/string-width/-/string-width-4.2.1.tgz#1933ce1f470973d224368009bd1316cad81d5f4f"
-  integrity sha512-LL0OLyN6AnfV9xqGQpDBwedT2Rt63737LxvsRxbcwpa2aIeynBApG2Sm//F3TaLHIR1aJBN52DWklc06b94o5Q==
+  version "4.2.2"
+  resolved "https://registry.npmjs.org/string-width/-/string-width-4.2.2.tgz#dafd4f9559a7585cfba529c6a0a4f73488ebd4c5"
+  integrity sha512-XBJbT3N4JhVumXE0eoLU9DCjcaF92KLNqTmFCnG1pf8duUxFGwtP6AD6nkjw9a3IdiRtL3E2w3JDiE/xi3vOeA==
   dependencies:
     emoji-regex "^8.0.0"
     is-fullwidth-code-point "^3.0.0"
@@ -23997,6 +23997,11 @@ ts-invariant@^0.6.0:
     "@types/ungap__global-this" "^0.3.1"
     "@ungap/global-this" "^0.4.2"
     tslib "^1.9.3"
+
+ts-is-present@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.npmjs.org/ts-is-present/-/ts-is-present-1.2.1.tgz#38faeef8c59a890c0f876c86a46397fab236e21c"
+  integrity sha512-EYHn58qVRd/VHGkHSNGQJAxPXhF9wRiphYXl04VznngqqKjcT2jfHvAMPuzh8sRKdvifXw+dq6/Q3hG+nr3DRA==
 
 ts-jest@^26.5.2:
   version "26.5.2"

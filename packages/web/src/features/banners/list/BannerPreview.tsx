@@ -30,12 +30,12 @@ interface Props {
 export const BannerPreview: React.FC<Props> = React.memo(
   ({ placement, source }) => {
     const { url, kind } = source;
-    const height = Math.ceil(BannerResolutions.get(placement)![1] / 2);
+    const height = Math.ceil(BannerResolutions[placement][1] / 2);
     const classes = useStyles();
     return (
       <div className={classes.container}>
         {kind === BannerKind.Image ? (
-          <img className={classes.image} src={url} />
+          <img alt="" className={classes.image} src={url} />
         ) : (
           <Iframe
             width="512px"

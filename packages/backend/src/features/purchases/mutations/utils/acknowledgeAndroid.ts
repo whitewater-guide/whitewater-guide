@@ -24,7 +24,10 @@ export const acknowledgeAndroid = async (
   purchase: PurchaseInput,
   uid: string,
 ) => {
-  const receipt = JSON.parse(purchase.receipt!);
+  if (!purchase.receipt) {
+    throw new Error('purchase receipt not found');
+  }
+  const receipt = JSON.parse(purchase.receipt);
   const { packageName, productId, purchaseToken } = receipt;
   const verifier = await getVerifier();
   const result: VerificationResponse = await verifier.verifyINAPP({

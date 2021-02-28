@@ -1,8 +1,5 @@
 export * from './apollo';
 export * from './auth';
-export * from './i18n';
-export * from './utils';
-
 export * from './features/banners';
 export * from './features/charts';
 export * from './features/gauges';
@@ -14,3 +11,5 @@ export * from './features/sections';
 export * from './features/suggestions';
 export * from './features/tags';
 export * from './features/uploads';
+export * from './i18n';
+export * from './utils';

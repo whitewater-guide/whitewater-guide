@@ -1,3 +1,4 @@
+/* eslint-disable import/first */
 const mockPost = jest.fn(() =>
   Promise.resolve({
     email_address: 'test@test.com',

@@ -26,7 +26,7 @@ export interface LocalContext {
   getCacheKey: (obj: any) => string;
 }
 
-export type LocalResolver<Vars = {}> = (
+export type LocalResolver<Vars = unknown> = (
   rootValue: any,
   vars: Vars,
   context: LocalContext,

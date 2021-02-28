@@ -32,11 +32,14 @@ export const DescentChartLayout = React.memo(
       from: subDays(new Date(startedAt), 1),
       to: addDays(new Date(startedAt), 1),
     };
+    if (!section.gauge) {
+      return null;
+    }
 
     return (
       <ChartProvider
         section={section}
-        gauge={section.gauge!}
+        gauge={section.gauge}
         initialFilter={initialFilter}
       >
         <View style={styles.container}>

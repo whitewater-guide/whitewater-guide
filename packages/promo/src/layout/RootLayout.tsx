@@ -65,6 +65,7 @@ export const RootLayout: React.FC<Props> = React.memo(({ service }) => {
       <Card className={classes.card}>
         <CardMedia title="Whitewater.guide">
           <img
+            alt="logo"
             src={`${process.env.PUBLIC_URL}/static/logo-header.png`}
             className={classes.media}
           />

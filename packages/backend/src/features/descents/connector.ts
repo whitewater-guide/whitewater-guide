@@ -211,6 +211,11 @@ export class DescentsConnector extends RelayConnector<Descent, DescentRaw> {
 
   public async upsert(input: DescentInput, token?: string | null) {
     let shared: ShareToken | undefined;
+
+    if (!this._user) {
+      throw new Error('descent user not found');
+    }
+
     if (token) {
       shared = jwt.verify(token, config.DESCENTS_TOKEN_SECRET) as any;
     }
@@ -229,7 +234,7 @@ export class DescentsConnector extends RelayConnector<Descent, DescentRaw> {
       parent_id: db().raw(
         '(SELECT parent_descents.id FROM parent_descents WHERE parent_descents.parent_id IS NULL)',
       ) as any,
-      user_id: this._user!.id,
+      user_id: this._user.id,
       section_id: input.sectionId,
       started_at: new Date(input.startedAt),
 

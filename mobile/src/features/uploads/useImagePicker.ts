@@ -53,6 +53,10 @@ export const useImagePicker = (
       if (!uri || didCancel) {
         return; // cancelled
       }
+      if (!width || !height) {
+        trackError('imagePicker', new Error('image has no width or height'));
+        return;
+      }
       const file = {
         name: fileName || 'photo.jpg',
         uri,
@@ -63,7 +67,7 @@ export const useImagePicker = (
         id,
         file,
         status: LocalPhotoStatus.PICKING,
-        resolution: [width!, height!],
+        resolution: [width, height],
       });
     };
 

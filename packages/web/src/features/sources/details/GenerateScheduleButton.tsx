@@ -28,7 +28,7 @@ interface Vars {
   linkedOnly: boolean;
 }
 
-const container = graphql<Props, {}, Vars>(GENERATE_SOURCE_SCHEDULE);
+const container = graphql<Props, unknown, Vars>(GENERATE_SOURCE_SCHEDULE);
 
 type InnerProps = React.ComponentProps<Parameters<typeof container>[0]>;
 
@@ -52,14 +52,14 @@ class GenerateScheduleButtonInner extends React.PureComponent<
 
   generateAll = () => {
     const { mutate, sourceId } = this.props;
-    mutate!({ variables: { sourceId, linkedOnly: false } }).finally(() =>
+    mutate?.({ variables: { sourceId, linkedOnly: false } }).finally(() =>
       this.setState({ open: false }),
     );
   };
 
   generateLinked = () => {
     const { mutate, sourceId } = this.props;
-    mutate!({ variables: { sourceId, linkedOnly: true } }).finally(() =>
+    mutate?.({ variables: { sourceId, linkedOnly: true } }).finally(() =>
       this.setState({ open: false }),
     );
   };

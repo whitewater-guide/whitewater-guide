@@ -48,7 +48,9 @@ export const NavigateButton: React.FC<Props> = React.memo((props) => {
   const { t } = useTranslation();
   const onTouch = useCallback(() => {
     if (point && premiumGuard()) {
-      openGoogleMaps(point.coordinates, point.name).catch(() => {});
+      openGoogleMaps(point.coordinates, point.name).catch(() => {
+        // do not care about error
+      });
     }
   }, [point, premiumGuard]);
   return (

@@ -30,12 +30,12 @@ const BlogsList: React.FC<Props> = (props) => {
               <IconButtonWithData<MediaOrInput>
                 icon="edit"
                 data={item}
-                onPress={onEdit!}
+                onPress={onEdit}
               />
               <IconButtonWithData<MediaOrInput>
                 icon="delete_forever"
                 data={item}
-                onPress={onRemove!}
+                onPress={onRemove}
               />
             </ListItemSecondaryAction>
           )}

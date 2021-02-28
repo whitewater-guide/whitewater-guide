@@ -10,6 +10,7 @@ import * as yup from 'yup';
 
 import {
   Context,
+  ContextUser,
   isInputValidResolver,
   MutationNotAllowedError,
 } from '~/apollo';
@@ -28,7 +29,7 @@ const Struct = yup.object({
 
 const processBoomstarterPurchase = async (
   purchase: PurchaseInput,
-  { user }: Context,
+  user: ContextUser,
 ) => {
   const promo: BoomPromoRaw | undefined = await db()
     .table('boom_promos')
@@ -45,13 +46,13 @@ const processBoomstarterPurchase = async (
   }
   await db().transaction(async (trx: Transaction) => {
     const transaction: Partial<TransactionRaw> = {
-      user_id: user!.id,
+      user_id: user.id,
       platform: PurchasePlatform.boomstarter,
       transaction_id: purchase.transactionId,
       product_id: purchase.productId,
       validated: true,
     };
-    await trx!.insert(transaction).into('transactions');
+    await trx.insert(transaction).into('transactions');
     await trx('boom_promos')
       .update({ redeemed: true })
       .where({ code: purchase.transactionId });
@@ -59,15 +60,15 @@ const processBoomstarterPurchase = async (
   return true;
 };
 
-const processIAP = async (purchase: PurchaseInput, { user }: Context) => {
+const processIAP = async (purchase: PurchaseInput, user: ContextUser) => {
   const receipt =
     purchase.platform === PurchasePlatform.android
-      ? JSON.parse(purchase.receipt!)
-      : purchase.receipt!;
+      ? purchase.receipt && JSON.parse(purchase.receipt)
+      : purchase.receipt;
   const response = await validate(receipt);
   const validated = isValidated(response);
   const transaction: Partial<TransactionRaw> = {
-    user_id: user!.id,
+    user_id: user.id,
     platform: purchase.platform,
     transaction_id: purchase.transactionId,
     transaction_date: purchase.transactionDate,
@@ -116,9 +117,9 @@ const addPurchase = isInputValidResolver<Vars>(
 
     try {
       if (purchase.platform === PurchasePlatform.boomstarter) {
-        return processBoomstarterPurchase(purchase, context);
+        return processBoomstarterPurchase(purchase, user);
       } else {
-        return processIAP(purchase, context);
+        return processIAP(purchase, user);
       }
     } catch (e) {
       logger.warn({ extra: { platform, transactionId }, error: e });

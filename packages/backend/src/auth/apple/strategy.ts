@@ -10,7 +10,10 @@ export const apppleStrategy = new Strategy(async (req, done) => {
   try {
     const { body } = req;
     const { identityToken, fullName } = body as AppleSignInPayload;
-    const token = await verifyIdToken(identityToken!, {
+    if (!identityToken) {
+      throw new Error('identity token not found');
+    }
+    const token = await verifyIdToken(identityToken, {
       audience: 'guide.whitewater',
       ignoreExpiration: true,
     });

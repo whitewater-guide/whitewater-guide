@@ -47,7 +47,9 @@ export const useLinking = ({ navigate }: RootStackNav) => {
           params: parts.query,
         });
       } else if (parts && isVerified(parts)) {
-        apolloClient.query({ query: MY_PROFILE_QUERY }).catch(() => {});
+        apolloClient.query({ query: MY_PROFILE_QUERY }).catch(() => {
+          // if refresh my profile fails, we can do nothing about it
+        });
       }
     },
     [navigateRef],
@@ -55,7 +57,9 @@ export const useLinking = ({ navigate }: RootStackNav) => {
   return useEffect(() => {
     Linking.getInitialURL()
       .then(handleURL)
-      .catch(() => {});
+      .catch(() => {
+        // there's nothing we can do, just ignore it
+      });
 
     Linking.addEventListener('url', handleURL);
     return () => {

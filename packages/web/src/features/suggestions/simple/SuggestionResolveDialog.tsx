@@ -9,13 +9,13 @@ import React from 'react';
 import useResolveSuggestion from './useResolveSuggestion';
 
 interface Props {
-  suggestionId: string | null;
+  suggestionId: string;
   onClose: () => void;
 }
 
 const SuggestionResolveDialog: React.FC<Props> = React.memo((props) => {
   const { suggestionId, onClose } = props;
-  const { accept, reject } = useResolveSuggestion(suggestionId!, onClose);
+  const { accept, reject } = useResolveSuggestion(suggestionId, onClose);
   return (
     <Dialog
       open={!!suggestionId}

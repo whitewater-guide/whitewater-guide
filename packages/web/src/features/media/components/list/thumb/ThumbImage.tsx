@@ -32,8 +32,8 @@ interface Props {
   width?: number;
   height?: number;
   editable?: boolean;
-  onEdit?: (e: React.MouseEvent<{}>) => void;
-  onRemove?: (e: React.MouseEvent<{}>) => void;
+  onEdit?: (e: React.MouseEvent) => void;
+  onRemove?: (e: React.MouseEvent) => void;
 }
 
 const ThumbImage: FC<Props> = (props) => {
@@ -42,7 +42,7 @@ const ThumbImage: FC<Props> = (props) => {
 
   return (
     <React.Fragment>
-      <img src={thumb} style={{ width, height }} />
+      <img alt="" src={thumb} style={{ width, height }} />
       <div className={classes.overlay} style={{ width, height }}>
         {editable && (
           <React.Fragment>

@@ -12,7 +12,7 @@ interface Vars {
 }
 
 const resolveSuggestion: TopLevelResolver<Vars> = async (
-  root,
+  _,
   { id, status },
   { dataSources, user },
 ) => {
@@ -34,6 +34,7 @@ const resolveSuggestion: TopLevelResolver<Vars> = async (
   });
   const [newSuggestion] = await db()
     .table('suggestions')
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     .update({ status, resolved_by: user!.id, resolved_at: db().fn.now() })
     .where({ id })
     .returning('*');

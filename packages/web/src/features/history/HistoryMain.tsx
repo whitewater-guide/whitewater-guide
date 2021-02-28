@@ -5,19 +5,20 @@ import React from 'react';
 import { Card } from '../../layout';
 import { DiffDialog } from './DiffDialog';
 import HistoryTableContainer from './HistoryTableContainer';
+import { Diff } from './types';
 
 interface State {
-  openDiff: null | object;
+  openDiff: null | Diff;
 }
 
-class HistoryMain extends React.PureComponent<{}, State> {
+class HistoryMain extends React.PureComponent<unknown, State> {
   readonly state: State = { openDiff: null };
 
   onDiffClose = () => {
     this.setState({ openDiff: null });
   };
 
-  onDiffOpen = (openDiff: object | null) => {
+  onDiffOpen = (openDiff: Diff | null) => {
     this.setState({ openDiff });
   };
 

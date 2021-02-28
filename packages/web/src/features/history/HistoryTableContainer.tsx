@@ -4,11 +4,12 @@ import { Query } from 'react-apollo';
 
 import HistoryTableInfinite from './HistoryTableInfinite';
 import { QResult, QVars, SECTONS_EDIT_HISTORY_QUERY } from './query';
+import { Diff } from './types';
 
 const EMPTY_HISTORY = { nodes: [], count: 0 };
 
 interface Props {
-  onDiffOpen: (diff: object | null) => void;
+  onDiffOpen: (diff: Diff | null) => void;
 }
 
 const HistoryTableContainer: React.FC<Props> = ({ onDiffOpen }) => {

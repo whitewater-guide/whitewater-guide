@@ -43,7 +43,9 @@ const inspectField = (
     return;
   }
   const typeFields: Set<string> =
-    acc.get(type.name) || acc.set(type.name, new Set<string>()).get(type.name)!;
+    acc.get(type.name) ??
+    acc.set(type.name, new Set<string>()).get(type.name) ??
+    new Set();
   typeFields.add(field.name.value);
   if (!isObjectType(type)) {
     return;

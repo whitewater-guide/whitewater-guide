@@ -38,7 +38,7 @@ export class FieldsByTypePlugin {
     if (!document && !request.query) {
       return Promise.resolve();
     }
-    const doc = requestContext.document || parse(request.query!);
+    const doc = requestContext.document || parse(request.query);
     const acc = fieldsByType(doc, this._schema);
     if (queryHash) {
       this._cache.set(queryHash, acc);

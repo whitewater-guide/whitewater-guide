@@ -43,9 +43,17 @@ export const useUploadLink = (): UseUploadLink => {
           fetchPolicy: 'no-cache',
           errorPolicy: 'none',
         })
-        .then(({ data }) =>
-          uploadFile(file, data!.uploadLink!, abortControllerRef.current),
-        )
+        .then(({ data }) => {
+          if (data.uploadLink) {
+            return uploadFile(
+              file,
+              data.uploadLink,
+              abortControllerRef.current,
+            );
+          } else {
+            throw new Error('failed to get upload link');
+          }
+        })
         .finally(() => {
           setUploading(false);
         });

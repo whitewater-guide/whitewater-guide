@@ -1,3 +1,3 @@
-export * from './types';
-export * from './OffsetConnector';
 export * from './createConnectors';
+export * from './OffsetConnector';
+export * from './types';

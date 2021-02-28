@@ -19,6 +19,7 @@ import {
 } from '../../components';
 import { UserFinder } from '../users';
 import { DiffButton } from './DiffButton';
+import { Diff } from './types';
 
 const styles = createStyles({
   input: {
@@ -32,7 +33,7 @@ interface OwnProps {
   onUserChange: (user: NamedNode | null) => void;
   region: NamedNode | null;
   onRegionChange: (region: NamedNode | null) => void;
-  onDiffOpen: (diff: object | null) => void;
+  onDiffOpen: (diff: Diff | null) => void;
   registerChild: (registeredChild: any) => void;
 }
 

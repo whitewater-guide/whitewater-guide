@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage';
+import noop from 'lodash/noop';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 
 import Layers from '~/components/map/layers';
@@ -18,7 +19,7 @@ export const DEFAULT_APP_SETTINGS: AppSettings = {
 
 export const AppSettingsContext = React.createContext<AppSettingsCtx>({
   settings: DEFAULT_APP_SETTINGS,
-  updateSettings: () => {},
+  updateSettings: noop,
 });
 
 const KEY = '@ww-settings';

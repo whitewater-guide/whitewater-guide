@@ -25,11 +25,11 @@ const Thumb: FC<ThumbProps> = (props) => {
 
   const commons = {
     editable,
-    onEdit: (e: React.MouseEvent<{}>) => {
+    onEdit: (e: React.MouseEvent) => {
       e.stopPropagation();
       onEdit?.(media);
     },
-    onRemove: (e: React.MouseEvent<{}>) => {
+    onRemove: (e: React.MouseEvent) => {
       e.stopPropagation();
       onRemove?.(media);
     },

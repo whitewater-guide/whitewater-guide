@@ -1,2 +1,2 @@
-export * from './SelectedSectionView';
 export * from './SelectedPOIView';
+export * from './SelectedSectionView';

@@ -12,7 +12,7 @@ type TextInputProps = React.ComponentProps<typeof TextInput>;
 
 const PARTIAL_NUMERIC = /(-)?[0-9]*([,|.][0-9]*)?/;
 const numToStr = (num: any): string =>
-  Number.isFinite(num) ? num!.toString() : '';
+  Number.isFinite(num) ? num.toString() : '';
 
 type Props = {
   name: string;

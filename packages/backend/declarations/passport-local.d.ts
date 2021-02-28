@@ -1,4 +1,4 @@
-import { IVerifyOptions } from 'passport-local';
+import 'passport-local';
 
 declare module 'passport-local' {
   interface IVerifyOptions {

@@ -16,7 +16,9 @@ interface Props {
 const LongDescriptionDialog: React.FC<Props> = React.memo((props) => {
   const { description, open, onClose } = props;
   const onClick = useCallback(() => {
-    clipboard(description).catch(() => {});
+    clipboard(description).catch(() => {
+      // ignore we cannot do anything about it
+    });
   }, [description]);
   return (
     <Dialog open={open} onClose={onClose} scroll="paper">

@@ -1,6 +1,6 @@
 import { useChart } from '@whitewater-guide/clients';
 import React from 'react';
-import ReactResizeDetector from 'react-resize-detector';
+import { useResizeDetector } from 'react-resize-detector';
 import { VictoryScatter, VictoryTheme, VictoryTooltip } from 'victory';
 
 import { Styles } from '../../styles';
@@ -43,42 +43,41 @@ const ChartLayout: React.FC = () => {
     section,
     filter,
   } = useChart();
+  const { ref, width, height } = useResizeDetector<HTMLDivElement>();
   if (loading) {
     return <Loading />;
   }
   const noData = !data || data.length === 0;
+
   return (
     <div style={styles.root}>
-      <div style={styles.chartContainer}>
-        <ReactResizeDetector handleHeight={true} handleWidth={true}>
-          {({ width, height }: any) => (
-            <div style={styles.inner}>
-              {noData ? (
-                <div style={{ width, height }}>
-                  <NoData hasGauge={true} />
-                </div>
-              ) : (
-                <ChartView
-                  width={width}
-                  height={height}
-                  data={data}
-                  filter={filter}
-                  gauge={gauge}
-                  unit={unit}
-                  section={section}
-                  theme={VictoryTheme.material}
-                >
-                  <VictoryScatter
-                    data={data}
-                    x="timestamp"
-                    y={unit}
-                    labelComponent={<VictoryTooltip />}
-                  />
-                </ChartView>
-              )}
+      <div ref={ref} style={styles.chartContainer}>
+        <div style={styles.inner}>
+          {noData && (
+            <div style={{ width, height }}>
+              <NoData hasGauge={true} />
             </div>
           )}
-        </ReactResizeDetector>
+          {!noData && width && height && (
+            <ChartView
+              width={width}
+              height={height}
+              data={data}
+              filter={filter}
+              gauge={gauge}
+              unit={unit}
+              section={section}
+              theme={VictoryTheme.material}
+            >
+              <VictoryScatter
+                data={data}
+                x="timestamp"
+                y={unit}
+                labelComponent={<VictoryTooltip />}
+              />
+            </ChartView>
+          )}
+        </div>
       </div>
       <div style={styles.toggles}>
         <ChartFlowToggle />

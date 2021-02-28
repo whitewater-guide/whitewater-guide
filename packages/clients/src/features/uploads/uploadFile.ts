@@ -61,7 +61,11 @@ export const uploadFile = async (
       signal: abortController ? abortController.signal : undefined,
     });
     if (resp.status === 204) {
-      return resp.headers.get('Location')!;
+      const location = resp.headers.get('Location');
+      if (!location) {
+        throw new UploadFileError('location header not found', 503);
+      }
+      return location;
     }
     const text = await resp.text();
     throw new UploadFileError(text, resp.status);

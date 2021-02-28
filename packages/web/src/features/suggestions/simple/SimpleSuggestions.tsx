@@ -30,23 +30,25 @@ export const SimpleSuggestions: React.FC = () => {
     },
   );
 
-  if (loading && !(data && data.suggestions)) {
+  if (loading && !data?.suggestions) {
     return <Loading />;
   }
 
   return (
     <React.Fragment>
       <SuggestionsTableInfinite
-        suggestions={data!.suggestions}
+        suggestions={data?.suggestions}
         fetchMore={fetchMore}
         onPressResolve={setResolveId}
         statusFilter={statusFilter}
         setStatusFilter={setStatusFilter}
       />
-      <SuggestionResolveDialog
-        suggestionId={resolveId}
-        onClose={closeResolveDialog}
-      />
+      {resolveId && (
+        <SuggestionResolveDialog
+          suggestionId={resolveId}
+          onClose={closeResolveDialog}
+        />
+      )}
     </React.Fragment>
   );
 };

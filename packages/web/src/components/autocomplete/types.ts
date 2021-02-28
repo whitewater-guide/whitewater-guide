@@ -4,7 +4,8 @@ import { PopperPlacementType } from '@material-ui/core/Popper';
 import { NamedNode } from '@whitewater-guide/commons';
 
 export interface PopperFwdProps {
-  // Passed to popper
+  // Passed to popper, types match
+  // eslint-disable-next-line @typescript-eslint/ban-types
   modifiers?: object;
   placement?: PopperPlacementType;
 }

@@ -1,6 +1,6 @@
 import { Point, Section } from '@whitewater-guide/commons';
+import noop from 'lodash/noop';
 import React from 'react';
-
 export interface MapSelection {
   selection: Section | Point | null;
   onSelected: (node: Section | Point | null) => void;
@@ -8,7 +8,7 @@ export interface MapSelection {
 
 export const MapSelectionContext = React.createContext<MapSelection>({
   selection: null,
-  onSelected: () => {},
+  onSelected: noop,
 });
 
 export const MapSelectionProvider: React.FC = React.memo(({ children }) => {

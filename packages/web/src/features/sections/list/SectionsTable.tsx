@@ -120,7 +120,7 @@ export default class SectionsTable extends React.PureComponent<Props> {
       }
       return (
         <span>
-          <b>{formula(v)!.toPrecision(3)}</b>
+          <b>{formula(v)?.toPrecision(3)}</b>
           {` ${unit} ${fromNow}`}
         </span>
       );

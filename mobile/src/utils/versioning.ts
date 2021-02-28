@@ -20,10 +20,11 @@ class Versioning {
 // TODO: component can later be used to notify users of what's new
 export const PreviousVersion: React.FC = () => {
   useEffect(() => {
-    AsyncStorage.setItem(
-      '@whitewater-guide/version',
-      PJSON_VERSION,
-    ).catch(() => {});
+    AsyncStorage.setItem('@whitewater-guide/version', PJSON_VERSION).catch(
+      () => {
+        // ignore
+      },
+    );
   }, []);
   return null;
 };

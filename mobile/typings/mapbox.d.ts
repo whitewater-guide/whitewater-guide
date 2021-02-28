@@ -417,7 +417,7 @@ declare module '@react-native-mapbox-gl/maps' {
 
     class SymbolLayer extends Component<SymbolLayerProps> {}
 
-    class Images extends Component<{ images: Record<String, any> }> {}
+    class Images extends Component<{ images: Record<string, any> }> {}
 
     const offlineManager: OfflineManager;
 

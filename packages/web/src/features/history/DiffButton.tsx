@@ -2,9 +2,11 @@ import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import React from 'react';
 
+import { Diff } from './types';
+
 interface Props {
-  diff: object | null;
-  onDiffOpen: (diff: object | null) => void;
+  diff: Diff | null;
+  onDiffOpen: (diff: Diff | null) => void;
 }
 
 export class DiffButton extends React.PureComponent<Props> {

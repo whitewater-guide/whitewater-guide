@@ -68,9 +68,11 @@ const reset: Middleware<any, any> = async (ctx, next) => {
     .where({ id });
 
   try {
-    await sendMail(MailType.RESET_SUCCESS, user.email!, {
-      user: { id: user.id, name: user.name || '' },
-    });
+    if (user.email) {
+      await sendMail(MailType.RESET_SUCCESS, user.email, {
+        user: { id: user.id, name: user.name || '' },
+      });
+    }
   } catch (err) {
     logger.warn({
       userId: id,

@@ -8,7 +8,7 @@ export interface EmptyRow {
 export const isEmptyRow = (v: any): v is EmptyRow =>
   typeof v === 'object' && v.__emptyRow === true;
 
-export const EmptyRow: EmptyRow = {
+export const EMPTY_ROW: EmptyRow = {
   __emptyRow: true,
 };
 

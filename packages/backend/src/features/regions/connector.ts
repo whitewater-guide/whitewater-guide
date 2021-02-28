@@ -32,7 +32,7 @@ export class RegionsConnector extends OffsetConnector<Region, RegionRaw> {
 
   getBatchQuery(keys: string[]): QueryBuilder {
     const query = super.getBatchQuery(keys);
-    const regionFields = this._fieldsByType.get('Region')!;
+    const regionFields = this._fieldsByType.get('Region') ?? new Set();
     if (
       this._user &&
       (regionFields.has('hasPremiumAccess') || regionFields.has('editable'))

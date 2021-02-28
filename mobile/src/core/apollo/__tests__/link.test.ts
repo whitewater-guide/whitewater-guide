@@ -2,6 +2,7 @@ import { AuthBody, RefreshBody } from '@whitewater-guide/commons';
 import { ApolloLink, execute, toPromise } from 'apollo-link';
 import gql from 'graphql-tag';
 import { sign } from 'jsonwebtoken';
+import noop from 'lodash/noop';
 import { LoginManager } from 'react-native-fbsdk';
 
 import { fetchMock } from '../../../test';
@@ -186,7 +187,7 @@ describe('token expired locally', () => {
   it('should clear tokens on force sign out', async () => {
     fetchMock.mock('end:refresh', { status: 400, body: refreshFail });
 
-    await toPromise(execute(link, { query })).catch(() => {});
+    await toPromise(execute(link, { query })).catch(noop);
     await expect(tokenStorage.getAccessToken()).resolves.toBeNull();
     await expect(tokenStorage.getRefreshToken()).resolves.toBeNull();
   });
@@ -300,7 +301,7 @@ describe('bad local token', () => {
   });
 
   it('should clear tokens if graphql request fails on authentication', async () => {
-    await toPromise(execute(link, { query })).catch(() => {});
+    await toPromise(execute(link, { query })).catch(noop);
     await expect(tokenStorage.getAccessToken()).resolves.toBeNull();
     await expect(tokenStorage.getRefreshToken()).resolves.toBeNull();
   });

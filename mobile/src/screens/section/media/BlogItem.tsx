@@ -14,7 +14,9 @@ const renderIcon = () => <Icon icon="link" />;
 const BlogItem: React.FC<Props> = ({ blog }) => {
   const copyright = blog.copyright ? `© ${blog.copyright}` : undefined;
   const onPress = React.useCallback(() => {
-    Linking.openURL(blog.url).catch(() => {});
+    Linking.openURL(blog.url).catch(() => {
+      // do not care if we cannot open it
+    });
   }, [blog]);
   return (
     <List.Item

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-redeclare */
 import {
   arrayToGmaps,
   getCoordinatesPatch,
@@ -83,17 +84,17 @@ export class DrawingMap extends React.Component<Props> {
     const latLngBounds = new google.maps.LatLngBounds();
     if (points && points.length === 1) {
       this.initialPosition = {
-        center: arrayToGmaps(points[0])!,
+        center: arrayToGmaps(points[0]),
         zoom: 14,
       };
     } else if (points && points.length > 1) {
-      points.forEach((point) => latLngBounds.extend(arrayToGmaps(point)!));
+      points.forEach((point) => latLngBounds.extend(arrayToGmaps(point)));
       this.initialPosition = {
         center: latLngBounds.getCenter(),
         bounds: latLngBounds,
       };
     } else if (bounds) {
-      bounds.forEach((point) => latLngBounds.extend(arrayToGmaps(point)!));
+      bounds.forEach((point) => latLngBounds.extend(arrayToGmaps(point)));
       this.initialPosition = {
         center: latLngBounds.getCenter(),
         bounds: latLngBounds,
@@ -126,8 +127,8 @@ export class DrawingMap extends React.Component<Props> {
       this.ignoreSetGeometryEvent = false;
 
       if (points.length === 0) {
-        this.map!.data.setDrawingMode(drawingMode);
-        this.map!.data.setControls([drawingMode]);
+        this.map.data.setDrawingMode(drawingMode);
+        this.map.data.setControls([drawingMode]);
       }
     } else if (points.length >= minPoints[drawingMode]) {
       this.addFeature(points);
@@ -187,9 +188,12 @@ export class DrawingMap extends React.Component<Props> {
   };
 
   addFeature = (points: Coordinate[]) => {
+    if (!this.map) {
+      return;
+    }
     const { drawingMode } = this.props;
-    this.map!.data.setDrawingMode(null);
-    this.map!.data.setControls(null);
+    this.map.data.setDrawingMode(null);
+    this.map.data.setControls(null);
     let geometry: Geometry | null = null;
     const latLngs: LatLngLiteral[] = points.map(arrayToGmaps) as any;
     if (drawingMode === 'Point') {
@@ -201,14 +205,17 @@ export class DrawingMap extends React.Component<Props> {
     }
     if (geometry) {
       this.feature = new Feature({ geometry });
-      this.map!.data.add(this.feature);
+      this.map.data.add(this.feature);
     }
   };
 
   handleAddFeature = ({ feature }: { feature: Feature }) => {
+    if (!this.map) {
+      return;
+    }
     this.feature = feature;
-    this.map!.data.setDrawingMode(null);
-    this.map!.data.setControls(null);
+    this.map.data.setDrawingMode(null);
+    this.map.data.setControls(null);
     this.handleChange({ newGeometry: feature.getGeometry() });
   };
 
@@ -257,23 +264,19 @@ export class DrawingMap extends React.Component<Props> {
     const { onChange } = this.props;
     const points = this.props.points || [];
 
-    const newLatLngs = geometryToLatLngs(newGeometry);
-    const newPoints = newLatLngs!.map(gmapsToArray) as Coordinate2d[];
+    const newLatLngs = geometryToLatLngs(newGeometry) ?? [];
+    const newPoints = newLatLngs.map(gmapsToArray) as Coordinate2d[];
     if (oldGeometry) {
       // Need to patch points
       const oldLatLngs: LatLng[] = geometryToLatLngs(oldGeometry) as LatLng[];
-      const oldPoints = oldLatLngs!.map(gmapsToArray) as Coordinate2d[];
+      const oldPoints = oldLatLngs.map(gmapsToArray) as Coordinate2d[];
       const patch: any = getCoordinatesPatch(oldPoints, newPoints);
       if (!patch) {
         return; // Equal, no need to fire change event
       }
-      if (
-        patch!.length === 3 &&
-        patch![1] === 1 &&
-        points[patch![0]].length > 2
-      ) {
+      if (patch.length === 3 && patch[1] === 1 && points[patch[0]].length > 2) {
         // Some point with altitude was updated, need to keep the altitude
-        patch![2][2] = points[patch![0]][2];
+        patch[2][2] = points[patch[0]][2];
       }
       onChange(
         withZeroAlt(update(points, { $splice: [patch] }) as Coordinate3d[]),
@@ -293,7 +296,7 @@ export class DrawingMap extends React.Component<Props> {
   render() {
     return (
       <GoogleMap onLoaded={this.init} initialPosition={this.initialPosition}>
-        <PlacesAutocomplete map={this.map!} />
+        {!!this.map && <PlacesAutocomplete map={this.map} />}
       </GoogleMap>
     );
   }

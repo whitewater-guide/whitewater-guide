@@ -41,9 +41,9 @@ interface Props {
   children: any;
 }
 
-type Month = React.FC<Props> & { height: number };
+type MonthComponent = React.FC<Props> & { height: number };
 
-const Month: Month = Object.assign(
+const Month: MonthComponent = Object.assign(
   // eslint-disable-next-line react/display-name
   React.memo((props: Props) => {
     const { index, children } = props;

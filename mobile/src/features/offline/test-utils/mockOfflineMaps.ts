@@ -3,6 +3,7 @@ import {
   OfflinePack,
   OfflinePackStatus,
 } from '@react-native-mapbox-gl/maps';
+import noop from 'lodash/noop';
 
 import { MapboxOfflinePackState } from '../types';
 
@@ -36,7 +37,7 @@ export const mockPack = (
   ],
   name,
   metadata: null,
-  pause: () => {},
+  pause: noop,
   resume,
   status: () => Promise.resolve(mockStatus(name, n, total)),
 });

@@ -1,53 +1,23 @@
-import Link from '@material-ui/core/Link';
-import Typography from '@material-ui/core/Typography';
 import React from 'react';
-import { Query, QueryResult } from 'react-apollo';
-import { Link as RouterLink } from 'react-router-dom';
 
-import { BQResult, BQVars, BreadcrumbValue } from './types';
+import QueryBreadcrumb from './QueryBreadcrumb';
+import SimpleBreadcrumb from './SimpleBreadcrumb';
+import { BQVars, BreadcrumbValue } from './types';
 
-interface Props<Value> {
+interface Props {
   path: string;
   param?: BQVars | null;
   isLast: boolean;
-  value: Value;
+  value: BreadcrumbValue;
 }
 
-const SimpleBreadcrumb: React.FC<Props<string>> = ({ isLast, path, value }) => {
-  if (isLast) {
-    return <Typography color="inherit">{value}</Typography>;
-  }
-  return (
-    <Link to={path} component={RouterLink as any} color="inherit">
-      {value}
-    </Link>
-  );
-};
-
-const defaultGetName = ({ data }: QueryResult<BQResult>) =>
-  data && data.node && data.node.name;
-
-const Breadcrumb: React.FC<Props<BreadcrumbValue>> = ({
-  isLast,
-  path,
-  value,
-  param,
-}) => {
+const Breadcrumb: React.FC<Props> = (props) => {
+  const { isLast, path, value, param } = props;
   if (typeof value === 'string') {
     return <SimpleBreadcrumb path={path} isLast={isLast} value={value} />;
   }
-  const { query, getName = defaultGetName } = value;
   return (
-    <Query<BQResult, BQVars>
-      query={query}
-      variables={param!}
-      fetchPolicy="cache-only"
-    >
-      {(result) => {
-        const val = getName(result) || param!.id;
-        return <SimpleBreadcrumb path={path} isLast={isLast} value={val} />;
-      }}
-    </Query>
+    <QueryBreadcrumb path={path} isLast={isLast} value={value} param={param} />
   );
 };
 

@@ -7,7 +7,7 @@ import { UseAuthSubmit, useAuthSubmit } from './useAuthSubmit';
 const TEST_PREFIX = '__prefix__';
 const apiCall = jest.fn();
 const onSuccess = jest.fn();
-const formikHelpers: FormikHelpers<{}> = {
+const formikHelpers: FormikHelpers<unknown> = {
   setStatus: jest.fn(),
   setErrors: jest.fn(),
   setSubmitting: jest.fn(),
@@ -32,12 +32,12 @@ describe('success', () => {
     success: true,
     status: 200,
   };
-  let result: UseAuthSubmit<{}>;
+  let result: UseAuthSubmit<unknown>;
 
   beforeEach(async () => {
     apiCall.mockResolvedValue(success);
     const rendered = renderHook(() =>
-      useAuthSubmit<{}>(TEST_PREFIX, apiCall, onSuccess),
+      useAuthSubmit<unknown>(TEST_PREFIX, apiCall, onSuccess),
     );
     const [submit] = rendered.result.current;
     await act(() => submit({}, formikHelpers) as any);
@@ -70,12 +70,12 @@ describe('error', () => {
       form: 'fail',
     },
   };
-  let result: UseAuthSubmit<{}>;
+  let result: UseAuthSubmit<unknown>;
 
   beforeEach(async () => {
     apiCall.mockResolvedValue(error);
     const rendered = renderHook(() =>
-      useAuthSubmit<{}>(TEST_PREFIX, apiCall, onSuccess),
+      useAuthSubmit<unknown>(TEST_PREFIX, apiCall, onSuccess),
     );
     const [submit] = rendered.result.current;
     await act(() => submit({}, formikHelpers) as any);

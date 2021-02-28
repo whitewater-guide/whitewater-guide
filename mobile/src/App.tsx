@@ -67,7 +67,7 @@ class App extends React.PureComponent {
   resetApolloCache = async () => {
     apolloCachePersistor.pause();
     await apolloCachePersistor.purge();
-    await this._apolloClient!.resetStore();
+    await this._apolloClient?.resetStore();
     apolloCachePersistor.resume();
   };
 

@@ -30,7 +30,7 @@ const SuccessView: React.FC<SuccessViewProps> = ({ region, promo }) => {
         <Trans i18nKey={i18nKey} values={values}>
           1
           <br />
-          <br />2<strong>{{ name }}</strong>
+          <br />2<strong>{'{{ name }}'}</strong>
           <br />
           <br />3
         </Trans>

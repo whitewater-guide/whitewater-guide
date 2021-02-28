@@ -7,30 +7,16 @@ import {
   LayoutChangeEvent,
   StyleSheet,
   View,
-  ViewProps,
 } from 'react-native';
 
-import theme from '../../theme';
+import theme from '~/theme';
+
 import Thumb, { THUMB_SCALE_RATIO } from './Thumb';
+import { RangeSliderProps } from './types';
 
 // extra spacing enlarging the touchable area
 const TRACK_EXTRA_MARGIN_V = 5;
 const TRACK_EXTRA_MARGIN_H = 5;
-
-export interface RangeSliderProps extends ViewProps {
-  range?: [number, number]; // defaultProps
-  values: [number, number];
-  step?: number; // defaultProps
-  trackThickness?: number; // defaultProps
-  thumbRadius?: number; // defaultProps
-  selectedTrackColor?: string; // defaultProps
-  backgroundTrackColor?: string; // defaultProps
-  behavior?: 'block' | 'continue' | 'invert'; // defaultProps
-  onChange?: (values: [number, number]) => void;
-  onChangeEnd?: (values: [number, number]) => void;
-  defaultTrackWidth?: number;
-  defaultTrackPageX?: number;
-}
 
 export class RangeSlider extends React.PureComponent<RangeSliderProps> {
   static defaultProps: Partial<RangeSliderProps> = {
@@ -62,11 +48,11 @@ export class RangeSlider extends React.PureComponent<RangeSliderProps> {
     super(props);
 
     this._trackMarginV =
-      props.thumbRadius! * THUMB_SCALE_RATIO +
+      props.thumbRadius * THUMB_SCALE_RATIO +
       TRACK_EXTRA_MARGIN_V -
-      props.trackThickness! / 2;
+      props.trackThickness / 2;
     this._trackMarginH =
-      props.thumbRadius! * THUMB_SCALE_RATIO + TRACK_EXTRA_MARGIN_H;
+      props.thumbRadius * THUMB_SCALE_RATIO + TRACK_EXTRA_MARGIN_H;
     this._trackStyle = StyleSheet.create({
       track: {
         marginHorizontal: this._trackMarginH,
@@ -104,7 +90,7 @@ export class RangeSlider extends React.PureComponent<RangeSliderProps> {
         this.setValuesPx(this.props);
         this.updateThumbs(true);
       }
-      this._track!.measure((x, y, w, h, pageX) => {
+      this._track?.measure((x, y, w, h, pageX) => {
         this._trackPageX = pageX;
       });
     });
@@ -118,8 +104,10 @@ export class RangeSlider extends React.PureComponent<RangeSliderProps> {
   onMove = (thumb: Thumb, e: GestureResponderEvent) => {
     const dx = e.nativeEvent.pageX;
     const x = this.constrainValue(dx);
-    this.changeValues(x);
-    this.moveThumb(this._activeThumb!, x);
+    if (this._activeThumb) {
+      this.changeValues(x);
+      this.moveThumb(this._activeThumb, x);
+    }
   };
 
   onMoveEnd = (thumb: Thumb) => {
@@ -134,8 +122,8 @@ export class RangeSlider extends React.PureComponent<RangeSliderProps> {
 
   snap = (valuePx: number) => {
     const stepPx =
-      (this.props.step! * this._trackWidthPx) /
-      (this.props.range![1] - this.props.range![0]);
+      (this.props.step * this._trackWidthPx) /
+      (this.props.range[1] - this.props.range[0]);
     return Math.round(valuePx / stepPx) * stepPx;
   };
 
@@ -144,12 +132,12 @@ export class RangeSlider extends React.PureComponent<RangeSliderProps> {
   };
 
   pixelToValue = (px: number) =>
-    (px * (this.props.range![1] - this.props.range![0])) / this._trackWidthPx +
-    this.props.range![0];
+    (px * (this.props.range[1] - this.props.range[0])) / this._trackWidthPx +
+    this.props.range[0];
 
   valueToPixel = (value: number) =>
-    (this._trackWidthPx * (value - this.props.range![0])) /
-    (this.props.range![1] - this.props.range![0]);
+    (this._trackWidthPx * (value - this.props.range[0])) /
+    (this.props.range[1] - this.props.range[0]);
 
   changeValues = (value: number) => {
     const index = this._activeThumb === this._minThumb ? 0 : 1;
@@ -271,7 +259,7 @@ export class RangeSlider extends React.PureComponent<RangeSliderProps> {
               height: this.props.trackThickness,
               backgroundColor: this._inverted.interpolate({
                 inputRange: [0, 1],
-                outputRange: [backgroundTrackColor!, selectedTrackColor!],
+                outputRange: [backgroundTrackColor, selectedTrackColor],
                 extrapolate: 'clamp',
               }),
             }}
@@ -284,7 +272,7 @@ export class RangeSlider extends React.PureComponent<RangeSliderProps> {
               height: this.props.trackThickness,
               backgroundColor: this._inverted.interpolate({
                 inputRange: [0, 1],
-                outputRange: [selectedTrackColor!, backgroundTrackColor!],
+                outputRange: [selectedTrackColor, backgroundTrackColor],
                 extrapolate: 'clamp',
               }),
             }}
@@ -292,27 +280,27 @@ export class RangeSlider extends React.PureComponent<RangeSliderProps> {
         </View>
         <Thumb
           ref={this.setMinThumb}
-          radius={this.props.thumbRadius!}
+          radius={this.props.thumbRadius}
           trackMargin={this._trackMarginH}
-          color={selectedTrackColor!}
+          color={selectedTrackColor}
           onGrant={this.onMoveStart}
           onMove={this.onMove}
           onEnd={this.onMoveEnd}
           style={{
-            top: thumbRadius! * (THUMB_SCALE_RATIO - 1) + TRACK_EXTRA_MARGIN_V,
+            top: thumbRadius * (THUMB_SCALE_RATIO - 1) + TRACK_EXTRA_MARGIN_V,
           }}
         />
 
         <Thumb
           ref={this.setMaxThumb}
-          radius={this.props.thumbRadius!}
+          radius={this.props.thumbRadius}
           trackMargin={this._trackMarginH}
-          color={selectedTrackColor!}
+          color={selectedTrackColor}
           onGrant={this.onMoveStart}
           onMove={this.onMove}
           onEnd={this.onMoveEnd}
           style={{
-            top: thumbRadius! * (THUMB_SCALE_RATIO - 1) + TRACK_EXTRA_MARGIN_V,
+            top: thumbRadius * (THUMB_SCALE_RATIO - 1) + TRACK_EXTRA_MARGIN_V,
           }}
         />
       </View>

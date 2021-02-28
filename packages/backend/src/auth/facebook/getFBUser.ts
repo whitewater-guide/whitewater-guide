@@ -17,7 +17,7 @@ const getFBUser = async (profile: Profile, req: any) => {
     : [];
   const language = negotiateLanguage(req, fbLangs);
 
-  const username = `${profile.name!.givenName} ${profile.name!.familyName}`;
+  const username = `${profile.name?.givenName} ${profile.name?.familyName}`;
   return storeUser(
     SocialMediaProvider.FACEBOOK,
     {

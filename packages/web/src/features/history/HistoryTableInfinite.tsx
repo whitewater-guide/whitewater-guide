@@ -10,6 +10,7 @@ import { Index, InfiniteLoader } from 'react-virtualized';
 
 import HistoryTable from './HistoryTable';
 import { QResult, QVars } from './query';
+import { Diff } from './types';
 
 interface Props {
   history: Connection<SectionEditLogEntry>;
@@ -18,7 +19,7 @@ interface Props {
   region: NamedNode | null;
   onRegionChange: (user: NamedNode | null) => void;
   fetchMore: ObservableQueryFields<QResult, QVars>['fetchMore'];
-  onDiffOpen: (diff: object | null) => void;
+  onDiffOpen: (diff: Diff | null) => void;
 }
 
 class HistoryTableInfinite extends React.PureComponent<Props> {

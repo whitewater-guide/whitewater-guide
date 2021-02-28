@@ -210,7 +210,7 @@ export abstract class BaseAuthService implements AuthService {
         this.loading = false;
       },
     );
-    return this._refreshing!;
+    return this._refreshing;
   }
 
   init(): Promise<void> {

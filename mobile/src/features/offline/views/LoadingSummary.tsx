@@ -29,7 +29,9 @@ const LoadingSummary: React.FC<Props> = ({ error, refetch }) => {
   const { isConnected } = useNetInfo();
   const onPress = useCallback(() => {
     if (refetch) {
-      refetch().catch(() => {});
+      refetch().catch(() => {
+        // ignore
+      });
     }
   }, [refetch]);
   if (error) {

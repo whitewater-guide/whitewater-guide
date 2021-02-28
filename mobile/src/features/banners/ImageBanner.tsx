@@ -38,7 +38,9 @@ const ImageBanner: React.FC<Props> = (props) => {
   const handlePress = useCallback(() => {
     if (link) {
       onPress?.();
-      Linking.openURL(link).catch(() => {});
+      Linking.openURL(link).catch(() => {
+        // do not care if it fails
+      });
     }
   }, [onPress, link]);
 

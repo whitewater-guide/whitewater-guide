@@ -1,4 +1,5 @@
 import { NamedNode } from '@whitewater-guide/commons';
+import noop from 'lodash/noop';
 import React, { useCallback, useContext, useState } from 'react';
 
 import { useDownloadRegion } from './hooks';
@@ -14,8 +15,8 @@ interface OfflineContentCtx {
 }
 
 const OfflineContentContext = React.createContext<OfflineContentCtx>({
-  download: () => {},
-  setDialogRegion: () => {},
+  download: noop,
+  setDialogRegion: noop,
   progress: {},
   regionInProgress: null,
   dialogRegion: null,

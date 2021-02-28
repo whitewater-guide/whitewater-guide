@@ -78,6 +78,7 @@ export class CoordinateInput extends React.PureComponent<
     if (this.props.onAdd && isEmpty(this.state.errors)) {
       const [lng, lat, alt = 0] = this.state.value;
       // All three are defined, because errors are empty
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       this.props.onAdd([lng!, lat!, alt]);
     }
   };
@@ -117,7 +118,9 @@ export class CoordinateInput extends React.PureComponent<
   onCopy = () => {
     const [lng, lat] = this.props.value || [];
     if (lng !== undefined && lat !== undefined) {
-      clipboard(`${lat.toFixed(4)},${lng.toFixed(4)}`).catch(() => {});
+      clipboard(`${lat.toFixed(4)},${lng.toFixed(4)}`).catch(() => {
+        // ignore, we cannot do anything about it
+      });
     }
   };
 

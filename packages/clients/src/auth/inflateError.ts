@@ -8,7 +8,9 @@ export const inflateError = (
   if (parts.length < 2) {
     return undefined;
   }
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const value = parts.pop()!;
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const field = parts.pop()!;
   return { [field]: value };
 };

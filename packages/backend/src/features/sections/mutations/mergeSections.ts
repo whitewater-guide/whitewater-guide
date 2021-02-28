@@ -1,14 +1,14 @@
 import { yupTypes } from '@whitewater-guide/validation';
 import * as yup from 'yup';
 
-import { Context, isInputValidResolver, TopLevelResolver } from '~/apollo';
+import { ContextUser, isInputValidResolver, TopLevelResolver } from '~/apollo';
 import db from '~/db';
 
 import { SectionRaw } from '../types';
 import { differ } from './utils';
 
 const getLogSaver = async (
-  user: Context['user'],
+  user: ContextUser,
   sourceId: string,
   destinationId: string,
 ) => {
@@ -31,7 +31,7 @@ const getLogSaver = async (
         region_id: dst.region_id,
         region_name: dst.region_name,
         action: 'merged',
-        editor_id: user!.id,
+        editor_id: user.id,
         diff: differ.diff(src, {}),
       })
       .into('sections_edit_log');
@@ -55,7 +55,8 @@ const mergeSections: TopLevelResolver<Vars> = async (
 ) => {
   await dataSources.sections.assertEditorPermissions(sourceId);
   await dataSources.sections.assertEditorPermissions(destinationId);
-  const saveLog = await getLogSaver(user, sourceId, destinationId);
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const saveLog = await getLogSaver(user!, sourceId, destinationId);
   await db().raw(
     `
     WITH update_pois AS (

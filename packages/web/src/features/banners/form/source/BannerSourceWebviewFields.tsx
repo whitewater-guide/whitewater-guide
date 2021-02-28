@@ -31,7 +31,7 @@ const useStyles = makeStyles(({ spacing, palette }) =>
 const BannerSourceWebviewFields: React.FC = React.memo(() => {
   const classes = useStyles();
   const { values } = useFormikContext<BannerFormData>();
-  const [_, height] = BannerResolutions.get(values.placement)!;
+  const [_, height] = BannerResolutions[values.placement];
   const url = values.source;
   return (
     <div className={classes.root}>

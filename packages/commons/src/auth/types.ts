@@ -7,7 +7,7 @@ export interface RefreshTokenPayload {
   refresh: true;
 }
 
-export type AuthBody<T = {}> = T & {
+export type AuthBody<T = unknown> = T & {
   success: boolean;
   error?: string;
   // Unique id to match server logs with client errors

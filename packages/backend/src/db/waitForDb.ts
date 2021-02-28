@@ -8,7 +8,7 @@ export const waitForDb = async () => {
   return waitForExpect(
     async () => {
       const client = new Client({
-        ...(config[process.env.NODE_ENV || 'development']!.connection as any),
+        ...(config[process.env.NODE_ENV || 'development'].connection as any),
       });
       try {
         await client.connect();

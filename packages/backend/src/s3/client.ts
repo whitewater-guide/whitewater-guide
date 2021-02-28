@@ -1,5 +1,6 @@
 import { MAX_FILE_SIZE, MIN_FILE_SIZE } from '@whitewater-guide/commons';
 import AWS from 'aws-sdk';
+import { Required } from 'utility-types';
 
 import config from '~/config';
 import log from '~/log';
@@ -34,7 +35,7 @@ export class S3Client {
     // Only allow content size in range 10KB to 10MB in production
     const minSize = config.NODE_ENV === 'production' ? MIN_FILE_SIZE : 1;
 
-    const params: AWS.S3.PresignedPost.Params = {
+    const params: Required<AWS.S3.PresignedPost.Params, 'Conditions'> = {
       Bucket: CONTENT_BUCKET,
       Expires: 30 * 60, // 30 minutes
       Conditions: [
@@ -46,7 +47,7 @@ export class S3Client {
     };
 
     if (uploadedBy) {
-      params.Conditions!.push(['eq', '$x-amz-meta-uploaded-by', uploadedBy]);
+      params.Conditions.push(['eq', '$x-amz-meta-uploaded-by', uploadedBy]);
       params.Fields = { 'x-amz-meta-uploaded-by': uploadedBy };
     }
 

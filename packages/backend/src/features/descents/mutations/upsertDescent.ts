@@ -3,9 +3,9 @@ import { ForbiddenError } from 'apollo-server-koa';
 import * as yup from 'yup';
 
 import {
+  AuthenticatedTopLevelResolver,
   isAuthenticatedResolver,
   isInputValidResolver,
-  TopLevelResolver,
 } from '~/apollo';
 import db from '~/db';
 
@@ -19,7 +19,7 @@ const Struct = yup.object({
   shareToken: yup.string().notRequired().nullable(true),
 });
 
-const resolver: TopLevelResolver<Vars> = async (
+const resolver: AuthenticatedTopLevelResolver<Vars> = async (
   _,
   { descent, shareToken },
   { dataSources, user },
@@ -30,7 +30,7 @@ const resolver: TopLevelResolver<Vars> = async (
       .from('descents')
       .where({ id: descent.id })
       .first();
-    if (old?.user_id !== user?.id) {
+    if (old?.user_id !== user.id) {
       throw new ForbiddenError('unauthorized');
     }
   }

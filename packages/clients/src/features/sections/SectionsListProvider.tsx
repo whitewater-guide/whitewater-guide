@@ -29,7 +29,7 @@ export interface SectionsListContext extends InnerState {
   refresh: () => Promise<void>;
 }
 
-export const SectionsListContext = React.createContext<SectionsListContext>({
+const SectionsListCtx = React.createContext<SectionsListContext>({
   count: 0,
   sections: [],
   status: SectionsStatus.READY,
@@ -80,8 +80,8 @@ export class SectionsListProvider extends React.PureComponent<
       /* ignore, not in cache*/
     }
     this.state = {
-      sections: fromCache ? fromCache.sections.nodes! : [],
-      count: fromCache ? fromCache.sections.count! : 0,
+      sections: fromCache?.sections?.nodes ?? [],
+      count: fromCache?.sections?.count ?? 0,
       status: SectionsStatus.READY,
     };
     this._lastUpdatedId =
@@ -160,8 +160,8 @@ export class SectionsListProvider extends React.PureComponent<
       return;
     }
     this.setState({
-      sections: data.sections.nodes!,
-      count: data.sections.count!,
+      sections: data.sections.nodes,
+      count: data.sections.count,
     });
   };
 
@@ -191,8 +191,8 @@ export class SectionsListProvider extends React.PureComponent<
       const {
         sections: { nodes, count },
       } = data;
-      if (offset + nodes!.length < count!) {
-        await this.loadSections(offset + nodes!.length, updatedAfter);
+      if (offset + nodes.length < count) {
+        await this.loadSections(offset + nodes.length, updatedAfter);
       }
     } catch (e) {
       // Ignore
@@ -273,11 +273,11 @@ export class SectionsListProvider extends React.PureComponent<
       refresh: this.refresh,
     };
     return (
-      <SectionsListContext.Provider value={value}>
+      <SectionsListCtx.Provider value={value}>
         {typeof children === 'function' ? children(value) : children}
-      </SectionsListContext.Provider>
+      </SectionsListCtx.Provider>
     );
   }
 }
 
-export const useSectionsList = () => useContext(SectionsListContext);
+export const useSectionsList = () => useContext(SectionsListCtx);

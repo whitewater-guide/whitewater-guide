@@ -46,7 +46,7 @@ class FBWebService {
       const js = document.createElement('script');
       js.id = FB_ELEMENT_ID;
       js.src = `https://connect.facebook.net/${locale}/sdk.js`;
-      fjs.parentNode!.insertBefore(js, fjs);
+      fjs.parentNode?.insertBefore(js, fjs);
     });
   };
 

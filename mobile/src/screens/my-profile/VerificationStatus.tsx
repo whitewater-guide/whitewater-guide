@@ -76,7 +76,9 @@ const VerificationStatus: React.FC = () => {
   const { me, service } = useAuth();
   const isVerified = !!me && me.verified;
   const requestVerification = useCallback(() => {
-    service.requestVerification({ id: me ? me.id : '' }).catch(() => {});
+    service.requestVerification({ id: me ? me.id : '' }).catch(() => {
+      // ignore
+    });
   }, [me, service]);
   return (
     <VerificationStatusInternal

@@ -49,11 +49,14 @@ class WebViewBanner extends React.PureComponent<Props> {
   render() {
     const { banner } = this.props;
     const { extras, placement, source } = banner;
+    if (!source.url) {
+      return null;
+    }
     return (
       <View style={[styles.container, aspectRatios[placement]]}>
         <WebView
           ref={this.setRef}
-          source={{ uri: source.url! }}
+          source={{ uri: source.url }}
           style={[
             styles.webview,
             aspectRatios[placement],

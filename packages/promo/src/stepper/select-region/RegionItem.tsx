@@ -5,7 +5,7 @@ import React from 'react';
 interface Props {
   highlightedIndex: number | null;
   index: number;
-  itemProps: object;
+  itemProps: any;
   selectedItem: NamedNode | null;
   region: NamedNode;
 }

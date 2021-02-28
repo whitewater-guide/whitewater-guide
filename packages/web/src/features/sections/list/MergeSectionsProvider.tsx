@@ -1,4 +1,5 @@
 import { Section } from '@whitewater-guide/commons';
+import noop from 'lodash/noop';
 import React, { useContext, useState } from 'react';
 
 interface MergeSectionsContext {
@@ -6,18 +7,18 @@ interface MergeSectionsContext {
   setSource: (value: Section | null) => void;
 }
 
-const MergeSectionsContext = React.createContext<MergeSectionsContext>({
+const MergeSectionsCtx = React.createContext<MergeSectionsContext>({
   source: null,
-  setSource: () => {},
+  setSource: noop,
 });
 
 export const MergeSectionsProvider: React.FC = ({ children }) => {
   const [source, setSource] = useState<Section | null>(null);
   return (
-    <MergeSectionsContext.Provider value={{ source, setSource }}>
+    <MergeSectionsCtx.Provider value={{ source, setSource }}>
       {children}
-    </MergeSectionsContext.Provider>
+    </MergeSectionsCtx.Provider>
   );
 };
 
-export const useMergeSource = () => useContext(MergeSectionsContext);
+export const useMergeSource = () => useContext(MergeSectionsCtx);

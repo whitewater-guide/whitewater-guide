@@ -6,7 +6,7 @@ interface Vars {
 }
 
 const removeSection: TopLevelResolver<Vars> = async (
-  root,
+  _,
   { id },
   { user, language, dataSources },
 ) => {
@@ -37,6 +37,7 @@ const removeSection: TopLevelResolver<Vars> = async (
       .insert({
         ...rest,
         action: 'delete',
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         editor_id: user!.id,
       })
       .into('sections_edit_log');

@@ -33,9 +33,9 @@ interface Props {
   panHandlerRef: any;
 }
 
-type HalfMonth = React.FC<Props> & { height: number; width: number };
+type HalfMonthComponent = React.FC<Props> & { height: number; width: number };
 
-const HalfMonth: HalfMonth = Object.assign(
+const HalfMonth: HalfMonthComponent = Object.assign(
   // eslint-disable-next-line react/display-name
   React.memo((props: Props) => {
     const { index, onPress, selected, panHandlerRef } = props;

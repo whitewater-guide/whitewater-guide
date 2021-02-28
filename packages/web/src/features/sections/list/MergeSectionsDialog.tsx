@@ -24,7 +24,9 @@ const MergeSectionsDialog = React.memo(({ regionId }: Props) => {
   const onMerge = () => {
     if (source && destination) {
       mergeSections(source.id, destination.id)
-        .catch(() => {})
+        .catch(() => {
+          // ignore, maybe show snackbar with error
+        })
         .finally(() => {
           setSource(null);
         });

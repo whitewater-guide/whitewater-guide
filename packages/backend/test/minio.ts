@@ -10,11 +10,13 @@ import { resolve } from 'path';
 import { CONTENT_BUCKET, S3Prefix, TEMP } from '~/s3';
 
 const minioClient = new Client({
+  /* eslint-disable @typescript-eslint/no-non-null-assertion */
   endPoint: process.env.MINIO_HOST!,
   port: Number(process.env.MINIO_PORT),
   useSSL: false,
   accessKey: process.env.MINIO_ACCESS_KEY!,
   secretKey: process.env.MINIO_SECRET_KEY!,
+  /* eslint-enable @typescript-eslint/no-non-null-assertion */
 });
 
 const createBucketIfNotExists = async (bucketName: string) => {

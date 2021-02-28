@@ -59,7 +59,7 @@ const SectionInfo: React.FC<Props> = ({ section }) => {
       <Row>
         <Title>Rating</Title>
         <Grid>
-          <Rating value={section.rating!} precision={0.5} readOnly={true} />
+          <Rating value={section.rating} precision={0.5} readOnly={true} />
         </Grid>
       </Row>
       <Row>

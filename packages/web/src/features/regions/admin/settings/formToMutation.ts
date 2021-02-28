@@ -7,7 +7,7 @@ export default (settings: RegionAdminFormData): MVars => {
     settings: {
       ...rest,
       coverImage: {
-        mobile: coverImage ? coverImage.url! : null,
+        mobile: coverImage ? coverImage.url ?? null : null,
       },
     },
   };

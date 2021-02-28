@@ -33,7 +33,7 @@ const SuggestionThumb: React.FC<Props> = React.memo(({ suggestion }) => {
   }
   return (
     <React.Fragment>
-      <img src={thumb} className={classes.thumb} onClick={openModal} />
+      <img alt="" src={thumb} className={classes.thumb} onClick={openModal} />
       <Lightbox
         items={items}
         currentModal={currentModal}

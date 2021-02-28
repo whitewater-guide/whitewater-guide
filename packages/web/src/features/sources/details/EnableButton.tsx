@@ -36,14 +36,14 @@ class EnableButtonInner extends React.PureComponent<InnerProps, State> {
 
   enableAll = () => {
     const { mutate } = this.props;
-    mutate!({ variables: { linkedOnly: false } }).finally(() => {
+    mutate({ variables: { linkedOnly: false } }).finally(() => {
       this.setState({ open: false });
     });
   };
 
   enableLinked = () => {
     const { mutate } = this.props;
-    mutate!({ variables: { linkedOnly: true } }).finally(() => {
+    mutate({ variables: { linkedOnly: true } }).finally(() => {
       this.setState({ open: false });
     });
   };

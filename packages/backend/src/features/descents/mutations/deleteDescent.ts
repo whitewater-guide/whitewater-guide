@@ -1,11 +1,15 @@
-import { TopLevelResolver } from '~/apollo';
+import { AuthenticatedTopLevelResolver } from '~/apollo';
 import { isAuthenticatedResolver } from '~/apollo/enhancedResolvers';
 
 interface Vars {
   id: string;
 }
 
-const resolver: TopLevelResolver<Vars> = async (_, { id }, { dataSources }) => {
+const resolver: AuthenticatedTopLevelResolver<Vars> = async (
+  _,
+  { id },
+  { dataSources },
+) => {
   await dataSources.descents.deleteById(id);
   return true;
 };

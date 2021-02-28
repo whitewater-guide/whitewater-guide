@@ -37,6 +37,7 @@ const removeMedia: TopLevelResolver<Vars> = async (
     language,
     sectionId: section_id,
     action: 'media_delete',
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     editorId: user!.id,
     diff: null,
   });

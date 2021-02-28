@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-redeclare */
 import { NamedNode } from '@whitewater-guide/commons';
 import debounce from 'lodash/debounce';
 import uniqBy from 'lodash/uniqBy';
 import React from 'react';
 import { findDOMNode } from 'react-dom';
+import { Required } from 'utility-types';
 
 import { Autocomplete, AutocompleteFilterOptions } from '../autocomplete';
 import { MapElementProps } from './types';
@@ -34,7 +36,7 @@ interface State {
 }
 
 export default class PlacesAutocomplete extends React.Component<
-  MapElementProps,
+  Required<MapElementProps, 'map'>,
   State
 > {
   autocompleteService: google.maps.places.AutocompleteService;
@@ -43,10 +45,10 @@ export default class PlacesAutocomplete extends React.Component<
   placesResult: SearchResult[] = [];
   state: State;
 
-  constructor(props: MapElementProps) {
+  constructor(props: Required<MapElementProps, 'map'>) {
     super(props);
     this.autocompleteService = new google.maps.places.AutocompleteService();
-    this.placesService = new google.maps.places.PlacesService(props.map!);
+    this.placesService = new google.maps.places.PlacesService(props.map);
     this.state = {
       searchText: '',
       combinedResult: [],
@@ -54,7 +56,7 @@ export default class PlacesAutocomplete extends React.Component<
   }
 
   componentDidMount() {
-    this.props.map!.controls[google.maps.ControlPosition.TOP_LEFT].push(
+    this.props.map.controls[google.maps.ControlPosition.TOP_LEFT].push(
       // eslint-disable-next-line react/no-find-dom-node
       findDOMNode(this) as Element,
     );
@@ -84,7 +86,9 @@ export default class PlacesAutocomplete extends React.Component<
   onPlacesComplete = (result: PlaceResult[], status: PlacesServiceStatus) => {
     if (status === PlacesServiceStatus.OK) {
       this.placesResult = result.map((place) => ({
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         id: place.place_id!,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         name: place.formatted_address!,
         value: place,
       }));
@@ -98,7 +102,7 @@ export default class PlacesAutocomplete extends React.Component<
   ) => {
     if (status === PlacesServiceStatus.OK) {
       this.autocompleteResult = result.map((place) => ({
-        id: place.place_id!,
+        id: place.place_id,
         name: place.description,
         value: place,
       }));
@@ -109,9 +113,9 @@ export default class PlacesAutocomplete extends React.Component<
   onSelect = ({ value }: SearchResult) => {
     if ('geometry' in value) {
       this.panZoomTo(value as PlaceResult);
-    } else {
+    } else if (value.place_id) {
       this.placesService.getDetails(
-        { placeId: value.place_id! },
+        { placeId: value.place_id },
         this.onDetailsReceived,
       );
     }
@@ -125,8 +129,10 @@ export default class PlacesAutocomplete extends React.Component<
   };
 
   panZoomTo = (place: PlaceResult) => {
-    this.props.map!.panTo(place.geometry!.location);
-    this.props.map!.setZoom(11);
+    if (place.geometry) {
+      this.props.map.panTo(place.geometry.location);
+      this.props.map.setZoom(11);
+    }
   };
 
   render() {

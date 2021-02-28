@@ -43,7 +43,7 @@ export const Map = React.memo(
     const initialPosition: InitialPosition = useMemo(() => {
       const bounds = new google.maps.LatLngBounds();
       initialBounds.forEach((point: Coordinate) =>
-        bounds.extend(arrayToGmaps(point)!),
+        bounds.extend(arrayToGmaps(point)),
       );
       return {
         center: bounds.getCenter(),

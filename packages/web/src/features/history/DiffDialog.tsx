@@ -7,6 +7,7 @@ import React from 'react';
 
 import { Loading } from '../../components';
 import { Styles } from '../../styles';
+import { Diff } from './types';
 
 const styles: Styles = {
   wrapper: {
@@ -16,7 +17,7 @@ const styles: Styles = {
 };
 
 interface Props {
-  diff: object;
+  diff: Diff;
   onRequestClose: () => void;
 }
 

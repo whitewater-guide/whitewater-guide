@@ -3,13 +3,7 @@ import IconButton from '@material-ui/core/IconButton';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import TextField from '@material-ui/core/TextField';
-import {
-  Group,
-  GroupInput,
-  Overwrite,
-  Region,
-} from '@whitewater-guide/commons';
-import get from 'lodash/get';
+import { Group, GroupInput, Overwrite } from '@whitewater-guide/commons';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -42,11 +36,15 @@ class GroupForm extends React.PureComponent<Props, State> {
     this.props.onAdd({ id, name, sku });
   };
 
-  onDelete = () => this.props.onRemove(this.props.group.id!);
+  onDelete = () => {
+    if (this.props.group.id) {
+      this.props.onRemove(this.props.group.id);
+    }
+  };
 
   renderRegions = () => {
     const { regions } = this.props.group;
-    const nodes: Region[] = get(regions, 'nodes', [])!;
+    const nodes = regions?.nodes ?? [];
     return (
       <div style={{ flex: 1 }}>
         {nodes.map((r, i) => (

@@ -11,21 +11,21 @@ export interface TagsContext {
 
 const defaultContext: TagsContext = { tags: [], loading: false };
 
-export const TagsContext = React.createContext(defaultContext);
+const TagsCtx = React.createContext(defaultContext);
 
 export const TagsProvider: React.FC = ({ children }) => {
   return (
     <Query query={LIST_TAGS} fetchPolicy="cache-and-network">
-      {({ data, loading }: QueryResult<Result, {}>) => {
+      {({ data, loading }: QueryResult<Result, unknown>) => {
         const tags = (data && data.tags) || [];
         return (
-          <TagsContext.Provider value={{ tags, loading }}>
+          <TagsCtx.Provider value={{ tags, loading }}>
             {children}
-          </TagsContext.Provider>
+          </TagsCtx.Provider>
         );
       }}
     </Query>
   );
 };
 
-export const useTags = () => useContext(TagsContext);
+export const useTags = () => useContext(TagsCtx);

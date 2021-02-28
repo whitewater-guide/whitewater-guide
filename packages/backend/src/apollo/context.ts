@@ -29,11 +29,11 @@ export const newContext = ({ ctx }: Ctx): Omit<Context, 'dataSources'> => {
   const language =
     (ctx.headers?.['x-editor-language'] as string) ||
     get(user, 'language') ||
-    ctx.acceptsLanguages!(LANGUAGES) ||
+    ctx.acceptsLanguages?.(LANGUAGES) ||
     'en';
 
   // Side-effect. Set response content-language
-  ctx.set!('Content-Language', language);
+  ctx.set?.('Content-Language', language);
 
   const fieldsByType = new Map<string, Set<string>>();
   // dataSources are not optional, but they're added later

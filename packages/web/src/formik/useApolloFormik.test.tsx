@@ -42,6 +42,7 @@ const QUERY = gql`
   }
 `;
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 type QVars = {};
 interface QResult {
   entity: Entity;

@@ -25,11 +25,11 @@ const PhotoForm: React.FC<Props> = React.memo((props) => {
         // Editing existing image
         return;
       }
-      if (!localPhoto) {
+      if (!localPhoto?.file) {
         throw new Error('Photo form must have file!');
       }
       setFieldValue(`${prefix}resolution`, localPhoto.resolution);
-      const filename = await upload!(localPhoto.file!);
+      const filename = await upload(localPhoto.file);
       setFieldValue(`${prefix}url`, filename);
     };
 

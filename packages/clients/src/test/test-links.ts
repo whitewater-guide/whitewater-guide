@@ -116,7 +116,7 @@ export class MockLink extends ApolloLink {
   }
 }
 
-function requestToKey(request: GraphQLRequest, addTypename: Boolean): string {
+function requestToKey(request: GraphQLRequest, addTypename: boolean): string {
   const cleanQuery = removeConnectionDirectiveFromDocument(request.query);
   const queryString =
     request.query &&

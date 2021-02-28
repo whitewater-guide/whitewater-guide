@@ -83,6 +83,7 @@ const maybeInsert = async (
 ): Promise<[number, string]> => {
   const input: SectionInput = deepmerge(NULL_SECTION_INPUT, section);
   if (input.gauge?.id && gauges.has(input.gauge.id)) {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     input.gauge.id = gauges.get(input.gauge.id)!;
   }
   const validationError = sectionValidator(input);
@@ -164,7 +165,9 @@ const resolver: TopLevelResolver<Vars> = async (
       next();
     }
   } finally {
-    await s3Client.removeFile(TEMP, filename).catch(() => {});
+    await s3Client.removeFile(TEMP, filename).catch(() => {
+      // ignore errors
+    });
   }
   return { log, count };
 };

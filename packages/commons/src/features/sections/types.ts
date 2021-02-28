@@ -168,6 +168,7 @@ export interface SectionEditLogEntry extends Node {
   editor: User;
   action: SectionEditAction;
   createdAt: string;
+  // eslint-disable-next-line @typescript-eslint/ban-types
   diff: null | object;
 }
 

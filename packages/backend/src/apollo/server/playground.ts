@@ -34,8 +34,11 @@ export const getPlaygroundConfig = async (
     introspectionQuery,
     undefined,
   );
+  if (!data) {
+    throw new Error('failed to run introspection query');
+  }
   return {
-    schema: data!,
+    schema: data,
     tabs: [
       {
         name: 'Example: some regions',

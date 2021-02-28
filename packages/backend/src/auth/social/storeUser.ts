@@ -40,12 +40,12 @@ export async function storeUser(
         verified: true,
       })
       .returning('*');
-    user = users[0];
+    user = users[0] as UserRaw;
     isNew = true;
   }
 
   const loginKeys = {
-    user_id: user!.id,
+    user_id: user.id,
     provider,
     id: profile.id,
   };

@@ -37,6 +37,8 @@ export const useInRegionLocation = (
           });
         }
       })
-      .catch(() => {});
+      .catch(() => {
+        // do not care if we fail
+      });
   }, [camera, locationPermissionGranted, bounds]);
 };

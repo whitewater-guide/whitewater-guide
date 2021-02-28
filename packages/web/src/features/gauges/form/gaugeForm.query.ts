@@ -24,5 +24,6 @@ export interface QVars {
 }
 
 export interface QResult {
+  // eslint-disable-next-line @typescript-eslint/ban-types
   gauge: GaugeCore & GaugeHarvestInfo<object | null> & GaugeLocation;
 }

@@ -7,7 +7,7 @@ export const enablePushNotifications = async () => {
     try {
       const result = await messaging().requestPermission();
       if (result) {
-        await messaging().registerForRemoteNotifications();
+        await messaging().registerDeviceForRemoteMessages();
       }
     } catch {
       /* Ignore */

@@ -6,6 +6,7 @@ function convertMedia(form: MediaFormInput): MediaInput {
   const { photo, ...rest } = form;
   return {
     ...rest,
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     url: photo.url!,
     resolution: photo.resolution,
   };

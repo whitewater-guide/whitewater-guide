@@ -1,9 +1,8 @@
-import { NamedNode } from '@whitewater-guide/commons';
 import { DocumentNode } from 'graphql';
 import { QueryResult } from 'react-apollo';
 
 /**
- * strings or simple queries with selection aliased as 'node', e.g.
+ * simple queries with selection aliased as 'node', e.g.
  * query bannerName($id: ID!) {
  *  node: banner(id: $id) {
  *    id
@@ -11,12 +10,14 @@ import { QueryResult } from 'react-apollo';
  *  }
  * }
  */
-export type BreadcrumbValue =
-  | string
-  | {
-      query: DocumentNode;
-      getName?: (result: QueryResult) => string | undefined;
-    };
+export interface QueryBreadcrumbValue {
+  query: DocumentNode;
+  getName?: (result: QueryResult) => string | undefined;
+}
+
+export type SimpleBreadcrumbValue = string;
+
+export type BreadcrumbValue = SimpleBreadcrumbValue | QueryBreadcrumbValue;
 
 // Keys: full paths, e.g. '/regions/:regionId/settings'
 export interface BreadcrumbsMap {
@@ -35,8 +36,4 @@ export interface BreadcrumbsProps {
 
 export interface BQVars {
   id: string;
-}
-
-export interface BQResult {
-  node: NamedNode;
 }

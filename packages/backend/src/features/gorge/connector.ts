@@ -129,7 +129,7 @@ export class GorgeConnector implements DataSource<Context> {
         }
         this._gaugeStatuses.set(sourceId, sourceMap);
       }
-      return sourceMap!;
+      return sourceMap;
     } catch (err) {
       throw this._handleError(err);
     }
@@ -228,7 +228,7 @@ export class GorgeConnector implements DataSource<Context> {
   ): Promise<Array<gorge.Measurement | null>> {
     if (keys.length === 1) {
       const one = await this._getLatest([keys[0].script], keys[0].code);
-      return [one.get(`${keys[0].script}:${keys[0].code}`)!];
+      return [one.get(`${keys[0].script}:${keys[0].code}`) ?? null];
     }
     // Many keys
     const scripts = new Set<string>();

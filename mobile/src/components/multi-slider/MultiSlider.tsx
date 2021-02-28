@@ -2,7 +2,8 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Subheading } from 'react-native-paper';
 
-import { RangeSlider, RangeSliderProps } from './RangeSlider';
+import { RangeSlider } from './RangeSlider';
+import { RangeSliderProps } from './types';
 
 const styles = StyleSheet.create({
   sliderWrapper: {
@@ -14,11 +15,11 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props extends RangeSliderProps {
+interface Props extends Partial<RangeSliderProps> {
   label: string;
 }
 
-export const MultiSlider: React.SFC<Props> = ({ label, ...props }) => (
+export const MultiSlider: React.FC<Props> = ({ label, ...props }) => (
   <View style={styles.sliderWrapper}>
     <Subheading style={styles.label}>{label}</Subheading>
     <RangeSlider {...props} />

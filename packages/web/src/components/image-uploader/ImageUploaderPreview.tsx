@@ -92,7 +92,12 @@ export const ImageUploaderPreview = React.memo(
     return (
       <div className={classes.root}>
         <div className={classes.imageBase}>
-          <img className={classes.image} src={src} onClick={openLightbox} />
+          <img
+            alt=""
+            className={classes.image}
+            src={src}
+            onClick={openLightbox}
+          />
           <Lightbox
             items={lightbox}
             currentModal={lightboxIndex}

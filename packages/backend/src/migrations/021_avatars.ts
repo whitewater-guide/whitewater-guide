@@ -8,6 +8,8 @@ export const up = async (db: Knex) => {
   await db.table('users').update({ avatar: null });
 };
 
-export const down = async () => {};
+export const down = async () => {
+  // do nothing
+};
 
 export const configuration = { transaction: true };

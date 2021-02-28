@@ -7,14 +7,15 @@ import { QResult, QVars } from './suggestedSections.query';
 import SuggestedSectionsTable from './SuggestedSectionsTable';
 
 interface Props {
-  suggestedSections: QResult['sections'];
+  suggestedSections?: QResult['sections'];
   fetchMore: ObservableQueryFields<QResult, QVars>['fetchMore'];
 }
 
 export const SuggestedSectionsInfinite: React.FC<Props> = React.memo(
   (props) => {
     const { suggestedSections, fetchMore } = props;
-    const { nodes, count } = suggestedSections;
+    const nodes = suggestedSections?.nodes;
+    const count = suggestedSections?.count ?? 0;
 
     const isRowLoaded = useCallback(
       ({ index }: Index) => {

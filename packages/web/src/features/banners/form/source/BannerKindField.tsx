@@ -32,7 +32,7 @@ interface Props {
 
 const BannerKindField: React.FC<Props> = React.memo((props) => {
   const { title, value, onChange, placement } = props;
-  const [width, height] = BannerResolutions.get(placement)!;
+  const [width, height] = BannerResolutions[placement];
   const classes = useStyles();
 
   const onRadioChange = useCallback(

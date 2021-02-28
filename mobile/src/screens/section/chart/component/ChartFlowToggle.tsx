@@ -41,7 +41,7 @@ export const ChartFlowToggle: React.FC = React.memo(() => {
         : formulas.levels(latestMeasurement.level);
     value = isNil(numeric) ? '' : numeric.toFixed(2);
   }
-  const unitName = unit === Unit.FLOW ? flowUnit! : levelUnit!;
+  const unitName = unit === Unit.FLOW ? flowUnit : levelUnit;
 
   return (
     <Row>

@@ -27,7 +27,9 @@ export default (descentId: string) => {
     loading,
     deleteDescent: () =>
       mutate()
-        .catch(() => {})
+        .catch(() => {
+          // ignore error
+        })
         .then(() => goBack()),
   };
 };

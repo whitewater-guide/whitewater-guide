@@ -34,7 +34,7 @@ const SourceDetailsMain: React.StatelessComponent<Props> = ({ source }) => (
     </div>
     <div style={styles.row}>
       <div style={styles.title}>Regions</div>
-      <div>{source.regions!.nodes!.map((node) => node.name).join(', ')}</div>
+      <div>{source.regions?.nodes?.map((node) => node.name).join(', ')}</div>
     </div>
     <div style={styles.row}>
       <div style={styles.title}>URL</div>

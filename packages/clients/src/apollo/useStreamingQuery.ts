@@ -33,9 +33,9 @@ export const useStreamingQuery = <QResult, QVars extends { page?: Page }>(
   });
   const connectionField = getConnectionField(data);
   const loaded = connectionField
-    ? (data![connectionField] as any).nodes.length
+    ? (data?.[connectionField] as any).nodes.length
     : -1;
-  const total = connectionField ? (data![connectionField] as any).count : -1;
+  const total = connectionField ? (data?.[connectionField] as any).count : -1;
   useEffect(() => {
     if (loaded < total) {
       fetchMore({
@@ -45,7 +45,9 @@ export const useStreamingQuery = <QResult, QVars extends { page?: Page }>(
           page: { limit, offset: loaded },
         },
         updateQuery: getListMerger(connectionField as any),
-      }).catch(() => {});
+      }).catch(() => {
+        // ignore network errors
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loaded, total, connectionField]);

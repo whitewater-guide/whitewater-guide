@@ -28,12 +28,12 @@ export default ({ data, unit, startedAt, onLoaded, gauge }: Props) =>
       }
       return Math.abs(differenceInMilliseconds(m.timestamp, startedAt));
     });
-    const value = sorted.shift();
-    if (!value) {
+    const value = sorted.shift()?.[unit];
+    if (typeof value !== 'number') {
       onLoaded();
     } else {
       onLoaded({
-        value: value[unit]!,
+        value,
         unit: unit === Unit.FLOW ? gauge.flowUnit : gauge.levelUnit,
       });
     }

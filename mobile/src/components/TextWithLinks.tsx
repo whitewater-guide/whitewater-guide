@@ -7,7 +7,7 @@ import theme from '../theme';
 const parser = new MarkdownIt();
 
 interface LinkNode {
-  index?: number;
+  index: number;
   text?: string;
 }
 
@@ -24,9 +24,12 @@ const split = (text: string) => {
         nodes.push(child.content);
       }
     } else if (child.type === 'link_open') {
-      currentLink = { index: parseInt(child.attrGet('href')!, 10) };
-    } else if (child.type === 'link_close') {
-      nodes.push(currentLink!);
+      const href = child.attrGet('href');
+      if (href) {
+        currentLink = { index: parseInt(href, 10) };
+      }
+    } else if (child.type === 'link_close' && currentLink) {
+      nodes.push(currentLink);
       currentLink = null;
     }
   });
@@ -69,7 +72,7 @@ export const TextWithLinks: React.FC<Props> = React.memo(
             return <Text key={index}>{node}</Text>;
           }
           return (
-            <Link key={index} index={node.index!} onLink={onLink}>
+            <Link key={index} index={node.index} onLink={onLink}>
               {node.text}
             </Link>
           );

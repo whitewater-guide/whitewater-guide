@@ -28,12 +28,13 @@ const sectionQuery = (sectionId: string) =>
     .where('sections.id', sectionId)
     .first();
 
-export const query = (gaugeId?: string, sectionId?: string) => {
+function query(gaugeId?: string, sectionId?: string): Promise<any> {
   if (!gaugeId && !sectionId) {
     throw new UserInputError('Either gauge id or section id must be specified');
   }
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   return gaugeId ? gaugeQuery(gaugeId) : sectionQuery(sectionId!);
-};
+}
 
 const measurementsResolver: TopLevelResolver<Vars> = async (
   _,

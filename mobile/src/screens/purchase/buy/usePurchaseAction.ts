@@ -87,7 +87,9 @@ export default (sku: string | null, sectionId?: string) => {
           return;
         }
         setState((current) => ({ ...current, loading: true }));
-        requestPurchase(sku, false).catch(() => {});
+        requestPurchase(sku, false).catch(() => {
+          // ignore, maybe show snackbar later
+        });
         return;
       }
 

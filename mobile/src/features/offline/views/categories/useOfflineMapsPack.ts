@@ -39,7 +39,9 @@ const useOfflineMapsPack = () => {
     MapboxGL.offlineManager
       .deletePack(regionId)
       .then(() => setSize(null))
-      .catch(() => {});
+      .catch(() => {
+        // can't do anything, ignore
+      });
   }, [regionId, setSize]);
 
   return {

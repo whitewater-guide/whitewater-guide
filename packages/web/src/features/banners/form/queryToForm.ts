@@ -40,7 +40,7 @@ export default (result?: QResult): BannerFormData => {
         ? banner.source.url
         : {
             id: shortid(),
-            resolution: BannerResolutions.get(banner.placement)!,
+            resolution: BannerResolutions[banner.placement],
             url: banner.source.url,
             status: LocalPhotoStatus.READY,
           },

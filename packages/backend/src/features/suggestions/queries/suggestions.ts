@@ -2,13 +2,17 @@ import { SuggestionsFilter } from '@whitewater-guide/commons';
 import { ForbiddenError } from 'apollo-server-koa';
 import { QueryBuilder } from 'knex';
 
-import { isAuthenticatedResolver, ListQuery, TopLevelResolver } from '~/apollo';
+import {
+  AuthenticatedTopLevelResolver,
+  isAuthenticatedResolver,
+  ListQuery,
+} from '~/apollo';
 
 interface Vars extends ListQuery {
   filter?: SuggestionsFilter;
 }
 
-const suggestions: TopLevelResolver<Vars> = async (
+const suggestions: AuthenticatedTopLevelResolver<Vars> = async (
   _,
   { filter = {}, page },
   { user, dataSources },
@@ -20,11 +24,11 @@ const suggestions: TopLevelResolver<Vars> = async (
     query = query.whereIn('status', status);
   }
   if (userId) {
-    if (!user || (!user.admin && user.id !== userId)) {
+    if (!user.admin && user.id !== userId) {
       throw new ForbiddenError('forbidden');
     }
     query = query.where({ created_by: userId });
-  } else if (!user!.admin) {
+  } else if (!user.admin) {
     query = query.whereExists((qb: QueryBuilder) =>
       qb
         .select('user_id')
@@ -32,7 +36,7 @@ const suggestions: TopLevelResolver<Vars> = async (
         .innerJoin('rivers', 'regions_editors.region_id', 'rivers.region_id')
         .innerJoin('sections', 'sections.river_id', 'rivers.id')
         .whereRaw('sections.id = suggestions.section_id')
-        .where('regions_editors.user_id', '=', user!.id),
+        .where('regions_editors.user_id', '=', user.id),
     );
   }
   const result = await query;

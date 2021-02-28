@@ -2,15 +2,15 @@ import { createSafeValidator } from '@whitewater-guide/validation';
 import { AuthenticationError, UserInputError } from 'apollo-server-koa';
 import * as yup from 'yup';
 
-import { TopLevelResolver } from '~/apollo';
+import { AuthenticatedTopLevelResolver, TopLevelResolver } from './types';
 
 export const isAuthenticatedResolver = <Vars>(
-  resolver: TopLevelResolver<Vars>,
+  resolver: AuthenticatedTopLevelResolver<Vars>,
 ): TopLevelResolver<Vars> => (source, args, context, info) => {
   if (!context.user) {
     throw new AuthenticationError('must authenticate');
   }
-  return resolver(source, args, context, info);
+  return resolver(source, args, context as any, info);
 };
 
 export const isInputValidResolver = <Vars>(

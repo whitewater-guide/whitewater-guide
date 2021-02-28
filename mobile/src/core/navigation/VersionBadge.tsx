@@ -20,7 +20,7 @@ interface State {
   humanVersion: string;
 }
 
-class VersionBadge extends React.PureComponent<{}, State> {
+class VersionBadge extends React.PureComponent<unknown, State> {
   state: State = {
     humanVersion: '',
   };

@@ -37,7 +37,9 @@ export default function useThumb(media: MediaOrInput): ThumbState {
         }
       }
     };
-    setThumb().catch(() => {});
+    setThumb().catch(() => {
+      // ignore
+    });
   }, [id, mediaRef, setState]);
 
   return state;

@@ -1,4 +1,7 @@
-import { isAuthenticatedResolver, TopLevelResolver } from '~/apollo';
+import {
+  AuthenticatedTopLevelResolver,
+  isAuthenticatedResolver,
+} from '~/apollo';
 import db from '~/db';
 
 import { BoomPromoRaw } from '../types';
@@ -7,7 +10,7 @@ interface Vars {
   code: string;
 }
 
-const checkBoomPromo: TopLevelResolver<Vars> = isAuthenticatedResolver(
+const checkBoomPromo: AuthenticatedTopLevelResolver<Vars> = isAuthenticatedResolver(
   async (_, { code }, context) => {
     const query = db()
       .table('boom_promos')

@@ -50,7 +50,7 @@ const SectionDetails: React.FC<RouteComponentProps> = React.memo((props) => {
             </Route>
 
             <Route exact={true} path={`${match.path}/flows`}>
-              <Chart gauge={section.gauge!} section={section} />
+              <Chart gauge={section.gauge ?? undefined} section={section} />
             </Route>
 
             <Route exact={true} path={`${match.path}/description`}>

@@ -10,14 +10,19 @@ export const configureApolloCache = () =>
     cacheRedirects: {
       Query: {
         region: (_, { id }) =>
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           toIdValue(dataIdFromObject({ __typename: 'Region', id })!),
         source: (_, { id }) =>
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           toIdValue(dataIdFromObject({ __typename: 'Source', id })!),
         gauge: (_, { id }) =>
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           toIdValue(dataIdFromObject({ __typename: 'Gauge', id })!),
         river: (_, { id }) =>
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           toIdValue(dataIdFromObject({ __typename: 'River', id })!),
         section: (_, { id }) =>
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           toIdValue(dataIdFromObject({ __typename: 'Section', id })!),
         sections: (store, { filter: { regionId } }) => {
           // This is brittle. Inspect first argument to see query store keys

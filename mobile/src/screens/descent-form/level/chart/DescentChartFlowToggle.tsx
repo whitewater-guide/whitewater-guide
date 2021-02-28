@@ -20,7 +20,7 @@ const DescentChartFlowToggle: React.FC = () => {
   const { unit, onChangeUnit, unitChangeable, gauge } = useChart();
   const { t } = useTranslation();
   const { flowUnit, levelUnit } = gauge;
-  const unitName = unit === Unit.FLOW ? flowUnit! : levelUnit!;
+  const unitName = unit === Unit.FLOW ? flowUnit : levelUnit;
   const onValueChange = useCallback(
     (value: boolean) => {
       onChangeUnit(value ? Unit.FLOW : Unit.LEVEL);

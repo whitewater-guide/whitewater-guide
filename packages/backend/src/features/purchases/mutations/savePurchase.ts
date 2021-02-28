@@ -10,7 +10,7 @@ import { QueryBuilder, Transaction } from 'knex';
 import * as yup from 'yup';
 
 import {
-  Context,
+  ContextUser,
   isInputValidResolver,
   MutationNotAllowedError,
 } from '~/apollo';
@@ -32,7 +32,7 @@ const Struct = yup.object({
 
 const processBoomstarterPurchase = async (
   purchase: PurchaseInput,
-  { user }: Context,
+  user: ContextUser,
 ) => {
   const promo: BoomPromoRaw | undefined = await db()
     .table('boom_promos')
@@ -49,31 +49,34 @@ const processBoomstarterPurchase = async (
   }
   await db().transaction(async (trx: Transaction) => {
     const transaction: Partial<TransactionRaw> = {
-      user_id: user!.id,
+      user_id: user.id,
       platform: PurchasePlatform.boomstarter,
       transaction_id: purchase.transactionId,
       product_id: purchase.productId,
       validated: true,
     };
-    await trx!.insert(transaction).into('transactions');
+    await trx.insert(transaction).into('transactions');
     await trx('boom_promos')
       .update({ redeemed: true })
       .where({ code: purchase.transactionId });
   });
 };
 
-const processIAP = async (purchase: PurchaseInput, { user }: Context) => {
+const processIAP = async (purchase: PurchaseInput, user: ContextUser) => {
   let validated = false;
   let response: any;
   if (purchase.platform === PurchasePlatform.android) {
-    response = await acknowledgeAndroid(purchase, user!.id);
+    response = await acknowledgeAndroid(purchase, user.id);
     validated = true;
   } else {
-    response = await validate(purchase.receipt!);
+    if (!purchase.receipt) {
+      throw new Error('empty purchase receipt');
+    }
+    response = await validate(purchase.receipt);
     validated = isValidated(response);
   }
   const transaction: Partial<TransactionRaw> = {
-    user_id: user!.id,
+    user_id: user.id,
     platform: purchase.platform,
     transaction_id: purchase.transactionId,
     transaction_date: purchase.transactionDate,
@@ -119,9 +122,9 @@ const savePurchase = isInputValidResolver<Vars>(
     } else {
       try {
         if (purchase.platform === PurchasePlatform.boomstarter) {
-          await processBoomstarterPurchase(purchase, context);
+          await processBoomstarterPurchase(purchase, user);
         } else {
-          await processIAP(purchase, context);
+          await processIAP(purchase, user);
         }
       } catch (e) {
         logger.warn({ extra: { platform, transactionId }, error: e });
@@ -130,7 +133,7 @@ const savePurchase = isInputValidResolver<Vars>(
     }
 
     const regionInfo = {
-      fieldNodes: [info.fieldNodes[0]!.selectionSet!.selections[0]],
+      fieldNodes: [info.fieldNodes[0].selectionSet?.selections[0]],
     };
     let regionQuery = dataSources.regions.getMany(regionInfo, {
       where: { premium: true },

@@ -24,7 +24,7 @@ export default (sections: Section[], region: Region | null) => {
     const numSections = sections.length;
     const numBanners = numSections >= 2 * ROWS_PER_SCREEN + 1 ? 2 : 1;
     const banners = getBannersForPlacement(
-      nodes!,
+      nodes ?? [],
       BannerPlacement.MOBILE_SECTION_ROW,
       numBanners,
     );

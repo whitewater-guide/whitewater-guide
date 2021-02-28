@@ -14,9 +14,12 @@ import { RegionAdminSettingsForm } from './settings';
 
 const RegionAdmin: React.FC = () => {
   const { node, loading } = useRegion();
+  if (!node) {
+    return null;
+  }
   return (
     <Card loading={loading || !node}>
-      <CardHeader title={node!.name} action={<EditorLanguagePicker />} />
+      <CardHeader title={node.name} action={<EditorLanguagePicker />} />
       <CardContent>
         <Box
           width={1}
@@ -33,16 +36,16 @@ const RegionAdmin: React.FC = () => {
           </HashTabs>
 
           <HashTabView value="#main">
-            <RegionAdminSettingsForm regionId={node!.id} />
+            <RegionAdminSettingsForm regionId={node.id} />
           </HashTabView>
           <HashTabView value="#editors">
-            <RegionEditors regionId={node!.id} />
+            <RegionEditors regionId={node.id} />
           </HashTabView>
           <HashTabView value="#groups">
-            <RegionGroups regionId={node!.id} />
+            <RegionGroups regionId={node.id} />
           </HashTabView>
           <HashTabView value="#import">
-            <RegionBulkInsert regionId={node!.id} />
+            <RegionBulkInsert regionId={node.id} />
           </HashTabView>
         </Box>
       </CardContent>

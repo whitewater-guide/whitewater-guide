@@ -63,7 +63,9 @@ class VideoItem extends React.PureComponent<Props, State> {
   }
 
   onPress = () => {
-    Linking.openURL(this.props.video.url).catch(() => {});
+    Linking.openURL(this.props.video.url).catch(() => {
+      // do not care if we cannot open it
+    });
   };
 
   onLongPress = () => Clipboard.setString(this.props.video.url);

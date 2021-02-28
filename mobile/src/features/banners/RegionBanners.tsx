@@ -24,7 +24,7 @@ export const RegionBanners: React.FC<Props> = ({ placement, count = 1 }) => {
     return null;
   }
   const banners = getBannersForPlacement(
-    region.node.banners.nodes!,
+    region.node.banners.nodes ?? [],
     placement,
     count,
   );

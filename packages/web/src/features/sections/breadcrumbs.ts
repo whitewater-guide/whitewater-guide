@@ -8,7 +8,8 @@ export const sectionBreadcrumbs: BreadcrumbsMap = {
   '/sections/new': 'New',
   '/sections/:sectionId': {
     query: SECTION_NAME,
-    getName: ({ data }) => sectionName(data && data.section),
+    getName: ({ data }) =>
+      data?.section ? sectionName(data.section) : undefined,
   },
   '/sections/:sectionId/settings': 'Settings',
 };

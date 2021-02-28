@@ -11,7 +11,7 @@ import config from '~/config';
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from '../constants';
 import { getAccessToken, getRefreshToken } from './tokens';
 
-type Ctx = ParameterizedContext<any, IRouterParamContext<any, {}>>;
+type Ctx = ParameterizedContext<any, IRouterParamContext<any, unknown>>;
 
 export const sendCredentials = (
   ctx: Ctx,

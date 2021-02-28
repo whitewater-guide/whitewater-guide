@@ -99,12 +99,12 @@ export const RegionCard: React.FC<Props> = React.memo(({ region, index }) => {
         <View style={styles.footer}>
           <View style={styles.col}>
             <Caption>{`${t('regionsList:sectionsCount')}: ${
-              region.sections!.count
+              region.sections?.count
             }`}</Caption>
           </View>
           <View style={styles.col}>
             <Caption>{`${t('regionsList:gaugesCount')}: ${
-              region.gauges!.count
+              region.gauges?.count
             }`}</Caption>
           </View>
           <PremiumBadge

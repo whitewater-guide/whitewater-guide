@@ -10,7 +10,7 @@ export const getSectionPOIs = (
   const pois = [...section.pois];
   const gaugePOI = section.gauge && section.gauge.location;
   if (gaugePOI) {
-    pois.push({ ...gaugePOI, name: `${gaugeI18n} ${section.gauge!.name}` });
+    pois.push({ ...gaugePOI, name: `${gaugeI18n} ${section.gauge?.name}` });
   }
   return pois;
 };

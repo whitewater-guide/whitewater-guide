@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { GaugeBinding, Measurement, Section } from '@whitewater-guide/commons';
 import color from 'color';
 import isFunction from 'lodash/isFunction';
@@ -98,15 +99,15 @@ function getCol(
   { dry, minimum, maximum, optimum, impossible }: DryBinding,
   lastValue: number,
 ) {
-  if (dry >= lastValue!) {
+  if (dry >= lastValue) {
     return 0;
-  } else if (minimum && lastValue! < minimum) {
+  } else if (minimum && lastValue < minimum) {
     return 1;
-  } else if (optimum && lastValue! < optimum) {
+  } else if (optimum && lastValue < optimum) {
     return 2;
-  } else if (maximum && lastValue! < maximum) {
+  } else if (maximum && lastValue < maximum) {
     return 3;
-  } else if (impossible && lastValue! < impossible) {
+  } else if (impossible && lastValue < impossible) {
     return 4;
   }
   return 5;
@@ -137,25 +138,25 @@ function mix(
       return hslMix(
         Colors.dry,
         Colors.minimum,
-        (lastValue! - dry) / (minimum! - dry),
+        (lastValue - dry) / (minimum! - dry),
       );
     case 2:
       return hslMix(
         Colors.minimum,
         Colors.optimum,
-        (lastValue! - minimum!) / (optimum! - minimum!),
+        (lastValue - minimum!) / (optimum! - minimum!),
       );
     case 3:
       return hslMix(
         Colors.optimum,
         Colors.maximum,
-        (lastValue! - optimum!) / (maximum! - optimum!),
+        (lastValue - optimum!) / (maximum! - optimum!),
       );
     case 4:
       return hslMix(
         Colors.maximum,
         Colors.impossible,
-        (lastValue! - maximum!) / (impossible! - maximum!),
+        (lastValue - maximum!) / (impossible! - maximum!),
       );
     default:
       return Colors.impossible;
@@ -220,13 +221,13 @@ const colorTable: ColorTable = {
       hslMix(
         Colors.optimum,
         Colors.impossible,
-        (lastValue! - optimum!) / (impossible! - optimum!),
+        (lastValue - optimum!) / (impossible! - optimum!),
       ),
     4: ({ optimum, impossible }: GaugeBinding, lastValue: number) =>
       hslMix(
         Colors.optimum,
         Colors.impossible,
-        (lastValue! - optimum!) / (impossible! - optimum!),
+        (lastValue - optimum!) / (impossible! - optimum!),
       ),
     5: Colors.impossible,
   },
@@ -294,13 +295,13 @@ const colorTable: ColorTable = {
       hslMix(
         Colors.optimum,
         Colors.impossible,
-        (lastValue! - optimum!) / (impossible! - optimum!),
+        (lastValue - optimum!) / (impossible! - optimum!),
       ),
     4: ({ optimum, impossible }: GaugeBinding, lastValue: number) =>
       hslMix(
         Colors.optimum,
         Colors.impossible,
-        (lastValue! - optimum!) / (impossible! - optimum!),
+        (lastValue - optimum!) / (impossible! - optimum!),
       ),
     5: Colors.impossible,
   },
@@ -348,7 +349,7 @@ export function getSectionColorRaw(section: ColorizeSection): color {
     lastValue = level;
     binding = section.levels;
   }
-  if (!binding || !lastValue) {
+  if (!binding || lastValue === null) {
     return Colors.none;
   }
 

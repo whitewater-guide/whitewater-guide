@@ -6,7 +6,7 @@ import { BannerRaw } from '../types';
 
 export const bannerResolvers: FieldResolvers<BannerRaw, Banner> = {
   regions: ({ id }, _, { dataSources }, info) => {
-    const query = dataSources!.regions.getMany(info);
+    const query = dataSources.regions.getMany(info);
     query
       .innerJoin(
         'banners_regions',
@@ -17,7 +17,7 @@ export const bannerResolvers: FieldResolvers<BannerRaw, Banner> = {
     return query;
   },
   groups: ({ id }, _, { dataSources }, info) => {
-    const query = dataSources!.groups.getMany(info);
+    const query = dataSources.groups.getMany(info);
     query
       .innerJoin('banners_groups', `groups_view.id`, 'banners_groups.group_id')
       .where('banners_groups.banner_id', '=', id);

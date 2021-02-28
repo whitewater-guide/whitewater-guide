@@ -8,7 +8,7 @@ import { QResult, QVars } from './listSuggestions.query';
 import SuggestionsTable from './SuggestionsTable';
 
 interface Props {
-  suggestions: QResult['suggestions'];
+  suggestions?: QResult['suggestions'];
   fetchMore: ObservableQueryFields<QResult, QVars>['fetchMore'];
   onPressResolve: (id: string) => void;
   statusFilter: SuggestionStatus[];
@@ -23,7 +23,8 @@ export const SuggestionsTableInfinite: React.FC<Props> = React.memo((props) => {
     statusFilter,
     setStatusFilter,
   } = props;
-  const { nodes, count } = suggestions;
+  const nodes = suggestions?.nodes;
+  const count = suggestions?.count ?? 0;
 
   const isRowLoaded = useCallback(
     ({ index }: Index) => {

@@ -73,7 +73,7 @@ const Stepper: React.FC<WithStyles<typeof styles>> = ({ classes }) => {
           completed={completedSteps[Steps.CONFIRM]}
         >
           <StepLabel>{t(`main:step${Steps.CONFIRM}`)}</StepLabel>
-          <ConfirmStep prev={prevStep} region={region} promo={promo!} />
+          <ConfirmStep prev={prevStep} region={region} promo={promo} />
         </Step>
       </MUIStepper>
     </div>

@@ -53,6 +53,9 @@ export class MediaConnector extends OffsetConnector<Media, MediaRaw> {
     sectionId: string,
     userId?: string,
   ) {
+    if (!this._user) {
+      throw new Error('user not defined');
+    }
     let size = 0;
     let url = input.url;
     if (input.kind === MediaKind.photo) {
@@ -94,7 +97,7 @@ export class MediaConnector extends OffsetConnector<Media, MediaRaw> {
         sectionId,
         action: !oldMedia ? 'media_create' : 'media_update',
         diff: oldMedia && logDiffer.diff(oldMedia, result),
-        editorId: this._user!.id,
+        editorId: this._user.id,
       });
       return result;
     } catch (err) {

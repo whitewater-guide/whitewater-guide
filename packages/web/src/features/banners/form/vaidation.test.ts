@@ -32,9 +32,8 @@ const correctValues: TestValue[] = [
         id: 'foo',
         status: LocalPhotoStatus.READY,
         url: 'https://banner.com',
-        resolution: BannerResolutions.get(
-          BannerPlacement.MOBILE_REGION_DESCRIPTION,
-        )!,
+        resolution:
+          BannerResolutions[BannerPlacement.MOBILE_REGION_DESCRIPTION],
       },
     },
   ],

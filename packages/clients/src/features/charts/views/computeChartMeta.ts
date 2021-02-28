@@ -42,7 +42,7 @@ export const computeChartMeta = (
     ticks = compact([minimum, maximum, optimum, impossible]);
   }
 
-  const yDelta = (yDeltaRatio * (result[1] - result[0])) / height!;
+  const yDelta = (yDeltaRatio * (result[1] - result[0])) / height;
   const yDomain: [number, number] = [result[0] - yDelta, result[1] + yDelta];
   const yTickValues = ticks.concat(scaleLinear().domain(yDomain).ticks(yTicks));
 

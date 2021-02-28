@@ -1,3 +1,4 @@
+import noop from 'lodash/noop';
 import React, {
   createContext,
   Reducer,
@@ -25,11 +26,11 @@ export interface IapContext extends State {
   refresh: () => void;
 }
 
-const IapContext = createContext<IapContext>({
+const IapCtx = createContext<IapContext>({
   canMakePayments: true,
   loading: false,
   products: new Map(),
-  refresh: () => {},
+  refresh: noop,
   error: undefined,
 });
 
@@ -101,12 +102,10 @@ export const IapProvider: React.FC = React.memo(({ children }) => {
   }, [refresh]);
 
   return (
-    <IapContext.Provider value={{ ...state, refresh }}>
-      {children}
-    </IapContext.Provider>
+    <IapCtx.Provider value={{ ...state, refresh }}>{children}</IapCtx.Provider>
   );
 });
 
 IapProvider.displayName = 'IapProvider';
 
-export const useIap = () => useContext(IapContext);
+export const useIap = () => useContext(IapCtx);

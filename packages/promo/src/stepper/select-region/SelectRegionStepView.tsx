@@ -44,8 +44,10 @@ class SelectRegionStepView extends React.Component<Props, State> {
 
   onNext = async () => {
     const { region } = this.state;
-    this.setState({ region: null });
-    this.props.next(region!);
+    if (region) {
+      this.setState({ region: null });
+      this.props.next(region);
+    }
   };
 
   onPrev = () => {
@@ -61,7 +63,7 @@ class SelectRegionStepView extends React.Component<Props, State> {
     return (
       <StepContent {...stepProps}>
         <Query query={PROMO_REGIONS_QUERY} fetchPolicy="network-only">
-          {({ data, loading }: QueryResult<Result, {}>) => {
+          {({ data, loading }: QueryResult<Result, unknown>) => {
             if (loading || !data) {
               return <LinearProgress />;
             }

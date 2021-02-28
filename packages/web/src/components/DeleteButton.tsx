@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { ConfirmationDialog } from './ConfirmationDialog';
 
 interface ButtonProps {
-  onClick: React.MouseEventHandler<{}>;
+  onClick: React.MouseEventHandler<unknown>;
   disabled?: boolean;
 }
 

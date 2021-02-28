@@ -22,10 +22,13 @@ export const insertNewRiver = async (
   section: SectionInput,
   language: string,
 ) => {
+  if (!section.river.name) {
+    throw new UnknownError('new river must have name');
+  }
   const riverInput: RiverInput = {
     id: null,
     altNames: null,
-    name: section.river.name!,
+    name: section.river.name,
     region: section.region ?? { id: OTHERS_REGION_ID },
   };
   const river: RiverRaw | undefined = await rawUpsert(

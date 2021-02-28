@@ -20,7 +20,9 @@ export const Clipboard = React.forwardRef(
       (e: React.MouseEvent<any>) => {
         e.stopPropagation();
         if (text) {
-          clipboard(text).catch(() => {});
+          clipboard(text).catch(() => {
+            // ignore, we cannot do anything about it
+          });
           onCopy?.(e, text);
         }
       },

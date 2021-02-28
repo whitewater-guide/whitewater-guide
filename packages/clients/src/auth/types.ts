@@ -36,7 +36,7 @@ export interface ResetPayload {
   password: string;
 }
 
-export type AuthResponse<T = {}> = T & {
+export type AuthResponse<T = unknown> = T & {
   error?: { [key: string]: any };
   success: boolean;
   error_id?: string;

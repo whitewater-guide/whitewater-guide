@@ -33,17 +33,18 @@ type Hook = (
 ) => Promise<{ error?: IAPError; saved: boolean }>;
 
 export default (sectionId?: string): Hook => {
-  const [mutate] = useMutation<{}, Vars>(ADD_PURCHASE_MUTATION);
+  const [mutate] = useMutation<unknown, Vars>(ADD_PURCHASE_MUTATION);
   return useCallback(
     (purchase: InAppPurchase) =>
       mutate({
         variables: {
           purchase: {
-            platform: Platform.select({
-              ios: PurchasePlatform.ios,
-              android: PurchasePlatform.android,
-            })!,
+            platform:
+              Platform.OS === 'ios'
+                ? PurchasePlatform.ios
+                : PurchasePlatform.android,
             productId: purchase.productId,
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             transactionId: purchase.transactionId!,
             transactionDate: new Date(purchase.transactionDate),
             receipt: purchase.transactionReceipt,

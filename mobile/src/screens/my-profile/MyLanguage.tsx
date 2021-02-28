@@ -28,7 +28,9 @@ const getChangeHandler = memoize(
           language,
         },
       },
-    }).catch(() => {});
+    }).catch(() => {
+      // ignore
+    });
   },
 );
 

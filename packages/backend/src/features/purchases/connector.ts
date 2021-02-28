@@ -23,11 +23,10 @@ export class PurchasesConnector implements DataSource<Context> {
   private async getTransactions(): Promise<TransactionRaw[]> {
     if (!this._user) {
       this._transactions = [];
-    }
-    if (!this._transactions) {
+    } else if (!this._transactions) {
       this._transactions = await db()
         .table('transactions')
-        .where({ user_id: this._user!.id, validated: true });
+        .where({ user_id: this._user.id, validated: true });
     }
     return this._transactions || [];
   }
@@ -63,21 +62,21 @@ export class PurchasesConnector implements DataSource<Context> {
   async getPurchasedRegions(): Promise<string[]> {
     if (!this._user) {
       this._purchasedRegionIds = [];
-    }
-    if (!this._purchasedRegionIds) {
+    } else if (!this._purchasedRegionIds) {
+      const user_id = this._user.id;
       const result = await db()
         .table('regions')
         .select('id')
         .whereIn('regions.sku', (qb) => {
           qb.table('transactions')
-            .where({ user_id: this._user!.id, validated: true })
+            .where({ user_id, validated: true })
             .select('product_id');
         })
         .orWhereIn('regions.id', (qb) => {
           qb.table('transactions')
             .innerJoin('groups', 'transactions.product_id', 'groups.sku')
             .innerJoin('regions_groups', 'groups.id', 'regions_groups.group_id')
-            .where({ user_id: this._user!.id, validated: true })
+            .where({ user_id, validated: true })
             .select('regions_groups.region_id');
         });
       this._purchasedRegionIds = (result || []).map(({ id }: any) => id);

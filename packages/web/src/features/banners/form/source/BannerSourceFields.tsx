@@ -14,9 +14,11 @@ type Props = Omit<ImageUploaderProps, 'value' | 'onChange'>;
 
 export const BannerSourceFields: React.FC<Props> = React.memo((props) => {
   const { title, ...rest } = props;
-  const { values, handleChange, handleBlur } = useFormikContext<
-    BannerFormData
-  >();
+  const {
+    values,
+    handleChange,
+    handleBlur,
+  } = useFormikContext<BannerFormData>();
   const [kind, setKind] = useState(
     typeof values.source === 'string' ? BannerKind.WebView : BannerKind.Image,
   );
@@ -37,7 +39,7 @@ export const BannerSourceFields: React.FC<Props> = React.memo((props) => {
           value,
         },
       });
-      handleBlur({ target: { name } });
+      handleBlur({ target: { name: 'source' } });
     },
     [setKind, handleChange, handleBlur],
   );
@@ -58,7 +60,7 @@ export const BannerSourceFields: React.FC<Props> = React.memo((props) => {
         {kind === BannerKind.Image ? (
           <BannerImagePicker
             {...rest}
-            mpxOrResolution={BannerResolutions.get(values.placement!)}
+            mpxOrResolution={BannerResolutions[values.placement]}
           />
         ) : (
           <BannerSourceWebviewFields />

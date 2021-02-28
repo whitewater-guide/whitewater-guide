@@ -1,4 +1,5 @@
 import { StackHeaderProps } from '@react-navigation/stack';
+import noop from 'lodash/noop';
 import { useMemo } from 'react';
 
 import theme from '~/theme';
@@ -15,7 +16,7 @@ export default (scene: StackHeaderProps['scene']) => {
       typeof titleProp === 'function'
         ? titleProp({
             tintColor: headerTintColor,
-            onLayout: () => {},
+            onLayout: noop,
           })
         : titleProp;
 

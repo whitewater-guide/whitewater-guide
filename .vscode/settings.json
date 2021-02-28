@@ -2,9 +2,6 @@
   "[java]": {
     "editor.formatOnSave": false
   },
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
   "[sql]": {
     "editor.formatOnSave": false
   },

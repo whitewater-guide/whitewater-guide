@@ -4,6 +4,7 @@ export const getDotExt = (file: FileLike) => {
   const parts = file.name.split('.');
   let ext = '';
   if (parts.length >= 2) {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     ext = parts.pop()!;
   }
   if (ext) {

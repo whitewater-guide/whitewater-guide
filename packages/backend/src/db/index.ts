@@ -7,6 +7,6 @@ export * from './runSqlFile';
 export * from './types';
 export * from './updatedAtTrigger';
 export * from './waitForDb';
-export { holdTransaction, rollbackTransaction, knex };
+export { holdTransaction, knex, rollbackTransaction };
 
 export default db;

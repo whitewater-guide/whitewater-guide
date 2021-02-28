@@ -31,12 +31,14 @@ const Footer: React.FC<WithStyles<typeof styles>> = ({ classes }) => {
     <div className={classes.root}>
       <a href="https://play.google.com/store/apps/details?id=guide.whitewater">
         <img
+          alt="google play store"
           src={`${IMAGE_BASE}playstore_${i18n.language}.png`}
           className={classes.image}
         />
       </a>
       <a href="https://itunes.apple.com/us/app/whitewater-guide/id1386125994">
         <img
+          alt="apple appstore"
           src={`${IMAGE_BASE}appstore_${i18n.language}.png`}
           className={classes.image}
         />

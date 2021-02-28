@@ -29,12 +29,15 @@ interface Props {
 
 const LightboxVideoView: React.FC<Props> = React.memo((props) => {
   const url = props.data.url;
+  if (!url) {
+    return null;
+  }
   return (
     <div style={styles.container}>
       <div style={styles.video}>
-        {isYoutube(url) && <LightboxYoutube url={url!} />}
-        {isVimeo(url) && <LightboxVimeo url={url!} />}
-        {isFacebook(url) && <LightboxFacebook url={url!} />}
+        {isYoutube(url) && <LightboxYoutube url={url} />}
+        {isVimeo(url) && <LightboxVimeo url={url} />}
+        {isFacebook(url) && <LightboxFacebook url={url} />}
       </div>
     </div>
   );

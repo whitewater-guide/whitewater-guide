@@ -1,4 +1,4 @@
-import { Profile } from 'passport';
+import 'passport';
 
 declare module 'passport' {
   interface Profile {

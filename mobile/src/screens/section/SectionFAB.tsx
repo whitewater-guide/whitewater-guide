@@ -27,10 +27,12 @@ export const SectionFAB: React.FC<Props> = ({ testID }) => {
   const { upload } = useLocalPhotos();
   const onImagePicker = useCallback(
     (localPhotoId: string) => {
-      navigate(Screens.SUGGESTION, {
-        sectionId: node!.id,
-        localPhotoId,
-      });
+      if (node) {
+        navigate(Screens.SUGGESTION, {
+          sectionId: node.id,
+          localPhotoId,
+        });
+      }
     },
     [navigate, node],
   );
@@ -41,37 +43,45 @@ export const SectionFAB: React.FC<Props> = ({ testID }) => {
       {
         icon: 'pencil-plus',
         label: t('screens:section.fab.addSuggestion'),
-        onPress: () => navigate(Screens.SUGGESTION, { sectionId: node!.id }),
+        onPress: () => {
+          if (node) {
+            navigate(Screens.SUGGESTION, { sectionId: node.id });
+          }
+        },
       },
       {
         icon: 'calendar-plus',
         label: t('screens:section.fab.addDescent'),
         onPress: () =>
           dispatch((navState: any) => {
-            return CommonActions.reset({
-              ...navState,
-              index: navState.index + 1,
-              routes: [
-                ...navState.routes,
-                {
-                  name: Screens.DESCENT_FORM,
-                  params: {
-                    formData: {
-                      section: node!,
-                      startedAt: new Date().toISOString(),
-                      public: true,
-                    },
-                  },
-                  state: {
-                    index: 1,
+            return CommonActions.reset(
+              node
+                ? {
+                    ...navState,
+                    index: navState.index + 1,
                     routes: [
-                      { name: Screens.DESCENT_FORM_SECTION },
-                      { name: Screens.DESCENT_FORM_DATE },
+                      ...navState.routes,
+                      {
+                        name: Screens.DESCENT_FORM,
+                        params: {
+                          formData: {
+                            section: node,
+                            startedAt: new Date().toISOString(),
+                            public: true,
+                          },
+                        },
+                        state: {
+                          index: 1,
+                          routes: [
+                            { name: Screens.DESCENT_FORM_SECTION },
+                            { name: Screens.DESCENT_FORM_DATE },
+                          ],
+                        },
+                      },
                     ],
-                  },
-                },
-              ],
-            });
+                  }
+                : navState,
+            );
           }),
       },
       {
@@ -80,10 +90,12 @@ export const SectionFAB: React.FC<Props> = ({ testID }) => {
         onPress:
           Config.E2E_MODE === 'true'
             ? () => {
-                navigate(Screens.SUGGESTION, {
-                  sectionId: node!.id,
-                  localPhotoId: 'foo',
-                });
+                if (node) {
+                  navigate(Screens.SUGGESTION, {
+                    sectionId: node.id,
+                    localPhotoId: 'foo',
+                  });
+                }
               }
             : onPickAndUpload,
       },

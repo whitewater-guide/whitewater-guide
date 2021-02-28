@@ -6,6 +6,7 @@ interface WithCount {
   count: number;
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export const listResolvers: FieldResolvers<WithCount[], Connection<object>> = {
   nodes: (list) => list,
   count: (list) => (list.length ? Number(list[0].count) : 0),

@@ -1,5 +1,5 @@
 export * from './continuouslyAdvanceTimers';
 export * from './createFixedProvider';
-export * from './mockApollo';
 export * from './flushPromises';
+export * from './mockApollo';
 export * from './test-links';

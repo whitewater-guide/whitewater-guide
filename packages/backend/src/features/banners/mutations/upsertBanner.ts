@@ -3,6 +3,7 @@ import {
   BannerInputSchema,
   BannerKind,
 } from '@whitewater-guide/commons';
+import { UserInputError } from 'apollo-server-koa';
 import * as yup from 'yup';
 
 import { isInputValidResolver, TopLevelResolver } from '~/apollo';
@@ -21,13 +22,19 @@ const Schema = yup.object({
 const upsertBannerResolver: TopLevelResolver<Vars> = async (_, vars) => {
   const id = vars.banner.id;
   const isImage = vars.banner.source.kind === BannerKind.Image;
+  const url = isImage
+    ? s3Client.getLocalFileName(vars.banner.source.url)
+    : vars.banner.source.url;
+  if (!url) {
+    throw new UserInputError('invalid input', {
+      validationErrors: { source: { url: 'mixed.defined' } },
+    });
+  }
   const banner: BannerInput = {
     ...vars.banner,
     source: {
       ...vars.banner.source,
-      url: isImage
-        ? s3Client.getLocalFileName(vars.banner.source.url)!
-        : vars.banner.source.url,
+      url,
     },
   };
   let shouldMoveTempImage = isImage;
@@ -49,7 +56,7 @@ const upsertBannerResolver: TopLevelResolver<Vars> = async (_, vars) => {
     }
   }
   if (shouldMoveTempImage) {
-    await s3Client.moveTempImage(banner.source.url!, BANNERS);
+    await s3Client.moveTempImage(banner.source.url, BANNERS);
   }
   return rawUpsert(db(), 'SELECT upsert_banner(?)', [banner]);
 };

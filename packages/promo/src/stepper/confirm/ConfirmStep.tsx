@@ -53,13 +53,17 @@ class ConfirmStep extends React.Component<
 
   activatePromo = async () => {
     const { region, promo, client, t } = this.props;
+    const productId = promo.groupSku || region?.sku;
+    let success = false;
+    let error: string | undefined;
+    if (!productId) {
+      return { error: t('confirm:errors.noProductId'), success };
+    }
     const purchase: PurchaseInput = {
       platform: PurchasePlatform.boomstarter,
       transactionId: promo.code,
-      productId: promo.groupSku || region!.sku!,
+      productId,
     };
-    let success = false;
-    let error: string | undefined;
     try {
       const { data, errors } = await client.mutate<Result, Vars>({
         mutation: ACTIVATE_PROMO_MUTATION,

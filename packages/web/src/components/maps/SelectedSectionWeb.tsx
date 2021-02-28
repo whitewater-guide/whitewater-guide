@@ -55,7 +55,7 @@ const SelectedSectionWeb: React.FC<MapElementProps> = (props) => {
         <Grid container={true} item={true} xs={12}>
           <Grid item={true} xs={9}>
             <Typography variant="h5">{sectionName(selection)}</Typography>
-            <Rating precision={0.5} value={selection.rating!} readOnly={true} />
+            <Rating precision={0.5} value={selection.rating} readOnly={true} />
           </Grid>
           <Grid item={true} xs={3}>
             <Typography variant="h5" align="right">

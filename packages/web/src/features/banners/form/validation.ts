@@ -1,6 +1,7 @@
 import { getLocalPhotoSchema } from '@whitewater-guide/clients';
 import {
   BannerInputSchema,
+  BannerPlacement,
   BannerResolutions,
 } from '@whitewater-guide/commons';
 import { yupTypes } from '@whitewater-guide/validation';
@@ -10,8 +11,9 @@ const ImageSourceSchema = yup.object().test({
   name: 'is-correct-image-banner-source',
   message: 'web:banners.invalidSource',
   test(v: any) {
-    const placement = (this.options.context as any).placement;
-    const resolution = BannerResolutions.get(placement);
+    const placement = (this.options.context as any)
+      .placement as BannerPlacement;
+    const resolution = BannerResolutions[placement];
     const localPhotoSchema = getLocalPhotoSchema({
       mpxOrResolution: resolution,
     });

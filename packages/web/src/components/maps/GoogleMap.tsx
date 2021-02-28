@@ -39,7 +39,10 @@ interface GoogleMapProps {
   initialPosition?: InitialPosition;
   children:
     | React.ReactElement<MapElementProps>
-    | Array<React.ReactElement<MapElementProps>>;
+    | Array<React.ReactElement<MapElementProps>>
+    | boolean
+    | null
+    | undefined;
   controls?: Array<React.ReactElement<GoogleMapControlProps>>;
 }
 
@@ -107,10 +110,13 @@ export default class GoogleMap extends React.Component<GoogleMapProps, State> {
       zoomToFitcontrolDiv,
     );
 
+    const map = this.map;
     this.props.controls?.forEach((item) => {
-      const controlDiv = document.createElement('div');
-      this.customControlDivs[item.key!] = controlDiv;
-      this.map!.controls[item.props.position].push(controlDiv);
+      if (item.key) {
+        const controlDiv = document.createElement('div');
+        this.customControlDivs[item.key] = controlDiv;
+        map.controls[item.props.position].push(controlDiv);
+      }
     });
 
     this.initialize();
@@ -127,7 +133,10 @@ export default class GoogleMap extends React.Component<GoogleMapProps, State> {
   }
 
   onZoom = () => {
-    const zoom = this.map!.getZoom();
+    if (!this.map) {
+      return;
+    }
+    const zoom = this.map.getZoom();
     this.setState({ zoom });
     if (this.props.onZoom) {
       this.props.onZoom(zoom);
@@ -135,17 +144,15 @@ export default class GoogleMap extends React.Component<GoogleMapProps, State> {
   };
 
   onBoundsChanged = () => {
-    const bounds = this.map!.getBounds();
-    this.setState({ bounds: bounds! });
-    if (this.props.onBoundsChanged) {
-      this.props.onBoundsChanged(bounds!);
+    const bounds = this.map?.getBounds();
+    if (bounds) {
+      this.setState({ bounds });
+      this.props.onBoundsChanged?.(bounds);
     }
   };
 
-  onClick = ({ latLng }: google.maps.MouseEvent) => {
-    if (this.props.onClick) {
-      this.props.onClick(latLng.toJSON());
-    }
+  onClick = ({ latLng }: google.maps.MapMouseEvent) => {
+    this.props.onClick?.(latLng.toJSON());
   };
 
   onResize = (width: number, height: number) => {
@@ -159,12 +166,12 @@ export default class GoogleMap extends React.Component<GoogleMapProps, State> {
 
   onZoomToFit = () => {
     const latLngBounds = new google.maps.LatLngBounds();
-    this.map!.data.forEach((feature) => {
+    this.map?.data.forEach((feature) => {
       const geometry: google.maps.Data.Geometry = feature.getGeometry();
       geometry.forEachLatLng((latLng) => latLngBounds.extend(latLng));
     });
-    this.map!.setCenter(latLngBounds.getCenter());
-    this.map!.fitBounds(latLngBounds);
+    this.map?.setCenter(latLngBounds.getCenter());
+    this.map?.fitBounds(latLngBounds);
   };
 
   render() {
@@ -180,6 +187,7 @@ export default class GoogleMap extends React.Component<GoogleMapProps, State> {
           React.Children.map(
             this.props.children,
             (child: React.ReactElement<MapElementProps>) =>
+              child &&
               React.cloneElement(child, {
                 map: this.map,
                 zoom: this.state.zoom,
@@ -187,7 +195,10 @@ export default class GoogleMap extends React.Component<GoogleMapProps, State> {
               }),
           )}
         {this.props.controls?.map((control) => {
-          const ctrlDiv = this.customControlDivs[control.key!];
+          if (!control.key) {
+            return null;
+          }
+          const ctrlDiv = this.customControlDivs[control.key];
           if (!ctrlDiv) {
             return null;
           }

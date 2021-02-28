@@ -28,7 +28,7 @@ const SectionScreen: React.FC<SectionScreenNavProps> = (props) => {
           >
             {s.node && (
               <RegionProvider
-                regionId={s.node!.region.id}
+                regionId={s.node.region.id}
                 bannerWidth={theme.screenWidthPx}
                 fetchPolicy="cache-first"
               >

@@ -27,7 +27,6 @@ const UserMenu: React.FC = React.memo(() => {
   const classes = useStyles();
   const { me, service } = useAuth();
   const [anchor, setAnchor] = useState<any>(null);
-  const userpic = (me && me.avatar) || undefined;
 
   const onAvatarPress = useCallback(
     (e: React.MouseEvent) => {
@@ -46,8 +45,12 @@ const UserMenu: React.FC = React.memo(() => {
 
   return (
     <React.Fragment>
-      <Avatar onClick={onAvatarPress} className={classes.avatar} src={userpic}>
-        {me!.name[0]}
+      <Avatar
+        onClick={onAvatarPress}
+        className={classes.avatar}
+        src={me?.avatar ?? undefined}
+      >
+        {me?.name?.[0]}
       </Avatar>
       <Popover
         anchorEl={anchor}
