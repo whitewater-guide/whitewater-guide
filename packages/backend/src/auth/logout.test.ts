@@ -38,8 +38,8 @@ it('should sign out', async () => {
     REFRESH_TOKEN_COOKIE,
     CookieAccessInfo.All,
   );
-  expect(atCookieBefore.value).toBeTruthy();
-  expect(rtCookieBefore.value).toBeTruthy();
+  expect(atCookieBefore?.value).toBeTruthy();
+  expect(rtCookieBefore?.value).toBeTruthy();
 
   await testAgent.get(LOGOUT_ROUTE);
   const atCookieAfter = testAgent.jar.getCookie(

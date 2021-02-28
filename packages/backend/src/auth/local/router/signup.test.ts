@@ -229,8 +229,8 @@ describe('web', () => {
       REFRESH_TOKEN_COOKIE,
       CookieAccessInfo.All,
     );
-    expect(atCookie.value).toBeTruthy();
-    expect(rtCookie.value).toBeTruthy();
+    expect(atCookie?.value).toBeTruthy();
+    expect(rtCookie?.value).toBeTruthy();
   });
 
   it('should populate koa context with user', async () => {

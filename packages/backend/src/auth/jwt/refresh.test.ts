@@ -237,7 +237,7 @@ describe('web', () => {
       REFRESH_TOKEN_COOKIE,
       CookieAccessInfo.All,
     );
-    expect(atCookie.value).toBeTruthy();
-    expect(rtCookie.value).toBe(refreshToken);
+    expect(atCookie?.value).toBeTruthy();
+    expect(rtCookie?.value).toBe(refreshToken);
   });
 });

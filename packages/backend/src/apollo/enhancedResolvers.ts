@@ -14,7 +14,7 @@ export const isAuthenticatedResolver = <Vars>(
 };
 
 export const isInputValidResolver = <Vars>(
-  schema: yup.Schema<any>,
+  schema: yup.SchemaOf<any>,
   resolver: TopLevelResolver<Vars>,
 ): TopLevelResolver<Vars> => {
   const validator = createSafeValidator(schema);

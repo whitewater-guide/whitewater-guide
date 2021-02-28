@@ -7,24 +7,25 @@ const expectCors = (app: Koa) => (
   origin: string,
   _: any,
   expected: string | null,
-  done: any,
 ) => {
-  const req = request(app.listen()).get('/').set('Origin', origin);
-  if (expected === '*') {
-    req
-      .expect((resp) => {
-        expect(resp.header).not.toContain('Access-Control-Allow-Origin');
-      })
-      .expect({ foo: 'bar' })
-      .expect(200, done);
-  } else if (expected === null) {
-    req.expect(500, done);
-  } else {
-    req
-      .expect('Access-Control-Allow-Origin', expected)
-      .expect({ foo: 'bar' })
-      .expect(200, done);
-  }
+  return new Promise((resolve) => {
+    const req = request(app.listen()).get('/').set('Origin', origin);
+    if (expected === '*') {
+      req
+        .expect((resp) => {
+          expect(resp.header).not.toContain('Access-Control-Allow-Origin');
+        })
+        .expect({ foo: 'bar' })
+        .expect(200, resolve);
+    } else if (expected === null) {
+      req.expect(500, resolve);
+    } else {
+      req
+        .expect('Access-Control-Allow-Origin', expected)
+        .expect({ foo: 'bar' })
+        .expect(200, resolve);
+    }
+  });
 };
 
 describe('dev environment', () => {

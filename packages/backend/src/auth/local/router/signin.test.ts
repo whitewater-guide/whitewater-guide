@@ -10,7 +10,6 @@ import { EDITOR_GA_EC_ID } from '~/seeds/test/01_users';
 
 import { createApp } from '../../../app';
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from '../../constants';
-import { AuthResponse } from '../../types';
 
 const ROUTE = '/auth/local/signin';
 
@@ -88,7 +87,7 @@ describe('mobile', () => {
   });
 
   it('should respond with access and refresh tokens', async () => {
-    const body: AuthResponse = {
+    const body = {
       success: true,
       id: EDITOR_GA_EC_ID,
       accessToken: expect.any(String),
@@ -139,7 +138,7 @@ describe('web', () => {
   });
 
   it('should respond with success body', async () => {
-    const body: AuthResponse = {
+    const body = {
       success: true,
       id: EDITOR_GA_EC_ID,
     };
@@ -160,8 +159,8 @@ describe('web', () => {
       REFRESH_TOKEN_COOKIE,
       CookieAccessInfo.All,
     );
-    expect(atCookie.value).toBeTruthy();
-    expect(rtCookie.value).toBeTruthy();
+    expect(atCookie?.value).toBeTruthy();
+    expect(rtCookie?.value).toBeTruthy();
   });
 
   it('should populate koa context with user', async () => {

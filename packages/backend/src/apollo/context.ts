@@ -27,7 +27,7 @@ interface Ctx {
 export const newContext = ({ ctx }: Ctx): Omit<Context, 'dataSources'> => {
   const user: koa.ContextUser | undefined = ctx.state && ctx.state.user;
   const language =
-    ctx.headers['x-editor-language'] ||
+    (ctx.headers?.['x-editor-language'] as string) ||
     get(user, 'language') ||
     ctx.acceptsLanguages!(LANGUAGES) ||
     'en';

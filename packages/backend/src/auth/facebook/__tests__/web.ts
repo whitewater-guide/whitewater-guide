@@ -64,8 +64,8 @@ describe('new user', () => {
       REFRESH_TOKEN_COOKIE,
       CookieAccessInfo.All,
     );
-    expect(atCookie.value).toBeTruthy();
-    expect(rtCookie.value).toBeTruthy();
+    expect(atCookie?.value).toBeTruthy();
+    expect(rtCookie?.value).toBeTruthy();
   });
 
   it('should respond id and isNew in body', async () => {
@@ -140,8 +140,8 @@ describe('existing user', () => {
       REFRESH_TOKEN_COOKIE,
       CookieAccessInfo.All,
     );
-    expect(atCookie.value).toBeTruthy();
-    expect(rtCookie.value).toBeTruthy();
+    expect(atCookie?.value).toBeTruthy();
+    expect(rtCookie?.value).toBeTruthy();
   });
 
   it('should respond id and isNew in body', async () => {

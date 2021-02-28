@@ -43,7 +43,7 @@ interface Vars {
   destinationId: string;
 }
 
-const Struct = yup.object<Vars>({
+const Struct: yup.SchemaOf<Vars> = yup.object({
   sourceId: yupTypes.uuid().required().nullable(false),
   destinationId: yupTypes.uuid().required().nullable(false),
 });
