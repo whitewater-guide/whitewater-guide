@@ -4,13 +4,8 @@ import React, { useEffect, useRef } from 'react';
 
 import { MapElementProps } from './types';
 
-const GaugeIcon = {
-  url: require('./gauge_marker.png'),
-  size: new google.maps.Size(26, 32),
-  origin: new google.maps.Point(0, 0),
-  anchor: new google.maps.Point(13, 16),
-};
-
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const markerIconURL = require('./gauge_marker.png');
 interface Props extends MapElementProps {
   poi: Point;
   clickable?: boolean;
@@ -21,6 +16,7 @@ const POIMarker: React.FC<Props> = (props) => {
   const { map, poi, clickable, icon } = props;
   const markerRef = useRef<google.maps.Marker | null>(null);
   const { onSelected } = useMapSelection();
+
   useEffect(() => {
     if (markerRef.current) {
       return;
@@ -31,7 +27,12 @@ const POIMarker: React.FC<Props> = (props) => {
       clickable,
       icon:
         poi.kind === 'gauge'
-          ? GaugeIcon
+          ? {
+              url: markerIconURL,
+              size: new google.maps.Size(26, 32),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(13, 16),
+            }
           : icon || {
               path: google.maps.SymbolPath.CIRCLE,
               scale: 3,
@@ -46,6 +47,7 @@ const POIMarker: React.FC<Props> = (props) => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [map]);
+
   return null;
 };
 

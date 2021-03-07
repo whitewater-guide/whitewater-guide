@@ -3,6 +3,7 @@ import { createPortal, findDOMNode } from 'react-dom';
 import ReactResizeDetector from 'react-resize-detector';
 
 import { Styles } from '../../styles';
+import { Loading } from '../Loading';
 import { MapElementProps } from './types';
 import { addZoomToFit } from './ZoomToFitControl';
 
@@ -79,7 +80,7 @@ export default class GoogleMap extends React.Component<GoogleMapProps, State> {
         this.map.fitBounds(bounds);
       }
       if (zoom) {
-        const actualZoom = zoom < 0 ? this.map.getZoom() + zoom : zoom;
+        const actualZoom = zoom < 0 ? (this.map.getZoom() ?? 0) + zoom : zoom;
         this.map.setZoom(actualZoom);
       }
     }
@@ -136,7 +137,7 @@ export default class GoogleMap extends React.Component<GoogleMapProps, State> {
     if (!this.map) {
       return;
     }
-    const zoom = this.map.getZoom();
+    const zoom = this.map.getZoom() ?? 0;
     this.setState({ zoom });
     if (this.props.onZoom) {
       this.props.onZoom(zoom);
@@ -152,7 +153,9 @@ export default class GoogleMap extends React.Component<GoogleMapProps, State> {
   };
 
   onClick = ({ latLng }: google.maps.MapMouseEvent) => {
-    this.props.onClick?.(latLng.toJSON());
+    if (latLng) {
+      this.props.onClick?.(latLng.toJSON());
+    }
   };
 
   onResize = (width: number, height: number) => {
@@ -167,8 +170,8 @@ export default class GoogleMap extends React.Component<GoogleMapProps, State> {
   onZoomToFit = () => {
     const latLngBounds = new google.maps.LatLngBounds();
     this.map?.data.forEach((feature) => {
-      const geometry: google.maps.Data.Geometry = feature.getGeometry();
-      geometry.forEachLatLng((latLng) => latLngBounds.extend(latLng));
+      const geometry = feature.getGeometry();
+      geometry?.forEachLatLng((latLng) => latLngBounds.extend(latLng));
     });
     this.map?.setCenter(latLngBounds.getCenter());
     this.map?.fitBounds(latLngBounds);
@@ -183,6 +186,7 @@ export default class GoogleMap extends React.Component<GoogleMapProps, State> {
           onResize={this.onResize}
         />
         <div style={styles.map} ref={this.setMapRef} />
+        {!this.state.loaded && <Loading />}
         {this.state.loaded &&
           React.Children.map(
             this.props.children,
@@ -194,16 +198,17 @@ export default class GoogleMap extends React.Component<GoogleMapProps, State> {
                 bounds: this.state.bounds,
               }),
           )}
-        {this.props.controls?.map((control) => {
-          if (!control.key) {
-            return null;
-          }
-          const ctrlDiv = this.customControlDivs[control.key];
-          if (!ctrlDiv) {
-            return null;
-          }
-          return createPortal(control, ctrlDiv);
-        })}
+        {this.state.loaded &&
+          this.props.controls?.map((control) => {
+            if (!control.key) {
+              return null;
+            }
+            const ctrlDiv = this.customControlDivs[control.key];
+            if (!ctrlDiv) {
+              return null;
+            }
+            return createPortal(control, ctrlDiv);
+          })}
       </div>
     );
   }

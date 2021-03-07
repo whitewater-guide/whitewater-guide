@@ -28,10 +28,10 @@ const GaugesMapSwitch: React.FC<Props> = ({ enabled, setEnabled }) => {
     setEnabled((e) => !e);
   }, [setEnabled]);
 
-  const classes = useStyles();
+  const { container, ...classes } = useStyles();
 
   return (
-    <div className={classes.container}>
+    <div className={container}>
       <ToggleButton
         value="check"
         selected={enabled}

@@ -9,6 +9,7 @@ import { Coordinate, Coordinate3d } from '@whitewater-guide/commons';
 import React, { useMemo } from 'react';
 
 import GoogleMap, { GoogleMapControlProps, InitialPosition } from './GoogleMap';
+import MapLoader from './MapLoader';
 import POIMarker from './POIMarker';
 import SectionLine from './SectionLine';
 import SelectedPOIWeb from './SelectedPOIWeb';
@@ -36,7 +37,7 @@ interface Props extends MapProps {
   controls?: Array<React.ReactElement<GoogleMapControlProps>>;
 }
 
-export const Map = React.memo(
+const MapInternal = React.memo(
   ({ initialBounds, sections, pois, detailed, controls }: Props) => {
     const classes = useStyles();
 
@@ -71,4 +72,10 @@ export const Map = React.memo(
   },
 );
 
-Map.displayName = 'Map';
+MapInternal.displayName = 'MapInternal';
+
+export const Map: React.FC<Props> = (props) => (
+  <MapLoader>
+    <MapInternal {...props} />
+  </MapLoader>
+);

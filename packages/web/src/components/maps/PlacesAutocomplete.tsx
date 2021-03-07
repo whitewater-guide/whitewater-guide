@@ -9,11 +9,6 @@ import { Required } from 'utility-types';
 import { Autocomplete, AutocompleteFilterOptions } from '../autocomplete';
 import { MapElementProps } from './types';
 
-type AutocompletePrediction = google.maps.places.AutocompletePrediction;
-type PlacesServiceStatus = google.maps.places.PlacesServiceStatus;
-const PlacesServiceStatus = google.maps.places.PlacesServiceStatus;
-type PlaceResult = google.maps.places.PlaceResult;
-
 const MENU_PROPS = { disablePortal: true };
 const FILTER_OPTIONS: AutocompleteFilterOptions = { matchInput: true };
 const styles = {
@@ -27,7 +22,9 @@ const styles = {
 };
 
 interface SearchResult extends NamedNode {
-  value: PlaceResult | AutocompletePrediction;
+  value:
+    | google.maps.places.PlaceResult
+    | google.maps.places.AutocompletePrediction;
 }
 
 interface State {
@@ -83,8 +80,11 @@ export default class PlacesAutocomplete extends React.Component<
     );
   }, 250);
 
-  onPlacesComplete = (result: PlaceResult[], status: PlacesServiceStatus) => {
-    if (status === PlacesServiceStatus.OK) {
+  onPlacesComplete = (
+    result: google.maps.places.PlaceResult[],
+    status: google.maps.places.PlacesServiceStatus,
+  ) => {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
       this.placesResult = result.map((place) => ({
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         id: place.place_id!,
@@ -97,10 +97,10 @@ export default class PlacesAutocomplete extends React.Component<
   };
 
   onAutocompleteComplete = (
-    result: AutocompletePrediction[],
-    status: PlacesServiceStatus,
+    result: google.maps.places.AutocompletePrediction[],
+    status: google.maps.places.PlacesServiceStatus,
   ) => {
-    if (status === PlacesServiceStatus.OK) {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
       this.autocompleteResult = result.map((place) => ({
         id: place.place_id,
         name: place.description,
@@ -112,7 +112,7 @@ export default class PlacesAutocomplete extends React.Component<
 
   onSelect = ({ value }: SearchResult) => {
     if ('geometry' in value) {
-      this.panZoomTo(value as PlaceResult);
+      this.panZoomTo(value as google.maps.places.PlaceResult);
     } else if (value.place_id) {
       this.placesService.getDetails(
         { placeId: value.place_id },
@@ -122,14 +122,17 @@ export default class PlacesAutocomplete extends React.Component<
     this.setState({ searchText: '' });
   };
 
-  onDetailsReceived = (place: PlaceResult, status: PlacesServiceStatus) => {
-    if (status === PlacesServiceStatus.OK) {
+  onDetailsReceived = (
+    place: google.maps.places.PlaceResult,
+    status: google.maps.places.PlacesServiceStatus,
+  ) => {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
       this.panZoomTo(place);
     }
   };
 
-  panZoomTo = (place: PlaceResult) => {
-    if (place.geometry) {
+  panZoomTo = (place: google.maps.places.PlaceResult) => {
+    if (place.geometry?.location) {
       this.props.map.panTo(place.geometry.location);
       this.props.map.setZoom(11);
     }

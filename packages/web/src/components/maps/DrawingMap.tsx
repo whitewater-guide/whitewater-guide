@@ -16,21 +16,8 @@ import React from 'react';
 
 import { geometryToLatLngs } from '../../utils/google-maps';
 import GoogleMap, { InitialPosition } from './GoogleMap';
+import MapLoader from './MapLoader';
 import PlacesAutocomplete from './PlacesAutocomplete';
-
-type LatLngLiteral = google.maps.LatLngLiteral;
-const LatLng = google.maps.LatLng;
-type LatLng = google.maps.LatLng;
-const Geometry = google.maps.Data.Geometry;
-type Geometry = google.maps.Data.Geometry;
-const LineString = google.maps.Data.LineString;
-type LineString = google.maps.Data.LineString;
-const Point = google.maps.Data.Point;
-type Point = google.maps.Data.Point;
-const Polygon = google.maps.Data.Polygon;
-type Polygon = google.maps.Data.Polygon;
-const Feature = google.maps.Data.Feature;
-type Feature = google.maps.Data.Feature;
 
 const DrawingStyles = {
   Point: {
@@ -72,9 +59,9 @@ interface Props {
   onLoaded?: (map: google.maps.Map) => void;
 }
 
-export class DrawingMap extends React.Component<Props> {
+class DrawingMapInternal extends React.Component<Props> {
   map: google.maps.Map | null = null;
-  feature: Feature | null = null;
+  feature: google.maps.Data.Feature | null = null;
   ignoreSetGeometryEvent = false;
   initialPosition?: InitialPosition;
 
@@ -110,19 +97,19 @@ export class DrawingMap extends React.Component<Props> {
     const points = this.props.points || [];
     const prevPoints = prevProps.points || [];
     // points do not include nulls => latLngs do not include nulls too
-    const latLngs: LatLngLiteral[] = points.map(
+    const latLngs: google.maps.LatLngLiteral[] = points.map(
       arrayToGmaps,
-    ) as LatLngLiteral[];
+    ) as google.maps.LatLngLiteral[];
 
     if (this.feature) {
       this.ignoreSetGeometryEvent = true;
 
       if (drawingMode === 'Point') {
-        this.feature.setGeometry(new Point(latLngs[0]));
+        this.feature.setGeometry(new google.maps.Data.Point(latLngs[0]));
       } else if (drawingMode === 'LineString') {
-        this.feature.setGeometry(new LineString(latLngs));
+        this.feature.setGeometry(new google.maps.Data.LineString(latLngs));
       } else if (drawingMode === 'Polygon') {
-        this.feature.setGeometry(new Polygon([latLngs]));
+        this.feature.setGeometry(new google.maps.Data.Polygon([latLngs]));
       }
       this.ignoreSetGeometryEvent = false;
 
@@ -194,54 +181,61 @@ export class DrawingMap extends React.Component<Props> {
     const { drawingMode } = this.props;
     this.map.data.setDrawingMode(null);
     this.map.data.setControls(null);
-    let geometry: Geometry | null = null;
-    const latLngs: LatLngLiteral[] = points.map(arrayToGmaps) as any;
+    let geometry: google.maps.Data.Geometry | null = null;
+    const latLngs: google.maps.LatLngLiteral[] = points.map(
+      arrayToGmaps,
+    ) as any;
     if (drawingMode === 'Point') {
-      geometry = new Point(latLngs[0]);
+      geometry = new google.maps.Data.Point(latLngs[0]);
     } else if (drawingMode === 'LineString') {
-      geometry = new LineString(latLngs);
+      geometry = new google.maps.Data.LineString(latLngs);
     } else if (drawingMode === 'Polygon') {
-      geometry = new Polygon([latLngs]);
+      geometry = new google.maps.Data.Polygon([latLngs]);
     }
     if (geometry) {
-      this.feature = new Feature({ geometry });
+      this.feature = new google.maps.Data.Feature({ geometry });
       this.map.data.add(this.feature);
     }
   };
 
-  handleAddFeature = ({ feature }: { feature: Feature }) => {
+  handleAddFeature = ({ feature }: { feature: google.maps.Data.Feature }) => {
     if (!this.map) {
       return;
     }
     this.feature = feature;
     this.map.data.setDrawingMode(null);
     this.map.data.setControls(null);
-    this.handleChange({ newGeometry: feature.getGeometry() });
+    const newGeometry = feature.getGeometry();
+    if (newGeometry) {
+      this.handleChange({ newGeometry });
+    }
   };
 
   handleVertexRemoval = ({
     feature,
     latLng,
   }: {
-    feature: Feature;
-    latLng: LatLng;
+    feature: google.maps.Data.Feature;
+    latLng: google.maps.LatLng;
   }) => {
     const lat = latLng.lat();
     const lng = latLng.lng();
     if (this.props.drawingMode === 'Polygon') {
-      let latLngs = (feature.getGeometry() as Polygon).getAt(0).getArray();
+      let latLngs = (feature.getGeometry() as google.maps.Data.Polygon)
+        .getAt(0)
+        .getArray();
       if (latLngs.length > 3) {
         latLngs = latLngs.filter((ll) => ll.lat() !== lat && ll.lng() !== lng);
         if (latLngs.length >= 3) {
-          feature.setGeometry(new Polygon([latLngs]));
+          feature.setGeometry(new google.maps.Data.Polygon([latLngs]));
         }
       }
     } else if (this.props.drawingMode === 'LineString') {
-      let latLngs = (feature.getGeometry() as LineString).getArray();
+      let latLngs = (feature.getGeometry() as google.maps.Data.LineString).getArray();
       if (latLngs.length > 2) {
         latLngs = latLngs.filter((ll) => ll.lat() !== lat && ll.lng() !== lng);
         if (latLngs.length >= 2) {
-          feature.setGeometry(new LineString(latLngs));
+          feature.setGeometry(new google.maps.Data.LineString(latLngs));
         }
       }
     }
@@ -251,8 +245,8 @@ export class DrawingMap extends React.Component<Props> {
     newGeometry,
     oldGeometry,
   }: {
-    newGeometry: Geometry;
-    oldGeometry?: Geometry;
+    newGeometry: google.maps.Data.Geometry;
+    oldGeometry?: google.maps.Data.Geometry;
   }) => {
     if (this.ignoreSetGeometryEvent) {
       return;
@@ -268,7 +262,9 @@ export class DrawingMap extends React.Component<Props> {
     const newPoints = newLatLngs.map(gmapsToArray) as Coordinate2d[];
     if (oldGeometry) {
       // Need to patch points
-      const oldLatLngs: LatLng[] = geometryToLatLngs(oldGeometry) as LatLng[];
+      const oldLatLngs: google.maps.LatLng[] = geometryToLatLngs(
+        oldGeometry,
+      ) as google.maps.LatLng[];
       const oldPoints = oldLatLngs.map(gmapsToArray) as Coordinate2d[];
       const patch: any = getCoordinatesPatch(oldPoints, newPoints);
       if (!patch) {
@@ -301,3 +297,9 @@ export class DrawingMap extends React.Component<Props> {
     );
   }
 }
+
+export const DrawingMap: React.FC<Props> = (props) => (
+  <MapLoader>
+    <DrawingMapInternal {...props} />
+  </MapLoader>
+);
