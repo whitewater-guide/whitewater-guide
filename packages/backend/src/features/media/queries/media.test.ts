@@ -12,6 +12,11 @@ const query = `
       id
       kind
       description
+      license {
+        slug
+        name
+        url
+      }
       copyright
       url
       image
@@ -26,6 +31,7 @@ it('should return media', async () => {
   const result = await runQuery(query, { id: PHOTO_1 });
   expect(result.errors).toBeUndefined();
   expect(result.data.media).toEqual({
+    license: null,
     copyright: 'Photo 1 copyright',
     description: 'Photo 1 description',
     id: PHOTO_1,

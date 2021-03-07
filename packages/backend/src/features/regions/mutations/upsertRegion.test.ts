@@ -51,6 +51,12 @@ const minimalRegion: RegionInput = {
   season: null,
   seasonNumeric: [],
   pois: [],
+  license: {
+    slug: 'CC_BY-SA',
+    name: 'Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)',
+    url: 'https://creativecommons.org/licenses/by-sa/4.0/',
+  },
+  copyright: 'some copyright',
 };
 
 const fullRegion: RegionInput = {
@@ -65,6 +71,12 @@ const fullRegion: RegionInput = {
   season: 'season description',
   seasonNumeric: [1, 2, 3],
   pois: [],
+  license: {
+    slug: 'CC_BY-SA',
+    name: 'Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)',
+    url: 'https://creativecommons.org/licenses/by-sa/4.0/',
+  },
+  copyright: 'some copyright',
 };
 
 const fullRegionUpdate: RegionInput = {
@@ -184,6 +196,8 @@ describe('resolvers chain', () => {
       seasonNumeric: [55],
       bounds: [[300, 300, 300]],
       pois: [],
+      copyright: null,
+      license: null,
     };
     const result = await runQuery(
       upsertQuery,
@@ -384,6 +398,8 @@ describe('i18n', () => {
     id: REGION_ECUADOR,
     name: 'Пустой регион',
     description: null,
+    copyright: null,
+    license: null,
     bounds: [
       [10, 20, 0],
       [10, 10, 0],
@@ -439,6 +455,8 @@ describe('i18n', () => {
       ],
       name: 'Сменил имя',
       description: 'Сменил описание',
+      copyright: 'копирайт',
+      license: null,
       season: 'осень осень',
       pois: [],
     };

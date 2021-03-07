@@ -27,6 +27,12 @@ describe('RegionInput', () => {
         kind: 'portage',
       },
     ],
+    copyright: 'region copyright',
+    license: {
+      slug: 'CC_BY-SA',
+      name: 'Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)',
+      url: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    },
   };
 
   const correctValues: TestValue[] = [
@@ -40,6 +46,8 @@ describe('RegionInput', () => {
         pois: [],
         season: null,
         seasonNumeric: [],
+        copyright: null,
+        license: null,
       },
     ],
     ['empty description', { ...correct, description: '' }],

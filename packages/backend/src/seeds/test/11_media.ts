@@ -23,6 +23,11 @@ const media: Array<Partial<MediaRaw>> = [
     kind: MediaKind.blog,
     url: 'http://some.blog',
     default_lang: 'en',
+    license: {
+      slug: 'CC_BY-SA',
+      name: 'Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)',
+      url: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    },
   },
   {
     id: PHOTO_1,

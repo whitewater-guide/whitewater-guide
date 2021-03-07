@@ -51,6 +51,11 @@ const regions = [
       mobile: 'ecuador_mobile_cover.jpg',
     },
     default_lang: 'en',
+    license: {
+      slug: 'CC_BY-SA',
+      name: 'Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)',
+      url: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    },
   },
   {
     id: REGION_NORWAY,
@@ -141,6 +146,7 @@ const regionsEn = [
     name: 'Ecuador',
     description: null,
     season: null,
+    copyright: 'copyrighter',
   },
   {
     region_id: REGION_NORWAY,

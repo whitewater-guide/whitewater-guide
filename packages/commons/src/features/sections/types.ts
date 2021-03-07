@@ -7,6 +7,7 @@ import {
   Timestamped,
 } from '../../apollo';
 import { Gauge } from '../gauges';
+import { License } from '../licenses';
 import { Media, MediaInput } from '../media';
 import { CoordinateLoose, Point, PointInput } from '../points';
 import { Region } from '../regions';
@@ -70,6 +71,9 @@ export interface Section extends NamedNode, Timestamped {
   demo: boolean;
   verified?: boolean | null;
 
+  copyright: string | null;
+  license: License | null;
+
   tags: Tag[];
   pois: Point[];
 
@@ -107,6 +111,9 @@ export interface SectionInput {
   tags: NodeRef[];
   pois: PointInput[];
   media: MediaInput[];
+
+  copyright: string | null;
+  license: License | null;
 
   hidden: boolean;
   helpNeeded: string | null;

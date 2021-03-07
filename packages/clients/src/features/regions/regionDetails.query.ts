@@ -12,6 +12,7 @@ export const REGION_DETAILS = (width?: number) => gql`
       ...RegionBounds
       ...RegionFlags
       ...RegionBanners
+      ...RegionLicense
       sku
     }
   }
@@ -20,6 +21,7 @@ export const REGION_DETAILS = (width?: number) => gql`
   ${RegionFragments.POIs}
   ${RegionFragments.Bounds}
   ${RegionFragments.Flags}
+  ${RegionFragments.License}
   ${RegionFragments.Banners(width)}
 `;
 

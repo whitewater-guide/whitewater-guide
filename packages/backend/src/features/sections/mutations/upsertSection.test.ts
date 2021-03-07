@@ -218,6 +218,12 @@ const existingRiverSection: SectionInput = {
   media: [],
   hidden: false,
   helpNeeded: 'please proofread this',
+  license: {
+    slug: 'CC_BY-SA',
+    name: 'Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)',
+    url: 'https://creativecommons.org/licenses/by-sa/4.0/',
+  },
+  copyright: 'section copyright',
 };
 
 const newRiverSection = {
@@ -296,6 +302,13 @@ const invalidSection: SectionInput = {
 
   hidden: false,
   helpNeeded: null,
+
+  license: {
+    slug: 'CC_BY-SA',
+    name: 'Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)',
+    url: 'https://creativecommons.org/licenses/by-sa/4.0/',
+  },
+  copyright: 'section copyright',
 };
 
 it('should fail on invalid input', async () => {
@@ -651,6 +664,13 @@ describe('i18n', () => {
 
     hidden: false,
     helpNeeded: null,
+
+    license: {
+      slug: 'CC_BY-SA',
+      name: 'Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)',
+      url: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    },
+    copyright: 'le copyright',
   };
 
   it('should add translation', async () => {
@@ -742,6 +762,7 @@ describe('media', () => {
     {
       id: null,
       description: 'photo description',
+      license: null,
       copyright: 'photo copyright',
       url: 'photo.jpg',
       kind: MediaKind.photo,
@@ -751,6 +772,7 @@ describe('media', () => {
     {
       id: null,
       description: 'video description',
+      license: null,
       copyright: 'video copyright',
       url: 'https://www.youtube.com/watch?v=FRmz0QQXHEw',
       kind: MediaKind.video,
@@ -771,6 +793,7 @@ describe('media', () => {
         id: PHOTO_2,
         kind: MediaKind.photo,
         description: 'Photo 2 new description',
+        license: null,
         copyright: 'Photo 2 new copyright',
         // Absolute url of photo that exists in seed minio data
         url: `${config.contentPublicURL}/${PHOTO_2}`,

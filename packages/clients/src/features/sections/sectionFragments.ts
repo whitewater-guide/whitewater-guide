@@ -160,12 +160,17 @@ const MediaCore = (thumbWidth?: number, thumbHeight?: number) => {
       fragment MediaCore on Media {
         id
         description
-        copyright
         url
         kind
         resolution
         size
         image
+        copyright
+        license {
+          slug
+          name
+          url
+        }
       }
     `;
   }
@@ -181,13 +186,18 @@ const MediaCore = (thumbWidth?: number, thumbHeight?: number) => {
     fragment MediaCore on Media {
       id
       description
-      copyright
       url
       kind
       resolution
       size
       image
       thumb: image(${thumbParamsStr})
+      copyright
+      license {
+        slug
+        name
+        url
+      }
     }
   `;
 };
@@ -231,18 +241,32 @@ const Tags = gql`
 
 export type SectionTags = Pick<Section, 'tags'>;
 
+const License = gql`
+  fragment SectionLicense on Section {
+    copyright
+    license {
+      slug
+      name
+      url
+    }
+  }
+`;
+
+export type SectionLicense = Pick<Section, 'copyright' | 'license'>;
+
 export const SectionFragments = {
-  Name,
   Core,
-  RegionId,
   Description,
-  GaugeBinding,
   Ends,
-  Shape,
+  GaugeBinding,
+  License,
   Measurements,
   Media,
   Meta,
+  Name,
   POIs,
+  RegionId,
+  Shape,
   Tags,
 };
 

@@ -51,6 +51,12 @@ const query = `
       editable
       premium
       sku
+      license {
+        slug
+        name
+        url
+      }
+      copyright
       createdAt
       updatedAt
       pois {

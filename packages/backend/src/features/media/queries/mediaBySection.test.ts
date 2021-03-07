@@ -13,6 +13,11 @@ const query = `
         id
         kind
         description
+        license {
+          slug
+          name
+          url
+        }
         copyright
         url
         image

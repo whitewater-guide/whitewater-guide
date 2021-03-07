@@ -91,6 +91,11 @@ type Section {
   helpNeeded: String
   # true if this section has been reviewed by our moderators
   verified: Boolean
+
+  # Licensing information
+  license: License
+  # copyright
+  copyright: String
 }
 
 type SectionMediaConnection {
@@ -130,6 +135,9 @@ input SectionInput {
   createdBy: ID
   # Optional field for imported data
   importId: String
+
+  license: LicenseInput
+  copyright: String
 }
 
 input SectionAdminSettings {

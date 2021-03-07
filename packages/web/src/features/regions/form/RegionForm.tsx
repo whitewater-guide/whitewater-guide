@@ -7,6 +7,7 @@ import { FormikTab } from '../../../formik/helpers';
 import formToMutation from './formToMutation';
 import queryToForm from './queryToForm';
 import { QResult, QVars, REGION_FORM_QUERY } from './regionForm.queue';
+import RegionFormLicense from './RegionFormLicense';
 import RegionFormMain from './RegionFormMain';
 import RegionFormPOIs from './RegionFormPOIs';
 import { RegionFormData, RouterParams } from './types';
@@ -23,6 +24,7 @@ const MainFields: Array<keyof RegionFormData> = [
 const DescriptionFields: Array<keyof RegionFormData> = ['description'];
 const BoundsFields: Array<keyof RegionFormData> = ['bounds'];
 const PoisFields: Array<keyof RegionFormData> = ['pois'];
+const LicenseFields: Array<keyof RegionFormData> = ['license', 'copyright'];
 
 interface Props {
   match: {
@@ -56,6 +58,7 @@ const RegionForm: React.FC<Props> = ({ match }) => {
         />
         <FormikTab fields={BoundsFields} label="Shape" value="#shape" />
         <FormikTab fields={PoisFields} label="POIS" value="#pois" />
+        <FormikTab fields={LicenseFields} label="Licensing" value="#license" />
       </HashTabs>
 
       <HashTabView value="#main">
@@ -72,6 +75,10 @@ const RegionForm: React.FC<Props> = ({ match }) => {
 
       <HashTabView value="#pois" padding={0}>
         <RegionFormPOIs />
+      </HashTabView>
+
+      <HashTabView value="#license">
+        <RegionFormLicense />
       </HashTabView>
     </FormikCard>
   );

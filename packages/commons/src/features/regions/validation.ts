@@ -1,6 +1,7 @@
 import { yupTypes } from '@whitewater-guide/validation';
 import * as yup from 'yup';
 
+import { LicenseInputSchema } from '../licenses';
 import { CoordinateSchema, PointInputSchema } from '../points';
 import { RegionAdminSettings, RegionCoverImage, RegionInput } from './types';
 
@@ -11,6 +12,8 @@ export const RegionInputSchema: yup.SchemaOf<RegionInput> = yup
     id: yupTypes.uuid().defined().nullable(),
     name: yupTypes.nonEmptyString().defined().nullable(false),
     description: yup.string().defined().nullable(),
+    copyright: yup.string().defined().nullable(),
+    license: LicenseInputSchema.clone().nullable(true),
     season: yup.string().defined().nullable(),
     seasonNumeric: yup
       .array()

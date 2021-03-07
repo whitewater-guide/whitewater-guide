@@ -45,6 +45,11 @@ type Region {
   # Indicates that current user can see premium content in this region
   hasPremiumAccess: Boolean!
 
+  # Licensing information
+  license: License
+  # copyright
+  copyright: String
+
   # Summary of all media belongng to region
   mediaSummary: RegionMediaSummary!
 }
@@ -104,6 +109,9 @@ input RegionInput {
   seasonNumeric: [Int]
   pois: [PointInput]
   bounds: [[Float]]
+
+  license: LicenseInput
+  copyright: String
 }
 
 input RegionAdminSettings {

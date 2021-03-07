@@ -79,6 +79,11 @@ const sections = [
     created_by: ADMIN_ID,
     verified: false,
     default_lang: 'en',
+    license: {
+      slug: 'CC_BY-SA',
+      name: 'Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)',
+      url: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    },
   },
   {
     id: GALICIA_BECA_UPPER,
@@ -374,6 +379,7 @@ const sectionsEn = [
     description: 'Lower Beca description',
     season: 'Lower Beca season',
     flows_text: 'Lower Beca flows text',
+    copyright: 'copyrighter',
   },
   {
     section_id: GALICIA_BECA_UPPER,

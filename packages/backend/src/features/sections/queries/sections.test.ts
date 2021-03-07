@@ -43,6 +43,12 @@ const query = `
         }
         hidden
         verified
+        license {
+          slug
+          name
+          url
+        }
+        copyright
       }
       count
     }

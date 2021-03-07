@@ -2,6 +2,7 @@
 
 exports[`data should return simple data 1`] = `
 Object {
+  "copyright": null,
   "createdBy": Object {
     "id": "65fa3f3a-62a7-11e8-adc0-fa7ae01bbebc",
     "name": "Test user 2",
@@ -19,6 +20,7 @@ Object {
   "hidden": false,
   "id": "21f2351e-d52a-11e7-9296-cec278b6b50a",
   "levels": null,
+  "license": null,
   "name": "Amot",
   "pois": Array [],
   "putIn": Object {

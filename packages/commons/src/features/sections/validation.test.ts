@@ -106,10 +106,21 @@ describe('SectionInput', () => {
         url: 'jhakjfh',
         weight: -3,
         copyright: 'Copyright',
+        license: {
+          slug: 'CC_BY-SA',
+          name: 'Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)',
+          url: 'https://creativecommons.org/licenses/by-sa/4.0/',
+        },
       },
     ],
     hidden: false,
     helpNeeded: 'fix duration',
+    copyright: 'section copyright',
+    license: {
+      slug: 'CC_BY-SA',
+      name: 'Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)',
+      url: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    },
   };
 
   const correctValues: TestValue[] = [
@@ -134,6 +145,8 @@ describe('SectionInput', () => {
         createdBy: null,
         helpNeeded: null,
         importId: null,
+        copyright: null,
+        license: null,
       },
     ],
     [

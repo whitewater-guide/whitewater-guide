@@ -100,6 +100,8 @@ const mocks: RecursiveMockResolver = {
       helpNeeded: null,
       createdBy: 'author',
       media: [],
+      copyright: null,
+      license: null,
     };
     return inp;
   },

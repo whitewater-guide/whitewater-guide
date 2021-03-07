@@ -1,3 +1,4 @@
+import { Region } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 
 const Core = gql`
@@ -86,11 +87,25 @@ const Banners = (width?: number) => {
   `;
 };
 
+const License = gql`
+  fragment RegionLicense on Region {
+    copyright
+    license {
+      slug
+      name
+      url
+    }
+  }
+`;
+
+export type RegionLicense = Pick<Region, 'copyright' | 'license'>;
+
 export const RegionFragments = {
-  Bounds,
-  Description,
-  Core,
-  POIs,
-  Flags,
   Banners,
+  Bounds,
+  Core,
+  Description,
+  Flags,
+  License,
+  POIs,
 };

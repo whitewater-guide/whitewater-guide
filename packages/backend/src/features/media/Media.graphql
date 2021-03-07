@@ -11,8 +11,6 @@ type Media {
   kind: MediaKind!
   # Human-friendly description
   description: String
-  # Copyright
-  copyright: String
   # Full URL for videos and blogs,
   # For images, use image instead
   url: String!
@@ -24,16 +22,23 @@ type Media {
   size: Int
   # weight for sorting
   weight: Int
-  # Not persistent. Indicates that client should not display this item in lists
-  deleted: Boolean
   createdAt: Date
   updatedAt: Date
+
+  # Not persistent. Indicates that client should not display this item in lists
+  deleted: Boolean
+
+  # Licensing information
+  license: License
+  # copyright
+  copyright: String
 }
 
 input MediaInput {
   id: ID
   kind: MediaKind!
   description: String
+  license: LicenseInput
   copyright: String
   # Full URL for videos and blogs, filename for uploaded images
   url: String

@@ -13,6 +13,7 @@ import { Map } from '../../../components/maps';
 import { NavTab, NavTabs } from '../../../components/navtabs';
 import { Card, CardContent, EditorFooter } from '../../../layout';
 import { SectionMedia } from '../../media';
+import SectionDetailsLicense from './SectionDetailsLicense';
 import SectionInfo from './SectionInfo';
 
 const SectionDetails: React.FC<RouteComponentProps> = React.memo((props) => {
@@ -34,6 +35,7 @@ const SectionDetails: React.FC<RouteComponentProps> = React.memo((props) => {
           <NavTab label="Info" value="/main" />
           <NavTab label="Description" value="/description" />
           <NavTab label="Media" value="/media" />
+          <NavTab label="Licensing" value="/license" />
         </NavTabs>
 
         <Box flex={1} overflow="auto">
@@ -57,6 +59,10 @@ const SectionDetails: React.FC<RouteComponentProps> = React.memo((props) => {
               <Box padding={1}>
                 <ReactMarkdown text={section.description || ''} />
               </Box>
+            </Route>
+
+            <Route exact={true} path={`${match.path}/license`}>
+              <SectionDetailsLicense section={section} />
             </Route>
 
             <Route path={`${match.path}/media`}>

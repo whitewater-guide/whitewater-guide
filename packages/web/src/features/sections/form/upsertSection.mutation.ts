@@ -13,6 +13,7 @@ export const UPSERT_SECTION = gql`
       ...SectionMeta
       ...SectionPOIs
       ...SectionTags
+      ...SectionLicense
     }
   }
   ${SectionFragments.Core}
@@ -23,6 +24,7 @@ export const UPSERT_SECTION = gql`
   ${SectionFragments.Meta}
   ${SectionFragments.POIs}
   ${SectionFragments.Tags}
+  ${SectionFragments.License}
 `;
 
 export interface MVars {

@@ -6,6 +6,7 @@ import useEffectOnce from 'react-use/lib/useEffectOnce';
 
 import { NumberField, TextField } from '../../../../formik/fields';
 import { LocalPhoto } from '../../../../utils/files';
+import { LicenseSubform } from '../../../license';
 import PhotoFormPreview from './PhotoFormPreview';
 
 interface Props {
@@ -81,6 +82,11 @@ const PhotoForm: React.FC<Props> = React.memo((props) => {
             placeholder="Image height"
           />
         </Box>
+
+        <LicenseSubform
+          prefix={prefix}
+          inheritLabel="Inherit license from section"
+        />
       </Box>
       <PhotoFormPreview loading={uploading} localPhoto={localPhoto} url={url} />
     </Box>

@@ -2,6 +2,7 @@ import { yupTypes } from '@whitewater-guide/validation';
 import times from 'lodash/times';
 import * as yup from 'yup';
 
+import { LicenseInputSchema } from '../licenses';
 import { MediaInputSchema } from '../media';
 import { CoordinateSchema, PointInputSchema } from '../points';
 import { Durations, GaugeBinding, SectionInput } from './types';
@@ -33,7 +34,7 @@ export const SectionInputSchema: yup.SchemaOf<SectionInput> = yup
     altNames: yup
       .array()
       .of(yupTypes.nonEmptyString().defined().nullable(false))
-      .nullable(),
+      .nullable() as any,
     description: yup.string().nullable(),
     season: yup.string().nullable(),
     seasonNumeric: yup
@@ -69,6 +70,8 @@ export const SectionInputSchema: yup.SchemaOf<SectionInput> = yup
     helpNeeded: yup.string().nullable(),
     createdBy: yupTypes.uuid().notRequired().nullable(),
     importId: yup.string().nullable(),
+    copyright: yup.string().defined().nullable(),
+    license: LicenseInputSchema.clone().nullable(true),
   } as any)
   .strict(true)
   .noUnknown();

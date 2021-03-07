@@ -68,10 +68,13 @@ const correct: SectionFormData = {
       resolution: [100, 100],
       description: null,
       copyright: null,
+      license: null,
     },
   ],
   hidden: false,
   helpNeeded: null,
+  license: null,
+  copyright: null,
 };
 
 const correctValues: TestValue[] = [

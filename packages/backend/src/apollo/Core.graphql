@@ -27,6 +27,32 @@ type PageInfo {
   hasMore: Boolean!
 }
 
+# This type represents information about licensing of piece of content (region/section/media)
+type License {
+  # Full license name
+  # e.g. "Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)"
+  name: String!
+  # license code which can be used to search it and to get standard logo
+  # e.g. "CC_BY-SA"
+  slug: String
+  # license text url
+  # e.g. https://creativecommons.org/licenses/by-sa/4.0/
+  url: String
+}
+
+# This type represents information about licensing of piece of content (region/section/media)
+input LicenseInput {
+  # Full license name
+  # e.g. "Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)"
+  name: String!
+  # license code which can be used to search it and to get standard logo
+  # e.g. "CC_BY-SA"
+  slug: String
+  # license text url
+  # e.g. https://creativecommons.org/licenses/by-sa/4.0/
+  url: String
+}
+
 schema {
   query: Query
   mutation: Mutation

@@ -13,6 +13,8 @@ export default (result?: QResult): RegionFormData => {
       season: null,
       name: '',
       pois: [],
+      license: null,
+      copyright: null,
     };
   }
   return {

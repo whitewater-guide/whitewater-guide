@@ -78,6 +78,12 @@ const query = `
         id
         name
       }
+      license {
+        slug
+        name
+        url
+      }
+      copyright
       updatedAt
       pois {
         id

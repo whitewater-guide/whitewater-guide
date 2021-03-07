@@ -5,6 +5,7 @@ export * from './features/banners';
 export * from './features/descents';
 export * from './features/gauges';
 export * from './features/groups';
+export * from './features/licenses';
 export * from './features/measurements';
 export * from './features/media';
 export * from './features/points';

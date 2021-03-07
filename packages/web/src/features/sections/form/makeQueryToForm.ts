@@ -49,6 +49,8 @@ const emptySection = (region: NamedNode, river: any): SectionFormData => {
     levels: null,
     flows: null,
     media: [],
+    license: null,
+    copyright: null,
   };
 };
 

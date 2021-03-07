@@ -150,10 +150,12 @@ Object {
       0,
     ],
   ],
+  "copyright": null,
   "description": "Description of Galicia",
   "editable": true,
   "hidden": false,
   "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
+  "license": null,
   "mapsSize": 0,
   "name": "Galicia",
   "pois": Array [

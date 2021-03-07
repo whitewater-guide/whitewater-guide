@@ -8,6 +8,7 @@ import {
 import { Banner } from '../banners';
 import { Gauge } from '../gauges';
 import { Group } from '../groups';
+import { License } from '../licenses';
 import { CoordinateLoose, Point, PointInput } from '../points';
 import { River } from '../rivers';
 import { Section } from '../sections';
@@ -27,6 +28,8 @@ export interface Region extends NamedNode, Timestamped {
   coverImage: RegionCoverImage;
   pois: Point[];
   groups: Group[];
+  copyright: string | null;
+  license: License | null;
   // --- connections
   rivers?: Connection<River>;
   gauges?: Connection<Gauge>;
@@ -40,6 +43,8 @@ export interface RegionInput {
   id: string | null;
   name: string;
   description: string | null;
+  copyright: string | null;
+  license: License | null;
   season: string | null;
   seasonNumeric: number[];
   bounds: CoordinateLoose[];

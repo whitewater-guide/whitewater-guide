@@ -1,4 +1,5 @@
 import { Node, Timestamped } from '../../apollo';
+import { License } from '../licenses';
 
 export enum MediaKind {
   photo = 'photo',
@@ -8,11 +9,13 @@ export enum MediaKind {
 
 interface MediaBase {
   description: string | null;
-  copyright: string | null;
   url: string;
   kind: MediaKind;
   resolution: number[] | null;
   weight: number | null;
+
+  copyright: string | null;
+  license: License | null;
 }
 
 export interface Media extends MediaBase, Node, Timestamped {

@@ -12,6 +12,12 @@ export const REGION_FORM_QUERY = gql`
       ...RegionDescription
       ...RegionPOIs
       ...RegionBounds
+      copyright
+      license {
+        slug
+        name
+        url
+      }
     }
   }
   ${RegionFragments.Description}

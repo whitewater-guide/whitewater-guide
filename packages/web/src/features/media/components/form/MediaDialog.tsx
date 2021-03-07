@@ -3,22 +3,13 @@ import DialogContent from '@material-ui/core/DialogContent';
 import { MediaKind } from '@whitewater-guide/commons';
 import React from 'react';
 
-import { LocalPhoto } from '../../../../utils/files';
 import MediaFormActions from './MediaFormActions';
 import MediaFormTitle from './MediaFormTitle';
 import NonPhotoForm from './NonPhotoForm';
 import PhotoForm from './PhotoForm';
+import { MediaDialogProps } from './types';
 
-interface Props {
-  open: boolean;
-  prefix?: string;
-  kind?: MediaKind;
-  onCancel: () => void;
-  onSubmit: () => any;
-  localPhoto?: LocalPhoto;
-}
-
-const MediaDialog: React.FC<Props> = React.memo((props) => {
+const MediaDialog = React.memo<MediaDialogProps>((props) => {
   const { open, prefix, kind, localPhoto, onCancel, onSubmit } = props;
   return (
     <Dialog open={open} disableBackdropClick={true} maxWidth="xl">

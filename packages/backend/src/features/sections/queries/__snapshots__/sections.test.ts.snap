@@ -5,12 +5,18 @@ Object {
   "count": 9,
   "nodes": Array [
     Object {
+      "copyright": "copyrighter",
       "gauge": Object {
         "id": "aba8c106-aaa0-11e7-abc4-cec278b6b50a",
         "name": "Galicia gauge 1",
       },
       "hidden": false,
       "id": "2b01742c-d443-11e7-9296-cec278b6b50a",
+      "license": Object {
+        "name": "Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)",
+        "slug": "CC_BY-SA",
+        "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      },
       "name": "Lower",
       "rating": 4.5,
       "region": Object {
@@ -24,12 +30,14 @@ Object {
       "verified": false,
     },
     Object {
+      "copyright": null,
       "gauge": Object {
         "id": "aba8c106-aaa0-11e7-abc4-cec278b6b50a",
         "name": "Galicia gauge 1",
       },
       "hidden": false,
       "id": "3a6e3210-d529-11e7-9296-cec278b6b50a",
+      "license": null,
       "name": "Upper",
       "rating": 2.5,
       "region": Object {
@@ -43,12 +51,14 @@ Object {
       "verified": true,
     },
     Object {
+      "copyright": null,
       "gauge": Object {
         "id": "53af2e2c-19fe-11e8-accf-0ed5f89f718b",
         "name": "Georgian gauge 4",
       },
       "hidden": false,
       "id": "9e9c0366-84e2-11e8-adc0-fa7ae01bbebc",
+      "license": null,
       "name": "Extreme race",
       "rating": 5,
       "region": Object {
@@ -62,12 +72,14 @@ Object {
       "verified": null,
     },
     Object {
+      "copyright": null,
       "gauge": Object {
         "id": "53af2530-19fe-11e8-accf-0ed5f89f718b",
         "name": "Georgian gauge 1",
       },
       "hidden": false,
       "id": "e6e0e826-5db4-11e8-9c2d-fa7ae01bbebc",
+      "license": null,
       "name": "Long Race",
       "rating": 5,
       "region": Object {
@@ -81,9 +93,11 @@ Object {
       "verified": null,
     },
     Object {
+      "copyright": null,
       "gauge": null,
       "hidden": false,
       "id": "f73b533c-5db4-11e8-9c2d-fa7ae01bbebc",
+      "license": null,
       "name": "Qualification",
       "rating": 5,
       "region": Object {
@@ -97,9 +111,11 @@ Object {
       "verified": null,
     },
     Object {
+      "copyright": null,
       "gauge": null,
       "hidden": false,
       "id": "7104f00c-31ad-4375-992e-5efebef813dd",
+      "license": null,
       "name": "Bridge to bridge",
       "rating": 4,
       "region": Object {
@@ -113,9 +129,11 @@ Object {
       "verified": null,
     },
     Object {
+      "copyright": null,
       "gauge": null,
       "hidden": false,
       "id": "2ffe67e5-6394-4341-9ae3-415271ce71fd",
+      "license": null,
       "name": "Cheese house",
       "rating": 4.5,
       "region": Object {
@@ -129,9 +147,11 @@ Object {
       "verified": null,
     },
     Object {
+      "copyright": null,
       "gauge": null,
       "hidden": false,
       "id": "21f2351e-d52a-11e7-9296-cec278b6b50a",
+      "license": null,
       "name": "Amot",
       "rating": 5,
       "region": Object {
@@ -145,9 +165,11 @@ Object {
       "verified": null,
     },
     Object {
+      "copyright": null,
       "gauge": null,
       "hidden": false,
       "id": "b06c0a6e-9975-4a46-8a77-580a4f453973",
+      "license": null,
       "name": "Пасека",
       "rating": 4,
       "region": Object {

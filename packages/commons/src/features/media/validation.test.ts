@@ -15,6 +15,11 @@ const correct: MediaInput = {
   url: 'jhakjfh',
   weight: -3,
   copyright: 'Copyright',
+  license: {
+    slug: 'CC_BY-SA',
+    name: 'Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)',
+    url: 'https://creativecommons.org/licenses/by-sa/4.0/',
+  },
 };
 
 const correctValues: TestValue[] = [
@@ -25,6 +30,7 @@ const correctValues: TestValue[] = [
       id: null,
       description: null,
       copyright: null,
+      license: null,
       weight: null,
       resolution: null,
       url: 'https://ya.ru',

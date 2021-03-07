@@ -10,6 +10,7 @@ import { SectionFormData } from './types';
 
 const defaultValue: Omit<MediaInput, 'kind'> = {
   id: null,
+  license: null,
   copyright: null,
   description: null,
   resolution: null,

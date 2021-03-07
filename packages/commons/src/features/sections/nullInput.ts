@@ -33,6 +33,9 @@ export const NULL_SECTION_INPUT: SectionInput = {
   hidden: false,
   helpNeeded: null,
 
+  copyright: null,
+  license: null,
+
   createdBy: null,
   importId: null,
 };

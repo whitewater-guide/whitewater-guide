@@ -13,6 +13,7 @@ import useRouter from 'use-react-router';
 import { NavTab, NavTabs } from '../../../components/navtabs';
 import { RiversList } from '../../rivers/list';
 import { SectionsList } from '../../sections/list';
+import RegionDetailsLicense from './RegionDetailsLicense';
 import RegionDetailsMain from './RegionDetailsMain';
 import RegionMapTab from './RegionMapTab';
 
@@ -43,6 +44,7 @@ const RegionDetailsTabs: React.FC = React.memo(() => {
               label={`Sections (${sections.length}/${count})`}
               value={'/sections'}
             />
+            <NavTab label="Licensing" value="/license" />
           </NavTabs>
 
           <Box flex={1}>
@@ -57,6 +59,10 @@ const RegionDetailsTabs: React.FC = React.memo(() => {
 
               <Route exact={true} path={`${match.path}/sections`}>
                 <SectionsList sections={sections} regionId={regionId} />
+              </Route>
+
+              <Route exact={true} path={`${match.path}/license`}>
+                <RegionDetailsLicense />
               </Route>
 
               <Route>

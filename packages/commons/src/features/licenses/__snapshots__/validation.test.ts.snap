@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should be invalid for bad name 1`] = `
+Object {
+  "name": Object {
+    "key": "yup:string.min",
+    "options": Object {
+      "min": 2,
+      "path": "name",
+    },
+  },
+}
+`;
+
+exports[`should be invalid for bad slug 1`] = `
+Object {
+  "slug": "yup:string.slug",
+}
+`;
+
+exports[`should be invalid for bad url 1`] = `
+Object {
+  "url": Object {
+    "key": "yup:string.url",
+    "options": Object {
+      "path": "url",
+    },
+  },
+}
+`;
+
+exports[`should be invalid for extra fields 1`] = `
+Object {
+  "": Object {
+    "key": "yup:object.noUnknown",
+    "options": Object {
+      "path": "this",
+    },
+  },
+}
+`;

@@ -8,6 +8,11 @@ export const MEDIA_FORM_QUERY = gql`
       kind
       description
       copyright
+      license {
+        slug
+        name
+        url
+      }
       url
       weight
       resolution
@@ -26,6 +31,7 @@ export interface QResult {
     | 'kind'
     | 'description'
     | 'copyright'
+    | 'license'
     | 'url'
     | 'weight'
     | 'resolution'

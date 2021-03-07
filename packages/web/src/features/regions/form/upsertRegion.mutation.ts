@@ -9,12 +9,14 @@ export const UPSERT_REGION = gql`
       ...RegionPOIs
       ...RegionBounds
       ...RegionDescription
+      ...RegionLicense
     }
   }
   ${RegionFragments.Core}
   ${RegionFragments.POIs}
   ${RegionFragments.Bounds}
   ${RegionFragments.Description}
+  ${RegionFragments.License}
 `;
 
 export interface MVars {

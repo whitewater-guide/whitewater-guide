@@ -11,6 +11,7 @@ import formToMutation from './formToMutation';
 import makeQueryToForm from './makeQueryToForm';
 import { QResult, QVars, SECTION_FORM_QUERY } from './sectionForm.query';
 import { SectionFormFlows } from './SectionFormFlows';
+import SectionFormLicense from './SectionFormLicense';
 import { SectionFormMain } from './SectionFormMain';
 import { SectionFormMap } from './SectionFormMap';
 import SectionFormMedia from './SectionFormMedia';
@@ -49,6 +50,7 @@ const ShapeFields: Array<keyof SectionFormData> = ['shape'];
 const POIFields: Array<keyof SectionFormData> = ['pois'];
 const DescriptionFields: Array<keyof SectionFormData> = ['description'];
 const MediaFields: Array<keyof SectionFormData> = ['media'];
+const LicenseFields: Array<keyof SectionFormData> = ['license', 'copyright'];
 
 type Props = RouteComponentProps<RouterParams>;
 
@@ -80,7 +82,6 @@ const SectionForm: React.FC<Props> = ({ match, location }) => {
 
   const region = formik.rawData ? formik.rawData.region : null;
   const gauges = formik.rawData ? formik.rawData.gauges : null;
-  const bounds = region ? region.bounds : null;
   const tags = formik.rawData ? formik.rawData.tags : [];
   const needsVerification =
     !formik.rawData?.section?.verified && !!formik.rawData?.section?.id;
@@ -93,7 +94,7 @@ const SectionForm: React.FC<Props> = ({ match, location }) => {
       submitLabel={needsVerification ? 'Verify and save' : undefined}
       validateOnChange={false}
     >
-      <HashTabs variant="fullWidth">
+      <HashTabs variant="scrollable">
         <FormikTab fields={MainFields} label="Basic" value="#main" />
         <FormikTab fields={FlowsFields} label="Flows" value="#flows" />
         <FormikTab fields={ShapeFields} label="Shape" value="#shape" />
@@ -109,6 +110,7 @@ const SectionForm: React.FC<Props> = ({ match, location }) => {
         />
         <FormikTab fields={POIFields} label="POIS" value="#pois" />
         <FormikTab fields={MediaFields} label="Media" value="#media" />
+        <FormikTab fields={LicenseFields} label="Licensing" value="#license" />
       </HashTabs>
 
       <HashTabView value="#main">
@@ -124,7 +126,7 @@ const SectionForm: React.FC<Props> = ({ match, location }) => {
       </HashTabView>
 
       <HashTabView value="#shape" display="flex" flexDirection="row">
-        <SectionFormMap bounds={bounds} />
+        <SectionFormMap bounds={region?.bounds ?? null} />
       </HashTabView>
 
       <HashTabView value="#description" padding={0}>
@@ -132,11 +134,15 @@ const SectionForm: React.FC<Props> = ({ match, location }) => {
       </HashTabView>
 
       <HashTabView value="#pois">
-        <POIArray name="pois" mapBounds={bounds} />
+        <POIArray name="pois" mapBounds={region?.bounds ?? null} />
       </HashTabView>
 
       <HashTabView value="#media">
         <SectionFormMedia />
+      </HashTabView>
+
+      <HashTabView value="#license">
+        <SectionFormLicense regionLicense={region?.license} />
       </HashTabView>
     </FormikCard>
   );

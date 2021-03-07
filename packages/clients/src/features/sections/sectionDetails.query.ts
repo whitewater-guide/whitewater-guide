@@ -15,6 +15,7 @@ export const SECTION_DETAILS = gql`
       ...SectionMeta
       ...SectionPOIs
       ...SectionTags
+      ...SectionLicense
     }
   }
   ${SectionFragments.Core}
@@ -26,6 +27,7 @@ export const SECTION_DETAILS = gql`
   ${SectionFragments.Meta}
   ${SectionFragments.POIs}
   ${SectionFragments.Tags}
+  ${SectionFragments.License}
 `;
 
 export interface SectionDetailsVars {

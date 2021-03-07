@@ -42,6 +42,8 @@ export const up = async (db: Knex) => {
       [179, 89, 0],
       [179, -89, 0],
     ],
+    copyright: null,
+    license: null,
   };
 
   await rawUpsert(db, 'SELECT upsert_region(?, ?)', [othersRegion, 'en']);

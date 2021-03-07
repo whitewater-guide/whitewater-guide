@@ -19,6 +19,7 @@ export default (route: RouteComponentProps<RouterParams>) => (
         (qs.parse(location.search.substr(1)).kind as any) || MediaKind.photo,
       resolution: null,
       weight: null,
+      license: null,
     };
   }
   return result.media;
