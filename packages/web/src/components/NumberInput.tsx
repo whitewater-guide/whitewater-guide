@@ -14,8 +14,8 @@ interface NumberInputProps {
 
 type Props = Overwrite<InputProps, NumberInputProps>;
 
-const numToStr = (num: any): string =>
-  Number.isFinite(num) ? num.toString() : '';
+const numToStr = (num: unknown): string =>
+  Number.isFinite(num) ? (num as number).toString() : '';
 
 /**
  * Wrapper around Material-UI TextInput that makes

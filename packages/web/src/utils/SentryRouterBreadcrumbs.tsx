@@ -2,7 +2,7 @@ import { addBreadcrumb, Severity } from '@sentry/react';
 import React, { useEffect } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
 
-const HistoryWatcher = withRouter((props: RouteComponentProps<any>) => {
+const HistoryWatcher = withRouter((props: RouteComponentProps) => {
   useEffect(() => {
     // Adblockers will kill sentry
     // if (!!(global as any).Sentry) {

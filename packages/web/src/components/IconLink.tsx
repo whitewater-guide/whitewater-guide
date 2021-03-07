@@ -10,6 +10,7 @@ interface Props extends LinkProps {
 export const IconLink = React.forwardRef(
   ({ icon, children, ...props }: Props, ref) => {
     // Workaround: IconButton doesn't have component prop in typedefs
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const Component = IconButton as any;
     const iconElement = icon ? (
       <Icon>{icon}</Icon>

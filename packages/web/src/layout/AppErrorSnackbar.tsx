@@ -16,7 +16,7 @@ const AppErrorSnackbar = () => (
       const error = (data && data.appError) || undefined;
       const errorMessage = error ? `${error.message} (${error.id})` : '';
       return (
-        <Mutation<any, AppErrorMutationVars> mutation={APP_ERROR_MUTATION}>
+        <Mutation<unknown, AppErrorMutationVars> mutation={APP_ERROR_MUTATION}>
           {(setAppError) => {
             return (
               <Snackbar

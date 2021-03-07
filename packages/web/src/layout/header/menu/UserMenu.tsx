@@ -26,7 +26,7 @@ const useStyles = makeStyles(() =>
 const UserMenu: React.FC = React.memo(() => {
   const classes = useStyles();
   const { me, service } = useAuth();
-  const [anchor, setAnchor] = useState<any>(null);
+  const [anchor, setAnchor] = useState<Element | null>(null);
 
   const onAvatarPress = useCallback(
     (e: React.MouseEvent) => {

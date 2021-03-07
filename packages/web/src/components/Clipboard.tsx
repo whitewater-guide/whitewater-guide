@@ -4,42 +4,36 @@ import clipboard from 'clipboard-copy';
 import React, { useCallback } from 'react';
 
 interface Clickable {
-  onClick: React.MouseEventHandler<any>;
-  ref?: any;
+  onClick: React.MouseEventHandler;
 }
 
 interface Props {
   text?: string;
-  onCopy?: (e: React.MouseEvent<any>, text: string) => void;
+  onCopy?: (e: React.MouseEvent, text: string) => void;
   children?: React.ReactElement<Clickable>;
 }
 
-export const Clipboard = React.forwardRef(
-  ({ text, onCopy, children }: Props, ref: any) => {
-    const onClick = useCallback(
-      (e: React.MouseEvent<any>) => {
-        e.stopPropagation();
-        if (text) {
-          clipboard(text).catch(() => {
-            // ignore, we cannot do anything about it
-          });
-          onCopy?.(e, text);
-        }
-      },
-      [text, onCopy],
-    );
+export const Clipboard: React.FC<Props> = ({ text, onCopy, children }) => {
+  const onClick = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      if (text) {
+        clipboard(text).catch(() => {
+          // ignore, we cannot do anything about it
+        });
+        onCopy?.(e, text);
+      }
+    },
+    [text, onCopy],
+  );
 
-    return children ? (
-      React.cloneElement(React.Children.only(children), {
-        onClick,
-        ref,
-      })
-    ) : (
-      <IconButton onClick={onClick} ref={ref}>
-        <Icon>file_copy</Icon>
-      </IconButton>
-    );
-  },
-);
+  return children ? (
+    React.cloneElement(React.Children.only(children), { onClick })
+  ) : (
+    <IconButton onClick={onClick}>
+      <Icon>file_copy</Icon>
+    </IconButton>
+  );
+};
 
 Clipboard.displayName = 'Clipboard';

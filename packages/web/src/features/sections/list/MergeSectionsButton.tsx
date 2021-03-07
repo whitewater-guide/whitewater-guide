@@ -6,14 +6,14 @@ import SectionMenuItem from './SectionMenuItem';
 
 interface Props {
   section: Section;
-  onClick: (e: React.MouseEvent<any>) => void;
+  onClick: (e: React.MouseEvent) => void;
 }
 
-const MergeSectionsButton = React.forwardRef(
-  ({ onClick, section }: Props, ref: any) => {
+const MergeSectionsButton = React.forwardRef<HTMLLIElement, Props>(
+  ({ onClick, section }, ref) => {
     const { setSource } = useMergeSource();
 
-    const handleClick = (e: React.MouseEvent<any>) => {
+    const handleClick = (e: React.MouseEvent) => {
       setSource(section);
       onClick(e);
     };

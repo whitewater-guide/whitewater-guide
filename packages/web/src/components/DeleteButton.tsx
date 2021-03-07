@@ -20,17 +20,17 @@ export const DeleteButton = React.memo(
   ({ id, disabled, deleteHandler, children }: Props) => {
     const [dialogOpen, setDialogOpen] = useState(false);
 
-    const openDialog = (e: React.MouseEvent<any>) => {
+    const openDialog = (e: React.MouseEvent) => {
       e.stopPropagation();
       setDialogOpen(true);
     };
 
-    const closeDialog = (e: React.MouseEvent<any>) => {
+    const closeDialog = (e: React.MouseEvent) => {
       e.stopPropagation();
       setDialogOpen(false);
     };
 
-    const confirmDialog = (e: React.MouseEvent<any>) => {
+    const confirmDialog = (e: React.MouseEvent) => {
       e.stopPropagation();
       setDialogOpen(false);
       deleteHandler?.(id);

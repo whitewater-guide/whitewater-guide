@@ -38,7 +38,7 @@ interface Props {
 
 interface State {
   open: boolean;
-  anchorEl: any;
+  anchorEl: Element | null;
 }
 
 export class HarvestStatusIndicator extends React.PureComponent<Props, State> {
@@ -47,7 +47,7 @@ export class HarvestStatusIndicator extends React.PureComponent<Props, State> {
     anchorEl: null,
   };
 
-  onClick = (event: React.MouseEvent<any>) => {
+  onClick = (event: React.MouseEvent) => {
     event.preventDefault();
     event.stopPropagation();
     this.setState({
@@ -56,7 +56,7 @@ export class HarvestStatusIndicator extends React.PureComponent<Props, State> {
     });
   };
 
-  onClose = (event: React.MouseEvent<any>) => {
+  onClose = (event: React.MouseEvent) => {
     event.preventDefault();
     event.stopPropagation();
     this.setState({

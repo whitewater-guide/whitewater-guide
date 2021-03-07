@@ -21,7 +21,7 @@ const FIND_SECTIONS_QUERY = gql`
   }
 `;
 
-const optionToString: any = (option: Section) => (
+const optionToString = (option: Section) => (
   <span>
     <strong>{option.river.name}</strong> - {option.name}
   </span>

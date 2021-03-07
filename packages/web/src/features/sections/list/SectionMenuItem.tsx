@@ -8,13 +8,13 @@ interface Props {
   icon?: string;
   label: string;
   to?: string;
-  onClick?: (e: React.MouseEvent<any>) => void;
+  onClick?: (e: React.MouseEvent) => void;
 }
 
-const SectionMenuItem = React.forwardRef(
-  ({ icon, label, to, onClick }: Props, ref: any) => {
+const SectionMenuItem = React.forwardRef<HTMLLIElement, Props>(
+  ({ icon, label, to, onClick }, ref) => {
     const { push } = useHistory();
-    const handleClick = (e: React.MouseEvent<any>) => {
+    const handleClick = (e: React.MouseEvent) => {
       e.stopPropagation();
       if (to) {
         push(to);
@@ -22,6 +22,7 @@ const SectionMenuItem = React.forwardRef(
         onClick(e);
       }
     };
+
     return (
       <MenuItem onClick={handleClick} ref={ref}>
         {icon && (

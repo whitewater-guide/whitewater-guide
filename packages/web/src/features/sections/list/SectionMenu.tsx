@@ -19,9 +19,9 @@ interface Props {
 const SectionMenu = React.memo(
   ({ section, regionId, deleteHandler }: Props) => {
     const { id: sectionId } = section;
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = React.useState<Element | null>(null);
 
-    const handleClick = (e: React.MouseEvent<any>) => {
+    const handleClick = (e: React.MouseEvent) => {
       e.stopPropagation();
       setAnchorEl(e.currentTarget);
     };

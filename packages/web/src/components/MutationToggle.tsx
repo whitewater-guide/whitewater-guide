@@ -6,7 +6,7 @@ import React from 'react';
 interface Props {
   id: string;
   enabled: boolean;
-  toggle: (id: string, enabled: boolean) => Promise<any>;
+  toggle: (id: string, enabled: boolean) => Promise<void>;
 }
 
 interface State {
@@ -16,10 +16,9 @@ interface State {
 export class MutationToggle extends React.PureComponent<Props, State> {
   state: State = { loading: false };
 
-  stopPropagation = (event: React.SyntheticEvent<any>) =>
-    event.stopPropagation();
+  stopPropagation = (event: React.SyntheticEvent) => event.stopPropagation();
 
-  onToggle = async (e: any, value: boolean) => {
+  onToggle = async (_: unknown, value: boolean) => {
     this.setState({ loading: true });
     try {
       await Promise.all([

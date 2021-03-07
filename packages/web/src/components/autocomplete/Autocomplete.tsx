@@ -13,7 +13,7 @@ import { AutocompleteProps } from './types';
 export class Autocomplete<
   T extends NamedNode = NamedNode
 > extends React.PureComponent<AutocompleteProps<T>, { inputValue: string }> {
-  private readonly _input = React.createRef<any>();
+  private readonly _input = React.createRef<HTMLDivElement>();
 
   constructor(props: AutocompleteProps<T>) {
     super(props);

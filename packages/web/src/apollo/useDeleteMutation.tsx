@@ -10,7 +10,7 @@ export const useDeleteMutation = (
   mutation: DocumentNode,
   refetchQueries?: MutationHookOptions['refetchQueries'],
 ) => {
-  const [mutate] = useMutation<any, MVars>(mutation, {
+  const [mutate] = useMutation<unknown, MVars>(mutation, {
     refetchQueries,
   });
   return useCallback(

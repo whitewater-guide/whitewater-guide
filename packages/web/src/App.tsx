@@ -22,11 +22,11 @@ import { MY_PROFILE_QUERY } from './myProfile.query';
 import { theme } from './styles';
 import { SentryRouterBreadcrumbs } from './utils';
 
-class App extends React.PureComponent {
-  private _client!: ApolloClient<any>;
+class App extends React.PureComponent<unknown> {
+  private _client!: ApolloClient<unknown>;
   private _auth!: AuthService;
 
-  constructor(props: any) {
+  constructor(props: unknown) {
     super(props);
     this._auth = new WebAuthService(API_HOST, FACEBOOK_APP_ID);
     this._auth.on('sign-in', this.onSignIn);

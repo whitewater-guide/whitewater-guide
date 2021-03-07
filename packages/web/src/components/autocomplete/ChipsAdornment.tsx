@@ -19,6 +19,7 @@ interface Props {
 const ChipsAdornment: React.FC<Props> = ({ values, onDelete }) => {
   const classes = useStyles();
   const handleDelete = useCallback(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (e: any) => {
       onDelete(e.target.closest('.MuiChip-root ').id);
     },
