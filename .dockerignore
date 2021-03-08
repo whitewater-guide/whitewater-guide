@@ -7,7 +7,6 @@
 **/build/
 **/coverage/
 **/dev-mount/
-**/mobile/
 **/tooling/
 
 **/Dockerfile

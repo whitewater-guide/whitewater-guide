@@ -1,4 +1,5 @@
 PODS:
+  - "@react-native-mapbox-gl-mapbox-static (5.9.0)"
   - boost-for-react-native (1.63.0)
   - BVLinearGradient (2.5.6):
     - React
@@ -71,7 +72,7 @@ PODS:
     - GoogleUtilities/Environment (~> 7.0)
     - GoogleUtilities/Reachability (~> 7.0)
     - GoogleUtilities/UserDefaults (~> 7.0)
-  - Flipper (0.78.0):
+  - Flipper (0.79.1):
     - Flipper-Folly (~> 2.5)
     - Flipper-RSocket (~> 1.3)
   - Flipper-DoubleConversion (1.1.7)
@@ -85,36 +86,36 @@ PODS:
   - Flipper-PeerTalk (0.0.4)
   - Flipper-RSocket (1.3.0):
     - Flipper-Folly (~> 2.5)
-  - FlipperKit (0.78.0):
-    - FlipperKit/Core (= 0.78.0)
-  - FlipperKit/Core (0.78.0):
-    - Flipper (~> 0.78.0)
+  - FlipperKit (0.79.1):
+    - FlipperKit/Core (= 0.79.1)
+  - FlipperKit/Core (0.79.1):
+    - Flipper (~> 0.79.1)
     - FlipperKit/CppBridge
     - FlipperKit/FBCxxFollyDynamicConvert
     - FlipperKit/FBDefines
     - FlipperKit/FKPortForwarding
-  - FlipperKit/CppBridge (0.78.0):
-    - Flipper (~> 0.78.0)
-  - FlipperKit/FBCxxFollyDynamicConvert (0.78.0):
+  - FlipperKit/CppBridge (0.79.1):
+    - Flipper (~> 0.79.1)
+  - FlipperKit/FBCxxFollyDynamicConvert (0.79.1):
     - Flipper-Folly (~> 2.5)
-  - FlipperKit/FBDefines (0.78.0)
-  - FlipperKit/FKPortForwarding (0.78.0):
+  - FlipperKit/FBDefines (0.79.1)
+  - FlipperKit/FKPortForwarding (0.79.1):
     - CocoaAsyncSocket (~> 7.6)
     - Flipper-PeerTalk (~> 0.0.4)
-  - FlipperKit/FlipperKitHighlightOverlay (0.78.0)
-  - FlipperKit/FlipperKitLayoutPlugin (0.78.0):
+  - FlipperKit/FlipperKitHighlightOverlay (0.79.1)
+  - FlipperKit/FlipperKitLayoutPlugin (0.79.1):
     - FlipperKit/Core
     - FlipperKit/FlipperKitHighlightOverlay
     - FlipperKit/FlipperKitLayoutTextSearchable
     - YogaKit (~> 1.18)
-  - FlipperKit/FlipperKitLayoutTextSearchable (0.78.0)
-  - FlipperKit/FlipperKitNetworkPlugin (0.78.0):
+  - FlipperKit/FlipperKitLayoutTextSearchable (0.79.1)
+  - FlipperKit/FlipperKitNetworkPlugin (0.79.1):
     - FlipperKit/Core
-  - FlipperKit/FlipperKitReactPlugin (0.78.0):
+  - FlipperKit/FlipperKitReactPlugin (0.79.1):
     - FlipperKit/Core
-  - FlipperKit/FlipperKitUserDefaultsPlugin (0.78.0):
+  - FlipperKit/FlipperKitUserDefaultsPlugin (0.79.1):
     - FlipperKit/Core
-  - FlipperKit/SKIOSNetworkPlugin (0.78.0):
+  - FlipperKit/SKIOSNetworkPlugin (0.79.1):
     - FlipperKit/Core
     - FlipperKit/FlipperKitNetworkPlugin
   - Folly (2020.01.13.00):
@@ -357,17 +358,25 @@ PODS:
   - react-native-image-picker (3.2.1):
     - React-Core
   - react-native-mapbox-gl (8.1.0):
+    - "@react-native-mapbox-gl-mapbox-static (~> 5.9.0)"
     - Mapbox-iOS-SDK (~> 5.9.0)
     - React
     - React-Core
     - react-native-mapbox-gl/DynamicLibrary (= 8.1.0)
+    - react-native-mapbox-gl/StaticLibraryFixer (= 8.1.0)
   - react-native-mapbox-gl/DynamicLibrary (8.1.0):
+    - "@react-native-mapbox-gl-mapbox-static (~> 5.9.0)"
+    - Mapbox-iOS-SDK (~> 5.9.0)
+    - React
+    - React-Core
+  - react-native-mapbox-gl/StaticLibraryFixer (8.1.0):
+    - "@react-native-mapbox-gl-mapbox-static (~> 5.9.0)"
     - Mapbox-iOS-SDK (~> 5.9.0)
     - React
     - React-Core
   - react-native-netinfo (6.0.0):
     - React-Core
-  - react-native-safe-area-context (3.1.9):
+  - react-native-safe-area-context (3.2.0):
     - React-Core
   - react-native-sensitive-info (5.5.8):
     - React
@@ -448,7 +457,7 @@ PODS:
     - React-Core
   - RNCMaskedView (0.1.10):
     - React
-  - RNDateTimePicker (3.0.9):
+  - RNDateTimePicker (3.1.1):
     - React-Core
   - RNFastImage (7.1.0):
     - React
@@ -475,9 +484,9 @@ PODS:
     - React-Core
   - RNReanimated (1.13.2):
     - React-Core
-  - RNScreens (2.18.0):
+  - RNScreens (2.18.1):
     - React-Core
-  - RNSentry (2.2.1):
+  - RNSentry (2.2.2):
     - React-Core
     - Sentry (= 6.1.4)
   - RNSVG (12.1.0):
@@ -581,6 +590,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - "@react-native-mapbox-gl-mapbox-static"
     - boost-for-react-native
     - CocoaAsyncSocket
     - FBSDKCoreKit
@@ -731,6 +741,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  "@react-native-mapbox-gl-mapbox-static": 83c0e0ba33597bb694735ffb136d3d96780af37d
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   BVLinearGradient: e3aad03778a456d77928f594a649e96995f1c872
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
@@ -747,13 +758,13 @@ SPEC CHECKSUMS:
   FirebaseInstallations: 42c86e7b02ff75b7f27f85833bf5dcb5f38a9774
   FirebaseInstanceID: cf940324a20ac14a27ad1e931d15ac9d335526db
   FirebaseMessaging: 4b9b2850fcfcaac2820097ee3703ba6cfff3df84
-  Flipper: 9290a54bab5ec3a5ed985ef56c17a5f0d8dcf7c6
+  Flipper: da2ca681187fb82c668a2c3c54b003cbd3c26859
   Flipper-DoubleConversion: 38631e41ef4f9b12861c67d17cb5518d06badc41
   Flipper-Folly: f7a3caafbd74bda4827954fd7a6e000e36355489
   Flipper-Glog: 1dfd6abf1e922806c52ceb8701a3599a79a200a6
   Flipper-PeerTalk: 116d8f857dc6ef55c7a5a75ea3ceaafe878aadc9
   Flipper-RSocket: 602921fee03edacf18f5d6f3d3594ba477f456e5
-  FlipperKit: f3c70dd5ec92e2fd1128c3572ca93eacf3bbb55a
+  FlipperKit: 54754e226d7934ec516f99921d945a1ad69d1ba4
   Folly: b73c3869541e86821df3c387eb0af5f65addfab4
   glog: 40a13f7840415b9a77023fbcae0f1e6f43192af3
   GoogleAppMeasurement: c542a2feaac9ab98fd074e8f1a02c3585bbfbd47
@@ -778,9 +789,9 @@ SPEC CHECKSUMS:
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
   react-native-fbsdk: 8e92c7a334fd8d9c2b5d8b8fcd7ae2c314161099
   react-native-image-picker: 64d12e81f3d9dad0af107fe6536b295d51932ec0
-  react-native-mapbox-gl: b5331005305d6779b7e2f9444b5169c12b82b863
+  react-native-mapbox-gl: eec7e5be5b874cfceb79fcfe24d595411015153a
   react-native-netinfo: e849fc21ca2f4128a5726c801a82fc6f4a6db50d
-  react-native-safe-area-context: b6e0e284002381d2ff29fa4fff42b4d8282e3c94
+  react-native-safe-area-context: f0906bf8bc9835ac9a9d3f97e8bde2a997d8da79
   react-native-sensitive-info: 400c6e3d27945e15c8cddb5b4b92233c85ee06f8
   react-native-startup-time: 740451fcbc7e3c8f67b036365387401ab917de1c
   react-native-ultimate-config: 38859f2b2018e3de04afd6203300f47f4803d8f4
@@ -800,7 +811,7 @@ SPEC CHECKSUMS:
   RNBootSplash: c7304515f0b7502878ecc0fdcce8136134419cdc
   RNCAsyncStorage: b03032fdbdb725bea0bd9e5ec5a7272865ae7398
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
-  RNDateTimePicker: 8a51a2216c307769e69ef827293d59549ab1ca23
+  RNDateTimePicker: 106d5cddc16710299724d81615377a6b1327e209
   RNFastImage: c5dd7458d2ad421e990ee42a19e93c678bed1aa8
   RNFBAnalytics: 454b17745d3824156cb906e2777d85f6848bf3e1
   RNFBApp: 02bde3edecf2e9694b908a5d3504e03449980f20
@@ -810,8 +821,8 @@ SPEC CHECKSUMS:
   RNIap: 339516d965769d84f43522bbca25bc8ecfea8d1d
   RNLocalize: 43f6c30d8e19ad92282ae434d310fb463b31f419
   RNReanimated: e03f7425cb7a38dcf1b644d680d1bfc91c3337ad
-  RNScreens: f0d7a2a440a8ba9f4574ca1ddb3368f473891be4
-  RNSentry: 7104cdfc1072ccb86015d9c8f210d81ae76806c1
+  RNScreens: f7ad633b2e0190b77b6a7aab7f914fad6f198d8d
+  RNSentry: 490708be01d0871588b33435d144369551ab038d
   RNSVG: ce9d996113475209013317e48b05c21ee988d42e
   RNTextSize: 7efa06531c6bb7ab6ed070b4ce0d1248cf06fcdf
   RNVectorIcons: 31cebfcf94e8cf8686eb5303ae0357da64d7a5a4

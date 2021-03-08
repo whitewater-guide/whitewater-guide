@@ -183,6 +183,7 @@
     "madge": "^4.0.0",
     "metro-react-native-babel-preset": "^0.65.1",
     "patch-package": "^6.3.1",
+    "pod-install": "^0.1.18",
     "react-native-mock-render": "^0.1.9",
     "react-native-performance-monitor": "^1.2.1",
     "react-test-renderer": "^17.0.1"

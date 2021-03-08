@@ -28,7 +28,7 @@ module.exports = {
   settings: {
     'import/resolver': {
       typescript: {
-        project: ['packages/*/tsconfig.json', 'mobile/tsconfig.json'],
+        project: ['packages/*/tsconfig.json'],
       },
     },
   },

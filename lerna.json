@@ -4,11 +4,9 @@
   "npmClient": "yarn",
   "useWorkspaces": true,
   "workspaces": [
-    "mobile",
     "packages/*"
   ],
   "packages": [
-    "mobile",
     "packages/*"
   ]
 }

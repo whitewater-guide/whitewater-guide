@@ -3,7 +3,7 @@
 node_modules/.bin/rndebugger-open
 
 if [[ ! -f ios/Podfile.lock ]]; then
-  npx pod-install
+  yarn pod-install
 fi
 
 yarn patch-package

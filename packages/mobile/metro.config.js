@@ -5,9 +5,9 @@ const path = require('path');
 // https://medium.com/@huntie/a-concise-guide-to-configuring-react-native-with-yarn-workspaces-d7efa71b6906
 module.exports = {
   watchFolders: [
-    path.resolve(__dirname, '..', 'node_modules'),
-    path.resolve(__dirname, '..', 'packages', 'commons'),
-    path.resolve(__dirname, '..', 'packages', 'clients'),
+    path.resolve(__dirname, '../..', 'node_modules'),
+    path.resolve(__dirname, '..', 'commons'),
+    path.resolve(__dirname, '..', 'clients'),
   ],
   transformer: {
     getTransformOptions: async () => ({
