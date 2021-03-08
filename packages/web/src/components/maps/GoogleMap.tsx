@@ -65,7 +65,7 @@ export default class GoogleMap extends React.Component<GoogleMapProps, State> {
   width = 0;
   height = 0;
   initialized = false;
-  customControlDivs: any = {};
+  customControlDivs: Record<string, HTMLDivElement> = {};
 
   initialize = () => {
     if (this.initialized || this.height === 0 || !this.map) {

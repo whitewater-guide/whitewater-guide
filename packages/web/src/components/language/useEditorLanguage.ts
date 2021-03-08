@@ -19,7 +19,7 @@ interface MVars {
 }
 
 export default () => {
-  const [mutate] = useMutation<any, MVars>(EDITOR_SETTINGS_MUTATION);
+  const [mutate] = useMutation<unknown, MVars>(EDITOR_SETTINGS_MUTATION);
   const client = useApolloClient();
   return useCallback(
     (language: string) =>

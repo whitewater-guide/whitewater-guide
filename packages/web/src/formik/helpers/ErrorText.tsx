@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 interface Props {
   inputId?: string;
-  error: any;
+  error?: string | { key: string; options?: Record<string, string> };
 }
 
 export const ErrorText: React.FC<Props> = React.memo(({ inputId, error }) => {

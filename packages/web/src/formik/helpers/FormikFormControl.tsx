@@ -20,7 +20,7 @@ export const FormikFormControl: React.FC<Props> = React.memo((props) => {
     id: _id,
     ...formControlProps
   } = props;
-  const { errors, touched, submitCount } = useFormikContext<any>();
+  const { errors, touched, submitCount } = useFormikContext<unknown>();
   const error = get(errors, errorFieldName || name);
   const fieldTouched = !!get(touched, name);
   const showError = (fieldTouched || submitCount > 0) && !!error;

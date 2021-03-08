@@ -24,9 +24,8 @@ interface Props {
 
 export const MUICell: React.FC<Props> = React.memo(({ variant, children }) => {
   const classes = useStyles();
-  const component: any = 'div';
   return (
-    <TableCell component={component} classes={classes} variant={variant}>
+    <TableCell component="div" classes={classes} variant={variant}>
       {children}
     </TableCell>
   );

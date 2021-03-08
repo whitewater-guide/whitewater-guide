@@ -1,30 +1,27 @@
-import { useField, useFormikContext } from 'formik';
+import { isInputEvent, useField, useFormikContext } from 'formik';
 import { useMemo } from 'react';
 
 export interface FakeHandlers {
-  onChange: (eventOrValue: any) => void;
-  onBlur: (eventOrValue: any) => void;
+  onChange: (eventOrValue: unknown) => void;
+  onBlur: (eventOrValue: unknown) => void;
 }
-
-const isEvent = (event: any) =>
-  event && (event instanceof Event || event.nativeEvent instanceof Event);
 
 export function useFakeHandlers(name: string): FakeHandlers {
   const [field] = useField(name);
   const { onChange, onBlur } = field;
-  const { setFieldValue, setFieldTouched } = useFormikContext<any>();
+  const { setFieldValue, setFieldTouched } = useFormikContext<unknown>();
 
   return useMemo(
     () => ({
-      onBlur: (eventOrValue: any) => {
-        if (isEvent(eventOrValue)) {
+      onBlur: (eventOrValue: unknown) => {
+        if (isInputEvent(eventOrValue)) {
           onBlur(eventOrValue);
         } else {
           setFieldTouched(name, true);
         }
       },
-      onChange: (eventOrValue: any) => {
-        if (isEvent(eventOrValue)) {
+      onChange: (eventOrValue: unknown) => {
+        if (isInputEvent(eventOrValue)) {
           onChange(eventOrValue);
         } else {
           setFieldValue(name, eventOrValue);

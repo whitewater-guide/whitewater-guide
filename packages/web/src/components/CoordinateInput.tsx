@@ -51,7 +51,8 @@ export interface CoordinateInputProps {
 }
 
 interface State {
-  errors: Record<any, any> | null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  errors: Record<string, any> | null;
   value: Uncoordinate;
   submitted?: boolean;
 }
@@ -97,14 +98,12 @@ export class CoordinateInput extends React.PureComponent<
     }
   });
 
-  onPaste = (e: React.SyntheticEvent<any>) => {
-    if (!this.props.isNew) {
+  onPaste = (e: React.ClipboardEvent) => {
+    if (!this.props.isNew || !e.nativeEvent.clipboardData) {
       return;
     }
     try {
-      const coordinateStr = (e.nativeEvent as any).clipboardData.getData(
-        'Text',
-      );
+      const coordinateStr = e.nativeEvent.clipboardData.getData('Text');
       const coord = new Coordinates(coordinateStr);
       const lat = round(coord.getLatitude(), 4);
       const lng = round(coord.getLongitude(), 4);

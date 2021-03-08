@@ -40,7 +40,7 @@ interface Props extends MapElementProps {
   detailed?: boolean;
 }
 
-const SectionLine = React.memo(({ section, map, zoom, detailed }: Props) => {
+const SectionLine = React.memo<Props>(({ section, map, zoom, detailed }) => {
   const { selection, onSelected } = useMapSelection();
   const lineRef = useRef<google.maps.Polyline | null>(null);
 

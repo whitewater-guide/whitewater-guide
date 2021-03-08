@@ -9,13 +9,13 @@ import { Coordinate2d } from '@whitewater-guide/commons';
 export function getCoordinatesPatch(
   prev: Coordinate2d[],
   next: Coordinate2d[],
-): any[] | null {
+): [number, number?] | [number, number, ...Coordinate2d[]] | null {
   const delta = next.length - prev.length;
   const delCount = delta > 0 ? 0 : 1;
   const min = Math.min(prev.length, next.length);
   for (let i = 0; i < min; i += 1) {
     if (prev[i][0] !== next[i][0] || prev[i][1] !== next[i][1]) {
-      const patch: any[] = [i, delCount];
+      const patch: [number, number, ...Coordinate2d[]] = [i, delCount];
       if (delta >= 0) {
         patch.push([next[i][0], next[i][1]]);
       }

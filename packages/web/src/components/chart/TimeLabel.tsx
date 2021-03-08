@@ -5,6 +5,7 @@ import { VictoryLabel } from 'victory';
 
 const TimeLabel: React.FC<TimeLabelProps> = React.memo(
   ({ days, highlightedDate: _, ...props }) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if (props.datum && days >= 30 && isSunday(props.datum as any)) {
       return null; // Only render sundays
     }

@@ -14,7 +14,7 @@ const SimpleBreadcrumb: React.FC<Props<string>> = ({ isLast, path, value }) => {
     return <Typography color="inherit">{value}</Typography>;
   }
   return (
-    <Link to={path} component={RouterLink as any} color="inherit">
+    <Link to={path} component={RouterLink} color="inherit">
       {value}
     </Link>
   );

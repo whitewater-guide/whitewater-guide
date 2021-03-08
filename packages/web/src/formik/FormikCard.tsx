@@ -1,6 +1,7 @@
 import Box from '@material-ui/core/Box';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
+import { isNamedNode, isNode } from '@whitewater-guide/commons';
 import { createSafeValidator } from '@whitewater-guide/validation';
 import { Formik, FormikConfig } from 'formik';
 import React, { useMemo } from 'react';
@@ -13,7 +14,7 @@ import { UseApolloFormik } from './useApolloFormik';
 
 interface Props<QResult, FData> extends UseApolloFormik<QResult, FData> {
   header: string | { resourceType: string };
-  children?: any;
+  children?: React.ReactNode;
   validationSchema?: FormikConfig<FData>['validationSchema'];
   validateOnChange?: FormikConfig<FData>['validateOnChange'];
   submitLabel?: string;
@@ -34,19 +35,18 @@ export function FormikCard<QResult, FData>(props: Props<QResult, FData>) {
 
   // TODO: cannot use validation scheme directly due to this https://github.com/jaredpalmer/formik/issues/1697
   // any is because validate function can return error (https://github.com/jaredpalmer/formik/blob/217a49e6243a41a318a8973d18a7e1535b7880d5/src/Formik.tsx#L168)
-  const validate: any = useMemo(
+  const validate = useMemo(
     () => validationSchema && createSafeValidator(validationSchema),
     [validationSchema],
   );
 
   const submitLabel =
-    props.submitLabel ||
-    (initialValues && (initialValues as any).id ? 'Update' : 'Create');
+    props.submitLabel || isNode(initialValues) ? 'Update' : 'Create';
   const headerLabel =
     typeof header === 'string'
       ? header
-      : initialValues && (initialValues as any).name
-      ? `${(initialValues as any).name} settings`
+      : isNamedNode(initialValues)
+      ? `${initialValues.name} settings`
       : `New ${header.resourceType}`;
 
   return (

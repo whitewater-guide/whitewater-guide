@@ -1,4 +1,4 @@
-import { Popover } from '@material-ui/core';
+import { Popover, PopoverOrigin } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -7,7 +7,7 @@ import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { SuggestionStatus } from '@whitewater-guide/commons';
-import React, { useCallback, useState } from 'react';
+import React, { ChangeEvent, useCallback, useState } from 'react';
 
 import updateStatusesArray from '../simple/updateStatusesArray';
 
@@ -30,7 +30,7 @@ const useStyles = makeStyles(({ spacing }) =>
   }),
 );
 
-const ANCHOR: any = {
+const ANCHOR: PopoverOrigin = {
   vertical: 'top',
   horizontal: 'right',
 };
@@ -45,16 +45,19 @@ export const StatusFilter: React.FC<Props> = React.memo((props) => {
   const classes = useStyles();
   const [state, setState] = useState(status);
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-  const onOpen = useCallback((e: any) => setAnchorEl(e.currentTarget), [
-    setAnchorEl,
-  ]);
+  const onOpen = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => setAnchorEl(e.currentTarget),
+    [setAnchorEl],
+  );
   const onClose = useCallback(() => {
     setAnchorEl(null);
     onChange(state);
   }, [state, onChange, setAnchorEl]);
   const onCheck = useCallback(
-    (e: any, checked: boolean) => {
-      setState(updateStatusesArray(state, e.target.value, checked));
+    (e: ChangeEvent<HTMLInputElement>, checked: boolean) => {
+      setState(
+        updateStatusesArray(state, e.target.value as SuggestionStatus, checked),
+      );
     },
     [state, setState],
   );

@@ -30,7 +30,7 @@ export const MulticompleteField: React.FC<Props> = React.memo((props) => {
     openOnFocus,
     menuProps,
   } = props;
-  const [field, meta] = useField<any>(name);
+  const [field, meta] = useField<NamedNode[]>(name);
   const { onChange, onBlur } = useFakeHandlers(name);
   const hasError = meta.touched && !!meta.error;
 

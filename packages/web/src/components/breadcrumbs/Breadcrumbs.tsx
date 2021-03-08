@@ -21,7 +21,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ routes }) => {
   const { location } = useRouter();
   const breadcrumbs: BreadcrumbMatch[] = getPathTokens(location.pathname)
     .map((token) => getRouteMatch(routes, token))
-    .filter((b) => !!b) as any;
+    .filter((b): b is BreadcrumbMatch => !!b);
   return (
     <MUIBreadcrumbs
       aria-label="Breadcrumb"

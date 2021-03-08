@@ -182,9 +182,7 @@ class DrawingMapInternal extends React.Component<Props> {
     this.map.data.setDrawingMode(null);
     this.map.data.setControls(null);
     let geometry: google.maps.Data.Geometry | null = null;
-    const latLngs: google.maps.LatLngLiteral[] = points.map(
-      arrayToGmaps,
-    ) as any;
+    const latLngs: google.maps.LatLngLiteral[] = points.map(arrayToGmaps);
     if (drawingMode === 'Point') {
       geometry = new google.maps.Data.Point(latLngs[0]);
     } else if (drawingMode === 'LineString') {
@@ -266,6 +264,8 @@ class DrawingMapInternal extends React.Component<Props> {
         oldGeometry,
       ) as google.maps.LatLng[];
       const oldPoints = oldLatLngs.map(gmapsToArray) as Coordinate2d[];
+      // it's just simpler this way
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const patch: any = getCoordinatesPatch(oldPoints, newPoints);
       if (!patch) {
         return; // Equal, no need to fire change event

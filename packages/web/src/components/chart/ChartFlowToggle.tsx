@@ -3,7 +3,7 @@ import Switch from '@material-ui/core/Switch';
 import { useChart } from '@whitewater-guide/clients';
 import { Unit } from '@whitewater-guide/commons';
 import capitalize from 'lodash/capitalize';
-import React, { useCallback } from 'react';
+import React, { ChangeEvent, useCallback } from 'react';
 
 const styles = {
   container: {
@@ -14,7 +14,8 @@ const styles = {
 const ChartFlowToggle: React.FC = () => {
   const { unit, onChangeUnit, unitChangeable } = useChart();
   const onToggle = useCallback(
-    (_: any, isFlow: boolean) => onChangeUnit(isFlow ? Unit.FLOW : Unit.LEVEL),
+    (_: ChangeEvent, isFlow: boolean) =>
+      onChangeUnit(isFlow ? Unit.FLOW : Unit.LEVEL),
     [onChangeUnit],
   );
   return (

@@ -15,7 +15,7 @@ interface Props {
 
 export const TagsField: React.FC<Props> = React.memo((props) => {
   const { name, label, options } = props;
-  const [{ value }] = useField<any>(name);
+  const [{ value }] = useField<Tag[]>(name);
   const { onChange } = useFakeHandlers(name);
   return (
     <FormikFormControl name={name} fullWidth={true}>

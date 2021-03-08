@@ -6,10 +6,12 @@ import LightboxView from './LightboxView';
 import { LightboxItem } from './types';
 
 const customStyles = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   blanket: (base: any) => ({
     ...base,
     zIndex: 1600,
   }),
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   positioner: (base: any) => ({
     ...base,
     zIndex: 1700,
