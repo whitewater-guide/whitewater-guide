@@ -2,6 +2,7 @@ import { License } from '@whitewater-guide/commons';
 import React from 'react';
 import {
   LayoutAnimation,
+  Platform,
   StyleSheet,
   Text,
   TouchableWithoutFeedback,
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
   },
   chevron: {
     position: 'absolute',
-    top: -8,
+    top: Platform.OS === 'ios' ? -8 : 0,
     right: theme.margin.half,
   },
 });

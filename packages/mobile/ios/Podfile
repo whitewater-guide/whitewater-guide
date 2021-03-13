@@ -12,32 +12,26 @@ project 'whitewater',
 target 'whitewater' do
   config = use_native_modules!
 
-  use_react_native!(:path => config["reactNativePath"])
+  use_react_native!(
+    :path => config[:reactNativePath],
+    # to enable hermes on iOS, change `false` to `true` and then install pods
+    :hermes_enabled => false
+  )
+
+  pre_install do |installer|
+    # required by react-native-mapbox-gl
+    $RNMBGL.pre_install(installer)
+  end
 
   # Enables Flipper.
   #
   # Note that if you have use_frameworks! enabled, Flipper will not work and
   # you should disable these next few lines.
-  use_flipper!({'Flipper' => '>=0.74.0'})
+  use_flipper!()
   post_install do |installer|
-    flipper_post_install(installer)
+    react_native_post_install(installer)
+    # required by react-native-mapbox-gl
+    $RNMBGL.post_install(installer)
   end
 
-  # TODO
-  # Temporary workaround for cocoapods 1.10 https://github.com/react-native-mapbox-gl/maps/issues/1097#issuecomment-781647269
-  pre_install do |installer|
-    fix_mapbox_events(installer)
-  end
-end
-
-# TODO
-# Temporary workaround for cocoapods 1.10 https://github.com/react-native-mapbox-gl/maps/issues/1097#issuecomment-781647269
-def fix_mapbox_events(installer)
-  installer.pod_targets.each do |pod|
-    if pod.name == 'MapboxMobileEvents'
-      def pod.build_type;
-        Pod::BuildType.dynamic_framework
-      end
-    end
-  end
 end

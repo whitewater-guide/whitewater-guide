@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const blacklist = require('metro-config/src/defaults/blacklist');
+const blacklist = require('metro-config/src/defaults/exclusionList');
 const path = require('path');
 
 // https://medium.com/@huntie/a-concise-guide-to-configuring-react-native-with-yarn-workspaces-d7efa71b6906
@@ -18,6 +18,6 @@ module.exports = {
     }),
   },
   resolver: {
-    blacklistRE: blacklist([/mobile\/node_modules\/react\/.*/]),
+    blockList: blacklist([/mobile\/node_modules\/react\/.*/]),
   },
 };
