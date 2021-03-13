@@ -9,6 +9,7 @@ import { RegionBanners } from '../../../features/banners';
 import theme from '../../../theme';
 import RegionInfoMenu from './RegionInfoMenu';
 import RegionInfoView from './RegionInfoView';
+import RegionLicense from './RegionLicense';
 import { RegionInfoNavProps } from './types';
 
 const styles = StyleSheet.create({
@@ -32,6 +33,7 @@ const RegionInfoScreen: React.FC<RegionInfoNavProps> = ({ navigation }) => {
       <ScrollView contentContainerStyle={styles.content}>
         <RegionBanners placement={BannerPlacement.MOBILE_REGION_DESCRIPTION} />
         <RegionInfoView />
+        <RegionLicense />
       </ScrollView>
     </Screen>
   );

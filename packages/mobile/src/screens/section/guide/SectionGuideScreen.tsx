@@ -11,6 +11,7 @@ import theme from '../../../theme';
 import SectionFAB from '../SectionFAB';
 import SectionGuideMenu from './SectionGuideMenu';
 import SectionGuideView from './SectionGuideView';
+import SectionLicense from './SectionLicense';
 import { SectionGuideNavProps } from './types';
 
 const styles = StyleSheet.create({
@@ -48,6 +49,7 @@ const SectionGuideScreen: React.FC<SectionGuideNavProps> = ({ navigation }) => {
           placement={BannerPlacement.MOBILE_SECTION_DESCRIPTION}
           count={10}
         />
+        <SectionLicense />
         <View style={styles.fabHelper} />
       </ScrollView>
       <SectionFAB testID="section-guide-fab" />

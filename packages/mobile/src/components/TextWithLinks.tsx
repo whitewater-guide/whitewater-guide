@@ -1,6 +1,6 @@
 import MarkdownIt from 'markdown-it';
 import React, { useCallback } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleProp, StyleSheet, Text, TextStyle } from 'react-native';
 
 import theme from '../theme';
 
@@ -42,37 +42,50 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props {
-  children: string;
+interface LinkProps {
+  index: number;
   onLink: (index: number) => void;
+  style?: StyleProp<TextStyle>;
 }
 
-const Link: React.FC<{ index: number; onLink: (index: number) => void }> = ({
-  index,
-  onLink,
-  children,
-}) => {
+const Link: React.FC<LinkProps> = ({ index, onLink, style, children }) => {
   const onPress = useCallback(() => {
     onLink(index);
   }, [index, onLink]);
   return (
-    <Text style={styles.link} onPress={onPress}>
+    <Text style={[styles.link, style]} onPress={onPress}>
       {children}
     </Text>
   );
 };
 
+interface Props {
+  children: string;
+  onLink: (index: number) => void;
+  textStyle?: StyleProp<TextStyle>;
+  linkStyle?: StyleProp<TextStyle>;
+}
+
 export const TextWithLinks: React.FC<Props> = React.memo(
-  ({ onLink, children }) => {
+  ({ onLink, children, textStyle, linkStyle }) => {
     const nodes = split(children);
     return (
       <Text>
         {nodes.map((node, index) => {
           if (typeof node === 'string') {
-            return <Text key={index}>{node}</Text>;
+            return (
+              <Text key={index} style={textStyle}>
+                {node}
+              </Text>
+            );
           }
           return (
-            <Link key={index} index={node.index} onLink={onLink}>
+            <Link
+              key={index}
+              index={node.index}
+              onLink={onLink}
+              style={linkStyle}
+            >
               {node.text}
             </Link>
           );

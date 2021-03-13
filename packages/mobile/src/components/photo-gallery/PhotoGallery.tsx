@@ -1,3 +1,4 @@
+import { License } from '@whitewater-guide/commons';
 import React, { useCallback, useMemo } from 'react';
 import { Modal, StyleSheet } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
@@ -24,6 +25,7 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
+  sectionLicense: License;
   photos?: PhotoGalleryItem[];
   index: number;
   onClose: () => void;
@@ -31,7 +33,13 @@ interface Props {
 }
 
 export const PhotoGallery: React.FC<Props> = React.memo((props) => {
-  const { photos = [], index, onClose, ImageComponent = LoadableImage } = props;
+  const {
+    photos = [],
+    index,
+    onClose,
+    ImageComponent = LoadableImage,
+    sectionLicense,
+  } = props;
 
   const imageUrls = useMemo(
     () =>
@@ -50,8 +58,14 @@ export const PhotoGallery: React.FC<Props> = React.memo((props) => {
   );
 
   const renderFooter = useCallback(
-    (i?: number) => <PhotoGalleryFooter index={i} photos={photos} />,
-    [photos],
+    (i?: number) => (
+      <PhotoGalleryFooter
+        index={i}
+        photos={photos}
+        sectionLicense={sectionLicense}
+      />
+    ),
+    [photos, sectionLicense],
   );
 
   const renderIndicator = useCallback(

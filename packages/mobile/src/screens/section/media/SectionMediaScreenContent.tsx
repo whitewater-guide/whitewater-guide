@@ -1,4 +1,8 @@
-import { BannerPlacement, Section } from '@whitewater-guide/commons';
+import {
+  BannerPlacement,
+  ROOT_LICENSE,
+  Section,
+} from '@whitewater-guide/commons';
 import groupBy from 'lodash/groupBy';
 import React from 'react';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -45,14 +49,22 @@ class SectionMediaScreenContent extends React.PureComponent<
     return (
       <React.Fragment>
         <StatusBar hidden={Platform.OS === 'ios' && openPhotoIndex >= 0} />
+
         <Title>{t('section:media.photo')}</Title>
         <PhotoGrid photos={groups.photo} onPress={this.onPhotoIndexChanged} />
+
         <Title>{t('section:media.video')}</Title>
         <VideoList videos={groups.video} />
+
         <Title>{t('section:media.blog')}</Title>
         <BlogList blogs={groups.blog} />
+
         <RegionBanners placement={BannerPlacement.MOBILE_SECTION_MEDIA} />
+
         <PhotoGallery
+          sectionLicense={
+            section?.license ?? section?.region.license ?? ROOT_LICENSE
+          }
           photos={groups.photo}
           index={this.state.openPhotoIndex}
           onClose={this.onGalleryClose}
