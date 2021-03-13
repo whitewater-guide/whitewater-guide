@@ -1,6 +1,6 @@
 import { StackHeaderProps } from '@react-navigation/stack';
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleProp, StyleSheet, ViewStyle } from 'react-native';
 import { Appbar } from 'react-native-paper';
 
 import HeaderLeft from '~/components/header/HeaderLeft';
@@ -41,7 +41,12 @@ const Header: React.FC<Props> = (props) => {
   } = scene.descriptor.options;
 
   return (
-    <Appbar.Header style={[headerStyle, search.active && styles.searchMode]}>
+    <Appbar.Header
+      style={[
+        headerStyle as StyleProp<ViewStyle>,
+        search.active && styles.searchMode,
+      ]}
+    >
       <HeaderLeft
         hasPrevious={!!props.previous}
         element={headerLeft}

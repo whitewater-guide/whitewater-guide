@@ -9,9 +9,9 @@ const LocalPhotoSchema = getLocalPhotoSchema({
   mpxOrResolution: MAX_PHOTO_MEGAPIXELS,
 });
 
-export const PhotoSuggestionInputSchema = yup
-  .object<PhotoSuggestion>({
-    section: yupTypes.node().defined(),
+export const PhotoSuggestionInputSchema: yup.SchemaOf<PhotoSuggestion> = yup
+  .object({
+    section: yupTypes.node().defined() as any,
     description: yup.string().defined().nullable(true),
     copyright: yup.string().defined().nullable(true),
     photo: LocalPhotoSchema.clone().defined().nullable(false) as any,

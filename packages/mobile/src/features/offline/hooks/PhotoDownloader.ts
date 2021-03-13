@@ -9,7 +9,7 @@ const preload = (photos: string[], onProgress: PreloadProgressHandler) =>
     FastImage.preload(
       photos.map((uri) => ({ uri })),
       onProgress,
-      () => resolve(),
+      () => resolve(undefined),
     );
   });
 

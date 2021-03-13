@@ -53,7 +53,7 @@ class ErrorTracker {
       message: screen,
       data: params,
     });
-    analytics().setCurrentScreen(screen);
+    analytics().logScreenView({ screen_name: screen });
   };
 
   setUser = (user: any) => {

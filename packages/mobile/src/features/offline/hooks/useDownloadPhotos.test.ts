@@ -9,7 +9,7 @@ import useDownloadPhotos from './useDownloadPhotos';
 
 it('should download photos', async () => {
   const onProgress = jest.fn();
-  const { result, wait } = renderHook(() => useDownloadPhotos(onProgress));
+  const { result, waitFor } = renderHook(() => useDownloadPhotos(onProgress));
   const channel = new PhotoChannel(2);
   expect(result.current).toMatchObject({
     error: undefined,
@@ -28,7 +28,7 @@ it('should download photos', async () => {
     channel.put(['6', '7']);
     channel.close();
   });
-  await wait(() => {
+  await waitFor(() => {
     expect(onProgress.mock.calls).toEqual([
       [{ media: [1, 7] }],
       [{ media: [2, 7] }],

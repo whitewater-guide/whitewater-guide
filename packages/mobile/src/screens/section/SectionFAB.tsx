@@ -20,7 +20,7 @@ export const SectionFAB: React.FC<Props> = ({ testID }) => {
     navigate,
     dangerouslyGetParent,
   } = useNavigation<SectionScreenNavProp>();
-  const { dispatch } = dangerouslyGetParent();
+  const dispatch = dangerouslyGetParent()?.dispatch;
   const { node } = useSection();
   const { t } = useTranslation();
 
@@ -53,7 +53,7 @@ export const SectionFAB: React.FC<Props> = ({ testID }) => {
         icon: 'calendar-plus',
         label: t('screens:section.fab.addDescent'),
         onPress: () =>
-          dispatch((navState: any) => {
+          dispatch?.((navState: any) => {
             return CommonActions.reset(
               node
                 ? {

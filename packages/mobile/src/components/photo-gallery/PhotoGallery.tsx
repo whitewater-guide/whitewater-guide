@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  sectionLicense: License;
+  sectionLicense?: License;
   photos?: PhotoGalleryItem[];
   index: number;
   onClose: () => void;

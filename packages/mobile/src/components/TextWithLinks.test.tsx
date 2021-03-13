@@ -1,4 +1,4 @@
-import { fireEvent, render, toJSON } from '@testing-library/react-native';
+import { fireEvent, render } from '@testing-library/react-native';
 import React from 'react';
 
 import TextWithLinks from './TextWithLinks';
@@ -13,8 +13,8 @@ const setup = (onLink: (index: number) => void) =>
   );
 
 it('should render correctly', () => {
-  const { container } = setup(jest.fn());
-  expect(toJSON(container)).toMatchInlineSnapshot(`
+  const { toJSON } = setup(jest.fn());
+  expect(toJSON()).toMatchInlineSnapshot(`
     <View
       collapsable={true}
       pointerEvents="box-none"
@@ -26,7 +26,7 @@ it('should render correctly', () => {
     >
       <Text>
         <Text>
-          The content you are adding will be available under an open licence (CC). See our 
+          The content you are adding will be available under an open licence (CC). See our
         </Text>
         <Text
           style={
@@ -38,7 +38,7 @@ it('should render correctly', () => {
           Terms of Use
         </Text>
         <Text>
-           and 
+           and
         </Text>
         <Text
           style={

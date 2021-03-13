@@ -2,8 +2,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import {
   fireEvent,
   render,
-  RenderResult,
-  wait,
+  RenderAPI,
+  waitFor,
   within,
 } from '@testing-library/react-native';
 import * as clients from '@whitewater-guide/clients';
@@ -23,7 +23,7 @@ jest.mock('../useAddSection', () => () => mockMutate);
 jest.mock('../../../../features/settings/useMapType');
 
 const ApolloProvider = mockApolloProvider();
-let test: RenderResult;
+let test: RenderAPI;
 
 beforeEach(() => {
   jest.resetAllMocks();
@@ -135,7 +135,7 @@ it('should fill in main fields and submit', async () => {
 
   const createButton = await test.findByLabelText('commons:create');
   fireEvent.press(createButton);
-  await wait(() => {
+  await waitFor(() => {
     expect(mockMutate).toHaveBeenCalled();
     expect(mockMutate.mock.calls[0][0]).toMatchObject({
       id: null,

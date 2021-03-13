@@ -15,6 +15,7 @@ export const trackError = (
       logger,
       transactionId: error.id,
       extra: {
+        // @ts-expect-error: fast-json-stable-stringify definitions are incomplete
         original: stringify(error.original, { cycles: true }),
       },
     });

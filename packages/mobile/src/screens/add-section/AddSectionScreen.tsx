@@ -22,8 +22,8 @@ const styles = StyleSheet.create({
 
 const validator = createSafeValidator(SectionFormSchema);
 
-const AddSectionScreen: React.FC<AddSectionNavProps> = ({ route }) => {
-  const region = route.params?.region;
+const AddSectionScreen: React.FC<Partial<AddSectionNavProps>> = ({ route }) => {
+  const region = route?.params?.region;
   const initialValues: SectionFormInput = useMemo(
     () => ({
       id: null,
@@ -53,11 +53,14 @@ const AddSectionScreen: React.FC<AddSectionNavProps> = ({ route }) => {
 
       hidden: false,
       helpNeeded: null,
+
+      copyright: null,
+      license: null,
     }),
     [region],
   );
 
-  const addSection = useAddSection(route.params?.fromDescentFormKey);
+  const addSection = useAddSection(route?.params?.fromDescentFormKey);
 
   return (
     <Formik<SectionFormInput>

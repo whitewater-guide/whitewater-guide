@@ -48,7 +48,10 @@ export default () => {
         : {
             descentId: descent.id,
           };
-      reset(replaceDetailsWithForm(dangerouslyGetState(), params));
+      const parentState = dangerouslyGetState();
+      if (parentState) {
+        reset(replaceDetailsWithForm(parentState, params) as any);
+      }
     },
     [reset, dangerouslyGetState],
   );

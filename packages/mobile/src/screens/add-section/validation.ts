@@ -12,7 +12,7 @@ const LocalPhotoSchema = getLocalPhotoSchema({
   mpxOrResolution: MAX_PHOTO_MEGAPIXELS,
 });
 
-const MediaFormSchema: yup.Schema<MediaFormInput> = MediaInputSchema.clone()
+const MediaFormSchema: yup.SchemaOf<MediaFormInput> = MediaInputSchema.clone()
   .shape({
     url: yup.mixed().oneOf([undefined]),
     resolution: yup.mixed().oneOf([undefined]),
@@ -20,7 +20,7 @@ const MediaFormSchema: yup.Schema<MediaFormInput> = MediaInputSchema.clone()
   })
   .defined();
 
-export const SectionFormSchema: yup.Schema<SectionFormInput> = SectionInputSchema.clone()
+export const SectionFormSchema: yup.SchemaOf<SectionFormInput> = SectionInputSchema.clone()
   .shape({
     media: yup.array().of(MediaFormSchema.clone()),
   })

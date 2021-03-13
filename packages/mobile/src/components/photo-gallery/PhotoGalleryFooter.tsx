@@ -1,4 +1,4 @@
-import { License } from '@whitewater-guide/commons';
+import { License, ROOT_LICENSE } from '@whitewater-guide/commons';
 import React from 'react';
 import {
   LayoutAnimation,
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
 interface Props {
   index?: number;
   photos?: PhotoGalleryItem[];
-  sectionLicense: License;
+  sectionLicense?: License;
 }
 
 const PhotoGalleryFooter: React.FC<Props> = (props) => {
@@ -51,7 +51,9 @@ const PhotoGalleryFooter: React.FC<Props> = (props) => {
     return <View />;
   }
   const { description, copyright } = photo;
+  const license = photo.license ?? sectionLicense ?? ROOT_LICENSE;
   const licenseOnly = !description && !copyright;
+
   const onToggle = licenseOnly
     ? undefined
     : () => {
@@ -80,7 +82,7 @@ const PhotoGalleryFooter: React.FC<Props> = (props) => {
           <LicenseBadge
             light
             placement="media"
-            license={photo.license ?? sectionLicense}
+            license={license}
             style={styles.licenseBadge}
           />
         )}

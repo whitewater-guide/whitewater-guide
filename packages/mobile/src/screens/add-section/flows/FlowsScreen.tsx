@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet } from 'react-native';
+import { ScrollViewProps, StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { listenToKeyboardEvents } from 'react-native-keyboard-aware-scroll-view';
 import { Title } from 'react-native-paper';
@@ -14,7 +14,9 @@ import GaugePlaceholder from './GaugePlaceholder';
 import { SeasonNumericField } from './season';
 import { AddSectionFlowsNavProps } from './types';
 
-const KAVScroll = listenToKeyboardEvents(ScrollView);
+const KAVScroll: React.ComponentType<
+  ScrollViewProps & React.RefAttributes<unknown>
+> = listenToKeyboardEvents(ScrollView);
 
 const styles = StyleSheet.create({
   content: {

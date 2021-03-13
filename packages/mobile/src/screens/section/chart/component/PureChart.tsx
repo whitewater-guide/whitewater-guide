@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props extends ChartViewProps {
+interface Props extends Omit<ChartViewProps, 'width' | 'height'> {
   loading: boolean;
 }
 

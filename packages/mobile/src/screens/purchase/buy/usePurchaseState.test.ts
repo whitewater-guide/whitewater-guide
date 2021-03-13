@@ -15,7 +15,8 @@ const mockPremiumQuery = jest.fn();
 const mockPurchaseAction = jest.fn();
 
 jest.mock('@react-navigation/native', () => ({
-  ...jest.requireActual('@react-navigation/native'),
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  ...jest.requireActual<{}>('@react-navigation/native'),
   useNavigation: () => ({
     navigate: mockNavigate,
     goBack: mockGoBack,

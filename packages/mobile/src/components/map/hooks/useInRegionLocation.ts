@@ -1,6 +1,6 @@
 import Mapbox from '@react-native-mapbox-gl/maps';
 import pointInPolygon from '@turf/boolean-point-in-polygon';
-import { lineString, point } from '@turf/helpers';
+import { Feature, lineString, point, Polygon } from '@turf/helpers';
 import lineToPolygon from '@turf/line-to-polygon';
 import { CoordinateLoose, withZeroAlt } from '@whitewater-guide/commons';
 import { useEffect } from 'react';
@@ -26,7 +26,9 @@ export const useInRegionLocation = (
           coords: { latitude, longitude },
         } = location;
         const pt = point([longitude, latitude]);
-        const poly = lineToPolygon(lineString(withZeroAlt(bounds)));
+        const poly = lineToPolygon(
+          lineString(withZeroAlt(bounds)),
+        ) as Feature<Polygon>;
         const isInRegion = pointInPolygon(pt, poly);
 
         if (isInRegion) {

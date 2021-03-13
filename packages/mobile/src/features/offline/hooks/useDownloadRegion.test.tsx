@@ -77,7 +77,7 @@ it('should provide simultaneous progress', async () => {
   const wrapper: React.FC = ({ children }: any) => (
     <Provider>{children}</Provider>
   );
-  const { result, wait } = renderHook(() => useDownloadRegion('id'), {
+  const { result, waitFor } = renderHook(() => useDownloadRegion('id'), {
     wrapper,
   });
   expect(result.current).toMatchObject({
@@ -95,7 +95,7 @@ it('should provide simultaneous progress', async () => {
     loading: true,
   });
   const acc: OfflineProgress[] = [];
-  await wait(() => {
+  await waitFor(() => {
     acc.push(result.current.progress);
     expect(result.current.loading).toBe(false);
     expect(
@@ -117,7 +117,7 @@ it('should fail when on category fails', async () => {
   const wrapper: React.FC = ({ children }: any) => (
     <Provider>{children}</Provider>
   );
-  const { result, wait } = renderHook(() => useDownloadRegion('id'), {
+  const { result, waitFor } = renderHook(() => useDownloadRegion('id'), {
     wrapper,
   });
   expect(result.current).toMatchObject({
@@ -134,7 +134,7 @@ it('should fail when on category fails', async () => {
   expect(result.current).toMatchObject({
     loading: true,
   });
-  await wait(() => {
+  await waitFor(() => {
     expect(result.current).toMatchObject({
       error: new Error('oops'), // mocks photos fails
     });

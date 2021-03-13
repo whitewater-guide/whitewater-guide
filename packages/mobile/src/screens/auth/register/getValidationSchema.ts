@@ -3,7 +3,7 @@ import { PASSWORD_MIN_SCORE } from '@whitewater-guide/commons';
 import * as zxcvbn from 'react-native-zxcvbn';
 import * as yup from 'yup';
 
-let _schema: yup.ObjectSchema<RegisterPayload>;
+let _schema: yup.SchemaOf<RegisterPayload>;
 
 const getValidationSchema = () => {
   if (!_schema) {

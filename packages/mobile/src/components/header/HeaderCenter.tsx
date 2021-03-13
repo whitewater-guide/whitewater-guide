@@ -47,7 +47,6 @@ const HeaderCenter: React.FC<Props> = React.memo((props: Props) => {
         placeholderTextColor={theme.colors.border}
         underlineColorAndroid="transparent"
         returnKeyType="search"
-        accessibilityTraits="search"
         accessibilityRole="search"
         onChangeText={setSearchInput}
         value={searchString}

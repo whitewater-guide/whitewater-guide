@@ -1,8 +1,4 @@
-import {
-  fireEvent,
-  NativeTestEvent,
-  render,
-} from '@testing-library/react-native';
+import { fireEvent, render } from '@testing-library/react-native';
 import { SectionsStatus } from '@whitewater-guide/clients';
 import { Region, Section } from '@whitewater-guide/commons';
 import set from 'lodash/fp/set';
@@ -12,7 +8,8 @@ import React from 'react';
 import { SectionsList } from './SectionsList';
 
 jest.mock('@react-navigation/native', () => ({
-  ...jest.requireActual('@react-navigation/native'),
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  ...jest.requireActual<{}>('@react-navigation/native'),
   useNavigation: () => ({}),
 }));
 
@@ -87,6 +84,8 @@ const sections: Section[] = [
     } as any,
     flowsText: null,
     levels: null,
+    copyright: null,
+    license: null,
   },
 ];
 
@@ -103,10 +102,7 @@ it('should be updated when measurements are updated', () => {
   );
   const recycler = getByTestId('sections-list-recycler');
   jest.spyOn(ref.current, 'scrollToOffset').mockImplementation(noop);
-  fireEvent(
-    recycler,
-    new NativeTestEvent('sizeChanged', { width: 500, height: 1000 }),
-  );
+  fireEvent(recycler, 'sizeChanged', { width: 500, height: 1000 });
   expect(getByText(/25\.00/)).toBeTruthy();
   const newSections = set(
     '0.gauge.latestMeasurement.flow',

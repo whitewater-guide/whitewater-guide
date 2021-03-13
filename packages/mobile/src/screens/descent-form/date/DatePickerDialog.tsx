@@ -1,10 +1,14 @@
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePicker, {
+  AndroidNativeProps,
+  IOSNativeProps,
+} from '@react-native-community/datetimepicker';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform } from 'react-native';
 import { Button, Dialog, Portal } from 'react-native-paper';
 
 type Props = React.ComponentProps<typeof DateTimePicker> & {
+  mode?: IOSNativeProps['mode'] | AndroidNativeProps['mode'];
   onClose: () => void;
 };
 
@@ -14,6 +18,7 @@ const DatePickerDialog: React.FC<Props> = (props) => {
   if (!mode) {
     return null;
   }
+  // @ts-expect-error: DateTimePicker types are mixed for ios and android
   const element = <DateTimePicker mode={mode} {...rest} is24Hour={true} />;
   if (Platform.OS === 'android') {
     return element;

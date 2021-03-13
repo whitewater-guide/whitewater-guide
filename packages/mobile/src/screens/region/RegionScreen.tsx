@@ -29,7 +29,7 @@ const InnerRegionScreen: React.FC<Props> = ({ regionId }) => {
     <SectionsListProvider
       filterOptions={filterOptions}
       regionId={regionId}
-      isConnected={isConnected}
+      isConnected={!!isConnected}
       client={client}
       limit={limitFn}
     >

@@ -1,7 +1,7 @@
 import { RequestResetPayload } from '@whitewater-guide/clients';
 import * as yup from 'yup';
 
-let _schema: yup.ObjectSchema<RequestResetPayload>;
+let _schema: yup.SchemaOf<RequestResetPayload>;
 
 const getValidationSchema = () => {
   if (!_schema) {

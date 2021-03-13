@@ -56,6 +56,7 @@ const AddPhotoButton: React.FC<Props> = React.memo(({ index, navigation }) => {
         kind: MediaKind.photo,
         weight: null,
         photo,
+        license: null,
       });
       navigate(Screens.ADD_SECTION_PHOTO, {
         localPhotoId: photo.id,

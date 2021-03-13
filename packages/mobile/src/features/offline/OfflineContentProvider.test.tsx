@@ -78,7 +78,7 @@ it('should set region in progress when download begins', () => {
 });
 
 it('should close dialog automatically on success', async () => {
-  const { result, wait } = render();
+  const { result, waitFor } = render();
   act(() => {
     result.current.setDialogRegion(TEST_REGION);
   });
@@ -89,7 +89,7 @@ it('should close dialog automatically on success', async () => {
     regionInProgress: ID,
     dialogRegion: TEST_REGION,
   });
-  await wait(() => {
+  await waitFor(() => {
     expect(result.current).toMatchObject({
       regionInProgress: null,
       dialogRegion: null,
@@ -98,7 +98,7 @@ it('should close dialog automatically on success', async () => {
 });
 
 it('should reset to idle state after error', async () => {
-  const { result, wait } = render();
+  const { result, waitFor } = render();
   mockUseDownloadRegion
     .mockReturnValueOnce({
       download: jest.fn().mockResolvedValue(null),
@@ -121,7 +121,7 @@ it('should reset to idle state after error', async () => {
   act(() => {
     result.current.download(ID, { data: true });
   });
-  await wait(() => {
+  await waitFor(() => {
     expect(result.current).toMatchObject({
       regionInProgress: ID,
       dialogRegion: TEST_REGION,
