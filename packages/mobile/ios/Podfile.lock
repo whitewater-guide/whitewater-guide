@@ -147,6 +147,7 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.3.0):
     - GoogleUtilities/Logger
+  - hermes-engine (0.7.2)
   - libevent (2.1.12)
   - libwebp (1.2.0):
     - libwebp/demux (= 1.2.0)
@@ -176,6 +177,11 @@ PODS:
     - boost-for-react-native
     - DoubleConversion
     - glog
+  - RCT-Folly/Futures (2020.01.13.00):
+    - boost-for-react-native
+    - DoubleConversion
+    - glog
+    - libevent
   - RCTRequired (0.64.0)
   - RCTTypeSafety (0.64.0):
     - FBLazyVector (= 0.64.0)
@@ -231,6 +237,16 @@ PODS:
     - React-jsi (= 0.64.0)
     - React-jsiexecutor (= 0.64.0)
     - React-jsinspector (= 0.64.0)
+    - React-perflogger (= 0.64.0)
+    - Yoga
+  - React-Core/Hermes (0.64.0):
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2020.01.13.00)
+    - RCT-Folly/Futures
+    - React-cxxreact (= 0.64.0)
+    - React-jsi (= 0.64.0)
+    - React-jsiexecutor (= 0.64.0)
     - React-perflogger (= 0.64.0)
     - Yoga
   - React-Core/RCTActionSheetHeaders (0.64.0):
@@ -554,6 +570,8 @@ DEPENDENCIES:
   - FlipperKit/FlipperKitUserDefaultsPlugin (~> 0.75.1)
   - FlipperKit/SKIOSNetworkPlugin (~> 0.75.1)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
+  - hermes-engine (~> 0.7.2)
+  - libevent (~> 2.1.12)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
@@ -561,6 +579,7 @@ DEPENDENCIES:
   - React-callinvoker (from `../node_modules/react-native/ReactCommon/callinvoker`)
   - React-Core (from `../node_modules/react-native/`)
   - React-Core/DevSupport (from `../node_modules/react-native/`)
+  - React-Core/Hermes (from `../node_modules/react-native/`)
   - React-Core/RCTWebSocket (from `../node_modules/react-native/`)
   - React-CoreModules (from `../node_modules/react-native/React/CoreModules`)
   - React-cxxreact (from `../node_modules/react-native/ReactCommon/cxxreact`)
@@ -634,6 +653,7 @@ SPEC REPOS:
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleUtilities
+    - hermes-engine
     - libevent
     - libwebp
     - Mapbox-iOS-SDK
@@ -793,6 +813,7 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: 0c3b134b2c0a90c4c24833873894bfe0e42a0384
   GoogleDataTransport: b006084b73915a42c28a3466961a4edda3065da6
   GoogleUtilities: abda45f519bc4073aa1171d2f8742108def46017
+  hermes-engine: 7d97ba46a1e29bacf3e3c61ecb2804a5ddd02d4f
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   libwebp: e90b9c01d99205d03b6bb8f2c8c415e5a4ef66f0
   Mapbox-iOS-SDK: a5915700ec84bc1a7f8b3e746d474789e35b7956
@@ -859,6 +880,6 @@ SPEC CHECKSUMS:
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
   zxcvbn-ios: fef98b7c80f1512ff0eec47ac1fa399fc00f7e3c
 
-PODFILE CHECKSUM: 8e8262abc215437805b3f0754da4d8842c651d8e
+PODFILE CHECKSUM: 7c0c061720c25de345f71f96a9c12cf9bcb4214d
 
 COCOAPODS: 1.10.1
