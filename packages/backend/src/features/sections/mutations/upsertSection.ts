@@ -1,4 +1,5 @@
 import {
+  MediaInput,
   MediaKind,
   NEW_ID,
   OTHERS_REGION_ID,
@@ -28,13 +29,19 @@ import { differ } from './utils';
 const transformSection = (section: SectionInput): SectionInput => {
   return {
     ...section,
-    media: section.media.map((item) => {
-      const url = s3Client.getLocalFileName(item.url);
-      if (!url) {
-        throw new UnknownError('photo url invalid');
-      }
-      return item.kind === MediaKind.photo ? { ...item, url } : item;
-    }),
+    // For photos, URLS must be reduced to filenames
+    media: section.media.map(
+      (item): MediaInput => {
+        if (item.kind === MediaKind.photo) {
+          const url = s3Client.getLocalFileName(item.url);
+          if (!url) {
+            throw new UnknownError('photo url invalid');
+          }
+          return { ...item, url };
+        }
+        return item;
+      },
+    ),
   };
 };
 
