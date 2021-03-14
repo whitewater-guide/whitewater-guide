@@ -15,20 +15,18 @@
 		754AC1F12324F5A300DC7CED /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 754AC1F02324F5A300DC7CED /* GoogleService-Info.plist */; };
 		759FA8F024165A02007F774D /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 759FA8EF24165A02007F774D /* BootSplash.storyboard */; };
 		75A211AB25E3FE3B0010FD88 /* dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A211AA25E3FE3B0010FD88 /* dummy.swift */; };
-		9FA15A33160AAB5C3E529643 /* libPods-whitewater.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B8778B042EF6701ECA3FCE /* libPods-whitewater.a */; };
+		FC15652BD099EE7EE1C93200 /* libPods-whitewater.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B0B5F3C7DDF1FD6A47E1352 /* libPods-whitewater.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		0ACB3758169ECA804EFE98FE /* Pods-whitewater.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whitewater.staging.xcconfig"; path = "Target Support Files/Pods-whitewater/Pods-whitewater.staging.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* whitewater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = whitewater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = whitewater/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = whitewater/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = whitewater/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = whitewater/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = whitewater/main.m; sourceTree = "<group>"; };
-		30B8778B042EF6701ECA3FCE /* libPods-whitewater.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-whitewater.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		41A33EDABF06E86827C4809F /* Pods-whitewater.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whitewater.release.xcconfig"; path = "Target Support Files/Pods-whitewater/Pods-whitewater.release.xcconfig"; sourceTree = "<group>"; };
+		467880D5D3926EEB4F12607C /* Pods-whitewater.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whitewater.release.xcconfig"; path = "Target Support Files/Pods-whitewater/Pods-whitewater.release.xcconfig"; sourceTree = "<group>"; };
 		7501D47C2325A0DD00858828 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7501D47E2325A0DF00858828 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		754353EC2324F784003F5BFE /* whitewater.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = whitewater.entitlements; path = whitewater/whitewater.entitlements; sourceTree = "<group>"; };
@@ -39,9 +37,11 @@
 		75A211AE25E3FEFB0010FD88 /* whitewater-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "whitewater-Bridging-Header.h"; sourceTree = "<group>"; };
 		75A8FCD9232563BC00B9E741 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		75EBADEE245C596A00A7C0A3 /* rnuc.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = rnuc.xcconfig; sourceTree = "<group>"; };
-		9C0316DF8FE6E5ED680A1FC6 /* Pods-whitewater.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whitewater.debug.xcconfig"; path = "Target Support Files/Pods-whitewater/Pods-whitewater.debug.xcconfig"; sourceTree = "<group>"; };
+		867EAF23C6578553E24DC8DE /* Pods-whitewater.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whitewater.debug.xcconfig"; path = "Target Support Files/Pods-whitewater/Pods-whitewater.debug.xcconfig"; sourceTree = "<group>"; };
+		8B0B5F3C7DDF1FD6A47E1352 /* libPods-whitewater.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-whitewater.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E8DDBB4977CD192DA4A16E5 /* Pods-whitewater.detox.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whitewater.detox.xcconfig"; path = "Target Support Files/Pods-whitewater/Pods-whitewater.detox.xcconfig"; sourceTree = "<group>"; };
+		C734F823ED7A8587803B53EE /* Pods-whitewater.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whitewater.staging.xcconfig"; path = "Target Support Files/Pods-whitewater/Pods-whitewater.staging.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		F1EDC559427D2AD5FAD67033 /* Pods-whitewater.detox.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whitewater.detox.xcconfig"; path = "Target Support Files/Pods-whitewater/Pods-whitewater.detox.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,7 +50,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				754354032324F81C003F5BFE /* StoreKit.framework in Frameworks */,
-				9FA15A33160AAB5C3E529643 /* libPods-whitewater.a in Frameworks */,
+				FC15652BD099EE7EE1C93200 /* libPods-whitewater.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,7 +81,7 @@
 			children = (
 				754354022324F81C003F5BFE /* StoreKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				30B8778B042EF6701ECA3FCE /* libPods-whitewater.a */,
+				8B0B5F3C7DDF1FD6A47E1352 /* libPods-whitewater.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -89,10 +89,10 @@
 		51C43BDE22FF9B7D4DEDD2F3 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				9C0316DF8FE6E5ED680A1FC6 /* Pods-whitewater.debug.xcconfig */,
-				F1EDC559427D2AD5FAD67033 /* Pods-whitewater.detox.xcconfig */,
-				41A33EDABF06E86827C4809F /* Pods-whitewater.release.xcconfig */,
-				0ACB3758169ECA804EFE98FE /* Pods-whitewater.staging.xcconfig */,
+				867EAF23C6578553E24DC8DE /* Pods-whitewater.debug.xcconfig */,
+				9E8DDBB4977CD192DA4A16E5 /* Pods-whitewater.detox.xcconfig */,
+				467880D5D3926EEB4F12607C /* Pods-whitewater.release.xcconfig */,
+				C734F823ED7A8587803B53EE /* Pods-whitewater.staging.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -135,16 +135,16 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "whitewater" */;
 			buildPhases = (
-				B733F31485132DE0840B6B37 /* [CP] Check Pods Manifest.lock */,
+				63D66778E913FAE35577793E /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				50F930669EFD4F1FAF791053 /* Upload Debug Symbols to Sentry */,
-				451C5BDED9062C800ACB48C7 /* [CP] Embed Pods Frameworks */,
-				79A523694F32C342BFB7F1C7 /* [CP] Copy Pods Resources */,
-				E5D6DA7A9A45644884F91296 /* [CP-User] [RNFB] Core Configuration */,
+				A1E195F39D930A11E38FD106 /* [CP] Embed Pods Frameworks */,
+				A8F2A934C869B6AC31614CC4 /* [CP] Copy Pods Resources */,
+				F747135B3069E0CC7B70E209 /* [CP-User] [RNFB] Core Configuration */,
 			);
 			buildRules = (
 			);
@@ -231,23 +231,6 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport SENTRY_PROPERTIES=sentry.properties\nexport EXTRA_PACKAGER_ARGS=\"--sourcemap-output $DERIVED_FILE_DIR/main.jsbundle.map\"\nexport NODE_BINARY=node\n../node_modules/@sentry/cli/bin/sentry-cli react-native xcode ../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		451C5BDED9062C800ACB48C7 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-whitewater/Pods-whitewater-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-whitewater/Pods-whitewater-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-whitewater/Pods-whitewater-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		50F930669EFD4F1FAF791053 /* Upload Debug Symbols to Sentry */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -262,24 +245,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export SENTRY_PROPERTIES=sentry.properties\n../node_modules/@sentry/cli/bin/sentry-cli upload-dsym --log-level trace\n";
 		};
-		79A523694F32C342BFB7F1C7 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-whitewater/Pods-whitewater-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-whitewater/Pods-whitewater-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-whitewater/Pods-whitewater-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B733F31485132DE0840B6B37 /* [CP] Check Pods Manifest.lock */ = {
+		63D66778E913FAE35577793E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -301,7 +267,41 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E5D6DA7A9A45644884F91296 /* [CP-User] [RNFB] Core Configuration */ = {
+		A1E195F39D930A11E38FD106 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-whitewater/Pods-whitewater-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-whitewater/Pods-whitewater-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-whitewater/Pods-whitewater-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A8F2A934C869B6AC31614CC4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-whitewater/Pods-whitewater-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-whitewater/Pods-whitewater-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-whitewater/Pods-whitewater-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F747135B3069E0CC7B70E209 /* [CP-User] [RNFB] Core Configuration */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -360,7 +360,7 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9C0316DF8FE6E5ED680A1FC6 /* Pods-whitewater.debug.xcconfig */;
+			baseConfigurationReference = 867EAF23C6578553E24DC8DE /* Pods-whitewater.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -397,7 +397,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 41A33EDABF06E86827C4809F /* Pods-whitewater.release.xcconfig */;
+			baseConfigurationReference = 467880D5D3926EEB4F12607C /* Pods-whitewater.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -492,7 +492,7 @@
 		};
 		754353EB2324F651003F5BFE /* Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0ACB3758169ECA804EFE98FE /* Pods-whitewater.staging.xcconfig */;
+			baseConfigurationReference = C734F823ED7A8587803B53EE /* Pods-whitewater.staging.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -594,7 +594,7 @@
 		};
 		758A2AF3241045120073F115 /* Detox */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F1EDC559427D2AD5FAD67033 /* Pods-whitewater.detox.xcconfig */;
+			baseConfigurationReference = 9E8DDBB4977CD192DA4A16E5 /* Pods-whitewater.detox.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
