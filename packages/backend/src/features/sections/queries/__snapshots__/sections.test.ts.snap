@@ -37,7 +37,11 @@ Object {
       },
       "hidden": false,
       "id": "3a6e3210-d529-11e7-9296-cec278b6b50a",
-      "license": null,
+      "license": Object {
+        "name": "Proprietary license",
+        "slug": null,
+        "url": null,
+      },
       "name": "Upper",
       "rating": 2.5,
       "region": Object {

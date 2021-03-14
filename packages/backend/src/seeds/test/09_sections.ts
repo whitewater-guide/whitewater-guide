@@ -116,6 +116,9 @@ const sections = [
     rating: 2.5,
     verified: true,
     default_lang: 'en',
+    license: {
+      name: 'Proprietary license',
+    },
   },
   {
     id: NORWAY_SJOA_AMOT,

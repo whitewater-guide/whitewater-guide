@@ -214,7 +214,11 @@ Array [
     "editable": true,
     "hidden": true,
     "id": "b968e2b2-76c5-11e7-b5a5-be2e44b06b34",
-    "license": null,
+    "license": Object {
+      "name": "Proprietary license",
+      "slug": null,
+      "url": null,
+    },
     "name": "Norway",
     "pois": Array [],
     "premium": true,

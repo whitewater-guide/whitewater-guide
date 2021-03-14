@@ -7,6 +7,7 @@ import { descentResolvers } from '~/features/descents';
 import { emailsResolvers } from '~/features/emails';
 import { gaugesResolvers } from '~/features/gauges';
 import { groupsResolvers } from '~/features/groups';
+import { licensesResolvers } from '~/features/licenses';
 import { measurementsResolvers } from '~/features/measurements';
 import { mediaResolvers } from '~/features/media';
 import { pointsResolvers } from '~/features/points';
@@ -29,6 +30,7 @@ export const resolvers = merge(
   emailsResolvers,
   gaugesResolvers,
   groupsResolvers,
+  licensesResolvers,
   tagsResolvers,
   pointsResolvers,
   purchasesResolvers,

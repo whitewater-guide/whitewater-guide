@@ -70,6 +70,9 @@ const regions = [
       [5, 6, 0],
     ]),
     default_lang: 'en',
+    license: {
+      name: 'Proprietary license',
+    },
   },
   {
     id: REGION_GEORGIA,

@@ -38,6 +38,9 @@ const media: Array<Partial<MediaRaw>> = [
     created_by: ADMIN_ID,
     size: 100000,
     default_lang: 'en',
+    license: {
+      name: 'Proprietary license',
+    },
   },
   {
     id: PHOTO_2,

@@ -31,7 +31,6 @@ it('should return media', async () => {
   const result = await runQuery(query, { id: PHOTO_1 });
   expect(result.errors).toBeUndefined();
   expect(result.data.media).toEqual({
-    license: null,
     copyright: 'Photo 1 copyright',
     description: 'Photo 1 description',
     id: PHOTO_1,
@@ -42,6 +41,11 @@ it('should return media', async () => {
       'imgproxy://rs:fill:100:100/g:sm/media/a32664ca-1ee5-11e8-b467-0ed5f89f718b',
     url: 'imgproxy://media/a32664ca-1ee5-11e8-b467-0ed5f89f718b',
     weight: 1,
+    license: {
+      name: 'Proprietary license',
+      url: null,
+      slug: null,
+    },
   });
 });
 
