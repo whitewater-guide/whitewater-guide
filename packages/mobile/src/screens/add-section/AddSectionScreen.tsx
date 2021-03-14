@@ -40,7 +40,7 @@ const AddSectionScreen: React.FC<Partial<AddSectionNavProps>> = ({ route }) => {
       flows: null,
       flowsText: null,
 
-      shape: [],
+      shape: [undefined, undefined] as any,
       distance: null,
       drop: null,
       duration: null,

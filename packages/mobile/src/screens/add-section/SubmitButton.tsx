@@ -1,31 +1,59 @@
 import { useFormikContext } from 'formik';
-import React, { useCallback, useState } from 'react';
+import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
 import { ActivityIndicator, Button } from 'react-native-paper';
 
-import theme from '../../theme';
+import theme from '~/theme';
+
+import { SectionFormInput } from './types';
 
 const styles = StyleSheet.create({
   loading: {
     alignItems: 'center',
     justifyContent: 'center',
   },
+  disabled: {
+    opacity: 0.5,
+  },
 });
 
-const SubmitButton: React.FC = () => {
-  const { submitForm, isSubmitting, isValid } = useFormikContext<any>();
+const SubmitButton = memo(() => {
+  const {
+    submitForm,
+    isSubmitting,
+    isValid,
+    setTouched,
+  } = useFormikContext<SectionFormInput>();
   const { t } = useTranslation();
   const [size, setSize] = useState({ width: 100, height: 32 });
-  const onLayout = useCallback(
-    ({ nativeEvent }: LayoutChangeEvent) => {
-      setSize({
-        width: nativeEvent.layout.width,
-        height: nativeEvent.layout.height,
+
+  const onLayout = ({ nativeEvent }: LayoutChangeEvent) => {
+    setSize({
+      width: nativeEvent.layout.width,
+      height: nativeEvent.layout.height,
+    });
+  };
+
+  const handlePress = () => {
+    setTouched(
+      {
+        name: true,
+        // @ts-expect-error: this works fine
+        river: true,
+        difficulty: true,
+        // @ts-expect-error: this works fine
+        shape: true,
+      },
+      true,
+    );
+    if (isValid) {
+      submitForm().catch(() => {
+        /* ignore */
       });
-    },
-    [setSize],
-  );
+    }
+  };
+
   if (isSubmitting) {
     return (
       <View style={[size, styles.loading]}>
@@ -33,19 +61,20 @@ const SubmitButton: React.FC = () => {
       </View>
     );
   }
+
   return (
     <Button
       color={theme.colors.textLight}
-      onPress={submitForm}
+      style={!isValid && styles.disabled}
+      onPress={handlePress}
       onLayout={onLayout}
-      disabled={!isValid}
       accessibilityLabel={t('commons:create')}
       testID="add-section-submit-btn"
     >
       {t('commons:create')}
     </Button>
   );
-};
+});
 
 SubmitButton.displayName = 'SubmitButton';
 
