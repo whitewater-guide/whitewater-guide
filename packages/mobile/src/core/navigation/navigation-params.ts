@@ -1,6 +1,6 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { ParamListBase, RouteProp } from '@react-navigation/native';
-import { Region } from '@whitewater-guide/commons';
+import { License, Region } from '@whitewater-guide/commons';
 
 import { PurchaseParams } from '~/features/purchases/types';
 import { DescentFormData } from '~/screens/descent-form';
@@ -22,6 +22,11 @@ export interface RootStackParamsList extends ParamListBase {
   [Screens.WEB_VIEW]: {
     fixture?: string;
     title?: string;
+  };
+  [Screens.LICENSE]: {
+    placement: 'region' | 'section' | 'media';
+    license: License;
+    copyright?: string | null;
   };
   [Screens.SUGGESTION]: {
     sectionId: string;

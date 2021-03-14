@@ -51,3 +51,15 @@ export const ROOT_LICENSE: License = {
     'Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License (CC BY-NC-SA 4.0)',
   url: 'https://creativecommons.org/licenses/by-nc-sa/4.0/',
 };
+
+export type CommonLicense = Omit<License, 'slug'> & { slug: string };
+
+/**
+ * Returns true if license is common and it's possible to display logo
+ * @param license
+ * @returns
+ */
+export function isCommonLicense(license: License): license is CommonLicense {
+  const { slug } = license;
+  return COMMON_LICENSES.some((l) => !!slug && l.slug === slug);
+}

@@ -12,6 +12,7 @@ import { LazyAddSectionScreen } from '~/screens/add-section';
 import { LazyAuthStack } from '~/screens/auth';
 import { LazyDescentScreen } from '~/screens/descent';
 import { LazyDescentFormScreen } from '~/screens/descent-form';
+import { LazyLicenseScreen } from '~/screens/license';
 import { LazyLogbookScreen } from '~/screens/logbook';
 import { LazyMyProfileScreen } from '~/screens/my-profile';
 import { LazyPlainScreen } from '~/screens/plain';
@@ -81,6 +82,11 @@ const RootStack: React.FC<RootStackNavProps> = ({ navigation }) => {
         name={Screens.ADD_SECTION_SCREEN}
         component={LazyAddSectionScreen}
         options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={Screens.LICENSE}
+        component={LazyLicenseScreen}
+        options={{ headerTitle: t('screens:license.headerTitle') }}
       />
       <Stack.Screen name={Screens.MY_PROFILE} component={LazyMyProfileScreen} />
     </Stack.Navigator>

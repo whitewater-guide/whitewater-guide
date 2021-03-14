@@ -1,13 +1,12 @@
-import { COMMON_LICENSES, License } from '@whitewater-guide/commons';
+import { License } from '@whitewater-guide/commons';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Linking, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
-import FastImage from 'react-native-fast-image';
-import Config from 'react-native-ultimate-config';
 
 import theme from '~/theme';
 
 import Divider from './Divider';
+import LicenseLogo from './LicenseLogo';
 import Markdown from './Markdown';
 import TextWithLinks from './TextWithLinks';
 
@@ -15,13 +14,8 @@ const styles = StyleSheet.create({
   container: {
     paddingVertical: theme.margin.single,
   },
-  badge: {
+  logo: {
     marginTop: theme.margin.double,
-    width: 134,
-    height: 47,
-  },
-  texts: {
-    flex: 1,
   },
   textLight: {
     color: theme.colors.textLight,
@@ -40,8 +34,7 @@ interface Props {
 const LicenseBadge = memo<Props>((props) => {
   const { t } = useTranslation();
   const { license, copyright, placement, divider, light, style } = props;
-  const { name, slug, url } = license;
-  const common = COMMON_LICENSES.some((l) => l.slug === slug);
+  const { name, url } = license;
   const handleLink = () => {
     if (url) {
       Linking.openURL(url).catch(() => {
@@ -52,7 +45,7 @@ const LicenseBadge = memo<Props>((props) => {
   return (
     <View style={[styles.container, style]}>
       {divider && <Divider />}
-      <View style={styles.texts}>
+      <View>
         <TextWithLinks
           onLink={handleLink}
           textStyle={light && styles.textLight}
@@ -63,15 +56,7 @@ const LicenseBadge = memo<Props>((props) => {
         </TextWithLinks>
         {!!copyright && <Markdown>{`© ${copyright}`}</Markdown>}
       </View>
-      {common && (
-        <FastImage
-          source={{
-            cache: 'web',
-            uri: `${Config.STATIC_CONTENT_URL_BASE}/licenses/${slug}.png`,
-          }}
-          style={styles.badge}
-        />
-      )}
+      <LicenseLogo license={license} style={styles.logo} />
     </View>
   );
 });

@@ -5675,10 +5675,15 @@
     prosemirror-view "^1.11.6"
     tslib "^1.10.0"
 
-"@whitewater-guide/translations@^2.4.3", "@whitewater-guide/translations@^2.4.4":
+"@whitewater-guide/translations@^2.4.3":
   version "2.4.4"
   resolved "https://registry.npmjs.org/@whitewater-guide/translations/-/translations-2.4.4.tgz#8a741ada3fefd36451527c946680218b05bd88de"
   integrity sha512-dF0yelIsyvvj1wu94KlWiqv/6X+jiEdIQFGGdqhI52sNp4I9n4CBQMViz4fAe9VZhlP0i2dsM1QNFa2svpYqDA==
+
+"@whitewater-guide/translations@^2.5.0":
+  version "2.5.0"
+  resolved "https://registry.npmjs.org/@whitewater-guide/translations/-/translations-2.5.0.tgz#85a20bc873d9dfb0e759c25e9dbd5edf937d01cb"
+  integrity sha512-eV1/amIlzzNqdh7gxd7UItCR1NnagIuW5Kun7E+RqyutX1/G6eldTnkyJvRJqDBRURBmlZmo/L1FsZo9x15hrA==
 
 "@whitewater-guide/validation@^1.2.0":
   version "1.2.0"

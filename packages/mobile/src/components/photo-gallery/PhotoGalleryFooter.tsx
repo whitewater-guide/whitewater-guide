@@ -10,10 +10,9 @@ import {
 } from 'react-native';
 import useBoolean from 'react-use/lib/useBoolean';
 
-import LicenseBadge from '~/components/LicenseBadge';
-
 import theme from '../../theme';
 import Icon from '../Icon';
+import LicenseLogo from '../LicenseLogo';
 import { PhotoGalleryItem } from './types';
 
 const styles = StyleSheet.create({
@@ -78,14 +77,7 @@ const PhotoGalleryFooter: React.FC<Props> = (props) => {
             <Text style={styles.footerCopyright}>{`\n © ${copyright}`}</Text>
           )}
         </Text>
-        {(licenseOnly || licenseOpen) && (
-          <LicenseBadge
-            light
-            placement="media"
-            license={license}
-            style={styles.licenseBadge}
-          />
-        )}
+        {(licenseOnly || licenseOpen) && <LicenseLogo license={license} />}
       </View>
     </TouchableWithoutFeedback>
   );

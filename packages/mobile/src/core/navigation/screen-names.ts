@@ -56,6 +56,8 @@ export enum Screens {
 
   PLAIN = 'PLAIN',
 
+  LICENSE = 'LICENSE',
+
   WEB_VIEW = 'WEB_VIEW',
 
   SUGGESTION = 'SUGGESTION',
