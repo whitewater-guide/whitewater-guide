@@ -72,7 +72,7 @@
     "@turf/square": "^6.3.0",
     "@whitewater-guide/clients": "*",
     "@whitewater-guide/commons": "*",
-    "@whitewater-guide/translations": "^2.5.0",
+    "@whitewater-guide/translations": "^2.5.1",
     "@whitewater-guide/validation": "^1.2.0",
     "apollo-cache": "^1.3.5",
     "apollo-cache-inmemory": "^1.6.6",

@@ -1,4 +1,8 @@
-import { License, ROOT_LICENSE } from '@whitewater-guide/commons';
+import {
+  isCommonLicense,
+  License,
+  ROOT_LICENSE,
+} from '@whitewater-guide/commons';
 import React from 'react';
 import {
   LayoutAnimation,
@@ -63,7 +67,7 @@ const PhotoGalleryFooter: React.FC<Props> = (props) => {
   return (
     <TouchableWithoutFeedback onPress={onToggle}>
       <View>
-        {!licenseOnly && (
+        {!licenseOnly && isCommonLicense(license) && (
           <Icon
             narrow
             icon={licenseOpen ? 'chevron-down' : 'chevron-up'}
