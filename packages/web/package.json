@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/web",
   "private": true,
-  "version": "0.1.445",
+  "version": "0.1.446",
   "license": "UNLICENSED",
   "scripts": {
     "start": "react-scripts start",

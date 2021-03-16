@@ -1,4 +1,4 @@
-import { isCommonLicense, License } from '@whitewater-guide/commons';
+import { isLicenseWithLogo, License } from '@whitewater-guide/commons';
 import React, { memo } from 'react';
 import { Linking, Pressable, StyleProp, StyleSheet } from 'react-native';
 import FastImage, { ImageStyle } from 'react-native-fast-image';
@@ -24,7 +24,7 @@ const LicenseLogo = memo<Props>(({ license, style }) => {
       });
     }
   };
-  if (!isCommonLicense(license)) {
+  if (!isLicenseWithLogo(license)) {
     return null;
   }
   return (

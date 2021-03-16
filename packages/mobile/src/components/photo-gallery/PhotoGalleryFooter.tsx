@@ -1,5 +1,5 @@
 import {
-  isCommonLicense,
+  isLicenseWithLogo,
   License,
   ROOT_LICENSE,
 } from '@whitewater-guide/commons';
@@ -67,7 +67,7 @@ const PhotoGalleryFooter: React.FC<Props> = (props) => {
   return (
     <TouchableWithoutFeedback onPress={onToggle}>
       <View>
-        {!licenseOnly && isCommonLicense(license) && (
+        {!licenseOnly && isLicenseWithLogo(license) && (
           <Icon
             narrow
             icon={licenseOpen ? 'chevron-down' : 'chevron-up'}

@@ -6,7 +6,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { COMMON_LICENSES, License } from '@whitewater-guide/commons';
+import { COMMON_LICENSES, CommonLicense } from '@whitewater-guide/commons';
 import { useFormikContext } from 'formik';
 import React, { useState } from 'react';
 import useBoolean from 'react-use/lib/useBoolean';
@@ -32,7 +32,8 @@ const CommonLicenses: React.FC<Props> = ({ name }) => {
 
   const handleSelect = () => {
     toggleOpen(false);
-    setFieldValue(name, value);
+    const { key: _key, ...license } = value;
+    setFieldValue(name, license);
     setFieldTouched(name, true);
   };
 
@@ -48,11 +49,11 @@ const CommonLicenses: React.FC<Props> = ({ name }) => {
         <DialogContent className={classes.content}>
           <Select
             value={value}
-            onChange={(e) => setValue(e.target.value as License)}
+            onChange={(e) => setValue(e.target.value as CommonLicense)}
           >
-            {COMMON_LICENSES.map((l, i) => (
+            {COMMON_LICENSES.map((l) => (
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              <MenuItem key={i} value={l as any}>
+              <MenuItem key={l.key} value={l as any}>
                 {l.name}
               </MenuItem>
             ))}
