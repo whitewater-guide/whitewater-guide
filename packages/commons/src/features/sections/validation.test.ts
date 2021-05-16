@@ -123,6 +123,8 @@ describe('SectionInput', () => {
     },
   };
 
+  const { license, copyright, ...legacyNoLicense } = correct;
+
   const correctValues: TestValue[] = [
     ['full value', correct],
     [
@@ -189,6 +191,7 @@ describe('SectionInput', () => {
       },
     ],
     ['empty media', { ...correct, media: [] }],
+    ['legacy (no license and copyright)', legacyNoLicense],
   ];
 
   const incorrectValues: TestValue[] = [

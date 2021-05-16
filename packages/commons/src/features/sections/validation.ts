@@ -70,8 +70,8 @@ export const SectionInputSchema: yup.SchemaOf<SectionInput> = yup
     helpNeeded: yup.string().nullable(),
     createdBy: yupTypes.uuid().notRequired().nullable(),
     importId: yup.string().nullable(),
-    copyright: yup.string().defined().nullable(),
-    license: LicenseInputSchema.clone().nullable(true),
+    copyright: yup.string().nullable().optional(),
+    license: LicenseInputSchema.clone().nullable(true).optional(),
   } as any)
   .strict(true)
   .noUnknown();

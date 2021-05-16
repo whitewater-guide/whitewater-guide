@@ -320,6 +320,16 @@ it('should fail on invalid input', async () => {
   expect(result).toHaveGraphqlValidationError();
 });
 
+it('should not fail on legacy input without license and copyright', async () => {
+  const { copyright, license, ...legacy } = existingRiverSection;
+  const result = await runQuery(
+    upsertQuery,
+    { section: legacy },
+    fakeContext(EDITOR_NO_EC),
+  );
+  expect(result.errors).toBeUndefined();
+});
+
 it('anon should not create suggestion', async () => {
   const result = await runQuery(upsertQuery, { section: newRiverSection });
   expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
