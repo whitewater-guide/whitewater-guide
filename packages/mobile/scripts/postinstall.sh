@@ -6,6 +6,5 @@ if [[ ! -f ios/Podfile.lock ]]; then
   yarn pod-install
 fi
 
-yarn patch-package
 yarn jetify
 yarn setup-dev-env

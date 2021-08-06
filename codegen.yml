@@ -127,4 +127,4 @@ hooks:
   beforeDone:
     # Codegen can execute only one hook from list
     # https://github.com/dotansimha/graphql-code-generator/issues/6091
-    - ./codegen_workarounds.sh
+    - ./scripts/codegen_workarounds.sh

@@ -181,7 +181,6 @@
     "jsonwebtoken": "^8.5.1",
     "madge": "^5.0.1",
     "metro-react-native-babel-preset": "^0.66.1",
-    "patch-package": "^6.4.7",
     "pod-install": "^0.1.23",
     "react-native-mock-render": "^0.1.9",
     "react-native-performance-monitor": "^1.2.1",

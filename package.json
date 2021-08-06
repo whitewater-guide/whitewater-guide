@@ -17,11 +17,11 @@
     "build": "lerna run build --stream --no-bail",
     "prepare": "lerna run prepare --stream --no-bail && husky install",
     "typecheck": "lerna run typecheck --stream --no-bail",
-    "dev:env": "tooling/scripts/dev_env.sh",
-    "dev:cleanup": "tooling/scripts/dev_cleanup.sh",
-    "dev:images": "tooling/scripts/dev_download_images.sh",
-    "publish:manually": "tooling/scripts/publish_manually.sh",
-    "postinstall": "yarn patch-package && yarn codegen",
+    "dev:env": "scripts/dev_env.sh",
+    "dev:cleanup": "scripts/dev_cleanup.sh",
+    "dev:images": "scripts/dev_download_images.sh",
+    "publish:manually": "scripts/publish_manually.sh",
+    "postinstall": "scripts/postinstall.sh",
     "backup_ignored": "git clean -dxn | sed 's/^Would remove \\(.*\\)/\\1/g' | zip -@ -r ignored.zip"
   },
   "devDependencies": {
