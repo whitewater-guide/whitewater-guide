@@ -35,8 +35,9 @@ COPY --from=builder /opt/app/packages/backend/package.json ./packages/backend/pa
 
 COPY patches ./patches
 COPY scripts ./scripts
+COPY package.json yarn.lock ./
 # tsconfig is needed for paths aliases (~)
-COPY package.json yarn.lock tsconfig.json ./
+COPY packages/backend/tsconfig.prod.json packages/backend/tsconfig.json
 
 # --ignore-scripts should ignore prepare and postinstall
 RUN yarn install --production --frozen-lockfile --non-interactive --ignore-scripts

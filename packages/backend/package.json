@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/backend",
   "private": true,
-  "version": "0.0.472",
+  "version": "0.0.474",
   "main": "index.js",
   "author": "Konstantin Kuznetsov",
   "license": "UNLICENSED",
@@ -9,7 +9,7 @@
     "node": ">=14"
   },
   "scripts": {
-    "assets": "cpy '**/*' '!**/*.ts' ../dist/ --cwd=src/ --no-overwrite --parents",
+    "assets": "cpy '**/*.sql' '**/*.mjml' ../dist/ --cwd=src/ --no-overwrite --parents",
     "clean": "rimraf dist src/__generated__ && find src -name \"*.generated.ts\" -delete",
     "build": "tsc --project tsconfig.build.json && yarn assets",
     "docker": "docker build --file ./Dockerfile ../../",

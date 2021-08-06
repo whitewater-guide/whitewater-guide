@@ -1,13 +1,23 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "noEmit": false
+    "noEmit": false,
+    "module": "commonjs",
+    "declaration": false,
+    "baseUrl": "./src",
+    "paths": {
+      "~/*": ["./*"]
+    },
+    "outDir": "dist"
   },
   "include": ["./src", "./declarations"],
   "exclude": [
+    "node_modules",
     "**/*.test.ts",
+    "**/*.test.generated.ts",
     "**/__tests__/**/*",
     "**/__mocks__/**/*",
-    "./src/seeds/test/*"
+    "./src/seeds/test/*",
+    "./test"
   ]
 }
