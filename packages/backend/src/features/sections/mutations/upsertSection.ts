@@ -1,4 +1,3 @@
-import { NEW_RIVER_ID } from '@whitewater-guide/commons';
 import {
   MediaKind,
   MutationUpsertSectionArgs,
@@ -22,7 +21,7 @@ import { OTHERS_REGION_ID } from '~/features/regions';
 import { MEDIA, s3Client } from '~/s3';
 
 import { RawSectionUpsertResult } from '../types';
-import { checkForNewRiver, insertNewRiver } from './upsertUtils';
+import { checkForNewRiver, insertNewRiver, isNewRiverId } from './upsertUtils';
 import { differ } from './utils';
 
 const transformSection = (section: SectionInput): SectionInput => ({
@@ -40,13 +39,12 @@ const checkIsEditor = async (
   section: SectionInput,
   dataSources: Context['dataSources'],
 ) => {
-  const query =
-    section.river.id === NEW_RIVER_ID
-      ? { regionId: section.region?.id ?? OTHERS_REGION_ID }
-      : {
-          sectionId: section.id,
-          riverId: section.river.id,
-        };
+  const query = isNewRiverId(section.river.id)
+    ? { regionId: section.region?.id ?? OTHERS_REGION_ID }
+    : {
+        sectionId: section.id,
+        riverId: section.river.id,
+      };
   const isEditor = await dataSources.users.checkEditorPermissions(query);
   return isEditor;
 };

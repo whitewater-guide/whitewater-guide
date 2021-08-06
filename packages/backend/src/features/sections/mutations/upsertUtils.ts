@@ -6,8 +6,13 @@ import { UnknownError } from '~/apollo';
 import { db, rawUpsert, Sql } from '~/db';
 import { OTHERS_REGION_ID } from '~/features/regions';
 
+export function isNewRiverId(id: string): boolean {
+  // __NEW_ID__ is legacy input, required to support old mobile app versions
+  return id === NEW_RIVER_ID || id === '__NEW_ID__';
+}
+
 export const checkForNewRiver = (section: SectionInput) => {
-  const shouldInsertRiver = section.river.id === NEW_RIVER_ID;
+  const shouldInsertRiver = isNewRiverId(section.river.id);
   if (shouldInsertRiver && section.id) {
     throw new UserInputError('cannot create new river for existing section');
   }
