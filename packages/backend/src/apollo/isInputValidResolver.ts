@@ -15,7 +15,7 @@ export const isInputValidResolver = <TSource, Vars>(
   return (source, args, context, info) => {
     const validationErrors = validator(args);
     if (validationErrors) {
-      throw new UserInputError('invalid input', { validationErrors });
+      throw new UserInputError('invalid input', { validationErrors, args });
     }
     return resolver(source, args, context, info);
   };
