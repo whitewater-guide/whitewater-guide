@@ -15,7 +15,7 @@
     "nibble": "eslint-nibble \"**/*.{ts,tsx}\" --cache",
     "clean": "lerna run clean --stream --no-bail",
     "build": "lerna run build --stream --no-bail",
-    "prepare": "lerna run prepare --stream --no-bail && husky install",
+    "prepare": "scripts/prepare.sh",
     "typecheck": "lerna run typecheck --stream --no-bail",
     "dev:env": "scripts/dev_env.sh",
     "dev:cleanup": "scripts/dev_cleanup.sh",

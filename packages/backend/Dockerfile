@@ -39,10 +39,10 @@ COPY package.json yarn.lock ./
 # tsconfig is needed for paths aliases (~)
 COPY packages/backend/tsconfig.prod.json packages/backend/tsconfig.json
 
-# --ignore-scripts should ignore prepare and postinstall
-RUN yarn install --production --frozen-lockfile --non-interactive --ignore-scripts
-# because of --ignore-scripts we have to run patch-package manually. Ignore errors for frontend packages
-RUN yarn patch-package || true
+# setting NODE_ENV=production will skip certain parts of 'prepare' and 'postinstall' scripts
+# that were run in 'builder' before
+ENV NODE_ENV=production
+RUN yarn install --production --frozen-lockfile --non-interactive
 
 # Final image
 FROM gcr.io/distroless/nodejs:14
