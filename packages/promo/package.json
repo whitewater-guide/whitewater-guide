@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/promo",
   "private": true,
-  "version": "0.0.226",
+  "version": "0.0.227",
   "license": "UNLICENSED",
   "homepage": "/promo/",
   "scripts": {
@@ -13,7 +13,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "typecheck": "tsc --noEmit",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "copy:prod": "aws s3 cp build s3://whitewater.guide/promo --recursive --profile ww-prod  "
   },
   "dependencies": {
     "@material-ui/core": "^4.12.1",

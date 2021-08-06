@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/web",
   "private": true,
-  "version": "0.1.446",
+  "version": "0.1.447",
   "license": "UNLICENSED",
   "scripts": {
     "clean": "rimraf build src/__generated__ && find src -name \"*.generated.ts\" -delete",
@@ -14,7 +14,8 @@
     "test": "react-scripts test",
     "typecheck": "tsc --noEmit",
     "eject": "react-scripts eject",
-    "version": "yarn build"
+    "version": "yarn build",
+    "copy:prod": "aws s3 cp build s3://admin.whitewater.guide --recursive --profile ww-prod"
   },
   "dependencies": {
     "@date-io/date-fns": "2.11.0",
