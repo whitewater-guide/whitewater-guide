@@ -1,6 +1,6 @@
 {
   "name": "@whitewater-guide/validation",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Validation utils library for whitewater.guide",
   "repository": "https://github.com/whitewater-guide/validation",
   "author": "whitewater.guide",

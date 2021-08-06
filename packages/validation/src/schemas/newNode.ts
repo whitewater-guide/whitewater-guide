@@ -22,7 +22,8 @@ const newNode = (): yup.SchemaOf<NewNode> =>
       if (!id || !isString(id)) {
         return false;
       }
-      if (id === NEW_RIVER_ID) {
+      // __NEW_ID__ is legacy input, required to support old mobile app versions
+      if (id === NEW_RIVER_ID || id === '__NEW_ID__') {
         return !!name && isString(name) && name.length > 0;
       }
       return isUUID(id);
