@@ -59,9 +59,13 @@ export default class KeyboardAvoidingView extends React.Component<
   };
 
   _frame: LayoutRectangle | null = null;
+
   _keyboardEvent: KeyboardEvent | null = null;
+
   _subscriptions: EventSubscription[] = [];
+
   viewRef: React.RefObject<any>;
+
   _initialFrameHeight = 0;
 
   constructor(props: Props) {
@@ -104,7 +108,7 @@ export default class KeyboardAvoidingView extends React.Component<
   };
 
   _updateBottomIfNecesarry = () => {
-    if (this._keyboardEvent == null) {
+    if (this._keyboardEvent === null) {
       this.setState({ bottom: 0 });
       return;
     }
@@ -162,7 +166,7 @@ export default class KeyboardAvoidingView extends React.Component<
     let heightStyle;
     switch (behavior) {
       case 'height':
-        if (this._frame != null && this.state.bottom > 0) {
+        if (!!this._frame && this.state.bottom > 0) {
           // Note that we only apply a height change when there is keyboard present,
           // i.e. this.state.bottom is greater than 0. If we remove that condition,
           // this.frame.height will never go back to its original value.

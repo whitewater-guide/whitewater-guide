@@ -2,7 +2,13 @@ import { getListMerger } from '@whitewater-guide/clients';
 import ApolloClient from 'apollo-client';
 import { DocumentNode } from 'graphql';
 
-import { OFFLINE_SECTIONS, Result, Vars } from '../offlineSections.query';
+import { PHOTO_SIZE_PX } from '~/features/media';
+
+import {
+  ListSectionsDocument,
+  ListSectionsQuery,
+  ListSectionsQueryVariables,
+} from '../offlineSections.generated';
 import { OfflineProgress } from '../types';
 import { extractPhotos, PhotoChannel } from '../utils';
 
@@ -18,10 +24,15 @@ interface Options {
 
 export class SectionsDownloader {
   private readonly _client: ApolloClient<any>;
+
   private readonly _photoChannel: PhotoChannel;
+
   private readonly _onProgress: ProgressListener;
+
   private readonly _pageSize: number;
+
   private readonly _query: DocumentNode;
+
   private _called = false;
 
   constructor(opts: Options) {
@@ -29,7 +40,7 @@ export class SectionsDownloader {
     this._photoChannel = opts.photoChannel;
     this._onProgress = opts.onProgress;
     this._pageSize = opts.limit || 40;
-    this._query = opts.query || OFFLINE_SECTIONS;
+    this._query = opts.query || ListSectionsDocument;
   }
 
   public async download(
@@ -43,20 +54,25 @@ export class SectionsDownloader {
     this._called = true;
     let [offset, total] = [0, estimatedTotal];
     this._onProgress({ data: [offset, total] });
-    let merged: Result | undefined;
+    let merged: ListSectionsQuery | undefined;
     const merger = getListMerger('sections');
     try {
       while (offset < total) {
-        const { data, errors } = await this._client.query<Result, Vars>({
+        const { data, errors } = await this._client.query<
+          ListSectionsQuery,
+          ListSectionsQueryVariables
+        >({
           query: this._query,
           errorPolicy: 'none',
           fetchPolicy: 'network-only',
           variables: {
             filter: { regionId },
             page: { offset, limit: this._pageSize },
+            thumbHeight: PHOTO_SIZE_PX,
+            thumbWidth: PHOTO_SIZE_PX,
           },
         });
-        if (errors && errors.length) {
+        if (errors?.length) {
           throw errors[0];
         }
         offset += data.sections.nodes.length;

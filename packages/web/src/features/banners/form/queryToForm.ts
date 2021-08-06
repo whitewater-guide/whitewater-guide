@@ -1,13 +1,9 @@
-import { LocalPhotoStatus } from '@whitewater-guide/clients';
-import {
-  BannerKind,
-  BannerPlacement,
-  BannerResolutions,
-} from '@whitewater-guide/commons';
+import { BannerResolutions, LocalPhotoStatus } from '@whitewater-guide/clients';
+import { BannerKind, BannerPlacement } from '@whitewater-guide/schema';
 import shortid from 'shortid';
 
-import { fromJSON, squashConnection } from '../../../formik/utils';
-import { QResult } from './bannerForm.query';
+import { fromJSON } from '../../../formik/utils';
+import { BannerFormQuery } from './bannerForm.generated';
 import { BannerFormData } from './types';
 
 const NEW_BANNER: BannerFormData = {
@@ -16,7 +12,7 @@ const NEW_BANNER: BannerFormData = {
   name: '',
   priority: 0,
   enabled: true,
-  placement: BannerPlacement.MOBILE_REGION_DESCRIPTION,
+  placement: BannerPlacement.MobileRegionDescription,
   source: {
     status: LocalPhotoStatus.READY,
     resolution: [0, 0],
@@ -28,11 +24,11 @@ const NEW_BANNER: BannerFormData = {
   groups: [],
 };
 
-export default (result?: QResult): BannerFormData => {
+export default (result?: BannerFormQuery): BannerFormData => {
   if (!result || !result.banner) {
     return NEW_BANNER;
   }
-  const banner = result.banner;
+  const { banner } = result;
   return {
     ...banner,
     source:
@@ -44,8 +40,8 @@ export default (result?: QResult): BannerFormData => {
             url: banner.source.url,
             status: LocalPhotoStatus.READY,
           },
-    regions: squashConnection(banner, 'regions'),
-    groups: squashConnection(banner, 'groups'),
+    regions: banner.regions?.nodes ?? [],
+    groups: banner.groups?.nodes ?? [],
     extras: fromJSON(banner.extras),
   };
 };

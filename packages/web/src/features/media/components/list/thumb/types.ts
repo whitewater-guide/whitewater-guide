@@ -1,12 +1,12 @@
-import { MediaOrInput } from '../types';
+import { ListedMedia } from '../types';
 
 export interface ThumbProps {
   index: number;
-  media: MediaOrInput;
+  media: ListedMedia;
   editable?: boolean;
-  onEdit?: (media: MediaOrInput) => void;
-  onRemove?: (media: MediaOrInput) => void;
-  onClick?: (media: MediaOrInput, index: number) => void;
+  onEdit?: (media: ListedMedia) => void;
+  onRemove?: (media: ListedMedia) => void;
+  onClick?: (media: ListedMedia, index: number) => void;
 }
 
 export interface ThumbState {

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-redeclare */
-import { NamedNode } from '@whitewater-guide/commons';
+import { NamedNode } from '@whitewater-guide/schema';
 import debounce from 'lodash/debounce';
 import uniqBy from 'lodash/uniqBy';
 import React from 'react';
@@ -37,9 +37,13 @@ export default class PlacesAutocomplete extends React.Component<
   State
 > {
   autocompleteService: google.maps.places.AutocompleteService;
+
   autocompleteResult: SearchResult[] = [];
+
   placesService: google.maps.places.PlacesService;
+
   placesResult: SearchResult[] = [];
+
   state: State;
 
   constructor(props: Required<MapElementProps, 'map'>) {
@@ -112,7 +116,7 @@ export default class PlacesAutocomplete extends React.Component<
 
   onSelect = ({ value }: SearchResult) => {
     if ('geometry' in value) {
-      this.panZoomTo(value as google.maps.places.PlaceResult);
+      this.panZoomTo(value);
     } else if (value.place_id) {
       this.placesService.getDetails(
         { placeId: value.place_id },

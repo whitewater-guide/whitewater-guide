@@ -1,10 +1,10 @@
-import { Coordinate3d, Section } from '@whitewater-guide/commons';
+import { Section, SectionPoIsFragment } from '@whitewater-guide/schema';
 
 import { getSectionPOIs } from './getSectionPOIs';
 
 export const getSectionContentBounds = (
-  section: Section | null,
-): Coordinate3d[] | null => {
+  section?: (Pick<Section, 'shape'> & SectionPoIsFragment) | null,
+): CodegenCoordinates[] | null => {
   if (!section) {
     return null;
   }

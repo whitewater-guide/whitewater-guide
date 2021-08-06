@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { useAuth, useRegion } from '@whitewater-guide/clients';
-import { Node } from '@whitewater-guide/commons';
+import { Node } from '@whitewater-guide/schema';
 import clsx from 'clsx';
 import React, { useCallback, useMemo } from 'react';
 import {
@@ -76,7 +76,7 @@ interface Props {
 }
 
 export const Table = React.memo(
-  React.forwardRef(function (props: Props, ref: React.Ref<VirtualizedTable>) {
+  React.forwardRef((props: Props, ref: React.Ref<VirtualizedTable>) => {
     const {
       data = [],
       count,
@@ -91,8 +91,8 @@ export const Table = React.memo(
     const { me } = useAuth();
     const region = useRegion();
     const mapColumns = useMemo(() => {
-      const isEditor = !!region && !!region.node && region.node.editable;
-      const isAdmin = !!me && me.admin;
+      const isEditor = !!region?.editable;
+      const isAdmin = !!me?.admin;
       return columnMapper(isAdmin, isEditor);
     }, [region, me]);
 

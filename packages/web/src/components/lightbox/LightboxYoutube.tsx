@@ -6,7 +6,7 @@ interface Props {
   url?: string;
 }
 
-const LightboxYoutube: React.FC<Props> = React.memo(({ url }) => {
+const LightboxYoutube = React.memo<Props>(({ url }) => {
   const videoId = getYoutubeId(url);
   return videoId ? <YouTube videoId={videoId} /> : null;
 });

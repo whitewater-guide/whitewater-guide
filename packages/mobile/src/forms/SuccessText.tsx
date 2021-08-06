@@ -26,7 +26,7 @@ const SuccessText: React.FC<Props> = React.memo(({ visible, message }) => {
       try {
         trans = t(message.key, message.options);
       } catch {
-        /*Ignore */
+        /* Ignore */
       }
     }
   }

@@ -1,10 +1,6 @@
-import { Point } from '@whitewater-guide/commons';
+import { PointResolvers } from '~/apollo';
 
-import { FieldResolvers } from '~/apollo';
-
-import { PointRaw } from '../types';
-
-const resolvers: FieldResolvers<PointRaw, Point> = {
+const resolvers: PointResolvers = {
   coordinates: ({ coordinates }) => coordinates.coordinates,
 };
 

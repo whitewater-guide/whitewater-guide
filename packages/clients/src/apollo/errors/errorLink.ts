@@ -14,6 +14,7 @@ export const errorLink = (
   handleError?: (error: AppError) => void | Promise<void>,
 ) =>
   onError(
+    // eslint-disable-next-line consistent-return
     async (response): Promise<any> => {
       let appErrorMessage: AppErrorType | undefined;
       const { networkError, graphQLErrors, operation, forward } = response;
@@ -29,17 +30,15 @@ export const errorLink = (
             [JWT_EXPIRED_CTX_KEY]: true,
           });
           return forward(operation);
-        } else {
-          appErrorMessage = 'auth';
         }
+        appErrorMessage = 'auth';
       } else if (
         networkError &&
         (networkError as any).statusCode === undefined
       ) {
         appErrorMessage = 'fetch';
       } else if (
-        graphQLErrors &&
-        graphQLErrors.some(
+        graphQLErrors?.some(
           (ge) => get(ge, 'extensions.code') === 'UNAUTHENTICATED',
         )
       ) {
@@ -59,7 +58,7 @@ export const errorLink = (
         data: { appError },
       });
       if (handleError) {
-        await Promise.resolve<void>(handleError(appError));
+        await Promise.resolve(handleError(appError));
       }
     },
   );

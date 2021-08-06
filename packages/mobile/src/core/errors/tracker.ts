@@ -11,6 +11,7 @@ interface Trace {
 
 class ErrorTracker {
   private _queue: Trace[] = [];
+
   private _ready = false;
 
   ready = () => {

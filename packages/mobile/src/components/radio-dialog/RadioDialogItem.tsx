@@ -11,6 +11,7 @@ interface Props {
 
 class RadioDialogItem extends React.PureComponent<Props> {
   onPress = () => this.props.onChange(this.props.value);
+
   render() {
     return (
       <TouchableRipple onPress={this.onPress}>

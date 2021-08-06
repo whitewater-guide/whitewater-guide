@@ -19,13 +19,13 @@ const DatePickerDialog: React.FC<Props> = (props) => {
     return null;
   }
   // @ts-expect-error: DateTimePicker types are mixed for ios and android
-  const element = <DateTimePicker mode={mode} {...rest} is24Hour={true} />;
+  const element = <DateTimePicker mode={mode} {...rest} is24Hour />;
   if (Platform.OS === 'android') {
     return element;
   }
   return (
     <Portal>
-      <Dialog visible={true} onDismiss={onClose}>
+      <Dialog visible onDismiss={onClose}>
         <Dialog.Content>{element}</Dialog.Content>
         <Dialog.Actions>
           <Button onPress={onClose}>{t('commons:ok')}</Button>

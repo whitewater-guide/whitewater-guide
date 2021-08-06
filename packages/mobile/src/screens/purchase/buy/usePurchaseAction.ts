@@ -109,6 +109,7 @@ export default (sku: string | null, sectionId?: string) => {
         return;
       }
 
+      // @ts-ignore: it wants region as params, but it's already in initialParams
       navigate(Screens.PURCHASE_SUCCESS);
     },
     [sku, state, setState, save, navigate],

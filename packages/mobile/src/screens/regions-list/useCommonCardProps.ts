@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { Region } from '@whitewater-guide/commons';
+import { Region } from '@whitewater-guide/schema';
 import { useCallback } from 'react';
 
 import { Screens } from '~/core/navigation';

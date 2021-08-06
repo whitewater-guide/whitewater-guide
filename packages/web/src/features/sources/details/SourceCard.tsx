@@ -1,6 +1,5 @@
 import Box from '@material-ui/core/Box';
 import CardHeader from '@material-ui/core/CardHeader';
-import { Source } from '@whitewater-guide/commons';
 import ReactMarkdown from 'markdown-react-js';
 import React from 'react';
 import { Route, Switch } from 'react-router';
@@ -11,19 +10,17 @@ import { NavTab, NavTabs } from '../../../components/navtabs';
 import { Card, CardContent, EditorFooter } from '../../../layout';
 import { GaugesList } from '../../gauges/list';
 import AutofillButton from './AutofillButton';
-import DisableAllGaugesButton from './DisableAllGaugesButton';
-import EnableButton from './EnableButton';
-import GenerateScheduleButton from './GenerateScheduleButton';
 import RemoveAllGaugesButton from './RemoveAllGaugesButton';
+import { SourceDetailsFragment } from './sourceDetails.generated';
 import SourceDetailsMain from './SourceDetailsMain';
 
 interface Props {
   sourceId: string;
-  source: Source | null;
+  source: SourceDetailsFragment | null;
   path: string;
 }
 
-const SourceCard: React.FC<Props> = React.memo((props) => {
+const SourceCard = React.memo<Props>((props) => {
   const { source, sourceId, path } = props;
   if (!source) {
     return (
@@ -44,11 +41,11 @@ const SourceCard: React.FC<Props> = React.memo((props) => {
 
         <Box flex={1} overflow="auto">
           <Switch>
-            <Route exact={true} path={`${path}/terms`}>
+            <Route exact path={`${path}/terms`}>
               <ReactMarkdown text={source.termsOfUse || ''} />
             </Route>
 
-            <Route exact={true} path={`${path}/gauges`}>
+            <Route exact path={`${path}/gauges`}>
               <GaugesList source={source} />
             </Route>
 
@@ -60,18 +57,15 @@ const SourceCard: React.FC<Props> = React.memo((props) => {
       </CardContent>
 
       <Switch>
-        <Route exact={true} path={`${path}/gauges`}>
-          <EditorFooter add={true}>
+        <Route exact path={`${path}/gauges`}>
+          <EditorFooter add>
             <AutofillButton sourceId={source.id} />
-            <GenerateScheduleButton sourceId={source.id} />
-            <EnableButton sourceId={source.id} />
-            <DisableAllGaugesButton sourceId={source.id} label="Disable All" />
             <RemoveAllGaugesButton sourceId={source.id} />
           </EditorFooter>
         </Route>
 
         <Route>
-          <EditorFooter edit={true} />
+          <EditorFooter edit />
         </Route>
       </Switch>
     </Card>

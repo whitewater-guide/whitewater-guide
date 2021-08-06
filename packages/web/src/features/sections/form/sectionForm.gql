@@ -1,0 +1,45 @@
+fragment SectionForm on Section {
+  ...SectionCore
+  shape
+  description
+  ...SectionPOIs
+  ...SectionTags
+  ...SectionLicense
+  media {
+    nodes {
+      ...MediaCore
+    }
+  }
+  gauge {
+    id
+    name
+  }
+  ...SectionFlows
+}
+
+query sectionForm($sectionId: ID, $riverId: ID, $regionId: ID) {
+  section(id: $sectionId) {
+    ...SectionForm
+  }
+  river(id: $riverId) {
+    id
+    name
+  }
+  region(id: $regionId) {
+    id
+    name
+    bounds
+    ...RegionLicense
+  }
+  gauges(filter: { regionId: $regionId }) {
+    nodes {
+      id
+      name
+    }
+  }
+  tags {
+    id
+    name
+    category
+  }
+}

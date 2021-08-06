@@ -1,17 +1,10 @@
-import { GaugeInput, PointInput } from '@whitewater-guide/commons';
 import { Gauge } from '@whitewater-guide/gorge';
+import { GaugeInput, PointInput } from '@whitewater-guide/schema';
 import keyBy from 'lodash/keyBy';
 
-import { TopLevelResolver, UnknownError } from '~/apollo';
-import db, { rawUpsert } from '~/db';
-import { GaugeRaw } from '~/features/gauges';
+import { MutationResolvers, UnknownError } from '~/apollo';
+import { db, rawUpsert, Sql } from '~/db';
 import log from '~/log';
-
-import { SourceRaw } from '../types';
-
-interface Vars {
-  id: string;
-}
 
 const convertLocation = (
   info: Gauge,
@@ -33,18 +26,18 @@ const convertLocation = (
     : null;
 };
 
-const autofillSource: TopLevelResolver<Vars> = async (
+const autofillSource: MutationResolvers['autofillSource'] = async (
   _,
   { id },
   { dataSources },
 ) => {
-  const gauges: GaugeRaw[] = await db()
+  const gauges: Sql.GaugesView[] = await db()
     .select(['id', 'code', 'location_id'])
     .from('gauges')
     .where({ source_id: id });
   const codes = keyBy(gauges, 'code');
 
-  const { script, request_params }: SourceRaw = await db()
+  const { script, request_params }: Sql.SourcesView = await db()
     .table('sources')
     .select(['script', 'request_params'])
     .where({ id })
@@ -55,7 +48,7 @@ const autofillSource: TopLevelResolver<Vars> = async (
       script,
       request_params,
     );
-    const gaugesOut = [];
+    const gaugesOut: Sql.GaugesView[] = [];
     for (const g of gaugesIn) {
       const existing = codes[g.code];
       const input: GaugeInput = {
@@ -70,10 +63,11 @@ const autofillSource: TopLevelResolver<Vars> = async (
         url: g.url || null,
       };
       try {
-        const gOut = await rawUpsert(db(), 'SELECT upsert_gauge(?, ?)', [
-          input,
-          'en',
-        ]);
+        const gOut: Sql.GaugesView = await rawUpsert(
+          db(),
+          'SELECT upsert_gauge(?, ?)',
+          [input, 'en'],
+        );
         gaugesOut.push(gOut);
       } catch (e) {
         log.error({ extra: { input }, error: e });
@@ -81,7 +75,7 @@ const autofillSource: TopLevelResolver<Vars> = async (
     }
     return gaugesOut;
   } catch (err) {
-    throw new UnknownError('Autofill failed: ' + err.message);
+    throw new UnknownError(`Autofill failed: ${err.message}`);
   }
 };
 

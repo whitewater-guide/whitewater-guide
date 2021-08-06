@@ -1,5 +1,6 @@
-import { Overwrite, RegionInput } from '@whitewater-guide/commons';
 import { MdEditorValue } from '@whitewater-guide/md-editor';
+import { RegionInput } from '@whitewater-guide/schema';
+import { Overwrite } from 'utility-types';
 
 export type RegionFormData = Overwrite<
   RegionInput,

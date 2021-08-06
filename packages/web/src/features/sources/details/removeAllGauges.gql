@@ -1,0 +1,3 @@
+mutation removeAllGauges($sourceId: ID!) {
+  removeGauges(sourceId: $sourceId)
+}

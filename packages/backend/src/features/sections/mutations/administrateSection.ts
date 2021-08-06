@@ -1,24 +1,18 @@
 import {
-  SectionAdminSettings,
+  MutationAdministrateSectionArgs,
   SectionAdminSettingsSchema,
-} from '@whitewater-guide/commons';
-import { yupTypes } from '@whitewater-guide/validation';
+} from '@whitewater-guide/schema';
 import * as yup from 'yup';
 
-import { isInputValidResolver, TopLevelResolver } from '~/apollo';
-import db from '~/db';
+import { isInputValidResolver, MutationResolvers } from '~/apollo';
+import { db } from '~/db';
 
-interface Vars {
-  id: string;
-  settings: SectionAdminSettings;
-}
-
-const Struct = yup.object({
-  id: yupTypes.uuid(),
-  settings: SectionAdminSettingsSchema,
+const Schema: yup.SchemaOf<MutationAdministrateSectionArgs> = yup.object({
+  id: yup.string().uuid().required(),
+  settings: SectionAdminSettingsSchema.clone(),
 });
 
-const resolver: TopLevelResolver<Vars> = async (
+const administrateSection: MutationResolvers['administrateSection'] = async (
   _,
   { id, settings },
   { dataSources },
@@ -32,6 +26,4 @@ const resolver: TopLevelResolver<Vars> = async (
   return dataSources.sections.getById(id);
 };
 
-const administrateSection = isInputValidResolver(Struct, resolver);
-
-export default administrateSection;
+export default isInputValidResolver(Schema, administrateSection);

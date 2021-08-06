@@ -9,12 +9,12 @@ import { Card, CardContent, EditorFooter } from '../../../layout';
 import RegionDetailsTabs from './RegionDetailsTabs';
 
 const RegionDetails: React.FC = () => {
-  const { node } = useRegion();
+  const region = useRegion();
   const { match } = useRouter();
   return (
     <Card>
       <CardHeader
-        title={node ? node.name : ''}
+        title={region ? region.name : ''}
         action={<EditorLanguagePicker />}
       />
 
@@ -23,16 +23,16 @@ const RegionDetails: React.FC = () => {
       </CardContent>
 
       <Switch>
-        <Route exact={true} path={`${match.path}/rivers`}>
-          <EditorFooter add={true} />
+        <Route exact path={`${match.path}/rivers`}>
+          <EditorFooter add />
         </Route>
 
-        <Route exact={true} path={`${match.path}/sections`}>
-          <EditorFooter add={true} />
+        <Route exact path={`${match.path}/sections`}>
+          <EditorFooter add />
         </Route>
 
         <Route>
-          <EditorFooter edit={true} administrate={true} />
+          <EditorFooter edit administrate />
         </Route>
       </Switch>
     </Card>

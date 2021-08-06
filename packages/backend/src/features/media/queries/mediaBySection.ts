@@ -1,10 +1,6 @@
-import { TopLevelResolver } from '~/apollo';
+import { QueryResolvers } from '~/apollo';
 
-interface Vars {
-  sectionId: string;
-}
-
-const mediaBySection: TopLevelResolver<Vars> = (
+const mediaBySection: QueryResolvers['mediaBySection'] = (
   _,
   { sectionId },
   { dataSources },

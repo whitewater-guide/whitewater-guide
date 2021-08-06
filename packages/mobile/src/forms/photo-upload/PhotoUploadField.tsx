@@ -70,8 +70,8 @@ export const PhotoUploadField: React.FC<Props> = React.memo((props) => {
     }, 0);
   }, [name, localPhoto, ctxRef]);
 
-  if (error && (error as any).key === 'yup:mixed.notType') {
-    (error as any).key = 'yup:mixed.required';
+  if (error && error.key === 'yup:mixed.notType') {
+    error.key = 'yup:mixed.required';
   }
   return (
     <View style={styles.container}>

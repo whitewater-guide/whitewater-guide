@@ -1,13 +1,9 @@
 import { QueryBuilder } from 'knex';
 
-import { TopLevelResolver } from '~/apollo';
-import db from '~/db';
+import { QueryResolvers } from '~/apollo';
+import { db } from '~/db';
 
-interface Vars {
-  regionId: string;
-}
-
-const regionEditors: TopLevelResolver<Vars> = (_, { regionId }) =>
+const regionEditors: QueryResolvers['regionEditors'] = (_, { regionId }) =>
   db()
     .table('users')
     .whereExists(function (this: QueryBuilder) {

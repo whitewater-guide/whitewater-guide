@@ -1,15 +1,16 @@
-import { ScriptSchema, SourceInputSchema } from '@whitewater-guide/commons';
-import { yupTypes } from '@whitewater-guide/validation';
+import { ScriptSchema, SourceInputSchema } from '@whitewater-guide/schema';
+import { yupSchemas } from '@whitewater-guide/validation';
 import * as yup from 'yup';
 
 import { MdEditorSchema } from '../../../formik';
+import { SourceFormData } from './types';
 
-const SourceFormSchema = SourceInputSchema.clone()
+const SourceFormSchema: yup.SchemaOf<SourceFormData> = SourceInputSchema.clone()
   .shape({
     termsOfUse: MdEditorSchema,
     script: ScriptSchema.clone(),
-    requestParams: yupTypes.jsonString().nullable(),
-    regions: yup.array().of(yupTypes.namedNode()),
+    requestParams: yup.string().jsonString().nullable(),
+    regions: yup.array().of(yupSchemas.refInput()),
   })
   .strict(true)
   .noUnknown();

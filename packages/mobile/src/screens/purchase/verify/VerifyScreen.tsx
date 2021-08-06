@@ -49,7 +49,7 @@ const VerifyScreen: React.FC<PurchaseVerifyNavProps> = ({ navigation }) => {
     navigation.goBack();
   }, [navigation]);
   return (
-    <Screen safeBottom={true}>
+    <Screen safeBottom>
       <View style={styles.container}>
         <Subheading>
           {t('screens:purchase.verify.greeting', { name: me?.name })}

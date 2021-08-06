@@ -1,0 +1,5 @@
+query regionAdmin($regionId: ID) {
+  settings: region(id: $regionId) {
+    ...RegionAdmin
+  }
+}

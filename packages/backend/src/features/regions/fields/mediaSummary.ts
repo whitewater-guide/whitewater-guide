@@ -1,20 +1,11 @@
-import { RegionMediaSummary, SectionsFilter } from '@whitewater-guide/commons';
-import { GraphQLFieldResolver } from 'graphql';
+import { RegionMediaSummary } from '@whitewater-guide/schema';
 
-import { Context, ListQuery } from '~/apollo';
-import db from '~/db';
+import { RegionResolvers } from '~/apollo';
+import { db } from '~/db';
 
-import { RegionRaw } from '../types';
-
-interface Vars extends ListQuery {
-  filter?: SectionsFilter;
-}
-
-const mediaSummaryResolver: GraphQLFieldResolver<
-  RegionRaw,
-  Context,
-  Vars
-> = async ({ id }) => {
+const mediaSummaryResolver: RegionResolvers['mediaSummary'] = async ({
+  id,
+}) => {
   const mediaQueue = db()
     .table('media')
     .innerJoin('sections_media', 'sections_media.media_id', 'media.id')

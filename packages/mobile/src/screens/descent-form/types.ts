@@ -4,7 +4,7 @@ import {
   RouteProp,
 } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { DescentInput, Section } from '@whitewater-guide/commons';
+import { DescentInput, DescentSectionFragment } from '@whitewater-guide/schema';
 
 import {
   RootDrawerParamsList,
@@ -13,7 +13,7 @@ import {
 } from '~/core/navigation';
 
 export type DescentFormData = Omit<DescentInput, 'sectionId'> & {
-  section: Section;
+  section: DescentSectionFragment;
 };
 
 export type DescentFormNavProp = CompositeNavigationProp<

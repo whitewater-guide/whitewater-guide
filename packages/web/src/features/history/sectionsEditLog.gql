@@ -1,0 +1,32 @@
+fragment SectionEditLogEntryRow on SectionEditLogEntry {
+  id
+  section {
+    id
+    name
+    river {
+      id
+      name
+    }
+    region {
+      id
+      name
+    }
+  }
+  editor {
+    id
+    name
+  }
+  action
+  diff
+  createdAt
+}
+
+query sectionsEditLog($filter: SectionsEditLogFilter, $page: Page) {
+  history: sectionsEditLog(filter: $filter, page: $page)
+    @connection(key: "history", filter: ["filter"]) {
+    nodes {
+      ...SectionEditLogEntryRow
+    }
+    count
+  }
+}

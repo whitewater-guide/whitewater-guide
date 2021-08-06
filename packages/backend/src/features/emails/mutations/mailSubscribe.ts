@@ -1,15 +1,14 @@
 import MailChimp from 'mailchimp-api-v3';
 
-import { TopLevelResolver } from '~/apollo';
+import { MutationResolvers } from '~/apollo';
 import config from '~/config';
 
 import logger from '../logger';
 
-interface Vars {
-  mail: string;
-}
-
-const mailSubscribe: TopLevelResolver<Vars> = async (_, { mail }) => {
+const mailSubscribe: MutationResolvers['mailSubscribe'] = async (
+  _,
+  { mail },
+) => {
   const mailchimp = new MailChimp(config.MAILCHIMP_API_KEY);
   try {
     const { email_address, status } = await mailchimp.post(

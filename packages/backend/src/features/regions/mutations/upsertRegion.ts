@@ -1,18 +1,17 @@
-import { RegionInput, RegionInputSchema } from '@whitewater-guide/commons';
+import {
+  MutationUpsertRegionArgs,
+  RegionInputSchema,
+} from '@whitewater-guide/schema';
 import * as yup from 'yup';
 
-import { isInputValidResolver, TopLevelResolver } from '~/apollo';
-import db, { rawUpsert } from '~/db';
+import { isInputValidResolver, MutationResolvers } from '~/apollo';
+import { db, rawUpsert } from '~/db';
 
-interface Vars {
-  region: RegionInput;
-}
-
-const Struct = yup.object({
-  region: RegionInputSchema,
+const Schema: yup.SchemaOf<MutationUpsertRegionArgs> = yup.object({
+  region: RegionInputSchema.clone(),
 });
 
-const resolver: TopLevelResolver<Vars> = async (
+const upsertRegion: MutationResolvers['upsertRegion'] = async (
   _,
   { region },
   { language, dataSources },
@@ -41,6 +40,4 @@ const resolver: TopLevelResolver<Vars> = async (
   return result;
 };
 
-const upsertRegion = isInputValidResolver(Struct, resolver);
-
-export default upsertRegion;
+export default isInputValidResolver(Schema, upsertRegion);

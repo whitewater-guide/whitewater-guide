@@ -1,7 +1,7 @@
 import Koa from 'koa';
 import agent from 'supertest-koa-agent';
 
-import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { db, holdTransaction, rollbackTransaction } from '~/db';
 import {
   ADMIN_ID,
   UNVERIFIED_USER_ID,

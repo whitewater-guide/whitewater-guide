@@ -5,7 +5,7 @@ const readContent = (file: File): Promise<string> =>
       if (reader.result && typeof reader.result === 'string') {
         resolve(reader.result);
       } else {
-        reject();
+        reject(new Error('could not read'));
       }
     };
     reader.onerror = reject;

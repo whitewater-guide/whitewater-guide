@@ -6,8 +6,8 @@ export const apolloErrorToString = (e?: ApolloError): string => {
     return '';
   }
   const { networkError, graphQLErrors } = e;
-  if (graphQLErrors && graphQLErrors.length) {
-    const message = graphQLErrors[0].message;
+  if (graphQLErrors?.length) {
+    const { message } = graphQLErrors[0];
     const id = get(graphQLErrors, '0.extensions.id');
     let result = 'GraphQL error ';
     if (id) {

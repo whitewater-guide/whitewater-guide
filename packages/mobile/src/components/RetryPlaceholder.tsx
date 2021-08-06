@@ -1,8 +1,9 @@
-import { sleep } from '@whitewater-guide/clients';
-import React from 'react';
-import { WithTranslation, withTranslation } from 'react-i18next';
+import { useNetInfo } from '@react-native-community/netinfo';
+import React, { memo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { Button, Subheading } from 'react-native-paper';
+import { useDebouncedCallback } from 'use-debounce';
 
 import theme from '../theme';
 import Icon from './Icon';
@@ -29,62 +30,39 @@ interface Props {
   buttonKey?: string;
 }
 
-interface State {
-  // Used to debounce loading animation
-  refetching: boolean;
-}
+const RetryPlaceholder = memo<Props>((props) => {
+  const { refetch, loading, buttonKey = 'commons:retry' } = props;
+  const onPress = useDebouncedCallback(() => {
+    refetch?.();
+  }, 1000);
+  const { t } = useTranslation();
+  const { isInternetReachable } = useNetInfo();
+  const labelKey = isInternetReachable
+    ? props.labelKey ?? 'commons:bug'
+    : 'commons:offline';
 
-class RetryPlaceholderInner extends React.PureComponent<
-  Props & WithTranslation,
-  State
-> {
-  readonly state: State = { refetching: false };
-
-  onRetry = async () => {
-    const { refetch } = this.props;
-    try {
-      if (refetch) {
-        this.setState({ refetching: true });
-        await refetch();
-        await sleep(1000);
-        this.setState({ refetching: false });
-      }
-    } catch (e) {
-      /*Ignore*/
-    }
-  };
-
-  render() {
-    const {
-      labelKey = 'commons:offline',
-      buttonKey = 'commons:retry',
-      t,
-      loading,
-    } = this.props;
-    const isBusy = this.state.refetching || loading;
-    return (
-      <View style={styles.container}>
-        <View style={styles.iconContainer}>
-          {isBusy ? (
-            <ActivityIndicator size="small" color={theme.colors.primary} />
-          ) : (
-            <Icon narrow={true} icon="alert" />
-          )}
-        </View>
-        <Subheading>{t(labelKey)}</Subheading>
-        {!!this.props.refetch && (
-          <Button
-            color={theme.colors.primary}
-            compact={true}
-            disabled={isBusy}
-            onPress={this.onRetry}
-          >
-            {t(buttonKey)}
-          </Button>
+  return (
+    <View style={styles.container}>
+      <View style={styles.iconContainer}>
+        {loading ? (
+          <ActivityIndicator size="small" color={theme.colors.primary} />
+        ) : (
+          <Icon narrow icon="alert" />
         )}
       </View>
-    );
-  }
-}
+      <Subheading>{t(labelKey)}</Subheading>
+      {!!refetch && (
+        <Button
+          color={theme.colors.primary}
+          compact
+          disabled={loading}
+          onPress={onPress}
+        >
+          {t(buttonKey)}
+        </Button>
+      )}
+    </View>
+  );
+});
 
-export default withTranslation()(RetryPlaceholderInner);
+export default RetryPlaceholder;

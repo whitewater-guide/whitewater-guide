@@ -1,6 +1,9 @@
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import { useNavigation } from '@react-navigation/core';
-import { ROOT_LICENSE, Section } from '@whitewater-guide/commons';
+import {
+  ROOT_LICENSE,
+  SectionDetailsFragment,
+} from '@whitewater-guide/clients';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Clipboard, Platform } from 'react-native';
@@ -12,7 +15,7 @@ import theme from '~/theme';
 import { SectionGuideNavProp } from './types';
 
 interface Props {
-  section: Section | null;
+  section?: SectionDetailsFragment | null;
 }
 
 const SectionGuideMenu: React.FC<Props> = ({ section }) => {

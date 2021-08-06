@@ -10,7 +10,7 @@ const SourceRoute: React.FC<RouteComponentProps<any>> = ({ match }) => (
   <Suspense fallback={<Loading />}>
     <Switch>
       <AdminRoute
-        exact={true}
+        exact
         path={`${match.path}/settings`}
         component={SourceForm}
       />

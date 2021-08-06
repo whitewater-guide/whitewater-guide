@@ -1,9 +1,8 @@
-import { NamedNode } from '@whitewater-guide/commons';
-import React, { useMemo, useState } from 'react';
-import { Query } from 'react-apollo';
+import { NamedNode } from '@whitewater-guide/schema';
+import React, { useState } from 'react';
 
 import HistoryTableInfinite from './HistoryTableInfinite';
-import { QResult, QVars, SECTONS_EDIT_HISTORY_QUERY } from './query';
+import { useSectionsEditLogQuery } from './sectionsEditLog.generated';
 import { Diff } from './types';
 
 const EMPTY_HISTORY = { nodes: [], count: 0 };
@@ -15,35 +14,25 @@ interface Props {
 const HistoryTableContainer: React.FC<Props> = ({ onDiffOpen }) => {
   const [user, setUser] = useState<NamedNode | null>(null);
   const [region, setRegion] = useState<NamedNode | null>(null);
-  const variables: QVars = useMemo(
-    () => ({
+  const { data, fetchMore } = useSectionsEditLogQuery({
+    variables: {
       filter: {
-        editorId: user ? user.id : undefined,
-        regionId: region ? region.id : undefined,
+        editorId: user?.id,
+        regionId: region?.id,
       },
-    }),
-    [user, region],
-  );
+    },
+    fetchPolicy: 'network-only',
+  });
   return (
-    <Query<QResult, QVars>
-      fetchPolicy="network-only"
-      query={SECTONS_EDIT_HISTORY_QUERY}
-      variables={variables}
-    >
-      {({ data, fetchMore }) => {
-        return (
-          <HistoryTableInfinite
-            history={(data && data.history) || EMPTY_HISTORY}
-            fetchMore={fetchMore}
-            user={user}
-            region={region}
-            onUserChange={setUser}
-            onRegionChange={setRegion}
-            onDiffOpen={onDiffOpen}
-          />
-        );
-      }}
-    </Query>
+    <HistoryTableInfinite
+      history={data?.history || EMPTY_HISTORY}
+      fetchMore={fetchMore}
+      user={user}
+      region={region}
+      onUserChange={setUser}
+      onRegionChange={setRegion}
+      onDiffOpen={onDiffOpen}
+    />
   );
 };
 

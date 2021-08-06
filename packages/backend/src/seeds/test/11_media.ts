@@ -1,7 +1,7 @@
-import { MediaKind } from '@whitewater-guide/commons';
+import { MediaKind } from '@whitewater-guide/schema';
 import Knex from 'knex';
 
-import { MediaRaw } from '~/features/media';
+import { Sql } from '~/db';
 
 import { ADMIN_ID } from './01_users';
 import {
@@ -17,10 +17,10 @@ export const VIDEO_1 = 'a3266920-1ee5-11e8-b467-0ed5f89f718b';
 export const VIDEO_2 = '0cfaf4dc-1ef1-11e8-b467-0ed5f89f718b';
 export const PASEKA_BLOG_1 = '2f9f81ac-d38c-42eb-ac7a-39b1778b2355';
 
-const media: Array<Partial<MediaRaw>> = [
+const media: Array<Partial<Sql.MediaView>> = [
   {
     id: BLOG_1,
-    kind: MediaKind.blog,
+    kind: MediaKind.Blog,
     url: 'http://some.blog',
     default_lang: 'en',
     license: {
@@ -31,7 +31,7 @@ const media: Array<Partial<MediaRaw>> = [
   },
   {
     id: PHOTO_1,
-    kind: MediaKind.photo,
+    kind: MediaKind.Photo,
     url: PHOTO_1, // Exists in seed minio data
     resolution: [800, 600],
     weight: 1,
@@ -44,7 +44,7 @@ const media: Array<Partial<MediaRaw>> = [
   },
   {
     id: PHOTO_2,
-    kind: MediaKind.photo,
+    kind: MediaKind.Photo,
     url: PHOTO_2, // Exists in seed minio data
     resolution: [1024, 768],
     size: 333333,
@@ -52,21 +52,21 @@ const media: Array<Partial<MediaRaw>> = [
   },
   {
     id: VIDEO_1,
-    kind: MediaKind.video,
+    kind: MediaKind.Video,
     url: 'http://some.video',
     resolution: [1920, 1080],
     default_lang: 'en',
   },
   {
     id: VIDEO_2,
-    kind: MediaKind.video,
+    kind: MediaKind.Video,
     url: 'http://some2.video',
     resolution: [1920, 1080],
     default_lang: 'en',
   },
   {
     id: PASEKA_BLOG_1,
-    kind: MediaKind.blog,
+    kind: MediaKind.Blog,
     url: 'http://paseka.blog',
     default_lang: 'ru',
   },

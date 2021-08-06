@@ -33,13 +33,13 @@ const useStyles = makeStyles(({ palette }: Theme) =>
   }),
 );
 
-const HalfMonth: React.FC<Props> = React.memo((props) => {
+const HalfMonth = React.memo<Props>((props) => {
   const { index, value, onToggle } = props;
   const selected = value.includes(index);
   const classes = useStyles(props);
   const onClick = useCallback(() => onToggle(index), [index, onToggle]);
   return (
-    <ButtonBase className={classes.root} onClick={onClick} focusRipple={true}>
+    <ButtonBase className={classes.root} onClick={onClick} focusRipple>
       <Icon color="action">
         {selected ? 'check_circle_outline' : 'radio_button_unchecked'}
       </Icon>

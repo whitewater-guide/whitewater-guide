@@ -7,14 +7,12 @@ interface Props {
   to: string;
 }
 
-const AddSectionButton: React.FC<Props> = React.memo(({ to }) => {
-  return (
-    <Button component={Link} to={to}>
-      <Icon>add</Icon>
-      Add Section
-    </Button>
-  );
-});
+const AddSectionButton = React.memo<Props>(({ to }) => (
+  <Button component={Link} to={to}>
+    <Icon>add</Icon>
+    Add Section
+  </Button>
+));
 
 AddSectionButton.displayName = 'AddSectionButton';
 

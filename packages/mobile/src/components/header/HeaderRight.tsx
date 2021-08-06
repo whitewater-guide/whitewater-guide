@@ -46,7 +46,7 @@ const HeaderRight: React.FC<Props> = React.memo((props) => {
   }
 
   return (
-    <React.Fragment>
+    <>
       {searchAvailable && (
         <Appbar.Action
           icon="magnify"
@@ -56,7 +56,7 @@ const HeaderRight: React.FC<Props> = React.memo((props) => {
         />
       )}
       {element || null}
-    </React.Fragment>
+    </>
   );
 });
 

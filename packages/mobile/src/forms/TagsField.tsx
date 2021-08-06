@@ -1,15 +1,11 @@
-import {
-  NodeRef,
-  SelectableTag,
-  Tag,
-  TagSelection,
-} from '@whitewater-guide/commons';
+import { RefInput, Tag } from '@whitewater-guide/schema';
 import { useFormikContext } from 'formik';
 import React, { useCallback, useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Paragraph } from 'react-native-paper';
 
 import TernaryChip from '~/components/TernaryChip';
+import { SelectableTag, TagSelection } from '~/features/tags';
 
 import theme from '../theme';
 
@@ -35,7 +31,7 @@ interface Props {
 const TagsField: React.FC<Props> = React.memo((props) => {
   const { name, label, options } = props;
   const { values, setFieldValue, setFieldTouched } = useFormikContext<any>();
-  const selected: NodeRef[] = values[name];
+  const selected: RefInput[] = values[name];
   const chips: SelectableTag[] = useMemo(
     () =>
       options.map((option) => ({

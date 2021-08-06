@@ -37,7 +37,7 @@ Object {
 }
 `;
 
-exports[`connections should get gauges 1`] = `
+exports[`connections gauges should get gauges 1`] = `
 Object {
   "count": 2,
   "nodes": Array [
@@ -53,7 +53,7 @@ Object {
 }
 `;
 
-exports[`connections should get media summary 1`] = `
+exports[`connections media summary should get media summary 1`] = `
 Object {
   "id": "b968e2b2-76c5-11e7-b5a5-be2e44b06b34",
   "mediaSummary": Object {
@@ -78,7 +78,7 @@ Object {
 }
 `;
 
-exports[`connections should get rivers 1`] = `
+exports[`connections rivers should get rivers 1`] = `
 Object {
   "count": 2,
   "nodes": Array [
@@ -94,7 +94,7 @@ Object {
 }
 `;
 
-exports[`connections should get sections 1`] = `
+exports[`connections sections should get sections 1`] = `
 Object {
   "count": 2,
   "nodes": Array [
@@ -110,7 +110,7 @@ Object {
 }
 `;
 
-exports[`connections should get sources 1`] = `
+exports[`connections sources should get sources 1`] = `
 Object {
   "count": 2,
   "nodes": Array [

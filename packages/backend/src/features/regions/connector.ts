@@ -1,17 +1,17 @@
-import { Region } from '@whitewater-guide/commons';
+import { Region } from '@whitewater-guide/schema';
 import { GraphQLResolveInfo } from 'graphql';
 import { QueryBuilder } from 'knex';
 
-import db from '~/db';
+import { db } from '~/db';
 import {
   FieldsMap,
   ManyBuilderOptions,
   OffsetConnector,
 } from '~/db/connectors';
 
-import { RegionRaw } from './types';
+import { ResolvableRegion } from './types';
 
-const FIELDS_MAP: FieldsMap<Region, RegionRaw> = {
+const FIELDS_MAP: FieldsMap<Region, ResolvableRegion> = {
   editable: null,
   hasPremiumAccess: null,
   rivers: null,
@@ -22,7 +22,10 @@ const FIELDS_MAP: FieldsMap<Region, RegionRaw> = {
   banners: null,
 };
 
-export class RegionsConnector extends OffsetConnector<Region, RegionRaw> {
+export class RegionsConnector extends OffsetConnector<
+  Region,
+  ResolvableRegion
+> {
   constructor() {
     super();
     this._tableName = 'regions_view';
@@ -53,7 +56,7 @@ export class RegionsConnector extends OffsetConnector<Region, RegionRaw> {
 
   getMany(
     info: GraphQLResolveInfo,
-    options: ManyBuilderOptions<RegionRaw> = {},
+    options: ManyBuilderOptions<ResolvableRegion> = {},
   ) {
     const query = super.getMany(info, options);
     if (!this._user) {

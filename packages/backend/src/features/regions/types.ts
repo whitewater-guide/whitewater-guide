@@ -1,30 +1,9 @@
-import { Coordinate3d, NamedNode } from '@whitewater-guide/commons';
+import { Sql } from '~/db';
 
-import { RawTimestamped } from '~/db';
-import { PointRaw } from '~/features/points';
-
-interface BoundsGeoJson {
-  type: 'Polygon';
-  coordinates: Coordinate3d[][];
-}
-
-export interface CoverImageRaw {
-  mobile?: string | null;
-}
-
-export interface RegionRaw extends NamedNode, RawTimestamped {
-  description: string | null;
-  season: string | null;
-  season_numeric: number[];
-  bounds: BoundsGeoJson;
-  hidden: boolean | null;
-  pois: PointRaw[] | null;
-  editable?: boolean; // computed column, not necessary present in db response
-  premium: boolean;
-  cover_image: CoverImageRaw;
-  maps_size: number;
-}
-
-export interface CoverArgs {
-  width?: number;
+/**
+ * Region as returned by connector
+ */
+export interface ResolvableRegion extends Sql.RegionsView {
+  // Whether current user can edit this region
+  editable: true;
 }

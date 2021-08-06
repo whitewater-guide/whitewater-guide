@@ -27,9 +27,9 @@ const WelcomeScreen: React.FC<AuthWelcomeNavProps> = ({
   // TODO: check email link, resend link
   // good example here:
   // https://mobbin.design/static/media/iPhoneXs.b6dc293d.png
-  const description =
-    'screens:auth.welcome.description_' +
-    (verified ? 'verified' : 'unverified');
+  const description = `screens:auth.welcome.description_${
+    verified ? 'verified' : 'unverified'
+  }`;
   return (
     <AuthScreenBase>
       <View style={styles.body}>

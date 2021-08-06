@@ -1,101 +1,15 @@
-import {
-  Connection,
-  Descent,
-  RelayConnection,
-  Section,
-} from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { DescentSectionFragment } from '@whitewater-guide/schema';
 import uniqBy from 'lodash/uniqBy';
 import { useMemo } from 'react';
-import { useQuery } from 'react-apollo';
 
-const fragment = gql`
-  fragment descentSearchSection on Section {
-    id
-    name
-    difficulty
-    river {
-      id
-      name
-    }
-    region {
-      id
-      name
-    }
-    levels {
-      minimum
-      maximum
-      optimum
-      impossible
-      approximate
-    }
-    flows {
-      minimum
-      maximum
-      optimum
-      impossible
-      approximate
-    }
-    gauge {
-      id
-      name
-      levelUnit
-      flowUnit
-    }
-    putIn {
-      id
-      coordinates
-    }
-    takeOut {
-      id
-      coordinates
-    }
-  }
-`;
-
-const SEARCH_SECTIONS = gql`
-  query searchSections($search: String, $skipRecent: Boolean!, $regionId: ID) {
-    sections(
-      filter: { search: $search, regionId: $regionId }
-      page: { limit: 20 }
-    ) {
-      nodes {
-        ...descentSearchSection
-      }
-    }
-
-    myDescents(page: { limit: 20 }) @skip(if: $skipRecent) {
-      edges {
-        node {
-          id
-
-          section {
-            ...descentSearchSection
-          }
-        }
-      }
-    }
-  }
-  ${fragment}
-`;
-
-interface QVars {
-  search: string;
-  regionId?: string;
-  skipRecent: boolean;
-}
-
-interface QResult {
-  sections: Connection<Section>;
-  myDescents?: RelayConnection<Descent>;
-}
+import { useSearchSectionsQuery } from './findSections.generated';
 
 export function useSearchSections(
   search: string,
-  mandatory?: Section,
+  mandatory?: DescentSectionFragment,
   regionId?: string,
 ) {
-  const query = useQuery<QResult, QVars>(SEARCH_SECTIONS, {
+  const query = useSearchSectionsQuery({
     fetchPolicy: 'no-cache',
     variables: { search, regionId, skipRecent: !!search },
   });

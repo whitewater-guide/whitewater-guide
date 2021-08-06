@@ -25,21 +25,19 @@ interface Props {
   onClose: () => void;
 }
 
-const PhotoGalleryHeader: React.FC<Props> = ({ onClose }) => {
-  return (
-    <View style={styles.headerOuter}>
-      <SafeAreaView />
-      <View style={styles.headerInner}>
-        <Icon
-          large={true}
-          icon="close"
-          onPress={onClose}
-          color={theme.colors.textLight}
-        />
-      </View>
+const PhotoGalleryHeader: React.FC<Props> = ({ onClose }) => (
+  <View style={styles.headerOuter}>
+    <SafeAreaView />
+    <View style={styles.headerInner}>
+      <Icon
+        large
+        icon="close"
+        onPress={onClose}
+        color={theme.colors.textLight}
+      />
     </View>
-  );
-};
+  </View>
+);
 
 PhotoGalleryHeader.displayName = 'PhotoGalleryHeader';
 

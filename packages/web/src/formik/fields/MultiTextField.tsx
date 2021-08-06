@@ -13,7 +13,7 @@ interface Props {
   fullWidth?: boolean;
 }
 
-export const MultiTextField: React.FC<Props> = React.memo((props) => {
+export const MultiTextField = React.memo<Props>((props) => {
   const { name, label, placeholder, fullWidth } = props;
   const [field, meta] = useField<string[]>(name);
   const hasError = meta.touched && !!meta.error;

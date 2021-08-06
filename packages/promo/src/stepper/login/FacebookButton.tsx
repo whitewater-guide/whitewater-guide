@@ -1,16 +1,11 @@
 import Button, { ButtonProps } from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import {
-  createStyles,
-  Theme,
-  WithStyles,
-  withStyles,
-} from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     icon: {
       marginRight: theme.spacing(),
@@ -35,26 +30,25 @@ const styles = (theme: Theme) =>
       display: 'inline',
       position: 'relative',
     },
-  });
+  }),
+);
 
-interface Props
-  extends Omit<ButtonProps, 'classes'>,
-    WithStyles<typeof styles> {
+type Props = Omit<ButtonProps, 'classes'> & {
   loading?: boolean;
-}
+};
 
 const FacebookButton: React.FC<Props> = ({
   disabled,
   loading,
-  classes,
   onClick,
   ...props
 }) => {
+  const classes = useStyles();
   const { t } = useTranslation();
   return (
     <div className={classes.wrapper}>
       <Button
-        fullWidth={true}
+        fullWidth
         variant="contained"
         color="primary"
         {...props}
@@ -74,4 +68,4 @@ const FacebookButton: React.FC<Props> = ({
   );
 };
 
-export default withStyles(styles)(FacebookButton);
+export default FacebookButton;

@@ -1,4 +1,3 @@
-import { Source } from '@whitewater-guide/commons';
 import { History } from 'history';
 import React from 'react';
 import { Column } from 'react-virtualized';
@@ -15,8 +14,9 @@ import {
 } from '../../../components';
 import { AdminColumn, Table } from '../../../components/tables';
 import { paths } from '../../../utils';
+import { ListedSourceFragment } from './listSources.generated';
 
-const renderName: TableCellRenderer<Source> = ({ rowData }) => {
+const renderName: TableCellRenderer<ListedSourceFragment> = ({ rowData }) => {
   if (isEmptyRow(rowData)) {
     return null;
   }
@@ -28,10 +28,10 @@ const renderName: TableCellRenderer<Source> = ({ rowData }) => {
 };
 
 interface Props {
-  sources: Source[];
+  sources?: ListedSourceFragment[];
   history: History;
   onRemove: (id: string) => void;
-  onToggle: (id: string, enabled: boolean) => void;
+  onToggle: (id: string, enabled: boolean) => Promise<void>;
 }
 
 export default class SourcesTable extends React.PureComponent<Props> {
@@ -42,7 +42,7 @@ export default class SourcesTable extends React.PureComponent<Props> {
     await this.props.onToggle(id, enabled);
   };
 
-  renderEnabled: TableCellRenderer<Source> = ({ rowData }) => {
+  renderEnabled: TableCellRenderer<ListedSourceFragment> = ({ rowData }) => {
     if (isEmptyRow(rowData)) {
       return null;
     }
@@ -52,7 +52,7 @@ export default class SourcesTable extends React.PureComponent<Props> {
     );
   };
 
-  renderStatus: TableCellRenderer<Source> = ({ rowData }) => {
+  renderStatus: TableCellRenderer<ListedSourceFragment> = ({ rowData }) => {
     if (isEmptyRow(rowData)) {
       return null;
     }
@@ -60,7 +60,7 @@ export default class SourcesTable extends React.PureComponent<Props> {
     return <HarvestStatusIndicator status={status} />;
   };
 
-  renderCron: TableCellRenderer<Source> = ({ rowData }) => {
+  renderCron: TableCellRenderer<ListedSourceFragment> = ({ rowData }) => {
     if (isEmptyRow(rowData)) {
       return null;
     }
@@ -68,7 +68,7 @@ export default class SourcesTable extends React.PureComponent<Props> {
     return cron;
   };
 
-  renderActions: TableCellRenderer<Source> = ({ rowData }) => {
+  renderActions: TableCellRenderer<ListedSourceFragment> = ({ rowData }) => {
     if (isEmptyRow(rowData)) {
       return null;
     }

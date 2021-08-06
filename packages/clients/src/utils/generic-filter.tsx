@@ -1,6 +1,9 @@
-import { SearchableFilterOptions } from '@whitewater-guide/commons';
 import noop from 'lodash/noop';
 import React, { useCallback, useState } from 'react';
+
+interface SearchableFilterOptions {
+  searchString?: string | null;
+}
 
 export function createGenericFilter<T extends SearchableFilterOptions>(
   defaultValue: T,

@@ -36,13 +36,13 @@ interface Props extends ButtonProps {
   loading?: boolean;
 }
 
-const FacebookButton: React.FC<Props> = React.memo(
+const FacebookButton = React.memo<Props>(
   ({ disabled, loading, onClick, ...props }) => {
     const classes = useStyles();
     return (
       <div className={classes.wrapper}>
         <Button
-          fullWidth={true}
+          fullWidth
           variant="contained"
           color="primary"
           {...props}

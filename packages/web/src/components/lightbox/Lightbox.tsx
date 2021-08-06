@@ -24,7 +24,7 @@ interface Props {
   onClose: () => void;
 }
 
-export const Lightbox: React.FC<Props> = React.memo((props) => {
+export const Lightbox = React.memo<Props>((props) => {
   const { currentModal, items, onClose } = props;
   return (
     <ModalGateway>

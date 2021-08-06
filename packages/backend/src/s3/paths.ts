@@ -8,8 +8,8 @@ export const CONTENT_BUCKET = isTest
   ? `content-${process.env.JEST_WORKER_ID}`
   : `content.${config.ROOT_DOMAIN}`;
 
-export const TEMP = 'temp';
-export const MEDIA = 'media';
-export const AVATARS = 'avatars';
-export const COVERS = 'covers';
-export const BANNERS = 'banners';
+export const TEMP: S3Prefix = 'temp';
+export const MEDIA: S3Prefix = 'media';
+export const AVATARS: S3Prefix = 'avatars';
+export const COVERS: S3Prefix = 'covers';
+export const BANNERS: S3Prefix = 'banners';

@@ -1,6 +1,7 @@
-import { anonContext, fakeContext, noTimestamps, runQuery } from '@test';
+import { anonContext, fakeContext, noTimestamps } from '@test';
+import gql from 'graphql-tag';
 
-import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { db, holdTransaction, rollbackTransaction } from '~/db';
 import {
   ADMIN,
   EDITOR_GA_EC,
@@ -19,36 +20,29 @@ import {
   SECTIONS_VISIBLE,
 } from '~/seeds/test/09_sections';
 
+import {
+  testListSections,
+  testListSectionsRegion,
+  testListSectionsRiver,
+} from './sections.test.generated';
+
+jest.mock('../../gorge/connector');
+
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
-const query = `
-  query listSections($page: Page, $filter: SectionsFilter){
+const _query = gql`
+  query listSections($page: Page, $filter: SectionsFilter) {
     sections(page: $page, filter: $filter) {
       nodes {
-        id
-        name
-        rating
-        river {
-          id
-          name
-        }
+        ...SectionCore
         region {
           id
-          name
         }
-        gauge {
-          id
-          name
-        }
-        hidden
-        verified
-        license {
-          slug
-          name
-          url
-        }
-        copyright
+        ...SectionEnds
+        ...SectionMeasurements
+        ...SectionTags
+        updatedAt
       }
       count
     }
@@ -57,7 +51,7 @@ const query = `
 
 describe('permissions', () => {
   it('anon should not see hidden sections', async () => {
-    const result = await runQuery(query, {}, anonContext());
+    const result = await testListSections({}, anonContext());
     expect(result.errors).toBeUndefined();
     expect(result).toHaveProperty(
       'data.sections.nodes.length',
@@ -67,7 +61,7 @@ describe('permissions', () => {
   });
 
   it('user should not see hidden sections', async () => {
-    const result = await runQuery(query, {}, fakeContext(TEST_USER));
+    const result = await testListSections({}, fakeContext(TEST_USER));
     expect(result.errors).toBeUndefined();
     expect(result).toHaveProperty(
       'data.sections.nodes.length',
@@ -77,7 +71,7 @@ describe('permissions', () => {
   });
 
   it('non-owning editor should not see hidden sections', async () => {
-    const result = await runQuery(query, {}, fakeContext(EDITOR_GA_EC));
+    const result = await testListSections({}, fakeContext(EDITOR_GA_EC));
     expect(result.errors).toBeUndefined();
     expect(result).toHaveProperty(
       'data.sections.nodes.length',
@@ -87,14 +81,14 @@ describe('permissions', () => {
   });
 
   it('owning editor should see hidden sections', async () => {
-    const result = await runQuery(query, {}, fakeContext(EDITOR_NO_EC));
+    const result = await testListSections({}, fakeContext(EDITOR_NO_EC));
     expect(result.errors).toBeUndefined();
     expect(result).toHaveProperty('data.sections.nodes.length', SECTIONS_TOTAL);
     expect(result).toHaveProperty('data.sections.count', SECTIONS_TOTAL);
   });
 
   it('admin should see hidden sections', async () => {
-    const result = await runQuery(query, {}, fakeContext(ADMIN));
+    const result = await testListSections({}, fakeContext(ADMIN));
     expect(result.errors).toBeUndefined();
     expect(result).toHaveProperty('data.sections.nodes.length', SECTIONS_TOTAL);
     expect(result).toHaveProperty('data.sections.count', SECTIONS_TOTAL);
@@ -102,15 +96,15 @@ describe('permissions', () => {
 });
 
 it('should return sections', async () => {
-  const result = await runQuery(query);
+  const result = await testListSections();
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.sections.nodes.length', SECTIONS_VISIBLE);
   expect(result).toHaveProperty('data.sections.count', SECTIONS_VISIBLE);
-  expect(noTimestamps(result.data!.sections)).toMatchSnapshot();
+  expect(noTimestamps(result.data?.sections)).toMatchSnapshot();
 });
 
 it('should limit', async () => {
-  const result = await runQuery(query, { page: { limit: 1 } });
+  const result = await testListSections({ page: { limit: 1 } });
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.sections.nodes.length', 1);
   expect(result).toHaveProperty('data.sections.nodes.0.river.name', 'Beca');
@@ -119,16 +113,16 @@ it('should limit', async () => {
 });
 
 it('should paginate', async () => {
-  const result = await runQuery(query, { page: { limit: 1, offset: 1 } });
+  const result = await testListSections({ page: { limit: 1, offset: 1 } });
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.sections.nodes.length', 1);
   expect(result).toHaveProperty('data.sections.count', SECTIONS_VISIBLE);
 });
 
 it('should be able to specify language', async () => {
-  const result = await runQuery(query, {}, fakeContext(EDITOR_NO_EC, 'ru'));
+  const result = await testListSections({}, fakeContext(EDITOR_NO_EC, 'ru'));
   expect(result.errors).toBeUndefined();
-  expect(result.data!.sections.nodes).toContainEqual(
+  expect(result.data?.sections.nodes).toContainEqual(
     expect.objectContaining({
       name: 'Амот',
       rating: 5,
@@ -137,9 +131,9 @@ it('should be able to specify language', async () => {
 });
 
 it('should fall back to english when not translated', async () => {
-  const result = await runQuery(query, {}, fakeContext(EDITOR_NO_EC, 'pt'));
+  const result = await testListSections({}, fakeContext(EDITOR_NO_EC, 'pt'));
   expect(result.errors).toBeUndefined();
-  expect(result.data!.sections.nodes).toContainEqual(
+  expect(result.data?.sections.nodes).toContainEqual(
     expect.objectContaining({
       name: 'Amot',
       rating: 5,
@@ -148,32 +142,36 @@ it('should fall back to english when not translated', async () => {
 });
 
 it('should filter by river', async () => {
-  const result = await runQuery(query, { filter: { riverId: RIVER_GAL_BECA } });
+  const result = await testListSections({
+    filter: { riverId: RIVER_GAL_BECA },
+  });
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.sections.nodes.length', 2);
   expect(result).toHaveProperty('data.sections.count', 2);
 });
 
 it('should filter by region', async () => {
-  const result = await runQuery(query, { filter: { regionId: REGION_NORWAY } });
+  const result = await testListSections({
+    filter: { regionId: REGION_NORWAY },
+  });
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.sections.nodes.length', 1);
   expect(result).toHaveProperty('data.sections.count', 1);
 });
 
 it('should search by name', async () => {
-  const result = await runQuery(query, { filter: { search: 'long ' } });
+  const result = await testListSections({ filter: { search: 'long ' } });
   expect(result.errors).toBeUndefined();
-  const ids = result.data.sections.nodes.map((n: any) => n.id);
+  const ids = result.data?.sections.nodes.map((n) => n.id);
   expect(ids).toEqual([GALICIA_BECA_LOWER, GEORGIA_BZHUZHA_LONG]);
 });
 
 it('should search full name (river + section)', async () => {
-  const result = await runQuery(query, {
+  const result = await testListSections({
     filter: { search: ' bzhuzha long ' },
   });
   expect(result.errors).toBeUndefined();
-  const ids = result.data.sections.nodes.map((n: any) => n.id);
+  const ids = result.data?.sections.nodes.map((n) => n.id);
   expect(ids).toEqual([GEORGIA_BZHUZHA_LONG]);
 });
 
@@ -186,8 +184,8 @@ it('should filter recently updated', async () => {
     .returning('updated_at');
   let u2: Date = update[0] as any;
   u2 = new Date(u2.getTime() - 300);
-  const result = await runQuery(query, {
-    filter: { updatedAfter: u2.toISOString() },
+  const result = await testListSections({
+    filter: { updatedAfter: u2.toISOString() as any },
   });
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.sections.nodes.length', 1);
@@ -196,28 +194,28 @@ it('should filter recently updated', async () => {
 });
 
 it('should filter verified', async () => {
-  const result = await runQuery(query, {
+  const result = await testListSections({
     filter: { verified: true },
   });
   expect(result.errors).toBeUndefined();
   expect(
-    result.data.sections.nodes.find((n: any) => n.id === GALICIA_BECA_UPPER),
+    result.data?.sections.nodes.find((n) => n.id === GALICIA_BECA_UPPER),
   ).toBeTruthy();
 });
 
 it('should filter non-verified', async () => {
-  const result = await runQuery(query, {
+  const result = await testListSections({
     filter: { verified: false },
   });
   expect(result.errors).toBeUndefined();
   expect(
-    result.data.sections.nodes.find((n: any) => n.id === GALICIA_BECA_UPPER),
+    result.data?.sections.nodes.find((n) => n.id === GALICIA_BECA_UPPER),
   ).toBeUndefined();
   expect(
-    result.data.sections.nodes.find((n: any) => n.id === GALICIA_BECA_LOWER),
+    result.data?.sections.nodes.find((n) => n.id === GALICIA_BECA_LOWER),
   ).toBeTruthy();
   expect(
-    result.data.sections.nodes.find((n: any) => n.id === NORWAY_SJOA_AMOT),
+    result.data?.sections.nodes.find((n) => n.id === NORWAY_SJOA_AMOT),
   ).toBeTruthy();
 });
 
@@ -225,48 +223,45 @@ describe('filter editable', () => {
   it.each([
     ['anon', undefined],
     ['user', TEST_USER],
-  ])('%s should get empty list', async (_, user: any) => {
-    const result = await runQuery(
-      query,
+  ])('%s should get empty list', async (_, user) => {
+    const result = await testListSections(
       {
         filter: { editable: true },
       },
       fakeContext(user),
     );
-    expect(result.data.sections).toMatchObject({ nodes: [], count: 0 });
+    expect(result.data?.sections).toMatchObject({ nodes: [], count: 0 });
   });
 
   it('admin should have all sections as editable', async () => {
-    const result = await runQuery(
-      query,
+    const result = await testListSections(
       {
         filter: { editable: true },
       },
       fakeContext(ADMIN),
     );
-    expect(result.data.sections.nodes).toHaveLength(SECTIONS_TOTAL);
+    expect(result.data?.sections.nodes).toHaveLength(SECTIONS_TOTAL);
   });
 
   it('editor get his editable sections', async () => {
-    const result = await runQuery(
-      query,
+    const result = await testListSections(
       {
         filter: { editable: true },
       },
       fakeContext(EDITOR_NO),
     );
-    expect(result.data.sections.nodes).toContainEqual(
+    expect(result.data?.sections.nodes).toContainEqual(
       expect.objectContaining({ id: NORWAY_SJOA_AMOT }),
     );
-    expect(result.data.sections.nodes).not.toContainEqual(
+    expect(result.data?.sections.nodes).not.toContainEqual(
       expect.objectContaining({ id: GALICIA_BECA_LOWER }),
     );
   });
 });
 
 it('should fire two queries for sections->region with only region name queried', async () => {
-  const regionQuery = `
-    query listSections($page: Page, $filter: SectionsFilter){
+  const _q = gql`
+    query listSectionsRegion($page: Page, $filter: SectionsFilter) {
       sections(page: $page, filter: $filter) {
         nodes {
           id
@@ -282,14 +277,14 @@ it('should fire two queries for sections->region with only region name queried',
 
   const queryMock = jest.fn();
   db().on('query', queryMock);
-  await runQuery(regionQuery, { filter: { regionId: REGION_NORWAY } });
+  await testListSectionsRegion({ filter: { regionId: REGION_NORWAY } });
   db().removeListener('query', queryMock);
   expect(queryMock).toHaveBeenCalledTimes(1);
 });
 
 it('should fire one query for sections->river with only river name queried', async () => {
-  const riverQuery = `
-    query listSections($page: Page, $filter: SectionsFilter){
+  const _q = gql`
+    query listSectionsRiver($page: Page, $filter: SectionsFilter) {
       sections(page: $page, filter: $filter) {
         __typename
         nodes {
@@ -307,7 +302,7 @@ it('should fire one query for sections->river with only river name queried', asy
   `;
   const queryMock = jest.fn();
   db().on('query', queryMock);
-  await runQuery(riverQuery, { filter: { riverId: RIVER_BZHUZHA } });
+  await testListSectionsRiver({ filter: { riverId: RIVER_BZHUZHA } });
   db().removeListener('query', queryMock);
   expect(queryMock).toHaveBeenCalledTimes(1);
 });

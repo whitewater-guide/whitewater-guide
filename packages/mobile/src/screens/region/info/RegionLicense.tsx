@@ -1,17 +1,16 @@
-import { useRegion } from '@whitewater-guide/clients';
-import { ROOT_LICENSE } from '@whitewater-guide/commons';
+import { ROOT_LICENSE, useRegion } from '@whitewater-guide/clients';
 import React, { FC } from 'react';
 
 import LicenseBadge from '~/components/LicenseBadge';
 
 const RegionLicense: FC = () => {
-  const { node } = useRegion();
+  const region = useRegion();
   return (
     <LicenseBadge
       divider
       placement="region"
-      license={node?.license ?? ROOT_LICENSE}
-      copyright={node?.copyright}
+      license={region?.license ?? ROOT_LICENSE}
+      copyright={region?.copyright}
     />
   );
 };

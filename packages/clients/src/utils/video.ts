@@ -1,7 +1,8 @@
 import get from 'lodash/get';
 import parse from 'url-parse';
 
-const RE_VIMEO = /^(?:\/video|\/channels\/[\w-]+|\/groups\/[\w-]+\/videos)?\/(\d+)$/;
+const RE_VIMEO =
+  /^(?:\/video|\/channels\/[\w-]+|\/groups\/[\w-]+\/videos)?\/(\d+)$/;
 const RE_YOUTUBE = /^(?:\/embed)?\/([\w-]{10,12})$/;
 // const RE_FACEBOOK = /^\/[\w-]+\/videos\/(\d+)\/?$|^\/watch\/\?v=(\d+)/;
 
@@ -31,7 +32,7 @@ export interface VideoThumb {
 const getThumbSize = (minHeight: number, sizes: ThumbSize[]) => {
   let i = 0;
   while (i < sizes.length - 1 && sizes[i].height < minHeight) {
-    i++;
+    i += 1;
   }
   return sizes[i];
 };
@@ -79,14 +80,14 @@ export const getYoutubeId = (url?: string | null): string | null => {
   }
   const { query, pathname } = parse(url, {}, true);
   const { v } = query;
-  if (v && v.match(/^[\w-]{10,12}$/)) {
+  if (v && /^[\w-]{10,12}$/.test(v)) {
     return v;
-  } else {
-    const match = RE_YOUTUBE.exec(pathname);
-    if (match) {
-      return match[1];
-    }
   }
+  const match = RE_YOUTUBE.exec(pathname);
+  if (match) {
+    return match[1];
+  }
+
   return null;
 };
 

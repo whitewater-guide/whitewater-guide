@@ -1,4 +1,4 @@
-import db from '~/db';
+import { db } from '~/db';
 
 import { prepareMinio } from './minio';
 
@@ -8,7 +8,7 @@ export const reseedDb = async () => {
     try {
       await db(true).migrate.rollback();
     } catch (e) {
-      /* Ignnore */
+      /* Ignore */
     }
     version = await db(true).migrate.currentVersion();
   } while (version !== 'none');

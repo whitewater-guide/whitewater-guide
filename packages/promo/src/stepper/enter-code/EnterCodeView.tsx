@@ -1,52 +1,50 @@
-import { createStyles, Theme, WithStyles, withStyles } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
+import { StepProps } from '@material-ui/core/Step';
 import StepContent from '@material-ui/core/StepContent';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { StepFooter } from '../../components';
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     formControl: {
       margin: theme.spacing(),
     },
-  });
+  }),
+);
 
-export interface EnterCodeViewProps {
+export type Props = Omit<StepProps, 'classes'> & {
   value?: string;
-  onChange?: React.ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
+  onChange?: (value: string) => void;
 
   loading?: boolean;
   error?: string | null;
 
   next?: () => void;
   prev?: () => void;
-}
-
-type Props = EnterCodeViewProps & WithStyles<typeof styles>;
+};
 
 const EnterCodeView: React.FC<Props> = (props) => {
-  const {
-    value,
-    onChange,
-    loading,
-    error,
-    classes,
-    next,
-    prev,
-    ...stepContentProps
-  } = props;
+  const { value, onChange, loading, error, next, prev, ...stepContentProps } =
+    props;
   const isValid = !error && value && value.length >= 8;
+
+  const classes = useStyles();
   const { t } = useTranslation();
   return (
     <StepContent {...stepContentProps}>
       <FormControl className={classes.formControl} error={!!error}>
         <InputLabel htmlFor="code">{t('enter:code')}</InputLabel>
-        <Input id="code" value={value} onChange={onChange} />
+        <Input
+          id="code"
+          value={value}
+          onChange={(e) => onChange?.(e.target.value)}
+        />
         <FormHelperText id="code-error">{error}</FormHelperText>
       </FormControl>
       <StepFooter
@@ -59,4 +57,4 @@ const EnterCodeView: React.FC<Props> = (props) => {
   );
 };
 
-export default withStyles(styles)(EnterCodeView);
+export default EnterCodeView;

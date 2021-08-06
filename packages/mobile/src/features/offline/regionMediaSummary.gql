@@ -1,0 +1,26 @@
+query regionMediaSummary($regionId: ID) {
+  region(id: $regionId) {
+    id
+    mediaSummary {
+      photo {
+        count
+        size
+      }
+      video {
+        count
+        size
+      }
+      blog {
+        count
+        size
+      }
+      maps {
+        count
+        size
+      }
+    }
+    sections {
+      count
+    }
+  }
+}

@@ -1,12 +1,15 @@
-import { anonContext, countRows, fakeContext, runQuery } from '@test';
+import { anonContext, countRows, fakeContext } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
+import gql from 'graphql-tag';
 
 import { holdTransaction, rollbackTransaction } from '~/db';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
 import { GROUP_ALL, GROUP_EU } from '~/seeds/test/03_groups';
 
-const query = `
-  mutation removeGroup($id: String!){
+import { testRemoveGroup } from './removeGroup.test.generated';
+
+const _mutation = gql`
+  mutation removeGroup($id: String!) {
     removeGroup(id: $id)
   }
 `;
@@ -18,17 +21,17 @@ afterEach(rollbackTransaction);
 
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
-    const result = await runQuery(query, variables, anonContext());
+    const result = await testRemoveGroup(variables, anonContext());
     expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
   });
 
   it('user should not pass', async () => {
-    const result = await runQuery(query, variables, fakeContext(TEST_USER));
+    const result = await testRemoveGroup(variables, fakeContext(TEST_USER));
     expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('editor should not pass', async () => {
-    const result = await runQuery(query, variables, fakeContext(EDITOR_GA_EC));
+    const result = await testRemoveGroup(variables, fakeContext(EDITOR_GA_EC));
     expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 });
@@ -47,7 +50,7 @@ describe('effects', () => {
   });
 
   beforeEach(async () => {
-    result = await runQuery(query, variables, fakeContext(ADMIN));
+    result = await testRemoveGroup(variables, fakeContext(ADMIN));
   });
 
   afterEach(() => {
@@ -70,7 +73,7 @@ describe('effects', () => {
 });
 
 it('should not remove group with all regions', async () => {
-  const result = await runQuery(query, { id: GROUP_ALL }, fakeContext(ADMIN));
+  const result = await testRemoveGroup({ id: GROUP_ALL }, fakeContext(ADMIN));
   expect(result).toHaveGraphqlError(
     ApolloErrorCodes.MUTATION_NOT_ALLOWED,
     'Cannot toggle gauge for all-at-once sources',

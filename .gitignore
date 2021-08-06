@@ -8,8 +8,14 @@ build/
 coverage/
 dev-mount/
 
+__generated__/
+*.generated.ts
+*.generated.tsx
+
 .DS_Store
 
 .env.*
+
+.eslintcache
 
 *.log

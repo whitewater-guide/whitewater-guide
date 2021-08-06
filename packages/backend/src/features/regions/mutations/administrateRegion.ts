@@ -1,7 +1,8 @@
 import {
+  MutationAdministrateRegionArgs,
   RegionAdminSettings,
   RegionAdminSettingsSchema,
-} from '@whitewater-guide/commons';
+} from '@whitewater-guide/schema';
 import get from 'lodash/get';
 import mapValues from 'lodash/mapValues';
 import * as yup from 'yup';
@@ -9,23 +10,17 @@ import * as yup from 'yup';
 import {
   isInputValidResolver,
   MutationNotAllowedError,
-  TopLevelResolver,
+  MutationResolvers,
 } from '~/apollo';
-import db from '~/db';
+import { db, Sql } from '~/db';
 import { COVERS, s3Client } from '~/s3';
 
-import { RegionRaw } from '../types';
-
-interface Vars {
-  settings: RegionAdminSettings;
-}
-
-const Struct = yup.object({
-  settings: RegionAdminSettingsSchema,
+const Schema: yup.SchemaOf<MutationAdministrateRegionArgs> = yup.object({
+  settings: RegionAdminSettingsSchema.clone(),
 });
 
 const updateImageFile = async (
-  oldData: RegionRaw,
+  oldData: Sql.RegionsView,
   newData: RegionAdminSettings,
   oldPath: string,
   newPath: string,
@@ -40,8 +35,12 @@ const updateImageFile = async (
   }
 };
 
-const resolver: TopLevelResolver<Vars> = async (_, { settings }, context) => {
-  const oldRegion: RegionRaw = await db()
+const administrateRegion: MutationResolvers['administrateRegion'] = async (
+  _,
+  { settings },
+  context,
+) => {
+  const oldRegion: Sql.RegionsView = await db()
     .table('regions')
     .select(['id', 'cover_image'])
     .where({ id: settings.id })
@@ -68,6 +67,4 @@ const resolver: TopLevelResolver<Vars> = async (_, { settings }, context) => {
   return context.dataSources.regions.getById(settings.id);
 };
 
-const administrateRegion = isInputValidResolver(Struct, resolver);
-
-export default administrateRegion;
+export default isInputValidResolver(Schema, administrateRegion);

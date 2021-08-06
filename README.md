@@ -61,7 +61,6 @@ Directory layout:
 ├─── /lerna.json                     # lerna config
 ├─── /package.json                   # root package.json with scripts and deps
 ├─── /tsconfig.json                  # Base tsconfig for all packages
-├─── /tslint.json                    # Base tslint rules for all packages
 └─── /yarn.lock                      #
 ```
 

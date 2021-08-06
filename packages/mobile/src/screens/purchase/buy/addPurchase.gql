@@ -1,0 +1,13 @@
+mutation addPurchase($purchase: PurchaseInput!, $sectionId: ID) {
+  savePurchase(purchase: $purchase, sectionId: $sectionId) {
+    regions {
+      id
+      sku
+      hasPremiumAccess
+    }
+    section {
+      id
+      description
+    }
+  }
+}

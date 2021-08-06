@@ -63,7 +63,7 @@ export const up = async (db: Knex) => {
 
   // Generated promocodes for boomstarter promo campaign
   // If group_sku is null, then this promocode is for single region of choice
-  await await createTable(db, 'boom_promos', (table) => {
+  await createTable(db, 'boom_promos', (table) => {
     table.string('code').notNullable().unique().primary();
     table.boolean('redeemed').notNullable().defaultTo(false);
     table.string('group_sku').references('sku').inTable('groups');

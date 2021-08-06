@@ -3,7 +3,7 @@ import { decode, verify } from 'jsonwebtoken';
 import { Middleware } from 'koa';
 
 import config from '~/config';
-import db from '~/db';
+import { db } from '~/db';
 
 import { REFRESH_TOKEN_COOKIE } from '../constants';
 import { clearCookies } from '../utils';
@@ -13,9 +13,7 @@ import { sendCredentials } from './sendCredentials';
 const extractor = cookieJWTExtractor(REFRESH_TOKEN_COOKIE);
 
 export const refreshJWT: Middleware<any, any> = async (ctx, next) => {
-  const token =
-    (ctx.request.body && ctx.request.body.refreshToken) ||
-    extractor(ctx.request);
+  const token = ctx.request.body?.refreshToken || extractor(ctx.request);
   if (!token) {
     ctx.throw(400, 'refresh.jwt.not_found');
     return;
@@ -61,6 +59,6 @@ export const refreshJWT: Middleware<any, any> = async (ctx, next) => {
     return;
   }
 
-  await sendCredentials(ctx, { id: payload.id }, undefined, token);
+  sendCredentials(ctx, { id: payload.id }, undefined, token);
   await next();
 };

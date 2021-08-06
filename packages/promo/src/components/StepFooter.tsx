@@ -1,16 +1,11 @@
 import Button from '@material-ui/core/Button';
-import {
-  createStyles,
-  Theme,
-  WithStyles,
-  withStyles,
-} from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { NextButton } from './NextButton';
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     prevButton: {
       marginRight: theme.spacing(),
@@ -18,9 +13,10 @@ const styles = (theme: Theme) =>
     actionsContainer: {
       marginBottom: theme.spacing(2),
     },
-  });
+  }),
+);
 
-interface Props extends WithStyles<typeof styles> {
+interface Props {
   nextData?: any;
   nextDisabled: boolean;
   nextLoading: boolean;
@@ -30,9 +26,8 @@ interface Props extends WithStyles<typeof styles> {
   onPrev?: () => void;
 }
 
-const StepFooterInner: React.FC<Props> = (props) => {
+export const StepFooter: React.FC<Props> = (props) => {
   const {
-    classes,
     nextDisabled,
     nextLabel,
     nextData,
@@ -41,6 +36,7 @@ const StepFooterInner: React.FC<Props> = (props) => {
     prevLabel,
     onPrev,
   } = props;
+  const classes = useStyles();
   const onClick = useCallback(() => {
     if (onNext) {
       onNext(nextData);
@@ -67,5 +63,3 @@ const StepFooterInner: React.FC<Props> = (props) => {
     </div>
   );
 };
-
-export const StepFooter = withStyles(styles)(StepFooterInner);

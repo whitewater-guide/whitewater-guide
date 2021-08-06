@@ -1,21 +1,20 @@
-import { GroupInput, GroupInputSchema } from '@whitewater-guide/commons';
+import {
+  GroupInputSchema,
+  MutationUpsertGroupArgs,
+} from '@whitewater-guide/schema';
 import * as yup from 'yup';
 
-import { isInputValidResolver } from '~/apollo';
-import db, { rawUpsert } from '~/db';
+import { isInputValidResolver, MutationResolvers } from '~/apollo';
+import { db, rawUpsert } from '~/db';
 
-interface Vars {
-  group: GroupInput;
-}
-
-const Struct = yup.object({
-  group: GroupInputSchema,
+const Schema: yup.SchemaOf<MutationUpsertGroupArgs> = yup.object({
+  group: GroupInputSchema.clone(),
 });
 
-const upsertGroup = isInputValidResolver<Vars>(
-  Struct,
-  (_, { group }, { language }) =>
-    rawUpsert(db(), 'SELECT upsert_group(?, ?)', [group, language]),
-);
+const upsertGroup: MutationResolvers['upsertGroup'] = (
+  _,
+  { group },
+  { language },
+) => rawUpsert(db(), 'SELECT upsert_group(?, ?)', [group, language]);
 
-export default upsertGroup;
+export default isInputValidResolver(Schema, upsertGroup);

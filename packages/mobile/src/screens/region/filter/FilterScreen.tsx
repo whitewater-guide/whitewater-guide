@@ -13,7 +13,7 @@ const FilterScreen: React.FC<FilterNavProps> = ({ navigation }) => {
   useEffectOnce(() => {
     navigation.setOptions({
       headerTitle: t('filter:title'),
-      // eslint-disable-next-line react/display-name
+      // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () => <ResetFilterButton />,
     });
   });

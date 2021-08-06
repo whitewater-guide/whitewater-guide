@@ -1,0 +1,23 @@
+fragment ListedRegion on Region {
+  id
+  name
+  ...RegionFlags
+  rivers {
+    count
+  }
+  gauges {
+    count
+  }
+  sections {
+    count
+  }
+}
+
+query listRegions($page: Page) {
+  regions(page: $page) @connection(key: "regions") {
+    nodes {
+      ...ListedRegion
+    }
+    count
+  }
+}

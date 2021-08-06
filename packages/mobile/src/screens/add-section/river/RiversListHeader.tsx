@@ -1,4 +1,4 @@
-import { NamedNode } from '@whitewater-guide/commons';
+import { NamedNode } from '@whitewater-guide/schema';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';

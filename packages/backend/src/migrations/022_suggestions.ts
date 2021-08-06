@@ -1,4 +1,4 @@
-import { SuggestionStatus } from '@whitewater-guide/commons';
+import { SuggestionStatus } from '@whitewater-guide/schema';
 import Knex from 'knex';
 
 import { createTable } from './utils';
@@ -13,7 +13,7 @@ export const up = async (db: Knex) => {
       .notNullable()
       .defaultTo(db.raw('uuid_generate_v1mc()'))
       .primary();
-    table.string('status').notNullable().defaultTo(SuggestionStatus.PENDING);
+    table.string('status').notNullable().defaultTo(SuggestionStatus.Pending);
     table
       .uuid('created_by')
       .references('id')

@@ -1,10 +1,6 @@
-import { Group } from '@whitewater-guide/commons';
+import { GroupResolvers } from '~/apollo';
 
-import { FieldResolvers } from '~/apollo';
-
-import { GroupRaw } from '../types';
-
-const resolvers: FieldResolvers<GroupRaw, Group> = {
+const resolvers: GroupResolvers = {
   regions: ({ id }, _, { dataSources }, info) => {
     const query = dataSources.regions.getMany(info);
     query

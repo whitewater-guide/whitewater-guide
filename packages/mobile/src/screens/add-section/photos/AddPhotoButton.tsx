@@ -1,5 +1,5 @@
 import { useAuth } from '@whitewater-guide/clients';
-import { MediaKind } from '@whitewater-guide/commons';
+import { MediaKind } from '@whitewater-guide/schema';
 import { useFormikContext } from 'formik';
 import React, { useCallback } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
@@ -31,11 +31,8 @@ interface Props {
 
 const AddPhotoButton: React.FC<Props> = React.memo(({ index, navigation }) => {
   const { navigate } = navigation;
-  const {
-    values,
-    setFieldValue,
-    setFieldTouched,
-  } = useFormikContext<SectionFormInput>();
+  const { values, setFieldValue, setFieldTouched } =
+    useFormikContext<SectionFormInput>();
 
   const push = useCallback(
     (input: MediaFormInput) => {
@@ -53,7 +50,7 @@ const AddPhotoButton: React.FC<Props> = React.memo(({ index, navigation }) => {
         id: null,
         description: null,
         copyright: me ? me.name : null,
-        kind: MediaKind.photo,
+        kind: MediaKind.Photo,
         weight: null,
         photo,
         license: null,

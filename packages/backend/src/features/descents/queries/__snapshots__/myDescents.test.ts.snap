@@ -17,6 +17,10 @@ Object {
             "section": Object {
               "id": "21f2351e-d52a-11e7-9296-cec278b6b50a",
               "name": "Amot",
+              "river": Object {
+                "id": "d4396dac-d528-11e7-9296-cec278b6b50a",
+                "name": "Sjoa",
+              },
             },
             "startedAt": "2020-01-03T00:00:00.000Z",
             "updatedAt": "2020-01-03T00:00:00.000Z",
@@ -37,6 +41,10 @@ Object {
             "section": Object {
               "id": "3a6e3210-d529-11e7-9296-cec278b6b50a",
               "name": "Upper",
+              "river": Object {
+                "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
+                "name": "Beca",
+              },
             },
             "startedAt": "2020-01-02T00:00:00.000Z",
             "updatedAt": "2020-01-02T00:00:00.000Z",
@@ -57,6 +65,10 @@ Object {
             "section": Object {
               "id": "2b01742c-d443-11e7-9296-cec278b6b50a",
               "name": "Lower",
+              "river": Object {
+                "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
+                "name": "Beca",
+              },
             },
             "startedAt": "2020-01-01T00:00:00.000Z",
             "updatedAt": "2020-01-01T00:00:00.000Z",

@@ -1,24 +1,23 @@
-import { Group } from '@whitewater-guide/commons';
+import { Group } from '@whitewater-guide/schema';
 import { GraphQLResolveInfo } from 'graphql';
 import { QueryBuilder } from 'knex';
 
+import { Sql } from '~/db';
 import {
   FieldsMap,
   ManyBuilderOptions,
   OffsetConnector,
 } from '~/db/connectors';
 
-import { GroupRaw } from './types';
-
-const FIELDS_MAP: FieldsMap<Group, GroupRaw> = {
+const FIELDS_MAP: FieldsMap<Group, Sql.GroupsView> = {
   regions: null,
 };
 
-interface GetManyOptions extends ManyBuilderOptions<GroupRaw> {
+interface GetManyOptions extends ManyBuilderOptions<Sql.GroupsView> {
   regionId?: string;
 }
 
-export class GroupsConnector extends OffsetConnector<Group, GroupRaw> {
+export class GroupsConnector extends OffsetConnector<Group, Sql.GroupsView> {
   constructor() {
     super();
     this._tableName = 'groups_view';

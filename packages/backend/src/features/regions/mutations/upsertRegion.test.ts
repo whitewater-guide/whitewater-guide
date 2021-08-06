@@ -6,12 +6,13 @@ import {
   isUUID,
   noTimestamps,
   noUnstable,
-  runQuery,
 } from '@test';
-import { ApolloErrorCodes, RegionInput } from '@whitewater-guide/commons';
+import { ApolloErrorCodes } from '@whitewater-guide/commons';
+import { RegionInput } from '@whitewater-guide/schema';
+import gql from 'graphql-tag';
 import set from 'lodash/fp/set';
 
-import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { db, holdTransaction, rollbackTransaction, Sql } from '~/db';
 import {
   ADMIN,
   EDITOR_GA_EC,
@@ -26,8 +27,7 @@ import {
   REGION_GALICIA,
 } from '~/seeds/test/04_regions';
 
-import { PointRaw } from '../../points';
-import { RegionRaw } from '../types';
+import { testUpsertRegion } from './upsertRegion.test.generated';
 
 let rpBefore: number;
 let pBefore: number;
@@ -128,32 +128,21 @@ const fullRegionWithPOIs: RegionInput = {
   ],
 };
 
-const upsertQuery = `
-  mutation upsertRegion($region: RegionInput!){
-    upsertRegion(region: $region){
-      id
-      name
+const _mutation = gql`
+  mutation upsertRegion($region: RegionInput!) {
+    upsertRegion(region: $region) {
+      ...RegionCore
       description
-      season
-      seasonNumeric
       bounds
-      createdAt
-      updatedAt
-      pois {
-        id
-        name
-        description
-        coordinates
-        kind
-      }
+      ...RegionPOIs
+      ...TimestampedMeta
     }
   }
 `;
 
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
-    const result = await runQuery(
-      upsertQuery,
+    const result = await testUpsertRegion(
       { region: minimalRegion },
       anonContext(),
     );
@@ -161,8 +150,7 @@ describe('resolvers chain', () => {
   });
 
   it('user should not pass', async () => {
-    const result = await runQuery(
-      upsertQuery,
+    const result = await testUpsertRegion(
       { region: minimalRegion },
       fakeContext(TEST_USER),
     );
@@ -170,8 +158,7 @@ describe('resolvers chain', () => {
   });
 
   it('editor should not create', async () => {
-    const result = await runQuery(
-      upsertQuery,
+    const result = await testUpsertRegion(
       { region: minimalRegion },
       fakeContext(EDITOR_GA_EC),
     );
@@ -179,8 +166,7 @@ describe('resolvers chain', () => {
   });
 
   it('non-owning editor should not edit', async () => {
-    const result = await runQuery(
-      upsertQuery,
+    const result = await testUpsertRegion(
       { region: fullRegionUpdate },
       fakeContext(EDITOR_NO_EC),
     );
@@ -199,8 +185,7 @@ describe('resolvers chain', () => {
       copyright: null,
       license: null,
     };
-    const result = await runQuery(
-      upsertQuery,
+    const result = await testUpsertRegion(
       { region: invalidInput },
       fakeContext(EDITOR_GA_EC),
     );
@@ -213,13 +198,11 @@ describe('insert', () => {
   let insertedRegion: any;
 
   beforeEach(async () => {
-    insertResult = await runQuery(
-      upsertQuery,
+    insertResult = await testUpsertRegion(
       { region: fullRegionWithPOIs },
       fakeContext(ADMIN),
     );
-    insertedRegion =
-      insertResult && insertResult.data && insertResult.data.upsertRegion;
+    insertedRegion = insertResult?.data?.upsertRegion;
   });
 
   afterEach(() => {
@@ -227,13 +210,14 @@ describe('insert', () => {
     insertedRegion = null;
   });
 
-  it('should return result', async () => {
+  it('should return result', () => {
     expect(insertResult).not.toHaveGraphqlError();
-    expect(insertResult.data!.upsertRegion).toBeDefined();
+    expect(insertResult.data?.upsertRegion).toBeDefined();
   });
 
   it('should add one more region', async () => {
     const [regions] = await countRows(false, 'regions');
+    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
     expect(regions).toBe(NUM_REGIONS + 1);
   });
 
@@ -287,7 +271,7 @@ describe('insert', () => {
 });
 
 describe('update', () => {
-  let oldRegion: RegionRaw | null;
+  let oldRegion: Sql.RegionsView | null;
   let updateResult: any;
   let updatedRegion: any;
 
@@ -296,13 +280,11 @@ describe('update', () => {
       .table('regions_view')
       .where({ id: fullRegionUpdate.id })
       .first();
-    updateResult = await runQuery(
-      upsertQuery,
+    updateResult = await testUpsertRegion(
       { region: fullRegionUpdate },
       fakeContext(EDITOR_GA_EC),
     );
-    updatedRegion =
-      updateResult && updateResult.data && updateResult.data.upsertRegion;
+    updatedRegion = updateResult?.data?.upsertRegion;
   });
 
   afterEach(() => {
@@ -312,7 +294,7 @@ describe('update', () => {
 
   it('should return result', () => {
     expect(updateResult).not.toHaveGraphqlError();
-    expect(updateResult.data!.upsertRegion).toBeDefined();
+    expect(updateResult.data?.upsertRegion).toBeDefined();
   });
 
   it('should not change total number of regions', async () => {
@@ -350,7 +332,7 @@ describe('update', () => {
   });
 
   it('should delete POI', async () => {
-    expect(updatedRegion.pois.map((p: PointRaw) => p.id)).not.toContain(
+    expect(updatedRegion.pois.map((p: Sql.PointsView) => p.id)).not.toContain(
       GALICIA_PT_1,
     );
     const points = await db()
@@ -372,7 +354,7 @@ describe('update', () => {
       .innerJoin('regions_points', 'points_view.id', 'regions_points.point_id')
       .where('regions_points.region_id', updatedRegion.id)
       .where('language', 'en');
-    expect(points.map((p: PointRaw) => p.name)).toEqual(
+    expect(points.map((p: Sql.PointsView) => p.name)).toEqual(
       expect.arrayContaining(['pt 1 u', 'pt 2 u']),
     );
   });
@@ -411,8 +393,7 @@ describe('i18n', () => {
   };
 
   it('should add translation', async () => {
-    const upsertResult = await runQuery(
-      upsertQuery,
+    const upsertResult = await testUpsertRegion(
       { region: emptyRegionRu },
       fakeContext(EDITOR_GA_EC, 'ru'),
     );
@@ -429,8 +410,7 @@ describe('i18n', () => {
   });
 
   it('should modify common props when translation is added', async () => {
-    const upsertResult = await runQuery(
-      upsertQuery,
+    const upsertResult = await testUpsertRegion(
       { region: { ...emptyRegionRu, seasonNumeric: [10] } },
       fakeContext(EDITOR_GA_EC, 'ru'),
     );
@@ -460,8 +440,7 @@ describe('i18n', () => {
       season: 'осень осень',
       pois: [],
     };
-    const upsertResult = await runQuery(
-      upsertQuery,
+    const upsertResult = await testUpsertRegion(
       { region },
       fakeContext(EDITOR_GA_EC, 'ru'),
     );
@@ -497,8 +476,7 @@ describe('i18n', () => {
         },
       ],
     };
-    const upsertResult = await runQuery(
-      upsertQuery,
+    const upsertResult = await testUpsertRegion(
       { region },
       fakeContext(EDITOR_GA_EC, 'ru'),
     );
@@ -531,8 +509,7 @@ it('should sanitize input', async () => {
   };
   dirtyRegion = set('pois.0.name', "it's a poi", dirtyRegion);
 
-  const insertResult = await runQuery(
-    upsertQuery,
+  const insertResult = await testUpsertRegion(
     { region: dirtyRegion },
     fakeContext(ADMIN),
   );

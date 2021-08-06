@@ -1,5 +1,5 @@
 import { formatDistanceToNow } from '@whitewater-guide/clients';
-import { Connection, Gauge, Source } from '@whitewater-guide/commons';
+import { Node } from '@whitewater-guide/schema';
 import parseISO from 'date-fns/parseISO';
 import { History } from 'history';
 import isNil from 'lodash/isNil';
@@ -17,12 +17,12 @@ import {
 } from '../../../components';
 import { AdminColumn, BooleanColumn, Table } from '../../../components/tables';
 import { paths } from '../../../utils';
+import { ListGaugesQuery, ListGaugesRowFragment } from './listGauges.generated';
 
 interface Props {
-  source: Source;
-  gauges?: Connection<Gauge>;
+  source: Node;
+  gauges?: ListGaugesQuery['gauges'];
   history: History;
-  onToggle: (id: string, enabled: boolean) => void;
   onRemove: (id: string) => void;
 }
 
@@ -32,11 +32,7 @@ export default class GaugesTable extends React.PureComponent<Props> {
     history.push(paths.to({ sourceId: source.id, gaugeId: id }));
   };
 
-  toggleGauge = async (id: string, enabled: boolean) => {
-    await this.props.onToggle(id, enabled);
-  };
-
-  renderName: TableCellRenderer<Gauge> = ({ rowData }) => {
+  renderName: TableCellRenderer<ListGaugesRowFragment> = ({ rowData }) => {
     if (isEmptyRow(rowData)) {
       return null;
     }
@@ -47,14 +43,16 @@ export default class GaugesTable extends React.PureComponent<Props> {
     );
   };
 
-  renderStatus: TableCellRenderer<Gauge> = ({ rowData }) => {
+  renderStatus: TableCellRenderer<ListGaugesRowFragment> = ({ rowData }) => {
     if (isEmptyRow(rowData)) {
       return null;
     }
     return <HarvestStatusIndicator status={rowData.status} />;
   };
 
-  renderRequestParams: TableCellRenderer<Gauge> = ({ rowData }) => {
+  renderRequestParams: TableCellRenderer<ListGaugesRowFragment> = ({
+    rowData,
+  }) => {
     if (isEmptyRow(rowData)) {
       return null;
     }
@@ -62,19 +60,19 @@ export default class GaugesTable extends React.PureComponent<Props> {
     return requestParams ? JSON.stringify(requestParams) : null;
   };
 
-  renderValue: TableCellRenderer<Gauge> = ({ rowData }) => {
+  renderValue: TableCellRenderer<ListGaugesRowFragment> = ({ rowData }) => {
     if (isEmptyRow(rowData)) {
       return null;
     }
-    const { latestMeasurement, flowUnit, levelUnit }: Gauge = rowData;
+    const { latestMeasurement, flowUnit, levelUnit } = rowData;
     if (latestMeasurement) {
       const { timestamp, flow, level } = latestMeasurement;
-      const v = flow ? flow : level;
+      const v = flow || level;
       const unit = flow ? flowUnit : levelUnit;
       const fromNow = formatDistanceToNow(parseISO(timestamp), {
         addSuffix: true,
       });
-      if (isNil(v)) {
+      if (isNil(v) || !unit) {
         return null;
       }
       return (
@@ -87,7 +85,7 @@ export default class GaugesTable extends React.PureComponent<Props> {
     return null;
   };
 
-  renderActions: TableCellRenderer<Gauge> = ({ rowData }) => {
+  renderActions: TableCellRenderer<ListGaugesRowFragment> = ({ rowData }) => {
     if (isEmptyRow(rowData)) {
       return null;
     }

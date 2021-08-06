@@ -1,5 +1,5 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { BannerResolutions } from '@whitewater-guide/commons';
+import { BannerResolutions } from '@whitewater-guide/clients';
 import { useFormikContext } from 'formik';
 import React from 'react';
 import debounceRender from 'react-debounce-render';
@@ -36,12 +36,7 @@ const BannerSourceWebviewFields: React.FC = React.memo(() => {
   return (
     <div className={classes.root}>
       <div className={classes.inputs}>
-        <TextField
-          fullWidth={true}
-          name="source"
-          label="URL"
-          placeholder="URL"
-        />
+        <TextField fullWidth name="source" label="URL" placeholder="URL" />
       </div>
       <div className={classes.iframe} style={{ height: Math.ceil(height / 2) }}>
         {!!url && (

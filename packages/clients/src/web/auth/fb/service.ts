@@ -22,10 +22,12 @@ class FBWebService {
       1000,
     );
 
-  loadSDK = (appId: string, locale: string): Promise<FBSDK> => {
-    return new Promise((resolve) => {
+  loadSDK = (appId: string, locale: string): Promise<FBSDK> =>
+    // eslint-disable-next-line consistent-return
+    new Promise((resolve) => {
       if (document.getElementById(FB_ELEMENT_ID)) {
-        return resolve(FB);
+        resolve(FB);
+        return;
       }
 
       window.fbAsyncInit = () => {
@@ -48,7 +50,6 @@ class FBWebService {
       js.src = `https://connect.facebook.net/${locale}/sdk.js`;
       fjs.parentNode?.insertBefore(js, fjs);
     });
-  };
 
   login = (): Promise<facebook.StatusResponse> =>
     new Promise((resolve) => {
@@ -65,7 +66,7 @@ class FBWebService {
     );
 
   onAuthResponseChange = (data: facebook.StatusResponse) => {
-    this._accessToken = data.authResponse && data.authResponse.accessToken;
+    this._accessToken = data.authResponse?.accessToken;
   };
 }
 

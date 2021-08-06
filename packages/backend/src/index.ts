@@ -1,6 +1,6 @@
 import { init as initSentry } from '@sentry/node';
 
-import db, { waitForDb } from '~/db';
+import { db, waitForDb } from '~/db';
 import { initIAP } from '~/features/purchases';
 import log from '~/log';
 
@@ -17,12 +17,11 @@ async function startup() {
     initSentry({
       dsn: config.SENTRY_DSN,
       release: pjson.version,
-      integrations: (integrations) => {
+      integrations: (integrations) =>
         // integrations will be all default integrations
-        return integrations.filter(
+        integrations.filter(
           (integration) => integration.name !== 'Breadcrumbs',
-        );
-      },
+        ),
     });
   }
   await db(true).migrate.latest();

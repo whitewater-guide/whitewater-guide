@@ -16,14 +16,22 @@ const preload = (photos: string[], onProgress: PreloadProgressHandler) =>
 type ProgressListener = (progress: Pick<OfflineProgress, 'media'>) => void;
 
 export class PhotoDownloader {
+  private readonly _estimatedTotal: number;
+  private readonly _onProgress: ProgressListener;
+  private readonly _sleepStep: number;
+
   private _counter = 0;
   private _called = false;
 
   constructor(
-    private readonly _estimatedTotal: number,
-    private readonly _onProgress: ProgressListener,
-    private readonly _sleepStep = 300,
-  ) {}
+    estimatedTotal: number,
+    onProgress: ProgressListener,
+    sleepStep = 300,
+  ) {
+    this._estimatedTotal = estimatedTotal;
+    this._onProgress = onProgress;
+    this._sleepStep = sleepStep;
+  }
 
   public async download(channel: PhotoChannel): Promise<void> {
     if (this._called) {

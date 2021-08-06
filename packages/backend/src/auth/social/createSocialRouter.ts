@@ -1,4 +1,5 @@
-import { AuthBody, SocialMediaProvider } from '@whitewater-guide/commons';
+import { AuthBody } from '@whitewater-guide/commons';
+import { SocialMediaProvider } from '@whitewater-guide/schema';
 import Router from 'koa-router';
 
 import { sendCredentials } from '../jwt';
@@ -21,7 +22,7 @@ export function createSocialRouter(
       await passport.authenticate(
         provider,
         { session: false },
-        async (err, user, info) => {
+        (err, user, info) => {
           if (err || !user) {
             ctx.status = 401;
             const body: AuthBody = {

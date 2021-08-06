@@ -1,12 +1,11 @@
-import { Tag } from '@whitewater-guide/commons';
+import { Tag } from '@whitewater-guide/schema';
 
+import { Sql } from '~/db';
 import { FieldsMap, OffsetConnector } from '~/db/connectors';
 
-import { TagRaw } from './types';
+const FIELDS_MAP: FieldsMap<Tag, Sql.TagsView> = {};
 
-const FIELDS_MAP: FieldsMap<Tag, TagRaw> = {};
-
-export class TagsConnector extends OffsetConnector<Tag, TagRaw> {
+export class TagsConnector extends OffsetConnector<Tag, Sql.TagsView> {
   constructor() {
     super();
     this._tableName = 'tags_view';

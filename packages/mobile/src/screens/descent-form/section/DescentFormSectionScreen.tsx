@@ -1,4 +1,4 @@
-import { Section } from '@whitewater-guide/commons';
+import { Section } from '@whitewater-guide/schema';
 import { useFormikContext } from 'formik';
 import React, { useCallback } from 'react';
 
@@ -26,7 +26,7 @@ export const DescentFormSectionScreen: React.FC<DescentFormSectionNavProps> = ({
   );
 
   return (
-    <DescentFormScreen padding={true}>
+    <DescentFormScreen padding>
       <SectionSearch
         onSelect={setSection}
         section={values.section}

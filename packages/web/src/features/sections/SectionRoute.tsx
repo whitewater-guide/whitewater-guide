@@ -10,10 +10,8 @@ import SectionForm from './form';
 
 type Props = RouteComponentProps<{ sectionId: string }>;
 
-const SectionRoute: React.FC<Props> = (props) => {
-  const {
-    match: { path, params },
-  } = props;
+const SectionRoute: React.FC<Props> = ({ match }) => {
+  const { path, params } = match;
 
   return (
     <Suspense fallback={<Loading />}>
@@ -25,12 +23,12 @@ const SectionRoute: React.FC<Props> = (props) => {
           return (
             <Switch>
               <EditorRoute
-                exact={true}
+                exact
                 path={`${path}/settings`}
                 component={SectionForm}
               />
               <AdminRoute
-                exact={true}
+                exact
                 path={`${path}/admin`}
                 component={SectionAdmin}
               />

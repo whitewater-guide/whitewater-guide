@@ -2,17 +2,20 @@ import { useCallback } from 'react';
 import { useApolloClient } from 'react-apollo';
 
 import {
-  REGION_MEDIA_SUMMARY,
-  Result,
-  Vars,
-} from '../regionMediaSummary.query';
+  RegionMediaSummaryDocument,
+  RegionMediaSummaryQuery,
+  RegionMediaSummaryQueryVariables,
+} from '../regionMediaSummary.generated';
 
 export default () => {
   const apollo = useApolloClient();
   return useCallback(
     (regionId: string) => {
-      const q = apollo.readQuery<Result, Vars>({
-        query: REGION_MEDIA_SUMMARY,
+      const q = apollo.readQuery<
+        RegionMediaSummaryQuery,
+        RegionMediaSummaryQueryVariables
+      >({
+        query: RegionMediaSummaryDocument,
         variables: { regionId },
       });
       return {

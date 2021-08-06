@@ -2,8 +2,9 @@ import { hashSync } from 'bcrypt';
 import Knex from 'knex';
 import set from 'lodash/fp/set';
 import { Profile } from 'passport-facebook';
+import { Overwrite } from 'utility-types';
 
-import { LoginRaw, UserRawInput } from '~/features/users';
+import { Sql } from '~/db';
 
 import { SALT_ROUNDS } from '../../auth/constants';
 
@@ -20,6 +21,8 @@ export const UNVERIFIED_USER_ID = '2f54863c-4368-11e9-b210-d663bd873d93';
 export const UNVERIFIED_USER2_ID = '0680ea2e-4369-11e9-b210-d663bd873d93';
 export const UNVERIFIED_USER3_ID = '80ffcb14-44f7-11e9-b210-d663bd873d93';
 export const EXP_VER_USER_ID = 'a0553aa2-4368-11e9-b210-d663bd873d93';
+
+type InsertedUser = Overwrite<Sql.Users, { tokens: string }>;
 
 export const NEW_FB_PROFILE: Partial<Profile> = {
   id: '__mock_new_profile_id__',
@@ -39,8 +42,7 @@ export const NEW_FB_PROFILE: Partial<Profile> = {
     },
   ],
   provider: 'facebook',
-  _raw:
-    '{"last_name": "New Profile Family Name", "first_name": "New Profile Given Name", "email": "new.profile\u0040mail.com", "picture": {"data": {"height": 50, "is_silhouette": false, "url": "https:\\/\\/platform-lookaside.fbsbx.com\\/platform\\/profilepic\\/mock_new_profile", "width": 50}}, "id": "__mock_new_profile_id__"}',
+  _raw: '{"last_name": "New Profile Family Name", "first_name": "New Profile Given Name", "email": "new.profile\u0040mail.com", "picture": {"data": {"height": 50, "is_silhouette": false, "url": "https:\\/\\/platform-lookaside.fbsbx.com\\/platform\\/profilepic\\/mock_new_profile", "width": 50}}, "id": "__mock_new_profile_id__"}',
   _json: {
     last_name: 'New Profile Family Name',
     first_name: 'New Profile Given Name',
@@ -49,8 +51,7 @@ export const NEW_FB_PROFILE: Partial<Profile> = {
       data: {
         height: 50,
         is_silhouette: false,
-        url:
-          'https://platform-lookaside.fbsbx.com/platform/profilepic/mock_new_profile',
+        url: 'https://platform-lookaside.fbsbx.com/platform/profilepic/mock_new_profile',
         width: 50,
       },
     },
@@ -76,8 +77,7 @@ export const NEW_FB_PROFILE_NO_EMAIL: Partial<Profile> = {
     },
   ],
   provider: 'facebook',
-  _raw:
-    '{"last_name": "New Profile Family Name", "first_name": "New Profile Given Name", "picture": {"data": {"height": 50, "is_silhouette": false, "url": "https:\\/\\/platform-lookaside.fbsbx.com\\/platform\\/profilepic\\/mock_new_profile", "width": 50}}, "id": "__mock_new_profile_id__"}',
+  _raw: '{"last_name": "New Profile Family Name", "first_name": "New Profile Given Name", "picture": {"data": {"height": 50, "is_silhouette": false, "url": "https:\\/\\/platform-lookaside.fbsbx.com\\/platform\\/profilepic\\/mock_new_profile", "width": 50}}, "id": "__mock_new_profile_id__"}',
   _json: {
     last_name: 'New Profile Family Name',
     first_name: 'New Profile Given Name',
@@ -85,8 +85,7 @@ export const NEW_FB_PROFILE_NO_EMAIL: Partial<Profile> = {
       data: {
         height: 50,
         is_silhouette: false,
-        url:
-          'https://platform-lookaside.fbsbx.com/platform/profilepic/mock_new_profile',
+        url: 'https://platform-lookaside.fbsbx.com/platform/profilepic/mock_new_profile',
         width: 50,
       },
     },
@@ -112,8 +111,7 @@ export const ADMIN_FB_PROFILE: Partial<Profile> = {
     },
   ],
   provider: 'facebook',
-  _raw:
-    '{"last_name": "Ivanov", "first_name": "Ivan", "email": "kaospostage\u0040gmail.com", "picture": {"data": {"height": 50, "is_silhouette": false, "url": "https:\\/\\/scontent.xx.fbcdn.net\\/v\\/t1.0-1\\/c34.34.422.422\\/s50x50\\/557311_106591882827406_2013499307_n.jpg?oh=777cb7f306789d5452fb47bc87ba95c7&oe=59FD2267", "width": 50}}, "id": "__fb_admin_id__"}',
+  _raw: '{"last_name": "Ivanov", "first_name": "Ivan", "email": "kaospostage\u0040gmail.com", "picture": {"data": {"height": 50, "is_silhouette": false, "url": "https:\\/\\/scontent.xx.fbcdn.net\\/v\\/t1.0-1\\/c34.34.422.422\\/s50x50\\/557311_106591882827406_2013499307_n.jpg?oh=777cb7f306789d5452fb47bc87ba95c7&oe=59FD2267", "width": 50}}, "id": "__fb_admin_id__"}',
   _json: {
     last_name: 'Ivanov',
     first_name: 'Ivan',
@@ -122,8 +120,7 @@ export const ADMIN_FB_PROFILE: Partial<Profile> = {
       data: {
         height: 50,
         is_silhouette: false,
-        url:
-          'https://scontent.xx.fbcdn.net/v/t1.0-1/c34.34.422.422/s50x50/557311_106591882827406_2013499307_n.jpg?oh=777cb7f306789d5452fb47bc87ba95c7&oe=59FD2267',
+        url: 'https://scontent.xx.fbcdn.net/v/t1.0-1/c34.34.422.422/s50x50/557311_106591882827406_2013499307_n.jpg?oh=777cb7f306789d5452fb47bc87ba95c7&oe=59FD2267',
         width: 50,
       },
     },
@@ -131,7 +128,7 @@ export const ADMIN_FB_PROFILE: Partial<Profile> = {
   },
 };
 
-export const ADMIN: UserRawInput = {
+export const ADMIN: InsertedUser = {
   id: ADMIN_ID,
   name: 'Ivan Ivanov',
   avatar: null,
@@ -147,7 +144,7 @@ export const ADMIN: UserRawInput = {
   updated_at: new Date(Date.UTC(2017, 1, 1)),
 };
 
-export const ADMIN_FB_ACCOUNT: LoginRaw = {
+export const ADMIN_FB_ACCOUNT: Sql.Accounts = {
   user_id: ADMIN_ID,
   id: '__fb_admin_id__',
   provider: 'facebook',
@@ -158,7 +155,7 @@ export const ADMIN_FB_ACCOUNT: LoginRaw = {
   updated_at: new Date(Date.UTC(2017, 1, 1)),
 };
 
-export const ADMIN_APPLE_ACCOUNT: LoginRaw = {
+export const ADMIN_APPLE_ACCOUNT: Sql.Accounts = {
   user_id: ADMIN_ID,
   id: '__apple_admin_id__',
   provider: 'apple',
@@ -169,7 +166,7 @@ export const ADMIN_APPLE_ACCOUNT: LoginRaw = {
   updated_at: new Date(Date.UTC(2017, 1, 1)),
 };
 
-export const EDITOR_GA_EC: UserRawInput = {
+export const EDITOR_GA_EC: InsertedUser = {
   id: EDITOR_GA_EC_ID,
   name: 'Konstantin Kuznetsov',
   avatar:
@@ -186,7 +183,7 @@ export const EDITOR_GA_EC: UserRawInput = {
   updated_at: new Date(Date.UTC(2017, 2, 2)),
 };
 
-export const EDITOR_NO_EC: UserRawInput = {
+export const EDITOR_NO_EC: InsertedUser = {
   id: EDITOR_NO_EC_ID,
   name: 'User user',
   avatar: null,
@@ -202,7 +199,7 @@ export const EDITOR_NO_EC: UserRawInput = {
   updated_at: new Date(Date.UTC(2017, 3, 3)),
 };
 
-export const EDITOR_NO: UserRawInput = {
+export const EDITOR_NO: InsertedUser = {
   id: EDITOR_NO_ID,
   name: 'Norwegian Dude',
   avatar: null,
@@ -224,7 +221,7 @@ export const EDITOR_NO: UserRawInput = {
   updated_at: new Date(Date.UTC(2017, 6, 6)),
 };
 
-export const TEST_USER: UserRawInput = {
+export const TEST_USER: InsertedUser = {
   id: TEST_USER_ID,
   name: 'Another usr',
   avatar: null,
@@ -246,7 +243,7 @@ export const TEST_USER: UserRawInput = {
   updated_at: new Date(Date.UTC(2017, 4, 4)),
 };
 
-export const TEST_USER2: UserRawInput = {
+export const TEST_USER2: InsertedUser = {
   id: TEST_USER2_ID,
   name: 'Test user 2',
   avatar: null,
@@ -262,7 +259,7 @@ export const TEST_USER2: UserRawInput = {
   updated_at: new Date(Date.UTC(2017, 4, 4)),
 };
 
-export const UNVERIFIED_USER: UserRawInput = {
+export const UNVERIFIED_USER: InsertedUser = {
   id: UNVERIFIED_USER_ID,
   name: 'Unverified user',
   avatar: null,
@@ -284,7 +281,7 @@ export const UNVERIFIED_USER: UserRawInput = {
   updated_at: new Date(Date.UTC(2017, 5, 5)),
 };
 
-export const UNVERIFIED_USER2: UserRawInput = {
+export const UNVERIFIED_USER2: InsertedUser = {
   id: UNVERIFIED_USER2_ID,
   name: 'Unverified No Token',
   avatar: null,
@@ -300,7 +297,7 @@ export const UNVERIFIED_USER2: UserRawInput = {
   updated_at: new Date(Date.UTC(2017, 8, 5)),
 };
 
-export const UNVERIFIED_USER3: UserRawInput = {
+export const UNVERIFIED_USER3: InsertedUser = {
   id: UNVERIFIED_USER3_ID,
   name: 'Unverified Three',
   avatar: null,
@@ -316,7 +313,7 @@ export const UNVERIFIED_USER3: UserRawInput = {
   updated_at: new Date(Date.UTC(2017, 5, 25)),
 };
 
-export const EXP_VER_USER: UserRawInput = {
+export const EXP_VER_USER: InsertedUser = {
   id: EXP_VER_USER_ID,
   name: 'Expired Verification',
   avatar: null,
@@ -338,7 +335,7 @@ export const EXP_VER_USER: UserRawInput = {
   updated_at: new Date(Date.UTC(2017, 6, 6)),
 };
 
-export const BOOM_USER_3500: UserRawInput = {
+export const BOOM_USER_3500: InsertedUser = {
   id: BOOM_USER_3500_ID,
   name: 'Boom Backer 3500',
   avatar: null,
@@ -360,7 +357,7 @@ export const BOOM_USER_3500: UserRawInput = {
   updated_at: new Date(Date.UTC(2017, 4, 5)),
 };
 
-export const BOOM_USER_1500: UserRawInput = {
+export const BOOM_USER_1500: InsertedUser = {
   id: BOOM_USER_1500_ID,
   name: 'Boom Backer 1500',
   avatar: null,
@@ -376,7 +373,7 @@ export const BOOM_USER_1500: UserRawInput = {
   updated_at: new Date(Date.UTC(2017, 4, 5)),
 };
 
-export const EDITOR_GE: UserRawInput = {
+export const EDITOR_GE: InsertedUser = {
   id: EDITOR_GE_ID,
   name: 'Kaki',
   avatar: null,

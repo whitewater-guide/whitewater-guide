@@ -1,4 +1,4 @@
-import { LANGUAGES } from '@whitewater-guide/commons';
+import { LANGUAGES } from '@whitewater-guide/schema';
 import Negotiator from 'negotiator';
 
 export function negotiateLanguage(req: any, socialLocales: string[]): string {

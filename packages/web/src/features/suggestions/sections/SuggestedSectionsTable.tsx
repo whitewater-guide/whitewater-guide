@@ -1,5 +1,4 @@
 import { formatDate } from '@whitewater-guide/clients';
-import { Section } from '@whitewater-guide/commons';
 import parseISO from 'date-fns/parseISO';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -12,15 +11,20 @@ import {
   TableCellRenderer,
 } from '../../../components';
 import { paths } from '../../../utils';
+import { SuggestedSectionFragment } from './suggestedSections.generated';
 
-const renderCreatedAt: TableCellRenderer<Section> = ({ rowData }) => {
-  if (isEmptyRow(rowData)) {
+const renderCreatedAt: TableCellRenderer<SuggestedSectionFragment> = ({
+  rowData,
+}) => {
+  if (isEmptyRow(rowData) || !rowData.createdAt) {
     return null;
   }
   return formatDate(parseISO(rowData.createdAt), 'dd MMM yyyy');
 };
 
-const renderRegion: TableCellRenderer<Section> = ({ rowData }) => {
+const renderRegion: TableCellRenderer<SuggestedSectionFragment> = ({
+  rowData,
+}) => {
   if (isEmptyRow(rowData)) {
     return null;
   }
@@ -28,7 +32,9 @@ const renderRegion: TableCellRenderer<Section> = ({ rowData }) => {
   return <Link to={`/regions/${region.id}`}>{region.name}</Link>;
 };
 
-const renderSection: TableCellRenderer<Section> = ({ rowData }) => {
+const renderSection: TableCellRenderer<SuggestedSectionFragment> = ({
+  rowData,
+}) => {
   if (isEmptyRow(rowData)) {
     return null;
   }
@@ -36,13 +42,17 @@ const renderSection: TableCellRenderer<Section> = ({ rowData }) => {
   return `${river.name} - ${name}`;
 };
 
-const renderAuthor: TableCellRenderer<Section> = ({ rowData }) => {
+const renderAuthor: TableCellRenderer<SuggestedSectionFragment> = ({
+  rowData,
+}) => {
   if (isEmptyRow(rowData)) {
     return null;
   }
   return rowData?.createdBy?.name || '';
 };
-const renderActions: TableCellRenderer<Section> = ({ rowData }) => {
+const renderActions: TableCellRenderer<SuggestedSectionFragment> = ({
+  rowData,
+}) => {
   if (isEmptyRow(rowData)) {
     return null;
   }
@@ -58,7 +68,7 @@ const renderActions: TableCellRenderer<Section> = ({ rowData }) => {
 };
 
 interface OwnProps {
-  data: Section[];
+  data: SuggestedSectionFragment[];
   registerChild: (registeredChild: any) => void;
 }
 

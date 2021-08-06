@@ -10,7 +10,7 @@ import { FormikFormControl } from '../helpers';
 
 type Props = Omit<ImageUploaderProps, 'value' | 'onChange'> & { name: string };
 
-export const ImageUploadField: React.FC<Props> = React.memo((props) => {
+export const ImageUploadField = React.memo<Props>((props) => {
   const { name, ...imageUploaderProps } = props;
   const { handleChange, handleBlur, values } = useFormikContext<any>();
   const onChange = useCallback(

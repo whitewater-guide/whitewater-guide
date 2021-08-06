@@ -5,19 +5,19 @@ import {
   fakeContext,
   fileExistsInBucket,
   resetTestMinio,
-  runQuery,
   UUID_REGEX,
 } from '@test';
+import { ApolloErrorCodes } from '@whitewater-guide/commons';
 import {
-  ApolloErrorCodes,
   BannerInput,
   BannerKind,
   BannerPlacement,
-} from '@whitewater-guide/commons';
+} from '@whitewater-guide/schema';
+import gql from 'graphql-tag';
 import path from 'path';
 
 import config from '~/config';
-import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { db, holdTransaction, rollbackTransaction } from '~/db';
 import { BANNERS, TEMP } from '~/s3';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
 import { GROUP_LATIN } from '~/seeds/test/03_groups';
@@ -26,6 +26,8 @@ import {
   GALICIA_REGION_DESCR_BANNER,
   GALICIA_REGION_DESCR_BANNER2,
 } from '~/seeds/test/14_banners';
+
+import { testUpsertBanner } from './upsertBanner.test.generated';
 
 let bBefore: number;
 let brBefore: number;
@@ -47,35 +49,16 @@ beforeEach(async () => {
 afterEach(rollbackTransaction);
 afterAll(() => resetTestMinio(true));
 
-const mutation = `
-  mutation upsertBanner($banner: BannerInput!){
-    upsertBanner(banner: $banner){
-      id
-      name
-      slug
-      priority
-      enabled
-      placement
+const _mutation = gql`
+  mutation upsertBanner($banner: BannerInput!) {
+    upsertBanner(banner: $banner) {
+      ...BannerCore
       source {
         kind
         url
       }
-      link
-      extras
-      regions {
-        nodes {
-          id
-          name
-        }
-        count
-      }
-      groups {
-        nodes {
-          id
-          name
-        }
-        count
-      }
+      ...BannerRegions
+      ...BannerGroups
     }
   }
 `;
@@ -86,7 +69,7 @@ const banner: BannerInput = {
   slug: 'new_banner',
   enabled: true,
   priority: 1,
-  placement: BannerPlacement.MOBILE_SECTION_ROW,
+  placement: BannerPlacement.MobileSectionRow,
   source: {
     kind: BannerKind.WebView,
     url: 'https://ya.ru/new_banner',
@@ -99,18 +82,17 @@ const banner: BannerInput = {
 
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
-    const result = await runQuery(mutation, { banner }, anonContext());
+    const result = await testUpsertBanner({ banner }, anonContext());
     expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
   });
 
   it('user should not pass', async () => {
-    const result = await runQuery(mutation, { banner }, fakeContext(TEST_USER));
+    const result = await testUpsertBanner({ banner }, fakeContext(TEST_USER));
     expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('editor should not pass', async () => {
-    const result = await runQuery(
-      mutation,
+    const result = await testUpsertBanner(
       { banner },
       fakeContext(EDITOR_GA_EC),
     );
@@ -124,7 +106,7 @@ describe('resolvers chain', () => {
       slug: 'x',
       enabled: true,
       priority: 1,
-      placement: BannerPlacement.MOBILE_SECTION_ROW,
+      placement: BannerPlacement.MobileSectionRow,
       source: {
         kind: BannerKind.WebView,
         url: '',
@@ -134,8 +116,7 @@ describe('resolvers chain', () => {
       regions: [{ id: 'bax' }],
       groups: [{ id: 'nun' }],
     };
-    const result = await runQuery(
-      mutation,
+    const result = await testUpsertBanner(
       { banner: invalidInput },
       fakeContext(ADMIN),
     );
@@ -145,9 +126,9 @@ describe('resolvers chain', () => {
 
 describe('insert', () => {
   it('should return result', async () => {
-    const result = await runQuery(mutation, { banner }, fakeContext(ADMIN));
+    const result = await testUpsertBanner({ banner }, fakeContext(ADMIN));
     expect(result.errors).toBeUndefined();
-    expect(result.data!.upsertBanner).toEqual({
+    expect(result.data?.upsertBanner).toEqual({
       ...banner,
       id: expect.stringMatching(UUID_REGEX),
       regions: {
@@ -172,7 +153,7 @@ describe('insert', () => {
   });
 
   it('should add one more banner', async () => {
-    await runQuery(mutation, { banner }, fakeContext(ADMIN));
+    await testUpsertBanner({ banner }, fakeContext(ADMIN));
     const [bAfter, brAfter, bgAfter] = await countRows(
       false,
       'banners',
@@ -180,9 +161,7 @@ describe('insert', () => {
       'banners_groups',
     );
     expect([bAfter - bBefore, brAfter - brBefore, bgAfter - bgBefore]).toEqual([
-      1,
-      1,
-      1,
+      1, 1, 1,
     ]);
   });
 });
@@ -196,13 +175,12 @@ describe('update', () => {
   };
 
   it('should return result', async () => {
-    const result = await runQuery(
-      mutation,
+    const result = await testUpsertBanner(
       { banner: input },
       fakeContext(ADMIN),
     );
     expect(result.errors).toBeUndefined();
-    expect(result.data!.upsertBanner).toEqual({
+    expect(result.data?.upsertBanner).toEqual({
       ...banner,
       id: GALICIA_REGION_DESCR_BANNER,
       slug: 'galicia_region_descr_banner',
@@ -223,7 +201,7 @@ describe('update', () => {
   });
 
   it('should not change total number of banners', async () => {
-    await runQuery(mutation, { banner: input }, fakeContext(ADMIN));
+    await testUpsertBanner({ banner: input }, fakeContext(ADMIN));
     const [bAfter, brAfter, bgAfter] = await countRows(
       false,
       'banners',
@@ -231,19 +209,16 @@ describe('update', () => {
       'banners_groups',
     );
     expect([bAfter - bBefore, brAfter - brBefore, bgAfter - bgBefore]).toEqual([
-      0,
-      0,
-      0,
+      0, 0, 0,
     ]);
   });
 
   it('should not change slug', async () => {
-    const result = await runQuery(
-      mutation,
+    const result = await testUpsertBanner(
       { banner: input },
       fakeContext(ADMIN),
     );
-    expect(result.data!.upsertBanner.slug).not.toEqual(banner.slug);
+    expect(result.data?.upsertBanner?.slug).not.toEqual(banner.slug);
   });
 });
 
@@ -305,8 +280,7 @@ describe('files', () => {
   });
 
   it('should move file from temp to banners', async () => {
-    const result = await runQuery(
-      mutation,
+    const result = await testUpsertBanner(
       { banner: newImageBanner },
       fakeContext(ADMIN),
     );
@@ -323,8 +297,7 @@ describe('files', () => {
   });
 
   it('should accept full filenames', async () => {
-    const result = await runQuery(
-      mutation,
+    const result = await testUpsertBanner(
       {
         banner: {
           ...oldBanner,
@@ -336,39 +309,37 @@ describe('files', () => {
       },
       fakeContext(ADMIN),
     );
-    const upsertedBanner = result.data!.upsertBanner;
+    const upsertedBanner = result.data?.upsertBanner;
     const { source } = await db()
       .table('banners')
       .select(['source'])
-      .where({ id: upsertedBanner.id })
+      .where({ id: upsertedBanner?.id })
       .first();
     expect(source).toEqual(oldBanner.source);
-    expect(upsertedBanner.source.url).toEqual(
+    expect(upsertedBanner?.source.url).toEqual(
       `imgproxy://banners/${oldBanner.source.url}`,
     );
   });
 
   it('should store only filenames', async () => {
-    const result = await runQuery(
-      mutation,
+    const result = await testUpsertBanner(
       { banner: newImageBanner },
       fakeContext(ADMIN),
     );
-    const upsertedBanner = result.data!.upsertBanner;
+    const upsertedBanner = result.data?.upsertBanner;
     const { source } = await db()
       .table('banners')
       .select(['source'])
-      .where({ id: upsertedBanner.id })
+      .where({ id: upsertedBanner?.id })
       .first();
     expect(source).toEqual(newImageBanner.source);
-    expect(upsertedBanner.source.url).toEqual(
+    expect(upsertedBanner?.source.url).toEqual(
       `imgproxy://banners/${newImageBanner.source.url}`,
     );
   });
 
   it('should delete old image when new is uploaded', async () => {
-    const result = await runQuery(
-      mutation,
+    const result = await testUpsertBanner(
       { banner: oldImageBanner },
       fakeContext(ADMIN),
     );
@@ -387,8 +358,7 @@ describe('files', () => {
   });
 
   it('should not delete old image when it is not changed', async () => {
-    const result = await runQuery(
-      mutation,
+    const result = await testUpsertBanner(
       { banner: oldBanner },
       fakeContext(ADMIN),
     );
@@ -404,8 +374,7 @@ describe('files', () => {
   });
 
   it('should delete image when isImage changes to false', async () => {
-    const result = await runQuery(
-      mutation,
+    const result = await testUpsertBanner(
       { banner: oldUrlBanner },
       fakeContext(ADMIN),
     );
@@ -419,11 +388,7 @@ describe('files', () => {
 
 it('should sanitize input', async () => {
   const dirty = { ...banner, name: "it's a \\ $1 slash with . ?" };
-  const result = await runQuery(
-    mutation,
-    { banner: dirty },
-    fakeContext(ADMIN),
-  );
+  const result = await testUpsertBanner({ banner: dirty }, fakeContext(ADMIN));
   expect(result).toHaveProperty(
     'data.upsertBanner.name',
     "it's a \\ $1 slash with . ?",

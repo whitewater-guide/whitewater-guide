@@ -1,7 +1,8 @@
-import { SelectableTag, TagSelection } from '@whitewater-guide/commons';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Chip } from 'react-native-paper';
+
+import { SelectableTag, TagSelection } from '~/features/tags';
 
 import theme from '../theme';
 import Icon from './Icon';
@@ -28,7 +29,7 @@ const Icons = {
   // eslint-disable-next-line react/display-name
   [TagSelection.SELECTED]: ({ size }: PartialIconProps) => (
     <Icon
-      narrow={true}
+      narrow
       icon="check-circle-outline"
       size={size}
       color={theme.colors.enabled}
@@ -37,7 +38,7 @@ const Icons = {
   // eslint-disable-next-line react/display-name
   [TagSelection.DESELECTED]: ({ size }: PartialIconProps) => (
     <Icon
-      narrow={true}
+      narrow
       icon="close-circle-outline"
       size={size}
       color={theme.colors.error}
@@ -46,7 +47,7 @@ const Icons = {
   // eslint-disable-next-line react/display-name
   [TagSelection.NONE]: ({ size }: PartialIconProps) => (
     <Icon
-      narrow={true}
+      narrow
       icon="checkbox-blank-circle-outline"
       size={size}
       color={theme.colors.textMain}

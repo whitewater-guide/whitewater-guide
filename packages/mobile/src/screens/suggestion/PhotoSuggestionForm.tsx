@@ -45,7 +45,7 @@ const PhotoSuggestionForm: React.FC<Props> = React.memo((props) => {
   const form = usePhotoSuggestionForm(sectionId, localPhotoId);
 
   return (
-    <Formik<PhotoSuggestion> {...form} validateOnMount={true}>
+    <Formik<PhotoSuggestion> {...form} validateOnMount>
       {({ isSubmitting, isValid, submitForm }) => (
         <FullScreenKAV>
           <ScrollView
@@ -67,8 +67,8 @@ const PhotoSuggestionForm: React.FC<Props> = React.memo((props) => {
             <TextField
               name="description"
               ref={descriptionRef}
-              multiline={true}
-              fullHeight={true}
+              multiline
+              fullHeight
               label={t('screens:suggestion.photoDescriptionLabel')}
               placeholder={t('screens:suggestion.photoDescriptionPlaceholder')}
               onFocus={handlers.onDescriptionFocus}

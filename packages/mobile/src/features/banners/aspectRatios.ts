@@ -1,18 +1,19 @@
-import { BannerPlacement, BannerRatios } from '@whitewater-guide/commons';
+import { BannerRatios } from '@whitewater-guide/clients';
+import { BannerPlacement } from '@whitewater-guide/schema';
 import { StyleSheet } from 'react-native';
 
 const aspectRatios = StyleSheet.create({
-  [BannerPlacement.MOBILE_REGION_DESCRIPTION]: {
-    aspectRatio: BannerRatios[BannerPlacement.MOBILE_REGION_DESCRIPTION],
+  [BannerPlacement.MobileRegionDescription]: {
+    aspectRatio: BannerRatios[BannerPlacement.MobileRegionDescription],
   },
-  [BannerPlacement.MOBILE_SECTION_DESCRIPTION]: {
-    aspectRatio: BannerRatios[BannerPlacement.MOBILE_SECTION_DESCRIPTION],
+  [BannerPlacement.MobileSectionDescription]: {
+    aspectRatio: BannerRatios[BannerPlacement.MobileSectionDescription],
   },
-  [BannerPlacement.MOBILE_SECTION_ROW]: {
-    aspectRatio: BannerRatios[BannerPlacement.MOBILE_SECTION_ROW],
+  [BannerPlacement.MobileSectionRow]: {
+    aspectRatio: BannerRatios[BannerPlacement.MobileSectionRow],
   },
-  [BannerPlacement.MOBILE_SECTION_MEDIA]: {
-    aspectRatio: BannerRatios[BannerPlacement.MOBILE_SECTION_MEDIA],
+  [BannerPlacement.MobileSectionMedia]: {
+    aspectRatio: BannerRatios[BannerPlacement.MobileSectionMedia],
   },
 });
 

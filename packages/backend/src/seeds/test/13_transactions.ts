@@ -1,7 +1,7 @@
-import { PurchasePlatform } from '@whitewater-guide/commons';
+import { PurchasePlatform } from '@whitewater-guide/schema';
 import Knex from 'knex';
 
-import { TransactionRaw } from '~/features/purchases';
+import { Sql } from '~/db';
 
 import { BOOM_USER_1500_ID, BOOM_USER_3500_ID, TEST_USER_ID } from './01_users';
 import {
@@ -13,7 +13,7 @@ import {
 
 export const INVALID_TRANSACTION_ID = 'd5db753a-8921-11e8-8769-a6cf71072f73';
 
-const transactions: Array<Partial<TransactionRaw>> = [
+const transactions: Array<Partial<Sql.Transactions>> = [
   {
     id: 'df03a400-5cc3-11e8-9c2d-fa7ae01bbebc',
     user_id: TEST_USER_ID,

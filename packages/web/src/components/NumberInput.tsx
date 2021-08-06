@@ -1,7 +1,7 @@
 import Input, { InputProps } from '@material-ui/core/Input';
 import { strToFloat } from '@whitewater-guide/clients';
-import { Overwrite } from '@whitewater-guide/commons';
 import React, { useCallback, useEffect, useState } from 'react';
+import { Overwrite } from 'utility-types';
 
 const PARTIAL_NUMERIC = /(-)?[0-9]*([,|.][0-9]*)?/;
 
@@ -21,13 +21,13 @@ const numToStr = (num: unknown): string =>
  * Wrapper around Material-UI TextInput that makes
  * number inputs agnostic to decimal separator and support both comma and period.
  */
-export const NumberInput: React.FC<Props> = React.memo((props) => {
+export const NumberInput = React.memo<Props>((props) => {
   const { value, onChange: onChangeExternal, ...rest } = props;
   const [valueStr, setValueStr] = useState(numToStr(value));
 
   const onChange = useCallback(
     (e: StrChangeEvent) => {
-      const match = e.target.value.match(PARTIAL_NUMERIC);
+      const match = PARTIAL_NUMERIC.exec(e.target.value);
       const numPart = match ? match[0] : '';
       setValueStr(numPart);
       if (numPart !== '-') {

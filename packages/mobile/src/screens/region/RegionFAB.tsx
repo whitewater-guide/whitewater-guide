@@ -1,10 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
-import { useMapSelection } from '@whitewater-guide/clients';
-import { Region } from '@whitewater-guide/commons';
+import {
+  RegionDetailsFragment,
+  useMapSelection,
+} from '@whitewater-guide/clients';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, StyleSheet } from 'react-native';
-import { FAB } from 'react-native-paper';
+import { FAB as FAButton } from 'react-native-paper';
 
 import useFABAuth from '~/components/useFABAuth';
 import { Screens } from '~/core/navigation';
@@ -13,18 +15,19 @@ import theme from '~/theme';
 const styles = StyleSheet.create({
   fabRoot: {
     paddingBottom:
+      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
       theme.margin.double + 56 + (Platform.OS === 'ios' ? theme.safeBottom : 0),
   },
 });
 
 interface Props {
-  region?: Region | null;
+  region?: RegionDetailsFragment | null;
 }
 
-export const RegionFAB = React.memo(function RegionFAB({ region }: Props) {
+export const RegionFAB = React.memo(({ region }: Props) => {
   const { t } = useTranslation();
   const { navigate } = useNavigation();
-  const { onSelected, selection } = useMapSelection();
+  const [selection, onSelected] = useMapSelection();
 
   const onPress = useCallback(() => {
     onSelected(null);
@@ -48,7 +51,7 @@ export const RegionFAB = React.memo(function RegionFAB({ region }: Props) {
     [navigate, region, t],
   );
   return (
-    <FAB.Group
+    <FAButton.Group
       testID="add-section-fab"
       style={styles.fabRoot}
       icon="plus"

@@ -59,7 +59,7 @@ export const RootLayout: React.FC<Props> = React.memo(({ service }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const version = require('../../package.json').version;
+  const { version } = require('../../package.json');
   return (
     <div className={classes.root}>
       <Card className={classes.card}>
@@ -71,10 +71,10 @@ export const RootLayout: React.FC<Props> = React.memo(({ service }) => {
           />
         </CardMedia>
         <CardContent>
-          <Typography gutterBottom={true} variant="h6">
+          <Typography gutterBottom variant="h6">
             {t('main:title')}
           </Typography>
-          <Typography gutterBottom={true}>
+          <Typography gutterBottom>
             <Trans i18nKey="main:description">
               1
               <a href="https://www.indiegogo.com/projects/whitewater-guide-app-for-the-whitewater-community#/">
@@ -93,11 +93,7 @@ export const RootLayout: React.FC<Props> = React.memo(({ service }) => {
           </Typography>
           <StepperWithAuth service={service} />
         </CardContent>
-        <CardActions
-          className={classes.actions}
-          disableSpacing={true}
-          color="primary"
-        >
+        <CardActions className={classes.actions} disableSpacing color="primary">
           <Typography className={classes.copyright}>
             2016 - 2020 © whitewater.guide
           </Typography>

@@ -1,0 +1,32 @@
+query listSections(
+  $page: Page
+  $filter: SectionsFilter
+  $thumbWidth: Int
+  $thumbHeight: Int
+) {
+  sections(page: $page, filter: $filter)
+    @connection(key: "offline_sections", filter: ["filter"]) {
+    nodes {
+      ...SectionCore
+      description
+      shape
+      region {
+        id
+      }
+      ...SectionEnds
+      ...SectionMeasurements
+      ...TimestampedMeta
+      ...SectionPOIs
+      ...SectionTags
+      media {
+        nodes {
+          ...MediaCore
+          image
+          thumb: image(width: $thumbWidth, height: $thumbHeight)
+        }
+        count
+      }
+    }
+    count
+  }
+}

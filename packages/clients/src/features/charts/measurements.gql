@@ -1,0 +1,17 @@
+query measurements(
+  $gaugeId: ID
+  $sectionId: ID
+  $days: Int
+  $filter: MeasurementsFilter
+) {
+  measurements(
+    gaugeId: $gaugeId
+    sectionId: $sectionId
+    days: $days
+    filter: $filter
+  ) {
+    timestamp
+    flow
+    level
+  }
+}

@@ -1,0 +1,9 @@
+query regionSKUs {
+  regions {
+    nodes {
+      id
+      sku
+      hasPremiumAccess
+    }
+  }
+}

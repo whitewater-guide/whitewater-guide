@@ -4,8 +4,8 @@ import waitForExpect from 'wait-for-expect';
 
 import config from './knexfile';
 
-export const waitForDb = async () => {
-  return waitForExpect(
+export const waitForDb = async () =>
+  waitForExpect(
     async () => {
       const client = new Client({
         ...(config[process.env.NODE_ENV || 'development'].connection as any),
@@ -20,4 +20,3 @@ export const waitForDb = async () => {
     30000,
     1000,
   );
-};

@@ -15,16 +15,16 @@ import useRouter from 'use-react-router';
 export interface ApolloFormikOptions<
   QVars,
   QResult,
-  FData,
+  FormData,
   MVars,
-  MResult = any
+  MResult = any,
 > {
   query: DocumentNode;
   queryOptions?: QueryHookOptions<QResult, QVars>;
   mutation: DocumentNode;
   mutationOptions?: MutationHookOptions<MResult, MVars>;
-  queryToForm: (result: QResult | undefined) => FData;
-  formToMutation: (data: FData) => MVars;
+  queryToForm: (result: QResult | undefined) => FormData;
+  formToMutation: (data: FormData) => MVars;
   onSuccess?: string | null | ((result?: MResult) => void);
 }
 

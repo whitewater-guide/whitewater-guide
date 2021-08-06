@@ -12,6 +12,7 @@ export const facebookStrategy = new FacebookTokenStrategy(
     profileFields: ['name', 'email', 'picture', 'link', 'locale'],
     passReqToCallback: true,
   },
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   async (req, accessToken, refreshToken, profile, done) => {
     try {
       const { isNew, user } = await getFBUser(profile, req);

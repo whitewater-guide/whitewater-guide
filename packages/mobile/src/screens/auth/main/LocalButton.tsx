@@ -23,11 +23,12 @@ const LocalButton: React.FC<Props> = ({ label }) => {
     ),
     [],
   );
-  const paddedLabel = '  ' + label.trim();
+  const paddedLabel = `  ${label.trim()}`;
   const { navigate } = useNavigation<AuthMainNavProp>();
-  const onPress = useCallback(() => navigate(Screens.AUTH_REGISTER), [
-    navigate,
-  ]);
+  const onPress = useCallback(
+    () => navigate(Screens.AUTH_REGISTER),
+    [navigate],
+  );
   return (
     <Button
       mode="contained"

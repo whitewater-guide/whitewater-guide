@@ -1,11 +1,11 @@
 import { CommonActions, NavigationState } from '@react-navigation/native';
-import { Section } from '@whitewater-guide/commons';
+import { SectionNameShortFragment } from '@whitewater-guide/schema';
 
 import { Screens } from '~/core/navigation';
 
 export function resetToDescentForm(
   { index: _index, routes, ...rest }: NavigationState,
-  section?: Section | null,
+  section?: SectionNameShortFragment | null,
 ) {
   const descentFormIndex = routes.findIndex(
     (r) => r.name === Screens.DESCENT_FORM,

@@ -1,4 +1,4 @@
-import { License } from '@whitewater-guide/commons';
+import { License } from '@whitewater-guide/schema';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Linking, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';

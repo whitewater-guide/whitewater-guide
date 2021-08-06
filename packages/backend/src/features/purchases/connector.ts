@@ -1,18 +1,19 @@
 import { DataSource, DataSourceConfig } from 'apollo-datasource';
 
 import { Context, ContextUser } from '~/apollo';
-import db from '~/db';
-import { GroupRaw } from '~/features/groups';
-import { RegionRaw } from '~/features/regions';
-
-import { TransactionRaw } from './types';
+import { db, Sql } from '~/db';
 
 export class PurchasesConnector implements DataSource<Context> {
   private _user?: ContextUser;
+
   private _language!: string;
-  private _transactions: TransactionRaw[] | null = null;
-  private _purchasedGroups: GroupRaw[] | null = null;
-  private _purchasedSingleRegions: RegionRaw[] | null = null;
+
+  private _transactions: Sql.Transactions[] | null = null;
+
+  private _purchasedGroups: Sql.GroupsView[] | null = null;
+
+  private _purchasedSingleRegions: Sql.RegionsView[] | null = null;
+
   private _purchasedRegionIds: string[] | null = null; // both single and parts of groups
 
   initialize({ context }: DataSourceConfig<Context>) {
@@ -20,7 +21,7 @@ export class PurchasesConnector implements DataSource<Context> {
     this._language = context.language;
   }
 
-  private async getTransactions(): Promise<TransactionRaw[]> {
+  private async getTransactions(): Promise<Sql.Transactions[]> {
     if (!this._user) {
       this._transactions = [];
     } else if (!this._transactions) {
@@ -31,7 +32,7 @@ export class PurchasesConnector implements DataSource<Context> {
     return this._transactions || [];
   }
 
-  async getPurchasedGroups(): Promise<GroupRaw[]> {
+  async getPurchasedGroups(): Promise<Sql.GroupsView[]> {
     const transactions = await this.getTransactions();
     if (!this._purchasedGroups) {
       this._purchasedGroups = await db()
@@ -45,7 +46,7 @@ export class PurchasesConnector implements DataSource<Context> {
     return this._purchasedGroups || [];
   }
 
-  async getPurchasedSingleRegions(): Promise<RegionRaw[]> {
+  async getPurchasedSingleRegions(): Promise<Sql.RegionsView[]> {
     const transactions = await this.getTransactions();
     if (!this._purchasedSingleRegions) {
       this._purchasedSingleRegions = await db()

@@ -1,0 +1,10 @@
+"Script represents script (data source) in gorge"
+type Script {
+  id: String!
+  name: String!
+}
+
+type Query {
+  "Lists available gorge scripts (data sources)"
+  scripts: [Script!]! @admin
+}

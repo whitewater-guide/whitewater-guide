@@ -14,20 +14,20 @@ const RegionSectionsListScreen: React.FC<RegionSectionsNavProps> = ({
   useFocusEffect(
     React.useCallback(() => {
       navigation.dangerouslyGetParent()?.setOptions({
-        // eslint-disable-next-line react/display-name
+        // eslint-disable-next-line react/no-unstable-nested-components
         headerRight: () => <FilterButton />,
       });
     }, [navigation]),
   );
 
   const { sections, status, refresh } = useSectionsList();
-  const { node } = useRegion();
+  const region = useRegion();
   return (
     <Screen>
       <SectionsList
         status={status}
         sections={sections}
-        region={node}
+        region={region}
         refresh={refresh}
       />
     </Screen>

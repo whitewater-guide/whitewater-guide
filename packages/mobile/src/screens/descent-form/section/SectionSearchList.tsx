@@ -1,4 +1,4 @@
-import { Section } from '@whitewater-guide/commons';
+import { Section } from '@whitewater-guide/schema';
 import React, { useCallback } from 'react';
 import {
   SectionList,
@@ -32,9 +32,7 @@ const renderSectionHeader = ({ section }: any) => (
 const getItemLayout = (
   data: Array<SectionListData<Section>> | null,
   index: number,
-) => {
-  return { length: ITEM_HEIGHT, offset: index * ITEM_HEIGHT, index };
-};
+) => ({ length: ITEM_HEIGHT, offset: index * ITEM_HEIGHT, index });
 
 interface Props {
   data: SearchResults;
@@ -43,9 +41,9 @@ interface Props {
 
 const SectionSearchList: React.FC<Props> = ({ data, onSelect }) => {
   const renderItem = useCallback(
-    ({ item }: SectionListRenderItemInfo<Section>) => {
-      return <SearchListItem section={item} onPress={onSelect} />;
-    },
+    ({ item }: SectionListRenderItemInfo<Section>) => (
+      <SearchListItem section={item} onPress={onSelect} />
+    ),
     [onSelect],
   );
   if (data.loading) {

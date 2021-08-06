@@ -7,24 +7,24 @@ import React from 'react';
 import { Row, Title } from '../../../layout/details';
 
 const RegionDetailsMain: React.FC = () => {
-  const { node } = useRegion();
-  if (!node) {
+  const region = useRegion();
+  if (!region) {
     return null;
   }
   return (
     <Box overflow="auto" width={1} height={1} padding={1}>
-      <Grid container={true}>
+      <Grid container>
         <Row>
           <Title>Name</Title>
-          <Grid item={true}>{node.name}</Grid>
+          <Grid item>{region.name}</Grid>
         </Row>
         <Row>
           <Title>Season</Title>
-          <Grid item={true}>{stringifySeason(node.seasonNumeric)}</Grid>
+          <Grid item>{stringifySeason(region.seasonNumeric)}</Grid>
         </Row>
         <Row>
-          <Grid item={true} xs={12}>
-            <ReactMarkdown text={node.description || ''} />
+          <Grid item xs={12}>
+            <ReactMarkdown text={region.description || ''} />
           </Grid>
         </Row>
       </Grid>

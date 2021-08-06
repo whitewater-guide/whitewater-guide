@@ -7,6 +7,7 @@ export const IAPErrorCode = errorCode;
 
 class Emitter {
   purchaseCallback?: (e: ProductPurchase) => void;
+
   errorCallback?: (e: PurchaseError) => void;
 
   fire = () => {

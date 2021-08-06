@@ -2,7 +2,7 @@ import { CommonActions, useNavigation } from '@react-navigation/native';
 import { useSection } from '@whitewater-guide/clients';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FAB } from 'react-native-paper';
+import { FAB as FAButton } from 'react-native-paper';
 import Config from 'react-native-ultimate-config';
 
 import useFABAuth from '~/components/useFABAuth';
@@ -16,25 +16,23 @@ interface Props {
 
 export const SectionFAB: React.FC<Props> = ({ testID }) => {
   const fabState = useFABAuth();
-  const {
-    navigate,
-    dangerouslyGetParent,
-  } = useNavigation<SectionScreenNavProp>();
+  const { navigate, dangerouslyGetParent } =
+    useNavigation<SectionScreenNavProp>();
   const dispatch = dangerouslyGetParent()?.dispatch;
-  const { node } = useSection();
+  const section = useSection();
   const { t } = useTranslation();
 
   const { upload } = useLocalPhotos();
   const onImagePicker = useCallback(
     (localPhotoId: string) => {
-      if (node) {
+      if (section) {
         navigate(Screens.SUGGESTION, {
-          sectionId: node.id,
+          sectionId: section.id,
           localPhotoId,
         });
       }
     },
-    [navigate, node],
+    [navigate, section],
   );
   const onPickAndUpload = useImagePicker(upload, onImagePicker);
 
@@ -44,8 +42,8 @@ export const SectionFAB: React.FC<Props> = ({ testID }) => {
         icon: 'pencil-plus',
         label: t('screens:section.fab.addSuggestion'),
         onPress: () => {
-          if (node) {
-            navigate(Screens.SUGGESTION, { sectionId: node.id });
+          if (section) {
+            navigate(Screens.SUGGESTION, { sectionId: section.id });
           }
         },
       },
@@ -53,11 +51,12 @@ export const SectionFAB: React.FC<Props> = ({ testID }) => {
         icon: 'calendar-plus',
         label: t('screens:section.fab.addDescent'),
         onPress: () =>
-          dispatch?.((navState: any) => {
-            return CommonActions.reset(
-              node
+          dispatch?.((navState: any) =>
+            CommonActions.reset(
+              section
                 ? {
                     ...navState,
+                    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
                     index: navState.index + 1,
                     routes: [
                       ...navState.routes,
@@ -65,7 +64,7 @@ export const SectionFAB: React.FC<Props> = ({ testID }) => {
                         name: Screens.DESCENT_FORM,
                         params: {
                           formData: {
-                            section: node,
+                            section: section,
                             startedAt: new Date().toISOString(),
                             public: true,
                           },
@@ -81,8 +80,8 @@ export const SectionFAB: React.FC<Props> = ({ testID }) => {
                     ],
                   }
                 : navState,
-            );
-          }),
+            ),
+          ),
       },
       {
         icon: 'image-plus',
@@ -90,9 +89,9 @@ export const SectionFAB: React.FC<Props> = ({ testID }) => {
         onPress:
           Config.E2E_MODE === 'true'
             ? () => {
-                if (node) {
+                if (section) {
                   navigate(Screens.SUGGESTION, {
-                    sectionId: node.id,
+                    sectionId: section.id,
                     localPhotoId: 'foo',
                   });
                 }
@@ -100,14 +99,14 @@ export const SectionFAB: React.FC<Props> = ({ testID }) => {
             : onPickAndUpload,
       },
     ],
-    [navigate, dispatch, node, onPickAndUpload, t],
+    [navigate, dispatch, section, onPickAndUpload, t],
   );
   return (
-    <FAB.Group
+    <FAButton.Group
       testID={testID}
       icon="plus"
       actions={actions}
-      visible={true}
+      visible
       {...fabState}
     />
   );

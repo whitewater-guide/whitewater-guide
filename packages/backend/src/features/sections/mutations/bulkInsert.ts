@@ -1,10 +1,10 @@
+import { NEW_RIVER_ID } from '@whitewater-guide/commons';
 import {
-  NEW_ID,
-  NULL_SECTION_INPUT,
+  MutationBulkInsertArgs,
   SectionInput,
   SectionInputSchema,
-} from '@whitewater-guide/commons';
-import { createSafeValidator, yupTypes } from '@whitewater-guide/validation';
+} from '@whitewater-guide/schema';
+import { createSafeValidator } from '@whitewater-guide/validation';
 import { UserInputError } from 'apollo-server-koa';
 import deepmerge from 'deepmerge';
 import { EventIterator } from 'event-iterator';
@@ -14,21 +14,16 @@ import { Extract, extract, Headers } from 'tar-stream';
 import * as yup from 'yup';
 import { createGunzip } from 'zlib';
 
-import { isInputValidResolver, TopLevelResolver } from '~/apollo';
-import db, { rawUpsert } from '~/db';
+import { isInputValidResolver, MutationResolvers } from '~/apollo';
+import { db, rawUpsert } from '~/db';
 import { s3Client, TEMP } from '~/s3';
 
+import { NULL_SECTION_INPUT } from '../constants';
 import { RawSectionUpsertResult } from '../types';
 import { checkForNewRiver, insertNewRiver } from './upsertUtils';
 
-interface Vars {
-  regionId: string;
-  hidden?: boolean;
-  archiveURL: string;
-}
-
-const VarsSchema = yup.object({
-  regionId: yupTypes.uuid().required(),
+const Schema: yup.SchemaOf<MutationBulkInsertArgs> = yup.object({
+  regionId: yup.string().uuid().required(),
   hidden: yup.boolean(),
   archiveURL: yup
     .string()
@@ -76,7 +71,7 @@ const fetchGauges = async (regionId: string) => {
 
 const maybeInsert = async (
   section: any,
-  hidden: boolean | undefined,
+  hidden: boolean | undefined | null,
   regionId: string,
   riverIds: Map<string, string>,
   gauges: Map<string, string>,
@@ -93,7 +88,7 @@ const maybeInsert = async (
       `Validation error: ${JSON.stringify(validationError, null, 2)}\n`,
     ];
   }
-  input.river.id = riverIds.get(input.river.name || '') || NEW_ID;
+  input.river.id = riverIds.get(input.river.name || '') || NEW_RIVER_ID;
   input.region = { id: regionId };
   input.hidden = !!hidden;
   try {
@@ -119,7 +114,7 @@ const maybeInsert = async (
   }
 };
 
-const resolver: TopLevelResolver<Vars> = async (
+const bulkInsert: MutationResolvers['bulkInsert'] = async (
   _,
   { regionId, archiveURL, hidden },
 ) => {
@@ -155,7 +150,7 @@ const resolver: TopLevelResolver<Vars> = async (
             gauges,
           );
           count += cnt;
-          log += logstr + '\n';
+          log += `${logstr}\n`;
         }
       } else {
         // TODO: upload photos
@@ -172,6 +167,4 @@ const resolver: TopLevelResolver<Vars> = async (
   return { log, count };
 };
 
-const bulkInsert = isInputValidResolver(VarsSchema, resolver);
-
-export default bulkInsert;
+export default isInputValidResolver(Schema, bulkInsert);

@@ -53,6 +53,8 @@ const inspectField = (
   const selections: SelectionNode[] = get(field, 'selectionSet.selections', []);
   const fields = type.getFields();
   const fieldType = unwrap(fields[field.name.value].type);
+  // this is a recursion
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
   inspectSelections(selections, fieldType, fragments, acc);
 };
 

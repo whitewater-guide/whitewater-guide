@@ -64,7 +64,7 @@ export const RegisterForm: React.FC = React.memo(() => {
       onSubmit={submit}
     >
       {({ isSubmitting, errors, handleSubmit }) => (
-        <React.Fragment>
+        <>
           <View>
             <Title>{t('screens:auth.register.title')}</Title>
             <TextField
@@ -94,18 +94,14 @@ export const RegisterForm: React.FC = React.memo(() => {
               name="password"
               ref={passwordField}
               label={t('commons:password')}
-              showStrengthIndicator={true}
+              showStrengthIndicator
               returnKeyType="done"
               onSubmitEditing={handleSubmit as any}
             />
           </View>
           <View>
             {(errors as any)?.form && (
-              <HelperText
-                error={t((errors as any).form)}
-                touched={true}
-                noPad={true}
-              />
+              <HelperText error={t((errors as any).form)} touched noPad />
             )}
             <Button
               loading={isSubmitting}
@@ -116,7 +112,7 @@ export const RegisterForm: React.FC = React.memo(() => {
               {t('screens:auth.register.submit')}
             </Button>
           </View>
-        </React.Fragment>
+        </>
       )}
     </Formik>
   );

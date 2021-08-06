@@ -1,11 +1,12 @@
-import { Section, sectionName } from '@whitewater-guide/commons';
+import { sectionName } from '@whitewater-guide/clients';
+import { SectionNameShortFragment } from '@whitewater-guide/schema';
 import React from 'react';
 import { Text } from 'react-native';
 
 import getTitleFontSize from '../../utils/getTitleFontSize';
 
 interface Props {
-  section: Section | null;
+  section?: SectionNameShortFragment | null;
 }
 
 const SectionTitle: React.FC<Props> = ({ section }) => {

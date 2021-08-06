@@ -1,21 +1,27 @@
 import { getListMerger } from '@whitewater-guide/clients';
-import { SuggestionStatus } from '@whitewater-guide/commons';
+import { SuggestionStatus } from '@whitewater-guide/schema';
 import React, { useCallback } from 'react';
 import { ObservableQueryFields } from 'react-apollo';
 import { Index, InfiniteLoader } from 'react-virtualized';
 
-import { QResult, QVars } from './listSuggestions.query';
+import {
+  ListSuggestionsQuery,
+  ListSuggestionsQueryVariables,
+} from './listSuggestions.generated';
 import SuggestionsTable from './SuggestionsTable';
 
 interface Props {
-  suggestions?: QResult['suggestions'];
-  fetchMore: ObservableQueryFields<QResult, QVars>['fetchMore'];
+  suggestions?: ListSuggestionsQuery['suggestions'];
+  fetchMore: ObservableQueryFields<
+    ListSuggestionsQuery,
+    ListSuggestionsQueryVariables
+  >['fetchMore'];
   onPressResolve: (id: string) => void;
   statusFilter: SuggestionStatus[];
   setStatusFilter: (value: SuggestionStatus[]) => void;
 }
 
-export const SuggestionsTableInfinite: React.FC<Props> = React.memo((props) => {
+export const SuggestionsTableInfinite = React.memo<Props>((props) => {
   const {
     suggestions,
     fetchMore,
@@ -27,20 +33,20 @@ export const SuggestionsTableInfinite: React.FC<Props> = React.memo((props) => {
   const count = suggestions?.count ?? 0;
 
   const isRowLoaded = useCallback(
-    ({ index }: Index) => {
-      return !!nodes && !!nodes[index];
-    },
+    ({ index }: Index) => !!nodes && !!nodes[index],
     [nodes],
   );
 
-  const loadMore = useCallback(() => {
-    return fetchMore({
-      variables: {
-        page: { offset: nodes ? nodes.length : 0 },
-      },
-      updateQuery: getListMerger('suggestions'),
-    });
-  }, [nodes, fetchMore]);
+  const loadMore = useCallback(
+    () =>
+      fetchMore({
+        variables: {
+          page: { offset: nodes ? nodes.length : 0 },
+        },
+        updateQuery: getListMerger('suggestions'),
+      }),
+    [nodes, fetchMore],
+  );
 
   return (
     <InfiniteLoader

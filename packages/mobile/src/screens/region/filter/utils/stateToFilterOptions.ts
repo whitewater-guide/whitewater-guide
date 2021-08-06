@@ -1,4 +1,6 @@
-import { SectionFilterOptions, TagSelection } from '@whitewater-guide/commons';
+import { SectionFilterOptions } from '@whitewater-guide/clients';
+
+import { TagSelection } from '~/features/tags';
 
 import { SearchState } from '../types';
 

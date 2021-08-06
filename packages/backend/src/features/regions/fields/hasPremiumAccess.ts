@@ -1,14 +1,12 @@
-import { GraphQLFieldResolver } from 'graphql';
+import { Context, RegionResolvers } from '~/apollo';
 
-import { Context } from '~/apollo';
+import { ResolvableRegion } from '../types';
 
-import { RegionRaw } from '../types';
-
-const hasPremiumAccessResolver: GraphQLFieldResolver<
-  RegionRaw,
-  Context
-> = async ({ id, editable }, _, { dataSources, user }) => {
-  if ((user && user.admin) || editable) {
+const hasPremiumAccessResolver: RegionResolvers<
+  Context,
+  ResolvableRegion
+>['hasPremiumAccess'] = async ({ id, editable }, _, { dataSources, user }) => {
+  if (user?.admin || editable) {
     return true;
   }
   const ids = await dataSources.purchases.getPurchasedRegions();

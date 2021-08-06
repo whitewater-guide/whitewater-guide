@@ -62,11 +62,9 @@ export const VerificationStatusInternal: React.FC<Props> = ({
       </Paragraph>
       <Spacer />
       {!isVerified && (
-        <React.Fragment>
-          <Button mode="text" compact={true} onPress={showMenu}>
-            {t('screens:myprofile.verification.showMenu')}
-          </Button>
-        </React.Fragment>
+        <Button mode="text" compact onPress={showMenu}>
+          {t('screens:myprofile.verification.showMenu')}
+        </Button>
       )}
     </View>
   );

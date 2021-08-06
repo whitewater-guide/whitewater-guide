@@ -1,10 +1,6 @@
-import { GraphQLFieldResolver } from 'graphql';
+import { SectionResolvers } from '~/apollo';
 
-import { Context } from '~/apollo';
-
-import { SectionRaw } from '../types';
-
-const descriptionResolver: GraphQLFieldResolver<SectionRaw, Context> = async (
+const descriptionResolver: SectionResolvers['description'] = async (
   section,
   _,
   { dataSources },

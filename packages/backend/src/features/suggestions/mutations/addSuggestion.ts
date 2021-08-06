@@ -1,26 +1,20 @@
 import {
   MediaKind,
-  SuggestionInput,
+  MutationAddSuggestionArgs,
   SuggestionInputSchema,
   SuggestionStatus,
-} from '@whitewater-guide/commons';
+} from '@whitewater-guide/schema';
 import * as yup from 'yup';
 
-import { isInputValidResolver, TopLevelResolver } from '~/apollo';
-import db from '~/db';
+import { isInputValidResolver, MutationResolvers } from '~/apollo';
+import { db, Sql } from '~/db';
 import { MEDIA, s3Client } from '~/s3';
 
-import { SuggestionRaw } from '../types';
-
-const schema = yup.object({
+const schema: yup.SchemaOf<MutationAddSuggestionArgs> = yup.object({
   suggestion: SuggestionInputSchema,
 });
 
-interface Vars {
-  suggestion: SuggestionInput;
-}
-
-const addSuggestion: TopLevelResolver<Vars> = async (
+const addSuggestion: MutationResolvers['addSuggestion'] = async (
   _,
   { suggestion },
   { dataSources, user },
@@ -29,16 +23,16 @@ const addSuggestion: TopLevelResolver<Vars> = async (
     sectionId: suggestion.section.id,
   });
   const autoApprove = isEditor && !!suggestion.filename;
-  const raw: Partial<SuggestionRaw> = {
+  const raw: Partial<Sql.Suggestions> = {
     section_id: suggestion.section.id,
     description: suggestion.description,
     copyright: suggestion.copyright,
     filename: s3Client.getLocalFileName(suggestion.filename),
-    resolution: suggestion.resolution,
+    resolution: suggestion.resolution as [number, number],
     created_by: user ? user.id : null,
     resolved_by: autoApprove ? user?.id : null,
     resolved_at: autoApprove ? (db().fn.now() as any) : null,
-    status: autoApprove ? SuggestionStatus.ACCEPTED : SuggestionStatus.PENDING,
+    status: autoApprove ? SuggestionStatus.Accepted : SuggestionStatus.Pending,
   };
   const [result] = await db().insert(raw).into('suggestions').returning('*');
   if (autoApprove) {
@@ -48,7 +42,7 @@ const addSuggestion: TopLevelResolver<Vars> = async (
         description: suggestion.description,
         copyright: suggestion.copyright,
         url: suggestion.filename,
-        kind: MediaKind.photo,
+        kind: MediaKind.Photo,
         resolution: suggestion.resolution,
         weight: null,
       },

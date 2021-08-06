@@ -1,21 +1,6 @@
-import { GaugeBinding } from '@whitewater-guide/commons';
+import { GaugeBindingResolvers } from '~/apollo';
 
-import { FieldResolvers } from '~/apollo';
-
-// Stored as JSONb in postgres
-interface GaugeBindingRaw {
-  minimum: number | null | undefined;
-  optimum: number | null | undefined;
-  maximum: number | null | undefined;
-  impossible: number | null | undefined;
-  approximate: boolean | null | undefined;
-  formula: string | null | undefined;
-}
-
-export const gaugeBindingResolver: FieldResolvers<
-  GaugeBindingRaw,
-  GaugeBinding
-> = {
+export const gaugeBindingResolver: GaugeBindingResolvers = {
   minimum: ({ minimum }) => minimum || null,
   optimum: ({ optimum }) => optimum || null,
   maximum: ({ maximum }) => maximum || null,

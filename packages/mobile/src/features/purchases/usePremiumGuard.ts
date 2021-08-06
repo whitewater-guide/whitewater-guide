@@ -1,14 +1,14 @@
 import { useNavigation } from '@react-navigation/native';
-import { Region, Section } from '@whitewater-guide/commons';
 import { useCallback } from 'react';
 
 import { Screens } from '~/core/navigation';
 
+import { PremiumRegion, PremiumSection } from './types';
 import { usePremiumAccess } from './usePremiumAccess';
 
 export const usePremiumGuard = (
-  region: Region | null,
-  section?: Section | null,
+  region?: PremiumRegion | null,
+  section?: PremiumSection | null,
 ) => {
   const { navigate } = useNavigation();
   const isFree = usePremiumAccess(region, section);

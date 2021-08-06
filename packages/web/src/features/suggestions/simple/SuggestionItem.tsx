@@ -2,7 +2,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import React, { useLayoutEffect, useRef, useState } from 'react';
 
-import { ListedSuggestion } from './listSuggestions.query';
+import { ListedSuggestionFragment } from './listSuggestions.generated';
 import LongDescriptionDialog from './LongDescriptionDialog';
 import SuggestionThumb from './SuggestionThumb';
 
@@ -30,11 +30,11 @@ const useStyles = makeStyles(() =>
 );
 
 interface Props {
-  suggestion: ListedSuggestion;
+  suggestion: ListedSuggestionFragment;
 }
 
-const SuggestionItem = React.memo(({ suggestion }: Props) => {
-  const { description }: ListedSuggestion = suggestion;
+const SuggestionItem = React.memo<Props>(({ suggestion }) => {
+  const { description } = suggestion;
   const [isOverflowing, setIsOverflowing] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const descriptionEl = useRef<HTMLDivElement | null>(null);

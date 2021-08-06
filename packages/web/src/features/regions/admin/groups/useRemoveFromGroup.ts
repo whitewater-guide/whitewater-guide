@@ -1,20 +1,9 @@
-import gql from 'graphql-tag';
 import { useCallback } from 'react';
-import { useMutation } from 'react-apollo';
 
-const REMOVE_REGION_FROM_GROUP_MUTATION = gql`
-  mutation removeRegionFromGroup($regionId: ID!, $groupId: ID!) {
-    removeRegionFromGroup(regionId: $regionId, groupId: $groupId)
-  }
-`;
-
-interface MVars {
-  regionId: string;
-  groupId: string;
-}
+import { useRemoveRegionFromGroupMutation } from './removeRegionFromGroup.generated';
 
 export default (regionId: string) => {
-  const [mutate] = useMutation<any, MVars>(REMOVE_REGION_FROM_GROUP_MUTATION, {
+  const [mutate] = useRemoveRegionFromGroupMutation({
     refetchQueries: ['regionGroups'],
   });
   return useCallback(

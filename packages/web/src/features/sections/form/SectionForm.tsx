@@ -9,7 +9,11 @@ import { FormikTab } from '../../../formik/helpers';
 import addToList from './addToList';
 import formToMutation from './formToMutation';
 import makeQueryToForm from './makeQueryToForm';
-import { QResult, QVars, SECTION_FORM_QUERY } from './sectionForm.query';
+import {
+  SectionFormDocument,
+  SectionFormQuery,
+  SectionFormQueryVariables,
+} from './sectionForm.generated';
 import { SectionFormFlows } from './SectionFormFlows';
 import SectionFormLicense from './SectionFormLicense';
 import { SectionFormMain } from './SectionFormMain';
@@ -17,7 +21,10 @@ import { SectionFormMap } from './SectionFormMap';
 import SectionFormMedia from './SectionFormMedia';
 import { SectionFormProperties } from './SectionFormProperties';
 import { RouterParams, SectionFormData } from './types';
-import { MVars, UPSERT_SECTION } from './upsertSection.mutation';
+import {
+  UpsertSectionDocument,
+  UpsertSectionMutationVariables,
+} from './upsertSection.generated';
 import { SectionFormSchema } from './validation';
 
 const header = { resourceType: 'section' };
@@ -59,12 +66,18 @@ const SectionForm: React.FC<Props> = ({ match, location }) => {
   const { regionId, sectionId } = match.params;
   const riverId = query.riverId as string;
   const copyFromId = query.copy as string;
-  const queryToForm = useMemo(() => makeQueryToForm(!!copyFromId), [
-    copyFromId,
-  ]);
+  const queryToForm = useMemo(
+    () => makeQueryToForm(!!copyFromId),
+    [copyFromId],
+  );
 
-  const formik = useApolloFormik<QVars, QResult, SectionFormData, MVars>({
-    query: SECTION_FORM_QUERY,
+  const formik = useApolloFormik<
+    SectionFormQueryVariables,
+    SectionFormQuery,
+    SectionFormData,
+    UpsertSectionMutationVariables
+  >({
+    query: SectionFormDocument,
     queryOptions: {
       variables: {
         regionId,
@@ -73,7 +86,7 @@ const SectionForm: React.FC<Props> = ({ match, location }) => {
       },
     },
     queryToForm,
-    mutation: UPSERT_SECTION,
+    mutation: UpsertSectionDocument,
     formToMutation,
     mutationOptions: {
       update: addToList(match.params),
@@ -87,7 +100,7 @@ const SectionForm: React.FC<Props> = ({ match, location }) => {
     !formik.rawData?.section?.verified && !!formik.rawData?.section?.id;
 
   return (
-    <FormikCard<QResult, SectionFormData>
+    <FormikCard<SectionFormQuery, SectionFormData>
       header={header}
       {...formik}
       validationSchema={SectionFormSchema}

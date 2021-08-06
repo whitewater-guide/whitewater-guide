@@ -1,0 +1,10 @@
+mutation upsertSource($source: SourceInput!) {
+  upsertSource(source: $source) {
+    id
+    name
+    termsOfUse
+    script
+    cron
+    url
+  }
+}

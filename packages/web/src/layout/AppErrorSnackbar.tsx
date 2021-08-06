@@ -13,21 +13,19 @@ import { Clipboard } from '../components';
 const AppErrorSnackbar = () => (
   <Query<AppErrorQueryResult> query={APP_ERROR_QUERY}>
     {({ data }) => {
-      const error = (data && data.appError) || undefined;
+      const error = data?.appError || undefined;
       const errorMessage = error ? `${error.message} (${error.id})` : '';
       return (
         <Mutation<unknown, AppErrorMutationVars> mutation={APP_ERROR_MUTATION}>
-          {(setAppError) => {
-            return (
-              <Snackbar
-                open={!!error}
-                autoHideDuration={6000}
-                onClose={() => setAppError({ variables: { error: null } })}
-                message={<span>{errorMessage}</span>}
-                action={<Clipboard text={JSON.stringify(error, null, 2)} />}
-              />
-            );
-          }}
+          {(setAppError) => (
+            <Snackbar
+              open={!!error}
+              autoHideDuration={6000}
+              onClose={() => setAppError({ variables: { error: null } })}
+              message={<span>{errorMessage}</span>}
+              action={<Clipboard text={JSON.stringify(error, null, 2)} />}
+            />
+          )}
         </Mutation>
       );
     }}

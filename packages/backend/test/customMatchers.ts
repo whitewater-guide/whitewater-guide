@@ -4,7 +4,7 @@ import get from 'lodash/get';
 import has from 'lodash/has';
 
 const isValidationError = (error: any) =>
-  has(error, 'extensions.exception.validationErrors');
+  has(error, 'extensions.validationErrors');
 
 const hasGraphlError = (
   received: any,
@@ -22,12 +22,9 @@ const hasGraphlError = (
   return hasError && hasNoData;
 };
 
-const hasGraphqlValidationError = (received: any): boolean => {
-  return (
-    hasGraphlError(received, ApolloErrorCodes.BAD_USER_INPUT) &&
-    isValidationError(received.errors[0])
-  );
-};
+const hasGraphqlValidationError = (received: any): boolean =>
+  hasGraphlError(received, ApolloErrorCodes.BAD_USER_INPUT) &&
+  isValidationError(received.errors[0]);
 
 interface FormatOpts {
   pass: boolean;
@@ -56,18 +53,17 @@ Received:
           `,
       pass: true,
     };
-  } else {
-    return {
-      message: () =>
-        `${matcherHint(`.${hint}`)}
+  }
+  return {
+    message: () =>
+      `${matcherHint(`.${hint}`)}
 
 Expected value to have ${name} error${pre}${expectedCode}${expectedMessage}
 Received:
   value: ${printReceived(received)}
           `,
-      pass: false,
-    };
-  }
+    pass: false,
+  };
 };
 
 const customMatchers: jest.ExpectExtendMap = {

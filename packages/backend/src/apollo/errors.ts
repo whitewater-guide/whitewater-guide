@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 import { ApolloError } from 'apollo-server-koa';
 

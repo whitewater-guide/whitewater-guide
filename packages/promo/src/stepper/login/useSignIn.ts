@@ -25,12 +25,10 @@ const useSignIn = <Values>(
             if (onSuccess) {
               onSuccess(resp);
             }
-          } else {
-            if (error) {
-              actions.setErrors(
-                mapValues(error, (v, k) => `login:errors.${k}.${v}`) as any,
-              );
-            }
+          } else if (error) {
+            actions.setErrors(
+              mapValues(error, (v, k) => `login:errors.${k}.${v}`) as any,
+            );
           }
         })
         .catch(() => {

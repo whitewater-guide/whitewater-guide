@@ -1,0 +1,5 @@
+fragment GroupCore on Group {
+  id
+  name
+  sku
+}

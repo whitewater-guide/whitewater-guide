@@ -1,0 +1,81 @@
+type Source implements NamedNode & Timestamped {
+  "Unique id"
+  id: ID!
+  "Human-friendly data source name"
+  name: String!
+  "Terms of use as given by upstream data provider. Markdown."
+  termsOfUse: String
+  "gorge script name"
+  script: String!
+  "Arbitrary upstream request params"
+  requestParams: JSON @admin
+  "Cron schedule"
+  cron: String @admin
+  "Upstream provider web page (for humans)"
+  url: String
+  "Is harvesting ON?"
+  enabled: Boolean
+  "Creation date"
+  createdAt: Date!
+  "Last modification date"
+  updatedAt: Date!
+
+  "Last harvest operation status"
+  status: HarvestStatus
+  "Regions"
+  regions(page: Page): SourceRegionConnection!
+  "Gauges"
+  gauges(page: Page): SourceGaugeConnection!
+}
+
+type SourceRegionConnection {
+  nodes: [Region!]!
+  count: Int!
+}
+
+type SourceGaugeConnection {
+  nodes: [Gauge!]!
+  count: Int!
+}
+
+input SourceInput {
+  "Existing source UUID or null to create new surce"
+  id: ID
+  "Human-friendly data source name"
+  name: String!
+  "Terms of use as given by upstream data provider. Markdown. "
+  termsOfUse: String
+  "gorge script name"
+  script: String!
+  "Arbitrary upstream request params"
+  requestParams: JSON
+  "Cron schedule"
+  cron: String
+  "Regions to link with this source"
+  regions: [RefInput!]!
+  "Upstream provider web page (for humans)"
+  url: String
+}
+
+type SourcesList {
+  nodes: [Source!]!
+  count: Int!
+}
+
+type Query {
+  "Lists data sources"
+  sources(page: Page): SourcesList!
+  "Gets source by ID. Returns null when id is not provided"
+  source(id: ID): Source
+}
+
+type Mutation {
+  "Creates or updates source"
+  upsertSource(source: SourceInput!): Source @admin
+  "Deletes source"
+  removeSource(id: ID!): ID @admin
+  "Enables or disables source"
+  toggleSource(id: ID!, enabled: Boolean!): Source @admin
+  "Automatically creates or updates gauges in this source"
+  autofillSource(id: ID!): [Gauge] @admin
+}

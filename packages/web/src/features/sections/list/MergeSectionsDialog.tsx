@@ -4,7 +4,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { NamedNode } from '@whitewater-guide/commons';
+import { NamedNode } from '@whitewater-guide/schema';
 import React, { useState } from 'react';
 
 import { ButtonProgress } from '../../../components';
@@ -17,7 +17,7 @@ interface Props {
 }
 
 const MergeSectionsDialog = React.memo(({ regionId }: Props) => {
-  const { source, setSource } = useMergeSource();
+  const [source, setSource] = useMergeSource();
   const { mergeSections, loading } = useMergeSections();
   const [destination, setDestination] = useState<NamedNode | null>(null);
 
@@ -39,11 +39,11 @@ const MergeSectionsDialog = React.memo(({ regionId }: Props) => {
 
   return (
     <Dialog
-      disableBackdropClick={true}
-      disableEscapeKeyDown={true}
+      disableBackdropClick
+      disableEscapeKeyDown
       maxWidth="xs"
       aria-labelledby="merge-sections-dialog-title"
-      open={true}
+      open
     >
       <DialogTitle id="merge-sections-dialog-title">Merge section</DialogTitle>
 
@@ -59,7 +59,7 @@ const MergeSectionsDialog = React.memo(({ regionId }: Props) => {
           </ul>
         </DialogContentText>
         <SectionFinder
-          allowNull={true}
+          allowNull
           value={destination}
           onChange={setDestination}
           regionId={regionId}

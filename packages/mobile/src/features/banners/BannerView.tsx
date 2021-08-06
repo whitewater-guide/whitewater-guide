@@ -1,5 +1,5 @@
 import analytics from '@react-native-firebase/analytics';
-import { Banner, BannerKind } from '@whitewater-guide/commons';
+import { BannerKind, BannerWithSourceFragment } from '@whitewater-guide/schema';
 import React, { useCallback } from 'react';
 import { StyleProp, View, ViewStyle } from 'react-native';
 
@@ -7,7 +7,7 @@ import ImageBanner from './ImageBanner';
 import WebViewBanner from './WebViewBanner';
 
 interface Props {
-  banner: Banner;
+  banner: BannerWithSourceFragment;
   containerStyle?: StyleProp<ViewStyle>;
   style?: StyleProp<ViewStyle>;
 }

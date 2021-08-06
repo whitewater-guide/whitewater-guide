@@ -1,6 +1,6 @@
-import { ListQuery, TopLevelResolver } from '~/apollo';
+import { QueryResolvers } from '~/apollo';
 
-const sources: TopLevelResolver<ListQuery> = async (
+const sources: QueryResolvers['sources'] = async (
   _,
   { page },
   { dataSources },

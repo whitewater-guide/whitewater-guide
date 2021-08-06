@@ -1,10 +1,6 @@
 import { createStyles, WithStyles, withStyles } from '@material-ui/core/styles';
-import { formatDate } from '@whitewater-guide/clients';
-import {
-  NamedNode,
-  SectionEditLogEntry,
-  sectionName,
-} from '@whitewater-guide/commons';
+import { formatDate, sectionName } from '@whitewater-guide/clients';
+import { NamedNode } from '@whitewater-guide/schema';
 import parseISO from 'date-fns/parseISO';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -19,6 +15,7 @@ import {
 } from '../../components';
 import { UserFinder } from '../users';
 import { DiffButton } from './DiffButton';
+import { SectionEditLogEntryRowFragment } from './sectionsEditLog.generated';
 import { Diff } from './types';
 
 const styles = createStyles({
@@ -28,7 +25,7 @@ const styles = createStyles({
 });
 
 interface OwnProps {
-  history: SectionEditLogEntry[];
+  history: SectionEditLogEntryRowFragment[];
   user: NamedNode | null;
   onUserChange: (user: NamedNode | null) => void;
   region: NamedNode | null;
@@ -37,7 +34,7 @@ interface OwnProps {
   registerChild: (registeredChild: any) => void;
 }
 
-type TCR = TableCellRenderer<SectionEditLogEntry>;
+type TCR = TableCellRenderer<SectionEditLogEntryRowFragment>;
 
 type Props = OwnProps &
   WithStyles<typeof styles> &
@@ -92,15 +89,17 @@ class HistoryTable extends React.PureComponent<Props> {
     if (!diff) {
       return null;
     }
-    return <DiffButton diff={diff} onDiffOpen={this.props.onDiffOpen} />;
+    return (
+      <DiffButton diff={diff as Diff} onDiffOpen={this.props.onDiffOpen} />
+    );
   };
 
   renderEditorHeader = () => (
     <UserFinder
       value={this.props.user}
       onChange={this.props.onUserChange}
-      editorsOnly={true}
-      allowNull={true}
+      editorsOnly
+      allowNull
       className={this.props.classes.input}
     />
   );
@@ -110,7 +109,7 @@ class HistoryTable extends React.PureComponent<Props> {
       className={this.props.classes.input}
       value={this.props.region}
       onChange={this.props.onRegionChange}
-      allowNull={true}
+      allowNull
     />
   );
 

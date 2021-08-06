@@ -1,0 +1,62 @@
+type River implements NamedNode & Timestamped {
+  "Unique river ID"
+  id: ID!
+  "Human-friendly river name"
+  name: String!
+  "Alternative names, e.g. english transliteration for names that contain umlauts"
+  altNames: [String!]!
+  "Creation date"
+  createdAt: Date!
+  "Last modification date"
+  updatedAt: Date!
+  "River region"
+  region: Region!
+  "List of sections"
+  sections(page: Page): RiverSectionConnection!
+}
+
+type RiverSectionConnection {
+  nodes: [Section!]!
+  count: Int!
+}
+
+input RiverInput {
+  "UUID of existing river or null to create new river"
+  id: ID
+  "Human-friendly river name"
+  name: String!
+  "Alternative names, e.g. english transliteration for names that contain umlauts"
+  altNames: [String!]
+  "River region"
+  region: RefInput!
+  "Optional field for imported data"
+  importId: String
+}
+
+type RiversList {
+  nodes: [River!]!
+  count: Int!
+}
+
+input RiversFilter {
+  "String to search in river names"
+  search: String
+  "Optional region ID"
+  regionId: ID
+}
+
+type Query {
+  "Lists rivers"
+  rivers(page: Page, filter: RiversFilter): RiversList!
+  "Gets river by ID, returns null if ID was not provided"
+  river(id: ID): River
+}
+
+type Mutation {
+  "Creates or updates river"
+  upsertRiver(river: RiverInput!): River
+  "Deletes river (all the sections must be deleted beforehand)"
+  removeRiver(id: ID!): ID
+  "Changes region of a river"
+  changeRiverRegion(riverId: ID!, regionId: ID!): River
+}

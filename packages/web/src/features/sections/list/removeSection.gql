@@ -1,0 +1,3 @@
+mutation removeSection($id: ID!) {
+  removeSection(id: $id)
+}

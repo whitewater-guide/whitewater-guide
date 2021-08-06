@@ -28,7 +28,7 @@ describe('network errors', () => {
       errorLink(new InMemoryCache()),
       new ApolloLink((operation) => {
         if (timesCalled === 0) {
-          timesCalled++;
+          timesCalled += 1;
           // simulate the first request being an error
           return new Observable(() => {
             throwServerError(
@@ -37,18 +37,17 @@ describe('network errors', () => {
               'server error',
             );
           });
-        } else {
-          return new Observable((observer) => {
-            forwarded = true;
-            // eslint-disable-next-line jest/no-conditional-expect
-            expect(operation.getContext()).toHaveProperty(
-              JWT_EXPIRED_CTX_KEY,
-              true,
-            );
-            observer.next(GOOD_RESPONSE);
-            observer.complete();
-          });
         }
+        return new Observable((observer) => {
+          forwarded = true;
+          // eslint-disable-next-line jest/no-conditional-expect
+          expect(operation.getContext()).toHaveProperty(
+            JWT_EXPIRED_CTX_KEY,
+            true,
+          );
+          observer.next(GOOD_RESPONSE);
+          observer.complete();
+        });
       }),
     ]);
 
@@ -66,15 +65,16 @@ describe('network errors', () => {
 
     const link = ApolloLink.from([
       errorLink(new InMemoryCache(), handleError),
-      new ApolloLink(() => {
-        return new Observable(() => {
-          throwServerError(
-            { status: 401 },
-            { success: false, error: 'unauthenticated' },
-            'server error',
-          );
-        });
-      }),
+      new ApolloLink(
+        () =>
+          new Observable(() => {
+            throwServerError(
+              { status: 401 },
+              { success: false, error: 'unauthenticated' },
+              'server error',
+            );
+          }),
+      ),
     ]);
 
     execute(link, { query }).subscribe({
@@ -93,26 +93,26 @@ describe('network errors', () => {
 
   it('should call support async handlers', (done) => {
     const handleError = jest.fn();
-    const asyncHandleError = async (err: AppError) => {
-      return new Promise<void>((resolve) => {
+    const asyncHandleError = async (err: AppError) =>
+      new Promise<void>((resolve) => {
         setTimeout(() => {
           handleError(err);
           resolve();
         }, 0);
       });
-    };
 
     const link = ApolloLink.from([
       errorLink(new InMemoryCache(), asyncHandleError),
-      new ApolloLink(() => {
-        return new Observable(() => {
-          throwServerError(
-            { status: 401 },
-            { success: false, error: 'unauthenticated' },
-            'server error',
-          );
-        });
-      }),
+      new ApolloLink(
+        () =>
+          new Observable(() => {
+            throwServerError(
+              { status: 401 },
+              { success: false, error: 'unauthenticated' },
+              'server error',
+            );
+          }),
+      ),
     ]);
 
     execute(link, { query }).subscribe({
@@ -133,15 +133,16 @@ describe('network errors', () => {
     const cache = new InMemoryCache();
     const link = ApolloLink.from([
       errorLink(cache),
-      new ApolloLink(() => {
-        return new Observable(() => {
-          throwServerError(
-            { status: 401 },
-            { success: false, error: 'unauthenticated' },
-            'server error',
-          );
-        });
-      }),
+      new ApolloLink(
+        () =>
+          new Observable(() => {
+            throwServerError(
+              { status: 401 },
+              { success: false, error: 'unauthenticated' },
+              'server error',
+            );
+          }),
+      ),
     ]);
 
     execute(link, { query }).subscribe({
@@ -163,15 +164,16 @@ describe('network errors', () => {
     const cache = new InMemoryCache();
     const link = ApolloLink.from([
       errorLink(cache, handleError),
-      new ApolloLink(() => {
-        return new Observable(() => {
-          throwServerError(
-            { status: 500 },
-            { success: false, error: 'internal server error' },
-            'server error',
-          );
-        });
-      }),
+      new ApolloLink(
+        () =>
+          new Observable(() => {
+            throwServerError(
+              { status: 500 },
+              { success: false, error: 'internal server error' },
+              'server error',
+            );
+          }),
+      ),
     ]);
 
     execute(link, { query }).subscribe({
@@ -196,11 +198,12 @@ describe('network errors', () => {
     const cache = new InMemoryCache();
     const link = ApolloLink.from([
       errorLink(cache, handleError),
-      new ApolloLink(() => {
-        return new Observable(() => {
-          throw new Error('fetch failed');
-        });
-      }),
+      new ApolloLink(
+        () =>
+          new Observable(() => {
+            throw new Error('fetch failed');
+          }),
+      ),
     ]);
 
     execute(link, { query }).subscribe({
@@ -236,7 +239,7 @@ describe('graphql errors', () => {
       errorLink(cache),
       new ApolloLink((operation) => {
         if (timesCalled === 0) {
-          timesCalled++;
+          timesCalled += 1;
           // simulate the first request being an error
           return Observable.of({
             data: { foo: { id: 1 } },
@@ -247,18 +250,17 @@ describe('graphql errors', () => {
               } as any,
             ],
           });
-        } else {
-          return new Observable((observer) => {
-            forwarded = true;
-            // eslint-disable-next-line jest/no-conditional-expect
-            expect(operation.getContext()).toHaveProperty(
-              JWT_EXPIRED_CTX_KEY,
-              true,
-            );
-            observer.next(GOOD_RESPONSE);
-            observer.complete();
-          });
         }
+        return new Observable((observer) => {
+          forwarded = true;
+          // eslint-disable-next-line jest/no-conditional-expect
+          expect(operation.getContext()).toHaveProperty(
+            JWT_EXPIRED_CTX_KEY,
+            true,
+          );
+          observer.next(GOOD_RESPONSE);
+          observer.complete();
+        });
       }),
     ]);
 
@@ -281,7 +283,7 @@ describe('graphql errors', () => {
       errorLink(cache),
       new ApolloLink(() => {
         if (timesCalled === 0) {
-          timesCalled++;
+          timesCalled += 1;
           // simulate the first request being an error
           return Observable.of({
             data: { foo: { id: 1 } },
@@ -292,13 +294,12 @@ describe('graphql errors', () => {
               } as any,
             ],
           });
-        } else {
-          return new Observable((observer) => {
-            forwarded = true;
-            observer.next(GOOD_RESPONSE);
-            observer.complete();
-          });
         }
+        return new Observable((observer) => {
+          forwarded = true;
+          observer.next(GOOD_RESPONSE);
+          observer.complete();
+        });
       }),
     ]);
 
@@ -326,9 +327,7 @@ describe('graphql errors', () => {
 it('completes if no error', (done) => {
   const link = ApolloLink.from([
     errorLink(new InMemoryCache()),
-    new ApolloLink(() => {
-      return Observable.of({ data: { foo: true } });
-    }),
+    new ApolloLink(() => Observable.of({ data: { foo: true } })),
   ]);
 
   execute(link, { query }).subscribe({

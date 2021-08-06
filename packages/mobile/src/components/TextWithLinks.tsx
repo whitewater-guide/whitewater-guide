@@ -69,6 +69,8 @@ interface Props {
 export const TextWithLinks: React.FC<Props> = React.memo(
   ({ onLink, children, textStyle, linkStyle }) => {
     const nodes = split(children);
+    // There's nothing else to use as key
+    /* eslint-disable react/no-array-index-key */
     return (
       <Text>
         {nodes.map((node, index) => {
@@ -92,6 +94,7 @@ export const TextWithLinks: React.FC<Props> = React.memo(
         })}
       </Text>
     );
+    /* eslint-enable react/no-array-index-key */
   },
 );
 

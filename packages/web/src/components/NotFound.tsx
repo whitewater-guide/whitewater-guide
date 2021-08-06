@@ -7,7 +7,7 @@ interface Props {
   id?: string;
 }
 
-export const NotFound: React.FC<Props> = React.memo((props) => {
+export const NotFound = React.memo<Props>((props) => {
   const { resource, id } = props;
   return (
     <Box

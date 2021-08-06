@@ -1,9 +1,6 @@
 import Box from '@material-ui/core/Box';
-import {
-  BannerPlacement,
-  BannerRatios,
-  NamedNode,
-} from '@whitewater-guide/commons';
+import { BannerRatios } from '@whitewater-guide/clients';
+import { BannerPlacement, NamedNode } from '@whitewater-guide/schema';
 import snakeCase from 'lodash/snakeCase';
 import upperFirst from 'lodash/upperCase';
 import React from 'react';
@@ -22,7 +19,7 @@ import { RouterParams } from './types';
 
 const PLACEMENTS = Object.values(BannerPlacement).map((placement) => {
   const name = upperFirst(snakeCase(placement)).replace(/_/g, ' ');
-  const size = '2048x' + Math.ceil(2048 / BannerRatios[placement]);
+  const size = `2048x${Math.ceil(2048 / BannerRatios[placement])}`;
   return {
     id: placement,
     name: `${name} (${size})`,
@@ -30,24 +27,25 @@ const PLACEMENTS = Object.values(BannerPlacement).map((placement) => {
 });
 
 interface Props {
-  regions: NamedNode[];
-  groups: NamedNode[];
+  regions?: NamedNode[];
+  groups?: NamedNode[];
 }
 
-export const BannerFormMain: React.FC<Props> = React.memo((props) => {
+export const BannerFormMain = React.memo<Props>((props) => {
+  const { regions = [], groups = [] } = props;
   const { match } = useRouter<RouterParams>();
   return (
     <Box padding={1} overflow="auto">
       <TextField
-        fullWidth={true}
+        fullWidth
         name="slug"
         label="Slug"
         placeholder="Slug"
         disabled={!!match.params.bannerId}
       />
-      <TextField fullWidth={true} name="name" label="Name" placeholder="Name" />
+      <TextField fullWidth name="name" label="Name" placeholder="Name" />
       <NumberField
-        fullWidth={true}
+        fullWidth
         name="priority"
         type="number"
         label="Priority"
@@ -67,25 +65,20 @@ export const BannerFormMain: React.FC<Props> = React.memo((props) => {
         previewScale={0.25}
       />
       <CheckboxField name="enabled" label="Enabled" />
-      <TextField fullWidth={true} name="link" label="Link" />
+      <TextField fullWidth name="link" label="Link" />
       <MulticompleteField
         name="groups"
         label="Groups"
-        options={props.groups}
-        fullWidth={true}
+        options={groups}
+        fullWidth
       />
       <MulticompleteField
         name="regions"
         label="Regions"
-        options={props.regions}
-        fullWidth={true}
+        options={regions}
+        fullWidth
       />
-      <TextField
-        fullWidth={true}
-        name="extras"
-        label="Extras"
-        placeholder="Extras"
-      />
+      <TextField fullWidth name="extras" label="Extras" placeholder="Extras" />
     </Box>
   );
 });

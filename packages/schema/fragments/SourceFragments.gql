@@ -1,0 +1,8 @@
+fragment SourceCore on Source {
+  id
+  name
+  termsOfUse
+  script
+  cron
+  url
+}

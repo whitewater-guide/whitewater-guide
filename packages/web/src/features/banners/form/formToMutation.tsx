@@ -1,10 +1,10 @@
-import { BannerKind } from '@whitewater-guide/commons';
+import { BannerKind } from '@whitewater-guide/schema';
 
 import { toJSON } from '../../../formik/utils';
 import { BannerFormData } from './types';
-import { MVars } from './upsertBanner.mutation';
+import { UpsertBannerMutationVariables } from './upsertBanner.generated';
 
-export default (banner: BannerFormData): MVars => {
+export default (banner: BannerFormData): UpsertBannerMutationVariables => {
   const { extras, source, ...rest } = banner;
   return {
     banner: {

@@ -8,8 +8,8 @@ import { BannersList } from './list';
 
 const BannersRoute: React.FC = () => (
   <Switch>
-    <AdminRoute exact={true} path="/banners" component={BannersList} />
-    <AdminRoute exact={true} path="/banners/new" component={BannerForm} />
+    <AdminRoute exact path="/banners" component={BannersList} />
+    <AdminRoute exact path="/banners/new" component={BannerForm} />
     <AdminRoute path="/banners/:bannerId" component={BannerRoute} />
   </Switch>
 );

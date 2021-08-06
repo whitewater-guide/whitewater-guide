@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { Descent } from '@whitewater-guide/commons';
+import { Descent } from '@whitewater-guide/schema';
 import format from 'date-fns/format';
 import React, { useCallback } from 'react';
 import { ListRenderItemInfo, Pressable, StyleSheet, View } from 'react-native';
@@ -42,7 +42,7 @@ const LogbookListItem: React.FC<Props> = ({ descent }) => {
       <View style={styles.container}>
         <View style={styles.rows}>
           <Subheading>
-            {descent.section.river.name + ' - ' + descent.section.name}
+            {`${descent.section.river.name} - ${descent.section.name}`}
           </Subheading>
           <Caption>{format(new Date(descent.startedAt), 'PP p')}</Caption>
         </View>

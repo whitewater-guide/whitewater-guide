@@ -1,7 +1,7 @@
-import { BannerKind, BannerPlacement } from '@whitewater-guide/commons';
+import { BannerKind, BannerPlacement } from '@whitewater-guide/schema';
 import Knex from 'knex';
 
-import { BannerRaw } from '~/features/banners';
+import { Sql } from '~/db';
 
 import { GROUP_ALL } from './03_groups';
 import { REGION_GALICIA, REGION_NORWAY } from './04_regions';
@@ -18,14 +18,14 @@ export const ALL_SECTION_ROW_BANNER = 'cebb31b2-c66d-11e8-a355-529269fb1459';
 export const ALL_SECTION_ROW_BANNER_DISABLED =
   '79f904c4-c66d-11e8-a355-529269fb1459';
 
-const banners: BannerRaw[] = [
+const banners: Sql.Banners[] = [
   {
     id: NORWAY_SECTION_MEDIA_BANNER,
     slug: 'norway_section_media_banner',
     name: 'norway section media banner',
     priority: 1,
     enabled: true,
-    placement: BannerPlacement.MOBILE_SECTION_MEDIA,
+    placement: BannerPlacement.MobileSectionMedia,
     source: {
       kind: BannerKind.WebView,
       url: 'http://whitewater.guide/norway_section_media_banner',
@@ -39,7 +39,7 @@ const banners: BannerRaw[] = [
     name: 'galicia section row banner',
     priority: 1,
     enabled: true,
-    placement: BannerPlacement.MOBILE_SECTION_ROW,
+    placement: BannerPlacement.MobileSectionRow,
     source: {
       kind: BannerKind.WebView,
       url: 'http://whitewater.guide/galicia_section_row_banner',
@@ -53,7 +53,7 @@ const banners: BannerRaw[] = [
     name: 'galicia region descr banner',
     priority: 1,
     enabled: true,
-    placement: BannerPlacement.MOBILE_REGION_DESCRIPTION,
+    placement: BannerPlacement.MobileRegionDescription,
     source: {
       kind: BannerKind.WebView,
       url: 'http://whitewater.guide/galicia_region_descr_banner',
@@ -67,7 +67,7 @@ const banners: BannerRaw[] = [
     name: 'galicia region descr banner 2',
     priority: 10,
     enabled: true,
-    placement: BannerPlacement.MOBILE_REGION_DESCRIPTION,
+    placement: BannerPlacement.MobileRegionDescription,
     source: {
       kind: BannerKind.Image,
       url: 'banner_4.jpg',
@@ -81,7 +81,7 @@ const banners: BannerRaw[] = [
     name: 'all section row banner',
     priority: 10,
     enabled: true,
-    placement: BannerPlacement.MOBILE_SECTION_ROW,
+    placement: BannerPlacement.MobileSectionRow,
     source: {
       kind: BannerKind.WebView,
       url: 'http://whitewater.guide/all_section_row_banner',
@@ -95,7 +95,7 @@ const banners: BannerRaw[] = [
     name: 'all section row banner disabled',
     priority: 20,
     enabled: false,
-    placement: BannerPlacement.MOBILE_SECTION_ROW,
+    placement: BannerPlacement.MobileSectionRow,
     source: {
       kind: BannerKind.WebView,
       url: 'http://whitewater.guide/all_section_row_banner_disabled',

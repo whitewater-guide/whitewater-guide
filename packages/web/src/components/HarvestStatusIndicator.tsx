@@ -5,7 +5,7 @@ import FontIcon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import Popover from '@material-ui/core/Popover';
 import { formatDate } from '@whitewater-guide/clients';
-import { HarvestStatus } from '@whitewater-guide/commons';
+import { HarvestStatus } from '@whitewater-guide/schema';
 import differenceInHours from 'date-fns/differenceInHours';
 import parseISO from 'date-fns/parseISO';
 import React from 'react';
@@ -32,7 +32,7 @@ const styles: Styles = {
 };
 
 interface Props {
-  status: HarvestStatus | null;
+  status?: HarvestStatus | null;
   withText?: boolean;
 }
 
@@ -74,7 +74,7 @@ export class HarvestStatusIndicator extends React.PureComponent<Props, State> {
     let statusText = 'unknown';
     const error = status ? status.error : null;
     const now = new Date();
-    const ts = status ? parseISO(status.timestamp) : now;
+    const ts = status?.timestamp ? parseISO(status.timestamp) : now;
     if (status) {
       color = status.success ? green[500] : red[500];
       statusText = status.success ? 'healthy' : 'error';
@@ -91,7 +91,7 @@ export class HarvestStatusIndicator extends React.PureComponent<Props, State> {
       }
     }
     return (
-      <React.Fragment>
+      <>
         <div style={styles.wrapper}>
           <IconButton
             disabled={!status}
@@ -106,37 +106,39 @@ export class HarvestStatusIndicator extends React.PureComponent<Props, State> {
         </div>
         <Popover open={open} anchorEl={anchorEl} onClose={this.onClose}>
           {status && (
-            <Grid container={true} style={styles.popover}>
-              <Grid container={true} style={tsStyle}>
-                <Grid item={true} sm={4}>
-                  <b>Timestamp</b>
+            <Grid container style={styles.popover}>
+              {status.timestamp && (
+                <Grid container style={tsStyle}>
+                  <Grid item sm={4}>
+                    <b>Timestamp</b>
+                  </Grid>
+                  <Grid item>
+                    {formatDate(parseISO(status.timestamp), 'dd/MM/yyyy H:mm')}
+                  </Grid>
                 </Grid>
-                <Grid item={true}>
-                  {formatDate(parseISO(status.timestamp), 'dd/MM/yyyy H:mm')}
-                </Grid>
-              </Grid>
+              )}
 
               {status.next && (
-                <Grid container={true} style={tsStyle}>
-                  <Grid item={true} sm={4}>
+                <Grid container style={tsStyle}>
+                  <Grid item sm={4}>
                     <b>Next</b>
                   </Grid>
-                  <Grid item={true}>
+                  <Grid item>
                     {formatDate(parseISO(status.next), 'dd/MM/yyyy H:mm')}
                   </Grid>
                 </Grid>
               )}
 
-              <Grid container={true} style={countStyle}>
-                <Grid item={true} sm={4}>
+              <Grid container style={countStyle}>
+                <Grid item sm={4}>
                   <b>Measurements</b>
                 </Grid>
-                <Grid item={true}>{status.count.toString()}</Grid>
+                <Grid item>{status.count?.toString()}</Grid>
               </Grid>
 
               {!!error && (
-                <Grid container={true} style={{ color: red[500] }}>
-                  <Grid item={true} sm={12}>
+                <Grid container style={{ color: red[500] }}>
+                  <Grid item sm={12}>
                     {error}
                   </Grid>
                 </Grid>
@@ -144,7 +146,7 @@ export class HarvestStatusIndicator extends React.PureComponent<Props, State> {
             </Grid>
           )}
         </Popover>
-      </React.Fragment>
+      </>
     );
   }
 }

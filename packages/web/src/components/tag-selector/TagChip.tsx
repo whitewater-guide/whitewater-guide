@@ -1,6 +1,6 @@
 import Chip from '@material-ui/core/Chip';
 import Icon from '@material-ui/core/Icon';
-import { Tag } from '@whitewater-guide/commons';
+import { Tag } from '@whitewater-guide/schema';
 import xorBy from 'lodash/xorBy';
 import React, { useCallback } from 'react';
 
@@ -10,7 +10,7 @@ interface Props {
   onChange: (value: Tag[]) => void;
 }
 
-const TagChip: React.FC<Props> = React.memo((props) => {
+const TagChip = React.memo<Props>((props) => {
   const { tag, selected, onChange } = props;
   const isSelected = !!selected.find(({ id }) => id === tag.id);
   const onClick = useCallback(() => {
@@ -19,7 +19,7 @@ const TagChip: React.FC<Props> = React.memo((props) => {
   return (
     <Chip
       label={tag.name}
-      clickable={true}
+      clickable
       color={isSelected ? 'primary' : 'default'}
       onClick={onClick}
       icon={

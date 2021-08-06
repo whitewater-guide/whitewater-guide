@@ -1,4 +1,4 @@
-import { NamedNode } from '@whitewater-guide/commons';
+import { NamedNode } from '@whitewater-guide/schema';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Chip, Subheading } from 'react-native-paper';
@@ -27,22 +27,19 @@ interface Props {
   label?: string;
 }
 
-const Chips: React.FC<Props> = ({ items, label }) => {
-  return (
-    <View style={styles.container}>
-      {!!label && (
-        <View style={styles.label}>
-          <Subheading>{label}</Subheading>
-        </View>
-      )}
-      {items &&
-        items.map(({ id, name }) => (
-          <Chip key={id} style={styles.chip}>
-            {name}
-          </Chip>
-        ))}
-    </View>
-  );
-};
+const Chips: React.FC<Props> = ({ items, label }) => (
+  <View style={styles.container}>
+    {!!label && (
+      <View style={styles.label}>
+        <Subheading>{label}</Subheading>
+      </View>
+    )}
+    {items?.map(({ id, name }) => (
+      <Chip key={id} style={styles.chip}>
+        {name}
+      </Chip>
+    ))}
+  </View>
+);
 
 export default Chips;

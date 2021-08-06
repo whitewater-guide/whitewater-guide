@@ -13,15 +13,17 @@ const useStyles = makeStyles(() =>
   }),
 );
 
-export const UnstyledLink: React.FC<PathsOpts> = React.memo(
-  ({ children, ...opts }) => {
-    const classes = useStyles();
-    return (
-      <Link to={paths.to(opts)} className={classes.link}>
-        {children}
-      </Link>
-    );
-  },
-);
+interface Props extends PathsOpts {
+  children?: React.ReactNode;
+}
+
+export const UnstyledLink = React.memo<Props>(({ children, ...opts }) => {
+  const classes = useStyles();
+  return (
+    <Link to={paths.to(opts)} className={classes.link}>
+      {children}
+    </Link>
+  );
+});
 
 UnstyledLink.displayName = 'UnstyledLink';

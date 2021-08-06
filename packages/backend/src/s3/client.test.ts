@@ -152,7 +152,7 @@ describe('getLocalFileName', () => {
       'public content url',
       `${process.env.CONTENT_PUBLIC_URL}/Jcaagbygy338IdfbNfTXADI6cEyOm2Kxo-I2eAxtI_k//czM6Ly9jb250ZW50LTEvbWVkaWEvMWJkMGM4ZTAtNjcwMi0xMWViLWJiMTYtYWY0OWRlMmU3MmJiLmpwZw.jpg`,
     ],
-  ])('should handle %s', (_, v) => {
+  ])('should accept %s', (_, v) => {
     const client = new S3Client();
     expect(client.getLocalFileName(v)).toBe(
       '1bd0c8e0-6702-11eb-bb16-af49de2e72bb.jpg',

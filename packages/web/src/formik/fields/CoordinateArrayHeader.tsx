@@ -4,7 +4,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
 import { lineString } from '@turf/helpers';
 import length from '@turf/length';
-import { Coordinate } from '@whitewater-guide/commons';
+import { Coordinate2d } from '@whitewater-guide/clients';
 import React from 'react';
 
 const useStyles = makeStyles(() =>
@@ -21,15 +21,19 @@ const useStyles = makeStyles(() =>
 );
 
 interface Props {
-  value: Coordinate[];
+  value: CodegenCoordinates[];
   onReverse?: () => void;
 }
 
-const CoordinateArrayHeader: React.FC<Props> = React.memo((props) => {
+const CoordinateArrayHeader = React.memo<Props>((props) => {
   const { value, onReverse } = props;
   const classes = useStyles();
   const distance =
-    value.length >= 2 ? length(lineString(value), { units: 'kilometers' }) : 0;
+    value.length >= 2
+      ? length(lineString(value as any as Coordinate2d[]), {
+          units: 'kilometers',
+        })
+      : 0;
   return (
     <div className={classes.header}>
       <div className={classes.lengthBlock}>

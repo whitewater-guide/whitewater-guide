@@ -1,0 +1,15 @@
+fragment RiverForm on River {
+  id
+  name
+  altNames
+  region {
+    id
+    name
+  }
+}
+mutation upsertRiver($river: RiverInput!) {
+  upsertRiver(river: $river) {
+    ...RiverForm
+    ...TimestampedMeta
+  }
+}

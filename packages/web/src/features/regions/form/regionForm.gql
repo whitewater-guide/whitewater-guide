@@ -1,0 +1,9 @@
+query regionForm($regionId: ID) {
+  region(id: $regionId) {
+    ...RegionCore
+    bounds
+    description
+    ...RegionPOIs
+    ...RegionLicense
+  }
+}

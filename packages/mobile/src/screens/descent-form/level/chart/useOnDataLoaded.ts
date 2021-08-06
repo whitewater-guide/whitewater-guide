@@ -1,17 +1,17 @@
+import { ChartDataPoint } from '@whitewater-guide/clients';
 import {
   DescentLevelInput,
-  Gauge,
-  Measurement,
+  GaugeCoreFragment,
   Unit,
-} from '@whitewater-guide/commons';
+} from '@whitewater-guide/schema';
 import differenceInMilliseconds from 'date-fns/differenceInMilliseconds';
 import sortBy from 'lodash/sortBy';
 import { useEffect } from 'react';
 
 interface Props {
-  data: Array<Measurement<Date>>;
+  data: ChartDataPoint[];
   unit: Unit;
-  gauge: Gauge;
+  gauge: GaugeCoreFragment;
   onLoaded: (value?: DescentLevelInput) => void;
   startedAt: Date;
 }

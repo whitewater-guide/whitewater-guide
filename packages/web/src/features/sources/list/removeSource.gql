@@ -1,0 +1,3 @@
+mutation removeSource($id: ID!) {
+  removeSource(id: $id)
+}

@@ -42,19 +42,17 @@ const SignInForm: React.FC = React.memo(() => {
           validationSchema={validation}
           onSubmit={onSignIn}
         >
-          {({ isSubmitting, handleSubmit, isValid, errors, status }) => {
-            return (
-              <SignInView
-                errors={errors}
-                isValid={isValid}
-                isLoadingFB={loading && !isSubmitting}
-                isLoadingLocal={isSubmitting}
-                onPressLocal={handleSubmit}
-                onPressFB={onFB}
-                status={status}
-              />
-            );
-          }}
+          {({ isSubmitting, handleSubmit, isValid, errors, status }) => (
+            <SignInView
+              errors={errors}
+              isValid={isValid}
+              isLoadingFB={loading && !isSubmitting}
+              isLoadingLocal={isSubmitting}
+              onPressLocal={handleSubmit}
+              onPressFB={onFB}
+              status={status}
+            />
+          )}
         </Formik>
       </Paper>
     </Container>

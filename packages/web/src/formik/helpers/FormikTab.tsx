@@ -29,7 +29,7 @@ interface Props extends TabProps {
   fields: Array<string | number | symbol>;
 }
 
-export const FormikTab: React.FC<Props> = React.memo((props) => {
+export const FormikTab = React.memo<Props>((props) => {
   const { fields, ...tabProps } = props;
   const { errors } = useFormikContext();
   const hasErrors = useMemo(

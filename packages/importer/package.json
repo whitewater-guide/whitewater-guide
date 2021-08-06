@@ -7,16 +7,18 @@
   "repository": "https://github.com/doomsower/whitewater.git",
   "author": "doomsower <K.Kuznetcov@gmail.com>",
   "scripts": {
-    "convert": "ts-node index.ts"
+    "convert": "ts-node index.ts",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@whitewater-guide/commons": "*"
+    "@whitewater-guide/commons": "*",
+    "@whitewater-guide/schema": "*"
   },
   "devDependencies": {
-    "@types/fs-extra": "^9.0.7",
-    "@types/rimraf": "^3.0.0",
+    "@types/fs-extra": "^9.0.12",
+    "@types/rimraf": "^3.0.1",
     "@types/tar": "^4.0.4",
-    "fs-extra": "^9.1.0",
+    "fs-extra": "^10.0.0",
     "tar": "^6.1.0"
   }
 }

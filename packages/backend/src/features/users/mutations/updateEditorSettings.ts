@@ -1,35 +1,28 @@
 import {
-  EditorSettings,
   EditorSettingsSchema,
-} from '@whitewater-guide/commons';
+  MutationUpdateEditorSettingsArgs,
+} from '@whitewater-guide/schema';
 import * as yup from 'yup';
 
 import {
-  AuthenticatedTopLevelResolver,
+  AuthenticatedMutation,
   isAuthenticatedResolver,
   isInputValidResolver,
 } from '~/apollo';
-import db from '~/db';
+import { db } from '~/db';
 
-interface Vars {
-  editorSettings: EditorSettings;
-}
-
-const Struct: yup.SchemaOf<Vars> = yup.object({
-  editorSettings: EditorSettingsSchema,
+const Struct: yup.SchemaOf<MutationUpdateEditorSettingsArgs> = yup.object({
+  editorSettings: EditorSettingsSchema.clone(),
 });
 
-const updateEditorSettings: AuthenticatedTopLevelResolver<Vars> = async (
-  root,
-  { editorSettings },
-  { user },
-) => {
-  await db()
-    .table('users')
-    .update({ editor_settings: editorSettings })
-    .where({ id: user.id });
-  return db().table('users').where({ id: user.id }).first();
-};
+const updateEditorSettings: AuthenticatedMutation['updateEditorSettings'] =
+  async (_, { editorSettings }, { user }) => {
+    await db()
+      .table('users')
+      .update({ editor_settings: editorSettings })
+      .where({ id: user.id });
+    return db().table('users').where({ id: user.id }).first();
+  };
 
 export default isInputValidResolver(
   Struct,

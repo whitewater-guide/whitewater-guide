@@ -1,0 +1,6 @@
+query findUsers($filter: UserFilterOptions!) {
+  users: findUsers(filter: $filter) {
+    id
+    name
+  }
+}

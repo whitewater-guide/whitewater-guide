@@ -1,8 +1,0 @@
-type Script {
-  id: String!
-  name: String!
-}
-
-type Query {
-  scripts: [Script] @admin
-}

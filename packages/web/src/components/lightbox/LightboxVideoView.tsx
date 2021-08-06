@@ -27,8 +27,8 @@ interface Props {
   interactionIsIdle: boolean;
 }
 
-const LightboxVideoView: React.FC<Props> = React.memo((props) => {
-  const url = props.data.url;
+const LightboxVideoView = React.memo<Props>((props) => {
+  const { url } = props.data;
   if (!url) {
     return null;
   }

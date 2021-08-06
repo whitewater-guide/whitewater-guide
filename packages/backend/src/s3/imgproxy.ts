@@ -37,9 +37,7 @@ const verify = (
   signature: string,
   salt: string,
   secret: string,
-) => {
-  return signature === sign(salt, value, secret);
-};
+) => signature === sign(salt, value, secret);
 
 type Option =
   | 'resize'
@@ -79,12 +77,11 @@ type Option =
 type OptionValue = string | number | Array<string | number>;
 type ProcessingOpts = { [key in Option]?: OptionValue | undefined };
 
-export const stringifyProcessingOpts = (opts: ProcessingOpts) => {
-  return Object.entries(opts)
+export const stringifyProcessingOpts = (opts: ProcessingOpts) =>
+  Object.entries(opts)
     .filter(([_, v]) => v !== undefined)
     .map(([k, v]) => [k, ...castArray(v)].join(':'))
     .join('/');
-};
 
 interface Size {
   width?: number;
@@ -92,8 +89,8 @@ interface Size {
 }
 
 export const getProcessingOpts = (
-  width?: number,
-  height?: number,
+  width?: number | null,
+  height?: number | null,
   steps?: number | number[],
   whitelist?: Size[],
 ): ProcessingOpts | null => {
@@ -119,17 +116,16 @@ export const getProcessingOpts = (
       steps[0],
     );
     return { w: widthRounded };
-  } else {
-    const stepSize = steps || 50;
-    const ratio = width && height ? height / width : 1;
-    const w = width && Math.ceil(width / stepSize) * stepSize;
-    let h = height && Math.ceil(height / stepSize) * stepSize;
-    if (w && h) {
-      h = Math.ceil(w * ratio);
-      return { rs: ['fill', w, h], g: 'sm' };
-    }
-    return { w, h };
   }
+  const stepSize = steps || 50;
+  const ratio = width && height ? height / width : 1;
+  const w = width ? Math.ceil(width / stepSize) * stepSize : undefined;
+  let h = height ? Math.ceil(height / stepSize) * stepSize : undefined;
+  if (w && h) {
+    h = Math.ceil(w * ratio);
+    return { rs: ['fill', w, h], g: 'sm' };
+  }
+  return { w, h };
 };
 
 /**

@@ -1,6 +1,6 @@
-import { Section } from '@whitewater-guide/commons';
+import { ListedSectionFragment } from '@whitewater-guide/clients';
 
 export interface OuterProps {
-  sections: Section[];
+  sections: ListedSectionFragment[];
   regionId: string;
 }

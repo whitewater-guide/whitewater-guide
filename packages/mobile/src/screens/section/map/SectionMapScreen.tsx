@@ -8,30 +8,31 @@ import { SectionMapNavProps } from './types';
 
 const SectionMapScreen: React.FC<SectionMapNavProps> = () => {
   const section = useSection();
-  const initialBounds = useMemo(() => getSectionContentBounds(section.node), [
-    section,
-  ]);
+  const initialBounds = useMemo(
+    () => getSectionContentBounds(section),
+    [section],
+  );
   const pois = useMemo(() => {
-    if (!section.node) {
+    if (!section) {
       return [];
     }
 
-    const result = [...section.node.pois];
-    const gauge = section.node.gauge && section.node.gauge.location;
+    const result = [...section.pois];
+    const gauge = section.gauge?.location;
     if (gauge) {
-      const gaugePt = { ...gauge, name: `Gauge ${gauge.name}` };
+      const gaugePt = { ...gauge, name: 'Gauge' };
       result.push(gaugePt);
     }
     return result;
   }, [section]);
   return (
     <Screen>
-      {section.node && initialBounds && (
+      {section && initialBounds && (
         <Map
-          sections={[section.node]}
+          sections={[section]}
           initialBounds={initialBounds}
           pois={pois}
-          detailed={true}
+          detailed
           testID="section-map"
         />
       )}

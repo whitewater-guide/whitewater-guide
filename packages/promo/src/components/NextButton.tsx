@@ -1,10 +1,10 @@
 import Button, { ButtonProps } from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { createStyles, WithStyles, withStyles } from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-const styles = () =>
+const useStyles = makeStyles(() =>
   createStyles({
     buttonProgress: {
       position: 'absolute',
@@ -17,25 +17,24 @@ const styles = () =>
       display: 'inline',
       position: 'relative',
     },
-  });
+  }),
+);
 
-interface Props
-  extends WithStyles<typeof styles>,
-    Omit<ButtonProps, 'classes'> {
+interface Props extends Omit<ButtonProps, 'classes'> {
   disabled: boolean;
   loading: boolean;
   onClick?: () => void;
   label?: string;
 }
 
-const NextButtonInner: React.FC<Props> = ({
-  classes,
+export const NextButton: React.FC<Props> = ({
   loading,
   disabled,
   onClick,
   label,
   ...props
 }) => {
+  const classes = useStyles();
   const { t } = useTranslation();
   return (
     <div className={classes.wrapper}>
@@ -54,5 +53,3 @@ const NextButtonInner: React.FC<Props> = ({
     </div>
   );
 };
-
-export const NextButton = withStyles(styles)(NextButtonInner);

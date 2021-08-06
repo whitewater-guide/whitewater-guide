@@ -5,6 +5,8 @@ import { assertCachePersistorVersion, inMemoryCache } from './cache';
 import { createLink } from './createLink';
 import { initLocalState } from './initLocalState';
 
+// Ugly solution, will have to change this when upgrading apollo client to v3
+// eslint-disable-next-line import/no-mutable-exports
 export let apolloClient: ApolloClient<any>;
 
 export const initApolloClient = async (auth: AuthService) => {

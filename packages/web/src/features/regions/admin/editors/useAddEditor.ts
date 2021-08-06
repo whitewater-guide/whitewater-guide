@@ -1,10 +1,9 @@
 import { useCallback } from 'react';
-import { useMutation } from 'react-apollo';
 
-import { ADD_EDITOR_MUTATION, MVars } from './addEditor.mutation';
+import { useAddEditorMutation } from './addEditor.generated';
 
-export default (regionId: string) => {
-  const [mutate] = useMutation<any, MVars>(ADD_EDITOR_MUTATION);
+export default function useAddEditor(regionId: string) {
+  const [mutate] = useAddEditorMutation();
   return useCallback(
     (userId: string) =>
       mutate({
@@ -13,4 +12,4 @@ export default (regionId: string) => {
       }),
     [mutate, regionId],
   );
-};
+}

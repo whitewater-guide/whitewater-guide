@@ -1,4 +1,4 @@
-import { Page } from '@whitewater-guide/commons';
+import { Maybe, Page } from '@whitewater-guide/schema';
 import { DocumentNode } from 'graphql';
 import { useEffect } from 'react';
 import { QueryHookOptions, QueryResult, useQuery } from 'react-apollo';
@@ -15,14 +15,18 @@ const getConnectionField = <QResult>(data: QResult): null | keyof QResult => {
   }
   if (connectionFields && connectionFields.length !== 1) {
     throw new Error(
-      'query must have single selection set, but found many: ' +
-        connectionFields.join(', '),
+      `query must have single selection set, but found many: ${connectionFields.join(
+        ', ',
+      )}`,
     );
   }
   return connectionFields[0] as any;
 };
 
-export const useStreamingQuery = <QResult, QVars extends { page?: Page }>(
+export const useStreamingQuery = <
+  QResult,
+  QVars extends { page?: Maybe<Page> },
+>(
   query: DocumentNode,
   options: QueryHookOptions<QResult, QVars> = {},
   limit = 20,

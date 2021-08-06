@@ -1,0 +1,22 @@
+fragment ListedRiver on River {
+  id
+  name
+  altNames
+  region {
+    id
+    name
+  }
+  sections {
+    count
+  }
+}
+
+query listRivers($page: Page, $filter: RiversFilter) {
+  rivers(page: $page, filter: $filter)
+    @connection(key: "rivers", filter: ["filter"]) {
+    nodes {
+      ...ListedRiver
+    }
+    count
+  }
+}

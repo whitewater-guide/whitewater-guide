@@ -1,7 +1,7 @@
 import {
   SuggestionInput,
   SuggestionInputSchema,
-} from '@whitewater-guide/commons';
+} from '@whitewater-guide/schema';
 import { Formik } from 'formik';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -32,9 +32,10 @@ interface Props {
 
 const SimpleSuggestionForm: React.FC<Props> = (props) => {
   const { t } = useTranslation();
-  const initialValues = useMemo(() => getInitialValues(props.sectionId), [
-    props.sectionId,
-  ]);
+  const initialValues = useMemo(
+    () => getInitialValues(props.sectionId),
+    [props.sectionId],
+  );
   const onSubmit = useAddSuggestion();
   const validate = useValidate(SuggestionInputSchema);
   return (
@@ -45,15 +46,15 @@ const SimpleSuggestionForm: React.FC<Props> = (props) => {
         validate={validate}
       >
         {({ submitForm, isSubmitting }) => (
-          <React.Fragment>
+          <>
             <TextField
               name="description"
               autoFocus={
                 Platform.OS ===
                 'android' /* Due to keyboard avoiding view inconsistent behavior */
               }
-              multiline={true}
-              fullHeight={true}
+              multiline
+              fullHeight
               label={t('screens:suggestion.suggestionLabel')}
               placeholder={t('screens:suggestion.suggestionPlaceholder')}
               helperTextStyle={styles.helperText}
@@ -66,7 +67,7 @@ const SimpleSuggestionForm: React.FC<Props> = (props) => {
             >
               {t('screens:suggestion.submitSimple')}
             </Button>
-          </React.Fragment>
+          </>
         )}
       </Formik>
     </FullScreenKAV>

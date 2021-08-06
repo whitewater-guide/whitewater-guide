@@ -1,0 +1,8 @@
+query findRivers($filter: RiversFilter, $page: Page) {
+  rivers(filter: $filter, page: $page) {
+    nodes {
+      id
+      name
+    }
+  }
+}

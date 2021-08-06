@@ -1,14 +1,8 @@
-import {
-  anonContext,
-  countRows,
-  fakeContext,
-  noUnstable,
-  runQuery,
-} from '@test';
-import { ApolloErrorCodes, Gauge } from '@whitewater-guide/commons';
-import { ExecutionResult } from 'graphql';
+import { anonContext, countRows, fakeContext, noUnstable } from '@test';
+import { ApolloErrorCodes } from '@whitewater-guide/commons';
+import gql from 'graphql-tag';
 
-import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { db, holdTransaction, rollbackTransaction } from '~/db';
 import { GorgeConnector } from '~/features/gorge';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
 import {
@@ -18,14 +12,15 @@ import {
 } from '~/seeds/test/05_sources';
 import { GAUGE_GAL_1_1 } from '~/seeds/test/06_gauges';
 
+import {
+  AutofillSourceMutationResult,
+  testAutofillSource,
+} from './autofillSource.test.generated';
+
 jest.mock('../../gorge/connector');
 
-interface TData {
-  autofillSource: Gauge[];
-}
-
-const mutation = `
-  mutation autofillSource($id: ID!){
+const _mutation = gql`
+  mutation autofillSource($id: ID!) {
     autofillSource(id: $id) {
       id
       name
@@ -68,8 +63,7 @@ afterEach(rollbackTransaction);
 
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
-    const result = await runQuery(
-      mutation,
+    const result = await testAutofillSource(
       { id: SOURCE_GALICIA_1 },
       anonContext(),
     );
@@ -77,8 +71,7 @@ describe('resolvers chain', () => {
   });
 
   it('user should not pass', async () => {
-    const result = await runQuery(
-      mutation,
+    const result = await testAutofillSource(
       { id: SOURCE_GALICIA_1 },
       fakeContext(TEST_USER),
     );
@@ -86,8 +79,7 @@ describe('resolvers chain', () => {
   });
 
   it('editor should not pass', async () => {
-    const result = await runQuery(
-      mutation,
+    const result = await testAutofillSource(
       { id: SOURCE_GALICIA_1 },
       fakeContext(EDITOR_GA_EC),
     );
@@ -100,8 +92,7 @@ describe('errors', () => {
     jest
       .spyOn(GorgeConnector.prototype, 'listGauges')
       .mockRejectedValueOnce(new Error('boom'));
-    const result = await runQuery(
-      mutation,
+    const result = await testAutofillSource(
       { id: SOURCE_RUSSIA },
       fakeContext(ADMIN),
     );
@@ -113,11 +104,11 @@ describe('errors', () => {
 });
 
 describe('source without gauges', () => {
-  let result: ExecutionResult<TData> | null = null;
+  let result: AutofillSourceMutationResult | null = null;
 
   beforeEach(async () => {
     result = null;
-    result = await runQuery(mutation, { id: SOURCE_EMPTY }, fakeContext(ADMIN));
+    result = await testAutofillSource({ id: SOURCE_EMPTY }, fakeContext(ADMIN));
   });
 
   it('should insert gauges', async () => {
@@ -128,25 +119,22 @@ describe('source without gauges', () => {
       'gauges_translations',
     );
     expect([gAfter - gBefore, pAfter - pBefore, tAfter - tBefore]).toEqual([
-      2,
-      2,
-      2,
+      2, 2, 2,
     ]);
   });
 
-  it('should return gauges', async () => {
+  it('should return gauges', () => {
     expect(result?.errors).toBeUndefined();
-    expect(noUnstable(result!.data!.autofillSource)).toMatchSnapshot();
+    expect(noUnstable(result?.data?.autofillSource)).toMatchSnapshot();
   });
 });
 
 describe('source with gauges', () => {
-  let result: ExecutionResult<TData> | null = null;
+  let result: AutofillSourceMutationResult | null = null;
 
   beforeEach(async () => {
     result = null;
-    result = await runQuery(
-      mutation,
+    result = await testAutofillSource(
       { id: SOURCE_GALICIA_1 },
       fakeContext(ADMIN),
     );
@@ -177,14 +165,12 @@ describe('source with gauges', () => {
       'gauges_translations',
     );
     expect([gAfter - gBefore, pAfter - pBefore, tAfter - tBefore]).toEqual([
-      1,
-      1,
-      1,
+      1, 1, 1,
     ]);
   });
 
-  it('should return gauges', async () => {
+  it('should return gauges', () => {
     expect(result?.errors).toBeUndefined();
-    expect(noUnstable(result!.data!.autofillSource)).toMatchSnapshot();
+    expect(noUnstable(result?.data?.autofillSource)).toMatchSnapshot();
   });
 });

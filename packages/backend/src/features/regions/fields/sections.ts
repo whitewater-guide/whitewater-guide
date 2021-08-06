@@ -1,25 +1,17 @@
-import { SectionsFilter } from '@whitewater-guide/commons';
-import { GraphQLFieldResolver } from 'graphql';
+import { RegionResolvers } from '~/apollo';
 
-import { Context, ListQuery } from '~/apollo';
-
-import { RegionRaw } from '../types';
-
-interface Vars extends ListQuery {
-  filter?: SectionsFilter;
-}
-
-const sectionsResolver: GraphQLFieldResolver<RegionRaw, Context, Vars> = async (
+const sectionsResolver: RegionResolvers['sections'] = async (
   { id },
-  { page, filter = {} },
+  { page, filter },
   { dataSources },
   info,
 ) => {
-  const { updatedAfter } = filter;
-  return dataSources.sections.getMany(info, {
+  const { updatedAfter } = filter ?? {};
+  const sections = await dataSources.sections.getMany(info, {
     page,
     filter: { regionId: id, updatedAfter },
   });
+  return sections;
 };
 
 export default sectionsResolver;

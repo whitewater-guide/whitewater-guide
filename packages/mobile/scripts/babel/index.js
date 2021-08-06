@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { resolve } = require('path');
+
 const { version } = require(resolve(process.cwd(), './package.json'));
 
 module.exports = function versionTransform() {
@@ -7,7 +8,7 @@ module.exports = function versionTransform() {
     visitor: {
       Identifier(path) {
         if (path.node.name === 'PJSON_VERSION') {
-          path.replaceWithSourceString('"' + version + '"');
+          path.replaceWithSourceString(`"${version}"`);
         }
       },
     },

@@ -5,7 +5,6 @@ import {
   MapProps,
   MapSelectionProvider,
 } from '@whitewater-guide/clients';
-import { Coordinate, Coordinate3d } from '@whitewater-guide/commons';
 import React, { useMemo } from 'react';
 
 import GoogleMap, { GoogleMapControlProps, InitialPosition } from './GoogleMap';
@@ -32,18 +31,18 @@ const useStyles = makeStyles(() =>
 );
 
 interface Props extends MapProps {
-  initialBounds: Coordinate3d[];
+  initialBounds: CodegenCoordinates[];
   detailed?: boolean;
   controls?: Array<React.ReactElement<GoogleMapControlProps>>;
 }
 
-const MapInternal = React.memo(
-  ({ initialBounds, sections, pois, detailed, controls }: Props) => {
+const MapInternal = React.memo<Props>(
+  ({ initialBounds, sections, pois, detailed, controls }) => {
     const classes = useStyles();
 
     const initialPosition: InitialPosition = useMemo(() => {
       const bounds = new google.maps.LatLngBounds();
-      initialBounds.forEach((point: Coordinate) =>
+      initialBounds.forEach((point: CodegenCoordinates) =>
         bounds.extend(arrayToGmaps(point)),
       );
       return {

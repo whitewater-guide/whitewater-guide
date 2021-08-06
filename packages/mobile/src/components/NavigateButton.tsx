@@ -1,4 +1,4 @@
-import { Point } from '@whitewater-guide/commons';
+import { PointCoreFragment } from '@whitewater-guide/schema';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text } from 'react-native';
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
 
 interface Props {
   labelKey: string;
-  point?: Point | null;
+  point?: PointCoreFragment | null;
   premiumGuard: () => boolean;
   scale?: Animated.Node<number>;
 }

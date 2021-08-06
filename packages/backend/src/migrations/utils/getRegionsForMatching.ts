@@ -1,8 +1,8 @@
 import Knex from 'knex';
 
-import { RegionRaw } from '~/features/regions';
+import { Sql } from '~/db';
 
-export type RegionRow = Pick<RegionRaw, 'id' | 'name' | 'bounds'>;
+export type RegionRow = Pick<Sql.RegionsView, 'id' | 'name' | 'bounds'>;
 
 export const UNKNOWN_REGION: RegionRow = {
   id: 'UNKNOWN_REGION',

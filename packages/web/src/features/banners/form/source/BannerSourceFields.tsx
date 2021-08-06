@@ -1,6 +1,6 @@
 import Box from '@material-ui/core/Box';
-import { LocalPhotoStatus } from '@whitewater-guide/clients';
-import { BannerKind, BannerResolutions } from '@whitewater-guide/commons';
+import { BannerResolutions, LocalPhotoStatus } from '@whitewater-guide/clients';
+import { BannerKind } from '@whitewater-guide/schema';
 import { useFormikContext } from 'formik';
 import React, { useCallback, useState } from 'react';
 
@@ -12,13 +12,10 @@ import BannerSourceWebviewFields from './BannerSourceWebviewFields';
 
 type Props = Omit<ImageUploaderProps, 'value' | 'onChange'>;
 
-export const BannerSourceFields: React.FC<Props> = React.memo((props) => {
+export const BannerSourceFields = React.memo<Props>((props) => {
   const { title, ...rest } = props;
-  const {
-    values,
-    handleChange,
-    handleBlur,
-  } = useFormikContext<BannerFormData>();
+  const { values, handleChange, handleBlur } =
+    useFormikContext<BannerFormData>();
   const [kind, setKind] = useState(
     typeof values.source === 'string' ? BannerKind.WebView : BannerKind.Image,
   );

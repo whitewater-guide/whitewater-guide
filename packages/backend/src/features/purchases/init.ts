@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/default
 import iap from 'in-app-purchase';
 
 import config from '~/config';

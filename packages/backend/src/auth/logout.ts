@@ -2,7 +2,7 @@ import { Context } from 'koa';
 import Router from 'koa-router';
 import get from 'lodash/get';
 
-import db from '~/db';
+import { db } from '~/db';
 
 import { clearCookies } from './utils';
 

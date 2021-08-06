@@ -1,4 +1,4 @@
-import { RegionMediaSummary } from '@whitewater-guide/commons';
+import { RegionMediaSummary } from '@whitewater-guide/schema';
 import React from 'react';
 
 import { OfflineCategorySelection, OfflineCategoryType } from '../../types';
@@ -17,12 +17,12 @@ const CategoriesSelection: React.FC<Props> = (props) => {
   const labels = useLabels(summary);
 
   return (
-    <React.Fragment>
+    <>
       <OfflineCategory
         type="data"
         label={labels.data}
         selected={selection.data}
-        disabled={true}
+        disabled
         onToggle={onToggleCategory}
       />
       <OfflineCategory
@@ -37,7 +37,7 @@ const CategoriesSelection: React.FC<Props> = (props) => {
         selected={selection.maps}
         onToggle={onToggleCategory}
       />
-    </React.Fragment>
+    </>
   );
 };
 

@@ -1,0 +1,9 @@
+query sectionMedia($sectionId: ID!, $thumbHeight: Int) {
+  media: mediaBySection(sectionId: $sectionId) {
+    nodes {
+      ...MediaCore
+      thumb: image(height: $thumbHeight)
+      deleted
+    }
+  }
+}

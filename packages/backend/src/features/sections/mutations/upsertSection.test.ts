@@ -6,25 +6,22 @@ import {
   fileExistsInBucket,
   noUnstable,
   resetTestMinio,
-  runQuery,
   UUID_REGEX,
 } from '@test';
+import { ApolloErrorCodes, NEW_RIVER_ID } from '@whitewater-guide/commons';
 import {
-  ApolloErrorCodes,
   Duration,
   MediaInput,
   MediaKind,
-  NEW_ID,
-  OTHERS_REGION_ID,
   SectionInput,
-} from '@whitewater-guide/commons';
-import { ExecutionResult } from 'graphql';
+} from '@whitewater-guide/schema';
+import gql from 'graphql-tag';
 import set from 'lodash/fp/set';
 import * as path from 'path';
 
 import config from '~/config';
-import db, { holdTransaction, rollbackTransaction } from '~/db';
-import { SectionsEditLogRaw } from '~/features/sections';
+import { db, holdTransaction, rollbackTransaction, Sql } from '~/db';
+import { OTHERS_REGION_ID } from '~/features/regions';
 import { MEDIA, TEMP } from '~/s3';
 import {
   ADMIN,
@@ -58,6 +55,12 @@ import {
 } from '~/seeds/test/09_sections';
 import { PHOTO_1, PHOTO_2 } from '~/seeds/test/11_media';
 
+import {
+  testUpsertSection,
+  UpsertSectionMutation,
+  UpsertSectionMutationResult,
+} from './upsertSection.test.generated';
+
 jest.mock('../../gorge/connector');
 
 let spBefore: number;
@@ -85,78 +88,25 @@ beforeEach(async () => {
 afterEach(rollbackTransaction);
 afterAll(() => resetTestMinio(true));
 
-const upsertQuery = `
-  mutation upsertSection($section: SectionInput!){
-    upsertSection(section: $section){
-      id
-      name
+const _mutation = gql`
+  mutation upsertSection($section: SectionInput!) {
+    upsertSection(section: $section) {
+      ...SectionCore
+      shape
       description
-      season
-      seasonNumeric
+      ...SectionEnds
+      ...SectionMeasurements
+      ...SectionPOIs
+      ...SectionTags
+      ...SectionLicense
+      ...SectionFlows
+      ...TimestampedMeta
       region {
         id
-        name
-      }
-      river {
-        id
-        name
-      }
-      gauge {
-        id
-        name
-      }
-      levels {
-        minimum
-        optimum
-        maximum
-        impossible
-        approximate
-      }
-      flows {
-        minimum
-        optimum
-        maximum
-        impossible
-        approximate
-      }
-      flowsText
-      putIn {
-        id
-        name
-        coordinates
-      }
-      takeOut {
-        id
-        name
-        coordinates
-      }
-      shape
-      distance
-      drop
-      duration
-      difficulty
-      difficultyXtra
-      rating
-      tags {
-        id
-        name
-      }
-      createdAt
-      updatedAt
-      hidden
-      helpNeeded
-      verified
-      demo
-      pois {
-        id
-        name
-        coordinates
       }
       media {
         nodes {
-          id
-          kind
-          url
+          ...MediaCore
         }
         count
       }
@@ -228,7 +178,7 @@ const existingRiverSection: SectionInput = {
 
 const newRiverSection = {
   ...existingRiverSection,
-  river: { id: NEW_ID, name: 'Rauma' },
+  river: { id: NEW_RIVER_ID, name: 'Rauma' },
   region: { id: REGION_NORWAY },
 };
 
@@ -312,8 +262,7 @@ const invalidSection: SectionInput = {
 };
 
 it('should fail on invalid input', async () => {
-  const result = await runQuery(
-    upsertQuery,
+  const result = await testUpsertSection(
     { section: invalidSection },
     fakeContext(ADMIN),
   );
@@ -331,7 +280,7 @@ it('should not fail on legacy input without license and copyright', async () => 
 });
 
 it('anon should not create suggestion', async () => {
-  const result = await runQuery(upsertQuery, { section: newRiverSection });
+  const result = await testUpsertSection({ section: newRiverSection });
   expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
 });
 
@@ -341,27 +290,24 @@ it.each([
   ['editor', 'verified', true, EDITOR_NO],
   ['admin', 'verified', true, ADMIN],
 ])('%s should create %s section', async (_, __, verified, user) => {
-  const result = await runQuery(
-    upsertQuery,
+  const result = await testUpsertSection(
     { section: newRiverSection },
     fakeContext(user),
   );
   expect(result.errors).toBeUndefined();
-  expect(result.data.upsertSection.verified).toEqual(verified);
+  expect(result.data?.upsertSection?.verified).toEqual(verified);
 });
 
 describe('insert', () => {
-  let insertResult: any;
-  let insertedSection: any;
+  let insertResult: UpsertSectionMutationResult | null;
+  let insertedSection: UpsertSectionMutation['upsertSection'];
 
   beforeEach(async () => {
-    insertResult = await runQuery(
-      upsertQuery,
+    insertResult = await testUpsertSection(
       { section: existingRiverSection },
       fakeContext(EDITOR_NO_EC),
     );
-    insertedSection =
-      insertResult && insertResult.data && insertResult.data.upsertSection;
+    insertedSection = insertResult.data?.upsertSection;
   });
 
   afterEach(() => {
@@ -370,7 +316,7 @@ describe('insert', () => {
   });
 
   it('should return result', () => {
-    expect(insertResult.errors).toBeUndefined();
+    expect(insertResult?.errors).toBeUndefined();
     expect(noUnstable(insertedSection)).toMatchSnapshot();
   });
 
@@ -402,20 +348,20 @@ describe('insert', () => {
     const { created_by } = await db()
       .table('sections')
       .select(['created_by'])
-      .where({ id: insertedSection.id })
+      .where({ id: insertedSection?.id })
       .first();
     expect(created_by).toBe(EDITOR_NO_EC_ID);
   });
 
   it('should log this event', async () => {
-    const entry: SectionsEditLogRaw = await db(false)
+    const entry: Sql.SectionsEditLog = await db(false)
       .table('sections_edit_log')
       .orderBy('created_at', 'desc')
       .select('*')
       .first();
     expect(entry).toMatchObject({
       id: expect.stringMatching(UUID_REGEX),
-      section_id: insertedSection.id,
+      section_id: insertedSection?.id,
       section_name: existingRiverSection.name,
       river_id: existingRiverSection.river.id,
       river_name: 'Sjoa',
@@ -430,19 +376,17 @@ describe('insert', () => {
 });
 
 describe('insert with new river', () => {
-  let insertResult: any;
-  let insertedSection: any;
+  let insertResult: UpsertSectionMutationResult | null;
+  let insertedSection: UpsertSectionMutation['upsertSection'];
 
   beforeEach(async () => {
-    insertResult = await runQuery(
-      upsertQuery,
+    insertResult = await testUpsertSection(
       {
         section: newRiverSection,
       },
       fakeContext(EDITOR_NO_EC),
     );
-    insertedSection =
-      insertResult && insertResult.data && insertResult.data.upsertSection;
+    insertedSection = insertResult?.data?.upsertSection;
   });
 
   afterEach(() => {
@@ -451,7 +395,7 @@ describe('insert with new river', () => {
   });
 
   it('should return result', () => {
-    expect(insertResult.errors).toBeUndefined();
+    expect(insertResult?.errors).toBeUndefined();
     expect(insertedSection).toMatchObject({
       river: {
         id: expect.stringMatching(UUID_REGEX),
@@ -469,13 +413,9 @@ describe('insert with new river', () => {
 
 it('should create river in others region when region is not provided', async () => {
   const { region: _, ...section } = newRiverSection;
-  const result = await runQuery(
-    upsertQuery,
-    { section },
-    fakeContext(TEST_USER),
-  );
+  const result = await testUpsertSection({ section }, fakeContext(TEST_USER));
   expect(result.errors).toBeUndefined();
-  expect(result.data.upsertSection).toMatchObject({
+  expect(result.data?.upsertSection).toMatchObject({
     river: {
       id: expect.stringMatching(UUID_REGEX),
       name: 'Rauma',
@@ -487,46 +427,49 @@ it('should create river in others region when region is not provided', async () 
 });
 
 it.each([
-  ['anon', 'not ', ApolloErrorCodes.UNAUTHENTICATED, undefined],
-  ['user', 'not ', ApolloErrorCodes.FORBIDDEN, TEST_USER],
-  ['non-owning editor', 'not ', ApolloErrorCodes.FORBIDDEN, EDITOR_NO],
-  ['editor', '', undefined, EDITOR_GA_EC],
-  ['admin', '', undefined, ADMIN],
-])('%s should %supdate section', async (_, __, error, user) => {
-  const result = await runQuery(
-    upsertQuery,
+  ['anon', ApolloErrorCodes.UNAUTHENTICATED, undefined],
+  ['user', ApolloErrorCodes.FORBIDDEN, TEST_USER],
+  ['non-owning editor', ApolloErrorCodes.FORBIDDEN, EDITOR_NO],
+])('%s should not update section', async (_, error, user) => {
+  const result = await testUpsertSection(
     { section: updateData },
     fakeContext(user),
   );
-  if (error) {
-    expect(result).toHaveGraphqlError(error);
-  } else {
-    expect(result.errors).toBeUndefined();
-  }
+  expect(result).toHaveGraphqlError(error);
+});
+
+it.each([
+  ['editor', EDITOR_GA_EC],
+  ['admin', ADMIN],
+])('%s should update section', async (_, user) => {
+  const result = await testUpsertSection(
+    { section: updateData },
+    fakeContext(user),
+  );
+  expect(result.errors).toBeUndefined();
 });
 
 describe('update', () => {
-  let updateResult: any;
-  let updatedSection: any;
-  let originalSection: any;
-  let oldPoiIds: any;
+  let updateResult: UpsertSectionMutationResult | null;
+  let updatedSection: UpsertSectionMutation['upsertSection'];
+
+  let originalSection: Sql.SectionsView;
+  let oldPoiIds: string[];
 
   beforeAll(async () => {
     originalSection = await db(true)
       .table('sections_view')
       .where({ id: updateData.id })
       .first();
-    oldPoiIds = originalSection.pois.map((poi: any) => poi.id);
+    oldPoiIds = originalSection.pois?.map((poi) => poi.id) ?? [];
   });
 
   beforeEach(async () => {
-    updateResult = await runQuery(
-      upsertQuery,
+    updateResult = await testUpsertSection(
       { section: updateData },
       fakeContext(EDITOR_GA_EC),
     );
-    updatedSection =
-      updateResult && updateResult.data && updateResult.data.upsertSection;
+    updatedSection = updateResult.data?.upsertSection;
   });
 
   afterEach(() => {
@@ -534,14 +477,14 @@ describe('update', () => {
     updatedSection = null;
   });
 
-  it('should return result', async () => {
-    expect(updateResult.errors).toBeUndefined();
-    expect(updatedSection.id).toBe(updateData.id);
+  it('should return result', () => {
+    expect(updateResult?.errors).toBeUndefined();
+    expect(updatedSection?.id).toBe(updateData.id);
     expect(noUnstable(updatedSection)).toMatchSnapshot();
   });
 
-  it('should change section from unverfied to verified when editing it', async () => {
-    expect(updatedSection.verified).toBe(true);
+  it('should change section from unverfied to verified when editing it', () => {
+    expect(updatedSection?.verified).toBe(true);
   });
 
   it('should not change total number of sections', async () => {
@@ -616,13 +559,13 @@ describe('update', () => {
     const { created_by } = await db()
       .table('sections')
       .select(['created_by'])
-      .where({ id: updatedSection.id })
+      .where({ id: updatedSection?.id })
       .first();
     expect(created_by).toBe(ADMIN_ID);
   });
 
   it('should log this event', async () => {
-    const entry: SectionsEditLogRaw = await db(false)
+    const entry: Sql.SectionsEditLog = await db(false)
       .table('sections_edit_log')
       .orderBy('created_at', 'desc')
       .select('*')
@@ -684,8 +627,7 @@ describe('i18n', () => {
   };
 
   it('should add translation', async () => {
-    const upsertResult = await runQuery(
-      upsertQuery,
+    const upsertResult = await testUpsertSection(
       { section: amotFr },
       fakeContext(EDITOR_NO_EC, 'fr'),
     );
@@ -699,8 +641,7 @@ describe('i18n', () => {
   });
 
   it('should modify common props when translation is added', async () => {
-    const upsertResult = await runQuery(
-      upsertQuery,
+    const upsertResult = await testUpsertSection(
       { section: amotFr },
       fakeContext(EDITOR_NO_EC, 'fr'),
     );
@@ -714,8 +655,7 @@ describe('i18n', () => {
   });
 
   it('should modify translation', async () => {
-    const upsertResult = await runQuery(
-      upsertQuery,
+    const upsertResult = await testUpsertSection(
       { section: amotFr },
       fakeContext(EDITOR_NO_EC, 'ru'),
     );
@@ -747,8 +687,7 @@ describe('i18n', () => {
         },
       ],
     };
-    const upsertResult = await runQuery(
-      upsertQuery,
+    const upsertResult = await testUpsertSection(
       { section: updateRu },
       fakeContext(EDITOR_GA_EC, 'ru'),
     );
@@ -775,7 +714,7 @@ describe('media', () => {
       license: null,
       copyright: 'photo copyright',
       url: 'photo.jpg',
-      kind: MediaKind.photo,
+      kind: MediaKind.Photo,
       resolution: [100, 100],
       weight: null,
     },
@@ -785,7 +724,7 @@ describe('media', () => {
       license: null,
       copyright: 'video copyright',
       url: 'https://www.youtube.com/watch?v=FRmz0QQXHEw',
-      kind: MediaKind.video,
+      kind: MediaKind.Video,
       resolution: null,
       weight: null,
     },
@@ -801,7 +740,7 @@ describe('media', () => {
       ...media,
       {
         id: PHOTO_2,
-        kind: MediaKind.photo,
+        kind: MediaKind.Photo,
         description: 'Photo 2 new description',
         license: null,
         copyright: 'Photo 2 new copyright',
@@ -826,11 +765,10 @@ describe('media', () => {
   });
 
   describe('insert', () => {
-    let result!: ExecutionResult;
+    let result: UpsertSectionMutationResult;
 
     beforeEach(async () => {
-      result = await runQuery(
-        upsertQuery,
+      result = await testUpsertSection(
         { section: insertSection },
         fakeContext(EDITOR_NO_EC),
       );
@@ -838,18 +776,18 @@ describe('media', () => {
 
     it('should return media', () => {
       expect(result.errors).toBeUndefined();
-      expect(result.data!.upsertSection.media).toMatchObject({
+      expect(result.data?.upsertSection?.media).toMatchObject({
         count: 2,
         nodes: [
           {
             id: expect.stringMatching(UUID_REGEX),
             url: 'imgproxy://media/photo.jpg',
-            kind: MediaKind.photo,
+            kind: MediaKind.Photo,
           },
           {
             id: expect.stringMatching(UUID_REGEX),
             url: 'https://www.youtube.com/watch?v=FRmz0QQXHEw',
-            kind: MediaKind.video,
+            kind: MediaKind.Video,
           },
         ],
       });
@@ -870,11 +808,10 @@ describe('media', () => {
   });
 
   describe('update', () => {
-    let result!: ExecutionResult;
+    let result: UpsertSectionMutationResult;
 
     beforeEach(async () => {
-      result = await runQuery(
-        upsertQuery,
+      result = await testUpsertSection(
         { section: updateSection },
         fakeContext(EDITOR_NO_EC),
       );
@@ -882,23 +819,23 @@ describe('media', () => {
 
     it('should return media', () => {
       expect(result.errors).toBeUndefined();
-      expect(result.data!.upsertSection.media).toMatchObject({
+      expect(result.data?.upsertSection?.media).toMatchObject({
         count: 3,
         nodes: [
           {
             id: PHOTO_2,
             url: `imgproxy://media/${PHOTO_2}`,
-            kind: MediaKind.photo,
+            kind: MediaKind.Photo,
           },
           {
             id: expect.stringMatching(UUID_REGEX),
             url: 'imgproxy://media/photo.jpg',
-            kind: MediaKind.photo,
+            kind: MediaKind.Photo,
           },
           {
             id: expect.stringMatching(UUID_REGEX),
             url: 'https://www.youtube.com/watch?v=FRmz0QQXHEw',
-            kind: MediaKind.video,
+            kind: MediaKind.Video,
           },
         ],
       });
@@ -927,8 +864,7 @@ describe('gorge jobs', () => {
   });
 
   it('should update job for new section with gauge', async () => {
-    const result = await runQuery(
-      upsertQuery,
+    const result = await testUpsertSection(
       {
         section: {
           ...existingRiverSection,
@@ -943,8 +879,7 @@ describe('gorge jobs', () => {
   });
 
   it('should not update job for new section without gauge', async () => {
-    const result = await runQuery(
-      upsertQuery,
+    const result = await testUpsertSection(
       {
         section: {
           ...existingRiverSection,
@@ -959,8 +894,7 @@ describe('gorge jobs', () => {
   });
 
   it('should not update job when section is updated without gauge change', async () => {
-    const result = await runQuery(
-      upsertQuery,
+    const result = await testUpsertSection(
       { section: updateData },
       fakeContext(ADMIN),
     );
@@ -969,8 +903,7 @@ describe('gorge jobs', () => {
   });
 
   it('should update job when section is updated with gauge change', async () => {
-    const result = await runQuery(
-      upsertQuery,
+    const result = await testUpsertSection(
       { section: { ...updateData, gauge: { id: GAUGE_GAL_1_2 } } },
       fakeContext(ADMIN),
     );
@@ -979,8 +912,7 @@ describe('gorge jobs', () => {
   });
 
   it('should update two jobs gauge from different source is selected', async () => {
-    const result = await runQuery(
-      upsertQuery,
+    const result = await testUpsertSection(
       { section: { ...updateData, gauge: { id: GAUGE_GEO_1 } } },
       fakeContext(ADMIN),
     );
@@ -993,8 +925,7 @@ describe('gorge jobs', () => {
 it('should sanitize input', async () => {
   let dirty = { ...existingRiverSection, name: "it's a \\ $1 slash with . ?" };
   dirty = set('pois.0.name', "it's a \\ $1 slash with . ?", dirty);
-  const result = await runQuery(
-    upsertQuery,
+  const result = await testUpsertSection(
     { section: dirty },
     fakeContext(ADMIN),
   );
@@ -1009,54 +940,49 @@ it('should sanitize input', async () => {
 });
 
 it('should be able to change river of existing section', async () => {
-  const res = await runQuery(
-    upsertQuery,
+  const res = await testUpsertSection(
     { section: { ...updateData, river: { id: RIVER_GAL_CABE } } },
     fakeContext(EDITOR_GA_EC),
   );
   expect(res.errors).toBeUndefined();
-  expect(res.data.upsertSection.river.id).toBe(RIVER_GAL_CABE);
+  expect(res.data?.upsertSection?.river?.id).toBe(RIVER_GAL_CABE);
 });
 
 describe('demo sections', () => {
   it('new section should not be demo when created by editor in premium region', async () => {
-    const res = await runQuery(
-      upsertQuery,
+    const res = await testUpsertSection(
       { section: { ...updateData, id: null, river: { id: RIVER_QUIJOS } } },
       fakeContext(EDITOR_GA_EC),
     );
     expect(res.errors).toBeUndefined();
-    expect(res.data.upsertSection.demo).toBe(false);
+    expect(res.data?.upsertSection?.demo).toBe(false);
   });
 
   it('new section should be demo when created by non-editor in premium region', async () => {
-    const res = await runQuery(
-      upsertQuery,
+    const res = await testUpsertSection(
       { section: { ...updateData, id: null, river: { id: RIVER_QUIJOS } } },
       fakeContext(TEST_USER),
     );
     expect(res.errors).toBeUndefined();
-    expect(res.data.upsertSection.demo).toBe(true);
+    expect(res.data?.upsertSection?.demo).toBe(true);
   });
 
   it('new section should not be demo when created by editor in free region', async () => {
-    const res = await runQuery(
-      upsertQuery,
+    const res = await testUpsertSection(
       { section: { ...updateData, id: null, river: { id: RIVER_GAL_CABE } } },
       fakeContext(EDITOR_GA_EC),
     );
     expect(res.errors).toBeUndefined();
-    expect(res.data.upsertSection.demo).toBe(false);
+    expect(res.data?.upsertSection?.demo).toBe(false);
   });
 
   it('new section should not be demo when created by non-editor in free region', async () => {
-    const res = await runQuery(
-      upsertQuery,
+    const res = await testUpsertSection(
       { section: { ...updateData, id: null, river: { id: RIVER_GAL_CABE } } },
       fakeContext(TEST_USER),
     );
     expect(res.errors).toBeUndefined();
-    expect(res.data.upsertSection.demo).toBe(false);
+    expect(res.data?.upsertSection?.demo).toBe(false);
   });
 
   // issue #460
@@ -1069,12 +995,8 @@ describe('demo sections', () => {
       },
       gauge: null,
     };
-    const res = await runQuery(
-      upsertQuery,
-      { section: data },
-      fakeContext(ADMIN),
-    );
+    const res = await testUpsertSection({ section: data }, fakeContext(ADMIN));
     expect(res.errors).toBeUndefined();
-    expect(res.data.upsertSection.demo).toBe(true);
+    expect(res.data?.upsertSection?.demo).toBe(true);
   });
 });

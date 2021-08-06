@@ -1,14 +1,16 @@
-import { GraphQLFieldResolver } from 'graphql';
+import { RiverResolvers } from '~/apollo';
 
-import { Context, ListQuery } from '~/apollo';
-
-import { RiverRaw } from '../types';
-
-const sectionsResolver: GraphQLFieldResolver<
-  RiverRaw,
-  Context,
-  ListQuery
-> = async ({ id }, { page }, { dataSources }, info) =>
-  dataSources.sections.getMany(info, { page, filter: { riverId: id } });
+const sectionsResolver: RiverResolvers['sections'] = async (
+  { id },
+  { page },
+  { dataSources },
+  info,
+) => {
+  const sections = await dataSources.sections.getMany(info, {
+    page,
+    filter: { riverId: id },
+  });
+  return sections;
+};
 
 export default sectionsResolver;

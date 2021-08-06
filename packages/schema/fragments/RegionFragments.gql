@@ -1,0 +1,39 @@
+fragment RegionCore on Region {
+  id
+  name
+  season
+  seasonNumeric
+}
+
+fragment RegionPOIs on Region {
+  pois {
+    ...PointCore
+  }
+}
+
+fragment RegionFlags on Region {
+  hidden
+  premium
+  editable
+  hasPremiumAccess
+}
+
+fragment RegionLicense on Region {
+  copyright
+  license {
+    slug
+    name
+    url
+  }
+}
+
+fragment RegionAdmin on Region {
+  id
+  hidden
+  premium
+  sku
+  mapsSize
+  coverImage {
+    mobile
+  }
+}

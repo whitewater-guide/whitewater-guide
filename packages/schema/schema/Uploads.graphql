@@ -1,0 +1,17 @@
+enum PostPolicyVersion {
+  V3
+}
+
+type UploadLink {
+  postURL: String!
+  formData: JSON!
+  key: String
+}
+
+type Query {
+  "Generates link to upload image to object storage (S3/Minio)"
+  uploadLink(
+    "Post policy version is required to generate links that older clients can use"
+    version: PostPolicyVersion
+  ): UploadLink
+}

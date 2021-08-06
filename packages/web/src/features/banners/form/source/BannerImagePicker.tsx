@@ -22,15 +22,10 @@ type Props = Pick<
   'width' | 'height' | 'previewScale' | 'mpxOrResolution'
 >;
 
-export const BannerImagePicker: React.FC<Props> = React.memo((props) => {
+export const BannerImagePicker = React.memo<Props>((props) => {
   const classes = useStyles();
   return (
-    <ImageUploadField
-      {...props}
-      name="source"
-      hideFileName={true}
-      classes={classes}
-    />
+    <ImageUploadField {...props} name="source" hideFileName classes={classes} />
   );
 });
 

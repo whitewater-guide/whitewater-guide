@@ -1,10 +1,10 @@
 import {
   formatDistanceToNow,
   getSectionColor,
+  ListedSectionFragment,
   prettyNumber,
   useFormulas,
 } from '@whitewater-guide/clients';
-import { Section } from '@whitewater-guide/commons';
 import parseISO from 'date-fns/parseISO';
 import isNil from 'lodash/isNil';
 import React from 'react';
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  section: Section;
+  section: ListedSectionFragment;
 }
 
 const FlowsThumb: React.FC<Props> = ({ section }) => {
@@ -76,7 +76,7 @@ const FlowsThumb: React.FC<Props> = ({ section }) => {
       <Text style={[styles.mainLine, { color }]}>
         {prettyNumber(data.value)}
         <Text style={[styles.unitLine, { color }]}>
-          {` ${t('commons:' + data.unit)}`}
+          {` ${t(`commons:${data.unit}`)}`}
         </Text>
       </Text>
       <Text style={styles.timeLine}>{fromNow}</Text>

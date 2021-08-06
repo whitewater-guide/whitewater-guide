@@ -1,0 +1,38 @@
+fragment BannerCore on Banner {
+  id
+  name
+  slug
+  priority
+  enabled
+  placement
+  link
+  extras
+}
+
+fragment BannerWithSource on Banner {
+  ...BannerCore
+  source {
+    kind
+    url
+  }
+}
+
+fragment BannerRegions on Banner {
+  regions {
+    nodes {
+      id
+      name
+    }
+    count
+  }
+}
+
+fragment BannerGroups on Banner {
+  groups {
+    nodes {
+      id
+      name
+    }
+    count
+  }
+}

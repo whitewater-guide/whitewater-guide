@@ -1,16 +1,20 @@
 import Grid from '@material-ui/core/Grid';
 import { formatDistanceToNow } from '@whitewater-guide/clients';
-import { Gauge } from '@whitewater-guide/commons';
+import {
+  GaugeCoreFragment,
+  GaugeLatestMeasurementFragment,
+} from '@whitewater-guide/schema';
 import parseISO from 'date-fns/parseISO';
 import isNil from 'lodash/isNil';
 import React from 'react';
 
 import { Row, Title } from '../../../layout/details';
+
 interface Props {
-  gauge: Gauge;
+  gauge: GaugeCoreFragment & GaugeLatestMeasurementFragment;
 }
 
-const GaugeLevel: React.FC<Props> = React.memo(({ gauge }) => {
+const GaugeLevel = React.memo<Props>(({ gauge }) => {
   const { latestMeasurement, levelUnit } = gauge;
   if (!levelUnit || !latestMeasurement) {
     return null;

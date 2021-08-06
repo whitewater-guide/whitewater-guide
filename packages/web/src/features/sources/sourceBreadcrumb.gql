@@ -1,0 +1,6 @@
+query sourceBreadcrumb($id: ID!) {
+  node: source(id: $id) {
+    id
+    name
+  }
+}

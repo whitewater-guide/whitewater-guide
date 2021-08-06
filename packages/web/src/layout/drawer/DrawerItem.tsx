@@ -21,7 +21,7 @@ interface Props {
   onClose: () => void;
 }
 
-const DrawerItem: React.FC<Props> = React.memo((props) => {
+const DrawerItem = React.memo<Props>((props) => {
   const { path, selected, title, onClose } = props;
   const { push } = useHistory();
   const { pathname } = useLocation();
@@ -39,12 +39,7 @@ const DrawerItem: React.FC<Props> = React.memo((props) => {
   }, [path, pathname, push, onClose]);
 
   return (
-    <ListItem
-      key={path}
-      button={true}
-      selected={selected === path}
-      onClick={onClick}
-    >
+    <ListItem key={path} button selected={selected === path} onClick={onClick}>
       <ListItemText>
         <Link to={path} className={classes.link}>
           {title}

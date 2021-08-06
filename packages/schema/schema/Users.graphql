@@ -1,0 +1,84 @@
+type User implements NamedNode & Timestamped {
+  "Unique id"
+  id: ID!
+  "Username"
+  name: String!
+  "userpic full url"
+  avatar: String
+  "email, not public"
+  email: String
+  "user is admin"
+  admin: Boolean!
+  "user is editor in any of regions"
+  editor: Boolean!
+  "registration date"
+  createdAt: Date!
+  "last profle update date"
+  updatedAt: Date!
+  "Prerferred UI language"
+  language: String!
+  "Prefer imperial measurement system"
+  imperial: Boolean!
+  "Special settings for editors"
+  editorSettings: EditorSettings
+  "True if user is verified"
+  verified: Boolean!
+  "Social media accounts"
+  accounts: [SocialMediaAccount!]!
+
+  "Which regions current user has purchased"
+  purchasedRegions: [Region!]!
+  "Which region groups current user has purchased"
+  purchasedGroups: [Group!]!
+}
+
+type SocialMediaAccount {
+  id: ID!
+  "facebook/apple"
+  provider: String!
+}
+
+type EditorSettings {
+  "current editor UI language"
+  language: String
+}
+
+input UserInput {
+  "username"
+  name: String
+  "userpic filename"
+  avatar: String
+  "Prerferred UI language"
+  language: String
+  "Prefer imperial measurement system"
+  imperial: Boolean
+  "email, not public"
+  email: String
+}
+
+input EditorSettingsInput {
+  language: String
+}
+
+input UserFilterOptions {
+  searchString: String
+  editorsOnly: Boolean
+}
+
+type Query {
+  "Gets current user's profile"
+  me: User
+  "Lists users"
+  findUsers(filter: UserFilterOptions!): [User!]! @admin
+}
+
+type Mutation {
+  "Modifies editor settings"
+  updateEditorSettings(editorSettings: EditorSettingsInput!): User
+  "Updates current user's profile"
+  updateProfile(user: UserInput!): User
+  "Adds FCM token for push notifications"
+  addFCMToken(token: String!): Boolean
+  "Removes FCM token for push notifications"
+  removeFCMToken(token: String!): Boolean
+}

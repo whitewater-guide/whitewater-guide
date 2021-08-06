@@ -1,0 +1,6 @@
+query gaugeBreadcrumb($id: ID!) {
+  node: gauge(id: $id) {
+    id
+    name
+  }
+}

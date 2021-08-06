@@ -1,10 +1,10 @@
-import { BannerKind } from '@whitewater-guide/commons';
+import { BannerKind } from '@whitewater-guide/schema';
 
-import { NodeQuery, TopLevelResolver } from '~/apollo';
-import db from '~/db';
+import { MutationResolvers } from '~/apollo';
+import { db } from '~/db';
 import { BANNERS, s3Client } from '~/s3';
 
-const removeBanner: TopLevelResolver = async (root, { id }: NodeQuery) => {
+const removeBanner: MutationResolvers['removeBanner'] = async (_, { id }) => {
   const result: any = await db()
     .table('banners')
     .del()

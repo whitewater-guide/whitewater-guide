@@ -1,21 +1,21 @@
-import { Section } from '@whitewater-guide/commons';
+import { ListedSectionFragment } from '@whitewater-guide/clients';
 import noop from 'lodash/noop';
 import React, { useContext, useState } from 'react';
 
-interface MergeSectionsContext {
-  source: Section | null;
-  setSource: (value: Section | null) => void;
-}
+type MergeSectionsContext = [
+  ListedSectionFragment | null,
+  (value: ListedSectionFragment | null) => void,
+];
 
-const MergeSectionsCtx = React.createContext<MergeSectionsContext>({
-  source: null,
-  setSource: noop,
-});
+const MergeSectionsCtx = React.createContext<MergeSectionsContext>([
+  null,
+  noop,
+]);
 
 export const MergeSectionsProvider: React.FC = ({ children }) => {
-  const [source, setSource] = useState<Section | null>(null);
+  const state = useState<ListedSectionFragment | null>(null);
   return (
-    <MergeSectionsCtx.Provider value={{ source, setSource }}>
+    <MergeSectionsCtx.Provider value={state}>
       {children}
     </MergeSectionsCtx.Provider>
   );

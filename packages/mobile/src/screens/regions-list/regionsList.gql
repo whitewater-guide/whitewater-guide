@@ -1,0 +1,21 @@
+query regionsList($coverWidth: Int) {
+  regions {
+    nodes {
+      id
+      name
+      premium
+      hasPremiumAccess
+      sku
+      gauges {
+        count
+      }
+      sections {
+        count
+      }
+      coverImage {
+        mobile(width: $coverWidth)
+      }
+    }
+    count
+  }
+}

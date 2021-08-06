@@ -11,7 +11,7 @@ interface Props extends InputProps {
   label?: string;
 }
 
-export const PasswordField: React.FC<Props> = React.memo((props) => {
+export const PasswordField = React.memo<Props>((props) => {
   const { name, label, ...inputProps } = props;
   const [showPassword, setShowPassword] = useState(false);
   const togglePassword = useCallback(() => {

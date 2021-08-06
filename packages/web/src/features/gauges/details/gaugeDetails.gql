@@ -1,0 +1,10 @@
+query gaugeDetails($gaugeId: ID) {
+  gauge(id: $gaugeId) {
+    ...GaugeCore
+    ...GaugeLocation
+    ...GaugeHarvestInfo
+    ...GaugeSource
+    ...GaugeStatus
+    ...GaugeLatestMeasurement
+  }
+}

@@ -6,7 +6,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Divider from '@material-ui/core/Divider';
 import TextInput from '@material-ui/core/TextField';
-import { NamedNode, NEW_ID } from '@whitewater-guide/commons';
+import { NEW_RIVER_ID } from '@whitewater-guide/commons';
+import { NamedNode } from '@whitewater-guide/schema';
 import { useFormikContext } from 'formik';
 import upperFirst from 'lodash/upperFirst';
 import React, {
@@ -43,6 +44,8 @@ const reducer: Reducer<State, Action> = (state: State, action: Action) => {
       return { input: action.value, selected: null };
     case 'select':
       return { input: '', selected: action.value };
+    default:
+    // do nothing
   }
   return state;
 };
@@ -53,7 +56,7 @@ export const SectionRiverField: React.FC = React.memo(() => {
 
   const { values, setFieldTouched, setFieldValue } = useFormikContext<any>();
 
-  const river: NamedNode | null = values.river;
+  const { river } = values;
   const [state, dispatch] = useReducer(reducer, { selected: river, input: '' });
 
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -77,16 +80,19 @@ export const SectionRiverField: React.FC = React.memo(() => {
   const onSubmit = useCallback(() => {
     setFieldValue(
       'river',
-      state.selected || { id: NEW_ID, name: upperFirst(state.input).trim() },
+      state.selected || {
+        id: NEW_RIVER_ID,
+        name: upperFirst(state.input).trim(),
+      },
     );
     closeDialog();
   }, [setFieldValue, state, closeDialog]);
 
   return (
-    <React.Fragment>
+    <>
       <TextField
-        fullWidth={true}
-        readOnly={true}
+        fullWidth
+        readOnly
         onClick={openDialog}
         name="river.name"
         errorFieldName="river"
@@ -96,7 +102,7 @@ export const SectionRiverField: React.FC = React.memo(() => {
         <DialogTitle>Select or create a river</DialogTitle>
         <DialogContent>
           <RiverFinder
-            allowNull={true}
+            allowNull
             value={state.selected}
             onChange={onSelect}
             regionId={regionId}
@@ -107,7 +113,7 @@ export const SectionRiverField: React.FC = React.memo(() => {
           <TextInput
             value={state.input}
             onChange={onInput}
-            fullWidth={true}
+            fullWidth
             placeholder="New river name"
           />
         </DialogContent>
@@ -122,7 +128,7 @@ export const SectionRiverField: React.FC = React.memo(() => {
           </Button>
         </DialogActions>
       </Dialog>
-    </React.Fragment>
+    </>
   );
 });
 

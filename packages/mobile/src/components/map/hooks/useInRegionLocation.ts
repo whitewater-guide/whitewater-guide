@@ -2,13 +2,13 @@ import Mapbox from '@react-native-mapbox-gl/maps';
 import pointInPolygon from '@turf/boolean-point-in-polygon';
 import { Feature, lineString, point, Polygon } from '@turf/helpers';
 import lineToPolygon from '@turf/line-to-polygon';
-import { CoordinateLoose, withZeroAlt } from '@whitewater-guide/commons';
+import { ensureAltitude } from '@whitewater-guide/clients';
 import { useEffect } from 'react';
 
 import { useCamera } from './useCamera';
 
 export const useInRegionLocation = (
-  bounds: CoordinateLoose[],
+  bounds: CodegenCoordinates[],
   locationPermissionGranted: boolean,
 ) => {
   const camera = useCamera();
@@ -27,7 +27,7 @@ export const useInRegionLocation = (
         } = location;
         const pt = point([longitude, latitude]);
         const poly = lineToPolygon(
-          lineString(withZeroAlt(bounds)),
+          lineString(ensureAltitude(bounds)),
         ) as Feature<Polygon>;
         const isInRegion = pointInPolygon(pt, poly);
 

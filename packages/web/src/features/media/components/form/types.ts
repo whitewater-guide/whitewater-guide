@@ -1,4 +1,4 @@
-import { MediaKind } from '@whitewater-guide/commons';
+import { MediaKind } from '@whitewater-guide/schema';
 
 import { LocalPhoto } from '../../../../utils/files';
 

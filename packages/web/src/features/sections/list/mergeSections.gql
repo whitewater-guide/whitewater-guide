@@ -1,0 +1,3 @@
+mutation mergeSections($sourceId: ID!, $destinationId: ID!) {
+  mergeSections(sourceId: $sourceId, destinationId: $destinationId)
+}

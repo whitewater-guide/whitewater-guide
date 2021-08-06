@@ -1,11 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
 import {
-  LIST_SECTIONS,
-  ListSectionsResult,
-  ListSectionsVars,
+  applySearch,
+  ListSectionsDocument,
+  ListSectionsQuery,
+  ListSectionsQueryVariables,
   useSectionsFilterOptionsSetter,
 } from '@whitewater-guide/clients';
-import { applySearch } from '@whitewater-guide/commons';
 import React, { useCallback, useMemo } from 'react';
 import { useQuery } from 'react-apollo';
 import { useTranslation } from 'react-i18next';
@@ -36,12 +36,12 @@ export const FindButton: React.FC<Props> = ({ searchState, regionId }) => {
     goBack();
   }, [terms, setSearchState, goBack]);
 
-  const { data } = useQuery<ListSectionsResult, ListSectionsVars>(
-    LIST_SECTIONS,
+  const { data } = useQuery<ListSectionsQuery, ListSectionsQueryVariables>(
+    ListSectionsDocument,
     { fetchPolicy: 'cache-only', variables: { filter: { regionId } } },
   );
   let count = 0;
-  if (data && data.sections) {
+  if (data?.sections) {
     const filteredSections = applySearch(data.sections.nodes, terms);
     count = filteredSections.length;
   }

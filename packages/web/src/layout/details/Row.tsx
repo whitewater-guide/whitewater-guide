@@ -15,7 +15,7 @@ const useStyles = makeStyles(() =>
 export const Row: React.FC = ({ children }) => {
   const classes = useStyles();
   return (
-    <Grid item={true} container={true} className={classes.row} xs={12}>
+    <Grid item container className={classes.row} xs={12}>
       {children}
     </Grid>
   );

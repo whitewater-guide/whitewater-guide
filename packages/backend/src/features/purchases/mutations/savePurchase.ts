@@ -1,9 +1,9 @@
 import {
+  MutationSavePurchaseArgs,
   PurchaseInput,
   PurchaseInputSchema,
   PurchasePlatform,
-} from '@whitewater-guide/commons';
-import { yupTypes } from '@whitewater-guide/validation';
+} from '@whitewater-guide/schema';
 import { AuthenticationError } from 'apollo-server-koa';
 import { isValidated, validate } from 'in-app-purchase';
 import { QueryBuilder, Transaction } from 'knex';
@@ -13,28 +13,23 @@ import {
   ContextUser,
   isInputValidResolver,
   MutationNotAllowedError,
+  MutationResolvers,
 } from '~/apollo';
-import db from '~/db';
+import { db, Sql } from '~/db';
 
 import logger from '../logger';
-import { BoomPromoRaw, TransactionRaw } from '../types';
 import { acknowledgeAndroid } from './utils';
 
-interface Vars {
-  purchase: PurchaseInput;
-  sectionId?: string;
-}
-
-const Struct = yup.object({
-  purchase: PurchaseInputSchema,
-  sectionId: yupTypes.uuid().notRequired().nullable(),
+const Schema: yup.SchemaOf<MutationSavePurchaseArgs> = yup.object({
+  purchase: PurchaseInputSchema.clone(),
+  sectionId: yup.string().uuid().notRequired().nullable(),
 });
 
 const processBoomstarterPurchase = async (
   purchase: PurchaseInput,
   user: ContextUser,
 ) => {
-  const promo: BoomPromoRaw | undefined = await db()
+  const promo: Sql.BoomPromos | undefined = await db()
     .table('boom_promos')
     .where({ code: purchase.transactionId })
     .first();
@@ -48,7 +43,7 @@ const processBoomstarterPurchase = async (
     throw new MutationNotAllowedError('Promo code already redeemed');
   }
   await db().transaction(async (trx: Transaction) => {
-    const transaction: Partial<TransactionRaw> = {
+    const transaction: Partial<Sql.Transactions> = {
       user_id: user.id,
       platform: PurchasePlatform.boomstarter,
       transaction_id: purchase.transactionId,
@@ -75,9 +70,9 @@ const processIAP = async (purchase: PurchaseInput, user: ContextUser) => {
     response = await validate(purchase.receipt);
     validated = isValidated(response);
   }
-  const transaction: Partial<TransactionRaw> = {
+  const transaction: Partial<Sql.Transactions> = {
     user_id: user.id,
-    platform: purchase.platform,
+    platform: purchase.platform as Sql.PlatformType,
     transaction_id: purchase.transactionId,
     transaction_date: purchase.transactionDate,
     product_id: purchase.productId,
@@ -88,73 +83,75 @@ const processIAP = async (purchase: PurchaseInput, user: ContextUser) => {
   await db().insert(transaction).into('transactions');
 };
 
-const savePurchase = isInputValidResolver<Vars>(
-  Struct,
-  async (_: any, { purchase, sectionId }, context, info) => {
-    const { user, dataSources } = context;
-    if (!user) {
-      throw new AuthenticationError('must be authenticated');
-    }
-    const { transactionId, productId, platform } = purchase;
+const savePurchase: MutationResolvers['savePurchase'] = async (
+  _,
+  { purchase, sectionId },
+  context,
+  info,
+) => {
+  const { user, dataSources } = context;
+  if (!user) {
+    throw new AuthenticationError('must be authenticated');
+  }
+  const { transactionId, productId, platform } = purchase;
 
-    // check if transaction already added
-    const transaction = await db()
-      .table('transactions')
-      .where({
-        transaction_id: purchase.transactionId,
-        platform: purchase.platform,
-      })
-      .first();
+  // check if transaction already added
+  const transaction = await db()
+    .table('transactions')
+    .where({
+      transaction_id: purchase.transactionId,
+      platform: purchase.platform,
+    })
+    .first();
 
-    if (transaction) {
-      const sameUser = transaction.user_id === user.id;
-      logger.warn({
-        extra: {
-          platform,
-          transactionId,
-          sameUser,
-        },
-        message: 'Duplicate transaction',
-      });
-      if (!sameUser) {
-        throw new MutationNotAllowedError('Duplicate transaction');
-      }
-    } else {
-      try {
-        if (purchase.platform === PurchasePlatform.boomstarter) {
-          await processBoomstarterPurchase(purchase, user);
-        } else {
-          await processIAP(purchase, user);
-        }
-      } catch (e) {
-        logger.warn({ extra: { platform, transactionId }, error: e });
-        throw e;
-      }
-    }
-
-    const regionInfo = {
-      fieldNodes: [info.fieldNodes[0].selectionSet?.selections[0]],
-    };
-    let regionQuery = dataSources.regions.getMany(regionInfo, {
-      where: { premium: true },
+  if (transaction) {
+    const sameUser = transaction.user_id === user.id;
+    logger.warn({
+      extra: {
+        platform,
+        transactionId,
+        sameUser,
+      },
+      message: 'Duplicate transaction',
     });
-    if (productId.startsWith('region')) {
-      regionQuery = regionQuery.where({ sku: productId });
-    } else {
-      regionQuery = regionQuery.whereExists((qb: QueryBuilder) => {
-        qb.select('*')
-          .from('groups')
-          .innerJoin('regions_groups', 'groups.id', 'regions_groups.group_id')
-          .where({ sku: productId })
-          .andWhereRaw('regions_groups.region_id = regions_view.id');
-      });
+    if (!sameUser) {
+      throw new MutationNotAllowedError('Duplicate transaction');
     }
-    const [regions, section] = await Promise.all([
-      regionQuery,
-      dataSources.sections.getById(sectionId),
-    ]);
-    return { regions, section };
-  },
-);
+  } else {
+    try {
+      if (purchase.platform === PurchasePlatform.boomstarter) {
+        await processBoomstarterPurchase(purchase, user);
+      } else {
+        await processIAP(purchase, user);
+      }
+    } catch (e) {
+      logger.warn({ extra: { platform, transactionId }, error: e });
+      throw e;
+    }
+  }
 
-export default savePurchase;
+  const regionInfo = {
+    fieldNodes: [info.fieldNodes[0].selectionSet?.selections[0]],
+  };
+  let regionQuery = dataSources.regions.getMany(regionInfo, {
+    where: { premium: true },
+  });
+  if (productId.startsWith('region')) {
+    regionQuery = regionQuery.where({ sku: productId });
+  } else {
+    regionQuery = regionQuery.whereExists((qb: QueryBuilder) => {
+      qb.select('*')
+        .from('groups')
+        .innerJoin('regions_groups', 'groups.id', 'regions_groups.group_id')
+        .where({ sku: productId })
+        .andWhereRaw('regions_groups.region_id = regions_view.id');
+    });
+  }
+  const [regions, section] = await Promise.all([
+    regionQuery,
+    dataSources.sections.getById(sectionId),
+  ]);
+  return { regions, section };
+};
+
+export default isInputValidResolver(Schema, savePurchase);

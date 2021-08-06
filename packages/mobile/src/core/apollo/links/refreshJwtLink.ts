@@ -20,7 +20,9 @@ const CLOCK_TOLERANCE = -1; // 1 second
 
 export class TokenRefreshLink extends ApolloLink {
   private _fetching = false;
+
   private _queue = new OperationQueuing();
+
   private _auth: AuthService;
 
   constructor(auth: AuthService) {
@@ -28,7 +30,7 @@ export class TokenRefreshLink extends ApolloLink {
     this._auth = auth;
   }
 
-  private isTokenExpired(operation: Operation) {
+  private isTokenExpired = (operation: Operation) => {
     // This is set by errorLink when graphql response returns 401 or UNATHENTICATED graphql error
     const expiredError = operation.getContext()[JWT_EXPIRED_CTX_KEY];
     if (expiredError) {
@@ -39,10 +41,11 @@ export class TokenRefreshLink extends ApolloLink {
     if (accessToken) {
       const payload: any = decode(accessToken);
       const now = Math.floor(Date.now() / 1000);
+      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
       accessTokenExpired = now > payload.exp + CLOCK_TOLERANCE;
     }
     return accessTokenExpired;
-  }
+  };
 
   public request(
     operation: Operation,
@@ -57,47 +60,46 @@ export class TokenRefreshLink extends ApolloLink {
         operation,
         forward,
       });
-    } else {
-      this._fetching = true;
-      return new Observable<FetchResult<any, any, any>>((observer) => {
-        let handle: any;
-        this._auth
-          .refreshAccessToken()
-          .then((resp) => {
-            this._fetching = false;
-            const { success, accessToken } = resp;
-            if (success && accessToken) {
-              operation.setContext(getAccessTokenContext(accessToken));
-              this._queue.queuedRequests.forEach(({ operation: op }) => {
-                op.setContext(getAccessTokenContext(accessToken));
-              });
-            }
-            this._queue.consumeQueue();
-            return resp;
-          })
-          .then((resp) => {
-            const result = resp.success
-              ? forward(operation)
-              : fromError(createApolloServerError(resp));
-            handle = result.subscribe({
-              next: observer.next.bind(observer),
-              error: observer.error.bind(observer),
-              complete: observer.complete.bind(observer),
-            });
-          })
-          .catch((err) => {
-            handle = fromError(err).subscribe({
-              next: observer.next.bind(observer),
-              error: observer.error.bind(observer),
-              complete: observer.complete.bind(observer),
-            });
-          });
-        return () => {
-          if (handle) {
-            handle.unsubscribe();
-          }
-        };
-      });
     }
+    this._fetching = true;
+    return new Observable<FetchResult<any, any, any>>((observer) => {
+      let handle: any;
+      this._auth
+        .refreshAccessToken()
+        .then((resp) => {
+          this._fetching = false;
+          const { success, accessToken } = resp;
+          if (success && accessToken) {
+            operation.setContext(getAccessTokenContext(accessToken));
+            this._queue.queuedRequests.forEach(({ operation: op }) => {
+              op.setContext(getAccessTokenContext(accessToken));
+            });
+          }
+          this._queue.consumeQueue();
+          return resp;
+        })
+        .then((resp) => {
+          const result = resp.success
+            ? forward(operation)
+            : fromError(createApolloServerError(resp));
+          handle = result.subscribe({
+            next: observer.next.bind(observer),
+            error: observer.error.bind(observer),
+            complete: observer.complete.bind(observer),
+          });
+        })
+        .catch((err) => {
+          handle = fromError(err).subscribe({
+            next: observer.next.bind(observer),
+            error: observer.error.bind(observer),
+            complete: observer.complete.bind(observer),
+          });
+        });
+      return () => {
+        if (handle) {
+          handle.unsubscribe();
+        }
+      };
+    });
   }
 }

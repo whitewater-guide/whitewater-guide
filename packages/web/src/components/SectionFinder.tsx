@@ -1,27 +1,12 @@
-import { NamedNode, Section } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { NamedNode, SectionNameShortFragment } from '@whitewater-guide/schema';
 import get from 'lodash/get';
 import React, { useCallback } from 'react';
 import { QueryResult } from 'react-apollo';
 
 import { AutocompleteProps, QueryAutocomplete } from './autocomplete';
+import { FindSectionsDocument } from './findSections.generated';
 
-const FIND_SECTIONS_QUERY = gql`
-  query findSections($filter: SectionsFilter, $page: Page) {
-    sections(filter: $filter, page: $page) {
-      nodes {
-        id
-        name
-        river {
-          id
-          name
-        }
-      }
-    }
-  }
-`;
-
-const optionToString = (option: Section) => (
+const optionToString = (option: SectionNameShortFragment) => (
   <span>
     <strong>{option.river.name}</strong> - {option.name}
   </span>
@@ -48,15 +33,17 @@ export const SectionFinder = React.memo((props: Props) => {
     [regionId, riverId, limit],
   );
 
-  const getNodes = useCallback((result?: QueryResult): NamedNode[] => {
-    return get(result, 'data.sections.nodes', []);
-  }, []);
+  const getNodes = useCallback(
+    (result?: QueryResult): NamedNode[] =>
+      get(result, 'data.sections.nodes', []),
+    [],
+  );
 
   return (
     <QueryAutocomplete
       {...props}
       placeholder="Select section"
-      query={FIND_SECTIONS_QUERY}
+      query={FindSectionsDocument}
       getVariables={getVariables}
       getNodes={getNodes}
       optionToString={optionToString}

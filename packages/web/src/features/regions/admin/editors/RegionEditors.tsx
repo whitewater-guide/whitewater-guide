@@ -1,11 +1,10 @@
 import List from '@material-ui/core/List';
 import React from 'react';
-import { useQuery } from 'react-apollo';
 
 import { Loading } from '../../../../components';
 import EditorListFooter from './EditorListFooter';
 import EditorListItem from './EditorListItem';
-import { QResult, QVars, REGION_EDITORS_QUERY } from './editors.query';
+import { useRegionEditorsQuery } from './regionEditors.generated';
 import useAddEditor from './useAddEditor';
 import useRemoveEditor from './useRemoveEditor';
 
@@ -13,8 +12,8 @@ interface Props {
   regionId: string;
 }
 
-export const RegionEditors: React.FC<Props> = React.memo(({ regionId }) => {
-  const { data, loading } = useQuery<QResult, QVars>(REGION_EDITORS_QUERY, {
+export const RegionEditors = React.memo<Props>(({ regionId }) => {
+  const { data, loading } = useRegionEditorsQuery({
     fetchPolicy: 'network-only',
     variables: {
       regionId,
@@ -25,7 +24,7 @@ export const RegionEditors: React.FC<Props> = React.memo(({ regionId }) => {
   if (loading) {
     return <Loading />;
   }
-  const editors = (data && data.editors) || [];
+  const editors = data?.editors || [];
   return (
     <List>
       {editors.map((user) => (

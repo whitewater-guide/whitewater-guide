@@ -16,7 +16,7 @@ export function computeOffset(
   { latitude, longitude }: LatitudeLongitude,
   distance: number,
   heading: number,
-) {
+): LatitudeLongitude {
   const distanceNorm = distance / EARTH_RADIUS_KM;
   const headingRad = (Math.PI * heading) / 180;
   const fromLat = (Math.PI * latitude) / 180;

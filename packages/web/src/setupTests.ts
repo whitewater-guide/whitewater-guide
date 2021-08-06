@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies, max-classes-per-file */
 import '@testing-library/jest-dom/extend-expect';
 import 'raf/polyfill';
 import 'react-app-polyfill/stable';
@@ -27,7 +28,3 @@ window.google = {
   },
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 } as any;
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-global.__GRAPHQL_TYPEDEFS_MODULE__ = require('./test/typedefs');

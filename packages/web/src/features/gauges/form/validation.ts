@@ -1,23 +1,25 @@
-import { CoordinateSchema, GaugeInputSchema } from '@whitewater-guide/commons';
-import { yupTypes } from '@whitewater-guide/validation';
+import {
+  CoordinateSchema,
+  GaugeInputSchema,
+  PointInput,
+} from '@whitewater-guide/schema';
 import * as yup from 'yup';
 
-const LoosePointSchema = yup
+import { GaugeFormData } from './types';
+
+const LoosePointSchema: yup.SchemaOf<PointInput> = yup
   .object({
-    id: yup
-      .string() // TODO: should be uuid, but i'm too lazy to make uuid without defined
-      .nullable()
-      .notRequired(),
-    name: yup.string().nullable().notRequired(),
-    description: yup.string().nullable().notRequired(),
+    id: yup.string().uuid().optional().nullable(),
+    name: yup.string().nullable().optional(),
+    description: yup.string().nullable().optional(),
     coordinates: CoordinateSchema.clone(),
-    kind: yup.mixed().oneOf(['gauge']).notRequired(),
+    kind: yup.mixed().oneOf(['gauge']).optional(),
   })
   .strict(true)
-  .noUnknown()
-  .nullable();
+  .noUnknown();
 
-export const GaugeFormSchema = GaugeInputSchema.clone().shape({
-  location: LoosePointSchema.clone(),
-  requestParams: yupTypes.jsonString().nullable(),
-});
+export const GaugeFormSchema: yup.SchemaOf<GaugeFormData> =
+  GaugeInputSchema.clone().shape({
+    location: LoosePointSchema.clone().nullable(),
+    requestParams: yup.string().jsonString().nullable(),
+  });

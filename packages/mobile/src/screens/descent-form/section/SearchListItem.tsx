@@ -1,4 +1,4 @@
-import { Section } from '@whitewater-guide/commons';
+import { Section } from '@whitewater-guide/schema';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
@@ -58,7 +58,7 @@ const SearchListItem: React.FC<Props> = React.memo(({ section, onPress }) => {
           </Text>
         </View>
         <DifficultyThumb
-          noBorder={true}
+          noBorder
           difficulty={section.difficulty}
           difficultyXtra={(section as any).difficultyXtra}
         />

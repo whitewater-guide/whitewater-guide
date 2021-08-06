@@ -1,0 +1,130 @@
+overwrite: true
+schema:
+  - './packages/schema/schema/*.graphql'
+documents:
+  # Shared fragments, used both by frontend and by backend tests
+  - ./packages/schema/fragments/*.gql
+generates:
+  # Common types shared by backend, web frontend and mobile are generated in schema package
+  # Common validation schemas are also in schema package
+  ./packages/schema/src/__generated__/types.ts:
+    plugins:
+      - typescript
+      - add:
+          content: '/* eslint-disable @typescript-eslint/no-explicit-any */'
+
+  # Typedefs are used to make executable schema on backend
+  ./packages/schema/src/__generated__/typeDefs.ts:
+    plugins:
+      - add:
+          content: '/* eslint-disable @typescript-eslint/no-explicit-any */'
+      - ./packages/schema/plugins/codegen-typedefs.js
+
+  ./packages/schema/src/__generated__/fragments.ts:
+    preset: import-types
+    presetConfig:
+      typesPath: ./types
+    documents:
+      - ./packages/schema/fragments/*.gql
+    plugins:
+      - typescript-operations
+      - typescript-document-nodes
+      - add:
+          content: '/* eslint-disable @typescript-eslint/no-explicit-any */'
+    config:
+      # Setting this suffix will allow inports using 'importAllFragmentsFrom'
+      fragmentSuffix: 'FragmentDoc'
+
+  # GRAPHQL resolvers
+  ./packages/backend/src/apollo/resolvers.generated.ts:
+    preset: import-types
+    presetConfig:
+      typesPath: '@whitewater-guide/schema'
+    plugins:
+      - add:
+          content:
+            - '/* eslint-disable @typescript-eslint/no-explicit-any */'
+      - typescript-resolvers
+    config:
+      useIndexSignature: true
+      noSchemaStitching: true
+      contextType: ./context#Context
+      resolverTypeWrapperSignature: 'T extends object ? Promise<Partial<T>> | Partial<T> : Promise<T> | T'
+      defaultMapper: any
+      mappers:
+        Banner: ~/db#Sql.Banners
+        BannerSource: ~/db#Sql.BannerSource
+        Descent: ~/db#Sql.Descents
+        Gauge: ~/db#Sql.GaugesView
+        GaugeBinding: ~/db#Sql.GaugeBinding
+        Group: ~/db#Sql.GroupsView
+        License: '@whitewater-guide/schema#License'
+        Media: ~/db#Sql.MediaView
+        Point: ~/db#Sql.PointsView
+        Region: ~/db#Sql.RegionsView
+        RegionCoverImage: ~/db#Sql.RegionCoverImage
+        River: ~/db#Sql.RiversView
+        Section: ~/db#Sql.SectionsView
+        Source: ~/db#Sql.SourcesView
+        Suggestion: ~/db#Sql.Suggestions
+        User: ~/db#Sql.Users
+
+  # Tests that run GRAPHQL queries and mutations against our API
+  ./packages/backend/src/:
+    documents:
+      - ./packages/backend/src/**/__tests__/*.ts
+      - ./packages/backend/src/**/*.test.ts
+    preset: near-operation-file
+    presetConfig:
+      extension: .generated.ts
+      baseTypesPath: '~@whitewater-guide/schema'
+      importAllFragmentsFrom: '~@whitewater-guide/schema'
+    plugins:
+      - typescript-operations
+      # This custom-made plugin generates strongly typed functions to execute graphql queries in tests
+      - '@whitewater-guide/codegen-backend-tests'
+
+  # Frontend queries and mutations
+  ./:
+    documents:
+      - ./packages/clients/src/**/*.gql
+      - ./packages/mobile/src/**/*.gql
+      - ./packages/promo/src/**/*.gql
+      - ./packages/web/src/**/*.gql
+    preset: near-operation-file
+    presetConfig:
+      extension: .generated.ts
+      baseTypesPath: '~@whitewater-guide/schema'
+      importAllFragmentsFrom: '~@whitewater-guide/schema'
+    plugins:
+      - add:
+          content: '/* eslint-disable @typescript-eslint/no-explicit-any */'
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      withComponent: false
+      withHOC: false
+      withHooks: true
+      withMutationFn: false
+      reactApolloVersion: 2
+
+config:
+  preResolveTypes: true
+  # Due to serialization/deserialization scalars have different type on backend and frontend
+  # I.e. it's 'Date' on backend and 'string' on frontend
+  # As a workaround, `clients` and `backend` packages define global types in `codegen-scalars.ts` files
+  # `schema` packages uses global types from `codegen-scalars.d.ts` file
+  scalars:
+    Date: CodegenDate
+    DateTime: CodegenDateTime
+    JSON: '{ [key: string]: any }'
+    Cursor: CodegenCursor
+    Coordinates: CodegenCoordinates
+
+hooks:
+  afterAllFileWrite:
+    - prettier --write
+  beforeDone:
+    # Codegen can execute only one hook from list
+    # https://github.com/dotansimha/graphql-code-generator/issues/6091
+    - ./codegen_workarounds.sh

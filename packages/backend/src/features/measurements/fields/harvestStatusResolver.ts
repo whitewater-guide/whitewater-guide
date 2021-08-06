@@ -1,7 +1,3 @@
-import { HarvestStatus } from '@whitewater-guide/commons';
-
-import { FieldResolvers } from '~/apollo';
-
 interface HarvestStatusRaw {
   success: boolean;
   timestamp: string;
@@ -10,11 +6,8 @@ interface HarvestStatusRaw {
   error?: string;
 }
 
-export const harvestStatusResolvers: FieldResolvers<
-  HarvestStatusRaw,
-  HarvestStatus
-> = {
-  count: ({ count }) => count || 0,
-  error: ({ error }) => error || null,
-  next: ({ next }) => next || null,
+export const harvestStatusResolvers = {
+  count: ({ count }: HarvestStatusRaw) => count || 0,
+  error: ({ error }: HarvestStatusRaw) => error || null,
+  next: ({ next }: HarvestStatusRaw) => next || null,
 };

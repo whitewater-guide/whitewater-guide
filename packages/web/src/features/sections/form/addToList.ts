@@ -1,36 +1,41 @@
-import { LIST_SECTIONS, ListSectionsResult } from '@whitewater-guide/clients';
+import {
+  ListSectionsDocument,
+  ListSectionsQuery,
+} from '@whitewater-guide/clients';
 import { MutationUpdaterFn } from 'apollo-client';
 
 import { RouterParams } from './types';
-import { MResult } from './upsertSection.mutation';
+import { UpsertSectionMutation } from './upsertSection.generated';
 
-const addToList = ({ regionId }: RouterParams): MutationUpdaterFn<MResult> => (
-  store,
-  result,
-) => {
-  const section = result.data && result.data.upsertSection;
-  if (!section) {
-    return;
-  }
-  const queryResult: ListSectionsResult | null = store.readQuery({
-    query: LIST_SECTIONS,
-    variables: { filter: { regionId } },
-  });
-  if (!queryResult) {
-    return;
-  }
-  const { sections } = queryResult;
-  const isNew = sections.nodes.findIndex((s) => s.id === section.id) === -1;
-  if (!isNew) {
-    return;
-  }
-  sections.count += 1;
-  sections.nodes.push(section);
-  store.writeQuery({
-    query: LIST_SECTIONS,
-    variables: { filter: { regionId } },
-    data: queryResult,
-  });
-};
+const addToList =
+  ({ regionId }: RouterParams): MutationUpdaterFn<UpsertSectionMutation> =>
+  (store, result) => {
+    const section = result.data?.upsertSection;
+    if (!section) {
+      return;
+    }
+    let queryResult: ListSectionsQuery | null = null;
+    try {
+      queryResult = store.readQuery({
+        query: ListSectionsDocument,
+        variables: { filter: { regionId } },
+      });
+    } catch {}
+    if (!queryResult) {
+      return;
+    }
+    const { sections } = queryResult;
+    const isNew = sections.nodes.findIndex((s) => s.id === section.id) === -1;
+    if (!isNew) {
+      return;
+    }
+    sections.count += 1;
+    sections.nodes.push(section);
+    store.writeQuery({
+      query: ListSectionsDocument,
+      variables: { filter: { regionId } },
+      data: queryResult,
+    });
+  };
 
 export default addToList;

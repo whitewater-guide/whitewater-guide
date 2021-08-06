@@ -2,13 +2,15 @@ import * as ReactNative from 'react-native';
 
 function keyMirror(keys: string[]) {
   const obj: Record<string, string> = {};
-  keys.forEach((key) => (obj[key] = key));
+  keys.forEach((key) => {
+    obj[key] = key;
+  });
   return obj;
 }
 
-jest.doMock('react-native', () => {
+jest.doMock('react-native', () =>
   // Extend ReactNative
-  return Object.setPrototypeOf(
+  Object.setPrototypeOf(
     {
       // Mock a native module
       NativeModules: {
@@ -95,12 +97,11 @@ jest.doMock('react-native', () => {
           setTelemetryEnabled: jest.fn(),
         },
         MGLOfflineModule: {
-          createPack: (packOptions: any) => {
-            return Promise.resolve({
+          createPack: (packOptions: any) =>
+            Promise.resolve({
               bounds: packOptions.bounds,
               metadata: JSON.stringify({ name: packOptions.name }),
-            });
-          },
+            }),
           getPacks: () => Promise.resolve([]),
           deletePack: () => Promise.resolve(),
           getPackStatus: () => Promise.resolve({}),
@@ -112,9 +113,7 @@ jest.doMock('react-native', () => {
         },
 
         MGLSnapshotModule: {
-          takeSnap: () => {
-            return Promise.resolve('file://test.png');
-          },
+          takeSnap: () => Promise.resolve('file://test.png'),
         },
 
         MGLLocationModule: {
@@ -125,5 +124,5 @@ jest.doMock('react-native', () => {
       },
     },
     ReactNative,
-  );
-});
+  ),
+);

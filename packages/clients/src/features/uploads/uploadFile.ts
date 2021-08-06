@@ -1,4 +1,4 @@
-import { UploadLink } from '@whitewater-guide/commons';
+import { UploadLink } from '@whitewater-guide/schema';
 
 import { getDotExt } from './getDotExt';
 import { FileLike } from './types';
@@ -17,16 +17,17 @@ import { FileLike } from './types';
 
 export class UploadFileError extends Error {
   public status: number;
+
   public code?: string;
 
   constructor(text: string, status: number) {
     let message = `failed to upload file: ${text}`;
     let code: string | undefined;
-    const codeMatch = text.match(/<Code>(.*)<\/Code>/);
+    const codeMatch = /<Code>(.*)<\/Code>/.exec(text);
     if (codeMatch && codeMatch.length >= 2) {
       code = codeMatch[1];
     }
-    const msgMatch = text.match(/<Message>(.*)<\/Message>/);
+    const msgMatch = /<Message>(.*)<\/Message>/.exec(text);
     if (msgMatch && msgMatch.length >= 2) {
       message = msgMatch[1];
     }

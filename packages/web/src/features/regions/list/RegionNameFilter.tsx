@@ -25,7 +25,7 @@ const RegionNameFilter: React.FC = React.memo(() => {
   );
 
   return (
-    <FormControl fullWidth={true} margin="dense">
+    <FormControl fullWidth margin="dense">
       <Input
         id="name-filter"
         value={searchString}

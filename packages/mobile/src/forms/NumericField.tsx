@@ -35,13 +35,8 @@ const NumericField = React.memo(
       },
       ref,
     ) => {
-      const {
-        errors,
-        touched,
-        values,
-        setFieldTouched,
-        setFieldValue,
-      } = useFormikContext<any>();
+      const { errors, touched, values, setFieldTouched, setFieldValue } =
+        useFormikContext<any>();
       const value = get(values, name);
       const isTouched = !!get(touched, name, false);
       const error = get(errors, name, null);
@@ -54,7 +49,7 @@ const NumericField = React.memo(
 
       const onChange = useCallback(
         (text: string) => {
-          const match = text.match(PARTIAL_NUMERIC);
+          const match = PARTIAL_NUMERIC.exec(text);
           const numPart = match ? match[0] : '';
           setValueStr(numPart);
           if (numPart !== '-') {

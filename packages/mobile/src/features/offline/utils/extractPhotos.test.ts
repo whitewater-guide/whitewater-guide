@@ -1,4 +1,4 @@
-import { Section } from '@whitewater-guide/commons';
+import { Section } from '@whitewater-guide/schema';
 
 import { extractPhotos } from './extractPhotos';
 

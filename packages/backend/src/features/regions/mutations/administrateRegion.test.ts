@@ -3,9 +3,9 @@ import {
   fakeContext,
   fileExistsInBucket,
   resetTestMinio,
-  runQuery,
 } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
+import gql from 'graphql-tag';
 import set from 'lodash/fp/set';
 
 import config from '~/config';
@@ -14,17 +14,12 @@ import { COVERS, TEMP } from '~/s3';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
 import { REGION_GALICIA } from '~/seeds/test/04_regions';
 
-const mutation = `
-  mutation administrateRegion($settings: RegionAdminSettings!){
+import { testAdministrateRegion } from './administrateRegion.test.generated';
+
+const _mutation = gql`
+  mutation administrateRegion($settings: RegionAdminSettings!) {
     administrateRegion(settings: $settings) {
-      id
-      hidden
-      premium
-      sku
-      mapsSize
-      coverImage {
-        mobile
-      }
+      ...RegionAdmin
     }
   }
 `;
@@ -51,18 +46,20 @@ const variables = {
 
 describe('resolvers chain', () => {
   it('anon should fail', async () => {
-    const result = await runQuery(mutation, variables, anonContext());
+    const result = await testAdministrateRegion(variables, anonContext());
     expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
   });
 
   it('user should fail', async () => {
-    const result = await runQuery(mutation, variables, fakeContext(TEST_USER));
+    const result = await testAdministrateRegion(
+      variables,
+      fakeContext(TEST_USER),
+    );
     expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('editor should fail', async () => {
-    const result = await runQuery(
-      mutation,
+    const result = await testAdministrateRegion(
       variables,
       fakeContext(EDITOR_GA_EC),
     );
@@ -74,12 +71,12 @@ describe('result', () => {
   let result: any;
 
   beforeEach(async () => {
-    result = await runQuery(mutation, variables, fakeContext(ADMIN));
+    result = await testAdministrateRegion(variables, fakeContext(ADMIN));
   });
 
-  it('should return result', async () => {
+  it('should return result', () => {
     expect(result.errors).toBeUndefined();
-    expect(result.data!.administrateRegion).toMatchObject({
+    expect(result.data?.administrateRegion).toMatchObject({
       id: REGION_GALICIA,
       hidden: true,
       premium: true,
@@ -117,9 +114,9 @@ it('should correctly handle absolute cover urls', async () => {
     variables,
   );
 
-  const result = await runQuery(mutation, vars, fakeContext(ADMIN));
+  const result = await testAdministrateRegion(vars, fakeContext(ADMIN));
   expect(result.errors).toBeUndefined();
-  expect(result.data!.administrateRegion).toMatchObject({
+  expect(result.data?.administrateRegion).toMatchObject({
     coverImage: {
       mobile: 'imgproxy://covers/galicia_mobile_cover2.jpg',
     },
@@ -129,9 +126,9 @@ it('should correctly handle absolute cover urls', async () => {
 it('should correctly handle null cover urls', async () => {
   const vars = set('settings.coverImage.mobile', null, variables);
 
-  const result = await runQuery(mutation, vars, fakeContext(ADMIN));
+  const result = await testAdministrateRegion(vars, fakeContext(ADMIN));
   expect(result.errors).toBeUndefined();
-  expect(result.data!.administrateRegion).toMatchObject({
+  expect(result.data?.administrateRegion).toMatchObject({
     coverImage: {
       mobile: null,
     },

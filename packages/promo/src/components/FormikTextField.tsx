@@ -13,16 +13,14 @@ export const FormikTextField: React.FC<Props> = ({ name, ...props }) => {
   const { t } = useTranslation();
   return (
     <Field name={name}>
-      {({ field, meta: { touched, error } }: FieldProps<string>) => {
-        return (
-          <TextField
-            {...props}
-            {...field}
-            error={touched && !!error}
-            helperText={touched && translateError(t, error)}
-          />
-        );
-      }}
+      {({ field, meta: { touched, error } }: FieldProps<string>) => (
+        <TextField
+          {...props}
+          {...field}
+          error={touched && !!error}
+          helperText={touched && translateError(t, error)}
+        />
+      )}
     </Field>
   );
 };

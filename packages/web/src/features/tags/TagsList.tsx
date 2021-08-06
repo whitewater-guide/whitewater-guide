@@ -1,7 +1,7 @@
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import { useTags } from '@whitewater-guide/clients';
-import { TagCategory } from '@whitewater-guide/commons';
+import { TagCategory } from '@whitewater-guide/schema';
 import groupBy from 'lodash/groupBy';
 import React from 'react';
 
@@ -21,30 +21,30 @@ const TagsList: React.FC = React.memo(() => {
       <CardHeader title="Tags" action={<EditorLanguagePicker />} />
       <CardContent>
         <TagsByCategory
-          category={TagCategory.kayaking}
+          category={TagCategory.Kayaking}
           title="Kayaking types"
-          tags={tagsByCategory[TagCategory.kayaking]}
+          tags={tagsByCategory[TagCategory.Kayaking]}
           onAdd={addTag}
           onRemove={removeTag}
         />
         <TagsByCategory
-          category={TagCategory.hazards}
+          category={TagCategory.Hazards}
           title="Hazard types"
-          tags={tagsByCategory[TagCategory.hazards]}
+          tags={tagsByCategory[TagCategory.Hazards]}
           onAdd={addTag}
           onRemove={removeTag}
         />
         <TagsByCategory
-          category={TagCategory.supply}
+          category={TagCategory.Supply}
           title="River supply types"
-          tags={tagsByCategory[TagCategory.supply]}
+          tags={tagsByCategory[TagCategory.Supply]}
           onAdd={addTag}
           onRemove={removeTag}
         />
         <TagsByCategory
-          category={TagCategory.misc}
+          category={TagCategory.Misc}
           title="Misc tags"
-          tags={tagsByCategory[TagCategory.misc]}
+          tags={tagsByCategory[TagCategory.Misc]}
           onAdd={addTag}
           onRemove={removeTag}
         />

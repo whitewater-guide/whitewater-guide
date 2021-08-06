@@ -6,12 +6,12 @@ import {
   isUUID,
   noTimestamps,
   noUnstable,
-  runQuery,
 } from '@test';
-import { ApolloErrorCodes, RiverInput } from '@whitewater-guide/commons';
+import { ApolloErrorCodes } from '@whitewater-guide/commons';
+import { RiverInput } from '@whitewater-guide/schema';
+import gql from 'graphql-tag';
 
-import db, { holdTransaction, rollbackTransaction } from '~/db';
-import { RiverRaw } from '~/features/rivers';
+import { db, holdTransaction, rollbackTransaction, Sql } from '~/db';
 import {
   ADMIN_ID,
   EDITOR_GA_EC,
@@ -23,6 +23,8 @@ import {
 import { REGION_GALICIA, REGION_NORWAY } from '~/seeds/test/04_regions';
 import { RIVER_GAL_BECA, RIVER_SJOA } from '~/seeds/test/07_rivers';
 
+import { testUpsertRiver } from './upsertRiver.test.generated';
+
 let rBefore: number;
 let rtBefore: number;
 
@@ -33,9 +35,9 @@ beforeAll(async () => {
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
-const upsertQuery = `
-  mutation upsertRiver($river: RiverInput!){
-    upsertRiver(river: $river){
+const _mutation = gql`
+  mutation upsertRiver($river: RiverInput!) {
+    upsertRiver(river: $river) {
       id
       name
       altNames
@@ -60,13 +62,12 @@ const input: RiverInput = {
 
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
-    const result = await runQuery(upsertQuery, { river: input }, anonContext());
+    const result = await testUpsertRiver({ river: input }, anonContext());
     expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
   });
 
   it('user should not pass', async () => {
-    const result = await runQuery(
-      upsertQuery,
+    const result = await testUpsertRiver(
       { river: input },
       fakeContext(TEST_USER),
     );
@@ -74,8 +75,7 @@ describe('resolvers chain', () => {
   });
 
   it('non-owning editor should not pass', async () => {
-    const result = await runQuery(
-      upsertQuery,
+    const result = await testUpsertRiver(
       { river: input },
       fakeContext(EDITOR_NO),
     );
@@ -89,8 +89,7 @@ describe('resolvers chain', () => {
       region: { id: 'aa' },
       altNames: ['x', 'zzz'],
     };
-    const result = await runQuery(
-      upsertQuery,
+    const result = await testUpsertRiver(
       { river: invalidInput },
       fakeContext(EDITOR_GA_EC),
     );
@@ -103,13 +102,11 @@ describe('insert', () => {
   let insertedRiver: any;
 
   beforeEach(async () => {
-    insertResult = await runQuery(
-      upsertQuery,
+    insertResult = await testUpsertRiver(
       { river: input },
       fakeContext(EDITOR_GA_EC),
     );
-    insertedRiver =
-      insertResult && insertResult.data && insertResult.data.upsertRiver;
+    insertedRiver = insertResult?.data?.upsertRiver;
   });
 
   afterEach(() => {
@@ -117,10 +114,10 @@ describe('insert', () => {
     insertedRiver = null;
   });
 
-  it('should return result', async () => {
+  it('should return result', () => {
     expect(insertResult.errors).toBeUndefined();
     expect(insertResult.data).toBeDefined();
-    expect(insertResult.data!.upsertRiver).toBeDefined();
+    expect(insertResult.data?.upsertRiver).toBeDefined();
   });
 
   it('should add one more river', async () => {
@@ -168,19 +165,17 @@ describe('update', () => {
       id: REGION_GALICIA,
     },
   };
-  let oldRiver: RiverRaw;
+  let oldRiver: Sql.RiversView;
   let updateResult: any;
   let updatedRiver: any;
 
   beforeEach(async () => {
     oldRiver = await db().table('rivers_view').where({ id: update.id }).first();
-    updateResult = await runQuery(
-      upsertQuery,
+    updateResult = await testUpsertRiver(
       { river: update },
       fakeContext(EDITOR_GA_EC),
     );
-    updatedRiver =
-      updateResult && updateResult.data && updateResult.data.upsertRiver;
+    updatedRiver = updateResult?.data?.upsertRiver;
   });
 
   afterEach(() => {
@@ -191,10 +186,10 @@ describe('update', () => {
   it('should return result', () => {
     expect(updateResult.errors).toBeUndefined();
     expect(updateResult.data).toBeDefined();
-    expect(updateResult.data!.upsertRiver).toBeDefined();
+    expect(updateResult.data?.upsertRiver).toBeDefined();
   });
 
-  it('should not be able to change region of river', async () => {
+  it('should not be able to change region of river', () => {
     expect(updatedRiver).toHaveProperty('region.id', oldRiver.region_id);
   });
 
@@ -245,8 +240,7 @@ describe('i18n', () => {
       },
       altNames: ['ГР2', 'Галрек'],
     };
-    const upsertResult = await runQuery(
-      upsertQuery,
+    const upsertResult = await testUpsertRiver(
       { river: riverRu },
       fakeContext(EDITOR_GA_EC, 'ru'),
     );
@@ -268,8 +262,7 @@ describe('i18n', () => {
       },
       altNames: ['ГР1', 'Галрек1'],
     };
-    const upsertResult = await runQuery(
-      upsertQuery,
+    const upsertResult = await testUpsertRiver(
       { river: riverRu },
       fakeContext(EDITOR_GA_EC, 'ru'),
     );
@@ -293,8 +286,7 @@ describe('alt names', () => {
   const riverEmptyAltNames = { ...input, altNames: [] };
 
   it('should create with null altNames', async () => {
-    const result = await runQuery(
-      upsertQuery,
+    const result = await testUpsertRiver(
       { river: riverNullAltNames },
       fakeContext(EDITOR_GA_EC),
     );
@@ -303,8 +295,7 @@ describe('alt names', () => {
   });
 
   it('should create with empty array altNames', async () => {
-    const result = await runQuery(
-      upsertQuery,
+    const result = await testUpsertRiver(
       { river: riverEmptyAltNames },
       fakeContext(EDITOR_GA_EC),
     );
@@ -318,8 +309,7 @@ describe('alt names', () => {
       region: { id: REGION_NORWAY },
       id: RIVER_SJOA,
     };
-    const result = await runQuery(
-      upsertQuery,
+    const result = await testUpsertRiver(
       { river: sjoa },
       fakeContext(EDITOR_NO_EC),
     );
@@ -333,8 +323,7 @@ describe('alt names', () => {
       region: { id: REGION_NORWAY },
       id: RIVER_SJOA,
     };
-    const result = await runQuery(
-      upsertQuery,
+    const result = await testUpsertRiver(
       { river: sjoa },
       fakeContext(EDITOR_NO_EC),
     );
@@ -345,8 +334,7 @@ describe('alt names', () => {
 
 it('should sanitize input', async () => {
   const dirty = { ...input, name: "it's a \\ $1 slash with . ?" };
-  const result = await runQuery(
-    upsertQuery,
+  const result = await testUpsertRiver(
     { river: dirty },
     fakeContext(EDITOR_GA_EC),
   );

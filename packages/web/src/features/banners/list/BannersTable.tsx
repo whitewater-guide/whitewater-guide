@@ -1,4 +1,4 @@
-import { NamedNode } from '@whitewater-guide/commons';
+import { NamedNode } from '@whitewater-guide/schema';
 import { History } from 'history';
 import snakeCase from 'lodash/snakeCase';
 import upperFirst from 'lodash/upperFirst';
@@ -16,7 +16,7 @@ import { AdminColumn, BooleanColumn, Table } from '../../../components/tables';
 import { Styles } from '../../../styles';
 import { paths } from '../../../utils';
 import BannerPreview from './BannerPreview';
-import { ListedBanner } from './listBanners.query';
+import { ListedBannerFragment } from './listBanners.generated';
 
 const styles: Styles = {
   multiline: {
@@ -25,7 +25,7 @@ const styles: Styles = {
 };
 
 interface Props {
-  banners: ListedBanner[];
+  banners?: ListedBannerFragment[];
   onRemove: (id: string) => void;
   history: History;
 }
@@ -34,7 +34,7 @@ export default class BannersTable extends React.PureComponent<Props> {
   onBannerClick = (id: string) =>
     this.props.history.push(`/banners/${id}/settings`);
 
-  renderActions: TableCellRenderer<ListedBanner> = ({ rowData }) => {
+  renderActions: TableCellRenderer<ListedBannerFragment> = ({ rowData }) => {
     if (isEmptyRow(rowData)) {
       return null;
     }
@@ -47,7 +47,7 @@ export default class BannersTable extends React.PureComponent<Props> {
     );
   };
 
-  renderBanner: TableCellRenderer<ListedBanner> = ({ rowData }) => {
+  renderBanner: TableCellRenderer<ListedBannerFragment> = ({ rowData }) => {
     if (isEmptyRow(rowData)) {
       return null;
     }
@@ -56,33 +56,33 @@ export default class BannersTable extends React.PureComponent<Props> {
     );
   };
 
-  renderPlacement: TableCellRenderer<ListedBanner> = ({ rowData }) => {
+  renderPlacement: TableCellRenderer<ListedBannerFragment> = ({ rowData }) => {
     if (isEmptyRow(rowData)) {
       return null;
     }
     return <p>{upperFirst(snakeCase(rowData.placement)).replace(/_/g, ' ')}</p>;
   };
 
-  renderGroups: TableCellRenderer<ListedBanner> = ({ rowData }) => {
+  renderGroups: TableCellRenderer<ListedBannerFragment> = ({ rowData }) => {
     if (isEmptyRow(rowData)) {
       return null;
     }
     return (
       <ul>
-        {rowData.groups.nodes.map(({ id, name }: NamedNode) => (
+        {rowData.groups?.nodes.map(({ id, name }: NamedNode) => (
           <li key={id}>{name}</li>
         ))}
       </ul>
     );
   };
 
-  renderRegions: TableCellRenderer<ListedBanner> = ({ rowData }) => {
+  renderRegions: TableCellRenderer<ListedBannerFragment> = ({ rowData }) => {
     if (isEmptyRow(rowData)) {
       return null;
     }
     return (
       <ul>
-        {rowData.regions.nodes.map(({ id, name }: NamedNode) => (
+        {rowData.regions?.nodes.map(({ id, name }: NamedNode) => (
           <li key={id}>{name}</li>
         ))}
       </ul>
@@ -135,7 +135,7 @@ export default class BannersTable extends React.PureComponent<Props> {
           width={45}
           label="Enabled"
           dataKey="enabled"
-          adminOnly={true}
+          adminOnly
           iconTrue="check"
         />
         <AdminColumn

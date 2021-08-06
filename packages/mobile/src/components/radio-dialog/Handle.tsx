@@ -12,18 +12,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export const HandleLeft: React.FC<ViewProps> = ({ children, ...props }) => {
-  return (
-    <View {...props} style={[styles.handleLeft, props.style]}>
-      {children}
-    </View>
-  );
-};
+export const HandleLeft: React.FC<ViewProps> = ({ children, ...props }) => (
+  <View {...props} style={[styles.handleLeft, props.style]}>
+    {children}
+  </View>
+);
 
-export const Handle: React.FC<ViewProps> = ({ children, ...props }) => {
-  return (
-    <View {...props} style={[styles.handle, props.style]}>
-      {children}
-    </View>
-  );
-};
+export const Handle: React.FC<ViewProps> = ({ children, ...props }) => (
+  <View {...props} style={[styles.handle, props.style]}>
+    {children}
+  </View>
+);

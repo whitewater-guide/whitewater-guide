@@ -1,4 +1,3 @@
-import { Section } from '@whitewater-guide/commons';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
@@ -10,6 +9,7 @@ import SimpleStarRating from '~/components/SimpleStarRating';
 import UnverifiedBadge from '~/components/UnverifiedBadge';
 import theme from '~/theme';
 
+import { ListedSectionFragment } from '../../../../../../clients/dist';
 import { ITEM_HEIGHT } from './constants';
 
 const styles = StyleSheet.create({
@@ -47,8 +47,8 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  section: Section;
-  regionPremium: boolean;
+  section: ListedSectionFragment;
+  regionPremium?: boolean | null;
   onPress: () => void;
   testID?: string;
 }

@@ -48,13 +48,8 @@ export function ModalPickerField<V>(props: Props<V>) {
   } = props;
   const [open, setOpen] = useState(false);
 
-  const {
-    values,
-    errors,
-    touched,
-    setFieldTouched,
-    setFieldValue,
-  } = useFormikContext<any>();
+  const { values, errors, touched, setFieldTouched, setFieldValue } =
+    useFormikContext<any>();
 
   const onPress = useCallback(() => {
     setOpen(true);
@@ -71,7 +66,7 @@ export function ModalPickerField<V>(props: Props<V>) {
     [name, setFieldValue, close],
   );
   return (
-    <React.Fragment>
+    <>
       <TouchableWithoutFeedback onPress={onPress} accessibilityLabel={label}>
         <View pointerEvents="box-only">
           <TextInput
@@ -90,7 +85,7 @@ export function ModalPickerField<V>(props: Props<V>) {
           visible={open}
           onDismiss={close}
           contentContainerStyle={styles.modal}
-          dismissable={true}
+          dismissable
         >
           <Surface style={styles.surface}>
             <ModalPickerList<V>
@@ -104,7 +99,7 @@ export function ModalPickerField<V>(props: Props<V>) {
           </Surface>
         </Modal>
       </Portal>
-    </React.Fragment>
+    </>
   );
 }
 

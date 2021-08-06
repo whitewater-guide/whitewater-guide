@@ -1,4 +1,5 @@
 import 'react-native-gesture-handler';
+import '@whitewater-guide/validation/dist/esm/extensions';
 
 import { AppRegistry } from 'react-native';
 import MDCommunity from 'react-native-vector-icons/MaterialCommunityIcons';

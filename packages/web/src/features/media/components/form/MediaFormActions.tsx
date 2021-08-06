@@ -10,7 +10,7 @@ interface Props {
   onSubmit: () => any;
 }
 
-const MediaFormActions: React.FC<Props> = React.memo(
+const MediaFormActions = React.memo<Props>(
   ({ onCancel, onSubmit, prefix = '' }) => {
     const { initialValues, errors } = useFormikContext<any>();
     const url = getIn(initialValues, `${prefix}url`);

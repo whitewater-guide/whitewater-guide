@@ -3,7 +3,7 @@ import isSunday from 'date-fns/isSunday';
 import React from 'react';
 import { LineSegment } from 'victory';
 
-const TimeGrid: React.FC<TimeGridProps> = React.memo(
+const TimeGrid = React.memo<TimeGridProps>(
   ({ days, highlightedDate: _, ...props }) => {
     // Victory style definitions are incomplete
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

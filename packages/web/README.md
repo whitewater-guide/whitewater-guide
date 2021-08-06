@@ -1,8 +1,3 @@
-# CRA changes
-
-[CRACO](https://github.com/sharegate/craco) is used to disable eslint, because since CRA 3.0 it's especially annoying.
-Probably should later switch to eslint-typescript from tslint globally, but for now just use global tslint and disable CRA's eslint;
-
 # Environment
 
 ## Build-time and runtime variables

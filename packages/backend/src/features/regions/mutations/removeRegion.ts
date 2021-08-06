@@ -1,11 +1,7 @@
-import { MutationNotAllowedError, TopLevelResolver } from '~/apollo';
-import db from '~/db';
+import { MutationNotAllowedError, MutationResolvers } from '~/apollo';
+import { db } from '~/db';
 
-interface Vars {
-  id: string;
-}
-
-const removeRegion: TopLevelResolver<Vars> = async (root, { id }) => {
+const removeRegion: MutationResolvers['removeRegion'] = async (_, { id }) => {
   const [{ count }] = await db()
     .table('rivers')
     .count('*')
@@ -18,7 +14,7 @@ const removeRegion: TopLevelResolver<Vars> = async (root, { id }) => {
     .del()
     .where({ id })
     .returning('id');
-  return result && result.length ? result[0] : null;
+  return result?.length ? result[0] : null;
 };
 
 export default removeRegion;

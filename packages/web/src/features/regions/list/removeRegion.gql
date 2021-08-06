@@ -1,0 +1,3 @@
+mutation removeRegion($id: ID!) {
+  removeRegion(id: $id)
+}

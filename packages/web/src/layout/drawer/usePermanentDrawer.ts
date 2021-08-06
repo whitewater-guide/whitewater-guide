@@ -6,8 +6,8 @@ import { DRAWER_WIDTH } from './constants';
 
 export const usePermanentDrawer = () => {
   const theme = useTheme();
-  const lg = theme.breakpoints.values.lg;
+  const { lg } = theme.breakpoints.values;
   const matches = useMediaQuery(theme.breakpoints.up(lg + DRAWER_WIDTH));
   const { me, loading } = useAuth();
-  return loading ? false : me && me.admin && matches ? true : false;
+  return loading ? false : !!(me?.admin && matches);
 };

@@ -1,10 +1,11 @@
 import { NavigationState, useNavigation } from '@react-navigation/native';
-import { Descent } from '@whitewater-guide/commons';
 import { nanoid } from 'nanoid/non-secure';
 import { useCallback } from 'react';
 
 import { RootStackNav, Screens } from '~/core/navigation';
 import { RootStackParamsList } from '~/core/navigation/navigation-params';
+
+import { DescentDetailsFragment } from './descentDetails.generated';
 
 const replaceDetailsWithForm = (
   state: NavigationState,
@@ -36,7 +37,7 @@ const replaceDetailsWithForm = (
 export default () => {
   const { reset, dangerouslyGetState } = useNavigation<RootStackNav>();
   return useCallback(
-    (descent: Descent, duplicate = false) => {
+    (descent: DescentDetailsFragment, duplicate = false) => {
       const params: RootStackParamsList[Screens.DESCENT_FORM] = duplicate
         ? {
             formData: {

@@ -36,6 +36,7 @@ configMisc();
 
 class App extends React.PureComponent {
   private _apolloClient?: ApolloClient<any>;
+
   private _authService!: AuthService;
 
   constructor(props: any) {

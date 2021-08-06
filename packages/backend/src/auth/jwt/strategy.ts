@@ -23,10 +23,10 @@ export const jwtStrategy = new Strategy(
         message: 'cannot use refresh token as access token',
         extra: { token },
       });
-      return done(new Error('cannot use refresh token as access token'));
+      done(new Error('cannot use refresh token as access token'));
     }
     try {
-      return done(null, token);
+      done(null, token);
     } catch (err) {
       done(err);
     }

@@ -1,7 +1,7 @@
 import { Middleware } from 'koa';
 import get from 'lodash/get';
 
-import db from '~/db';
+import { db } from '~/db';
 
 /**
  * This middleware saves user's FCM token on sign in (if provided)

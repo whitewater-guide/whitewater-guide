@@ -1,0 +1,13 @@
+query myPurchases {
+  me {
+    id
+    purchasedRegions {
+      id
+      name
+    }
+    purchasedGroups {
+      id
+      name
+    }
+  }
+}

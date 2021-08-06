@@ -1,6 +1,6 @@
 import Knex from 'knex';
 
-import { DescentRaw } from '~/features/descents/types';
+import { Sql } from '~/db';
 
 import { BOOM_USER_1500_ID, TEST_USER_ID, TEST_USER2_ID } from './01_users';
 import {
@@ -45,7 +45,7 @@ export const DESCENT_2_SHARE_TOKEN =
 export const DESCENT_4_SHARE_TOKEN =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXNjZW50IjoiZmZkNmJhNDEtZDdlNS00ZmJmLTgzNDctMjQ4MWQ1ODM2NzRlIiwic2VjdGlvbiI6IjJiMDE3NDJjLWQ0NDMtMTFlNy05Mjk2LWNlYzI3OGI2YjUwYSJ9.5IC1UiFO4sLvGvkMQfK4_AV2FS6UqBXLQDjQ7GDAzwc';
 
-const descents: Array<Partial<DescentRaw>> = [
+const descents: Array<Partial<Sql.Descents>> = [
   {
     id: DESCENT_01,
     user_id: USER_1,

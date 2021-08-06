@@ -1,9 +1,11 @@
-import { PlaygroundConfig } from 'apollo-server-koa';
+import { ApolloServerPluginLandingPageGraphQLPlaygroundOptions } from 'apollo-server-core';
 import { getIntrospectionQuery, graphql, GraphQLSchema } from 'graphql';
 import {
   FieldFilter,
   FilterObjectFields,
   FilterRootFields,
+  FilterTypes,
+  wrapSchema,
 } from 'graphql-tools';
 
 const adminFieldsFilter: FieldFilter = (operation, fieldName, field) => {
@@ -16,29 +18,29 @@ const adminFieldsFilter: FieldFilter = (operation, fieldName, field) => {
   return !isAdmin;
 };
 
-const getPlaygroundSchema = (schema: GraphQLSchema) => {
-  const filterRootFields = new FilterRootFields(adminFieldsFilter);
-  const filterAdminFields = new FilterObjectFields(adminFieldsFilter);
-  return filterAdminFields.transformSchema(
-    filterRootFields.transformSchema(schema),
-  );
-};
+function getPlaygroundSchema(schema: GraphQLSchema): GraphQLSchema {
+  return wrapSchema({
+    schema,
+    transforms: [
+      new FilterTypes((type) => {
+        return type.name !== 'Mutation';
+      }),
+      new FilterRootFields(adminFieldsFilter),
+      new FilterObjectFields(adminFieldsFilter),
+    ],
+  });
+}
 
-export const getPlaygroundConfig = async (
+export async function getPlaygroundConfig(
   schema: GraphQLSchema,
-): Promise<PlaygroundConfig> => {
-  const introspectionQuery = getIntrospectionQuery();
+): Promise<ApolloServerPluginLandingPageGraphQLPlaygroundOptions> {
   const playgroundSchema = getPlaygroundSchema(schema);
-  const { data } = await graphql(
-    playgroundSchema,
-    introspectionQuery,
-    undefined,
-  );
+  const { data } = await graphql(playgroundSchema, getIntrospectionQuery());
   if (!data) {
     throw new Error('failed to run introspection query');
   }
   return {
-    schema: data,
+    schema: data as any,
     tabs: [
       {
         name: 'Example: some regions',
@@ -71,4 +73,4 @@ export const getPlaygroundConfig = async (
       } as any,
     ],
   };
-};
+}

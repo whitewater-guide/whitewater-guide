@@ -43,9 +43,11 @@ export function geometryToLatLngs(
   }
   if (isPoint(geometry)) {
     return [latLngToPrecision(geometry.get(), precision)];
-  } else if (isLineString(geometry)) {
+  }
+  if (isLineString(geometry)) {
     return geometry.getArray().map((pt) => latLngToPrecision(pt, precision));
-  } else if (isPolygon(geometry)) {
+  }
+  if (isPolygon(geometry)) {
     return geometry
       .getAt(0)
       .getArray()

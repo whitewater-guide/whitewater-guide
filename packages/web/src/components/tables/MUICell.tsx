@@ -20,9 +20,10 @@ const useStyles = makeStyles((theme) =>
 interface Props {
   className?: string;
   variant?: TableCellProps['variant'];
+  children?: React.ReactNode;
 }
 
-export const MUICell: React.FC<Props> = React.memo(({ variant, children }) => {
+export const MUICell = React.memo<Props>(({ variant, children }) => {
   const classes = useStyles();
   return (
     <TableCell component="div" classes={classes} variant={variant}>

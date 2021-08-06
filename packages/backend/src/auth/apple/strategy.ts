@@ -1,4 +1,4 @@
-import { SocialMediaProvider } from '@whitewater-guide/commons';
+import { SocialMediaProvider } from '@whitewater-guide/schema';
 import { verifyIdToken } from 'apple-signin-auth';
 import { Strategy } from 'passport-custom';
 
@@ -6,6 +6,7 @@ import { sendWelcome } from '../mail';
 import { negotiateLanguage, storeUser } from '../social';
 import { AppleSignInPayload } from './types';
 
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
 export const apppleStrategy = new Strategy(async (req, done) => {
   try {
     const { body } = req;

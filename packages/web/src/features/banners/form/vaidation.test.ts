@@ -1,5 +1,5 @@
-import { LocalPhotoStatus } from '@whitewater-guide/clients';
-import { BannerPlacement, BannerResolutions } from '@whitewater-guide/commons';
+import { BannerResolutions, LocalPhotoStatus } from '@whitewater-guide/clients';
+import { BannerPlacement } from '@whitewater-guide/schema';
 import { createSafeValidator } from '@whitewater-guide/validation';
 
 import { BannerFormData } from './types';
@@ -14,7 +14,7 @@ const correct: BannerFormData = {
   name: 'Some banner',
   priority: 10,
   enabled: true,
-  placement: BannerPlacement.MOBILE_REGION_DESCRIPTION,
+  placement: BannerPlacement.MobileRegionDescription,
   source: 'https://banner.com',
   link: 'https://yamdex.ru',
   extras: '{ "foo": "bar" }',
@@ -32,8 +32,7 @@ const correctValues: TestValue[] = [
         id: 'foo',
         status: LocalPhotoStatus.READY,
         url: 'https://banner.com',
-        resolution:
-          BannerResolutions[BannerPlacement.MOBILE_REGION_DESCRIPTION],
+        resolution: BannerResolutions[BannerPlacement.MobileRegionDescription],
       },
     },
   ],

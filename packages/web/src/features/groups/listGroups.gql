@@ -1,0 +1,18 @@
+fragment ListedGroup on Group {
+  ...GroupCore
+  regions {
+    nodes {
+      id
+      name
+    }
+  }
+}
+
+query listGroups($regionId: ID) {
+  groups(regionId: $regionId) {
+    nodes {
+      ...ListedGroup
+    }
+    count
+  }
+}

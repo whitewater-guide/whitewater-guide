@@ -1,10 +1,13 @@
-import { Section } from '@whitewater-guide/commons';
 import flatMap from 'lodash/flatMap';
 import { isPresent } from 'ts-is-present';
 
-export function extractPhotos(sections: Section[]): string[] {
+import { ListSectionsQuery } from '~/features/offline/offlineSections.generated';
+
+export function extractPhotos(
+  sections: ListSectionsQuery['sections']['nodes'],
+): string[] {
   return flatMap(sections, (section) => {
-    if (!section.media || !section.media.nodes) {
+    if (!section.media.nodes) {
       return [];
     }
     return section.media.nodes

@@ -1,11 +1,8 @@
 import Mapbox from '@react-native-mapbox-gl/maps';
 import { UIManager } from 'react-native';
-import { enableScreens } from 'react-native-screens';
 import Config from 'react-native-ultimate-config';
 
 const configMisc = () => {
-  enableScreens();
-
   if (UIManager.setLayoutAnimationEnabledExperimental) {
     UIManager.setLayoutAnimationEnabledExperimental(true);
   }

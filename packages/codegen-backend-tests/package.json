@@ -1,0 +1,31 @@
+{
+  "name": "@whitewater-guide/codegen-backend-tests",
+  "private": false,
+  "sideEffects": false,
+  "version": "0.0.211",
+  "license": "UNLICENSED",
+  "description": "Plugin for graphql-code-generator that generates typed tests executors",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "Konstantin Kuznetsov",
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "tsc",
+    "postinstall": "yarn build",
+    "test": "jest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@graphql-codegen/plugin-helpers": "^1.18.8",
+    "@graphql-codegen/visitor-plugin-common": "^1.22.0",
+    "graphql": "^15.5.1",
+    "lodash": "^4.17.21"
+  }
+}

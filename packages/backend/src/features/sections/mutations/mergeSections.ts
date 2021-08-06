@@ -1,10 +1,9 @@
-import { yupTypes } from '@whitewater-guide/validation';
+import { MutationMergeSectionsArgs } from '@whitewater-guide/schema';
 import * as yup from 'yup';
 
-import { ContextUser, isInputValidResolver, TopLevelResolver } from '~/apollo';
-import db from '~/db';
+import { ContextUser, isInputValidResolver, MutationResolvers } from '~/apollo';
+import { db, Sql } from '~/db';
 
-import { SectionRaw } from '../types';
 import { differ } from './utils';
 
 const getLogSaver = async (
@@ -12,7 +11,7 @@ const getLogSaver = async (
   sourceId: string,
   destinationId: string,
 ) => {
-  const sections: SectionRaw[] = await db()
+  const sections: Sql.SectionsView[] = await db()
     .select('*')
     .from('sections_view')
     .whereIn('id', [sourceId, destinationId]);
@@ -38,24 +37,19 @@ const getLogSaver = async (
   };
 };
 
-interface Vars {
-  sourceId: string;
-  destinationId: string;
-}
-
-const Struct: yup.SchemaOf<Vars> = yup.object({
-  sourceId: yupTypes.uuid().required().nullable(false),
-  destinationId: yupTypes.uuid().required().nullable(false),
+const Struct: yup.SchemaOf<MutationMergeSectionsArgs> = yup.object({
+  sourceId: yup.string().uuid().required().nullable(false),
+  destinationId: yup.string().uuid().required().nullable(false),
 });
 
-const mergeSections: TopLevelResolver<Vars> = async (
+const mergeSections: MutationResolvers['mergeSections'] = async (
   _,
   { sourceId, destinationId },
   { dataSources, user },
 ) => {
   await dataSources.sections.assertEditorPermissions(sourceId);
   await dataSources.sections.assertEditorPermissions(destinationId);
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-unnecessary-type-assertion
   const saveLog = await getLogSaver(user!, sourceId, destinationId);
   await db().raw(
     `

@@ -1,5 +1,4 @@
-import { WithNode } from '@whitewater-guide/clients';
-import { Section } from '@whitewater-guide/commons';
+import { SectionDetailsFragment } from '@whitewater-guide/clients';
 import React from 'react';
 
 import Markdown from '~/components/Markdown';
@@ -7,20 +6,22 @@ import Markdown from '~/components/Markdown';
 import Placeholder from './placeholder';
 
 interface Props {
-  section: WithNode<Section | null>;
+  section?: SectionDetailsFragment | null;
 }
 
 // Priorities:
 // section description is empty string when there is no description (even for premium)
 // section description is null when premium is required
-const SectionGuideView: React.FC<Props> = ({ section: { node } }) => {
-  if (!node) {
+const SectionGuideView: React.FC<Props> = ({ section }) => {
+  if (!section) {
     return null;
   }
-  if (node.description) {
-    return <Markdown>{node.description}</Markdown>;
+  if (section.description) {
+    return <Markdown>{section.description}</Markdown>;
   }
-  return <Placeholder section={node} premium={node.description === null} />;
+  return (
+    <Placeholder section={section} premium={section.description === null} />
+  );
 };
 
 export default SectionGuideView;

@@ -1,4 +1,4 @@
-import { Region } from '@whitewater-guide/commons';
+import { RegionCoreFragment } from '@whitewater-guide/schema';
 import React from 'react';
 import { Text } from 'react-native';
 
@@ -6,7 +6,7 @@ import theme from '~/theme';
 import getTitleFontSize from '~/utils/getTitleFontSize';
 
 interface Props {
-  region: Region | null;
+  region?: RegionCoreFragment | null;
 }
 
 const RegionTitle: React.FC<Props> = ({ region }) => {

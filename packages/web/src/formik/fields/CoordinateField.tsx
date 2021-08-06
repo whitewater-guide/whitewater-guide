@@ -11,7 +11,7 @@ interface Props
   onRemove: (index: number) => void;
 }
 
-const CoordinateField: React.FC<Props> = React.memo((props) => {
+const CoordinateField = React.memo<Props>((props) => {
   const { name, index, onRemove, ...coordinateInputProps } = props;
   const [{ value }] = useField<any>(name);
   const { onChange } = useFakeHandlers(name);

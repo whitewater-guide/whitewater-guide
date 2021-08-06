@@ -1,17 +1,17 @@
-import { Section } from '@whitewater-guide/commons';
+import { ListedSectionFragment } from '@whitewater-guide/clients';
 import React from 'react';
 
 import { useMergeSource } from './MergeSectionsProvider';
 import SectionMenuItem from './SectionMenuItem';
 
 interface Props {
-  section: Section;
+  section: ListedSectionFragment;
   onClick: (e: React.MouseEvent) => void;
 }
 
 const MergeSectionsButton = React.forwardRef<HTMLLIElement, Props>(
   ({ onClick, section }, ref) => {
-    const { setSource } = useMergeSource();
+    const [_, setSource] = useMergeSource();
 
     const handleClick = (e: React.MouseEvent) => {
       setSource(section);

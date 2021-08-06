@@ -1,6 +1,5 @@
-import { Coordinate2d } from '@whitewater-guide/commons';
-
 import { getBoundsZoomLevel } from './getBoundsZoomLevel';
+import { Coordinate2d } from './types';
 
 it('Get zoom should match google maps', () => {
   // Google maps: https://jsfiddle.net/doomsower/vxLhnrxL/4/

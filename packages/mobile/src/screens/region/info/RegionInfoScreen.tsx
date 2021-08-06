@@ -1,5 +1,5 @@
 import { useFocusEffect } from '@react-navigation/native';
-import { BannerPlacement } from '@whitewater-guide/commons';
+import { BannerPlacement } from '@whitewater-guide/schema';
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 
@@ -22,7 +22,7 @@ const RegionInfoScreen: React.FC<RegionInfoNavProps> = ({ navigation }) => {
   useFocusEffect(
     React.useCallback(() => {
       navigation.dangerouslyGetParent()?.setOptions({
-        // eslint-disable-next-line react/display-name
+        // eslint-disable-next-line react/no-unstable-nested-components
         headerRight: () => <RegionInfoMenu />,
       });
     }, [navigation]),
@@ -31,7 +31,7 @@ const RegionInfoScreen: React.FC<RegionInfoNavProps> = ({ navigation }) => {
   return (
     <Screen>
       <ScrollView contentContainerStyle={styles.content}>
-        <RegionBanners placement={BannerPlacement.MOBILE_REGION_DESCRIPTION} />
+        <RegionBanners placement={BannerPlacement.MobileRegionDescription} />
         <RegionInfoView />
         <RegionLicense />
       </ScrollView>

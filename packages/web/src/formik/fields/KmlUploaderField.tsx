@@ -7,7 +7,7 @@ interface Props {
   name: string;
 }
 
-export const KmlUploaderField: React.FC<Props> = React.memo(({ name }) => {
+export const KmlUploaderField = React.memo<Props>(({ name }) => {
   const { onChange } = useFakeHandlers(name);
   return <KmlUploader onUpload={onChange} />;
 });

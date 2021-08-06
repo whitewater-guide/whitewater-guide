@@ -1,0 +1,8 @@
+query suggestionsCount {
+  suggestions(filter: { status: [pending] }) {
+    count
+  }
+  sections(filter: { verified: false, editable: true }) {
+    count
+  }
+}

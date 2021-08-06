@@ -1,4 +1,4 @@
-import { POITypes } from '@whitewater-guide/commons';
+import { POITypes } from '@whitewater-guide/schema';
 import Knex from 'knex';
 import path from 'path';
 

@@ -1,4 +1,4 @@
-import { Media } from '@whitewater-guide/commons';
+import { MediaWithThumbFragment } from '@whitewater-guide/schema';
 import React from 'react';
 import { Linking } from 'react-native';
 import { List } from 'react-native-paper';
@@ -6,7 +6,7 @@ import { List } from 'react-native-paper';
 import Icon from '~/components/Icon';
 
 interface Props {
-  blog: Media;
+  blog: MediaWithThumbFragment;
 }
 
 const renderIcon = () => <Icon icon="link" />;

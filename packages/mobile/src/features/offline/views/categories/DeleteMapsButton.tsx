@@ -1,11 +1,11 @@
-import byteSize from 'byte-size';
+import prettyBytes from 'pretty-bytes';
 import React, { useCallback } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Caption } from 'react-native-paper';
 
 import Icon from '~/components/Icon';
+import theme from '~/theme';
 
-import theme from '../../../../theme';
 import { OfflineCategoryType } from '../../types';
 
 const styles = StyleSheet.create({
@@ -44,9 +44,9 @@ const DeleteMapsButton: React.FC<Props> = ({ size, onDelete }) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.deleteWrapper}>
-        <Icon icon="delete" narrow={true} style={styles.deleteIcon} />
+        <Icon icon="delete" narrow style={styles.deleteIcon} />
         <Caption style={styles.deleteText}>
-          {byteSize(size, { precision: 0 }).toString()}
+          {prettyBytes(size, { maximumFractionDigits: 0 }).toString()}
         </Caption>
       </View>
     </TouchableOpacity>

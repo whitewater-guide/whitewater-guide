@@ -1,7 +1,7 @@
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import {
   MapSelectionProvider,
-  useRegion,
+  useRegionQuery,
   useSectionsList,
 } from '@whitewater-guide/clients';
 import React from 'react';
@@ -28,17 +28,18 @@ const Tab = createMaterialBottomTabNavigator<RegionTabsParamsList>();
 const RegionTabs: React.FC<RegionTabsNavProps> = () => {
   const { t } = useTranslation();
   const sectionsList = useSectionsList();
-  const { error, loading, node, refetch } = useRegion();
+  const { error, loading, data, refetch } = useRegionQuery();
+  const region = data?.region;
   return (
     <MapSelectionProvider>
       <WithNetworkError
-        data={node}
+        hasData={!!region}
+        hasError={!!error}
         loading={loading}
-        error={error}
         refetch={refetch}
       >
         <Tab.Navigator
-          shifting={true}
+          shifting
           backBehavior="none"
           activeColor={theme.colors.textLight}
           barStyle={{
@@ -84,7 +85,7 @@ const RegionTabs: React.FC<RegionTabsNavProps> = () => {
             }}
           />
         </Tab.Navigator>
-        <RegionFAB region={node} />
+        <RegionFAB region={region} />
         <SelectedPOIView />
         <SelectedSectionView />
         <SectionsProgress

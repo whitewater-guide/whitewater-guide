@@ -1,16 +1,6 @@
-import { DescentsFilter, Page } from '@whitewater-guide/commons';
+import { AuthenticatedQuery, isAuthenticatedResolver } from '~/apollo';
 
-import {
-  AuthenticatedTopLevelResolver,
-  isAuthenticatedResolver,
-} from '~/apollo';
-
-interface Vars {
-  filter: DescentsFilter;
-  page: Page;
-}
-
-const myDescents: AuthenticatedTopLevelResolver<Vars> = async (
+const myDescents: AuthenticatedQuery['myDescents'] = async (
   _,
   { filter, page },
   { dataSources, user },

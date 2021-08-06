@@ -23,16 +23,18 @@ const Tab = createMaterialBottomTabNavigator<SectionTabsParamsList>();
 
 const SectionTabs: React.FC<SectionScreenNavProps> = ({ navigation }) => {
   const { t } = useTranslation();
-  const { node: section } = useSection();
+  const section = useSection();
+
   useEffectOnce(() => {
     navigation.setOptions({
-      // eslint-disable-next-line react/display-name
+      // eslint-disable-next-line react/no-unstable-nested-components
       headerTitle: () => <SectionTitle section={section} />,
     });
   });
+
   return (
     <Tab.Navigator
-      shifting={true}
+      shifting
       backBehavior="none"
       activeColor={theme.colors.textLight}
       barStyle={{
@@ -56,7 +58,6 @@ const SectionTabs: React.FC<SectionScreenNavProps> = ({ navigation }) => {
         component={LazySectionChartScreen}
         options={{
           tabBarLabel: t('section:chart.title'),
-          // eslint-disable-next-line react/display-name
           tabBarIcon: () => (
             <Icon icon="chart-line" color={theme.colors.textLight} />
           ),

@@ -1,0 +1,9 @@
+mutation administrateSection(
+  $sectionId: ID!
+  $settings: SectionAdminSettings!
+) {
+  administrateSection(id: $sectionId, settings: $settings) {
+    id
+    demo
+  }
+}

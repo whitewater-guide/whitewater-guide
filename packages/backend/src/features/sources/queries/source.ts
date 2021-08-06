@@ -1,6 +1,6 @@
-import { NodeQuery, TopLevelResolver } from '~/apollo';
+import { QueryResolvers } from '~/apollo';
 
-const source: TopLevelResolver<NodeQuery> = (_, { id }, { dataSources }) =>
+const source: QueryResolvers['source'] = (_, { id }, { dataSources }) =>
   dataSources.sources.getById(id);
 
 export default source;

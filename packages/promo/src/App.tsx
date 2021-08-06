@@ -13,6 +13,7 @@ import { theme } from './theme';
 
 class App extends React.PureComponent {
   private readonly _auth: AuthService;
+
   private readonly _apollo: ApolloClient<any>;
 
   constructor(props: any) {

@@ -4,7 +4,8 @@ import {
   RouteProp,
 } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { MediaInput, Overwrite, SectionInput } from '@whitewater-guide/commons';
+import { MediaInput, SectionInput } from '@whitewater-guide/schema';
+import { Overwrite } from 'utility-types';
 
 import { RootStackParamsList, Screens } from '~/core/navigation';
 import { LocalPhoto } from '~/features/uploads';

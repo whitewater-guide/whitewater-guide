@@ -1,15 +1,9 @@
-import { GraphQLFieldResolver } from 'graphql';
+import { SectionResolvers } from '~/apollo';
 
-import { Context } from '~/apollo';
-
-import { SectionRaw } from '../types';
-
-const createdByResolver: GraphQLFieldResolver<SectionRaw, Context> = (
+const createdByResolver: SectionResolvers['createdBy'] = (
   { created_by },
   _,
   { dataSources },
-) => {
-  return dataSources.users.getById(created_by);
-};
+) => dataSources.users.getById(created_by);
 
 export default createdByResolver;

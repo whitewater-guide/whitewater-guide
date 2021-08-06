@@ -1,0 +1,3 @@
+mutation removeEditor($regionId: ID!, $userId: ID!) {
+  removeEditor(regionId: $regionId, userId: $userId)
+}

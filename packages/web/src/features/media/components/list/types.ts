@@ -1,6 +1,6 @@
-import { MediaInput } from '@whitewater-guide/commons';
+import { Media, MediaInput } from '@whitewater-guide/schema';
 
-export interface MediaOrInput extends MediaInput {
-  deleted?: boolean;
-  thumb?: string | null;
-}
+export type ListedMedia = MediaInput & {
+  deleted?: Media['deleted'];
+  thumb?: Media['image'];
+};

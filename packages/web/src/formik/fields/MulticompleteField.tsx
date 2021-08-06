@@ -1,4 +1,4 @@
-import { NamedNode } from '@whitewater-guide/commons';
+import { NamedNode } from '@whitewater-guide/schema';
 import { useField } from 'formik';
 import reject from 'lodash/reject';
 import React, { useCallback } from 'react';
@@ -20,7 +20,7 @@ interface Props {
   menuProps?: AutocompleteMenuProps;
 }
 
-export const MulticompleteField: React.FC<Props> = React.memo((props) => {
+export const MulticompleteField = React.memo<Props>((props) => {
   const {
     name,
     options,

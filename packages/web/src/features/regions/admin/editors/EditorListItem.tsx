@@ -1,7 +1,7 @@
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
-import { NamedNode } from '@whitewater-guide/commons';
+import { NamedNode } from '@whitewater-guide/schema';
 import React from 'react';
 
 import { DeleteButton } from '../../../../components';
@@ -11,7 +11,7 @@ interface Props {
   onRemove: (userId: string) => void;
 }
 
-const EditorListItem: React.FC<Props> = React.memo((props) => {
+const EditorListItem = React.memo<Props>((props) => {
   const { user, onRemove } = props;
   return (
     <ListItem>

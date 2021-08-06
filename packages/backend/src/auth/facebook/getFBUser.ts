@@ -1,4 +1,4 @@
-import { LANGUAGES, SocialMediaProvider } from '@whitewater-guide/commons';
+import { LANGUAGES, SocialMediaProvider } from '@whitewater-guide/schema';
 import get from 'lodash/get';
 import { preferredLanguages } from 'negotiator/lib/language';
 import { Profile } from 'passport';

@@ -8,19 +8,19 @@ const GaugeFormMain: React.FC = React.memo(() => {
   useNilCoordinates('location');
   return (
     <Box padding={1} overflow="auto">
-      <TextField fullWidth={true} name="name" label="Name" />
-      <TextField fullWidth={true} name="code" label="Code" />
+      <TextField fullWidth name="name" label="Name" />
+      <TextField fullWidth name="code" label="Code" />
       <POIField
         name="location"
         title="Gauge"
         mapBounds={null}
         detailed={false}
       />
-      <TextField fullWidth={true} name="levelUnit" label="Level unit" />
-      <TextField fullWidth={true} name="flowUnit" label="Flow unit" />
-      <TextField fullWidth={true} name="url" label="URL" />
-      <TextField fullWidth={true} name="requestParams" label="Request params" />
-      <TextField fullWidth={true} name="cron" label="Cron" />
+      <TextField fullWidth name="levelUnit" label="Level unit" />
+      <TextField fullWidth name="flowUnit" label="Flow unit" />
+      <TextField fullWidth name="url" label="URL" />
+      <TextField fullWidth name="requestParams" label="Request params" />
+      <TextField fullWidth name="cron" label="Cron" />
     </Box>
   );
 });

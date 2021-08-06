@@ -1,14 +1,9 @@
-import { NodeQuery, TopLevelResolver } from '~/apollo';
+import { QueryResolvers } from '~/apollo';
+import { Sql } from '~/db';
 
-import { RegionRaw } from '../types';
-
-const region: TopLevelResolver<NodeQuery> = async (
-  _,
-  { id },
-  { dataSources },
-) => {
-  const result: RegionRaw | null = await dataSources.regions.getById(id);
-  if (result && result.hidden) {
+const region: QueryResolvers['region'] = async (_, { id }, { dataSources }) => {
+  const result: Sql.RegionsView | null = await dataSources.regions.getById(id);
+  if (result?.hidden) {
     await dataSources.users.assertEditorPermissions({ regionId: result.id });
   }
   return result;

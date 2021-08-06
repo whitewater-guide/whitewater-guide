@@ -1,0 +1,6 @@
+query regionBreadcrumb($id: ID!) {
+  node: region(id: $id) {
+    id
+    name
+  }
+}

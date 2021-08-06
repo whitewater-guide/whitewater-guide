@@ -1,3 +1,4 @@
+import isNaN from 'lodash/isNaN';
 import times from 'lodash/times';
 
 import { getMonthName } from '../../i18n/getMonthName';
@@ -11,10 +12,10 @@ export interface SeasonLocalizer {
 
 const defaultLocalize: SeasonLocalizer = (key: any, hm?: any) => {
   if (key === 'early') {
-    return 'early ' + getMonthName(Math.floor(hm / 2));
+    return `early ${getMonthName(Math.floor(hm / 2))}`;
   }
   if (key === 'late') {
-    return 'late ' + getMonthName(Math.floor(hm / 2));
+    return `late ${getMonthName(Math.floor(hm / 2))}`;
   }
   return 'all year around';
 };
@@ -29,7 +30,8 @@ function rangeToStr(range: Range, localize: SeasonLocalizer): string {
   const end = range[1] % 24;
   if (isNaN(end)) {
     return halfMonth(start, localize);
-  } else if (start % 2 === 0 && end === start + 1) {
+  }
+  if (start % 2 === 0 && end === start + 1) {
     return getMonthName(start / 2);
   }
   let startName = getMonthName(Math.floor(start / 2));

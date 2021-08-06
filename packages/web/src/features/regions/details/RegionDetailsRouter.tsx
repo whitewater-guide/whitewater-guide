@@ -9,17 +9,9 @@ export const RegionDetailsRouter: React.FC<RouteComponentProps<any>> = ({
   match,
 }) => (
   <Switch>
-    <Route
-      strict={true}
-      path={`${match.path}/rivers/`}
-      component={RiversRoute}
-    />
+    <Route strict path={`${match.path}/rivers/`} component={RiversRoute} />
 
-    <Route
-      strict={true}
-      path={`${match.path}/sections/`}
-      component={SectionsRoute}
-    />
+    <Route strict path={`${match.path}/sections/`} component={SectionsRoute} />
 
     <Route>
       <RegionDetails />

@@ -23,7 +23,7 @@ const AddSectionTabs: React.FC<AddSectionTabsNavProps> = () => {
   return (
     <Tab.Navigator
       backBehavior="none"
-      lazy={true}
+      lazy
       tabBarPosition="bottom"
       initialLayout={{
         height: theme.stackScreenHeight,

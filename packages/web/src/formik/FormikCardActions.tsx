@@ -21,7 +21,7 @@ interface Props {
   extraActions?: React.ReactElement;
 }
 
-const FormikCardActions: React.FC<Props> = React.memo(
+const FormikCardActions = React.memo<Props>(
   ({ loading, submitLabel, extraActions }) => {
     const { submitForm, isSubmitting } = useFormikContext();
     const classes = useStyles();

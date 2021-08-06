@@ -1,0 +1,22 @@
+query searchSections($search: String, $skipRecent: Boolean!, $regionId: ID) {
+  sections(
+    filter: { search: $search, regionId: $regionId }
+    page: { limit: 20 }
+  ) {
+    nodes {
+      ...DescentSection
+    }
+  }
+
+  myDescents(page: { limit: 20 }) @skip(if: $skipRecent) {
+    edges {
+      node {
+        id
+
+        section {
+          ...DescentSection
+        }
+      }
+    }
+  }
+}

@@ -5,17 +5,18 @@ import {
   isTimestamp,
   isUUID,
   noUnstable,
-  runQuery,
 } from '@test';
-import { ApolloErrorCodes, GaugeInput } from '@whitewater-guide/commons';
+import { ApolloErrorCodes } from '@whitewater-guide/commons';
+import { GaugeInput } from '@whitewater-guide/schema';
+import gql from 'graphql-tag';
 
-import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { db, holdTransaction, rollbackTransaction, Sql } from '~/db';
 import { GorgeConnector } from '~/features/gorge';
 import { ADMIN, EDITOR_NO_EC, TEST_USER } from '~/seeds/test/01_users';
 import { SOURCE_GALICIA_1, SOURCE_NORWAY } from '~/seeds/test/05_sources';
 import { GAUGE_GAL_1_1, GAUGE_GAL_2_1 } from '~/seeds/test/06_gauges';
 
-import { GaugeRaw } from '../types';
+import { testUpsertGauge } from './upsertGauge.test.generated';
 
 jest.mock('../../gorge/connector');
 
@@ -36,27 +37,15 @@ beforeAll(async () => {
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
-const upsertQuery = `
-  mutation upsertGauge($gauge: GaugeInput!){
-    upsertGauge(gauge: $gauge){
-      id
-      name
-      code
-      location {
-        id
-        kind
-        coordinates
-      }
-      levelUnit
-      flowUnit
-      requestParams
-      url
-      createdAt
-      updatedAt
-      source {
-        id
-        name
-      }
+const _mutation = gql`
+  mutation upsertGauge($gauge: GaugeInput!) {
+    upsertGauge(gauge: $gauge) {
+      ...GaugeCore
+      ...GaugeLocation
+      ...GaugeHarvestInfo
+      ...GaugeStatus
+      ...GaugeSource
+      ...TimestampedMeta
     }
   }
 `;
@@ -75,25 +64,17 @@ describe('resolvers chain', () => {
   };
 
   it('anon should not pass', async () => {
-    const result = await runQuery(upsertQuery, { gauge }, anonContext());
+    const result = await testUpsertGauge({ gauge }, anonContext());
     expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
   });
 
   it('user should not pass', async () => {
-    const result = await runQuery(
-      upsertQuery,
-      { gauge },
-      fakeContext(TEST_USER),
-    );
+    const result = await testUpsertGauge({ gauge }, fakeContext(TEST_USER));
     expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('editor should not pass', async () => {
-    const result = await runQuery(
-      upsertQuery,
-      { gauge },
-      fakeContext(EDITOR_NO_EC),
-    );
+    const result = await testUpsertGauge({ gauge }, fakeContext(EDITOR_NO_EC));
     expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
@@ -115,8 +96,7 @@ describe('resolvers chain', () => {
       requestParams: null,
       url: 'bbb',
     };
-    const result = await runQuery(
-      upsertQuery,
+    const result = await testUpsertGauge(
       { gauge: invalidInput },
       fakeContext(ADMIN),
     );
@@ -144,65 +124,54 @@ describe('insert', () => {
   };
 
   it('should return result', async () => {
-    const result = await runQuery(
-      upsertQuery,
-      { gauge: input },
-      fakeContext(ADMIN),
-    );
-    const gauge = result && result.data && result.data.upsertGauge;
+    const result = await testUpsertGauge({ gauge: input }, fakeContext(ADMIN));
+    const gauge = result?.data?.upsertGauge;
     expect(result.errors).toBeUndefined();
-    expect(isUUID(gauge.id)).toBe(true);
-    expect(isTimestamp(gauge.createdAt)).toBe(true);
-    expect(isTimestamp(gauge.updatedAt)).toBe(true);
+    expect(isUUID(gauge?.id)).toBe(true);
+    expect(isTimestamp(gauge?.createdAt)).toBe(true);
+    expect(isTimestamp(gauge?.updatedAt)).toBe(true);
     expect(gauge).toHaveProperty('source');
     expect(gauge).toHaveProperty('location');
   });
 
   it('should add one more gauge', async () => {
-    await runQuery(upsertQuery, { gauge: input }, fakeContext(ADMIN));
+    await testUpsertGauge({ gauge: input }, fakeContext(ADMIN));
     const { count } = await db().table('gauges').count().first();
     expect(Number(count) - gBefore).toBe(1);
   });
 
   it('should insert point', async () => {
-    await runQuery(upsertQuery, { gauge: input }, fakeContext(ADMIN));
+    await testUpsertGauge({ gauge: input }, fakeContext(ADMIN));
     const points = await db().table('points').count().first();
     expect(Number(points.count) - pBefore).toBe(1);
   });
 
   it('should handle null point', async () => {
-    const result = await runQuery(
-      upsertQuery,
+    const result = await testUpsertGauge(
       { gauge: { ...input, location: null } },
       fakeContext(ADMIN),
     );
-    const gauge = result && result.data && result.data.upsertGauge;
-    expect(gauge.location).toBeNull();
+    const gauge = result?.data?.upsertGauge;
+    expect(gauge?.location).toBeNull();
   });
 
   it('should handle null requestParams', async () => {
-    const result = await runQuery(
-      upsertQuery,
+    const result = await testUpsertGauge(
       { gauge: { ...input, requestParams: null } },
       fakeContext(ADMIN),
     );
-    const gauge = result && result.data && result.data.upsertGauge;
-    expect(gauge.requestParams).toBeNull();
+    const gauge = result?.data?.upsertGauge;
+    expect(gauge?.requestParams).toBeNull();
   });
 
   it('should match snapshot', async () => {
-    const result = await runQuery(
-      upsertQuery,
-      { gauge: input },
-      fakeContext(ADMIN),
-    );
-    expect(noUnstable(result.data!.upsertSection)).toMatchSnapshot();
+    const result = await testUpsertGauge({ gauge: input }, fakeContext(ADMIN));
+    expect(noUnstable(result.data?.upsertGauge)).toMatchSnapshot();
   });
 
   it('should sanitize input', async () => {
     const dirtyInput = { ...input, name: "it's a \\ $1 slash with . ?" };
-    const result = await runQuery(
-      upsertQuery,
+    const result = await testUpsertGauge(
       { gauge: dirtyInput },
       fakeContext(ADMIN),
     );
@@ -232,19 +201,14 @@ describe('update', () => {
     url: 'http://galic.ia/gal1',
   };
 
-  let oldGauge: GaugeRaw | null;
+  let oldGauge: Sql.GaugesView | null;
   let updateResult: any;
   let updatedGauge: any;
 
   beforeEach(async () => {
     oldGauge = await db().table('gauges').where({ id: input.id }).first();
-    updateResult = await runQuery(
-      upsertQuery,
-      { gauge: input },
-      fakeContext(ADMIN),
-    );
-    updatedGauge =
-      updateResult && updateResult.data && updateResult.data.upsertGauge;
+    updateResult = await testUpsertGauge({ gauge: input }, fakeContext(ADMIN));
+    updatedGauge = updateResult?.data?.upsertGauge;
   });
 
   afterEach(() => {
@@ -253,7 +217,7 @@ describe('update', () => {
     oldGauge = null;
   });
 
-  it('should return result', async () => {
+  it('should return result', () => {
     expect(updateResult.errors).toBeUndefined();
     expect(updateResult.data).toBeDefined();
     expect(updatedGauge).toBeDefined();
@@ -274,7 +238,7 @@ describe('update', () => {
     expect(updated_at > oldGauge!.updated_at).toBe(true);
   });
 
-  it('should update location', async () => {
+  it('should update location', () => {
     expect(updatedGauge.location).toMatchObject({
       id: '0c86ff2c-bbdd-11e7-abc4-cec278b6b50a',
       coordinates: [11.1, 12.2, 1.1],
@@ -282,7 +246,7 @@ describe('update', () => {
     });
   });
 
-  it('should match snapshot', async () => {
+  it('should match snapshot', () => {
     expect(noUnstable(updatedGauge)).toMatchSnapshot();
   });
 });
@@ -308,15 +272,14 @@ describe('jobs', () => {
 
   it('should call update job for enabled gauges', async () => {
     const spy = jest.spyOn(GorgeConnector.prototype, 'updateJobForSource');
-    await runQuery(upsertQuery, { gauge: input }, fakeContext(ADMIN));
+    await testUpsertGauge({ gauge: input }, fakeContext(ADMIN));
     expect(spy).toHaveBeenCalledWith(SOURCE_GALICIA_1);
     spy.mockReset();
   });
 
   it('should not call update job for disabled gauges', async () => {
     const spy = jest.spyOn(GorgeConnector.prototype, 'updateJobForSource');
-    await runQuery(
-      upsertQuery,
+    await testUpsertGauge(
       { gauge: { ...input, id: GAUGE_GAL_2_1 } },
       fakeContext(ADMIN),
     );
@@ -345,7 +308,7 @@ describe('i18n', () => {
   };
 
   it('should add new translation', async () => {
-    await runQuery(upsertQuery, { gauge: inputPt }, fakeContext(ADMIN, 'pt'));
+    await testUpsertGauge({ gauge: inputPt }, fakeContext(ADMIN, 'pt'));
     const { count } = await db().table('gauges_translations').count().first();
     expect(Number(count) - tBefore).toBe(1);
     const name = await db()
@@ -357,7 +320,7 @@ describe('i18n', () => {
   });
 
   it('should modify common props in other language', async () => {
-    await runQuery(upsertQuery, { gauge: inputPt }, fakeContext(ADMIN, 'pt'));
+    await testUpsertGauge({ gauge: inputPt }, fakeContext(ADMIN, 'pt'));
     const flowUnit = await db()
       .table('gauges_view')
       .select('flow_unit')
@@ -367,7 +330,7 @@ describe('i18n', () => {
   });
 
   it('should modify existing translation', async () => {
-    await runQuery(upsertQuery, { gauge: inputPt }, fakeContext(ADMIN, 'en'));
+    await testUpsertGauge({ gauge: inputPt }, fakeContext(ADMIN, 'en'));
     const { count } = await db().table('gauges_translations').count().first();
     expect(Number(count)).toBe(tBefore);
     const name = await db()

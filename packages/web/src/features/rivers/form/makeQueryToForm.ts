@@ -1,19 +1,21 @@
-import { RiverInput } from '@whitewater-guide/commons';
+import { RiverInput } from '@whitewater-guide/schema';
 
-import { toNode } from '../../../formik/utils';
-import { QResult } from './riverForm.query';
+import { RiverFormQuery } from './riverForm.generated';
 
-export default (regionId: string) => (result?: QResult): RiverInput => {
-  if (!result || !result.river) {
+export default (regionId: string) =>
+  (result?: RiverFormQuery): RiverInput => {
+    if (!result || !result.river) {
+      return {
+        id: null,
+        region: { id: regionId },
+        name: '',
+        altNames: [],
+      };
+    }
     return {
-      id: null,
-      region: { id: regionId },
-      name: '',
-      altNames: [],
+      ...result.river,
+      region: {
+        id: result.river.region.id,
+      },
     };
-  }
-  return {
-    ...result.river,
-    region: toNode(result.river.region),
   };
-};

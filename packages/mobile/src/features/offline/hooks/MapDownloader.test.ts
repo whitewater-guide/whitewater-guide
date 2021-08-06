@@ -1,5 +1,5 @@
 import Mapbox from '@react-native-mapbox-gl/maps';
-import { Region } from '@whitewater-guide/commons';
+import { Region } from '@whitewater-guide/schema';
 
 import { mockPack, mockPackSubscribe } from '../test-utils';
 import MapDownloader from './MapDownloader';

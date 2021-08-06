@@ -1,0 +1,8 @@
+query findRegions($filter: RegionFilterOptions, $page: Page) {
+  regions(filter: $filter, page: $page) {
+    nodes {
+      id
+      name
+    }
+  }
+}

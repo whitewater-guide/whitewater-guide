@@ -1,15 +1,7 @@
-import { MeasurementsFilter } from '@whitewater-guide/commons';
 import { UserInputError } from 'apollo-server-koa';
 
-import { TopLevelResolver, UnknownError } from '~/apollo';
-import db from '~/db';
-
-interface Vars {
-  gaugeId?: string;
-  sectionId?: string;
-  days?: number | null;
-  filter?: MeasurementsFilter<Date> | null;
-}
+import { QueryResolvers, UnknownError } from '~/apollo';
+import { db } from '~/db';
 
 const gaugeQuery = (gaugeId: string) =>
   db()
@@ -28,7 +20,10 @@ const sectionQuery = (sectionId: string) =>
     .where('sections.id', sectionId)
     .first();
 
-function query(gaugeId?: string, sectionId?: string): Promise<any> {
+function query(
+  gaugeId?: string | null,
+  sectionId?: string | null,
+): Promise<any> {
   if (!gaugeId && !sectionId) {
     throw new UserInputError('Either gauge id or section id must be specified');
   }
@@ -36,27 +31,32 @@ function query(gaugeId?: string, sectionId?: string): Promise<any> {
   return gaugeId ? gaugeQuery(gaugeId) : sectionQuery(sectionId!);
 }
 
-const measurementsResolver: TopLevelResolver<Vars> = async (
+const measurementsResolver: QueryResolvers['measurements'] = async (
   _,
   { gaugeId, sectionId, days, filter },
   { dataSources },
 ) => {
+  let effectiveFilter = filter;
   if (!days && !filter) {
     const from = new Date();
     from.setTime(from.getTime() - 7 * 24 * 60 * 60 * 1000);
-    filter = { from };
+    effectiveFilter = { from };
   }
   if (days && !filter) {
     const from = new Date();
     from.setTime(from.getTime() - days * 24 * 60 * 60 * 1000);
-    filter = { from };
+    effectiveFilter = { from };
   }
   const gauge = await query(gaugeId, sectionId);
   if (!gauge) {
     throw new UnknownError('gauge not found');
   }
   const { script, code } = gauge;
-  const result = await dataSources.gorge.getMeasurements(script, code, filter);
+  const result = await dataSources.gorge.getMeasurements(
+    script,
+    code,
+    effectiveFilter,
+  );
   return result;
 };
 

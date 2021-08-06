@@ -3,11 +3,13 @@ import { act, renderHook } from '@testing-library/react-hooks';
 import useDownloadMap from './useDownloadMap';
 
 const mockDownload = jest.fn();
-jest.mock('./MapDownloader', () => {
-  return function () {
-    return { download: mockDownload };
-  };
-});
+jest.mock(
+  './MapDownloader',
+  () =>
+    function () {
+      return { download: mockDownload };
+    },
+);
 
 beforeEach(() => {
   jest.resetAllMocks();

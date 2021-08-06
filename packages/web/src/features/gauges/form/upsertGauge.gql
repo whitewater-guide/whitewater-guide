@@ -1,0 +1,7 @@
+mutation upsertGauge($gauge: GaugeInput!) {
+  upsertGauge(gauge: $gauge) {
+    ...GaugeCore
+    ...GaugeLocation
+    ...GaugeHarvestInfo
+  }
+}

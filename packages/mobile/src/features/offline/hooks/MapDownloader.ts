@@ -4,7 +4,7 @@ import MapboxGL, {
   OfflinePackStatus,
 } from '@react-native-mapbox-gl/maps';
 import { getBBox } from '@whitewater-guide/clients';
-import { Region } from '@whitewater-guide/commons';
+import { Region } from '@whitewater-guide/schema';
 
 import Layers from '~/components/map/layers';
 import { trackError } from '~/core/errors';
@@ -13,17 +13,25 @@ import { MapboxOfflineError } from '../errors';
 import { MapboxOfflinePackState, OfflineProgress } from '../types';
 
 export default class MapDownloader {
+  private readonly _regionId: string;
+  private readonly _bounds: Region['bounds'];
+  private readonly _onProgress: (prg: Pick<OfflineProgress, 'maps'>) => void;
+
   private _resolve!: (v?: unknown) => void;
   private _reject!: (e: Error) => void;
   private _called = false;
 
   constructor(
-    private readonly _regionId: string,
-    private readonly _bounds: Region['bounds'],
-    private readonly _onProgress: (prg: Pick<OfflineProgress, 'maps'>) => void,
-  ) {}
+    regionId: string,
+    bounds: Region['bounds'],
+    onProgress: (prg: Pick<OfflineProgress, 'maps'>) => void,
+  ) {
+    this._regionId = regionId;
+    this._bounds = bounds;
+    this._onProgress = onProgress;
+  }
 
-  public async download(): Promise<unknown> {
+  public async download(): Promise<void> {
     if (this._called) {
       throw new Error('MapDownloader download can only be called once');
     }
@@ -41,19 +49,18 @@ export default class MapDownloader {
       this.subscribe();
       const result = this.promisify();
       offlinePack.resume();
-      return result;
-    } else {
-      this.subscribe();
-      const result = this.promisify();
-      MapboxGL.offlineManager.createPack({
-        name: this._regionId,
-        styleURL: Layers.TERRAIN.url,
-        bounds: getBBox(this._bounds),
-        minZoom: 1,
-        maxZoom: 10,
-      });
-      return result;
+      await result;
     }
+    this.subscribe();
+    const result = this.promisify();
+    MapboxGL.offlineManager.createPack({
+      name: this._regionId,
+      styleURL: Layers.TERRAIN.url,
+      bounds: getBBox(this._bounds),
+      minZoom: 1,
+      maxZoom: 10,
+    });
+    await result;
   }
 
   private subscribe() {
@@ -64,18 +71,17 @@ export default class MapDownloader {
     );
   }
 
-  private async unsubscribe() {
+  private unsubscribe() {
     MapboxGL.offlineManager.unsubscribe(this._regionId);
   }
 
-  private promisify = (): Promise<unknown> => {
-    return new Promise((resolve, reject) => {
+  private promisify = (): Promise<unknown> =>
+    new Promise((resolve, reject) => {
       this._resolve = resolve;
       this._reject = reject;
     }).finally(() => {
       this.unsubscribe();
     });
-  };
 
   private onProgress = (percentage: number) => {
     this._onProgress({ maps: [percentage, 100] });

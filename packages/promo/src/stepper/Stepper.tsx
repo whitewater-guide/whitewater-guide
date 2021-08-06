@@ -1,12 +1,7 @@
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import MUIStepper from '@material-ui/core/Stepper';
-import {
-  createStyles,
-  Theme,
-  WithStyles,
-  withStyles,
-} from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -17,7 +12,7 @@ import SelectRegionStep from './select-region';
 import { Steps } from './Steps';
 import { useStepper } from './useStepper';
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
       alignItems: 'center',
@@ -32,17 +27,13 @@ const styles = (theme: Theme) =>
       marginTop: theme.spacing(),
       marginBottom: theme.spacing(),
     },
-  });
+  }),
+);
 
-const Stepper: React.FC<WithStyles<typeof styles>> = ({ classes }) => {
-  const {
-    activeStep,
-    completedSteps,
-    nextStep,
-    prevStep,
-    promo,
-    region,
-  } = useStepper();
+const Stepper: React.FC = () => {
+  const { activeStep, completedSteps, nextStep, prevStep, promo, region } =
+    useStepper();
+  const classes = useStyles();
   const { t } = useTranslation();
   return (
     <div className={classes.root}>
@@ -80,4 +71,4 @@ const Stepper: React.FC<WithStyles<typeof styles>> = ({ classes }) => {
   );
 };
 
-export default withStyles(styles)(Stepper);
+export default Stepper;

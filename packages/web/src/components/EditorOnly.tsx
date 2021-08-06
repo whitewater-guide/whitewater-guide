@@ -12,15 +12,15 @@ interface Props {
  */
 export const EditorOnly: React.FC<Props> = ({ children }) => {
   const { me } = useAuth();
-  const { node } = useRegion();
+  const region = useRegion();
   if (!me) {
     return null;
   }
   if (me.admin) {
     return React.Children.only(children);
   }
-  if (!node) {
+  if (!region) {
     return me.editor ? React.Children.only(children) : null;
   }
-  return node.editable ? React.Children.only(children) : null;
+  return region.editable ? React.Children.only(children) : null;
 };

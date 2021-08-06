@@ -1,15 +1,14 @@
-import { River } from '@whitewater-guide/commons';
+import { River } from '@whitewater-guide/schema';
 
+import { Sql } from '~/db';
 import { FieldsMap, OffsetConnector } from '~/db/connectors';
 
-import { RiverRaw } from './types';
-
-const FIELDS_MAP: FieldsMap<River, RiverRaw> = {
+const FIELDS_MAP: FieldsMap<River, Sql.RiversView> = {
   region: 'region_id',
   sections: null,
 };
 
-export class RiversConnector extends OffsetConnector<River, RiverRaw> {
+export class RiversConnector extends OffsetConnector<River, Sql.RiversView> {
   constructor() {
     super();
     this._tableName = 'rivers_view';

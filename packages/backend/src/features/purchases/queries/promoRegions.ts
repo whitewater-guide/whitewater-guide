@@ -1,9 +1,6 @@
-import {
-  AuthenticatedTopLevelResolver,
-  isAuthenticatedResolver,
-} from '~/apollo';
+import { AuthenticatedQuery, isAuthenticatedResolver } from '~/apollo';
 
-const promoRegions: AuthenticatedTopLevelResolver = async (
+const promoRegions: AuthenticatedQuery['promoRegions'] = async (
   _,
   _vars,
   { dataSources },
@@ -14,7 +11,7 @@ const promoRegions: AuthenticatedTopLevelResolver = async (
     .getMany(info, { count: false })
     .where('regions_view.premium', true)
     .where('regions_view.hidden', false);
-  if (purchasedIds && purchasedIds.length) {
+  if (purchasedIds?.length) {
     query.whereNotIn('regions_view.id', purchasedIds);
   }
   return query;

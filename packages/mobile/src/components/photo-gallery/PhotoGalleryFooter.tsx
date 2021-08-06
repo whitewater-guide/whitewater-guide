@@ -1,8 +1,5 @@
-import {
-  isLicenseWithLogo,
-  License,
-  ROOT_LICENSE,
-} from '@whitewater-guide/commons';
+import { isLicenseWithLogo, ROOT_LICENSE } from '@whitewater-guide/clients';
+import { License } from '@whitewater-guide/schema';
 import React from 'react';
 import {
   LayoutAnimation,

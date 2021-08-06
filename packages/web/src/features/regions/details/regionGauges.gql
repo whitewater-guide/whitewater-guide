@@ -1,0 +1,13 @@
+fragment RegionGauge on Gauge {
+  id
+  name
+  ...GaugeLocation
+}
+
+query regionGauges($regionId: ID) {
+  gauges(filter: { regionId: $regionId }) {
+    nodes {
+      ...RegionGauge
+    }
+  }
+}

@@ -26,12 +26,10 @@ export const useAuthSubmit = <Values>(
             if (onSuccess) {
               onSuccess(resp);
             }
-          } else {
-            if (error) {
-              actions.setErrors(
-                mapValues(error, (v, k) => `${errorPrefix}${k}.${v}`) as any,
-              );
-            }
+          } else if (error) {
+            actions.setErrors(
+              mapValues(error, (v, k) => `${errorPrefix}${k}.${v}`) as any,
+            );
           }
         })
         .catch(() => {

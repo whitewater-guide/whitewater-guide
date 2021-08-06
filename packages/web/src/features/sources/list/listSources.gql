@@ -1,0 +1,24 @@
+fragment ListedSource on Source {
+  id
+  name
+  enabled
+  cron
+  gauges {
+    count
+  }
+  status {
+    success
+    count
+    timestamp
+    error
+  }
+}
+
+query listSources {
+  sources {
+    nodes {
+      ...ListedSource
+    }
+    count
+  }
+}

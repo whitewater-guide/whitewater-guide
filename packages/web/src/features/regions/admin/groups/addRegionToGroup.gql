@@ -1,0 +1,3 @@
+mutation addRegionToGroup($regionId: ID!, $groupId: ID!) {
+  addRegionToGroup(regionId: $regionId, groupId: $groupId)
+}

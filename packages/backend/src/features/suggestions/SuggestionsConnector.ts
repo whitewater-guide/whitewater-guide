@@ -1,19 +1,18 @@
-import { Suggestion } from '@whitewater-guide/commons';
+import { Suggestion } from '@whitewater-guide/schema';
 import { DataSourceConfig } from 'apollo-datasource';
 
 import { Context } from '~/apollo';
+import { Sql } from '~/db';
 import { FieldsMap, OffsetConnector } from '~/db/connectors';
 
-import { SuggestionRaw } from './types';
-
-const FIELDS_MAP: FieldsMap<Suggestion, SuggestionRaw> = {
+const FIELDS_MAP: FieldsMap<Suggestion, Sql.Suggestions> = {
   section: 'section_id',
   image: 'filename',
 };
 
 export class SuggestionsConnector extends OffsetConnector<
   Suggestion,
-  SuggestionRaw
+  Sql.Suggestions
 > {
   constructor() {
     super();

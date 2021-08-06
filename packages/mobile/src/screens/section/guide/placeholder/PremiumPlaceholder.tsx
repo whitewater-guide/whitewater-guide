@@ -1,5 +1,4 @@
-import { useRegion } from '@whitewater-guide/clients';
-import { Section } from '@whitewater-guide/commons';
+import { SectionDetailsFragment, useRegion } from '@whitewater-guide/clients';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
@@ -17,15 +16,14 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  section: Section;
+  section: SectionDetailsFragment;
 }
 
 const PremiumPlaceholder: React.FC<Props> = ({ section }) => {
   const { t } = useTranslation();
   const region = useRegion();
-  const onBuy = usePremiumGuard(region.node, section);
-  const node = region.node;
-  const name = node ? node.name : '';
+  const onBuy = usePremiumGuard(region, section);
+  const name = region?.name ?? '';
   return (
     <View style={styles.container}>
       <Caption>

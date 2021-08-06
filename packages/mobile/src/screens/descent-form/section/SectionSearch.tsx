@@ -1,4 +1,5 @@
-import { Section, sectionName } from '@whitewater-guide/commons';
+import { sectionName } from '@whitewater-guide/clients';
+import { DescentSectionFragment } from '@whitewater-guide/schema';
 import React, { useState } from 'react';
 import { Searchbar } from 'react-native-paper';
 import useDebounce from 'react-use/lib/useDebounce';
@@ -8,8 +9,8 @@ import { useSearchSections } from './useSearchSections';
 
 interface Props {
   regionId?: string;
-  onSelect?: (value: Section) => void;
-  section?: Section;
+  onSelect?: (value: DescentSectionFragment) => void;
+  section?: DescentSectionFragment;
 }
 
 const SectionSearch: React.FC<Props> = ({ regionId, section, onSelect }) => {
@@ -26,10 +27,10 @@ const SectionSearch: React.FC<Props> = ({ regionId, section, onSelect }) => {
   const data = useSearchSections(debouncedSearch, section, regionId);
 
   return (
-    <React.Fragment>
+    <>
       <Searchbar placeholder="Search" onChangeText={setSearch} value={search} />
       <SectionSearchList data={data} onSelect={onSelect} />
-    </React.Fragment>
+    </>
   );
 };
 

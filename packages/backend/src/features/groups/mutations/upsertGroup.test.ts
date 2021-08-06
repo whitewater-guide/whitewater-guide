@@ -1,15 +1,13 @@
-import {
-  anonContext,
-  countRows,
-  fakeContext,
-  runQuery,
-  UUID_REGEX,
-} from '@test';
-import { ApolloErrorCodes, GroupInput } from '@whitewater-guide/commons';
+import { anonContext, countRows, fakeContext, UUID_REGEX } from '@test';
+import { ApolloErrorCodes } from '@whitewater-guide/commons';
+import { GroupInput } from '@whitewater-guide/schema';
+import gql from 'graphql-tag';
 
-import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { db, holdTransaction, rollbackTransaction } from '~/db';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
 import { GROUP_EU } from '~/seeds/test/03_groups';
+
+import { testUpsertGroup } from './upsertGroup.test.generated';
 
 let gBefore: number;
 let tBefore: number;
@@ -21,12 +19,10 @@ beforeAll(async () => {
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
-const query = `
-  mutation upsertGroup($group: GroupInput!){
-    upsertGroup(group: $group){
-      id
-      name
-      sku
+const _mutation = gql`
+  mutation upsertGroup($group: GroupInput!) {
+    upsertGroup(group: $group) {
+      ...GroupCore
     }
   }
 `;
@@ -39,17 +35,17 @@ const group: GroupInput = {
 
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
-    const result = await runQuery(query, { group }, anonContext());
+    const result = await testUpsertGroup({ group }, anonContext());
     expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
   });
 
   it('user should not pass', async () => {
-    const result = await runQuery(query, { group }, fakeContext(TEST_USER));
+    const result = await testUpsertGroup({ group }, fakeContext(TEST_USER));
     expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('editor should not pass', async () => {
-    const result = await runQuery(query, { group }, fakeContext(EDITOR_GA_EC));
+    const result = await testUpsertGroup({ group }, fakeContext(EDITOR_GA_EC));
     expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
@@ -59,8 +55,7 @@ describe('resolvers chain', () => {
       name: 'x',
       sku: 'sku',
     };
-    const result = await runQuery(
-      query,
+    const result = await testUpsertGroup(
       { group: invalidInput },
       fakeContext(ADMIN),
     );
@@ -70,9 +65,9 @@ describe('resolvers chain', () => {
 
 describe('insert', () => {
   it('should return result', async () => {
-    const result = await runQuery(query, { group }, fakeContext(ADMIN));
+    const result = await testUpsertGroup({ group }, fakeContext(ADMIN));
     expect(result.errors).toBeUndefined();
-    expect(result.data!.upsertGroup).toMatchObject({
+    expect(result.data?.upsertGroup).toMatchObject({
       id: expect.stringMatching(UUID_REGEX),
       name: 'New group',
       sku: 'group.sku',
@@ -80,7 +75,7 @@ describe('insert', () => {
   });
 
   it('should add one more group', async () => {
-    await runQuery(query, { group }, fakeContext(ADMIN));
+    await testUpsertGroup({ group }, fakeContext(ADMIN));
     const [gAfter, tAfter] = await countRows(
       false,
       'groups',
@@ -98,13 +93,13 @@ describe('update', () => {
   };
 
   it('should return result', async () => {
-    const result = await runQuery(query, { group: input }, fakeContext(ADMIN));
+    const result = await testUpsertGroup({ group: input }, fakeContext(ADMIN));
     expect(result.errors).toBeUndefined();
-    expect(result.data!.upsertGroup).toMatchObject(input);
+    expect(result.data?.upsertGroup).toMatchObject(input);
   });
 
   it('should not change total number of groups', async () => {
-    await runQuery(query, { group: input }, fakeContext(ADMIN));
+    await testUpsertGroup({ group: input }, fakeContext(ADMIN));
     const [gAfter, tAfter] = await countRows(
       false,
       'groups',
@@ -122,7 +117,7 @@ describe('i18n', () => {
   };
 
   it('should add new translation', async () => {
-    await runQuery(query, { group: inputFr }, fakeContext(ADMIN, 'fr'));
+    await testUpsertGroup({ group: inputFr }, fakeContext(ADMIN, 'fr'));
     const [gAfter, tAfter] = await countRows(
       false,
       'groups',
@@ -132,7 +127,7 @@ describe('i18n', () => {
   });
 
   it('should modify existing translation', async () => {
-    await runQuery(query, { group: inputFr }, fakeContext(ADMIN, 'ru'));
+    await testUpsertGroup({ group: inputFr }, fakeContext(ADMIN, 'ru'));
     const [gAfter, tAfter] = await countRows(
       false,
       'groups',
@@ -150,7 +145,7 @@ describe('i18n', () => {
 
 it('should sanitize input', async () => {
   const dirty = { ...group, name: "it's a \\ $1 slash with . ?" };
-  const result = await runQuery(query, { group: dirty }, fakeContext(ADMIN));
+  const result = await testUpsertGroup({ group: dirty }, fakeContext(ADMIN));
   expect(result).toHaveProperty(
     'data.upsertGroup.name',
     "it's a \\ $1 slash with . ?",

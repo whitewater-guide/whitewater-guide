@@ -1,0 +1,13 @@
+fragment DescentDetails on Descent {
+  ...DescentCore
+  ...TimestampedMeta
+
+  section {
+    ...DescentSection
+  }
+}
+query descentDetails($descentId: ID) {
+  descent(id: $descentId) {
+    ...DescentDetails
+  }
+}

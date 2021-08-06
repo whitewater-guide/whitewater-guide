@@ -10,8 +10,8 @@ import RegionRoute from './RegionRoute';
 const RegionsRoute: React.FC = () => (
   <Suspense fallback={<Loading />}>
     <Switch>
-      <Route exact={true} path="/regions" component={RegionsList} />
-      <AdminRoute exact={true} path="/regions/new" component={RegionForm} />
+      <Route exact path="/regions" component={RegionsList} />
+      <AdminRoute exact path="/regions/new" component={RegionForm} />
       <Route path="/regions/:regionId" component={RegionRoute} />
     </Switch>
   </Suspense>

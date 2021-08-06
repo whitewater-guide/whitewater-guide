@@ -1,32 +1,9 @@
-import { NamedNode, Page, RiversFilter } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { NamedNode } from '@whitewater-guide/schema';
 import { useState } from 'react';
-import { useQuery } from 'react-apollo';
 import { useDebounce } from 'use-debounce';
 
 import { useAddSectionRegion } from '../context';
-
-const FIND_RIVERS_QUERY = gql`
-  query findRivers($filter: RiversFilter, $page: Page) {
-    rivers(filter: $filter, page: $page) {
-      nodes {
-        id
-        name
-      }
-    }
-  }
-`;
-
-interface QVars {
-  filter?: RiversFilter;
-  page?: Page;
-}
-
-interface QResult {
-  rivers: {
-    nodes: NamedNode[];
-  };
-}
+import { useFindRiversQuery } from './findRivers.generated';
 
 type Result = [string, (txt: string) => void, boolean, NamedNode[]];
 
@@ -35,7 +12,7 @@ const useRiversQuery = (initialInput = ''): Result => {
   const [input, setInput] = useState(initialInput);
   const [search] = useDebounce(input, 200);
 
-  const { loading, data } = useQuery<QResult, QVars>(FIND_RIVERS_QUERY, {
+  const { loading, data } = useFindRiversQuery({
     variables: {
       filter: {
         search,
@@ -47,12 +24,7 @@ const useRiversQuery = (initialInput = ''): Result => {
     skip: search === '',
   });
 
-  return [
-    input,
-    setInput,
-    loading,
-    data && data.rivers && data.rivers.nodes ? data.rivers.nodes : [],
-  ];
+  return [input, setInput, loading, data?.rivers?.nodes ?? []];
 };
 
 export default useRiversQuery;

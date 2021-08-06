@@ -2,6 +2,7 @@ import { TokenStorage } from '@whitewater-guide/clients';
 
 class SecureTokenStorage implements TokenStorage {
   private _accessToken: string | null = null;
+
   private _refreshToken: string | null = null;
 
   async getAccessToken() {

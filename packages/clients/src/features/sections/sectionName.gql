@@ -1,0 +1,10 @@
+query sectionName($id: ID!) {
+  section(id: $id) {
+    id
+    name
+    river {
+      id
+      name
+    }
+  }
+}

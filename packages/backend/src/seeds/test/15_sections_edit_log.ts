@@ -1,6 +1,7 @@
 import Knex from 'knex';
 
-import { SectionsEditLogRaw } from '../../features/sections';
+import { Sql } from '~/db';
+
 import { ADMIN_ID, EDITOR_GE_ID } from './01_users';
 import { REGION_GEORGIA, REGION_NORWAY } from './04_regions';
 import { RIVER_BZHUZHA, RIVER_SJOA } from './07_rivers';
@@ -16,7 +17,7 @@ export const SECTION_EDIT_LOG_ENTRY_3 = 'badb7ed1-c43a-4297-842a-7f12a59501a1';
 export const SECTION_EDIT_LOG_ENTRY_4 = 'b4d42c34-5a2d-4136-b11e-35fda268f080';
 export const DELETED_SECTION_ID1 = '2bc05fa8-34d5-447a-bf55-34a9a7e726e1';
 
-const logEntries: Array<Omit<SectionsEditLogRaw, 'editor_name'>> = [
+const logEntries: Array<Omit<Sql.SectionsEditLog, 'editor_name' | 'diff'>> = [
   {
     id: SECTION_EDIT_LOG_ENTRY_1,
     section_id: DELETED_SECTION_ID1,

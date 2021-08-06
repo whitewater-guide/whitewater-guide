@@ -19,7 +19,7 @@ interface Props {
   };
 }
 
-const SignInView: React.FC<Props> = React.memo((props) => {
+const SignInView = React.memo<Props>((props) => {
   const {
     isValid,
     isLoadingLocal,
@@ -29,40 +29,40 @@ const SignInView: React.FC<Props> = React.memo((props) => {
     onPressFB,
   } = props;
   return (
-    <Grid container={true} spacing={1}>
-      <Grid item={true} xs={12}>
-        <Typography variant="h5" gutterBottom={true}>
+    <Grid container spacing={1}>
+      <Grid item xs={12}>
+        <Typography variant="h5" gutterBottom>
           Sign in
         </Typography>
       </Grid>
-      <Grid item={true} xs={12}>
+      <Grid item xs={12}>
         <TextField
           name="email"
-          fullWidth={true}
+          fullWidth
           label="email"
           placeholder="email"
           autoComplete="username"
         />
       </Grid>
-      <Grid item={true} xs={12}>
+      <Grid item xs={12}>
         <PasswordField
           name="password"
           autoComplete="new-password"
-          fullWidth={true}
+          fullWidth
           label="Password"
           placeholder="Password"
         />
       </Grid>
       {!!errors && !!errors.form && (
-        <Typography gutterBottom={true} noWrap={true} color="error">
+        <Typography gutterBottom noWrap color="error">
           {errors.form}
         </Typography>
       )}
-      <Grid item={true} xs={12}>
+      <Grid item xs={12}>
         <Button
           variant="contained"
           color="primary"
-          fullWidth={true}
+          fullWidth
           disabled={!isValid || !!isLoadingFB}
           onClick={onPressLocal}
         >

@@ -55,7 +55,7 @@ describe('new user', () => {
     response = await testAgent.get(`${ROUTE}access_token=__new_access_token__`);
   });
 
-  it('should respond with access and refresh tokens in cookies', async () => {
+  it('should respond with access and refresh tokens in cookies', () => {
     const atCookie = testAgent.jar.getCookie(
       ACCESS_TOKEN_COOKIE,
       CookieAccessInfo.All,
@@ -68,7 +68,7 @@ describe('new user', () => {
     expect(rtCookie?.value).toBeTruthy();
   });
 
-  it('should respond id and isNew in body', async () => {
+  it('should respond id and isNew in body', () => {
     const body: AuthBody<SignInBody> = {
       success: true,
       id: expect.any(String),
@@ -102,7 +102,7 @@ describe('new user', () => {
     });
   });
 
-  it('should send welcome email', async () => {
+  it('should send welcome email', () => {
     expect(sendWelcome).toHaveBeenCalledWith(
       expect.objectContaining({
         id: expect.stringMatching(UUID_REGEX),
@@ -131,7 +131,7 @@ describe('existing user', () => {
     );
   });
 
-  it('should respond with access and refresh tokens in cookies', async () => {
+  it('should respond with access and refresh tokens in cookies', () => {
     const atCookie = testAgent.jar.getCookie(
       ACCESS_TOKEN_COOKIE,
       CookieAccessInfo.All,
@@ -144,7 +144,7 @@ describe('existing user', () => {
     expect(rtCookie?.value).toBeTruthy();
   });
 
-  it('should respond id and isNew in body', async () => {
+  it('should respond id and isNew in body', () => {
     const body: AuthBody<SignInBody> = {
       success: true,
       id: ADMIN_ID,
@@ -178,7 +178,7 @@ describe('existing user', () => {
     });
   });
 
-  it('should not send welcome email', async () => {
+  it('should not send welcome email', () => {
     expect(sendWelcome).not.toHaveBeenCalled();
   });
 });

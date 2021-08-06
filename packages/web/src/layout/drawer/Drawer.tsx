@@ -51,7 +51,7 @@ export const Drawer: React.FC<Props> = ({ onClose, isOpen }) => {
   const { location } = useRouter();
   const permanent = usePermanentDrawer();
   const { me } = useAuth();
-  const value = '/' + location.pathname.split('/')[1];
+  const value = `/${location.pathname.split('/')[1]}`;
   return (
     <MUIDrawer
       open={isOpen}
@@ -67,7 +67,7 @@ export const Drawer: React.FC<Props> = ({ onClose, isOpen }) => {
           if (authenticated && !me) {
             return null;
           }
-          if (admin && !(me && me.admin)) {
+          if (admin && !me?.admin) {
             return null;
           }
           if (editor && !(me && (me.admin || me.editor))) {

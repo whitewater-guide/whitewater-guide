@@ -6,10 +6,17 @@ import { MarkdownField } from '../../../formik/fields';
 import { FormikTab } from '../../../formik/helpers';
 import formToMutation from './formToMutation';
 import queryToForm from './queryToForm';
-import { QResult, QVars, SOURCE_FORM_QUERY } from './sourceForm.query';
+import {
+  SourceFormDocument,
+  SourceFormQuery,
+  SourceFormQueryVariables,
+} from './sourceForm.generated';
 import SourceFormMain from './SourceFormMain';
 import { RouterParams, SourceFormData } from './types';
-import { MVars, UPSERT_SOURCE } from './upsertSource.mutation';
+import {
+  UpsertSourceDocument,
+  UpsertSourceMutationVariables,
+} from './upsertSource.generated';
 import SourceFormSchema from './validation';
 
 const header = { resourceType: 'source' };
@@ -31,24 +38,28 @@ interface Props {
 }
 
 const SourceForm: React.FC<Props> = ({ match }) => {
-  const formik = useApolloFormik<QVars, QResult, SourceFormData, MVars>({
-    query: SOURCE_FORM_QUERY,
+  const formik = useApolloFormik<
+    SourceFormQueryVariables,
+    SourceFormQuery,
+    SourceFormData,
+    UpsertSourceMutationVariables
+  >({
+    query: SourceFormDocument,
     queryOptions: {
       variables: { sourceId: match.params.sourceId },
     },
     queryToForm,
-    mutation: UPSERT_SOURCE,
+    mutation: UpsertSourceDocument,
     formToMutation,
   });
 
-  const regions =
-    formik.rawData && formik.rawData.regions
-      ? formik.rawData.regions.nodes || []
-      : [];
+  const regions = formik.rawData?.regions
+    ? formik.rawData.regions.nodes || []
+    : [];
   const scripts = formik.rawData ? formik.rawData.scripts : [];
 
   return (
-    <FormikCard<QResult, SourceFormData>
+    <FormikCard<SourceFormQuery, SourceFormData>
       header={header}
       {...formik}
       validationSchema={SourceFormSchema}

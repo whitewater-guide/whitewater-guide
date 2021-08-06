@@ -1,8 +1,3 @@
-import {
-  applySearch,
-  Section,
-  SectionFilterOptions,
-} from '@whitewater-guide/commons';
 import ApolloClient, {
   ApolloQueryResult,
   NetworkStatus,
@@ -11,16 +6,21 @@ import ApolloClient, {
 import React, { useContext } from 'react';
 
 import { getListMerger } from '../../apollo';
-import { POLL_REGION_MEASUREMENTS, PollVars } from '../regions';
 import {
-  LIST_SECTIONS,
-  ListSectionsResult,
-  ListSectionsVars,
-} from './listSections.query';
-import { SectionsStatus } from './types';
+  PollRegionMeasurementsDocument,
+  PollRegionMeasurementsQueryVariables,
+} from '../regions';
+import { applySearch } from './applySearch';
+import {
+  ListedSectionFragment,
+  ListSectionsDocument,
+  ListSectionsQuery,
+  ListSectionsQueryVariables,
+} from './listSections.generated';
+import { SectionFilterOptions, SectionsStatus } from './types';
 
 export interface InnerState {
-  sections: Section[];
+  sections: ListedSectionFragment[];
   count: number;
   status: SectionsStatus;
 }
@@ -55,11 +55,16 @@ export class SectionsListProvider extends React.PureComponent<
     isConnected: true,
   };
 
-  _query!: ObservableQuery<ListSectionsResult, ListSectionsVars>;
-  _pollQuery!: ObservableQuery<any, PollVars>;
+  _query!: ObservableQuery<ListSectionsQuery, ListSectionsQueryVariables>;
+
+  _pollQuery!: ObservableQuery<any, PollRegionMeasurementsQueryVariables>;
+
   _subscription: ZenObservable.Subscription | undefined;
+
   _pollSub: ZenObservable.Subscription | undefined;
+
   _mounted = false;
+
   _lastUpdatedId?: string;
 
   constructor(props: Props) {
@@ -70,29 +75,27 @@ export class SectionsListProvider extends React.PureComponent<
       return;
     }
 
-    let fromCache: ListSectionsResult | null = null;
+    let fromCache: ListSectionsQuery | null = null;
     try {
       fromCache = client.readQuery({
-        query: LIST_SECTIONS,
+        query: ListSectionsDocument,
         variables: { filter: { regionId } },
       });
     } catch (e) {
-      /* ignore, not in cache*/
+      /* ignore, not in cache */
     }
     this.state = {
-      sections: fromCache?.sections?.nodes ?? [],
+      sections: (fromCache?.sections?.nodes ?? []) as ListedSectionFragment[],
       count: fromCache?.sections?.count ?? 0,
       status: SectionsStatus.READY,
     };
     this._lastUpdatedId =
-      (fromCache &&
-        fromCache.sections &&
-        fromCache.sections.nodes.length &&
+      (fromCache?.sections?.nodes?.length &&
         fromCache.sections.nodes[fromCache.sections.nodes.length - 1].id) ||
       undefined;
 
     this._query = client.watchQuery({
-      query: LIST_SECTIONS,
+      query: ListSectionsDocument,
       fetchPolicy: 'cache-only', // to start loading manually
       variables: { filter: { regionId } },
       fetchResults: false,
@@ -139,7 +142,7 @@ export class SectionsListProvider extends React.PureComponent<
     }
   }
 
-  onUpdate = (props: ApolloQueryResult<ListSectionsResult>) => {
+  onUpdate = (props: ApolloQueryResult<ListSectionsQuery>) => {
     const { data, networkStatus } = props;
     if (networkStatus !== NetworkStatus.ready) {
       return;
@@ -147,8 +150,7 @@ export class SectionsListProvider extends React.PureComponent<
     // Fetch more triggers update twice
     // https://github.com/apollographql/apollo-client/issues/3948
     const lastId =
-      (data.sections &&
-        data.sections.nodes.length &&
+      (data.sections?.nodes.length &&
         data.sections.nodes[data.sections.nodes.length - 1].id) ||
       undefined;
     if (lastId === this._lastUpdatedId && !this._pollQuery) {
@@ -160,7 +162,7 @@ export class SectionsListProvider extends React.PureComponent<
       return;
     }
     this.setState({
-      sections: data.sections.nodes,
+      sections: data.sections.nodes as ListedSectionFragment[],
       count: data.sections.count,
     });
   };
@@ -180,10 +182,10 @@ export class SectionsListProvider extends React.PureComponent<
     this._query.options.fetchPolicy = 'cache-first';
     try {
       const { data } = await this._query.fetchMore({
-        query: LIST_SECTIONS,
+        query: ListSectionsDocument,
         variables: {
           page: { limit: nLimit, offset },
-          filter: { regionId, updatedAfter },
+          filter: { regionId, updatedAfter: updatedAfter?.toISOString() },
         },
         updateQuery: getListMerger('sections') as any,
       });
@@ -218,7 +220,9 @@ export class SectionsListProvider extends React.PureComponent<
     // get latest updated section
     const updatedAfter: Date | undefined = this.state.sections.reduce(
       (acc, { updatedAt }) =>
-        acc && acc > new Date(updatedAt) ? acc : new Date(updatedAt),
+        acc && acc > new Date(updatedAt ?? '')
+          ? acc
+          : new Date(updatedAt ?? ''),
       undefined as Date | undefined,
     );
     this.setState({ status: SectionsStatus.LOADING_UPDATES });
@@ -235,7 +239,7 @@ export class SectionsListProvider extends React.PureComponent<
       return;
     }
     this._pollQuery = client.watchQuery({
-      query: POLL_REGION_MEASUREMENTS,
+      query: PollRegionMeasurementsDocument,
       variables: { regionId },
       pollInterval,
       fetchPolicy: 'network-only',
@@ -243,7 +247,7 @@ export class SectionsListProvider extends React.PureComponent<
     // startPolling uses setInterval internally, therefore query is not fetched immediately
     // https://github.com/apollographql/apollo-client/issues/4439
     await this._pollQuery.result();
-    await this._pollQuery.startPolling(pollInterval);
+    this._pollQuery.startPolling(pollInterval);
     this._pollSub = this._pollQuery.subscribe(() => {
       // it seems that dummy subscription is necessary to update main query
       // without this, some tests break
@@ -266,7 +270,8 @@ export class SectionsListProvider extends React.PureComponent<
     const { filterOptions, children } = this.props;
     const { status, count, sections } = this.state;
     const filteredSections = applySearch(sections, filterOptions);
-    const value = {
+    // eslint-disable-next-line react/jsx-no-constructed-context-values
+    const value: SectionsListContext = {
       count,
       status,
       sections: filteredSections,

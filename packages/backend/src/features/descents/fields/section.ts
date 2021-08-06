@@ -1,12 +1,8 @@
-import { GraphQLFieldResolver } from 'graphql';
-
-import { Context } from '~/apollo';
-
-import { DescentRaw } from '../types';
+import { DescentResolvers } from '~/apollo';
 
 const EMBEDDED_SECTION_FIELDS = ['__typename', 'id'];
 
-const sectionResolver: GraphQLFieldResolver<DescentRaw, Context> = (
+const sectionResolver: DescentResolvers['section'] = (
   { section_id },
   _,
   { dataSources, fieldsByType },

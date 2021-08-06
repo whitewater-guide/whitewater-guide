@@ -1,0 +1,119 @@
+"Places in the app where we can display banner"
+enum BannerPlacement {
+  mobileSectionDescription
+  mobileSectionRow
+  mobileSectionMedia
+  mobileRegionDescription
+}
+
+enum BannerKind {
+  "Static png/jpg image"
+  Image
+  "WebView (mobile) or iFrame (web)"
+  WebView
+}
+
+type BannerSource {
+  "kind of banner"
+  kind: BannerKind!
+  "ratio is inferred from placement"
+  ratio: Float @deprecated
+
+  """
+  Deprecated, use URL istead
+  For WebView - URL
+  For Image - full url
+  """
+  src(width: Int): String! @deprecated
+  """
+  For WebView - URL
+  For Image - full url
+  """
+  url(width: Int): String!
+}
+
+type Banner implements NamedNode {
+  "Banner's uuid"
+  id: ID!
+  "Unique one-word alias"
+  slug: String!
+  "For admin convenience"
+  name: String!
+  "Priority to choose banner, the higher the better"
+  priority: Int!
+  "Whether the banner should be displayed or not"
+  enabled: Boolean!
+  "Banner place in the app"
+  placement: BannerPlacement!
+  "Source to display banner from"
+  source: BannerSource!
+  "link for image banners, null for WebView banners"
+  link: String
+  "Arbitrary data for extra schema flexibility"
+  extras: JSON
+  "Client-side flag for lists, not persisted"
+  deleted: Boolean
+  "Which regions"
+  regions: BannerRegionConnection
+  "Which region groups"
+  groups: BannerGroupConnection
+}
+
+type BannerRegionConnection {
+  nodes: [Region!]!
+  count: Int!
+}
+
+type BannerGroupConnection {
+  nodes: [Group!]!
+  count: Int!
+}
+
+type BannersList {
+  nodes: [Banner!]!
+  count: Int!
+}
+
+input BannerSourceInput {
+  kind: BannerKind!
+  url: String!
+}
+
+input BannerInput {
+  "exisiting banner id or null for new banners"
+  id: ID
+  "Unique alias, cannot be edited"
+  slug: String!
+  "For admin convenience"
+  name: String!
+  "Priority to choose banner, the higher the better"
+  priority: Int!
+  "Whether the banner should be displayed or not"
+  enabled: Boolean!
+  "Banner place in the app"
+  placement: BannerPlacement!
+  "Source to display banner from"
+  source: BannerSourceInput!
+  "link for image banners, null for WebView banners"
+  link: String
+  "Arbitrary data for extra schema flexibility"
+  extras: JSON
+  "Which regions"
+  regions: [RefInput!]!
+  "Which region groups"
+  groups: [RefInput!]!
+}
+
+type Query {
+  "get banner by id, returns null without id"
+  banner(id: ID): Banner @admin
+  "lists existing banners"
+  banners: BannersList @admin
+}
+
+type Mutation {
+  "creates or updates banner"
+  upsertBanner(banner: BannerInput!): Banner @admin
+  "deletes banner"
+  removeBanner(id: ID!): Banner @admin
+}

@@ -1,25 +1,14 @@
-import { NamedNode } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { NamedNode } from '@whitewater-guide/schema';
 import get from 'lodash/get';
 import React, { useCallback } from 'react';
 import { QueryResult } from 'react-apollo';
 
 import { AutocompleteProps, QueryAutocomplete } from './autocomplete';
-
-const FIND_REGIONS_QUERY = gql`
-  query findRegions($filter: RegionFilterOptions, $page: Page) {
-    regions(filter: $filter, page: $page) {
-      nodes {
-        id
-        name
-      }
-    }
-  }
-`;
+import { FindRegionsDocument } from './findRegions.generated';
 
 type Props = Omit<AutocompleteProps, 'options'>;
 
-export const RegionFinder: React.FC<Props> = React.memo((props) => {
+export const RegionFinder = React.memo<Props>((props) => {
   const getVariables = useCallback(
     (input: string | null) => ({
       filter: {
@@ -30,15 +19,17 @@ export const RegionFinder: React.FC<Props> = React.memo((props) => {
     [],
   );
 
-  const getNodes = useCallback((result?: QueryResult): NamedNode[] => {
-    return get(result, 'data.regions.nodes', []);
-  }, []);
+  const getNodes = useCallback(
+    (result?: QueryResult): NamedNode[] =>
+      get(result, 'data.regions.nodes', []),
+    [],
+  );
 
   return (
     <QueryAutocomplete
       {...props}
       placeholder="Select region"
-      query={FIND_REGIONS_QUERY}
+      query={FindRegionsDocument}
       getVariables={getVariables}
       getNodes={getNodes}
     />

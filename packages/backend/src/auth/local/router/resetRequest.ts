@@ -1,8 +1,7 @@
 import { Middleware } from 'koa';
 import isEmail from 'validator/lib/isEmail';
 
-import db from '~/db';
-import { UserRaw } from '~/features/users';
+import { db, Sql } from '~/db';
 
 import { MailType, sendMail } from '../../mail';
 import logger from '../logger';
@@ -18,7 +17,7 @@ const resetRequest: Middleware<any, any> = async (ctx, next) => {
   }
   email = email.toLowerCase();
 
-  const user: UserRaw | undefined = await db()
+  const user: Sql.Users | undefined = await db()
     .select('*')
     .from('users')
     .where({ email })

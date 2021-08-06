@@ -7,9 +7,10 @@ import {
 
 import { MUICell } from './MUICell';
 
-export const renderMUICell = (
-  cellRenderer: TableCellRenderer = defaultTableCellRenderer,
-  // eslint-disable-next-line react/display-name
-): TableCellRenderer => (props: TableCellProps) => {
-  return <MUICell>{cellRenderer(props)}</MUICell>;
-};
+export const renderMUICell =
+  (
+    cellRenderer: TableCellRenderer = defaultTableCellRenderer,
+    // eslint-disable-next-line react/display-name
+  ): TableCellRenderer =>
+  (props: TableCellProps) =>
+    <MUICell>{cellRenderer(props)}</MUICell>;

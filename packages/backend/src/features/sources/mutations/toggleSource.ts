@@ -1,11 +1,6 @@
-import { TopLevelResolver } from '~/apollo';
+import { MutationResolvers } from '~/apollo';
 
-interface Vars {
-  id: string;
-  enabled: boolean;
-}
-
-const toggleSource: TopLevelResolver<Vars> = async (
+const toggleSource: MutationResolvers['toggleSource'] = async (
   _,
   { id, enabled },
   { dataSources },

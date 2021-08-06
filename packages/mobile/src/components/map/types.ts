@@ -1,8 +1,6 @@
-import { Coordinate2d, CoordinateLoose } from '@whitewater-guide/commons';
-
 export interface MapboxBounds {
-  ne: Coordinate2d;
-  sw: Coordinate2d;
+  ne: CodegenCoordinates;
+  sw: CodegenCoordinates;
   paddingLeft?: number;
   paddingRight?: number;
   paddingTop?: number;
@@ -13,6 +11,6 @@ export interface MapViewProps {
   mapType: string;
   detailed?: boolean;
   locationPermissionGranted: boolean;
-  initialBounds: CoordinateLoose[];
+  initialBounds: CodegenCoordinates[];
   testID?: string;
 }

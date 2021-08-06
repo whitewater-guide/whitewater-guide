@@ -1,36 +1,25 @@
-import { Gauge, Point, Region, Section } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import {
+  ListedSectionFragment,
+  RegionDetailsFragment,
+} from '@whitewater-guide/clients';
+import { Point } from '@whitewater-guide/schema';
 import React, { useEffect, useMemo, useState } from 'react';
-import { useLazyQuery } from 'react-apollo';
 
 import { Map } from '../../../components/maps';
 import GaugesMapSwitch from './GaugesMapSwitch';
-
-const GAUGES_QUERY = gql`
-  query regionGauges($regionId: ID) {
-    gauges(filter: { regionId: $regionId }) {
-      nodes {
-        id
-        name
-        location {
-          id
-          kind
-          name
-          coordinates
-        }
-      }
-    }
-  }
-`;
+import {
+  RegionGaugeFragment,
+  useRegionGaugesLazyQuery,
+} from './regionGauges.generated';
 
 interface Props {
-  region: Region;
-  sections: Section[];
+  region: RegionDetailsFragment;
+  sections: ListedSectionFragment[];
 }
 
 const RegionMapTab: React.FC<Props> = ({ region, sections }) => {
   const [showGauges, setShowGauges] = useState(false);
-  const [fetchGauges, { data, called }] = useLazyQuery(GAUGES_QUERY, {
+  const [fetchGauges, { data, called }] = useRegionGaugesLazyQuery({
     variables: { regionId: region.id },
   });
 
@@ -41,9 +30,9 @@ const RegionMapTab: React.FC<Props> = ({ region, sections }) => {
   }, [fetchGauges, called, showGauges]);
 
   const pois = useMemo(() => {
-    const gauges = (data?.gauges?.nodes || [])
-      .map((g: Gauge) => g.location)
-      .filter((p: Point) => !!p);
+    const gauges = (data?.gauges?.nodes ?? [])
+      .map((g: RegionGaugeFragment) => g.location)
+      .filter((p): p is Point => !!p);
     return [...region.pois, ...(showGauges ? gauges : [])];
   }, [region, data, showGauges]);
 

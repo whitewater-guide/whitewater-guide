@@ -1,33 +1,33 @@
+/* eslint-disable @typescript-eslint/no-invalid-this */
 import {
   Descent,
   DescentInput,
   DescentsFilter,
   RelayConnection,
-} from '@whitewater-guide/commons';
+} from '@whitewater-guide/schema';
 import { DataSourceConfig } from 'apollo-datasource';
 import { ForbiddenError, UserInputError } from 'apollo-server-koa';
 import * as jwt from 'jsonwebtoken';
 import { QueryBuilder } from 'knex';
 
-import { Context } from '~/apollo';
-import { Cursor } from '~/apollo/cursor';
+import { Context, Cursor } from '~/apollo';
 import config from '~/config';
-import db from '~/db';
+import { db, Sql } from '~/db';
 import { FieldsMap, ManyBuilderOptions } from '~/db/connectors';
 import { RelayConnector } from '~/db/connectors/RelayConnector';
 
-import { DescentRaw, ShareToken } from './types';
+import { ShareToken } from './types';
 
-const FIELDS_MAP: FieldsMap<Descent, DescentRaw> = {
+const FIELDS_MAP: FieldsMap<Descent, Sql.Descents> = {
   section: 'section_id',
   level: ['level_unit', 'level_value'],
 };
 
-interface GetManyOptions extends ManyBuilderOptions<DescentRaw> {
+interface GetManyOptions extends ManyBuilderOptions<Sql.Descents> {
   filter?: DescentsFilter | null;
 }
 
-export class DescentsConnector extends RelayConnector<Descent, DescentRaw> {
+export class DescentsConnector extends RelayConnector<Descent, Sql.Descents> {
   constructor() {
     super();
     this._tableName = 'descents';
@@ -40,8 +40,8 @@ export class DescentsConnector extends RelayConnector<Descent, DescentRaw> {
     this._sqlFields.push('ord_id', 'user_id');
   }
 
-  initialize(config: DataSourceConfig<Context>) {
-    super.initialize(config);
+  initialize(cfg: DataSourceConfig<Context>) {
+    super.initialize(cfg);
     // Descents are not i18ned
     this._language = undefined;
   }
@@ -54,7 +54,8 @@ export class DescentsConnector extends RelayConnector<Descent, DescentRaw> {
   public buildGenericQuery(): QueryBuilder {
     const query = super.buildGenericQuery();
     if (this._fieldsByType.get(this._graphqlTypeName)?.has('section')) {
-      let sectionsQuery: QueryBuilder = this._context.dataSources.sections.buildGenericQuery();
+      let sectionsQuery: QueryBuilder =
+        this._context.dataSources.sections.buildGenericQuery();
       sectionsQuery = sectionsQuery.whereRaw(
         '"sections_view"."id" = "descents"."section_id"',
       );
@@ -71,10 +72,10 @@ export class DescentsConnector extends RelayConnector<Descent, DescentRaw> {
     let identifier = id;
     let fromShareToken = false;
     if (!id && shareToken) {
-      const decoded: ShareToken = jwt.verify(
+      const decoded = jwt.verify(
         shareToken,
         config.DESCENTS_TOKEN_SECRET,
-      ) as any;
+      ) as ShareToken;
       if (!decoded.descent) {
         throw new ForbiddenError('share token does not contain descent id');
       }
@@ -118,9 +119,7 @@ export class DescentsConnector extends RelayConnector<Descent, DescentRaw> {
     });
   }
 
-  public async getMany(
-    options: GetManyOptions,
-  ): Promise<RelayConnection<any, Cursor>> {
+  public async getMany(options: GetManyOptions): Promise<RelayConnection<any>> {
     const query = super.getManyQuery(options);
 
     // Only public or owned descents
@@ -230,7 +229,7 @@ export class DescentsConnector extends RelayConnector<Descent, DescentRaw> {
           .join('descents', 'parent_descents.parent_id', 'descents.id');
       });
 
-    const raw: Partial<DescentRaw> = {
+    const raw: Partial<Sql.Descents> = {
       parent_id: db().raw(
         '(SELECT parent_descents.id FROM parent_descents WHERE parent_descents.parent_id IS NULL)',
       ) as any,

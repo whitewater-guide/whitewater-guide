@@ -32,13 +32,15 @@ it('should return error when two methods are called concurrently', async () => {
   const service = new MockAuthService();
   service.signIn.mockImplementation(
     () =>
-      new Promise((resolve) =>
-        setTimeout(() => resolve({ success: true }), 10),
-      ),
+      new Promise((resolve) => {
+        setTimeout(() => resolve({ success: true }), 10);
+      }),
   );
   service.signOut.mockImplementation(
     () =>
-      new Promise((resolve) => setTimeout(() => resolve({ success: true }), 0)),
+      new Promise((resolve) => {
+        setTimeout(() => resolve({ success: true }), 0);
+      }),
   );
   await service.init();
   const listener = jest.fn();
@@ -60,13 +62,15 @@ it('refresh can be called any time', async () => {
   const service = new MockAuthService();
   service.signIn.mockImplementation(
     () =>
-      new Promise((resolve) =>
-        setTimeout(() => resolve({ success: true }), 10),
-      ),
+      new Promise((resolve) => {
+        setTimeout(() => resolve({ success: true }), 10);
+      }),
   );
   service.refreshAccessToken.mockImplementation(
     () =>
-      new Promise((resolve) => setTimeout(() => resolve({ success: true }), 0)),
+      new Promise((resolve) => {
+        setTimeout(() => resolve({ success: true }), 0);
+      }),
   );
   await service.init();
   const listener = jest.fn();
@@ -107,13 +111,15 @@ it('should ignore loading state when sign in is forced', async () => {
   const service = new MockAuthService();
   service.signIn.mockImplementation(
     () =>
-      new Promise((resolve) =>
-        setTimeout(() => resolve({ success: true }), 10),
-      ),
+      new Promise((resolve) => {
+        setTimeout(() => resolve({ success: true }), 10);
+      }),
   );
   service.signOut.mockImplementation(
     () =>
-      new Promise((resolve) => setTimeout(() => resolve({ success: true }), 0)),
+      new Promise((resolve) => {
+        setTimeout(() => resolve({ success: true }), 0);
+      }),
   );
   await service.init();
   const listener = jest.fn();

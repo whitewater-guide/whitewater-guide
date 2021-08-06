@@ -1,0 +1,3 @@
+mutation removeRegionFromGroup($regionId: ID!, $groupId: ID!) {
+  removeRegionFromGroup(regionId: $regionId, groupId: $groupId)
+}

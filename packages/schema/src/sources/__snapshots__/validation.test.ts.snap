@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should be invalid for bad cron 1`] = `
+Object {
+  "cron": "yup:string.cron",
+}
+`;
+
+exports[`should be invalid for bad region 1`] = `
+Object {
+  "regions": Array [
+    Object {
+      "id": Object {
+        "key": "yup:string.uuid",
+        "options": Object {
+          "path": "regions[0].id",
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`should be invalid for bad url 1`] = `
+Object {
+  "url": Object {
+    "key": "yup:string.url",
+    "options": Object {
+      "path": "url",
+    },
+  },
+}
+`;
+
+exports[`should be invalid for bad uuid 1`] = `
+Object {
+  "id": Object {
+    "key": "yup:string.uuid",
+    "options": Object {
+      "path": "id",
+    },
+  },
+}
+`;
+
+exports[`should be invalid for empty name 1`] = `
+Object {
+  "name": "yup:mixed.required",
+}
+`;
+
+exports[`should be invalid for empty script 1`] = `
+Object {
+  "script": Object {
+    "key": "yup:string.min",
+    "options": Object {
+      "min": 1,
+      "path": "script",
+    },
+  },
+}
+`;
+
+exports[`should be invalid for extra fields 1`] = `
+Object {
+  "": Object {
+    "key": "yup:object.noUnknown",
+    "options": Object {
+      "path": "this",
+    },
+  },
+}
+`;
+
+exports[`should be invalid for some bad regions legacy snapshot 1`] = `
+Object {
+  "regions": Array [
+    Object {
+      "id": Object {
+        "key": "yup:string.uuid",
+        "options": Object {
+          "path": "regions[0].id",
+        },
+      },
+    },
+    ,
+    Object {
+      "id": Object {
+        "key": "yup:string.uuid",
+        "options": Object {
+          "path": "regions[2].id",
+        },
+      },
+    },
+  ],
+}
+`;

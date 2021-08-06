@@ -13,9 +13,9 @@ export const SectionMedia: React.FC = () => {
     <Box padding={1}>
       <Suspense fallback={<Loading />}>
         <MediaListWithData />
-        <Route strict={true} path={`${match.path}/new`} component={MediaForm} />
+        <Route strict path={`${match.path}/new`} component={MediaForm} />
         <Route
-          strict={true}
+          strict
           path={`${match.path}/:mediaId/settings`}
           component={MediaForm}
         />

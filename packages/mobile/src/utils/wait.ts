@@ -1,1 +1,4 @@
-export default (n: number) => new Promise((resolve) => setTimeout(resolve, n));
+export default (n: number) =>
+  new Promise((resolve) => {
+    setTimeout(resolve, n);
+  });

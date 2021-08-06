@@ -1,0 +1,21 @@
+fragment ListGaugesRow on Gauge {
+  ...GaugeCore
+  ...GaugeLocation
+  ...GaugeHarvestInfo
+  ...GaugeStatus
+  ...GaugeLatestMeasurement
+  source {
+    id
+  }
+  enabled
+}
+
+query listGauges($filter: GaugesFilter, $page: Page) {
+  gauges(filter: $filter, page: $page)
+    @connection(key: "gauges", filter: ["filter"]) {
+    nodes {
+      ...ListGaugesRow
+    }
+    count
+  }
+}

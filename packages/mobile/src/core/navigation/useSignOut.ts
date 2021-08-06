@@ -11,24 +11,26 @@ export default ({ reset }: RootStackNav) => {
   const { service } = useAuth();
   const apollo = useApolloClient();
 
-  useEffect(() => {
-    return service.on('sign-out', async (_force: boolean) => {
-      reset({
-        index: 0,
-        routes: [
-          {
-            name: Screens.ROOT_STACK,
-            state: {
-              index: 0,
-              routes: [{ name: Screens.REGIONS_LIST }],
+  useEffect(
+    () =>
+      service.on('sign-out', async (_force: boolean) => {
+        reset({
+          index: 0,
+          routes: [
+            {
+              name: Screens.ROOT_STACK,
+              state: {
+                index: 0,
+                routes: [{ name: Screens.REGIONS_LIST }],
+              },
             },
-          },
-        ],
-      });
-      apolloCachePersistor.pause();
-      await apolloCachePersistor.purge();
-      await apollo.resetStore();
-      apolloCachePersistor.resume();
-    });
-  }, [service, apollo, reset]);
+          ],
+        });
+        apolloCachePersistor.pause();
+        await apolloCachePersistor.purge();
+        await apollo.resetStore();
+        apolloCachePersistor.resume();
+      }),
+    [service, apollo, reset],
+  );
 };

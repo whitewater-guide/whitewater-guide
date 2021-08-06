@@ -1,0 +1,121 @@
+fragment SectionNameShort on Section {
+  id
+  name
+  river {
+    id
+    name
+  }
+}
+
+fragment SectionName on Section {
+  id
+  name
+  altNames
+  river {
+    id
+    name
+    altNames
+  }
+}
+
+fragment SectionCore on Section {
+  ...SectionName
+
+  hidden
+  helpNeeded
+  demo
+  verified
+
+  season
+  seasonNumeric
+
+  distance
+  drop
+  duration
+  difficulty
+  difficultyXtra
+  rating
+}
+
+fragment SectionEnds on Section {
+  putIn {
+    id
+    coordinates
+    kind
+  }
+  takeOut {
+    id
+    coordinates
+    kind
+  }
+}
+
+fragment SectionFlows on Section {
+  levels {
+    ...GaugeBindingAll
+  }
+  flows {
+    ...GaugeBindingAll
+  }
+  flowsText
+}
+
+fragment SectionMeasurements on Section {
+  gauge {
+    ...GaugeCore
+    ...GaugeLocation
+    ...GaugeLatestMeasurement
+    source {
+      id
+      name
+      termsOfUse
+    }
+  }
+  ...SectionFlows
+}
+
+fragment SectionPOIs on Section {
+  pois {
+    id
+    name
+    description
+    coordinates
+    kind
+  }
+}
+
+fragment SectionTags on Section {
+  tags {
+    id
+    name
+    category
+  }
+}
+
+fragment SectionLicense on Section {
+  copyright
+  license {
+    slug
+    name
+    url
+  }
+}
+
+fragment DescentSection on Section {
+  ...SectionNameShort
+  difficulty
+  region {
+    id
+    name
+  }
+  levels {
+    ...GaugeBindingAll
+  }
+  flows {
+    ...GaugeBindingAll
+  }
+  gauge {
+    ...GaugeForChart
+  }
+  ...SectionEnds
+}

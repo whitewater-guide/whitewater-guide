@@ -14,7 +14,7 @@ interface Props {
   localPhoto?: LocalPhoto;
 }
 
-const PhotoForm: React.FC<Props> = React.memo((props) => {
+const PhotoForm = React.memo<Props>((props) => {
   const { localPhoto, prefix = '' } = props;
   const { uploading, upload } = useUploadLink();
   const { values, setFieldValue } = useFormikContext<any>();
@@ -41,42 +41,42 @@ const PhotoForm: React.FC<Props> = React.memo((props) => {
     <Box display="flex" flexDirection="row">
       <Box flex={1}>
         <TextField
-          multiline={true}
-          fullWidth={true}
+          multiline
+          fullWidth
           name={`${prefix}description`}
           label="Description"
           placeholder="Description"
         />
         <TextField
-          fullWidth={true}
+          fullWidth
           name={`${prefix}copyright`}
           label="Copyright"
           placeholder="Copyright"
         />
         <TextField
-          fullWidth={true}
-          disabled={true}
+          fullWidth
+          disabled
           name={`${prefix}url`}
           label="URL"
           placeholder="URL"
         />
         <NumberField
-          fullWidth={true}
+          fullWidth
           name={`${prefix}weight`}
           label="Sort weight"
           placeholder="Sort weight"
         />
         <Box display="flex" flexDirection="row">
           <NumberField
-            fullWidth={true}
-            disabled={true}
+            fullWidth
+            disabled
             name={`${prefix}resolution.0`}
             label="Image width"
             placeholder="Image width"
           />
           <NumberField
-            fullWidth={true}
-            disabled={true}
+            fullWidth
+            disabled
             name={`${prefix}resolution.1`}
             label="Image height"
             placeholder="Image height"

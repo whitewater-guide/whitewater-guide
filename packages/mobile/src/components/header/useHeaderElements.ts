@@ -4,8 +4,8 @@ import { useMemo } from 'react';
 
 import theme from '~/theme';
 
-export default (scene: StackHeaderProps['scene']) => {
-  return useMemo(() => {
+export default (scene: StackHeaderProps['scene']) =>
+  useMemo(() => {
     const titleProp = scene.descriptor.options.headerTitle;
     const headerLeftProp = scene.descriptor.options.headerLeft;
     const headerRightProp = scene.descriptor.options.headerRight;
@@ -37,4 +37,3 @@ export default (scene: StackHeaderProps['scene']) => {
       title,
     };
   }, [scene]);
-};

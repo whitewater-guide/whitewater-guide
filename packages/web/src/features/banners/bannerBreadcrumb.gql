@@ -1,0 +1,6 @@
+query bannerBreadcrumb($id: ID!) {
+  node: banner(id: $id) {
+    id
+    name
+  }
+}

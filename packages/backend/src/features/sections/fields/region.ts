@@ -1,13 +1,10 @@
-import { GraphQLFieldResolver } from 'graphql';
 import gqf from 'graphql-fields';
 
-import { Context } from '~/apollo';
-
-import { SectionRaw } from '../types';
+import { SectionResolvers } from '~/apollo';
 
 const EMBEDDED_REGION_FIELDS = ['__typename', 'id', 'name'];
 
-const regionResolver: GraphQLFieldResolver<SectionRaw, Context> = (
+const regionResolver: SectionResolvers['region'] = (
   { region_id, region_name },
   _,
   { dataSources },

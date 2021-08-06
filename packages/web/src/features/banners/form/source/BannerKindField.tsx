@@ -4,11 +4,8 @@ import FormLabel from '@material-ui/core/FormLabel';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import {
-  BannerKind,
-  BannerPlacement,
-  BannerResolutions,
-} from '@whitewater-guide/commons';
+import { BannerResolutions } from '@whitewater-guide/clients';
+import { BannerKind, BannerPlacement } from '@whitewater-guide/schema';
 import React, { useCallback } from 'react';
 
 const useStyles = makeStyles(({ spacing, palette }) =>
@@ -30,7 +27,7 @@ interface Props {
   onChange: (value: BannerKind) => void;
 }
 
-const BannerKindField: React.FC<Props> = React.memo((props) => {
+const BannerKindField = React.memo<Props>((props) => {
   const { title, value, onChange, placement } = props;
   const [width, height] = BannerResolutions[placement];
   const classes = useStyles();

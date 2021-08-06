@@ -1,7 +1,7 @@
 import Koa from 'koa';
 import agent from 'supertest-koa-agent';
 
-import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { db, holdTransaction, rollbackTransaction } from '~/db';
 import { TEST_USER_ID } from '~/seeds/test/01_users';
 
 import { createApp } from '../../app';

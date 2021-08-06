@@ -50,17 +50,17 @@ const Errors: React.FC<Required<Props>> = ({ error }) => {
       : 'offline:dialog.downloadError';
 
   return (
-    <React.Fragment>
+    <>
       <TouchableOpacity onPress={copyError}>
         <Caption style={styles.error}>
           {t(errorKey)}
-          <Text style={styles.copy}>{' ' + String.fromCharCode(61839)}</Text>
+          <Text style={styles.copy}>{` ${String.fromCharCode(61839)}`}</Text>
         </Caption>
       </TouchableOpacity>
       {!isConnected && (
         <Caption style={styles.error}>{t('commons:checkConnection')}</Caption>
       )}
-    </React.Fragment>
+    </>
   );
 };
 

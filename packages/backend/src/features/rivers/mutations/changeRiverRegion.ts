@@ -1,18 +1,13 @@
-import { MutationNotAllowedError, TopLevelResolver } from '~/apollo';
-import db from '~/db';
+import { MutationNotAllowedError, MutationResolvers } from '~/apollo';
+import { db } from '~/db';
 
-interface Vars {
-  riverId: string;
-  regionId: string;
-}
-
-const changeRiverRegion: TopLevelResolver<Vars> = async (
+const changeRiverRegion: MutationResolvers['changeRiverRegion'] = async (
   _,
   { riverId, regionId },
   { dataSources },
 ) => {
   const region = await dataSources.regions.getById(regionId);
-  if (region == null) {
+  if (region === null) {
     throw new MutationNotAllowedError('Region does not exist');
   }
 

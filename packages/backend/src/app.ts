@@ -1,8 +1,8 @@
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 
-import { useAuth } from '~/auth';
-import db from '~/db';
+import { applyAuthMiddleware } from '~/auth';
+import { db } from '~/db';
 import log from '~/log';
 import { addPingRoute } from '~/utils';
 
@@ -22,8 +22,7 @@ export const createApp = (): App => {
   app.use(corsMiddleware);
 
   app.use(bodyParser());
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  useAuth(app);
+  applyAuthMiddleware(app);
 
   addPingRoute(app);
 

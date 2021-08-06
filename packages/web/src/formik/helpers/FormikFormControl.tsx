@@ -11,7 +11,7 @@ interface Props extends FormControlProps {
   errorFieldName?: string;
 }
 
-export const FormikFormControl: React.FC<Props> = React.memo((props) => {
+export const FormikFormControl = React.memo<Props>((props) => {
   const {
     name,
     errorFieldName,

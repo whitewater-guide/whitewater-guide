@@ -17,14 +17,14 @@ const DialogActions: React.FC<Props> = (props) => {
   const { inProgress, canDownload, selection, regionId, error } = props;
   if (error || !inProgress) {
     return (
-      <React.Fragment>
+      <>
         <CancelButton />
         <DownloadButton
           canDownload={canDownload}
           regionId={regionId}
           selection={selection}
         />
-      </React.Fragment>
+      </>
     );
   }
   return <BackgroundButton />;

@@ -1,4 +1,4 @@
-import { SuggestionInput } from '@whitewater-guide/commons';
+import { SuggestionInput } from '@whitewater-guide/schema';
 
 export default (sectionId: string): SuggestionInput => ({
   section: {

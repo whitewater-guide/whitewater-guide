@@ -3,16 +3,13 @@ import { useEffect } from 'react';
 import { Platform } from 'react-native';
 
 class Versioning {
-  getHumanVersion = async () => {
-    return PJSON_VERSION;
-  };
+  getHumanVersion = async () => PJSON_VERSION;
 
   getDist = () => {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const { androidBuildNumber, iosBuildNumber } = require('../../app.json');
-    return (Platform.OS === 'ios'
-      ? iosBuildNumber
-      : androidBuildNumber
+    return (
+      Platform.OS === 'ios' ? iosBuildNumber : androidBuildNumber
     ).toString();
   };
 }

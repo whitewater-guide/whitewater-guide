@@ -13,7 +13,7 @@ services:
       - POSTGRES_DB=wwguide
       - POSTGRES_PASSWORD=whitewater
       - PGDATA=/var/lib/postgresql/data/pgdata
-    image: timescale/timescaledb-postgis:1.6.0-pg11
+    image: postgis/postgis:12-3.1-alpine
     command:
       # These settings enable faster pg_restore
       - postgres
@@ -82,18 +82,20 @@ services:
   gorge:
     <<: *ww-commons
     container_name: ww-gorge
-    image: docker.pkg.github.com/whitewater-guide/gorge/gorge:1.18.1
+    image: ghcr.io/whitewater-guide/gorge:1.20.2
     depends_on:
       - db
-      - redis
     command:
       [
+        '--cache',
+        'inmemory',
         '--pg-db',
         'gorge',
         '--pg-password',
         'whitewater',
         '--db-chunk-size',
         '1000',
+        '--pg-without-timescale',
       ]
     ports:
       - '7080:7080'
@@ -101,14 +103,3 @@ services:
       default:
         aliases:
           - gorge.local
-
-  # Redis for sessions and last measurements
-  redis:
-    <<: *ww-commons
-    container_name: ww-redis
-    image: redis:4-alpine
-    ports:
-      - '6379:6379'
-    volumes:
-      - type: tmpfs
-        target: /data

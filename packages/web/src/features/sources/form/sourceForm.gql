@@ -1,0 +1,29 @@
+fragment SourceForm on Source {
+  ...SourceCore
+  requestParams
+  regions {
+    nodes {
+      id
+      name
+    }
+  }
+}
+
+query sourceForm($sourceId: ID) {
+  source(id: $sourceId) {
+    ...SourceForm
+  }
+
+  regions {
+    nodes {
+      id
+      name
+    }
+    count
+  }
+
+  scripts {
+    id
+    name
+  }
+}

@@ -1,4 +1,4 @@
-import { toRomanDifficulty } from '@whitewater-guide/commons';
+import { toRomanDifficulty } from '@whitewater-guide/clients';
 import times from 'lodash/times';
 import React from 'react';
 
@@ -23,8 +23,8 @@ interface Props {
   placeholder?: string;
 }
 
-export const DifficultyField: React.FC<Props> = React.memo((props) => {
-  return <SelectField options={VALUES} {...preset} {...props} />;
-});
+export const DifficultyField = React.memo<Props>((props) => (
+  <SelectField options={VALUES} {...preset} {...props} />
+));
 
 DifficultyField.displayName = 'DifficultyField';

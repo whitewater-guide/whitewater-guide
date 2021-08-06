@@ -1,0 +1,67 @@
+enum SuggestionStatus {
+  pending
+  accepted
+  rejected
+}
+
+type Suggestion {
+  "UUID"
+  id: ID!
+  "Text, optional, but maybe be enforced in validations"
+  description: String
+  "Optional copyright for media"
+  copyright: String
+  "Automatical creation date"
+  createdAt: Date!
+  "Optional, some suggestions can be anonymous"
+  createdBy: User
+  "status"
+  status: SuggestionStatus!
+  "admin/editor who accepted or rejected the suggestion"
+  resolvedBy: User
+  "when was the suggestion resolved or rejected"
+  resolvedAt: Date
+
+  "Section to which this suggestion is related"
+  section: Section!
+  "Absolute image url (or thumb, when parameters are set)"
+  image(width: Int, height: Int): String
+  "Resolution of image - [width, height] tuple"
+  resolution: [Int!]
+}
+
+type SuggestionsList {
+  nodes: [Suggestion!]!
+  count: Int!
+}
+
+"Suggestions cannot be edited, hence no id"
+input SuggestionInput {
+  "Section to which this suggestion is related"
+  section: RefInput!
+  "Text, optional, but maybe be enforced in validations"
+  description: String
+  "Optional copyright"
+  copyright: String
+  "Name of attached image"
+  filename: String
+  "Image resolution. Required when attaching image"
+  resolution: [Int!]
+}
+
+input SuggestionsFilter {
+  status: [SuggestionStatus!]
+  userId: String
+}
+
+type Mutation {
+  "Marks suggestion as resolved or rejected"
+  resolveSuggestion(id: ID!, status: SuggestionStatus!): Suggestion
+  "Creates suggestion"
+  addSuggestion(suggestion: SuggestionInput!): Suggestion
+}
+
+type Query {
+  "Lists suggestions"
+  suggestions(page: Page, filter: SuggestionsFilter): SuggestionsList
+}

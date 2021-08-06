@@ -22,17 +22,15 @@ const styles = StyleSheet.create({
   },
 });
 
-export const AuthScreenBase: React.FC = ({ children }) => {
-  return (
-    <Screen safeBottom={true}>
-      <KeyboardAwareScrollView>
-        <View style={styles.body}>
-          <View style={styles.logoWrapper}>
-            <Logo />
-          </View>
-          {children}
+export const AuthScreenBase: React.FC = ({ children }) => (
+  <Screen safeBottom>
+    <KeyboardAwareScrollView>
+      <View style={styles.body}>
+        <View style={styles.logoWrapper}>
+          <Logo />
         </View>
-      </KeyboardAwareScrollView>
-    </Screen>
-  );
-};
+        {children}
+      </View>
+    </KeyboardAwareScrollView>
+  </Screen>
+);

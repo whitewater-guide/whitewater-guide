@@ -3,7 +3,7 @@ import Koa from 'koa';
 import superagent from 'superagent';
 import agent from 'supertest-koa-agent';
 
-import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { db, holdTransaction, rollbackTransaction } from '~/db';
 import {
   ADMIN_ID,
   EDITOR_GA_EC_ID,

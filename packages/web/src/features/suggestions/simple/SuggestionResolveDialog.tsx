@@ -13,7 +13,7 @@ interface Props {
   onClose: () => void;
 }
 
-const SuggestionResolveDialog: React.FC<Props> = React.memo((props) => {
+const SuggestionResolveDialog = React.memo<Props>((props) => {
   const { suggestionId, onClose } = props;
   const { accept, reject } = useResolveSuggestion(suggestionId, onClose);
   return (

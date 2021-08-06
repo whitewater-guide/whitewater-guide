@@ -1,0 +1,3 @@
+mutation removeGauge($id: ID!) {
+  removeGauge(id: $id)
+}

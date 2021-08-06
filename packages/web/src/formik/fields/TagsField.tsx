@@ -1,5 +1,5 @@
 import Typography from '@material-ui/core/Typography';
-import { Tag } from '@whitewater-guide/commons';
+import { Tag } from '@whitewater-guide/schema';
 import { useField } from 'formik';
 import React from 'react';
 
@@ -13,13 +13,13 @@ interface Props {
   label?: string;
 }
 
-export const TagsField: React.FC<Props> = React.memo((props) => {
+export const TagsField = React.memo<Props>((props) => {
   const { name, label, options } = props;
   const [{ value }] = useField<Tag[]>(name);
   const { onChange } = useFakeHandlers(name);
   return (
-    <FormikFormControl name={name} fullWidth={true}>
-      <Typography variant="overline" display="block" gutterBottom={true}>
+    <FormikFormControl name={name} fullWidth>
+      <Typography variant="overline" display="block" gutterBottom>
         {label}
       </Typography>
       <div>

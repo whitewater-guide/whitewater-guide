@@ -1,6 +1,6 @@
 import { MockedProvider, MockedResponse } from '@apollo/react-testing';
 import { renderHook } from '@testing-library/react-hooks';
-import { Connection, NamedNode, Page } from '@whitewater-guide/commons';
+import { NamedNode, Page } from '@whitewater-guide/schema';
 import gql from 'graphql-tag';
 import React from 'react';
 
@@ -140,6 +140,12 @@ const mocks: MockedResponse[] = [
   },
 ];
 
+interface Connection<T> {
+  __typename?: string;
+  count?: number;
+  nodes?: T[];
+}
+
 interface QVars {
   page?: Page;
   foo?: string;
@@ -157,7 +163,7 @@ it('should provide 3 sections', async () => {
   const wrapper: React.FC = ({ children }: any) => (
     <MockedProvider mocks={mocks}>{children}</MockedProvider>
   );
-  const { result, waitForNextUpdate, unmount } = renderHook(
+  const { result, waitForNextUpdate } = renderHook(
     (variables: any) =>
       useStreamingQuery<QResult, QVars>(QUERY, { variables }, 1),
     { wrapper, initialProps: { foo: 'foo' } },
@@ -175,14 +181,13 @@ it('should provide 3 sections', async () => {
     { id: '2' },
     { id: '3' },
   ]);
-  unmount();
 });
 
 it('should provide 3 more sections when vars change', async () => {
   const wrapper: React.FC = ({ children }: any) => (
     <MockedProvider mocks={mocks}>{children}</MockedProvider>
   );
-  const { result, waitForNextUpdate, rerender, unmount } = renderHook(
+  const { result, waitForNextUpdate, rerender } = renderHook(
     (variables: any) =>
       useStreamingQuery<QResult, QVars>(QUERY, { variables }, 1),
     { wrapper, initialProps: { foo: 'foo' } },
@@ -214,5 +219,4 @@ it('should provide 3 more sections when vars change', async () => {
     { id: '5' },
     { id: '6' },
   ]);
-  unmount();
 });

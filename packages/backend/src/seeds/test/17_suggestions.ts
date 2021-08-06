@@ -1,7 +1,8 @@
-import { SuggestionStatus } from '@whitewater-guide/commons';
+import { SuggestionStatus } from '@whitewater-guide/schema';
 import Knex from 'knex';
 
-import { SuggestionRaw } from '../../features/suggestions/types';
+import { Sql } from '~/db';
+
 import { ADMIN_ID, EDITOR_NO_ID, TEST_USER_ID } from './01_users';
 import { GALICIA_BECA_LOWER, NORWAY_SJOA_AMOT } from './09_sections';
 
@@ -12,7 +13,7 @@ export const MEDIA_SUGGESTION_ID1 = '5af798b6-b3ba-11e9-a2a3-2a2ae2dbcce4';
 export const MEDIA_SUGGESTION_ID2 = '5af799ec-b3ba-11e9-a2a3-2a2ae2dbcce4';
 export const MEDIA_SUGGESTION_ID3 = '5af79d34-b3ba-11e9-a2a3-2a2ae2dbcce4';
 
-const suggestions: Array<Partial<SuggestionRaw>> = [
+const suggestions: Array<Partial<Sql.Suggestions>> = [
   {
     id: EDIT_SUGGESTION_ID1,
     section_id: NORWAY_SJOA_AMOT,
@@ -23,14 +24,14 @@ const suggestions: Array<Partial<SuggestionRaw>> = [
     id: EDIT_SUGGESTION_ID2,
     section_id: NORWAY_SJOA_AMOT,
     description: 'edit suggestion 2',
-    status: SuggestionStatus.ACCEPTED,
+    status: SuggestionStatus.Accepted,
     resolved_by: ADMIN_ID,
   },
   {
     id: EDIT_SUGGESTION_ID3,
     section_id: GALICIA_BECA_LOWER,
     description: 'edit suggestion 3',
-    status: SuggestionStatus.REJECTED,
+    status: SuggestionStatus.Rejected,
     resolved_by: ADMIN_ID,
   },
   {
@@ -49,7 +50,7 @@ const suggestions: Array<Partial<SuggestionRaw>> = [
     filename: 'media_suggestion2.jpg',
     resolution: [100, 100],
     description: 'media suggestion 2',
-    status: SuggestionStatus.ACCEPTED,
+    status: SuggestionStatus.Accepted,
     resolved_by: ADMIN_ID,
   },
   {
@@ -59,7 +60,7 @@ const suggestions: Array<Partial<SuggestionRaw>> = [
     filename: 'media_suggestion3.jpg',
     resolution: [100, 100],
     description: 'media suggestion 3',
-    status: SuggestionStatus.REJECTED,
+    status: SuggestionStatus.Rejected,
     resolved_by: EDITOR_NO_ID,
   },
 ];

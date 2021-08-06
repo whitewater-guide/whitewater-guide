@@ -8,12 +8,12 @@ import ChartLayout from './ChartLayout';
 import { SectionChartNavProps } from './types';
 
 const SectionChartScreen: React.FC<SectionChartNavProps> = () => {
-  const { node } = useSection();
-  const gauge = node && node.gauge;
+  const section = useSection();
+  const gauge = section?.gauge;
   return (
     <Screen>
-      {node && gauge ? (
-        <ChartLayout section={node} gauge={gauge} />
+      {section && gauge ? (
+        <ChartLayout section={section} gauge={gauge} />
       ) : (
         <NoChart />
       )}

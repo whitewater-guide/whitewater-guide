@@ -3,8 +3,8 @@ import React from 'react';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
 
 export const EditorRoute = React.memo((props: RouteProps) => {
-  const { node } = useRegion();
-  if (node && !node.editable) {
+  const region = useRegion();
+  if (region && !region.editable) {
     return <Redirect to="/403" />;
   }
   return <Route {...props} />;

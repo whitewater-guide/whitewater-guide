@@ -1,0 +1,6 @@
+query regionEditors($regionId: ID!) {
+  editors: regionEditors(regionId: $regionId) {
+    id
+    name
+  }
+}

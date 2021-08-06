@@ -1,0 +1,22 @@
+fragment UserCore on User {
+  id
+  name
+  avatar
+  email
+}
+
+fragment MyProfile on User {
+  ...UserCore
+  editor
+  admin
+  language
+  imperial
+  verified
+  editorSettings {
+    language
+  }
+  accounts {
+    id
+    provider
+  }
+}

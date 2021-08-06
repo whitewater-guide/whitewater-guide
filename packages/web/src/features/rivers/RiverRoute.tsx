@@ -9,7 +9,7 @@ const RiverRoute: React.FC<RouteComponentProps<any>> = ({ match }) => (
   <Suspense fallback={<Loading />}>
     <Switch>
       <EditorRoute
-        exact={true}
+        exact
         path={`${match.path}/settings`}
         component={RiverForm}
       />

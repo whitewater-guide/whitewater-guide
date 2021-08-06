@@ -1,0 +1,7 @@
+fragment PointCore on Point {
+  id
+  kind
+  name
+  description
+  coordinates
+}

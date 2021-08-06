@@ -8,18 +8,18 @@ import { RiversList } from './list';
 import RiverRoute from './RiverRoute';
 
 export const RiversRoute: React.FC<RouteComponentProps<any>> = (props) => {
-  let path = props.match.path;
+  let { path } = props.match;
   if (!path.endsWith('/')) {
-    path = path + '/';
+    path += '/';
   }
   return path.includes('/regions/') ? (
     <Suspense fallback={<Loading />}>
       <Switch>
-        <EditorRoute exact={true} path={`${path}new`} component={RiverForm} />
+        <EditorRoute exact path={`${path}new`} component={RiverForm} />
         <Route path={`${path}:riverId`} component={RiverRoute} />
       </Switch>
     </Suspense>
   ) : (
-    <Route exact={true} path={`${path}`} component={RiversList} />
+    <Route exact path={`${path}`} component={RiversList} />
   );
 };

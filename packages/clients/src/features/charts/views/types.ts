@@ -1,15 +1,17 @@
 import {
-  Gauge,
-  Measurement,
+  GaugeForChartFragment,
   MeasurementsFilter,
-  Section,
+  Node,
+  SectionFlowsFragment,
   Unit,
-} from '@whitewater-guide/commons';
+} from '@whitewater-guide/schema';
 import React from 'react';
 import { VictoryAxisProps } from 'victory-axis';
 import { VictoryChartProps } from 'victory-chart';
 import { TextAnchorType, VictoryLabelProps } from 'victory-core';
 import { VictoryLineProps } from 'victory-line';
+
+import { ChartDataPoint } from '../types';
 
 export interface ChartMeta {
   days: number;
@@ -25,11 +27,11 @@ export interface ChartMeta {
 export interface ChartViewProps {
   width: number;
   height: number;
-  data: Array<Measurement<Date>>;
+  data: Array<ChartDataPoint>;
   unit: Unit;
-  gauge: Gauge;
-  section?: Section;
-  filter: MeasurementsFilter<Date>;
+  gauge: GaugeForChartFragment;
+  section?: Node & SectionFlowsFragment;
+  filter: MeasurementsFilter;
   highlightedDate?: Date;
 }
 

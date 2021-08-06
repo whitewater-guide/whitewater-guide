@@ -1,6 +1,6 @@
 import { useFocusEffect } from '@react-navigation/native';
 import { useSection } from '@whitewater-guide/clients';
-import { BannerPlacement } from '@whitewater-guide/commons';
+import { BannerPlacement } from '@whitewater-guide/schema';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
@@ -28,8 +28,8 @@ const SectionGuideScreen: React.FC<SectionGuideNavProps> = ({ navigation }) => {
   useFocusEffect(
     React.useCallback(() => {
       navigation.dangerouslyGetParent()?.setOptions({
-        // eslint-disable-next-line react/display-name
-        headerRight: () => <SectionGuideMenu section={section.node} />,
+        // eslint-disable-next-line react/no-unstable-nested-components
+        headerRight: () => <SectionGuideMenu section={section} />,
       });
 
       return () => {
@@ -37,7 +37,7 @@ const SectionGuideScreen: React.FC<SectionGuideNavProps> = ({ navigation }) => {
           headerRight: () => null,
         });
       };
-    }, [navigation, section.node]),
+    }, [navigation, section]),
   );
 
   return (
@@ -45,7 +45,7 @@ const SectionGuideScreen: React.FC<SectionGuideNavProps> = ({ navigation }) => {
       <ScrollView contentContainerStyle={styles.content}>
         <SectionGuideView section={section} />
         <RegionBanners
-          placement={BannerPlacement.MOBILE_SECTION_DESCRIPTION}
+          placement={BannerPlacement.MobileRegionDescription}
           count={10}
         />
         <View style={styles.fabHelper} />

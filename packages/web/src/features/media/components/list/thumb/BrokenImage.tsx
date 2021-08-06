@@ -3,7 +3,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import React, { FC } from 'react';
 
-import { MediaOrInput } from '../types';
+import { ListedMedia } from '../types';
 import { THUMB_HEIGHT } from './constants';
 
 const useStyles = makeStyles(() =>
@@ -40,7 +40,7 @@ const useStyles = makeStyles(() =>
 );
 
 interface Props {
-  media: MediaOrInput;
+  media: ListedMedia;
   editable?: boolean;
   onEdit?: (e: React.MouseEvent) => void;
   onRemove?: (e: React.MouseEvent) => void;
@@ -52,14 +52,14 @@ const BrokenImage: FC<Props> = ({ editable, media, onEdit, onRemove }) => {
     <div className={classes.brokenImage}>
       <div className={classes.brokenImageMenu}>
         {editable && (
-          <React.Fragment>
+          <>
             <IconButton onClick={onEdit}>
               <Icon color="error">edit</Icon>
             </IconButton>
             <IconButton onClick={onRemove}>
               <Icon>delete_forever</Icon>
             </IconButton>
-          </React.Fragment>
+          </>
         )}
       </div>
       <div className={classes.brokenImageBody}>

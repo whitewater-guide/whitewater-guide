@@ -1,0 +1,6 @@
+mutation bulkInsert($regionId: ID!, $hidden: Boolean, $archiveURL: String!) {
+  bulkInsert(regionId: $regionId, hidden: $hidden, archiveURL: $archiveURL) {
+    count
+    log
+  }
+}

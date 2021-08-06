@@ -4,7 +4,7 @@ import {
   MockedResolversContext,
   RecursiveMockResolver,
 } from '@whitewater-guide/clients/dist/test';
-import { SectionInput } from '@whitewater-guide/commons';
+import { SectionInput } from '@whitewater-guide/schema';
 import { GraphQLResolveInfo } from 'graphql';
 import React from 'react';
 import { RouteComponentProps } from 'react-router';

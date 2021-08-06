@@ -2,9 +2,9 @@ import { toMarkdown } from '@whitewater-guide/md-editor';
 
 import { toJSON } from '../../../formik/utils';
 import { SourceFormData } from './types';
-import { MVars } from './upsertSource.mutation';
+import { UpsertSourceMutationVariables } from './upsertSource.generated';
 
-export default (source: SourceFormData): MVars => ({
+export default (source: SourceFormData): UpsertSourceMutationVariables => ({
   source: {
     ...source,
     termsOfUse: toMarkdown(source.termsOfUse),

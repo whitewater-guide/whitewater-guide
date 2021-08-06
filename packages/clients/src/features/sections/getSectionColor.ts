@@ -1,10 +1,12 @@
+/* eslint-disable no-bitwise */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { GaugeBinding, Measurement, Section } from '@whitewater-guide/commons';
+import { GaugeBinding } from '@whitewater-guide/schema';
 import color from 'color';
 import isFunction from 'lodash/isFunction';
 import mapValues from 'lodash/mapValues';
 
 import { getBindingFormula } from './formulas';
+import { ColorizeableSectionFragment } from './sectionOnMap.generated';
 
 interface DryBinding extends GaugeBinding {
   dry: number;
@@ -49,11 +51,14 @@ export const getColorForValue = (
   const { minimum, maximum, optimum, impossible } = binding;
   if (value === minimum) {
     return ColorStrings.minimum;
-  } else if (value === optimum) {
+  }
+  if (value === optimum) {
     return ColorStrings.optimum;
-  } else if (value === maximum) {
+  }
+  if (value === maximum) {
     return ColorStrings.maximum;
-  } else if (value === impossible) {
+  }
+  if (value === impossible) {
     return ColorStrings.impossible;
   }
   return defaultColor;
@@ -68,11 +73,14 @@ export function getDryLevel({
 }: GaugeBinding) {
   if (!minimum) {
     return 0;
-  } else if (optimum) {
+  }
+  if (optimum) {
     return minimum - (optimum - minimum) / 5;
-  } else if (maximum) {
+  }
+  if (maximum) {
     return minimum - (maximum - minimum) / 10;
-  } else if (impossible) {
+  }
+  if (impossible) {
     return minimum - (impossible - minimum) / 20;
   }
   return 0.7 * minimum;
@@ -101,13 +109,17 @@ function getCol(
 ) {
   if (dry >= lastValue) {
     return 0;
-  } else if (minimum && lastValue < minimum) {
+  }
+  if (minimum && lastValue < minimum) {
     return 1;
-  } else if (optimum && lastValue < optimum) {
+  }
+  if (optimum && lastValue < optimum) {
     return 2;
-  } else if (maximum && lastValue < maximum) {
+  }
+  if (maximum && lastValue < maximum) {
     return 3;
-  } else if (impossible && lastValue < impossible) {
+  }
+  if (impossible && lastValue < impossible) {
     return 4;
   }
   return 5;
@@ -323,15 +335,9 @@ const colorTable: ColorTable = {
   },
 };
 
-// Subset of section data required to compute its color
-interface PGauge {
-  latestMeasurement: Pick<Measurement, 'level' | 'flow'> | null;
-}
-export type ColorizeSection = Pick<Section, 'flows' | 'levels'> & {
-  gauge: PGauge | null;
-};
-
-export function getSectionColorRaw(section: ColorizeSection): color {
+export function getSectionColorRaw(
+  section: ColorizeableSectionFragment,
+): color {
   if (!section.gauge || !section.gauge.latestMeasurement) {
     return Colors.none;
   }
@@ -360,12 +366,13 @@ export function getSectionColorRaw(section: ColorizeSection): color {
   const result = colorTable[row][col];
   if (result === null) {
     return mix(col, dataAndDry, lastValue);
-  } else if (isFunction(result)) {
+  }
+  if (isFunction(result)) {
     return result(binding, lastValue);
   }
-  return result as color;
+  return result;
 }
 
-export function getSectionColor(section: ColorizeSection): string {
+export function getSectionColor(section: ColorizeableSectionFragment): string {
   return getSectionColorRaw(section).string();
 }

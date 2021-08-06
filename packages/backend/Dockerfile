@@ -2,12 +2,15 @@ FROM node:14.16.0 AS builder
 
 WORKDIR /opt/app
 
+COPY packages/schema ./packages/schema
 COPY packages/commons ./packages/commons
 COPY packages/backend ./packages/backend
 COPY patches ./patches
 COPY package.json yarn.lock tsconfig.json ./
 
 RUN yarn install --frozen-lockfile --non-interactive
+RUN yarn codegen
+RUN yarn workspace @whitewater-guide/schema build
 RUN yarn workspace @whitewater-guide/commons build
 RUN yarn workspace @whitewater-guide/backend build
 
@@ -15,6 +18,9 @@ RUN yarn workspace @whitewater-guide/backend build
 FROM node:14.16.0 AS production
 
 WORKDIR /opt/app
+
+COPY --from=builder /opt/app/packages/schema/dist ./packages/schema/dist
+COPY --from=builder /opt/app/packages/schema/package.json ./packages/schema/package.json
 
 COPY --from=builder /opt/app/packages/commons/dist ./packages/commons/dist
 COPY --from=builder /opt/app/packages/commons/package.json ./packages/commons/package.json

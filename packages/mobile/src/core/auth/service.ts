@@ -27,6 +27,7 @@ import { tokenStorage } from './tokens';
 
 export class MobileAuthService extends BaseAuthService {
   private _fcmToken: string | null = null;
+
   private _fcmTokenSent = false;
 
   constructor() {
@@ -52,7 +53,7 @@ export class MobileAuthService extends BaseAuthService {
 
   onAppStateChange = (state: AppStateStatus) => {
     if (state === 'active' && !this.loading) {
-      this.refreshAccessToken().catch();
+      this.refreshAccessToken().catch(() => {});
     }
   };
 
@@ -67,6 +68,7 @@ export class MobileAuthService extends BaseAuthService {
     }
     const req: RefreshPayload = { refreshToken };
     const resp = await this._post('/auth/jwt/refresh', req);
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     const { success, accessToken, status, error, error_id } = resp;
     if (success && accessToken) {
       await tokenStorage.setAccessToken(accessToken);
@@ -87,12 +89,10 @@ export class MobileAuthService extends BaseAuthService {
       messaging()
         .getToken()
         .then((token) => {
-          this._sendFcmToken(token);
+          this._sendFcmToken(token).catch(() => {});
           this._fcmTokenSent = true;
         })
-        .catch(() => {
-          // we do not care if messaging fails
-        });
+        .catch(() => {});
     }
     return resp;
   }
@@ -164,7 +164,6 @@ export class MobileAuthService extends BaseAuthService {
         requestedOperation: appleAuth.Operation.LOGIN,
         requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
       });
-      // tslint:disable-next-line: no-console
       return await this._post('/auth/apple/signin', {
         ...appleResp,
         fcm_token: this._fcmToken,
@@ -176,9 +175,8 @@ export class MobileAuthService extends BaseAuthService {
           error: { form: 'user_canceled' },
           status: 400,
         };
-      } else {
-        return { success: false, error: { form: err }, status: 400 };
       }
+      return { success: false, error: { form: err }, status: 400 };
     }
   }
 
@@ -251,13 +249,14 @@ export class MobileAuthService extends BaseAuthService {
   };
 
   private _sendFcmToken = async (fcm_token: string) => {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     const old_fcm_token = fcm_token === this._fcmToken ? null : this._fcmToken;
     this._fcmToken = fcm_token;
     const opts = await this._getBearerHeader();
     if (fcm_token && opts) {
-      try {
-        this._post('/fcm/set', { fcm_token, old_fcm_token }, opts);
-      } catch {}
+      this._post('/fcm/set', { fcm_token, old_fcm_token }, opts).catch(
+        () => {},
+      );
     }
   };
 }

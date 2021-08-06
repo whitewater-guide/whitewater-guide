@@ -1,5 +1,5 @@
 /* eslint-disable import/no-duplicates */
-import { LANGUAGES } from '@whitewater-guide/commons';
+import { LANGUAGES } from '@whitewater-guide/schema';
 import de from 'date-fns/locale/de';
 import en from 'date-fns/locale/en-US';
 import es from 'date-fns/locale/es';
@@ -18,11 +18,12 @@ const locales: Record<string, Locale> = {
   it,
 };
 
+// eslint-disable-next-line @typescript-eslint/naming-convention, import/no-mutable-exports
 export let __DATE_FNS_LOCALE__: Locale = en;
 
 export const configDateFNS = (language: string) => {
   if (LANGUAGES.indexOf(language) === -1) {
-    throw new Error('unknown date-fns language: ' + language);
+    throw new Error(`unknown date-fns language: ${language}`);
   }
   __DATE_FNS_LOCALE__ = locales[language];
 };

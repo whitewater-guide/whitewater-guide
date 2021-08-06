@@ -1,10 +1,10 @@
-import { Region, Section } from '@whitewater-guide/commons';
+import { Region, Section } from '@whitewater-guide/schema';
 
 export type SKU = string;
 
 export type PremiumRegion = Pick<
   Region,
-  'id' | 'name' | 'sku' | 'sections' | 'hasPremiumAccess' | 'premium'
+  'id' | 'name' | 'sku' | 'hasPremiumAccess' | 'premium'
 >;
 
 export type PremiumSection = Pick<Section, 'id' | 'demo'>;

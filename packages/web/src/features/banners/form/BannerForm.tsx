@@ -1,13 +1,19 @@
 import React from 'react';
 
 import { FormikCard, useApolloFormik } from '../../../formik';
-import { squashConnection } from '../../../formik/utils';
-import { BANNER_FORM_QUERY, QResult, QVars } from './bannerForm.query';
+import {
+  BannerFormDocument,
+  BannerFormQuery,
+  BannerFormQueryVariables,
+} from './bannerForm.generated';
 import { BannerFormMain } from './BannerFormMain';
 import formToMutation from './formToMutation';
 import queryToForm from './queryToForm';
 import { BannerFormData } from './types';
-import { MVars, UPSERT_BANNER } from './upsertBanner.mutation';
+import {
+  UpsertBannerDocument,
+  UpsertBannerMutationVariables,
+} from './upsertBanner.generated';
 import { BannerFormSchema } from './validation';
 
 const header = { resourceType: 'banner' };
@@ -17,27 +23,32 @@ interface Props {
 }
 
 export const BannerForm: React.FC<Props> = ({ match }) => {
-  const formik = useApolloFormik<QVars, QResult, BannerFormData, MVars>({
-    query: BANNER_FORM_QUERY,
+  const formik = useApolloFormik<
+    BannerFormQueryVariables,
+    BannerFormQuery,
+    BannerFormData,
+    UpsertBannerMutationVariables
+  >({
+    query: BannerFormDocument,
     queryOptions: {
       variables: { bannerId: match.params.bannerId },
     },
     queryToForm,
-    mutation: UPSERT_BANNER,
+    mutation: UpsertBannerDocument,
     formToMutation,
   });
 
-  const regions = squashConnection(formik.rawData, 'regions');
-  const groups = squashConnection(formik.rawData, 'groups');
-
   return (
-    <FormikCard<QResult, BannerFormData>
+    <FormikCard<BannerFormQuery, BannerFormData>
       header={header}
       {...formik}
       validationSchema={BannerFormSchema}
-      validateOnChange={true}
+      validateOnChange
     >
-      <BannerFormMain regions={regions} groups={groups} />
+      <BannerFormMain
+        regions={formik.rawData?.regions.nodes}
+        groups={formik.rawData?.groups?.nodes}
+      />
     </FormikCard>
   );
 };

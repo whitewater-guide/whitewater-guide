@@ -6,11 +6,7 @@ import { BannerForm } from './form';
 
 const BannerRoute: React.FC<RouteComponentProps<any>> = ({ match }) => (
   <Switch>
-    <AdminRoute
-      exact={true}
-      path={`${match.path}/settings`}
-      component={BannerForm}
-    />
+    <AdminRoute exact path={`${match.path}/settings`} component={BannerForm} />
   </Switch>
 );
 

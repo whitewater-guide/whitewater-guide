@@ -1,11 +1,9 @@
-import { anonContext, fakeContext, runQuery, UUID_REGEX } from '@test';
-import {
-  ApolloErrorCodes,
-  PurchaseInput,
-  PurchasePlatform,
-} from '@whitewater-guide/commons';
+import { anonContext, fakeContext, UUID_REGEX } from '@test';
+import { ApolloErrorCodes } from '@whitewater-guide/commons';
+import { PurchaseInput, PurchasePlatform } from '@whitewater-guide/schema';
+import gql from 'graphql-tag';
 
-import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { db, holdTransaction, rollbackTransaction } from '~/db';
 import {
   BOOM_USER_3500,
   BOOM_USER_3500_ID,
@@ -18,10 +16,12 @@ import {
   BOOM_PROMO_REGION_REDEEMED,
 } from '~/seeds/test/12_boom_promos';
 
+import { testAddPurchase } from './addPurchase.test.generated';
+
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
-const mutation = `
+const _mutation = gql`
   mutation addPurchase($purchase: PurchaseInput!) {
     addPurchase(purchase: $purchase)
   }
@@ -33,7 +33,7 @@ it('anon should fail', async () => {
     transactionId: BOOM_PROMO_REGION_ACTIVE,
     productId: 'region.georgia',
   };
-  const result = await runQuery(mutation, { purchase }, anonContext());
+  const result = await testAddPurchase({ purchase }, anonContext());
   expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
 });
 
@@ -43,7 +43,7 @@ it('duplicate purchase should return false when for same user', async () => {
     transactionId: BOOM_PROMO_REGION_REDEEMED,
     productId: 'region.norway', // different region from already redeemed, but should not matter
   };
-  const result = await runQuery(mutation, { purchase }, fakeContext(TEST_USER));
+  const result = await testAddPurchase({ purchase }, fakeContext(TEST_USER));
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.addPurchase', false);
 });
@@ -54,8 +54,7 @@ it('duplicate purchase should return throw when for different user', async () =>
     transactionId: BOOM_PROMO_REGION_REDEEMED,
     productId: 'region.norway', // different region from already redeemed, but should not matter
   };
-  const result = await runQuery(
-    mutation,
+  const result = await testAddPurchase(
     { purchase },
     fakeContext(BOOM_USER_3500),
   );
@@ -71,7 +70,7 @@ it('should throw on invalid input', async () => {
     transactionId: 'x',
     productId: 'y',
   };
-  const result = await runQuery(mutation, { purchase }, fakeContext(TEST_USER));
+  const result = await testAddPurchase({ purchase }, fakeContext(TEST_USER));
   expect(result).toHaveGraphqlValidationError();
 });
 
@@ -82,8 +81,7 @@ describe('boomstarter', () => {
       transactionId: 'xxxxxxxx',
       productId: 'region.norway',
     };
-    const result = await runQuery(
-      mutation,
+    const result = await testAddPurchase(
       { purchase },
       fakeContext(BOOM_USER_3500),
     );
@@ -99,8 +97,7 @@ describe('boomstarter', () => {
       transactionId: BOOM_PROMO_EU_CIS_ACTIVE,
       productId: 'region.norway',
     };
-    const result = await runQuery(
-      mutation,
+    const result = await testAddPurchase(
       { purchase },
       fakeContext(BOOM_USER_3500),
     );
@@ -116,8 +113,7 @@ describe('boomstarter', () => {
       transactionId: BOOM_PROMO_LATIN_REDEEMED,
       productId: 'group.latin',
     };
-    const result = await runQuery(
-      mutation,
+    const result = await testAddPurchase(
       { purchase },
       fakeContext(BOOM_USER_3500),
     );
@@ -136,11 +132,7 @@ describe('boomstarter', () => {
         transactionId: BOOM_PROMO_EU_CIS_ACTIVE,
         productId: 'group.eu_cis',
       };
-      result = await runQuery(
-        mutation,
-        { purchase },
-        fakeContext(BOOM_USER_3500),
-      );
+      result = await testAddPurchase({ purchase }, fakeContext(BOOM_USER_3500));
     });
 
     it('should return true for correct promo code', () => {

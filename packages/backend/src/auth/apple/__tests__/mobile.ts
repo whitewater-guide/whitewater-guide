@@ -7,7 +7,7 @@ import agent from 'supertest-koa-agent';
 import {} from 'util';
 import { DeepPartial } from 'utility-types';
 
-import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { db, holdTransaction, rollbackTransaction } from '~/db';
 import { ADMIN_ID } from '~/seeds/test/01_users';
 
 import { createApp } from '../../../app';
@@ -101,7 +101,7 @@ describe.each([
   });
 
   it('should create verified user', async () => {
-    const id = response!.body.id;
+    const { id } = response!.body;
     const user = await db(false)
       .select('*')
       .from('users')

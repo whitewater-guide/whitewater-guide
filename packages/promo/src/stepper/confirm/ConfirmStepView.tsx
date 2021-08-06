@@ -1,8 +1,8 @@
 import StepContent from '@material-ui/core/StepContent';
 import React from 'react';
 
-import PromptView, { PromptViewProps } from './PromptView';
-import SuccessView, { SuccessViewProps } from './SuccessView';
+import { PromptView, PromptViewProps } from './PromptView';
+import { SuccessView, SuccessViewProps } from './SuccessView';
 
 type Props = SuccessViewProps &
   PromptViewProps & {

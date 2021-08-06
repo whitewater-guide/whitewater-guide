@@ -25,12 +25,12 @@ const DescentScreen: React.FC<DescentNavProps> = ({ navigation, route }) => {
 
   useEffect(() => {
     navigation.setOptions({
-      // eslint-disable-next-line react/display-name
+      // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () =>
         descent ? <DescentMenu descent={descent} /> : undefined,
     });
   }, [descent, navigation]);
 
-  return <Screen safeBottom={true}>{element}</Screen>;
+  return <Screen safeBottom>{element}</Screen>;
 };
 export default DescentScreen;

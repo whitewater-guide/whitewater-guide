@@ -7,7 +7,7 @@ interface Props {
   sourceId: string;
 }
 
-const AutofillButton: React.FC<Props> = React.memo(({ sourceId }) => {
+const AutofillButton = React.memo<Props>(({ sourceId }) => {
   const onClick = useAutofill(sourceId);
   return (
     <Button variant="contained" onClick={onClick}>

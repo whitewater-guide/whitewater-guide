@@ -1,4 +1,4 @@
-import { Section } from '@whitewater-guide/commons';
+import { Section } from '@whitewater-guide/schema';
 import React, { useCallback, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Collapsible from 'react-native-collapsible';
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  section: Section;
+  section: Pick<Section, 'helpNeeded'>;
 }
 
 const HelpNeeded = React.memo(({ section }: Props) => {

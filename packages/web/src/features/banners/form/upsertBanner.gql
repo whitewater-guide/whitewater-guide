@@ -1,0 +1,12 @@
+mutation upsertBanner($banner: BannerInput!) {
+  upsertBanner(banner: $banner) {
+    ...BannerCore
+    source {
+      kind
+      ratio
+      src
+    }
+    ...BannerRegions
+    ...BannerGroups
+  }
+}

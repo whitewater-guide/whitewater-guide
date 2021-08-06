@@ -1,21 +1,16 @@
 import { MenuList } from '@material-ui/core';
 import Popover from '@material-ui/core/Popover';
-import {
-  createStyles,
-  Theme,
-  WithStyles,
-  withStyles,
-} from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import { Region } from '@whitewater-guide/commons';
 import Downshift from 'downshift';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { PromoRegionFragment } from '../promoRegion.generated';
 import filterRegions from './filterRegions';
 import RegionItem from './RegionItem';
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     container: {
       flexGrow: 1,
@@ -31,20 +26,23 @@ const styles = (theme: Theme) =>
     inputRoot: {
       flexWrap: 'wrap',
     },
-  });
+  }),
+);
 
-interface Props extends WithStyles<typeof styles> {
-  regions: Region[];
-  value: Region | null;
-  onChange: (value: Region | null) => void;
+interface Props {
+  regions: PromoRegionFragment[];
+  value: PromoRegionFragment | null;
+  onChange: (value: PromoRegionFragment | null) => void;
 }
 
-const regionToString = (region: Region | null) => (region ? region.name : '');
+const regionToString = (region: PromoRegionFragment | null) =>
+  region?.name ?? '';
 
 const RegionSelector: React.FC<Props> = (props) => {
+  const { regions, value, onChange } = props;
   const { t } = useTranslation();
+  const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const { regions, classes, value, onChange } = props;
   return (
     <Downshift
       itemToString={regionToString}
@@ -94,9 +92,9 @@ const RegionSelector: React.FC<Props> = (props) => {
               vertical: 'top',
               horizontal: 'left',
             }}
-            disableRestoreFocus={true}
-            disableAutoFocus={true}
-            disableEnforceFocus={true}
+            disableRestoreFocus
+            disableAutoFocus
+            disableEnforceFocus
           >
             <MenuList>
               {filterRegions(regions, inputValue).map((region, index) => (
@@ -117,4 +115,4 @@ const RegionSelector: React.FC<Props> = (props) => {
   );
 };
 
-export default withStyles(styles)(RegionSelector);
+export default RegionSelector;

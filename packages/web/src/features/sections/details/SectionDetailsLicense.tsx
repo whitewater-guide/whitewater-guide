@@ -1,12 +1,15 @@
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import { ROOT_LICENSE, Section } from '@whitewater-guide/commons';
+import {
+  ROOT_LICENSE,
+  SectionDetailsFragment,
+} from '@whitewater-guide/clients';
 import React from 'react';
 
 import { Row, Title } from '../../../layout/details';
 
 interface Props {
-  section: Section | null;
+  section: SectionDetailsFragment | null;
 }
 
 const SectionDetailsLicense: React.FC<Props> = ({ section }) => {
@@ -16,14 +19,14 @@ const SectionDetailsLicense: React.FC<Props> = ({ section }) => {
 
   return (
     <Box overflow="auto" width={1} height={1} padding={1}>
-      <Grid container={true}>
+      <Grid container>
         <Row>
           <Title>Copyright</Title>
-          <Grid item={true}>{copyright}</Grid>
+          <Grid item>{copyright}</Grid>
         </Row>
         <Row>
           <Title>License</Title>
-          <Grid item={true}>
+          <Grid item>
             <span>Content in this section is available under </span>
             <b>
               {url ? (

@@ -1,5 +1,4 @@
 import { useMapSelection, useRegion } from '@whitewater-guide/clients';
-import { isPoint } from '@whitewater-guide/commons';
 import React, { useCallback, useRef } from 'react';
 import { StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -31,40 +30,40 @@ const SNAP_POINTS: [number, number, number] = [
   0,
 ];
 
-export const SelectedPOIView: React.FC = React.memo(function SelectedPOIView() {
+export const SelectedPOIView: React.FC = React.memo(() => {
   const scroll = useRef<ScrollView | null>(null);
   const region = useRegion();
-  const { selection, onSelected } = useMapSelection();
-  const poi = isPoint(selection) ? selection : null;
+  const [selection, onSelected] = useMapSelection();
+  const poi = selection?.__typename === 'Point' ? selection : null;
   // Keep section as state to prevent flash of empty content before panel hides
   const lastPoi = useLastNotNull(poi);
 
-  const renderContent = useCallback(() => {
-    return (
+  const renderContent = useCallback(
+    () => (
       <ScrollView style={styles.content} ref={scroll}>
         <Paragraph>{lastPoi ? lastPoi.description : ''}</Paragraph>
       </ScrollView>
-    );
-  }, [lastPoi, scroll]);
+    ),
+    [lastPoi, scroll],
+  );
 
-  const renderHeader = useCallback(() => {
-    return <SelectedPOIHeader poi={lastPoi} />;
-  }, [lastPoi]);
+  const renderHeader = useCallback(
+    () => <SelectedPOIHeader poi={lastPoi} />,
+    [lastPoi],
+  );
 
   // TODO: poi should be navigatable on demo map section
-  const premiumGuard = usePremiumGuard(region.node);
+  const premiumGuard = usePremiumGuard(region);
 
   const renderButtons = useCallback(
-    (scale?: Animated.Node<number>) => {
-      return (
-        <NavigateButton
-          labelKey="commons:navigate"
-          point={lastPoi}
-          premiumGuard={premiumGuard}
-          scale={scale}
-        />
-      );
-    },
+    (scale?: Animated.Node<number>) => (
+      <NavigateButton
+        labelKey="commons:navigate"
+        point={lastPoi}
+        premiumGuard={premiumGuard}
+        scale={scale}
+      />
+    ),
     [lastPoi, premiumGuard],
   );
 

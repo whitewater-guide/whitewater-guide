@@ -1,6 +1,6 @@
-import { TopLevelResolver } from '~/apollo';
+import { QueryResolvers } from '~/apollo';
 
-const banners: TopLevelResolver = (_, __, { dataSources }, info) =>
+const banners: QueryResolvers['banners'] = (_, __, { dataSources }, info) =>
   dataSources.banners.getMany(info);
 
 export default banners;

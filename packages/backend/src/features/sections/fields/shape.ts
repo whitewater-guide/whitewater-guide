@@ -1,10 +1,6 @@
-import { GraphQLFieldResolver } from 'graphql';
+import { SectionResolvers } from '~/apollo';
 
-import { Context } from '~/apollo';
-
-import { SectionRaw } from '../types';
-
-const shapeResolver: GraphQLFieldResolver<SectionRaw, Context> = ({ shape }) =>
+const shapeResolver: SectionResolvers['shape'] = ({ shape }) =>
   shape.coordinates;
 
 export default shapeResolver;

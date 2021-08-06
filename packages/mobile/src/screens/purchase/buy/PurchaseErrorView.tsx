@@ -56,7 +56,7 @@ const PurchaseErrorView: React.FC<Props> = React.memo(({ error }) => {
     <View style={styles.errorWrapper}>
       <TouchableOpacity onPress={copyError}>
         <Subheading style={styles.error}>
-          <Text style={styles.copy}>{String.fromCharCode(61839) + ' '}</Text>
+          <Text style={styles.copy}>{`${String.fromCharCode(61839)} `}</Text>
           {errorString}
         </Subheading>
         {!isConnected && (

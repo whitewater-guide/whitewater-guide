@@ -1,4 +1,5 @@
-import { MapSelection } from '@whitewater-guide/clients';
+import { ListedSectionFragment } from '@whitewater-guide/clients';
+import { PointCoreFragment } from '@whitewater-guide/schema';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
@@ -26,7 +27,9 @@ const HIDE_THRESHOLD_OVERSHOOT = 10;
 
 const { Value, Extrapolate, color, interpolate } = Animated;
 
-interface Props extends MapSelection {
+interface Props {
+  selection: ListedSectionFragment | PointCoreFragment | null;
+  onSelected: (node: ListedSectionFragment | PointCoreFragment | null) => void;
   selectionType: 'Point' | 'Section';
   snapPoints: SnapPoints;
   renderHeader: () => React.ReactNode;
@@ -42,9 +45,13 @@ interface Props extends MapSelection {
 
 class SelectedElementView extends React.PureComponent<Props> {
   private readonly _sheet = React.createRef<BottomSheet>();
+
   private readonly _headerPosition: Animated.Value<number>;
-  private readonly _overlayBackground: Animated.Node<number>;
+
+  private readonly _overlayBackground: Animated.Node<string | number>;
+
   private readonly _buttonsScale: Animated.Node<number>;
+
   private readonly _initialSnap: number;
 
   constructor(props: Props) {
@@ -116,14 +123,11 @@ class SelectedElementView extends React.PureComponent<Props> {
   };
 
   render() {
-    const {
-      renderContent,
-      innerGestureHandlerRefs,
-      simultaneousHandlers,
-    } = this.props;
+    const { renderContent, innerGestureHandlerRefs, simultaneousHandlers } =
+      this.props;
     const snapPoints = getSnapPoints(this.props.snapPoints);
     return (
-      <React.Fragment>
+      <>
         <Animated.View
           style={[
             StyleSheet.absoluteFill,
@@ -144,7 +148,7 @@ class SelectedElementView extends React.PureComponent<Props> {
           innerGestureHandlerRefs={innerGestureHandlerRefs}
           simultaneousHandlers={simultaneousHandlers}
         />
-      </React.Fragment>
+      </>
     );
   }
 }

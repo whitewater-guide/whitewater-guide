@@ -37,7 +37,7 @@ export const BaseMap = React.memo(
     return (
       <Mapbox.MapView
         ref={ref}
-        localizeLabels={true}
+        localizeLabels
         pitchEnabled={false}
         rotateEnabled={false}
         compassEnabled={false}

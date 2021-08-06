@@ -1,11 +1,11 @@
-import { Tag } from '@whitewater-guide/commons';
 import { toMarkdown } from '@whitewater-guide/md-editor';
+import { Tag } from '@whitewater-guide/schema';
 import upperFirst from 'lodash/upperFirst';
 
 import { SectionFormData } from './types';
-import { MVars } from './upsertSection.mutation';
+import { UpsertSectionMutationVariables } from './upsertSection.generated';
 
-export default (form: SectionFormData): MVars => {
+export default (form: SectionFormData): UpsertSectionMutationVariables => {
   const {
     kayakingTags,
     hazardsTags,

@@ -1,8 +1,5 @@
 import { getLocalPhotoSchema } from '@whitewater-guide/clients';
-import {
-  MediaInputSchema,
-  SectionInputSchema,
-} from '@whitewater-guide/commons';
+import { MediaInputSchema, SectionInputSchema } from '@whitewater-guide/schema';
 import * as yup from 'yup';
 
 import { MAX_PHOTO_MEGAPIXELS } from '../../features/uploads';
@@ -20,10 +17,11 @@ const MediaFormSchema: yup.SchemaOf<MediaFormInput> = MediaInputSchema.clone()
   })
   .defined();
 
-export const SectionFormSchema: yup.SchemaOf<SectionFormInput> = SectionInputSchema.clone()
-  .shape({
-    media: yup.array().of(MediaFormSchema.clone()),
-  })
-  .defined()
-  .strict(true)
-  .noUnknown(true);
+export const SectionFormSchema: yup.SchemaOf<SectionFormInput> =
+  SectionInputSchema.clone()
+    .shape({
+      media: yup.array().of(MediaFormSchema.clone()),
+    })
+    .defined()
+    .strict(true)
+    .noUnknown(true);

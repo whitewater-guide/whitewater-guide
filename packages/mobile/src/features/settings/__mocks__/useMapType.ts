@@ -1,3 +1,1 @@
-export const useMapType = () => {
-  return { mapType: undefined, setMapType: jest.fn() };
-};
+export const useMapType = () => ({ mapType: undefined, setMapType: jest.fn() });

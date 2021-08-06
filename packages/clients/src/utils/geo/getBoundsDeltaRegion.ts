@@ -1,10 +1,15 @@
-import { CoordinateLoose } from '@whitewater-guide/commons';
-
 import { getBBox } from './getBBox';
 
+export interface BoundsDeltaRegion {
+  latitude: number;
+  longitude: number;
+  latitudeDelta: number;
+  longitudeDelta: number;
+}
+
 export function getBoundsDeltaRegion(
-  bounds: CoordinateLoose[] | null | undefined,
-) {
+  bounds: CodegenCoordinates[] | null | undefined,
+): BoundsDeltaRegion | undefined {
   if (!bounds) {
     return undefined;
   }

@@ -1,4 +1,4 @@
-import { Banner } from '@whitewater-guide/commons';
+import { BannerWithSourceFragment } from '@whitewater-guide/schema';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  banner: Banner;
+  banner: BannerWithSourceFragment;
 }
 
 export const SectionListBanner: React.FC<Props> = ({ banner }) => (

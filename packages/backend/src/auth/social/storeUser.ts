@@ -1,7 +1,6 @@
-import { SocialMediaProvider } from '@whitewater-guide/commons';
+import { SocialMediaProvider } from '@whitewater-guide/schema';
 
-import db from '~/db';
-import { UserRaw } from '~/features/users';
+import { db, Sql } from '~/db';
 
 import { SocialUser } from './types';
 
@@ -11,7 +10,7 @@ export async function storeUser(
   language: string,
 ) {
   let isNew = false;
-  let user: UserRaw | null = null;
+  let user: Sql.Users | null = null;
 
   if (!user) {
     user = await db()
@@ -40,8 +39,12 @@ export async function storeUser(
         verified: true,
       })
       .returning('*');
-    user = users[0] as UserRaw;
+    user = users[0];
     isNew = true;
+  }
+
+  if (!user) {
+    throw new Error('cannot find or create user');
   }
 
   const loginKeys = {

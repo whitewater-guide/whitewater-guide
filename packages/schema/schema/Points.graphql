@@ -1,0 +1,27 @@
+type Point {
+  "Unique ID"
+  id: ID!
+  "Human-friendly name"
+  name: String
+  "Human-friendly description"
+  description: String
+  "[longitude, latitude, altitude] tuple"
+  coordinates: Coordinates!
+  "Dictionary value, point type"
+  kind: String!
+  "This POI is premium"
+  premium: Boolean!
+}
+
+input PointInput {
+  "Unique ID"
+  id: ID
+  "Human-friendly name"
+  name: String
+  "Human-friendly description"
+  description: String
+  "[longitude, latitude, altitude] tuple, where altitude can be null"
+  coordinates: Coordinates!
+  "Dictionary value, point type"
+  kind: String
+}

@@ -1,8 +1,8 @@
 import { toJSON } from '../../../formik/utils';
 import { GaugeFormData } from './types';
-import { MVars } from './upsertGauge.mutation';
+import { UpsertGaugeMutationVariables } from './upsertGauge.generated';
 
-export default (gauge: GaugeFormData): MVars => ({
+export default (gauge: GaugeFormData): UpsertGaugeMutationVariables => ({
   gauge: {
     ...gauge,
     location: gauge.location

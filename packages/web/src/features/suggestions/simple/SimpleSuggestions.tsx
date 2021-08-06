@@ -1,17 +1,12 @@
-import { SuggestionStatus } from '@whitewater-guide/commons';
+import { SuggestionStatus } from '@whitewater-guide/schema';
 import React, { useCallback, useState } from 'react';
-import { useQuery } from 'react-apollo';
 
 import { Loading } from '../../../components';
-import {
-  LIST_SUGGESTIONS_QUERY,
-  QResult,
-  QVars,
-} from './listSuggestions.query';
+import { useListSuggestionsQuery } from './listSuggestions.generated';
 import SuggestionResolveDialog from './SuggestionResolveDialog';
 import SuggestionsTableInfinite from './SuggestionsTableInfinite';
 
-const DEFAULT_STATUSES = [SuggestionStatus.PENDING];
+const DEFAULT_STATUSES = [SuggestionStatus.Pending];
 
 export const SimpleSuggestions: React.FC = () => {
   const [resolveId, setResolveId] = useState<string | null>(null);
@@ -20,22 +15,19 @@ export const SimpleSuggestions: React.FC = () => {
     setResolveId(null);
   }, [setResolveId]);
 
-  const { data, loading, fetchMore } = useQuery<QResult, QVars>(
-    LIST_SUGGESTIONS_QUERY,
-    {
-      fetchPolicy: 'network-only',
-      variables: {
-        filter: { status: statusFilter },
-      },
+  const { data, loading, fetchMore } = useListSuggestionsQuery({
+    fetchPolicy: 'network-only',
+    variables: {
+      filter: { status: statusFilter },
     },
-  );
+  });
 
   if (loading && !data?.suggestions) {
     return <Loading />;
   }
 
   return (
-    <React.Fragment>
+    <>
       <SuggestionsTableInfinite
         suggestions={data?.suggestions}
         fetchMore={fetchMore}
@@ -49,7 +41,7 @@ export const SimpleSuggestions: React.FC = () => {
           onClose={closeResolveDialog}
         />
       )}
-    </React.Fragment>
+    </>
   );
 };
 

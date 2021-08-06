@@ -34,16 +34,20 @@ const MyProfileView = React.memo(() => {
   const { t } = useTranslation();
   const { me, refreshProfile } = useAuth();
   const [refreshing, setRefreshing] = useState(false);
+
   const refresh = useCallback(() => {
     setRefreshing(true);
     refreshProfile().finally(() => setRefreshing(false));
   }, [refreshProfile, setRefreshing]);
+
   if (!me) {
-    return <RetryPlaceholder labelKey={'myProfile:notLoggedIn'} />;
+    return <RetryPlaceholder labelKey="myProfile:notLoggedIn" />;
   }
+
   const username = me.name || '';
+
   return (
-    <React.Fragment>
+    <>
       <ScrollView
         style={{ flex: 1 }}
         contentContainerStyle={styles.scroll}
@@ -51,11 +55,11 @@ const MyProfileView = React.memo(() => {
           <RefreshControl refreshing={refreshing} onRefresh={refresh} />
         }
       >
-        <Paper gutterBottom={true} style={styles.userHeader}>
+        <Paper gutterBottom style={styles.userHeader}>
           <Title>{username}</Title>
           <VerificationStatus />
         </Paper>
-        <Paper gutterBottom={true}>
+        <Paper gutterBottom>
           <Title>{t('myProfile:general')}</Title>
           <Divider style={{ marginBottom: theme.margin.single }} />
           <MyLanguage me={me} />
@@ -63,7 +67,7 @@ const MyProfileView = React.memo(() => {
         <PurchasesListView />
       </ScrollView>
       <SignOutButton />
-    </React.Fragment>
+    </>
   );
 });
 

@@ -1,15 +1,9 @@
-import { TopLevelResolver } from '~/apollo';
+import { QueryResolvers } from '~/apollo';
 
-interface Vars {
-  id: string;
-}
-
-const descentShareToken: TopLevelResolver<Vars> = async (
+const descentShareToken: QueryResolvers['descentShareToken'] = (
   _,
   { id },
   { dataSources },
-) => {
-  return dataSources.descents.getShareToken(id);
-};
+) => dataSources.descents.getShareToken(id);
 
 export default descentShareToken;

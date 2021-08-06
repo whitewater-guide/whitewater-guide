@@ -15,7 +15,7 @@ const DeleteDescentDialog: React.FC<Props> = ({ descentId, close }) => {
   const onDelete = () => deleteDescent().finally(() => close());
   return (
     <Portal>
-      <Dialog visible={true} onDismiss={close}>
+      <Dialog visible onDismiss={close}>
         <Dialog.Content>
           <Paragraph>{t('screens:descent.deleteConfirmation')}</Paragraph>
         </Dialog.Content>

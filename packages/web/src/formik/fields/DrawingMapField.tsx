@@ -1,4 +1,3 @@
-import { Coordinate, Coordinate3d } from '@whitewater-guide/commons';
 import { useField } from 'formik';
 import React from 'react';
 
@@ -8,12 +7,12 @@ import { useFakeHandlers } from '../utils';
 interface Props {
   name: string;
   drawingMode: DrawingMode;
-  bounds: Coordinate[] | null;
+  bounds: CodegenCoordinates[] | null;
 }
 
-export const DrawingMapField: React.FC<Props> = React.memo((props) => {
+export const DrawingMapField = React.memo<Props>((props) => {
   const { name, drawingMode, bounds } = props;
-  const [field] = useField<Coordinate3d[]>(name);
+  const [field] = useField<CodegenCoordinates[]>(name);
   const { onChange } = useFakeHandlers(name);
   return (
     <DrawingMap

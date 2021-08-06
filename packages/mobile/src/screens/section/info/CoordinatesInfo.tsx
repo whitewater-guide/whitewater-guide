@@ -1,5 +1,4 @@
 import { arrayToLatLngString, useRegion } from '@whitewater-guide/clients';
-import { Coordinate, Section } from '@whitewater-guide/commons';
 import React, { useCallback } from 'react';
 import { Clipboard } from 'react-native';
 import { Paragraph, Subheading } from 'react-native-paper';
@@ -7,20 +6,24 @@ import { Paragraph, Subheading } from 'react-native-paper';
 import Icon from '~/components/Icon';
 import { Left, Right, Row } from '~/components/Row';
 
-import { usePremiumAccess, usePremiumGuard } from '../../../features/purchases';
+import {
+  PremiumSection,
+  usePremiumAccess,
+  usePremiumGuard,
+} from '../../../features/purchases';
 import { openGoogleMaps } from '../../../utils/maps';
 
 interface Props {
   label: string;
-  coordinates: Coordinate;
-  section: Section;
+  coordinates: CodegenCoordinates;
+  section: PremiumSection;
 }
 
 const CoordinatesInfo: React.FC<Props> = React.memo((props) => {
   const { coordinates, label, section } = props;
   const region = useRegion();
-  const isFree = usePremiumAccess(region.node, section);
-  const premiumGuard = usePremiumGuard(region.node, section);
+  const isFree = usePremiumAccess(region, section);
+  const premiumGuard = usePremiumGuard(region, section);
   const prettyCoord = isFree ? arrayToLatLngString(coordinates) : '';
 
   const onCopy = useCallback(() => {
@@ -40,7 +43,7 @@ const CoordinatesInfo: React.FC<Props> = React.memo((props) => {
       <Left>
         <Subheading>{label}</Subheading>
       </Left>
-      <Right row={true}>
+      <Right row>
         <Paragraph>{prettyCoord}</Paragraph>
         <Icon
           icon="content-copy"

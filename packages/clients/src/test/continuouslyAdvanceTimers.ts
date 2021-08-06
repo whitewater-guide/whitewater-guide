@@ -7,9 +7,12 @@ export function continuouslyAdvanceTimers() {
   let isCancelled = false;
 
   async function advance() {
+    // eslint-disable-next-line no-unmodified-loop-condition
     while (!isCancelled) {
       jest.runOnlyPendingTimers();
-      await new Promise((r) => _setTimeout(r, 1));
+      await new Promise((r) => {
+        _setTimeout(r, 1);
+      });
     }
   }
 

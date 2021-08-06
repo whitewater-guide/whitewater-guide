@@ -40,24 +40,24 @@ describe('success', () => {
       useAuthSubmit<unknown>(TEST_PREFIX, apiCall, onSuccess),
     );
     const [submit] = rendered.result.current;
-    await act(() => submit({}, formikHelpers) as any);
+    await act(() => submit({}, formikHelpers) as Promise<void>);
     result = rendered.result.current;
   });
 
-  it('should succeed', async () => {
+  it('should succeed', () => {
     expect(result[1]).toBe(true);
     expect(onSuccess).toHaveBeenCalledWith(success);
   });
 
-  it('should call api', async () => {
+  it('should call api', () => {
     expect(apiCall).toHaveBeenCalledWith({});
   });
 
-  it('should set submitting', async () => {
+  it('should set submitting', () => {
     expect(formikHelpers.setSubmitting).toHaveBeenCalledWith(false);
   });
 
-  it('should not set error', async () => {
+  it('should not set error', () => {
     expect(formikHelpers.setErrors).not.toHaveBeenCalled();
   });
 });
@@ -78,7 +78,7 @@ describe('error', () => {
       useAuthSubmit<unknown>(TEST_PREFIX, apiCall, onSuccess),
     );
     const [submit] = rendered.result.current;
-    await act(() => submit({}, formikHelpers) as any);
+    await act(() => submit({}, formikHelpers) as Promise<void>);
     result = rendered.result.current;
   });
 

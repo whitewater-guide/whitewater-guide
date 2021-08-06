@@ -1,5 +1,6 @@
-import { fakeContext, runQuery } from '@test';
-import { DescentsFilter } from '@whitewater-guide/commons';
+import { fakeContext } from '@test';
+import { DescentsFilter } from '@whitewater-guide/schema';
+import gql from 'graphql-tag';
 
 import { holdTransaction, rollbackTransaction } from '~/db';
 import { TEST_USER, TEST_USER_ID, TEST_USER2 } from '~/seeds/test/01_users';
@@ -14,41 +15,26 @@ import {
   SECTION_1,
 } from '~/seeds/test/18_descents';
 
+import { testListDescents } from './descents.test.generated';
+
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
-const query = `
+const _query = gql`
   query listDescents($filter: DescentsFilter, $page: Page) {
     descents(filter: $filter, page: $page) {
       edges {
         node {
-          id
-
-          startedAt
-          duration
-          level {
-            value
-            unit
-          }
-          comment
-          public
-
-          createdAt
-          updatedAt
+          ...DescentCore
+          ...TimestampedMeta
 
           section {
-            id
+            ...SectionNameShort
             difficulty
-
             region {
               id
               name
             }
-            river {
-              id
-              name
-            }
-            name
           }
         }
         cursor
@@ -65,7 +51,7 @@ const getIds = (result: any): string[] =>
   result.descents?.edges.map(({ node }: any) => node.id) || [];
 
 it('should match snapshot', async () => {
-  const result: any = await runQuery(query, {}, fakeContext(TEST_USER));
+  const result: any = await testListDescents({}, fakeContext(TEST_USER));
   expect(result).toMatchSnapshot();
 });
 
@@ -74,7 +60,7 @@ it.each([
   ['non-owner should not see private descents', TEST_USER2, false],
   ['owner should see private descents', TEST_USER, true],
 ])('%s', async (_, user, visible) => {
-  const result = await runQuery(query, {}, fakeContext(user));
+  const result = await testListDescents({}, fakeContext(user));
   const actual = getIds(result.data).includes(DESCENT_02);
   expect(actual).toBe(visible);
 });
@@ -124,41 +110,38 @@ it.each<FilterTestCase>([
 ])(
   `should filter and paginate by %s`,
   async (_, filter, [id1, id2, ...restIds]) => {
-    let result = await runQuery(
-      query,
+    let result = await testListDescents(
       { filter, page: { limit: 1 } },
       fakeContext(TEST_USER),
     );
     expect(result.errors).toBeUndefined();
     expect(getIds(result.data)).toEqual([id1]);
-    expect(result.data.descents?.pageInfo.hasMore).toBe(true);
-    result = await runQuery(
-      query,
+    expect(result.data?.descents?.pageInfo.hasMore).toBe(true);
+    result = await testListDescents(
       {
         filter,
         page: {
           limit: 1,
-          after: result.data.descents?.pageInfo.endCursor,
+          after: result.data?.descents?.pageInfo.endCursor,
         },
       },
       fakeContext(TEST_USER),
     );
     expect(result.errors).toBeUndefined();
     expect(getIds(result.data)).toEqual([id2]);
-    expect(result.data.descents?.pageInfo.hasMore).toBe(true);
-    result = await runQuery(
-      query,
+    expect(result.data?.descents?.pageInfo.hasMore).toBe(true);
+    result = await testListDescents(
       {
         filter,
         page: {
           limit: 99,
-          after: result.data.descents?.pageInfo.endCursor,
+          after: result.data?.descents?.pageInfo.endCursor,
         },
       },
       fakeContext(TEST_USER),
     );
     expect(result.errors).toBeUndefined();
     expect(getIds(result.data)).toEqual(restIds);
-    expect(result.data.descents?.pageInfo.hasMore).toBe(false);
+    expect(result.data?.descents?.pageInfo.hasMore).toBe(false);
   },
 );

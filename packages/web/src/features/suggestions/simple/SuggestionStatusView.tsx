@@ -1,9 +1,9 @@
 import Icon from '@material-ui/core/Icon';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { SuggestionStatus } from '@whitewater-guide/commons';
+import { SuggestionStatus } from '@whitewater-guide/schema';
 import React from 'react';
 
-import { ListedSuggestion } from './listSuggestions.query';
+import { ListedSuggestionFragment } from './listSuggestions.generated';
 import SuggestionResolveButton from './SuggestionResolveButton';
 
 const useStyles = makeStyles(() =>
@@ -16,24 +16,24 @@ const useStyles = makeStyles(() =>
 );
 
 interface Props {
-  suggestion: ListedSuggestion;
+  suggestion: ListedSuggestionFragment;
   onPressResolve: (id: string) => void;
 }
 
-const SuggestionStatusView: React.FC<Props> = React.memo((props) => {
+const SuggestionStatusView = React.memo<Props>((props) => {
   const { suggestion, onPressResolve } = props;
   const { id, status } = suggestion;
   const classes = useStyles();
-  if (status === SuggestionStatus.PENDING) {
+  if (status === SuggestionStatus.Pending) {
     return (
       <SuggestionResolveButton suggestionId={id} onClick={onPressResolve} />
     );
   }
   return (
     <div className={classes.wrapper}>
-      <Icon>{status === SuggestionStatus.ACCEPTED ? 'check' : 'close'}</Icon>
+      <Icon>{status === SuggestionStatus.Accepted ? 'check' : 'close'}</Icon>
       <span>
-        {status === SuggestionStatus.ACCEPTED ? 'accepted' : 'rejected'}
+        {status === SuggestionStatus.Accepted ? 'accepted' : 'rejected'}
       </span>
     </div>
   );

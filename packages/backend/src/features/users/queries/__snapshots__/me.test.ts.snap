@@ -23,6 +23,7 @@ Object {
   "language": "en",
   "name": "Ivan Ivanov",
   "updatedAt": "2017-02-01T00:00:00.000Z",
+  "verified": true,
 }
 `;
 
@@ -40,5 +41,6 @@ Object {
   "language": "ru",
   "name": "Another usr",
   "updatedAt": "2017-05-04T00:00:00.000Z",
+  "verified": true,
 }
 `;

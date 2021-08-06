@@ -1,18 +1,25 @@
-import { MediaInput } from '@whitewater-guide/commons';
+import { MediaInput } from '@whitewater-guide/schema';
 import React, { useMemo } from 'react';
 import { RouteComponentProps } from 'react-router';
 
 import { useApolloFormik } from '../../../formik';
 import makeFormToMutation from './makeFormToMutation';
 import makeQueryToForm from './makeQueryToForm';
-import { MEDIA_FORM_QUERY, QResult, QVars } from './mediaForm.query';
+import {
+  MediaFormDocument,
+  MediaFormQuery,
+  MediaFormQueryVariables,
+} from './mediaForm.generated';
 import MediaFormDialog from './MediaFormDialog';
 import { RouterParams } from './types';
-import { MVars, UPSERT_MEDIA } from './upsertMedia.mutation';
+import {
+  UpsertMediaDocument,
+  UpsertMediaMutationVariables,
+} from './upsertMedia.generated';
 
 type Props = RouteComponentProps<RouterParams>;
 
-const MediaForm: React.FC<Props> = React.memo((props) => {
+const MediaForm = React.memo<Props>((props) => {
   const transformers = useMemo(
     () => ({
       queryToForm: makeQueryToForm(props),
@@ -21,12 +28,17 @@ const MediaForm: React.FC<Props> = React.memo((props) => {
     [props],
   );
 
-  const formik = useApolloFormik<QVars, QResult, MediaInput, MVars>({
-    query: MEDIA_FORM_QUERY,
+  const formik = useApolloFormik<
+    MediaFormQueryVariables,
+    MediaFormQuery,
+    MediaInput,
+    UpsertMediaMutationVariables
+  >({
+    query: MediaFormDocument,
     queryOptions: {
       variables: { mediaId: props.match.params.mediaId },
     },
-    mutation: UPSERT_MEDIA,
+    mutation: UpsertMediaDocument,
     mutationOptions: {
       refetchQueries: ['sectionMedia'],
     },

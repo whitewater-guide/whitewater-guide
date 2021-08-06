@@ -1,29 +1,27 @@
-import { Banner } from '@whitewater-guide/commons';
+import { Banner } from '@whitewater-guide/schema';
 import { DataSourceConfig } from 'apollo-datasource';
 import { GraphQLResolveInfo } from 'graphql';
 import { QueryBuilder } from 'knex';
 
 import { Context } from '~/apollo';
-import db from '~/db';
+import { db, Sql } from '~/db';
 import {
   FieldsMap,
   ManyBuilderOptions,
   OffsetConnector,
 } from '~/db/connectors';
 
-import { BannerRaw } from './types';
-
-const FIELDS_MAP: FieldsMap<Banner, BannerRaw> = {
+const FIELDS_MAP: FieldsMap<Banner, Sql.Banners> = {
   regions: null,
   groups: null,
   deleted: null,
 };
 
-interface GetManyOptions extends ManyBuilderOptions<BannerRaw> {
+interface GetManyOptions extends ManyBuilderOptions<Sql.Banners> {
   regionId?: string;
 }
 
-export class BannersConnector extends OffsetConnector<Banner, BannerRaw> {
+export class BannersConnector extends OffsetConnector<Banner, Sql.Banners> {
   constructor() {
     super();
     this._tableName = 'banners';
@@ -73,10 +71,10 @@ export class BannersConnector extends OffsetConnector<Banner, BannerRaw> {
         ),
       );
       query.where((qb: QueryBuilder) => {
-        qb.whereIn('id', function (this: QueryBuilder) {
-          return this.select('banner_id').from('region_banners_own');
-        }).orWhereIn('id', function (this: QueryBuilder) {
-          return this.select('banner_id').from('region_banners_group');
+        qb.whereIn('id', function wherCond(this: QueryBuilder) {
+          this.select('banner_id').from('region_banners_own');
+        }).orWhereIn('id', function wherCond(this: QueryBuilder) {
+          this.select('banner_id').from('region_banners_group');
         });
       });
     } else {

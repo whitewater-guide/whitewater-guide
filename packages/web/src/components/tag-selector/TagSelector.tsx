@@ -1,5 +1,5 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { Tag } from '@whitewater-guide/commons';
+import { Tag } from '@whitewater-guide/schema';
 import React from 'react';
 
 import TagChip from './TagChip';
@@ -22,7 +22,7 @@ interface Props {
   onChange: (value: Tag[]) => void;
 }
 
-export const TagSelector: React.FC<Props> = React.memo((props) => {
+export const TagSelector = React.memo<Props>((props) => {
   const { options, value, onChange } = props;
   const classes = useStyles();
   return (

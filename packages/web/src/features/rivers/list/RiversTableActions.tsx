@@ -4,25 +4,25 @@ import React, { useCallback } from 'react';
 import { ClickBlocker, DeleteButton, IconLink } from '../../../components';
 import { paths } from '../../../utils';
 import AddSectionButton from './AddSectionButton';
-import { ListedRiver } from './listRivers.query';
+import { ListedRiverFragment } from './listRivers.generated';
 
 interface Props {
-  river: ListedRiver;
+  river: ListedRiverFragment;
   onRemove: (id: string) => void;
   onChangeRegion: (id: string) => void;
 }
 
-const RiversTableActions: React.FC<Props> = React.memo((props) => {
+const RiversTableActions = React.memo<Props>((props) => {
   const { river, onRemove, onChangeRegion } = props;
   const {
     id: riverId,
     region: { id: regionId },
   } = river;
-  const href = paths.to({ regionId, sectionId: 'new' }) + `?riverId=${riverId}`;
-  const handleChnageRegion = useCallback(() => onChangeRegion(riverId), [
-    onChangeRegion,
-    riverId,
-  ]);
+  const href = `${paths.to({ regionId, sectionId: 'new' })}?riverId=${riverId}`;
+  const handleChnageRegion = useCallback(
+    () => onChangeRegion(riverId),
+    [onChangeRegion, riverId],
+  );
   return (
     <ClickBlocker>
       <IconLink to={paths.settings({ regionId, riverId })} icon="edit" />

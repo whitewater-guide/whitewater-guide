@@ -3,7 +3,7 @@ import Knex from 'knex';
 import path from 'path';
 
 export async function createView(db: Knex, view: string, version = 1) {
-  for (let i = version; i >= 1; i--) {
+  for (let i = version; i >= 1; i -= 1) {
     const file = path.resolve(
       __dirname,
       '../migrations',
@@ -15,6 +15,8 @@ export async function createView(db: Knex, view: string, version = 1) {
     } catch (e) {
       continue;
     }
+    // should be created sequentially
+    // eslint-disable-next-line no-await-in-loop
     await db.schema.raw(sql);
     return;
   }

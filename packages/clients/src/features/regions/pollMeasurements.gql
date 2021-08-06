@@ -1,0 +1,15 @@
+query pollRegionMeasurements($regionId: ID) {
+  region(id: $regionId) {
+    id
+    gauges {
+      nodes {
+        id
+        latestMeasurement {
+          flow
+          level
+          timestamp
+        }
+      }
+    }
+  }
+}

@@ -31,7 +31,7 @@ const PhotosScreen: React.FC<AddSectionPhotosNavProps> = React.memo(
       const { setFieldValue, values } = ctxRef.current;
       setFieldValue(
         'media',
-        values.media.filter((item) => item && item.photo && item.photo.url),
+        values.media.filter((item) => item?.photo?.url),
       );
     }, [ctxRef]);
 
@@ -46,6 +46,7 @@ const PhotosScreen: React.FC<AddSectionPhotosNavProps> = React.memo(
             <PhotoThumb
               index={index}
               photo={item.photo}
+              // eslint-disable-next-line react/no-array-index-key
               key={index}
               onClear={removePhoto}
               navigation={navigation}

@@ -3,112 +3,53 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { NamedNode } from '@whitewater-guide/commons';
-import React from 'react';
-import { Mutation, MutationFunction } from 'react-apollo';
+import { NamedNode } from '@whitewater-guide/schema';
+import React, { memo, useState } from 'react';
 
 import { RegionFinder } from '../../../components';
-import {
-  CHANGE_RIVER_REGION,
-  Result,
-  Vars,
-} from './changeRiverRegion.mutation';
+import { useChangeRiverRegionMutation } from './changeRiverRegion.generated';
 
 interface Props {
-  riverId: string | null;
-  dialogOpen: boolean;
-  handleCancel: () => void;
+  riverId?: string | null;
+  open: boolean;
+  onCancel: () => void;
 }
 
-interface MutationProps extends Props {
-  changeRiverRegion: MutationFunction<
-    any,
-    { regionId: string; riverId: string }
-  >;
-  loading: boolean;
-}
+const ChangeRegionDialog = memo<Props>(({ riverId, open, onCancel }) => {
+  const [region, setRegion] = useState<NamedNode | null>(null);
+  const [mutate, { loading }] = useChangeRiverRegionMutation({
+    refetchQueries: ['listRivers'],
+  });
 
-interface State {
-  region: NamedNode | null;
-}
-
-class ChangeRegionDialog extends React.PureComponent<MutationProps, State> {
-  state: State = {
-    region: null,
+  const handleCancel = () => {
+    setRegion(null);
+    onCancel();
   };
 
-  handleCancel = () => {
-    this.setState({ region: null });
-    this.props.handleCancel();
-  };
-
-  handleSubmit = () => {
-    if (this.state.region != null && this.props.riverId != null) {
-      this.props.changeRiverRegion({
-        variables: {
-          regionId: this.state.region.id,
-          riverId: this.props.riverId,
-        },
-      });
+  const handleSubmit = () => {
+    if (riverId && region) {
+      mutate({
+        variables: { riverId, regionId: region.id },
+      }).then(() => handleCancel());
     }
-
-    this.handleCancel();
   };
 
-  onRegionChange = (region: NamedNode | null) => {
-    this.setState({ region });
-  };
+  const disabled = loading || !region;
 
-  render() {
-    const disabled = this.props.loading || !this.state.region;
+  return (
+    <Dialog open={open} onClose={handleCancel} maxWidth="lg">
+      <DialogTitle>Change River&lsquo;s Region</DialogTitle>
+      <DialogContent>
+        <RegionFinder value={region} onChange={setRegion} />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleCancel}>Cancel</Button>
+        <Button color="primary" disabled={disabled} onClick={handleSubmit}>
+          Submit
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+});
 
-    return (
-      <Dialog
-        open={this.props.dialogOpen}
-        onClose={this.handleCancel}
-        maxWidth="lg"
-      >
-        <DialogTitle>Change River&lsquo;s Region</DialogTitle>
-        <DialogContent>
-          <RegionFinder
-            value={this.state.region}
-            onChange={this.onRegionChange}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={this.handleCancel}>Cancel</Button>
-          <Button
-            color="primary"
-            disabled={disabled}
-            onClick={this.handleSubmit}
-          >
-            Submit
-          </Button>
-        </DialogActions>
-      </Dialog>
-    );
-  }
-}
-
-const ChangeRegionDialogWithMutation: React.FC<Props> = ({
-  riverId,
-  dialogOpen,
-  handleCancel,
-}) => (
-  <Mutation<Result, Vars>
-    mutation={CHANGE_RIVER_REGION}
-    refetchQueries={['listRivers']}
-  >
-    {(changeRiverRegion, { loading }) => (
-      <ChangeRegionDialog
-        changeRiverRegion={changeRiverRegion}
-        riverId={riverId}
-        loading={loading}
-        dialogOpen={dialogOpen}
-        handleCancel={handleCancel}
-      />
-    )}
-  </Mutation>
-);
-
-export default ChangeRegionDialogWithMutation;
+export default ChangeRegionDialog;

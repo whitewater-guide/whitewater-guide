@@ -1,10 +1,8 @@
 import clamp from 'lodash/clamp';
-import React from 'react';
+import React, { memo, useEffect, useRef } from 'react';
 import {
   Animated,
   GestureResponderEvent,
-  InteractionManager,
-  LayoutChangeEvent,
   StyleSheet,
   View,
 } from 'react-native';
@@ -18,248 +16,190 @@ import { RangeSliderProps } from './types';
 const TRACK_EXTRA_MARGIN_V = 5;
 const TRACK_EXTRA_MARGIN_H = 5;
 
-export class RangeSlider extends React.PureComponent<RangeSliderProps> {
-  static defaultProps: Partial<RangeSliderProps> = {
-    thumbRadius: 10,
-    trackThickness: 2,
-    range: [0, 100],
-    step: 1,
-    backgroundTrackColor: theme.colors.componentBorder,
-    selectedTrackColor: theme.colors.primary,
-    behavior: 'continue',
-  };
+const SLIDER_PAGEX = 20;
+const SLIDER_WIDTH = theme.screenWidth - 2 * SLIDER_PAGEX;
 
-  _valuesPx: [number, number] = [0, 0];
-  _trackWidthPx = 0;
-  _trackPageX = 0;
-  _selectedTrackWidthPx: Animated.Value = new Animated.Value(0);
-  _selectedTrackLeftPx: Animated.Value = new Animated.Value(0);
-  _inverted: Animated.Value = new Animated.Value(0);
-  _trackMarginV: number;
-  _trackMarginH: number;
-  _trackStyle: any;
+const TRACK_BACKGROUND_COLOR = theme.colors.componentBorder;
+const TRACK_SELECTED_COLOR = theme.colors.primary;
+const TRACK_THICKNESS = 2;
 
-  _activeThumb: Thumb | null = null;
-  _minThumb: Thumb | null = null;
-  _maxThumb: Thumb | null = null;
-  _track: View | null = null;
+const THUMB_RADIUS = 10;
 
-  constructor(props: RangeSliderProps) {
-    super(props);
+const MARGIN_V =
+  THUMB_RADIUS * THUMB_SCALE_RATIO + TRACK_EXTRA_MARGIN_V - TRACK_THICKNESS / 2;
+const MARGIN_H = THUMB_RADIUS * THUMB_SCALE_RATIO + TRACK_EXTRA_MARGIN_H;
 
-    this._trackMarginV =
-      props.thumbRadius * THUMB_SCALE_RATIO +
-      TRACK_EXTRA_MARGIN_V -
-      props.trackThickness / 2;
-    this._trackMarginH =
-      props.thumbRadius * THUMB_SCALE_RATIO + TRACK_EXTRA_MARGIN_H;
-    this._trackStyle = StyleSheet.create({
-      track: {
-        marginHorizontal: this._trackMarginH,
-        marginVertical: this._trackMarginV,
-        height: 2,
-      },
-    });
-  }
+const styles = StyleSheet.create({
+  thumb: {
+    top: THUMB_RADIUS * (THUMB_SCALE_RATIO - 1) + TRACK_EXTRA_MARGIN_V,
+  },
+  track: {
+    marginHorizontal: MARGIN_H,
+    marginVertical: MARGIN_V,
+    height: 2,
+  },
+});
 
-  componentDidMount() {
-    const { defaultTrackPageX, defaultTrackWidth } = this.props;
-    if (defaultTrackPageX && defaultTrackWidth) {
-      this._trackPageX = defaultTrackPageX;
-      this._trackWidthPx = defaultTrackWidth;
-      this.setValuesPx(this.props);
-      this.updateThumbs();
-    }
-  }
+const RangeSlider = memo<RangeSliderProps>(
+  (props) => {
+    const {
+      range,
+      step,
+      behavior = 'continue',
+      onChange,
+      onChangeEnd,
+      values,
+    } = props;
+    const trackRef = useRef<View>(null);
+    const activeThumbRef = useRef<Thumb | null>(null);
+    const minThumbRef = useRef<Thumb | null>(null);
+    const maxThumbRef = useRef<Thumb | null>(null);
+    const valuesPxRef = useRef<[number, number]>([0, 0]);
+    const selectedTrackWidthPx = useRef(new Animated.Value(0)).current;
+    const selectedTrackLeftPx = useRef(new Animated.Value(0)).current;
+    const inverted = useRef(new Animated.Value(0)).current;
 
-  UNSAFE_componentWillReceiveProps(nextProps: RangeSliderProps) {
-    this.setValuesPx(nextProps);
-    this.updateThumbs();
-  }
+    const snap = (valuePx: number): number => {
+      const stepPx = (step * SLIDER_WIDTH) / (range[1] - range[0]);
+      return Math.round(valuePx / stepPx) * stepPx;
+    };
 
-  onTrackLayout = ({
-    nativeEvent: {
-      layout: { width },
-    },
-  }: LayoutChangeEvent) => {
-    // InteractionManager.runAfterInteractions is required because when RangeSlider is inside animated StackScreen
-    // initial measurements get screwed
-    InteractionManager.runAfterInteractions(() => {
-      if (this._trackWidthPx !== width) {
-        this._trackWidthPx = width;
-        this.setValuesPx(this.props);
-        this.updateThumbs(true);
+    const constrainValue = (dx: number): number => {
+      if (!minThumbRef.current || !maxThumbRef.current) {
+        return dx;
       }
-      this._track?.measure((x, y, w, h, pageX) => {
-        this._trackPageX = pageX;
-      });
-    });
-  };
+      const x = dx - SLIDER_PAGEX;
 
-  onMoveStart = (thumb: Thumb, e: GestureResponderEvent) => {
-    this._activeThumb = thumb;
-    this.onMove(thumb, e);
-  };
+      let constrainedX = clamp(x, 0, SLIDER_WIDTH);
 
-  onMove = (thumb: Thumb, e: GestureResponderEvent) => {
-    const dx = e.nativeEvent.pageX;
-    const x = this.constrainValue(dx);
-    if (this._activeThumb) {
-      this.changeValues(x);
-      this.moveThumb(this._activeThumb, x);
-    }
-  };
+      if (behavior !== 'invert') {
+        // The moment when user drags one thumb over another
+        if (
+          behavior === 'continue' &&
+          minThumbRef.current.x === maxThumbRef.current.x
+        ) {
+          if (x > maxThumbRef.current.x) {
+            // Drag min thumb to the right over max thumb
+            activeThumbRef.current = maxThumbRef.current;
+            minThumbRef.current.release(); // Release minThumb, continue with maxThumb
+          } else if (x < minThumbRef.current.x) {
+            // Drag max thumb to the left over min thumb
+            activeThumbRef.current = minThumbRef.current;
+            maxThumbRef.current.release(); // Release maxThumb, continue with minThumb
+          }
+        }
 
-  onMoveEnd = (thumb: Thumb) => {
-    const ovrRef = this._activeThumb ? this._activeThumb : thumb;
-    ovrRef.release();
-    this._activeThumb = null;
-
-    if (this.props.onChangeEnd) {
-      this.props.onChangeEnd(this._valuesPx.map(this.pixelToValue) as any);
-    }
-  };
-
-  snap = (valuePx: number) => {
-    const stepPx =
-      (this.props.step * this._trackWidthPx) /
-      (this.props.range[1] - this.props.range[0]);
-    return Math.round(valuePx / stepPx) * stepPx;
-  };
-
-  setValuesPx = ({ values }: RangeSliderProps) => {
-    this._valuesPx = values.map(this.valueToPixel) as any;
-  };
-
-  pixelToValue = (px: number) =>
-    (px * (this.props.range[1] - this.props.range[0])) / this._trackWidthPx +
-    this.props.range[0];
-
-  valueToPixel = (value: number) =>
-    (this._trackWidthPx * (value - this.props.range[0])) /
-    (this.props.range[1] - this.props.range[0]);
-
-  changeValues = (value: number) => {
-    const index = this._activeThumb === this._minThumb ? 0 : 1;
-    this._valuesPx[index] = value;
-    if (this.props.onChange) {
-      this.props.onChange(this._valuesPx.map(this.pixelToValue) as any);
-    }
-  };
-
-  updateThumbs = (immediately = false) => {
-    if (this._minThumb) {
-      this.moveThumb(this._minThumb, this._valuesPx[0], immediately);
-      this._minThumb.release();
-    }
-
-    if (this._maxThumb) {
-      this.moveThumb(this._maxThumb, this._valuesPx[1], immediately);
-      this._maxThumb.release();
-    }
-  };
-
-  constrainValue = (dx: number) => {
-    if (!this._minThumb || !this._maxThumb) {
-      return dx;
-    }
-    const { behavior } = this.props;
-
-    const x = dx - this._trackPageX;
-
-    let constrainedX = clamp(x, 0, this._trackWidthPx);
-
-    if (behavior !== 'invert') {
-      // The moment when user drags one thumb over another
-      if (behavior === 'continue' && this._minThumb.x === this._maxThumb.x) {
-        if (x > this._maxThumb.x) {
-          // Drag min thumb to the right over max thumb
-          this._activeThumb = this._maxThumb;
-          this._minThumb.release(); // Release minThumb, continue with maxThumb
-        } else if (x < this._minThumb.x) {
-          // Drag max thumb to the left over min thumb
-          this._activeThumb = this._minThumb;
-          this._maxThumb.release(); // Release maxThumb, continue with minThumb
+        if (activeThumbRef.current === minThumbRef.current) {
+          constrainedX =
+            x >= maxThumbRef.current.x ? maxThumbRef.current.x : constrainedX;
+        } else {
+          constrainedX =
+            x <= minThumbRef.current.x ? minThumbRef.current.x : constrainedX;
         }
       }
 
-      if (this._activeThumb === this._minThumb) {
-        constrainedX = x >= this._maxThumb.x ? this._maxThumb.x : constrainedX;
+      return snap(constrainedX);
+    };
+
+    const pixelToValue = (px: number): number =>
+      (px * (range[1] - range[0])) / SLIDER_WIDTH + range[0];
+
+    const valueToPixel = (value: number): number =>
+      (SLIDER_WIDTH * (value - range[0])) / (range[1] - range[0]);
+
+    const setValuesPx = (values: [number, number]): void => {
+      valuesPxRef.current = values.map(valueToPixel) as [number, number];
+    };
+
+    const changeValues = (value: number): void => {
+      const index = activeThumbRef.current === minThumbRef.current ? 0 : 1;
+      valuesPxRef.current[index] = value;
+      onChange?.(valuesPxRef.current.map(pixelToValue) as [number, number]);
+    };
+
+    const moveThumb = (thumb: Thumb, x: number, immediately = false): void => {
+      thumb.moveTo(x);
+      const left = Math.min(...valuesPxRef.current);
+      const width = Math.abs(valuesPxRef.current[1] - valuesPxRef.current[0]);
+      const invertedValue =
+        valuesPxRef.current[1] < valuesPxRef.current[0] ? 1 : 0;
+      if (immediately) {
+        selectedTrackLeftPx.setValue(left);
+        selectedTrackWidthPx.setValue(width);
+        inverted.setValue(invertedValue);
       } else {
-        constrainedX = x <= this._minThumb.x ? this._minThumb.x : constrainedX;
+        Animated.parallel([
+          Animated.timing(selectedTrackLeftPx, {
+            toValue: left,
+            duration: 0,
+            useNativeDriver: false,
+          }),
+          Animated.timing(selectedTrackWidthPx, {
+            toValue: width,
+            duration: 0,
+            useNativeDriver: false,
+          }),
+          Animated.timing(inverted, {
+            toValue: invertedValue,
+            duration: 0,
+            useNativeDriver: false,
+          }),
+        ]).start();
       }
-    }
+    };
 
-    return this.snap(constrainedX);
-  };
+    const updateThumbs = (immediately = false): void => {
+      if (minThumbRef.current) {
+        moveThumb(minThumbRef.current, valuesPxRef.current[0], immediately);
+        minThumbRef.current.release();
+      }
 
-  moveThumb = (thumb: Thumb, x: number, immediately = false) => {
-    thumb.moveTo(x);
-    const left = Math.min(...this._valuesPx);
-    const width = Math.abs(this._valuesPx[1] - this._valuesPx[0]);
-    const inverted = this._valuesPx[1] < this._valuesPx[0] ? 1 : 0;
-    if (immediately) {
-      this._selectedTrackLeftPx.setValue(left);
-      this._selectedTrackWidthPx.setValue(width);
-      this._inverted.setValue(inverted);
-    } else {
-      Animated.parallel([
-        Animated.timing(this._selectedTrackLeftPx, {
-          toValue: left,
-          duration: 0,
-          useNativeDriver: false,
-        }),
-        Animated.timing(this._selectedTrackWidthPx, {
-          toValue: width,
-          duration: 0,
-          useNativeDriver: false,
-        }),
-        Animated.timing(this._inverted, {
-          toValue: inverted,
-          duration: 0,
-          useNativeDriver: false,
-        }),
-      ]).start();
-    }
-  };
+      if (maxThumbRef.current) {
+        moveThumb(maxThumbRef.current, valuesPxRef.current[1], immediately);
+        maxThumbRef.current.release();
+      }
+    };
 
-  setTrack = (track: View | null) => {
-    this._track = track;
-  };
-  setMinThumb = (thumb: Thumb | null) => {
-    this._minThumb = thumb;
-  };
-  setMaxThumb = (thumb: Thumb | null) => {
-    this._maxThumb = thumb;
-  };
+    const onMove = (thumb: Thumb, e: GestureResponderEvent) => {
+      const dx = e.nativeEvent.pageX;
+      const x = constrainValue(dx);
+      if (activeThumbRef.current) {
+        changeValues(x);
+        moveThumb(activeThumbRef.current, x);
+      }
+    };
 
-  render() {
-    const {
-      selectedTrackColor,
-      backgroundTrackColor,
-      thumbRadius,
-      defaultTrackWidth,
-      defaultTrackPageX,
-    } = this.props;
-    const onTrackLayout =
-      defaultTrackWidth && defaultTrackPageX ? undefined : this.onTrackLayout;
+    const onMoveStart = (thumb: Thumb, e: GestureResponderEvent) => {
+      activeThumbRef.current = thumb;
+      onMove(thumb, e);
+    };
+
+    const onMoveEnd = (thumb: Thumb) => {
+      const ovrRef = activeThumbRef.current ? activeThumbRef.current : thumb;
+      ovrRef.release();
+      activeThumbRef.current = null;
+      onChangeEnd?.(valuesPxRef.current.map(pixelToValue) as [number, number]);
+    };
+
+    useEffect(() => {
+      setValuesPx(values);
+      updateThumbs();
+      // This is fine
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [values]);
+
     return (
       <View>
-        <View
-          ref={this.setTrack}
-          onLayout={onTrackLayout}
-          collapsable={false}
-          style={this._trackStyle.track}
-        >
+        <View ref={trackRef} collapsable={false} style={styles.track}>
           <Animated.View
             style={{
               position: 'absolute',
               left: 0,
               right: 0,
-              height: this.props.trackThickness,
-              backgroundColor: this._inverted.interpolate({
+              height: TRACK_THICKNESS,
+              backgroundColor: inverted.interpolate({
                 inputRange: [0, 1],
-                outputRange: [backgroundTrackColor, selectedTrackColor],
+                outputRange: [TRACK_BACKGROUND_COLOR, TRACK_SELECTED_COLOR],
                 extrapolate: 'clamp',
               }),
             }}
@@ -267,43 +207,54 @@ export class RangeSlider extends React.PureComponent<RangeSliderProps> {
           <Animated.View
             style={{
               position: 'absolute',
-              left: this._selectedTrackLeftPx,
-              width: this._selectedTrackWidthPx,
-              height: this.props.trackThickness,
-              backgroundColor: this._inverted.interpolate({
+              left: selectedTrackLeftPx,
+              width: selectedTrackWidthPx,
+              height: TRACK_THICKNESS,
+              backgroundColor: inverted.interpolate({
                 inputRange: [0, 1],
-                outputRange: [selectedTrackColor, backgroundTrackColor],
+                outputRange: [TRACK_SELECTED_COLOR, TRACK_BACKGROUND_COLOR],
                 extrapolate: 'clamp',
               }),
             }}
           />
         </View>
+
         <Thumb
-          ref={this.setMinThumb}
-          radius={this.props.thumbRadius}
-          trackMargin={this._trackMarginH}
-          color={selectedTrackColor}
-          onGrant={this.onMoveStart}
-          onMove={this.onMove}
-          onEnd={this.onMoveEnd}
-          style={{
-            top: thumbRadius * (THUMB_SCALE_RATIO - 1) + TRACK_EXTRA_MARGIN_V,
-          }}
+          ref={minThumbRef}
+          radius={THUMB_RADIUS}
+          trackMargin={MARGIN_H}
+          color={TRACK_SELECTED_COLOR}
+          onGrant={onMoveStart}
+          onMove={onMove}
+          onEnd={onMoveEnd}
+          style={styles.thumb}
         />
 
         <Thumb
-          ref={this.setMaxThumb}
-          radius={this.props.thumbRadius}
-          trackMargin={this._trackMarginH}
-          color={selectedTrackColor}
-          onGrant={this.onMoveStart}
-          onMove={this.onMove}
-          onEnd={this.onMoveEnd}
-          style={{
-            top: thumbRadius * (THUMB_SCALE_RATIO - 1) + TRACK_EXTRA_MARGIN_V,
-          }}
+          ref={maxThumbRef}
+          radius={THUMB_RADIUS}
+          trackMargin={MARGIN_H}
+          color={TRACK_SELECTED_COLOR}
+          onGrant={onMoveStart}
+          onMove={onMove}
+          onEnd={onMoveEnd}
+          style={styles.thumb}
         />
       </View>
     );
-  }
-}
+  },
+  (prev, next) => {
+    return (
+      prev.values[0] === next.values[0] &&
+      prev.values[1] === next.values[1] &&
+      prev.onChange === next.onChange &&
+      prev.onChangeEnd === next.onChangeEnd &&
+      prev.range[0] === next.range[0] &&
+      prev.range[1] === next.range[1] &&
+      prev.step === next.step &&
+      prev.behavior === next.behavior
+    );
+  },
+);
+
+export default RangeSlider;

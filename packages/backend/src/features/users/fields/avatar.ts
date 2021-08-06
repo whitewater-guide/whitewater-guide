@@ -1,13 +1,6 @@
-import { GraphQLFieldResolver } from 'graphql';
+import { UserResolvers } from '~/apollo';
 
-import { Context } from '~/apollo';
-import { UserRaw } from '~/features/users';
-
-const avatar: GraphQLFieldResolver<UserRaw, Context> = (
-  user,
-  _,
-  { dataSources },
-) => {
+const avatar: UserResolvers['avatar'] = (user, _, { dataSources }) => {
   if (!user) {
     return null;
   }

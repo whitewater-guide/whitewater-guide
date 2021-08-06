@@ -1,0 +1,5 @@
+mutation administrateRegion($settings: RegionAdminSettings!) {
+  administrateRegion(settings: $settings) {
+    ...RegionAdmin
+  }
+}

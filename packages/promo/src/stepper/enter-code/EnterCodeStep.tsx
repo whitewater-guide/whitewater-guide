@@ -1,74 +1,47 @@
-import { BoomPromoInfo } from '@whitewater-guide/commons';
-import ApolloClient from 'apollo-client';
-import React from 'react';
-import { withApollo } from 'react-apollo';
-import { WithTranslation, withTranslation } from 'react-i18next';
+import { StepProps } from '@material-ui/core/Step';
+import { BoomPromoInfo } from '@whitewater-guide/schema';
+import React, { FC, useState } from 'react';
+import { useApolloClient } from 'react-apollo';
+import { useTranslation } from 'react-i18next';
 
-import { compose } from '../../utils';
-import { CHECK_BOOM_PROMO_QUERY, Result, Vars } from './checkBoomPromo.query';
+import {
+  CheckBoomPromoDocument,
+  CheckBoomPromoQuery,
+  CheckBoomPromoQueryVariables,
+} from './checkBoomPromo.generated';
 import EnterCodeView from './EnterCodeView';
 
-interface WithApollo {
-  client: ApolloClient<any>;
-}
-
-interface Props {
+type Props = Omit<StepProps, 'classes'> & {
   next: (info: BoomPromoInfo) => void;
   prev: () => void;
-}
+};
 
-interface State {
-  value: string;
-  loading: boolean;
-  error: string | null;
-}
+const EnterCodeStep: FC<Props> = ({ next, prev, ...stepContentProps }) => {
+  const { t } = useTranslation();
+  const [code, setCode] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const client = useApolloClient();
 
-class EnterCodeStep extends React.PureComponent<
-  Props & WithTranslation & WithApollo,
-  State
-> {
-  readonly state: State = {
-    value: '',
-    loading: false,
-    error: null,
+  const reset = () => {
+    setCode('');
+    setError(null);
+    setLoading(false);
   };
 
-  onChange = (e: any) => {
-    this.setState({ value: e.target.value, error: null });
-  };
-
-  onNext = async () => {
-    this.setState({ loading: true, error: null });
-    const { error, promo } = await this.checkPromoCode();
-    if (promo) {
-      this.reset();
-      this.props.next(promo);
-    } else {
-      this.setState({ loading: false, error });
-    }
-  };
-
-  onPrev = () => {
-    this.reset();
-    this.props.prev();
-  };
-
-  reset = () => {
-    this.setState({ value: '', error: null, loading: false });
-  };
-
-  checkPromoCode = async () => {
-    const { client, t } = this.props;
-    const { value } = this.state;
+  const checkPromoCode = async () => {
     let promo: BoomPromoInfo | null = null;
     let error: string | null = null;
     try {
-      const { data, errors } = await client.query<Result, Vars>({
-        query: CHECK_BOOM_PROMO_QUERY,
-        variables: { code: value },
+      const { data, errors } = await client.query<
+        CheckBoomPromoQuery,
+        CheckBoomPromoQueryVariables
+      >({
+        query: CheckBoomPromoDocument,
+        variables: { code },
         fetchPolicy: 'network-only',
       });
-      promo = data ? data.checkBoomPromo : null;
+      promo = data ? data.checkBoomPromo ?? null : null;
       const hasErrors = errors && errors.length > 0;
       if (promo) {
         if (promo.redeemed) {
@@ -86,29 +59,41 @@ class EnterCodeStep extends React.PureComponent<
     return { promo, error };
   };
 
-  render() {
-    const {
-      client: _client,
-      next: _next,
-      prev: _prev,
-      t: _t,
-      tReady: _tReady,
-      i18n: _i18n,
-      ...stepContentProps
-    } = this.props;
-    const { value, error, loading } = this.state;
-    return (
-      <EnterCodeView
-        {...stepContentProps}
-        onChange={this.onChange}
-        value={value}
-        error={error}
-        loading={loading}
-        next={this.onNext}
-        prev={this.onPrev}
-      />
-    );
-  }
-}
+  const onNext = async () => {
+    setLoading(true);
+    setError(null);
+    const { error: err, promo } = await checkPromoCode();
+    if (promo) {
+      reset();
+      next(promo);
+    } else {
+      setLoading(false);
+      setError(err);
+    }
+  };
 
-export default compose(withApollo, withTranslation())(EnterCodeStep);
+  const onPrev = () => {
+    reset();
+    prev();
+  };
+
+  const onChange = (value: string) => {
+    setError(null);
+    setLoading(false);
+    setCode(value);
+  };
+
+  return (
+    <EnterCodeView
+      {...stepContentProps}
+      value={code}
+      onChange={onChange as any}
+      error={error}
+      loading={loading}
+      next={onNext}
+      prev={onPrev}
+    />
+  );
+};
+
+export default EnterCodeStep;

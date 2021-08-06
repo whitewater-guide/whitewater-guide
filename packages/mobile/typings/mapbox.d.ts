@@ -1,3 +1,4 @@
+/* eslint-disable */
 declare module '@react-native-mapbox-gl/maps' {
   import { Feature, Geometry, Point } from '@turf/helpers';
   import { Component } from 'react';
@@ -8,8 +9,8 @@ declare module '@react-native-mapbox-gl/maps' {
     screenPointY: number;
   }
 
-  export interface OnPressEvent<P> {
-    features: Array<Feature<Geometry, P>>;
+  export interface OnPressEvent {
+    features: Array<Feature<Geometry, any>>;
     coordinates: {
       latitude: number;
       longitude: number;

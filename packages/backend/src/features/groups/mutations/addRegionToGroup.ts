@@ -1,14 +1,9 @@
-import { TopLevelResolver } from '~/apollo';
-import db from '~/db';
+import { MutationResolvers } from '~/apollo';
+import { db } from '~/db';
 
-interface Vars {
-  regionId: string;
-  groupId: string;
-}
-
-const addRegionToGroup: TopLevelResolver<Vars> = async (
-  root,
-  { regionId, groupId }: Vars,
+const addRegionToGroup: MutationResolvers['addRegionToGroup'] = async (
+  _,
+  { regionId, groupId },
 ) => {
   const q = db()
     .table('regions_groups')

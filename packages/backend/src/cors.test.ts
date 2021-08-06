@@ -3,30 +3,26 @@ import request from 'supertest';
 
 import { getCorsMiddleware } from './cors';
 
-const expectCors = (app: Koa) => (
-  origin: string,
-  _: any,
-  expected: string | null,
-) => {
-  return new Promise((resolve) => {
-    const req = request(app.listen()).get('/').set('Origin', origin);
-    if (expected === '*') {
-      req
-        .expect((resp) => {
-          expect(resp.header).not.toContain('Access-Control-Allow-Origin');
-        })
-        .expect({ foo: 'bar' })
-        .expect(200, resolve);
-    } else if (expected === null) {
-      req.expect(500, resolve);
-    } else {
-      req
-        .expect('Access-Control-Allow-Origin', expected)
-        .expect({ foo: 'bar' })
-        .expect(200, resolve);
-    }
-  });
-};
+const expectCors =
+  (app: Koa) => (origin: string, _: any, expected: string | null) =>
+    new Promise((resolve) => {
+      const req = request(app.listen()).get('/').set('Origin', origin);
+      if (expected === '*') {
+        req
+          .expect((resp) => {
+            expect(resp.header).not.toContain('Access-Control-Allow-Origin');
+          })
+          .expect({ foo: 'bar' })
+          .expect(200, resolve);
+      } else if (expected === null) {
+        req.expect(500, resolve);
+      } else {
+        req
+          .expect('Access-Control-Allow-Origin', expected)
+          .expect({ foo: 'bar' })
+          .expect(200, resolve);
+      }
+    });
 
 describe('dev environment', () => {
   const app = new Koa();

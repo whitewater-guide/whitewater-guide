@@ -70,9 +70,8 @@ export const useDownloadRegion = (regionId: string | null): Hook => {
       if (!err) {
         analytics().logEvent('offline_download_complete', { region: regionId });
         return null;
-      } else {
-        throw err;
       }
+      throw err;
     },
     [
       regionId,

@@ -1,6 +1,6 @@
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
-import { Coordinate3d, CoordinateSchema } from '@whitewater-guide/commons';
+import { CoordinateSchema } from '@whitewater-guide/schema';
 import { createSafeValidator } from '@whitewater-guide/validation';
 import clipboard from 'clipboard-copy';
 import Coordinates from 'coordinate-parser';
@@ -8,6 +8,7 @@ import isEmpty from 'lodash/isEmpty';
 import round from 'lodash/round';
 import React from 'react';
 
+import { Coordinate3d } from '../../../clients/dist';
 import { Styles } from '../styles';
 import { NumberInput } from './NumberInput';
 
@@ -51,12 +52,12 @@ export interface CoordinateInputProps {
 }
 
 interface State {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  errors: Record<string, any> | null;
+  errors: any;
   value: Uncoordinate;
   submitted?: boolean;
 }
 
+// eslint-disable-next-line react/no-unsafe
 export class CoordinateInput extends React.PureComponent<
   CoordinateInputProps,
   State
@@ -165,7 +166,7 @@ export class CoordinateInput extends React.PureComponent<
           </IconButton>
           {showCopy && (
             <IconButton size="small" onClick={this.onCopy}>
-              <Icon>{'file_copy'}</Icon>
+              <Icon>file_copy</Icon>
             </IconButton>
           )}
         </div>

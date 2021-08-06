@@ -7,7 +7,7 @@ interface Props {
   prefix?: string;
 }
 
-const MediaFormTitle: React.FC<Props> = React.memo(({ prefix = '' }) => {
+const MediaFormTitle = React.memo<Props>(({ prefix = '' }) => {
   const { initialValues } = useFormikContext<any>();
   const url = getIn(initialValues, `${prefix}url`);
   const kind = getIn(initialValues, `${prefix}kind`);

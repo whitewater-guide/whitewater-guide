@@ -15,7 +15,7 @@ const PhotoScreen: React.FC<AddSectionPhotoNavProps> = ({
   React.useEffect(() => {
     navigation.setOptions({
       headerLeft: () => null,
-      // eslint-disable-next-line react/display-name
+      // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () => (
         <BackButton index={index} onPress={navigation.goBack} />
       ),

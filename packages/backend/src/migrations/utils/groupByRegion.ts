@@ -19,7 +19,7 @@ export const groupByRegion = <S>(
         ? positionGetter(s)
         : (s[positionGetter] as any);
       const tPoint = point(position);
-      const tPoly = polygon(r.bounds.coordinates);
+      const tPoly = polygon(r.bounds.coordinates as any[]);
       const inside = pointInPolygon(tPoint, tPoly);
       if (inside) {
         region = r;

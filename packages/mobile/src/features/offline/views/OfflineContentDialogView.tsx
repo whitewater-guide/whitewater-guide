@@ -1,4 +1,4 @@
-import { NamedNode } from '@whitewater-guide/commons';
+import { NamedNode } from '@whitewater-guide/schema';
 import noop from 'lodash/noop';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -41,7 +41,7 @@ const OfflineContentDialogView: React.FC<Props> = React.memo((props) => {
   const [selection, toggleCategory] = useDialogSelection();
   const summary = useMediaSummary(region.id);
   return (
-    <Dialog dismissable={false} onDismiss={noop} visible={true}>
+    <Dialog dismissable={false} onDismiss={noop} visible>
       <Dialog.Title testID="offline-dialog-title">
         {t('offline:dialog.title', { region: region ? region.name : '' })}
       </Dialog.Title>

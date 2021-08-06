@@ -5,16 +5,16 @@ import {
   FeatureCollection,
   LineString,
 } from '@turf/helpers';
-import {
-  Coordinate2d,
-  CoordinateLoose,
-  Section,
-  sectionName,
-} from '@whitewater-guide/commons';
+import { Section } from '@whitewater-guide/schema';
 
 import { getSectionColor } from './getSectionColor';
+import { ListedSectionFragment } from './listSections.generated';
+import { sectionName } from './sectionName';
 
-const removeAlt = ([lng, lat]: CoordinateLoose): Coordinate2d => [lng, lat];
+const removeAlt = ([lng, lat]: CodegenCoordinates): [number, number] => [
+  lng,
+  lat,
+];
 
 interface Props {
   color: string;
@@ -23,10 +23,10 @@ interface Props {
   name?: string;
 }
 
-export const sectionToGeoJSON = (
-  section: Section,
+export function sectionToGeoJSON(
+  section: ListedSectionFragment & Partial<Pick<Section, 'shape'>>,
   detailed?: boolean,
-): Feature<LineString, Props> => {
+): Feature<LineString, Props> {
   const { id, shape, putIn, takeOut, levels, flows } = section;
   const coordinates =
     detailed && !!shape
@@ -57,12 +57,14 @@ export const sectionToGeoJSON = (
       name: sectionName(section),
     },
   };
-};
+}
 
-export const sectionsToGeoJSON = (
-  sections: Section[],
+export function sectionsToGeoJSON(
+  sections: Array<ListedSectionFragment & Partial<Pick<Section, 'shape'>>>,
   detailed?: boolean,
-): FeatureCollection<LineString, Props> => ({
-  type: 'FeatureCollection',
-  features: sections.map((s) => sectionToGeoJSON(s, detailed)),
-});
+): FeatureCollection<LineString, Props> {
+  return {
+    type: 'FeatureCollection',
+    features: sections.map((s) => sectionToGeoJSON(s, detailed)),
+  };
+}

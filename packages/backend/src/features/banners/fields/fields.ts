@@ -1,10 +1,6 @@
-import { Banner } from '@whitewater-guide/commons';
+import { BannerResolvers } from '~/apollo';
 
-import { FieldResolvers } from '~/apollo';
-
-import { BannerRaw } from '../types';
-
-export const bannerResolvers: FieldResolvers<BannerRaw, Banner> = {
+export const bannerResolvers: BannerResolvers = {
   regions: ({ id }, _, { dataSources }, info) => {
     const query = dataSources.regions.getMany(info);
     query

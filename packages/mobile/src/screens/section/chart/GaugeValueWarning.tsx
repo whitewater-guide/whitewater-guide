@@ -13,36 +13,34 @@ const styles = StyleSheet.create({
   },
 });
 
-const GaugeWarning: React.FC = ({ children }) => {
-  return (
-    <PopoverController>
-      {({
-        openPopover,
-        closePopover,
-        popoverVisible,
-        setPopoverAnchor,
-        popoverAnchorRect,
-      }) => (
-        <React.Fragment>
-          <Icon
-            icon="alert"
-            size={16}
-            ref={setPopoverAnchor}
-            onPress={openPopover}
-          />
-          <Popover
-            useNativeDriver={true}
-            contentStyle={styles.popoverContent}
-            visible={popoverVisible}
-            onClose={closePopover}
-            fromRect={popoverAnchorRect}
-          >
-            {children}
-          </Popover>
-        </React.Fragment>
-      )}
-    </PopoverController>
-  );
-};
+const GaugeWarning: React.FC = ({ children }) => (
+  <PopoverController>
+    {({
+      openPopover,
+      closePopover,
+      popoverVisible,
+      setPopoverAnchor,
+      popoverAnchorRect,
+    }) => (
+      <>
+        <Icon
+          icon="alert"
+          size={16}
+          ref={setPopoverAnchor}
+          onPress={openPopover}
+        />
+        <Popover
+          useNativeDriver
+          contentStyle={styles.popoverContent}
+          visible={popoverVisible}
+          onClose={closePopover}
+          fromRect={popoverAnchorRect}
+        >
+          {children}
+        </Popover>
+      </>
+    )}
+  </PopoverController>
+);
 
 export default GaugeWarning;

@@ -41,21 +41,21 @@ const ThumbImage: FC<Props> = (props) => {
   const classes = useStyles();
 
   return (
-    <React.Fragment>
+    <>
       <img alt="" src={thumb} style={{ width, height }} />
       <div className={classes.overlay} style={{ width, height }}>
         {editable && (
-          <React.Fragment>
+          <>
             <IconButton onClick={onEdit}>
               <Icon>edit</Icon>
             </IconButton>
             <IconButton onClick={onRemove}>
               <Icon>delete_forever</Icon>
             </IconButton>
-          </React.Fragment>
+          </>
         )}
       </div>
-    </React.Fragment>
+    </>
   );
 };
 

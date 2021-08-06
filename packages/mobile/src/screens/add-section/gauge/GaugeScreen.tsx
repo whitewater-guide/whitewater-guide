@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { NamedNode } from '@whitewater-guide/commons';
+import { NamedNode } from '@whitewater-guide/schema';
 import { useFormikContext } from 'formik';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -16,9 +16,9 @@ import { Screen } from '~/components/Screen';
 
 import theme from '../../../theme';
 import EmptyListPlaceholder from './EmptyListPlaceholder';
+import { ListedGaugeFragment } from './findGauges.generated';
 import GaugeListHeader from './GaugeListHeader';
 import GaugesListItem from './GaugesListItem';
-import { ListedGauge } from './types';
 import useGaugesQuery from './useGaugesQuery';
 
 const styles = StyleSheet.create({
@@ -65,7 +65,7 @@ const GaugeScreen: React.FC = () => {
   const [search, onChangeInput, loading, gauges] = useGaugesQuery(
     value ? value.name : '',
   );
-  const renderItem: ListRenderItem<ListedGauge> = useCallback(
+  const renderItem: ListRenderItem<ListedGaugeFragment> = useCallback(
     ({ item }) => <GaugesListItem gauge={item} onPress={onChange} />,
     [onChange],
   );
@@ -78,7 +78,7 @@ const GaugeScreen: React.FC = () => {
         style={styles.searchBar}
         autoCorrect={false}
         autoCompleteType="off"
-        autoFocus={true}
+        autoFocus
         testID="gauge-searchbar"
       />
       <KeyboardAvoidingView
@@ -87,7 +87,7 @@ const GaugeScreen: React.FC = () => {
         keyboardVerticalOffset={82}
       >
         <Surface style={styles.content}>
-          <FlatList<ListedGauge>
+          <FlatList<ListedGaugeFragment>
             data={gauges}
             renderItem={renderItem}
             keyExtractor={keyExtractor}

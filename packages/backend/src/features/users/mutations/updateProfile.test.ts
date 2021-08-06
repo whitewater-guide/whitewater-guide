@@ -1,5 +1,7 @@
-import { anonContext, fakeContext, runQuery } from '@test';
-import { ApolloErrorCodes, UserInput } from '@whitewater-guide/commons';
+import { anonContext, fakeContext } from '@test';
+import { ApolloErrorCodes } from '@whitewater-guide/commons';
+import { UserInput } from '@whitewater-guide/schema';
+import gql from 'graphql-tag';
 
 import { holdTransaction, rollbackTransaction } from '~/db';
 import {
@@ -9,25 +11,24 @@ import {
   UNVERIFIED_USER2_ID,
 } from '~/seeds/test/01_users';
 
+import { testUpdateProfile } from './updateProfile.test.generated';
+
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
-const mutation = `
+const _mutation = gql`
   mutation updateProfile($user: UserInput!) {
     updateProfile(user: $user) {
-      id
-      name
-      avatar
+      ...UserCore
       language
       imperial
-      email
     }
   }
 `;
 
 it('should fail for anons', async () => {
   const user = { name: 'Vasya' };
-  const result = await runQuery(mutation, { user }, anonContext());
+  const result = await testUpdateProfile({ user }, anonContext());
   expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
 });
 
@@ -36,18 +37,17 @@ it('should fail for invalid input', async () => {
     name: 'I',
     language: 'bg',
   };
-  const result = await runQuery(mutation, { user }, fakeContext(ADMIN));
+  const result = await testUpdateProfile({ user }, fakeContext(ADMIN));
   expect(result).toHaveGraphqlValidationError();
 });
 
 it('should work for partial data', async () => {
-  const result = await runQuery(
-    mutation,
+  const result = await testUpdateProfile(
     { user: { name: 'Vasya' } },
     fakeContext(ADMIN),
   );
   expect(result.errors).toBeUndefined();
-  expect(result.data!.updateProfile).toEqual({
+  expect(result.data?.updateProfile).toEqual({
     id: ADMIN_ID,
     name: 'Vasya',
     avatar: null,
@@ -64,9 +64,9 @@ it('should return update profile', async () => {
     language: 'ru',
     imperial: true,
   };
-  const result = await runQuery(mutation, { user }, fakeContext(ADMIN));
+  const result = await testUpdateProfile({ user }, fakeContext(ADMIN));
   expect(result.errors).toBeUndefined();
-  expect(result.data!.updateProfile).toEqual({
+  expect(result.data?.updateProfile).toEqual({
     id: ADMIN_ID,
     email: ADMIN.email,
     ...user,
@@ -77,9 +77,9 @@ it('should not update email when user already has one', async () => {
   const user: UserInput = {
     email: 'foo@bar.com',
   };
-  const result = await runQuery(mutation, { user }, fakeContext(ADMIN));
+  const result = await testUpdateProfile({ user }, fakeContext(ADMIN));
   expect(result.errors).toBeUndefined();
-  expect(result.data!.updateProfile).toMatchObject({
+  expect(result.data?.updateProfile).toMatchObject({
     id: ADMIN_ID,
     email: ADMIN.email,
   });
@@ -89,13 +89,12 @@ it('should update email when it is null', async () => {
   const user: UserInput = {
     email: 'foo@bar.com',
   };
-  const result = await runQuery(
-    mutation,
+  const result = await testUpdateProfile(
     { user },
     fakeContext(UNVERIFIED_USER2),
   );
   expect(result.errors).toBeUndefined();
-  expect(result.data!.updateProfile).toMatchObject({
+  expect(result.data?.updateProfile).toMatchObject({
     id: UNVERIFIED_USER2_ID,
     email: 'foo@bar.com',
   });

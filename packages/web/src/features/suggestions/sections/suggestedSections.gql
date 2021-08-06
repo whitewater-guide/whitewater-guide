@@ -1,0 +1,27 @@
+fragment SuggestedSection on Section {
+  id
+  createdAt
+  createdBy {
+    id
+    name
+  }
+  region {
+    id
+    name
+  }
+  river {
+    id
+    name
+  }
+  name
+}
+
+query suggestedSections($filter: SectionsFilter, $page: Page) {
+  sections(filter: $filter, page: $page)
+    @connection(key: "suggestedSections", suggestions: ["filter"]) {
+    nodes {
+      ...SuggestedSection
+    }
+    count
+  }
+}

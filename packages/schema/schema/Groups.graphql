@@ -1,0 +1,48 @@
+"""
+Group of regions, used to provide access to several premium regions with one promocode
+"""
+type Group implements NamedNode {
+  "unique string, can be used as slug"
+  id: ID!
+  "Human-friendly group name"
+  name: String!
+  "SKU - identifier in iOS/Android store"
+  sku: String
+  "Regions"
+  regions: GroupRegionConnection!
+}
+
+type GroupRegionConnection {
+  nodes: [Region!]!
+  count: Int!
+}
+
+type GroupsList {
+  nodes: [Group!]!
+  count: Int!
+}
+
+input GroupInput {
+  "unique string, can be used as slug"
+  id: String
+  "Human-friendly group name"
+  name: String!
+  "SKU - identifier in iOS/Android store"
+  sku: String
+}
+
+type Query {
+  "Lists all groups, optionally only ones that include provided region"
+  groups(regionId: ID): GroupsList @admin
+}
+
+type Mutation {
+  "Creates or updates group"
+  upsertGroup(group: GroupInput!): Group @admin
+  "Deletes group"
+  removeGroup(id: String!): String @admin
+  "Adds region to group"
+  addRegionToGroup(regionId: ID!, groupId: ID!): Boolean @admin
+  "Removes region from group"
+  removeRegionFromGroup(regionId: ID!, groupId: ID!): Boolean @admin
+}

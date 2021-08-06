@@ -4,19 +4,19 @@ interface Focusable {
   /**
    * Returns `true` if the input is currently focused, `false` otherwise.
    */
-  isFocused(): boolean | null | undefined;
+  isFocused: () => boolean;
   /**
    * Removes all text from the TextInput.
    */
-  clear(): void | null | undefined;
+  clear: () => void;
   /**
    * Focuses the input.
    */
-  focus(): void | null | undefined;
+  focus: () => void;
   /**
    * Removes focus from the input.
    */
-  blur(): void | null | undefined;
+  blur: () => void;
 }
 
 const useFocus = (ref: Ref<Focusable>) => {

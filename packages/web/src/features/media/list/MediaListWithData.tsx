@@ -1,5 +1,5 @@
 import { useRegion } from '@whitewater-guide/clients';
-import { MediaKind } from '@whitewater-guide/commons';
+import { MediaKind } from '@whitewater-guide/schema';
 import React, { Suspense, useCallback } from 'react';
 import useRouter from 'use-react-router';
 
@@ -16,12 +16,12 @@ interface RouterParams {
 export const MediaListWithData: React.FC = React.memo(() => {
   const { history, match } = useRouter<RouterParams>();
   const { regionId, sectionId } = match.params;
-  const { node: region } = useRegion();
+  const region = useRegion();
   const { media, loading, removeMedia } = useSectionMedia(sectionId);
 
   const onEdit = useCallback(
     (index: number) => {
-      const item = media[index];
+      const item = media?.[index];
       if (item) {
         history.push(
           `/regions/${regionId}/sections/${sectionId}/media/${item.id}/settings`,

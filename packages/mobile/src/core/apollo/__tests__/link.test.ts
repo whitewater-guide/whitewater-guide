@@ -196,7 +196,9 @@ describe('token expired locally', () => {
     fetchMock
       .mock(
         'end:refresh',
-        new Promise((resolve) => setTimeout(() => resolve(refreshSuccess), 50)),
+        new Promise((resolve) => {
+          setTimeout(() => resolve(refreshSuccess), 50);
+        }),
       )
       .mock('end:graphql', { data: ME_RESPONSE });
 
@@ -234,7 +236,9 @@ describe('token expired locally', () => {
     fetchMock
       .mock(
         'end:refresh',
-        new Promise((resolve) => setTimeout(() => resolve(refreshSuccess), 50)),
+        new Promise((resolve) => {
+          setTimeout(() => resolve(refreshSuccess), 50);
+        }),
       )
       .once('end:graphql', { data: ME_RESPONSE })
       .once('end:graphql', { data: ME_RESPONSE });

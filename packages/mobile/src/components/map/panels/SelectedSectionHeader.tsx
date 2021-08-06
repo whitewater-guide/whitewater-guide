@@ -1,5 +1,7 @@
-import { WithNode } from '@whitewater-guide/clients';
-import { Region, Section } from '@whitewater-guide/commons';
+import {
+  ListedSectionFragment,
+  RegionDetailsFragment,
+} from '@whitewater-guide/clients';
 import get from 'lodash/get';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -44,14 +46,14 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  section: Section | null;
-  region: WithNode<Region | null>;
+  section: ListedSectionFragment | null;
+  region?: RegionDetailsFragment | null;
 }
 
 const SelectedSectionHeader: React.FC<Props> = React.memo(
   ({ section, region }) => {
-    const sectionName = (section && section.name) || '';
-    const riverName = (section && section.river && section.river.name) || '';
+    const sectionName = section?.name ?? '';
+    const riverName = section?.river?.name ?? '';
     return (
       <View style={styles.header}>
         <View style={styles.body}>
@@ -62,11 +64,10 @@ const SelectedSectionHeader: React.FC<Props> = React.memo(
             <Subheading numberOfLines={1} style={styles.title}>
               {sectionName}
             </Subheading>
-            {section &&
-              section.demo &&
-              region.node &&
-              region.node.premium &&
-              !region.node.hasPremiumAccess && (
+            {section?.demo &&
+              region &&
+              region.premium &&
+              !region.hasPremiumAccess && (
                 <View>
                   <Icon
                     style={styles.unlocked}
@@ -88,7 +89,7 @@ const SelectedSectionHeader: React.FC<Props> = React.memo(
         <DifficultyThumb
           difficulty={get(section, 'difficulty', 1)}
           difficultyXtra={get(section, 'difficultyXtra', ' ')}
-          noBorder={true}
+          noBorder
         />
       </View>
     );

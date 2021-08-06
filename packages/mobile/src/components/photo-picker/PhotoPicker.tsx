@@ -18,7 +18,7 @@ export interface PhotoPickerProps {
 
 export const PhotoPicker: React.FC<PhotoPickerProps> = React.memo((props) => {
   const { value, onChange, label, style, localPhotoId, testID } = props;
-  return value && value.file ? (
+  return value?.file ? (
     <LocalPhotoView
       value={value}
       onChange={onChange}

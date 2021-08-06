@@ -1,7 +1,7 @@
-import { DefaultSectionFilterOptions } from '@whitewater-guide/commons';
 import { useContext } from 'react';
 
 import { createGenericFilter } from '../../utils';
+import { DefaultSectionFilterOptions } from './types';
 
 const SF = createGenericFilter(DefaultSectionFilterOptions);
 

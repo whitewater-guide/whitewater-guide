@@ -1,24 +1,22 @@
 import { getListMerger } from '@whitewater-guide/clients';
-import {
-  Connection,
-  NamedNode,
-  SectionEditLogEntry,
-} from '@whitewater-guide/commons';
+import { NamedNode } from '@whitewater-guide/schema';
 import React from 'react';
-import { ObservableQueryFields } from 'react-apollo';
 import { Index, InfiniteLoader } from 'react-virtualized';
 
 import HistoryTable from './HistoryTable';
-import { QResult, QVars } from './query';
+import {
+  SectionsEditLogQuery,
+  SectionsEditLogQueryResult,
+} from './sectionsEditLog.generated';
 import { Diff } from './types';
 
 interface Props {
-  history: Connection<SectionEditLogEntry>;
+  history: SectionsEditLogQuery['history'];
   user: NamedNode | null;
   onUserChange: (user: NamedNode | null) => void;
   region: NamedNode | null;
   onRegionChange: (user: NamedNode | null) => void;
-  fetchMore: ObservableQueryFields<QResult, QVars>['fetchMore'];
+  fetchMore: SectionsEditLogQueryResult['fetchMore'];
   onDiffOpen: (diff: Diff | null) => void;
 }
 
@@ -42,14 +40,8 @@ class HistoryTableInfinite extends React.PureComponent<Props> {
   };
 
   render() {
-    const {
-      history,
-      user,
-      region,
-      onUserChange,
-      onRegionChange,
-      onDiffOpen,
-    } = this.props;
+    const { history, user, region, onUserChange, onRegionChange, onDiffOpen } =
+      this.props;
     return (
       <InfiniteLoader
         isRowLoaded={this.isRowLoaded}

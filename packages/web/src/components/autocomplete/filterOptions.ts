@@ -1,4 +1,4 @@
-import { NamedNode } from '@whitewater-guide/commons';
+import { NamedNode } from '@whitewater-guide/schema';
 import deburr from 'lodash/deburr';
 import take from 'lodash/take';
 
@@ -20,10 +20,8 @@ const filterOptions = <T extends NamedNode>(
   input: string | null,
   settings: AutocompleteFilterOptions = {},
 ) => {
-  const {
-    limit = Number.MAX_SAFE_INTEGER,
-    matchInput = defaultMatcher,
-  } = settings;
+  const { limit = Number.MAX_SAFE_INTEGER, matchInput = defaultMatcher } =
+    settings;
   const matcher = matchInput === true ? noMatcher : matchInput;
   return take(
     options.filter((o) => matcher(input, o)),

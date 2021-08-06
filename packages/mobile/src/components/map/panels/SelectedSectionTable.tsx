@@ -1,5 +1,7 @@
-import { stringifySeason } from '@whitewater-guide/clients';
-import { Section } from '@whitewater-guide/commons';
+import {
+  ListedSectionFragment,
+  stringifySeason,
+} from '@whitewater-guide/clients';
 import trim from 'lodash/trim';
 import upperFirst from 'lodash/upperFirst';
 import React from 'react';
@@ -63,11 +65,11 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  section: Section | null;
+  section: ListedSectionFragment | null;
 }
 
 const propsAreEqual = (a: Props, b: Props): boolean =>
-  (a.section && a.section.id) === (b.section && b.section.id);
+  a.section?.id === b.section?.id;
 
 const SelectedSectionTable: React.FC<Props> = React.memo(({ section }) => {
   const { t } = useTranslation();
@@ -85,12 +87,11 @@ const SelectedSectionTable: React.FC<Props> = React.memo(({ section }) => {
       .trim();
   }
   const seasonNumLines = season.includes('\n') ? 2 : 1;
-  const duration =
-    section && section.duration
-      ? t('durations:' + section.duration)
-      : t('commons:unknown');
-  const drop = section && section.drop;
-  const distance = section && section.distance;
+  const duration = section?.duration
+    ? t(`durations:${section.duration}`)
+    : t('commons:unknown');
+  const drop = section?.drop;
+  const distance = section?.distance;
   return (
     <View style={styles.container}>
       <View style={styles.row1}>
@@ -103,7 +104,7 @@ const SelectedSectionTable: React.FC<Props> = React.memo(({ section }) => {
           </Svg>
           <Paragraph
             style={styles.colText}
-            adjustsFontSizeToFit={true}
+            adjustsFontSizeToFit
             numberOfLines={1}
           >
             {distance ? `${distance} ${t('commons:km')}` : t('commons:unknown')}
@@ -117,7 +118,7 @@ const SelectedSectionTable: React.FC<Props> = React.memo(({ section }) => {
           />
           <Paragraph
             style={styles.colText}
-            adjustsFontSizeToFit={true}
+            adjustsFontSizeToFit
             numberOfLines={1}
           >
             {drop ? `${drop} ${t('commons:m')}` : t('commons:unknown')}
@@ -127,7 +128,7 @@ const SelectedSectionTable: React.FC<Props> = React.memo(({ section }) => {
           <Icon icon="clock" color={theme.colors.textMain} size={24} />
           <Paragraph
             style={styles.colText}
-            adjustsFontSizeToFit={true}
+            adjustsFontSizeToFit
             numberOfLines={1}
           >
             {duration}

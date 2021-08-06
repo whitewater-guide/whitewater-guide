@@ -1,5 +1,7 @@
-import { anonContext, fakeContext, runQuery } from '@test';
-import { ApolloErrorCodes, EditorSettings } from '@whitewater-guide/commons';
+import { anonContext, fakeContext } from '@test';
+import { ApolloErrorCodes } from '@whitewater-guide/commons';
+import { EditorSettings } from '@whitewater-guide/schema';
+import gql from 'graphql-tag';
 
 import { holdTransaction, rollbackTransaction } from '~/db';
 import {
@@ -9,10 +11,12 @@ import {
   EDITOR_GA_EC_ID,
 } from '~/seeds/test/01_users';
 
+import { testUpdateEditorSettings } from './updateEditorSettings.test.generated';
+
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
-const mutation = `
+const _mutation = gql`
   mutation updateEditorSettings($editorSettings: EditorSettingsInput!) {
     updateEditorSettings(editorSettings: $editorSettings) {
       id
@@ -26,13 +30,15 @@ const mutation = `
 const editorSettings: EditorSettings = { language: 'de' };
 
 it('anons cannot do that', async () => {
-  const result = await runQuery(mutation, { editorSettings }, anonContext());
+  const result = await testUpdateEditorSettings(
+    { editorSettings },
+    anonContext(),
+  );
   expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
 });
 
 it('should fail on invalid input', async () => {
-  const result = await runQuery(
-    mutation,
+  const result = await testUpdateEditorSettings(
     { editorSettings: { language: 'latin' } },
     fakeContext(EDITOR_GA_EC),
   );
@@ -40,8 +46,7 @@ it('should fail on invalid input', async () => {
 });
 
 it('should set settings if not exists', async () => {
-  const result = await runQuery(
-    mutation,
+  const result = await testUpdateEditorSettings(
     { editorSettings },
     fakeContext(ADMIN),
   );
@@ -53,8 +58,7 @@ it('should set settings if not exists', async () => {
 });
 
 it('should merge if context exists', async () => {
-  const result = await runQuery(
-    mutation,
+  const result = await testUpdateEditorSettings(
     { editorSettings },
     fakeContext(EDITOR_GA_EC),
   );

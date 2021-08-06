@@ -1,11 +1,7 @@
-import { TopLevelResolver } from '~/apollo';
-import db, { rawUpsert } from '~/db';
+import { MutationResolvers } from '~/apollo';
+import { db, rawUpsert } from '~/db';
 
-interface Vars {
-  id: string;
-}
-
-const removeSection: TopLevelResolver<Vars> = async (
+const removeSection: MutationResolvers['removeSection'] = async (
   _,
   { id },
   { user, language, dataSources },
@@ -32,12 +28,12 @@ const removeSection: TopLevelResolver<Vars> = async (
   const result: any = await rawUpsert(db(), 'SELECT remove_section(?)', [id]);
 
   if (result && deleted) {
-    const { source_id: _, ...rest } = deleted;
+    const { source_id: _skip, ...rest } = deleted;
     await db()
       .insert({
         ...rest,
         action: 'delete',
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-unnecessary-type-assertion
         editor_id: user!.id,
       })
       .into('sections_edit_log');

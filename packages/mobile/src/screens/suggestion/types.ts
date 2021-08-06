@@ -1,6 +1,6 @@
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { SuggestionInput } from '@whitewater-guide/commons';
+import { SuggestionInput } from '@whitewater-guide/schema';
 
 import {
   RootDrawerParamsList,

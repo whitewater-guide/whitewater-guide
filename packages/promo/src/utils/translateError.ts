@@ -1,9 +1,8 @@
 import { TFunction } from 'i18next';
 
-export const translateError = (t: TFunction, error: any) => {
-  return error
+export const translateError = (t: TFunction, error: any) =>
+  error
     ? typeof error === 'string'
       ? t(error)
-      : t((error as any).key, (error as any).options)
+      : t(error.key, error.options)
     : undefined;
-};

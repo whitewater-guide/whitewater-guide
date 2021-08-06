@@ -1,10 +1,6 @@
-import { GraphQLFieldResolver } from 'graphql';
+import { GaugeResolvers } from '~/apollo';
 
-import { Context } from '~/apollo';
-
-import { GaugeRaw } from '../types';
-
-const latestMeasurementResolver: GraphQLFieldResolver<GaugeRaw, Context> = (
+const latestMeasurementResolver: GaugeResolvers['latestMeasurement'] = (
   { script, code },
   _,
   { dataSources },

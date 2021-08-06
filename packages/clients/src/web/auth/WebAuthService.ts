@@ -14,6 +14,7 @@ import { fbWebService } from './fb';
 
 export class WebAuthService extends BaseAuthService {
   private _fbAppId: string;
+
   private _fbSdkPromise!: Promise<any>;
 
   constructor(baseUrl: string, fbAppId: string) {

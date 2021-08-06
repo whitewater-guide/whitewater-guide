@@ -4,10 +4,7 @@ import isNil from 'lodash/isNil';
 const VERSION = 'v1';
 const SEPARATOR = ':';
 
-export interface Cursor {
-  ordId: number;
-  value: string;
-}
+export type Cursor = CodegenCursor;
 
 export const encodeCursor = ({ ordId, value }: Cursor) => {
   const parts = [VERSION, ordId];

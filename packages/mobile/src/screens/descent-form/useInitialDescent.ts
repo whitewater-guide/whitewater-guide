@@ -1,50 +1,15 @@
-import { Descent } from '@whitewater-guide/commons';
 import { useFormikContext } from 'formik';
-import gql from 'graphql-tag';
 import { useRef } from 'react';
 import { useApolloClient } from 'react-apollo';
 import useAsync from 'react-use/lib/useAsync';
 
+import {
+  DescentFormFragment,
+  GetDescentDocument,
+  GetDescentQuery,
+  GetDescentQueryVariables,
+} from './getDescent.generated';
 import { DescentFormData, DescentFormNavProps } from './types';
-
-const DESCENT_FORM_QUERY = gql`
-  query getDescent($descentId: ID, $shareToken: String) {
-    descent(id: $descentId, shareToken: $shareToken) {
-      id
-
-      startedAt
-      duration
-      level {
-        value
-        unit
-      }
-      comment
-      public
-
-      section {
-        id
-        name
-        river {
-          id
-          name
-        }
-        region {
-          id
-          name
-        }
-      }
-    }
-  }
-`;
-
-interface QVars {
-  descentId?: string | null;
-  shareToken?: string | null;
-}
-
-interface QResult {
-  descent?: Descent;
-}
 
 export default function useInitialDescent(
   props: DescentFormNavProps['route']['params'],
@@ -60,10 +25,13 @@ export default function useInitialDescent(
       setValues(formData);
       return;
     }
-    let descent: Descent | undefined;
+    let descent: DescentFormFragment | undefined | null;
     try {
-      const result = await apollo.query<QResult, QVars>({
-        query: DESCENT_FORM_QUERY,
+      const result = await apollo.query<
+        GetDescentQuery,
+        GetDescentQueryVariables
+      >({
+        query: GetDescentDocument,
         fetchPolicy: 'network-only',
         variables: { descentId, shareToken },
       });

@@ -59,7 +59,7 @@ export const SignInForm: React.FC = () => {
       onSubmit={submit}
     >
       {({ isSubmitting, errors, handleSubmit }) => (
-        <React.Fragment>
+        <>
           <TextField
             name="email"
             label={t('commons:email')}
@@ -83,17 +83,13 @@ export const SignInForm: React.FC = () => {
             mode="text"
             uppercase={false}
             style={styles.forgot}
-            compact={true}
+            compact
             onPress={forgot}
           >
             {t('screens:auth.signin.forgot')}
           </Button>
           {(errors as any)?.form && (
-            <HelperText
-              error={t((errors as any).form)}
-              touched={true}
-              noPad={true}
-            />
+            <HelperText error={t((errors as any).form)} touched noPad />
           )}
           <Button
             mode="contained"
@@ -104,7 +100,7 @@ export const SignInForm: React.FC = () => {
           >
             {t('screens:auth.signin.submit')}
           </Button>
-        </React.Fragment>
+        </>
       )}
     </Formik>
   );

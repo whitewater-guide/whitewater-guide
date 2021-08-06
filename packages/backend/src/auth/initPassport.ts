@@ -1,4 +1,4 @@
-import { SocialMediaProvider } from '@whitewater-guide/commons';
+import { SocialMediaProvider } from '@whitewater-guide/schema';
 
 import { apppleStrategy } from './apple';
 import { facebookStrategy } from './facebook';

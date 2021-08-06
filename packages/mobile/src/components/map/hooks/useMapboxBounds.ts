@@ -1,5 +1,4 @@
 import { getBBox } from '@whitewater-guide/clients';
-import { CoordinateLoose } from '@whitewater-guide/commons';
 import { useMemo } from 'react';
 
 import theme from '../../../theme';
@@ -9,7 +8,7 @@ interface Result {
   defaultSettings: { bounds: MapboxBounds };
 }
 
-export const useMapboxBounds = (initialBounds: CoordinateLoose[]): Result =>
+export const useMapboxBounds = (initialBounds: CodegenCoordinates[]): Result =>
   useMemo(() => {
     const [ne, sw] = getBBox(initialBounds);
     const bounds: MapboxBounds = {

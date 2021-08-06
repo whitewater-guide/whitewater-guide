@@ -53,71 +53,69 @@ export interface ImageUploaderProps extends ImageUploaderPreviewProps {
   mpxOrResolution?: number | [number, number];
 }
 
-export const ImageUploader: React.FC<ImageUploaderProps> = React.memo(
-  (props) => {
-    const {
-      value,
-      onChange,
-      title,
-      hideFileName,
-      classes = {},
-      width,
-      height,
-      previewScale,
-      mpxOrResolution,
-    } = props;
-    const classez = useStyles();
-    const prev = useRef(value);
-    const { upload } = useUploadLink();
+export const ImageUploader = React.memo<ImageUploaderProps>((props) => {
+  const {
+    value,
+    onChange,
+    title,
+    hideFileName,
+    classes = {},
+    width,
+    height,
+    previewScale,
+    mpxOrResolution,
+  } = props;
+  const classez = useStyles();
+  const prev = useRef(value);
+  const { upload } = useUploadLink();
 
-    useEffect(() => {
-      if (prev.current !== value && prev.current && prev.current.file) {
-        cleanupPreview(prev.current.file);
+  useEffect(() => {
+    if (prev.current !== value && prev.current && prev.current.file) {
+      cleanupPreview(prev.current.file);
+    }
+    prev.current = value;
+  }, [value]);
+
+  const handleDelete = useCallback(() => onChange(null), [onChange]);
+
+  const handleChange = useCallback(
+    (v: Required<LocalPhoto, 'file'>) => {
+      onChange(v);
+      if (!v.error) {
+        upload(v.file)
+          .then((url) => {
+            onChange({ ...v, url });
+          })
+          .catch((e) => {
+            onChange({ ...v, error: i18nizeUploadError(e) });
+          });
       }
-      prev.current = value;
-    }, [value]);
+    },
+    [onChange, upload],
+  );
 
-    const handleDelete = useCallback(() => onChange(null), [onChange]);
-
-    const handleChange = useCallback(
-      (v: Required<LocalPhoto, 'file'>) => {
-        onChange(v);
-        if (!v.error) {
-          upload(v.file)
-            .then((url) => {
-              onChange({ ...v, url });
-            })
-            .catch((e) => {
-              onChange({ ...v, error: i18nizeUploadError(e) });
-            });
-        }
-      },
-      [onChange, upload],
-    );
-
-    return (
-      <div className={clsx(classez.root, classes.root)}>
-        {!!title && (
-          <span>
-            <strong>{title}</strong>
-          </span>
-        )}
-        {!hideFileName && <Filename value={value} />}
-        <div className={clsx(classez.main, classes.main)}>
-          <ImageUploaderPreview
-            value={value}
-            width={width}
-            height={height}
-            previewScale={previewScale}
-          />
-          <div className={classez.buttons}>
-            <DeleteButton id="img" deleteHandler={handleDelete} />
-            <AddFile onAdd={handleChange} mpxOrResolution={mpxOrResolution} />
-          </div>
+  return (
+    <div className={clsx(classez.root, classes.root)}>
+      {!!title && (
+        <span>
+          <strong>{title}</strong>
+        </span>
+      )}
+      {!hideFileName && <Filename value={value} />}
+      <div className={clsx(classez.main, classes.main)}>
+        <ImageUploaderPreview
+          value={value}
+          width={width}
+          height={height}
+          previewScale={previewScale}
+        />
+        <div className={classez.buttons}>
+          <DeleteButton id="img" deleteHandler={handleDelete} />
+          <AddFile onAdd={handleChange} mpxOrResolution={mpxOrResolution} />
         </div>
       </div>
-    );
-  },
-);
+    </div>
+  );
+});
 
 ImageUploader.displayName = 'ImageUploader';

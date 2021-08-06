@@ -1,33 +1,23 @@
-import { fakeContext, runQuery } from '@test';
+import { fakeContext } from '@test';
+import gql from 'graphql-tag';
 
 import { holdTransaction, rollbackTransaction } from '~/db';
 import { TEST_USER } from '~/seeds/test/01_users';
 
+import { testListMyDescents } from './myDescents.test.generated';
+
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
-const query = `
+const _query = gql`
   query listMyDescents($filter: DescentsFilter, $page: Page) {
     myDescents(filter: $filter, page: $page) {
       edges {
         node {
-          id
-
-          startedAt
-          duration
-          level {
-            value
-            unit
-          }
-          comment
-          public
-
-          createdAt
-          updatedAt
-
+          ...DescentCore
+          ...TimestampedMeta
           section {
-            id
-            name
+            ...SectionNameShort
           }
         }
         cursor
@@ -41,12 +31,12 @@ const query = `
 `;
 
 it('should match snapshot', async () => {
-  const result = await runQuery(query, {}, fakeContext(TEST_USER));
+  const result = await testListMyDescents({}, fakeContext(TEST_USER));
   expect(result).toMatchSnapshot();
 });
 
 it('anon should fail', async () => {
-  const result = await runQuery(query);
+  const result = await testListMyDescents();
   expect(result.errors).toBeTruthy();
-  expect(result.data.myDescents).toBeNull();
+  expect(result.data?.myDescents).toBeNull();
 });

@@ -6,12 +6,19 @@ import { DrawingMapField, MarkdownField } from '../../../formik/fields';
 import { FormikTab } from '../../../formik/helpers';
 import formToMutation from './formToMutation';
 import queryToForm from './queryToForm';
-import { QResult, QVars, REGION_FORM_QUERY } from './regionForm.queue';
+import {
+  RegionFormDocument,
+  RegionFormQuery,
+  RegionFormQueryVariables,
+} from './regionForm.generated';
 import RegionFormLicense from './RegionFormLicense';
 import RegionFormMain from './RegionFormMain';
 import RegionFormPOIs from './RegionFormPOIs';
 import { RegionFormData, RouterParams } from './types';
-import { MVars, UPSERT_REGION } from './upsertRegion.mutation';
+import {
+  UpsertRegionDocument,
+  UpsertRegionMutationVariables,
+} from './upsertRegion.generated';
 import { RegionFormSchema } from './validation';
 
 const header = { resourceType: 'region' };
@@ -33,18 +40,23 @@ interface Props {
 }
 
 const RegionForm: React.FC<Props> = ({ match }) => {
-  const formik = useApolloFormik<QVars, QResult, RegionFormData, MVars>({
-    query: REGION_FORM_QUERY,
+  const formik = useApolloFormik<
+    RegionFormQueryVariables,
+    RegionFormQuery,
+    RegionFormData,
+    UpsertRegionMutationVariables
+  >({
+    query: RegionFormDocument,
     queryOptions: {
       variables: { regionId: match.params.regionId },
     },
     queryToForm,
-    mutation: UPSERT_REGION,
+    mutation: UpsertRegionDocument,
     formToMutation,
   });
 
   return (
-    <FormikCard<QResult, RegionFormData>
+    <FormikCard<RegionFormQuery, RegionFormData>
       header={header}
       {...formik}
       validationSchema={RegionFormSchema}

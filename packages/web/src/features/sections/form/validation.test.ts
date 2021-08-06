@@ -1,4 +1,4 @@
-import { Duration, MediaKind, TagCategory } from '@whitewater-guide/commons';
+import { Duration, MediaKind, TagCategory } from '@whitewater-guide/schema';
 import { createSafeValidator } from '@whitewater-guide/validation';
 
 import { SectionFormData } from './types';
@@ -34,20 +34,20 @@ const correct: SectionFormData = {
   difficultyXtra: 'X',
   rating: 2.5,
   kayakingTags: [
-    { id: '4x4', name: '4x4', category: TagCategory.kayaking },
-    { id: 'portage', name: 'portage', category: TagCategory.kayaking },
+    { id: '4x4', name: '4x4', category: TagCategory.Kayaking },
+    { id: 'portage', name: 'portage', category: TagCategory.Kayaking },
   ],
   hazardsTags: [
-    { id: '4x4', name: '4x4', category: TagCategory.hazards },
-    { id: 'portage', name: 'portage', category: TagCategory.hazards },
+    { id: '4x4', name: '4x4', category: TagCategory.Hazards },
+    { id: 'portage', name: 'portage', category: TagCategory.Hazards },
   ],
   supplyTags: [
-    { id: '4x4', name: '4x4', category: TagCategory.supply },
-    { id: 'portage', name: 'portage', category: TagCategory.supply },
+    { id: '4x4', name: '4x4', category: TagCategory.Supply },
+    { id: 'portage', name: 'portage', category: TagCategory.Supply },
   ],
   miscTags: [
-    { id: '4x4', name: '4x4', category: TagCategory.misc },
-    { id: 'portage', name: 'portage', category: TagCategory.misc },
+    { id: '4x4', name: '4x4', category: TagCategory.Misc },
+    { id: 'portage', name: 'portage', category: TagCategory.Misc },
   ],
   pois: [
     {
@@ -61,9 +61,8 @@ const correct: SectionFormData = {
   media: [
     {
       id: '4e108caa-fa39-11e9-8f0b-362b9e155667',
-      kind: MediaKind.photo,
-      url:
-        'https://s3.whitewater.guide/media/d6aef4e0-f758-11e9-b404-63f7f453f7a2.png',
+      kind: MediaKind.Photo,
+      url: 'https://s3.whitewater.guide/media/d6aef4e0-f758-11e9-b404-63f7f453f7a2.png',
       weight: null,
       resolution: [100, 100],
       description: null,
@@ -144,9 +143,9 @@ const incorrectValues: TestValue[] = [
     {
       ...correct,
       kayakingTags: [
-        { id: '4x4', name: '4x4', category: TagCategory.kayaking },
-        { id: '4', name: '44x4', category: TagCategory.kayaking },
-        { id: 'misc', name: 'misc', category: TagCategory.kayaking },
+        { id: '4x4', name: '4x4', category: TagCategory.Kayaking },
+        { id: '4', name: '44x4', category: TagCategory.Kayaking },
+        { id: 'misc', name: 'misc', category: TagCategory.Kayaking },
       ],
     },
   ],

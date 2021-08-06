@@ -11,11 +11,7 @@ export const GaugesRoute: React.FC<RouteComponentProps<any>> = (props) => {
   return (
     <Suspense fallback={<Loading />}>
       <Switch>
-        <AdminRoute
-          exact={true}
-          path={`${match.path}new`}
-          component={GaugeForm}
-        />
+        <AdminRoute exact path={`${match.path}new`} component={GaugeForm} />
         <Route path={`${match.path}:gaugeId`} component={GaugeRoute} />
       </Switch>
     </Suspense>

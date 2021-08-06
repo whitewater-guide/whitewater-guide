@@ -1,6 +1,6 @@
 /* eslint-disable import/no-duplicates */
-import { MeasurementsFilter } from '@whitewater-guide/commons';
 import * as gorge from '@whitewater-guide/gorge';
+import { MeasurementsFilter } from '@whitewater-guide/schema';
 import { DataSource } from 'apollo-datasource';
 import compareDesc from 'date-fns/compareDesc';
 import parseISO from 'date-fns/parseISO';
@@ -68,6 +68,7 @@ export class GorgeConnector extends Original implements DataSource<Context> {
       },
     ],
   ]);
+
   private _measurements: gorge.Measurement[] = [
     {
       script: 'galicia',
@@ -140,6 +141,7 @@ export class GorgeConnector extends Original implements DataSource<Context> {
       level: 49.3,
     },
   ];
+
   private _gauges: gorge.Gauge[] = [
     {
       name: 'Empty gauge 1',
@@ -191,7 +193,7 @@ export class GorgeConnector extends Original implements DataSource<Context> {
   }
 
   public async listGauges(script: string): Promise<gorge.Gauge[]> {
-    return this._gauges.filter((g) => g.script === script);
+    return Promise.resolve(this._gauges.filter((g) => g.script === script));
   }
 
   public async listJobs(): Promise<Map<string, gorge.JobDescription>> {
@@ -226,7 +228,7 @@ export class GorgeConnector extends Original implements DataSource<Context> {
 
   public async updateJobForSource(sourceId: string) {
     mockUpdateJobForSource(sourceId);
-    return super.updateJobForSource(sourceId);
+    return Promise.resolve(super.updateJobForSource(sourceId));
   }
 
   public getLatest(script: string, code: string) {
@@ -241,7 +243,7 @@ export class GorgeConnector extends Original implements DataSource<Context> {
   public async getMeasurements(
     script: string,
     code: string,
-    filter: MeasurementsFilter<Date>,
+    filter: MeasurementsFilter,
   ): Promise<gorge.Measurement[]> {
     const { from, to } = filter;
     return Promise.resolve(

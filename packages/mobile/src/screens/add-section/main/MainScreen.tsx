@@ -1,4 +1,4 @@
-import { toRomanDifficulty } from '@whitewater-guide/commons';
+import { toRomanDifficulty } from '@whitewater-guide/clients';
 import times from 'lodash/times';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
 });
 
 const MainScreen: React.FC<AddSectionMainNavProps> = React.memo((props) => {
-  const navigate = props.navigation.navigate;
+  const { navigate } = props.navigation;
   const { t } = useTranslation();
 
   const onPitoPress = React.useCallback(() => {
@@ -81,7 +81,7 @@ const MainScreen: React.FC<AddSectionMainNavProps> = React.memo((props) => {
               keyExtractor={keyExtractor}
             />
           </View>
-          <Text style={styles.brackets}>{'('}</Text>
+          <Text style={styles.brackets}>(</Text>
           <View style={styles.box}>
             <TextField
               name="difficultyXtra"
@@ -93,7 +93,7 @@ const MainScreen: React.FC<AddSectionMainNavProps> = React.memo((props) => {
               helperText={t('screens:addSection.main.difficultyXtraHelper')}
             />
           </View>
-          <Text style={styles.brackets}>{')'}</Text>
+          <Text style={styles.brackets}>)</Text>
         </View>
         <PiToPlaceholder index={0} onPress={onPitoPress} />
         <PiToPlaceholder index={1} onPress={onPitoPress} />

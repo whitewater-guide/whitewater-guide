@@ -1,10 +1,10 @@
-import { UserRaw } from '~/features/users';
+import { Sql } from '~/db';
 
 import authLogger from '../logger';
 import { sendMail } from './sendMail';
 import { MailType } from './types';
 
-export async function sendWelcome(user: UserRaw) {
+export async function sendWelcome(user: Sql.Users) {
   if (!user.email) {
     return;
   }

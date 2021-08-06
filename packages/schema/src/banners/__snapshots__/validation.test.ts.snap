@@ -1,0 +1,131 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should be invalid for bad group 1`] = `
+Object {
+  "regions": Array [
+    ,
+    Object {
+      "id": Object {
+        "key": "yup:string.uuid",
+        "options": Object {
+          "path": "regions[1].id",
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`should be invalid for bad link 1`] = `
+Object {
+  "link": Object {
+    "key": "yup:string.url",
+    "options": Object {
+      "path": "link",
+    },
+  },
+}
+`;
+
+exports[`should be invalid for bad placement 1`] = `
+Object {
+  "placement": Object {
+    "key": "yup:mixed.oneOf",
+    "options": Object {
+      "values": "mobileSectionDescription, mobileSectionRow, mobileSectionMedia, mobileRegionDescription",
+    },
+  },
+}
+`;
+
+exports[`should be invalid for bad region 1`] = `
+Object {
+  "regions": Array [
+    ,
+    Object {
+      "id": Object {
+        "key": "yup:string.uuid",
+        "options": Object {
+          "path": "regions[1].id",
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`should be invalid for bad slug 1 1`] = `
+Object {
+  "slug": "yup:string.slug",
+}
+`;
+
+exports[`should be invalid for bad slug 2 1`] = `
+Object {
+  "slug": "yup:string.slug",
+}
+`;
+
+exports[`should be invalid for bad uuid 1`] = `
+Object {
+  "id": Object {
+    "key": "yup:string.uuid",
+    "options": Object {
+      "path": "id",
+    },
+  },
+}
+`;
+
+exports[`should be invalid for casting priority 1`] = `
+Object {
+  "priority": Object {
+    "key": "yup:mixed.notType",
+    "options": Object {
+      "type": "number",
+    },
+  },
+}
+`;
+
+exports[`should be invalid for empty name 1`] = `
+Object {
+  "name": "yup:mixed.required",
+}
+`;
+
+exports[`should be invalid for empty source 1`] = `
+Object {
+  "source": Object {
+    "url": "yup:mixed.required",
+  },
+}
+`;
+
+exports[`should be invalid for extra fields 1`] = `
+Object {
+  "": Object {
+    "key": "yup:object.noUnknown",
+    "options": Object {
+      "path": "this",
+    },
+  },
+}
+`;
+
+exports[`should be invalid for http link 1`] = `
+Object {
+  "link": "yup:string.https",
+}
+`;
+
+exports[`should be invalid for source with extra fields 1`] = `
+Object {
+  "source": Object {
+    "key": "yup:object.noUnknown",
+    "options": Object {
+      "path": "source",
+    },
+  },
+}
+`;

@@ -1,4 +1,5 @@
-import { fakeContext, runQuery } from '@test';
+import { fakeContext } from '@test';
+import gql from 'graphql-tag';
 
 import { holdTransaction, rollbackTransaction } from '~/db';
 import { TEST_USER, TEST_USER2 } from '~/seeds/test/01_users';
@@ -8,39 +9,23 @@ import {
   DESCENT_2_SHARE_TOKEN,
 } from '~/seeds/test/18_descents';
 
+import { testGetDescent } from './descent.test.generated';
+
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
-const query = `
+const _query = gql`
   query getDescent($id: ID, $shareToken: String) {
     descent(id: $id, shareToken: $shareToken) {
-      id
-      # userId
-
-      startedAt
-      duration
-      level {
-        value
-        unit
-      }
-      comment
-      public
-
-      createdAt
-      updatedAt
+      ...DescentCore
+      ...TimestampedMeta
 
       section {
-        id
-
+        ...SectionNameShort
         region {
           id
           name
         }
-        river {
-          id
-          name
-        }
-        name
         difficulty
       }
     }
@@ -48,61 +33,51 @@ const query = `
 `;
 
 describe('permissions', () => {
-  type PermissionsTestCase = [string, any, any, boolean];
+  type PermissionsTestCase = [string, any, any];
 
   it.each<PermissionsTestCase>([
-    ['anon should get public descent', { id: DESCENT_01 }, undefined, true],
-    [
-      'anon should not get private descent',
-      { id: DESCENT_02 },
-      undefined,
-      false,
-    ],
-    ['user should get public descent', { id: DESCENT_01 }, TEST_USER, true],
-    [
-      'user should get own private descent',
-      { id: DESCENT_02 },
-      TEST_USER,
-      true,
-    ],
-    [
-      'user should not get other users private descent',
-      { id: DESCENT_02 },
-      TEST_USER2,
-      false,
-    ],
+    ['anon should get public descent', { id: DESCENT_01 }, undefined],
+    ['user should get public descent', { id: DESCENT_01 }, TEST_USER],
+    ['user should get own private descent', { id: DESCENT_02 }, TEST_USER],
     [
       'user should get other users private descent with share token',
       { shareToken: DESCENT_2_SHARE_TOKEN },
       TEST_USER2,
-      true,
+    ],
+  ])('%s', async (_, vars, user) => {
+    const result = await testGetDescent(vars, fakeContext(user));
+    expect(result.errors).toBeUndefined();
+    expect(result.data?.descent).toBeTruthy();
+  });
+
+  it.each<PermissionsTestCase>([
+    ['anon should not get private descent', { id: DESCENT_02 }, undefined],
+    [
+      'user should not get other users private descent',
+      { id: DESCENT_02 },
+      TEST_USER2,
     ],
     [
       'anon should not get other users private descent with share token',
       { shareToken: DESCENT_2_SHARE_TOKEN },
       undefined,
-      false,
     ],
-  ])('%s', async (_, vars, user, allowed) => {
-    const result = await runQuery(query, vars, fakeContext(user));
-    if (allowed) {
-      expect(result.errors).toBeUndefined();
-      expect(result.data?.descent).toBeTruthy();
-    } else {
-      expect(result.errors).toBeTruthy();
-      expect(result.data?.descent).toBeNull();
-    }
+    // eslint-disable-next-line jest/no-identical-title
+  ])('%s', async (_, vars, user) => {
+    const result = await testGetDescent(vars, fakeContext(user));
+    expect(result.errors).toBeTruthy();
+    expect(result.data?.descent).toBeNull();
   });
 });
 
 it('should return descent', async () => {
-  const result = await runQuery(query, { id: DESCENT_01 });
+  const result = await testGetDescent({ id: DESCENT_01 });
   expect(result.errors).toBeUndefined();
   expect(result.data?.descent).toMatchSnapshot();
 });
 
 it('should return null when no id is provided', async () => {
-  const result = await runQuery(query, {});
+  const result = await testGetDescent({});
   expect(result.errors).toBeUndefined();
   expect(result.data?.descent).toBeNull();
 });

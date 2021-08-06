@@ -1,22 +1,15 @@
-import { MediaKind, SuggestionStatus } from '@whitewater-guide/commons';
+import { MediaKind, SuggestionStatus } from '@whitewater-guide/schema';
 import { UserInputError } from 'apollo-server-koa';
 
-import { MutationNotAllowedError, TopLevelResolver } from '~/apollo';
-import db from '~/db';
+import { MutationNotAllowedError, MutationResolvers } from '~/apollo';
+import { db, Sql } from '~/db';
 
-import { SuggestionRaw } from '../types';
-
-interface Vars {
-  id: string;
-  status: SuggestionStatus;
-}
-
-const resolveSuggestion: TopLevelResolver<Vars> = async (
+const resolveSuggestion: MutationResolvers['resolveSuggestion'] = async (
   _,
   { id, status },
   { dataSources, user },
 ) => {
-  const suggestion: SuggestionRaw | undefined = await db()
+  const suggestion: Sql.Suggestions | undefined = await db()
     .select('*')
     .from('suggestions')
     .where({ id })
@@ -24,7 +17,7 @@ const resolveSuggestion: TopLevelResolver<Vars> = async (
   if (!suggestion) {
     throw new UserInputError('suggestion not found');
   }
-  if (suggestion.status !== SuggestionStatus.PENDING) {
+  if (suggestion.status !== SuggestionStatus.Pending) {
     throw new MutationNotAllowedError(
       'cannot resolve already resolved suggestion',
     );
@@ -34,19 +27,19 @@ const resolveSuggestion: TopLevelResolver<Vars> = async (
   });
   const [newSuggestion] = await db()
     .table('suggestions')
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-unnecessary-type-assertion
     .update({ status, resolved_by: user!.id, resolved_at: db().fn.now() })
     .where({ id })
     .returning('*');
 
-  if (suggestion.filename && status === SuggestionStatus.ACCEPTED) {
+  if (suggestion.filename && status === SuggestionStatus.Accepted) {
     await dataSources.media.upsertSectionMedia(
       {
         id: null,
         description: suggestion.description,
         copyright: suggestion.copyright,
         url: suggestion.filename,
-        kind: MediaKind.photo,
+        kind: MediaKind.Photo,
         resolution: suggestion.resolution,
         weight: null,
       },

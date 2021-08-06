@@ -9,7 +9,7 @@ interface Props {
   title?: string;
 }
 
-export const SeasonPickerField: React.FC<Props> = React.memo((props) => {
+export const SeasonPickerField = React.memo<Props>((props) => {
   const { name, title } = props;
   const [field] = useField<number[]>(name);
   const { onChange } = useFakeHandlers(name);

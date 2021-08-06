@@ -1,25 +1,10 @@
-import { EditorSettings } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
 import { useCallback } from 'react';
-import { useApolloClient, useMutation } from 'react-apollo';
+import { useApolloClient } from 'react-apollo';
 
-const EDITOR_SETTINGS_MUTATION = gql`
-  mutation updateEditorSettings($settings: EditorSettingsInput!) {
-    updateEditorSettings(editorSettings: $settings) {
-      id
-      editorSettings {
-        language
-      }
-    }
-  }
-`;
+import { useUpdateEditorSettingsMutation } from './updateEditorSettings.generated';
 
-interface MVars {
-  settings: Pick<EditorSettings, 'language'>;
-}
-
-export default () => {
-  const [mutate] = useMutation<unknown, MVars>(EDITOR_SETTINGS_MUTATION);
+export default function useEditorLanguage() {
+  const [mutate] = useUpdateEditorSettingsMutation();
   const client = useApolloClient();
   return useCallback(
     (language: string) =>
@@ -28,4 +13,4 @@ export default () => {
       ),
     [mutate, client],
   );
-};
+}

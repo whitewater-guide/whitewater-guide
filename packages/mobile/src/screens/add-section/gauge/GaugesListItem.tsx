@@ -1,5 +1,5 @@
 import { formatDistanceToNow, prettyNumber } from '@whitewater-guide/clients';
-import { NodeRef } from '@whitewater-guide/commons';
+import { RefInput } from '@whitewater-guide/schema';
 import parseISO from 'date-fns/parseISO';
 import * as i18next from 'i18next';
 import React, { useCallback, useMemo } from 'react';
@@ -8,7 +8,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { TouchableRipple } from 'react-native-paper';
 
 import theme from '../../../theme';
-import { ListedGauge } from './types';
+import { ListedGaugeFragment } from './findGauges.generated';
 
 const styles = StyleSheet.create({
   row: {
@@ -35,11 +35,11 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  gauge: ListedGauge;
-  onPress: (ref: NodeRef) => void;
+  gauge: ListedGaugeFragment;
+  onPress: (ref: RefInput) => void;
 }
 
-const getValue = (gauge: ListedGauge, t: i18next.TFunction) => {
+const getValue = (gauge: ListedGaugeFragment, t: i18next.TFunction) => {
   const { flowUnit, levelUnit, latestMeasurement } = gauge;
   if (!latestMeasurement || (!flowUnit && !levelUnit)) {
     return null;
@@ -49,13 +49,13 @@ const getValue = (gauge: ListedGauge, t: i18next.TFunction) => {
   });
   if (flowUnit && latestMeasurement.flow) {
     return [
-      prettyNumber(latestMeasurement.flow) + ' ' + t('commons:' + flowUnit),
+      `${prettyNumber(latestMeasurement.flow)} ${t(`commons:${flowUnit}`)}`,
       fromNow,
     ];
   }
   if (levelUnit && latestMeasurement.level) {
     return [
-      prettyNumber(latestMeasurement.level) + ' ' + t('commons:' + levelUnit),
+      `${prettyNumber(latestMeasurement.level)} ${t(`commons:${levelUnit}`)}`,
       fromNow,
     ];
   }
@@ -66,11 +66,10 @@ const GaugesListItem: React.FC<Props> = (props) => {
   const { t } = useTranslation();
   const { gauge, onPress } = props;
   const { id, code, name } = gauge;
-  const onSelect = useCallback(() => onPress({ id, name }), [
-    id,
-    name,
-    onPress,
-  ]);
+  const onSelect = useCallback(
+    () => onPress({ id, name }),
+    [id, name, onPress],
+  );
   const value = useMemo(() => getValue(gauge, t), [gauge, t]);
   return (
     <TouchableRipple onPress={onSelect}>

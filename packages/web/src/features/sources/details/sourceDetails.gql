@@ -1,0 +1,16 @@
+fragment SourceDetails on Source {
+  ...SourceCore
+  enabled
+  regions {
+    nodes {
+      id
+      name
+    }
+  }
+}
+
+query sourceDetails($sourceId: ID!) {
+  source(id: $sourceId) {
+    ...SourceDetails
+  }
+}

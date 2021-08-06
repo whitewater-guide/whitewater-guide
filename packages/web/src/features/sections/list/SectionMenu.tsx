@@ -1,8 +1,7 @@
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { AdminOnly } from '@whitewater-guide/clients';
-import { Section } from '@whitewater-guide/commons';
+import { AdminOnly, ListedSectionFragment } from '@whitewater-guide/clients';
 import React from 'react';
 
 import { Clipboard, DeleteButton } from '../../../components';
@@ -12,7 +11,7 @@ import SectionMenuItem from './SectionMenuItem';
 
 interface Props {
   regionId: string;
-  section: Section;
+  section: ListedSectionFragment;
   deleteHandler?: (id?: string) => void;
 }
 
@@ -37,7 +36,7 @@ const SectionMenu = React.memo(
     };
 
     return (
-      <React.Fragment>
+      <>
         <IconButton onClick={handleClick}>
           <MoreVertIcon />
         </IconButton>
@@ -47,9 +46,9 @@ const SectionMenu = React.memo(
           open={!!anchorEl}
           onClose={handleClose}
           autoFocus={false}
-          disableAutoFocusItem={true}
-          disableEnforceFocus={true}
-          disableRestoreFocus={true}
+          disableAutoFocusItem
+          disableEnforceFocus
+          disableRestoreFocus
         >
           <Clipboard text={sectionId} onCopy={handleClose}>
             <SectionMenuItem icon="code" label="Copy id" />
@@ -75,7 +74,7 @@ const SectionMenu = React.memo(
 
           <MergeSectionsButton section={section} onClick={handleClose} />
         </Menu>
-      </React.Fragment>
+      </>
     );
   },
 );

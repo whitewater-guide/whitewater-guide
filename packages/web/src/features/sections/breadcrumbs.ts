@@ -1,5 +1,4 @@
-import { SECTION_NAME } from '@whitewater-guide/clients';
-import { sectionName } from '@whitewater-guide/commons';
+import { sectionName, SectionNameDocument } from '@whitewater-guide/clients';
 
 import { BreadcrumbsMap } from '../../components/breadcrumbs';
 
@@ -7,9 +6,8 @@ export const sectionBreadcrumbs: BreadcrumbsMap = {
   '/sections': 'Sections',
   '/sections/new': 'New',
   '/sections/:sectionId': {
-    query: SECTION_NAME,
-    getName: ({ data }) =>
-      data?.section ? sectionName(data.section) : undefined,
+    query: SectionNameDocument,
+    getName: ({ data }) => sectionName(data?.section),
   },
   '/sections/:sectionId/settings': 'Settings',
 };

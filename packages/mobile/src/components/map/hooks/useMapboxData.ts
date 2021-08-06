@@ -1,6 +1,9 @@
 import { Feature, LineString, Point } from '@turf/helpers';
-import { poisToGeoJSON, sectionsToGeoJSON } from '@whitewater-guide/clients';
-import { Point as POI, Section } from '@whitewater-guide/commons';
+import {
+  MapProps,
+  poisToGeoJSON,
+  sectionsToGeoJSON,
+} from '@whitewater-guide/clients';
 import { useMemo } from 'react';
 
 interface MapboxData {
@@ -24,8 +27,8 @@ const sectionToArrowPoint = (section: Feature<LineString>): Feature<Point> => {
 };
 
 export const useMapboxData = (
-  sections: Section[],
-  pois?: POI[],
+  sections: MapProps['sections'],
+  pois?: MapProps['pois'],
   detailed?: boolean,
 ): MapboxData =>
   useMemo(() => {

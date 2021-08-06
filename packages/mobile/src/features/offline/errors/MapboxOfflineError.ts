@@ -9,6 +9,7 @@ export enum MapboxOfflineErrors {
 
 export class MapboxOfflineError extends Error {
   public original: OfflineError;
+
   public recoverable = false;
 
   constructor(event: OfflineError) {

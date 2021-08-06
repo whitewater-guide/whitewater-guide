@@ -25,9 +25,8 @@ const waitUntilActive = (timeout?: number): Promise<boolean> => {
       }, timeout);
     });
     return Promise.race([statePromise, timeoutPromise]);
-  } else {
-    return statePromise;
   }
+  return statePromise;
 };
 
 export default waitUntilActive;

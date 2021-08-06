@@ -1,4 +1,4 @@
-import { Media, MediaKind } from '@whitewater-guide/commons';
+import { MediaKind, MediaWithThumbFragment } from '@whitewater-guide/schema';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
@@ -12,12 +12,12 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  videos?: Media[];
+  videos?: MediaWithThumbFragment[];
 }
 
 const VideoList: React.FC<Props> = ({ videos }) => {
   if (!videos || videos.length === 0) {
-    return <NoMedia kind={MediaKind.video} />;
+    return <NoMedia kind={MediaKind.Video} />;
   }
   return (
     <View style={styles.container}>

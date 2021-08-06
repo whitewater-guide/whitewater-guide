@@ -1,15 +1,12 @@
-import { GraphQLFieldResolver } from 'graphql';
+import { SourceResolvers } from '~/apollo';
 
-import { Context } from '~/apollo';
-
-import { SourceRaw } from '../types';
-
-const sourceEnabledResolver: GraphQLFieldResolver<SourceRaw, Context> = async (
+const sourceEnabledResolver: SourceResolvers['enabled'] = async (
   { id },
   _,
   { dataSources },
 ) => {
-  return dataSources.gorge.isSourceEnabled(id);
+  const enabled = await dataSources.gorge.isSourceEnabled(id);
+  return !!enabled;
 };
 
 export default sourceEnabledResolver;

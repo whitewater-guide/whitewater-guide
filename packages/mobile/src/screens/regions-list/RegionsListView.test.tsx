@@ -36,9 +36,9 @@ it('should rerender when premium changes', async () => {
       }),
     },
   });
-  const Providers: React.FC = ({ children }) => {
-    return <ApolloProvider>{children}</ApolloProvider>;
-  };
+  const Providers: React.FC = ({ children }) => (
+    <ApolloProvider>{children}</ApolloProvider>
+  );
 
   const { rerender, getByLabelText, getAllByLabelText } = render(
     <RegionsListView />,

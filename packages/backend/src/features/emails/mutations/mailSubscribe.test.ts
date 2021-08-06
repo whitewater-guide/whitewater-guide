@@ -5,17 +5,17 @@ const mockPost = jest.fn(() =>
     status: 'subscribed',
   }),
 );
-jest.mock('mailchimp-api-v3', () => {
-  return jest.fn().mockImplementation(() => {
-    return { post: mockPost };
-  });
-});
+jest.mock('mailchimp-api-v3', () =>
+  jest.fn().mockImplementation(() => ({ post: mockPost })),
+);
 
-import { runQuery } from '@test';
+import gql from 'graphql-tag';
 
 import { holdTransaction, rollbackTransaction } from '~/db';
 
-const mutation = `
+import { testMailSubscribe } from './mailSubscribe.test.generated';
+
+const _mutation = gql`
   mutation mailSubscribe($mail: String!) {
     mailSubscribe(mail: $mail)
   }
@@ -29,9 +29,9 @@ beforeEach(async () => {
 afterEach(rollbackTransaction);
 
 it('should call mailchimp api', async () => {
-  const result = await runQuery(mutation, { mail: 'test@test.com' });
+  const result = await testMailSubscribe({ mail: 'test@test.com' });
   expect(mockPost).toHaveBeenCalledTimes(1);
   expect(mockPost.mock.calls[0]).toMatchSnapshot();
   expect(result.errors).toBeUndefined();
-  expect(result.data!.mailSubscribe).toBe(true);
+  expect(result.data?.mailSubscribe).toBe(true);
 });

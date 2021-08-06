@@ -18,7 +18,7 @@ const DescentFormScreen: React.FC<DescentFormNavProps> = (props) => {
   return (
     <Formik<Partial<DescentFormData>>
       initialValues={empty}
-      enableReinitialize={true}
+      enableReinitialize
       onSubmit={upsertDescent}
     >
       <DescentFormProvider {...props}>

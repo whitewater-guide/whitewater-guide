@@ -1,56 +1,47 @@
+import { NEW_RIVER_ID } from '@whitewater-guide/commons';
 import {
-  MediaInput,
   MediaKind,
-  NEW_ID,
-  OTHERS_REGION_ID,
+  MutationUpsertSectionArgs,
   SectionInput,
   SectionInputSchema,
-} from '@whitewater-guide/commons';
+} from '@whitewater-guide/schema';
 import { ForbiddenError } from 'apollo-server-koa';
 import uniq from 'lodash/uniq';
 import * as yup from 'yup';
 
 import {
-  AuthenticatedTopLevelResolver,
+  AuthenticatedMutation,
   Context,
   ContextUser,
   isAuthenticatedResolver,
   isInputValidResolver,
   UnknownError,
 } from '~/apollo';
-import db, { rawUpsert } from '~/db';
-import { SectionRaw } from '~/features/sections';
+import { db, rawUpsert, Sql } from '~/db';
+import { OTHERS_REGION_ID } from '~/features/regions';
 import { MEDIA, s3Client } from '~/s3';
 
 import { RawSectionUpsertResult } from '../types';
 import { checkForNewRiver, insertNewRiver } from './upsertUtils';
 import { differ } from './utils';
 
-const transformSection = (section: SectionInput): SectionInput => {
-  return {
-    ...section,
-    // For photos, URLS must be reduced to filenames
-    media: section.media.map(
-      (item): MediaInput => {
-        if (item.kind === MediaKind.photo) {
-          const url = s3Client.getLocalFileName(item.url);
-          if (!url) {
-            throw new UnknownError('photo url invalid');
-          }
-          return { ...item, url };
-        }
-        return item;
-      },
-    ),
-  };
-};
+const transformSection = (section: SectionInput): SectionInput => ({
+  ...section,
+  media: section.media.map((item) => {
+    const url = s3Client.getLocalFileName(item.url);
+    if (!url) {
+      throw new UnknownError('photo url invalid');
+    }
+    return item.kind === MediaKind.Photo ? { ...item, url } : item;
+  }),
+});
 
 const checkIsEditor = async (
   section: SectionInput,
   dataSources: Context['dataSources'],
 ) => {
   const query =
-    section.river.id === NEW_ID
+    section.river.id === NEW_RIVER_ID
       ? { regionId: section.region?.id ?? OTHERS_REGION_ID }
       : {
           sectionId: section.id,
@@ -62,8 +53,8 @@ const checkIsEditor = async (
 
 const saveLog = async (
   user: ContextUser,
-  current: SectionRaw,
-  old?: SectionRaw,
+  current: Sql.SectionsView,
+  old?: Sql.SectionsView,
 ) => {
   await db()
     .insert({
@@ -89,16 +80,14 @@ const moveAllMedia = async (ids: string[] | null) => {
     .from('media')
     .where({ kind: 'photo' })
     .whereIn('id', ids);
-  return Promise.all(
-    files.map(({ url }) => s3Client.moveTempImage(url, MEDIA)),
-  );
+  await Promise.all(files.map(({ url }) => s3Client.moveTempImage(url, MEDIA)));
 };
 
 const deleteUnusedFiles = async (urls: string[] | null) => {
   if (!urls || urls.length === 0) {
     return;
   }
-  return Promise.all(
+  await Promise.all(
     urls.map((url) =>
       s3Client.removeFile(MEDIA, url).catch(() => {
         // ignore files that we cannot remove
@@ -109,8 +98,8 @@ const deleteUnusedFiles = async (urls: string[] | null) => {
 
 const maybeUpdateJobs = async (
   dataSources: any,
-  current: SectionRaw,
-  old?: SectionRaw,
+  current: Sql.SectionsView,
+  old?: Sql.SectionsView,
 ) => {
   const oldGid = old?.gauge_id;
   const newGid = current.gauge_id;
@@ -134,15 +123,11 @@ const maybeUpdateJobs = async (
   }
 };
 
-interface Vars {
-  section: SectionInput;
-}
-
-const Struct = yup.object({
-  section: SectionInputSchema,
+const Schema: yup.SchemaOf<MutationUpsertSectionArgs> = yup.object({
+  section: SectionInputSchema.clone(),
 });
 
-const resolver: AuthenticatedTopLevelResolver<Vars> = async (
+const upsertSection: AuthenticatedMutation['upsertSection'] = async (
   _,
   vars,
   { user, language, dataSources },
@@ -160,7 +145,7 @@ const resolver: AuthenticatedTopLevelResolver<Vars> = async (
     section.river.id = await insertNewRiver(section, language);
   }
 
-  const old: SectionRaw | undefined = await dataSources.sections.getById(
+  const old: Sql.SectionsView | undefined = await dataSources.sections.getById(
     section.id,
   );
   const result: RawSectionUpsertResult = await rawUpsert(
@@ -184,8 +169,6 @@ const resolver: AuthenticatedTopLevelResolver<Vars> = async (
   return newSection || null;
 };
 
-const upsertSection = isAuthenticatedResolver(
-  isInputValidResolver(Struct, resolver),
+export default isAuthenticatedResolver(
+  isInputValidResolver(Schema, upsertSection),
 );
-
-export default upsertSection;

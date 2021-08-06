@@ -18,12 +18,12 @@ import { Loading } from './components';
 import { API_HOST, FACEBOOK_APP_ID } from './environment';
 import { history } from './history';
 import { RootLayout } from './layout';
-import { MY_PROFILE_QUERY } from './myProfile.query';
 import { theme } from './styles';
 import { SentryRouterBreadcrumbs } from './utils';
 
 class App extends React.PureComponent<unknown> {
   private _client!: ApolloClient<unknown>;
+
   private _auth!: AuthService;
 
   constructor(props: unknown) {
@@ -50,7 +50,7 @@ class App extends React.PureComponent<unknown> {
 
   render() {
     return (
-      <React.Fragment>
+      <>
         <CssBaseline />
         <MuiThemeProvider theme={theme}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -58,7 +58,6 @@ class App extends React.PureComponent<unknown> {
               <AuthProvider
                 service={this._auth}
                 renderInitializing={<Loading />}
-                query={MY_PROFILE_QUERY}
               >
                 <TagsProvider>
                   <BrowserRouter>
@@ -70,7 +69,7 @@ class App extends React.PureComponent<unknown> {
             </ApolloProvider>
           </MuiPickersUtilsProvider>
         </MuiThemeProvider>
-      </React.Fragment>
+      </>
     );
   }
 }

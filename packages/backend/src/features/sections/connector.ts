@@ -1,23 +1,22 @@
-import { Section, SectionsFilter } from '@whitewater-guide/commons';
+/* eslint-disable @typescript-eslint/no-invalid-this */
+import { Section, SectionsFilter } from '@whitewater-guide/schema';
 import { AuthenticationError, ForbiddenError } from 'apollo-server-koa';
 import { GraphQLResolveInfo } from 'graphql';
 import { QueryBuilder } from 'knex';
 
 import { UnknownError } from '~/apollo';
-import db from '~/db';
+import { db, Sql } from '~/db';
 import {
   FieldsMap,
   ManyBuilderOptions,
   OffsetConnector,
 } from '~/db/connectors';
 
-import { SectionRaw } from './types';
-
-interface GetManyOptions extends ManyBuilderOptions<SectionRaw> {
+interface GetManyOptions extends ManyBuilderOptions<Sql.SectionsView> {
   filter?: SectionsFilter;
 }
 
-const FIELDS_MAP: FieldsMap<Section, SectionRaw> = {
+const FIELDS_MAP: FieldsMap<Section, Sql.SectionsView> = {
   // premium determines description visibility
   description: ['description', 'premium', 'river_id', 'region_id', 'demo'],
   region: ['region_id', 'region_name'],
@@ -28,7 +27,10 @@ const FIELDS_MAP: FieldsMap<Section, SectionRaw> = {
   media: null,
 };
 
-export class SectionsConnector extends OffsetConnector<Section, SectionRaw> {
+export class SectionsConnector extends OffsetConnector<
+  Section,
+  Sql.SectionsView
+> {
   constructor() {
     super();
     this._tableName = 'sections_view';
@@ -74,14 +76,8 @@ export class SectionsConnector extends OffsetConnector<Section, SectionRaw> {
     const query = super.getMany(info, options);
     this.addHiddenWhere(query);
 
-    const {
-      riverId,
-      regionId,
-      updatedAfter,
-      search,
-      verified,
-      editable,
-    } = filter;
+    const { riverId, regionId, updatedAfter, search, verified, editable } =
+      filter;
 
     if (verified) {
       query.where({ verified });

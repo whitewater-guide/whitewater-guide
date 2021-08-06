@@ -1,5 +1,5 @@
 import Icon from '@material-ui/core/Icon';
-import { MediaKind } from '@whitewater-guide/commons';
+import { MediaKind } from '@whitewater-guide/schema';
 import React from 'react';
 
 import { Styles } from '../../../../styles';

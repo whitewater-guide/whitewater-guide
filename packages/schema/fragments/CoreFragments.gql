@@ -1,0 +1,4 @@
+fragment TimestampedMeta on Timestamped {
+  createdAt
+  updatedAt
+}

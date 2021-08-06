@@ -1,9 +1,9 @@
 import {
   renderDifficulty,
   stringifySeason,
-  WithNode,
+  useSectionQuery,
 } from '@whitewater-guide/clients';
-import { Section, TagCategory } from '@whitewater-guide/commons';
+import { TagCategory } from '@whitewater-guide/schema';
 import groupBy from 'lodash/groupBy';
 import trim from 'lodash/trim';
 import upperFirst from 'lodash/upperFirst';
@@ -30,25 +30,22 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props {
-  section: WithNode<Section | null>;
-}
-
-const SectionInfoView: React.FC<Props> = ({ section }) => {
-  const { node, refetch, loading } = section;
-  const [t] = useTranslation();
-  if (!node) {
+const SectionInfoView: React.FC = () => {
+  const { data, refetch, loading } = useSectionQuery();
+  const section = data?.section;
+  const { t } = useTranslation();
+  if (!section) {
     return null;
   }
   let season = upperFirst(
     trim(
-      `${stringifySeason(node.seasonNumeric, false, getSeasonLocalizer(t))}`,
+      `${stringifySeason(section.seasonNumeric, false, getSeasonLocalizer(t))}`,
     ),
   );
-  if (node.season) {
-    season = `${season}\n${node.season}`;
+  if (section.season) {
+    season = `${season}\n${section.season}`;
   }
-  const tagsByCategory = groupBy(node.tags, 'category');
+  const tagsByCategory = groupBy(section.tags, 'category');
   return (
     <ScrollView
       contentContainerStyle={styles.content}
@@ -56,14 +53,14 @@ const SectionInfoView: React.FC<Props> = ({ section }) => {
         <RefreshControl refreshing={loading} onRefresh={refetch} />
       }
     >
-      <HelpNeeded section={node} />
+      <HelpNeeded section={section} />
 
       <Row>
         <Left>
           <Subheading>{t('commons:difficulty')}</Subheading>
         </Left>
         <Right>
-          <Paragraph>{renderDifficulty(node)}</Paragraph>
+          <Paragraph>{renderDifficulty(section)}</Paragraph>
         </Right>
       </Row>
 
@@ -72,51 +69,51 @@ const SectionInfoView: React.FC<Props> = ({ section }) => {
           <Subheading>{t('commons:rating')}</Subheading>
         </Left>
         <Right>
-          <SimpleStarRating value={node.rating} />
+          <SimpleStarRating value={section.rating} />
         </Right>
       </Row>
 
-      {!!node.drop && (
+      {!!section.drop && (
         <Row>
           <Left>
             <Subheading>{t('commons:drop')}</Subheading>
           </Left>
           <Right>
-            <Paragraph>{`${node.drop} ${t('commons:m')}`}</Paragraph>
+            <Paragraph>{`${section.drop} ${t('commons:m')}`}</Paragraph>
           </Right>
         </Row>
       )}
 
-      {!!node.distance && (
+      {!!section.distance && (
         <Row>
           <Left>
             <Subheading>{t('commons:length')}</Subheading>
           </Left>
           <Right>
-            <Paragraph>{`${node.distance} ${t('commons:km')}`}</Paragraph>
+            <Paragraph>{`${section.distance} ${t('commons:km')}`}</Paragraph>
           </Right>
         </Row>
       )}
 
-      {!!node.duration && (
+      {!!section.duration && (
         <Row>
           <Left>
             <Subheading>{t('commons:duration')}</Subheading>
           </Left>
           <Right>
-            <Paragraph>{t('durations:' + node.duration)}</Paragraph>
+            <Paragraph>{t(`durations:${section.duration}`)}</Paragraph>
           </Right>
         </Row>
       )}
 
-      {!!node.flowsText && (
+      {!!section.flowsText && (
         <Row>
           <Left>
             <Subheading>{t('commons:flows')}</Subheading>
           </Left>
           <Body>
             <Paragraph style={{ textAlign: 'right' }}>
-              {node.flowsText}
+              {section.flowsText}
             </Paragraph>
           </Body>
         </Row>
@@ -133,52 +130,52 @@ const SectionInfoView: React.FC<Props> = ({ section }) => {
 
       <CoordinatesInfo
         label={t('commons:putIn')}
-        coordinates={node.putIn.coordinates}
-        section={node}
+        coordinates={section.putIn.coordinates}
+        section={section}
       />
 
       <CoordinatesInfo
         label={t('commons:takeOut')}
-        coordinates={node.takeOut.coordinates}
-        section={node}
+        coordinates={section.takeOut.coordinates}
+        section={section}
       />
 
-      {!!tagsByCategory[TagCategory.kayaking] &&
-        !!tagsByCategory[TagCategory.kayaking].length && (
+      {!!tagsByCategory[TagCategory.Kayaking] &&
+        !!tagsByCategory[TagCategory.Kayaking].length && (
           <Row>
             <Chips
-              label={t('commons:kayakingTypes') as string}
-              items={tagsByCategory[TagCategory.kayaking]}
+              label={t('commons:kayakingTypes')}
+              items={tagsByCategory[TagCategory.Kayaking]}
             />
           </Row>
         )}
 
-      {!!tagsByCategory[TagCategory.hazards] &&
-        !!tagsByCategory[TagCategory.hazards].length && (
+      {!!tagsByCategory[TagCategory.Hazards] &&
+        !!tagsByCategory[TagCategory.Hazards].length && (
           <Row>
             <Chips
-              label={t('commons:hazards') as string}
-              items={tagsByCategory[TagCategory.hazards]}
+              label={t('commons:hazards')}
+              items={tagsByCategory[TagCategory.Hazards]}
             />
           </Row>
         )}
 
-      {!!tagsByCategory[TagCategory.supply] &&
-        !!tagsByCategory[TagCategory.supply].length && (
+      {!!tagsByCategory[TagCategory.Supply] &&
+        !!tagsByCategory[TagCategory.Supply].length && (
           <Row>
             <Chips
-              label={t('commons:supplyTypes') as string}
-              items={tagsByCategory[TagCategory.supply]}
+              label={t('commons:supplyTypes')}
+              items={tagsByCategory[TagCategory.Supply]}
             />
           </Row>
         )}
 
-      {!!tagsByCategory[TagCategory.misc] &&
-        !!tagsByCategory[TagCategory.misc].length && (
+      {!!tagsByCategory[TagCategory.Misc] &&
+        !!tagsByCategory[TagCategory.Misc].length && (
           <Row>
             <Chips
-              label={t('commons:miscTags') as string}
-              items={tagsByCategory[TagCategory.misc]}
+              label={t('commons:miscTags')}
+              items={tagsByCategory[TagCategory.Misc]}
             />
           </Row>
         )}

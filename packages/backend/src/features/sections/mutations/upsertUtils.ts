@@ -1,17 +1,13 @@
-import {
-  NEW_ID,
-  OTHERS_REGION_ID,
-  RiverInput,
-  SectionInput,
-} from '@whitewater-guide/commons';
+import { NEW_RIVER_ID } from '@whitewater-guide/commons';
+import { RiverInput, SectionInput } from '@whitewater-guide/schema';
 import { UserInputError } from 'apollo-server-koa';
 
 import { UnknownError } from '~/apollo';
-import db, { rawUpsert } from '~/db';
-import { RiverRaw } from '~/features/rivers';
+import { db, rawUpsert, Sql } from '~/db';
+import { OTHERS_REGION_ID } from '~/features/regions';
 
 export const checkForNewRiver = (section: SectionInput) => {
-  const shouldInsertRiver = section.river.id === NEW_ID;
+  const shouldInsertRiver = section.river.id === NEW_RIVER_ID;
   if (shouldInsertRiver && section.id) {
     throw new UserInputError('cannot create new river for existing section');
   }
@@ -31,7 +27,7 @@ export const insertNewRiver = async (
     name: section.river.name,
     region: section.region ?? { id: OTHERS_REGION_ID },
   };
-  const river: RiverRaw | undefined = await rawUpsert(
+  const river: Sql.RiversView | undefined = await rawUpsert(
     db(),
     'SELECT upsert_river(?, ?)',
     [riverInput, language],

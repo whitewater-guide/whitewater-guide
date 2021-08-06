@@ -1,2 +1,2 @@
-export * from './MapSelectionContext';
+export * from './MapSelectionProvider';
 export * from './types';

@@ -1,6 +1,9 @@
 /* eslint-disable import/no-duplicates */
 import { ChartProvider } from '@whitewater-guide/clients';
-import { DescentLevelInput, Section } from '@whitewater-guide/commons';
+import {
+  DescentLevelInput,
+  DescentSectionFragment,
+} from '@whitewater-guide/schema';
 import addDays from 'date-fns/addDays';
 import subDays from 'date-fns/subDays';
 import React from 'react';
@@ -22,19 +25,20 @@ const styles = StyleSheet.create({
 
 interface Props {
   startedAt: string;
-  section: Section;
+  section: DescentSectionFragment;
   onLoaded: (value?: DescentLevelInput) => void;
 }
 
 export const DescentChartLayout = React.memo(
   ({ section, onLoaded, startedAt }: Props) => {
-    const initialFilter = {
-      from: subDays(new Date(startedAt), 1),
-      to: addDays(new Date(startedAt), 1),
-    };
     if (!section.gauge) {
       return null;
     }
+
+    const initialFilter = {
+      from: subDays(new Date(startedAt), 1).toISOString(),
+      to: addDays(new Date(startedAt), 1).toISOString(),
+    };
 
     return (
       <ChartProvider

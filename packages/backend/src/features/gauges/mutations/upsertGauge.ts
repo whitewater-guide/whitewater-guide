@@ -1,34 +1,30 @@
-import { GaugeInput, GaugeInputSchema } from '@whitewater-guide/commons';
+import {
+  GaugeInputSchema,
+  MutationUpsertGaugeArgs,
+} from '@whitewater-guide/schema';
 import * as yup from 'yup';
 
-import { isInputValidResolver, TopLevelResolver } from '~/apollo';
-import db, { rawUpsert } from '~/db';
+import { isInputValidResolver, MutationResolvers } from '~/apollo';
+import { db, rawUpsert, Sql } from '~/db';
 
-import { GaugeRaw } from '../types';
-
-interface Vars {
-  gauge: GaugeInput;
-}
-
-const Struct = yup.object({
-  gauge: GaugeInputSchema,
+const Schema: yup.SchemaOf<MutationUpsertGaugeArgs> = yup.object({
+  gauge: GaugeInputSchema.clone(),
 });
 
-const resolver: TopLevelResolver<Vars> = async (
+const upsertGauge: MutationResolvers['upsertGauge'] = async (
   _,
   { gauge },
   { dataSources, language },
 ) => {
-  const result: GaugeRaw = await rawUpsert(db(), 'SELECT upsert_gauge(?, ?)', [
-    gauge,
-    language,
-  ]);
+  const result: Sql.GaugesView = await rawUpsert(
+    db(),
+    'SELECT upsert_gauge(?, ?)',
+    [gauge, language],
+  );
   if (result?.enabled) {
     dataSources.gorge.updateJobForSource(result.source_id);
   }
   return result;
 };
 
-const upsertGauge = isInputValidResolver(Struct, resolver);
-
-export default upsertGauge;
+export default isInputValidResolver(Schema, upsertGauge);

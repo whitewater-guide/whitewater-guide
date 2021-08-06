@@ -1,11 +1,16 @@
-import { anonContext, countRows, fakeContext, runQuery } from '@test';
+import { anonContext, countRows, fakeContext } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import { ExecutionResult } from 'graphql';
+import gql from 'graphql-tag';
 
 import { holdTransaction, rollbackTransaction } from '~/db';
 import { GorgeConnector } from '~/features/gorge';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
 import { SOURCE_GALICIA_1 } from '~/seeds/test/05_sources';
+
+import {
+  RemoveSourceMutationResult,
+  testRemoveSource,
+} from './removeSource.test.generated';
 
 jest.mock('../../gorge/connector');
 
@@ -22,8 +27,8 @@ beforeAll(async () => {
   );
 });
 
-const query = `
-  mutation removeSource($id: ID!){
+const _mutation = gql`
+  mutation removeSource($id: ID!) {
     removeSource(id: $id)
   }
 `;
@@ -38,28 +43,28 @@ afterEach(rollbackTransaction);
 
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
-    const result = await runQuery(query, galicia, anonContext());
+    const result = await testRemoveSource(galicia, anonContext());
     expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
   });
 
   it('user should not pass', async () => {
-    const result = await runQuery(query, galicia, fakeContext(TEST_USER));
+    const result = await testRemoveSource(galicia, fakeContext(TEST_USER));
     expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('editor should not pass', async () => {
-    const result = await runQuery(query, galicia, fakeContext(EDITOR_GA_EC));
+    const result = await testRemoveSource(galicia, fakeContext(EDITOR_GA_EC));
     expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 });
 
 describe('effects', () => {
-  let result: ExecutionResult<any>;
+  let result: RemoveSourceMutationResult;
   let spy: jest.SpyInstance;
 
   beforeEach(async () => {
     spy = jest.spyOn(GorgeConnector.prototype, 'deleteJobForSource');
-    result = await runQuery(query, galicia, fakeContext(ADMIN));
+    result = await testRemoveSource(galicia, fakeContext(ADMIN));
   });
 
   afterEach(() => {
@@ -67,7 +72,7 @@ describe('effects', () => {
   });
 
   it('should return deleted source id', () => {
-    expect(result.data.removeSource).toBe(galicia.id);
+    expect(result.data?.removeSource).toBe(galicia.id);
     expect(result.errors).toBeUndefined();
   });
 

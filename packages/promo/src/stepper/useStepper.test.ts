@@ -1,6 +1,7 @@
 import { act, renderHook } from '@testing-library/react-hooks';
-import { BoomPromoInfo, Region } from '@whitewater-guide/commons';
+import { BoomPromoInfo } from '@whitewater-guide/schema';
 
+import { PromoRegionFragment } from './promoRegion.generated';
 import { Steps } from './Steps';
 import { StepperActions, StepperState, useStepper } from './useStepper';
 
@@ -8,7 +9,10 @@ interface Result {
   current: StepperState & StepperActions;
 }
 
-const mockRegion: Region = { name: 'Mock Region', sku: 'region.sku' } as any;
+const mockRegion: PromoRegionFragment = {
+  name: 'Mock Region',
+  sku: 'region.sku',
+} as any;
 
 describe('active step: login', () => {
   let result: Result;

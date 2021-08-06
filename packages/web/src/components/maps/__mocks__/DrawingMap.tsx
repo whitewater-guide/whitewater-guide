@@ -1,12 +1,11 @@
-import { Coordinate, Coordinate3d } from '@whitewater-guide/commons';
 import times from 'lodash/times';
 import React from 'react';
 
 interface Props {
-  points?: Coordinate3d[];
+  points?: CodegenCoordinates[];
   drawingMode: 'LineString' | 'Polygon' | 'Point';
-  bounds: Coordinate[] | null;
-  onChange: (points: Coordinate3d[]) => void;
+  bounds: CodegenCoordinates[] | null;
+  onChange: (points: CodegenCoordinates[]) => void;
   onLoaded?: (map: google.maps.Map) => void;
 }
 

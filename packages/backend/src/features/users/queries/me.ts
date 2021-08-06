@@ -1,6 +1,6 @@
-import { TopLevelResolver } from '~/apollo';
+import { QueryResolvers } from '~/apollo';
 
-const me: TopLevelResolver = async (_, __, { user, dataSources }) => {
+const me: QueryResolvers['me'] = async (_, __, { user, dataSources }) => {
   if (!user) {
     return null;
   }

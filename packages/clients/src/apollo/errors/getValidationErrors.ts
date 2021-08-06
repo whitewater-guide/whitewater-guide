@@ -27,5 +27,5 @@ export const getValidationErrors = (
   // Usually validation errors contain only one top-level key (form mutations have only one argument)
   const nested = Object.values(validationErrors);
 
-  return (nested[0] || {}) as any;
+  return nested[0] || {};
 };

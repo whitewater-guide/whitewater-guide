@@ -1,37 +1,34 @@
-import { fakeContext, runQuery } from '@test';
+import { fakeContext } from '@test';
+import gql from 'graphql-tag';
 
 import { holdTransaction, rollbackTransaction } from '~/db';
 import { TEST_USER, TEST_USER2 } from '~/seeds/test/01_users';
 import { DESCENT_02, DESCENT_2_SHARE_TOKEN } from '~/seeds/test/18_descents';
 
+import { testGetShareToken } from './descentShareToken.test.generated';
+
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
-const query = `
+const _query = gql`
   query getShareToken($id: ID!) {
     descentShareToken(id: $id)
   }
 `;
 
-type PermissionsTestCase = [string, any, boolean];
+type PermissionsTestCase = [string, any];
 
 it.each<PermissionsTestCase>([
-  ['anon', undefined, false],
-  ['non-owner', TEST_USER2, false],
-])('%s should not get share token', async (_, user, allowed) => {
-  const result = await runQuery(query, { id: DESCENT_02 }, fakeContext(user));
-  if (allowed) {
-    expect(result.errors).toBeUndefined();
-    expect(result.data?.descentShareToken).toBeTruthy();
-  } else {
-    expect(result.errors).toBeTruthy();
-    expect(result.data?.descentShareToken).toBeNull();
-  }
+  ['anon', undefined],
+  ['non-owner', TEST_USER2],
+])('%s should not get share token', async (_, user) => {
+  const result = await testGetShareToken({ id: DESCENT_02 }, fakeContext(user));
+  expect(result.errors).toBeTruthy();
+  expect(result.data?.descentShareToken).toBeNull();
 });
 
 it('should return descent share token', async () => {
-  const result = await runQuery(
-    query,
+  const result = await testGetShareToken(
     { id: DESCENT_02 },
     fakeContext(TEST_USER),
   );

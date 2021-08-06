@@ -1,14 +1,8 @@
-import {
-  anonContext,
-  countRows,
-  fakeContext,
-  runQuery,
-  UUID_REGEX,
-} from '@test';
+import { anonContext, countRows, fakeContext, UUID_REGEX } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import { ExecutionResult } from 'graphql';
+import gql from 'graphql-tag';
 
-import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { db, holdTransaction, rollbackTransaction, Sql } from '~/db';
 import {
   EDITOR_GA_EC,
   EDITOR_GA_EC_ID,
@@ -23,7 +17,10 @@ import {
   NORWAY_SJOA_AMOT,
 } from '~/seeds/test/09_sections';
 
-import { SectionsEditLogRaw } from '../types';
+import {
+  MergeSectionsMutationResult,
+  testMergeSections,
+} from './mergeSections.test.generated';
 
 let sBefore: number;
 let pBefore: number;
@@ -43,16 +40,15 @@ beforeAll(async () => {
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
-const query = `
-  mutation mergeSections($sourceId: ID!, $destinationId: ID!){
+const _mutation = gql`
+  mutation mergeSections($sourceId: ID!, $destinationId: ID!) {
     mergeSections(sourceId: $sourceId, destinationId: $destinationId)
   }
 `;
 
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
-    const result = await runQuery(
-      query,
+    const result = await testMergeSections(
       { sourceId: NORWAY_SJOA_AMOT, destinationId: NORWAY_FINNA_GORGE },
       anonContext(),
     );
@@ -60,8 +56,7 @@ describe('resolvers chain', () => {
   });
 
   it('user should not pass', async () => {
-    const result = await runQuery(
-      query,
+    const result = await testMergeSections(
       { sourceId: NORWAY_SJOA_AMOT, destinationId: NORWAY_FINNA_GORGE },
       fakeContext(TEST_USER),
     );
@@ -69,8 +64,7 @@ describe('resolvers chain', () => {
   });
 
   it('non-owning editor should not pass', async () => {
-    const result = await runQuery(
-      query,
+    const result = await testMergeSections(
       { sourceId: NORWAY_SJOA_AMOT, destinationId: NORWAY_FINNA_GORGE },
       fakeContext(EDITOR_GA_EC),
     );
@@ -79,11 +73,10 @@ describe('resolvers chain', () => {
 });
 
 describe('effects', () => {
-  let result: ExecutionResult<any>;
+  let result: MergeSectionsMutationResult;
 
   beforeEach(async () => {
-    result = await runQuery(
-      query,
+    result = await testMergeSections(
       { sourceId: GALICIA_BECA_LOWER, destinationId: GALICIA_BECA_UPPER },
       fakeContext(EDITOR_GA_EC),
     );
@@ -107,7 +100,7 @@ describe('effects', () => {
   });
 
   it('should log this event', async () => {
-    const entry: SectionsEditLogRaw = await db(false)
+    const entry: Sql.SectionsEditLog = await db(false)
       .table('sections_edit_log')
       .orderBy('created_at', 'desc')
       .select('*')

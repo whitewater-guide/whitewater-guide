@@ -3,30 +3,18 @@ import React from 'react';
 
 import { SeasonPickerField, TextField } from '../../../formik/fields';
 
-const RegionFormMain: React.FC = () => {
-  return (
-    <Grid container={true} spacing={1}>
-      <Grid item={true} xs={12}>
-        <TextField
-          fullWidth={true}
-          name="name"
-          label="Name"
-          placeholder="Name"
-        />
-      </Grid>
-      <Grid item={true} xs={12}>
-        <TextField
-          fullWidth={true}
-          name="season"
-          label="Season"
-          placeholder="Season"
-        />
-      </Grid>
-      <Grid item={true} xs={12}>
-        <SeasonPickerField name="seasonNumeric" />
-      </Grid>
+const RegionFormMain: React.FC = () => (
+  <Grid container spacing={1}>
+    <Grid item xs={12}>
+      <TextField fullWidth name="name" label="Name" placeholder="Name" />
     </Grid>
-  );
-};
+    <Grid item xs={12}>
+      <TextField fullWidth name="season" label="Season" placeholder="Season" />
+    </Grid>
+    <Grid item xs={12}>
+      <SeasonPickerField name="seasonNumeric" />
+    </Grid>
+  </Grid>
+);
 
 export default RegionFormMain;

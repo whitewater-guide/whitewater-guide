@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { StyleSheet } from 'react-native';
-import { FAB } from 'react-native-paper';
+import { FAB as FAButton } from 'react-native-paper';
 
 import { Screens } from '~/core/navigation';
 
@@ -20,11 +20,12 @@ interface Props {
 }
 
 export const AddDescentFAB: React.FC<Props> = ({ navigate }) => {
-  const onPress = useCallback(() => navigate(Screens.DESCENT_FORM, {}), [
-    navigate,
-  ]);
+  const onPress = useCallback(
+    () => navigate(Screens.DESCENT_FORM, {}),
+    [navigate],
+  );
   return (
-    <FAB
+    <FAButton
       style={styles.fab}
       icon="plus"
       onPress={onPress}

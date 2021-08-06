@@ -1,21 +1,17 @@
-import { TagInput, TagInputSchema } from '@whitewater-guide/commons';
+import {
+  MutationUpsertTagArgs,
+  TagInputSchema,
+} from '@whitewater-guide/schema';
 import * as yup from 'yup';
 
-import { Context, isInputValidResolver } from '~/apollo';
-import db, { rawUpsert } from '~/db';
+import { isInputValidResolver, MutationResolvers } from '~/apollo';
+import { db, rawUpsert } from '~/db';
 
-interface Vars {
-  tag: TagInput;
-}
-
-const Struct = yup.object({
-  tag: TagInputSchema,
+const Struct: yup.SchemaOf<MutationUpsertTagArgs> = yup.object({
+  tag: TagInputSchema.clone(),
 });
 
-const upsertTag = isInputValidResolver<Vars>(
-  Struct,
-  (_: any, { tag }: Vars, { language }: Context) =>
-    rawUpsert(db(), 'SELECT upsert_tag(?, ?)', [tag, language]),
-);
+const upsertTag: MutationResolvers['upsertTag'] = (_, { tag }, { language }) =>
+  rawUpsert(db(), 'SELECT upsert_tag(?, ?)', [tag, language]);
 
-export default upsertTag;
+export default isInputValidResolver(Struct, upsertTag);

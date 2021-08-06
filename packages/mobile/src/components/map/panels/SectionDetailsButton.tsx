@@ -20,18 +20,18 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  sectionId: string | null;
+  sectionId?: string | null;
 }
 
 export const SectionDetailsButton: React.FC<Props> = memo(({ sectionId }) => {
   const { t } = useTranslation();
   const { navigate } = useNavigation<RootStackNav>();
-  const { node } = useRegion();
+  const region = useRegion();
   const onPress = useCallback(() => {
-    if (sectionId && node) {
+    if (sectionId && region) {
       navigate(Screens.SECTION_SCREEN, { sectionId });
     }
-  }, [sectionId, navigate, node]);
+  }, [sectionId, navigate, region]);
   // TODO: works on android only: https://github.com/kmagiera/react-native-gesture-handler/pull/537
   if (Platform.OS === 'android') {
     return (

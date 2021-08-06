@@ -1,0 +1,29 @@
+{
+  "name": "@whitewater-guide/schema",
+  "version": "0.0.211",
+  "license": "UNLICENSED",
+  "description": "graphql schema of whitewater.guide",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "Konstantin Kuznetsov",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "clean": "rimraf dist src/__generated__ && find src -name \"*.generated.ts\" -delete",
+    "build": "tsc --project tsconfig.build.json",
+    "test": "jest",
+    "typecheck": "tsc --noEmit",
+    "prepare": "yarn build"
+  },
+  "dependencies": {
+    "@whitewater-guide/validation": "*",
+    "graphql": "^15.5.1",
+    "graphql-tag": "^2.12.4",
+    "graphql-tools": "^7.0.5",
+    "lodash": "^4.17.21",
+    "yup": "^0.32.9"
+  }
+}

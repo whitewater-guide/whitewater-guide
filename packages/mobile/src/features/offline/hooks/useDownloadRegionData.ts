@@ -1,7 +1,7 @@
 import {
-  REGION_DETAILS,
-  RegionDetailsResult,
-  RegionDetailsVars,
+  RegionDetailsDocument,
+  RegionDetailsQuery,
+  RegionDetailsQueryVariables,
 } from '@whitewater-guide/clients';
 import { useCallback } from 'react';
 import { useApolloClient } from 'react-apollo';
@@ -14,9 +14,9 @@ export default (regionId: string | null) => {
     if (!regionId) {
       throw new Error('region id not present');
     }
-    return apollo.query<RegionDetailsResult, RegionDetailsVars>({
-      query: REGION_DETAILS(theme.screenWidthPx),
-      variables: { regionId },
+    return apollo.query<RegionDetailsQuery, RegionDetailsQueryVariables>({
+      query: RegionDetailsDocument,
+      variables: { regionId, bannerWidth: theme.screenWidthPx },
       fetchPolicy: 'network-only',
       errorPolicy: 'none',
     });

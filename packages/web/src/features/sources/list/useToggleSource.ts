@@ -1,15 +1,15 @@
-import { useCallback } from 'react';
-import { useMutation } from 'react-apollo';
+import { useMemo } from 'react';
 
-import { MVars, TOGGLE_SOURCE } from './toggleSource.mutation';
+import { useToggleSourceMutation } from './toggleSource.generated';
 
-export default () => {
-  const [mutate] = useMutation<any, MVars>(TOGGLE_SOURCE);
-  return useCallback(
-    (id: string, enabled: boolean) =>
-      mutate({ variables: { id, enabled } }).catch(() => {
+export default function useToggleSource() {
+  const [mutate] = useToggleSourceMutation();
+  return useMemo(
+    () => async (id: string, enabled: boolean) => {
+      await mutate({ variables: { id, enabled } }).catch(() => {
         // ignore, maybe show snackbar later
-      }),
+      });
+    },
     [mutate],
   );
-};
+}

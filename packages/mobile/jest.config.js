@@ -17,6 +17,8 @@ const notIgnoredModules = [
 ].join('|');
 
 module.exports = {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
+  displayName: require('./package.json').name,
   preset: '@testing-library/react-native',
   verbose: true,
   // transform: {

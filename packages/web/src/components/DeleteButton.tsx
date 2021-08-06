@@ -37,7 +37,7 @@ export const DeleteButton = React.memo(
     };
 
     return (
-      <React.Fragment>
+      <>
         {children ? (
           React.cloneElement(React.Children.only(children), {
             onClick: openDialog,
@@ -56,7 +56,7 @@ export const DeleteButton = React.memo(
             onConfirm={confirmDialog}
           />
         )}
-      </React.Fragment>
+      </>
     );
   },
 );

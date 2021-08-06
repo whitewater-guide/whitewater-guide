@@ -43,7 +43,6 @@ const QUERY = gql`
 `;
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-type QVars = {};
 interface QResult {
   entity: Entity;
 }
@@ -152,7 +151,7 @@ const renderWrapper = (options: TestOptions) => {
   );
   return renderHook(
     () =>
-      useApolloFormik<QVars, QResult, FData, MVars, MResult>({
+      useApolloFormik<{}, QResult, FData, MVars, MResult>({
         query: QUERY,
         queryToForm: (result?: QResult) => {
           if (!result || !result.entity) {
@@ -160,12 +159,12 @@ const renderWrapper = (options: TestOptions) => {
               f: 'default',
             };
           }
-          return { f: result.entity.q + '_form' };
+          return { f: `${result.entity.q}_form` };
         },
         mutation: MUTATION,
-        formToMutation: (data: FData) => {
-          return { value: { m: data.f + '_mutated' } };
-        },
+        formToMutation: (data: FData) => ({
+          value: { m: `${data.f}_mutated` },
+        }),
         onSuccess,
       }),
     { wrapper },

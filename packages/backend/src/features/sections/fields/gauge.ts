@@ -1,10 +1,6 @@
-import { GraphQLFieldResolver } from 'graphql';
+import { SectionResolvers } from '~/apollo';
 
-import { Context } from '~/apollo';
-
-import { SectionRaw } from '../types';
-
-const gaugeResolver: GraphQLFieldResolver<SectionRaw, Context> = (
+const gaugeResolver: SectionResolvers['gauge'] = (
   { gauge_id },
   _,
   { dataSources },

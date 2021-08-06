@@ -19,12 +19,8 @@ const styles = StyleSheet.create({
 });
 
 const SubmitButton = memo(() => {
-  const {
-    submitForm,
-    isSubmitting,
-    isValid,
-    setTouched,
-  } = useFormikContext<SectionFormInput>();
+  const { submitForm, isSubmitting, isValid, setTouched } =
+    useFormikContext<SectionFormInput>();
   const { t } = useTranslation();
   const [size, setSize] = useState({ width: 100, height: 32 });
 
@@ -39,10 +35,10 @@ const SubmitButton = memo(() => {
     setTouched(
       {
         name: true,
-        // @ts-expect-error: this works fine
+        // @ts-ignore: this works fine
         river: true,
         difficulty: true,
-        // @ts-expect-error: this works fine
+        // @ts-ignore: this works fine
         shape: true,
       },
       true,

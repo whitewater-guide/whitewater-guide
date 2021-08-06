@@ -1,68 +1,31 @@
-import { Connection, Media } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
-import { useCallback, useMemo } from 'react';
-import { useQuery } from 'react-apollo';
+import { useCallback } from 'react';
 
 import { useDeleteMutation } from '../../../apollo';
-import { squashConnection } from '../../../formik/utils';
 import { THUMB_HEIGHT } from '../components/list/constants';
+import { RemoveMediaDocument } from './removeMedia.generated';
+import {
+  SectionMediaDocument,
+  useSectionMediaQuery,
+} from './sectionMedia.generated';
 
-const SECTIONS_MEDIA = gql`
-  query sectionMedia($sectionId: ID!, $thumbHeight: Int) {
-    media: mediaBySection(sectionId: $sectionId) {
-      nodes {
-        id
-        kind
-        description
-        copyright
-        createdAt
-        weight
-        url
-        image
-        thumb: image(height: $thumbHeight)
-        resolution
-        deleted
-      }
-    }
-  }
-`;
-
-const REMOVE_MEDIA = gql`
-  mutation removeMedia($id: ID!) {
-    removeMedia(id: $id) {
-      id
-      deleted
-    }
-  }
-`;
-
-interface Vars {
-  sectionId: string;
-  thumbHeight: number;
-}
-
-interface Result {
-  media: Required<Connection<Media>>;
-}
-
-export default (sectionId: string) => {
-  const { data, loading } = useQuery<Result, Vars>(SECTIONS_MEDIA, {
+export default function useSectionMedia(sectionId: string) {
+  const { data, loading } = useSectionMediaQuery({
     fetchPolicy: 'cache-and-network',
     variables: { sectionId, thumbHeight: THUMB_HEIGHT },
   });
 
-  const removeMediaById = useDeleteMutation(REMOVE_MEDIA, [
+  const removeMediaById = useDeleteMutation(RemoveMediaDocument, [
     {
-      query: SECTIONS_MEDIA,
+      query: SectionMediaDocument,
       variables: { sectionId, thumbHeight: THUMB_HEIGHT },
     },
   ]);
 
-  const media = useMemo(() => squashConnection(data, 'media'), [data]);
+  const media = data?.media?.nodes;
 
   const removeMedia = useCallback(
     (index: number) => {
-      const item = media[index];
+      const item = media?.[index];
       if (!item) {
         return;
       }
@@ -72,4 +35,4 @@ export default (sectionId: string) => {
   );
 
   return { media, loading, removeMedia };
-};
+}

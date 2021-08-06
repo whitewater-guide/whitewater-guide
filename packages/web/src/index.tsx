@@ -18,12 +18,9 @@ if (process.env.NODE_ENV === 'production' && process.env.REACT_APP_SENTRY_DSN) {
       : API_HOST.includes('beta')
       ? 'staging'
       : 'production',
-    integrations: (integrations) => {
+    integrations: (integrations) =>
       // integrations will be all default integrations
-      return integrations.filter(
-        (integration) => integration.name !== 'Breadcrumbs',
-      );
-    },
+      integrations.filter((integration) => integration.name !== 'Breadcrumbs'),
   });
 }
 

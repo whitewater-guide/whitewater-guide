@@ -1,13 +1,8 @@
-import { TopLevelResolver } from '~/apollo';
-import db from '~/db';
+import { MutationResolvers } from '~/apollo';
+import { db } from '~/db';
 
-interface Vars {
-  regionId: string;
-  userId: string;
-}
-
-const addEditor: TopLevelResolver<Vars> = async (
-  root,
+const addEditor: MutationResolvers['addEditor'] = async (
+  _,
   { regionId, userId },
 ) => {
   const query = db()

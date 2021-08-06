@@ -2,52 +2,18 @@ import { useNavigation } from '@react-navigation/native';
 import { getValidationErrors } from '@whitewater-guide/clients';
 import { omitTypename } from '@whitewater-guide/commons';
 import { FormikHelpers } from 'formik';
-import gql from 'graphql-tag';
 import isNil from 'lodash/isNil';
 import { useCallback } from 'react';
-import { useMutation } from 'react-apollo';
 import { useTranslation } from 'react-i18next';
 
 import { useSnackbarMessage } from '~/components/snackbar';
 
 import { DescentFormData } from './types';
-
-const UPSERT_DESCENT = gql`
-  mutation upsertDescent($descent: DescentInput!, $shareToken: String) {
-    upsertDescent(descent: $descent, shareToken: $shareToken) {
-      id
-
-      startedAt
-      duration
-      level {
-        value
-        unit
-      }
-      comment
-      public
-
-      createdAt
-      updatedAt
-
-      section {
-        id
-        name
-        river {
-          id
-          name
-        }
-        region {
-          id
-          name
-        }
-      }
-    }
-  }
-`;
+import { useUpsertDescentMutation } from './upsertDescent.generated';
 
 export default () => {
   const { t } = useTranslation();
-  const [mutate] = useMutation(UPSERT_DESCENT);
+  const [mutate] = useUpsertDescentMutation();
   const { goBack } = useNavigation();
   const setSnackbar = useSnackbarMessage();
   return useCallback(

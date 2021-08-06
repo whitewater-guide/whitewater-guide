@@ -1,7 +1,8 @@
-/* eslint-disable import/no-duplicates */
-import { Unit } from '@whitewater-guide/commons';
+import { Unit } from '@whitewater-guide/schema';
 import { scaleLinear, scaleTime } from 'd3-scale';
+// eslint-disable-next-line import/no-duplicates
 import differenceInDays from 'date-fns/differenceInDays';
+// eslint-disable-next-line import/no-duplicates
 import subDays from 'date-fns/subDays';
 import compact from 'lodash/compact';
 import filterFn from 'lodash/filter';
@@ -11,10 +12,10 @@ import { formatDate } from '../../../i18n';
 import { getDefaultTimeAxisSettings } from './defaults';
 import { ChartMeta, ChartMetaSettings, ChartViewProps } from './types';
 
-export const computeChartMeta = (
+export function computeChartMeta(
   props: ChartViewProps,
   settings?: ChartMetaSettings,
-): ChartMeta => {
+): ChartMeta {
   const { data, filter, unit, section, height, highlightedDate } = props;
   const { yDeltaRatio = 8, yTicks = 5, timeAxisSettings } = settings || {};
   let result = data.reduce(
@@ -46,11 +47,11 @@ export const computeChartMeta = (
   const yDomain: [number, number] = [result[0] - yDelta, result[1] + yDelta];
   const yTickValues = ticks.concat(scaleLinear().domain(yDomain).ticks(yTicks));
 
-  const to = filter.to || new Date();
-  const from = filter.from || subDays(to, 1);
-  const xDomain: [Date, Date] = [from, to];
+  const toDate = filter.to ? new Date(filter.to) : new Date();
+  const fromDate = filter.from ? new Date(filter.from) : subDays(toDate, 1);
+  const xDomain: [Date, Date] = [fromDate, toDate];
 
-  const days = differenceInDays(to, from);
+  const days = differenceInDays(toDate, fromDate);
   const xAxisSettings = timeAxisSettings || getDefaultTimeAxisSettings(days);
   const xTickFormat = (date: Date) =>
     formatDate(date, xAxisSettings.tickFormat);
@@ -71,4 +72,4 @@ export const computeChartMeta = (
     xTickFormat,
     yTickValues,
   };
-};
+}

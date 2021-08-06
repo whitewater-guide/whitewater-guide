@@ -1,0 +1,20 @@
+fragment MediaCore on Media {
+  id
+  kind
+  copyright
+  description
+  license {
+    name
+    slug
+    url
+  }
+  url
+  resolution
+  weight
+}
+
+fragment MediaWithThumb on Media {
+  ...MediaCore
+  image
+  thumb: image
+}

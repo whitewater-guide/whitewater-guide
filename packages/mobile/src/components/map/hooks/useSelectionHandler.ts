@@ -4,20 +4,24 @@ import bbox from '@turf/bbox';
 import bboxPolygon from '@turf/bbox-polygon';
 import { Feature } from '@turf/helpers';
 import square from '@turf/square';
-import { BBox, useMapSelection } from '@whitewater-guide/clients';
-import { isSection, Point, Section } from '@whitewater-guide/commons';
+import {
+  BBox,
+  ListedSectionFragment,
+  useMapSelection,
+} from '@whitewater-guide/clients';
+import { PointCoreFragment } from '@whitewater-guide/schema';
 import { MutableRefObject, useCallback } from 'react';
 
 import theme from '../../../theme';
 import { useCamera } from './useCamera';
 
-const getSectionMiddle = (section: Section): [number, number] => {
+const getSectionMiddle = (section: ListedSectionFragment): [number, number] => {
   const [pLng, pLat] = section.putIn.coordinates;
   const [tLng, tLat] = section.takeOut.coordinates;
   return [(pLng + tLng) / 2, (pLat + tLat) / 2];
 };
 
-const getFeature = (e: Feature | OnPressEvent<any>) => {
+const getFeature = (e: Feature | OnPressEvent) => {
   if ('features' in e) {
     if (e.features?.length) {
       return {
@@ -31,15 +35,15 @@ const getFeature = (e: Feature | OnPressEvent<any>) => {
 };
 
 export const useSelectionHandler = (
-  sections: Section[],
-  pois: Point[],
+  sections: ListedSectionFragment[],
+  pois: PointCoreFragment[],
   sectionSelectable = true,
   visibleBounds: MutableRefObject<BBox>,
 ) => {
-  const { onSelected } = useMapSelection();
+  const [_, onSelected] = useMapSelection();
   const camera = useCamera();
   const onPress = useCallback(
-    (e: Feature | OnPressEvent<any>) => {
+    (e: Feature | OnPressEvent) => {
       const feature = getFeature(e);
       if (!feature) {
         onSelected(null);
@@ -47,16 +51,16 @@ export const useSelectionHandler = (
       }
       const { id, geometry } = feature;
       const { type } = geometry;
-      const nodes: Array<Section | Point> =
+      const nodes: Array<ListedSectionFragment | PointCoreFragment> =
         type === 'LineString' ? sections : pois;
       const node = nodes.find((el) => el.id === id);
       if (node) {
-        if (isSection(node) && !sectionSelectable) {
+        if (node.__typename === 'Section' && !sectionSelectable) {
           return;
         }
         onSelected(node);
         if (camera) {
-          if (isSection(node)) {
+          if (node.__typename === 'Section') {
             const [[maxLng, maxLat], [minLng, minLat]] = visibleBounds.current;
             const boundsArea = area(
               bboxPolygon([minLng, minLat, maxLng, maxLat]),
@@ -73,8 +77,9 @@ export const useSelectionHandler = (
                 2600,
               );
             }
-          } else {
-            camera.moveTo(node.coordinates, 300);
+          } else if (node.__typename === 'Point') {
+            const [lng, lat] = node.coordinates;
+            camera.moveTo([lng, lat], 300);
           }
         }
       } else {

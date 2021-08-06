@@ -1,10 +1,6 @@
-import { GraphQLFieldResolver } from 'graphql';
+import { RiverResolvers } from '~/apollo';
 
-import { Context } from '~/apollo';
-
-import { RiverRaw } from '../types';
-
-const regionResolver: GraphQLFieldResolver<RiverRaw, Context> = (
+const regionResolver: RiverResolvers['region'] = (
   { region_id },
   _,
   { dataSources },

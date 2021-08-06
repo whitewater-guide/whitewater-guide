@@ -5,7 +5,6 @@ import {
   fakeContext,
   fileExistsInBucket,
   resetTestMinio,
-  runQuery,
   TIMESTAMP_REGEX,
   UUID_REGEX,
 } from '@test';
@@ -13,11 +12,12 @@ import {
   MediaKind,
   SuggestionInput,
   SuggestionStatus,
-} from '@whitewater-guide/commons';
+} from '@whitewater-guide/schema';
+import gql from 'graphql-tag';
 import * as path from 'path';
 
 import config from '~/config';
-import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { db, holdTransaction, rollbackTransaction } from '~/db';
 import { MEDIA } from '~/s3';
 import {
   BOOM_USER_1500,
@@ -26,6 +26,8 @@ import {
   EDITOR_GE_ID,
 } from '~/seeds/test/01_users';
 import { GEORGIA_BZHUZHA_EXTREME } from '~/seeds/test/09_sections';
+
+import { testAddSuggestion } from './addSuggestion.test.generated';
 
 let sBefore: number;
 let mBefore: number;
@@ -45,9 +47,9 @@ beforeEach(async () => {
 afterEach(rollbackTransaction);
 afterAll(() => resetTestMinio(true));
 
-const upsertQuery = `
+const _mutation = gql`
   mutation addSuggestion($suggestion: SuggestionInput!) {
-    addSuggestion(suggestion: $suggestion){
+    addSuggestion(suggestion: $suggestion) {
       __typename
       id
       description
@@ -89,12 +91,8 @@ const withoutMedia: SuggestionInput = {
   resolution: null,
 };
 
-const addSuggestion = (suggestion: SuggestionInput, user = BOOM_USER_1500) =>
-  runQuery(upsertQuery, { suggestion }, fakeContext(user));
-
 it('anon should not fail with media', async () => {
-  const result = await runQuery(
-    upsertQuery,
+  const result = await testAddSuggestion(
     { suggestion: withMedia },
     anonContext(),
   );
@@ -102,8 +100,7 @@ it('anon should not fail with media', async () => {
 });
 
 it('should fail for invalid input', async () => {
-  const result = await runQuery(
-    upsertQuery,
+  const result = await testAddSuggestion(
     {
       suggestion: {
         section: { id: 'foo' },
@@ -120,24 +117,36 @@ it('should fail for invalid input', async () => {
 
 describe('regular user', () => {
   it('should not fail with media', async () => {
-    const result = await addSuggestion(withMedia);
+    const result = await testAddSuggestion(
+      { suggestion: withMedia },
+      fakeContext(BOOM_USER_1500),
+    );
     expect(result.errors).toBeUndefined();
   });
 
   it('should not fail without media', async () => {
-    const result = await addSuggestion(withoutMedia);
+    const result = await testAddSuggestion(
+      { suggestion: withoutMedia },
+      fakeContext(BOOM_USER_1500),
+    );
     expect(result.errors).toBeUndefined();
   });
 
   it('should add one more suggestion', async () => {
-    await addSuggestion(withMedia);
+    await testAddSuggestion(
+      { suggestion: withMedia },
+      fakeContext(BOOM_USER_1500),
+    );
     const [sAfter] = await countRows(false, 'suggestions');
     expect(sAfter - sBefore).toBe(1);
   });
 
   it('should return result', async () => {
-    const result = await addSuggestion(withMedia);
-    const inserted = result && result.data && result.data.addSuggestion;
+    const result = await testAddSuggestion(
+      { suggestion: withMedia },
+      fakeContext(BOOM_USER_1500),
+    );
+    const inserted = result?.data?.addSuggestion;
     expect(inserted).toEqual({
       __typename: 'Suggestion',
       id: expect.stringMatching(UUID_REGEX),
@@ -147,7 +156,7 @@ describe('regular user', () => {
         id: BOOM_USER_1500_ID,
         name: BOOM_USER_1500.name,
       },
-      status: SuggestionStatus.PENDING,
+      status: SuggestionStatus.Pending,
       resolvedBy: null,
       resolvedAt: null,
       section: {
@@ -161,7 +170,10 @@ describe('regular user', () => {
   });
 
   it('should move temp file to media bucket', async () => {
-    await addSuggestion(withMedia);
+    await testAddSuggestion(
+      { suggestion: withMedia },
+      fakeContext(BOOM_USER_1500),
+    );
     await expect(
       fileExistsInBucket(
         MEDIA,
@@ -172,7 +184,10 @@ describe('regular user', () => {
   });
 
   it('should not create media', async () => {
-    await addSuggestion(withMedia);
+    await testAddSuggestion(
+      { suggestion: withMedia },
+      fakeContext(BOOM_USER_1500),
+    );
     const [mAfter] = await countRows(false, 'media');
     expect(mAfter).toBe(mBefore);
   });
@@ -180,9 +195,12 @@ describe('regular user', () => {
 
 describe('editor', () => {
   it("should auto-approve editor's media suggestions", async () => {
-    const { data, errors } = await addSuggestion(withMedia, EDITOR_GE);
+    const { data, errors } = await testAddSuggestion(
+      { suggestion: withMedia },
+      fakeContext(EDITOR_GE),
+    );
     expect(errors).toBeUndefined();
-    const inserted = data && data.addSuggestion;
+    const inserted = data?.addSuggestion;
     expect(inserted).toEqual({
       __typename: 'Suggestion',
       id: expect.stringMatching(UUID_REGEX),
@@ -192,7 +210,7 @@ describe('editor', () => {
         id: EDITOR_GE_ID,
         name: EDITOR_GE.name,
       },
-      status: SuggestionStatus.ACCEPTED,
+      status: SuggestionStatus.Accepted,
       resolvedBy: {
         id: EDITOR_GE_ID,
         name: EDITOR_GE.name,
@@ -209,7 +227,7 @@ describe('editor', () => {
   });
 
   it("should convert editor's suggestion to media", async () => {
-    await addSuggestion(withMedia, EDITOR_GE);
+    await testAddSuggestion({ suggestion: withMedia }, fakeContext(EDITOR_GE));
     const media = await db()
       .select('*')
       .from('media_view')
@@ -218,7 +236,7 @@ describe('editor', () => {
       .first();
     expect(media).toMatchObject({
       id: expect.stringMatching(UUID_REGEX),
-      kind: MediaKind.photo,
+      kind: MediaKind.Photo,
       description: 'foobar',
       url: 'suggested_media.jpg',
       created_by: EDITOR_GE_ID,
@@ -226,7 +244,7 @@ describe('editor', () => {
   });
 
   it('should move temp file to media bucket', async () => {
-    await addSuggestion(withMedia, EDITOR_GE);
+    await testAddSuggestion({ suggestion: withMedia }, fakeContext(EDITOR_GE));
     await expect(
       fileExistsInBucket(
         MEDIA,
@@ -237,9 +255,12 @@ describe('editor', () => {
   });
 
   it("should NOT auto-approve editor's text suggestions", async () => {
-    const { data, errors } = await addSuggestion(withoutMedia, EDITOR_GE);
+    const { data, errors } = await testAddSuggestion(
+      { suggestion: withoutMedia },
+      fakeContext(EDITOR_GE),
+    );
     expect(errors).toBeUndefined();
-    const inserted = data && data.addSuggestion;
+    const inserted = data?.addSuggestion;
     expect(inserted).toEqual({
       __typename: 'Suggestion',
       id: expect.stringMatching(UUID_REGEX),
@@ -249,7 +270,7 @@ describe('editor', () => {
         id: EDITOR_GE_ID,
         name: EDITOR_GE.name,
       },
-      status: SuggestionStatus.PENDING,
+      status: SuggestionStatus.Pending,
       resolvedBy: null,
       resolvedAt: null,
       section: {

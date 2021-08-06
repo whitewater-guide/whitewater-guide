@@ -1,43 +1,47 @@
 import { useStreamingQuery } from '@whitewater-guide/clients';
-import { Source } from '@whitewater-guide/commons';
+import { Node } from '@whitewater-guide/schema';
 import React from 'react';
 import useRouter from 'use-react-router';
 
 import { useDeleteMutation } from '../../../apollo';
 import { Loading } from '../../../components';
 import GaugesTable from './GaugesTable';
-import { LIST_GAUGES, QResult, QVars } from './listGauges.query';
-import { REMOVE_GAUGE } from './removeGauge.mutation';
-import useToggleGauge from './useToggleGauge';
+import {
+  ListGaugesDocument,
+  ListGaugesQuery,
+  ListGaugesQueryVariables,
+} from './listGauges.generated';
+import { RemoveGaugeDocument } from './removeGauge.generated';
 
 interface Props {
-  source: Source;
+  source: Node;
 }
 
-export const GaugesList: React.FC<Props> = React.memo((props) => {
+export const GaugesList = React.memo<Props>((props) => {
   const { source } = props;
   const { history } = useRouter();
-  const { data, loading } = useStreamingQuery<QResult, QVars>(
-    LIST_GAUGES,
+  const { data, loading } = useStreamingQuery<
+    ListGaugesQuery,
+    ListGaugesQueryVariables
+  >(
+    ListGaugesDocument,
     {
       fetchPolicy: 'cache-and-network',
       variables: { filter: { sourceId: source.id } },
     },
     60,
   );
-  const removeGauge = useDeleteMutation(REMOVE_GAUGE, [
-    { query: LIST_GAUGES, variables: { sourceId: source.id } },
+  const removeGauge = useDeleteMutation(RemoveGaugeDocument, [
+    { query: ListGaugesDocument, variables: { sourceId: source.id } },
   ]);
-  const toggleGauge = useToggleGauge();
   if (loading && !data) {
     return <Loading />;
   }
   return (
     <GaugesTable
       source={source}
-      gauges={data && data.gauges}
+      gauges={data?.gauges}
       history={history}
-      onToggle={toggleGauge}
       onRemove={removeGauge}
     />
   );

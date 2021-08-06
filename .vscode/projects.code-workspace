@@ -1,0 +1,82 @@
+{
+  "folders": [
+    {
+      "name": "_ROOT",
+      "path": "../"
+    },
+    {
+      "name": "backend",
+      "path": "../packages/backend"
+    },
+    {
+      "name": "clients",
+      "path": "../packages/clients"
+    },
+    {
+      "name": "codegen-backend-tests",
+      "path": "../packages/codegen-backend-tests"
+    },
+    {
+      "name": "commons",
+      "path": "../packages/commons"
+    },
+    {
+      "name": "eslint-config",
+      "path": "../packages/eslint-config"
+    },
+    {
+      "name": "importer",
+      "path": "../packages/importer"
+    },
+    {
+      "name": "landing",
+      "path": "../packages/landing"
+    },
+    {
+      "name": "mobile",
+      "path": "../packages/mobile"
+    },
+    {
+      "name": "promo",
+      "path": "../packages/promo"
+    },
+    {
+      "name": "schema",
+      "path": "../packages/schema"
+    },
+    {
+      "name": "validation",
+      "path": "../packages/validation"
+    },
+    {
+      "name": "web",
+      "path": "../packages/web"
+    }
+  ],
+  "settings": {
+    "[java]": {
+      "editor.formatOnSave": false
+    },
+    "[sql]": {
+      "editor.formatOnSave": false
+    },
+    "editor.codeActionsOnSave": ["source.fixAll.eslint"],
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "jest.autoRun": "off",
+    "jest.debugCodeLens.showWhenTestStateIn": ["fail", "pass", "unknown"],
+    "jest.disabledWorkspaceFolders": ["_ROOT"],
+    "search.exclude": {
+      "**/*.generated.*": true,
+      "**/__generated__": true,
+      "**/build": true,
+      "**/cjs": true,
+      "**/dist": true,
+      "**/esm": true,
+      "**/node_modules": true,
+      "**/yarn-error.log": true,
+      "**/yarn.lock": true
+    },
+    "typescript.tsdk": "_ROOT/node_modules/typescript/lib"
+  }
+}

@@ -1,0 +1,6 @@
+mutation resolveSuggestion($id: ID!, $status: SuggestionStatus!) {
+  resolveSuggestion(id: $id, status: $status) {
+    id
+    status
+  }
+}

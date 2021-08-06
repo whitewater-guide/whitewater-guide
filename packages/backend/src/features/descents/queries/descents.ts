@@ -1,13 +1,6 @@
-import { DescentsFilter, Page } from '@whitewater-guide/commons';
+import { QueryResolvers } from '~/apollo';
 
-import { TopLevelResolver } from '~/apollo';
-
-interface Vars {
-  filter: DescentsFilter;
-  page: Page;
-}
-
-const descents: TopLevelResolver<Vars> = async (
+const descents: QueryResolvers['descents'] = async (
   _,
   { filter, page },
   { dataSources },

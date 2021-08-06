@@ -1,18 +1,12 @@
-import { TopLevelResolver } from '~/apollo';
+import { QueryResolvers } from '~/apollo';
+import { Sql } from '~/db';
 
-import { DescentRaw } from '../types';
-
-interface Vars {
-  id?: string | null;
-  shareToken?: string | null;
-}
-
-const descent: TopLevelResolver<Vars> = async (
+const descent: QueryResolvers['descent'] = async (
   _,
   { id, shareToken },
   { dataSources },
 ) => {
-  const result: DescentRaw | null = await dataSources.descents.getOne(
+  const result: Sql.Descents | null = await dataSources.descents.getOne(
     id,
     shareToken,
   );

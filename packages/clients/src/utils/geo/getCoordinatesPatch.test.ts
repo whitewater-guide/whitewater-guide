@@ -1,6 +1,5 @@
-import { Coordinate2d } from '@whitewater-guide/commons';
-
 import { getCoordinatesPatch } from './getCoordinatesPatch';
+import { Coordinate2d } from './types';
 
 it('should return null for equal arrays', () => {
   const prev: Coordinate2d[] = [

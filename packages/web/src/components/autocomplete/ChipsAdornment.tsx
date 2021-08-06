@@ -1,6 +1,6 @@
 import Chip from '@material-ui/core/Chip';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { NamedNode } from '@whitewater-guide/commons';
+import { NamedNode } from '@whitewater-guide/schema';
 import React, { useCallback } from 'react';
 
 const useStyles = makeStyles((theme) =>
@@ -26,7 +26,7 @@ const ChipsAdornment: React.FC<Props> = ({ values, onDelete }) => {
     [onDelete],
   );
   return (
-    <React.Fragment>
+    <>
       {(values || []).map((item) => (
         <Chip
           id={item.id}
@@ -37,7 +37,7 @@ const ChipsAdornment: React.FC<Props> = ({ values, onDelete }) => {
           onDelete={handleDelete}
         />
       ))}
-    </React.Fragment>
+    </>
   );
 };
 

@@ -1,4 +1,5 @@
-import { Overwrite, RegionAdminSettings } from '@whitewater-guide/commons';
+import { RegionAdminSettings } from '@whitewater-guide/schema';
+import { Overwrite } from 'utility-types';
 
 import { LocalPhoto } from '../../../../utils/files';
 

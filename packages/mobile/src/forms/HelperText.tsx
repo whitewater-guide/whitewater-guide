@@ -35,7 +35,7 @@ const HelperText: React.FC<Props> = React.memo(
         try {
           errorText = t(`${prefix}${error.key}`, error.options);
         } catch {
-          /*Ignore */
+          /* Ignore */
         }
       }
     }

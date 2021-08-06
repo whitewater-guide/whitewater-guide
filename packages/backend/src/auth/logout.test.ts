@@ -2,7 +2,7 @@ import { CookieAccessInfo } from 'cookiejar';
 import Koa from 'koa';
 import agent from 'supertest-koa-agent';
 
-import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { db, holdTransaction, rollbackTransaction } from '~/db';
 import { TEST_USER_ID } from '~/seeds/test/01_users';
 
 import { createApp } from '../app';
@@ -60,7 +60,7 @@ it('should delete fcm_token if provided', async () => {
     email: 'konstantin@gmail.com',
     password: 'ttttE_s_t1a',
   });
-  const accessToken = resp.body.accessToken;
+  const { accessToken } = resp.body;
   await testAgent
     .get(`${LOGOUT_ROUTE}?fcm_token=__user_fcm_token__`)
     .set('authorization', `bearer ${accessToken}`);

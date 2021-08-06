@@ -1,25 +1,11 @@
-import gql from 'graphql-tag';
 import { useCallback } from 'react';
-import { useMutation } from 'react-apollo';
 
-const AUTOFILL_MUTATION = gql`
-  mutation autofillSource($sourceId: ID!) {
-    autofillSource(id: $sourceId) {
-      id
-    }
-  }
-`;
-
-interface MVars {
-  sourceId: string;
-}
+import { useAutofillSourceMutation } from './autofillSource.generated';
 
 export default (sourceId: string) => {
-  const [mutate] = useMutation<any, MVars>(AUTOFILL_MUTATION, {
+  const [mutate] = useAutofillSourceMutation({
+    variables: { sourceId },
     refetchQueries: ['listGauges'],
   });
-  return useCallback(() => mutate({ variables: { sourceId } }), [
-    mutate,
-    sourceId,
-  ]);
+  return useCallback(() => mutate(), [mutate]);
 };

@@ -13,7 +13,7 @@ const useStyles = makeStyles(() =>
 export const Title: React.FC = ({ children }) => {
   const classes = useStyles();
   return (
-    <Grid item={true} xs={3} className={classes.title}>
+    <Grid item xs={3} className={classes.title}>
       {children}
     </Grid>
   );

@@ -25,15 +25,15 @@ const AddNewHeader: React.FC = () => {
   const { t } = useTranslation();
   const { dispatch } = useNavigation();
   const onPress = useCallback(() => {
-    dispatch((state) => {
-      return CommonActions.navigate({
+    dispatch((state) =>
+      CommonActions.navigate({
         name: Screens.ADD_SECTION_SCREEN,
         params: { fromDescentFormKey: state.key },
-      });
-    });
+      }),
+    );
   }, [dispatch]);
   return (
-    <React.Fragment>
+    <>
       <SectionHeader id="New" />
       <TouchableOpacity onPress={onPress}>
         <View style={styles.container}>
@@ -43,7 +43,7 @@ const AddNewHeader: React.FC = () => {
           </Paragraph>
         </View>
       </TouchableOpacity>
-    </React.Fragment>
+    </>
   );
 };
 

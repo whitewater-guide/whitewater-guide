@@ -1,20 +1,17 @@
-import { User } from '@whitewater-guide/commons';
+import { timestampedResolvers, UserResolvers } from '~/apollo';
 
-import { FieldResolvers } from '~/apollo';
-import { timestampResolvers } from '~/db';
-
-import { UserRaw } from '../types';
+import accounts from './accounts';
 import avatar from './avatar';
 
-const resolvers: FieldResolvers<UserRaw, User> = {
+const resolvers: UserResolvers = {
   editorSettings: (u) => u.editor_settings,
   purchasedRegions: (root, args, { dataSources }) =>
     dataSources.purchases.getPurchasedSingleRegions(),
   purchasedGroups: (root, args, { dataSources }) =>
     dataSources.purchases.getPurchasedGroups(),
-  accounts: (u) => u.accounts || [],
+  accounts,
   avatar,
-  ...timestampResolvers,
+  ...timestampedResolvers,
 };
 
 export default resolvers;

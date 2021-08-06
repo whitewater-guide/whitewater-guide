@@ -34,7 +34,7 @@ interface Props {
   onChange: (value: number[]) => void;
 }
 
-export const SeasonPicker: React.FC<Props> = React.memo((props) => {
+export const SeasonPicker = React.memo<Props>((props) => {
   const classes = useStyles();
   const { title, value, onChange } = props;
   const onToggle = useCallback(

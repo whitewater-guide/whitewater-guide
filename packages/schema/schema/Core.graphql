@@ -1,0 +1,96 @@
+directive @admin on FIELD_DEFINITION
+directive @connection(
+  key: String
+  filter: [String]
+  suggestions: [String]
+) on FIELD
+
+scalar JSON
+scalar Date
+scalar Cursor
+"""
+When used as input, this is either [lon, lat, alt] tuple where alt can be null, or [lon, lat] tuple
+When used as return value, this is [lon, lat, alt] tuple, where alt defaults to 0
+"""
+scalar Coordinates
+
+enum SortDirection {
+  asc
+  desc
+}
+
+interface Node {
+  id: ID!
+}
+
+interface NamedNode {
+  id: ID!
+  name: String!
+}
+
+interface Timestamped {
+  "creation date"
+  createdAt: Date!
+  "date of last modification"
+  updatedAt: Date!
+}
+
+input RefInput {
+  id: ID!
+  name: String
+}
+
+input Page {
+  limit: Int
+  offset: Int
+  "Cursor pagination is currently used in descents"
+  after: Cursor
+}
+
+type PageInfo {
+  endCursor: Cursor
+  hasMore: Boolean!
+}
+
+"This type represents information about licensing of piece of content (region/section/media)"
+type License {
+  """
+  Full license name
+  e.g. 'Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)'
+  """
+  name: String!
+  """
+  License code which can be used to search it and to get standard logo
+  e.g. 'CC_BY-SA'
+  """
+  slug: String
+  """
+  License text url
+  e.g. https://creativecommons.org/licenses/by-sa/4.0/
+  """
+  url: String
+}
+
+"This type represents information about licensing of piece of content (region/section/media)"
+input LicenseInput {
+  """
+  Full license name
+  e.g. 'Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)'
+  """
+  name: String!
+  """
+  License code which can be used to search it and to get standard logo
+  e.g. 'CC_BY-SA'
+  """
+  slug: String
+  """
+  License text url
+  e.g. https://creativecommons.org/licenses/by-sa/4.0/
+  """
+  url: String
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}

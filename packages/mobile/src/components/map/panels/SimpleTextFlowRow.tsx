@@ -15,7 +15,7 @@ const SimpleTextFlowRow: React.FC<Props> = ({ flowsText, style }) => {
   return (
     <Row style={style}>
       <Subheading>{t('region:map.selectedSection.flows')}</Subheading>
-      <Paragraph adjustsFontSizeToFit={true}>
+      <Paragraph adjustsFontSizeToFit>
         {!!flowsText || t('commons:unknown')}
       </Paragraph>
     </Row>

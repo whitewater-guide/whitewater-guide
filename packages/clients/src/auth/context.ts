@@ -1,10 +1,10 @@
-import { User } from '@whitewater-guide/commons';
+import { MyProfileFragment } from '@whitewater-guide/schema';
 import React from 'react';
 
 import { AuthService } from './service';
 
 export interface AuthState {
-  me: User | null;
+  me?: MyProfileFragment | null;
   loading: boolean;
   service: AuthService;
   refreshProfile: () => Promise<any>;

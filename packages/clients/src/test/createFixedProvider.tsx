@@ -37,7 +37,7 @@ export function createFixedProvider<TResult = any, TVars = any>(
     cache: configureApolloCache(),
   });
 
-  const FixedProvider: React.SFC = ({ children }) => (
+  const FixedProvider: React.FC = ({ children }) => (
     <ApolloProvider client={client}>{children}</ApolloProvider>
   );
 

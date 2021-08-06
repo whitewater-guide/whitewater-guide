@@ -11,8 +11,8 @@ import SourceRoute from './SourceRoute';
 const SourcesRoute: React.FC = () => (
   <Suspense fallback={<Loading />}>
     <Switch>
-      <Route exact={true} path="/sources" component={SourcesList} />
-      <AdminRoute exact={true} path="/sources/new" component={SourceForm} />
+      <Route exact path="/sources" component={SourcesList} />
+      <AdminRoute exact path="/sources/new" component={SourceForm} />
       <Route path="/sources/:sourceId" component={SourceRoute} />
     </Switch>
   </Suspense>

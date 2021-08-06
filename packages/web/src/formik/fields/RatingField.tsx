@@ -20,7 +20,7 @@ interface Props {
   label?: string;
 }
 
-export const RatingField: React.FC<Props> = React.memo((props) => {
+export const RatingField = React.memo<Props>((props) => {
   const { name, label } = props;
   const [field] = useField<number>(name);
   const { onChange } = useFakeHandlers(name);

@@ -1,0 +1,9 @@
+query checkBoomPromo($code: String!) {
+  checkBoomPromo(code: $code) {
+    id
+    code
+    groupName
+    groupSku
+    redeemed
+  }
+}

@@ -1,0 +1,7 @@
+query promoRegions {
+  promoRegions {
+    id
+    name
+    sku
+  }
+}

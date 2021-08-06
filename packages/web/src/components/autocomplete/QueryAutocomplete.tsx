@@ -1,4 +1,4 @@
-import { NamedNode } from '@whitewater-guide/commons';
+import { NamedNode } from '@whitewater-guide/schema';
 import { WatchQueryFetchPolicy } from 'apollo-client';
 import { DocumentNode } from 'graphql';
 import React, { useState } from 'react';

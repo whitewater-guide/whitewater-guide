@@ -7,4 +7,5 @@ interface BooleanColumnProps extends ColumnProps {
   iconFalse?: string;
 }
 
+// eslint-disable-next-line react/prefer-stateless-function
 export class BooleanColumn extends React.Component<BooleanColumnProps> {}

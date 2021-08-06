@@ -1,4 +1,5 @@
-import { NamedNode, NEW_ID } from '@whitewater-guide/commons';
+import { NEW_RIVER_ID } from '@whitewater-guide/commons';
+import { NamedNode } from '@whitewater-guide/schema';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
@@ -41,7 +42,7 @@ const RiversListItem: React.FC<Props> = (props) => {
   const onSelect = useCallback(
     () =>
       onPress({
-        id: id || NEW_ID,
+        id: id || NEW_RIVER_ID,
         name,
       }),
     [id, name, onPress],
@@ -57,7 +58,7 @@ const RiversListItem: React.FC<Props> = (props) => {
           showPlus && styles.plusRow,
         ]}
       >
-        {showPlus && <Icon icon="plus" style={styles.plus} narrow={true} />}
+        {showPlus && <Icon icon="plus" style={styles.plus} narrow />}
         <Subheading style={styles.subheading}>
           {name || t('screens:addSection.river.addItemPlaceholder')}
         </Subheading>

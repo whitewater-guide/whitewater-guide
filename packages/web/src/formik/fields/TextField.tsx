@@ -11,7 +11,7 @@ interface Props extends InputProps {
   label?: string;
 }
 
-export const TextField: React.FC<Props> = React.memo((props) => {
+export const TextField = React.memo<Props>((props) => {
   const { name, errorFieldName, label, ...inputProps } = props;
   const [field] = useField<string | null>(name);
   const { onChange } = field;

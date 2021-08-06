@@ -47,11 +47,11 @@ const AuthMainScreen: React.FC<AuthMainNavProps> = ({ navigation }) => {
         <FacebookButton label={t('screens:auth.main.facebook')} />
         {Platform.OS === 'ios' && <AppleButton />}
         <Caption style={styles.caption}>
-          {t('screens:auth.main.legalNotice') + ' '}
+          {`${t('screens:auth.main.legalNotice')} `}
           <Text style={styles.link} onPress={showPolicy}>
             {t('screens:auth.main.privacyPolicy')}
           </Text>
-          {' ' + t('commons:and') + ' '}
+          {` ${t('commons:and')} `}
           <Text style={styles.link} onPress={showTerms}>
             {t('screens:auth.main.termsOfService')}
           </Text>

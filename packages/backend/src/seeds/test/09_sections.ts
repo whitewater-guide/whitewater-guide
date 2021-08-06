@@ -1,6 +1,8 @@
-import { Coordinate3d, Duration } from '@whitewater-guide/commons';
+import { Duration } from '@whitewater-guide/schema';
 import Knex from 'knex';
 import { LineString, Point } from 'wkx';
+
+import { Coordinates } from '~/apollo';
 
 import { ADMIN_ID, TEST_USER2_ID } from './01_users';
 import {
@@ -18,7 +20,7 @@ import {
   RIVER_SJOA,
 } from './07_rivers';
 
-function getLineString(shape: Coordinate3d[] | null) {
+function getLineString(shape: Coordinates[] | null) {
   let lineString = null;
   if (shape && shape.length > 0) {
     const result: LineString = new LineString(
@@ -158,22 +160,7 @@ const sections = [
     river_id: RIVER_BZHUZHA,
     gauge_id: GAUGE_GEO_1,
     season_numeric: [
-      8,
-      9,
-      10,
-      11,
-      12,
-      13,
-      14,
-      15,
-      16,
-      17,
-      18,
-      19,
-      20,
-      21,
-      22,
-      23,
+      8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
     ],
     shape: getLineString([
       [12, 21, 110],
@@ -194,22 +181,7 @@ const sections = [
     river_id: RIVER_BZHUZHA,
     gauge_id: GAUGE_GEO_4,
     season_numeric: [
-      8,
-      9,
-      10,
-      11,
-      12,
-      13,
-      14,
-      15,
-      16,
-      17,
-      18,
-      19,
-      20,
-      21,
-      22,
-      23,
+      8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
     ],
     shape: getLineString([
       [12.1, 21, 110],
@@ -228,22 +200,7 @@ const sections = [
     id: GEORGIA_BZHUZHA_QUALI,
     river_id: RIVER_BZHUZHA,
     season_numeric: [
-      8,
-      9,
-      10,
-      11,
-      12,
-      13,
-      14,
-      15,
-      16,
-      17,
-      18,
-      19,
-      20,
-      21,
-      22,
-      23,
+      8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
     ],
     shape: getLineString([
       [32, 23, 210],
@@ -262,25 +219,7 @@ const sections = [
     id: ECUADOR_QUIJOS_BRIDGE,
     river_id: RIVER_QUIJOS,
     season_numeric: [
-      0,
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      12,
-      13,
-      14,
-      15,
-      16,
-      17,
-      18,
-      19,
-      20,
-      21,
-      22,
-      23,
+      0, 1, 2, 3, 4, 5, 6, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
     ],
     shape: getLineString([
       [-77.9205, -0.4607, 0],
@@ -299,30 +238,8 @@ const sections = [
     id: ECUADOR_QUIJOS_CHEESE,
     river_id: RIVER_QUIJOS,
     season_numeric: [
-      0,
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12,
-      13,
-      14,
-      15,
-      16,
-      17,
-      18,
-      19,
-      20,
-      21,
-      22,
-      23,
+      0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+      21, 22, 23,
     ],
     shape: getLineString([
       [-77.967, -0.4376, 0],
@@ -341,22 +258,7 @@ const sections = [
     id: RUSSIA_MZYMTA_PASEKA,
     river_id: RIVER_MZYMTA,
     season_numeric: [
-      7,
-      8,
-      9,
-      10,
-      11,
-      12,
-      13,
-      14,
-      15,
-      16,
-      17,
-      18,
-      19,
-      20,
-      21,
-      22,
+      7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
     ],
     shape: getLineString([
       [43.6465, 40.3454, 0],

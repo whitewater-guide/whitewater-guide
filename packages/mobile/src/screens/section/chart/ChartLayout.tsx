@@ -19,10 +19,8 @@ const styles = StyleSheet.create({
 
 const ChartLayout: React.FC<ChartProps> = ({ gauge, section }) => {
   const approximate =
-    section &&
-    ((section.flows && section.flows.approximate) ||
-      (section.levels && section.levels.approximate));
-  const formula = section && section.flows && section.flows.formula;
+    section?.flows?.approximate || section?.levels?.approximate;
+  const formula = section?.flows?.formula;
   return (
     <ChartProvider section={section} gauge={gauge}>
       <View style={styles.container} testID="chart-container">

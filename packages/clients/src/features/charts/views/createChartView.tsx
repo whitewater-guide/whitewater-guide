@@ -1,4 +1,4 @@
-import { Unit } from '@whitewater-guide/commons';
+import { Unit } from '@whitewater-guide/schema';
 import React, { useMemo } from 'react';
 import { VictoryChartProps } from 'victory-chart';
 import { VictoryCommonProps } from 'victory-core';
@@ -34,9 +34,9 @@ export const createChartView = (
     const {
       data,
       unit,
-      gauge: _,
+      gauge: _g,
       section,
-      filter: __,
+      filter: _f,
       highlightedDate,
       children,
       ...victoryProps
@@ -52,7 +52,7 @@ export const createChartView = (
     return (
       <ChartComponent {...victoryProps} scale={SCALE} domain={meta.domain}>
         <AxisComponent
-          crossAxis={true}
+          crossAxis
           tickFormat={meta.xTickFormat}
           tickValues={meta.xTickValues}
           tickLabelComponent={
@@ -69,8 +69,8 @@ export const createChartView = (
           }
         />
         <AxisComponent
-          crossAxis={true}
-          dependentAxis={true}
+          crossAxis
+          dependentAxis
           tickValues={meta.yTickValues}
           tickComponent={
             <HorizontalTick

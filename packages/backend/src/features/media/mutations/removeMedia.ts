@@ -1,17 +1,13 @@
-import { MediaKind } from '@whitewater-guide/commons';
+import { MediaKind } from '@whitewater-guide/schema';
 
-import { TopLevelResolver } from '~/apollo';
-import db from '~/db';
+import { MutationResolvers } from '~/apollo';
+import { db } from '~/db';
 import { MEDIA, s3Client } from '~/s3';
 
 import { insertLog } from '../utils';
 
-interface Vars {
-  id: string;
-}
-
-const removeMedia: TopLevelResolver<Vars> = async (
-  root,
+const removeMedia: MutationResolvers['removeMedia'] = async (
+  _,
   { id },
   { user, language, dataSources },
 ) => {
@@ -27,7 +23,7 @@ const removeMedia: TopLevelResolver<Vars> = async (
     .where({ id })
     .returning(['id', 'url', 'kind']);
   if (
-    result.kind === MediaKind.photo &&
+    result.kind === MediaKind.Photo &&
     result.url &&
     !result.url.startsWith('http')
   ) {
@@ -37,7 +33,7 @@ const removeMedia: TopLevelResolver<Vars> = async (
     language,
     sectionId: section_id,
     action: 'media_delete',
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-unnecessary-type-assertion
     editorId: user!.id,
     diff: null,
   });

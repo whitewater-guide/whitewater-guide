@@ -1,11 +1,8 @@
-import {
-  BannerPlacement,
-  ROOT_LICENSE,
-  Section,
-} from '@whitewater-guide/commons';
+import { ROOT_LICENSE, useSection } from '@whitewater-guide/clients';
+import { BannerPlacement } from '@whitewater-guide/schema';
 import groupBy from 'lodash/groupBy';
-import React from 'react';
-import { WithTranslation, withTranslation } from 'react-i18next';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Platform, StatusBar } from 'react-native';
 import { Title } from 'react-native-paper';
 
@@ -16,62 +13,41 @@ import BlogList from './BlogList';
 import PhotoGrid from './PhotoGrid';
 import VideoList from './VideoList';
 
-interface Props {
-  section: Section | null;
-}
+const SectionMediaScreenContent: React.FC = () => {
+  const { t } = useTranslation();
+  const [openPhotoIndex, setOpenPhotoIndex] = useState(-1);
+  const section = useSection();
+  const nodes = section?.media?.nodes ?? [];
+  const groups = groupBy(nodes, 'kind');
+  // TODO: There's a known bug on Android that prevents hiding of StatusBar with Modal
+  // https://github.com/react-native-community/react-native-modal/issues/50
+  // https://github.com/react-native-community/react-native-statusbar/issues/6
+  // https://github.com/facebook/react-native/issues/9090#issuecomment-337624981
+  return (
+    <>
+      <StatusBar hidden={Platform.OS === 'ios' && openPhotoIndex >= 0} />
 
-interface State {
-  openPhotoIndex: number;
-}
+      <Title>{t('section:media.photo')}</Title>
+      <PhotoGrid photos={groups.photo} onPress={setOpenPhotoIndex} />
 
-class SectionMediaScreenContent extends React.PureComponent<
-  Props & WithTranslation,
-  State
-> {
-  state: State = {
-    openPhotoIndex: -1,
-  };
+      <Title>{t('section:media.video')}</Title>
+      <VideoList videos={groups.video} />
 
-  onPhotoIndexChanged = (openPhotoIndex: number) =>
-    this.setState({ openPhotoIndex });
+      <Title>{t('section:media.blog')}</Title>
+      <BlogList blogs={groups.blog} />
 
-  onGalleryClose = () => this.setState({ openPhotoIndex: -1 });
+      <RegionBanners placement={BannerPlacement.MobileSectionMedia} />
 
-  render() {
-    const { section, t } = this.props;
-    const nodes = section && section.media ? section.media.nodes : [];
-    const groups = groupBy(nodes, 'kind');
-    const { openPhotoIndex } = this.state;
-    // TODO: There's a known bug on Android that prevents hiding of StatusBar with Modal
-    // https://github.com/react-native-community/react-native-modal/issues/50
-    // https://github.com/react-native-community/react-native-statusbar/issues/6
-    // https://github.com/facebook/react-native/issues/9090#issuecomment-337624981
-    return (
-      <React.Fragment>
-        <StatusBar hidden={Platform.OS === 'ios' && openPhotoIndex >= 0} />
+      <PhotoGallery
+        sectionLicense={
+          section?.license ?? section?.region.license ?? ROOT_LICENSE
+        }
+        photos={groups.photo}
+        index={openPhotoIndex}
+        onClose={() => setOpenPhotoIndex(-1)}
+      />
+    </>
+  );
+};
 
-        <Title>{t('section:media.photo')}</Title>
-        <PhotoGrid photos={groups.photo} onPress={this.onPhotoIndexChanged} />
-
-        <Title>{t('section:media.video')}</Title>
-        <VideoList videos={groups.video} />
-
-        <Title>{t('section:media.blog')}</Title>
-        <BlogList blogs={groups.blog} />
-
-        <RegionBanners placement={BannerPlacement.MOBILE_SECTION_MEDIA} />
-
-        <PhotoGallery
-          sectionLicense={
-            section?.license ?? section?.region.license ?? ROOT_LICENSE
-          }
-          photos={groups.photo}
-          index={this.state.openPhotoIndex}
-          onClose={this.onGalleryClose}
-        />
-      </React.Fragment>
-    );
-  }
-}
-
-export default withTranslation()(SectionMediaScreenContent);
+export default SectionMediaScreenContent;

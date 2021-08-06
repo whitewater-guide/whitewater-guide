@@ -1,12 +1,10 @@
-import { anonContext, fakeContext, runQuery, UUID_REGEX } from '@test';
-import {
-  ApolloErrorCodes,
-  PurchaseInput,
-  PurchasePlatform,
-} from '@whitewater-guide/commons';
+import { anonContext, fakeContext, UUID_REGEX } from '@test';
+import { ApolloErrorCodes } from '@whitewater-guide/commons';
+import { PurchaseInput, PurchasePlatform } from '@whitewater-guide/schema';
+import gql from 'graphql-tag';
 import { isValidated, validate } from 'in-app-purchase';
 
-import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { db, holdTransaction, rollbackTransaction } from '~/db';
 import {
   BOOM_USER_3500,
   BOOM_USER_3500_ID,
@@ -26,18 +24,25 @@ import {
   BOOM_PROMO_REGION_REDEEMED,
 } from '~/seeds/test/12_boom_promos';
 
+import {
+  testSavePurchase,
+  testSavePurchaseNoSection,
+} from './savePurchase.test.generated';
+
 jest.mock('in-app-purchase', () => ({
   isValidated: jest.fn(),
   validate: jest.fn(),
 }));
-jest.mock('google-play-billing-validator', () => {
-  return function Verifier() {
-    return {
-      verifyINAPP: () =>
-        Promise.resolve({ isSuccessful: true, payload: { foo: 'bar' } }),
-    };
-  };
-});
+jest.mock(
+  'google-play-billing-validator',
+  () =>
+    function Verifier() {
+      return {
+        verifyINAPP: () =>
+          Promise.resolve({ isSuccessful: true, payload: { foo: 'bar' } }),
+      };
+    },
+);
 
 beforeEach(async () => {
   await holdTransaction();
@@ -50,7 +55,7 @@ beforeEach(async () => {
 });
 afterEach(rollbackTransaction);
 
-const mutation = `
+const _mutation = gql`
   mutation savePurchase($purchase: PurchaseInput!, $sectionId: ID) {
     savePurchase(purchase: $purchase, sectionId: $sectionId) {
       regions {
@@ -66,8 +71,8 @@ const mutation = `
   }
 `;
 
-const mutationWOSection = `
-  mutation savePurchase($purchase: PurchaseInput!) {
+const _mutationWOSection = gql`
+  mutation savePurchaseNoSection($purchase: PurchaseInput!) {
     savePurchase(purchase: $purchase) {
       regions {
         id
@@ -84,7 +89,7 @@ it('anon should fail', async () => {
     transactionId: BOOM_PROMO_REGION_ACTIVE,
     productId: 'region.georgia',
   };
-  const result = await runQuery(mutation, { purchase }, anonContext());
+  const result = await testSavePurchase({ purchase }, anonContext());
   expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
 });
 
@@ -94,9 +99,9 @@ it('duplicate purchase should not fail for same user', async () => {
     transactionId: BOOM_PROMO_REGION_REDEEMED,
     productId: 'region.ecuador', // different region from already redeemed, but should not matter
   };
-  const result = await runQuery(mutation, { purchase }, fakeContext(TEST_USER));
+  const result = await testSavePurchase({ purchase }, fakeContext(TEST_USER));
   expect(result.errors).toBeUndefined();
-  expect(result.data.savePurchase).toBeTruthy();
+  expect(result.data?.savePurchase).toBeTruthy();
 });
 
 it('duplicate purchase should throw when for different user', async () => {
@@ -105,8 +110,7 @@ it('duplicate purchase should throw when for different user', async () => {
     transactionId: BOOM_PROMO_REGION_REDEEMED,
     productId: 'region.norway', // different region from already redeemed, but should not matter
   };
-  const result = await runQuery(
-    mutation,
+  const result = await testSavePurchase(
     { purchase },
     fakeContext(BOOM_USER_3500),
   );
@@ -122,7 +126,7 @@ it('should throw on invalid input', async () => {
     transactionId: 'x',
     productId: 'y',
   };
-  const result = await runQuery(mutation, { purchase }, fakeContext(TEST_USER));
+  const result = await testSavePurchase({ purchase }, fakeContext(TEST_USER));
   expect(result).toHaveGraphqlValidationError();
 });
 
@@ -133,8 +137,7 @@ describe('boomstarter', () => {
       transactionId: 'xxxxxxxx',
       productId: 'region.norway',
     };
-    const result = await runQuery(
-      mutation,
+    const result = await testSavePurchase(
       { purchase },
       fakeContext(BOOM_USER_3500),
     );
@@ -150,8 +153,7 @@ describe('boomstarter', () => {
       transactionId: BOOM_PROMO_EU_CIS_ACTIVE,
       productId: 'region.norway',
     };
-    const result = await runQuery(
-      mutation,
+    const result = await testSavePurchase(
       { purchase },
       fakeContext(BOOM_USER_3500),
     );
@@ -167,8 +169,7 @@ describe('boomstarter', () => {
       transactionId: BOOM_PROMO_LATIN_REDEEMED,
       productId: 'group.latin',
     };
-    const result = await runQuery(
-      mutation,
+    const result = await testSavePurchase(
       { purchase },
       fakeContext(BOOM_USER_3500),
     );
@@ -187,8 +188,7 @@ describe('boomstarter', () => {
         transactionId: BOOM_PROMO_EU_CIS_ACTIVE,
         productId: 'group.eu_cis',
       };
-      result = await runQuery(
-        mutation,
+      result = await testSavePurchase(
         { purchase },
         fakeContext(BOOM_USER_3500),
       );
@@ -247,19 +247,40 @@ describe('boomstarter', () => {
 });
 
 describe('ios', () => {
-  it.each([
-    ['with section', mutation],
-    ['without section', mutationWOSection],
-  ])('should return single region %s', async (_, m) => {
+  it('should return single region with section', async () => {
     const purchase: PurchaseInput = {
       platform: PurchasePlatform.ios,
       transactionId: '__transaction_id__',
       productId: 'region.ecuador',
       receipt: '{}',
     };
-    const result = await runQuery(m, { purchase }, fakeContext(TEST_USER2));
+    const result = await testSavePurchase(
+      { purchase },
+      fakeContext(TEST_USER2),
+    );
     expect(result.errors).toBeUndefined();
-    expect(result.data.savePurchase.regions).toEqual([
+    expect(result.data?.savePurchase?.regions).toEqual([
+      {
+        id: REGION_ECUADOR,
+        sku: 'region.ecuador',
+        hasPremiumAccess: true,
+      },
+    ]);
+  });
+
+  it('should return single region without section', async () => {
+    const purchase: PurchaseInput = {
+      platform: PurchasePlatform.ios,
+      transactionId: '__transaction_id__',
+      productId: 'region.ecuador',
+      receipt: '{}',
+    };
+    const result = await testSavePurchaseNoSection(
+      { purchase },
+      fakeContext(TEST_USER2),
+    );
+    expect(result.errors).toBeUndefined();
+    expect(result.data?.savePurchase?.regions).toEqual([
       {
         id: REGION_ECUADOR,
         sku: 'region.ecuador',
@@ -275,13 +296,12 @@ describe('ios', () => {
       productId: 'region.georgia',
       receipt: '{}',
     };
-    const result = await runQuery(
-      mutation,
+    const result = await testSavePurchase(
       { purchase, sectionId: GEORGIA_BZHUZHA_EXTREME },
       fakeContext(TEST_USER2),
     );
     expect(result.errors).toBeUndefined();
-    expect(result.data.savePurchase).toEqual({
+    expect(result.data?.savePurchase).toEqual({
       regions: [
         {
           id: REGION_GEORGIA,
@@ -298,10 +318,7 @@ describe('ios', () => {
 });
 
 describe('android', () => {
-  it.each([
-    ['with section', mutation],
-    ['without section', mutationWOSection],
-  ])('should return single region %s', async (_, m) => {
+  it('should return single region with section', async () => {
     const purchase: PurchaseInput = {
       platform: PurchasePlatform.android,
       transactionId: '__transaction_id__',
@@ -309,9 +326,34 @@ describe('android', () => {
       receipt:
         '{"packageName": "guide.whitewater", "productId": "region.ecuador", "purchaseToken": "someToken"}',
     };
-    const result = await runQuery(m, { purchase }, fakeContext(TEST_USER2));
+    const result = await testSavePurchase(
+      { purchase },
+      fakeContext(TEST_USER2),
+    );
     expect(result.errors).toBeUndefined();
-    expect(result.data.savePurchase.regions).toEqual([
+    expect(result.data?.savePurchase?.regions).toEqual([
+      {
+        id: REGION_ECUADOR,
+        sku: 'region.ecuador',
+        hasPremiumAccess: true,
+      },
+    ]);
+  });
+
+  it('should return single region without section', async () => {
+    const purchase: PurchaseInput = {
+      platform: PurchasePlatform.android,
+      transactionId: '__transaction_id__',
+      productId: 'region.ecuador',
+      receipt:
+        '{"packageName": "guide.whitewater", "productId": "region.ecuador", "purchaseToken": "someToken"}',
+    };
+    const result = await testSavePurchaseNoSection(
+      { purchase },
+      fakeContext(TEST_USER2),
+    );
+    expect(result.errors).toBeUndefined();
+    expect(result.data?.savePurchase?.regions).toEqual([
       {
         id: REGION_ECUADOR,
         sku: 'region.ecuador',
@@ -328,13 +370,12 @@ describe('android', () => {
       receipt:
         '{"packageName": "guide.whitewater", "productId": "region.georgia", "purchaseToken": "someToken"}',
     };
-    const result = await runQuery(
-      mutation,
+    const result = await testSavePurchase(
       { purchase, sectionId: GEORGIA_BZHUZHA_EXTREME },
       fakeContext(TEST_USER2),
     );
     expect(result.errors).toBeUndefined();
-    expect(result.data.savePurchase).toEqual({
+    expect(result.data?.savePurchase).toEqual({
       regions: [
         {
           id: REGION_GEORGIA,

@@ -1,7 +1,10 @@
 import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs';
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
-import { SectionsStatus } from '@whitewater-guide/clients';
-import { Region, Section } from '@whitewater-guide/commons';
+import {
+  ListedSectionFragment,
+  RegionDetailsFragment,
+  SectionsStatus,
+} from '@whitewater-guide/clients';
 
 import { Screens } from '~/core/navigation';
 import {
@@ -11,19 +14,19 @@ import {
 
 export interface ItemProps<T> {
   hasPremiumAccess: boolean;
-  regionPremium: boolean;
+  regionPremium?: boolean | null;
   buyRegion: () => void;
   swipedId: string;
   item: T;
-  onPress: (section: Section) => void;
+  onPress: (section: ListedSectionFragment) => void;
   onMaximize?: (id: string) => void;
   forceCloseCnt?: number;
   testID?: string;
 }
 
 export interface ListProps {
-  sections: Section[];
-  region: Region | null;
+  sections: ListedSectionFragment[];
+  region?: RegionDetailsFragment | null;
   refresh: () => Promise<any>;
   status: SectionsStatus;
 }

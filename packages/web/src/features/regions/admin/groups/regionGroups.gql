@@ -1,0 +1,15 @@
+query regionGroups($regionId: ID!) {
+  regionGroups: groups(regionId: $regionId) {
+    nodes {
+      id
+      name
+    }
+  }
+
+  allGroups: groups {
+    nodes {
+      id
+      name
+    }
+  }
+}

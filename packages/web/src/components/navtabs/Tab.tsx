@@ -6,7 +6,7 @@ interface Props extends TabProps {
   value: string;
 }
 
-export const NavTab: React.FC<Props> = React.memo((props) => {
+export const NavTab = React.memo<Props>((props) => {
   const { match, history } = useRouter();
   const to = `${match.url}${props.value}`;
   const onClick = useCallback(
@@ -21,7 +21,7 @@ export const NavTab: React.FC<Props> = React.memo((props) => {
 
 NavTab.displayName = 'NavTab';
 
-export const HashTab: React.FC<Props> = React.memo((props) => {
+export const HashTab = React.memo<Props>((props) => {
   const { value } = props;
   const { location, history } = useRouter();
   const onClick = useCallback(

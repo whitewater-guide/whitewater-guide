@@ -1,8 +1,9 @@
-import { Coordinate3d } from '@whitewater-guide/commons';
 import Knex from 'knex';
 import { Point as WKXPoint } from 'wkx';
 
-function getCoordinates(coordinates: Coordinate3d): string {
+import { Coordinates } from '~/apollo';
+
+function getCoordinates(coordinates: Coordinates): string {
   const wkxPoint = new WKXPoint(...coordinates);
   wkxPoint.srid = 4326;
   return wkxPoint.toEwkt();

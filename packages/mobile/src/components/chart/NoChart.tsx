@@ -26,7 +26,7 @@ export const NoChart: React.FC<Props> = ({ noData }) => {
     : t('section:chart.noGauge');
   return (
     <View style={styles.container} testID="no-chart-container">
-      <Icon narrow={true} icon={noData ? 'magnify-close' : 'water-off'} />
+      <Icon narrow icon={noData ? 'magnify-close' : 'water-off'} />
       <Subheading>{message}</Subheading>
     </View>
   );

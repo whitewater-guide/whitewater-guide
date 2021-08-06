@@ -14,9 +14,7 @@ jest.mock('@whitewater-guide/clients', () => {
   return {
     __esModule: true,
     ...originalModule,
-    useRegion: () => {
-      return { node: { id: '__id__' } };
-    },
+    useRegion: () => ({ node: { id: '__id__' } }),
   };
 });
 jest.mock('@react-navigation/native', () => ({
@@ -27,12 +25,10 @@ jest.mock('@react-navigation/native', () => ({
   }),
 }));
 jest.mock('../../../features/purchases/usePremiumAccess');
-jest.mock('../../../utils/maps', () => {
-  return {
-    __esModule: true,
-    openGoogleMaps: jest.fn(),
-  };
-});
+jest.mock('../../../utils/maps', () => ({
+  __esModule: true,
+  openGoogleMaps: jest.fn(),
+}));
 
 beforeEach(() => {
   jest.resetAllMocks();

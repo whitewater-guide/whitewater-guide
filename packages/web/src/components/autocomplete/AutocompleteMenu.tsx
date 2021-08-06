@@ -45,7 +45,7 @@ const AutocompleteMenu: React.FC<Props> = (props) => {
       placement={placement}
     >
       <Paper
-        square={true}
+        square
         className={clsx(classes.paper, className)}
         style={{
           width:

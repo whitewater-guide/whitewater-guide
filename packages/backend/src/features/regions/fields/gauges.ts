@@ -1,15 +1,13 @@
-import { GraphQLFieldResolver } from 'graphql';
 import { QueryBuilder } from 'knex';
 
-import { Context, ListQuery } from '~/apollo';
+import { RegionResolvers } from '~/apollo';
 
-import { RegionRaw } from '../types';
-
-const gaugesResolver: GraphQLFieldResolver<
-  RegionRaw,
-  Context,
-  ListQuery
-> = async ({ id }, { page }, { dataSources }, info) => {
+const gaugesResolver: RegionResolvers['gauges'] = (
+  { id },
+  { page },
+  { dataSources },
+  info,
+) => {
   const query = dataSources.gauges.getMany(info, { page });
   query
     .innerJoin(

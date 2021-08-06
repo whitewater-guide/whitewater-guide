@@ -30,7 +30,7 @@ const mocks: RecursiveMockResolver = {
       info: GraphQLResolveInfo,
     ) => {
       const { seq } = ctx.counters.resolveNext(info);
-      return 'slug' + seq;
+      return `slug${seq}`;
     },
   }),
   BannerSource: () => ({

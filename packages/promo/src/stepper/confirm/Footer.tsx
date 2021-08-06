@@ -1,15 +1,10 @@
-import {
-  createStyles,
-  Theme,
-  WithStyles,
-  withStyles,
-} from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 const IMAGE_BASE = `${process.env.PUBLIC_URL}/static/`;
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
       marginBottom: theme.spacing(2),
@@ -23,9 +18,11 @@ const styles = (theme: Theme) =>
       height: 48,
       marginRight: theme.spacing(2),
     },
-  });
+  }),
+);
 
-const Footer: React.FC<WithStyles<typeof styles>> = ({ classes }) => {
+const Footer: React.FC = () => {
+  const classes = useStyles();
   const { i18n } = useTranslation();
   return (
     <div className={classes.root}>
@@ -47,4 +44,4 @@ const Footer: React.FC<WithStyles<typeof styles>> = ({ classes }) => {
   );
 };
 
-export default withStyles(styles)(Footer);
+export default Footer;

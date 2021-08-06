@@ -17,6 +17,7 @@ type Listener = (...args: any[]) => Promise<void> | void;
 
 export type AuthServiceEvent = 'loading' | 'sign-out' | 'sign-in';
 
+/* eslint-disable @typescript-eslint/method-signature-style */
 export interface AuthService {
   init(): Promise<void>;
   refreshAccessToken(): Promise<AuthResponse<RefreshBody>>;
@@ -51,13 +52,19 @@ export interface AuthService {
   ): () => void;
   off(e: AuthServiceEvent, listener?: Listener): void;
 }
+/* eslint-enable @typescript-eslint/method-signature-style */
 
 export abstract class BaseAuthService implements AuthService {
   protected readonly _baseUrl: string;
+
   protected readonly _credentials: RequestInit['credentials'];
+
   private _loading = false;
+
   private _listeners: Map<string | symbol, Listener[]> = new Map();
+
   private _initialized = false;
+
   private _refreshing: Promise<AuthResponse<RefreshBody>> | null = null;
 
   protected constructor(baseUrl: string, credentials?: boolean) {
@@ -227,9 +234,8 @@ export abstract class BaseAuthService implements AuthService {
     this.signOut = (force: boolean) => {
       if (force) {
         return forceSignOut(true);
-      } else {
-        return signOutUnlessLoading(false);
       }
+      return signOutUnlessLoading(false);
     };
     this.signUp = this._callUnlessLoading.bind(this, this.signUp);
     this.requestReset = this._callUnlessLoading.bind(this, this.requestReset);
@@ -243,19 +249,27 @@ export abstract class BaseAuthService implements AuthService {
   }
 
   abstract refreshAccessToken(): Promise<AuthResponse<RefreshBody>>;
+
   abstract signIn(
     type: 'local',
     credentials: Credentials,
   ): Promise<AuthResponse<SignInBody>>;
+
   abstract signIn(type: 'facebook'): Promise<AuthResponse<SignInBody>>;
+
   abstract signIn(
     type: AuthType,
     credentials?: Credentials,
   ): Promise<AuthResponse<SignInBody>>;
+
   abstract signOut(force?: boolean): Promise<AuthResponse>;
+
   abstract signUp(payload: RegisterPayload): Promise<AuthResponse<SignInBody>>;
+
   abstract requestReset(payload: RequestResetPayload): Promise<AuthResponse>;
+
   abstract reset(payload: ResetPayload): Promise<AuthResponse<ResetBody>>;
+
   abstract requestVerification(
     payload: RequestVerificationPayload,
   ): Promise<AuthResponse>;

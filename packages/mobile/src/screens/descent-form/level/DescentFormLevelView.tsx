@@ -1,5 +1,5 @@
 import { useLayout } from '@react-native-community/hooks';
-import { DescentLevelInput } from '@whitewater-guide/commons';
+import { DescentLevelInput } from '@whitewater-guide/schema';
 import { useFormikContext } from 'formik';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -51,7 +51,9 @@ const DescentFormLevelView: React.FC<DescentFormDateNavProps> = ({
           <NumericField
             name="level.value"
             label={t('screens:descentForm.level.valueLabel')}
-            helperText={section.gauge ? `@ ${section.gauge.name}` : undefined}
+            helperText={
+              'gauge' in section ? `@ ${section.gauge?.name}` : undefined
+            }
           />
           <TextField
             name="level.unit"
@@ -61,7 +63,7 @@ const DescentFormLevelView: React.FC<DescentFormDateNavProps> = ({
             autoCorrect={false}
             autoCompleteType="off"
           />
-          {section?.gauge && !!height && (
+          {'gauge' in section && !!height && (
             <DescentChartLayout
               section={section}
               startedAt={startedAt}

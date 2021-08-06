@@ -1,13 +1,9 @@
-import { Gauge } from '@whitewater-guide/commons';
+import { GaugeResolvers, timestampedResolvers } from '~/apollo';
 
-import { FieldResolvers } from '~/apollo';
-import { timestampResolvers } from '~/db';
-
-import { GaugeRaw } from '../types';
 import latestMeasurement from './latestMeasurement';
 import status from './status';
 
-const resolvers: FieldResolvers<GaugeRaw, Gauge> = {
+const resolvers: GaugeResolvers = {
   levelUnit: (gauge) => gauge.level_unit,
   flowUnit: (gauge) => gauge.flow_unit,
   latestMeasurement,
@@ -16,7 +12,7 @@ const resolvers: FieldResolvers<GaugeRaw, Gauge> = {
   requestParams: (gauge) => gauge.request_params,
   source: ({ source_id }, _, { dataSources }) =>
     dataSources.sources.getById(source_id),
-  ...timestampResolvers,
+  ...timestampedResolvers,
 };
 
 export default resolvers;

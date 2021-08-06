@@ -8,15 +8,13 @@ interface Props {
   service: AuthService;
 }
 
-const StepperWithAuth: React.FC<Props> = React.memo(({ service }) => {
-  return (
-    <AuthProvider service={service} renderInitializing={<Loading />}>
-      <Suspense fallback={<Loading />}>
-        <Stepper />
-      </Suspense>
-    </AuthProvider>
-  );
-});
+const StepperWithAuth: React.FC<Props> = React.memo(({ service }) => (
+  <AuthProvider service={service} renderInitializing={<Loading />}>
+    <Suspense fallback={<Loading />}>
+      <Stepper />
+    </Suspense>
+  </AuthProvider>
+));
 
 StepperWithAuth.displayName = 'StepperWithAuth';
 

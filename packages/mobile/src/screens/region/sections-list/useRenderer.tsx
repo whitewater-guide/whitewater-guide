@@ -1,10 +1,11 @@
 /* eslint-disable import/no-duplicates */
 import { useNavigation } from '@react-navigation/native';
 import {
+  ListedSectionFragment,
   SectionsStatus,
   useSectionsSearchString,
 } from '@whitewater-guide/clients';
-import { Banner, isBanner, Section } from '@whitewater-guide/commons';
+import { BannerWithSourceFragment, Section } from '@whitewater-guide/schema';
 import max from 'date-fns/max';
 import parseISO from 'date-fns/parseISO';
 import React, { useCallback, useMemo, useState } from 'react';
@@ -77,11 +78,11 @@ export default (props: ListProps) => {
   const renderItem = useCallback(
     (
       type: any,
-      item: Section | Banner,
+      item: ListedSectionFragment | BannerWithSourceFragment,
       index: number,
       extendedState: ExtendedState,
     ) => {
-      if (isBanner(item)) {
+      if (item.__typename === 'Banner') {
         return <SectionListBanner banner={item} />;
       }
       return (

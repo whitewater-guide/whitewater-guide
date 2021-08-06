@@ -1,30 +1,21 @@
 import { useUploadLink } from '@whitewater-guide/clients';
-import gql from 'graphql-tag';
 import { useCallback, useState } from 'react';
-import { useMutation } from 'react-apollo';
 
-const BULK_IMPORT = gql`
-  mutation bulkInsert($regionId: ID!, $hidden: Boolean, $archiveURL: String!) {
-    bulkInsert(regionId: $regionId, hidden: $hidden, archiveURL: $archiveURL) {
-      count
-      log
-    }
-  }
-`;
+import { useBulkInsertMutation } from './bulkInsert.generated';
 
-export default (regionId: string) => {
+export default function useBulkInsert(regionId: string) {
   const [log, setLog] = useState('');
   const { upload, uploading } = useUploadLink();
-  const [mutate, { loading }] = useMutation(BULK_IMPORT);
+  const [mutate, { loading }] = useBulkInsertMutation();
   const insert = useCallback(
     (file: File, hidden?: boolean) => {
       upload(file)
-        .then((archiveURL) => {
-          return mutate({ variables: { regionId, archiveURL, hidden } });
-        })
+        .then((archiveURL) =>
+          mutate({ variables: { regionId, archiveURL, hidden } }),
+        )
         .then((result) => {
-          const data = result.data.bulkInsert;
-          setLog(`Success!\n${data.log}\nTotal: ${data.count}`);
+          const data = result.data?.bulkInsert;
+          setLog(`Success!\n${data?.log}\nTotal: ${data?.count}`);
         })
         .catch((err) => {
           setLog(`Error: ${err}`);
@@ -37,4 +28,4 @@ export default (regionId: string) => {
     loading: uploading || loading,
     log,
   };
-};
+}

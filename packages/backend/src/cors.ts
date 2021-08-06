@@ -21,10 +21,10 @@ export const getCorsMiddleware = (whitelist: string[], appURL: string) => {
       }
       if (whitelist.includes(originDomain)) {
         return origin;
-      } else {
-        log.error({ message: 'Invalid CORS origin', extra: { origin } });
-        ctx.throw(new Error(`${origin} is not a valid origin`));
       }
+      log.error({ message: 'Invalid CORS origin', extra: { origin } });
+      ctx.throw(new Error(`${origin} is not a valid origin`));
+
       return '';
     },
   });

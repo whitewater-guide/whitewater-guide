@@ -2,14 +2,13 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Collapse from '@material-ui/core/Collapse';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Grid from '@material-ui/core/Grid';
-import { License } from '@whitewater-guide/commons';
+import { License } from '@whitewater-guide/schema';
 import { useFormikContext } from 'formik';
 import get from 'lodash/get';
 import React, { FC } from 'react';
 
 import { TextField } from '../../formik/fields/TextField';
 import CommonLicenses from './CommonLicenses';
-
 
 interface Props {
   prefix?: string;
@@ -25,8 +24,8 @@ export const LicenseSubform: FC<Props> = (props) => {
   const value: License | null = get(values, fieldName, null);
 
   return (
-    <React.Fragment>
-      <Grid item={true} xs={12}>
+    <>
+      <Grid item xs={12}>
         <FormControlLabel
           control={
             <Checkbox
@@ -43,9 +42,9 @@ export const LicenseSubform: FC<Props> = (props) => {
         {!!value && <CommonLicenses name={fieldName} />}
       </Grid>
 
-      <Grid item={true} xs={12}>
+      <Grid item xs={12}>
         <Collapse in={!!value}>
-          <Grid item={true} xs={12}>
+          <Grid item xs={12}>
             <TextField
               fullWidth
               margin="dense"
@@ -56,7 +55,7 @@ export const LicenseSubform: FC<Props> = (props) => {
             />
           </Grid>
 
-          <Grid item={true} xs={12}>
+          <Grid item xs={12}>
             <TextField
               fullWidth
               autoFocus
@@ -67,7 +66,7 @@ export const LicenseSubform: FC<Props> = (props) => {
             />
           </Grid>
 
-          <Grid item={true} xs={12}>
+          <Grid item xs={12}>
             <TextField
               fullWidth
               margin="dense"
@@ -79,6 +78,6 @@ export const LicenseSubform: FC<Props> = (props) => {
           </Grid>
         </Collapse>
       </Grid>
-    </React.Fragment>
+    </>
   );
 };

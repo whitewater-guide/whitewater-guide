@@ -19,9 +19,8 @@ const styles = StyleSheet.create({
 
 const DescentFormCommentView: React.FC = () => {
   const { t } = useTranslation();
-  const { isSubmitting, submitForm, values } = useFormikContext<
-    DescentFormData
-  >();
+  const { isSubmitting, submitForm, values } =
+    useFormikContext<DescentFormData>();
   return (
     <FullScreenKAV contentStyle={styles.container}>
       <TextField
@@ -30,10 +29,10 @@ const DescentFormCommentView: React.FC = () => {
           Platform.OS ===
           'android' /* Due to keyboard avoiding view inconsistent behavior */
         }
-        multiline={true}
+        multiline
         label={t('screens:descentForm.comment.commentLabel')}
         placeholder={t('screens:descentForm.comment.commentPlaceholder')}
-        fullHeight={true}
+        fullHeight
       />
       <CheckboxField
         name="public"

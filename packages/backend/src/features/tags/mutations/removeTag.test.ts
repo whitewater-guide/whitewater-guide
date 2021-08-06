@@ -1,11 +1,17 @@
-import { anonContext, countRows, fakeContext, runQuery } from '@test';
+import { anonContext, countRows, fakeContext } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
+import gql from 'graphql-tag';
 
 import { holdTransaction, rollbackTransaction } from '~/db';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
 
-const query = `
-  mutation removeTag($id: String!){
+import {
+  RemoveTagMutationResult,
+  testRemoveTag,
+} from './removeTag.test.generated';
+
+const _mutation = gql`
+  mutation removeTag($id: String!) {
     removeTag(id: $id)
   }
 `;
@@ -17,23 +23,23 @@ afterEach(rollbackTransaction);
 
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
-    const result = await runQuery(query, variables, anonContext());
+    const result = await testRemoveTag(variables, anonContext());
     expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
   });
 
   it('user should not pass', async () => {
-    const result = await runQuery(query, variables, fakeContext(TEST_USER));
+    const result = await testRemoveTag(variables, fakeContext(TEST_USER));
     expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('editor should not pass', async () => {
-    const result = await runQuery(query, variables, fakeContext(EDITOR_GA_EC));
+    const result = await testRemoveTag(variables, fakeContext(EDITOR_GA_EC));
     expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 });
 
 describe('effects', () => {
-  let result: any;
+  let result: RemoveTagMutationResult | null = null;
   let tagsBefore: number;
   let translationsBefore: number;
 
@@ -46,7 +52,7 @@ describe('effects', () => {
   });
 
   beforeEach(async () => {
-    result = await runQuery(query, variables, fakeContext(ADMIN));
+    result = await testRemoveTag(variables, fakeContext(ADMIN));
   });
 
   afterEach(() => {
@@ -54,7 +60,7 @@ describe('effects', () => {
   });
 
   it('should return deleted tag id', () => {
-    expect(result.data.removeTag).toBe(variables.id);
+    expect(result?.data?.removeTag).toBe(variables.id);
   });
 
   it('should remove from tags table', async () => {

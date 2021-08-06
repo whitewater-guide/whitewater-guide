@@ -1,4 +1,4 @@
-import { Banner } from '@whitewater-guide/commons';
+import { BannerWithSourceFragment } from '@whitewater-guide/schema';
 import React from 'react';
 import { Linking, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { WebView } from 'react-native-webview';
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  banner: Banner;
+  banner: BannerWithSourceFragment;
   style?: StyleProp<ViewStyle>;
   onPress?: () => void;
 }
@@ -41,7 +41,7 @@ class WebViewBanner extends React.PureComponent<Props> {
           onPress();
         }
       } catch (e) {
-        /*ignore*/
+        /* ignore */
       }
     }
   };
@@ -57,11 +57,7 @@ class WebViewBanner extends React.PureComponent<Props> {
         <WebView
           ref={this.setRef}
           source={{ uri: source.url }}
-          style={[
-            styles.webview,
-            aspectRatios[placement],
-            extras && extras.style,
-          ]}
+          style={[styles.webview, aspectRatios[placement], extras?.style]}
           onNavigationStateChange={this.onNavigationStateChange}
         />
       </View>

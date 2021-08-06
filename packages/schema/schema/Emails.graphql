@@ -1,0 +1,4 @@
+type Mutation {
+  "Subscribes to mailchimp mailing list"
+  mailSubscribe(mail: String!): Boolean
+}

@@ -9,7 +9,9 @@ export type AppErrorType = 'auth' | 'default' | 'fetch';
  */
 export class AppError<T = any> extends Error {
   public id: string; // to be matched with backend error where relevant
+
   public type: AppErrorType;
+
   public original?: T;
 
   constructor(original?: T, type?: AppErrorType, id?: string) {

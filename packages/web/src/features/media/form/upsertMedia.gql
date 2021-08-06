@@ -1,0 +1,5 @@
+mutation upsertMedia($sectionId: ID!, $media: MediaInput!) {
+  upsertSectionMedia(sectionId: $sectionId, media: $media) {
+    ...MediaCore
+  }
+}

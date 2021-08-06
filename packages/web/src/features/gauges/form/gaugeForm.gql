@@ -1,0 +1,7 @@
+query gaugeForm($gaugeId: ID) {
+  gauge(id: $gaugeId) {
+    ...GaugeCore
+    ...GaugeLocation
+    ...GaugeHarvestInfo
+  }
+}

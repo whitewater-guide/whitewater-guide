@@ -1,6 +1,4 @@
-import { CoordinateLoose } from '@whitewater-guide/commons';
-
-export function arrayToLatLngString(coord?: CoordinateLoose): string {
+export function arrayToLatLngString(coord?: CodegenCoordinates): string {
   if (!coord) {
     return '';
   }

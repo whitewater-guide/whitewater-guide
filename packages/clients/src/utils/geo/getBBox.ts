@@ -1,5 +1,3 @@
-import { CoordinateLoose } from '@whitewater-guide/commons';
-
 export type BBox = [[number, number], [number, number]];
 export type BBoxFlat = [number, number, number, number];
 
@@ -8,10 +6,10 @@ export type BBoxFlat = [number, number, number, number];
  * @param bounds
  * @returns [minLng, maxLng, minLat, maxLat]
  */
-export function getBBox(bounds: CoordinateLoose[], flat?: false): BBox;
-export function getBBox(bounds: CoordinateLoose[], flat?: true): BBoxFlat;
+export function getBBox(bounds: CodegenCoordinates[], flat?: false): BBox;
+export function getBBox(bounds: CodegenCoordinates[], flat?: true): BBoxFlat;
 export function getBBox(
-  bounds: CoordinateLoose[],
+  bounds: CodegenCoordinates[],
   flat = false,
 ): BBox | BBoxFlat {
   const flatBox = bounds.reduce<BBoxFlat>(

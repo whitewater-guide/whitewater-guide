@@ -2,8 +2,7 @@ import { compare, hash } from 'bcrypt';
 import { Middleware } from 'koa';
 import isUUID from 'validator/lib/isUUID';
 
-import db from '~/db';
-import { UserRaw } from '~/features/users';
+import { db, Sql } from '~/db';
 
 import { SALT_ROUNDS } from '../../constants';
 import { MailType, sendMail } from '../../mail';
@@ -27,7 +26,7 @@ const reset: Middleware<any, any> = async (ctx, next) => {
     return;
   }
 
-  const user: UserRaw | undefined = await db()
+  const user: Sql.Users | undefined = await db()
     .select('*')
     .from('users')
     .where({ id })

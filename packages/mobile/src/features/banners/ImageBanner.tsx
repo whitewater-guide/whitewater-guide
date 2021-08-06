@@ -1,4 +1,4 @@
-import { Banner } from '@whitewater-guide/commons';
+import { BannerWithSourceFragment } from '@whitewater-guide/schema';
 import React, { useCallback } from 'react';
 import {
   Linking,
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  banner: Banner;
+  banner: BannerWithSourceFragment;
   style?: StyleProp<ViewStyle>;
   onPress?: () => void;
 }
@@ -46,12 +46,7 @@ const ImageBanner: React.FC<Props> = (props) => {
 
   return (
     <View
-      style={[
-        styles.container,
-        aspectRatios[placement],
-        style,
-        extras && extras.style,
-      ]}
+      style={[styles.container, aspectRatios[placement], style, extras?.style]}
     >
       <TouchableWithoutFeedback onPress={handlePress}>
         <FastImage

@@ -16,6 +16,18 @@ import {
 import { print } from 'graphql/language/printer';
 import isEqual from 'lodash/isEqual';
 
+function requestToKey(request: GraphQLRequest, addTypename: boolean): string {
+  const cleanQuery = removeConnectionDirectiveFromDocument(request.query);
+  const queryString =
+    request.query &&
+    print(addTypename ? addTypenameToDocument(cleanQuery) : cleanQuery);
+  // removeConnectionDirectiveFromDocument
+
+  const requestKey = { query: queryString };
+
+  return JSON.stringify(requestKey);
+}
+
 export interface MockedResponse {
   request: GraphQLRequest;
   result?: FetchResult;
@@ -36,6 +48,7 @@ export interface MockedSubscription {
 
 export class MockLink extends ApolloLink {
   public addTypename = true;
+
   private mockedResponsesByKey: { [key: string]: MockedResponse[] } = {};
 
   constructor(mockedResponses: MockedResponse[], addTypename = true) {
@@ -97,35 +110,20 @@ export class MockLink extends ApolloLink {
     }
 
     return new Observable<FetchResult>((observer) => {
-      const timer: any = setImmediate(
-        () => {
-          if (error) {
-            observer.error(error);
-          } else {
-            if (result) observer.next(result);
-            observer.complete();
-          }
-        },
-        delay ? delay : 0,
-      );
+      const timer: any = setTimeout(() => {
+        if (error) {
+          observer.error(error);
+        } else {
+          if (result) observer.next(result);
+          observer.complete();
+        }
+      }, delay || 0);
 
       return () => {
         clearTimeout(timer);
       };
     });
   }
-}
-
-function requestToKey(request: GraphQLRequest, addTypename: boolean): string {
-  const cleanQuery = removeConnectionDirectiveFromDocument(request.query);
-  const queryString =
-    request.query &&
-    print(addTypename ? addTypenameToDocument(cleanQuery) : cleanQuery);
-  // removeConnectionDirectiveFromDocument
-
-  const requestKey = { query: queryString };
-
-  return JSON.stringify(requestKey);
 }
 
 // Pass in multiple mocked responses, so that you can test flows that end up

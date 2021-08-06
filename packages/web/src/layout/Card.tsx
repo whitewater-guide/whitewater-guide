@@ -32,7 +32,7 @@ interface Props extends CardProps {
   loading?: boolean;
 }
 
-export const Card: React.FC<Props> = React.memo((props) => {
+export const Card = React.memo<Props>((props) => {
   const { loading, children, ...cardProps } = props;
   const classes = useStyles();
   const content = loading ? (

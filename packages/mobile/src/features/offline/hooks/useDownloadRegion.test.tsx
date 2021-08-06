@@ -1,6 +1,6 @@
 import { MockedProvider, MockedResponse } from '@apollo/react-testing';
 import { act, renderHook } from '@testing-library/react-hooks';
-import { REGION_DETAILS } from '@whitewater-guide/clients';
+import { RegionDetailsDocument } from '@whitewater-guide/clients';
 import { mockApolloProvider } from '@whitewater-guide/clients/dist/test';
 import { GraphQLError } from 'graphql';
 import { MockList } from 'graphql-tools';
@@ -15,11 +15,13 @@ jest.mock('./useDownloadMap');
 jest.mock('./useDownloadPhotos');
 jest.mock('./useDownloadSections');
 jest.mock('./useMediaSummary');
-jest.mock('@react-native-firebase/analytics', () => {
-  return function () {
-    return { logEvent: jest.fn() };
-  };
-});
+jest.mock(
+  '@react-native-firebase/analytics',
+  () =>
+    function () {
+      return { logEvent: jest.fn() };
+    },
+);
 
 beforeEach(() => {
   jest.resetAllMocks();
@@ -39,8 +41,8 @@ it.each([
   const mocks: MockedResponse[] = [
     {
       request: {
-        query: REGION_DETAILS(theme.screenWidthPx),
-        variables: { regionId: 'id' },
+        query: RegionDetailsDocument,
+        variables: { regionId: 'id', bannerWidth: theme.screenWidthPx },
       },
       ...err,
     },

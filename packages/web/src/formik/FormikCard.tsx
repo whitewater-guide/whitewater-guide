@@ -1,7 +1,7 @@
 import Box from '@material-ui/core/Box';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import { isNamedNode, isNode } from '@whitewater-guide/commons';
+import { isNamedNode, isNode } from '@whitewater-guide/schema';
 import { createSafeValidator } from '@whitewater-guide/validation';
 import { Formik, FormikConfig } from 'formik';
 import React, { useMemo } from 'react';
@@ -49,6 +49,7 @@ export function FormikCard<QResult, FData>(props: Props<QResult, FData>) {
       ? `${initialValues.name} settings`
       : `New ${header.resourceType}`;
 
+  /* eslint-disable @typescript-eslint/no-non-null-assertion */
   return (
     <Card loading={loading || !initialValues}>
       <Formik<FData>
@@ -57,7 +58,7 @@ export function FormikCard<QResult, FData>(props: Props<QResult, FData>) {
         validateOnChange={validateOnChange}
         validate={validate}
       >
-        <React.Fragment>
+        <>
           <UnsavedPrompt />
           <CardHeader title={headerLabel} action={<EditorLanguagePicker />} />
           <CardContent>
@@ -76,10 +77,11 @@ export function FormikCard<QResult, FData>(props: Props<QResult, FData>) {
             submitLabel={submitLabel}
             extraActions={extraActions}
           />
-        </React.Fragment>
+        </>
       </Formik>
     </Card>
   );
+  /* eslint-enable @typescript-eslint/no-non-null-assertion */
 }
 
 FormikCard.displayName = 'FormikCard';

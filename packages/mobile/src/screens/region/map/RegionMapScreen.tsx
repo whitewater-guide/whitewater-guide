@@ -13,21 +13,21 @@ const RegionMapScreen: React.FC<RegionMapNavProps> = ({ navigation }) => {
   useFocusEffect(
     React.useCallback(() => {
       navigation.dangerouslyGetParent()?.setOptions({
-        // eslint-disable-next-line react/display-name
+        // eslint-disable-next-line react/no-unstable-nested-components
         headerRight: () => <FilterButton />,
       });
     }, [navigation]),
   );
 
-  const { node } = useRegion();
+  const region = useRegion();
   const { sections } = useSectionsList();
   return (
     <Screen style={StyleSheet.absoluteFill}>
-      {node && (
+      {region && (
         <Map
-          pois={node.pois}
+          pois={region.pois}
           sections={sections}
-          initialBounds={node.bounds}
+          initialBounds={region.bounds}
           testID="region-map"
         />
       )}

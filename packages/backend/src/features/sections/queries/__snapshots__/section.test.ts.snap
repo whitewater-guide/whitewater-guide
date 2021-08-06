@@ -2,6 +2,7 @@
 
 exports[`data should return simple data 1`] = `
 Object {
+  "altNames": Array [],
   "copyright": null,
   "createdBy": Object {
     "id": "65fa3f3a-62a7-11e8-adc0-fa7ae01bbebc",
@@ -29,12 +30,18 @@ Object {
       1,
       0,
     ],
-    "description": null,
     "id": "21f2351e-d52a-11e7-9296-cec278b6b50a_putIn",
     "kind": "put-in",
-    "name": "Sjoa - Amot: Put-in",
   },
   "rating": 5,
+  "river": Object {
+    "altNames": Array [
+      "Shoa",
+      "Sjøa",
+    ],
+    "id": "d4396dac-d528-11e7-9296-cec278b6b50a",
+    "name": "Sjoa",
+  },
   "season": "Amot season",
   "seasonNumeric": Array [
     10,
@@ -64,10 +71,8 @@ Object {
       2,
       0,
     ],
-    "description": null,
     "id": "21f2351e-d52a-11e7-9296-cec278b6b50a_takeOut",
     "kind": "take-out",
-    "name": "Sjoa - Amot: Take-out",
   },
   "verified": null,
 }

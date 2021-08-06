@@ -3,4 +3,8 @@ dist/
 coverage/
 build/
 public/
+esm/
+cjs/
 packages/landing/
+__generated__/
+*.generated.ts

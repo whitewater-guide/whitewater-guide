@@ -1,20 +1,17 @@
-import { MediaInput, MediaInputSchema } from '@whitewater-guide/commons';
-import { yupTypes } from '@whitewater-guide/validation';
+import {
+  MediaInputSchema,
+  MutationUpsertSectionMediaArgs,
+} from '@whitewater-guide/schema';
 import * as yup from 'yup';
 
-import { isInputValidResolver, TopLevelResolver } from '~/apollo';
+import { isInputValidResolver, MutationResolvers } from '~/apollo';
 
-interface Vars {
-  sectionId: string;
-  media: MediaInput;
-}
-
-const Struct = yup.object({
-  sectionId: yupTypes.uuid(),
-  media: MediaInputSchema,
+const Schema: yup.SchemaOf<MutationUpsertSectionMediaArgs> = yup.object({
+  sectionId: yup.string().uuid().required(),
+  media: MediaInputSchema.clone(),
 });
 
-const resolver: TopLevelResolver<Vars> = async (
+const upsertSectionMedia: MutationResolvers['upsertSectionMedia'] = async (
   _,
   { media, sectionId },
   { dataSources },
@@ -23,6 +20,4 @@ const resolver: TopLevelResolver<Vars> = async (
   return dataSources.media.upsertSectionMedia(media, sectionId);
 };
 
-const upsertSectionMedia = isInputValidResolver(Struct, resolver);
-
-export default upsertSectionMedia;
+export default isInputValidResolver(Schema, upsertSectionMedia);

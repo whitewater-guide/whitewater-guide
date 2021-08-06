@@ -1,4 +1,4 @@
-import { MediaInput, SectionInput } from '@whitewater-guide/commons';
+import { MediaInput, SectionInput } from '@whitewater-guide/schema';
 
 import { MediaFormInput, SectionFormInput } from './types';
 

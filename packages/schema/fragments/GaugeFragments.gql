@@ -1,0 +1,61 @@
+fragment GaugeCore on Gauge {
+  id
+  name
+  code
+  levelUnit
+  flowUnit
+  url
+}
+
+fragment GaugeLocation on Gauge {
+  location {
+    id
+    kind
+    coordinates
+  }
+}
+
+fragment GaugeHarvestInfo on Gauge {
+  requestParams
+}
+
+fragment GaugeLatestMeasurement on Gauge {
+  latestMeasurement {
+    timestamp
+    flow
+    level
+  }
+}
+
+fragment GaugeStatus on Gauge {
+  status {
+    timestamp
+    success
+    count
+    error
+    next
+  }
+}
+
+fragment GaugeSource on Gauge {
+  source {
+    id
+    name
+    termsOfUse
+  }
+}
+
+fragment GaugeBindingAll on GaugeBinding {
+  minimum
+  maximum
+  optimum
+  impossible
+  approximate
+  formula
+}
+
+fragment GaugeForChart on Gauge {
+  ...GaugeCore
+  ...GaugeSource
+  ...GaugeLatestMeasurement
+}

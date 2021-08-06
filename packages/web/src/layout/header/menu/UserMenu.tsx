@@ -44,7 +44,7 @@ const UserMenu: React.FC = React.memo(() => {
   }, [setAnchor, service]);
 
   return (
-    <React.Fragment>
+    <>
       <Avatar
         onClick={onAvatarPress}
         className={classes.avatar}
@@ -61,7 +61,7 @@ const UserMenu: React.FC = React.memo(() => {
       >
         <MenuItem onClick={onSignOut}>Sign out</MenuItem>
       </Popover>
-    </React.Fragment>
+    </>
   );
 });
 

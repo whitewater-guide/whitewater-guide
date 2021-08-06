@@ -1,5 +1,4 @@
-import { Point } from '@whitewater-guide/commons';
-import get from 'lodash/get';
+import { PointCoreFragment } from '@whitewater-guide/schema';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
@@ -31,17 +30,18 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  poi: Point | null;
+  poi?: PointCoreFragment | null;
 }
 
 export const SelectedPOIHeader: React.FC<Props> = React.memo((props) => {
   const { poi } = props;
   const { t } = useTranslation();
+  const kind = poi?.kind ?? 'other';
   return (
     <View style={styles.root}>
       <View style={styles.header}>
-        <Paragraph>{get(poi, 'name', ' ')}</Paragraph>
-        <Caption>{t('poiTypes:' + get(poi, 'kind', 'other'))}</Caption>
+        <Paragraph>{poi?.name ?? ' '}</Paragraph>
+        <Caption>{t(`poiTypes:${kind}`)}</Caption>
       </View>
     </View>
   );

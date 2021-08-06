@@ -1,15 +1,9 @@
-import {
-  anonContext,
-  countRows,
-  fakeContext,
-  runQuery,
-  UUID_REGEX,
-} from '@test';
+import { anonContext, countRows, fakeContext, UUID_REGEX } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
+import gql from 'graphql-tag';
 
-import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { db, holdTransaction, rollbackTransaction, Sql } from '~/db';
 import { GorgeConnector } from '~/features/gorge';
-import { SectionsEditLogRaw } from '~/features/sections';
 import {
   ADMIN,
   EDITOR_GA_EC,
@@ -24,6 +18,8 @@ import {
   GALICIA_BECA_LOWER,
   NORWAY_FINNA_GORGE,
 } from '~/seeds/test/09_sections';
+
+import { testRemoveSection } from './removeSection.test.generated';
 
 jest.mock('../../gorge/connector');
 
@@ -45,8 +41,8 @@ beforeAll(async () => {
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
-const query = `
-  mutation removeSection($id: ID!){
+const _mutation = gql`
+  mutation removeSection($id: ID!) {
     removeSection(id: $id)
   }
 `;
@@ -55,17 +51,17 @@ const id = GALICIA_BECA_LOWER; // Galicia River 1 Section 1
 
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
-    const result = await runQuery(query, { id }, anonContext());
+    const result = await testRemoveSection({ id }, anonContext());
     expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
   });
 
   it('user should not pass', async () => {
-    const result = await runQuery(query, { id }, fakeContext(TEST_USER));
+    const result = await testRemoveSection({ id }, fakeContext(TEST_USER));
     expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('non-owning editor should not pass', async () => {
-    const result = await runQuery(query, { id }, fakeContext(EDITOR_NO_EC));
+    const result = await testRemoveSection({ id }, fakeContext(EDITOR_NO_EC));
     expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 });
@@ -76,7 +72,7 @@ describe('effects', () => {
 
   beforeEach(async () => {
     spy = jest.spyOn(GorgeConnector.prototype, 'updateJobForSource');
-    result = await runQuery(query, { id }, fakeContext(EDITOR_GA_EC));
+    result = await testRemoveSection({ id }, fakeContext(EDITOR_GA_EC));
   });
 
   afterEach(() => {
@@ -107,7 +103,7 @@ describe('effects', () => {
   });
 
   it('should log this event', async () => {
-    const entry: SectionsEditLogRaw = await db(false)
+    const entry: Sql.SectionsEditLog = await db(false)
       .table('sections_edit_log')
       .orderBy('created_at', 'desc')
       .select('*')
@@ -144,7 +140,7 @@ describe('effects', () => {
 });
 
 it('should also remove river if this was the only section on the river', async () => {
-  await runQuery(query, { id: NORWAY_FINNA_GORGE }, fakeContext(ADMIN));
+  await testRemoveSection({ id: NORWAY_FINNA_GORGE }, fakeContext(ADMIN));
   const { count } = await db(false)
     .table('rivers')
     .count('*')

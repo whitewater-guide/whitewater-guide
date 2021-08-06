@@ -1,0 +1,19 @@
+query listMyDescents($filter: DescentsFilter, $page: Page) {
+  myDescents(filter: $filter, page: $page)
+    @connection(key: "myDescents", filter: ["filter"]) {
+    edges {
+      node {
+        ...DescentCore
+
+        section {
+          ...SectionNameShort
+        }
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasMore
+    }
+  }
+}

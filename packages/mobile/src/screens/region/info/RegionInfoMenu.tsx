@@ -8,7 +8,7 @@ import { IconButton } from 'react-native-paper';
 import theme from '~/theme';
 
 const RegionInfoMenu: React.FC = () => {
-  const { node } = useRegion();
+  const region = useRegion();
   const { t } = useTranslation();
 
   const { showActionSheetWithOptions } = useActionSheet();
@@ -20,15 +20,15 @@ const RegionInfoMenu: React.FC = () => {
         cancelButtonIndex: 1,
       },
       (index: number) => {
-        if (index !== 0 || !node) {
+        if (index !== 0 || !region) {
           return;
         }
-        if (node.description) {
-          Clipboard.setString(node.description);
+        if (region.description) {
+          Clipboard.setString(region.description);
         }
       },
     );
-  }, [showActionSheetWithOptions, t, node]);
+  }, [showActionSheetWithOptions, t, region]);
 
   return (
     <IconButton

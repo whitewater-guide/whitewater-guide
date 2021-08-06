@@ -2,18 +2,17 @@ import { createWriteStream, lstatSync } from 'fs';
 import { readdirSync, readJSONSync, writeJsonSync } from 'fs-extra';
 import { resolve } from 'path';
 import rimraf from 'rimraf';
-// eslint-disable-next-line import/default
 import tar from 'tar';
 
 const dirs = readdirSync(__dirname);
 
-for (const dir of dirs) {
+dirs.forEach((dir) => {
   if (dir === 'node_modules') {
-    continue;
+    return;
   }
   const stat = lstatSync(resolve(__dirname, dir));
   if (!stat.isDirectory()) {
-    continue;
+    return;
   }
   console.info(`Converting ${dir}...`);
   const inputFile = resolve(__dirname, dir, 'in.json');
@@ -22,7 +21,8 @@ for (const dir of dirs) {
   const targzFile = resolve(__dirname, dir, 'data.tar.gz');
   rimraf.sync(targzFile);
 
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  // dynamic require is totally on purpose here
+  // eslint-disable-next-line @typescript-eslint/no-var-requires, import/no-dynamic-require, global-require
   const convert = require(converFile).default;
   const input = readJSONSync(inputFile);
   const output = input.map(convert);
@@ -33,4 +33,4 @@ for (const dir of dirs) {
     .on('end', () => {
       console.info(`Converted ${dir}...`);
     });
-}
+});

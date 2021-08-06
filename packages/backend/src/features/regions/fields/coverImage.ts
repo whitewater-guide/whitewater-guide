@@ -1,30 +1,22 @@
-import { RegionCoverImage } from '@whitewater-guide/commons';
+import { RegionCoverImageMobileArgs } from '@whitewater-guide/schema';
 
-import { FieldResolvers } from '~/apollo';
+import { RegionCoverImageResolvers } from '~/apollo';
 import { Imgproxy } from '~/s3';
 
-import { CoverArgs, CoverImageRaw } from '../types';
-
-export const coverImageResolvers: FieldResolvers<
-  CoverImageRaw,
-  RegionCoverImage
-> = {
-  mobile: (coverImageRaw, { width }: CoverArgs) => {
-    const mobile = coverImageRaw && coverImageRaw.mobile;
+export const coverImageResolvers: RegionCoverImageResolvers = {
+  mobile: (coverImageRaw, { width }: RegionCoverImageMobileArgs) => {
+    const mobile = coverImageRaw?.mobile;
     if (!mobile) {
       return null;
     }
     return Imgproxy.url(
       'covers',
       mobile,
-      Imgproxy.getProcessingOpts(width, undefined, [
-        2048,
-        1600,
-        1366,
-        1024,
-        768,
-        640,
-      ]),
+      Imgproxy.getProcessingOpts(
+        width,
+        undefined,
+        [2048, 1600, 1366, 1024, 768, 640],
+      ),
     );
   },
 };

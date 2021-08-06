@@ -1,8 +1,11 @@
-import { fakeContext, runQuery, TIMESTAMP_REGEX, UUID_REGEX } from '@test';
-import { DescentInput } from '@whitewater-guide/commons';
+import { fakeContext, TIMESTAMP_REGEX, UUID_REGEX } from '@test';
+import { DescentInput } from '@whitewater-guide/schema';
+import gql from 'graphql-tag';
 
-import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { db, holdTransaction, rollbackTransaction } from '~/db';
 import { TEST_USER, TEST_USER2 } from '~/seeds/test/01_users';
+import { REGION_GEORGIA } from '~/seeds/test/04_regions';
+import { RIVER_BZHUZHA } from '~/seeds/test/07_rivers';
 import { GEORGIA_BZHUZHA_QUALI } from '~/seeds/test/09_sections';
 import {
   DESCENT_01,
@@ -11,34 +14,24 @@ import {
   DESCENT_4_SHARE_TOKEN,
 } from '~/seeds/test/18_descents';
 
+import { testUpsertDescent } from './upsertDescent.test.generated';
+
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
-const mutation = `
-  mutation upsertDescent(
-    $descent: DescentInput!
-    $shareToken: String
-  ) {
+const _mutation = gql`
+  mutation upsertDescent($descent: DescentInput!, $shareToken: String) {
     upsertDescent(descent: $descent, shareToken: $shareToken) {
-      id
-
-      startedAt
-      duration
-      level {
-        value
-        unit
-      }
+      ...DescentCore
+      ...TimestampedMeta
 
       section {
-        id
-        name
+        ...SectionNameShort
+        region {
+          id
+          name
+        }
       }
-
-      comment
-      public
-
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -56,19 +49,18 @@ const descent: DescentInput = {
 };
 
 it('anon should fail to insert descent', async () => {
-  const result = await runQuery(mutation, { descent });
+  const result = await testUpsertDescent({ descent });
   expect(result.errors).toBeDefined();
-  expect(result.data.upsertDescent).toBeNull();
+  expect(result.data?.upsertDescent).toBeNull();
 });
 
 it('non-owner should fail to update descent', async () => {
-  const result = await runQuery(
-    mutation,
+  const result = await testUpsertDescent(
     { descent: { ...descent, id: DESCENT_01 } },
     fakeContext(TEST_USER2),
   );
   expect(result.errors).toBeDefined();
-  expect(result.data.upsertDescent).toBeNull();
+  expect(result.data?.upsertDescent).toBeNull();
 });
 
 it('should fail on validation check', async () => {
@@ -80,24 +72,31 @@ it('should fail on validation check', async () => {
     level: null,
     public: true,
   };
-  const result = await runQuery(
-    mutation,
+  const result = await testUpsertDescent(
     { descent: badDescent },
     fakeContext(TEST_USER),
   );
   expect(result).toHaveGraphqlValidationError();
-  expect(result.data.upsertDescent).toBeNull();
+  expect(result.data?.upsertDescent).toBeNull();
 });
 
 it('should insert', async () => {
-  const result = await runQuery(mutation, { descent }, fakeContext(TEST_USER));
+  const result = await testUpsertDescent({ descent }, fakeContext(TEST_USER));
   expect(result.errors).toBeUndefined();
-  expect(result.data.upsertDescent).toEqual({
+  expect(result.data?.upsertDescent).toEqual({
     id: expect.stringMatching(UUID_REGEX),
 
     section: {
       id: GEORGIA_BZHUZHA_QUALI,
       name: 'Qualification',
+      region: {
+        id: REGION_GEORGIA,
+        name: 'Georgia',
+      },
+      river: {
+        id: RIVER_BZHUZHA,
+        name: 'Bzhuzha',
+      },
     },
 
     startedAt: expect.stringMatching(TIMESTAMP_REGEX),
@@ -108,14 +107,14 @@ it('should insert', async () => {
       unit: 'cfs',
     },
     public: true,
+
     createdAt: expect.stringMatching(TIMESTAMP_REGEX),
     updatedAt: expect.stringMatching(TIMESTAMP_REGEX),
   });
 });
 
 it('should update', async () => {
-  const result = await runQuery(
-    mutation,
+  const result = await testUpsertDescent(
     {
       descent: {
         ...descent,
@@ -124,12 +123,20 @@ it('should update', async () => {
     },
     fakeContext(TEST_USER),
   );
-  expect(result.data.upsertDescent).toEqual({
+  expect(result.data?.upsertDescent).toEqual({
     id: DESCENT_01,
 
     section: {
       id: GEORGIA_BZHUZHA_QUALI,
       name: 'Qualification',
+      region: {
+        id: REGION_GEORGIA,
+        name: 'Georgia',
+      },
+      river: {
+        id: RIVER_BZHUZHA,
+        name: 'Bzhuzha',
+      },
     },
 
     startedAt: new Date(Date.UTC(2000, 1, 1)).toISOString(),
@@ -153,8 +160,7 @@ it.each<ParentTestCase>([
 ])(
   'should set %sparent references when token is provided',
   async (_, shareToken, expectedParentDescentId) => {
-    const result = await runQuery(
-      mutation,
+    const result = await testUpsertDescent(
       {
         descent,
         shareToken,
@@ -162,7 +168,7 @@ it.each<ParentTestCase>([
       fakeContext(TEST_USER2),
     );
     expect(result.errors).toBeUndefined();
-    const id = result.data.upsertDescent?.id;
+    const id = result.data?.upsertDescent?.id;
     const { parent_id } = await db()
       .table('descents')
       .select(['parent_id'])

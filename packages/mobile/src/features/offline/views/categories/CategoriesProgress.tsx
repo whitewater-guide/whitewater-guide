@@ -1,4 +1,4 @@
-import { RegionMediaSummary } from '@whitewater-guide/commons';
+import { RegionMediaSummary } from '@whitewater-guide/schema';
 import React from 'react';
 
 import { OfflineProgress } from '../../types';
@@ -14,11 +14,11 @@ const CategoriesProgress: React.FC<Props> = (props) => {
   const { summary, progress } = props;
   const labels = useLabels(summary);
   return (
-    <React.Fragment>
+    <>
       <OfflineCategoryProgress label={labels.data} progress={progress.data} />
       <OfflineCategoryProgress label={labels.media} progress={progress.media} />
       <OfflineCategoryProgress label={labels.maps} progress={progress.maps} />
-    </React.Fragment>
+    </>
   );
 };
 

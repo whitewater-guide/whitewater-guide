@@ -4,22 +4,19 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import React, { useMemo } from 'react';
-import { useQuery } from 'react-apollo';
+import React from 'react';
 
 import { EditorLanguagePicker } from '../../components/language';
-import { squashConnection } from '../../formik/utils';
 import { Card, CardContent } from '../../layout';
 import GroupForm from './GroupForm';
-import { LIST_GROUPS, QResult, QVars } from './listGroups.query';
+import { useListGroupsQuery } from './listGroups.generated';
 import useAddGroup from './useAddGroup';
 import useRemoveGroup from './useRemoveGroup';
 
 const GroupsForm: React.FC = React.memo(() => {
-  const { data, loading } = useQuery<QResult, QVars>(LIST_GROUPS, {
+  const { data, loading } = useListGroupsQuery({
     fetchPolicy: 'network-only',
   });
-  const groups = useMemo(() => squashConnection(data, 'groups'), [data]);
   const addGroup = useAddGroup();
   const removeGroup = useRemoveGroup();
   return (
@@ -36,7 +33,7 @@ const GroupsForm: React.FC = React.memo(() => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {groups.map((group) => (
+            {data?.groups?.nodes?.map((group) => (
               <GroupForm
                 key={group.id}
                 group={group}

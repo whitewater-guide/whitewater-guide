@@ -1,9 +1,9 @@
 import Mapbox, { RegionChangeEvent } from '@react-native-mapbox-gl/maps';
-import { CoordinateLoose, SectionInput } from '@whitewater-guide/commons';
+import { SectionInput } from '@whitewater-guide/schema';
 import { useFormikContext } from 'formik';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { FAB } from 'react-native-paper';
+import { FAB as FAButton } from 'react-native-paper';
 import useBoolean from 'react-use/lib/useBoolean';
 
 import { MapLayoutBase } from '~/components/map';
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const WORLD_BOUNDS: CoordinateLoose[] = [
+const WORLD_BOUNDS: CodegenCoordinates[] = [
   [-179, -89],
   [-179, 89],
   [179, 89],
@@ -43,9 +43,8 @@ const WORLD_BOUNDS: CoordinateLoose[] = [
 const PiToField: React.FC = React.memo(() => {
   const region = useAddSectionRegion();
   const cameraRef = useRef<Mapbox.Camera | null>(null);
-  const { values, setFieldValue, setFieldTouched } = useFormikContext<
-    SectionInput
-  >();
+  const { values, setFieldValue, setFieldTouched } =
+    useFormikContext<SectionInput>();
   const { state, mapRef, move, select, set } = usePiToState(values.shape);
   const shapeRef = useRef(state.shape);
   shapeRef.current = state.shape;
@@ -81,13 +80,14 @@ const PiToField: React.FC = React.memo(() => {
   }, [state.selected, cameraRef, shapeRef]);
 
   // This field state is local, until unmout
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       setFieldTouched('shape', true);
       setFieldValue('shape', shapeRef.current);
-    };
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    [],
+  );
 
   return (
     <View style={StyleSheet.absoluteFill}>
@@ -103,7 +103,7 @@ const PiToField: React.FC = React.memo(() => {
       <View style={styles.controls}>
         <PiToControl index={0} state={state} select={select} />
         <PiToControl index={1} state={state} select={select} />
-        <FAB
+        <FAButton
           style={styles.fab}
           icon="pencil"
           onPress={toggleDialog}

@@ -1,10 +1,6 @@
-import { GraphQLFieldResolver } from 'graphql';
+import { SectionResolvers } from '~/apollo';
 
-import { Context, ListQuery } from '~/apollo';
-
-import { SectionRaw } from '../types';
-
-const mediaResolver: GraphQLFieldResolver<SectionRaw, Context, ListQuery> = (
+const mediaResolver: SectionResolvers['media'] = (
   { id },
   { page },
   { dataSources },

@@ -4,8 +4,8 @@ import { useMemo } from 'react';
 const useReactNativeHandlers = <T = any>(
   { name, onChange, onBlur }: FieldInputProps<T>,
   onBlurProp?: any,
-) => {
-  return useMemo(
+) =>
+  useMemo(
     () => ({
       onChange: (value: T) => {
         const event = {
@@ -30,6 +30,5 @@ const useReactNativeHandlers = <T = any>(
     }),
     [name, onChange, onBlur, onBlurProp],
   );
-};
 
 export default useReactNativeHandlers;

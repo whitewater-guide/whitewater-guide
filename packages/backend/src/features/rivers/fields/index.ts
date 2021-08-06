@@ -1,17 +1,13 @@
-import { River } from '@whitewater-guide/commons';
+import { RiverResolvers, timestampedResolvers } from '~/apollo';
 
-import { FieldResolvers } from '~/apollo';
-import { timestampResolvers } from '~/db';
-
-import { RiverRaw } from '../types';
 import region from './region';
 import sections from './sections';
 
-const riverFieldResolvers: FieldResolvers<RiverRaw, River> = {
+const riverFieldResolvers: RiverResolvers = {
   altNames: (river) => river.alt_names,
   region,
   sections,
-  ...timestampResolvers,
+  ...timestampedResolvers,
 };
 
 export default riverFieldResolvers;

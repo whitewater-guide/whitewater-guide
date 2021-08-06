@@ -1,0 +1,8 @@
+mutation changeRiverRegion($riverId: ID!, $regionId: ID!) {
+  changeRiverRegion(riverId: $riverId, regionId: $regionId) {
+    id
+    region {
+      id
+    }
+  }
+}

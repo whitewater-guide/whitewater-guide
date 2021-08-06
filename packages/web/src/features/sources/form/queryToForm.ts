@@ -1,10 +1,10 @@
 import { fromMarkdown } from '@whitewater-guide/md-editor';
 
-import { fromJSON, squashConnection } from '../../../formik/utils';
-import { QResult } from './sourceForm.query';
+import { fromJSON } from '../../../formik/utils';
+import { SourceFormQuery } from './sourceForm.generated';
 import { SourceFormData } from './types';
 
-export default (result?: QResult): SourceFormData => {
+export default (result?: SourceFormQuery): SourceFormData => {
   if (!result || !result.source) {
     return {
       id: null,
@@ -29,6 +29,6 @@ export default (result?: QResult): SourceFormData => {
       name: src.script,
     },
     requestParams: fromJSON(src.requestParams),
-    regions: squashConnection(src, 'regions'),
+    regions: src.regions.nodes ?? [],
   };
 };

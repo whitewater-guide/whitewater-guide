@@ -1,12 +1,12 @@
-import { NodeQuery, TopLevelResolver } from '~/apollo';
+import { QueryResolvers } from '~/apollo';
 
-const section: TopLevelResolver<NodeQuery> = async (
+const section: QueryResolvers['section'] = async (
   _,
   { id },
   { dataSources },
 ) => {
   const result = await dataSources.sections.getById(id);
-  if (result && result.hidden) {
+  if (result?.hidden) {
     await dataSources.users.assertEditorPermissions({ sectionId: id });
   }
   return result;

@@ -1,10 +1,7 @@
-import { Region } from '@whitewater-guide/commons';
 import sortBy from 'lodash/sortBy';
 
-import { FieldResolvers } from '~/apollo';
-import { timestampResolvers } from '~/db';
+import { RegionResolvers, timestampedResolvers } from '~/apollo';
 
-import { RegionRaw } from '../types';
 import banners from './banners';
 import bounds from './bounds';
 import editable from './editable';
@@ -15,7 +12,7 @@ import rivers from './rivers';
 import sections from './sections';
 import sources from './sources';
 
-export const regionFieldResolvers: FieldResolvers<RegionRaw, Region> = {
+export const regionFieldResolvers: RegionResolvers = {
   seasonNumeric: (region) => region.season_numeric,
   coverImage: (region) => region.cover_image,
   mapsSize: (region) => region.maps_size,
@@ -29,5 +26,5 @@ export const regionFieldResolvers: FieldResolvers<RegionRaw, Region> = {
   gauges,
   sources,
   mediaSummary,
-  ...timestampResolvers,
+  ...timestampedResolvers,
 };

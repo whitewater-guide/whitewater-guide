@@ -1,34 +1,34 @@
-import { sectionHasChanged } from '@whitewater-guide/clients';
 import {
-  Banner,
-  isBanner,
-  isSection,
-  Section,
-} from '@whitewater-guide/commons';
+  ListedSectionFragment,
+  sectionHasChanged,
+} from '@whitewater-guide/clients';
+import { BannerWithSourceFragment } from '@whitewater-guide/schema';
 import React from 'react';
 
 import { ItemProps } from '../types';
 import { SectionListBanner } from './SectionListBanner';
 import { SectionListItem } from './SectionListItem';
 
-type Props = ItemProps<Section | Banner> & {
+type Props = ItemProps<ListedSectionFragment | BannerWithSourceFragment> & {
   swipedId: string;
 };
 
 const propsAreEqual = (prev: Props, next: Props) =>
   prev.swipedId === next.swipedId &&
   prev.item.id === next.item.id &&
-  (isSection(prev.item) && isSection(next.item)
+  (prev.item.__typename === 'Section' && next.item.__typename === 'Section'
     ? !sectionHasChanged(prev.item, next.item)
     : true) &&
   prev.hasPremiumAccess === next.hasPremiumAccess &&
   prev.forceCloseCnt === next.forceCloseCnt;
 
-export const ListItem: React.FC<Props> = React.memo((props) => {
-  if (isBanner(props.item)) {
+export const ListItem = React.memo<Props>((props) => {
+  if (props.item.__typename === 'Banner') {
     return <SectionListBanner banner={props.item} />;
+  } else if (props.item.__typename === 'Section') {
+    return <SectionListItem {...props} item={props.item} />;
   }
-  return <SectionListItem {...props} item={props.item} />;
+  return null;
 }, propsAreEqual);
 
 ListItem.displayName = 'ListItem';

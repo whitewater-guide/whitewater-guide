@@ -1,9 +1,12 @@
-import { countRows, fakeContext, runQuery } from '@test';
+import { countRows, fakeContext } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
+import gql from 'graphql-tag';
 
-import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { db, holdTransaction, rollbackTransaction } from '~/db';
 import { TEST_USER, TEST_USER2 } from '~/seeds/test/01_users';
 import { DESCENT_01, DESCENT_04 } from '~/seeds/test/18_descents';
+
+import { testDeleteDescent } from './deleteDescent.test.generated';
 
 let dBefore: number;
 
@@ -14,7 +17,7 @@ beforeAll(async () => {
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
-const mutation = `
+const _mutation = gql`
   mutation deleteDescent($id: ID!) {
     deleteDescent(id: $id)
   }
@@ -23,34 +26,25 @@ const mutation = `
 type PermissionsTestCase = [string, any, ApolloErrorCodes | undefined];
 
 it.each<PermissionsTestCase>([
-  [
-    'anon should not delete descent',
-    undefined,
-    ApolloErrorCodes.UNAUTHENTICATED,
-  ],
-  [
-    'non-owner should not delete descent',
-    TEST_USER2,
-    ApolloErrorCodes.FORBIDDEN,
-  ],
-  ['owner should delete descent', TEST_USER, undefined],
-])('%s', async (_, user, error) => {
-  const result = await runQuery(
-    mutation,
+  ['anon', undefined, ApolloErrorCodes.UNAUTHENTICATED],
+  ['non-owner', TEST_USER2, ApolloErrorCodes.FORBIDDEN],
+])('%s should not delete descent', async (_, user, error) => {
+  const result = await testDeleteDescent({ id: DESCENT_01 }, fakeContext(user));
+  expect(result).toHaveGraphqlError(error);
+  expect(result.data?.deleteDescent).toBeNull();
+});
+
+it('owner should delete descent', async () => {
+  const result = await testDeleteDescent(
     { id: DESCENT_01 },
-    fakeContext(user),
+    fakeContext(TEST_USER),
   );
-  if (error) {
-    expect(result).toHaveGraphqlError(error);
-    expect(result.data?.deleteDescent).toBeNull();
-  } else {
-    expect(result.errors).toBeUndefined();
-    expect(result.data?.deleteDescent).toBe(true);
-  }
+  expect(result.errors).toBeUndefined();
+  expect(result.data?.deleteDescent).toBe(true);
 });
 
 it('should delete descent and nullify parent references', async () => {
-  await runQuery(mutation, { id: DESCENT_01 }, fakeContext(TEST_USER));
+  await testDeleteDescent({ id: DESCENT_01 }, fakeContext(TEST_USER));
   const [dAfter] = await countRows(false, 'descents');
   expect(dBefore - dAfter).toBe(1);
   const d4 = await db(false)

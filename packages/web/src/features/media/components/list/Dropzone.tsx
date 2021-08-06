@@ -2,10 +2,10 @@ import Icon from '@material-ui/core/Icon';
 import {
   MAX_FILE_SIZE,
   MAX_FILE_SIZE_STRING,
-  MediaKind,
   MIN_FILE_SIZE,
   MIN_FILE_SIZE_STRING,
 } from '@whitewater-guide/commons';
+import { MediaKind } from '@whitewater-guide/schema';
 import React from 'react';
 import Dz from 'react-dropzone';
 
@@ -72,30 +72,27 @@ class Dropzone extends React.PureComponent<Props, State> {
   render() {
     const { kind } = this.props;
     const { error } = this.state;
-    if (kind === MediaKind.photo) {
+    if (kind === MediaKind.Photo) {
       return (
         <Dz onDrop={this.onDrop} multiple={false}>
-          {({ getRootProps, getInputProps }) => {
-            return (
-              <div {...getRootProps()} style={styles.dz}>
-                <input {...getInputProps()} />
-                <Icon style={styles.icon}>add</Icon>
-                <span>or drop</span> image here
-                {!!error && <span style={styles.error}>{error}</span>}
-              </div>
-            );
-          }}
+          {({ getRootProps, getInputProps }) => (
+            <div {...getRootProps()} style={styles.dz}>
+              <input {...getInputProps()} />
+              <Icon style={styles.icon}>add</Icon>
+              <span>or drop</span> image here
+              {!!error && <span style={styles.error}>{error}</span>}
+            </div>
+          )}
         </Dz>
       );
-    } else {
-      return (
-        <div style={styles.dz} onClick={this.onClick}>
-          <Icon style={styles.icon}>add</Icon>
-          <span>add video</span>
-          {!!error && <span style={styles.error}>{error}</span>}
-        </div>
-      );
     }
+    return (
+      <div style={styles.dz} onClick={this.onClick}>
+        <Icon style={styles.icon}>add</Icon>
+        <span>add video</span>
+        {!!error && <span style={styles.error}>{error}</span>}
+      </div>
+    );
   }
 }
 

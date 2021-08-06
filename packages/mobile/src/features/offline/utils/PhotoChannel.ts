@@ -1,9 +1,15 @@
 export class PhotoChannel {
+  private readonly _batchSize: number;
+
   private _queue: string[] = [];
+
   private _closed = false;
+
   private _broken: Error | null = null;
 
-  constructor(private readonly _batchSize = 25) {}
+  constructor(batchSize = 25) {
+    this._batchSize = batchSize;
+  }
 
   public put(urls: string[]) {
     if (this._closed) {

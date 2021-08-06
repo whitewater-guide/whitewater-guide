@@ -1,0 +1,39 @@
+query bannerForm($bannerId: ID) {
+  banner(id: $bannerId) {
+    ...BannerCore
+    source {
+      kind
+      url
+    }
+    regions {
+      nodes {
+        id
+        name
+      }
+      count
+    }
+    groups {
+      nodes {
+        id
+        name
+      }
+      count
+    }
+  }
+
+  regions {
+    nodes {
+      id
+      name
+    }
+    count
+  }
+
+  groups {
+    nodes {
+      id
+      name
+    }
+    count
+  }
+}

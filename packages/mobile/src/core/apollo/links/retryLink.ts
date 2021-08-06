@@ -8,11 +8,10 @@ export const retryLink = new RetryLink({
   },
   attempts: {
     max: 5,
-    retryIf: (error) => {
+    retryIf: (error) =>
       // retries fetch errors (no status code) and 500 errors
       // 400 = refresh failed
       // 401 = unauthenticated or jwt expired
-      return !!error && error.statusCode !== 401 && error.statusCode !== 400;
-    },
+      !!error && error.statusCode !== 401 && error.statusCode !== 400,
   },
 });

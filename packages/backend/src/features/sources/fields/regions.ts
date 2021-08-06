@@ -1,14 +1,11 @@
-import { GraphQLFieldResolver } from 'graphql';
+import { SourceResolvers } from '~/apollo';
 
-import { Context, ListQuery } from '~/apollo';
-
-import { SourceRaw } from '../types';
-
-const regionsResolver: GraphQLFieldResolver<
-  SourceRaw,
-  Context,
-  ListQuery
-> = async ({ id }, { page }, { dataSources }, info) => {
+const regionsResolver: SourceResolvers['regions'] = (
+  { id },
+  { page },
+  { dataSources },
+  info,
+) => {
   const query = dataSources.regions.getMany(info, { page });
   query
     .innerJoin(

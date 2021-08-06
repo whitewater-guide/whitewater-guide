@@ -1,5 +1,5 @@
 import { getVideoThumb, VideoThumb } from '@whitewater-guide/clients';
-import { Media } from '@whitewater-guide/commons';
+import { MediaWithThumbFragment } from '@whitewater-guide/schema';
 import React from 'react';
 import { Clipboard, Linking, StyleSheet, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  video: Media;
+  video: MediaWithThumbFragment;
 }
 
 interface State {

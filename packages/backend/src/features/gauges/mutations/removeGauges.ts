@@ -1,13 +1,9 @@
-import { Node } from '@whitewater-guide/commons';
+import { Node } from '@whitewater-guide/schema';
 
-import { TopLevelResolver } from '~/apollo';
-import db from '~/db';
+import { MutationResolvers } from '~/apollo';
+import { db } from '~/db';
 
-interface Vars {
-  sourceId: string;
-}
-
-const removeGauges: TopLevelResolver<Vars> = async (
+const removeGauges: MutationResolvers['removeGauges'] = async (
   _,
   { sourceId },
   { dataSources },

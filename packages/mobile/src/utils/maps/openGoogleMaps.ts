@@ -1,10 +1,9 @@
 // eslint-disable-next-line import/default
 import analytics from '@react-native-firebase/analytics';
-import { Coordinate } from '@whitewater-guide/commons';
 import { Linking, Platform } from 'react-native';
 
 export const openGoogleMaps = async (
-  [lng, lat]: Coordinate,
+  [lng, lat]: CodegenCoordinates,
   label?: string | null,
 ) => {
   let directionsURL = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
@@ -28,6 +27,6 @@ export const openGoogleMaps = async (
     }
   }
   Linking.openURL(directionsURL).catch(() => {
-    /*Ignore*/
+    /* Ignore */
   });
 };

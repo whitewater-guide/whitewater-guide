@@ -56,7 +56,7 @@ const rules: RenderRules = {
   // eslint-disable-next-line react/display-name
   strong: (node, children) => {
     let style: StyleProp<any> = defaultStyles.strong;
-    if (node.attributes && node.attributes.color) {
+    if (node.attributes?.color) {
       style = [style, defaultStyles[`level${node.attributes.color}`]];
     }
     return (
@@ -66,9 +66,7 @@ const rules: RenderRules = {
     );
   },
   // eslint-disable-next-line react/display-name
-  hardbreak: () => {
-    return <Text key={getUniqueID()}>{'\n'}</Text>;
-  },
+  hardbreak: () => <Text key={getUniqueID()}>{'\n'}</Text>,
 };
 
 interface Props {

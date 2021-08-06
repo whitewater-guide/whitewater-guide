@@ -49,11 +49,11 @@ export const ConfirmationDialog: React.FC<Props> = (props) => {
 
   return (
     <Dialog
-      disableBackdropClick={true}
-      disableEscapeKeyDown={true}
+      disableBackdropClick
+      disableEscapeKeyDown
       maxWidth="xs"
       aria-labelledby="confirmation-dialog-title"
-      open={true}
+      open
     >
       <DialogTitle id="confirmation-dialog-title">{title}</DialogTitle>
       <DialogContent>

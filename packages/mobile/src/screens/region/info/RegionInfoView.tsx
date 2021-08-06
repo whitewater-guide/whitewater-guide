@@ -6,11 +6,11 @@ import Markdown from '~/components/Markdown';
 import NoRegionDescription from './NoRegionDescription';
 
 const RegionInfoView: React.FC = () => {
-  const { node } = useRegion();
-  if (!node || !node.description) {
+  const region = useRegion();
+  if (!region || !region.description) {
     return <NoRegionDescription />;
   }
-  return <Markdown>{node.description}</Markdown>;
+  return <Markdown>{region.description}</Markdown>;
 };
 
 RegionInfoView.displayName = 'RegionInfoView';

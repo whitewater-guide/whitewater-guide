@@ -38,7 +38,9 @@ export class RadioDialog extends React.PureComponent<Props, State> {
   onValueChange = (value: string) => this.setState({ value });
 
   openDialog = () => this.setState({ open: true });
+
   closeDialog = () => this.setState({ open: false });
+
   submitDialog = () => {
     const { options, keyExtractor, onChange } = this.props;
     const { value } = this.state;
@@ -59,7 +61,7 @@ export class RadioDialog extends React.PureComponent<Props, State> {
       options,
     } = this.props;
     return (
-      <React.Fragment>
+      <>
         <TouchableRipple onPress={this.openDialog}>
           <Handle>
             <HandleLeft>
@@ -96,7 +98,7 @@ export class RadioDialog extends React.PureComponent<Props, State> {
             </Dialog.Actions>
           </Dialog>
         </Portal>
-      </React.Fragment>
+      </>
     );
   }
 }

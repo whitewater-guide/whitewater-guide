@@ -1,7 +1,7 @@
 import Box from '@material-ui/core/Box';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import { useRegion } from '@whitewater-guide/clients';
+import { useRegionQuery } from '@whitewater-guide/clients';
 import React from 'react';
 
 import { EditorLanguagePicker } from '../../../components/language';
@@ -13,13 +13,14 @@ import RegionGroups from './groups';
 import { RegionAdminSettingsForm } from './settings';
 
 const RegionAdmin: React.FC = () => {
-  const { node, loading } = useRegion();
-  if (!node) {
+  const { data, loading } = useRegionQuery();
+  const region = data?.region;
+  if (!region && !loading) {
     return null;
   }
   return (
-    <Card loading={loading || !node}>
-      <CardHeader title={node.name} action={<EditorLanguagePicker />} />
+    <Card loading={loading}>
+      <CardHeader title={region!.name} action={<EditorLanguagePicker />} />
       <CardContent>
         <Box
           width={1}
@@ -36,16 +37,16 @@ const RegionAdmin: React.FC = () => {
           </HashTabs>
 
           <HashTabView value="#main">
-            <RegionAdminSettingsForm regionId={node.id} />
+            <RegionAdminSettingsForm regionId={region!.id} />
           </HashTabView>
           <HashTabView value="#editors">
-            <RegionEditors regionId={node.id} />
+            <RegionEditors regionId={region!.id} />
           </HashTabView>
           <HashTabView value="#groups">
-            <RegionGroups regionId={node.id} />
+            <RegionGroups regionId={region!.id} />
           </HashTabView>
           <HashTabView value="#import">
-            <RegionBulkInsert regionId={node.id} />
+            <RegionBulkInsert regionId={region!.id} />
           </HashTabView>
         </Box>
       </CardContent>

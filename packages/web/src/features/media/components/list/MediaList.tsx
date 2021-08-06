@@ -1,7 +1,7 @@
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Icon from '@material-ui/core/Icon';
-import { MediaKind } from '@whitewater-guide/commons';
+import { MediaKind } from '@whitewater-guide/schema';
 import groupBy from 'lodash/groupBy';
 import React, { useCallback, useMemo, useState } from 'react';
 
@@ -11,52 +11,55 @@ import { Row } from '../../../../layout/details';
 import { LocalPhoto } from '../../../../utils/files';
 import BlogsList from './BlogsList';
 import GridGallery from './GridGallery';
-import { MediaOrInput } from './types';
+import { ListedMedia } from './types';
 
 interface Props {
   editable: boolean;
-  media: MediaOrInput[];
+  media?: ListedMedia[];
 
   onRemove: (index: number) => void;
   onEdit: (index: number) => void;
   onAdd: (kind: MediaKind, file?: LocalPhoto) => void;
 }
 
-const MediaList: React.FC<Props> = React.memo((props) => {
+const MediaList = React.memo<Props>((props) => {
   const { editable, media, onRemove, onEdit, onAdd } = props;
   const [currentModal, setCurrentModal] = useState<number | null>(null);
-  const [pendingRemoval, setPendingRemoval] = useState<MediaOrInput | null>(
+  const [pendingRemoval, setPendingRemoval] = useState<ListedMedia | null>(
     null,
   );
 
   const grouped = useMemo(() => {
-    const existingMedia = media.filter((m) => !m.deleted);
-    const { photo = [], video = [], blog = [] } = groupBy(
-      existingMedia,
-      'kind',
-    );
+    const existingMedia = media?.filter((m) => !m.deleted);
+    const {
+      photo = [],
+      video = [],
+      blog = [],
+    } = groupBy(existingMedia, 'kind');
     const photoAndVideo = [...photo, ...video];
     return { photo, video, blog, photoAndVideo };
   }, [media]);
 
-  const onAddBlog = useCallback(() => onAdd(MediaKind.blog), [onAdd]);
+  const onAddBlog = useCallback(() => onAdd(MediaKind.Blog), [onAdd]);
 
   const handleEdit = useCallback(
-    (item: MediaOrInput) => {
-      onEdit(media.indexOf(item));
+    (item: ListedMedia) => {
+      if (media) {
+        onEdit(media.indexOf(item));
+      }
     },
     [media, onEdit],
   );
 
   const onPhotoClick = useCallback(
-    (item: MediaOrInput, index: number) => {
+    (item: ListedMedia, index: number) => {
       setCurrentModal(index);
     },
     [setCurrentModal],
   );
 
   const onVideoClick = useCallback(
-    (item: MediaOrInput, index: number) => {
+    (item: ListedMedia, index: number) => {
       setCurrentModal(grouped.photo.length + index);
     },
     [setCurrentModal, grouped],
@@ -67,33 +70,34 @@ const MediaList: React.FC<Props> = React.memo((props) => {
   }, [setCurrentModal]);
 
   const onRequestRemove = useCallback(
-    (item: MediaOrInput) => setPendingRemoval(item),
+    (item: ListedMedia) => setPendingRemoval(item),
     [setPendingRemoval],
   );
 
-  const onCancelRemove = useCallback(() => setPendingRemoval(null), [
-    setPendingRemoval,
-  ]);
+  const onCancelRemove = useCallback(
+    () => setPendingRemoval(null),
+    [setPendingRemoval],
+  );
 
   const onConfirmRemove = useCallback(() => {
-    if (pendingRemoval) {
+    if (pendingRemoval && media) {
       onRemove(media.indexOf(pendingRemoval));
       setPendingRemoval(null);
     }
   }, [pendingRemoval, setPendingRemoval, media, onRemove]);
 
   return (
-    <React.Fragment>
+    <>
       <Row>
-        <Grid item={true}>
+        <Grid item>
           <h2>Photos</h2>
         </Grid>
       </Row>
       <Row>
-        <Grid item={true} sm={12}>
+        <Grid item sm={12}>
           <GridGallery
             editable={editable}
-            kind={MediaKind.photo}
+            kind={MediaKind.Photo}
             media={grouped.photo}
             onThumbClick={onPhotoClick}
             onAdd={onAdd}
@@ -103,15 +107,15 @@ const MediaList: React.FC<Props> = React.memo((props) => {
         </Grid>
       </Row>
       <Row>
-        <Grid item={true}>
+        <Grid item>
           <h2>Videos</h2>
         </Grid>
       </Row>
       <Row>
-        <Grid item={true} sm={12}>
+        <Grid item sm={12}>
           <GridGallery
             editable={editable}
-            kind={MediaKind.video}
+            kind={MediaKind.Video}
             media={grouped.video}
             onThumbClick={onVideoClick}
             onAdd={onAdd}
@@ -121,9 +125,9 @@ const MediaList: React.FC<Props> = React.memo((props) => {
         </Grid>
       </Row>
       <Row>
-        <Grid item={true}>
+        <Grid item>
           <h2>
-            {'Blogs'}
+            Blogs
             {editable && (
               <Button onClick={onAddBlog}>
                 <Icon>add</Icon>
@@ -134,7 +138,7 @@ const MediaList: React.FC<Props> = React.memo((props) => {
         </Grid>
       </Row>
       <Row>
-        <Grid item={true} xs={6}>
+        <Grid item xs={6}>
           <BlogsList
             editable={editable}
             media={grouped.blog}
@@ -156,7 +160,7 @@ const MediaList: React.FC<Props> = React.memo((props) => {
           onConfirm={onConfirmRemove}
         />
       )}
-    </React.Fragment>
+    </>
   );
 });
 

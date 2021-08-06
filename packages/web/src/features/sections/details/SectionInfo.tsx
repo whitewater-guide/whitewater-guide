@@ -2,14 +2,13 @@ import Chip from '@material-ui/core/Chip';
 import Grid from '@material-ui/core/Grid';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Rating from '@material-ui/lab/Rating';
-import { renderDifficulty, stringifySeason } from '@whitewater-guide/clients';
 import {
-  Durations,
-  Section,
+  renderDifficulty,
+  SectionDetailsFragment,
   sectionName,
-  Tag,
-  TagCategory,
-} from '@whitewater-guide/commons';
+  stringifySeason,
+} from '@whitewater-guide/clients';
+import { Durations, Tag, TagCategory } from '@whitewater-guide/schema';
 import groupBy from 'lodash/groupBy';
 import React from 'react';
 
@@ -27,17 +26,13 @@ const useStyles = makeStyles((theme) =>
 );
 
 interface Props {
-  section: Section;
+  section: SectionDetailsFragment;
 }
 
-const renderTags = (tags: Tag[] | undefined, className: string) => (
-  <React.Fragment>
-    {tags &&
-      tags.map((tag) => (
-        <Chip key={tag.id} label={tag.name} className={className} />
-      ))}
-  </React.Fragment>
-);
+const renderTags = (tags: Tag[] | undefined, className: string) =>
+  tags?.map((tag) => (
+    <Chip key={tag.id} label={tag.name} className={className} />
+  ));
 
 const SectionInfo: React.FC<Props> = ({ section }) => {
   const classes = useStyles();
@@ -47,7 +42,7 @@ const SectionInfo: React.FC<Props> = ({ section }) => {
   }
   const tagsByCategory = groupBy(section.tags, 'category');
   return (
-    <Grid container={true} className={classes.root}>
+    <Grid container className={classes.root}>
       <Row>
         <Title>Name</Title>
         <Grid>{fullName}</Grid>
@@ -59,7 +54,7 @@ const SectionInfo: React.FC<Props> = ({ section }) => {
       <Row>
         <Title>Rating</Title>
         <Grid>
-          <Rating value={section.rating} precision={0.5} readOnly={true} />
+          <Rating value={section.rating} precision={0.5} readOnly />
         </Grid>
       </Row>
       <Row>
@@ -84,25 +79,25 @@ const SectionInfo: React.FC<Props> = ({ section }) => {
       <Row>
         <Title>Kayaking types</Title>
         <Grid>
-          {renderTags(tagsByCategory[TagCategory.kayaking], classes.chip)}
+          {renderTags(tagsByCategory[TagCategory.Kayaking], classes.chip)}
         </Grid>
       </Row>
       <Row>
         <Title>Hazards</Title>
         <Grid>
-          {renderTags(tagsByCategory[TagCategory.hazards], classes.chip)}
+          {renderTags(tagsByCategory[TagCategory.Hazards], classes.chip)}
         </Grid>
       </Row>
       <Row>
         <Title>River supply types</Title>
         <Grid>
-          {renderTags(tagsByCategory[TagCategory.supply], classes.chip)}
+          {renderTags(tagsByCategory[TagCategory.Supply], classes.chip)}
         </Grid>
       </Row>
       <Row>
         <Title>Miscellaneous tags</Title>
         <Grid>
-          {renderTags(tagsByCategory[TagCategory.misc], classes.chip)}
+          {renderTags(tagsByCategory[TagCategory.Misc], classes.chip)}
         </Grid>
       </Row>
     </Grid>

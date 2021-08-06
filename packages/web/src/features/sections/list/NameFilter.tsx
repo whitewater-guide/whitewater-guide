@@ -25,7 +25,7 @@ const NameFilter: React.FC = () => {
   );
 
   return (
-    <FormControl fullWidth={true} margin="dense">
+    <FormControl fullWidth margin="dense">
       <Input
         id="name-filter"
         value={searchString}

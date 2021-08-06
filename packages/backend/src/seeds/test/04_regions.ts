@@ -1,5 +1,6 @@
-import { OTHERS_REGION_ID } from '@whitewater-guide/commons';
 import Knex from 'knex';
+
+import { OTHERS_REGION_ID } from '~/features/regions';
 
 import { getBounds } from '../../utils';
 import {
@@ -133,7 +134,7 @@ const regions = [
   },
 ];
 
-export const NUM_REGIONS = regions.length;
+export const NUM_REGIONS: number = regions.length;
 
 const regionsEn = [
   {

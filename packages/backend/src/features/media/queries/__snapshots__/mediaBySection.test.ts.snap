@@ -8,7 +8,6 @@ Object {
       "copyright": "Photo 1 copyright",
       "description": "Photo 1 description",
       "id": "a32664ca-1ee5-11e8-b467-0ed5f89f718b",
-      "image": "imgproxy://media/a32664ca-1ee5-11e8-b467-0ed5f89f718b",
       "kind": "photo",
       "license": Object {
         "name": "Proprietary license",
@@ -28,7 +27,6 @@ Object {
       "copyright": "Blog copyright",
       "description": "Blog description",
       "id": "a326622c-1ee5-11e8-b467-0ed5f89f718b",
-      "image": null,
       "kind": "blog",
       "license": Object {
         "name": "Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)",
@@ -45,7 +43,6 @@ Object {
       "copyright": "Photo 2 copyright",
       "description": "Photo 2 description",
       "id": "d0d234de-1ee6-11e8-b467-0ed5f89f718b",
-      "image": "imgproxy://media/d0d234de-1ee6-11e8-b467-0ed5f89f718b",
       "kind": "photo",
       "license": null,
       "resolution": Array [
@@ -61,7 +58,6 @@ Object {
       "copyright": "Video copyright",
       "description": "Video description",
       "id": "a3266920-1ee5-11e8-b467-0ed5f89f718b",
-      "image": null,
       "kind": "video",
       "license": null,
       "resolution": Array [

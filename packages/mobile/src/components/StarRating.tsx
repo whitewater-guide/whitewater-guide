@@ -11,20 +11,18 @@ interface Props extends Omit<SwipableRatingProps, 'rating' | 'onPress'> {
 }
 
 const StarRating: React.FC<Props> = React.memo(
-  ({ value, onChange, ...props }) => {
-    return (
-      <SwipeableRating
-        {...props}
-        allowHalves={true}
-        minRating={0}
-        size={onChange ? 30 : 14}
-        color={theme.colors.primary}
-        emptyColor={theme.colors.componentBorder}
-        rating={value}
-        onPress={onChange}
-      />
-    );
-  },
+  ({ value, onChange, ...props }) => (
+    <SwipeableRating
+      {...props}
+      allowHalves
+      minRating={0}
+      size={onChange ? 30 : 14}
+      color={theme.colors.primary}
+      emptyColor={theme.colors.componentBorder}
+      rating={value}
+      onPress={onChange}
+    />
+  ),
 );
 
 StarRating.displayName = 'StarRating';

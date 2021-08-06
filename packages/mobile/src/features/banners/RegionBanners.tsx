@@ -1,5 +1,5 @@
 import { useRegion } from '@whitewater-guide/clients';
-import { BannerPlacement } from '@whitewater-guide/commons';
+import { BannerPlacement } from '@whitewater-guide/schema';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 
@@ -20,16 +20,16 @@ interface Props {
 
 export const RegionBanners: React.FC<Props> = ({ placement, count = 1 }) => {
   const region = useRegion();
-  if (!region.node || !region.node.banners) {
+  if (!region || !region.banners) {
     return null;
   }
   const banners = getBannersForPlacement(
-    region.node.banners.nodes ?? [],
+    region?.banners?.nodes ?? [],
     placement,
     count,
   );
   return (
-    <React.Fragment>
+    <>
       {banners.map((banner) => (
         <BannerView
           key={banner.id}
@@ -37,6 +37,6 @@ export const RegionBanners: React.FC<Props> = ({ placement, count = 1 }) => {
           containerStyle={styles.bannerContainer}
         />
       ))}
-    </React.Fragment>
+    </>
   );
 };

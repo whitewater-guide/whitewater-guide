@@ -27,11 +27,11 @@ const SuggestionsMain: React.FC = () => {
             <HashTab label="Sections" value="#sections" />
           </HashTabs>
 
-          <HashTabView value="#main" lazy={true} padding={0}>
+          <HashTabView value="#main" lazy padding={0}>
             <SimpleSuggestions />
           </HashTabView>
 
-          <HashTabView value="#sections" lazy={true} padding={0}>
+          <HashTabView value="#sections" lazy padding={0}>
             <SuggesedSections />
           </HashTabView>
         </Box>

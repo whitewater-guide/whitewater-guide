@@ -1,6 +1,9 @@
 import { fireEvent, render } from '@testing-library/react-native';
-import { SectionsStatus } from '@whitewater-guide/clients';
-import { Region, Section } from '@whitewater-guide/commons';
+import {
+  ListedSectionFragment,
+  SectionsStatus,
+} from '@whitewater-guide/clients';
+import { Region } from '@whitewater-guide/schema';
 import set from 'lodash/fp/set';
 import noop from 'lodash/noop';
 import React from 'react';
@@ -21,48 +24,37 @@ const region: Partial<Region> = {
   hasPremiumAccess: false,
 };
 
-const sections: Section[] = [
+const sections: ListedSectionFragment[] = [
   {
     __typename: 'Section',
     id: '29425d60-d796-11e9-8a34-2a2ae2dbcce4',
     name: 'Section name',
     region: region as any,
-    shape: [
-      [1, 1, 1],
-      [2, 2, 2],
-    ],
     river: {
       id: 'e6b06568-d796-11e9-8a34-2a2ae2dbcce4',
       name: 'river name',
     } as any,
     altNames: [],
     demo: false,
-    description: '',
     difficulty: 3.5,
     difficultyXtra: null,
     distance: null,
     drop: null,
     duration: null,
     rating: 3,
-    createdAt: new Date(2000, 0).toISOString(),
     updatedAt: new Date(2000, 0).toISOString(),
     hidden: false,
     helpNeeded: null,
-    pois: [],
     tags: [],
     putIn: {
       id: '1',
       coordinates: [1, 1, 1],
       kind: 'put-in',
-      name: '',
-      description: '',
     },
     takeOut: {
       id: '2',
       coordinates: [2, 2, 2],
       kind: 'take-out',
-      name: '',
-      description: '',
     },
     season: null,
     seasonNumeric: [],
@@ -84,8 +76,6 @@ const sections: Section[] = [
     } as any,
     flowsText: null,
     levels: null,
-    copyright: null,
-    license: null,
   },
 ];
 

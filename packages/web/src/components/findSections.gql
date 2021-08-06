@@ -1,0 +1,7 @@
+query findSections($filter: SectionsFilter, $page: Page) {
+  sections(filter: $filter, page: $page) {
+    nodes {
+      ...SectionNameShort
+    }
+  }
+}

@@ -1,14 +1,9 @@
-import { TopLevelResolver } from '~/apollo';
-import db from '~/db';
+import { MutationResolvers } from '~/apollo';
+import { db } from '~/db';
 
-interface Vars {
-  regionId: string;
-  userId: string;
-}
-
-const removeEditor: TopLevelResolver<Vars> = async (
-  root,
-  { regionId, userId }: Vars,
+const removeEditor: MutationResolvers['removeEditor'] = async (
+  _,
+  { regionId, userId },
 ) => {
   await db()
     .table('regions_editors')

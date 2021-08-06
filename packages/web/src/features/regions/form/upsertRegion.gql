@@ -1,0 +1,9 @@
+mutation upsertRegion($region: RegionInput!) {
+  upsertRegion(region: $region) {
+    ...RegionCore
+    ...RegionPOIs
+    ...RegionLicense
+    bounds
+    description
+  }
+}

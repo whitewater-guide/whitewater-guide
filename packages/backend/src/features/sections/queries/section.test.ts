@@ -1,5 +1,6 @@
-import { anonContext, fakeContext, noTimestamps, runQuery } from '@test';
+import { anonContext, fakeContext, noTimestamps } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
+import gql from 'graphql-tag';
 
 import { holdTransaction, rollbackTransaction } from '~/db';
 import {
@@ -22,88 +23,41 @@ import {
   RUSSIA_MZYMTA_PASEKA,
 } from '~/seeds/test/09_sections';
 
+import {
+  testSectionDetails,
+  testSectionGauge,
+  testSectionMedia,
+  testSectionPremium,
+  testSectionRegion,
+  testSectionRiver,
+} from './section.test.generated';
+
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
-const query = `
-  query sectionDetails($id: ID){
+const _query = gql`
+  query sectionDetails($id: ID) {
     section(id: $id) {
-      id
-      name
+      ...SectionCore
       description
-      season
-      seasonNumeric
-      levels {
-        minimum
-        maximum
-        optimum
-        impossible
-        approximate
-      }
-      flows {
-        minimum
-        maximum
-        optimum
-        impossible
-        approximate
-      }
-      flowsText
-      putIn {
-        id
-        name
-        description
-        kind
-        coordinates
-      }
-      takeOut {
-        id
-        name
-        description
-        kind
-        coordinates
-      }
+      ...SectionEnds
       shape
-      distance
-      drop
-      duration
-      difficulty
-      difficultyXtra
-      rating
-      tags {
-        id
-        name
-      }
-      createdAt
+      ...SectionFlows
+      ...SectionTags
+      ...SectionLicense
+      ...SectionPOIs
+      ...TimestampedMeta
       createdBy {
         id
         name
       }
-      license {
-        slug
-        name
-        url
-      }
-      copyright
-      updatedAt
-      pois {
-        id
-        name
-        description
-        kind
-        coordinates
-      }
-      hidden
-      helpNeeded
-      demo
-      verified
     }
   }
 `;
 
 describe('permissions', () => {
   it('anon should not get hidden section', async () => {
-    const result = await runQuery(
-      query,
+    const result = await testSectionDetails(
       { id: NORWAY_FINNA_GORGE },
       anonContext(),
     );
@@ -111,8 +65,7 @@ describe('permissions', () => {
   });
 
   it('user should not get hidden section', async () => {
-    const result = await runQuery(
-      query,
+    const result = await testSectionDetails(
       { id: NORWAY_FINNA_GORGE },
       fakeContext(TEST_USER),
     );
@@ -120,8 +73,7 @@ describe('permissions', () => {
   });
 
   it('non-owning editor should not get hidden section', async () => {
-    const result = await runQuery(
-      query,
+    const result = await testSectionDetails(
       { id: NORWAY_FINNA_GORGE },
       fakeContext(EDITOR_GA_EC),
     );
@@ -129,8 +81,7 @@ describe('permissions', () => {
   });
 
   it('owning editor should get hidden section', async () => {
-    const result = await runQuery(
-      query,
+    const result = await testSectionDetails(
       { id: NORWAY_FINNA_GORGE },
       fakeContext(EDITOR_NO_EC),
     );
@@ -139,8 +90,7 @@ describe('permissions', () => {
   });
 
   it('admin should get hidden section', async () => {
-    const result = await runQuery(
-      query,
+    const result = await testSectionDetails(
       { id: NORWAY_FINNA_GORGE },
       fakeContext(ADMIN),
     );
@@ -151,120 +101,117 @@ describe('permissions', () => {
 
 describe('data', () => {
   it('should return simple data', async () => {
-    const result = await runQuery(
-      query,
+    const result = await testSectionDetails(
       { id: NORWAY_SJOA_AMOT },
       fakeContext(ADMIN),
     );
     expect(result.errors).toBeUndefined();
     expect(result.data).toBeDefined();
-    expect(result.data!.section).toBeDefined();
-    expect(noTimestamps(result.data!.section)).toMatchSnapshot();
+    expect(result.data?.section).toBeDefined();
+    expect(noTimestamps(result.data?.section)).toMatchSnapshot();
   });
 
   it('should return river', async () => {
-    const riverQuery = `
-    query sectionDetails($id: ID){
-      section(id: $id) {
-        id
-        name
-        river {
+    const _q = gql`
+      query sectionRiver($id: ID) {
+        section(id: $id) {
           id
           name
+          river {
+            id
+            name
+          }
         }
       }
-    }
-  `;
-    const result = await runQuery(riverQuery, { id: NORWAY_SJOA_AMOT });
+    `;
+    const result = await testSectionRiver({ id: NORWAY_SJOA_AMOT });
     expect(result.errors).toBeUndefined();
     expect(result).toHaveProperty('data.section.river.name', 'Sjoa');
   });
 
   it('should return gauge', async () => {
-    const gaugeQuery = `
-    query sectionDetails($id: ID){
-      section(id: $id) {
-        id
-        name
-        gauge {
+    const _q = gql`
+      query sectionGauge($id: ID) {
+        section(id: $id) {
           id
           name
+          gauge {
+            id
+            name
+          }
         }
       }
-    }
-  `;
-    const result = await runQuery(gaugeQuery, { id: GALICIA_BECA_LOWER });
+    `;
+    const result = await testSectionGauge({ id: GALICIA_BECA_LOWER });
     expect(result.errors).toBeUndefined();
     expect(result).toHaveProperty('data.section.gauge.name', 'Galicia gauge 1');
   });
 
   it('should return region', async () => {
-    const regionQuery = `
-    query sectionDetails($id: ID){
-      section(id: $id) {
-        id
-        name
-        region {
+    const _q = gql`
+      query sectionRegion($id: ID) {
+        section(id: $id) {
           id
           name
+          region {
+            id
+            name
+          }
         }
       }
-    }
-  `;
-    const result = await runQuery(regionQuery, { id: NORWAY_SJOA_AMOT });
+    `;
+    const result = await testSectionRegion({ id: NORWAY_SJOA_AMOT });
     expect(result.errors).toBeUndefined();
     expect(result).toHaveProperty('data.section.region.name', 'Norway');
   });
 
   it('should return media', async () => {
-    const mediaQuery = `
-    query sectionDetails($id: ID){
-      section(id: $id) {
-        id
-        name
-        media {
-          nodes {
-            id
-            url
+    const _q = gql`
+      query sectionMedia($id: ID) {
+        section(id: $id) {
+          id
+          name
+          media {
+            nodes {
+              id
+              url
+            }
+            count
           }
-          count
         }
       }
-    }
-  `;
-    const result = await runQuery(mediaQuery, { id: NORWAY_SJOA_AMOT });
+    `;
+    const result = await testSectionMedia({ id: NORWAY_SJOA_AMOT });
     expect(result.errors).toBeUndefined();
-    expect(result.data!.section.media.nodes).toHaveLength(4);
-    expect(result.data!.section.media.count).toBe(4);
+    expect(result.data?.section?.media.nodes).toHaveLength(4);
+    expect(result.data?.section?.media.count).toBe(4);
   });
 
   it('should return null when id not specified', async () => {
-    const result = await runQuery(query, {});
+    const result = await testSectionDetails({});
     expect(result.errors).toBeUndefined();
     expect(result.data).toBeDefined();
-    expect(result.data!.section).toBeNull();
+    expect(result.data?.section).toBeNull();
   });
 
   it('should return empty string for free region when description is null', async () => {
-    const result = await runQuery(
-      query,
+    const result = await testSectionDetails(
       { id: GALICIA_BECA_UPPER },
       fakeContext(TEST_USER2),
     );
     expect(result.errors).toBeUndefined();
-    expect(result.data!.section.description).toBe('');
+    expect(result.data?.section?.description).toBe('');
   });
 });
 
 describe('i18n', () => {
   it('should be able to specify language', async () => {
-    const result = await runQuery(
-      query,
+    const result = await testSectionDetails(
       { id: GALICIA_BECA_LOWER },
       fakeContext(ADMIN, 'ru'),
     );
     expect(result.errors).toBeUndefined();
-    expect(result.data!.section).toMatchObject({
+    expect(result.data?.section).toMatchObject({
       description: 'Нижняя Беса описание',
       distance: 11.1,
       name: 'Нижняя',
@@ -280,13 +227,12 @@ describe('i18n', () => {
   });
 
   it('should fall back to english when not translated', async () => {
-    const result = await runQuery(
-      query,
+    const result = await testSectionDetails(
       { id: GALICIA_BECA_LOWER },
       fakeContext(ADMIN, 'fr'),
     );
     expect(result.errors).toBeUndefined();
-    expect(result.data!.section).toMatchObject({
+    expect(result.data?.section).toMatchObject({
       description: 'Lower Beca description',
       distance: 11.1,
       name: 'Lower',
@@ -302,13 +248,12 @@ describe('i18n', () => {
   });
 
   it('should fall back to default language when both desired and english translations are not provided', async () => {
-    const result = await runQuery(
-      query,
+    const result = await testSectionDetails(
       { id: RUSSIA_MZYMTA_PASEKA },
       fakeContext(EDITOR_NO_EC, 'pt'),
     );
     expect(result.errors).toBeUndefined();
-    expect(result.data!.section).toMatchObject({
+    expect(result.data?.section).toMatchObject({
       name: 'Пасека',
       description: 'Пасека описание',
       distance: 2.2,
@@ -318,8 +263,8 @@ describe('i18n', () => {
 });
 
 describe('premium access', () => {
-  const descrQuery = `
-    query sectionDetails($id: ID){
+  const _q = gql`
+    query sectionPremium($id: ID) {
       section(id: $id) {
         id
         description
@@ -328,8 +273,7 @@ describe('premium access', () => {
   `;
 
   it('should return null description when premium region is not purchased', async () => {
-    const result = await runQuery(
-      descrQuery,
+    const result = await testSectionPremium(
       { id: GEORGIA_BZHUZHA_EXTREME },
       fakeContext(EDITOR_NO_EC),
     );
@@ -338,8 +282,7 @@ describe('premium access', () => {
   });
 
   it('should return empty string description instead of null when premium is not purchased', async () => {
-    const result = await runQuery(
-      query,
+    const result = await testSectionDetails(
       { id: GEORGIA_BZHUZHA_LONG },
       fakeContext(TEST_USER2),
     );
@@ -348,8 +291,7 @@ describe('premium access', () => {
   });
 
   it('should return empty string description instead of null when premium is purchased', async () => {
-    const result = await runQuery(
-      query,
+    const result = await testSectionDetails(
       { id: GEORGIA_BZHUZHA_LONG },
       fakeContext(TEST_USER),
     );
@@ -358,8 +300,7 @@ describe('premium access', () => {
   });
 
   it('should return demo section description when premium region is not purchased', async () => {
-    const result = await runQuery(
-      descrQuery,
+    const result = await testSectionPremium(
       { id: GEORGIA_BZHUZHA_QUALI },
       fakeContext(EDITOR_NO_EC),
     );
@@ -371,8 +312,7 @@ describe('premium access', () => {
   });
 
   it('should return description when premium region is purchased', async () => {
-    const result = await runQuery(
-      descrQuery,
+    const result = await testSectionPremium(
       { id: GEORGIA_BZHUZHA_EXTREME },
       fakeContext(TEST_USER),
     );
@@ -384,8 +324,7 @@ describe('premium access', () => {
   });
 
   it('should return description when premium region is purchased as part of group', async () => {
-    const result = await runQuery(
-      descrQuery,
+    const result = await testSectionPremium(
       { id: GEORGIA_BZHUZHA_EXTREME },
       fakeContext(BOOM_USER_1500),
     );
@@ -397,8 +336,7 @@ describe('premium access', () => {
   });
 
   it('editor should see description even when not purchased region', async () => {
-    const result = await runQuery(
-      descrQuery,
+    const result = await testSectionPremium(
       { id: GEORGIA_BZHUZHA_EXTREME },
       fakeContext(EDITOR_GE),
     );
@@ -410,8 +348,7 @@ describe('premium access', () => {
   });
 
   it('admin should see description even when not purchased region', async () => {
-    const result = await runQuery(
-      descrQuery,
+    const result = await testSectionPremium(
       { id: GEORGIA_BZHUZHA_EXTREME },
       fakeContext(ADMIN),
     );

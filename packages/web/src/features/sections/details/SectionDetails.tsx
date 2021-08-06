@@ -1,7 +1,6 @@
 import Box from '@material-ui/core/Box';
 import CardHeader from '@material-ui/core/CardHeader';
-import { useSection } from '@whitewater-guide/clients';
-import { sectionName } from '@whitewater-guide/commons';
+import { sectionName, useSection } from '@whitewater-guide/clients';
 import ReactMarkdown from 'markdown-react-js';
 import React from 'react';
 import { Route, Switch } from 'react-router';
@@ -16,9 +15,9 @@ import { SectionMedia } from '../../media';
 import SectionDetailsLicense from './SectionDetailsLicense';
 import SectionInfo from './SectionInfo';
 
-const SectionDetails: React.FC<RouteComponentProps> = React.memo((props) => {
+const SectionDetails = React.memo<RouteComponentProps>((props) => {
   const { match } = props;
-  const { node: section } = useSection();
+  const section = useSection();
   if (!section) {
     return null;
   }
@@ -40,10 +39,10 @@ const SectionDetails: React.FC<RouteComponentProps> = React.memo((props) => {
 
         <Box flex={1} overflow="auto">
           <Switch>
-            <Route exact={true} path={`${match.path}/map`}>
+            <Route exact path={`${match.path}/map`}>
               <Box width={1} height={1}>
                 <Map
-                  detailed={true}
+                  detailed
                   sections={[section]}
                   initialBounds={section.shape}
                   pois={section.pois}
@@ -51,17 +50,17 @@ const SectionDetails: React.FC<RouteComponentProps> = React.memo((props) => {
               </Box>
             </Route>
 
-            <Route exact={true} path={`${match.path}/flows`}>
+            <Route exact path={`${match.path}/flows`}>
               <Chart gauge={section.gauge ?? undefined} section={section} />
             </Route>
 
-            <Route exact={true} path={`${match.path}/description`}>
+            <Route exact path={`${match.path}/description`}>
               <Box padding={1}>
                 <ReactMarkdown text={section.description || ''} />
               </Box>
             </Route>
 
-            <Route exact={true} path={`${match.path}/license`}>
+            <Route exact path={`${match.path}/license`}>
               <SectionDetailsLicense section={section} />
             </Route>
 
@@ -79,7 +78,7 @@ const SectionDetails: React.FC<RouteComponentProps> = React.memo((props) => {
         <Route path={`${match.url}/media`} />
 
         <Route>
-          <EditorFooter edit={true} administrate={true} />
+          <EditorFooter edit administrate />
         </Route>
       </Switch>
     </Card>

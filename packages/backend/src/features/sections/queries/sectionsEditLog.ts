@@ -1,20 +1,17 @@
-import { Page, SectionsEditLogFilter } from '@whitewater-guide/commons';
+import { QueryResolvers } from '~/apollo';
+import { db, Sql } from '~/db';
 
-import { ListQuery, TopLevelResolver } from '~/apollo';
-import db from '~/db';
-import { SectionsEditLogRaw } from '~/features/sections';
-
-interface Vars extends ListQuery {
-  filter?: SectionsEditLogFilter;
-  page?: Page;
+interface RawLog extends Sql.SectionsEditLog {
+  count: number;
+  editor_name: string;
 }
 
-const sectionsEditLog: TopLevelResolver<Vars> = async (
+const sectionsEditLog: QueryResolvers['sectionsEditLog'] = async (
   _,
-  { filter = {}, page = {} },
+  { filter, page },
 ) => {
-  const { limit = 20, offset = 0 } = page;
-  const { editorId, regionId } = filter;
+  const { limit = 20, offset = 0 } = page ?? {};
+  const { editorId, regionId } = filter ?? {};
   let query = db()
     .table('sections_edit_log')
     .innerJoin('users', 'sections_edit_log.editor_id', 'users.id')
@@ -24,15 +21,15 @@ const sectionsEditLog: TopLevelResolver<Vars> = async (
       db().raw('count(*) OVER()'),
     )
     .orderBy('created_at', 'desc')
-    .limit(limit)
-    .offset(offset);
+    .limit(limit ?? 20)
+    .offset(offset ?? 0);
   if (editorId) {
     query = query.where('editor_id', editorId);
   }
   if (regionId) {
     query = query.where('region_id', regionId);
   }
-  const rawResult: SectionsEditLogRaw[] = await query;
+  const rawResult: RawLog[] = await query;
   const count = rawResult.length ? rawResult[0].count : 0;
   const nodes = rawResult.map((entry) => ({
     id: entry.id,

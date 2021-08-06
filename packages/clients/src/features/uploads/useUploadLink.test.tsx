@@ -3,13 +3,14 @@ import { act, renderHook } from '@testing-library/react-hooks';
 import { GraphQLError } from 'graphql';
 import React from 'react';
 
+import { GetUploadLinkDocument } from './getUploadLink.generated';
 import { uploadFile } from './uploadFile';
-import { UPLOAD_LINK_QUERY, useUploadLink } from './useUploadLink';
+import { useUploadLink } from './useUploadLink';
 
 const querySuccess = [
   {
     request: {
-      query: UPLOAD_LINK_QUERY,
+      query: GetUploadLinkDocument,
       variables: { version: 'V3' },
     },
     result: {
@@ -28,7 +29,7 @@ const querySuccess = [
 const networkError = [
   {
     request: {
-      query: UPLOAD_LINK_QUERY,
+      query: GetUploadLinkDocument,
     },
     error: new Error('network error'),
   },
@@ -37,7 +38,7 @@ const networkError = [
 const graphqlError = [
   {
     request: {
-      query: UPLOAD_LINK_QUERY,
+      query: GetUploadLinkDocument,
     },
     result: {
       errors: [new GraphQLError('Error!')],
@@ -45,12 +46,10 @@ const graphqlError = [
   },
 ];
 
-jest.mock('./uploadFile', () => {
-  return {
-    __esModule: true,
-    uploadFile: jest.fn(),
-  };
-});
+jest.mock('./uploadFile', () => ({
+  __esModule: true,
+  uploadFile: jest.fn(),
+}));
 
 beforeEach(() => {
   jest.resetAllMocks();
@@ -71,7 +70,7 @@ it('should update uploading state', async () => {
     uri: 'file://foo.jpg',
   };
   act(() => {
-    result.current.upload!(fileLike).then((res) => {
+    result.current.upload(fileLike).then((res) => {
       uploadResult = res;
     });
   });
@@ -109,7 +108,7 @@ it.each([
       type: 'image/jpeg',
       uri: 'file://foo.jpg',
     };
-    result.current.upload!(fileLike).catch(onRejected);
+    result.current.upload(fileLike).catch(onRejected);
   });
   expect(result.current.uploading).toBe(true);
   await waitForNextUpdate();

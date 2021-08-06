@@ -1,0 +1,181 @@
+type Region implements NamedNode & Timestamped {
+  "Unique UUID"
+  id: ID!
+  "Human-friendly name"
+  name: String!
+  "Human-friendly markdown description"
+  description: String
+  "Cover image"
+  coverImage: RegionCoverImage!
+  "Human-friendly description to complement numeric months list"
+  season: String
+  "Array of numers between 0 and 23, corresponding to half-months"
+  seasonNumeric: [Int!]!
+  "Approximate region bounds, array of [lon, lat, alt] tuples"
+  bounds: [Coordinates!]!
+  "Points of interest"
+  pois: [Point!]!
+  "Date when the region was added to whitewater.guide"
+  createdAt: Date!
+  "Date when the region was last modified"
+  updatedAt: Date!
+
+  "List of rivers"
+  rivers(page: Page): RegionRiverConnection!
+  """
+  List of gauges.
+  Important: only gauges linked to sections are listed.
+  """
+  gauges(page: Page): RegionGaugeConnection!
+  """
+  List of sections
+  """
+  sections(page: Page, filter: SectionsFilter): RegionSectionConnection!
+  """
+  List of sources
+  """
+  sources(page: Page): RegionSourceConnection!
+  """
+  Banners
+  """
+  banners(page: Page): RegionBannerConnection!
+
+  "Indicates that only admins can see this region"
+  hidden: Boolean @admin
+  "This is for admin to edit manually, users should get this via mediaSummary field"
+  mapsSize: Int @admin
+  "True if region has some premium content"
+  premium: Boolean
+  "SKU - identifier in iOS/Android store"
+  sku: String
+  "Indicates that current user can edit this region and everything inside it"
+  editable: Boolean!
+  "Indicates that current user can see premium content in this region"
+  hasPremiumAccess: Boolean!
+
+  "Licensing information"
+  license: License
+  "copyright"
+  copyright: String
+
+  "Summary of all media belonging to this region"
+  mediaSummary: RegionMediaSummary!
+}
+
+type RegionRiverConnection {
+  nodes: [River!]!
+  count: Int!
+}
+
+type RegionGaugeConnection {
+  nodes: [Gauge!]!
+  count: Int!
+}
+
+type RegionSectionConnection {
+  nodes: [Section!]!
+  count: Int!
+}
+
+type RegionSourceConnection {
+  nodes: [Source!]!
+  count: Int!
+}
+
+type RegionBannerConnection {
+  nodes: [Banner!]!
+  count: Int!
+}
+
+type RegionMediaSummaryItem {
+  "Total number of media items of certain kind"
+  count: Int!
+  "Total stored size of media items of certain kind"
+  size: Int!
+}
+
+type RegionMediaSummary {
+  photo: RegionMediaSummaryItem!
+  video: RegionMediaSummaryItem!
+  blog: RegionMediaSummaryItem!
+  maps: RegionMediaSummaryItem!
+}
+
+type RegionCoverImage {
+  mobile(width: Int): String
+}
+
+input RegionCoverImageInput {
+  mobile: String
+}
+
+input RegionInput {
+  "UUID of existing region or null to create new region"
+  id: ID
+  "Human-friendly name"
+  name: String!
+  "Human-friendly markdown description"
+  description: String
+  "Human-friendly description to complement numeric months list"
+  season: String
+  "Array of numers between 0 and 23, corresponding to half-months"
+  seasonNumeric: [Int!]
+  "Points of interest"
+  pois: [PointInput!]
+  "Approximate region bounds, array of [lon, lat, alt] tuples"
+  bounds: [Coordinates!]!
+
+  "Licensing information"
+  license: LicenseInput
+  "copyright"
+  copyright: String
+}
+
+"""
+Region settings available only to admins
+"""
+input RegionAdminSettings {
+  "Region UUID"
+  id: ID!
+  "Indicates that only admins can see this region"
+  hidden: Boolean!
+  "True if region has some premium content"
+  premium: Boolean!
+  "SKU - identifier in iOS/Android store"
+  sku: String
+  "Cover images for various platforms"
+  coverImage: RegionCoverImageInput!
+  "Map size in bytes"
+  mapsSize: Int!
+}
+
+type RegionsList {
+  nodes: [Region!]!
+  count: Int!
+}
+
+input RegionFilterOptions {
+  searchString: String
+}
+
+type Query {
+  "Lists regions"
+  regions(filter: RegionFilterOptions, page: Page): RegionsList!
+  "Gets region by ID. Returns null when ID is not provided"
+  region(id: ID): Region
+  "Lists region editors"
+  regionEditors(regionId: ID!): [User!] @admin
+}
+
+type Mutation {
+  "Creates or updates region"
+  upsertRegion(region: RegionInput!): Region
+  "Deletes region"
+  removeRegion(id: ID!): ID @admin
+  "Adds user to the list of region editors"
+  addEditor(regionId: ID!, userId: ID!): Boolean @admin
+  "Removes user from the list of region editors"
+  removeEditor(regionId: ID!, userId: ID!): Boolean @admin
+  "Changes admin-level settings of region"
+  administrateRegion(settings: RegionAdminSettings!): Region @admin
+}

@@ -8,34 +8,34 @@ import React from 'react';
 import ErrorBoundary from '~/components/ErrorBoundary';
 import { SelectedPOIView } from '~/components/map';
 import WithNetworkError from '~/components/WithNetworkError';
+import { PHOTO_SIZE_PX } from '~/features/media';
 import { SectionScreenNavProps } from '~/screens/section/types';
 import theme from '~/theme';
 
-import { SECTION_DETAILS } from './sectionDetails.query';
 import SectionTabs from './SectionTabs';
 
 const SectionScreen: React.FC<SectionScreenNavProps> = (props) => {
   const { sectionId } = props.route.params;
   return (
     <ErrorBoundary>
-      <SectionProvider sectionId={sectionId} query={SECTION_DETAILS}>
-        {(s) => (
+      <SectionProvider sectionId={sectionId} thumbSize={PHOTO_SIZE_PX}>
+        {({ data, error, loading, refetch }) => (
           <WithNetworkError
-            data={s.node}
-            error={s.error}
-            loading={s.loading}
-            refetch={s.refetch}
+            hasData={!!data}
+            hasError={!!error}
+            loading={loading}
+            refetch={refetch}
           >
-            {s.node && (
+            {data?.section && (
               <RegionProvider
-                regionId={s.node.region.id}
+                regionId={data.section.region.id}
                 bannerWidth={theme.screenWidthPx}
                 fetchPolicy="cache-first"
               >
                 {(r) => (
                   <WithNetworkError
-                    data={r.node}
-                    error={r.error}
+                    hasData={!!r.data?.region}
+                    hasError={!!r.error}
                     loading={r.loading}
                     refetch={r.refetch}
                   >

@@ -2,10 +2,10 @@ import {
   ColorStrings,
   formatDistanceToNow,
   getSectionColor,
+  ListedSectionFragment,
   prettyNumber,
   useFormulas,
 } from '@whitewater-guide/clients';
-import { Section } from '@whitewater-guide/commons';
 import parseISO from 'date-fns/parseISO';
 import isNil from 'lodash/isNil';
 import React from 'react';
@@ -59,11 +59,11 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  section: Section | null;
+  section: ListedSectionFragment | null;
 }
 
 const propsAreEqual = (a: Props, b: Props): boolean =>
-  (a.section && a.section.id) === (b.section && b.section.id);
+  a.section?.id === b.section?.id;
 
 const SectionFlowsRow: React.FC<Props> = React.memo(({ section }) => {
   const [t] = useTranslation();
@@ -99,7 +99,7 @@ const SectionFlowsRow: React.FC<Props> = React.memo(({ section }) => {
         <Text style={[styles.mainLine, { color }]}>
           {prettyNumber(value)}
           <Text style={[styles.unitLine, { color }]}>
-            {` ${t('commons:' + unitName)}`}
+            {` ${t(`commons:${unitName}`)}`}
           </Text>
         </Text>
         <Caption style={styles.timeLine}>{fromNow}</Caption>

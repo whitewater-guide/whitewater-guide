@@ -1,0 +1,9 @@
+mutation activatePromo($purchase: PurchaseInput!) {
+  savePurchase(purchase: $purchase) {
+    regions {
+      id
+      sku
+      hasPremiumAccess
+    }
+  }
+}

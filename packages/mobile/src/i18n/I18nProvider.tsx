@@ -1,5 +1,5 @@
 import { configDateFNS, useAuth } from '@whitewater-guide/clients';
-import { User } from '@whitewater-guide/commons';
+import { MyProfileFragment } from '@whitewater-guide/schema';
 import i18next from 'i18next';
 import React, { useEffect, useState } from 'react';
 import { initReactI18next } from 'react-i18next';
@@ -22,9 +22,9 @@ interface Props {
 
 const _i18n = i18next.use(initReactI18next);
 
-const getMyLanguage = (me?: User | null) => {
+const getMyLanguage = (me?: MyProfileFragment | null) => {
   const [{ languageCode }] = getLocales();
-  return ((me && me.language) || languageCode || 'en').substr(0, 2);
+  return (me?.language ?? languageCode ?? 'en').substr(0, 2);
 };
 
 export const I18nProvider: React.FC<Props> = ({
@@ -38,7 +38,7 @@ export const I18nProvider: React.FC<Props> = ({
   useEffect(() => {
     const onMount = async () => {
       const [{ languageCode }] = getLocales();
-      const language = (me && me.language) || languageCode || 'en';
+      const language = me?.language ?? languageCode ?? 'en';
       const lng = Config.E2E_MODE === 'true' ? 'cimode' : language.substr(0, 2);
       await _i18n.init({
         lng,
@@ -62,7 +62,6 @@ export const I18nProvider: React.FC<Props> = ({
       const dfnsLng = Config.E2E_MODE === 'true' ? 'en' : _i18n.languages[0];
       configDateFNS(dfnsLng);
       setReady(true);
-      return;
     };
 
     onMount();

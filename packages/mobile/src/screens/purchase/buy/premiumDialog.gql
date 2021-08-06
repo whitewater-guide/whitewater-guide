@@ -1,0 +1,22 @@
+query premiumDialog($regionId: ID!, $sectionId: ID) {
+  region(id: $regionId) {
+    id
+    hasPremiumAccess
+  }
+  section(id: $sectionId) {
+    id
+    description
+  }
+  me {
+    id
+    verified
+    purchasedRegions {
+      id
+      name
+    }
+    purchasedGroups {
+      id
+      name
+    }
+  }
+}

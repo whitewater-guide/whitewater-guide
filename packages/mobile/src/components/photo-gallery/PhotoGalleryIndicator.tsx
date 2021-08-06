@@ -25,13 +25,11 @@ interface Props {
   total: number;
 }
 
-const PhotoGalleryIndicator: React.FC<Props> = ({ index, total }) => {
-  return (
-    <View style={styles.indicator}>
-      <Text style={styles.indicatorText}>{`${index}/${total}`}</Text>
-    </View>
-  );
-};
+const PhotoGalleryIndicator: React.FC<Props> = ({ index, total }) => (
+  <View style={styles.indicator}>
+    <Text style={styles.indicatorText}>{`${index}/${total}`}</Text>
+  </View>
+);
 
 PhotoGalleryIndicator.displayName = 'PhotoGalleryIndicator';
 

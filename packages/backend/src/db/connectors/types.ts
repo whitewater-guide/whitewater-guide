@@ -1,7 +1,5 @@
-import { Page } from '@whitewater-guide/commons';
+import { Page } from '@whitewater-guide/schema';
 import Knex, { Raw } from 'knex';
-
-import { Cursor } from '~/apollo/cursor';
 
 import { createConnectors } from './createConnectors';
 
@@ -29,7 +27,7 @@ export type Where<TSql> =
   | Knex.Raw;
 
 export interface ManyBuilderOptions<TSql> {
-  page?: Page<Cursor>;
+  page?: Page;
   orderBy?: OrderBy[];
   where?: Where<TSql>;
 }

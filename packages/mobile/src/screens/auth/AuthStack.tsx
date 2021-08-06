@@ -31,20 +31,15 @@ const screenOptions: StackNavigationOptions = {
   headerTintColor: theme.colors.primary,
 };
 
-const AuthStack: React.FC<AuthStackNavProps> = () => {
-  return (
-    <Stack.Navigator screenOptions={screenOptions} headerMode="screen">
-      <Stack.Screen name={Screens.AUTH_MAIN} component={LazyMainScreen} />
-      <Stack.Screen name={Screens.AUTH_SIGN_IN} component={LazySignInScreen} />
-      <Stack.Screen
-        name={Screens.AUTH_REGISTER}
-        component={LazyRegisterScreen}
-      />
-      <Stack.Screen name={Screens.AUTH_FORGOT} component={LazyForgotScreen} />
-      <Stack.Screen name={Screens.AUTH_RESET} component={LazyResetScreen} />
-      <Stack.Screen name={Screens.AUTH_WELCOME} component={LazyWelcomeScreen} />
-    </Stack.Navigator>
-  );
-};
+const AuthStack: React.FC<AuthStackNavProps> = () => (
+  <Stack.Navigator screenOptions={screenOptions} headerMode="screen">
+    <Stack.Screen name={Screens.AUTH_MAIN} component={LazyMainScreen} />
+    <Stack.Screen name={Screens.AUTH_SIGN_IN} component={LazySignInScreen} />
+    <Stack.Screen name={Screens.AUTH_REGISTER} component={LazyRegisterScreen} />
+    <Stack.Screen name={Screens.AUTH_FORGOT} component={LazyForgotScreen} />
+    <Stack.Screen name={Screens.AUTH_RESET} component={LazyResetScreen} />
+    <Stack.Screen name={Screens.AUTH_WELCOME} component={LazyWelcomeScreen} />
+  </Stack.Navigator>
+);
 
 export default AuthStack;

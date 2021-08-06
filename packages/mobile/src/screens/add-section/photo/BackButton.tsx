@@ -1,5 +1,5 @@
 import { LocalPhotoStatus } from '@whitewater-guide/clients';
-import { SectionInput } from '@whitewater-guide/commons';
+import { SectionInput } from '@whitewater-guide/schema';
 import { getIn, useFormikContext } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

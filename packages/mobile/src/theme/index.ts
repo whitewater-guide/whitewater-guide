@@ -81,7 +81,7 @@ const theme = {
   screenHeight,
   screenWidthPx: Math.round(screenWidth * PixelRatio.get()),
   screenHeightPx: Math.round(screenHeight * PixelRatio.get()),
-  safeBottom: initialWindowMetrics?.insets.bottom || 0,
+  safeBottom: initialWindowMetrics?.insets.bottom ?? 0,
   safeTop: getStatusBarHeight(true),
   unsafeTop: getStatusBarHeight(false),
   stackScreenHeight:

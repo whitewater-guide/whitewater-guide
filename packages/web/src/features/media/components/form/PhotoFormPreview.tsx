@@ -39,20 +39,15 @@ interface Props {
   loading: boolean;
 }
 
-const PhotoFormPreview: React.FC<Props> = ({ url, localPhoto, loading }) => {
-  return (
-    <div style={styles.previewWrapper}>
-      <MediaImg
-        src={localPhoto && localPhoto.file ? localPhoto.file.preview : url}
-        style={styles.preview}
-      />
-      {loading && (
-        <div style={styles.shade}>
-          <CircularProgress />
-        </div>
-      )}
-    </div>
-  );
-};
+const PhotoFormPreview: React.FC<Props> = ({ url, localPhoto, loading }) => (
+  <div style={styles.previewWrapper}>
+    <MediaImg src={localPhoto?.file?.preview ?? url} style={styles.preview} />
+    {loading && (
+      <div style={styles.shade}>
+        <CircularProgress />
+      </div>
+    )}
+  </div>
+);
 
 export default PhotoFormPreview;

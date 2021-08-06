@@ -10,6 +10,7 @@ import useTracking from './useTracking';
 
 export const NavigationRoot: React.FC = ({ children }) => {
   const { state, ready, onStateChange } = usePersistence();
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   const trackStateChange = useTracking(onStateChange);
   useEffectOnce(() => {
     if (Config.E2E_MODE === 'true') {

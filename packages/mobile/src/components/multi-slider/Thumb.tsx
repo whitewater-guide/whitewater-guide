@@ -21,9 +21,13 @@ interface Props extends ViewProps {
 
 export default class Thumb extends React.PureComponent<Props> {
   x = 0;
+
   _panResponder: PanResponderInstance | null = null;
+
   _animatedLeft: Animated.Value = new Animated.Value(0);
+
   _animatedScale: Animated.Value = new Animated.Value(1);
+
   _hitSlop: Insets;
 
   constructor(props: Props) {

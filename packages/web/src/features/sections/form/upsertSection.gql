@@ -1,0 +1,18 @@
+mutation upsertSection($section: SectionInput!) {
+  upsertSection(section: $section) {
+    ...SectionCore
+    shape
+    description
+    region {
+      id
+      name
+    }
+    ...SectionEnds
+    ...SectionMeasurements
+    ...SectionPOIs
+    ...SectionTags
+    ...SectionLicense
+    ...SectionFlows
+    ...TimestampedMeta
+  }
+}

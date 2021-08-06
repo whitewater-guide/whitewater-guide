@@ -1,11 +1,6 @@
 import Mapbox from '@react-native-mapbox-gl/maps';
-import {
-  Coordinate,
-  Coordinate2d,
-  CoordinateLoose,
-  SectionInput,
-  withZeroAlt,
-} from '@whitewater-guide/commons';
+import { Coordinate2d, ensureAltitude } from '@whitewater-guide/clients';
+import { SectionInput } from '@whitewater-guide/schema';
 import round from 'lodash/round';
 import {
   MutableRefObject,
@@ -18,14 +13,14 @@ import {
 import notifier from './notifier';
 
 export interface PiToState {
-  shape: [CoordinateLoose | undefined, CoordinateLoose | undefined];
+  shape: [CodegenCoordinates | undefined, CodegenCoordinates | undefined];
   selected: -1 | 0 | 1;
 }
 
 type Action =
   | { type: 'select'; selected: PiToState['selected'] }
-  | { type: 'move'; coordinate: Coordinate2d }
-  | { type: 'set'; shape: [CoordinateLoose, CoordinateLoose] };
+  | { type: 'move'; coordinate: CodegenCoordinates }
+  | { type: 'set'; shape: [CodegenCoordinates, CodegenCoordinates] };
 
 const reducer = (state: PiToState, action: Action): PiToState => {
   if (action.type === 'select') {
@@ -36,29 +31,27 @@ const reducer = (state: PiToState, action: Action): PiToState => {
       return state;
     }
     const shape: PiToState['shape'] = [...state.shape] as any;
-    shape[state.selected] = withZeroAlt(action.coordinate).map((n) =>
+    shape[state.selected] = ensureAltitude(action.coordinate).map((n) =>
       round(n, 4),
-    ) as Coordinate;
+    ) as CodegenCoordinates;
     return { ...state, shape };
   }
   if (action.type === 'set') {
-    return { ...state, shape: withZeroAlt(action.shape) as any };
+    return { ...state, shape: ensureAltitude(action.shape) as any };
   }
   return state;
 };
 
-const initState = (initialShape: SectionInput['shape']): PiToState => {
-  return {
-    selected: -1,
-    shape: [initialShape[0], initialShape[initialShape.length - 1]],
-  };
-};
+const initState = (initialShape: SectionInput['shape']): PiToState => ({
+  selected: -1,
+  shape: [initialShape[0], initialShape[initialShape.length - 1]],
+});
 
 interface Hook {
   state: PiToState;
   select: (selected: PiToState['selected']) => void;
-  move: (coordinate: Coordinate2d) => void;
-  set: (shape: [Coordinate, Coordinate]) => void;
+  move: (coordinate: CodegenCoordinates) => void;
+  set: (shape: [CodegenCoordinates, CodegenCoordinates]) => void;
   mapRef: MutableRefObject<Mapbox.MapView | null>;
 }
 
@@ -75,9 +68,9 @@ export const usePiToState = (initialShape: SectionInput['shape']): Hook => {
         }
         dispatch({ type: 'select', selected });
       },
-      move: (coordinate: Coordinate2d) =>
+      move: (coordinate: CodegenCoordinates) =>
         dispatch({ type: 'move', coordinate }),
-      set: (shape: [Coordinate, Coordinate]) =>
+      set: (shape: [CodegenCoordinates, CodegenCoordinates]) =>
         dispatch({ type: 'set', shape }),
     }),
     [dispatch],

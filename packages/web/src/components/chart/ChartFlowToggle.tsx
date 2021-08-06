@@ -1,7 +1,7 @@
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import { useChart } from '@whitewater-guide/clients';
-import { Unit } from '@whitewater-guide/commons';
+import { Unit } from '@whitewater-guide/schema';
 import capitalize from 'lodash/capitalize';
 import React, { ChangeEvent, useCallback } from 'react';
 

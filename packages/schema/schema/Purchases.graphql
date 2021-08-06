@@ -1,0 +1,46 @@
+input PurchaseInput {
+  "ios, android or boomstarter"
+  platform: String!
+  "This is promo code for boomstarter"
+  transactionId: String!
+  "Date of purchase"
+  transactionDate: Date
+  "Group sku or region sku"
+  productId: String!
+  "Receipt from platform"
+  receipt: String
+  "Arbitary extra data which we want to save just in case"
+  extra: JSON
+}
+
+type BoomPromoInfo {
+  "Unique id, same as code"
+  id: ID!
+  "Promocode pre-generated and sent to backers"
+  code: String!
+  "regions group name which this promo code grants or null if this is one-region promo code"
+  groupName: String
+  "Null for one-region promo codes, group sku otherwise"
+  groupSku: String
+  "true if promocode has been already used"
+  redeemed: Boolean
+}
+
+type SavedPurchase {
+  regions: [Region!]!
+  section: Section
+}
+
+type Query {
+  "Gets information about promocode. Is it group promocode or one-region promocode"
+  checkBoomPromo(code: String!): BoomPromoInfo
+  "Gets regions that current user can activate with one-region promocode"
+  promoRegions: [Region!]!
+}
+
+type Mutation {
+  "deprecated, used by old mobile client."
+  addPurchase(purchase: PurchaseInput!): Boolean @deprecated
+  "Saves purchase. Section ID can be used to return premium section instantly"
+  savePurchase(purchase: PurchaseInput!, sectionId: ID): SavedPurchase
+}

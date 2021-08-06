@@ -1,7 +1,7 @@
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
-import { NamedNode } from '@whitewater-guide/commons';
+import { NamedNode } from '@whitewater-guide/schema';
 import React, { useCallback, useState } from 'react';
 
 import { IconButtonWithData } from '../../../../components';
@@ -11,7 +11,7 @@ interface Props {
   onAdd: (userId: string) => void;
 }
 
-const EditorListFooter: React.FC<Props> = React.memo((props) => {
+const EditorListFooter = React.memo<Props>((props) => {
   const { onAdd } = props;
   const [user, setUser] = useState<NamedNode | null>(null);
 

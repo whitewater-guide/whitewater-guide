@@ -1,0 +1,12 @@
+fragment DescentCore on Descent {
+  id
+
+  startedAt
+  duration
+  level {
+    unit
+    value
+  }
+  comment
+  public
+}

@@ -1,5 +1,5 @@
 import { sleep } from '@whitewater-guide/clients';
-import { Region } from '@whitewater-guide/commons';
+import { Region } from '@whitewater-guide/schema';
 import { useMemo, useState } from 'react';
 
 import { OfflineProgress } from '../../types';

@@ -10,7 +10,7 @@ import { AddSectionShapeNavProps } from './types';
 const ShapeScreen: React.FC<AddSectionShapeNavProps> = ({ navigation }) => {
   useEffectOnce(() => {
     navigation.setOptions({
-      // eslint-disable-next-line react/display-name
+      // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () => <DoneButton />,
     });
   });

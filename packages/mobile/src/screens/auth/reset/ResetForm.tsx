@@ -44,11 +44,11 @@ export const ResetForm: React.FC<Props> = ({ id, token }) => {
       validationSchema={getValidationSchema()}
     >
       {({ isSubmitting, handleSubmit, submitCount, errors }) => (
-        <React.Fragment>
+        <>
           <PasswordField
             name="password"
             label={t('screens:auth.reset.newPassword')}
-            showStrengthIndicator={true}
+            showStrengthIndicator
           />
           <Spacer />
           <HelperText touched={submitCount > 0} error={(errors as any).form} />
@@ -71,7 +71,7 @@ export const ResetForm: React.FC<Props> = ({ id, token }) => {
               ? t('screens:auth.reset.goBack')
               : t('screens:auth.reset.submit')}
           </Button>
-        </React.Fragment>
+        </>
       )}
     </Formik>
   );

@@ -1,5 +1,4 @@
 import { MapProps } from '@whitewater-guide/clients';
-import { Point, Section } from '@whitewater-guide/commons';
 import React from 'react';
 
 import FeaturesMap from './FeaturesMap';
@@ -7,8 +6,8 @@ import { MapLayoutBase } from './MapLayoutBase';
 
 // Other FeaturesMap props will be passed from MapLayoutBase
 const MapComponent = FeaturesMap as React.ComponentType<{
-  sections: Section[];
-  pois: Point[];
+  sections: MapProps['sections'];
+  pois: MapProps['pois'];
   testID?: string;
 }>;
 

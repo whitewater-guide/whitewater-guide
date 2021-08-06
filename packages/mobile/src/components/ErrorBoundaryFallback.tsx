@@ -23,7 +23,7 @@ const ErrorBoundaryFallback: React.FC<Props> = ({ error, info }) => {
   const [t] = useTranslation();
   const copyBugReport = useCallback(() => {
     Clipboard.setString(
-      `Error:\n${error}\n\nComponent stack: ${info && info.componentStack}`,
+      `Error:\n${error}\n\nComponent stack: ${info?.componentStack}`,
     );
   }, [error, info]);
   return (

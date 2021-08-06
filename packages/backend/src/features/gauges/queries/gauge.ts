@@ -1,6 +1,6 @@
-import { NodeQuery, TopLevelResolver } from '~/apollo';
+import { QueryResolvers } from '~/apollo';
 
-const gauge: TopLevelResolver<NodeQuery> = (_, { id }, { dataSources }) =>
+const gauge: QueryResolvers['gauge'] = (_, { id }, { dataSources }) =>
   dataSources.gauges.getById(id);
 
 export default gauge;

@@ -13,7 +13,7 @@ interface Props {
   onClose: () => void;
 }
 
-const LongDescriptionDialog: React.FC<Props> = React.memo((props) => {
+const LongDescriptionDialog = React.memo<Props>((props) => {
   const { description, open, onClose } = props;
   const onClick = useCallback(() => {
     clipboard(description).catch(() => {
@@ -23,7 +23,7 @@ const LongDescriptionDialog: React.FC<Props> = React.memo((props) => {
   return (
     <Dialog open={open} onClose={onClose} scroll="paper">
       <DialogTitle>User&lsquo;s suggestion</DialogTitle>
-      <DialogContent dividers={true}>
+      <DialogContent dividers>
         <DialogContentText>{description}</DialogContentText>
       </DialogContent>
       <DialogActions>

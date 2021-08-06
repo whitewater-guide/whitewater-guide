@@ -1,4 +1,4 @@
-import { NamedNode } from '@whitewater-guide/commons';
+import { NamedNode } from '@whitewater-guide/schema';
 
 const itemToString = (item: NamedNode | null) => (item ? item.name : '');
 

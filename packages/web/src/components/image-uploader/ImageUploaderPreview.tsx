@@ -1,7 +1,7 @@
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { LocalPhotoStatus } from '@whitewater-guide/clients';
-import { MediaKind } from '@whitewater-guide/commons';
+import { MediaKind } from '@whitewater-guide/schema';
 import clsx from 'clsx';
 import React, { useCallback, useMemo, useState } from 'react';
 
@@ -63,7 +63,7 @@ export const ImageUploaderPreview = React.memo(
           copyright: null,
           description: null,
           id: null,
-          kind: MediaKind.photo,
+          kind: MediaKind.Photo,
           image: source,
         },
       ];

@@ -5,16 +5,25 @@ import {
   isUUID,
   noTimestamps,
   noUnstable,
-  runQuery,
 } from '@test';
-import { ApolloErrorCodes, SourceInput } from '@whitewater-guide/commons';
+import { ApolloErrorCodes } from '@whitewater-guide/commons';
+import { SourceInput } from '@whitewater-guide/schema';
+import gql from 'graphql-tag';
 
-import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { db, holdTransaction, rollbackTransaction, Sql } from '~/db';
 import { GorgeConnector } from '~/features/gorge';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
-import { SOURCE_GALICIA_1, SOURCE_GEORGIA } from '~/seeds/test/05_sources';
+import {
+  SOURCE_GALICIA_1,
+  SOURCE_GEORGIA,
+  SOURCE_RUSSIA,
+} from '~/seeds/test/05_sources';
 
-import { SourceRaw } from '../types';
+import {
+  testUpsertSource,
+  UpsertSourceMutation,
+  UpsertSourceMutationResult,
+} from './upsertSource.test.generated';
 
 jest.mock('../../gorge/connector');
 
@@ -53,27 +62,20 @@ const optionalSource: SourceInput = {
   regions: [{ id: '2caf75ca-7625-11e7-b5a5-be2e44b06b34' }], // replace two regions with one different
 };
 
-const mutation = `
-  mutation upsertSource($source: SourceInput!){
-    upsertSource(source: $source){
-      id
-      name
-      termsOfUse
-      script
+const _mutation = gql`
+  mutation upsertSource($source: SourceInput!) {
+    upsertSource(source: $source) {
+      ...SourceCore
       requestParams
-      cron
-      url
       enabled
-      createdAt
-      updatedAt
+      ...TimestampedMeta
     }
   }
 `;
 
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
-    const result = await runQuery(
-      mutation,
+    const result = await testUpsertSource(
       { source: requiredSource },
       anonContext(),
     );
@@ -81,8 +83,7 @@ describe('resolvers chain', () => {
   });
 
   it('user should not pass', async () => {
-    const result = await runQuery(
-      mutation,
+    const result = await testUpsertSource(
       { source: requiredSource },
       fakeContext(TEST_USER),
     );
@@ -90,8 +91,7 @@ describe('resolvers chain', () => {
   });
 
   it('editor should not pass', async () => {
-    const result = await runQuery(
-      mutation,
+    const result = await testUpsertSource(
       { source: requiredSource },
       fakeContext(EDITOR_GA_EC),
     );
@@ -109,8 +109,7 @@ describe('resolvers chain', () => {
       termsOfUse: 'New terms of use',
       regions: [{ id: 'aaaa' }],
     };
-    const result = await runQuery(
-      mutation,
+    const result = await testUpsertSource(
       { source: input },
       fakeContext(ADMIN),
     );
@@ -119,17 +118,15 @@ describe('resolvers chain', () => {
 });
 
 describe('insert', () => {
-  let insertResult: any;
-  let insertedSource: any;
+  let insertResult: UpsertSourceMutationResult | null = null;
+  let insertedSource: UpsertSourceMutation['upsertSource'] | null = null;
 
   beforeEach(async () => {
-    insertResult = await runQuery(
-      mutation,
+    insertResult = await testUpsertSource(
       { source: requiredSource },
       fakeContext(ADMIN),
     );
-    insertedSource =
-      insertResult && insertResult.data && insertResult.data.upsertSource;
+    insertedSource = insertResult?.data?.upsertSource;
   });
 
   afterEach(() => {
@@ -137,10 +134,10 @@ describe('insert', () => {
     insertedSource = null;
   });
 
-  it('should return result', async () => {
-    expect(insertResult.errors).toBeUndefined();
-    expect(insertResult.data).toBeDefined();
-    expect(insertResult.data!.upsertSource).toBeDefined();
+  it('should return result', () => {
+    expect(insertResult?.errors).toBeUndefined();
+    expect(insertResult?.data).toBeDefined();
+    expect(insertResult?.data?.upsertSource).toBeDefined();
   });
 
   it('should add one more source', async () => {
@@ -149,21 +146,21 @@ describe('insert', () => {
   });
 
   it('should have id', () => {
-    expect(insertedSource.id).toBeDefined();
-    expect(isUUID(insertedSource.id)).toBe(true);
+    expect(insertedSource?.id).toBeDefined();
+    expect(isUUID(insertedSource?.id)).toBe(true);
   });
 
   it('should have timestamps', () => {
-    expect(insertedSource.createdAt).toBeDefined();
-    expect(insertedSource.updatedAt).toBeDefined();
-    expect(isTimestamp(insertedSource.createdAt)).toBe(true);
-    expect(isTimestamp(insertedSource.updatedAt)).toBe(true);
+    expect(insertedSource?.createdAt).toBeDefined();
+    expect(insertedSource?.updatedAt).toBeDefined();
+    expect(isTimestamp(insertedSource?.createdAt)).toBe(true);
+    expect(isTimestamp(insertedSource?.updatedAt)).toBe(true);
   });
 
   it('should connect region', async () => {
     const result = await db()
       .table('sources_regions')
-      .where({ source_id: insertedSource.id })
+      .where({ source_id: insertedSource?.id })
       .count();
     expect(result[0].count).toBe('1');
   });
@@ -174,8 +171,7 @@ describe('insert', () => {
 });
 
 it('update should not change enabled sources', async () => {
-  const result = await runQuery(
-    mutation,
+  const result = await testUpsertSource(
     { source: optionalSource },
     fakeContext(ADMIN),
   );
@@ -186,9 +182,9 @@ it('update should not change enabled sources', async () => {
 });
 
 describe('update', () => {
-  let oldSource: SourceRaw | null;
-  let updateResult: any;
-  let updatedSource: any;
+  let updateResult: UpsertSourceMutationResult | null = null;
+  let updatedSource: UpsertSourceMutation['upsertSource'] | null = null;
+  let oldSource: Sql.SourcesView | null;
 
   beforeEach(async () => {
     oldSource = await db()
@@ -199,13 +195,11 @@ describe('update', () => {
     jest
       .spyOn(GorgeConnector.prototype, 'isSourceEnabled')
       .mockResolvedValue(false);
-    updateResult = await runQuery(
-      mutation,
+    updateResult = await testUpsertSource(
       { source: optionalSource },
       fakeContext(ADMIN),
     );
-    updatedSource =
-      updateResult && updateResult.data && updateResult.data.upsertSource;
+    updatedSource = updateResult?.data?.upsertSource;
   });
 
   afterEach(() => {
@@ -214,10 +208,10 @@ describe('update', () => {
     oldSource = null;
   });
 
-  it('should return result', async () => {
-    expect(updateResult.errors).toBeUndefined();
-    expect(updateResult.data).toBeDefined();
-    expect(updateResult.data!.upsertSource).toBeDefined();
+  it('should return result', () => {
+    expect(updateResult?.errors).toBeUndefined();
+    expect(updateResult?.data).toBeDefined();
+    expect(updateResult?.data?.upsertSource).toBeDefined();
   });
 
   it('should not change total number of sources', async () => {
@@ -226,7 +220,7 @@ describe('update', () => {
   });
 
   it('should have id', () => {
-    expect(updatedSource.id).toBe(optionalSource.id);
+    expect(updatedSource?.id).toBe(optionalSource.id);
   });
 
   it('should update updated_at timestamp', async () => {
@@ -234,7 +228,7 @@ describe('update', () => {
       .table('sources')
       .where({ id: optionalSource.id })
       .first();
-    expect(created_at).toEqual(oldSource!.created_at);
+    expect(created_at).toEqual(oldSource?.created_at);
     expect(updated_at > oldSource!.updated_at).toBe(true);
   });
 
@@ -268,25 +262,24 @@ describe('i18n', () => {
     regions: [],
   };
 
-  const galiciaRu = {
-    id: '6d0d717e-aa9d-11e7-abc4-cec278b6b50a',
-    script: 'galicia',
+  const russiaRu = {
+    id: SOURCE_RUSSIA,
+    script: 'russia',
     cron: '0 * * * *',
     requestParams: null,
     url: 'http://ya.ru',
-    name: 'Новая Галисия',
-    termsOfUse: 'Правила пользования новой галисией',
+    name: 'Россия 2',
+    termsOfUse: 'Правила пользования Россия',
     regions: [],
   };
 
   it('should add new translation', async () => {
-    const result = await runQuery(
-      mutation,
+    const result = await testUpsertSource(
       { source: georgiaRu },
       fakeContext(ADMIN, 'ru'),
     );
     expect(result.errors).toBeUndefined();
-    expect(result.data!.upsertSource).toMatchObject({
+    expect(result.data?.upsertSource).toMatchObject({
       id: SOURCE_GEORGIA,
       name: 'Грузия',
     });
@@ -299,7 +292,7 @@ describe('i18n', () => {
   });
 
   it('should modify common props in other language', async () => {
-    await runQuery(mutation, { source: georgiaRu }, fakeContext(ADMIN, 'ru'));
+    await testUpsertSource({ source: georgiaRu }, fakeContext(ADMIN, 'ru'));
     const commons = await db()
       .table('sources')
       .select('cron')
@@ -309,37 +302,32 @@ describe('i18n', () => {
   });
 
   it('should modify translation', async () => {
-    const result = await runQuery(
-      mutation,
-      { source: galiciaRu },
+    const result = await testUpsertSource(
+      { source: russiaRu },
       fakeContext(ADMIN, 'ru'),
     );
     expect(result.errors).toBeUndefined();
-    expect(result.data!.upsertSource).toMatchObject({
-      id: SOURCE_GALICIA_1,
-      name: 'Новая Галисия',
-      termsOfUse: 'Правила пользования новой галисией',
+    expect(result.data?.upsertSource).toMatchObject({
+      id: SOURCE_RUSSIA,
+      name: 'Россия 2',
+      termsOfUse: 'Правила пользования Россия',
     });
     const translation = await db()
       .table('sources_translations')
       .select()
-      .where({ source_id: SOURCE_GALICIA_1, language: 'ru' })
+      .where({ source_id: SOURCE_RUSSIA, language: 'ru' })
       .first();
     expect(translation).toMatchObject({
-      source_id: SOURCE_GALICIA_1,
-      name: 'Новая Галисия',
-      terms_of_use: 'Правила пользования новой галисией',
+      source_id: SOURCE_RUSSIA,
+      name: 'Россия 2',
+      terms_of_use: 'Правила пользования Россия',
     });
   });
 });
 
 it('should sanitize input', async () => {
   const dirty = { ...requiredSource, name: "it's a \\ $1 slash with . ?" };
-  const result = await runQuery(
-    mutation,
-    { source: dirty },
-    fakeContext(ADMIN),
-  );
+  const result = await testUpsertSource({ source: dirty }, fakeContext(ADMIN));
   expect(result).toHaveProperty(
     'data.upsertSource.name',
     "it's a \\ $1 slash with . ?",

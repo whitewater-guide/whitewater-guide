@@ -9,14 +9,13 @@ export const getDotExt = (file: FileLike) => {
   }
   if (ext) {
     return `.${ext}`;
-  } else {
-    switch (file.type) {
-      case 'image/jpeg':
-        return '.jpg';
-      case 'image/png':
-        return '.png';
-      default:
-        return '';
-    }
+  }
+  switch (file.type) {
+    case 'image/jpeg':
+      return '.jpg';
+    case 'image/png':
+      return '.png';
+    default:
+      return '';
   }
 };

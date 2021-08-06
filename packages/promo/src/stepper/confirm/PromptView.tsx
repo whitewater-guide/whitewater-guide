@@ -1,50 +1,42 @@
-import { createStyles, Theme, WithStyles, withStyles } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import { BoomPromoInfo, Region } from '@whitewater-guide/commons';
+import { BoomPromoInfo } from '@whitewater-guide/schema';
 import React, { useMemo } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 
 import { StepFooter } from '../../components';
+import { PromoRegionFragment } from '../promoRegion.generated';
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     divider: {
       marginBottom: theme.spacing(2),
       marginTop: theme.spacing(2),
     },
-  });
+  }),
+);
 
 export interface PromptViewProps {
-  region: Region | null;
+  region: PromoRegionFragment | null;
   promo: BoomPromoInfo;
-  username: string | null;
+  username?: string | null;
   loading?: boolean;
   error?: string;
   onNext?: () => void;
   onPrev?: () => void;
 }
 
-const PromptView: React.FC<PromptViewProps & WithStyles<typeof styles>> = (
-  props,
-) => {
+export const PromptView: React.FC<PromptViewProps> = (props) => {
   const { t } = useTranslation();
-  const {
-    classes,
-    region,
-    promo,
-    username,
-    loading,
-    error,
-    onNext,
-    onPrev,
-  } = props;
+  const classes = useStyles();
+  const { region, promo, username, loading, error, onNext, onPrev } = props;
   const { i18nKey, values } = useMemo(
     () => ({
-      i18nKey: 'confirm:prompt.list.' + (region ? 'region' : 'group'),
+      i18nKey: `confirm:prompt.list.${region ? 'region' : 'group'}`,
       values: {
-        name: region ? region.name : promo && promo.groupName,
+        name: region ? region.name : promo?.groupName,
         username,
       },
     }),
@@ -54,7 +46,7 @@ const PromptView: React.FC<PromptViewProps & WithStyles<typeof styles>> = (
     return null;
   }
   return (
-    <React.Fragment>
+    <>
       <Typography variant="subtitle1">
         <Trans i18nKey="confirm:prompt.subtitle" values={promo}>
           1<strong>2</strong>
@@ -71,7 +63,7 @@ const PromptView: React.FC<PromptViewProps & WithStyles<typeof styles>> = (
           </li>
         </Trans>
       </Typography>
-      <FormHelperText error={true} hidden={!error}>
+      <FormHelperText error hidden={!error}>
         {error}
       </FormHelperText>
       <Divider className={classes.divider} />
@@ -82,8 +74,6 @@ const PromptView: React.FC<PromptViewProps & WithStyles<typeof styles>> = (
         nextLoading={!!loading}
         nextLabel={t('confirm:prompt.activateButton')}
       />
-    </React.Fragment>
+    </>
   );
 };
-
-export default withStyles(styles)(PromptView);

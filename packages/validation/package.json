@@ -1,0 +1,43 @@
+{
+  "name": "@whitewater-guide/validation",
+  "version": "1.2.0",
+  "description": "Validation utils library for whitewater.guide",
+  "repository": "https://github.com/whitewater-guide/validation",
+  "author": "whitewater.guide",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "files": [
+    "cjs",
+    "esm"
+  ],
+  "license": "MIT",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "yarn cjs && yarn esm",
+    "test": "jest",
+    "cjs": "tsc --project tsconfig.cjs.json",
+    "esm": "tsc --project tsconfig.esm.json",
+    "typecheck": "tsc --noEmit",
+    "prepare": "yarn build"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.171",
+    "@types/validator": "^13.6.3",
+    "date-fns": "^2.22.1"
+  },
+  "dependencies": {
+    "cron-validator": "^1.2.1",
+    "expr-eval": "^2.0.2",
+    "lodash": "^4.17.21",
+    "validator": "^13.6.0",
+    "yup": "^0.32.9"
+  },
+  "peerDependencies": {
+    "date-fns": "*"
+  }
+}

@@ -1,11 +1,8 @@
 import { JobDescription } from '@whitewater-guide/gorge';
-import { GraphQLFieldResolver } from 'graphql';
 
-import { Context } from '~/apollo';
+import { SourceResolvers } from '~/apollo';
 
-import { SourceRaw } from '../types';
-
-const statusResolver: GraphQLFieldResolver<SourceRaw, Context> = async (
+const statusResolver: SourceResolvers['status'] = async (
   { id },
   _,
   { dataSources },

@@ -1,0 +1,110 @@
+type DescentLevel {
+  unit: String
+  value: Float
+}
+
+input DescentLevelInput {
+  unit: String
+  value: Float!
+}
+
+type Descent implements Node & Timestamped {
+  "UUID of descent"
+  id: ID!
+
+  "User who made this decent"
+  user: User!
+
+  "Section on which was descended"
+  section: Section!
+  "Date and time of start of descent"
+  startedAt: Date!
+
+  "Duration in milliseconds"
+  duration: Int
+  "Water level at the moment of descent"
+  level: DescentLevel
+  "User's comment"
+  comment: String
+  "True if this descent should be visible to everyone"
+  public: Boolean
+
+  "Creation date"
+  createdAt: Date!
+  "Date of last update"
+  updatedAt: Date!
+}
+
+input DescentInput {
+  "UUID of existing descent or null for new desceent"
+  id: ID
+
+  "ID of section which was decended"
+  sectionId: ID!
+  "Date and time of start of descent"
+  startedAt: Date!
+  "Duration in milliseconds"
+  duration: Int
+
+  "Water level at the moment of descent"
+  level: DescentLevelInput
+  "User's comment"
+  comment: String
+  "True if this descent should be visible to everyone"
+  public: Boolean
+}
+
+type DescentEdge {
+  node: Descent!
+  cursor: Cursor!
+}
+
+type DescentsConnection {
+  edges: [DescentEdge!]!
+  pageInfo: PageInfo!
+}
+
+input DescentsFilter {
+  "Min start date of descent"
+  startDate: Date
+  "Max start date of descent"
+  endDate: Date
+  "Range of difficulty of descended section"
+  difficulty: [Float!]
+
+  "ID of user who recorded this descent"
+  userId: String
+  "ID of descended section"
+  sectionId: String
+  "Search string for descended section name"
+  sectionName: String
+}
+
+type Query {
+  """
+  Get descent by id or share token
+  Share token allows to get private descent of other user
+  If none are provided, returns null
+  """
+  descent(id: ID, shareToken: String): Descent
+  """
+  Generates share token that can be used by others to copy private descents
+  """
+  descentShareToken(id: ID!): String
+
+  "Lists descents"
+  descents(filter: DescentsFilter, page: Page): DescentsConnection
+  "Lists descents of current user"
+  myDescents(filter: DescentsFilter, page: Page): DescentsConnection
+}
+
+type Mutation {
+  """
+  Creates or updates descent
+  Shared token can be used to indicated that several descents
+  belonging to different users are the same physical descent.
+  """
+  upsertDescent(descent: DescentInput!, shareToken: String): Descent
+  "Deletes descent by id"
+  deleteDescent(id: ID!): Boolean
+}

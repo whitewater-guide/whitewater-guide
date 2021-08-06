@@ -1,4 +1,4 @@
-import { Section } from '@whitewater-guide/commons';
+import { SectionDetailsFragment } from '@whitewater-guide/clients';
 import React from 'react';
 
 import { useIap } from '../../../../features/purchases';
@@ -7,7 +7,7 @@ import PremiumPlaceholder from './PremiumPlaceholder';
 
 interface Props {
   premium: boolean;
-  section: Section;
+  section: SectionDetailsFragment;
 }
 
 const Placeholder: React.FC<Props> = ({ premium, section }) => {

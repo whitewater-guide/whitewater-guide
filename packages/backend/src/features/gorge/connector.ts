@@ -1,5 +1,5 @@
-import { MeasurementsFilter } from '@whitewater-guide/commons';
 import * as gorge from '@whitewater-guide/gorge';
+import { MeasurementsFilter } from '@whitewater-guide/schema';
 import { DataSource } from 'apollo-datasource';
 import Axios, { AxiosResponse } from 'axios';
 import DataLoader from 'dataloader';
@@ -7,10 +7,10 @@ import { stringify } from 'querystring';
 
 import { Context } from '~/apollo';
 import config from '~/config';
-import db from '~/db';
+import { db } from '~/db';
 
-const GORGE_HOST = config.GORGE_HOST;
-const GORGE_PORT = config.GORGE_PORT;
+const { GORGE_HOST } = config;
+const { GORGE_PORT } = config;
 const GORGE_PATH = '';
 const GORGE_URL = `http://${GORGE_HOST}:${GORGE_PORT}${GORGE_PATH}`;
 
@@ -25,10 +25,15 @@ const DLOptions: DataLoader.Options<Key, gorge.Measurement, string> = {
 
 export class GorgeConnector implements DataSource<Context> {
   private _scripts?: gorge.ScriptDescriptor[];
+
   private _gauges?: gorge.Gauge[];
+
   private _gaugeStatuses?: Map<string, Map<string, gorge.Status>>;
+
   private _jobs?: Map<string, gorge.JobDescription>;
+
   private _jobsPromise?: Promise<AxiosResponse<gorge.JobDescription[]>>;
+
   private readonly _latest: DataLoader<Key, gorge.Measurement | null>;
 
   constructor() {
@@ -124,6 +129,7 @@ export class GorgeConnector implements DataSource<Context> {
           `${GORGE_URL}/jobs/${sourceId}/gauges`,
         );
         sourceMap = new Map();
+        // eslint-disable-next-line no-restricted-syntax, guard-for-in
         for (const gaugeId in resp.data) {
           sourceMap.set(gaugeId, resp.data[gaugeId]);
         }
@@ -202,16 +208,16 @@ export class GorgeConnector implements DataSource<Context> {
   public async getMeasurements(
     script: string,
     code: string,
-    filter: MeasurementsFilter<Date>,
+    filter: MeasurementsFilter,
   ): Promise<gorge.Measurement[]> {
     try {
       const from = filter.from
         ? Math.ceil(filter.from.getTime() / 1000)
         : undefined;
       const to = filter.to ? Math.ceil(filter.to.getTime() / 1000) : undefined;
-      const url =
-        `${GORGE_URL}/measurements/${script}/${encodeURIComponent(code)}?` +
-        stringify({ from, to });
+      const url = `${GORGE_URL}/measurements/${script}/${encodeURIComponent(
+        code,
+      )}?${stringify({ from, to })}`;
       const resp = await Axios.get<gorge.Measurement[]>(url);
       return resp.data;
     } catch (err) {

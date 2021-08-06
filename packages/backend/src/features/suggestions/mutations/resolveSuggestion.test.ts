@@ -1,18 +1,9 @@
-import {
-  anonContext,
-  countRows,
-  fakeContext,
-  runQuery,
-  TIMESTAMP_REGEX,
-  UUID_REGEX,
-} from '@test';
-import {
-  ApolloErrorCodes,
-  MediaKind,
-  SuggestionStatus,
-} from '@whitewater-guide/commons';
+import { countRows, fakeContext, TIMESTAMP_REGEX, UUID_REGEX } from '@test';
+import { ApolloErrorCodes } from '@whitewater-guide/commons';
+import { MediaKind, SuggestionStatus } from '@whitewater-guide/schema';
+import gql from 'graphql-tag';
 
-import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { db, holdTransaction, rollbackTransaction } from '~/db';
 import {
   ADMIN,
   ADMIN_ID,
@@ -26,6 +17,8 @@ import {
   MEDIA_SUGGESTION_ID2,
 } from '~/seeds/test/17_suggestions';
 
+import { testResolveSuggestion } from './resolveSuggestion.test.generated';
+
 let mBefore: number;
 
 beforeAll(async () => {
@@ -35,9 +28,9 @@ beforeAll(async () => {
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
-const upsertQuery = `
+const _mutation = gql`
   mutation resolveSuggestion($id: ID!, $status: SuggestionStatus!) {
-    resolveSuggestion(id: $id, status: $status){
+    resolveSuggestion(id: $id, status: $status) {
       __typename
       id
       description
@@ -63,39 +56,49 @@ const upsertQuery = `
   }
 `;
 
-const resolveSuggestion = (user?: any, status = SuggestionStatus.ACCEPTED) =>
-  runQuery(
-    upsertQuery,
-    { id: MEDIA_SUGGESTION_ID1, status },
-    user ? fakeContext(user) : anonContext(),
-  );
-
 it('anon should not pass', async () => {
-  const result = await resolveSuggestion();
+  const result = await testResolveSuggestion({
+    id: MEDIA_SUGGESTION_ID1,
+    status: SuggestionStatus.Accepted,
+  });
   expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
 });
 
 it('user should not pass', async () => {
-  const result = await resolveSuggestion(TEST_USER);
+  const result = await testResolveSuggestion(
+    { id: MEDIA_SUGGESTION_ID1, status: SuggestionStatus.Accepted },
+    fakeContext(TEST_USER),
+  );
   expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
 });
 
 it('non-owning editor should not pass', async () => {
-  const result = await resolveSuggestion(EDITOR_GA_EC);
+  const result = await testResolveSuggestion(
+    { id: MEDIA_SUGGESTION_ID1, status: SuggestionStatus.Accepted },
+    fakeContext(EDITOR_GA_EC),
+  );
   expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
 });
 
 it('owning editor should resolve', async () => {
-  const result = await resolveSuggestion(EDITOR_NO);
+  const result = await testResolveSuggestion(
+    { id: MEDIA_SUGGESTION_ID1, status: SuggestionStatus.Accepted },
+    fakeContext(EDITOR_NO),
+  );
   expect(result.errors).toBeUndefined();
-  expect(result.data.resolveSuggestion.status).toBe(SuggestionStatus.ACCEPTED);
+  expect(result.data?.resolveSuggestion?.status).toBe(
+    SuggestionStatus.Accepted,
+  );
 });
 
 it('admin should resolve', async () => {
-  const result = await resolveSuggestion(ADMIN);
+  const result = await testResolveSuggestion(
+    { id: MEDIA_SUGGESTION_ID1, status: SuggestionStatus.Accepted },
+    fakeContext(ADMIN),
+  );
   expect(result.errors).toBeUndefined();
-  expect(result.data.resolveSuggestion).toMatchObject({
-    status: SuggestionStatus.ACCEPTED,
+  expect(result.data?.resolveSuggestion).toMatchObject({
+    status: SuggestionStatus.Accepted,
     resolvedAt: expect.stringMatching(TIMESTAMP_REGEX),
     resolvedBy: {
       id: ADMIN_ID,
@@ -104,7 +107,10 @@ it('admin should resolve', async () => {
 });
 
 it('should create section media when resolved', async () => {
-  await resolveSuggestion(ADMIN);
+  await testResolveSuggestion(
+    { id: MEDIA_SUGGESTION_ID1, status: SuggestionStatus.Accepted },
+    fakeContext(ADMIN),
+  );
   const media = await db()
     .select('*')
     .from('media_view')
@@ -113,7 +119,7 @@ it('should create section media when resolved', async () => {
     .first();
   expect(media).toMatchObject({
     id: expect.stringMatching(UUID_REGEX),
-    kind: MediaKind.photo,
+    kind: MediaKind.Photo,
     description: 'media suggestion 1',
     url: 'media_suggestion1.jpg',
     created_by: TEST_USER_ID,
@@ -121,15 +127,17 @@ it('should create section media when resolved', async () => {
 });
 
 it('should NOT create media when rejected', async () => {
-  await resolveSuggestion(ADMIN, SuggestionStatus.REJECTED);
+  await testResolveSuggestion(
+    { id: MEDIA_SUGGESTION_ID1, status: SuggestionStatus.Rejected },
+    fakeContext(ADMIN),
+  );
   const [mAfter] = await countRows(false, 'media');
   expect(mAfter).toBe(mBefore);
 });
 
 it('should not be able to change status back to pending', async () => {
-  const result = await runQuery(
-    upsertQuery,
-    { id: MEDIA_SUGGESTION_ID2, status: SuggestionStatus.PENDING },
+  const result = await testResolveSuggestion(
+    { id: MEDIA_SUGGESTION_ID2, status: SuggestionStatus.Pending },
     fakeContext(ADMIN),
   );
   expect(result).toHaveGraphqlError(ApolloErrorCodes.MUTATION_NOT_ALLOWED);

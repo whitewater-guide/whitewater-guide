@@ -1,5 +1,5 @@
 import MenuItem from '@material-ui/core/MenuItem';
-import { NamedNode } from '@whitewater-guide/commons';
+import { NamedNode } from '@whitewater-guide/schema';
 import React from 'react';
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
   region: NamedNode;
 }
 
-const RegionItem: React.SFC<Props> = ({
+const RegionItem: React.FC<Props> = ({
   region,
   index,
   itemProps,

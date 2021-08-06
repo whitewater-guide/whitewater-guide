@@ -1,6 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
-import { useSectionsFilterOptions } from '@whitewater-guide/clients';
-import { DefaultSectionFilterOptions } from '@whitewater-guide/commons';
+import {
+  DefaultSectionFilterOptions,
+  useSectionsFilterOptions,
+} from '@whitewater-guide/clients';
 import isEqual from 'lodash/isEqual';
 import React, { useCallback } from 'react';
 import { Appbar } from 'react-native-paper';

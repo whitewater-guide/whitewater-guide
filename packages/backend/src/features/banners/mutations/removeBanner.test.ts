@@ -4,17 +4,19 @@ import {
   fakeContext,
   fileExistsInBucket,
   resetTestMinio,
-  runQuery,
 } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
+import gql from 'graphql-tag';
 
 import { holdTransaction, rollbackTransaction } from '~/db';
 import { BANNERS } from '~/s3';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
 import { GALICIA_REGION_DESCR_BANNER2 } from '~/seeds/test/14_banners';
 
-const query = `
-  mutation removeBanner($id: ID!){
+import { testRemoveBanner } from './removeBanner.test.generated';
+
+const _query = gql`
+  mutation removeBanner($id: ID!) {
     removeBanner(id: $id) {
       id
       deleted
@@ -33,17 +35,17 @@ afterAll(() => resetTestMinio(true));
 
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
-    const result = await runQuery(query, variables, anonContext());
+    const result = await testRemoveBanner(variables, anonContext());
     expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
   });
 
   it('user should not pass', async () => {
-    const result = await runQuery(query, variables, fakeContext(TEST_USER));
+    const result = await testRemoveBanner(variables, fakeContext(TEST_USER));
     expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('editor should not pass', async () => {
-    const result = await runQuery(query, variables, fakeContext(EDITOR_GA_EC));
+    const result = await testRemoveBanner(variables, fakeContext(EDITOR_GA_EC));
     expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 });
@@ -62,7 +64,7 @@ describe('effects', () => {
   });
 
   beforeEach(async () => {
-    result = await runQuery(query, variables, fakeContext(ADMIN));
+    result = await testRemoveBanner(variables, fakeContext(ADMIN));
   });
 
   afterEach(() => {

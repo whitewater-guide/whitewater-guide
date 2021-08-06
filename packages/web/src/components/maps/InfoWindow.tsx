@@ -34,7 +34,9 @@ const EVENT_MAP_ENTRIES: Array<[keyof InfoWindowProps, string]> = [
  */
 export class InfoWindow extends React.PureComponent<InfoWindowProps> {
   infoWindow: google.maps.InfoWindow;
+
   containerElement: HTMLElement = document.createElement('div');
+
   listeners: google.maps.MapsEventListener[] = [];
 
   constructor(props: InfoWindowProps) {

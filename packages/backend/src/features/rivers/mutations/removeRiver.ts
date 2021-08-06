@@ -1,13 +1,9 @@
-import { MutationNotAllowedError, TopLevelResolver } from '~/apollo';
-import db from '~/db';
+import { MutationNotAllowedError, MutationResolvers } from '~/apollo';
+import { db } from '~/db';
 
-interface Vars {
-  id: string;
-}
-
-const removeRiver: TopLevelResolver<Vars> = async (
-  root,
-  { id }: Vars,
+const removeRiver: MutationResolvers['removeRiver'] = async (
+  _,
+  { id },
   { dataSources },
 ) => {
   await dataSources.users.assertEditorPermissions({ riverId: id });
@@ -20,7 +16,7 @@ const removeRiver: TopLevelResolver<Vars> = async (
     throw new MutationNotAllowedError('Delete all sections first!');
   }
   const result = await db().table('rivers').del().where({ id }).returning('id');
-  return result && result.length ? result[0] : null;
+  return result?.length ? result[0] : null;
 };
 
 export default removeRiver;

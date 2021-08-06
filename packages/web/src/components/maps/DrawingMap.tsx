@@ -1,16 +1,11 @@
 /* eslint-disable @typescript-eslint/no-redeclare */
 import {
   arrayToGmaps,
+  Coordinate2d,
+  ensureAltitude,
   getCoordinatesPatch,
   gmapsToArray,
 } from '@whitewater-guide/clients';
-import {
-  Coordinate,
-  Coordinate2d,
-  Coordinate3d,
-  CoordinateLoose,
-  withZeroAlt,
-} from '@whitewater-guide/commons';
 import update from 'immutability-helper';
 import React from 'react';
 
@@ -52,17 +47,20 @@ const DrawingStyles = {
 const minPoints = { Point: 1, LineString: 2, Polygon: 3 };
 
 interface Props {
-  points?: Coordinate3d[];
+  points?: CodegenCoordinates[];
   drawingMode: 'LineString' | 'Polygon' | 'Point';
-  bounds: CoordinateLoose[] | null;
-  onChange: (points: Coordinate3d[]) => void;
+  bounds: CodegenCoordinates[] | null;
+  onChange: (points: CodegenCoordinates[]) => void;
   onLoaded?: (map: google.maps.Map) => void;
 }
 
 class DrawingMapInternal extends React.Component<Props> {
   map: google.maps.Map | null = null;
+
   feature: google.maps.Data.Feature | null = null;
+
   ignoreSetGeometryEvent = false;
+
   initialPosition?: InitialPosition;
 
   constructor(props: Props) {
@@ -129,6 +127,7 @@ class DrawingMapInternal extends React.Component<Props> {
         scale: 1,
       };
       const latLng = { lat: points[0][1], lng: points[0][0] };
+      // eslint-disable-next-line no-new
       new google.maps.Marker({
         position: latLng,
         map: this.map,
@@ -174,7 +173,7 @@ class DrawingMapInternal extends React.Component<Props> {
     }
   };
 
-  addFeature = (points: Coordinate[]) => {
+  addFeature = (points: CodegenCoordinates[]) => {
     if (!this.map) {
       return;
     }
@@ -229,7 +228,9 @@ class DrawingMapInternal extends React.Component<Props> {
         }
       }
     } else if (this.props.drawingMode === 'LineString') {
-      let latLngs = (feature.getGeometry() as google.maps.Data.LineString).getArray();
+      let latLngs = (
+        feature.getGeometry() as google.maps.Data.LineString
+      ).getArray();
       if (latLngs.length > 2) {
         latLngs = latLngs.filter((ll) => ll.lat() !== lat && ll.lng() !== lng);
         if (latLngs.length >= 2) {
@@ -274,14 +275,12 @@ class DrawingMapInternal extends React.Component<Props> {
         // Some point with altitude was updated, need to keep the altitude
         patch[2][2] = points[patch[0]][2];
       }
-      onChange(
-        withZeroAlt(update(points, { $splice: [patch] }) as Coordinate3d[]),
-      );
+      onChange(ensureAltitude(update(points, { $splice: [patch] })));
     } else {
       // New geometry was created
-      const newPoints3d = withZeroAlt(newPoints);
+      const newPoints3d = ensureAltitude(newPoints);
       if (points.length === newPoints3d.length) {
-        for (let i = 0; i < points.length; i++) {
+        for (let i = 0; i < points.length; i += 1) {
           newPoints3d[i][2] = points[i][2] || 0;
         }
       }

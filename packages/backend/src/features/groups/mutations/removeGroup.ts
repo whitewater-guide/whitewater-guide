@@ -1,7 +1,7 @@
-import { MutationNotAllowedError, NodeQuery, TopLevelResolver } from '~/apollo';
-import db from '~/db';
+import { MutationNotAllowedError, MutationResolvers } from '~/apollo';
+import { db } from '~/db';
 
-const removeGroup: TopLevelResolver = async (root, { id }: NodeQuery) => {
+const removeGroup: MutationResolvers['removeGroup'] = async (_, { id }) => {
   const { all_regions } = await db()
     .table('groups')
     .select(['all_regions'])

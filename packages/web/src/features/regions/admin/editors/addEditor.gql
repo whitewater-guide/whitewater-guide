@@ -1,0 +1,3 @@
+mutation addEditor($regionId: ID!, $userId: ID!) {
+  addEditor(regionId: $regionId, userId: $userId)
+}

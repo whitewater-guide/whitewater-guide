@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import Snackbar from '@material-ui/core/Snackbar';
 import { Feature, FeatureCollection, LineString } from '@turf/helpers';
-import { Coordinate3d } from '@whitewater-guide/commons';
+import { Coordinate3d } from '@whitewater-guide/clients';
 import React from 'react';
 import Dropzone from 'react-dropzone';
 
@@ -20,7 +20,7 @@ const styles: Styles = {
 };
 
 interface Props {
-  onUpload: (shape: Coordinate3d[]) => void;
+  onUpload: (shape: CodegenCoordinates[]) => void;
 }
 
 interface State {
@@ -56,7 +56,7 @@ export class KmlUploader extends React.PureComponent<Props, State> {
       return;
     }
     const line = lines[0];
-    const coordinates = line.geometry.coordinates;
+    const { coordinates } = line.geometry;
     this.props.onUpload(
       coordinates.map(([lon, lat]) => [lon, lat, 0] as Coordinate3d),
     );
@@ -68,19 +68,17 @@ export class KmlUploader extends React.PureComponent<Props, State> {
 
   render(): React.ReactNode {
     return (
-      <React.Fragment>
+      <>
         <Dropzone onDrop={this.onDrop} multiple={false} accept=".kml">
-          {({ getRootProps, getInputProps }) => {
-            return (
-              <div {...getRootProps()} style={styles.dz}>
-                <Button color="primary" variant="contained" fullWidth={true}>
-                  <Icon className="material-icons">layers</Icon>
-                  {' From KML File'}
-                  <input {...getInputProps()} />
-                </Button>
-              </div>
-            );
-          }}
+          {({ getRootProps, getInputProps }) => (
+            <div {...getRootProps()} style={styles.dz}>
+              <Button color="primary" variant="contained" fullWidth>
+                <Icon className="material-icons">layers</Icon>
+                {' From KML File'}
+                <input {...getInputProps()} />
+              </Button>
+            </div>
+          )}
         </Dropzone>
         <Snackbar
           open={this.state.warningOpen}
@@ -88,7 +86,7 @@ export class KmlUploader extends React.PureComponent<Props, State> {
           autoHideDuration={5000}
           onClose={this.onWarningClosed}
         />
-      </React.Fragment>
+      </>
     );
   }
 }

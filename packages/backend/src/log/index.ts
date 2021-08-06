@@ -24,6 +24,7 @@ interface Payload {
 
 class Logger {
   private _logger: pino.Logger;
+
   private _bindings?: Bindings;
 
   constructor(logger?: pino.Logger) {

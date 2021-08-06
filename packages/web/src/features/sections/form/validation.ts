@@ -1,4 +1,4 @@
-import { SectionInputSchema, TagInputSchema } from '@whitewater-guide/commons';
+import { SectionInputSchema, TagInputSchema } from '@whitewater-guide/schema';
 import * as yup from 'yup';
 
 import { MdEditorSchema } from '../../../formik';

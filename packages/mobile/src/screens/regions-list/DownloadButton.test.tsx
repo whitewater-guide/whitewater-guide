@@ -31,7 +31,7 @@ it('should render loading when region is downloading', () => {
     <DownloadButton
       region={region}
       regionInProgress="__id__"
-      canMakePayments={true}
+      canMakePayments
       downloadRegion={downloadRegion}
     />,
   );
@@ -47,7 +47,7 @@ it('should allow download when no region is in progress', () => {
     <DownloadButton
       region={region}
       regionInProgress={null}
-      canMakePayments={true}
+      canMakePayments
       downloadRegion={downloadRegion}
     />,
   );
@@ -62,7 +62,7 @@ it('should not allow download when other region is in progress', () => {
     <DownloadButton
       region={region}
       regionInProgress="__id2__"
-      canMakePayments={true}
+      canMakePayments
       downloadRegion={downloadRegion}
     />,
   );
@@ -78,7 +78,7 @@ it('should render error on region in progress', () => {
     <DownloadButton
       region={region}
       regionInProgress="__id__"
-      canMakePayments={true}
+      canMakePayments
       downloadRegion={downloadRegion}
       offlineError={err}
     />,
@@ -93,7 +93,7 @@ it('should not render error on region not in progress', () => {
     <DownloadButton
       region={region}
       regionInProgress="__id_2__"
-      canMakePayments={true}
+      canMakePayments
       downloadRegion={downloadRegion}
       offlineError={err}
     />,

@@ -1,6 +1,7 @@
-import { BoomPromoInfo, Region } from '@whitewater-guide/commons';
+import { BoomPromoInfo } from '@whitewater-guide/schema';
 import { useCallback, useReducer } from 'react';
 
+import { PromoRegionFragment } from './promoRegion.generated';
 import { Steps } from './Steps';
 
 export interface CompletedSteps {
@@ -11,7 +12,7 @@ export interface StepperState {
   readonly activeStep: number;
   readonly completedSteps: CompletedSteps;
   readonly promo: BoomPromoInfo | null;
-  readonly region: Region | null;
+  readonly region: PromoRegionFragment | null;
 }
 
 export interface StepperActions {
@@ -41,7 +42,7 @@ const onPromoReceived = (
   payload: BoomPromoInfo,
 ): StepperState => {
   let result: StepperState = { ...state, promo: payload };
-  if (payload && payload.groupName) {
+  if (payload?.groupName) {
     result = completeStep(result, Steps.SELECT_REGION, false);
     return { ...result, activeStep: Steps.CONFIRM };
   }
@@ -50,7 +51,7 @@ const onPromoReceived = (
 
 const onRegionSelected = (
   state: StepperState,
-  region: Region,
+  region: PromoRegionFragment,
 ): StepperState => {
   if (!region.sku) {
     throw new Error('Region must have sku');
@@ -86,11 +87,13 @@ const reducer = (state: StepperState, { type, payload }: Action) => {
       case Steps.CONFIRM:
         result.region = null;
         result = completeStep(result, result.activeStep - 1, false);
-        if (result.promo && result.promo.groupSku) {
+        if (result.promo?.groupSku) {
           result.promo = null;
           shift = 2;
         }
         break;
+      default:
+      // do nothing
     }
     result = completeStep(result, result.activeStep - shift, false);
     return { ...result, activeStep: result.activeStep - shift };

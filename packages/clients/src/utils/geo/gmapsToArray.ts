@@ -1,4 +1,4 @@
-import { Coordinate2d } from '@whitewater-guide/commons';
+import { Coordinate2d } from './types';
 
 interface LatLng {
   lat: number | (() => number);
@@ -6,7 +6,7 @@ interface LatLng {
 }
 
 /**
- * converts google maps coordinates to our coordinates
+ * Converts google maps coordinates to our coordinates
  * @param latLng
  */
 export function gmapsToArray(latLng?: LatLng | null): Coordinate2d | null {

@@ -8,12 +8,12 @@ import TextField from '~/forms/TextField';
 const DescriptionScreen: React.FC = () => {
   const { t } = useTranslation();
   return (
-    <Screen padding={true}>
+    <Screen padding>
       <FullScreenKAV>
         <TextField
           name="description"
-          multiline={true}
-          fullHeight={true}
+          multiline
+          fullHeight
           label={t('screens:addSection.description.label')}
           testID="description"
           textAlignVertical="top"

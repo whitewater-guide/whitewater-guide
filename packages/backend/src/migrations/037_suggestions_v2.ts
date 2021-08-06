@@ -1,12 +1,9 @@
-import {
-  OTHERS_REGION_ID,
-  RegionInput,
-  SuggestionStatus,
-} from '@whitewater-guide/commons';
+import { RegionInput, SuggestionStatus } from '@whitewater-guide/schema';
 import Knex from 'knex';
 import path from 'path';
 
 import { createViews, dropViews, rawUpsert, runSqlFile } from '~/db';
+import { OTHERS_REGION_ID } from '~/features/regions';
 
 import { createTable } from './utils';
 
@@ -69,7 +66,7 @@ export const down = async (db: Knex) => {
       .notNullable()
       .defaultTo(db.raw('uuid_generate_v1mc()'))
       .primary();
-    table.string('status').notNullable().defaultTo(SuggestionStatus.PENDING);
+    table.string('status').notNullable().defaultTo(SuggestionStatus.Pending);
     table
       .uuid('resolved_by')
       .references('id')

@@ -1,0 +1,6 @@
+query sectionAdminSettings($sectionId: ID) {
+  settings: section(id: $sectionId) {
+    id
+    demo
+  }
+}

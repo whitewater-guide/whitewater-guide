@@ -72,7 +72,7 @@ const reducer: Reducer<State, Action> = (state, action) => {
   }
 };
 
-export const IapProvider: React.FC = React.memo(({ children }) => {
+export const IapProvider: React.FC = ({ children }) => {
   const isMounted = useMountedState();
   const [state, dispatch] = useReducer(reducer, initialState);
   const skus = useSkus();
@@ -101,10 +101,11 @@ export const IapProvider: React.FC = React.memo(({ children }) => {
     refresh();
   }, [refresh]);
 
-  return (
-    <IapCtx.Provider value={{ ...state, refresh }}>{children}</IapCtx.Provider>
-  );
-});
+  // eslint-disable-next-line react/jsx-no-constructed-context-values
+  const value: IapContext = { ...state, refresh };
+
+  return <IapCtx.Provider value={value}>{children}</IapCtx.Provider>;
+};
 
 IapProvider.displayName = 'IapProvider';
 

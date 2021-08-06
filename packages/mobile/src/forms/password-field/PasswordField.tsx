@@ -30,7 +30,7 @@ export const PasswordField = React.memo(
     const onFocus = useCallback(() => setWasFocused(true), [setWasFocused]);
     const strengthIndicatorStyle = wasFocused ? undefined : styles.hidden;
     return (
-      <React.Fragment>
+      <>
         <PasswordInput
           {...props}
           ref={inputRef as any}
@@ -43,7 +43,7 @@ export const PasswordField = React.memo(
         {!props.showStrengthIndicator && (
           <HelperText touched={meta.touched} error={meta.error} />
         )}
-      </React.Fragment>
+      </>
     );
   }),
 );

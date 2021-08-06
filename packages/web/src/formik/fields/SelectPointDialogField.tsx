@@ -1,8 +1,4 @@
-import {
-  Coordinate3d,
-  CoordinateLoose,
-  CoordinateSchema,
-} from '@whitewater-guide/commons';
+import { CoordinateSchema } from '@whitewater-guide/schema';
 import { createSafeValidator } from '@whitewater-guide/validation';
 import { useField } from 'formik';
 import React, { useCallback } from 'react';
@@ -12,23 +8,23 @@ import { useFakeHandlers } from '../utils';
 
 interface Props {
   name: string;
-  bounds: CoordinateLoose[] | null;
+  bounds: CodegenCoordinates[] | null;
   onClose: () => void;
 }
 
 const validator = createSafeValidator(CoordinateSchema);
 
-export const SelectPointDialogField: React.FC<Props> = React.memo((props) => {
+export const SelectPointDialogField = React.memo<Props>((props) => {
   const { name, bounds, onClose } = props;
-  const [field] = useField<Coordinate3d | undefined>(name);
-  const point: Coordinate3d | undefined = field.value;
-  const points: Coordinate3d[] | undefined = validator(point)
+  const [field] = useField<CodegenCoordinates | undefined>(name);
+  const point: CodegenCoordinates | undefined = field.value;
+  const points: CodegenCoordinates[] | undefined = validator(point)
     ? undefined
-    : ([point] as Coordinate3d[]);
+    : ([point] as CodegenCoordinates[]);
   const { onChange } = useFakeHandlers(name);
 
   const onSubmit = useCallback(
-    (result: Coordinate3d[]) => onChange(result[0]),
+    (result: CodegenCoordinates[]) => onChange(result[0]),
     [onChange],
   );
 

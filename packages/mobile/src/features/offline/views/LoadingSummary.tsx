@@ -44,7 +44,7 @@ const LoadingSummary: React.FC<Props> = ({ error, refetch }) => {
             <Subheading>{t('commons:checkConnection')}</Subheading>
           )}
         </Subheading>
-        <Button color={theme.colors.primary} compact={true} onPress={onPress}>
+        <Button color={theme.colors.primary} compact onPress={onPress}>
           {t('commons:retry')}
         </Button>
       </View>

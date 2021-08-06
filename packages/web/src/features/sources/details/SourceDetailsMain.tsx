@@ -1,7 +1,7 @@
-import { Source } from '@whitewater-guide/commons';
 import React from 'react';
 
 import { Styles } from '../../../styles';
+import { SourceDetailsFragment } from './sourceDetails.generated';
 
 const styles: Styles = {
   wrapper: {
@@ -23,10 +23,10 @@ const styles: Styles = {
 };
 
 interface Props {
-  source: Source;
+  source: SourceDetailsFragment;
 }
 
-const SourceDetailsMain: React.StatelessComponent<Props> = ({ source }) => (
+const SourceDetailsMain: React.FC<Props> = ({ source }) => (
   <div style={styles.wrapper}>
     <div style={styles.row}>
       <div style={styles.title}>Name</div>

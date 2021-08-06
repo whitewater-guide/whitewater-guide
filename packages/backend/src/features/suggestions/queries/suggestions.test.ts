@@ -1,5 +1,7 @@
-import { anonContext, fakeContext, runQuery, TIMESTAMP_REGEX } from '@test';
-import { ApolloErrorCodes, SuggestionStatus } from '@whitewater-guide/commons';
+import { anonContext, fakeContext, TIMESTAMP_REGEX } from '@test';
+import { ApolloErrorCodes } from '@whitewater-guide/commons';
+import { SuggestionStatus } from '@whitewater-guide/schema';
+import gql from 'graphql-tag';
 
 import { holdTransaction, rollbackTransaction } from '~/db';
 import {
@@ -12,11 +14,13 @@ import {
 import { NORWAY_SJOA_AMOT } from '~/seeds/test/09_sections';
 import { EDIT_SUGGESTION_ID1 } from '~/seeds/test/17_suggestions';
 
+import { testSuggestions } from './suggestions.test.generated';
+
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
-const query = `
-  query suggestions($page: Page, $filter: SuggestionsFilter){
+const _query = gql`
+  query suggestions($page: Page, $filter: SuggestionsFilter) {
     suggestions(page: $page, filter: $filter) {
       nodes {
         __typename
@@ -47,31 +51,29 @@ const query = `
 `;
 
 it('anon should get error', async () => {
-  const result = await runQuery(query, {}, anonContext());
+  const result = await testSuggestions({}, anonContext());
   expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
 });
 
 it('editor should get only suggestions from his region', async () => {
-  const result = await runQuery(query, {}, fakeContext(EDITOR_NO));
+  const result = await testSuggestions({}, fakeContext(EDITOR_NO));
   expect(result.errors).toBeUndefined();
-  expect(result.data.suggestions.count).toBe(3);
-  expect(result.data.suggestions.nodes).toHaveLength(3);
+  expect(result.data?.suggestions?.count).toBe(3);
+  expect(result.data?.suggestions?.nodes).toHaveLength(3);
 });
 
 it('user should get his suggestions', async () => {
-  const result = await runQuery(
-    query,
+  const result = await testSuggestions(
     { filter: { userId: TEST_USER_ID } },
     fakeContext(TEST_USER),
   );
   expect(result.errors).toBeUndefined();
-  expect(result.data.suggestions.count).toBe(2);
-  expect(result.data.suggestions.nodes).toHaveLength(2);
+  expect(result.data?.suggestions?.count).toBe(2);
+  expect(result.data?.suggestions?.nodes).toHaveLength(2);
 });
 
 it('user should not get others suggested sections', async () => {
-  const result = await runQuery(
-    query,
+  const result = await testSuggestions(
     { filter: { userId: TEST_USER_ID } },
     fakeContext(BOOM_USER_1500),
   );
@@ -79,11 +81,11 @@ it('user should not get others suggested sections', async () => {
 });
 
 it('admin should get all suggestions', async () => {
-  const result = await runQuery(query, {}, fakeContext(ADMIN));
+  const result = await testSuggestions({}, fakeContext(ADMIN));
   expect(result.errors).toBeUndefined();
-  expect(result.data.suggestions.count).toBe(6);
-  expect(result.data.suggestions.nodes).toHaveLength(6);
-  expect(result.data.suggestions.nodes[0]).toEqual({
+  expect(result.data?.suggestions?.count).toBe(6);
+  expect(result.data?.suggestions?.nodes).toHaveLength(6);
+  expect(result.data?.suggestions?.nodes[0]).toEqual({
     __typename: 'Suggestion',
     copyright: null,
     createdAt: expect.stringMatching(TIMESTAMP_REGEX),
@@ -106,28 +108,26 @@ it('admin should get all suggestions', async () => {
 });
 
 it('should filter by status', async () => {
-  const result = await runQuery(
-    query,
-    { filter: { status: [SuggestionStatus.ACCEPTED] } },
+  const result = await testSuggestions(
+    { filter: { status: [SuggestionStatus.Accepted] } },
     fakeContext(ADMIN),
   );
   expect(result.errors).toBeUndefined();
-  expect(result.data.suggestions.count).toBe(2);
-  expect(result.data.suggestions.nodes).toHaveLength(2);
+  expect(result.data?.suggestions?.count).toBe(2);
+  expect(result.data?.suggestions?.nodes).toHaveLength(2);
 });
 
 it('should paginate', async () => {
-  const result = await runQuery(
-    query,
+  const result = await testSuggestions(
     {
       page: { offset: 1, limit: 1 },
       filter: {
-        status: [SuggestionStatus.ACCEPTED, SuggestionStatus.REJECTED],
+        status: [SuggestionStatus.Accepted, SuggestionStatus.Rejected],
       },
     },
     fakeContext(ADMIN),
   );
   expect(result.errors).toBeUndefined();
-  expect(result.data.suggestions.count).toBe(4);
-  expect(result.data.suggestions.nodes).toHaveLength(1);
+  expect(result.data?.suggestions?.count).toBe(4);
+  expect(result.data?.suggestions?.nodes).toHaveLength(1);
 });

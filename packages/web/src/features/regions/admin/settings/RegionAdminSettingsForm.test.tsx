@@ -9,12 +9,10 @@ import React from 'react';
 import { FORM_SUCCEEDED, renderForm } from '../../../../formik/test';
 import { RegionAdminSettingsForm } from './RegionAdminSettingsForm';
 
-jest.mock('validator/lib/isUUID', () => {
-  return {
-    __esModule: true,
-    default: () => true,
-  };
-});
+jest.mock('validator/lib/isUUID', () => ({
+  __esModule: true,
+  default: () => true,
+}));
 
 const mocks: RecursiveMockResolver = {
   Region: () => ({

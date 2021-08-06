@@ -18,7 +18,7 @@ export const sendCredentials = (
   user: AccessTokenPayload,
   isNew?: boolean,
   rfrshToken?: string,
-) => {
+): void => {
   // there's no session, so do not call ctx.login
   ctx.state.user = user;
 
@@ -33,7 +33,7 @@ export const sendCredentials = (
     body.isNew = isNew;
   }
 
-  if (ctx.query.web || (ctx.request.body && ctx.request.body.web)) {
+  if (ctx.query.web || (ctx.request.body as Record<string, unknown>)?.web) {
     ctx.cookies.set(ACCESS_TOKEN_COOKIE, accessToken, {
       httpOnly: true,
       secure: config.NODE_ENV === 'production',

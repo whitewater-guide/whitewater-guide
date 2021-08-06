@@ -1,0 +1,18 @@
+fragment ListedBanner on Banner {
+  ...BannerCore
+  ...BannerRegions
+  ...BannerGroups
+  source {
+    url
+    kind
+  }
+}
+
+query listBanners {
+  banners {
+    nodes {
+      ...ListedBanner
+    }
+    count
+  }
+}

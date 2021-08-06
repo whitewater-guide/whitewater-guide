@@ -1,6 +1,6 @@
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import { useChart, useFormulas } from '@whitewater-guide/clients';
-import { Unit } from '@whitewater-guide/commons';
+import { Unit } from '@whitewater-guide/schema';
 import isNil from 'lodash/isNil';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -45,14 +45,14 @@ export const ChartFlowToggle: React.FC = React.memo(() => {
 
   return (
     <Row>
-      <Left row={true}>
+      <Left row>
         <Subheading>{`${t('section:chart.lastRecorded.title')} `}</Subheading>
         <ChartFlowToggleUnit unit={unit} />
       </Left>
-      <Right row={true}>
-        <Paragraph>{`${value} ${t('commons:' + unitName)}`}</Paragraph>
+      <Right row>
+        <Paragraph>{`${value} ${t(`commons:${unitName}`)}`}</Paragraph>
         {unitChangeable && (
-          <Icon primary={true} icon="dots-vertical" onPress={showMenu} />
+          <Icon primary icon="dots-vertical" onPress={showMenu} />
         )}
       </Right>
     </Row>

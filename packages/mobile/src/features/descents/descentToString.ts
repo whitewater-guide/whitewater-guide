@@ -1,12 +1,13 @@
-import { Descent } from '@whitewater-guide/commons';
 import format from 'date-fns/format';
 import { TFunction } from 'i18next';
+
+import { DescentDetailsFragment } from '~/screens/descent/descentDetails.generated';
 
 import descentLevelToString from './descentLevelToString';
 
 export default function descentToString(
   t: TFunction,
-  descent: Descent,
+  descent: DescentDetailsFragment,
 ): string {
   // prettier-ignore
   return `${t('screens:descent.info.section')}: ${descent.section.river.name} - ${descent.section.name} (${descent.section.region.name})

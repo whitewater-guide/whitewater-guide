@@ -11,6 +11,7 @@ export const getAccessTokenContext = (accessToken: string) => ({
   [ACCESS_TOKEN_CTX_KEY]: accessToken,
 });
 
+// eslint-disable-next-line consistent-return
 export const accessTokenLink = setContext(async () => {
   const accessToken = await tokenStorage.getAccessToken();
 

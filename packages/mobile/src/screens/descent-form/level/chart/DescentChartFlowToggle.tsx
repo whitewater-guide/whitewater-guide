@@ -1,5 +1,5 @@
 import { useChart } from '@whitewater-guide/clients';
-import { Unit } from '@whitewater-guide/commons';
+import { Unit } from '@whitewater-guide/schema';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';

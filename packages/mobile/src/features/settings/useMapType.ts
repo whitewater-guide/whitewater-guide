@@ -4,7 +4,7 @@ import { AppSettings, useAppSettings } from './AppSettingsProvider';
 
 export const useMapType = () => {
   const { settings, updateSettings } = useAppSettings();
-  const mapType = settings.mapType;
+  const { mapType } = settings;
   const setMapType = useCallback(
     (mt: AppSettings['mapType']) => updateSettings({ mapType: mt }),
     [updateSettings],

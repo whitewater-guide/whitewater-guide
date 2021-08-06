@@ -64,13 +64,13 @@ export class S3Client {
 
   public renameFile(from: string, to?: string) {
     if (from.indexOf('/') >= 0) {
-      throw new Error('from file name expected, but found: ' + from);
+      throw new Error(`from file name expected, but found: ${from}`);
     }
     if (!to) {
       return from;
     }
     if (to.indexOf('/') >= 0) {
-      throw new Error('to file name expected, but found: ' + to);
+      throw new Error(`to file name expected, but found: ${to}`);
     }
     const [_, fromExt] = from.split('.');
     const [toName, toExt] = to.split('.');

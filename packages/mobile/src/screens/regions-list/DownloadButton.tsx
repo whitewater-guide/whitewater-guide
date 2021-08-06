@@ -1,4 +1,4 @@
-import { Region } from '@whitewater-guide/commons';
+import { Region } from '@whitewater-guide/schema';
 import React from 'react';
 import {
   ActivityIndicator,

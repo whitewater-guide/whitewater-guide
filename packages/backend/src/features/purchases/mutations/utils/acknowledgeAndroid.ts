@@ -1,4 +1,4 @@
-import { PurchaseInput } from '@whitewater-guide/commons';
+import { PurchaseInput } from '@whitewater-guide/schema';
 import Verifier, {
   IVerifier,
   VerificationResponse,

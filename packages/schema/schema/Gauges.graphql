@@ -1,0 +1,99 @@
+"Meta information about gauge processing by whitewater.guide"
+type HarvestStatus {
+  "How many measurements were harvested last time"
+  count: Int
+  "Was last harvest successful or not"
+  success: Boolean
+  "When was this gauge/source last harvested"
+  timestamp: Date
+  "When will this gauge/source be harvested next time"
+  next: Date
+  "Error message from last harvest"
+  error: String
+}
+type Gauge implements NamedNode & Timestamped {
+  "Unique ID"
+  id: ID!
+  "Human-friendly name"
+  name: String!
+  "Unique code from upsteam, or synthetic code if not provided"
+  code: String!
+  "Gauge location"
+  location: Point
+  "Level unit (e.g. m, inches), or null if gauge doesn't measure levels"
+  levelUnit: String
+  "Flow unit (e.g. m3/s, cfs), or null if gauge doesn't measure flows"
+  flowUnit: String
+  "Arbitrary upstream request params"
+  requestParams: JSON @admin
+
+  "Gauge web page (for humans)"
+  url: String
+  "Is gauge being harvested?"
+  enabled: Boolean
+  "Creation date (in whitewater.guide)"
+  createdAt: Date!
+  "Updated date (in whitewater.guide)"
+  updatedAt: Date!
+
+  "Last known measurement"
+  latestMeasurement: Measurement
+  "Deprecated, renamed to latestMeasurement"
+  lastMeasurement: Measurement @deprecated
+  "Last known harvest result"
+  status: HarvestStatus
+
+  "Gauge's data source"
+  source: Source!
+}
+
+input GaugeInput {
+  "UUID of exisitng gauge or null to create new gauge"
+  id: ID
+  "Gauge's source"
+  source: RefInput!
+  "Gauge name"
+  name: String!
+  "Unique code from upsteam, or synthetic code if not provided"
+  code: String!
+  "Gauge location"
+  location: PointInput
+  "Level unit (e.g. m, inches), or null if gauge doesn't measure levels"
+  levelUnit: String
+  "Flow unit (e.g. m3/s, cfs), or null if gauge doesn't measure flows"
+  flowUnit: String
+  "Arbitrary upstream request params"
+  requestParams: JSON
+  "Gauge web page (for humans)"
+  url: String
+}
+
+type GaugesList {
+  nodes: [Gauge!]!
+  count: Int!
+}
+
+input GaugesFilter {
+  "Gauge's source ID"
+  sourceId: ID
+  "Gauge's region ID"
+  regionId: ID
+  "Search string for gauge name"
+  search: String
+}
+
+type Query {
+  "Lists gauges"
+  gauges(filter: GaugesFilter, page: Page): GaugesList!
+  "Gets gauge by ID. Returns null if no ID was provided"
+  gauge(id: ID): Gauge
+}
+
+type Mutation {
+  "Creates or updates gauge"
+  upsertGauge(gauge: GaugeInput!): Gauge @admin
+  "Deletes gauge"
+  removeGauge(id: ID!): ID @admin
+  "Deletes all gauges in one source"
+  removeGauges(sourceId: ID!): [ID] @admin
+}

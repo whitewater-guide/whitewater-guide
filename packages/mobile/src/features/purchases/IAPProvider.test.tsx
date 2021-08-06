@@ -28,6 +28,7 @@ const Consumer: React.FC = () => {
   if (loading) {
     return <ActivityIndicator accessibilityHint="loading" />;
   }
+  /* eslint-disable @typescript-eslint/restrict-template-expressions */
   return (
     <View>
       <Text>{`Can make payments: ${canMakePayments}`}</Text>
@@ -39,32 +40,31 @@ const Consumer: React.FC = () => {
       <Button title="Refresh" onPress={onPress} />
     </View>
   );
+  /* eslint-enable @typescript-eslint/restrict-template-expressions */
 };
 
-const Test: React.FC = () => {
-  return (
-    <IapProvider>
-      <Consumer />
-    </IapProvider>
-  );
-};
+const Test: React.FC = () => (
+  <IapProvider>
+    <Consumer />
+  </IapProvider>
+);
 
 describe('can make payments', () => {
-  it('should be true initially', async () => {
+  it('should be true initially', () => {
     const { findByText } = render(<Test />);
-    await expect(findByText('Can make payments: true')).toBeTruthy();
+    expect(findByText('Can make payments: true')).toBeTruthy();
   });
 
-  it('should be false if iap says so', async () => {
+  it('should be false if iap says so', () => {
     (initConnection as jest.Mock).mockResolvedValue(false);
     const { findByText } = render(<Test />);
-    await expect(findByText('Can make payments: false')).toBeTruthy();
+    expect(findByText('Can make payments: false')).toBeTruthy();
   });
 
-  it('should still be true if initConnection fails', async () => {
+  it('should still be true if initConnection fails', () => {
     (initConnection as jest.Mock).mockRejectedValue(new Error('foo'));
     const { findByText } = render(<Test />);
-    await expect(findByText('Can make payments: false')).toBeTruthy();
+    expect(findByText('Can make payments: false')).toBeTruthy();
   });
 });
 

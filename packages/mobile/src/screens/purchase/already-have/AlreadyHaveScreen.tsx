@@ -29,7 +29,7 @@ const AlreadyHaveScreen: React.FC<PurchaseAlreadyHaveNavProps> = ({
     navigation.dangerouslyGetParent()?.goBack();
   }, [navigation]);
   return (
-    <Screen safeBottom={true}>
+    <Screen safeBottom>
       <View style={styles.container}>
         <Title>
           {t('screens:purchase.buy.title', { region: region.name })}

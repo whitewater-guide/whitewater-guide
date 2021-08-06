@@ -1,24 +1,14 @@
-import { UploadLink } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { PostPolicyVersion } from '@whitewater-guide/schema';
 import { useCallback, useRef, useState } from 'react';
 import { useApolloClient } from 'react-apollo';
 
+import {
+  GetUploadLinkDocument,
+  GetUploadLinkQuery,
+  GetUploadLinkQueryVariables,
+} from './getUploadLink.generated';
 import { FileLike } from './types';
 import { uploadFile } from './uploadFile';
-
-export const UPLOAD_LINK_QUERY = gql`
-  query getUploadLink($version: PostPolicyVersion) {
-    uploadLink(version: $version) {
-      formData
-      key
-      postURL
-    }
-  }
-`;
-
-interface QResult {
-  uploadLink: UploadLink | null;
-}
 
 export interface UseUploadLink {
   upload: (file: FileLike) => Promise<string>;
@@ -37,9 +27,9 @@ export const useUploadLink = (): UseUploadLink => {
       setUploading(true);
       abortControllerRef.current = new AbortController();
       return client
-        .query<QResult>({
-          query: UPLOAD_LINK_QUERY,
-          variables: { version: 'V3' },
+        .query<GetUploadLinkQuery, GetUploadLinkQueryVariables>({
+          query: GetUploadLinkDocument,
+          variables: { version: PostPolicyVersion.V3 },
           fetchPolicy: 'no-cache',
           errorPolicy: 'none',
         })
@@ -50,9 +40,8 @@ export const useUploadLink = (): UseUploadLink => {
               data.uploadLink,
               abortControllerRef.current,
             );
-          } else {
-            throw new Error('failed to get upload link');
           }
+          throw new Error('failed to get upload link');
         })
         .finally(() => {
           setUploading(false);

@@ -1,4 +1,4 @@
-import { MediaKind } from '@whitewater-guide/commons';
+import { MediaKind } from '@whitewater-guide/schema';
 import React from 'react';
 
 import LightboxPhotoView from './LightboxPhotoView';
@@ -12,14 +12,14 @@ interface Props {
 }
 
 const views = {
-  [MediaKind.photo]: LightboxPhotoView,
-  [MediaKind.video]: LightboxVideoView,
-  [MediaKind.blog]: () => null,
+  [MediaKind.Photo]: LightboxPhotoView,
+  [MediaKind.Video]: LightboxVideoView,
+  [MediaKind.Blog]: () => null,
 };
 
 const LightboxView: React.FC<Props> = (props) => {
   const { data } = props;
-  const { kind = MediaKind.photo } = data;
+  const { kind = MediaKind.Photo } = data;
   const Component: React.ComponentType<Props> = views[kind];
   return <Component {...props} />;
 };

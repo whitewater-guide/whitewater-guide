@@ -1,6 +1,5 @@
-import { useRegionsFilterOptions } from '@whitewater-guide/clients';
-import { Connection, filterRegions } from '@whitewater-guide/commons';
-import React, { useCallback, useMemo } from 'react';
+import { useRegionsFilter } from '@whitewater-guide/clients';
+import React, { useCallback } from 'react';
 import { Column } from 'react-virtualized';
 import useRouter from 'use-react-router';
 
@@ -12,13 +11,16 @@ import {
   TableCellRenderer,
 } from '../../../components/tables';
 import { paths } from '../../../utils';
-import { ListedRegion } from './listRegions.query';
+import {
+  ListedRegionFragment,
+  ListRegionsQuery,
+} from './listRegions.generated';
 import RegionNameFilter from './RegionNameFilter';
 import RegionTableActions from './RegionTableActions';
 
-const renderName: TableCellRenderer<ListedRegion, Connection<any>> = ({
-  rowData,
-}) => {
+type TCR = TableCellRenderer<ListedRegionFragment, ListRegionsQuery['regions']>;
+
+const renderName: TCR = ({ rowData }) => {
   if (isEmptyRow(rowData)) {
     return null;
   }
@@ -29,24 +31,20 @@ const renderName: TableCellRenderer<ListedRegion, Connection<any>> = ({
   );
 };
 
-const renderCount: TableCellRenderer<ListedRegion, Connection<any>> = ({
-  cellData,
-}) => (cellData ? cellData.count : null);
+const renderCount: TCR = ({ cellData }) => (cellData ? cellData.count : null);
 
 interface Props {
-  regions: Required<Connection<ListedRegion>>;
+  regions?: ListRegionsQuery['regions'];
   onRemove: (id?: string) => void;
 }
 
-const RegionsTable: React.FC<Props> = React.memo((props) => {
+const RegionsTable = React.memo<Props>((props) => {
   const { regions, onRemove } = props;
-  const { nodes, count } = regions;
+  const { nodes = [], count = 0 } = regions ?? {};
   const { history } = useRouter();
-  const filter = useRegionsFilterOptions();
+  const filtered = useRegionsFilter(nodes);
 
   const renderNameHeader = useCallback(() => <RegionNameFilter />, []);
-
-  const filtered = useMemo(() => filterRegions(nodes, filter), [nodes, filter]);
 
   const onRegionClick = useCallback(
     (id: string) =>
@@ -54,7 +52,7 @@ const RegionsTable: React.FC<Props> = React.memo((props) => {
     [history],
   );
 
-  const renderActions: TableCellRenderer<ListedRegion> = useCallback(
+  const renderActions: TCR = useCallback(
     ({ rowData }) => {
       if (isEmptyRow(rowData)) {
         return null;
@@ -105,13 +103,13 @@ const RegionsTable: React.FC<Props> = React.memo((props) => {
         iconTrue="grade"
         className="centered"
         headerClassName="centered"
-        adminOnly={true}
+        adminOnly
       />
       <BooleanColumn
         width={80}
         label="Visible"
         dataKey="hidden"
-        adminOnly={true}
+        adminOnly
         className="centered"
         headerClassName="centered"
         iconFalse="visibility"

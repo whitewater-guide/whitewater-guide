@@ -1,9 +1,5 @@
-import { render, RenderResult } from '@testing-library/react';
-import {
-  DefaultSectionFilterOptions,
-  Section,
-  SectionFilterOptions,
-} from '@whitewater-guide/commons';
+import FakeTimers from '@sinonjs/fake-timers';
+import { act, render, RenderResult, waitFor } from '@testing-library/react';
 import ApolloClient from 'apollo-client';
 import gql from 'graphql-tag';
 import { MockList } from 'graphql-tools';
@@ -14,22 +10,24 @@ import { dataIdFromObject } from '../../apollo';
 import {
   createFixedProvider,
   FixedProviderOptions,
-  flushPromises,
   mockApolloProvider,
-  MockLink,
 } from '../../test';
-import { POLL_REGION_MEASUREMENTS } from '../regions';
+import { PollRegionMeasurementsDocument } from '../regions';
 import {
-  LIST_SECTIONS,
-  ListSectionsResult,
-  ListSectionsVars,
-} from './listSections.query';
+  ListSectionsDocument,
+  ListSectionsQuery,
+  ListSectionsQueryVariables,
+} from './listSections.generated';
 import { SectionsListProvider } from './SectionsListProvider';
-import { SectionsStatus } from './types';
+import {
+  DefaultSectionFilterOptions,
+  SectionFilterOptions,
+  SectionsStatus,
+} from './types';
 
 type Props = React.ComponentProps<typeof SectionsListProvider>;
 
-const query = LIST_SECTIONS;
+const query = ListSectionsDocument;
 
 // Seed a bit more so some are used to simulated stuff that will be used for updates
 const SEED_COUNT = 5;
@@ -38,16 +36,20 @@ const PAGE_SIZE = 1;
 const POLL_INTERVAL = 1000;
 const TEST_REGION_ID = 'test_region_id';
 
-let seedSections: Section[];
+let seedSections: ListSectionsQuery['sections']['nodes'];
 let seedCount: number;
-let seedData: ListSectionsResult;
+let seedData: ListSectionsQuery;
 let mockedResponses: any[];
-let client: ApolloClient<any>;
-let wrapper: RenderResult | undefined;
-const children = jest.fn(() => null);
 
-const mockVariables = (offset = 0, limit = PAGE_SIZE, updatedAfter?: Date) => ({
-  filter: { regionId: TEST_REGION_ID, updatedAfter },
+const mockVariables = (
+  offset = 0,
+  limit = PAGE_SIZE,
+  updatedAfter?: Date,
+): ListSectionsQueryVariables => ({
+  filter: {
+    regionId: TEST_REGION_ID,
+    updatedAfter: updatedAfter?.toISOString(),
+  },
   page: { limit, offset },
 });
 
@@ -67,8 +69,8 @@ const mockResult = (
 
 interface TestOptions
   extends Overwrite<
-    FixedProviderOptions<ListSectionsResult, ListSectionsVars>,
-    { cache?: ListSectionsResult }
+    FixedProviderOptions<ListSectionsQuery, ListSectionsQueryVariables>,
+    { cache?: ListSectionsQuery }
   > {
   isConnected?: boolean;
   filterOptions?: SectionFilterOptions;
@@ -76,10 +78,14 @@ interface TestOptions
 }
 
 interface Harness {
-  update: (props: Partial<Props>) => void;
+  update: (props: Partial<Props>) => Promise<void>;
+  unmount: () => void;
+  children: jest.Mock;
+  client: ApolloClient<any>;
+  requestSpy: jest.SpyInstance;
 }
 
-const mountInHarness = (options: TestOptions): Harness => {
+const mountInHarness = async (options: TestOptions): Promise<Harness> => {
   const {
     isConnected = true,
     filterOptions = null,
@@ -90,49 +96,61 @@ const mountInHarness = (options: TestOptions): Harness => {
   const FixedProvider = createFixedProvider({
     ...opts,
     cache: cache && {
-      query: LIST_SECTIONS,
+      query,
       data: cache,
       variables: { filter: { regionId: TEST_REGION_ID } },
     },
   });
+  const requestSpy = jest.spyOn(FixedProvider.client.link, 'request');
+  let wrapper: RenderResult | undefined;
+  const children = jest.fn(() => null);
   // 1 item per page
-  wrapper = render(
-    <SectionsListProvider
-      key="test_sections_list_loader"
-      regionId={TEST_REGION_ID}
-      filterOptions={filterOptions}
-      isConnected={isConnected}
-      client={FixedProvider.client}
-      limit={PAGE_SIZE}
-      pollInterval={pollInterval}
-    >
-      {children}
-    </SectionsListProvider>,
-  );
-  client = FixedProvider.client;
+  await act(async () => {
+    wrapper = render(
+      <SectionsListProvider
+        key="test_sections_list_loader"
+        regionId={TEST_REGION_ID}
+        filterOptions={filterOptions}
+        isConnected={isConnected}
+        client={FixedProvider.client}
+        limit={PAGE_SIZE}
+        pollInterval={pollInterval}
+      >
+        {children}
+      </SectionsListProvider>,
+    );
+  });
   return {
-    update: (props) => {
-      wrapper!.rerender(
-        <SectionsListProvider
-          key="test_sections_list_loader"
-          regionId={TEST_REGION_ID}
-          filterOptions={filterOptions}
-          isConnected={isConnected}
-          client={FixedProvider.client}
-          limit={PAGE_SIZE}
-          pollInterval={pollInterval}
-          {...props}
-        >
-          {children}
-        </SectionsListProvider>,
-      );
+    unmount: () => {
+      wrapper?.unmount();
+    },
+    client: FixedProvider.client,
+    requestSpy,
+    children,
+    update: async (props) => {
+      await act(async () => {
+        await wrapper?.rerender(
+          <SectionsListProvider
+            key="test_sections_list_loader"
+            regionId={TEST_REGION_ID}
+            filterOptions={filterOptions}
+            isConnected={isConnected}
+            client={FixedProvider.client}
+            limit={PAGE_SIZE}
+            pollInterval={pollInterval}
+            {...props}
+          >
+            {children}
+          </SectionsListProvider>,
+        );
+      });
     },
   };
 };
 
 const mockPolledResponse = (n: number) => ({
   request: {
-    query: POLL_REGION_MEASUREMENTS,
+    query: PollRegionMeasurementsDocument,
     variables: { regionId: TEST_REGION_ID },
   },
   result: {
@@ -170,14 +188,14 @@ beforeAll(async () => {
     },
   });
   const result = await provider.client.query<
-    ListSectionsResult,
-    ListSectionsVars
+    ListSectionsQuery,
+    ListSectionsQueryVariables
   >({
-    query: LIST_SECTIONS,
+    query,
   });
   seedData = result.data;
-  seedSections = seedData.sections.nodes!;
-  seedCount = seedData.sections.count!;
+  seedSections = seedData.sections.nodes;
+  seedCount = seedData.sections.count;
   // This emulates server with pagination and filtering by date
   // Single link compares request query+variables and responds with result
   mockedResponses = [
@@ -215,23 +233,17 @@ beforeEach(() => {
   jest.clearAllMocks();
 });
 
-afterEach(() => {
-  if (wrapper) {
-    wrapper.unmount();
-  }
-});
-
 // safeguard against query/fragments changes
 it('seed data should match schema', () => {
   expect(seedData).toMatchSnapshot();
 });
 
 it('should read result from cache first', async () => {
-  mountInHarness({
+  const harness = await mountInHarness({
     cache: seedData,
     responses: [],
   });
-  expect(children).nthCalledWith(
+  expect(harness.children).nthCalledWith(
     1,
     expect.objectContaining({
       count: seedCount,
@@ -242,11 +254,11 @@ it('should read result from cache first', async () => {
 });
 
 it('should pass empty list first when cache is empty', async () => {
-  mountInHarness({
+  const harness = await mountInHarness({
     responses: [],
   });
 
-  expect(children).nthCalledWith(
+  expect(harness.children).nthCalledWith(
     1,
     expect.objectContaining({
       count: 0,
@@ -257,62 +269,64 @@ it('should pass empty list first when cache is empty', async () => {
 });
 
 it('should load initial data when cache contains no data', async () => {
-  mountInHarness({
+  const harness = await mountInHarness({
     responses: mockedResponses,
   });
-  await flushPromises(10);
 
-  expect(children).lastCalledWith(
-    expect.objectContaining({
-      count: INITIAL_COUNT,
-      status: SectionsStatus.READY,
-      sections: seedSections.slice(0, INITIAL_COUNT),
-    }),
+  await waitFor(() =>
+    expect(harness.children).lastCalledWith(
+      expect.objectContaining({
+        count: INITIAL_COUNT,
+        status: SectionsStatus.READY,
+        sections: seedSections.slice(0, INITIAL_COUNT),
+      }),
+    ),
   );
 });
 
 it('should load initial data page by page', async () => {
-  mountInHarness({
+  const harness = await mountInHarness({
     responses: mockedResponses,
   });
-  await flushPromises(6);
 
-  expect(children.mock.calls).toMatchObject([
-    [{ count: 0, status: SectionsStatus.READY, sections: [] }],
-    [{ count: 0, status: SectionsStatus.LOADING, sections: [] }],
-    [
-      {
-        count: 3,
-        status: SectionsStatus.LOADING,
-        sections: seedSections.slice(0, 1),
-      },
-    ],
-    [
-      {
-        count: 3,
-        status: SectionsStatus.LOADING,
-        sections: seedSections.slice(0, 2),
-      },
-    ],
-    [
-      {
-        count: 3,
-        status: SectionsStatus.LOADING,
-        sections: seedSections.slice(0, 3),
-      },
-    ],
-    [
-      {
-        count: 3,
-        status: SectionsStatus.READY,
-        sections: seedSections.slice(0, 3),
-      },
-    ],
-  ]);
+  await waitFor(() =>
+    expect(harness.children.mock.calls).toMatchObject([
+      [{ count: 0, status: SectionsStatus.READY, sections: [] }],
+      [{ count: 0, status: SectionsStatus.LOADING, sections: [] }],
+      [
+        {
+          count: 3,
+          status: SectionsStatus.LOADING,
+          sections: seedSections.slice(0, 1),
+        },
+      ],
+      [
+        {
+          count: 3,
+          status: SectionsStatus.LOADING,
+          sections: seedSections.slice(0, 2),
+        },
+      ],
+      [
+        {
+          count: 3,
+          status: SectionsStatus.LOADING,
+          sections: seedSections.slice(0, 3),
+        },
+      ],
+      [
+        {
+          count: 3,
+          status: SectionsStatus.READY,
+          sections: seedSections.slice(0, 3),
+        },
+      ],
+    ]),
+  );
 });
 
 it('should continue loading initial data when cache contains partial data', async () => {
-  mountInHarness({
+  const harness = await mountInHarness({
     cache: {
       sections: {
         __typename: 'SectionsList',
@@ -323,42 +337,42 @@ it('should continue loading initial data when cache contains partial data', asyn
     responses: mockedResponses,
   });
 
-  await flushPromises(6);
-
-  expect(children.mock.calls).toMatchObject([
-    [
-      {
-        count: 3,
-        status: SectionsStatus.READY,
-        sections: seedSections.slice(0, 2),
-      },
-    ],
-    [
-      {
-        count: 3,
-        status: SectionsStatus.LOADING,
-        sections: seedSections.slice(0, 2),
-      },
-    ],
-    [
-      {
-        count: 3,
-        status: SectionsStatus.LOADING,
-        sections: seedSections.slice(0, 3),
-      },
-    ],
-    [
-      {
-        count: 3,
-        status: SectionsStatus.READY,
-        sections: seedSections.slice(0, 3),
-      },
-    ],
-  ]);
+  await waitFor(() =>
+    expect(harness.children.mock.calls).toMatchObject([
+      [
+        {
+          count: 3,
+          status: SectionsStatus.READY,
+          sections: seedSections.slice(0, 2),
+        },
+      ],
+      [
+        {
+          count: 3,
+          status: SectionsStatus.LOADING,
+          sections: seedSections.slice(0, 2),
+        },
+      ],
+      [
+        {
+          count: 3,
+          status: SectionsStatus.LOADING,
+          sections: seedSections.slice(0, 3),
+        },
+      ],
+      [
+        {
+          count: 3,
+          status: SectionsStatus.READY,
+          sections: seedSections.slice(0, 3),
+        },
+      ],
+    ]),
+  );
 });
 
 it('should load updates page by page when cache is full', async () => {
-  mountInHarness({
+  const harness = await mountInHarness({
     cache: {
       sections: {
         __typename: 'SectionsList',
@@ -369,19 +383,19 @@ it('should load updates page by page when cache is full', async () => {
     responses: mockedResponses,
   });
 
-  await flushPromises(6);
-
-  expect(children.mock.calls).toMatchObject([
-    [{ sections: seedSections.slice(0, 3) }],
-    [{ sections: seedSections.slice(0, 3) }],
-    [{ sections: seedSections.slice(0, 4) }],
-    [{ sections: seedSections.slice(0, 5) }],
-    [{ sections: seedSections.slice(0, 5) }],
-  ]);
+  await waitFor(() =>
+    expect(harness.children.mock.calls).toMatchObject([
+      [{ sections: seedSections.slice(0, 3) }],
+      [{ sections: seedSections.slice(0, 3) }],
+      [{ sections: seedSections.slice(0, 4) }],
+      [{ sections: seedSections.slice(0, 5) }],
+      [{ sections: seedSections.slice(0, 5) }],
+    ]),
+  );
 });
 
 it('should change status while loading updates', async () => {
-  mountInHarness({
+  const harness = await mountInHarness({
     cache: {
       sections: {
         __typename: 'SectionsList',
@@ -392,19 +406,19 @@ it('should change status while loading updates', async () => {
     responses: mockedResponses,
   });
 
-  await flushPromises(10);
-
-  expect(children.mock.calls).toMatchObject([
-    [{ status: SectionsStatus.READY }],
-    [{ status: SectionsStatus.LOADING_UPDATES }],
-    [{ status: SectionsStatus.LOADING_UPDATES }],
-    [{ status: SectionsStatus.LOADING_UPDATES }],
-    [{ status: SectionsStatus.READY }],
-  ]);
+  await waitFor(() =>
+    expect(harness.children.mock.calls).toMatchObject([
+      [{ status: SectionsStatus.READY }],
+      [{ status: SectionsStatus.LOADING_UPDATES }],
+      [{ status: SectionsStatus.LOADING_UPDATES }],
+      [{ status: SectionsStatus.LOADING_UPDATES }],
+      [{ status: SectionsStatus.READY }],
+    ]),
+  );
 });
 
 it('should update count after loading updates', async () => {
-  mountInHarness({
+  const harness = await mountInHarness({
     cache: {
       sections: {
         __typename: 'SectionsList',
@@ -415,31 +429,28 @@ it('should update count after loading updates', async () => {
     responses: mockedResponses,
   });
 
-  await flushPromises(10);
-
-  expect(children.mock.calls).toMatchObject([
-    [{ count: 3 }],
-    [{ count: 3 }],
-    [{ count: 4 }],
-    [{ count: 5 }],
-    [{ count: 5 }],
-  ]);
+  await waitFor(() =>
+    expect(harness.children.mock.calls).toMatchObject([
+      [{ count: 3 }],
+      [{ count: 3 }],
+      [{ count: 4 }],
+      [{ count: 5 }],
+      [{ count: 5 }],
+    ]),
+  );
 });
 
 it('should not try to load anything when offline', async () => {
-  const spy = jest.spyOn(MockLink.prototype, 'request');
-  mountInHarness({
+  const harness = await mountInHarness({
     isConnected: false,
     responses: mockedResponses,
   });
 
-  await flushPromises(10);
-
-  expect(spy).not.toBeCalled();
+  expect(harness.requestSpy).not.toBeCalled();
 });
 
 it('should render cache while offline', async () => {
-  mountInHarness({
+  const harness = await mountInHarness({
     cache: {
       sections: {
         __typename: 'SectionsList',
@@ -451,9 +462,7 @@ it('should render cache while offline', async () => {
     isConnected: false,
   });
 
-  await flushPromises(10);
-
-  expect(children).toHaveBeenLastCalledWith(
+  expect(harness.children).toHaveBeenLastCalledWith(
     expect.objectContaining({
       status: SectionsStatus.READY,
       count: INITIAL_COUNT,
@@ -463,7 +472,7 @@ it('should render cache while offline', async () => {
 });
 
 it('should catch up after coming back online', async () => {
-  const harness = mountInHarness({
+  const harness = await mountInHarness({
     cache: {
       sections: {
         __typename: 'SectionsList',
@@ -475,65 +484,65 @@ it('should catch up after coming back online', async () => {
     isConnected: false,
   });
 
-  await flushPromises(10);
-  harness.update({ isConnected: true });
-  await flushPromises(10);
-  // const spy = jest.spyOn(MockLink.prototype, 'request');
-  // expect(spy).toHaveBeenCalledTimes(1);
+  await harness.update({ isConnected: true });
 
-  expect(children).lastCalledWith(
-    expect.objectContaining({
-      status: SectionsStatus.READY,
-      count: INITIAL_COUNT,
-      sections: seedSections.slice(0, INITIAL_COUNT),
-    }),
+  await waitFor(() =>
+    expect(harness.children).lastCalledWith(
+      expect.objectContaining({
+        status: SectionsStatus.READY,
+        count: INITIAL_COUNT,
+        sections: seedSections.slice(0, INITIAL_COUNT),
+      }),
+    ),
   );
 });
 
 it('should release subscription when unmounted', async () => {
-  mountInHarness({
+  const harness = await mountInHarness({
     responses: mockedResponses,
   });
-  const spy = jest.spyOn(MockLink.prototype, 'request');
-  wrapper!.unmount();
-  await flushPromises(10);
+  act(() => {
+    harness.unmount();
+  });
   // initial call when subscribing to query
-  expect(spy).toHaveBeenCalledTimes(1);
+  expect(harness.requestSpy).toHaveBeenCalledTimes(1);
 });
 
 it('should fire polling query immediately', async () => {
-  jest.useFakeTimers();
-  mountInHarness({
+  const clock = FakeTimers.install();
+
+  const harness = await mountInHarness({
     responses: mockedResponses,
     pollInterval: POLL_INTERVAL,
   });
-  await flushPromises(10);
-  const spy = jest.spyOn(MockLink.prototype, 'request');
+
+  await clock.tickAsync(POLL_INTERVAL * 0.5);
   // unwind to point before before first interval
-  jest.advanceTimersByTime(POLL_INTERVAL * 0.5);
-  expect(spy).toHaveBeenLastCalledWith(
+  expect(harness.requestSpy).toHaveBeenLastCalledWith(
     expect.objectContaining({
       operationName: 'pollRegionMeasurements',
       variables: { regionId: TEST_REGION_ID },
     }),
   );
+
+  clock.uninstall();
 });
 
-it('should poll latestMeasurements', async () => {
-  jest.useFakeTimers();
-  mountInHarness({
+it('should continuously poll latestMeasurements', async () => {
+  const clock = FakeTimers.install();
+
+  const harness = await mountInHarness({
     responses: mockedResponses,
     pollInterval: POLL_INTERVAL,
   });
-  await flushPromises(10);
-  const spy = jest.spyOn(MockLink.prototype, 'request');
-  jest.advanceTimersByTime(POLL_INTERVAL * 2.5);
-  expect(spy).toHaveBeenLastCalledWith(
-    expect.objectContaining({
-      operationName: 'pollRegionMeasurements',
-      variables: { regionId: TEST_REGION_ID },
-    }),
-  );
+  await clock.tickAsync(POLL_INTERVAL * 2.5);
+
+  const pollCount = harness.requestSpy.mock.calls.filter(
+    ([op]) => op.operationName === 'pollRegionMeasurements',
+  ).length;
+  expect(pollCount).toBe(3);
+
+  clock.uninstall();
 });
 
 it.each([
@@ -542,8 +551,9 @@ it.each([
 ])(
   'should poll latestMeasurements after coming back online with %s',
   async (_: any, len: number) => {
-    jest.useFakeTimers();
-    const harness = mountInHarness({
+    const clock = FakeTimers.install();
+
+    const harness = await mountInHarness({
       cache: {
         sections: {
           __typename: 'SectionsList',
@@ -555,50 +565,49 @@ it.each([
       isConnected: false,
       pollInterval: POLL_INTERVAL,
     });
-    await flushPromises(10);
-    const spy = jest.spyOn(MockLink.prototype, 'request');
-    harness.update({ isConnected: true });
-    await flushPromises(10);
-    jest.advanceTimersByTime(POLL_INTERVAL * 2.5);
-    expect(spy).toHaveBeenLastCalledWith(
-      expect.objectContaining({
-        operationName: 'pollRegionMeasurements',
-        variables: { regionId: TEST_REGION_ID },
-      }),
-    );
+
+    await harness.update({ isConnected: true });
+    await clock.tickAsync(POLL_INTERVAL * 2.5);
+
+    const pollCount = harness.requestSpy.mock.calls.filter(
+      ([op]) => op.operationName === 'pollRegionMeasurements',
+    ).length;
+    expect(pollCount).toBe(3);
+
+    clock.uninstall();
   },
 );
 
 it('should pass latestMeasurements updated via poll', async () => {
-  jest.useFakeTimers();
-  mountInHarness({
+  const clock = FakeTimers.install();
+
+  const harness = await mountInHarness({
     responses: mockedResponses,
     pollInterval: POLL_INTERVAL,
   });
-  await flushPromises(10);
-  jest.advanceTimersByTime(POLL_INTERVAL * 0.5);
-  await flushPromises(10);
-  jest.advanceTimersByTime(POLL_INTERVAL * 0.6);
-  await flushPromises(10);
-  jest.advanceTimersByTime(POLL_INTERVAL * 1.1);
-  await flushPromises(10);
-  expect(children.mock.calls.pop()).toHaveProperty(
+
+  await clock.tickAsync(POLL_INTERVAL * 2.2);
+
+  expect(harness.children.mock.calls.pop()).toHaveProperty(
     '0.sections.0.gauge.latestMeasurement.flow',
     302,
   );
-  expect(children.mock.calls.pop()).toHaveProperty(
+  expect(harness.children.mock.calls.pop()).toHaveProperty(
     '0.sections.0.gauge.latestMeasurement.flow',
     301,
   );
-  expect(children.mock.calls.pop()).toHaveProperty(
+  expect(harness.children.mock.calls.pop()).toHaveProperty(
     '0.sections.0.gauge.latestMeasurement.flow',
     300,
   );
+
+  clock.uninstall();
 });
 
 it('should pass latestMeasurements updated via poll after coming back online', async () => {
-  jest.useFakeTimers();
-  const harness = mountInHarness({
+  const clock = FakeTimers.install();
+
+  const harness = await mountInHarness({
     cache: {
       sections: {
         __typename: 'SectionsList',
@@ -610,43 +619,56 @@ it('should pass latestMeasurements updated via poll after coming back online', a
     isConnected: false,
     pollInterval: POLL_INTERVAL,
   });
-  await flushPromises(10);
-  harness.update({ isConnected: true });
-  await flushPromises(10);
-  jest.advanceTimersByTime(POLL_INTERVAL * 2.5);
-  await flushPromises(10);
-  expect(children.mock.calls.pop()).toHaveProperty(
+
+  await harness.update({ isConnected: true });
+  await clock.tickAsync(POLL_INTERVAL * 2.5);
+
+  expect(harness.children.mock.calls.pop()).toHaveProperty(
     '0.sections.0.gauge.latestMeasurement.flow',
-    301,
+    302,
   );
+
+  clock.uninstall();
 });
 
 it('should pass updates when is changed outside the query', async () => {
-  const harness = mountInHarness({
+  const harness = await mountInHarness({
     responses: mockedResponses,
-    pollInterval: POLL_INTERVAL,
   });
-  await flushPromises(10);
-  client.writeFragment({
-    data: { __typename: 'Section', id: 'Section.id.1', difficulty: 9 },
-    id: dataIdFromObject({ __typename: 'Section', id: 'Section.id.1' })!,
-    fragment: gql`
-      fragment testFrag on Section {
-        id
-        difficulty
-      }
-    `,
+
+  // wait till initial loading is complete
+  await waitFor(() => {
+    expect(harness.children).toHaveBeenCalledWith(
+      expect.objectContaining({ count: 3, status: SectionsStatus.READY }),
+    );
   });
-  harness.update({});
-  await flushPromises(10);
-  expect(children.mock.calls.pop()).toHaveProperty(
-    '0.sections.0.difficulty',
-    9,
-  );
+
+  act(() => {
+    harness.client.writeFragment({
+      data: { __typename: 'Section', id: 'Section.id.1', difficulty: 9 },
+      id: dataIdFromObject({ __typename: 'Section', id: 'Section.id.1' })!,
+      fragment: gql`
+        fragment testFrag on Section {
+          id
+          difficulty
+        }
+      `,
+    });
+  });
+
+  // Force rerender
+  await harness.update({ key: 'test_sections_list_loader2' } as any);
+
+  await waitFor(() => {
+    const diff = harness.children.mock.calls.find(([arg]: any) =>
+      arg.sections.some((s: any) => s.difficulty === 9),
+    );
+    expect(diff).toBeDefined();
+  });
 });
 
 it('should apply filters', async () => {
-  mountInHarness({
+  const harness = await mountInHarness({
     responses: mockedResponses,
     filterOptions: {
       ...DefaultSectionFilterOptions,
@@ -654,28 +676,40 @@ it('should apply filters', async () => {
       duration: [0, 1000],
     },
   });
-  await flushPromises(10);
-  expect(children).lastCalledWith(
-    expect.objectContaining({
-      sections: [expect.anything()],
-      count: INITIAL_COUNT,
-    }),
-  );
+  await waitFor(() => {
+    expect(harness.children).lastCalledWith(
+      expect.objectContaining({
+        sections: [expect.anything()],
+        count: INITIAL_COUNT,
+      }),
+    );
+  });
 });
 
 it('should load updates on refresh', async () => {
-  mountInHarness({
+  const harness = await mountInHarness({
     responses: mockedResponses,
   });
-  await flushPromises(10);
-  const spy = jest.spyOn(MockLink.prototype, 'request');
-  const props: any = children.mock.calls[children.mock.calls.length - 1];
-  await props[0].refresh();
-  expect(spy).toHaveBeenLastCalledWith(
+
+  // wait till initial loading is complete
+  await waitFor(() => {
+    expect(harness.children).toHaveBeenCalledWith(
+      expect.objectContaining({ count: 3, status: SectionsStatus.READY }),
+    );
+  });
+
+  const props: any =
+    harness.children.mock.calls[harness.children.mock.calls.length - 1];
+  await act(async () => props[0].refresh());
+
+  expect(harness.requestSpy).toHaveBeenLastCalledWith(
     expect.objectContaining({
       operationName: 'listSections',
       variables: {
-        filter: { regionId: TEST_REGION_ID, updatedAfter: expect.any(Date) },
+        filter: {
+          regionId: TEST_REGION_ID,
+          updatedAfter: new Date(2017, 1, 4).toISOString(),
+        },
         page: { offset: 1, limit: 1 },
       },
     }),
@@ -683,21 +717,29 @@ it('should load updates on refresh', async () => {
 });
 
 it('should not load updates when already loading', async () => {
-  mountInHarness({
+  const harness = await mountInHarness({
     responses: mockedResponses,
   });
-  await flushPromises(1);
-  const spy = jest.spyOn(MockLink.prototype, 'request');
-  const props: any = children.mock.calls[children.mock.calls.length - 1];
-  await props[0].refresh();
-  expect(spy).not.toHaveBeenCalledWith(
+  // wait till in loading state
+  await waitFor(() => {
+    expect(harness.children).toHaveBeenCalledWith(
+      expect.objectContaining({ status: SectionsStatus.LOADING }),
+    );
+  });
+
+  const props: any =
+    harness.children.mock.calls[harness.children.mock.calls.length - 1];
+  await act(async () => props[0].refresh());
+  expect(harness.requestSpy).not.toHaveBeenCalledWith(
     expect.objectContaining({
       operationName: 'listSections',
       variables: {
-        filter: { regionId: TEST_REGION_ID, updatedAfter: expect.any(Date) },
+        filter: {
+          regionId: TEST_REGION_ID,
+          updatedAfter: expect.stringContaining('2017'),
+        },
         page: expect.anything(),
       },
     }),
   );
-  await flushPromises();
 });

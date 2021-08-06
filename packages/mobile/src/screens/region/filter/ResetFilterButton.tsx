@@ -1,6 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
-import { useSectionsFilterOptionsSetter } from '@whitewater-guide/clients';
-import { DefaultSectionFilterOptions } from '@whitewater-guide/commons';
+import {
+  DefaultSectionFilterOptions,
+  useSectionsFilterOptionsSetter,
+} from '@whitewater-guide/clients';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'react-native-paper';
@@ -16,7 +18,7 @@ const ResetFilterButton: React.FC = () => {
     goBack();
   }, [setFilterOptions, goBack]);
   return (
-    <Button compact={true} color={theme.colors.textLight} onPress={onPress}>
+    <Button compact color={theme.colors.textLight} onPress={onPress}>
       {t('filter:reset')}
     </Button>
   );

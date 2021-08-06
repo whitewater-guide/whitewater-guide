@@ -1,4 +1,4 @@
-import { GaugeBinding } from '@whitewater-guide/commons';
+import { GaugeBinding } from '@whitewater-guide/schema';
 import React from 'react';
 
 import { getColorForValue } from '../../sections';
@@ -29,8 +29,7 @@ const HorizontalGrid: React.FC<Props> = React.memo((props) => {
     Component,
   } = props;
   const { minimum = 0, maximum = 0, optimum = 0 } = binding || {};
-  const defaultColor =
-    style && style.stroke ? style.stroke.toString() : defColor;
+  const defaultColor = style?.stroke ? style.stroke.toString() : defColor;
   const color = getColorForValue(datum, binding, defaultColor);
   let label;
   if (datum === minimum) {

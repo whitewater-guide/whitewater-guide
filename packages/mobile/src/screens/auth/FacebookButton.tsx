@@ -50,7 +50,7 @@ export const FacebookButton: React.FC<Props> = ({ label }) => {
     ),
     [],
   );
-  const paddedLabel = '  ' + label.trim();
+  const paddedLabel = `  ${label.trim()}`;
 
   return (
     <Button

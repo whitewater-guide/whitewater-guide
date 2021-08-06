@@ -1,0 +1,29 @@
+fragment SectionDetails on Section {
+  ...SectionCore
+  description
+  shape
+  region {
+    id
+    ...RegionLicense
+  }
+  ...SectionEnds
+  ...SectionMeasurements
+  ...SectionPOIs
+  ...SectionTags
+  ...SectionLicense
+  ...TimestampedMeta
+}
+
+query sectionDetails($sectionId: ID, $withMedia: Boolean!, $thumbSize: Int) {
+  section(id: $sectionId) {
+    ...SectionDetails
+    media @include(if: $withMedia) {
+      nodes {
+        ...MediaCore
+        image
+        thumb: image(width: $thumbSize, height: $thumbSize)
+      }
+      count
+    }
+  }
+}

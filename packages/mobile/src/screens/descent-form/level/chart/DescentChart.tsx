@@ -1,6 +1,6 @@
 import { useLayout } from '@react-native-community/hooks';
 import { useChart } from '@whitewater-guide/clients';
-import { DescentLevelInput } from '@whitewater-guide/commons';
+import { DescentLevelInput } from '@whitewater-guide/schema';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
@@ -40,7 +40,7 @@ export const DescentChart: React.FC<Props> = ({ onLoaded, startedAt }) => {
     return <Loading />;
   }
   if (!data || data.length === 0) {
-    return <NoChart noData={true} />;
+    return <NoChart noData />;
   }
   return (
     <View style={styles.container} onLayout={onLayout}>

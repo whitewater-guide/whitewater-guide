@@ -49,10 +49,10 @@ export const ChartPeriodToggle: React.FC = React.memo(() => {
   const index = days > 10 ? 'month' : days > 2 ? 'week' : 'day';
   return (
     <Row>
-      <Left row={true}>
+      <Left row>
         <Subheading>{t('section:chart.periodToggle.title')}</Subheading>
       </Left>
-      <Right row={true}>
+      <Right row>
         <Paragraph style={styles.link} onPress={showMenu}>
           {t(`section:chart.periodToggle.${index}`)}
         </Paragraph>

@@ -9,11 +9,7 @@ import GaugeForm from './form';
 const GaugeRoute: React.FC<RouteComponentProps> = ({ match }) => (
   <Suspense fallback={<Loading />}>
     <Switch>
-      <AdminRoute
-        exact={true}
-        path={`${match.path}/settings`}
-        component={GaugeForm}
-      />
+      <AdminRoute exact path={`${match.path}/settings`} component={GaugeForm} />
       <Route component={GaugeDetails} />
     </Switch>
   </Suspense>

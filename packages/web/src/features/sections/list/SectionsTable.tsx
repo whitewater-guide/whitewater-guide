@@ -5,9 +5,10 @@ import {
   formatDistanceToNow,
   getBindingFormula,
   getSectionColor,
+  ListedSectionFragment,
   renderDifficulty,
+  sectionName,
 } from '@whitewater-guide/clients';
-import { Section, sectionName } from '@whitewater-guide/commons';
 import parseISO from 'date-fns/parseISO';
 import { History } from 'history';
 import isNil from 'lodash/isNil';
@@ -50,7 +51,7 @@ export default class SectionsTable extends React.PureComponent<Props> {
     history.push(`/regions/${regionId}/sections/${id}#main`);
   };
 
-  renderName: TableCellRenderer<Section> = ({ rowData }) => {
+  renderName: TableCellRenderer<ListedSectionFragment> = ({ rowData }) => {
     if (isEmptyRow(rowData)) {
       return null;
     }
@@ -63,53 +64,50 @@ export default class SectionsTable extends React.PureComponent<Props> {
 
   renderNameHeader = () => <NameFilter />;
 
-  renderDifficulty: TableCellRenderer<Section> = ({ rowData }) => {
+  renderDifficulty: TableCellRenderer<ListedSectionFragment> = ({
+    rowData,
+  }) => {
     if (isEmptyRow(rowData)) {
       return null;
     }
     return renderDifficulty(rowData);
   };
 
-  renderHidden: TableCellRenderer<Section> = ({ rowData }) => {
+  renderHidden: TableCellRenderer<ListedSectionFragment> = ({ rowData }) => {
     if (isEmptyRow(rowData)) {
       return null;
     }
     return rowData.hidden ? <Icon>visibility_off</Icon> : null;
   };
 
-  renderDemo: TableCellRenderer<Section> = ({ rowData }) => {
+  renderDemo: TableCellRenderer<ListedSectionFragment> = ({ rowData }) => {
     if (isEmptyRow(rowData)) {
       return null;
     }
     return rowData.demo ? <Icon>lock_open</Icon> : null;
   };
 
-  renderRating: TableCellRenderer<Section> = ({ rowData }) => {
+  renderRating: TableCellRenderer<ListedSectionFragment> = ({ rowData }) => {
     if (isEmptyRow(rowData)) {
       return null;
     }
     return (
-      <Rating
-        value={rowData.rating}
-        size="small"
-        precision={0.5}
-        readOnly={true}
-      />
+      <Rating value={rowData.rating} size="small" precision={0.5} readOnly />
     );
   };
 
-  renderValue: TableCellRenderer<Section> = ({ rowData }) => {
+  renderValue: TableCellRenderer<ListedSectionFragment> = ({ rowData }) => {
     if (isEmptyRow(rowData)) {
       return null;
     }
-    const { gauge, flows, levels }: Section = rowData;
+    const { gauge, flows, levels } = rowData;
     if (!gauge) {
       return null;
     }
     const { latestMeasurement, flowUnit, levelUnit } = gauge;
     if (latestMeasurement) {
       const { timestamp, flow, level } = latestMeasurement;
-      const v = flow ? flow : level;
+      const v = flow || level;
       const unit = flow ? flowUnit : levelUnit;
       const formula = getBindingFormula(flow ? flows : levels);
       const fromNow = formatDistanceToNow(parseISO(timestamp), {
@@ -128,7 +126,7 @@ export default class SectionsTable extends React.PureComponent<Props> {
     return null;
   };
 
-  renderStatus: TableCellRenderer<Section> = ({ rowData }) => {
+  renderStatus: TableCellRenderer<ListedSectionFragment> = ({ rowData }) => {
     if (isEmptyRow(rowData)) {
       return null;
     }
@@ -153,7 +151,7 @@ export default class SectionsTable extends React.PureComponent<Props> {
     return null;
   };
 
-  renderActions: TableCellRenderer<Section> = ({ rowData }) => {
+  renderActions: TableCellRenderer<ListedSectionFragment> = ({ rowData }) => {
     if (isEmptyRow(rowData)) {
       return null;
     }

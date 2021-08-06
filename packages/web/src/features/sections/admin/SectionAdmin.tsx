@@ -1,16 +1,20 @@
 import Box from '@material-ui/core/Box';
-import { SectionAdminSettings } from '@whitewater-guide/commons';
+import { SectionAdminSettings } from '@whitewater-guide/schema';
 import React from 'react';
 
 import { FormikCard, useApolloFormik } from '../../../formik';
 import { CheckboxField } from '../../../formik/fields';
 import {
-  ADMINISTRATE_SECTION_MUTATION,
-  MVars,
-} from './administrateSection.mutation';
+  AdministrateSectionDocument,
+  AdministrateSectionMutationVariables,
+} from './administrateSection.generated';
 import makeFormToMutation from './makeFormToMutation';
 import queryToForm from './queryToForm';
-import { QResult, QVars, SECTION_ADMIN_QUERY } from './sectionAdmin.query';
+import {
+  SectionAdminSettingsDocument,
+  SectionAdminSettingsQuery,
+  SectionAdminSettingsQueryVariables,
+} from './sectionAdminSettings.generated';
 import { RouterParams } from './types';
 
 interface Props {
@@ -22,13 +26,18 @@ interface Props {
 const SectionAdmin: React.FC<Props> = ({ match }) => {
   const formToMutation = makeFormToMutation(match.params.sectionId);
 
-  const formik = useApolloFormik<QVars, QResult, SectionAdminSettings, MVars>({
-    query: SECTION_ADMIN_QUERY,
+  const formik = useApolloFormik<
+    SectionAdminSettingsQueryVariables,
+    SectionAdminSettingsQuery,
+    SectionAdminSettings,
+    AdministrateSectionMutationVariables
+  >({
+    query: SectionAdminSettingsDocument,
     queryOptions: {
       variables: { sectionId: match.params.sectionId },
     },
     queryToForm,
-    mutation: ADMINISTRATE_SECTION_MUTATION,
+    mutation: AdministrateSectionDocument,
     formToMutation,
   });
 

@@ -2,8 +2,9 @@ import {
   BannerKind,
   BannerPlacement,
   MediaKind,
-  TAG_CATEGORIES,
-} from '@whitewater-guide/commons';
+  TagCategory,
+  typeDefs,
+} from '@whitewater-guide/schema';
 import { ApolloClient } from 'apollo-client';
 import { SchemaLink } from 'apollo-link-schema';
 import { GraphQLFieldResolver, GraphQLResolveInfo } from 'graphql';
@@ -57,21 +58,13 @@ export interface MockedProviderOptions {
   mocks?: RecursiveMockResolver;
 }
 
+const TAG_CATEGORIES = Object.values(TagCategory);
+
 export const mockApolloClient = (
   options: MockedProviderOptions = {},
 ): ApolloClient<any> & { resetCounters: () => void } => {
   const { Query = {}, Mutation = {}, mocks = {} } = options;
-  let typeDefs: any = [];
-  try {
-    // set global.__GRAPHQL_TYPEDEFS_MODULE__ in jest's setupTests file
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const typedefsModule = global.__GRAPHQL_TYPEDEFS_MODULE__;
-    typeDefs = typedefsModule.default;
-  } catch {
-    throw new Error('Please run clients.pretest to load typedefs');
-  }
-  const schema = makeExecutableSchema({
+  let schema = makeExecutableSchema({
     typeDefs,
     resolvers: { JSON: GraphQLJSON },
   });
@@ -99,7 +92,7 @@ export const mockApolloClient = (
     },
     MediaKind: (_, __, { counters }, info) => {
       const { seq } = counters.resolveNext(info);
-      return [MediaKind.photo, MediaKind.video, MediaKind.blog][seq % 3];
+      return [MediaKind.Photo, MediaKind.Video, MediaKind.Blog][seq % 3];
     },
     TagCategory: (_, __, { counters }, info) => {
       const { seq } = counters.resolveNext(info);
@@ -125,9 +118,13 @@ export const mockApolloClient = (
       result.setDate(result.getDate() + seq);
       return result;
     },
+    Coordinates: (_, __, { counters }, info) => {
+      const { seq } = counters.resolveNext(info);
+      return [seq, seq + 1, seq + 2];
+    },
   };
 
-  addMocksToSchema({
+  schema = addMocksToSchema({
     schema,
     mocks: {
       ...primitiveMocks,

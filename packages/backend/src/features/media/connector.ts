@@ -1,9 +1,9 @@
-import { Media, MediaInput, MediaKind } from '@whitewater-guide/commons';
+import { Media, MediaInput, MediaKind } from '@whitewater-guide/schema';
 import { UserInputError } from 'apollo-server-koa';
 import { GraphQLResolveInfo } from 'graphql';
 import { QueryBuilder } from 'knex';
 
-import db from '~/db';
+import { db, Sql } from '~/db';
 import {
   FieldsMap,
   ManyBuilderOptions,
@@ -13,19 +13,18 @@ import { rawUpsert } from '~/db/rawUpsert';
 import log from '~/log';
 import { MEDIA, s3Client, TEMP } from '~/s3';
 
-import { MediaRaw } from './types';
 import { insertLog, logDiffer } from './utils';
 
-const FIELDS_MAP: FieldsMap<Media, MediaRaw> = {
+const FIELDS_MAP: FieldsMap<Media, Sql.MediaView> = {
   deleted: null,
   image: null,
 };
 
-interface GetManyOptions extends ManyBuilderOptions<MediaRaw> {
+interface GetManyOptions extends ManyBuilderOptions<Sql.MediaView> {
   sectionId: string;
 }
 
-export class MediaConnector extends OffsetConnector<Media, MediaRaw> {
+export class MediaConnector extends OffsetConnector<Media, Sql.MediaView> {
   constructor() {
     super();
     this._tableName = 'media_view';
@@ -57,18 +56,20 @@ export class MediaConnector extends OffsetConnector<Media, MediaRaw> {
       throw new Error('user not defined');
     }
     let size = 0;
-    let url = input.url;
-    if (input.kind === MediaKind.photo) {
+    let { url } = input;
+    if (input.kind === MediaKind.Photo) {
       url = s3Client.getLocalFileName(input.url) || url;
-      try {
-        const stat = await s3Client.statObject(TEMP, url);
-        size = stat.ContentLength ?? 0;
-      } catch (e) {
-        log.error({
-          message: 'Failed to get temp file size',
-          error: e,
-          extra: { media: input },
-        });
+      if (url) {
+        try {
+          const stat = await s3Client.statObject(TEMP, url);
+          size = stat.ContentLength ?? 0;
+        } catch (e) {
+          log.error({
+            message: 'Failed to get temp file size',
+            error: e,
+            extra: { media: input },
+          });
+        }
       }
     }
     const media = {

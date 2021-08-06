@@ -1,5 +1,6 @@
 export class IAPError extends Error {
   public description?: string;
+
   public options?: Record<string, string | undefined>;
 
   constructor(

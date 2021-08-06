@@ -1,16 +1,18 @@
-import {
-  fakeContext,
-  fileExistsInBucket,
-  resetTestMinio,
-  runQuery,
-} from '@test';
+import { fakeContext, fileExistsInBucket, resetTestMinio } from '@test';
+import { PostPolicyVersion } from '@whitewater-guide/schema';
+import gql from 'graphql-tag';
 import superagent from 'superagent';
 
 import { holdTransaction, rollbackTransaction } from '~/db';
 import { CONTENT_BUCKET, TEMP } from '~/s3';
 import { TEST_USER, TEST_USER_ID } from '~/seeds/test/01_users';
 
-const query = `
+import {
+  testUploadLink,
+  UploadLinkQueryVariables,
+} from './uploadLink.test.generated';
+
+const _query = gql`
   query uploadLink($version: PostPolicyVersion) {
     uploadLink(version: $version) {
       postURL
@@ -20,8 +22,6 @@ const query = `
   }
 `;
 
-const variables = {};
-
 beforeEach(async () => {
   await holdTransaction();
   await resetTestMinio();
@@ -30,14 +30,14 @@ afterEach(rollbackTransaction);
 afterAll(() => resetTestMinio(true));
 
 describe('response', () => {
-  it.each([
-    ['current version', { version: 'V3' }],
+  it.each<[string, UploadLinkQueryVariables]>([
+    ['current version', { version: PostPolicyVersion.V3 }],
     ['legacy mobile version', {}],
   ])('should return correct result for %s', async (_, vars) => {
     const { MINIO_HOST, MINIO_PORT } = process.env;
-    const result = await runQuery(query, vars, fakeContext(TEST_USER));
+    const result = await testUploadLink(vars, fakeContext(TEST_USER));
     expect(result.errors).toBeUndefined();
-    expect(result.data!.uploadLink).toEqual({
+    expect(result.data?.uploadLink).toEqual({
       postURL: `http://${MINIO_HOST}:${MINIO_PORT}/${CONTENT_BUCKET}`,
       formData: {
         bucket: CONTENT_BUCKET,
@@ -54,15 +54,15 @@ describe('response', () => {
 });
 
 describe('uploads', () => {
-  let postURL: string;
+  let postURL: string | undefined;
   let formData: any;
-  let key: string;
+  let key: string | undefined | null;
 
   beforeEach(async () => {
-    const result = await runQuery(query, variables, fakeContext(TEST_USER));
-    postURL = result.data!.uploadLink.postURL;
-    formData = result.data!.uploadLink.formData;
-    key = result.data!.uploadLink.key;
+    const result = await testUploadLink({}, fakeContext(TEST_USER));
+    postURL = result.data?.uploadLink?.postURL;
+    formData = result.data?.uploadLink?.formData;
+    key = result.data?.uploadLink?.key;
   });
 
   it.each([
@@ -70,14 +70,16 @@ describe('uploads', () => {
     ['with .jpg extension', '.jpg', '47b0b3eb4caad3eda2040a9d314546f1'],
     ['with .png extension', '.png', '007bf86b9acef7ed24ac2858a182c0e0'],
   ])('should upload new file %s', async (_, extension, etag) => {
-    const req = superagent.post(postURL);
+    const req = superagent.post(postURL!);
     const data = {
       ...formData,
       key: `${key}${extension}`,
       'Content-Type': 'image/*',
     };
 
-    Object.entries(data).forEach(([k, v]) => req.field(k, v as any));
+    Object.entries(data).forEach(([k, v]) => {
+      req.field(k, v as any);
+    });
     req.attach(
       'file',
       `${__dirname}/__tests__/upload_me${extension}`,
@@ -92,16 +94,18 @@ describe('uploads', () => {
       },
     });
 
-    const filename = key.replace(`${TEMP}/`, '');
+    const filename = key!.replace(`${TEMP}/`, '');
     await expect(
       fileExistsInBucket(TEMP, `${filename}${extension}`, etag),
     ).resolves.toBe(true);
   });
 
   it('should not upload when key does not starts with given prefix', async () => {
-    const jpgReq = superagent.post(postURL);
+    const jpgReq = superagent.post(postURL!);
     const jpgData = { ...formData, key: 'upload_me.jpg' };
-    Object.entries(jpgData).forEach(([k, v]) => jpgReq.field(k, v as any));
+    Object.entries(jpgData).forEach(([k, v]) => {
+      jpgReq.field(k, v as any);
+    });
     jpgReq.attach(
       'file',
       `${__dirname}/__tests__/upload_me.jpg`,

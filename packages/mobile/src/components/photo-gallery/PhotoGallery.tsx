@@ -1,4 +1,4 @@
-import { License } from '@whitewater-guide/commons';
+import { License } from '@whitewater-guide/schema';
 import React, { useCallback, useMemo } from 'react';
 import { Modal, StyleSheet } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
@@ -73,9 +73,10 @@ export const PhotoGallery: React.FC<Props> = React.memo((props) => {
     [],
   );
 
-  const renderImage = useCallback((opts: any) => <ImageComponent {...opts} />, [
-    ImageComponent,
-  ]);
+  const renderImage = useCallback(
+    (opts: any) => <ImageComponent {...opts} />,
+    [ImageComponent],
+  );
 
   if (photos.length === 0) {
     return null;

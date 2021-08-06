@@ -7,10 +7,8 @@ import DescentFormLevelView from './DescentFormLevelView';
 
 export const DescentFormLevelScreen: React.FC<DescentFormDateNavProps> = (
   props,
-) => {
-  return (
-    <DescentFormScreen safeBottom={true} padding={true}>
-      <DescentFormLevelView {...props} />
-    </DescentFormScreen>
-  );
-};
+) => (
+  <DescentFormScreen safeBottom padding>
+    <DescentFormLevelView {...props} />
+  </DescentFormScreen>
+);

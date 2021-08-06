@@ -35,7 +35,7 @@ const LoginStepView: React.FC<Props> = (props) => {
     <StepContent {...stepContentProps}>
       <FormikTextField
         name="email"
-        fullWidth={true}
+        fullWidth
         label="email"
         autoComplete="username"
         margin="normal"
@@ -43,21 +43,17 @@ const LoginStepView: React.FC<Props> = (props) => {
       <FormikPasswordField
         name="password"
         autoComplete="new-password"
-        fullWidth={true}
+        fullWidth
         label={t('login:password')}
       />
       {!!errors && !!errors.form && (
-        <Typography
-          gutterBottom={true}
-          noWrap={true}
-          style={{ color: red[500] }}
-        >
+        <Typography gutterBottom noWrap style={{ color: red[500] }}>
           {t(errors.form)}
         </Typography>
       )}
       <div>
         <NextButton
-          fullWidth={true}
+          fullWidth
           disabled={!isValid || !!isLoadingFB}
           onClick={onPressLocal}
           loading={!!isLoadingLocal}

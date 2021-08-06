@@ -31,7 +31,7 @@ it('should read initial state', async () => {
 
 it('should set some value and then read it initial state', async () => {
   const { errors: mutateErrors } = await client.mutate<
-    void,
+    unknown,
     AppErrorMutationVars
   >({
     mutation: APP_ERROR_MUTATION,
@@ -57,7 +57,7 @@ it('should set some value and then read it initial state', async () => {
 });
 
 it('should set null', async () => {
-  await client.mutate<void, AppErrorMutationVars>({
+  await client.mutate<unknown, AppErrorMutationVars>({
     mutation: APP_ERROR_MUTATION,
     variables: {
       error: new AppError({
@@ -69,7 +69,7 @@ it('should set null', async () => {
       }),
     },
   });
-  await client.mutate<void, AppErrorMutationVars>({
+  await client.mutate<unknown, AppErrorMutationVars>({
     mutation: APP_ERROR_MUTATION,
     variables: {
       error: null,

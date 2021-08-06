@@ -6,6 +6,35 @@ import { MEDIA, s3Client } from '~/s3';
 
 const VIEWS = ['media'];
 
+interface BucketFile {
+  name: string;
+  size: number;
+}
+
+function readFiles(): Promise<BucketFile[]> {
+  return new Promise((resolve) => {
+    const files: BucketFile[] = [];
+    s3Client
+      .listObjects(MEDIA)
+      .on('data', ({ name, size }) => files.push({ name, size }))
+      .on('end', () => resolve(files))
+      .on('error', () => resolve([]));
+  });
+}
+
+async function setFileSizes(db: Knex) {
+  await db.raw('CREATE TEMP TABLE media_files (name varchar, size integer)');
+  const files = await readFiles();
+  await db.table('media_files').insert(files);
+  // Knex doesn't support UPDATE FROM: https://github.com/tgriesser/knex/issues/557
+  await db.raw(`UPDATE "media"
+                SET "size" = "media_files"."size"
+                FROM "media_files"
+                WHERE "media"."url" = "media_files"."name"
+  `);
+  await db.raw('DROP TABLE media_files');
+}
+
 /**
  * This patch adds cover file size column to media
  */
@@ -33,34 +62,5 @@ export const down = async (db: Knex) => {
   await createViews(db, 7, ...VIEWS);
   await runSqlFile(db, path.resolve(__dirname, '001/upsert_section_media.sql'));
 };
-
-interface BucketFile {
-  name: string;
-  size: number;
-}
-
-function readFiles(): Promise<BucketFile[]> {
-  return new Promise((resolve) => {
-    const files: BucketFile[] = [];
-    s3Client
-      .listObjects(MEDIA)
-      .on('data', ({ name, size }) => files.push({ name, size }))
-      .on('end' as any, () => resolve(files))
-      .on('error', () => resolve([]));
-  });
-}
-
-async function setFileSizes(db: Knex) {
-  await db.raw('CREATE TEMP TABLE media_files (name varchar, size integer)');
-  const files = await readFiles();
-  await db.table('media_files').insert(files);
-  // Knex doesn't support UPDATE FROM: https://github.com/tgriesser/knex/issues/557
-  await db.raw(`UPDATE "media"
-                SET "size" = "media_files"."size"
-                FROM "media_files"
-                WHERE "media"."url" = "media_files"."name"
-  `);
-  await db.raw('DROP TABLE media_files');
-}
 
 export const configuration = { transaction: true };

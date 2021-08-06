@@ -1,4 +1,4 @@
-import { GaugeBinding } from '@whitewater-guide/commons';
+import { GaugeBinding } from '@whitewater-guide/schema';
 import React from 'react';
 import { TextAnchorType } from 'victory-core';
 
@@ -27,7 +27,7 @@ const HorizontalLabel: React.FC<Props> = React.memo((props) => {
     defaultColor: defColor,
     Component,
   } = props;
-  const defaultColor = style && style.fill ? style.fill.toString() : defColor;
+  const defaultColor = style?.fill ? style.fill.toString() : defColor;
   const color = getColorForValue(datum, binding, defaultColor);
   return (
     <Component

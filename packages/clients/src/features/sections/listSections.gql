@@ -1,0 +1,20 @@
+fragment ListedSection on Section {
+  ...SectionCore
+  region {
+    id
+  }
+  ...SectionEnds
+  ...SectionMeasurements
+  ...SectionTags
+  updatedAt
+}
+
+query listSections($page: Page, $filter: SectionsFilter) {
+  sections(page: $page, filter: $filter)
+    @connection(key: "sections", filter: ["filter"]) {
+    nodes {
+      ...ListedSection
+    }
+    count
+  }
+}

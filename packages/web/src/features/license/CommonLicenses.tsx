@@ -6,7 +6,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { COMMON_LICENSES, CommonLicense } from '@whitewater-guide/commons';
+import { COMMON_LICENSES, CommonLicense } from '@whitewater-guide/clients';
 import { useFormikContext } from 'formik';
 import React, { useState } from 'react';
 import useBoolean from 'react-use/lib/useBoolean';
@@ -38,7 +38,7 @@ const CommonLicenses: React.FC<Props> = ({ name }) => {
   };
 
   return (
-    <React.Fragment>
+    <>
       <Button color="primary" variant="text" onClick={toggleOpen}>
         Select one of standard licenses...
       </Button>
@@ -52,7 +52,6 @@ const CommonLicenses: React.FC<Props> = ({ name }) => {
             onChange={(e) => setValue(e.target.value as CommonLicense)}
           >
             {COMMON_LICENSES.map((l) => (
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               <MenuItem key={l.key} value={l as any}>
                 {l.name}
               </MenuItem>
@@ -67,7 +66,7 @@ const CommonLicenses: React.FC<Props> = ({ name }) => {
           </Button>
         </DialogActions>
       </Dialog>
-    </React.Fragment>
+    </>
   );
 };
 

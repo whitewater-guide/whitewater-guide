@@ -3,14 +3,14 @@ import React from 'react';
 
 import { ClickBlocker, DeleteButton, IconLink } from '../../../components';
 import { paths } from '../../../utils';
-import { ListedRegion } from './listRegions.query';
+import { ListedRegionFragment } from './listRegions.generated';
 
 interface Props {
-  region: ListedRegion;
+  region: ListedRegionFragment;
   onRemove: (id?: string) => void;
 }
 
-const RegionTableActions: React.FC<Props> = React.memo((props) => {
+const RegionTableActions = React.memo<Props>((props) => {
   const { region, onRemove } = props;
   const { id: regionId, editable } = region;
   return (

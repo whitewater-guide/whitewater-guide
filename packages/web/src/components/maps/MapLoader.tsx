@@ -10,7 +10,11 @@ const _loader = new Loader({
 
 let _loaded = false;
 
-const MapLoader: FC = ({ children }) => {
+interface Props {
+  children: React.ReactElement;
+}
+
+const MapLoader: FC<Props> = ({ children }) => {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -24,7 +28,7 @@ const MapLoader: FC = ({ children }) => {
     });
   }, [setLoaded]);
 
-  return loaded ? <>{children}</> : <Loading />;
+  return loaded ? React.Children.only(children) : <Loading />;
 };
 
 export default MapLoader;

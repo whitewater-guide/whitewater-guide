@@ -39,7 +39,7 @@ const PureChart: React.FC<Props> = React.memo((props) => {
     return <Loading />;
   }
   if (!data || data.length === 0) {
-    return <NoChart noData={true} />;
+    return <NoChart noData />;
   }
   return (
     <View style={styles.container} onLayout={onLayout}>

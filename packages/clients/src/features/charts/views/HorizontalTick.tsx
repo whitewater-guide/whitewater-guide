@@ -1,4 +1,4 @@
-import { GaugeBinding } from '@whitewater-guide/commons';
+import { GaugeBinding } from '@whitewater-guide/schema';
 import React from 'react';
 
 import { getColorForValue } from '../../sections';
@@ -28,8 +28,7 @@ const HorizontalTick: React.FC<Props> = React.memo((props) => {
     defaultColor: defColor,
     Component,
   } = props;
-  const defaultColor =
-    style && style.stroke ? style.stroke.toString() : defColor;
+  const defaultColor = style?.stroke ? style.stroke.toString() : defColor;
   const color = getColorForValue(datum, binding, defaultColor);
   return (
     <Component style={style} color={color} x1={x1} x2={x2} y1={y1} y2={y2} />

@@ -1,7 +1,14 @@
 import { useChart } from '@whitewater-guide/clients';
-import React from 'react';
+import { Unit } from '@whitewater-guide/schema';
+import format from 'date-fns/format';
+import React, { useCallback } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import { VictoryScatter, VictoryTheme, VictoryTooltip } from 'victory';
+import {
+  createContainer,
+  VictoryScatter,
+  VictoryTheme,
+  VictoryTooltip,
+} from 'victory';
 
 import { Styles } from '../../styles';
 import { Loading } from '../Loading';
@@ -9,6 +16,8 @@ import ChartFlowToggle from './ChartFlowToggle';
 import ChartPeriodToggle from './ChartPeriodToggle';
 import ChartView from './ChartView';
 import NoData from './NoData';
+
+const VictoryZoomVoronoiContainer = createContainer('zoom', 'voronoi');
 
 const styles: Styles = {
   root: {
@@ -35,6 +44,12 @@ const styles: Styles = {
   },
 };
 
+interface Datum {
+  level: number | null;
+  flow: number | null;
+  timestamp: Date;
+}
+
 const ChartLayout: React.FC = () => {
   const {
     measurements: { loading, data },
@@ -44,21 +59,31 @@ const ChartLayout: React.FC = () => {
     filter,
   } = useChart();
   const { ref, width, height } = useResizeDetector<HTMLDivElement>();
-  if (loading) {
-    return <Loading />;
-  }
+  const { levelUnit, flowUnit } = gauge;
   const noData = !data || data.length === 0;
+
+  const getLabel = useCallback(
+    ({ datum }: { datum: Datum }) => {
+      const ts = datum.timestamp;
+      const val = datum[unit];
+      const unitName = unit === Unit.FLOW ? flowUnit : levelUnit;
+      return `${val} ${unitName}\n${format(ts, 'Pp')}`;
+    },
+    [unit, levelUnit, flowUnit],
+  );
 
   return (
     <div style={styles.root}>
       <div ref={ref} style={styles.chartContainer}>
         <div style={styles.inner}>
-          {noData && (
+          {loading && <Loading />}
+
+          {noData && !loading && (
             <div style={{ width, height }}>
-              <NoData hasGauge={true} />
+              <NoData hasGauge />
             </div>
           )}
-          {!noData && width && height && (
+          {!noData && !loading && width && height && (
             <ChartView
               width={width}
               height={height}
@@ -68,11 +93,13 @@ const ChartLayout: React.FC = () => {
               unit={unit}
               section={section}
               theme={VictoryTheme.material}
+              containerComponent={<VictoryZoomVoronoiContainer />}
             >
               <VictoryScatter
                 data={data}
                 x="timestamp"
                 y={unit}
+                labels={getLabel}
                 labelComponent={<VictoryTooltip />}
               />
             </ChartView>

@@ -38,7 +38,7 @@ const screenOptions: StackNavigationOptions = {
 };
 
 const PurchaseStack: React.FC<PurchaseStackNavProps> = ({ route }) => {
-  const params = route.params;
+  const { params } = route;
   return (
     <Stack.Navigator screenOptions={screenOptions} headerMode="screen">
       <Stack.Screen

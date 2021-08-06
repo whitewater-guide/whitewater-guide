@@ -1,11 +1,6 @@
-import { AuthenticatedTopLevelResolver } from '~/apollo';
-import { isAuthenticatedResolver } from '~/apollo/enhancedResolvers';
+import { AuthenticatedMutation, isAuthenticatedResolver } from '~/apollo';
 
-interface Vars {
-  id: string;
-}
-
-const resolver: AuthenticatedTopLevelResolver<Vars> = async (
+const resolver: AuthenticatedMutation['deleteDescent'] = async (
   _,
   { id },
   { dataSources },

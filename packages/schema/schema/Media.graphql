@@ -1,0 +1,75 @@
+enum MediaKind {
+  photo
+  video
+  blog
+}
+
+type Media implements Timestamped {
+  "Unique ID"
+  id: ID!
+  "Photo, video or blog"
+  kind: MediaKind!
+  "Human-friendly description"
+  description: String
+  """
+  Full URL for videos and blogs,
+  For images, use image instead
+  """
+  url: String!
+  "Absolute image url (or thumb, when parameters are set)"
+  image(width: Int, height: Int): String
+  "Required for images - [width, height] array. Makes no sense for blogs and videos (yet)"
+  resolution: [Int!]
+  "Image size in bytes. Null for blogs and videos"
+  size: Int
+  "weight for sorting"
+  weight: Int
+  createdAt: Date!
+  updatedAt: Date!
+
+  "Not persistent. Indicates that client should not display this item in lists"
+  deleted: Boolean
+
+  "Licensing information"
+  license: License
+  "copyright"
+  copyright: String
+}
+
+input MediaInput {
+  "UUID of existing media or null for new media"
+  id: ID
+  "Photo, video or blog"
+  kind: MediaKind!
+  "Human-friendly description"
+  description: String
+  "Licensing information"
+  license: LicenseInput
+  "Copyright"
+  copyright: String
+  "Full URL for videos and blogs, filename for uploaded images"
+  url: String!
+  "Required for images - [width, height] array. Makes no sense for blogs and videos (yet)"
+  resolution: [Int!]
+  "Weight for sorting"
+  weight: Int
+}
+
+type MediaList {
+  nodes: [Media!]!
+  count: Int!
+}
+
+type Query {
+  "Gets all media by section id"
+  mediaBySection(sectionId: ID!, page: Page): MediaList!
+  "Gets media item by id. If no id is given, returns null"
+  media(id: ID): Media
+}
+
+type Mutation {
+  "Creates or updates media item belonging to a section"
+  upsertSectionMedia(sectionId: ID!, media: MediaInput!): Media
+  "Deletes media item"
+  removeMedia(id: ID!): Media
+}

@@ -6,10 +6,10 @@ import DialogActions from './DialogActions';
 it('should render background button when in progress', () => {
   const { getByLabelText } = render(
     <DialogActions
-      canDownload={true}
+      canDownload
       regionId="id"
       selection={{ data: true }}
-      inProgress={true}
+      inProgress
     />,
   );
   expect(getByLabelText('offline:dialog.inBackground')).toBeTruthy();
@@ -18,7 +18,7 @@ it('should render background button when in progress', () => {
 it('should cancel and download buttons in case of error', () => {
   const { getByLabelText } = render(
     <DialogActions
-      canDownload={true}
+      canDownload
       regionId="id"
       selection={{ data: true }}
       error={new Error()}
@@ -32,7 +32,7 @@ it('should cancel and download buttons in case of error', () => {
 it('should cancel and download buttons in case of ready state', () => {
   const { getByLabelText } = render(
     <DialogActions
-      canDownload={true}
+      canDownload
       regionId="id"
       selection={{ data: true }}
       inProgress={false}

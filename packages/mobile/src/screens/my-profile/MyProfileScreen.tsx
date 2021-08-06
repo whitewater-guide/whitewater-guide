@@ -14,7 +14,7 @@ const MyProfileScreen: React.FC<MyProfileNavProps> = ({ navigation }) => {
   });
 
   return (
-    <Screen safeBottom={true}>
+    <Screen safeBottom>
       <MyProfileView />
     </Screen>
   );

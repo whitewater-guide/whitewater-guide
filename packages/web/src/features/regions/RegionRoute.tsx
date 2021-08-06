@@ -13,7 +13,7 @@ import RegionForm from './form';
 
 type Props = RouteComponentProps<{ regionId: string }>;
 
-const RegionRoute: React.FC<Props> = React.memo((props) => {
+const RegionRoute = React.memo<Props>((props) => {
   const {
     match: { path, params },
   } = props;
@@ -28,12 +28,12 @@ const RegionRoute: React.FC<Props> = React.memo((props) => {
             return (
               <Switch>
                 <EditorRoute
-                  exact={true}
+                  exact
                   path={`${path}/settings`}
                   component={RegionForm}
                 />
                 <AdminRoute
-                  exact={true}
+                  exact
                   path={`${path}/admin`}
                   component={RegionAdmin}
                 />

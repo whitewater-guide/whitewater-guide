@@ -1,13 +1,7 @@
-import { UserFilterOptions } from '@whitewater-guide/commons';
+import { QueryResolvers } from '~/apollo';
+import { db } from '~/db';
 
-import { TopLevelResolver } from '~/apollo';
-import db from '~/db';
-
-interface Vars {
-  filter: UserFilterOptions;
-}
-
-const findUsers: TopLevelResolver<Vars> = async (_, { filter }) => {
+const findUsers: QueryResolvers['findUsers'] = async (_, { filter }) => {
   const { searchString, editorsOnly } = filter;
   let query = db().table('users');
   if (searchString) {

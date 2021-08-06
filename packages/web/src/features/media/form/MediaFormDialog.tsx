@@ -1,5 +1,5 @@
 import Dialog from '@material-ui/core/Dialog';
-import { MediaInput, MediaInputSchema } from '@whitewater-guide/commons';
+import { MediaInput, MediaInputSchema } from '@whitewater-guide/schema';
 import { createSafeValidator } from '@whitewater-guide/validation';
 import { Formik } from 'formik';
 import React, { Suspense, useCallback, useMemo } from 'react';
@@ -9,11 +9,11 @@ import { Loading } from '../../../components';
 import { UseApolloFormik } from '../../../formik';
 import { LocalPhoto } from '../../../utils/files';
 import { LazyMediaDialog } from '../components/form';
-import { QResult } from './mediaForm.query';
+import { MediaFormQuery } from './mediaForm.generated';
 
-type Props = UseApolloFormik<QResult, MediaInput>;
+type Props = UseApolloFormik<MediaFormQuery, MediaInput>;
 
-const MediaFormDialog: React.FC<Props> = React.memo((props) => {
+const MediaFormDialog = React.memo<Props>((props) => {
   const { onSubmit, loading, initialValues } = props;
   const { history, location } = useRouter();
   const onCancel = useCallback(() => history.goBack(), [history]);
@@ -29,7 +29,7 @@ const MediaFormDialog: React.FC<Props> = React.memo((props) => {
 
   if (loading || !initialValues) {
     return (
-      <Dialog open={true} disableBackdropClick={true} maxWidth="xl">
+      <Dialog open disableBackdropClick maxWidth="xl">
         <Loading />
       </Dialog>
     );
@@ -44,7 +44,7 @@ const MediaFormDialog: React.FC<Props> = React.memo((props) => {
       {({ submitForm }) => (
         <Suspense fallback={<Loading />}>
           <LazyMediaDialog
-            open={true}
+            open
             localPhoto={localPhoto}
             kind={initialValues.kind}
             onCancel={onCancel}

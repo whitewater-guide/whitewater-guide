@@ -10,7 +10,7 @@ interface Props extends CheckboxProps {
   label?: string;
 }
 
-export const CheckboxField: React.FC<Props> = React.memo((props) => {
+export const CheckboxField = React.memo<Props>((props) => {
   const { name, label, ...checkboxProps } = props;
   const [field] = useField<boolean>(name);
   const id = `checkbox-${name}`;

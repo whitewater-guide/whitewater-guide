@@ -4,5 +4,5 @@ import { useAuth } from './useAuth';
 
 export const AdminOnly: React.FC = ({ children }) => {
   const { me } = useAuth();
-  return me && me.admin ? (children as any) : null;
+  return me?.admin ? (children as any) : null;
 };

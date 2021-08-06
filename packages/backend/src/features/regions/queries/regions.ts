@@ -1,19 +1,13 @@
-import { RegionFilterOptions } from '@whitewater-guide/commons';
+import { QueryResolvers } from '~/apollo';
 
-import { ListQuery, TopLevelResolver } from '~/apollo';
-
-interface Vars extends ListQuery {
-  filter: RegionFilterOptions;
-}
-
-const regions: TopLevelResolver<Vars> = async (
+const regions: QueryResolvers['regions'] = async (
   _,
-  { page, filter = {} },
+  { page, filter },
   { dataSources },
   info,
 ) => {
   let query = dataSources.regions.getMany(info, { page });
-  const { searchString } = filter;
+  const { searchString } = filter ?? {};
   if (searchString) {
     query = query.where('name', 'ilike', `%${searchString}%`);
   }

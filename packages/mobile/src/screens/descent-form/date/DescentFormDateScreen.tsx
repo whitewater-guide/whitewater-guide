@@ -27,7 +27,7 @@ export const DescentFormDateScreen: React.FC<DescentFormDateNavProps> = ({
     navigate(Screens.DESCENT_FORM_LEVEL);
   }, [navigate]);
   return (
-    <DescentFormScreen safeBottom={true}>
+    <DescentFormScreen safeBottom>
       <View style={styles.content}>
         <DatePicker name="startedAt" />
         <Button mode="contained" onPress={onNext}>

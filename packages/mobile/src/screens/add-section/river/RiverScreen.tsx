@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { NamedNode } from '@whitewater-guide/commons';
+import { NamedNode } from '@whitewater-guide/schema';
 import { useFormikContext } from 'formik';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -79,7 +79,7 @@ const RiverScreen: React.FC = () => {
         style={styles.searchBar}
         autoCorrect={false}
         autoCompleteType="off"
-        autoFocus={true}
+        autoFocus
         testID="river-searchbar"
       />
       <KeyboardAvoidingView

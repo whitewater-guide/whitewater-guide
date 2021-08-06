@@ -1,6 +1,5 @@
 import Divider from '@material-ui/core/Divider';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { Coordinate3d } from '@whitewater-guide/commons';
 import { FieldArray, FieldArrayRenderProps } from 'formik';
 import React, { useCallback } from 'react';
 
@@ -22,50 +21,43 @@ interface Props {
   name: string;
 }
 
-const CoordinateArrayInner: React.FC<FieldArrayRenderProps> = React.memo(
-  (props) => {
-    const { form, name, push, remove } = props;
-    const { setFieldValue } = form;
-    const coordinates: Coordinate3d[] = props.form.values[props.name];
-    const lastIndex = coordinates.length - 1;
-    const classes = useStyles();
+const CoordinateArrayInner = React.memo<FieldArrayRenderProps>((props) => {
+  const { form, name, push, remove } = props;
+  const { setFieldValue } = form;
+  const coordinates: CodegenCoordinates[] = props.form.values[props.name];
+  const lastIndex = coordinates.length - 1;
+  const classes = useStyles();
 
-    const onReverse = useCallback(() => {
-      setFieldValue(name, coordinates.reverse());
-    }, [setFieldValue, name, coordinates]);
+  const onReverse = useCallback(() => {
+    setFieldValue(name, coordinates.reverse());
+  }, [setFieldValue, name, coordinates]);
 
-    return (
-      <div className={classes.container}>
-        <CoordinateArrayHeader value={coordinates} onReverse={onReverse} />
-        <Divider />
+  return (
+    <div className={classes.container}>
+      <CoordinateArrayHeader value={coordinates} onReverse={onReverse} />
+      <Divider />
 
-        {coordinates.map((_, i) => (
-          <CoordinateField
-            key={i}
-            name={`${name}.${i}`}
-            index={i}
-            onRemove={remove}
-            showCopy={i === 0 || i === lastIndex}
-          />
-        ))}
-        <CoordinateInput
-          isNew={true}
-          key={`new${coordinates.length}`}
-          onAdd={push}
+      {coordinates.map((_, i) => (
+        <CoordinateField
+          // eslint-disable-next-line react/no-array-index-key
+          key={i}
+          name={`${name}.${i}`}
+          index={i}
+          onRemove={remove}
+          showCopy={i === 0 || i === lastIndex}
         />
-      </div>
-    );
-  },
-);
+      ))}
+      <CoordinateInput isNew key={`new${coordinates.length}`} onAdd={push} />
+    </div>
+  );
+});
 
 CoordinateArrayInner.displayName = 'CoordinateArrayInner';
 
-export const CoordinateArray: React.FC<Props> = React.memo(({ name }) => {
-  return (
-    <FieldArray name={name}>
-      {(helpers) => <CoordinateArrayInner {...helpers} />}
-    </FieldArray>
-  );
-});
+export const CoordinateArray = React.memo<Props>(({ name }) => (
+  <FieldArray name={name}>
+    {(helpers) => <CoordinateArrayInner {...helpers} />}
+  </FieldArray>
+));
 
 CoordinateArray.displayName = 'CoordinateArray';

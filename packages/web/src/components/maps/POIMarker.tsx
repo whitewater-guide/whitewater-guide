@@ -1,13 +1,13 @@
 import { useMapSelection } from '@whitewater-guide/clients';
-import { Point } from '@whitewater-guide/commons';
+import { PointCoreFragment } from '@whitewater-guide/schema';
 import React, { useEffect, useRef } from 'react';
 
 import { MapElementProps } from './types';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const markerIconURL = require('./gauge_marker.png');
+
 interface Props extends MapElementProps {
-  poi: Point;
+  poi: PointCoreFragment;
   clickable?: boolean;
   icon?: string | google.maps.Icon | google.maps.Symbol;
 }
@@ -15,7 +15,7 @@ interface Props extends MapElementProps {
 const POIMarker: React.FC<Props> = (props) => {
   const { map, poi, clickable, icon } = props;
   const markerRef = useRef<google.maps.Marker | null>(null);
-  const { onSelected } = useMapSelection();
+  const [_, onSelected] = useMapSelection();
 
   useEffect(() => {
     if (markerRef.current) {
@@ -39,6 +39,7 @@ const POIMarker: React.FC<Props> = (props) => {
             },
     });
     markerRef.current.addListener('click', () => onSelected(poi));
+    // eslint-disable-next-line consistent-return
     return () => {
       if (markerRef.current) {
         google.maps.event.clearListeners(markerRef.current, 'click');

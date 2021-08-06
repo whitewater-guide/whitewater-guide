@@ -1,15 +1,10 @@
 import Icon from '@material-ui/core/Icon/Icon';
-import {
-  createStyles,
-  Theme,
-  WithStyles,
-  withStyles,
-} from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
       display: 'flex',
@@ -24,23 +19,25 @@ const styles = (theme: Theme) =>
       margin: theme.spacing(),
       marginLeft: 0,
     },
-  });
+  }),
+);
 
-const NoRegions: React.FC<WithStyles<typeof styles>> = ({ classes }) => {
+const NoRegions: React.FC = () => {
+  const classes = useStyles();
   const { t } = useTranslation();
   return (
     <div className={classes.root}>
       <div className={classes.iconRow}>
         <Icon className={classes.icon}>warning</Icon>
-        <Typography variant="subtitle1" gutterBottom={true}>
+        <Typography variant="subtitle1" gutterBottom>
           {t('select:noRegionsTitle')}
         </Typography>
       </div>
-      <Typography variant="caption" gutterBottom={true}>
+      <Typography variant="caption" gutterBottom>
         {t('select:noRegionsSubtitle')}
       </Typography>
     </div>
   );
 };
 
-export default withStyles(styles)(NoRegions);
+export default NoRegions;

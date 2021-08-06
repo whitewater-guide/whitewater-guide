@@ -1,39 +1,17 @@
-import { PurchaseInput, PurchasePlatform } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { PurchasePlatform } from '@whitewater-guide/schema';
 import { useCallback } from 'react';
-import { useMutation } from 'react-apollo';
 import { Platform } from 'react-native';
 import { InAppPurchase } from 'react-native-iap';
 
 import { IAPError } from '../../../features/purchases';
-
-const ADD_PURCHASE_MUTATION = gql`
-  mutation addPurchase($purchase: PurchaseInput!, $sectionId: ID) {
-    savePurchase(purchase: $purchase, sectionId: $sectionId) {
-      regions {
-        id
-        sku
-        hasPremiumAccess
-      }
-      section {
-        id
-        description
-      }
-    }
-  }
-`;
-
-interface Vars {
-  purchase: PurchaseInput;
-  sectionId?: string;
-}
+import { useAddPurchaseMutation } from './addPurchase.generated';
 
 type Hook = (
   purchase: InAppPurchase,
 ) => Promise<{ error?: IAPError; saved: boolean }>;
 
 export default (sectionId?: string): Hook => {
-  const [mutate] = useMutation<unknown, Vars>(ADD_PURCHASE_MUTATION);
+  const [mutate] = useAddPurchaseMutation();
   return useCallback(
     (purchase: InAppPurchase) =>
       mutate({
@@ -46,7 +24,7 @@ export default (sectionId?: string): Hook => {
             productId: purchase.productId,
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             transactionId: purchase.transactionId!,
-            transactionDate: new Date(purchase.transactionDate),
+            transactionDate: new Date(purchase.transactionDate).toISOString(),
             receipt: purchase.transactionReceipt,
             extra: purchase,
           },
@@ -63,16 +41,14 @@ export default (sectionId?: string): Hook => {
             : undefined;
           return { error, saved: !error };
         })
-        .catch((e) => {
-          return {
-            error: new IAPError(
-              'screens:purchase.buy.errors.savePurchase',
-              JSON.stringify({ error: e, purchase }, null, 2),
-              { transactionId: purchase.transactionId },
-            ),
-            saved: false,
-          };
-        }),
+        .catch((e) => ({
+          error: new IAPError(
+            'screens:purchase.buy.errors.savePurchase',
+            JSON.stringify({ error: e, purchase }, null, 2),
+            { transactionId: purchase.transactionId },
+          ),
+          saved: false,
+        })),
     [mutate, sectionId],
   );
 };

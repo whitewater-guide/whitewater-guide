@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import noop from 'lodash/noop';
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 
 import Layers from '~/components/map/layers';
 
@@ -47,19 +47,22 @@ export const AppSettingsProvider: React.FC = ({ children }) => {
     loadSettings().then(setSettings);
   }, [setSettings]);
 
-  const updateSettings = useCallback(
-    (v: Partial<AppSettings>) => {
-      const newSettings = { ...settings, ...v };
-      setSettings(newSettings);
-      persistSettings(newSettings).catch(() => {
-        // ignore
-      });
-    },
+  const value = useMemo<AppSettingsCtx>(
+    () => ({
+      settings,
+      updateSettings: (v: Partial<AppSettings>) => {
+        const newSettings = { ...settings, ...v };
+        setSettings(newSettings);
+        persistSettings(newSettings).catch(() => {
+          // ignore
+        });
+      },
+    }),
     [settings, setSettings],
   );
 
   return (
-    <AppSettingsContext.Provider value={{ settings, updateSettings }}>
+    <AppSettingsContext.Provider value={value}>
       {children}
     </AppSettingsContext.Provider>
   );

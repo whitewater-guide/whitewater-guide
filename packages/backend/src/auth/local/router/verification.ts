@@ -2,8 +2,7 @@ import { compare } from 'bcrypt';
 import { Middleware } from 'koa';
 
 import config from '~/config';
-import db from '~/db';
-import { UserRaw } from '~/features/users';
+import { db, Sql } from '~/db';
 
 const VERIFIED_URL = `${config.PROTOCOL}://${config.ROOT_DOMAIN}/verified.html`;
 
@@ -18,7 +17,7 @@ const verification: Middleware<any, any> = async (ctx) => {
     return;
   }
 
-  const user: UserRaw | undefined = await db()
+  const user: Sql.Users | undefined = await db()
     .select('*')
     .from('users')
     .where({ id })

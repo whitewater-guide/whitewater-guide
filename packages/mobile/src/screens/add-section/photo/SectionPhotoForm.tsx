@@ -38,8 +38,8 @@ const SectionPhotoForm: React.FC<Props> = React.memo((props) => {
       />
       <TextField
         name={`media.${index}.description`}
-        multiline={true}
-        fullHeight={true}
+        multiline
+        fullHeight
         label={t('screens:suggestion.photoDescriptionLabel')}
         placeholder={t('screens:suggestion.photoDescriptionPlaceholder')}
       />

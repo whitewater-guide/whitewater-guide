@@ -66,19 +66,14 @@ it('should render initial state', async () => {
 });
 
 it('should fill in main fields and submit', async () => {
-  const [
-    riverPlaceholder,
-    name,
-    difficulty,
-    difficultyXtra,
-    putInPlaceholder,
-  ] = await Promise.all([
-    test.findByLabelText('screens:addSection.main.riverLabel'),
-    test.findByLabelText('screens:addSection.main.nameLabel'),
-    test.findByLabelText('commons:difficulty'),
-    test.findByTestId('difficultyXtra'),
-    test.findByLabelText('commons:putIn'),
-  ]);
+  const [riverPlaceholder, name, difficulty, difficultyXtra, putInPlaceholder] =
+    await Promise.all([
+      test.findByLabelText('screens:addSection.main.riverLabel'),
+      test.findByLabelText('screens:addSection.main.nameLabel'),
+      test.findByLabelText('commons:difficulty'),
+      test.findByTestId('difficultyXtra'),
+      test.findByLabelText('commons:putIn'),
+    ]);
 
   // Select river
 
@@ -141,7 +136,7 @@ it('should fill in main fields and submit', async () => {
       id: null,
       name: 'Name',
       river: {
-        id: '__NEW_ID__',
+        id: '__NEW_RIVER_ID__',
         name: 'River',
       },
       difficulty: 3.5,

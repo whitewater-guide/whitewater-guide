@@ -14,7 +14,8 @@ const styles = StyleSheet.create({
 const getStarIcon = (n: number, value: number) => {
   if (n - value === 0.5) {
     return 'star-half';
-  } else if (n > value) {
+  }
+  if (n > value) {
     return 'star-outline';
   }
   return 'star';
@@ -35,7 +36,7 @@ const SimpleStarRating: React.FC<Props> = React.memo((props) => {
       {[1, 2, 3, 4, 5].map((n) => (
         <Icon
           key={n}
-          narrow={true}
+          narrow
           icon={getStarIcon(n, value)}
           size={14}
           color={

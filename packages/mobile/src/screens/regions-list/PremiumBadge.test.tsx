@@ -7,7 +7,7 @@ it('should render placeholder for community regions', () => {
   const { getByTestId } = render(
     <PremiumBadge
       region={{ id: '__id__', hasPremiumAccess: false, premium: false }}
-      canMakePayments={true}
+      canMakePayments
       buyRegion={jest.fn()}
     />,
   );
@@ -29,7 +29,7 @@ it('should render premium access indicator when user has access', () => {
   const { getByLabelText } = render(
     <PremiumBadge
       region={{ id: '__id__', hasPremiumAccess: true, premium: true }}
-      canMakePayments={true}
+      canMakePayments
       buyRegion={jest.fn()}
     />,
   );
@@ -41,7 +41,7 @@ it('should render buy button when user has no premium access', () => {
   const { getByLabelText } = render(
     <PremiumBadge
       region={{ id: '__id__', hasPremiumAccess: false, premium: true }}
-      canMakePayments={true}
+      canMakePayments
       buyRegion={buyRegion}
     />,
   );

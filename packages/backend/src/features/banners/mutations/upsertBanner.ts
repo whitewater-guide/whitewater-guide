@@ -2,25 +2,23 @@ import {
   BannerInput,
   BannerInputSchema,
   BannerKind,
-} from '@whitewater-guide/commons';
+} from '@whitewater-guide/schema';
 import { UserInputError } from 'apollo-server-koa';
 import * as yup from 'yup';
 
-import { isInputValidResolver, TopLevelResolver } from '~/apollo';
-import db, { rawUpsert } from '~/db';
-import { BannerRaw } from '~/features/banners';
+import { isInputValidResolver, MutationResolvers } from '~/apollo';
+import { db, rawUpsert, Sql } from '~/db';
 import { BANNERS, s3Client } from '~/s3';
 
-interface Vars {
-  banner: BannerInput;
-}
-
 const Schema = yup.object({
-  banner: BannerInputSchema,
+  banner: BannerInputSchema.clone().required(),
 });
 
-const upsertBannerResolver: TopLevelResolver<Vars> = async (_, vars) => {
-  const id = vars.banner.id;
+const upsertBannerResolver: MutationResolvers['upsertBanner'] = async (
+  _,
+  vars,
+) => {
+  const { id } = vars.banner;
   const isImage = vars.banner.source.kind === BannerKind.Image;
   const url = isImage
     ? s3Client.getLocalFileName(vars.banner.source.url)
@@ -40,7 +38,7 @@ const upsertBannerResolver: TopLevelResolver<Vars> = async (_, vars) => {
   let shouldMoveTempImage = isImage;
 
   if (id) {
-    const oldBanner: BannerRaw = await db()
+    const oldBanner: Sql.Banners = await db()
       .select()
       .from('banners')
       .where({ id })

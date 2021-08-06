@@ -1,0 +1,5 @@
+mutation upsertGroup($group: GroupInput!) {
+  upsertGroup(group: $group) {
+    ...GroupCore
+  }
+}

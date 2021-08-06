@@ -8,7 +8,7 @@ const safeAcknowledgePurchase = async (purchase: InAppPurchase) => {
   try {
     // on android purchases are acknowledged server-side
     if (purchase.isAcknowledgedAndroid || Platform.OS === 'android') {
-      return Promise.resolve({
+      return await Promise.resolve({
         error: undefined,
         acknowledged: true,
       });

@@ -10,21 +10,19 @@ import { FieldsByType } from './types';
  */
 export class FieldsByTypePlugin {
   private _cache: Map<string, FieldsByType> = new Map();
+  private readonly _schema: GraphQLSchema;
 
-  constructor(private readonly _schema: GraphQLSchema) {}
+  constructor(schema: GraphQLSchema) {
+    this._schema = schema;
+  }
 
   requestDidStart() {
     return this as any;
   }
 
   didResolveOperation = (requestContext: any) => {
-    const {
-      document,
-      request,
-      context,
-      queryHash,
-      operationName,
-    } = requestContext;
+    const { document, request, context, queryHash, operationName } =
+      requestContext;
     if (operationName === 'IntrospectionQuery') {
       return Promise.resolve();
     }

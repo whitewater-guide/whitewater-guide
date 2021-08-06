@@ -1,4 +1,5 @@
-import { BannerInput, Overwrite } from '@whitewater-guide/commons';
+import { BannerInput } from '@whitewater-guide/schema';
+import { Overwrite } from 'utility-types';
 
 import { LocalPhoto } from '../../../utils/files';
 

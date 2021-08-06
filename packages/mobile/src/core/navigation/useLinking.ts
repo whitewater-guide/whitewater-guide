@@ -1,4 +1,4 @@
-import { MY_PROFILE_QUERY } from '@whitewater-guide/clients';
+import { MyProfileDocument } from '@whitewater-guide/clients';
 import { useCallback, useEffect, useRef } from 'react';
 import { Linking } from 'react-native';
 import urlParse from 'url-parse';
@@ -22,18 +22,13 @@ const parseURL = (urlish: URLish) => {
   return urlParse(url, true);
 };
 
-const isReset = ({ href, query }: Parsed) => {
-  return (
-    href.indexOf(RESET_CALLBACK_URL) === 0 &&
-    query &&
-    !!query.id &&
-    !!query.token
-  );
-};
+const isReset = ({ href, query }: Parsed) =>
+  href.indexOf(RESET_CALLBACK_URL) === 0 &&
+  query &&
+  !!query.id &&
+  !!query.token;
 
-const isVerified = ({ href }: Parsed) => {
-  return href.indexOf('verified') >= 0;
-};
+const isVerified = ({ href }: Parsed) => href.indexOf('verified') >= 0;
 
 export const useLinking = ({ navigate }: RootStackNav) => {
   const navigateRef = useRef(navigate);
@@ -47,7 +42,7 @@ export const useLinking = ({ navigate }: RootStackNav) => {
           params: parts.query,
         });
       } else if (parts && isVerified(parts)) {
-        apolloClient.query({ query: MY_PROFILE_QUERY }).catch(() => {
+        apolloClient.query({ query: MyProfileDocument }).catch(() => {
           // if refresh my profile fails, we can do nothing about it
         });
       }

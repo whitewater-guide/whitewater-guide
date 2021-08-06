@@ -1,10 +1,6 @@
-import { TopLevelResolver } from '~/apollo';
+import { QueryResolvers } from '~/apollo';
 
-interface Vars {
-  regionId?: string;
-}
-
-const groups: TopLevelResolver<Vars> = (
+const groups: QueryResolvers['groups'] = (
   _,
   { regionId },
   { dataSources },

@@ -1,11 +1,7 @@
-import { TopLevelResolver } from '~/apollo';
-import db from '~/db';
+import { MutationResolvers } from '~/apollo';
+import { db } from '~/db';
 
-interface Vars {
-  id: string;
-}
-
-const removeGauge: TopLevelResolver<Vars> = async (
+const removeGauge: MutationResolvers['removeGauge'] = async (
   _,
   { id },
   { dataSources },

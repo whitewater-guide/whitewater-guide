@@ -14,7 +14,7 @@ export const DateTimeField: React.FC<Props> = ({ name, label }) => {
   const { onChange } = useFakeHandlers(name);
   return (
     <DateTimePicker
-      showTodayButton={true}
+      showTodayButton
       value={field.value}
       onChange={onChange}
       label={label}

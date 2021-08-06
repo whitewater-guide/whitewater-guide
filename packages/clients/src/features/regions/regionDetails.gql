@@ -1,0 +1,36 @@
+# Workaround because we cannot have params (bannerWidth) in fragments
+fragment RegionDetailsInternal on Region {
+  ...RegionCore
+  ...RegionPOIs
+  ...RegionFlags
+  ...RegionLicense
+  description
+  bounds
+  sku
+}
+
+# Workaround: same as regionDetails query, but without $bannerWidth
+fragment RegionDetails on Region {
+  ...RegionDetailsInternal
+  banners {
+    nodes {
+      ...BannerWithSource
+    }
+  }
+}
+
+query regionDetails($regionId: ID, $bannerWidth: Int) {
+  region(id: $regionId) {
+    ...RegionDetailsInternal
+
+    banners {
+      nodes {
+        ...BannerCore
+        source {
+          kind
+          url(width: $bannerWidth)
+        }
+      }
+    }
+  }
+}

@@ -1,18 +1,12 @@
-import { RiversFilter } from '@whitewater-guide/commons';
+import { QueryResolvers } from '~/apollo';
 
-import { ListQuery, TopLevelResolver } from '~/apollo';
-
-interface Vars extends ListQuery {
-  filter?: RiversFilter;
-}
-
-const rivers: TopLevelResolver<Vars> = async (
+const rivers: QueryResolvers['rivers'] = async (
   _,
-  { filter = {}, page },
+  { filter, page },
   { dataSources },
   info,
 ) => {
-  const { regionId, search } = filter;
+  const { regionId, search } = filter ?? {};
   const where = regionId ? { region_id: regionId } : undefined;
   let query = dataSources.rivers.getMany(info, { where, page });
   if (search) {

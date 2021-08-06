@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 const union = (value: number[], range: number[]) => {
   const result = [...value];
   if (range.length) {
-    for (let i = range[0]; i <= range[1]; i++) {
+    for (let i = range[0]; i <= range[1]; i += 1) {
       if (result.indexOf(i) === -1) {
         result.push(i);
       }
@@ -51,10 +51,10 @@ const SeasonNumeric: React.FC<SeasonNumericProps> = React.memo((props) => {
   panSelectionRef.current = panSelection;
   valueRef.current = value;
 
-  const selection = useMemo(() => union(value, panSelection), [
-    value,
-    panSelection,
-  ]);
+  const selection = useMemo(
+    () => union(value, panSelection),
+    [value, panSelection],
+  );
 
   const onPanEnd = useCallback(() => {
     onChange(union(valueRef.current, panSelectionRef.current));

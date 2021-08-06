@@ -1,5 +1,3 @@
-import { CoordinateLoose } from '@whitewater-guide/commons';
-
 interface LatLngLiteral {
   lat: number;
   lng: number;
@@ -10,9 +8,9 @@ interface LatLngLiteral {
  * @param array
  */
 export function arrayToGmaps(array?: null): null;
-export function arrayToGmaps(array: CoordinateLoose): LatLngLiteral;
+export function arrayToGmaps(array: CodegenCoordinates): LatLngLiteral;
 export function arrayToGmaps(
-  array?: CoordinateLoose | null,
+  array?: CodegenCoordinates | null,
 ): LatLngLiteral | null {
   if (!array) {
     return null;

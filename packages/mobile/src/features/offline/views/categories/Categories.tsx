@@ -1,4 +1,4 @@
-import { RegionMediaSummary } from '@whitewater-guide/commons';
+import { RegionMediaSummary } from '@whitewater-guide/schema';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 

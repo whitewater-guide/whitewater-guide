@@ -6,7 +6,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { SuggestionStatus } from '@whitewater-guide/commons';
+import { SuggestionStatus } from '@whitewater-guide/schema';
 import React, { ChangeEvent, useCallback, useState } from 'react';
 
 import updateStatusesArray from '../simple/updateStatusesArray';
@@ -40,7 +40,7 @@ interface Props {
   onChange: (status: SuggestionStatus[]) => void;
 }
 
-export const StatusFilter: React.FC<Props> = React.memo((props) => {
+export const StatusFilter = React.memo<Props>((props) => {
   const { status, onChange } = props;
   const classes = useStyles();
   const [state, setState] = useState(status);
@@ -62,7 +62,7 @@ export const StatusFilter: React.FC<Props> = React.memo((props) => {
     [state, setState],
   );
   return (
-    <React.Fragment>
+    <>
       <div className={classes.filterWrapper}>
         <span>status</span>
         <IconButton onClick={onOpen} className={classes.filterButton}>
@@ -81,9 +81,9 @@ export const StatusFilter: React.FC<Props> = React.memo((props) => {
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={state.indexOf(SuggestionStatus.PENDING) >= 0}
+                  checked={state.indexOf(SuggestionStatus.Pending) >= 0}
                   onChange={onCheck}
-                  value={SuggestionStatus.PENDING}
+                  value={SuggestionStatus.Pending}
                 />
               }
               label="Pending"
@@ -91,9 +91,9 @@ export const StatusFilter: React.FC<Props> = React.memo((props) => {
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={state.indexOf(SuggestionStatus.ACCEPTED) >= 0}
+                  checked={state.indexOf(SuggestionStatus.Accepted) >= 0}
                   onChange={onCheck}
-                  value={SuggestionStatus.ACCEPTED}
+                  value={SuggestionStatus.Accepted}
                 />
               }
               label="Accepted"
@@ -101,9 +101,9 @@ export const StatusFilter: React.FC<Props> = React.memo((props) => {
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={state.indexOf(SuggestionStatus.REJECTED) >= 0}
+                  checked={state.indexOf(SuggestionStatus.Rejected) >= 0}
                   onChange={onCheck}
-                  value={SuggestionStatus.REJECTED}
+                  value={SuggestionStatus.Rejected}
                 />
               }
               label="Rejected"
@@ -111,7 +111,7 @@ export const StatusFilter: React.FC<Props> = React.memo((props) => {
           </FormGroup>
         </FormControl>
       </Popover>
-    </React.Fragment>
+    </>
   );
 });
 

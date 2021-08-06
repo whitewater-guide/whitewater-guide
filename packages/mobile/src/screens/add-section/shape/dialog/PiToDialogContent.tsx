@@ -66,18 +66,12 @@ interface Props extends FormikProps<Shape> {
 }
 
 const PiToDialogContent: React.FC<Props> = React.memo((props) => {
-  const {
-    submitForm,
-    isValid,
-    touched,
-    errors,
-    setFieldValue,
-    onDismiss,
-  } = props;
+  const { submitForm, isValid, touched, errors, setFieldValue, onDismiss } =
+    props;
   const { t } = useTranslation();
   return (
     <Modal
-      visible={true}
+      visible
       onDismiss={onDismiss}
       contentContainerStyle={StyleSheet.absoluteFill}
     >

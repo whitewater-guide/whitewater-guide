@@ -6,12 +6,12 @@ interface Props {
   onClick: (id: string) => void;
 }
 
-const SuggestionResolveButton: React.FC<Props> = React.memo((props) => {
+const SuggestionResolveButton = React.memo<Props>((props) => {
   const { suggestionId, onClick } = props;
-  const onPress = useCallback(() => onClick(suggestionId), [
-    suggestionId,
-    onClick,
-  ]);
+  const onPress = useCallback(
+    () => onClick(suggestionId),
+    [suggestionId, onClick],
+  );
   return (
     <Button color="primary" onClick={onPress}>
       Resolve

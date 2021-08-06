@@ -37,7 +37,7 @@ export const ForgotForm: React.FC = () => {
       onSubmit={submit}
     >
       {({ isSubmitting, handleSubmit, submitCount, errors }) => (
-        <React.Fragment>
+        <>
           <TextField
             name="email"
             label={t('commons:email')}
@@ -53,7 +53,7 @@ export const ForgotForm: React.FC = () => {
           />
           <Spacer />
           <HelperText
-            noPad={true}
+            noPad
             touched={submitCount > 0}
             error={(errors as any).form}
           />
@@ -72,7 +72,7 @@ export const ForgotForm: React.FC = () => {
               ? t('screens:auth.forgot.goBack')
               : t('screens:auth.forgot.submit')}
           </Button>
-        </React.Fragment>
+        </>
       )}
     </Formik>
   );

@@ -1,14 +1,14 @@
 import { compare } from 'bcrypt';
 import { Strategy } from 'passport-local';
 
-import db from '~/db';
-import { UserRaw } from '~/features/users';
+import { db, Sql } from '~/db';
 
 export const localSignInStrategy = new Strategy(
   { usernameField: 'email', session: false },
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   async (username, password, done) => {
     const email = username.toLowerCase();
-    const user: UserRaw | undefined = await db()
+    const user: Sql.Users | undefined = await db()
       .select('*')
       .from('users')
       .where({ email: email.toLowerCase() })
@@ -30,12 +30,11 @@ export const localSignInStrategy = new Strategy(
       const passwordMatches = await compare(password, user.password);
       if (passwordMatches) {
         return done(null, user);
-      } else {
-        return done(null, false, {
-          message: 'signin.errors.password.mismatch',
-          payload: { email, id: user.id },
-        });
       }
+      return done(null, false, {
+        message: 'signin.errors.password.mismatch',
+        payload: { email, id: user.id },
+      });
     } catch (e) {
       return done(null, false, {
         message: 'signin.errors.password.error',

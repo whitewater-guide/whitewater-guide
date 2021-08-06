@@ -53,7 +53,7 @@ describe('simple schema', () => {
 
   it.each(cases)('should be %s value', (_, part, result) => {
     expect(validator(deepmerge(full, part))).toEqual(
-      result === null ? null : { undefined: result },
+      result === null ? null : { '': result },
     );
   });
 });
@@ -69,7 +69,7 @@ it('should be invalid for schema with mpx limit', () => {
   const MpxLimitSchema = getLocalPhotoSchema({ mpxOrResolution: 1 });
   const validator = createSafeValidator(MpxLimitSchema);
   expect(validator(full)).toEqual({
-    undefined: {
+    '': {
       key: 'yup:photo.megapixels',
       options: { mpx: 1 },
     },
@@ -80,7 +80,7 @@ it('should be invalid for schema with resolution limit', () => {
   const MpxLimitSchema = getLocalPhotoSchema({ mpxOrResolution: [1000, 1000] });
   const validator = createSafeValidator(MpxLimitSchema);
   expect(validator(full)).toEqual({
-    undefined: {
+    '': {
       key: 'yup:photo.resolution',
       options: { width: 1000, height: 1000 },
     },

@@ -1,6 +1,6 @@
 /* eslint-disable import/no-duplicates */
 import { formatDistanceToNow } from '@whitewater-guide/clients';
-import { Gauge } from '@whitewater-guide/commons';
+import { GaugeForChartFragment } from '@whitewater-guide/schema';
 import differenceInDays from 'date-fns/differenceInDays';
 import parseISO from 'date-fns/parseISO';
 import upperFirst from 'lodash/upperFirst';
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  gauge: Gauge;
+  gauge: GaugeForChartFragment;
   approximate: boolean;
   formula?: string | null;
 }
@@ -69,7 +69,7 @@ const GaugeInfo: React.FC<Props> = (props) => {
       })
     : '';
   return (
-    <React.Fragment>
+    <>
       <Row style={styles.gaugeRow}>
         <Left>
           <Subheading>
@@ -78,7 +78,7 @@ const GaugeInfo: React.FC<Props> = (props) => {
               : t('commons:gauge')}
           </Subheading>
         </Left>
-        <Right row={true} style={styles.gaugeRowRight}>
+        <Right row style={styles.gaugeRowRight}>
           {(approximate || !!formula) && (
             <View>
               <GaugeWarning>
@@ -114,7 +114,7 @@ const GaugeInfo: React.FC<Props> = (props) => {
         <Left>
           <Subheading>{t('section:chart.lastUpdated')}</Subheading>
         </Left>
-        <Right row={true}>
+        <Right row>
           <Paragraph>{fromNow}</Paragraph>
           {isOutdated && (
             <GaugeWarning>
@@ -123,7 +123,7 @@ const GaugeInfo: React.FC<Props> = (props) => {
           )}
         </Right>
       </Row>
-    </React.Fragment>
+    </>
   );
 };
 

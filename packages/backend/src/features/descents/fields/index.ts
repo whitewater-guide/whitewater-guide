@@ -1,13 +1,10 @@
-import { Descent } from '@whitewater-guide/commons';
+import { DescentResolvers, timestampedResolvers } from '~/apollo';
+import { Sql } from '~/db';
 
-import { FieldResolvers } from '~/apollo';
-import { timestampResolvers } from '~/db';
-
-import { DescentRaw } from '../types';
 import section from './section';
 
-const descentFieldResolvers: FieldResolvers<DescentRaw, Descent> = {
-  startedAt: (node: DescentRaw) => new Date(node.started_at).toISOString(),
+const descentFieldResolvers: DescentResolvers = {
+  startedAt: (node: Sql.Descents) => new Date(node.started_at).toISOString(),
   section,
   level: (v) =>
     v.level_value === null
@@ -16,7 +13,7 @@ const descentFieldResolvers: FieldResolvers<DescentRaw, Descent> = {
           unit: v.level_unit,
           value: v.level_value,
         },
-  ...timestampResolvers,
+  ...timestampedResolvers,
 };
 
 export default descentFieldResolvers;

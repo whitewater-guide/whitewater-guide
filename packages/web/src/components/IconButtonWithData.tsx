@@ -1,6 +1,6 @@
 import Icon from '@material-ui/core/Icon';
 import IconButton, { IconButtonProps } from '@material-ui/core/IconButton';
-import { Node } from '@whitewater-guide/commons';
+import { Node } from '@whitewater-guide/schema';
 import React from 'react';
 
 interface Props<TData = Node> extends IconButtonProps {

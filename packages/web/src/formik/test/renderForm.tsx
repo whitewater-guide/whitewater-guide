@@ -23,7 +23,7 @@ export const renderForm = (
         initialIndex={initialEntries.length - 1}
       >
         <Switch>
-          <Route exact={true} path="/back">
+          <Route exact path="/back">
             <span>{FORM_SUCCEEDED}</span>
           </Route>
 

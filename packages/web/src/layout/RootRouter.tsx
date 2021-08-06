@@ -55,7 +55,7 @@ const RootRouter: React.FC = () => {
       <Container maxWidth="lg" className={classes.root}>
         <Suspense fallback={<Loading />}>
           <Switch>
-            <Route exact={true} path="/">
+            <Route exact path="/">
               <Redirect from="/" to="/regions" />
             </Route>
 

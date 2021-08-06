@@ -8,15 +8,15 @@ export const callWithTimeout = async <T>(
   }
   const result: any = await Promise.race([
     func(),
-    new Promise((resolve, reject) =>
+    new Promise((resolve, reject) => {
       setTimeout(() => {
         if (timeoutValue) {
           resolve(timeoutValue);
         } else {
           reject(new Error(`timed out (${timeout} ms)`));
         }
-      }, timeout),
-    ),
+      }, timeout);
+    }),
   ]);
   return result;
 };

@@ -1,4 +1,4 @@
-import { LANGUAGES } from '@whitewater-guide/commons';
+import { LANGUAGES } from '@whitewater-guide/schema';
 import * as koa from 'koa';
 import get from 'lodash/get';
 
@@ -25,7 +25,7 @@ interface Ctx {
 }
 
 export const newContext = ({ ctx }: Ctx): Omit<Context, 'dataSources'> => {
-  const user: koa.ContextUser | undefined = ctx.state && ctx.state.user;
+  const user: koa.ContextUser | undefined = (ctx.state as any)?.user;
   const language =
     (ctx.headers?.['x-editor-language'] as string) ||
     get(user, 'language') ||

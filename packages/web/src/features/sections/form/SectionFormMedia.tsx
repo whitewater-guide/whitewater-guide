@@ -1,4 +1,4 @@
-import { MediaInput, MediaKind } from '@whitewater-guide/commons';
+import { MediaInput, MediaKind } from '@whitewater-guide/schema';
 import { useFormikContext } from 'formik';
 import React, { Suspense, useCallback, useState } from 'react';
 
@@ -37,9 +37,10 @@ export const SectionFormMedia: React.FC = React.memo(() => {
     }
     setDialogState({ index: -1 });
   }, [setFieldValue, media, dialogState, setDialogState]);
-  const openDialog = useCallback((index: number) => setDialogState({ index }), [
-    setDialogState,
-  ]);
+  const openDialog = useCallback(
+    (index: number) => setDialogState({ index }),
+    [setDialogState],
+  );
 
   const onAdd = useCallback(
     (kind: MediaKind, photo?: LocalPhoto) => {
@@ -60,10 +61,10 @@ export const SectionFormMedia: React.FC = React.memo(() => {
   );
 
   return (
-    <React.Fragment>
+    <>
       <Suspense fallback={<Loading />}>
         <LazyMediaList
-          editable={true}
+          editable
           media={media}
           onAdd={onAdd}
           onEdit={openDialog}
@@ -82,7 +83,7 @@ export const SectionFormMedia: React.FC = React.memo(() => {
           localPhoto={dialogState.photo}
         />
       </Suspense>
-    </React.Fragment>
+    </>
   );
 });
 

@@ -1,0 +1,8 @@
+mutation updateEditorSettings($settings: EditorSettingsInput!) {
+  updateEditorSettings(editorSettings: $settings) {
+    id
+    editorSettings {
+      language
+    }
+  }
+}

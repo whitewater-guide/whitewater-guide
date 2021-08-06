@@ -13,7 +13,7 @@ export default (region: PremiumRegion, sectionId?: string): PurchaseState => {
   const { t } = useTranslation();
   const iapState = useIap();
   const premiumState = usePremiumQuery(region, sectionId);
-  const purchaseAction = usePurchaseAction(region.sku, sectionId);
+  const purchaseAction = usePurchaseAction(region.sku!, sectionId);
   const { canMakePayments, products } = iapState;
   const product = region.sku ? products.get(region.sku) : undefined;
   const buyButton = product
@@ -82,6 +82,7 @@ export default (region: PremiumRegion, sectionId?: string): PurchaseState => {
   if (hasPremiumAccess) {
     return {
       button: buyButton,
+      // @ts-ignore: it wants region as params, but it's already in initialParams
       onPress: () => navigate(Screens.PURCHASE_ALREADY_HAVE),
     };
   }
@@ -97,6 +98,7 @@ export default (region: PremiumRegion, sectionId?: string): PurchaseState => {
   if (!me.verified) {
     return {
       button: buyButton,
+      // @ts-ignore: it wants region as params, but it's already in initialParams
       onPress: () => navigate(Screens.PURCHASE_VERIFY),
     };
   }

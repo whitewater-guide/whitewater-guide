@@ -8,6 +8,8 @@ module.exports = {
     path.resolve(__dirname, '../..', 'node_modules'),
     path.resolve(__dirname, '..', 'commons'),
     path.resolve(__dirname, '..', 'clients'),
+    path.resolve(__dirname, '..', 'schema'),
+    path.resolve(__dirname, '..', 'validation'),
   ],
   transformer: {
     getTransformOptions: async () => ({

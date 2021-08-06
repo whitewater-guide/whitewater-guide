@@ -1,6 +1,6 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { ParamListBase, RouteProp } from '@react-navigation/native';
-import { License, Region } from '@whitewater-guide/commons';
+import { License, Region } from '@whitewater-guide/schema';
 
 import { PurchaseParams } from '~/features/purchases/types';
 import { DescentFormData } from '~/screens/descent-form';

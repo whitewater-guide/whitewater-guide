@@ -1,4 +1,3 @@
-import { useSection } from '@whitewater-guide/clients';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
@@ -19,11 +18,10 @@ const styles = StyleSheet.create({
 });
 
 const SectionMediaScreen: React.FC<SectionMediaNavProps> = () => {
-  const { node } = useSection();
   return (
     <Screen>
       <ScrollView contentContainerStyle={styles.content}>
-        <SectionMediaScreenContent section={node} />
+        <SectionMediaScreenContent />
         <View style={styles.fabHelper} />
       </ScrollView>
       <SectionFAB />

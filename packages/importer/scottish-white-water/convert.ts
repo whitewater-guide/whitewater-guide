@@ -1,5 +1,7 @@
-import { parseDifficultyString, SectionInput } from '@whitewater-guide/commons';
+import { SectionInput } from '@whitewater-guide/schema';
 import { DeepPartial } from 'utility-types';
+
+import { parseDifficultyString } from '../utils/parseDifficultyString';
 
 interface Entry {
   sectionNumber: string;

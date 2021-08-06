@@ -1,4 +1,4 @@
-import { Coordinate2d } from '@whitewater-guide/commons';
+import { Coordinate2d } from './types';
 
 /**
  * Compares 2 arrays of [lng, lat] pairs and return patch in `immutability-helper` $splice format
@@ -25,7 +25,8 @@ export function getCoordinatesPatch(
   if (delta > 0) {
     // Insert in the end
     return [prev.length, 0, next[next.length - 1]];
-  } else if (delta < 0) {
+  }
+  if (delta < 0) {
     // Delete the last
     return [next.length, 1];
   }

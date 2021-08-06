@@ -1,13 +1,10 @@
-import { GraphQLFieldResolver } from 'graphql';
 import gqf from 'graphql-fields';
 
-import { Context } from '~/apollo';
-
-import { SectionRaw } from '../types';
+import { SectionResolvers } from '~/apollo';
 
 const EMBEDDED_RIVER_FIELDS = ['__typename', 'id', 'name'];
 
-const riverResolver: GraphQLFieldResolver<SectionRaw, Context> = (
+const riverResolver: SectionResolvers['river'] = (
   { river_id, river_name },
   _,
   { dataSources },

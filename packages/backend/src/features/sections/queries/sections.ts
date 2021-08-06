@@ -1,12 +1,6 @@
-import { SectionsFilter } from '@whitewater-guide/commons';
+import { QueryResolvers } from '~/apollo';
 
-import { ListQuery, TopLevelResolver } from '~/apollo';
-
-interface Vars extends ListQuery {
-  filter?: SectionsFilter;
-}
-
-const sections: TopLevelResolver<Vars> = async (
+const sections: QueryResolvers['sections'] = async (
   _,
   { filter, page },
   { dataSources, user },

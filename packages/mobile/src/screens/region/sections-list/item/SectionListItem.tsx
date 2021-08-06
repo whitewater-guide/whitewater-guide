@@ -1,5 +1,7 @@
-import { sectionHasChanged } from '@whitewater-guide/clients';
-import { Section } from '@whitewater-guide/commons';
+import {
+  ListedSectionFragment,
+  sectionHasChanged,
+} from '@whitewater-guide/clients';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { PanGestureHandler } from 'react-native-gesture-handler';
@@ -36,12 +38,15 @@ const activeOffsetX = [-15, 15];
 const activeOffsetY = [-10000, 10000];
 const failOffsetY = [-15, 15];
 
-type Props = ItemProps<Section>;
+type Props = ItemProps<ListedSectionFragment>;
 
 export class SectionListItem extends React.Component<Props> {
   private readonly _animation: SwipeableAnimation;
+
   private readonly _scalePI: Reanimated.Node<number>;
+
   private readonly _scaleTO: Reanimated.Node<number>;
+
   private readonly _animationStyle: any;
 
   constructor(props: Props) {
@@ -63,7 +68,7 @@ export class SectionListItem extends React.Component<Props> {
   }
 
   shouldComponentUpdate(next: Readonly<Props>): boolean {
-    const props = this.props;
+    const { props } = this;
     return (
       props.forceCloseCnt !== next.forceCloseCnt ||
       sectionHasChanged(props.item, next.item) ||
@@ -98,10 +103,9 @@ export class SectionListItem extends React.Component<Props> {
     this._animation.close();
     if (hasPremiumAccess) {
       return true;
-    } else {
-      buyRegion();
-      return false;
     }
+    buyRegion();
+    return false;
   };
 
   render() {

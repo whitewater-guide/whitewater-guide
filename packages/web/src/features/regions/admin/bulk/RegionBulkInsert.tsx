@@ -48,21 +48,19 @@ export const RegionBulkInsert: React.FC<Props> = ({ regionId }) => {
   return (
     <div className={classes.root}>
       <Dropzone onDrop={onDrop} multiple={false} accept=".gz">
-        {({ getRootProps, getInputProps }) => {
-          return (
-            <div {...getRootProps()}>
-              <ButtonProgress loading={loading}>
-                <Button color="primary" variant="contained" disabled={loading}>
-                  <Icon className={clsx('material-icons', classes.icon)}>
-                    cloud_upload
-                  </Icon>
-                  {'Upload .tar.gz file'}
-                  <input {...getInputProps()} />
-                </Button>
-              </ButtonProgress>
-            </div>
-          );
-        }}
+        {({ getRootProps, getInputProps }) => (
+          <div {...getRootProps()}>
+            <ButtonProgress loading={loading}>
+              <Button color="primary" variant="contained" disabled={loading}>
+                <Icon className={clsx('material-icons', classes.icon)}>
+                  cloud_upload
+                </Icon>
+                Upload .tar.gz file
+                <input {...getInputProps()} />
+              </Button>
+            </ButtonProgress>
+          </div>
+        )}
       </Dropzone>
       <FormControlLabel
         control={

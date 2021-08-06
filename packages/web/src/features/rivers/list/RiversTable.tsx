@@ -1,4 +1,3 @@
-import { Connection } from '@whitewater-guide/commons';
 import React, { useCallback } from 'react';
 import { Column } from 'react-virtualized';
 
@@ -8,10 +7,12 @@ import {
   Table,
   TableCellRenderer,
 } from '../../../components/tables';
-import { ListedRiver } from './listRivers.query';
+import { ListedRiverFragment, ListRiversQuery } from './listRivers.generated';
 import RiversTableActions from './RiversTableActions';
 
-const renderAltNames: TableCellRenderer<ListedRiver> = ({ rowData }) => {
+const renderAltNames: TableCellRenderer<ListedRiverFragment> = ({
+  rowData,
+}) => {
   if (isEmptyRow(rowData)) {
     return null;
   }
@@ -19,7 +20,9 @@ const renderAltNames: TableCellRenderer<ListedRiver> = ({ rowData }) => {
   return altNames ? altNames.join(', ') : '';
 };
 
-const renderNumSections: TableCellRenderer<ListedRiver> = ({ rowData }) => {
+const renderNumSections: TableCellRenderer<ListedRiverFragment> = ({
+  rowData,
+}) => {
   if (isEmptyRow(rowData)) {
     return null;
   }
@@ -27,15 +30,15 @@ const renderNumSections: TableCellRenderer<ListedRiver> = ({ rowData }) => {
 };
 
 interface Props {
-  rivers?: Connection<ListedRiver>;
+  rivers?: ListRiversQuery['rivers'];
   onRemove: (id: string) => void;
   onChangeRegion: (id: string) => void;
 }
 
-const RiversTable: React.FC<Props> = React.memo((props) => {
+const RiversTable = React.memo<Props>((props) => {
   const { rivers = { nodes: [], count: 0 }, onRemove, onChangeRegion } = props;
 
-  const renderActions: TableCellRenderer<ListedRiver> = useCallback(
+  const renderActions: TableCellRenderer<ListedRiverFragment> = useCallback(
     ({ rowData }) => {
       if (isEmptyRow(rowData)) {
         return null;

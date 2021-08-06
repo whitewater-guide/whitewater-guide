@@ -1,0 +1,7 @@
+mutation upsertTag($tag: TagInput!) {
+  upsertTag(tag: $tag) {
+    id
+    name
+    category
+  }
+}

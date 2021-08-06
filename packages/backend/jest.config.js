@@ -2,6 +2,8 @@
 const { defaults } = require('jest-config');
 
 module.exports = {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
+  displayName: require('./package.json').name,
   preset: 'ts-jest',
   globals: {
     'ts-jest': {

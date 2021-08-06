@@ -30,7 +30,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
   }),
 );
 
-const Month: React.FC<Props> = React.memo((props) => {
+const Month = React.memo<Props>((props) => {
   const classes = useStyles(props);
   return <div className={classes.root}>{getMonthName(props.index, false)}</div>;
 });

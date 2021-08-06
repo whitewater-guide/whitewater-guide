@@ -34,11 +34,11 @@ const MarkdownComponent: React.FC<FieldInputProps<MdEditorValue>> = ({
       value={value}
       onChangeCompat={onChange}
       toolbarProps={toolbarProps}
-      rememberMdSwitch={true}
+      rememberMdSwitch
     />
   );
 };
 
-export const MarkdownField: React.FC<Props> = ({ name }) => {
-  return <FastField name={name} as={MarkdownComponent} />;
-};
+export const MarkdownField: React.FC<Props> = ({ name }) => (
+  <FastField name={name} as={MarkdownComponent} />
+);

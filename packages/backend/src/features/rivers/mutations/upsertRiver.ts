@@ -1,19 +1,18 @@
-import { RiverInput, RiverInputSchema } from '@whitewater-guide/commons';
+import {
+  MutationUpsertRiverArgs,
+  RiverInputSchema,
+} from '@whitewater-guide/schema';
 import * as yup from 'yup';
 
-import { isInputValidResolver, TopLevelResolver } from '~/apollo';
-import db, { rawUpsert } from '~/db';
+import { isInputValidResolver, MutationResolvers } from '~/apollo';
+import { db, rawUpsert } from '~/db';
 
-interface Vars {
-  river: RiverInput;
-}
-
-const Struct = yup.object({
-  river: RiverInputSchema,
+const Schema: yup.SchemaOf<MutationUpsertRiverArgs> = yup.object({
+  river: RiverInputSchema.clone(),
 });
 
-const resolver: TopLevelResolver<Vars> = async (
-  root,
+const upsertRiver: MutationResolvers['upsertRiver'] = async (
+  _,
   vars,
   { user, language, dataSources },
 ) => {
@@ -25,6 +24,4 @@ const resolver: TopLevelResolver<Vars> = async (
   return rawUpsert(db(), 'SELECT upsert_river(?, ?)', [river, language]);
 };
 
-const upsertRiver = isInputValidResolver(Struct, resolver);
-
-export default upsertRiver;
+export default isInputValidResolver(Schema, upsertRiver);

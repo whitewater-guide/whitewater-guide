@@ -23,7 +23,7 @@ export interface SelectFieldProps<O = any, V = any>
   label?: string;
 }
 
-export const SelectField: React.FC<SelectFieldProps> = React.memo((props) => {
+export const SelectField = React.memo<SelectFieldProps>((props) => {
   const {
     name,
     options,

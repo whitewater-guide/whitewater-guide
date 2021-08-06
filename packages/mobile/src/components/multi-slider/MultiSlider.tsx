@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Subheading } from 'react-native-paper';
 
-import { RangeSlider } from './RangeSlider';
+import RangeSlider from './RangeSlider';
 import { RangeSliderProps } from './types';
 
 const styles = StyleSheet.create({
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props extends Partial<RangeSliderProps> {
+interface Props extends RangeSliderProps {
   label: string;
 }
 

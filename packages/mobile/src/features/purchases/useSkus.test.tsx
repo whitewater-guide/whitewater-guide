@@ -4,7 +4,8 @@ import { mockApolloProvider } from '@whitewater-guide/clients/dist/test';
 import { MockList } from 'graphql-tools';
 import React from 'react';
 
-import { REGIONS_LIST_QUERY } from '../../screens/regions-list/useRegionsListQuery';
+import { RegionsListDocument } from '~/screens/regions-list/regionsList.generated';
+
 import useSkus from './useSkus';
 
 const prepare = async () => {
@@ -23,7 +24,7 @@ const prepare = async () => {
     },
   });
   const query = Provider.client.watchQuery({
-    query: REGIONS_LIST_QUERY,
+    query: RegionsListDocument,
     fetchPolicy: 'cache-and-network',
   });
   await query.result();

@@ -1,23 +1,23 @@
-import { Media, MediaKind } from '@whitewater-guide/commons';
+import { MediaKind, MediaWithThumbFragment } from '@whitewater-guide/schema';
 import React from 'react';
 
 import BlogItem from './BlogItem';
 import NoMedia from './NoMedia';
 
 interface Props {
-  blogs?: Media[];
+  blogs?: MediaWithThumbFragment[];
 }
 
-const BlogList: React.SFC<Props> = ({ blogs }) => {
+const BlogList: React.FC<Props> = ({ blogs }) => {
   if (!blogs || blogs.length === 0) {
-    return <NoMedia kind={MediaKind.blog} />;
+    return <NoMedia kind={MediaKind.Blog} />;
   }
   return (
-    <React.Fragment>
-      {blogs.map((blog, index) => (
-        <BlogItem key={index} blog={blog} />
+    <>
+      {blogs.map((blog) => (
+        <BlogItem key={blog.id} blog={blog} />
       ))}
-    </React.Fragment>
+    </>
   );
 };
 

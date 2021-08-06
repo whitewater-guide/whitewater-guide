@@ -21,7 +21,7 @@ export const render = async (type: MailType, data: any): Promise<string> => {
       filePath: mjmlFile,
     });
     if (errors.length) {
-      throw errors[0];
+      throw new Error(errors[0].message);
     }
     renderer = template(html);
     TEMPLATES.set(type, renderer);

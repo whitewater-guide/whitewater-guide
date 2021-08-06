@@ -5,13 +5,13 @@ import ListItemText from '@material-ui/core/ListItemText';
 import React from 'react';
 
 import { IconButtonWithData } from '../../../../components';
-import { MediaOrInput } from './types';
+import { ListedMedia } from './types';
 
 interface Props {
   editable: boolean;
-  media: MediaOrInput[];
-  onEdit?: (media: MediaOrInput) => void;
-  onRemove?: (media: MediaOrInput) => void;
+  media: ListedMedia[];
+  onEdit?: (media: ListedMedia) => void;
+  onRemove?: (media: ListedMedia) => void;
 }
 
 const BlogsList: React.FC<Props> = (props) => {
@@ -21,18 +21,18 @@ const BlogsList: React.FC<Props> = (props) => {
       {media.map((item, index) => (
         <ListItem key={item.id || item.url || `item${index}`}>
           <ListItemText secondary={item.copyright}>
-            <a href={item.url} target="_blank" rel="noreferrer">
+            <a href={item.url ?? undefined} target="_blank" rel="noreferrer">
               {item.description}
             </a>
           </ListItemText>
           {editable && (
             <ListItemSecondaryAction>
-              <IconButtonWithData<MediaOrInput>
+              <IconButtonWithData<ListedMedia>
                 icon="edit"
                 data={item}
                 onPress={onEdit}
               />
-              <IconButtonWithData<MediaOrInput>
+              <IconButtonWithData<ListedMedia>
                 icon="delete_forever"
                 data={item}
                 onPress={onRemove}

@@ -3,7 +3,7 @@ import { MailType } from '../types';
 import { render } from './render';
 
 require('jest-specific-snapshot');
-const addSerializer = require('jest-specific-snapshot').addSerializer;
+const { addSerializer } = require('jest-specific-snapshot');
 addSerializer(require('jest-serializer-html'));
 
 const types = Object.values(MailType).map((t) => [t]);

@@ -1,9 +1,9 @@
 import { fromMarkdown } from '@whitewater-guide/md-editor';
 
-import { QResult } from './regionForm.queue';
+import { RegionFormQuery } from './regionForm.generated';
 import { RegionFormData } from './types';
 
-export default (result?: QResult): RegionFormData => {
+export default (result?: RegionFormQuery): RegionFormData => {
   if (!result || !result.region) {
     return {
       id: null,

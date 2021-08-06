@@ -7,7 +7,7 @@ interface Props {
   error?: string | { key: string; options?: Record<string, string> };
 }
 
-export const ErrorText: React.FC<Props> = React.memo(({ inputId, error }) => {
+export const ErrorText = React.memo<Props>(({ inputId, error }) => {
   const id = inputId ? `${inputId}-error` : undefined;
   const { t } = useTranslation();
   const errorText = error

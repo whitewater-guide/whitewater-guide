@@ -4,24 +4,33 @@ import { QueryBuilder } from 'knex';
 import snakeCase from 'lodash/snakeCase';
 
 import { Context, ContextUser } from '~/apollo';
-import db from '~/db';
+import { db } from '~/db';
 
 import { FieldsMap, OrderBy } from './types';
 
 export abstract class BaseConnector<TGraphql, TSql extends { id: string }>
-  implements DataSource<Context> {
+  implements DataSource<Context>
+{
   protected readonly _loader: DataLoader<string, TSql | null>;
+
   protected _context!: Context;
+
   protected _user: ContextUser | undefined;
+
   protected _language?: string;
+
   protected _fieldsByType!: Map<string, Set<string>>;
 
   // fields that should be set in subclass
   protected _tableName!: string;
+
   protected _graphqlTypeName!: string;
+
   protected _fieldsMap: FieldsMap<TGraphql, TSql> = {};
+
   // Extra sql fields to be always included in query
   protected _sqlFields: Array<keyof TSql> = ['id'];
+
   protected _orderBy: OrderBy[] = [
     { column: 'name', direction: 'asc' },
     { column: 'created_at', direction: 'desc' },

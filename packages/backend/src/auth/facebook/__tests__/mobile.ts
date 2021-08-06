@@ -8,7 +8,7 @@ import superagent from 'superagent';
 import { SuperTest, Test } from 'supertest';
 import agent from 'supertest-koa-agent';
 
-import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { db, holdTransaction, rollbackTransaction } from '~/db';
 import {
   ADMIN_FB_PROFILE,
   ADMIN_ID,
@@ -115,7 +115,7 @@ describe.each([
   });
 
   it('should create verified user', async () => {
-    const id = response!.body.id;
+    const { id } = response!.body;
     const user = await db(false)
       .select('*')
       .from('users')
@@ -163,7 +163,7 @@ describe('language', () => {
     const resp = await agent(app)
       .get(`${ROUTE}?access_token=__new_access_token__&language=it`)
       .set('Accept-Language', 'fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5');
-    const id = resp.body.id;
+    const { id } = resp.body;
     const user = await db(false)
       .select('*')
       .from('users')
@@ -184,7 +184,7 @@ describe('language', () => {
     const resp = await agent(app)
       .get(`${ROUTE}?access_token=__new_access_token__`)
       .set('Accept-Language', 'fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5');
-    const id = resp.body.id;
+    const { id } = resp.body;
     const user = await db(false)
       .select('*')
       .from('users')
@@ -205,7 +205,7 @@ describe('language', () => {
     const resp = await agent(app)
       .get(`${ROUTE}?access_token=__new_access_token__`)
       .set('Accept-Language', 'fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5');
-    const id = resp.body.id;
+    const { id } = resp.body;
     const user = await db(false)
       .select('*')
       .from('users')

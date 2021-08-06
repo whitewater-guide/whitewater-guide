@@ -1,14 +1,21 @@
 import Box from '@material-ui/core/Box';
-import { RiverInput, RiverInputSchema } from '@whitewater-guide/commons';
+import { RiverInput, RiverInputSchema } from '@whitewater-guide/schema';
 import React from 'react';
 
 import { FormikCard, useApolloFormik } from '../../../formik';
 import { MultiTextField, TextField } from '../../../formik/fields';
 import formToMutation from './formToMutation';
 import makeQueryToForm from './makeQueryToForm';
-import { QResult, QVars, RIVER_FORM_QUERY } from './riverForm.query';
+import {
+  RiverFormDocument,
+  RiverFormQuery,
+  RiverFormQueryVariables,
+} from './riverForm.generated';
 import { RouterParams } from './types';
-import { MVars, UPSERT_RIVER } from './upsertRiver.mutation';
+import {
+  UpsertRiverDocument,
+  UpsertRiverMutationVariables,
+} from './upsertRiver.generated';
 
 const header = { resourceType: 'river' };
 
@@ -21,30 +28,26 @@ interface Props {
 const RiverForm: React.FC<Props> = ({ match }) => {
   const queryToForm = makeQueryToForm(match.params.regionId);
 
-  const formik = useApolloFormik<QVars, QResult, RiverInput, MVars>({
-    query: RIVER_FORM_QUERY,
+  const formik = useApolloFormik<
+    RiverFormQueryVariables,
+    RiverFormQuery,
+    RiverInput,
+    UpsertRiverMutationVariables
+  >({
+    query: RiverFormDocument,
     queryOptions: {
       variables: { riverId: match.params.riverId },
     },
     queryToForm,
-    mutation: UPSERT_RIVER,
+    mutation: UpsertRiverDocument,
     formToMutation,
   });
 
   return (
     <FormikCard header={header} {...formik} validationSchema={RiverInputSchema}>
       <Box padding={1}>
-        <TextField
-          fullWidth={true}
-          name="name"
-          label="Name"
-          placeholder="Name"
-        />
-        <MultiTextField
-          fullWidth={true}
-          name="altNames"
-          label="Alternative names"
-        />
+        <TextField fullWidth name="name" label="Name" placeholder="Name" />
+        <MultiTextField fullWidth name="altNames" label="Alternative names" />
       </Box>
     </FormikCard>
   );

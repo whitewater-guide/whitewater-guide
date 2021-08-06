@@ -1,5 +1,6 @@
-import { anonContext, fakeContext, runQuery } from '@test';
+import { anonContext, fakeContext } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
+import gql from 'graphql-tag';
 
 import { holdTransaction, rollbackTransaction } from '~/db';
 import {
@@ -15,10 +16,12 @@ import {
   REGION_NORWAY,
 } from '~/seeds/test/04_regions';
 
+import { testPromoRegions } from './promoRegions.test.generated';
+
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
-const query = `
+const _query = gql`
   query promoRegions {
     promoRegions {
       id
@@ -28,65 +31,65 @@ const query = `
 `;
 
 it('anon shall not pass', async () => {
-  const result = await runQuery(query, {}, anonContext());
+  const result = await testPromoRegions({}, anonContext());
   expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
 });
 
 it('should return all premium regions for user without purchases', async () => {
-  const result = await runQuery(query, {}, fakeContext(EDITOR_NO_EC));
+  const result = await testPromoRegions({}, fakeContext(EDITOR_NO_EC));
   expect(result.errors).toBeUndefined();
-  expect(result.data!.promoRegions).toHaveLength(2); // ecuador, georgia
+  expect(result.data?.promoRegions).toHaveLength(2); // ecuador, georgia
 });
 
 it('should not include hidden regions', async () => {
-  const result = await runQuery(query, {}, fakeContext(TEST_USER2));
+  const result = await testPromoRegions({}, fakeContext(TEST_USER2));
   expect(result.errors).toBeUndefined();
-  expect(result.data!.promoRegions).not.toContainEqual(
+  expect(result.data?.promoRegions).not.toContainEqual(
     expect.objectContaining({ id: REGION_NORWAY }),
   );
 });
 
 it('should return empty array for users who purchased all regions group', async () => {
-  const result = await runQuery(query, {}, fakeContext(BOOM_USER_3500));
+  const result = await testPromoRegions({}, fakeContext(BOOM_USER_3500));
   expect(result.errors).toBeUndefined();
-  expect(result.data!.promoRegions).toHaveLength(0);
+  expect(result.data?.promoRegions).toHaveLength(0);
 });
 
 it('should exclude regions purchased as single regions', async () => {
-  const result = await runQuery(query, {}, fakeContext(TEST_USER));
+  const result = await testPromoRegions({}, fakeContext(TEST_USER));
   expect(result.errors).toBeUndefined();
-  expect(result.data!.promoRegions).toHaveLength(1); // Only ecuador
-  expect(result.data!.promoRegions).toContainEqual(
+  expect(result.data?.promoRegions).toHaveLength(1); // Only ecuador
+  expect(result.data?.promoRegions).toContainEqual(
     expect.objectContaining({ id: REGION_ECUADOR }),
   );
-  expect(result.data!.promoRegions).not.toContainEqual(
+  expect(result.data?.promoRegions).not.toContainEqual(
     expect.objectContaining({ id: REGION_GEORGIA }),
   );
 });
 
 it('should exclude regions purchased as part of group', async () => {
-  const result = await runQuery(query, {}, fakeContext(BOOM_USER_1500));
+  const result = await testPromoRegions({}, fakeContext(BOOM_USER_1500));
   expect(result.errors).toBeUndefined();
-  expect(result.data!.promoRegions).toHaveLength(1);
-  expect(result.data!.promoRegions).not.toContainEqual(
+  expect(result.data?.promoRegions).toHaveLength(1);
+  expect(result.data?.promoRegions).not.toContainEqual(
     expect.objectContaining({ id: REGION_GEORGIA }),
   );
-  expect(result.data!.promoRegions).not.toContainEqual(
+  expect(result.data?.promoRegions).not.toContainEqual(
     expect.objectContaining({ id: REGION_NORWAY }),
   );
 });
 
 it('should include regions for which transactions are failed', async () => {
-  const result = await runQuery(query, {}, fakeContext(TEST_USER));
+  const result = await testPromoRegions({}, fakeContext(TEST_USER));
   expect(result.errors).toBeUndefined();
-  expect(result.data!.promoRegions).toContainEqual(
+  expect(result.data?.promoRegions).toContainEqual(
     expect.objectContaining({ id: REGION_ECUADOR }),
   );
 });
 
 it('should i18nize', async () => {
-  const result = await runQuery(query, {}, fakeContext(EDITOR_NO_EC, 'ru'));
-  expect(result.data!.promoRegions).toContainEqual(
+  const result = await testPromoRegions({}, fakeContext(EDITOR_NO_EC, 'ru'));
+  expect(result.data?.promoRegions).toContainEqual(
     expect.objectContaining({ name: 'Грузия' }),
   );
 });

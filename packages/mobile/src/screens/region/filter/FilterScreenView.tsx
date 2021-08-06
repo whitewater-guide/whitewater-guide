@@ -1,10 +1,11 @@
 import {
   stringifySeason,
+  toRomanDifficulty,
   useRegion,
   useSectionsFilterOptions,
   useTags,
 } from '@whitewater-guide/clients';
-import { Duration, toRomanDifficulty } from '@whitewater-guide/commons';
+import { Duration } from '@whitewater-guide/schema';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
@@ -23,9 +24,6 @@ import { getStateFactory } from './utils';
 const DIFFICULTY_RANGE: [number, number] = [0, 6];
 const SEASON_RANGE: [number, number] = [0, 23];
 const DURATION_RANGE: [number, number] = [Duration.LAPS, Duration.MULTIDAY];
-// container.paddingHorizontal (12) + multidlider.marginHorizontal (-10) + rangeslider._trackMarginH (18)
-const DEFAULT_SLIDER_PAGEX = 20;
-const DEFAULT_SLIDER_WIDTH = theme.screenWidth - 2 * DEFAULT_SLIDER_PAGEX;
 
 const styles = StyleSheet.create({
   container: {
@@ -40,26 +38,28 @@ const styles = StyleSheet.create({
 
 const FilterScreenView: React.FC = () => {
   const { t } = useTranslation();
-  const { node: region } = useRegion();
+  const region = useRegion();
   const filterOptions = useSectionsFilterOptions();
   const { tags, loading } = useTags();
   const stateFactory = useMemo(() => getStateFactory(tags), [tags]);
   const [state, setState] = useState(stateFactory(filterOptions));
-  const onChange: any = useMemo(() => {
-    return Object.keys(state).reduce(
-      (acc, key) => ({
-        ...acc,
-        [key]: (value: any) => setState({ ...state, [key]: value }),
-      }),
-      {},
-    );
-  }, [state, setState]);
+  const onChange: any = useMemo(
+    () =>
+      Object.keys(state).reduce(
+        (acc, key) => ({
+          ...acc,
+          [key]: (value: any) => setState({ ...state, [key]: value }),
+        }),
+        {},
+      ),
+    [state, setState],
+  );
   if (loading) {
     return <Loading />;
   }
   const [minDiff, maxDiff] = state.difficulty.map(toRomanDifficulty);
-  const [minDuration, maxDuration] = state.duration.map(
-    (d) => t(`durations:${d}`) as string,
+  const [minDuration, maxDuration] = state.duration.map((d) =>
+    t(`durations:${d}`),
   );
   const difficultyLabel: string =
     minDiff === maxDiff
@@ -74,8 +74,6 @@ const FilterScreenView: React.FC = () => {
     <View style={StyleSheet.absoluteFill}>
       <ScrollView contentContainerStyle={styles.container}>
         <MultiSlider
-          defaultTrackWidth={DEFAULT_SLIDER_WIDTH}
-          defaultTrackPageX={DEFAULT_SLIDER_PAGEX}
           label={difficultyLabel}
           range={DIFFICULTY_RANGE}
           step={0.5}
@@ -83,8 +81,6 @@ const FilterScreenView: React.FC = () => {
           onChange={onChange.difficulty}
         />
         <MultiSlider
-          defaultTrackWidth={DEFAULT_SLIDER_WIDTH}
-          defaultTrackPageX={DEFAULT_SLIDER_PAGEX}
           label={durationLabel}
           range={DURATION_RANGE}
           step={10}
@@ -92,8 +88,6 @@ const FilterScreenView: React.FC = () => {
           onChange={onChange.duration}
         />
         <MultiSlider
-          defaultTrackWidth={DEFAULT_SLIDER_WIDTH}
-          defaultTrackPageX={DEFAULT_SLIDER_PAGEX}
           label={`${t('commons:season')}: ${stringifySeason(
             state.seasonNumeric,
             true,

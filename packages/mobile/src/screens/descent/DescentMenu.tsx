@@ -1,5 +1,4 @@
 import { useActionSheet } from '@expo/react-native-action-sheet';
-import { Descent } from '@whitewater-guide/commons';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Clipboard, Platform } from 'react-native';
@@ -9,10 +8,11 @@ import descentToString from '~/features/descents/descentToString';
 import theme from '~/theme';
 
 import DeleteDescentDialog from './DeleteDescentDialog';
+import { DescentDetailsFragment } from './descentDetails.generated';
 import useNavigateToForm from './useNavigateToForm';
 
 interface Props {
-  descent?: Descent | null;
+  descent?: DescentDetailsFragment | null;
 }
 
 const DescentMenu: React.FC<Props> = ({ descent }) => {
@@ -51,13 +51,15 @@ const DescentMenu: React.FC<Props> = ({ descent }) => {
           case 3:
             Clipboard.setString(descentToString(t, descent));
             break;
+          default:
+          // do nothing
         }
       },
     );
   }, [t, showActionSheetWithOptions, setDeleteDialogVisible, descent, toForm]);
 
   return (
-    <React.Fragment>
+    <>
       <IconButton
         testID="decent-menu-button"
         icon={Platform.OS === 'ios' ? 'dots-horizontal' : 'dots-vertical'}
@@ -70,7 +72,7 @@ const DescentMenu: React.FC<Props> = ({ descent }) => {
           close={() => setDeleteDialogVisible(false)}
         />
       )}
-    </React.Fragment>
+    </>
   );
 };
 

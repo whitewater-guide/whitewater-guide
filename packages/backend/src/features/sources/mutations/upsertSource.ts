@@ -1,27 +1,25 @@
-import { SourceInput, SourceInputSchema } from '@whitewater-guide/commons';
+import {
+  MutationUpsertSourceArgs,
+  SourceInputSchema,
+} from '@whitewater-guide/schema';
 import * as yup from 'yup';
 
 import {
   isInputValidResolver,
   MutationNotAllowedError,
-  TopLevelResolver,
+  MutationResolvers,
 } from '~/apollo';
-import db, { rawUpsert } from '~/db';
+import { db, rawUpsert } from '~/db';
 
-interface Vars {
-  source: SourceInput;
-}
-
-const Struct = yup.object({
-  source: SourceInputSchema,
+const Schema: yup.SchemaOf<MutationUpsertSourceArgs> = yup.object({
+  source: SourceInputSchema.clone(),
 });
 
-const resolver: TopLevelResolver<Vars> = async (
-  root,
-  args,
+const upsertSource: MutationResolvers['upsertSource'] = async (
+  _,
+  { source },
   { language, dataSources },
 ) => {
-  const { source } = args;
   if (source.id) {
     const enabled = await dataSources.gorge.isSourceEnabled(source.id);
     if (enabled) {
@@ -31,6 +29,4 @@ const resolver: TopLevelResolver<Vars> = async (
   return rawUpsert(db(), 'SELECT upsert_source(?, ?)', [source, language]);
 };
 
-const upsertSource = isInputValidResolver(Struct, resolver);
-
-export default upsertSource;
+export default isInputValidResolver(Schema, upsertSource);

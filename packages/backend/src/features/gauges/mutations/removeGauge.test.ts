@@ -1,13 +1,18 @@
-import { anonContext, countRows, fakeContext, runQuery } from '@test';
+import { anonContext, countRows, fakeContext } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import { ExecutionResult } from 'graphql';
+import gql from 'graphql-tag';
 
-import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { db, holdTransaction, rollbackTransaction } from '~/db';
 import { GorgeConnector } from '~/features/gorge';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
 import { SOURCE_GALICIA_1 } from '~/seeds/test/05_sources';
 import { GAUGE_GAL_1_1 } from '~/seeds/test/06_gauges';
 import { GALICIA_BECA_LOWER } from '~/seeds/test/09_sections';
+
+import {
+  RemoveGaugeMutationResult,
+  testRemoveGauge,
+} from './removeGauge.test.generated';
 
 jest.mock('../../gorge/connector.ts');
 
@@ -24,8 +29,8 @@ beforeAll(async () => {
   );
 });
 
-const query = `
-  mutation removeGauge($id: ID!){
+const _mutation = gql`
+  mutation removeGauge($id: ID!) {
     removeGauge(id: $id)
   }
 `;
@@ -42,7 +47,7 @@ afterEach(rollbackTransaction);
 
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
-    const result = await runQuery(query, gal1, anonContext());
+    const result = await testRemoveGauge(gal1, anonContext());
     expect(result).toHaveGraphqlError(
       ApolloErrorCodes.UNAUTHENTICATED,
       DATA_FIELD,
@@ -50,23 +55,23 @@ describe('resolvers chain', () => {
   });
 
   it('user should not pass', async () => {
-    const result = await runQuery(query, gal1, fakeContext(TEST_USER));
+    const result = await testRemoveGauge(gal1, fakeContext(TEST_USER));
     expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN, DATA_FIELD);
   });
 
   it('editor should not pass', async () => {
-    const result = await runQuery(query, gal1, fakeContext(EDITOR_GA_EC));
+    const result = await testRemoveGauge(gal1, fakeContext(EDITOR_GA_EC));
     expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN, DATA_FIELD);
   });
 });
 
 describe('effects', () => {
-  let result: ExecutionResult;
+  let result: RemoveGaugeMutationResult;
   let spy: jest.SpyInstance;
 
   beforeEach(async () => {
     spy = jest.spyOn(GorgeConnector.prototype, 'updateJobForSource');
-    result = await runQuery(query, gal1, fakeContext(ADMIN));
+    result = await testRemoveGauge(gal1, fakeContext(ADMIN));
   });
 
   afterEach(() => {

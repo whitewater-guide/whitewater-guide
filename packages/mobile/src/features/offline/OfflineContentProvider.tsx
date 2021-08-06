@@ -1,4 +1,4 @@
-import { NamedNode } from '@whitewater-guide/commons';
+import { NamedNode } from '@whitewater-guide/schema';
 import noop from 'lodash/noop';
 import React, { useCallback, useContext, useState } from 'react';
 
@@ -53,7 +53,8 @@ export const OfflineContentProvider: React.FC = ({ children }) => {
     [setDialogReg, downloader, setRegionInProgress],
   );
 
-  const value = {
+  // eslint-disable-next-line react/jsx-no-constructed-context-values
+  const value: OfflineContentCtx = {
     dialogRegion,
     regionInProgress,
     download,

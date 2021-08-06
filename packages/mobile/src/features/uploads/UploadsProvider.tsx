@@ -3,7 +3,7 @@ import {
   LocalPhotoStatus,
   useUploadLink,
 } from '@whitewater-guide/clients';
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useContext, useMemo, useState } from 'react';
 
 import { trackError } from '../../core/errors';
 import { LocalPhoto } from './types';
@@ -18,7 +18,7 @@ const PhotosContext = React.createContext<UploadsContext>({
   localPhotos: {},
 });
 
-export const UploadsProvider: React.FC = React.memo(({ children }) => {
+export const UploadsProvider: React.FC = ({ children }) => {
   const [localPhotos, setLocalPhotos] = useState<Record<string, LocalPhoto>>(
     {},
   );
@@ -26,7 +26,7 @@ export const UploadsProvider: React.FC = React.memo(({ children }) => {
 
   const upload = useCallback(
     (photo: LocalPhoto) => {
-      const id = photo.id;
+      const { id } = photo;
       setLocalPhotos((photos) => ({
         ...photos,
         [id]: {
@@ -66,12 +66,18 @@ export const UploadsProvider: React.FC = React.memo(({ children }) => {
     [setLocalPhotos, link],
   );
 
-  return (
-    <PhotosContext.Provider value={{ localPhotos, upload }}>
-      {children}
-    </PhotosContext.Provider>
+  const value = useMemo<UploadsContext>(
+    () => ({
+      localPhotos,
+      upload,
+    }),
+    [localPhotos, upload],
   );
-});
+
+  return (
+    <PhotosContext.Provider value={value}>{children}</PhotosContext.Provider>
+  );
+};
 
 UploadsProvider.displayName = 'UploadsProvider';
 

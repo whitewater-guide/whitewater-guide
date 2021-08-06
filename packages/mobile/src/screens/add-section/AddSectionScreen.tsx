@@ -65,7 +65,7 @@ const AddSectionScreen: React.FC<Partial<AddSectionNavProps>> = ({ route }) => {
   return (
     <Formik<SectionFormInput>
       initialValues={initialValues}
-      validateOnMount={true}
+      validateOnMount
       onSubmit={addSection}
       validate={validator as any}
     >

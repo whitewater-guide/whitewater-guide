@@ -1,26 +1,23 @@
-import { Media, MediaKind } from '@whitewater-guide/commons';
+import { MediaImageArgs, MediaKind } from '@whitewater-guide/schema';
 
-import { FieldResolvers } from '~/apollo';
-import { timestampResolvers } from '~/db';
+import { MediaResolvers, timestampedResolvers } from '~/apollo';
 import { Imgproxy } from '~/s3';
-
-import { ImageArgs, MediaRaw } from '../types';
 
 const WHITELIST = [
   { height: 180 }, // web thumbs
 ];
 
-const mediaFieldResolvers: FieldResolvers<MediaRaw, Media> = {
-  ...timestampResolvers,
-  deleted: ({ deleted }) => !!deleted,
+const mediaFieldResolvers: MediaResolvers = {
+  ...timestampedResolvers,
+  deleted: ({ deleted }: any) => !!deleted,
   url: ({ kind, url }) => {
-    if (kind === MediaKind.photo) {
+    if (kind === MediaKind.Photo) {
       return Imgproxy.url('media', url, null);
     }
     return url;
   },
-  image: ({ kind, url }, { width, height }: ImageArgs) => {
-    if (kind === MediaKind.photo) {
+  image: ({ kind, url }, { width, height }: MediaImageArgs) => {
+    if (kind === MediaKind.Photo) {
       return Imgproxy.url(
         'media',
         url,

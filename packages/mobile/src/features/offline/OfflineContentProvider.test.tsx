@@ -13,11 +13,9 @@ const TEST_REGION = { id: 'id', name: 'Name' };
 const ID = TEST_REGION.id;
 const mockUseDownloadRegion = useDownloadRegion as jest.Mock;
 
-jest.mock('./hooks/useDownloadRegion', () => {
-  return {
-    useDownloadRegion: jest.fn(),
-  };
-});
+jest.mock('./hooks/useDownloadRegion', () => ({
+  useDownloadRegion: jest.fn(),
+}));
 
 beforeEach(() => {
   jest.resetAllMocks();

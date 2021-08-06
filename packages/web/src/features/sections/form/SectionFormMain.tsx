@@ -10,65 +10,58 @@ import {
 import { DifficultyField } from './DifficultyField';
 import { SectionRiverField } from './SectionRiverField';
 
-export const SectionFormMain: React.FC = () => {
-  return (
-    <Grid container={true} spacing={4}>
-      <Grid item={true} xs={12}>
-        <SectionRiverField />
-      </Grid>
+export const SectionFormMain: React.FC = () => (
+  <Grid container spacing={4}>
+    <Grid item xs={12}>
+      <SectionRiverField />
+    </Grid>
 
-      <Grid item={true} xs={12}>
+    <Grid item xs={12}>
+      <TextField fullWidth name="name" label="Name" placeholder="Name" />
+    </Grid>
+
+    <Grid item xs={12}>
+      <MultiTextField
+        fullWidth
+        name="altNames"
+        label="Alternative names"
+        placeholder="Alternative names"
+      />
+    </Grid>
+
+    <Grid item xs={12} container spacing={1}>
+      <Grid item xs={4}>
+        <DifficultyField
+          fullWidth
+          name="difficulty"
+          label="Difficulty"
+          placeholder="Difficulty"
+        />
+      </Grid>
+      <Grid item xs={4}>
         <TextField
-          fullWidth={true}
-          name="name"
-          label="Name"
-          placeholder="Name"
+          fullWidth
+          name="difficultyXtra"
+          label="Difficulty (extra)"
+          placeholder="Difficulty (extra)"
         />
       </Grid>
-
-      <Grid item={true} xs={12}>
-        <MultiTextField
-          fullWidth={true}
-          name="altNames"
-          label="Alternative names"
-          placeholder="Alternative names"
-        />
-      </Grid>
-
-      <Grid item={true} xs={12} container={true} spacing={1}>
-        <Grid item={true} xs={4}>
-          <DifficultyField
-            fullWidth={true}
-            name="difficulty"
-            label="Difficulty"
-            placeholder="Difficulty"
-          />
-        </Grid>
-        <Grid item={true} xs={4}>
-          <TextField
-            fullWidth={true}
-            name="difficultyXtra"
-            label="Difficulty (extra)"
-            placeholder="Difficulty (extra)"
-          />
-        </Grid>
-        <Grid item={true} xs={4}>
-          <RatingField name="rating" label="Rating" />
-        </Grid>
-      </Grid>
-
-      <Grid item={true} xs={12}>
-        <TextField
-          fullWidth={true}
-          name="helpNeeded"
-          label="Community help needed"
-          placeholder="Community help needed"
-        />
-      </Grid>
-
-      <Grid item={true} xs={12}>
-        <CheckboxField name="hidden" label="Hidden from users" />
+      <Grid item xs={4}>
+        <RatingField name="rating" label="Rating" />
       </Grid>
     </Grid>
-  );
-};
+
+    <Grid item xs={12}>
+      <TextField
+        fullWidth
+        name="helpNeeded"
+        label="Community help needed"
+        placeholder="Community help needed"
+      />
+    </Grid>
+
+    <Grid item xs={12}>
+      <CheckboxField name="hidden" label="Hidden from users" />
+    </Grid>
+  </Grid>
+);

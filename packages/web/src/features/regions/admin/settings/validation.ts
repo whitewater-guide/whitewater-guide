@@ -1,5 +1,5 @@
 import { getLocalPhotoSchema } from '@whitewater-guide/clients';
-import { RegionAdminSettingsSchema } from '@whitewater-guide/commons';
+import { RegionAdminSettingsSchema } from '@whitewater-guide/schema';
 
 import { COVER_IMAGE_RESOLUTION } from './constants';
 

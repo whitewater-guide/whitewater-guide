@@ -1,0 +1,30 @@
+fragment ColorizeableSection on Section {
+  levels {
+    ...GaugeBindingAll
+  }
+  flows {
+    ...GaugeBindingAll
+  }
+  gauge {
+    latestMeasurement {
+      level
+      flow
+    }
+  }
+}
+
+fragment SectionOnMap on Section {
+  id
+  putIn {
+    coordinates
+  }
+  takeOut {
+    coordinates
+  }
+  ...ColorizeableSection
+}
+
+fragment SectionOnMapDetailed on Section {
+  ...SectionOnMap
+  shape
+}

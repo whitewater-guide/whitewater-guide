@@ -1,4 +1,4 @@
-import { Group, Region } from '@whitewater-guide/commons';
+import { NamedNode } from '@whitewater-guide/schema';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  region?: Region;
-  group?: Group;
+  region?: NamedNode;
+  group?: NamedNode;
   last: boolean;
 }
 

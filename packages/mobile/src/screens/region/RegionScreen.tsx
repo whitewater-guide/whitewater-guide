@@ -38,20 +38,17 @@ const InnerRegionScreen: React.FC<Props> = ({ regionId }) => {
   );
 };
 
-const RegionScreen: React.FC<RegionScreenNavProps> = ({ route }) => {
+const RegionScreen: React.FC<RegionScreenNavProps> = ({ route }) => (
   // TODO navigation allow error boundary to reset to home screen
-  return (
-    <ErrorBoundary>
-      <SectionsFilterProvider>
-        <RegionProvider
-          regionId={route.params.regionId}
-          bannerWidth={theme.screenWidthPx}
-        >
-          <InnerRegionScreen regionId={route.params.regionId} />
-        </RegionProvider>
-      </SectionsFilterProvider>
-    </ErrorBoundary>
-  );
-};
-
+  <ErrorBoundary>
+    <SectionsFilterProvider>
+      <RegionProvider
+        regionId={route.params.regionId}
+        bannerWidth={theme.screenWidthPx}
+      >
+        <InnerRegionScreen regionId={route.params.regionId} />
+      </RegionProvider>
+    </SectionsFilterProvider>
+  </ErrorBoundary>
+);
 export default RegionScreen;

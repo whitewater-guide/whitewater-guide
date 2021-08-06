@@ -1,0 +1,3 @@
+mutation removeRiver($id: ID!) {
+  removeRiver(id: $id)
+}

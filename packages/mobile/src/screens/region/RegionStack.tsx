@@ -31,15 +31,14 @@ const screenOptions: StackNavigationOptions = {
 };
 
 const RegionStack: React.FC = () => {
-  const { node } = useRegion();
+  const region = useRegion();
   return (
     <Stack.Navigator screenOptions={screenOptions} headerMode="screen">
       <Stack.Screen
         name={Screens.REGION_TABS}
         component={RegionTabs}
         options={{
-          // eslint-disable-next-line react/display-name
-          headerTitle: () => <RegionTitle region={node} />,
+          headerTitle: () => <RegionTitle region={region} />,
         }}
       />
       <Stack.Screen

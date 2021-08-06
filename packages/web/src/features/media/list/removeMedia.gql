@@ -1,0 +1,6 @@
+mutation removeMedia($id: ID!) {
+  removeMedia(id: $id) {
+    id
+    deleted
+  }
+}

@@ -42,13 +42,13 @@ export const Snackbar: React.FC = React.memo(() => {
       visible={visible}
       onDismiss={onDismiss}
       duration={
-        message && message.error
+        message?.error
           ? PaperSnackbar.DURATION_MEDIUM
           : PaperSnackbar.DURATION_SHORT
       }
       action={action}
     >
-      <Text style={message && message.error && styles.error}>
+      <Text style={message?.error && styles.error}>
         {message ? message.short : ''}
       </Text>
     </PaperSnackbar>

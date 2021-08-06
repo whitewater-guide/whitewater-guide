@@ -1,48 +1,40 @@
-import { Section } from '@whitewater-guide/commons';
-import { NetworkStatus } from 'apollo-client';
 import React, { useContext } from 'react';
-import { QueryHookOptions, useQuery } from 'react-apollo';
+import { QueryResult } from 'react-apollo';
 
-import { queryResultToNode, WithNode } from '../../apollo';
 import {
-  SECTION_DETAILS,
-  SectionDetailsResult,
-  SectionDetailsVars,
-} from './sectionDetails.query';
+  SectionDetailsQuery,
+  SectionDetailsQueryVariables,
+  useSectionDetailsQuery,
+} from './sectionDetails.generated';
 
-export const SectionContext = React.createContext<WithNode<Section | null>>({
-  node: null,
-  loading: false,
-  networkStatus: NetworkStatus.ready,
-  refetch: () => Promise.resolve({} as any),
-});
+export type SectionProviderSection = NonNullable<
+  SectionDetailsQuery['section']
+>;
 
-type FunctionalChildren = (region: WithNode<Section | null>) => React.ReactNode;
+export const SectionContext = React.createContext<
+  QueryResult<SectionDetailsQuery, SectionDetailsQueryVariables>
+>({} as any);
 
-interface Props
-  extends QueryHookOptions<SectionDetailsResult, SectionDetailsVars> {
+type FunctionalChildren = (
+  result: QueryResult<SectionDetailsQuery, SectionDetailsQueryVariables>,
+) => React.ReactNode;
+
+interface Props {
   sectionId: string;
+  thumbSize?: number;
   children?: FunctionalChildren | React.ReactNode;
 }
 
 export const SectionProvider: React.FC<Props> = React.memo((props) => {
-  const {
-    sectionId,
-    query = SECTION_DETAILS,
-    fetchPolicy = 'cache-and-network',
-    children,
-    ...queryOptions
-  } = props;
-  const result = useQuery(query, {
-    ...queryOptions,
-    fetchPolicy,
-    variables: { sectionId },
+  const { sectionId, thumbSize, children } = props;
+  const result = useSectionDetailsQuery({
+    fetchPolicy: 'cache-and-network',
+    variables: { sectionId, withMedia: !!thumbSize, thumbSize },
   });
-  const { section } = queryResultToNode<Section, 'section'>(result, 'section');
   return (
-    <SectionContext.Provider value={section}>
+    <SectionContext.Provider value={result}>
       {typeof children === 'function'
-        ? (children as FunctionalChildren)(section)
+        ? (children as FunctionalChildren)(result)
         : React.Children.only(children)}
     </SectionContext.Provider>
   );
@@ -50,4 +42,8 @@ export const SectionProvider: React.FC<Props> = React.memo((props) => {
 
 SectionProvider.displayName = 'SectionProvider';
 
-export const useSection = () => useContext(SectionContext);
+export const useSectionQuery = () => useContext(SectionContext);
+export const useSection = () => {
+  const { data } = useContext(SectionContext);
+  return data?.section;
+};

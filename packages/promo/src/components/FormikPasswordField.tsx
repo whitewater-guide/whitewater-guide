@@ -31,35 +31,33 @@ export const FormikPasswordField: React.FC<Props> = ({
   }, [showPassword, setShowPassword]);
   return (
     <Field name={name}>
-      {({ field, meta: { touched, error } }: FieldProps<string>) => {
-        return (
-          <FormControl fullWidth={true}>
-            <InputLabel htmlFor="password">{label}</InputLabel>
-            <Input
-              {...props}
-              {...field}
-              placeholder={label}
-              id="password"
-              type={showPassword ? 'text' : 'password'}
-              error={touched && !!error}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton onClick={togglePassword}>
-                    {showPassword ? (
-                      <Icon>visibility</Icon>
-                    ) : (
-                      <Icon>visibility-off</Icon>
-                    )}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-            <FormHelperText error={touched && !!error}>
-              {touched && translateError(t, error)}
-            </FormHelperText>
-          </FormControl>
-        );
-      }}
+      {({ field, meta: { touched, error } }: FieldProps<string>) => (
+        <FormControl fullWidth>
+          <InputLabel htmlFor="password">{label}</InputLabel>
+          <Input
+            {...props}
+            {...field}
+            placeholder={label}
+            id="password"
+            type={showPassword ? 'text' : 'password'}
+            error={touched && !!error}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton onClick={togglePassword}>
+                  {showPassword ? (
+                    <Icon>visibility</Icon>
+                  ) : (
+                    <Icon>visibility-off</Icon>
+                  )}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+          <FormHelperText error={touched && !!error}>
+            {touched && translateError(t, error)}
+          </FormHelperText>
+        </FormControl>
+      )}
     </Field>
   );
 };

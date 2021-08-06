@@ -1,5 +1,5 @@
-import { RiverInput } from '@whitewater-guide/commons';
+import { RiverInput } from '@whitewater-guide/schema';
 
-import { MVars } from './upsertRiver.mutation';
+import { UpsertRiverMutationVariables } from './upsertRiver.generated';
 
-export default (river: RiverInput): MVars => ({ river });
+export default (river: RiverInput): UpsertRiverMutationVariables => ({ river });

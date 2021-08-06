@@ -1,5 +1,11 @@
 import React from 'react';
-import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import {
+  StyleProp,
+  StyleSheet,
+  TextStyle,
+  View,
+  ViewStyle,
+} from 'react-native';
 import { TouchableRipple } from 'react-native-paper';
 import MDCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -31,7 +37,7 @@ interface IconBaseProps {
   size?: number;
   large?: boolean;
   style?: StyleProp<ViewStyle>;
-  iconStyle?: StyleProp<ViewStyle>;
+  iconStyle?: StyleProp<TextStyle>;
   accessibilityHint?: string;
   accessibilityLabel?: string;
   testID?: string;
@@ -52,11 +58,7 @@ const IconBase = React.forwardRef<any, IconBaseProps>((props, ref) => {
     accessibilityLabel,
     testID,
   } = props;
-  const clr = color
-    ? color
-    : primary
-    ? theme.colors.primary
-    : theme.colors.textMain;
+  const clr = color || (primary ? theme.colors.primary : theme.colors.textMain);
   const sz = large ? theme.icons.large : size;
   if (onPress || onLongPress) {
     return (

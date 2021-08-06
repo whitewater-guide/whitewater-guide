@@ -1,24 +1,15 @@
-import { SuggestionsFilter } from '@whitewater-guide/commons';
 import { ForbiddenError } from 'apollo-server-koa';
 import { QueryBuilder } from 'knex';
 
-import {
-  AuthenticatedTopLevelResolver,
-  isAuthenticatedResolver,
-  ListQuery,
-} from '~/apollo';
+import { AuthenticatedQuery, isAuthenticatedResolver } from '~/apollo';
 
-interface Vars extends ListQuery {
-  filter?: SuggestionsFilter;
-}
-
-const suggestions: AuthenticatedTopLevelResolver<Vars> = async (
+const suggestions: AuthenticatedQuery['suggestions'] = async (
   _,
-  { filter = {}, page },
+  { filter, page },
   { user, dataSources },
   info,
 ) => {
-  const { status, userId } = filter;
+  const { status, userId } = filter ?? {};
   let query = dataSources.suggestions.getMany(info, { page });
   if (status) {
     query = query.whereIn('status', status);

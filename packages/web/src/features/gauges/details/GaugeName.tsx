@@ -1,11 +1,11 @@
-import { Gauge } from '@whitewater-guide/commons';
+import { GaugeCoreFragment } from '@whitewater-guide/schema';
 import React from 'react';
 
 interface Props {
-  gauge: Gauge;
+  gauge: GaugeCoreFragment;
 }
 
-const GaugeName: React.FC<Props> = React.memo(({ gauge }) => {
+const GaugeName = React.memo<Props>(({ gauge }) => {
   const { name, url } = gauge;
   if (url) {
     return (
@@ -13,9 +13,8 @@ const GaugeName: React.FC<Props> = React.memo(({ gauge }) => {
         {name}
       </a>
     );
-  } else {
-    return <span>name</span>;
   }
+  return <span>name</span>;
 });
 
 GaugeName.displayName = 'GaugeName';

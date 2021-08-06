@@ -1,7 +1,7 @@
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import { NamedNode } from '@whitewater-guide/commons';
+import { NamedNode } from '@whitewater-guide/schema';
 import React from 'react';
 
 interface Props {
@@ -35,9 +35,9 @@ const AutocompleteAdornment: React.FC<Props> = ({
   return (
     <InputAdornment position="end">
       <IconButton
-        disableFocusRipple={true}
-        disableRipple={true}
-        disableTouchRipple={true}
+        disableFocusRipple
+        disableRipple
+        disableTouchRipple
         size="small"
         edge="end"
         onClick={onClick}

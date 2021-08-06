@@ -50,5 +50,3 @@ export const rollbackTransaction = async () => {
     testTransaction = null;
   }
 };
-
-export default db;

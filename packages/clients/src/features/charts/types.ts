@@ -1,27 +1,31 @@
 import {
-  Gauge,
+  GaugeForChartFragment,
   Measurement,
   MeasurementsFilter,
-  Section,
+  Node,
+  SectionFlowsFragment,
   Unit,
-} from '@whitewater-guide/commons';
+} from '@whitewater-guide/schema';
+import { Overwrite } from 'utility-types';
 
 export interface ChartProps {
-  gauge: Gauge;
-  section?: Section;
+  gauge: GaugeForChartFragment;
+  section?: Node & SectionFlowsFragment;
 }
 
 export interface ChartContext extends ChartProps {
-  filter: MeasurementsFilter<Date>;
-  onChangeFilter: (value: MeasurementsFilter<Date>) => void;
+  filter: MeasurementsFilter;
+  onChangeFilter: (value: MeasurementsFilter) => void;
   unit: Unit;
   unitChangeable: boolean;
   onChangeUnit: (unit: Unit) => void;
 }
 
-export interface WithMeasurements {
+export type ChartDataPoint = Overwrite<Measurement, { timestamp: Date }>;
+
+export interface WithChartData {
   measurements: {
-    data: Array<Measurement<Date>>;
+    data: ChartDataPoint[];
     loading: boolean;
     refresh: () => void;
   };

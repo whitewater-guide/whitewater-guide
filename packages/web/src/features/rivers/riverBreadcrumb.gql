@@ -1,0 +1,7 @@
+query riverBreadcrumb($id: ID!) {
+  node: river(id: $id) {
+    id
+    name
+    altNames
+  }
+}

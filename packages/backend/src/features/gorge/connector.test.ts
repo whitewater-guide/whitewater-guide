@@ -15,7 +15,10 @@ beforeEach(async () => {
 });
 afterEach(rollbackTransaction);
 
-const ERROR: gorge.ErrorResponse = { status: 'script failed' };
+const ERROR: gorge.ErrorResponse = {
+  status: 'script failed',
+  error: 'script failed',
+};
 
 it('should list scripts', async () => {
   const scripts: gorge.ScriptDescriptor[] = [
@@ -222,7 +225,7 @@ it('should get measurements', async () => {
     },
   ];
   mock
-    .onGet(new RegExp('.*/measurements/one_by_one/g000\\?from=.*$'))
+    .onGet(/.*\/measurements\/one_by_one\/g000\?from=.*$/)
     .replyOnce(200, measurements);
   const connector = new GorgeConnector();
   await expect(
@@ -234,7 +237,7 @@ it('should get measurements', async () => {
 
 it('should handle get measurements error', async () => {
   mock
-    .onGet(new RegExp('.*/measurements/one_by_one/g000\\?from=.*$'))
+    .onGet(/.*\/measurements\/one_by_one\/g000\?from=.*$/)
     .replyOnce(500, ERROR);
   const connector = new GorgeConnector();
   await expect(
@@ -370,7 +373,7 @@ describe('latest', () => {
       },
     ];
     mock
-      .onGet(new RegExp('.*/measurements/one_by_one/g000/latest'))
+      .onGet(/.*\/measurements\/one_by_one\/g000\/latest/)
       .replyOnce(200, measurements);
     const connector = new GorgeConnector();
     await expect(connector.getLatest('one_by_one', 'g000')).resolves.toEqual(
@@ -403,9 +406,7 @@ describe('latest', () => {
       },
     ];
     mock
-      .onGet(
-        new RegExp('.*/measurements/latest\\?scripts=one_by_one,all_at_once'),
-      )
+      .onGet(/.*\/measurements\/latest\?scripts=one_by_one,all_at_once/)
       .replyOnce(200, measurements);
     const connector = new GorgeConnector();
     await expect(
@@ -419,9 +420,7 @@ describe('latest', () => {
 
   it('should handle get latest measurements error', async () => {
     mock
-      .onGet(
-        new RegExp('.*/measurements/latest\\?scripts=one_by_one,all_at_once'),
-      )
+      .onGet(/.*\/measurements\/latest\?scripts=one_by_one,all_at_once/)
       .replyOnce(500, ERROR);
     const connector = new GorgeConnector();
     await expect(
@@ -443,9 +442,7 @@ describe('latest', () => {
       },
     ];
     mock
-      .onGet(
-        new RegExp('.*/measurements/latest\\?scripts=one_by_one,all_at_once'),
-      )
+      .onGet(/.*\/measurements\/latest\?scripts=one_by_one,all_at_once/)
       .replyOnce(200, measurements);
     const connector = new GorgeConnector();
     await expect(

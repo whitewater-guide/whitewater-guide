@@ -13,17 +13,13 @@ const MissingParams: React.FC = () => {
   const { goBack } = useNavigation<AuthResetNavProp>();
   const back = useCallback(() => goBack(), [goBack]);
   return (
-    <React.Fragment>
-      <HelperText
-        noPad={true}
-        touched={true}
-        error="screens:auth.reset.missingParams"
-      />
+    <>
+      <HelperText noPad touched error="screens:auth.reset.missingParams" />
       <Spacer />
       <Button mode="contained" onPress={back}>
         {t('screens:auth.reset.goBack')}
       </Button>
-    </React.Fragment>
+    </>
   );
 };
 

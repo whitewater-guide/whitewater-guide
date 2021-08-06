@@ -1,15 +1,17 @@
-import { SectionAdminSettings } from '@whitewater-guide/commons';
+import { SectionAdminSettings } from '@whitewater-guide/schema';
 
-import { QResult } from './sectionAdmin.query';
+import { SectionAdminSettingsQuery } from './sectionAdminSettings.generated';
 
-const queryToForm = (data: QResult | undefined): SectionAdminSettings => {
+const queryToForm = (
+  data?: SectionAdminSettingsQuery,
+): SectionAdminSettings => {
   if (!data || !data.settings) {
     return { demo: false };
   }
   const {
     settings: { demo },
   } = data;
-  return { demo };
+  return { demo: !!demo };
 };
 
 export default queryToForm;

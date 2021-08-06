@@ -2,11 +2,7 @@ import Grid from '@material-ui/core/Grid';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import {
-  CoordinateLoose,
-  NamedNode,
-  POINames,
-} from '@whitewater-guide/commons';
+import { NamedNode, POINames } from '@whitewater-guide/schema';
 import map from 'lodash/map';
 import React, { useCallback, useState } from 'react';
 
@@ -37,7 +33,7 @@ interface Props {
   title?: string;
   detailed?: boolean;
   mapDialog?: boolean;
-  mapBounds: CoordinateLoose[] | null;
+  mapBounds: CodegenCoordinates[] | null;
   onRemove?: (index?: number) => void;
 }
 
@@ -58,68 +54,64 @@ export const POIField: React.FC<Props> = (props) => {
   const closeMap = useCallback(() => setDialogOpen(false), [setDialogOpen]);
 
   return (
-    <Grid container={true}>
+    <Grid container>
       {detailed && (
-        <Grid item={true} container={true} xs={12} spacing={1}>
-          <Grid item={true} xs={7}>
-            <TextField
-              fullWidth={true}
-              name={`${name}.name`}
-              placeholder="Name"
-            />
+        <Grid item container xs={12} spacing={1}>
+          <Grid item xs={7}>
+            <TextField fullWidth name={`${name}.name`} placeholder="Name" />
           </Grid>
-          <Grid item={true} xs={4}>
+          <Grid item xs={4}>
             <SelectField
               {...SelectFieldPresets.NamedNodeId}
-              fullWidth={true}
+              fullWidth
               name={`${name}.kind`}
               placeholder="Type"
               options={POI_OPTIONS}
             />
           </Grid>
-          <Grid item={true} xs={1} className={classes.centered}>
+          <Grid item xs={1} className={classes.centered}>
             <IconButtonWithData data={index} onPress={onRemove} icon="delete" />
           </Grid>
         </Grid>
       )}
       {detailed && (
-        <Grid item={true} xs={12}>
+        <Grid item xs={12}>
           <TextField
-            fullWidth={true}
-            multiline={true}
+            fullWidth
+            multiline
             name={`${name}.description`}
             placeholder="Description"
           />
         </Grid>
       )}
 
-      <Grid item={true} container={true} xs={12} spacing={1}>
-        <Grid item={true} xs={4}>
+      <Grid item container xs={12} spacing={1}>
+        <Grid item xs={4}>
           <NumberField
-            fullWidth={true}
+            fullWidth
             name={`${name}.coordinates[1]`}
             label={`${prefix}Latitude`}
             placeholder={`${prefix}Latitude`}
           />
         </Grid>
-        <Grid item={true} xs={4}>
+        <Grid item xs={4}>
           <NumberField
-            fullWidth={true}
+            fullWidth
             name={`${name}.coordinates[0]`}
             label={`${prefix}Longitude`}
             placeholder={`${prefix}Longitude`}
           />
         </Grid>
-        <Grid item={true} xs={3}>
+        <Grid item xs={3}>
           <NumberField
-            fullWidth={true}
+            fullWidth
             name={`${name}.coordinates[2]`}
             label={`${prefix}Altitude`}
             placeholder={`${prefix}Altitude`}
           />
         </Grid>
         {mapDialog && (
-          <Grid item={true} xs={1} className={classes.centered}>
+          <Grid item xs={1} className={classes.centered}>
             <IconButton onClick={openMap}>
               <Icon>add_location</Icon>
             </IconButton>

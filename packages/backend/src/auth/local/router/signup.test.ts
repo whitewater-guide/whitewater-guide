@@ -5,7 +5,7 @@ import superagent from 'superagent';
 import { SuperTest, Test } from 'supertest';
 import agent from 'supertest-koa-agent';
 
-import db, { holdTransaction, rollbackTransaction } from '~/db';
+import { db, holdTransaction, rollbackTransaction } from '~/db';
 
 import { createApp } from '../../../app';
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from '../../constants';
@@ -39,6 +39,7 @@ describe('errors', () => {
     const resp = await agent(app).post(ROUTE).send({
       email: 'foo@bar.com',
       password: '',
+      name: 'Foo Bar',
     });
     expect(resp).toMatchObject({
       status: 401,
@@ -52,6 +53,7 @@ describe('errors', () => {
     const resp = await agent(app).post(ROUTE).send({
       email: 'fish.munga@yandex.ru',
       password: 'qwErty__u1',
+      name: 'Foo Bar',
     });
     expect(resp).toMatchObject({
       status: 401,
@@ -65,6 +67,7 @@ describe('errors', () => {
     const resp = await agent(app).post(ROUTE).send({
       email: 'fish.munga@yandex',
       password: 'qwErty__u1',
+      name: 'Foo Bar',
     });
     expect(resp).toMatchObject({
       status: 401,
@@ -78,6 +81,7 @@ describe('errors', () => {
     const resp = await agent(app).post(ROUTE).send({
       email: 'foo@bar.com',
       password: '123',
+      name: 'Foo Bar',
     });
     expect(resp).toMatchObject({
       status: 401,
@@ -98,6 +102,7 @@ describe('mobile', () => {
     response = await testAgent.post(ROUTE).send({
       email: 'foo@bar.com',
       password: 'L0ng___p@ssW0rD',
+      name: 'Foo Bar',
     });
   });
 
@@ -112,7 +117,7 @@ describe('mobile', () => {
   });
 
   it('should create NOT verified user', async () => {
-    const id = response!.body.id;
+    const { id } = response!.body;
     const user = await db(false)
       .select('*')
       .from('users')
@@ -132,7 +137,7 @@ describe('mobile', () => {
       .first();
     expect(dbUser).toMatchObject({
       id: expect.stringMatching(UUID_REGEX),
-      name: null,
+      name: 'Foo Bar',
       avatar: null,
       email: 'foo@bar.com',
       admin: false,
@@ -152,7 +157,7 @@ describe('mobile', () => {
     });
   });
 
-  it('should respond with access and refresh tokens', async () => {
+  it('should respond with access and refresh tokens', () => {
     const body = {
       success: true,
       id: expect.stringMatching(UUID_REGEX),
@@ -178,11 +183,11 @@ describe('mobile', () => {
     });
   });
 
-  it('should send welcome email', async () => {
+  it('should send welcome email', () => {
     expect(sendMail).toHaveBeenCalledWith('welcome-unverified', 'foo@bar.com', {
       user: {
         id: expect.stringMatching(UUID_REGEX),
-        name: '',
+        name: 'Foo Bar',
       },
       token: {
         raw: expect.any(String),
@@ -203,11 +208,12 @@ describe('web', () => {
     response = await testAgent.post(ROUTE).send({
       email: 'FOO@bar.com',
       password: 'L0ng___p@ssW0rD',
+      name: 'Foo Bar',
       web: true,
     });
   });
 
-  it('should respond with success body', async () => {
+  it('should respond with success body', () => {
     const body = {
       success: true,
       id: expect.stringMatching(UUID_REGEX),
@@ -220,7 +226,7 @@ describe('web', () => {
     expect(response!.body).not.toHaveProperty('refreshToken');
   });
 
-  it('should respond with access and refresh tokens in cookies', async () => {
+  it('should respond with access and refresh tokens in cookies', () => {
     const atCookie = testAgent.jar.getCookie(
       ACCESS_TOKEN_COOKIE,
       CookieAccessInfo.All,
@@ -245,11 +251,11 @@ describe('web', () => {
     });
   });
 
-  it('should send welcome email', async () => {
+  it('should send welcome email', () => {
     expect(sendMail).toHaveBeenCalledWith('welcome-unverified', 'foo@bar.com', {
       user: {
         id: expect.stringMatching(UUID_REGEX),
-        name: '',
+        name: 'Foo Bar',
       },
       token: {
         raw: expect.any(String),
@@ -269,7 +275,7 @@ describe('other fields', () => {
       language: 'it',
       name: 'Foo Bar',
     });
-    const id = resp.body.id;
+    const { id } = resp.body;
     const user = await db(false)
       .select('*')
       .from('users')
@@ -291,8 +297,9 @@ describe('other fields', () => {
       .send({
         email: 'foo@bar.com',
         password: 'L0ng___p@ssW0rD',
+        name: 'Foo Bar',
       });
-    const id = resp.body.id;
+    const { id } = resp.body;
     const user = await db(false)
       .select('*')
       .from('users')
@@ -305,9 +312,10 @@ describe('other fields', () => {
     const resp = await agent(app).post(ROUTE).send({
       email: 'foo@bar.com',
       password: 'L0ng___p@ssW0rD',
+      name: 'Foo Bar',
       language: 'ar',
     });
-    const id = resp.body.id;
+    const { id } = resp.body;
     const user = await db(false)
       .select('*')
       .from('users')
@@ -320,9 +328,10 @@ describe('other fields', () => {
     const resp = await agent(app).post(ROUTE).send({
       email: 'foo@bar.com',
       password: 'L0ng___p@ssW0rD',
+      name: 'Foo Bar',
       fcm_token: '__foo__',
     });
-    const id = resp.body.id;
+    const { id } = resp.body;
     const tokens = await db(false)
       .select('token')
       .from('fcm_tokens')

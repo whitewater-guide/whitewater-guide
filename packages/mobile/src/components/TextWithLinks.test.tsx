@@ -6,9 +6,8 @@ import TextWithLinks from './TextWithLinks';
 const setup = (onLink: (index: number) => void) =>
   render(
     <TextWithLinks onLink={onLink}>
-      {
-        'The content you are adding will be available under an open licence (CC). See our [Terms of Use](1) and [Privacy Policy](2)'
-      }
+      The content you are adding will be available under an open licence (CC).
+      See our [Terms of Use](1) and [Privacy Policy](2)
     </TextWithLinks>,
   );
 

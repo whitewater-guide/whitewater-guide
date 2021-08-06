@@ -22,6 +22,7 @@ import { tagsResolvers } from '~/features/tags';
 import { uploadsResolvers } from '~/features/uploads';
 import { usersResolvers } from '~/features/users';
 
+import { CoordinatesScalar } from '../coordinates';
 import { CursorScalar } from '../cursor';
 
 export const resolvers = merge(
@@ -48,5 +49,6 @@ export const resolvers = merge(
     Date: GraphQLDateTime,
     JSON: GraphQLJSON,
     Cursor: CursorScalar,
+    Coordinates: CoordinatesScalar,
   },
 );

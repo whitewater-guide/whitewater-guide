@@ -5,7 +5,7 @@ interface Props {
   url?: string;
 }
 
-const LightboxVimeo: React.FC<Props> = React.memo(({ url }) => {
+const LightboxVimeo = React.memo<Props>(({ url }) => {
   const videoId = getVimeoId(url);
   return videoId ? (
     <iframe

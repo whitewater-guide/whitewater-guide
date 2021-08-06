@@ -20,13 +20,12 @@ import RegionMapTab from './RegionMapTab';
 const RegionDetailsTabs: React.FC = React.memo(() => {
   const client = useApolloClient();
   const region = useRegion();
-  const { node } = region;
   const { match } = useRouter();
   const filterOptions = useSectionsFilterOptions();
-  if (!node) {
+  if (!region) {
     return null;
   }
-  const regionId = node.id;
+  const regionId = region.id;
   return (
     <SectionsListProvider
       regionId={regionId}
@@ -35,33 +34,33 @@ const RegionDetailsTabs: React.FC = React.memo(() => {
       filterOptions={filterOptions}
     >
       {({ sections, count }: SectionsListContext) => (
-        <React.Fragment>
+        <>
           <NavTabs variant="fullWidth">
             <NavTab label="Info" value="/main" />
             <NavTab label="Map" value="/map" />
             <NavTab label="Rivers" value="/rivers" />
             <NavTab
               label={`Sections (${sections.length}/${count})`}
-              value={'/sections'}
+              value="/sections"
             />
             <NavTab label="Licensing" value="/license" />
           </NavTabs>
 
           <Box flex={1}>
             <Switch>
-              <Route exact={true} path={`${match.path}/map`}>
-                <RegionMapTab region={node} sections={sections} />
+              <Route exact path={`${match.path}/map`}>
+                <RegionMapTab region={region} sections={sections} />
               </Route>
 
-              <Route exact={true} path={`${match.path}/rivers`}>
+              <Route exact path={`${match.path}/rivers`}>
                 <RiversList />
               </Route>
 
-              <Route exact={true} path={`${match.path}/sections`}>
+              <Route exact path={`${match.path}/sections`}>
                 <SectionsList sections={sections} regionId={regionId} />
               </Route>
 
-              <Route exact={true} path={`${match.path}/license`}>
+              <Route exact path={`${match.path}/license`}>
                 <RegionDetailsLicense />
               </Route>
 
@@ -70,7 +69,7 @@ const RegionDetailsTabs: React.FC = React.memo(() => {
               </Route>
             </Switch>
           </Box>
-        </React.Fragment>
+        </>
       )}
     </SectionsListProvider>
   );

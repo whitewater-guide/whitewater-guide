@@ -1,19 +1,14 @@
-import { GaugesFilter } from '@whitewater-guide/commons';
 import { QueryBuilder } from 'knex';
 
-import { ListQuery, TopLevelResolver } from '~/apollo';
+import { QueryResolvers } from '~/apollo';
 
-interface Vars extends ListQuery {
-  filter?: GaugesFilter;
-}
-
-const gauges: TopLevelResolver<Vars> = async (
+const gauges: QueryResolvers['gauges'] = async (
   _,
   { filter = {}, page },
   { dataSources },
   info,
 ) => {
-  const { regionId, sourceId, search } = filter;
+  const { regionId, sourceId, search } = filter ?? {};
   const where = sourceId ? { source_id: sourceId } : undefined;
   let query = dataSources.gauges.getMany(info, { where, page });
   if (search) {

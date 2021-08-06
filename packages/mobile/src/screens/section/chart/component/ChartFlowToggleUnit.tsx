@@ -1,4 +1,4 @@
-import { Unit } from '@whitewater-guide/commons';
+import { Unit } from '@whitewater-guide/schema';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text } from 'react-native';
@@ -34,11 +34,10 @@ const ChartFlowToggleUnit: React.FC<Props> = React.memo(({ unit }) => {
         {t(`section:chart.lastRecorded.${unit}`)}
       </Animatable.Text>
     );
-  } else {
-    return (
-      <Text style={styles.text}>{t(`section:chart.lastRecorded.${unit}`)}</Text>
-    );
   }
+  return (
+    <Text style={styles.text}>{t(`section:chart.lastRecorded.${unit}`)}</Text>
+  );
 });
 
 ChartFlowToggleUnit.displayName = 'ChartFlowToggleUnit';

@@ -1,10 +1,6 @@
-import { License } from '@whitewater-guide/commons';
+import { LicenseResolvers } from '~/apollo';
 
-import { FieldResolvers } from '~/apollo';
-
-import { LicenseRaw } from '../types';
-
-const licenseResolvers: FieldResolvers<LicenseRaw, License> = {
+const licenseResolvers: LicenseResolvers = {
   slug: (license) => license.slug ?? null,
   url: (license) => license.url ?? null,
 };

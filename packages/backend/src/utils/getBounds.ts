@@ -1,7 +1,8 @@
-import { Coordinate3d } from '@whitewater-guide/commons';
 import { Point, Polygon } from 'wkx';
 
-export function getBounds(bounds: Coordinate3d[] | null) {
+import { Coordinates } from '~/apollo';
+
+export function getBounds(bounds: Coordinates[] | null) {
   let rawBounds = null;
   if (bounds && bounds.length > 0) {
     const polygon: Polygon = new Polygon(bounds.map((p) => new Point(...p)));

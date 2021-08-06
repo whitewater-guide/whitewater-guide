@@ -63,8 +63,11 @@ export default class GoogleMap extends React.Component<GoogleMapProps, State> {
   map?: google.maps.Map;
 
   width = 0;
+
   height = 0;
+
   initialized = false;
+
   customControlDivs: Record<string, HTMLDivElement> = {};
 
   initialize = () => {
@@ -111,7 +114,7 @@ export default class GoogleMap extends React.Component<GoogleMapProps, State> {
       zoomToFitcontrolDiv,
     );
 
-    const map = this.map;
+    const { map } = this;
     this.props.controls?.forEach((item) => {
       if (item.key) {
         const controlDiv = document.createElement('div');
@@ -181,8 +184,8 @@ export default class GoogleMap extends React.Component<GoogleMapProps, State> {
     return (
       <div style={styles.container}>
         <ReactResizeDetector
-          handleWidth={true}
-          handleHeight={true}
+          handleWidth
+          handleHeight
           onResize={this.onResize}
         />
         <div style={styles.map} ref={this.setMapRef} />

@@ -1,4 +1,4 @@
-import { SocialMediaProvider, User } from '@whitewater-guide/commons';
+import { SocialMediaProvider, User } from '@whitewater-guide/schema';
 import { DataSourceConfig } from 'apollo-datasource';
 import { AuthenticationError, ForbiddenError } from 'apollo-server-koa';
 import axios from 'axios';
@@ -6,15 +6,15 @@ import get from 'lodash/get';
 
 import { Context } from '~/apollo';
 import config from '~/config';
-import db, { knex } from '~/db';
+import { db, knex } from '~/db';
 import { FieldsMap, OffsetConnector } from '~/db/connectors';
 import log from '~/log';
 
-import { UserRaw } from './types';
+import { ResolvableUser } from './types';
 
 const { FB_APP_ID, FB_SECRET } = config;
 
-const FIELDS_MAP: FieldsMap<User, UserRaw> = {
+const FIELDS_MAP: FieldsMap<User, ResolvableUser> = {
   purchasedRegions: null,
   purchasedGroups: null,
   accounts: knex.raw(
@@ -42,7 +42,7 @@ const Keys = new Map<keyof PermissionsQuery, string>([
   ['regionId', 'regions_editors.region_id'],
 ]);
 
-export class UsersConnector extends OffsetConnector<User, UserRaw> {
+export class UsersConnector extends OffsetConnector<User, ResolvableUser> {
   constructor() {
     super();
     this._tableName = 'users';
@@ -50,8 +50,8 @@ export class UsersConnector extends OffsetConnector<User, UserRaw> {
     this._fieldsMap = FIELDS_MAP;
   }
 
-  initialize(config: DataSourceConfig<Context>) {
-    super.initialize(config);
+  initialize(cfg: DataSourceConfig<Context>) {
+    super.initialize(cfg);
     // users are not multilingual table, language is just an attribute of user
     this._language = undefined;
   }
@@ -123,12 +123,11 @@ export class UsersConnector extends OffsetConnector<User, UserRaw> {
     const result = await this._checkEditorPermissions(query);
     if (result === true) {
       return true;
-    } else {
-      return Promise.reject(result);
     }
+    return Promise.reject(result);
   }
 
-  async getAvatar(user: UserRaw): Promise<string | null> {
+  async getAvatar(user: ResolvableUser): Promise<string | null> {
     if (user.avatar) {
       return user.avatar;
     }

@@ -1,65 +1,75 @@
 import '@testing-library/jest-dom/extend-expect';
 
 import { MockedProvider, MockedResponse } from '@apollo/react-testing';
-import { fireEvent, render, RenderResult } from '@testing-library/react';
+import {
+  fireEvent,
+  render,
+  RenderResult,
+  waitFor,
+} from '@testing-library/react';
+import { MyProfileFragment } from '@whitewater-guide/schema';
 import React from 'react';
 
-import { flushPromises } from '../test';
 import { AuthProvider } from './AuthProvider';
 import { AuthContext } from './context';
 import { MockAuthService } from './mockService';
-import { MY_PROFILE_QUERY } from './myProfile.query';
+import { MyProfileDocument } from './myProfile.generated';
 
-const mockUser: MockedResponse = {
+const mockedProfile: MyProfileFragment = {
+  __typename: 'User',
+  id: 'uid',
+  name: 'Test User',
+  avatar: null,
+  email: null,
+  admin: false,
+  language: 'en',
+  imperial: false,
+  verified: true,
+  editorSettings: null,
+  accounts: [],
+  editor: false,
+};
+
+const response: MockedResponse = {
   request: {
-    query: MY_PROFILE_QUERY,
+    query: MyProfileDocument,
   },
   result: {
     data: {
-      me: {
-        __typename: 'User',
-        id: 'uid',
-        name: 'Test User',
-        avatar: null,
-        email: null,
-        admin: false,
-        language: 'en',
-        imperial: false,
-        verified: true,
-        editorSettings: null,
-        accounts: [],
-      },
+      me: mockedProfile,
     },
   },
 };
 
 const AuthConsumer: React.FC = () => (
   <AuthContext.Consumer>
-    {({ me, loading, service }) => {
-      return (
-        <div>
-          <div data-testid="loading">{loading ? 'Loading' : 'Ready'}</div>
-          <div data-testid="username">{me ? me.name : 'anonymous'}</div>
-          <button
-            data-testid="button-in"
-            onClick={() => service.signIn('facebook')}
-          />
-          <button data-testid="button-out" onClick={() => service.signOut()} />
-        </div>
-      );
-    }}
+    {({ me, loading, service }) => (
+      <div>
+        <div>{loading ? 'Loading' : 'Ready'}</div>
+        <div>{me ? me.name : 'anonymous'}</div>
+        <button type="button" onClick={() => service.signIn('facebook')}>
+          Facebook
+        </button>
+        <button
+          type="button"
+          data-testid="button-out"
+          onClick={() => service.signOut()}
+        >
+          Sign out
+        </button>
+      </div>
+    )}
   </AuthContext.Consumer>
 );
 
 let mocks: MockAuthService;
 let utils: RenderResult;
 
-beforeEach(() => {
-  jest.clearAllMocks();
+function setup() {
   const mockService = new MockAuthService();
   mocks = { ...(mockService as any) };
   const tree = (
-    <MockedProvider mocks={[mockUser]}>
+    <MockedProvider mocks={[response]}>
       <AuthProvider
         service={mockService}
         renderInitializing={<div data-testid="initializing">Initializing</div>}
@@ -69,43 +79,49 @@ beforeEach(() => {
     </MockedProvider>
   );
   utils = render(tree);
+}
+
+beforeEach(() => {
+  jest.clearAllMocks();
 });
 
 afterEach(() => {
   utils.unmount();
 });
 
-it('should start in initializing state', () => {
-  expect(utils.getByTestId('initializing')).toHaveTextContent('Initializing');
-  expect(() => utils.getByTestId('loading')).toThrow();
+it('should start in initializing state', async () => {
+  setup();
+  expect(utils.getByText(/initializing/i)).toBeInTheDocument();
+  expect(() => utils.getByText(/loading/i)).toThrow();
+  await expect(utils.findByText(/loading/i)).resolves.toBeInTheDocument();
 });
 
-it('should initialize service', () => {
-  expect(mocks.init).toHaveBeenCalled();
+it('should initialize service', async () => {
+  setup();
+  await waitFor(() => {
+    expect(mocks.init).toHaveBeenCalled();
+  });
 });
 
-it('should refresh token', () => {
-  expect(mocks.refreshAccessToken).toHaveBeenCalled();
+it('should refresh token', async () => {
+  setup();
+  await waitFor(() => {
+    expect(mocks.refreshAccessToken).toHaveBeenCalled();
+  });
 });
 
 it('should render profile after initial loading', async () => {
-  await flushPromises(3);
-  expect(utils.getByTestId('username')).toHaveTextContent('Test User');
-  expect(utils.getByTestId('loading')).toHaveTextContent('Ready');
+  setup();
+  await expect(utils.findByText(/Test User/)).resolves.toBeInTheDocument();
+  await expect(utils.findByText(/ready/i)).resolves.toBeInTheDocument();
 });
 
 it('should start loading on sign out', async () => {
-  await flushPromises();
-  fireEvent.click(utils.getByTestId('button-out'));
+  setup();
+  await utils.findByText(/ready/i);
+  fireEvent.click(utils.getByText('Sign out'));
   expect(mocks.signOut).toHaveBeenCalled();
-  expect(utils.getByTestId('username')).toHaveTextContent('Test User');
-  expect(utils.getByTestId('loading')).toHaveTextContent('Loading');
-});
-
-it('should sign out', async () => {
-  await flushPromises();
-  fireEvent.click(utils.getByTestId('button-out'));
-  await flushPromises();
-  expect(utils.getByTestId('username')).toHaveTextContent('Test User');
-  expect(utils.getByTestId('loading')).toHaveTextContent('Ready');
+  expect(utils.getByText('Test User')).toBeInTheDocument();
+  expect(utils.getByText('Loading')).toBeInTheDocument();
+  await expect(utils.findByText(/ready/i)).resolves.toBeInTheDocument();
 });

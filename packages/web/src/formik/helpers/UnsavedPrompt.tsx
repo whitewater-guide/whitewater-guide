@@ -9,21 +9,18 @@ import { ConfirmationDialog } from '../../components';
 export const UnsavedPrompt: React.FC = () => {
   const { touched, status } = useFormikContext();
   const shouldBlockNavigation = useCallback(
-    (current: Location, next?: Location) => {
-      return (
-        !(status && status.success) &&
-        !isEmpty(touched) &&
-        !!next &&
-        (next.pathname !== current.pathname || next.search !== current.search)
-      );
-    },
+    (current: Location, next?: Location) =>
+      !status?.success &&
+      !isEmpty(touched) &&
+      !!next &&
+      (next.pathname !== current.pathname || next.search !== current.search),
     [touched, status],
   );
   return (
     <Prompt when={shouldBlockNavigation}>
       {({ onConfirm, onCancel }) => (
         <ConfirmationDialog
-          invertedAccents={true}
+          invertedAccents
           description="There are some unsaved changes, are sure you don't want to save them?"
           confirmTitle="Leave"
           cancelTitle="Stay"

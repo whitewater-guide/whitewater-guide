@@ -1,4 +1,4 @@
-import { NamedNode } from '@whitewater-guide/commons';
+import { NamedNode } from '@whitewater-guide/schema';
 import Downshift from 'downshift';
 import React from 'react';
 
@@ -15,7 +15,7 @@ interface State {
 }
 
 export class Multicomplete<
-  T extends NamedNode = NamedNode
+  T extends NamedNode = NamedNode,
 > extends React.PureComponent<MulticompleteProps<T>, State> {
   readonly state: State = { inputValue: '' };
 
@@ -78,7 +78,7 @@ export class Multicomplete<
             <div>
               <AutocompleteInput
                 ref={this._input}
-                fullWidth={true}
+                fullWidth
                 label={label}
                 InputProps={{
                   ...OuterInputProps,
@@ -121,7 +121,7 @@ export class Multicomplete<
                 key={`menu_${inputValue}`}
                 isOpen={isOpen}
                 anchorEl={this._input.current}
-                matchInputWidth={true}
+                matchInputWidth
                 {...menuProps}
               >
                 {filterOptions(options, inputValue, filterOpts).map(

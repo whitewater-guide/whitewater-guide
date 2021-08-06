@@ -1,15 +1,22 @@
-/* eslint-disable @typescript-eslint/no-redeclare */
-import { getSectionColor, useMapSelection } from '@whitewater-guide/clients';
-import { Point, Section } from '@whitewater-guide/commons';
+import {
+  getSectionColor,
+  ListedSectionFragment,
+  SectionOnMapDetailedFragment,
+  useMapSelection,
+} from '@whitewater-guide/clients';
+import { PointCoreFragment } from '@whitewater-guide/schema';
 import React, { useEffect, useRef } from 'react';
+import { Optional } from 'utility-types';
 
 import { MapElementProps } from './types';
 
-const getStyle = (
-  section: Section,
-  selection: Section | Point | null,
+type LineSection = Optional<SectionOnMapDetailedFragment, 'shape'>;
+
+function getStyle(
+  section: LineSection,
+  selection: ListedSectionFragment | PointCoreFragment | null,
   zoom = 1,
-) => {
+) {
   const color = getSectionColor(section);
   const isSelected = !!selection && section.id === selection.id;
   return {
@@ -27,21 +34,24 @@ const getStyle = (
       },
     ],
   };
-};
+}
 
-const getPaths = ({ putIn, takeOut, shape }: Section, detailed?: boolean) => {
+const getPaths = (
+  { putIn, takeOut, shape }: LineSection,
+  detailed?: boolean,
+) => {
   const coords =
     detailed && shape ? shape : [putIn.coordinates, takeOut.coordinates];
   return coords.map(([lng, lat]) => ({ lat, lng }));
 };
 
 interface Props extends MapElementProps {
-  section: Section;
+  section: ListedSectionFragment;
   detailed?: boolean;
 }
 
 const SectionLine = React.memo<Props>(({ section, map, zoom, detailed }) => {
-  const { selection, onSelected } = useMapSelection();
+  const [selection, onSelected] = useMapSelection();
   const lineRef = useRef<google.maps.Polyline | null>(null);
 
   useEffect(() => {
@@ -57,6 +67,7 @@ const SectionLine = React.memo<Props>(({ section, map, zoom, detailed }) => {
     google.maps.event.addListener(lineRef.current, 'click', () => {
       onSelected(section);
     });
+    // eslint-disable-next-line consistent-return
     return () => {
       if (lineRef.current) {
         google.maps.event.clearListeners(lineRef.current, 'click');

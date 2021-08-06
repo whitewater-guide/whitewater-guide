@@ -1,5 +1,4 @@
 import { useNavigation } from '@react-navigation/native';
-import { Coordinate3d } from '@whitewater-guide/commons';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'react-native-paper';
@@ -7,7 +6,7 @@ import { Button } from 'react-native-paper';
 import theme from '../../../theme';
 import notifier from './notifier';
 
-type Maybe3d = Coordinate3d | undefined;
+type MaybeCoordinate = CodegenCoordinates | undefined;
 
 const DoneButton: React.FC = () => {
   const [disabled, setDisabled] = useState(true);
@@ -15,7 +14,7 @@ const DoneButton: React.FC = () => {
   const { t } = useTranslation();
   const onPress = useCallback(() => goBack(), [goBack]);
   useEffect(() => {
-    notifier.callback = (shape: [Maybe3d, Maybe3d]) => {
+    notifier.callback = (shape: [MaybeCoordinate, MaybeCoordinate]) => {
       setDisabled(!shape[0] || !shape[1]);
     };
     return () => {

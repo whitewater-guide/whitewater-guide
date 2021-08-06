@@ -1,0 +1,5 @@
+fragment PromoRegion on Region {
+  id
+  name
+  sku
+}

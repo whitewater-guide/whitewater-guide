@@ -1,4 +1,4 @@
-import { NamedNode } from '@whitewater-guide/commons';
+import { NamedNode } from '@whitewater-guide/schema';
 import Downshift, { ControllerStateAndHelpers } from 'downshift';
 import React from 'react';
 
@@ -11,7 +11,7 @@ import itemToString from './itemToString';
 import { AutocompleteProps } from './types';
 
 export class Autocomplete<
-  T extends NamedNode = NamedNode
+  T extends NamedNode = NamedNode,
 > extends React.PureComponent<AutocompleteProps<T>, { inputValue: string }> {
   private readonly _input = React.createRef<HTMLDivElement>();
 
@@ -23,11 +23,10 @@ export class Autocomplete<
   }
 
   // enables controlled and uncontrolled input
-  getInputValue = (state: { inputValue: string | null }) => {
-    return this.props.onInputValueChange
+  getInputValue = (state: { inputValue: string | null }) =>
+    this.props.onInputValueChange
       ? this.props.inputValue || ''
       : state.inputValue;
-  };
 
   // enables controlled and uncontrolled input
   setInputValue = (inputValue: string) => {
@@ -83,7 +82,7 @@ export class Autocomplete<
               <AutocompleteInput
                 ref={this._input}
                 label={label}
-                fullWidth={true}
+                fullWidth
                 InputProps={{
                   onBlur,
                   onFocus,

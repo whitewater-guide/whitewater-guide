@@ -46,7 +46,7 @@ const Placeholder: React.FC<Props> = (props) => {
         <Icon
           icon="cloud-upload"
           color={PaperTheme.colors.placeholder}
-          narrow={true}
+          narrow
         />
         <Subheading style={styles.placeholder}>{t(label)}</Subheading>
       </View>

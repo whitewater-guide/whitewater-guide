@@ -18,6 +18,7 @@ const WebViewScreen: React.FC<WebViewNavProps> = ({ navigation, route }) => {
   const { setOptions } = navigation;
   const { fixture, title } = route.params;
   const resource = fixture && markdown[fixture];
+  // eslint-disable-next-line @typescript-eslint/prefer-optional-chain
   const lang = resource && resource[i18n.language] ? i18n.language : 'en';
   const [visible, setVisible] = useState(false);
 
@@ -43,9 +44,9 @@ const WebViewScreen: React.FC<WebViewNavProps> = ({ navigation, route }) => {
       <WebView
         source={{ uri: `${WEB_URL}/${lang}/${fixture}.html` }}
         style={StyleSheet.absoluteFill}
-        startInLoadingState={true}
+        startInLoadingState
         renderLoading={renderLoading}
-        testID={`webview-${fixture}`}
+        testID={`webview-${fixture}` as string}
       />
     </Screen>
   );

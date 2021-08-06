@@ -1,15 +1,14 @@
 import { Middleware } from 'koa';
 import isUUID from 'validator/lib/isUUID';
 
-import db from '~/db';
-import { UserRaw } from '~/features/users';
+import { db, Sql } from '~/db';
 
 import { MailType, sendMail } from '../../mail';
 import logger from '../logger';
 import { randomToken } from '../utils';
 
 const verificationRequest: Middleware<any, any> = async (ctx, next) => {
-  const id: string | undefined = ctx.request.body && ctx.request.body.id;
+  const id: string | undefined = ctx.request.body?.id;
   if (!id) {
     ctx.throw(400, 'verification_request.errors.form.id_missing');
     return;
@@ -20,7 +19,7 @@ const verificationRequest: Middleware<any, any> = async (ctx, next) => {
     });
     return;
   }
-  const user: UserRaw | undefined = await db()
+  const user: Sql.Users | undefined = await db()
     .select('*')
     .from('users')
     .where({ id })

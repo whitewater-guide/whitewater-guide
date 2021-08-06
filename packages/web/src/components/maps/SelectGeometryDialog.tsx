@@ -4,7 +4,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { Coordinate3d, CoordinateLoose } from '@whitewater-guide/commons';
 import React, { useCallback, useState } from 'react';
 
 import { DrawingMap } from './DrawingMap';
@@ -27,10 +26,10 @@ const MIN_POINTS: { [key in DrawingMode]: number } = {
 
 interface Props {
   drawingMode: DrawingMode;
-  points?: Coordinate3d[];
-  bounds: CoordinateLoose[] | null;
+  points?: CodegenCoordinates[];
+  bounds: CodegenCoordinates[] | null;
   onClose: () => void;
-  onSubmit: (points: Coordinate3d[]) => void;
+  onSubmit: (points: CodegenCoordinates[]) => void;
 }
 
 export const SelectGeometryDialog: React.FC<Props> = (props) => {
@@ -43,7 +42,7 @@ export const SelectGeometryDialog: React.FC<Props> = (props) => {
     onClose();
   }, [onClose, onSubmit, points]);
   return (
-    <Dialog open={true} onClose={onClose} fullWidth={true} maxWidth={false}>
+    <Dialog open onClose={onClose} fullWidth maxWidth={false}>
       <DialogTitle>{`Choose ${drawingMode.toLowerCase()}`}</DialogTitle>
       <DialogContent className={classes.content}>
         <DrawingMap
