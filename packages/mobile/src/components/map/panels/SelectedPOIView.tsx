@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Paragraph } from 'react-native-paper';
 import Animated from 'react-native-reanimated';
-import { initialWindowSafeAreaInsets } from 'react-native-safe-area-context';
+import { initialWindowMetrics } from 'react-native-safe-area-context';
 
 import SelectedPOIHeader from '~/components/map/panels/SelectedPOIHeader';
 import { usePremiumGuard } from '~/features/purchases';
@@ -16,7 +16,8 @@ import SelectedElementView from './SelectedElementView';
 
 const styles = StyleSheet.create({
   content: {
-    minHeight: theme.rowHeight * 3 + (initialWindowSafeAreaInsets?.bottom || 0),
+    minHeight:
+      theme.rowHeight * 3 + (initialWindowMetrics?.insets?.bottom || 0),
     backgroundColor: theme.colors.primaryBackground,
     padding: theme.margin.single,
   },
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
 const SNAP_POINTS: [number, number, number] = [
   NAVIGATE_BUTTON_HEIGHT +
     theme.rowHeight * 3 +
-    (initialWindowSafeAreaInsets?.bottom || 0),
+    (initialWindowMetrics?.insets?.bottom || 0),
   NAVIGATE_BUTTON_HEIGHT,
   0,
 ];
