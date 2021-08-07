@@ -26,9 +26,9 @@
     "prepare": "yarn build"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.171",
+    "@types/lodash": "^4.14.172",
     "@types/validator": "^13.6.3",
-    "date-fns": "^2.22.1"
+    "date-fns": "^2.23.0"
   },
   "dependencies": {
     "cron-validator": "^1.2.1",

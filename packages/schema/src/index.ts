@@ -1,4 +1,5 @@
 export * from './__generated__/fragments';
+export { default as fragmentTypes } from './__generated__/fragmentTypes';
 export * from './__generated__/typeDefs';
 export * from './__generated__/types';
 export * from './banners';

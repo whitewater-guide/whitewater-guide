@@ -2,11 +2,13 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { toIdValue } from 'apollo-utilities';
 
 import { dataIdFromObject } from './dataIdFromObject';
+import fragmentMatcher from './fragmentMatcher';
 
-export const configureApolloCache = () =>
-  new InMemoryCache({
+export function configureApolloCache(): InMemoryCache {
+  return new InMemoryCache({
     dataIdFromObject,
     addTypename: true,
+    fragmentMatcher,
     cacheRedirects: {
       Query: {
         region: (_, { id }) =>
@@ -42,3 +44,4 @@ export const configureApolloCache = () =>
       },
     },
   });
+}

@@ -35,6 +35,12 @@ generates:
       # Setting this suffix will allow inports using 'importAllFragmentsFrom'
       fragmentSuffix: 'FragmentDoc'
 
+  ./packages/schema/src/__generated__/fragmentTypes.ts:
+    plugins:
+      - fragment-matcher
+    config:
+      apolloClientVersion: 2
+
   # GRAPHQL resolvers
   ./packages/backend/src/apollo/resolvers.generated.ts:
     preset: import-types
@@ -102,6 +108,7 @@ generates:
       - typescript-operations
       - typescript-react-apollo
     config:
+      apolloClientVersion: 2
       withComponent: false
       withHOC: false
       withHooks: true
@@ -109,7 +116,6 @@ generates:
       reactApolloVersion: 2
 
 config:
-  preResolveTypes: true
   # Due to serialization/deserialization scalars have different type on backend and frontend
   # I.e. it's 'Date' on backend and 'string' on frontend
   # As a workaround, `clients` and `backend` packages define global types in `codegen-scalars.ts` files

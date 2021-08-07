@@ -23,8 +23,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@graphql-codegen/plugin-helpers": "^1.18.8",
-    "@graphql-codegen/visitor-plugin-common": "^1.22.0",
+    "@graphql-codegen/plugin-helpers": "^2.0.0",
+    "@graphql-codegen/visitor-plugin-common": "^2.0.0",
     "graphql": "^15.5.1",
     "lodash": "^4.17.21"
   }
