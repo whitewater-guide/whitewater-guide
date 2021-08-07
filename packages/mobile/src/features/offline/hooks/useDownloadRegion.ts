@@ -11,14 +11,16 @@ import useDownloadRegionData from './useDownloadRegionData';
 import useDownloadSections from './useDownloadSections';
 import useMediaSummary from './useMediaSummary';
 
-interface Hook {
+interface UseDownloadRegionHook {
   download: (selection: OfflineCategorySelection) => Promise<null | Error>;
   error?: Error;
   loading: boolean;
   progress: OfflineProgress;
 }
 
-export const useDownloadRegion = (regionId: string | null): Hook => {
+export function useDownloadRegion(
+  regionId: string | null,
+): UseDownloadRegionHook {
   // Media summary is read from cache, because it's displayed in dialog before actual download begins
   const getMediaSummary = useMediaSummary();
   const downloadRegionData = useDownloadRegionData(regionId);
@@ -90,4 +92,4 @@ export const useDownloadRegion = (regionId: string | null): Hook => {
     error: state.error,
     loading: state.loading,
   };
-};
+}

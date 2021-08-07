@@ -1,41 +1,42 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { readdirSync } = require('fs');
+const { defaults } = require('jest-config');
 
-const excludedModules = readdirSync('./node_modules').filter(
+const excludedModules = [
+  ...readdirSync('./node_modules'),
+  ...readdirSync('../../node_modules'),
+].filter(
   (pkg) =>
-    pkg.indexOf('react-native') === 0 ||
-    pkg.indexOf('victory-') === 0 ||
-    pkg.indexOf('react-navigation') >= 0,
+    pkg.includes('react-native') ||
+    // pkg.indexOf('victory-') === 0 ||
+    pkg.includes('react-navigation'),
 );
 
 const notIgnoredModules = [
   ...excludedModules,
   'apollo-client',
   'redux-persist-fs-storage',
-  '@react-native-mapbox-gl/maps',
-  '@react-native-community/async-storage',
 ].join('|');
 
 module.exports = {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
   displayName: require('./package.json').name,
-  preset: '@testing-library/react-native',
+  preset: 'react-native',
   verbose: true,
-  // transform: {
-  //   '^.+\\.(j|t)sx?$':
-  //     '<rootDir>/node_modules/react-native/jest/preprocessor.js',
-  // },
-  transformIgnorePatterns: [`node_modules/(?!(${notIgnoredModules})/)`],
+  moduleNameMapper: {
+    '~/(.*)': '<rootDir>/src/$1',
+  },
+  transformIgnorePatterns: [`node_modules/(?!(${notIgnoredModules}))`],
   setupFilesAfterEnv: [
     '<rootDir>/jest.setup.ts',
     '<rootDir>/jest-mapbox.setup.ts',
     '<rootDir>/node_modules/react-native-gesture-handler/jestSetup.js',
-    '<rootDir>/node_modules/@testing-library/react-native/cleanup-after-each',
   ],
   reporters: ['default', 'jest-summary-reporter'],
   testPathIgnorePatterns: [
+    ...defaults.testPathIgnorePatterns,
     '<rootDir>/build/',
     '<rootDir>/e2e/',
     '<rootDir>/node_modules/',
   ],
+  modulePathIgnorePatterns: ['mobile/node_modules/react/.*'],
 };

@@ -50,6 +50,7 @@ export default class MapDownloader {
       const result = this.promisify();
       offlinePack.resume();
       await result;
+      return;
     }
     this.subscribe();
     const result = this.promisify();

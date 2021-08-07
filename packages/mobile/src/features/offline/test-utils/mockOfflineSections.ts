@@ -2,8 +2,15 @@ import { MockedResponse } from '@apollo/react-testing';
 import { GraphQLError } from 'graphql';
 import gql from 'graphql-tag';
 
+import { PHOTO_SIZE_PX } from '~/features/media';
+
 export const TEST_OFFLINE_SECTIONS = gql`
-  query listSections($page: Page, $filter: SectionsFilter) {
+  query listSections(
+    $page: Page
+    $filter: SectionsFilter
+    $thumbWidth: Int
+    $thumbHeight: Int
+  ) {
     sections(page: $page, filter: $filter)
       @connection(key: "offline_sections", filter: ["filter"]) {
       nodes {
@@ -12,7 +19,7 @@ export const TEST_OFFLINE_SECTIONS = gql`
           nodes {
             kind
             image
-            thumb
+            thumb: image(width: $thumbWidth, height: $thumbHeight)
           }
         }
       }
@@ -28,6 +35,8 @@ export const mockReq = (i: number, regionId = TEST_REGION_ID) => ({
   variables: {
     filter: { regionId },
     page: { offset: i, limit: 1 },
+    thumbHeight: PHOTO_SIZE_PX,
+    thumbWidth: PHOTO_SIZE_PX,
   },
 });
 

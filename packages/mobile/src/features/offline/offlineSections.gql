@@ -18,6 +18,7 @@ query listSections(
       ...TimestampedMeta
       ...SectionPOIs
       ...SectionTags
+      ...SectionLicense
       media {
         nodes {
           ...MediaCore

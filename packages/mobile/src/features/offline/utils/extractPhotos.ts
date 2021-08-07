@@ -1,13 +1,15 @@
 import flatMap from 'lodash/flatMap';
-import { isPresent } from 'ts-is-present';
+import { DeepPartial, ValuesType } from 'utility-types';
 
 import { ListSectionsQuery } from '~/features/offline/offlineSections.generated';
 
+type ListedSection = ValuesType<ListSectionsQuery['sections']['nodes']>;
+
 export function extractPhotos(
-  sections: ListSectionsQuery['sections']['nodes'],
+  sections: Array<DeepPartial<ListedSection>>,
 ): string[] {
   return flatMap(sections, (section) => {
-    if (!section.media.nodes) {
+    if (!section.media?.nodes) {
       return [];
     }
     return section.media.nodes
@@ -16,6 +18,6 @@ export function extractPhotos(
           kind === 'photo' ? [...urls, image, thumb] : urls,
         [] as Array<string | null | undefined>,
       )
-      .filter(isPresent);
+      .filter((p): p is string => !!p);
   });
 }
