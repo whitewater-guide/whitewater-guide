@@ -47,9 +47,11 @@ export const RegionProvider = React.memo<Props>((props) => {
 
 RegionProvider.displayName = 'RegionProvider';
 
-export const useRegionQuery = () => useContext(RegionCtx);
+export function useRegionQuery() {
+  return useContext(RegionCtx);
+}
 
-export const useRegion = () => {
+export function useRegion() {
   const { data } = useContext(RegionCtx);
   return data?.region;
-};
+}
