@@ -3,8 +3,9 @@ import Grid from '@material-ui/core/Grid';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Rating from '@material-ui/lab/Rating';
 import {
+  DifficultyFragment,
   renderDifficulty,
-  SectionDetailsFragment,
+  SafeSectionDetails,
   sectionName,
   stringifySeason,
 } from '@whitewater-guide/clients';
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme) =>
 );
 
 interface Props {
-  section: SectionDetailsFragment;
+  section: SafeSectionDetails;
 }
 
 const renderTags = (tags: Tag[] | undefined, className: string) =>
@@ -37,8 +38,8 @@ const renderTags = (tags: Tag[] | undefined, className: string) =>
 const SectionInfo: React.FC<Props> = ({ section }) => {
   const classes = useStyles();
   let fullName = sectionName(section);
-  if (section.altNames.length) {
-    fullName += ` (also known as ${section.altNames.join(', ')})`;
+  if (section.altNames?.length) {
+    fullName += ` (also known as ${section.altNames?.join(', ')})`;
   }
   const tagsByCategory = groupBy(section.tags, 'category');
   return (
@@ -47,10 +48,14 @@ const SectionInfo: React.FC<Props> = ({ section }) => {
         <Title>Name</Title>
         <Grid>{fullName}</Grid>
       </Row>
-      <Row>
-        <Title>Difficulty</Title>
-        <Grid>{renderDifficulty(section)}</Grid>
-      </Row>
+
+      {section.difficulty && (
+        <Row>
+          <Title>Difficulty</Title>
+          <Grid>{renderDifficulty(section as DifficultyFragment)}</Grid>
+        </Row>
+      )}
+
       <Row>
         <Title>Rating</Title>
         <Grid>

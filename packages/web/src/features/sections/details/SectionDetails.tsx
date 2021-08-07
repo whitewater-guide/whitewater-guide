@@ -1,6 +1,6 @@
 import Box from '@material-ui/core/Box';
 import CardHeader from '@material-ui/core/CardHeader';
-import { sectionName, useSection } from '@whitewater-guide/clients';
+import { MapSection, sectionName, useSection } from '@whitewater-guide/clients';
 import ReactMarkdown from 'markdown-react-js';
 import React from 'react';
 import { Route, Switch } from 'react-router';
@@ -41,12 +41,14 @@ const SectionDetails = React.memo<RouteComponentProps>((props) => {
           <Switch>
             <Route exact path={`${match.path}/map`}>
               <Box width={1} height={1}>
-                <Map
-                  detailed
-                  sections={[section]}
-                  initialBounds={section.shape}
-                  pois={section.pois}
-                />
+                {section.shape && (
+                  <Map
+                    detailed
+                    sections={[section as MapSection]}
+                    initialBounds={section.shape}
+                    pois={section.pois ?? []}
+                  />
+                )}
               </Box>
             </Route>
 

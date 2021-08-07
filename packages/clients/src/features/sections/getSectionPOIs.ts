@@ -4,11 +4,11 @@ import {
   SectionPoIsFragment,
 } from '@whitewater-guide/schema';
 
-export const getSectionPOIs = (
-  section: (Pick<Section, 'gauge'> & SectionPoIsFragment) | null,
+export function getSectionPOIs(
+  section: Partial<Pick<Section, 'gauge'> & SectionPoIsFragment> | null,
   gaugeI18n = 'Gauge',
-): PointCoreFragment[] => {
-  if (!section) {
+): PointCoreFragment[] {
+  if (!section?.pois) {
     return [];
   }
   const pois = [...section.pois];
@@ -17,4 +17,4 @@ export const getSectionPOIs = (
     pois.push({ ...gaugePOI, name: `${gaugeI18n} ${section.gauge?.name}` });
   }
   return pois;
-};
+}

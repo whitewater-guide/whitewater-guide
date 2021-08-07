@@ -1,10 +1,10 @@
-import { SectionDetailsFragment, useRegion } from '@whitewater-guide/clients';
+import { SafeSectionDetails, useRegion } from '@whitewater-guide/clients';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Button, Caption } from 'react-native-paper';
 
-import { usePremiumGuard } from '../../../../features/purchases';
+import { usePremiumGuard } from '~/features/purchases';
 
 const styles = StyleSheet.create({
   container: {
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  section: SectionDetailsFragment;
+  section: SafeSectionDetails;
 }
 
 const PremiumPlaceholder: React.FC<Props> = ({ section }) => {

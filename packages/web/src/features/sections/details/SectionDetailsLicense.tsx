@@ -1,15 +1,12 @@
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import {
-  ROOT_LICENSE,
-  SectionDetailsFragment,
-} from '@whitewater-guide/clients';
+import { ROOT_LICENSE, SafeSectionDetails } from '@whitewater-guide/clients';
 import React from 'react';
 
 import { Row, Title } from '../../../layout/details';
 
 interface Props {
-  section: SectionDetailsFragment | null;
+  section: SafeSectionDetails | null;
 }
 
 const SectionDetailsLicense: React.FC<Props> = ({ section }) => {

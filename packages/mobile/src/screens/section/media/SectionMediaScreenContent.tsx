@@ -40,7 +40,7 @@ const SectionMediaScreenContent: React.FC = () => {
 
       <PhotoGallery
         sectionLicense={
-          section?.license ?? section?.region.license ?? ROOT_LICENSE
+          section?.license ?? section?.region?.license ?? ROOT_LICENSE
         }
         photos={groups.photo}
         index={openPhotoIndex}

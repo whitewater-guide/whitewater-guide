@@ -5,7 +5,9 @@ import { SectionNameShortFragment } from '@whitewater-guide/schema';
  * @param section
  * @returns
  */
-export function sectionName(section?: SectionNameShortFragment | null): string {
+export function sectionName(
+  section?: Partial<SectionNameShortFragment> | null,
+): string {
   if (!section) {
     return '';
   }

@@ -6,7 +6,7 @@ import { Text } from 'react-native';
 import getTitleFontSize from '../../utils/getTitleFontSize';
 
 interface Props {
-  section?: SectionNameShortFragment | null;
+  section?: Partial<SectionNameShortFragment> | null;
 }
 
 const SectionTitle: React.FC<Props> = ({ section }) => {

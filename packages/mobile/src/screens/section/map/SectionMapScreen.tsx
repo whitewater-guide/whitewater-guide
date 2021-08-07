@@ -1,4 +1,8 @@
-import { getSectionContentBounds, useSection } from '@whitewater-guide/clients';
+import {
+  getSectionContentBounds,
+  MapSection,
+  useSection,
+} from '@whitewater-guide/clients';
 import React, { useMemo } from 'react';
 
 import { Map } from '~/components/map';
@@ -12,12 +16,13 @@ const SectionMapScreen: React.FC<SectionMapNavProps> = () => {
     () => getSectionContentBounds(section),
     [section],
   );
+
   const pois = useMemo(() => {
     if (!section) {
       return [];
     }
 
-    const result = [...section.pois];
+    const result = [...(section.pois ?? [])];
     const gauge = section.gauge?.location;
     if (gauge) {
       const gaugePt = { ...gauge, name: 'Gauge' };
@@ -25,11 +30,12 @@ const SectionMapScreen: React.FC<SectionMapNavProps> = () => {
     }
     return result;
   }, [section]);
+
   return (
     <Screen>
-      {section && initialBounds && (
+      {section?.shape && initialBounds && (
         <Map
-          sections={[section]}
+          sections={[section as MapSection]}
           initialBounds={initialBounds}
           pois={pois}
           detailed

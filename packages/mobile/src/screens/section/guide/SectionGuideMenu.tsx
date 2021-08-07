@@ -1,9 +1,6 @@
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import { useNavigation } from '@react-navigation/core';
-import {
-  ROOT_LICENSE,
-  SectionDetailsFragment,
-} from '@whitewater-guide/clients';
+import { ROOT_LICENSE, SafeSectionDetails } from '@whitewater-guide/clients';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Clipboard, Platform } from 'react-native';
@@ -15,7 +12,7 @@ import theme from '~/theme';
 import { SectionGuideNavProp } from './types';
 
 interface Props {
-  section?: SectionDetailsFragment | null;
+  section?: SafeSectionDetails | null;
 }
 
 const SectionGuideMenu: React.FC<Props> = ({ section }) => {
@@ -43,7 +40,7 @@ const SectionGuideMenu: React.FC<Props> = ({ section }) => {
             placement: 'section',
             copyright: section?.copyright,
             license:
-              section?.license ?? section?.region.license ?? ROOT_LICENSE,
+              section?.license ?? section?.region?.license ?? ROOT_LICENSE,
           });
         }
       },

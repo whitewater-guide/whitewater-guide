@@ -1,4 +1,5 @@
 import {
+  DifficultyFragment,
   renderDifficulty,
   stringifySeason,
   useSectionQuery,
@@ -15,6 +16,7 @@ import { Paragraph, Subheading } from 'react-native-paper';
 import Chips from '~/components/Chips';
 import { Body, Left, Right, Row } from '~/components/Row';
 import SimpleStarRating from '~/components/SimpleStarRating';
+import { PremiumSection } from '~/features/purchases';
 
 import { getSeasonLocalizer } from '../../../i18n';
 import theme from '../../../theme';
@@ -55,14 +57,18 @@ const SectionInfoView: React.FC = () => {
     >
       <HelpNeeded section={section} />
 
-      <Row>
-        <Left>
-          <Subheading>{t('commons:difficulty')}</Subheading>
-        </Left>
-        <Right>
-          <Paragraph>{renderDifficulty(section)}</Paragraph>
-        </Right>
-      </Row>
+      {section.difficulty && (
+        <Row>
+          <Left>
+            <Subheading>{t('commons:difficulty')}</Subheading>
+          </Left>
+          <Right>
+            <Paragraph>
+              {renderDifficulty(section as DifficultyFragment)}
+            </Paragraph>
+          </Right>
+        </Row>
+      )}
 
       <Row>
         <Left>
@@ -128,17 +134,21 @@ const SectionInfoView: React.FC = () => {
         </Body>
       </Row>
 
-      <CoordinatesInfo
-        label={t('commons:putIn')}
-        coordinates={section.putIn.coordinates}
-        section={section}
-      />
+      {section.putIn && (
+        <CoordinatesInfo
+          label={t('commons:putIn')}
+          coordinates={section.putIn.coordinates}
+          section={section as PremiumSection}
+        />
+      )}
 
-      <CoordinatesInfo
-        label={t('commons:takeOut')}
-        coordinates={section.takeOut.coordinates}
-        section={section}
-      />
+      {section.takeOut && (
+        <CoordinatesInfo
+          label={t('commons:takeOut')}
+          coordinates={section.takeOut.coordinates}
+          section={section as PremiumSection}
+        />
+      )}
 
       {!!tagsByCategory[TagCategory.Kayaking] &&
         !!tagsByCategory[TagCategory.Kayaking].length && (

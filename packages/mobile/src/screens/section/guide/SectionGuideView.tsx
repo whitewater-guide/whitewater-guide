@@ -1,4 +1,4 @@
-import { SectionDetailsFragment } from '@whitewater-guide/clients';
+import { SafeSectionDetails } from '@whitewater-guide/clients';
 import React from 'react';
 
 import Markdown from '~/components/Markdown';
@@ -6,7 +6,7 @@ import Markdown from '~/components/Markdown';
 import Placeholder from './placeholder';
 
 interface Props {
-  section?: SectionDetailsFragment | null;
+  section?: SafeSectionDetails | null;
 }
 
 // Priorities:

@@ -23,9 +23,10 @@ export const SectionFAB: React.FC<Props> = ({ testID }) => {
   const { t } = useTranslation();
 
   const { upload } = useLocalPhotos();
+
   const onImagePicker = useCallback(
     (localPhotoId: string) => {
-      if (section) {
+      if (section?.id) {
         navigate(Screens.SUGGESTION, {
           sectionId: section.id,
           localPhotoId,
@@ -42,7 +43,7 @@ export const SectionFAB: React.FC<Props> = ({ testID }) => {
         icon: 'pencil-plus',
         label: t('screens:section.fab.addSuggestion'),
         onPress: () => {
-          if (section) {
+          if (section?.id) {
             navigate(Screens.SUGGESTION, { sectionId: section.id });
           }
         },
@@ -89,7 +90,7 @@ export const SectionFAB: React.FC<Props> = ({ testID }) => {
         onPress:
           Config.E2E_MODE === 'true'
             ? () => {
-                if (section) {
+                if (section?.id) {
                   navigate(Screens.SUGGESTION, {
                     sectionId: section.id,
                     localPhotoId: 'foo',
@@ -101,6 +102,7 @@ export const SectionFAB: React.FC<Props> = ({ testID }) => {
     ],
     [navigate, dispatch, section, onPickAndUpload, t],
   );
+
   return (
     <FAButton.Group
       testID={testID}
