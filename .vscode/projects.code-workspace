@@ -70,13 +70,23 @@
       "**/*.generated.*": true,
       "**/__generated__": true,
       "**/build": true,
-      "**/cjs": true,
       "**/dist": true,
-      "**/esm": true,
       "**/node_modules": true,
       "**/yarn-error.log": true,
       "**/yarn.lock": true
     },
-    "typescript.tsdk": "_ROOT/node_modules/typescript/lib"
+    "typescript.tsdk": "_ROOT/node_modules/typescript/lib",
+    "search.useIgnoreFiles": false,
+    "files.watcherExclude": {
+      "**/.git/objects/**": true,
+      "**/.git/subtree-cache/**": true,
+      "**/node_modules/*/**": true,
+      "**/.hg/store/**": true,
+      "**/build/**": true,
+      "**/dist/**": true,
+      "**/*.log": true,
+      "**/yarn.lock": true
+    },
+    "typescript.disableAutomaticTypeAcquisition": true
   }
 }
