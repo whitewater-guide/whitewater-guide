@@ -15,19 +15,32 @@ const styles = StyleSheet.create({
   controls: {
     height: 4 * theme.rowHeight,
   },
+  controlsCollapsed: {
+    height: 0,
+  },
 });
 
-const ChartLayout: React.FC<ChartProps> = ({ gauge, section }) => {
+interface ChartLayoutProps extends ChartProps {
+  collapsed?: boolean;
+}
+
+const ChartLayout: React.FC<ChartLayoutProps> = ({
+  gauge,
+  section,
+  collapsed,
+}) => {
   const approximate =
     section?.flows?.approximate || section?.levels?.approximate;
   const formula = section?.flows?.formula;
+
   return (
     <ChartProvider section={section} gauge={gauge}>
       <View style={styles.container} testID="chart-container">
         <View style={styles.container}>
           <Chart />
         </View>
-        <View style={styles.controls}>
+
+        <View style={collapsed ? styles.controlsCollapsed : styles.controls}>
           <ChartPeriodToggle />
           <GaugeInfo
             gauge={gauge}
