@@ -6,6 +6,11 @@ import {
   Unit,
 } from '@whitewater-guide/schema';
 import React from 'react';
+import {
+  VictoryScatterProps,
+  VictoryTooltipProps,
+  VictoryZoomContainerProps,
+} from 'victory';
 import { VictoryAxisProps } from 'victory-axis';
 import { VictoryChartProps } from 'victory-chart';
 import { TextAnchorType, VictoryLabelProps } from 'victory-core';
@@ -13,13 +18,15 @@ import { VictoryLineProps } from 'victory-line';
 
 import { ChartDataPoint } from '../types';
 
-export interface ChartMeta {
-  days: number;
+export interface DomainMeta {
   domain: {
     x: [Date, Date];
     y: [number, number];
   };
   yTickValues: number[];
+}
+export interface XMeta {
+  days: number;
   xTickValues: Date[];
   xTickFormat: (date: Date) => string;
 }
@@ -44,6 +51,7 @@ export interface ChartMetaSettings {
   yDeltaRatio?: number;
   yTicks?: number;
   timeAxisSettings?: TimeAxisSettings;
+  maxDensity?: number; // min pixel distance between two chart points
 }
 
 export interface TimeLabelProps extends VictoryLabelProps {
@@ -87,6 +95,8 @@ export interface HorizontalGridProps {
 
 export interface ChartComponents {
   ChartComponent: React.ComponentType<VictoryChartProps>;
+  ScatterComponent: React.ComponentType<VictoryScatterProps>;
+  TooltipComponent: React.ComponentType<VictoryTooltipProps>;
   AxisComponent: React.ComponentType<VictoryAxisProps>;
   LineComponent: React.ComponentType<VictoryLineProps>;
   TimeLabelComponent: React.ComponentType<TimeLabelProps>;
@@ -94,4 +104,5 @@ export interface ChartComponents {
   HorizontalTickComponent: React.ComponentType<HorizontalTickProps>;
   HorizontalLabelComponent: React.ComponentType<HorizontalLabelProps>;
   HorizontalGridComponent: React.ComponentType<HorizontalGridProps>;
+  ZoomVoronoiComponent: React.ComponentType<VictoryZoomContainerProps>;
 }

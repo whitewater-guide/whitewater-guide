@@ -1,13 +1,16 @@
 import { Unit } from '@whitewater-guide/schema';
-import React, { useMemo } from 'react';
+import React, { useState } from 'react';
 import { VictoryChartProps } from 'victory-chart';
 import { VictoryCommonProps } from 'victory-core';
 
-import { computeChartMeta } from './computeChartMeta';
 import HorizontalGrid from './HorizontalGrid';
 import HorizontalLabel from './HorizontalLabel';
 import HorizontalTick from './HorizontalTick';
 import { ChartComponents, ChartMetaSettings, ChartViewProps } from './types';
+import useDomainMeta from './useDomainMeta';
+import useTooltipLabel from './useTooltipLabel';
+import useXMeta from './useXMeta';
+import useZoomedData from './useZoomedData';
 
 const SCALE: VictoryCommonProps['scale'] = { x: 'time', y: 'linear' };
 const LINE_STYLE = { data: { strokeWidth: 2 } };
@@ -22,19 +25,22 @@ export const createChartView = (
   const {
     AxisComponent,
     ChartComponent,
+    ScatterComponent,
+    TooltipComponent,
     LineComponent,
     TimeLabelComponent,
     TimeGridComponent,
     HorizontalGridComponent,
     HorizontalLabelComponent,
     HorizontalTickComponent,
+    ZoomVoronoiComponent,
   } = components;
 
   const ChartView: React.FC<Props> = React.memo((props) => {
     const {
       data,
       unit,
-      gauge: _g,
+      gauge,
       section,
       filter: _f,
       highlightedDate,
@@ -44,26 +50,46 @@ export const createChartView = (
 
     const binding =
       section && (unit === Unit.LEVEL ? section.levels : section.flows);
-    const meta = useMemo(() => computeChartMeta(props, metaSettings), [props]);
+    const meta = useDomainMeta(props, metaSettings);
+    const tooltipLabel = useTooltipLabel(unit, gauge.levelUnit, gauge.flowUnit);
+    const [zoomedDomain, setZoomedDomain] = useState(meta.domain);
+    const zoomedData = useZoomedData(
+      data,
+      zoomedDomain,
+      victoryProps.width,
+      metaSettings?.maxDensity,
+    );
+    const xMeta = useXMeta(zoomedDomain.x, props, metaSettings);
+
     if (!victoryProps.width || !victoryProps.height) {
       return null;
     }
 
     return (
-      <ChartComponent {...victoryProps} scale={SCALE} domain={meta.domain}>
+      <ChartComponent
+        {...victoryProps}
+        scale={SCALE}
+        domain={meta.domain}
+        containerComponent={
+          <ZoomVoronoiComponent
+            onZoomDomainChange={setZoomedDomain as any}
+            zoomDimension="x"
+          />
+        }
+      >
         <AxisComponent
           crossAxis
-          tickFormat={meta.xTickFormat}
-          tickValues={meta.xTickValues}
+          tickFormat={xMeta.xTickFormat}
+          tickValues={xMeta.xTickValues}
           tickLabelComponent={
             <TimeLabelComponent
-              days={meta.days}
+              days={xMeta.days}
               highlightedDate={highlightedDate}
             />
           }
           gridComponent={
             <TimeGridComponent
-              days={meta.days}
+              days={xMeta.days}
               highlightedDate={highlightedDate}
             />
           }
@@ -95,11 +121,18 @@ export const createChartView = (
           }
         />
         <LineComponent
-          data={data}
+          data={zoomedData}
           x="timestamp"
           y={unit}
           interpolation="linear"
           style={LINE_STYLE}
+        />
+        <ScatterComponent
+          data={zoomedData}
+          x="timestamp"
+          y={unit}
+          labels={tooltipLabel}
+          labelComponent={<TooltipComponent renderInPortal={false} />}
         />
         {children}
       </ChartComponent>

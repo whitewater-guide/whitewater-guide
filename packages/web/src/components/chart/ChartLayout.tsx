@@ -1,14 +1,7 @@
 import { useChart } from '@whitewater-guide/clients';
-import { Unit } from '@whitewater-guide/schema';
-import format from 'date-fns/format';
-import React, { useCallback } from 'react';
+import React from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import {
-  createContainer,
-  VictoryScatter,
-  VictoryTheme,
-  VictoryTooltip,
-} from 'victory';
+import { VictoryTheme } from 'victory';
 
 import { Styles } from '../../styles';
 import { Loading } from '../Loading';
@@ -16,8 +9,6 @@ import ChartFlowToggle from './ChartFlowToggle';
 import ChartPeriodToggle from './ChartPeriodToggle';
 import ChartView from './ChartView';
 import NoData from './NoData';
-
-const VictoryZoomVoronoiContainer = createContainer('zoom', 'voronoi');
 
 const styles: Styles = {
   root: {
@@ -44,12 +35,6 @@ const styles: Styles = {
   },
 };
 
-interface Datum {
-  level: number | null;
-  flow: number | null;
-  timestamp: Date;
-}
-
 const ChartLayout: React.FC = () => {
   const {
     measurements: { loading, data },
@@ -59,18 +44,7 @@ const ChartLayout: React.FC = () => {
     filter,
   } = useChart();
   const { ref, width, height } = useResizeDetector<HTMLDivElement>();
-  const { levelUnit, flowUnit } = gauge;
   const noData = !data || data.length === 0;
-
-  const getLabel = useCallback(
-    ({ datum }: { datum: Datum }) => {
-      const ts = datum.timestamp;
-      const val = datum[unit];
-      const unitName = unit === Unit.FLOW ? flowUnit : levelUnit;
-      return `${val} ${unitName}\n${format(ts, 'Pp')}`;
-    },
-    [unit, levelUnit, flowUnit],
-  );
 
   return (
     <div style={styles.root}>
@@ -93,16 +67,7 @@ const ChartLayout: React.FC = () => {
               unit={unit}
               section={section}
               theme={VictoryTheme.material}
-              containerComponent={<VictoryZoomVoronoiContainer />}
-            >
-              <VictoryScatter
-                data={data}
-                x="timestamp"
-                y={unit}
-                labels={getLabel}
-                labelComponent={<VictoryTooltip />}
-              />
-            </ChartView>
+            />
           )}
         </div>
       </div>

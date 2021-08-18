@@ -1,5 +1,12 @@
 import { createChartView } from '@whitewater-guide/clients';
-import { VictoryAxis, VictoryChart, VictoryLine } from 'victory-native';
+import {
+  createContainer,
+  VictoryAxis,
+  VictoryChart,
+  VictoryLine,
+  VictoryScatter,
+  VictoryTooltip,
+} from 'victory-native';
 
 import {
   HorizontalGrid,
@@ -10,16 +17,21 @@ import {
 import { DescentTimeGrid } from './DescentTimeGrid';
 import { DescentTimeLabel } from './DescentTimeLabel';
 
+const VictoryZoomVoronoiContainer = createContainer('zoom', 'voronoi');
+
 const DescentChartComponent = createChartView(
   {
     ChartComponent: VictoryChart,
     AxisComponent: VictoryAxis,
+    ScatterComponent: VictoryScatter,
+    TooltipComponent: VictoryTooltip,
     LineComponent: VictoryLine,
     TimeLabelComponent: DescentTimeLabel,
     TimeGridComponent: DescentTimeGrid,
     HorizontalTickComponent: HorizontalTick,
     HorizontalLabelComponent: HorizontalLabel,
     HorizontalGridComponent: HorizontalGrid,
+    ZoomVoronoiComponent: VictoryZoomVoronoiContainer,
   },
   {
     yTicks: 5,
