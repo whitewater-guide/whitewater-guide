@@ -12,3 +12,4 @@ rm -rf node_modules/react/
 
 yarn jetify
 yarn setup-dev-env
+yarn patch-package
