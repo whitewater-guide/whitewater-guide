@@ -29,18 +29,22 @@ interface Props extends Omit<ChartViewProps, 'width' | 'height'> {
 const PureChart: React.FC<Props> = React.memo((props) => {
   const { section, gauge, loading, data, filter, unit } = props;
   const [layout, setLayout] = useState<LayoutRectangle | null>(null);
+
   const onLayout = useCallback(
     (event: LayoutChangeEvent) => {
       setLayout(event.nativeEvent.layout);
     },
     [setLayout],
   );
+
   if (loading) {
     return <Loading />;
   }
+
   if (!data || data.length === 0) {
     return <NoChart noData />;
   }
+
   return (
     <View style={styles.container} onLayout={onLayout}>
       {!!layout && layout.width !== 0 && layout.height !== 0 && (

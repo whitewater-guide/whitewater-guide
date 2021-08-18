@@ -20,7 +20,7 @@ const SectionChartScreen: React.FC<SectionChartNavProps> = ({ navigation }) => {
 
   const handleCollapse = useCallback(() => {
     toggleCollapsed();
-    LayoutAnimation.linear();
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
   }, [toggleCollapsed]);
 
   useFocusEffect(
