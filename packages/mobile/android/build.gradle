@@ -3,10 +3,10 @@
 buildscript {
     ext {
         ndkVersion = "20.1.5948944"
-        buildToolsVersion = "29.0.3"
+        buildToolsVersion = "30.0.2"
         minSdkVersion = 21
-        compileSdkVersion = 29
-        targetSdkVersion = 29
+        compileSdkVersion = 30
+        targetSdkVersion = 30
         supportLibVersion = "28.0.0"
         kotlinVersion = "1.4.31"
         appCompatVersion = "1.2.0"
@@ -15,9 +15,10 @@ buildscript {
     repositories {
         google()
         jcenter()
+        mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:4.1.2")
+        classpath("com.android.tools.build:gradle:4.2.1")
         classpath 'com.google.gms:google-services:4.3.4'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:1.0.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
@@ -29,6 +30,7 @@ buildscript {
 
 allprojects {
     repositories {
+        mavenCentral()
         mavenLocal()
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
