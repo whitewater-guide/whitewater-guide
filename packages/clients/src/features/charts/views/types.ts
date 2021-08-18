@@ -28,7 +28,7 @@ export interface DomainMeta {
 export interface XMeta {
   days: number;
   xTickValues: Date[];
-  xTickFormat: (date: Date) => string;
+  xTickFormat: (date: Date, index: number, ticks: Date[]) => string;
 }
 
 export interface ChartViewProps {
@@ -43,7 +43,7 @@ export interface ChartViewProps {
 }
 
 export interface TimeAxisSettings {
-  tickFormat: string;
+  tickFormat: string | ((date: Date, index: number, ticks: Date[]) => string);
   tickCount: number;
 }
 

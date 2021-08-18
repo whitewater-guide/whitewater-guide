@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const DAYS = [1, 7, 31];
+const DAYS = [1, 3, 7, 31];
 
 export const ChartPeriodToggle: React.FC = React.memo(() => {
   const { t } = useTranslation();
@@ -29,6 +29,7 @@ export const ChartPeriodToggle: React.FC = React.memo(() => {
         title: t('section:chart.periodToggle.title'),
         options: [
           t('section:chart.periodToggle.day'),
+          t('section:chart.periodToggle.3days'),
           t('section:chart.periodToggle.week'),
           t('section:chart.periodToggle.month'),
           t('commons:cancel'),

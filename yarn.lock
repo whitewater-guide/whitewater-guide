@@ -6243,10 +6243,15 @@
     prosemirror-view "^1.11.6"
     tslib "^1.10.0"
 
-"@whitewater-guide/translations@^2.4.3", "@whitewater-guide/translations@^2.5.1":
+"@whitewater-guide/translations@^2.4.3":
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/@whitewater-guide/translations/-/translations-2.5.1.tgz#270f4ae7d958472e4e5aea40ab2906460c5adbff"
   integrity sha512-v/hPdPuIGrNi91oOLoPyYT337bo8gNCqFqvujcxA7uQMw3GY0vOpvAxcXcB+jCXieikr6sHvKKJWPXvyV+k5Sw==
+
+"@whitewater-guide/translations@^2.5.2":
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/@whitewater-guide/translations/-/translations-2.5.2.tgz#cb98835b34416fa37166e4cdee4818258907ee74"
+  integrity sha512-56DUGPd6WZ5exir2ISeXccet972HdqO4pfKQe07VVtMUCG6oBE2kA0e/sHNG+i7deVb7nPb2lXLSPpQC5XChyQ==
 
 "@wry/context@^0.4.0":
   version "0.4.4"

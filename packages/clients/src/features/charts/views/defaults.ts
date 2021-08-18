@@ -7,14 +7,19 @@ export function getDefaultTimeAxisSettings(days: number): TimeAxisSettings {
       tickCount: 31,
     };
   }
-  if (days > 1) {
+  if (days === 7) {
     return {
       tickFormat: 'EEE do',
       tickCount: 7,
     };
   }
   return {
-    tickFormat: 'HH:mm',
+    tickFormat: (date) => {
+      if (date.getHours() === 0) {
+        return 'EEE do';
+      }
+      return 'HH:mm';
+    },
     tickCount: 6,
   };
 }

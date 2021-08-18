@@ -20,8 +20,15 @@ function useXMeta(
 
     const days = differenceInDays(xDomain[1], xDomain[0]);
     const xAxisSettings = timeAxisSettings || getDefaultTimeAxisSettings(days);
-    const xTickFormat = (date: Date) =>
-      formatDate(date, xAxisSettings.tickFormat);
+
+    const xTickFormat = (date: Date, index: number, ticks: Date[]) => {
+      const tickFormat =
+        typeof xAxisSettings.tickFormat === 'string'
+          ? xAxisSettings.tickFormat
+          : xAxisSettings.tickFormat(date, index, ticks);
+      return formatDate(date, tickFormat);
+    };
+
     const xTickValues = scaleTime()
       .domain(xDomain)
       .ticks(xAxisSettings.tickCount);
