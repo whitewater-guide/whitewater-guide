@@ -21298,10 +21298,10 @@ react-native-bootsplash@^3.2.4:
     fs-extra "^9.1.0"
     jimp "^0.16.1"
 
-react-native-bundle-splitter@^1.0.9:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/react-native-bundle-splitter/-/react-native-bundle-splitter-1.0.9.tgz#0b4851c005a2db3d4fc3b3402f922c8b3e9d0a5e"
-  integrity sha512-wPnYzvmKg1fORwJlsgI6Symh6t8oK18VLBd2BwTwFfUbzIjyzwLmZLODfj+ScQSvSbqJawAMnv272Ij8aDgvLQ==
+react-native-bundle-splitter@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-bundle-splitter/-/react-native-bundle-splitter-2.1.0.tgz#3dbf44893b9b2106968f7fd48dcc8675cd855919"
+  integrity sha512-RgzV4opq+6sKj9p+6gRr4trkCZtOJvBCo7OeaKM4MMZ4MaQwNlhoNud0RL3y0W4GMXelrf9ZOTcJYWlRJ1wWww==
 
 react-native-codegen@^0.0.7:
   version "0.0.7"

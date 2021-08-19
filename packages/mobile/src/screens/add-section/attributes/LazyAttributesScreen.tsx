@@ -1,5 +1,5 @@
 import { register } from 'react-native-bundle-splitter';
 
 export const LazyAttributesScreen = register({
-  require: () => require('./AttributesScreen'),
+  loader: () => import('./AttributesScreen'),
 });

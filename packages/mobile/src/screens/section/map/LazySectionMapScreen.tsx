@@ -1,5 +1,5 @@
 import { register } from 'react-native-bundle-splitter';
 
 export const LazySectionMapScreen = register({
-  require: () => require('./SectionMapScreen'),
+  loader: () => import('./SectionMapScreen'),
 });

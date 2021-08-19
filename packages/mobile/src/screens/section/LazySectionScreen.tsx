@@ -1,7 +1,7 @@
 import { register } from 'react-native-bundle-splitter';
 
 export const LazySectionScreen = register({
-  require: () => require('./SectionScreen'),
+  loader: () => import('./SectionScreen'),
 });
 
 LazySectionScreen.displayName = 'LazySectionScreen';
