@@ -35,6 +35,7 @@ const defaultStyles: StyleSheet.NamedStyles<any> = StyleSheet.create({
   level5: {
     color: ColorStrings.impossible,
   },
+  hardbreak: { height: 8, width: '100%' },
   listUnorderedItemIcon: {
     marginLeft: 10,
     marginRight: 10,
@@ -67,7 +68,7 @@ const rules: RenderRules = {
   // eslint-disable-next-line react/display-name
   hardbreak: (node) => {
     return (
-      <Text key={node.key} style={{ height: 8, width: '100%' }}>
+      <Text key={node.key} style={defaultStyles.hardbreak}>
         {'\n'}
       </Text>
     );
