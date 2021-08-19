@@ -9,13 +9,14 @@ import {
   EDITOR_NO_EC,
   TEST_USER,
 } from '~/seeds/test/01_users';
-import { REGION_NORWAY } from '~/seeds/test/04_regions';
+import { REGION_NORWAY, REGION_RUSSIA } from '~/seeds/test/04_regions';
 import { RIVER_BZHUZHA, RIVER_GAL_BECA } from '~/seeds/test/07_rivers';
 import {
   GALICIA_BECA_LOWER,
   GALICIA_BECA_UPPER,
   GEORGIA_BZHUZHA_LONG,
   NORWAY_SJOA_AMOT,
+  RUSSIA_MZYMTA_PASEKA,
   SECTIONS_TOTAL,
   SECTIONS_VISIBLE,
 } from '~/seeds/test/09_sections';
@@ -24,6 +25,7 @@ import {
   testListSections,
   testListSectionsRegion,
   testListSectionsRiver,
+  testListSectionsWithFavorites,
 } from './sections.test.generated';
 
 jest.mock('../../gorge/connector');
@@ -256,6 +258,29 @@ describe('filter editable', () => {
     expect(result.data?.sections.nodes).not.toContainEqual(
       expect.objectContaining({ id: GALICIA_BECA_LOWER }),
     );
+  });
+});
+
+it('should return favorites', async () => {
+  const _q = gql`
+    query listSectionsWithFavorites($page: Page, $filter: SectionsFilter) {
+      sections(page: $page, filter: $filter) {
+        nodes {
+          id
+          favorite
+        }
+      }
+    }
+  `;
+  const result = await testListSectionsWithFavorites(
+    {
+      filter: { regionId: REGION_RUSSIA },
+    },
+    fakeContext(TEST_USER),
+  );
+  expect(result.data?.sections.nodes).toContainEqual({
+    id: RUSSIA_MZYMTA_PASEKA,
+    favorite: true,
   });
 });
 

@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 
 import { holdTransaction, rollbackTransaction } from '~/db';
 import { TEST_USER } from '~/seeds/test/01_users';
-import { REGION_GEORGIA } from '~/seeds/test/04_regions';
+import { REGION_GALICIA } from '~/seeds/test/04_regions';
 
 import { testFavoriteRegions } from './favoriteRegions.test.generated';
 
@@ -30,7 +30,7 @@ it('should return error to anons', async () => {
 it('should return ids to user', async () => {
   const res = await testFavoriteRegions(undefined, fakeContext(TEST_USER));
   expect(res.data?.favoriteRegions).toEqual({
-    nodes: [{ id: REGION_GEORGIA }],
+    nodes: [{ id: REGION_GALICIA }],
     count: 1,
   });
 });

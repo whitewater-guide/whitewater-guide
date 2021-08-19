@@ -52,6 +52,8 @@ type Region implements NamedNode & Timestamped {
   editable: Boolean!
   "Indicates that current user can see premium content in this region"
   hasPremiumAccess: Boolean!
+  "Indicates that current user has marked this region as favorite"
+  favorite: Boolean
 
   "Licensing information"
   license: License
@@ -180,6 +182,6 @@ type Mutation {
   removeEditor(regionId: ID!, userId: ID!): Boolean @admin
   "Changes admin-level settings of region"
   administrateRegion(settings: RegionAdminSettings!): Region @admin
-  "Toggle favorite status of region, return new status"
-  toggleFavoriteRegion(id: ID!, favorite: Boolean!): Boolean!
+  "Toggle favorite status of region, returns region with new status"
+  toggleFavoriteRegion(id: ID!, favorite: Boolean!): Region!
 }

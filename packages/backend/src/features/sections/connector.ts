@@ -25,6 +25,7 @@ const FIELDS_MAP: FieldsMap<Section, Sql.SectionsView> = {
   putIn: ['river_id', 'river_name', 'take_out'],
   gauge: 'gauge_id',
   media: null,
+  favorite: null,
 };
 
 export class SectionsConnector extends OffsetConnector<
@@ -63,9 +64,27 @@ export class SectionsConnector extends OffsetConnector<
     return query;
   }
 
+  private addFavoriteColumn(query: QueryBuilder) {
+    const sectionFields = this._fieldsByType.get('Section') ?? new Set();
+    if (this._user && sectionFields.has('favorite')) {
+      // Add 'favorite' column as subquery
+      const favoriteQ = db()
+        .select('section_id')
+        .from('fav_sections')
+        .where('fav_sections.user_id', '=', this._user.id)
+        .whereRaw('fav_sections.section_id = sections_view.id');
+
+      query.select(
+        db().raw(`(SELECT EXISTS (${favoriteQ.toString()})) as favorite`),
+      );
+    }
+    return query;
+  }
+
   getBatchQueue(keys: string[]): QueryBuilder {
     const query = super.getBatchQuery(keys);
     this.addHiddenWhere(query);
+    this.addFavoriteColumn(query);
     return query;
   }
 
@@ -75,6 +94,7 @@ export class SectionsConnector extends OffsetConnector<
   ) {
     const query = super.getMany(info, options);
     this.addHiddenWhere(query);
+    this.addFavoriteColumn(query);
 
     const { riverId, regionId, updatedAfter, search, verified, editable } =
       filter;

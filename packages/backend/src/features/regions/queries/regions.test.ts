@@ -27,6 +27,7 @@ import {
   testListPremiumRegions,
   testListRegions,
   testListRegionsByName,
+  testRegionsWithFavorites,
 } from './regions.test.generated';
 
 beforeEach(holdTransaction);
@@ -192,6 +193,25 @@ describe('results', () => {
     const regions = result.data?.regions.nodes;
     // At least one region should have some sections
     expect(regions?.some((r: any) => r.sections.count > 0)).toBe(true);
+  });
+
+  it('should return favorites', async () => {
+    const _q = gql`
+      query regionsWithFavorites {
+        regions {
+          nodes {
+            id
+            favorite
+          }
+        }
+      }
+    `;
+    const result = await testRegionsWithFavorites({}, fakeContext(TEST_USER));
+    expect(result.errors).toBeUndefined();
+    expect(result.data?.regions.nodes).toContainEqual({
+      id: REGION_GALICIA,
+      favorite: true,
+    });
   });
 
   it('should search by name', async () => {

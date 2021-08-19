@@ -14,6 +14,7 @@ import { ResolvableRegion } from './types';
 const FIELDS_MAP: FieldsMap<Region, ResolvableRegion> = {
   editable: null,
   hasPremiumAccess: null,
+  favorite: null,
   rivers: null,
   gauges: null,
   sections: null,
@@ -31,6 +32,23 @@ export class RegionsConnector extends OffsetConnector<
     this._tableName = 'regions_view';
     this._graphqlTypeName = 'Region';
     this._fieldsMap = FIELDS_MAP;
+  }
+
+  private addFavoriteColumn(query: QueryBuilder) {
+    const regionFields = this._fieldsByType.get('Region') ?? new Set();
+    if (this._user && regionFields.has('favorite')) {
+      // Add 'favorite' column as subquery
+      const favoriteQ = db()
+        .select('region_id')
+        .from('fav_regions')
+        .where('fav_regions.user_id', '=', this._user.id)
+        .whereRaw('fav_regions.region_id = regions_view.id');
+
+      query.select(
+        db().raw(`(SELECT EXISTS (${favoriteQ.toString()})) as favorite`),
+      );
+    }
+    return query;
   }
 
   getBatchQuery(keys: string[]): QueryBuilder {
@@ -51,6 +69,9 @@ export class RegionsConnector extends OffsetConnector<
         db().raw(`(SELECT EXISTS (${editableQ.toString()})) as editable`),
       );
     }
+
+    this.addFavoriteColumn(query);
+
     return query;
   }
 
@@ -59,6 +80,7 @@ export class RegionsConnector extends OffsetConnector<
     options: ManyBuilderOptions<ResolvableRegion> = {},
   ) {
     const query = super.getMany(info, options);
+    this.addFavoriteColumn(query);
     if (!this._user) {
       // Anons should not see hidden regions
       query.where('regions_view.hidden', false);

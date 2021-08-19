@@ -18,7 +18,7 @@ const toggleFavoriteRegion: MutationResolvers['toggleFavoriteRegion'] = async (
       .from('fav_regions')
       .where({ user_id: user!.id, region_id: id });
   }
-  return favorite;
+  return { id, favorite };
 };
 
 export default isAuthenticatedResolver(toggleFavoriteRegion);

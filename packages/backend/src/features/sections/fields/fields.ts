@@ -2,6 +2,7 @@ import { SectionResolvers, timestampedResolvers } from '~/apollo';
 
 import createdBy from './createdBy';
 import description from './description';
+import favorite from './favorite';
 import gauge from './gauge';
 import media from './media';
 import region from './region';
@@ -10,6 +11,7 @@ import shape from './shape';
 
 export const sectionFieldResolvers: SectionResolvers = {
   altNames: (section) => section.alt_names,
+  favorite,
   // description is empty string when there is no description ind db (even for premium)
   // description is null when premium is required and description in db is not empty
   description,

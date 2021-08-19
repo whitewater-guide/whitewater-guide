@@ -3,13 +3,13 @@ import Knex from 'knex';
 import { Sql } from '~/db';
 
 import { TEST_USER_ID } from './01_users';
-import { REGION_GEORGIA } from './04_regions';
+import { REGION_GALICIA } from './04_regions';
 import { NORWAY_SJOA_AMOT, RUSSIA_MZYMTA_PASEKA } from './09_sections';
 
 const regions: Sql.FavRegions[] = [
   {
     user_id: TEST_USER_ID,
-    region_id: REGION_GEORGIA,
+    region_id: REGION_GALICIA,
   },
 ];
 

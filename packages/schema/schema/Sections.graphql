@@ -99,6 +99,8 @@ type Section implements NamedNode & Timestamped {
   helpNeeded: String
   "true if this section has been reviewed by our moderators"
   verified: Boolean
+  "Indicates that current user has marked this section as favorite"
+  favorite: Boolean
 
   "Licensing information"
   license: License
@@ -269,6 +271,6 @@ type Mutation {
     hidden: Boolean
     archiveURL: String!
   ): BulkInsertResult @admin
-  "Toggle favorite status of section, returns new status"
-  toggleFavoriteSection(id: ID!, favorite: Boolean!): Boolean!
+  "Toggle favorite status of section, returns section with new status"
+  toggleFavoriteSection(id: ID!, favorite: Boolean!): Section!
 }

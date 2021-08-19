@@ -10,7 +10,10 @@ import { testToggleFavoriteSection } from './toggleFavoriteSection.test.generate
 
 const _mutation = gql`
   mutation toggleFavoriteSection($id: ID!, $favorite: Boolean!) {
-    toggleFavoriteSection(id: $id, favorite: $favorite)
+    toggleFavoriteSection(id: $id, favorite: $favorite) {
+      id
+      favorite
+    }
   }
 `;
 
@@ -36,7 +39,10 @@ it('should add to favorites', async () => {
     { id: GALICIA_BECA_LOWER, favorite: true },
     fakeContext(TEST_USER),
   );
-  expect(result.data?.toggleFavoriteSection).toBe(true);
+  expect(result.data?.toggleFavoriteSection).toEqual({
+    id: GALICIA_BECA_LOWER,
+    favorite: true,
+  });
   const [frAfter] = await countRows(false, 'fav_sections');
   expect(frAfter - frBefore).toBe(1);
 });
@@ -46,7 +52,10 @@ it('should double add to favorites', async () => {
     { id: NORWAY_SJOA_AMOT, favorite: true },
     fakeContext(TEST_USER),
   );
-  expect(result.data?.toggleFavoriteSection).toBe(true);
+  expect(result.data?.toggleFavoriteSection).toEqual({
+    id: NORWAY_SJOA_AMOT,
+    favorite: true,
+  });
   const [frAfter] = await countRows(false, 'fav_sections');
   expect(frAfter - frBefore).toBe(0);
 });
@@ -56,7 +65,10 @@ it('should remove from favorites', async () => {
     { id: NORWAY_SJOA_AMOT, favorite: false },
     fakeContext(TEST_USER),
   );
-  expect(result.data?.toggleFavoriteSection).toBe(false);
+  expect(result.data?.toggleFavoriteSection).toEqual({
+    id: NORWAY_SJOA_AMOT,
+    favorite: false,
+  });
   const [frAfter] = await countRows(false, 'fav_sections');
   expect(frBefore - frAfter).toBe(1);
 });

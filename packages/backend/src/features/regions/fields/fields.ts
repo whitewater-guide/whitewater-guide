@@ -5,6 +5,7 @@ import { RegionResolvers, timestampedResolvers } from '~/apollo';
 import banners from './banners';
 import bounds from './bounds';
 import editable from './editable';
+import favorite from './favorite';
 import gauges from './gauges';
 import hasPremiumAccess from './hasPremiumAccess';
 import mediaSummary from './mediaSummary';
@@ -20,6 +21,7 @@ export const regionFieldResolvers: RegionResolvers = {
   banners,
   bounds,
   editable,
+  favorite,
   hasPremiumAccess,
   rivers,
   sections,

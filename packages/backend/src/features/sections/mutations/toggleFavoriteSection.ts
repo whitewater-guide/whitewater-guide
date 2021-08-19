@@ -15,7 +15,7 @@ const toggleFavoriteSection: MutationResolvers['toggleFavoriteSection'] =
         .from('fav_sections')
         .where({ user_id: user!.id, section_id: id });
     }
-    return favorite;
+    return { id, favorite };
   };
 
 export default isAuthenticatedResolver(toggleFavoriteSection);
