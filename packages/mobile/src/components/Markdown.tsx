@@ -4,7 +4,6 @@ import Attributes from 'markdown-it-attrs';
 import React from 'react';
 import { Platform, StyleProp, StyleSheet, Text } from 'react-native';
 import SimpleMarkdown, {
-  getUniqueID,
   MarkdownIt,
   RenderRules,
 } from 'react-native-markdown-display';
@@ -60,13 +59,19 @@ const rules: RenderRules = {
       style = [style, defaultStyles[`level${node.attributes.color}`]];
     }
     return (
-      <Text key={getUniqueID()} style={style}>
+      <Text key={node.key} style={style}>
         {children}
       </Text>
     );
   },
   // eslint-disable-next-line react/display-name
-  hardbreak: () => <Text key={getUniqueID()}>{'\n'}</Text>,
+  hardbreak: (node) => {
+    return (
+      <Text key={node.key} style={{ height: 8, width: '100%' }}>
+        {'\n'}
+      </Text>
+    );
+  },
 };
 
 interface Props {
