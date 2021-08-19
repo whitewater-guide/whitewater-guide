@@ -28,7 +28,7 @@ const ChartView = createChartView(
     HorizontalTickComponent: HorizontalTick,
     HorizontalLabelComponent: HorizontalLabel,
     HorizontalGridComponent: HorizontalGrid,
-    ZoomVoronoiComponent: VictoryZoomVoronoiContainer,
+    ZoomVoronoiComponent: VictoryZoomVoronoiContainer as any,
   },
   { yTicks: 10, yDeltaRatio: 20 },
 );

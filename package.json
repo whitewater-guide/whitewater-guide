@@ -70,6 +70,7 @@
     "**/jest": "^27.0.6",
     "**/jest-resolve": "^27.0.6",
     "**/jest-circus": "^27.0.6",
+    "**/markdown-it": "^12.2.0",
     "**/micromatch": "^4.0.2",
     "**/react": "^17.0.2",
     "**/typescript": "^4.3.5",
