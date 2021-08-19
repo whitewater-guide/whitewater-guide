@@ -165,6 +165,8 @@ type Query {
   region(id: ID): Region
   "Lists region editors"
   regionEditors(regionId: ID!): [User!] @admin
+  "Lists favorite regions of current user"
+  favoriteRegions: RegionsList!
 }
 
 type Mutation {
@@ -178,4 +180,6 @@ type Mutation {
   removeEditor(regionId: ID!, userId: ID!): Boolean @admin
   "Changes admin-level settings of region"
   administrateRegion(settings: RegionAdminSettings!): Region @admin
+  "Toggle favorite status of region, return new status"
+  toggleFavoriteRegion(id: ID!, favorite: Boolean!): Boolean!
 }

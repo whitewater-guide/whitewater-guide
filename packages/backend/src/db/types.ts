@@ -417,4 +417,14 @@ export namespace Sql {
     verified: boolean;
     tokens: Array<{ claim: string; expires: number; value: string }>;
   }
+
+  export interface FavRegions {
+    user_id: string;
+    region_id: string;
+  }
+
+  export interface FavSections {
+    user_id: string;
+    section_id: string;
+  }
 }

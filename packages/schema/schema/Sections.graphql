@@ -238,6 +238,8 @@ type Query {
     filter: SectionsEditLogFilter
     page: Page
   ): SectionsEditLogList! @admin
+  "Lists favorite sections of current user, optionally filtering by region"
+  favoriteSections(regionId: ID): SectionsList!
 }
 
 type BulkInsertResult {
@@ -267,4 +269,6 @@ type Mutation {
     hidden: Boolean
     archiveURL: String!
   ): BulkInsertResult @admin
+  "Toggle favorite status of section, returns new status"
+  toggleFavoriteSection(id: ID!, favorite: Boolean!): Boolean!
 }
