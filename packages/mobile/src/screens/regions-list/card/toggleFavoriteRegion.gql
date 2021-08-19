@@ -1,0 +1,6 @@
+mutation toggleFavoriteRegion($id: ID!, $favorite: Boolean!) {
+  toggleFavoriteRegion(id: $id, favorite: $favorite) {
+    id
+    favorite
+  }
+}

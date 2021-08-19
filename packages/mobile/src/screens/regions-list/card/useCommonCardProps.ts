@@ -4,11 +4,11 @@ import { useCallback } from 'react';
 
 import { Screens } from '~/core/navigation';
 import { useOfflineContent } from '~/features/offline';
+import { useIap, usePremiumGuard } from '~/features/purchases';
 
-import { useIap, usePremiumGuard } from '../../features/purchases';
-import { RegionsListNavProp } from './types';
+import { RegionsListNavProp } from '../types';
 
-export default (region: Region) => {
+export default function useCommonCardProps(region: Region) {
   const { navigate } = useNavigation<RegionsListNavProp>();
   const { canMakePayments } = useIap();
   const offline = useOfflineContent();
@@ -37,4 +37,4 @@ export default (region: Region) => {
     buyRegion,
     openRegion,
   };
-};
+}

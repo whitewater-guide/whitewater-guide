@@ -7,9 +7,10 @@ import LinearGradient from 'react-native-linear-gradient';
 import { Caption, Title, TouchableRipple } from 'react-native-paper';
 
 import Paper from '~/components/Paper';
+import theme from '~/theme';
 
-import theme from '../../theme';
 import DownloadButton from './DownloadButton';
+import FavoriteButton from './FavoriteButton';
 import PremiumBadge from './PremiumBadge';
 import useCommonCardProps from './useCommonCardProps';
 
@@ -93,6 +94,7 @@ export const RegionCard: React.FC<Props> = React.memo(({ region, index }) => {
               offlineError={cardProps.offlineError}
               region={region}
             />
+            <FavoriteButton region={region} />
             <Title style={styles.title}>{region.name}</Title>
           </LinearGradient>
         </Image>

@@ -5,6 +5,7 @@ query regionsList($coverWidth: Int) {
       name
       premium
       hasPremiumAccess
+      favorite
       sku
       gauges {
         count

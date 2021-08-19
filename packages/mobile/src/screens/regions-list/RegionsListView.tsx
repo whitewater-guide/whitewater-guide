@@ -6,7 +6,7 @@ import { FlatList, ListRenderItemInfo } from 'react-native';
 import WithNetworkError from '~/components/WithNetworkError';
 import theme from '~/theme';
 
-import { CARD_HEIGHT, RegionCard } from './RegionCard';
+import { CARD_HEIGHT, RegionCard } from './card';
 import { useRegionsListQuery } from './regionsList.generated';
 
 const keyExtractor = (region: Region) => region.id;
