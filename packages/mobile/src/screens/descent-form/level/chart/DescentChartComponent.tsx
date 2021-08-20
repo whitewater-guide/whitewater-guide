@@ -6,6 +6,8 @@ import {
   VictoryLine,
   VictoryScatter,
   VictoryTooltip,
+  VictoryVoronoiContainerProps,
+  VictoryZoomContainerProps,
 } from 'victory-native';
 
 import {
@@ -17,7 +19,10 @@ import {
 import { DescentTimeGrid } from './DescentTimeGrid';
 import { DescentTimeLabel } from './DescentTimeLabel';
 
-const VictoryZoomVoronoiContainer = createContainer('zoom', 'voronoi');
+const VictoryZoomVoronoiContainer = createContainer<
+  VictoryZoomContainerProps,
+  VictoryVoronoiContainerProps
+>('zoom', 'voronoi');
 
 const DescentChartComponent = createChartView(
   {

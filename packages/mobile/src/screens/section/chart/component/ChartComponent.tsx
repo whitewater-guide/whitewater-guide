@@ -6,6 +6,8 @@ import {
   VictoryLine,
   VictoryScatter,
   VictoryTooltip,
+  VictoryVoronoiContainerProps,
+  VictoryZoomContainerProps,
 } from 'victory-native';
 
 import {
@@ -16,7 +18,10 @@ import {
   TimeLabel,
 } from '~/components/chart';
 
-const VictoryZoomVoronoiContainer = createContainer('zoom', 'voronoi');
+const VictoryZoomVoronoiContainer = createContainer<
+  VictoryZoomContainerProps,
+  VictoryVoronoiContainerProps
+>('zoom', 'voronoi');
 
 const ChartComponent = createChartView(
   {
@@ -30,7 +35,7 @@ const ChartComponent = createChartView(
     HorizontalTickComponent: HorizontalTick,
     HorizontalLabelComponent: HorizontalLabel,
     HorizontalGridComponent: HorizontalGrid,
-    ZoomVoronoiComponent: VictoryZoomVoronoiContainer,
+    ZoomVoronoiComponent: VictoryZoomVoronoiContainer as any,
   },
   { yTicks: 5, yDeltaRatio: 8 },
 );
