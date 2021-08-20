@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   container: {
     height: REGIONS_LIST_SUBTITLE_HEIGHT,
     justifyContent: 'center',
-    marginLeft: theme.margin.double,
+    marginLeft: theme.margin.single,
   },
 });
 
