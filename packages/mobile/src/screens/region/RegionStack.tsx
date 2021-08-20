@@ -21,6 +21,7 @@ import RegionTitle from './RegionTitle';
 const Stack = createStackNavigator<RegionStackParamsList>();
 
 const screenOptions: StackNavigationOptions = {
+  headerMode: 'screen',
   header: getHeaderRenderer(
     false,
     [SectionsSearchStringContext, SectionsSearchStringSetterContext],
@@ -33,7 +34,7 @@ const screenOptions: StackNavigationOptions = {
 const RegionStack: React.FC = () => {
   const region = useRegion();
   return (
-    <Stack.Navigator screenOptions={screenOptions} headerMode="screen">
+    <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Screen
         name={Screens.REGION_TABS}
         component={RegionTabs}

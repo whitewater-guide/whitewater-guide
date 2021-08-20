@@ -19,14 +19,12 @@ const LogbookScreen: React.FC<LogbookNavProps> = (props) => {
     });
   }, [t, navigation]);
 
-  // This enables drawer gestures only on this screen
+  // This enables drawer swipe only on this screen
   useFocusEffect(
     useCallback(() => {
-      navigation.dangerouslyGetParent()?.setOptions({ gestureEnabled: true });
+      navigation.getParent()?.setOptions({ swipeEnabled: true });
       return () => {
-        navigation
-          .dangerouslyGetParent()
-          ?.setOptions({ gestureEnabled: false });
+        navigation.getParent()?.setOptions({ swipeEnabled: false });
       };
     }, [navigation]),
   );

@@ -20,6 +20,7 @@ import { AddSectionStackParamsList } from './types';
 const Stack = createStackNavigator<AddSectionStackParamsList>();
 
 const screenOptions: StackNavigationOptions = {
+  headerMode: 'screen',
   header: getHeaderRenderer(false),
   gestureEnabled: false,
   animationEnabled: Config.E2E_MODE !== 'true',
@@ -28,7 +29,7 @@ const screenOptions: StackNavigationOptions = {
 const AddSectionStack: React.FC = () => {
   const { t } = useTranslation();
   return (
-    <Stack.Navigator screenOptions={screenOptions} headerMode="screen">
+    <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Screen
         name={Screens.ADD_SECTION_TABS}
         component={AddSectionTabs}

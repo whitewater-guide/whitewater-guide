@@ -13,7 +13,7 @@ interface Props {
 const CloseButton: React.FC<Props> = React.memo(({ disabled }) => {
   const navigation = useNavigation<PurchaseBuyNavProp>();
   const onPress = useCallback(() => {
-    navigation.dangerouslyGetParent()?.goBack();
+    navigation.getParent()?.goBack();
   }, [navigation]);
   return (
     <Icon

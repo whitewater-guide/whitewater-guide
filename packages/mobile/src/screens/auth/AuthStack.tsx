@@ -20,6 +20,7 @@ import { LazyWelcomeScreen } from './welcome';
 const Stack = createStackNavigator<AuthStackParamsList>();
 
 const screenOptions: StackNavigationOptions = {
+  headerMode: 'screen',
   header: getHeaderRenderer(false),
   gestureEnabled: false,
   animationEnabled: Config.E2E_MODE !== 'true',
@@ -32,7 +33,7 @@ const screenOptions: StackNavigationOptions = {
 };
 
 const AuthStack: React.FC<AuthStackNavProps> = () => (
-  <Stack.Navigator screenOptions={screenOptions} headerMode="screen">
+  <Stack.Navigator screenOptions={screenOptions}>
     <Stack.Screen name={Screens.AUTH_MAIN} component={LazyMainScreen} />
     <Stack.Screen name={Screens.AUTH_SIGN_IN} component={LazySignInScreen} />
     <Stack.Screen name={Screens.AUTH_REGISTER} component={LazyRegisterScreen} />

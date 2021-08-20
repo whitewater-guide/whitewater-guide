@@ -22,7 +22,7 @@ const WelcomeScreen: React.FC<AuthWelcomeNavProps> = ({
   const { me } = useAuth();
   const user = me?.name || '';
   const onPress = useCallback(() => {
-    navigation.dangerouslyGetParent()?.goBack();
+    navigation.getParent()?.goBack();
   }, [navigation]);
   // TODO: check email link, resend link
   // good example here:

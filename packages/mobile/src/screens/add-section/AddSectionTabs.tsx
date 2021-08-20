@@ -12,7 +12,6 @@ import theme from '~/theme';
 import { LazyAttributesScreen } from './attributes';
 import { LazyDescriptionScreen } from './description';
 import { LazyFlowsScreen } from './flows';
-import getPager from './getPager';
 import { LazyMainScreen } from './main';
 import { LazyPhotosScreen } from './photos';
 
@@ -23,26 +22,25 @@ const AddSectionTabs: React.FC<AddSectionTabsNavProps> = () => {
   return (
     <Tab.Navigator
       backBehavior="none"
-      lazy
       tabBarPosition="bottom"
       initialLayout={{
         height: theme.stackScreenHeight,
         width: theme.screenWidth,
       }}
-      tabBarOptions={{
-        showIcon: false,
-        scrollEnabled: true,
-        indicatorStyle: {
+      screenOptions={{
+        swipeEnabled: false,
+        lazy: true,
+        tabBarShowIcon: false,
+        tabBarScrollEnabled: false,
+        tabBarIndicatorStyle: {
           bottom: undefined,
           top: 0,
           backgroundColor: theme.colors.accent,
         },
-        style: {
+        tabBarStyle: {
           backgroundColor: theme.colors.primary,
         },
       }}
-      swipeEnabled={false}
-      pager={getPager}
     >
       <Tab.Screen
         name={Screens.ADD_SECTION_MAIN}

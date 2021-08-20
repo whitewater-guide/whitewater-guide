@@ -16,9 +16,8 @@ interface Props {
 
 export const SectionFAB: React.FC<Props> = ({ testID }) => {
   const fabState = useFABAuth();
-  const { navigate, dangerouslyGetParent } =
-    useNavigation<SectionScreenNavProp>();
-  const dispatch = dangerouslyGetParent()?.dispatch;
+  const { navigate, getParent } = useNavigation<SectionScreenNavProp>();
+  const dispatch = getParent()?.dispatch;
   const section = useSection();
   const { t } = useTranslation();
 

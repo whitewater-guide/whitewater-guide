@@ -35,7 +35,7 @@ const replaceDetailsWithForm = (
 };
 
 export default () => {
-  const { reset, dangerouslyGetState } = useNavigation<RootStackNav>();
+  const { reset, getState } = useNavigation<RootStackNav>();
   return useCallback(
     (descent: DescentDetailsFragment, duplicate = false) => {
       const params: RootStackParamsList[Screens.DESCENT_FORM] = duplicate
@@ -49,11 +49,11 @@ export default () => {
         : {
             descentId: descent.id,
           };
-      const parentState = dangerouslyGetState();
+      const parentState = getState();
       if (parentState) {
         reset(replaceDetailsWithForm(parentState, params) as any);
       }
     },
-    [reset, dangerouslyGetState],
+    [reset, getState],
   );
 };

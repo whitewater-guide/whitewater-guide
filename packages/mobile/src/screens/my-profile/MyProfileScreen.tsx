@@ -9,6 +9,7 @@ import { MyProfileNavProps } from './types';
 
 const MyProfileScreen: React.FC<MyProfileNavProps> = ({ navigation }) => {
   const { t } = useTranslation();
+
   useEffectOnce(() => {
     navigation.setOptions({ headerTitle: t('myProfile:title') });
   });

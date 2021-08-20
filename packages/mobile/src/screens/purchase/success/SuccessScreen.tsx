@@ -26,7 +26,7 @@ const SuccessScreen: React.FC<PurchaseSuccessNavProps> = ({
   const { region } = route.params;
   const { t } = useTranslation();
   const onComplete = useCallback(() => {
-    navigation.dangerouslyGetParent()?.goBack();
+    navigation.getParent()?.goBack();
   }, [navigation]);
   return (
     <Screen safeBottom>

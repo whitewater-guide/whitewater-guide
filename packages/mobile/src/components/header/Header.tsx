@@ -28,17 +28,14 @@ const Header: React.FC<Props> = (props) => {
   const {
     topLevel = true,
     navigation,
-    scene,
     searchContexts,
     searchPlaceholderKey,
+    options,
   } = props;
   const search = useHeaderSearch(searchContexts);
 
-  const { headerLeft, headerRight, title } = useHeaderElements(scene);
-  const {
-    headerStyle,
-    headerTintColor = theme.colors.textLight,
-  } = scene.descriptor.options;
+  const { headerLeft, headerRight, title } = useHeaderElements(options);
+  const { headerStyle, headerTintColor = theme.colors.textLight } = options;
 
   return (
     <Appbar.Header
@@ -48,7 +45,7 @@ const Header: React.FC<Props> = (props) => {
       ]}
     >
       <HeaderLeft
-        hasPrevious={!!props.previous}
+        hasPrevious={navigation.canGoBack()}
         element={headerLeft}
         onBack={navigation.goBack}
         onMenu={(navigation as any).openDrawer}

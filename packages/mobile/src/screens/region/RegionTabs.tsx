@@ -53,7 +53,6 @@ const RegionTabs: React.FC<RegionTabsNavProps> = () => {
             component={LazyRegionMapScreen}
             options={{
               tabBarLabel: t('region:map.title'),
-              // eslint-disable-next-line react/display-name
               tabBarIcon: ({ color }) => <Icon icon="map" color={color} />,
               tabBarTestID: 'region-tab-map',
             }}
@@ -64,7 +63,6 @@ const RegionTabs: React.FC<RegionTabsNavProps> = () => {
             component={LazyRegionSectionsListScreen}
             options={{
               tabBarLabel: t('region:sections.title'),
-              // eslint-disable-next-line react/display-name
               tabBarIcon: ({ color }) => (
                 <Icon icon="view-list" color={color} />
               ),
@@ -77,7 +75,6 @@ const RegionTabs: React.FC<RegionTabsNavProps> = () => {
             component={LazyRegionInfoScreen}
             options={{
               tabBarLabel: t('region:info.title'),
-              // eslint-disable-next-line react/display-name
               tabBarIcon: ({ color }) => (
                 <Icon icon="information" color={color} />
               ),

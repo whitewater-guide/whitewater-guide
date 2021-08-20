@@ -31,7 +31,7 @@ const initialValues: Credentials = {
 export const SignInForm: React.FC = () => {
   const { loading } = useAuth();
   const { t } = useTranslation();
-  const { navigate, dangerouslyGetParent } = useNavigation<AuthSignInNavProp>();
+  const { navigate, getParent } = useNavigation<AuthSignInNavProp>();
   const forgot = useCallback(() => navigate(Screens.AUTH_FORGOT), [navigate]);
   const { service } = useAuth();
   const localSignIn = useCallback(
@@ -45,8 +45,8 @@ export const SignInForm: React.FC = () => {
     }
   }, [passwordField]);
   const onSuccess = useCallback(() => {
-    dangerouslyGetParent()?.goBack();
-  }, [dangerouslyGetParent]);
+    getParent()?.goBack();
+  }, [getParent]);
   const [submit] = useAuthSubmit(
     'screens:auth.signin.',
     localSignIn,

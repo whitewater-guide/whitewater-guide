@@ -10,6 +10,7 @@ import { FilterNavProps } from './types';
 
 const FilterScreen: React.FC<FilterNavProps> = ({ navigation }) => {
   const { t } = useTranslation();
+
   useEffectOnce(() => {
     navigation.setOptions({
       headerTitle: t('filter:title'),
@@ -17,6 +18,7 @@ const FilterScreen: React.FC<FilterNavProps> = ({ navigation }) => {
       headerRight: () => <ResetFilterButton />,
     });
   });
+
   return (
     <ErrorBoundary>
       <FilterScreenView />

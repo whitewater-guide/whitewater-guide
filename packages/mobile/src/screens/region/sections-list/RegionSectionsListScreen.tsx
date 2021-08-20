@@ -13,7 +13,7 @@ const RegionSectionsListScreen: React.FC<RegionSectionsNavProps> = ({
 }) => {
   useFocusEffect(
     React.useCallback(() => {
-      navigation.dangerouslyGetParent()?.setOptions({
+      navigation.getParent()?.setOptions({
         // eslint-disable-next-line react/no-unstable-nested-components
         headerRight: () => <FilterButton />,
       });

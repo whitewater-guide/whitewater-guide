@@ -25,7 +25,7 @@ const SectionChartScreen: React.FC<SectionChartNavProps> = ({ navigation }) => {
 
   useFocusEffect(
     React.useCallback(() => {
-      navigation.dangerouslyGetParent()?.setOptions({
+      navigation.getParent()?.setOptions({
         // eslint-disable-next-line react/no-unstable-nested-components
         headerRight: () => (
           <Pressable onPress={handleCollapse}>
@@ -38,7 +38,7 @@ const SectionChartScreen: React.FC<SectionChartNavProps> = ({ navigation }) => {
       });
 
       return () => {
-        navigation.dangerouslyGetParent()?.setOptions({
+        navigation.getParent()?.setOptions({
           headerRight: () => null,
         });
       };

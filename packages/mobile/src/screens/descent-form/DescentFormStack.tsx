@@ -18,6 +18,7 @@ import { DescentFormParamsList } from './types';
 const Stack = createStackNavigator<DescentFormParamsList>();
 
 const screenOptions: StackNavigationOptions = {
+  headerMode: 'screen',
   header: getHeaderRenderer(false),
   gestureEnabled: false,
   animationEnabled: Config.E2E_MODE !== 'true',
@@ -30,7 +31,7 @@ interface Props {
 const DescentFormStack: React.FC<Props> = ({ regionId }) => {
   const { t } = useTranslation();
   return (
-    <Stack.Navigator screenOptions={screenOptions} headerMode="screen">
+    <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Screen
         name={Screens.DESCENT_FORM_SECTION}
         component={DescentFormSectionScreen}

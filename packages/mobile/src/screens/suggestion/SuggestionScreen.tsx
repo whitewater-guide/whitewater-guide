@@ -15,11 +15,13 @@ const SuggestionScreen: React.FC<SuggestionNavProps> = ({
   const { t } = useTranslation();
   const { sectionId, localPhotoId } = route.params;
   const type = localPhotoId ? 'photo' : 'simple';
+
   useEffectOnce(() => {
     navigation.setOptions({
       headerTitle: t(`screens:suggestion.${type}.title`),
     });
   });
+
   return (
     <Screen safeBottom>
       {localPhotoId ? (

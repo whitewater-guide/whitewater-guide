@@ -5,9 +5,9 @@ import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { Screen } from '~/components/Screen';
+import { RegionBanners } from '~/features/banners';
+import theme from '~/theme';
 
-import { RegionBanners } from '../../../features/banners';
-import theme from '../../../theme';
 import SectionFAB from '../SectionFAB';
 import SectionGuideMenu from './SectionGuideMenu';
 import SectionGuideView from './SectionGuideView';
@@ -27,13 +27,13 @@ const SectionGuideScreen: React.FC<SectionGuideNavProps> = ({ navigation }) => {
 
   useFocusEffect(
     React.useCallback(() => {
-      navigation.dangerouslyGetParent()?.setOptions({
+      navigation.getParent()?.setOptions({
         // eslint-disable-next-line react/no-unstable-nested-components
         headerRight: () => <SectionGuideMenu section={section} />,
       });
 
       return () => {
-        navigation.dangerouslyGetParent()?.setOptions({
+        navigation.getParent()?.setOptions({
           headerRight: () => null,
         });
       };

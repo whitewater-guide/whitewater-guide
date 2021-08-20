@@ -26,7 +26,7 @@ const AlreadyHaveScreen: React.FC<PurchaseAlreadyHaveNavProps> = ({
   const { region } = route.params;
   const { t } = useTranslation();
   const onCancel = useCallback(() => {
-    navigation.dangerouslyGetParent()?.goBack();
+    navigation.getParent()?.goBack();
   }, [navigation]);
   return (
     <Screen safeBottom>

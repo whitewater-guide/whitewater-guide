@@ -16,9 +16,11 @@ const styles = StyleSheet.create({
 const PlainTextScreen: React.FC<PlainNavProps> = ({ navigation, route }) => {
   const { text, title } = route.params;
   const { setOptions } = navigation;
+
   useEffect(() => {
     setOptions({ headerTitle: title });
   }, [setOptions, title]);
+
   return (
     <Screen>
       <ScrollView

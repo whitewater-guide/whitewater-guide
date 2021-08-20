@@ -30,6 +30,7 @@ import useSignOut from './useSignOut';
 const Stack = createStackNavigator<RootStackParamsList>();
 
 const screenOptions: StackNavigationOptions = {
+  headerMode: 'screen',
   header: getHeaderRenderer(),
   gestureEnabled: false,
   animationEnabled: Config.E2E_MODE !== 'true',
@@ -40,7 +41,7 @@ const RootStack: React.FC<RootStackNavProps> = ({ navigation }) => {
   useLinking(navigation);
   useSignOut(navigation);
   return (
-    <Stack.Navigator screenOptions={screenOptions} headerMode="screen">
+    <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Screen name={Screens.REGIONS_LIST} component={RegionsListScreen} />
       <Stack.Screen
         name={Screens.REGION_STACK}
