@@ -15,15 +15,20 @@ import Loading from '~/components/Loading';
 import MultiSlider from '~/components/multi-slider';
 import StarRating from '~/components/StarRating';
 import TernaryChips from '~/components/TernaryChips';
+import { getSeasonLocalizer } from '~/i18n';
+import theme from '~/theme';
 
-import { getSeasonLocalizer } from '../../../i18n';
-import theme from '../../../theme';
 import { FindButton } from './FindButton';
+import { SearchState } from './types';
 import { getStateFactory } from './utils';
 
 const DIFFICULTY_RANGE: [number, number] = [0, 6];
 const SEASON_RANGE: [number, number] = [0, 23];
 const DURATION_RANGE: [number, number] = [Duration.LAPS, Duration.MULTIDAY];
+
+type ChangeListeners = {
+  [k in keyof SearchState]?: (v: SearchState[k]) => void;
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -43,20 +48,34 @@ const FilterScreenView: React.FC = () => {
   const { tags, loading } = useTags();
   const stateFactory = useMemo(() => getStateFactory(tags), [tags]);
   const [state, setState] = useState(stateFactory(filterOptions));
-  const onChange: any = useMemo(
+
+  const onChange: ChangeListeners = useMemo(
     () =>
-      Object.keys(state).reduce(
+      [
+        'difficulty',
+        'duration',
+        'seasonNumeric',
+        'rating',
+        'kayaking',
+        'hazards',
+        'supply',
+        'misc',
+      ].reduce(
         (acc, key) => ({
           ...acc,
-          [key]: (value: any) => setState({ ...state, [key]: value }),
+          [key]: (value: any) => {
+            setState((s) => ({ ...s, [key]: value }));
+          },
         }),
         {},
       ),
-    [state, setState],
+    [setState],
   );
+
   if (loading) {
     return <Loading />;
   }
+
   const [minDiff, maxDiff] = state.difficulty.map(toRomanDifficulty);
   const [minDuration, maxDuration] = state.duration.map((d) =>
     t(`durations:${d}`),

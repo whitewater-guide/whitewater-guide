@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
 
 interface Props {
   tags: SelectableTag[];
-  onChange: (value: SelectableTag[]) => void;
+  onChange?: (value: SelectableTag[]) => void;
 }
 
 class TernaryChips extends React.PureComponent<Props> {
@@ -33,7 +33,7 @@ class TernaryChips extends React.PureComponent<Props> {
       TagSelections[
         (TagSelections.indexOf(selection) + 1) % TagSelections.length
       ];
-    onChange(set(index, { ...tag, selection: newSelection }, tags));
+    onChange?.(set(index, { ...tag, selection: newSelection }, tags));
   };
 
   render() {
