@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   container: {
     width: theme.screenWidth,
     height: NAVIGATE_BUTTON_HEIGHT,
-    backgroundColor: theme.colors.lightBackground,
+    backgroundColor: theme.colors.primaryBackground,
   },
   right: {
     position: 'absolute',
@@ -126,7 +126,9 @@ export class SectionListItem extends React.Component<Props> {
             scale={this._scaleTO}
           />
         </View>
+
         <Reanimated.Code exec={this._animation.watchOnOpen} />
+
         <PanGestureHandler
           minDist={20}
           activeOffsetX={activeOffsetX}
