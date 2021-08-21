@@ -1,17 +1,19 @@
+/* eslint-disable @typescript-eslint/consistent-type-definitions */
 import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { ParamListBase, RouteProp } from '@react-navigation/native';
-import { License, Region } from '@whitewater-guide/schema';
+import { RouteProp } from '@react-navigation/native';
+import { RegionDetailsFragment } from '@whitewater-guide/clients';
+import { License } from '@whitewater-guide/schema';
 
 import { PurchaseParams } from '~/features/purchases/types';
 import { DescentFormData } from '~/screens/descent-form';
 
 import { Screens } from './screen-names';
 
-export interface RootDrawerParamsList extends ParamListBase {
+export type RootDrawerParamsList = {
   [Screens.ROOT_STACK]: undefined;
-}
+};
 
-export interface RootStackParamsList extends ParamListBase {
+export type RootStackParamsList = {
   [Screens.REGIONS_LIST]: undefined;
   [Screens.REGION_STACK]: { regionId: string };
   [Screens.SECTION_SCREEN]: { sectionId: string };
@@ -46,9 +48,16 @@ export interface RootStackParamsList extends ParamListBase {
     descentId: string;
   };
   [Screens.ADD_SECTION_SCREEN]: {
-    region?: Region | null;
+    region?: RegionDetailsFragment | null;
     fromDescentFormKey?: string;
   };
+};
+
+declare global {
+  namespace ReactNavigation {
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    interface RootParamList extends RootStackParamsList {}
+  }
 }
 
 export type RootStackNav = DrawerNavigationProp<

@@ -6,11 +6,11 @@ import { Button, Caption } from 'react-native-paper';
 
 import Divider from '~/components/Divider';
 import { Screens } from '~/core/navigation';
+import theme from '~/theme';
 
-import theme from '../../../theme';
-import AppleButton from '../AppleButton';
 import { AuthScreenBase } from '../AuthScreenBase';
 import { FacebookButton } from '../FacebookButton';
+import AppleButton from './AppleButton';
 import LocalButton from './LocalButton';
 import { AuthMainNavProps } from './types';
 

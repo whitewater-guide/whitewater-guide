@@ -1,12 +1,12 @@
-import { Region } from '@whitewater-guide/schema';
+import { RegionDetailsFragment } from '@whitewater-guide/clients';
 import React, { useContext } from 'react';
 
-const AddSectionRegionContext = React.createContext<Region | null | undefined>(
-  undefined,
-);
+const AddSectionRegionContext = React.createContext<
+  RegionDetailsFragment | null | undefined
+>(undefined);
 
 interface Props {
-  region?: Region | null;
+  region?: RegionDetailsFragment | null;
 }
 
 export const AddSectionRegionProvider: React.FC<Props> = ({

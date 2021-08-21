@@ -11,6 +11,6 @@ export type AuthSignInNavProp = CompositeNavigationProp<
 >;
 
 export interface AuthSignInNavProps {
-  navigation: AuthStackNavProp;
+  navigation: AuthSignInNavProp;
   route: RouteProp<AuthStackParamsList, Screens.AUTH_SIGN_IN>;
 }

@@ -8,7 +8,7 @@ import MDCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Screens } from '~/core/navigation';
 
 import theme from '../../theme';
-import { AuthStackNavProp } from './types';
+import type { AuthMainNavProp } from './main/types';
 
 const styles = StyleSheet.create({
   fb: {
@@ -22,7 +22,7 @@ interface Props {
 
 export const FacebookButton: React.FC<Props> = ({ label }) => {
   const { service, loading } = useAuth();
-  const { navigate } = useNavigation<AuthStackNavProp>();
+  const { navigate } = useNavigation<AuthMainNavProp>();
   const [fbPressed, setFbPressed] = useState(false);
   const signInWithFB = useCallback(() => {
     setFbPressed(true);

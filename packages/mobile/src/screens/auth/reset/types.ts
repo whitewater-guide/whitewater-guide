@@ -11,6 +11,6 @@ export type AuthResetNavProp = CompositeNavigationProp<
 >;
 
 export interface AuthResetNavProps {
-  navigation: AuthStackNavProp;
+  navigation: AuthResetNavProp;
   route: RouteProp<AuthStackParamsList, Screens.AUTH_RESET>;
 }

@@ -11,6 +11,6 @@ export type AuthMainNavProp = CompositeNavigationProp<
 >;
 
 export interface AuthMainNavProps {
-  navigation: AuthStackNavProp;
+  navigation: AuthMainNavProp;
   route: RouteProp<AuthStackParamsList, Screens.AUTH_MAIN>;
 }

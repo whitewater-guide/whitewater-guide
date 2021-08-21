@@ -5,8 +5,9 @@ import React, { useCallback } from 'react';
 import { StyleSheet } from 'react-native';
 
 import { Screens } from '~/core/navigation';
-import { AuthStackNavProp } from '~/screens/auth/types';
 import theme from '~/theme';
+
+import { AuthMainNavProp } from './types';
 
 const styles = StyleSheet.create({
   button: {
@@ -18,7 +19,7 @@ const styles = StyleSheet.create({
 
 const AppleButton: React.FC = () => {
   const { service, loading } = useAuth();
-  const { navigate } = useNavigation<AuthStackNavProp>();
+  const { navigate } = useNavigation<AuthMainNavProp>();
   const signInWithApple = useCallback(() => {
     service.signIn('apple').then(({ success, isNew }) => {
       if (!success) {

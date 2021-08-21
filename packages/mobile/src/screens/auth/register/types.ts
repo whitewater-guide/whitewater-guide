@@ -11,6 +11,6 @@ export type AuthRegisterNavProp = CompositeNavigationProp<
 >;
 
 export interface AuthRegisterNavProps {
-  navigation: AuthStackNavProp;
+  navigation: AuthRegisterNavProp;
   route: RouteProp<AuthStackParamsList, Screens.AUTH_REGISTER>;
 }

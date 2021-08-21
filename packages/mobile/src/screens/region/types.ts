@@ -1,19 +1,12 @@
-import {
-  CompositeNavigationProp,
-  ParamListBase,
-  RouteProp,
-} from '@react-navigation/native';
+/* eslint-disable @typescript-eslint/consistent-type-definitions */
+import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import {
-  RootDrawerParamsList,
-  RootStackParamsList,
-  Screens,
-} from '~/core/navigation';
+import { RootStackNav, RootStackParamsList, Screens } from '~/core/navigation';
 
 export type RegionScreenNavProp = CompositeNavigationProp<
   StackNavigationProp<RootStackParamsList, Screens.REGION_STACK>,
-  StackNavigationProp<RootDrawerParamsList>
+  RootStackNav
 >;
 
 export interface RegionScreenNavProps {
@@ -21,16 +14,16 @@ export interface RegionScreenNavProps {
   route: RouteProp<RootStackParamsList, Screens.REGION_STACK>;
 }
 
-export interface RegionStackParamsList extends ParamListBase {
+export type RegionStackParamsList = {
   [Screens.REGION_TABS]: undefined;
   [Screens.FILTER]: undefined;
-}
+};
 
-export interface RegionTabsParamsList extends ParamListBase {
+export type RegionTabsParamsList = {
   [Screens.REGION_MAP]: undefined;
   [Screens.REGION_SECTIONS_LIST]: undefined;
   [Screens.REGION_INFO]: undefined;
-}
+};
 
 export type RegionTabsNavProp = CompositeNavigationProp<
   StackNavigationProp<RegionStackParamsList, Screens.REGION_TABS>,

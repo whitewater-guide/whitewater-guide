@@ -13,7 +13,7 @@ export const usePremiumGuard = (
   const { navigate } = useNavigation();
   const isFree = usePremiumAccess(region, section);
   return useCallback(() => {
-    if (!isFree) {
+    if (!isFree && region) {
       const sectionId = section ? section.id : undefined;
       navigate(Screens.PURCHASE_STACK, { region, sectionId });
       return false;

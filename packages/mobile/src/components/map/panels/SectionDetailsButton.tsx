@@ -6,7 +6,7 @@ import { Platform, StyleSheet } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import { Button } from 'react-native-paper';
 
-import { RootStackNav, Screens } from '~/core/navigation';
+import { Screens } from '~/core/navigation';
 
 export const SECTION_DETAILS_BUTTON_HEIGHT = 36;
 
@@ -25,7 +25,7 @@ interface Props {
 
 export const SectionDetailsButton: React.FC<Props> = memo(({ sectionId }) => {
   const { t } = useTranslation();
-  const { navigate } = useNavigation<RootStackNav>();
+  const { navigate } = useNavigation();
   const region = useRegion();
   const onPress = useCallback(() => {
     if (sectionId && region) {

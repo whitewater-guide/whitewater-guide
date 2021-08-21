@@ -11,6 +11,6 @@ export type AuthForgotNavProp = CompositeNavigationProp<
 >;
 
 export interface AuthForgotNavProps {
-  navigation: AuthStackNavProp;
+  navigation: AuthForgotNavProp;
   route: RouteProp<AuthStackParamsList, Screens.AUTH_FORGOT>;
 }

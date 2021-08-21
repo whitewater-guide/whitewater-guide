@@ -5,7 +5,7 @@ import React, { useCallback } from 'react';
 import { ListRenderItemInfo, Pressable, StyleSheet, View } from 'react-native';
 import { Caption, Subheading } from 'react-native-paper';
 
-import { RootStackNav, Screens } from '~/core/navigation';
+import { Screens } from '~/core/navigation';
 import descentLevelToString from '~/features/descents/descentLevelToString';
 import theme from '~/theme';
 
@@ -33,7 +33,7 @@ interface Props {
 }
 
 const LogbookListItem: React.FC<Props> = ({ descent }) => {
-  const { navigate } = useNavigation<RootStackNav>();
+  const { navigate } = useNavigation();
   const onPress = useCallback(() => {
     navigate(Screens.DESCENT, { descentId: descent.id });
   }, [navigate, descent]);
