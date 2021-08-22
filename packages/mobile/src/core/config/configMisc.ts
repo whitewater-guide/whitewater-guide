@@ -1,5 +1,5 @@
 import Mapbox from '@react-native-mapbox-gl/maps';
-import { UIManager } from 'react-native';
+import { LogBox, UIManager } from 'react-native';
 import Config from 'react-native-ultimate-config';
 
 const configMisc = () => {
@@ -9,6 +9,8 @@ const configMisc = () => {
 
   Mapbox.setAccessToken(Config.MAPBOX_ACCESS_TOKEN);
   Mapbox.setTelemetryEnabled(false);
+
+  LogBox.ignoreLogs(['`new NativeEventEmitter()`']);
 
   // https://github.com/jhen0409/react-native-debugger/blob/master/docs/network-inspect-of-chrome-devtools.md#how-it-works
   // uncomment for network inspection

@@ -232,6 +232,8 @@ dependencies {
     // Required by react-navigation
     implementation("androidx.appcompat:appcompat:${rootProject.ext.appCompatVersion}")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:${rootProject.ext.swiperefreshlayoutVersion}")
+    // Required by mapbox
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-telemetry:6.1.0'
 
     if (enableHermes) {
       def hermesPath = "../../node_modules/hermes-engine/android/";
