@@ -17,6 +17,19 @@ const styles = StyleSheet.create({
 
 const DAYS = [1, 3, 7, 31];
 
+function getI18nSuffix(days: number) {
+  if (days > 10) {
+    return 'month';
+  }
+  if (days > 3) {
+    return 'week';
+  }
+  if (days === 3) {
+    return '3days';
+  }
+  return 'day';
+}
+
 export const ChartPeriodToggle: React.FC = React.memo(() => {
   const { t } = useTranslation();
   const { measurements, filter, onChangeFilter } = useChart();
@@ -47,7 +60,6 @@ export const ChartPeriodToggle: React.FC = React.memo(() => {
   if (measurements.loading) {
     return <Row />;
   }
-  const index = days > 10 ? 'month' : days > 2 ? 'week' : 'day';
   return (
     <Row>
       <Left row>
@@ -55,7 +67,7 @@ export const ChartPeriodToggle: React.FC = React.memo(() => {
       </Left>
       <Right row>
         <Paragraph style={styles.link} onPress={showMenu}>
-          {t(`section:chart.periodToggle.${index}`)}
+          {t(`section:chart.periodToggle.${getI18nSuffix(days)}`)}
         </Paragraph>
       </Right>
     </Row>
