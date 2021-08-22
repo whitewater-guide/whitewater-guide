@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { Alert, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 
+import theme from '~/theme';
+
 const styles = StyleSheet.create({
   button: {
     borderRadius: 0,
@@ -22,10 +24,11 @@ export const SignOutButton: React.FC = () => {
   }, [t, signOut]);
   return (
     <Button
-      mode="contained"
+      mode="text"
       loading={loading}
       onPress={onPress}
       style={styles.button}
+      color={theme.colors.error}
     >
       {t('myProfile:logout')}
     </Button>
