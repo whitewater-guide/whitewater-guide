@@ -20,6 +20,8 @@ class Config {
 
   public API_DOMAIN = `api.${this.ROOT_DOMAIN}`;
 
+  public DEEP_LINKING_DOMAIN = `app.${this.ROOT_DOMAIN}`;
+
   public CORS_WHITELIST = process.env.CORS_WHITELIST?.split(',') || [];
 
   public SENTRY_DSN = process.env.SENTRY_DSN;

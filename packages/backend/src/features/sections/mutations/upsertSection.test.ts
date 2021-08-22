@@ -271,8 +271,7 @@ it('should fail on invalid input', async () => {
 
 it('should not fail on legacy input without license and copyright', async () => {
   const { copyright, license, ...legacy } = existingRiverSection;
-  const result = await runQuery(
-    upsertQuery,
+  const result = await testUpsertSection(
     { section: legacy },
     fakeContext(EDITOR_NO_EC),
   );

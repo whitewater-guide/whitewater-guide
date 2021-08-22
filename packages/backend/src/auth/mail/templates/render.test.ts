@@ -10,8 +10,9 @@ const types = Object.values(MailType).map((t) => [t]);
 
 it.each(types)('should match snapshot for "%s"', async (type: any) => {
   const data = {
-    baseURL: 'https://whitewater.guide',
+    baseURL: 'https://api.whitewater.guide',
     contentURL: 'https://content.whitewater.guide',
+    deepLinkingURL: 'https://app.whitewater.guide',
     user: {
       id: '__user_id__',
       name: 'User Name',

@@ -12,7 +12,7 @@
         </mj-text>
 
         <mj-button
-          href="${baseURL}/auth/local/reset/callback?id=${user.id}&token=${token.raw}"
+          href="${deepLinkingURL}/auth/local/reset/callback?id=${user.id}&token=${token.raw}"
         >
           Reset Password
         </mj-button>

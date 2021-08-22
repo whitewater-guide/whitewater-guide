@@ -62,10 +62,12 @@ export async function sendMail(
   email: string,
   payload: any,
 ): Promise<void> {
-  const { PROTOCOL, API_DOMAIN, contentPublicURL } = config;
+  const { PROTOCOL, API_DOMAIN, DEEP_LINKING_DOMAIN, contentPublicURL } =
+    config;
   const data = {
     ...payload,
     baseURL: `${PROTOCOL}://${API_DOMAIN}`,
+    deepLinkingURL: `${PROTOCOL}://${DEEP_LINKING_DOMAIN}`,
     contentURL: contentPublicURL,
   };
   const html = await render(type, data);
