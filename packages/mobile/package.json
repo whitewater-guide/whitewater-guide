@@ -54,10 +54,10 @@
     "@react-native-community/hooks": "^2.6.0",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-community/netinfo": "^6.0.0",
-    "@react-native-firebase/analytics": "^12.1.0",
-    "@react-native-firebase/app": "^12.1.0",
-    "@react-native-firebase/messaging": "^12.1.0",
-    "@react-native-mapbox-gl/maps": "^8.2.1",
+    "@react-native-firebase/analytics": "^12.7.2",
+    "@react-native-firebase/app": "^12.7.2",
+    "@react-native-firebase/messaging": "^12.7.2",
+    "@react-native-mapbox-gl/maps": "^8.3.0",
     "@react-navigation/drawer": "^6.1.4",
     "@react-navigation/material-bottom-tabs": "^6.0.5",
     "@react-navigation/material-top-tabs": "^6.0.2",
@@ -187,7 +187,8 @@
     "react-native-codegen": "^0.0.7",
     "react-native-mock-render": "^0.1.9",
     "react-native-performance-monitor": "^1.2.1",
-    "react-test-renderer": "^17.0.2"
+    "react-test-renderer": "^17.0.2",
+    "uri-scheme": "^1.0.94"
   },
   "detox": {
     "configurations": {

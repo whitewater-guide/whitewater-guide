@@ -1,90 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
-	<key>CFBundleDisplayName</key>
-	<string>whitewater.guide</string>
-	<key>CFBundleExecutable</key>
-	<string>$(EXECUTABLE_NAME)</string>
-	<key>CFBundleIdentifier</key>
-	<string>guide.whitewater</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundleName</key>
-	<string>whitewater guide</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleShortVersionString</key>
-	<string>1.13.0</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>$(FACEBOOK_CUSTOM_URL_SCHEME)</string>
-			</array>
-		</dict>
-	</array>
-	<key>CFBundleVersion</key>
-	<string>297</string>
-	<key>FacebookAppID</key>
-	<string>$(FACEBOOK_APP_ID)</string>
-	<key>FacebookDisplayName</key>
-	<string>whitewater.guide</string>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>fbapi</string>
-		<string>fb-messenger-share-api</string>
-		<string>fbauth2</string>
-		<string>fbshareextension</string>
-		<string>googlechromes</string>
-		<string>comgooglemaps</string>
-	</array>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
-	<key>NSAppTransportSecurity</key>
 	<dict>
-		<key>NSExceptionDomains</key>
-		<dict>
-			<key>localhost</key>
+		<key>CFBundleDevelopmentRegion</key>
+		<string>en</string>
+		<key>CFBundleDisplayName</key>
+		<string>whitewater.guide</string>
+		<key>CFBundleExecutable</key>
+		<string>$(EXECUTABLE_NAME)</string>
+		<key>CFBundleIdentifier</key>
+		<string>guide.whitewater</string>
+		<key>CFBundleInfoDictionaryVersion</key>
+		<string>6.0</string>
+		<key>CFBundleName</key>
+		<string>whitewater guide</string>
+		<key>CFBundlePackageType</key>
+		<string>APPL</string>
+		<key>CFBundleShortVersionString</key>
+		<string>1.13.0</string>
+		<key>CFBundleSignature</key>
+		<string>????</string>
+		<key>CFBundleURLTypes</key>
+		<array>
 			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>$(FACEBOOK_CUSTOM_URL_SCHEME)</string>
+				</array>
+			</dict>
+			<dict>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>$(BACKEND_HOST)</string>
+				</array>
+			</dict>
+		</array>
+		<key>CFBundleVersion</key>
+		<string>297</string>
+		<key>FacebookAppID</key>
+		<string>$(FACEBOOK_APP_ID)</string>
+		<key>FacebookDisplayName</key>
+		<string>whitewater.guide</string>
+		<key>ITSAppUsesNonExemptEncryption</key>
+		<false/>
+		<key>LSApplicationQueriesSchemes</key>
+		<array>
+			<string>fbapi</string>
+			<string>fb-messenger-share-api</string>
+			<string>fbauth2</string>
+			<string>fbshareextension</string>
+			<string>googlechromes</string>
+			<string>comgooglemaps</string>
+		</array>
+		<key>LSRequiresIPhoneOS</key>
+		<true/>
+		<key>NSAppTransportSecurity</key>
+		<dict>
+			<key>NSExceptionDomains</key>
+			<dict>
+				<key>localhost</key>
+				<dict>
+					<key>NSExceptionAllowsInsecureHTTPLoads</key>
+					<true/>
+				</dict>
 			</dict>
 		</dict>
+		<key>NSCameraUsageDescription</key>
+		<string>This permission is required to upload your photos</string>
+		<key>NSLocationAlwaysUsageDescription</key>
+		<string>It needs this permission to show you how close you are to this or that river</string>
+		<key>NSLocationWhenInUseUsageDescription</key>
+		<string>It needs this permission to show you how close you are to this or that river</string>
+		<key>NSPhotoLibraryAddUsageDescription</key>
+		<string>This permission is required to upload your photos</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>This permission is required to upload your photos</string>
+		<key>UIAppFonts</key>
+		<array>
+			<string>MaterialIcons.ttf</string>
+			<string>MaterialCommunityIcons.ttf</string>
+		</array>
+		<key>UILaunchStoryboardName</key>
+		<string>BootSplash</string>
+		<key>UIRequiredDeviceCapabilities</key>
+		<array>
+			<string>armv7</string>
+		</array>
+		<key>UISupportedInterfaceOrientations</key>
+		<array>
+			<string>UIInterfaceOrientationPortrait</string>
+		</array>
+		<key>UIViewControllerBasedStatusBarAppearance</key>
+		<false/>
 	</dict>
-	<key>NSCameraUsageDescription</key>
-	<string>This permission is required to upload your photos</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>It needs this permission to show you how close you are to this or that river</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>It needs this permission to show you how close you are to this or that river</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>This permission is required to upload your photos</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This permission is required to upload your photos</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>MaterialIcons.ttf</string>
-		<string>MaterialCommunityIcons.ttf</string>
-	</array>
-	<key>UILaunchStoryboardName</key>
-	<string>BootSplash</string>
-	<key>UIRequiredDeviceCapabilities</key>
-	<array>
-		<string>armv7</string>
-	</array>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-	</array>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
-</dict>
 </plist>

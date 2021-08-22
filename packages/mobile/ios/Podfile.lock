@@ -26,29 +26,18 @@ PODS:
     - FBSDKShareKit/Share (= 8.2.0)
   - FBSDKShareKit/Share (8.2.0):
     - FBSDKCoreKit (~> 8.2.0)
-  - Firebase/Analytics (8.6.0):
-    - Firebase/Core
-  - Firebase/Core (8.6.0):
+  - Firebase/AnalyticsWithoutAdIdSupport (8.6.0):
     - Firebase/CoreOnly
-    - FirebaseAnalytics (~> 8.6.0)
+    - FirebaseAnalytics/WithoutAdIdSupport (~> 8.6.0)
   - Firebase/CoreOnly (8.6.0):
     - FirebaseCore (= 8.6.0)
   - Firebase/Messaging (8.6.0):
     - Firebase/CoreOnly
     - FirebaseMessaging (~> 8.6.0)
-  - FirebaseAnalytics (8.6.0):
-    - FirebaseAnalytics/AdIdSupport (= 8.6.0)
+  - FirebaseAnalytics/WithoutAdIdSupport (8.6.0):
     - FirebaseCore (~> 8.0)
     - FirebaseInstallations (~> 8.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
-    - GoogleUtilities/MethodSwizzler (~> 7.4)
-    - GoogleUtilities/Network (~> 7.4)
-    - "GoogleUtilities/NSData+zlib (~> 7.4)"
-    - nanopb (~> 2.30908.0)
-  - FirebaseAnalytics/AdIdSupport (8.6.0):
-    - FirebaseCore (~> 8.0)
-    - FirebaseInstallations (~> 8.0)
-    - GoogleAppMeasurement (= 8.6.0)
+    - GoogleAppMeasurement/WithoutAdIdSupport (= 8.6.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
     - GoogleUtilities/MethodSwizzler (~> 7.4)
     - GoogleUtilities/Network (~> 7.4)
@@ -139,14 +128,7 @@ PODS:
     - FlipperKit/FlipperKitNetworkPlugin
   - fmt (6.2.1)
   - glog (0.3.5)
-  - GoogleAppMeasurement (8.6.0):
-    - GoogleAppMeasurement/AdIdSupport (= 8.6.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
-    - GoogleUtilities/MethodSwizzler (~> 7.4)
-    - GoogleUtilities/Network (~> 7.4)
-    - "GoogleUtilities/NSData+zlib (~> 7.4)"
-    - nanopb (~> 2.30908.0)
-  - GoogleAppMeasurement/AdIdSupport (8.6.0):
+  - GoogleAppMeasurement/WithoutAdIdSupport (8.6.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
     - GoogleUtilities/MethodSwizzler (~> 7.4)
     - GoogleUtilities/Network (~> 7.4)
@@ -424,21 +406,23 @@ PODS:
     - React
   - react-native-image-picker (3.3.2):
     - React-Core
-  - react-native-mapbox-gl (8.2.1):
+  - react-native-mapbox-gl (8.3.0):
     - Mapbox-iOS-SDK (~> 5.9.0)
     - React
     - React-Core
-    - react-native-mapbox-gl/DynamicLibrary (= 8.2.1)
-    - react-native-mapbox-gl/StaticLibraryFixer (= 8.2.1)
-  - react-native-mapbox-gl/DynamicLibrary (8.2.1):
+    - react-native-mapbox-gl/DynamicLibrary (= 8.3.0)
+    - react-native-mapbox-gl/StaticLibraryFixer (= 8.3.0)
+  - react-native-mapbox-gl/DynamicLibrary (8.3.0):
     - Mapbox-iOS-SDK (~> 5.9.0)
     - React
     - React-Core
-  - react-native-mapbox-gl/StaticLibraryFixer (8.2.1):
+  - react-native-mapbox-gl/StaticLibraryFixer (8.3.0):
     - Mapbox-iOS-SDK (~> 5.9.0)
     - React
     - React-Core
   - react-native-netinfo (6.0.0):
+    - React-Core
+  - react-native-pager-view (5.4.0):
     - React-Core
   - react-native-safe-area-context (3.3.0):
     - React-Core
@@ -531,14 +515,14 @@ PODS:
     - React
     - SDWebImage (~> 5.0)
     - SDWebImageWebPCoder (~> 0.2.3)
-  - RNFBAnalytics (12.7.1):
-    - Firebase/Analytics (= 8.6.0)
+  - RNFBAnalytics (12.7.2):
+    - Firebase/AnalyticsWithoutAdIdSupport (= 8.6.0)
     - React-Core
     - RNFBApp
-  - RNFBApp (12.7.1):
+  - RNFBApp (12.7.2):
     - Firebase/CoreOnly (= 8.6.0)
     - React-Core
-  - RNFBMessaging (12.7.1):
+  - RNFBMessaging (12.7.2):
     - Firebase/Messaging (= 8.6.0)
     - React-Core
     - RNFBApp
@@ -625,6 +609,7 @@ DEPENDENCIES:
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - "react-native-mapbox-gl (from `../node_modules/@react-native-mapbox-gl/maps`)"
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
+  - react-native-pager-view (from `../node_modules/react-native-pager-view`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-sensitive-info (from `../node_modules/react-native-sensitive-info`)
   - react-native-startup-time (from `../node_modules/react-native-startup-time`)
@@ -747,6 +732,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-mapbox-gl/maps"
   react-native-netinfo:
     :path: "../node_modules/@react-native-community/netinfo"
+  react-native-pager-view:
+    :path: "../node_modules/react-native-pager-view"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-sensitive-info:
@@ -876,8 +863,9 @@ SPEC CHECKSUMS:
   React-jsinspector: 41e58e5b8e3e0bf061fdf725b03f2144014a8fb0
   react-native-fbsdk: 8e92c7a334fd8d9c2b5d8b8fcd7ae2c314161099
   react-native-image-picker: b42940647478bf106ad3c491d6f5d9d40916d865
-  react-native-mapbox-gl: b79f2d7522556eeabd9fe5c4c94f8f6ce4412304
+  react-native-mapbox-gl: 94ddd813fd5d4fdab9ca9d45ce108125480cfffd
   react-native-netinfo: e849fc21ca2f4128a5726c801a82fc6f4a6db50d
+  react-native-pager-view: 54970cc27fdef14db2dcfedadb091d711e88065d
   react-native-safe-area-context: 61c8c484a3a9e7d1fda19f7b1794b35bbfd2262a
   react-native-sensitive-info: 400c6e3d27945e15c8cddb5b4b92233c85ee06f8
   react-native-startup-time: 1a068b744ce5097a85ebe0fbff691b05961c324d
@@ -902,9 +890,9 @@ SPEC CHECKSUMS:
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
   RNDateTimePicker: 7658208086d86d09e1627b5c34ba0cf237c60140
   RNFastImage: c5dd7458d2ad421e990ee42a19e93c678bed1aa8
-  RNFBAnalytics: c2468814a480168ca67517ddb42a48a6c25514ec
-  RNFBApp: a4ce8d24c5c6864fa543a34b030a014bd015e628
-  RNFBMessaging: 510bef8284ab30807e3815dde6d91a02c282abe0
+  RNFBAnalytics: 12dd886ebef043220009b4b410473658ac9d1476
+  RNFBApp: 9c4eb84da8418346829c0d0220c4794d1de7b1f6
+  RNFBMessaging: b0d11e7d62d7d13f93dbc965b2e6da4fba38c67e
   RNFS: 3ab21fa6c56d65566d1fb26c2228e2b6132e5e32
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNIap: 17358486598a5751d717940f531983dfb1c17f34
@@ -922,6 +910,6 @@ SPEC CHECKSUMS:
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
   zxcvbn-ios: fef98b7c80f1512ff0eec47ac1fa399fc00f7e3c
 
-PODFILE CHECKSUM: 8034b2b4fb09253032c268567ba25ec97291bd23
+PODFILE CHECKSUM: ea24c8e92e4d013d4b1ba0f4d287a233557e80e5
 
 COCOAPODS: 1.10.2
