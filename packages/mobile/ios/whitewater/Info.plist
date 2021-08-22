@@ -28,12 +28,6 @@
 					<string>$(FACEBOOK_CUSTOM_URL_SCHEME)</string>
 				</array>
 			</dict>
-			<dict>
-				<key>CFBundleURLSchemes</key>
-				<array>
-					<string>$(BACKEND_HOST)</string>
-				</array>
-			</dict>
 		</array>
 		<key>CFBundleVersion</key>
 		<string>297</string>

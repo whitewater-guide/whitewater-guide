@@ -37,8 +37,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="@string/BACKEND_PROTOCOL"
-                      android:host="@string/BACKEND_HOST"
-                      android:pathPrefix="/auth/local/reset/callback" />
+                      android:host="@string/DEEP_LINKING_DOMAIN"/>
             </intent-filter>
         </activity>
 

@@ -8,7 +8,7 @@ import { ResetForm } from './ResetForm';
 import { AuthResetNavProps } from './types';
 
 const ResetScreen: React.FC<AuthResetNavProps> = ({ route }) => {
-  const { id, token } = route.params;
+  const { id, token } = route.params ?? {};
   const { t } = useTranslation();
   return (
     <AuthScreenBase>

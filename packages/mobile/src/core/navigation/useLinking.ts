@@ -3,13 +3,13 @@ import { useCallback, useEffect, useRef } from 'react';
 import { Linking } from 'react-native';
 import urlParse from 'url-parse';
 
-import { BACKEND_URL } from '~/utils/urls';
+import { DEEP_LINKING_URL } from '~/utils/urls';
 
 import { apolloClient } from '../apollo';
 import { RootStackNav } from './navigation-params';
 import { Screens } from './screen-names';
 
-const RESET_CALLBACK_URL = `${BACKEND_URL}/auth/local/reset/callback`;
+const RESET_CALLBACK_URL = `${DEEP_LINKING_URL}/auth/local/reset/callback`;
 
 type URLish = string | null | { url: string | null };
 type Parsed = ReturnType<typeof urlParse>;
@@ -33,6 +33,7 @@ const isVerified = ({ href }: Parsed) => href.indexOf('verified') >= 0;
 export const useLinking = ({ navigate }: RootStackNav) => {
   const navigateRef = useRef(navigate);
   navigateRef.current = navigate;
+
   const handleURL = useCallback(
     (url: URLish) => {
       const parts = parseURL(url);
