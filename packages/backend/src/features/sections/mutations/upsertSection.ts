@@ -27,11 +27,14 @@ import { differ } from './utils';
 const transformSection = (section: SectionInput): SectionInput => ({
   ...section,
   media: section.media.map((item) => {
-    const url = s3Client.getLocalFileName(item.url);
-    if (!url) {
-      throw new UnknownError('photo url invalid');
+    if (item.kind === MediaKind.Photo) {
+      const url = s3Client.getLocalFileName(item.url);
+      if (!url) {
+        throw new UnknownError('photo url invalid: ' + item.url);
+      }
+      return { ...item, url };
     }
-    return item.kind === MediaKind.Photo ? { ...item, url } : item;
+    return item;
   }),
 });
 
