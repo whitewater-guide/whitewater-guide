@@ -21535,18 +21535,18 @@ react-native-mock-render@^0.1.9:
     react-timer-mixin "^0.13.3"
     warning "^2.1.0"
 
-react-native-modal-popover@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/react-native-modal-popover/-/react-native-modal-popover-2.0.1.tgz#119fb04606a205ffff41fc56666ea4c0cc833aa6"
-  integrity sha512-4aqjeNf3TNSUH4tK0t9ADNGqNQmY/xb0XKGtdNGhhdSZDp0oME36dj92AKxoFeU3AzfQdmd0ehOXvYUu7aaj8g==
+react-native-modal-popover@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-modal-popover/-/react-native-modal-popover-2.1.0.tgz#45a2060012796f29184e6c41b787f14336d3b435"
+  integrity sha512-t7KMk1q5Hi3jkk3/0fpa3mA7E3TJLL/Uz48Fa07AlocjMbG3okim9fNPLf5dJGw4JlcYWxLMYeswEcTjKr0M1g==
   dependencies:
-    lodash "^4.17.20"
+    lodash "^4.17.21"
     prop-types "^15.7.2"
 
-react-native-pager-view@^5.4.0:
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/react-native-pager-view/-/react-native-pager-view-5.4.0.tgz#8e30a391a68da26e59f4ae724341b9208924b2ee"
-  integrity sha512-pYy3I8p5s6cPaymT1GibuDRHmicY3JdHHZyTH+Fra1S0wupaJhoZy33f2prrMJqQfk9kaqwCsb3pVmj4GuJTjA==
+react-native-pager-view@^5.4.1:
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/react-native-pager-view/-/react-native-pager-view-5.4.1.tgz#88641ff083ca4379497dc03891fdc2d5b6f82263"
+  integrity sha512-P/aGuJqRe/HaocYd8o6TsO9YQMFPQrVnkjph9vZ+yg3HCCF/7XLRlntOLEs24Vmg4M+02MjpH557WACpBADi/A==
 
 react-native-paper@^4.9.2:
   version "4.9.2"
@@ -21593,10 +21593,10 @@ react-native-safe-area-context@^3.3.0:
   resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-3.3.0.tgz#6e0b45baa031589ec9c54f8359ace166a36aa5e5"
   integrity sha512-IrCNx56LO9RJ75yCf2CSSO1ceLj3mvxTAF+HWnehaeRIfF4pIcIn3WEUlXulFiha641OKS5X0+1XZCbbQ7pITA==
 
-react-native-screens@^3.5.0:
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-3.5.0.tgz#c40be78dff8e2dff1b00ba8fa670b2e429e632d2"
-  integrity sha512-xew4x0YX0RaDduNYM4gZXkphPwGZIbbu9fTU85xOtT1tOUPm3OU4pFMiN6PF54haMCsaMQRvdOXvLicUVRiptA==
+react-native-screens@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-3.6.0.tgz#054af728e50c06bff6b3b4fa7b4b656b70f247cd"
+  integrity sha512-emQmSu+B6cOIjJH2OIgpuxd9zCD6xz7/oo5GCetyjsM5qR3sMnVgOxqtK99xPu9XJH/8k7MplXbtJgtk/PHXwA==
   dependencies:
     warn-once "^0.1.0"
 
