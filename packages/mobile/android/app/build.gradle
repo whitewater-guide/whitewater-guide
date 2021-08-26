@@ -140,7 +140,7 @@ android {
         resValue "string", "build_config_package", "guide.whitewater"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 100601238
+        versionCode 100601239
         versionName "1.13.0"
         testBuildType System.getProperty('testBuildType', 'debugDetox')
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
