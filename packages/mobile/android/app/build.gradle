@@ -163,10 +163,10 @@ android {
             keyPassword 'android'
         }
         release {
-            storeFile file(String.valueOf(System.getenv("GRADLE_KEYSTORE")))
-            storePassword System.getenv("GRADLE_KEYSTORE_PASSWORD")
-            keyAlias System.getenv("GRADLE_KEYSTORE_ALIAS")
-            keyPassword System.getenv("GRADLE_KEYSTORE_ALIAS_PASSWORD")
+            storeFile file(String.valueOf(System.getenv("WHITEWATER_KEYSTORE")))
+            storePassword System.getenv("WHITEWATER_KEYSTORE_PASSWORD")
+            keyAlias System.getenv("WHITEWATER_KEYSTORE_ALIAS")
+            keyPassword System.getenv("WHITEWATER_KEYSTORE_ALIAS_PASSWORD")
         }
     }
     buildTypes {
