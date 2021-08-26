@@ -74,6 +74,7 @@ export const createChartView = (
           <ZoomVoronoiComponent
             onZoomDomainChange={setZoomedDomain as any}
             zoomDimension="x"
+            voronoiPadding={metaSettings?.maxDensity}
           />
         }
       >

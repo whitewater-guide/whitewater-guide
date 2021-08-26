@@ -9,6 +9,7 @@ import React from 'react';
 import {
   VictoryScatterProps,
   VictoryTooltipProps,
+  VictoryVoronoiContainerProps,
   VictoryZoomContainerProps,
 } from 'victory';
 import { VictoryAxisProps } from 'victory-axis';
@@ -104,5 +105,7 @@ export interface ChartComponents {
   HorizontalTickComponent: React.ComponentType<HorizontalTickProps>;
   HorizontalLabelComponent: React.ComponentType<HorizontalLabelProps>;
   HorizontalGridComponent: React.ComponentType<HorizontalGridProps>;
-  ZoomVoronoiComponent: React.ComponentType<VictoryZoomContainerProps>;
+  ZoomVoronoiComponent: React.ComponentType<
+    VictoryZoomContainerProps & VictoryVoronoiContainerProps
+  >;
 }
