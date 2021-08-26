@@ -75,7 +75,7 @@
     "shortid": "^2.2.16",
     "use-react-router": "^1.0.7",
     "validator": "^13.6.0",
-    "victory": "^35.11.0",
+    "victory": "35.10.0",
     "yup": "^0.32.9"
   },
   "devDependencies": {
