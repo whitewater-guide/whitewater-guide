@@ -47,10 +47,10 @@ export const ChartPeriodToggle: React.FC = React.memo(() => {
           t('section:chart.periodToggle.month'),
           t('commons:cancel'),
         ],
-        cancelButtonIndex: 3,
+        cancelButtonIndex: DAYS.length,
       },
       (i: number) => {
-        if (i < 3) {
+        if (i < DAYS.length) {
           onChangeDays(DAYS[i]);
         }
       },
