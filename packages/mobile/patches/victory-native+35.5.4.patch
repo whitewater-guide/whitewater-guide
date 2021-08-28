@@ -1,5 +1,5 @@
 diff --git a/node_modules/victory-native/lib/helpers/native-zoom-helpers.js b/node_modules/victory-native/lib/helpers/native-zoom-helpers.js
-index ecc6c32..a0caafc 100644
+index ecc6c32..693926a 100644
 --- a/node_modules/victory-native/lib/helpers/native-zoom-helpers.js
 +++ b/node_modules/victory-native/lib/helpers/native-zoom-helpers.js
 @@ -62,8 +62,10 @@ const Helpers = {
@@ -8,8 +8,8 @@ index ecc6c32..a0caafc 100644
      const { touches } = evt.nativeEvent;
 -    const originalPinchDistance = props.originalPinchDistance || 0;
      const currentPinchDistance = this.getPinchDistance(touches);
-+    // patch: originally, when zooming out, originalPinchDistance is 0, so first time factor is < 1
-+    // so we start with serious zoom in and then begin to zoom out, and getting nowhere as result
++    // patch: originally, when zooming out, originalPinchDistance is 0, so the first time factor is < 1
++    // so we start with serious zoom in and then begin to zoom out, and getting nowhere as a result
 +    const originalPinchDistance = props.originalPinchDistance ||  currentPinchDistance;
      const scaledPinchChange = (currentPinchDistance - originalPinchDistance) / screenSize;
      return 1 - scaledPinchChange;
@@ -32,7 +32,7 @@ index ecc6c32..a0caafc 100644
  
  const makeThrottledHandler = (handler) => {
 -  const throttledHandler = throttle(handler, 16, { leading: true });
-+  // Patch: original throttle was 16, which equals 60 fps. 30 will suffice for us
++  // Patch: original throttle was 16, which equals to 60fps. 30fps will do it
 +  const throttledHandler = throttle(handler, 32, { leading: true });
    return (evt, ...otherParams) => {
      evt.persist(); // ensure that the react native event is persisted!
