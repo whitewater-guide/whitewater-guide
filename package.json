@@ -65,6 +65,7 @@
   },
   "resolutions": {
     "**/@babel/core": "^7.0.0",
+    "**/color": "^4.0.1",
     "**/graphql-tools": "^7.0.5",
     "**/graphql": "^15.5.1",
     "**/jest": "^27.1.0",
