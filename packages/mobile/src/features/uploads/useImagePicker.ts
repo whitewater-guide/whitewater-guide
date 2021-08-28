@@ -35,17 +35,11 @@ export const useImagePicker = (
   return useCallback(() => {
     const id = defaultId || shortid();
 
-    const onPick: Callback = (opts) => {
-      const {
-        fileName,
-        uri,
-        didCancel,
-        errorCode,
-        type,
-        width,
-        height,
-        fileSize,
-      } = opts;
+    const onPick: Callback = ({ didCancel, errorCode, assets }) => {
+      if (!assets?.length) {
+        return;
+      }
+      const { fileName, uri, type, width, height, fileSize } = assets[0];
       if (errorCode) {
         trackError('imagePicker', new Error(errorCode));
         return;

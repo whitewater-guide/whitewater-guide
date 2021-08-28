@@ -37,7 +37,7 @@
     "@graphql-codegen/typescript-react-apollo": "^3.1.2",
     "@graphql-codegen/typescript-resolvers": "^2.1.2",
     "@types/jest": "^27.0.1",
-    "@types/node": "^16.7.2",
+    "@types/node": "^16.7.4",
     "bulk": "^2.0.1",
     "commitlint": "^13.1.0",
     "conventional-changelog-cli": "^2.1.1",

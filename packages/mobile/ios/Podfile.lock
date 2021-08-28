@@ -406,7 +406,7 @@ PODS:
     - React
   - react-native-flipper (0.104.0):
     - React-Core
-  - react-native-image-picker (3.3.2):
+  - react-native-image-picker (4.0.6):
     - React-Core
   - react-native-mapbox-gl (8.3.0):
     - Mapbox-iOS-SDK (~> 5.9.0)
@@ -868,7 +868,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 41e58e5b8e3e0bf061fdf725b03f2144014a8fb0
   react-native-fbsdk: 8e92c7a334fd8d9c2b5d8b8fcd7ae2c314161099
   react-native-flipper: 58bc8d50ff7b97cc461cdaf3639fa7f076dbfa76
-  react-native-image-picker: b42940647478bf106ad3c491d6f5d9d40916d865
+  react-native-image-picker: a6e56460d34905c849ada551db30897dc7f3d535
   react-native-mapbox-gl: 94ddd813fd5d4fdab9ca9d45ce108125480cfffd
   react-native-netinfo: 7cb7877ff31ebeb3d03ce0b4fbb616f121ddd859
   react-native-pager-view: 43f51f45f37ec9715f6c188e4af46ccdf79872e8
