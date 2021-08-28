@@ -70,12 +70,12 @@ const autofillSource: MutationResolvers['autofillSource'] = async (
         );
         gaugesOut.push(gOut);
       } catch (e) {
-        log.error({ extra: { input }, error: e });
+        log.error({ extra: { input }, error: e as Error });
       }
     }
     return gaugesOut;
   } catch (err) {
-    throw new UnknownError(`Autofill failed: ${err.message}`);
+    throw new UnknownError(`Autofill failed: ${(err as Error).message}`);
   }
 };
 

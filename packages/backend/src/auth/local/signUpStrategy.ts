@@ -64,7 +64,7 @@ export const localSignUpStrategy = new Strategy(
     let user: Sql.Users;
     try {
       [user] = await db().table('users').insert(userInput).returning('*');
-    } catch (e) {
+    } catch (e: any) {
       return done(null, false, {
         message: 'signup.errors.email.unavailable',
         payload: { email, code: e.code },
@@ -79,7 +79,7 @@ export const localSignUpStrategy = new Strategy(
     } catch (error) {
       logger.error({
         message: 'signup.send.verification.error',
-        error,
+        error: error as Error,
         extra: { email },
       });
     }

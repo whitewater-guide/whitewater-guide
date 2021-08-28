@@ -22,7 +22,7 @@ const mailSubscribe: MutationResolvers['mailSubscribe'] = async (
       { emailAddress: email_address, status },
       'mailchimp subscription',
     );
-  } catch (err) {
+  } catch (err: any) {
     logger.error({ message: 'mailchimp.failed', extra: { mail }, error: err });
     return false;
   }

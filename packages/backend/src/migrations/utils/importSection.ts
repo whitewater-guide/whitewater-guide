@@ -22,7 +22,7 @@ export const importSection = async <S>(
       await db.table('sections').update({ import_id }).where({ id: result.id });
     }
   } catch (e) {
-    console.warn(`Import failed: ${e.message}`);
+    console.warn(`Import failed: ${(e as Error).message}`);
     // eslint-disable-next-line no-console
     console.dir(input);
   }

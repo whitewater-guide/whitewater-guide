@@ -168,7 +168,7 @@ export class MobileAuthService extends BaseAuthService {
         ...appleResp,
         fcm_token: this._fcmToken,
       });
-    } catch (err) {
+    } catch (err: any) {
       if (err.code === appleAuth.Error.CANCELED) {
         return {
           success: false,

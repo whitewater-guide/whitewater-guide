@@ -89,7 +89,7 @@ export class SectionsDownloader {
         });
       }
     } catch (e) {
-      this._photoChannel.break(e);
+      this._photoChannel.break(e as Error);
       throw e;
     } finally {
       this._photoChannel.close();

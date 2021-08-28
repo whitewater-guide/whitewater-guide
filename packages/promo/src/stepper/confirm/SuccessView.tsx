@@ -14,7 +14,7 @@ export interface SuccessViewProps {
 
 export const SuccessView: React.FC<SuccessViewProps> = ({ region, promo }) => {
   const { t } = useTranslation();
-  const onRestart = useCallback(() => window.location.reload(true), []);
+  const onRestart = useCallback(() => window.location.reload(), []);
   const { values, i18nKey } = useMemo(
     () => ({
       values: { name: region ? region.name : promo.groupName },

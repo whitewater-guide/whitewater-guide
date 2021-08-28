@@ -28,7 +28,7 @@ export const safeInitConnection = async (): Promise<boolean> => {
   let result = true;
   try {
     result = !!(await initConnection());
-  } catch (e) {
+  } catch (e: any) {
     // This is not error, just android emulator
     if (isBillingUnavailable(e)) {
       result = false;

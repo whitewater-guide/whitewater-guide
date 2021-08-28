@@ -25,7 +25,7 @@ const safeRestorePurchase = async (sku: string) => {
   } catch (e) {
     const error = new IAPError(
       'screens:purchase.buy.errors.restoreFailed',
-      e.message,
+      (e as Error).message,
     );
     trackError('iap', error);
     return {

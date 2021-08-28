@@ -51,7 +51,7 @@ class VideoItem extends React.PureComponent<Props, State> {
     try {
       thumb = await getVideoThumb(this.props.video.url, PHOTO_SIZE);
     } catch (e) {
-      trackError('VideoItem', e);
+      trackError('VideoItem', e as Error);
     }
     if (this._mounted) {
       this.setState({ thumb: thumb ? thumb.thumb : null });

@@ -71,6 +71,6 @@ export const uploadFile = async (
     const text = await resp.text();
     throw new UploadFileError(text, resp.status);
   } catch (e) {
-    throw new UploadFileError(e.message, 503);
+    throw new UploadFileError((e as Error).message, 503);
   }
 };

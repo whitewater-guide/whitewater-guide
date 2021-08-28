@@ -16,7 +16,7 @@ export async function sendWelcome(user: Sql.Users) {
     authLogger.error({
       extra: {
         email: user.email,
-        error: e.message,
+        error: (e as Error).message,
       },
       tags: {
         code: 'signup.send.verification.error',

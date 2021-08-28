@@ -55,7 +55,7 @@ export function createSafeValidator<T>(
       throwingValidator(value);
       return null;
     } catch (e) {
-      return yupToFormErrors(e);
+      return yupToFormErrors(e as yup.ValidationError);
     }
   };
 }

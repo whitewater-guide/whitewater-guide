@@ -113,7 +113,7 @@ export class S3Client {
         .promise();
     } catch (e) {
       logger.error({
-        error: e,
+        error: e as Error,
         message: 'Error while moving file',
         extra: { url, newFileName },
       });

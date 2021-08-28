@@ -109,7 +109,7 @@ const maybeInsert = async (
     }
     riverIds.set(inserted[0].river_name, inserted[0].river_id);
     return [1, `Inserted ${inserted[0].river_name} - ${inserted[0].name}`];
-  } catch (e) {
+  } catch (e: any) {
     return [0, `Insert error: ${e.message}`];
   }
 };

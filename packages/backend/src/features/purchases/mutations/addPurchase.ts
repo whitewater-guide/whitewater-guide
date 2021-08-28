@@ -119,7 +119,7 @@ const addPurchase: MutationResolvers['addPurchase'] = async (
     }
     return await processIAP(purchase, user);
   } catch (e) {
-    logger.warn({ extra: { platform, transactionId }, error: e });
+    logger.warn({ extra: { platform, transactionId }, error: e as Error });
     throw e;
   }
 };

@@ -21,7 +21,7 @@ const safeAcknowledgePurchase = async (purchase: InAppPurchase) => {
   } catch (e) {
     const error = new IAPError(
       'screens:purchase.buy.errors.acknowledge',
-      JSON.stringify({ error: e.message, purchase }, null, 2),
+      JSON.stringify({ error: (e as Error).message, purchase }, null, 2),
       { transactionId: purchase.transactionId },
     );
     trackError('iap', error);

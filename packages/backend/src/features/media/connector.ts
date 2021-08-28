@@ -66,7 +66,7 @@ export class MediaConnector extends OffsetConnector<Media, Sql.MediaView> {
         } catch (e) {
           log.error({
             message: 'Failed to get temp file size',
-            error: e,
+            error: e as Error,
             extra: { media: input },
           });
         }
@@ -101,7 +101,7 @@ export class MediaConnector extends OffsetConnector<Media, Sql.MediaView> {
         editorId: this._user.id,
       });
       return result;
-    } catch (err) {
+    } catch (err: any) {
       // foreign_key_violation - non-existing section id
       if (
         err.code === '23503' &&

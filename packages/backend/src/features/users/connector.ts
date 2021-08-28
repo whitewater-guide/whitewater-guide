@@ -145,7 +145,10 @@ export class UsersConnector extends OffsetConnector<User, ResolvableUser> {
         const downloaded = get(data, 'data.url', null);
         return downloaded;
       } catch (e) {
-        log.error({ message: 'failed to fetch fb user pic', error: e });
+        log.error({
+          message: 'failed to fetch fb user pic',
+          error: e as Error,
+        });
         return null;
       }
     }
