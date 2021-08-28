@@ -73,6 +73,7 @@ fastlane/.env.*
 *.back
 
 /android/google_play_android_developer-5eac6da2ad1b.json
+/android/api-7539978730869786090-149286-33a49ec94c7a.json
 *.dSYM.zip
 /ios/whitewater/GoogleService-Info.plist
 /android/app/google-services.json
