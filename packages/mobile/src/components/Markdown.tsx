@@ -11,6 +11,9 @@ import SimpleMarkdown, {
 import theme from '../theme';
 
 const defaultStyles: StyleSheet.NamedStyles<any> = StyleSheet.create({
+  body: {
+    color: theme.colors.textMain,
+  },
   a: {
     color: theme.colors.primary,
   },
@@ -83,6 +86,7 @@ const Markdown: React.FC<Props> = ({ children, styles }) => {
   const actualStyles: any = styles
     ? deepmerge(StyleSheet.flatten(defaultStyles), styles)
     : defaultStyles;
+
   return (
     <SimpleMarkdown
       rules={rules}
