@@ -3,6 +3,8 @@ import memoize from 'lodash/memoize';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+import theme from '~/theme';
+
 const styles = StyleSheet.create({
   container: {
     width: 60,
@@ -20,10 +22,12 @@ const styles = StyleSheet.create({
   mainLine: {
     fontSize: 24,
     fontWeight: '400',
+    color: theme.colors.textMain,
   },
   xtraLine: {
     fontSize: 10,
     transform: [{ translateY: -4 }],
+    color: theme.colors.textMain,
   },
 });
 

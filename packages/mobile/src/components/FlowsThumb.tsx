@@ -11,6 +11,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 
+import theme from '~/theme';
+
 const styles = StyleSheet.create({
   container: {
     width: 100,
@@ -25,12 +27,15 @@ const styles = StyleSheet.create({
   mainLine: {
     fontSize: 18,
     fontWeight: '400',
+    color: theme.colors.textMain,
   },
   unitLine: {
     fontSize: 12,
+    color: theme.colors.textMain,
   },
   timeLine: {
     fontSize: 12,
+    color: theme.colors.textMain,
   },
 });
 

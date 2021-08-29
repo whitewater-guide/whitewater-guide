@@ -1,3 +1,4 @@
+import { ListedSectionFragment } from '@whitewater-guide/clients';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
@@ -9,7 +10,6 @@ import SimpleStarRating from '~/components/SimpleStarRating';
 import UnverifiedBadge from '~/components/UnverifiedBadge';
 import theme from '~/theme';
 
-import { ListedSectionFragment } from '../../../../../../clients/dist';
 import { ITEM_HEIGHT } from './constants';
 
 const styles = StyleSheet.create({
@@ -29,9 +29,11 @@ const styles = StyleSheet.create({
   riverName: {
     fontSize: 14,
     fontWeight: '500',
+    color: theme.colors.textMain,
   },
   sectionName: {
     fontSize: 14,
+    color: theme.colors.textMain,
   },
   starsContainer: {
     width: 80,
