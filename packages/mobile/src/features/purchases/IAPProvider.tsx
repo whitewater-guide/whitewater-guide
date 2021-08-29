@@ -6,12 +6,17 @@ import React, {
   useContext,
   useEffect,
   useReducer,
+  useState,
 } from 'react';
 import { Product } from 'react-native-iap';
 import useMountedState from 'react-use/lib/useMountedState';
 
 import { IAPError } from './IAPError';
-import { safeGetProducts, safeInitConnection } from './safe-iap';
+import {
+  safeEndConnection,
+  safeGetProducts,
+  safeInitConnection,
+} from './safe-iap';
 import { SKU } from './types';
 import useSkus from './useSkus';
 
@@ -75,15 +80,18 @@ const reducer: Reducer<State, Action> = (state, action) => {
 export const IapProvider: React.FC = ({ children }) => {
   const isMounted = useMountedState();
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  const [initialized, setInitialized] = useState(false);
   const skus = useSkus();
 
   useEffect(() => {
     safeInitConnection().then((canMakePayments) => {
       if (isMounted()) {
+        setInitialized(true);
         dispatch({ type: ActionType.SET_CMP, canMakePayments });
       }
     });
-  }, [dispatch, isMounted]);
+  }, [dispatch, setInitialized, isMounted]);
 
   const refresh = useCallback(() => {
     if (skus.size === 0) {
@@ -98,8 +106,16 @@ export const IapProvider: React.FC = ({ children }) => {
   }, [skus, dispatch, isMounted]);
 
   useEffect(() => {
-    refresh();
-  }, [refresh]);
+    if (initialized) {
+      refresh();
+    }
+  }, [refresh, initialized]);
+
+  useEffect(() => {
+    return () => {
+      safeEndConnection();
+    };
+  }, []);
 
   // eslint-disable-next-line react/jsx-no-constructed-context-values
   const value: IapContext = { ...state, refresh };

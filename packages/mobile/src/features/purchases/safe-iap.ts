@@ -11,20 +11,23 @@ import { IAPError } from './IAPError';
 
 const LOGGER = 'iap';
 
-const isBillingUnavailable = (e: Error) =>
-  Platform.OS === 'android' &&
-  e.message?.indexOf('Billing is unavailable') === 0;
+function isBillingUnavailable(e: Error): boolean {
+  return (
+    Platform.OS === 'android' &&
+    e.message?.indexOf('Billing is unavailable') === 0
+  );
+}
 
-const safeEndConnection = async () => {
+export async function safeEndConnection() {
   try {
     await endConnection();
-  } catch {
-    /* Ignore */
+  } catch (e: any) {
+    trackError(LOGGER, e);
   }
-};
+}
 
 // Initializes IAP connection. Returns true if user can make payments
-export const safeInitConnection = async (): Promise<boolean> => {
+export async function safeInitConnection(): Promise<boolean> {
   let result = true;
   try {
     result = !!(await initConnection());
@@ -35,18 +38,16 @@ export const safeInitConnection = async (): Promise<boolean> => {
     } else {
       trackError(LOGGER, e);
     }
-  } finally {
-    await safeEndConnection();
   }
   return result;
-};
+}
 
-export const safeGetProducts = async (skus: string[]) => {
+export async function safeGetProducts(skus: string[]) {
   let products: Product[] = [];
   let error: IAPError | undefined;
   try {
     products = await getProducts(skus);
-  } catch (e) {
+  } catch (e: any) {
     if (!isBillingUnavailable(e)) {
       error = new IAPError(
         'screens:purchase.buy.errors.fetchProduct',
@@ -54,11 +55,9 @@ export const safeGetProducts = async (skus: string[]) => {
       );
       trackError(LOGGER, error);
     }
-  } finally {
-    await safeEndConnection();
   }
   return {
     products,
     error,
   };
-};
+}
