@@ -1,31 +1,14 @@
-import React, { forwardRef, useCallback } from 'react';
-import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import React, { forwardRef } from 'react';
+import { StyleProp, View, ViewStyle } from 'react-native';
 import { TextInput } from 'react-native-paper';
+import useToggle from 'react-use/lib/useToggle';
 
-import Icon from '~/components/Icon';
-
-import theme from '../../theme';
 import useFocus from '../useFocus';
 import PasswordStrengthIndicator from './PasswordStrengthIndicator';
 
 type TextInputProps = React.ComponentProps<typeof TextInput>;
 
 const MemoTextInput = React.memo(TextInput);
-
-const styles = StyleSheet.create({
-  iconWrapper: {
-    position: 'absolute',
-    right: theme.margin.single,
-    top: 0,
-    bottom: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    zIndex: 100,
-  },
-  icon: {
-    marginTop: theme.margin.single,
-  },
-});
 
 export interface PasswordInputProps {
   showStrengthIndicator?: boolean;
@@ -44,31 +27,8 @@ export const PasswordInput = React.memo(
       },
       ref,
     ) => {
-      const [secureTextEntry, setSecureTextEntry] = React.useState(true);
-      const [eyeVisible, setEyeVisible] = React.useState(false);
+      const [secureTextEntry, toggleSecureTextEntry] = useToggle(true);
       const inputRef = useFocus(ref);
-      const handleFocus = useCallback(
-        (e) => {
-          setEyeVisible(true);
-          if (onFocus) {
-            onFocus(e);
-          }
-        },
-        [onFocus, setEyeVisible],
-      );
-      const handleBlur = useCallback(
-        (e) => {
-          setEyeVisible(false);
-          if (onBlur) {
-            onBlur(e);
-          }
-        },
-        [onBlur, setEyeVisible],
-      );
-      const toggle = useCallback(() => setSecureTextEntry(!secureTextEntry), [
-        setSecureTextEntry,
-        secureTextEntry,
-      ]);
       return (
         <View>
           <View>
@@ -79,20 +39,16 @@ export const PasswordInput = React.memo(
               textContentType="password"
               mode="outlined"
               {...props}
-              onFocus={handleFocus}
-              onBlur={handleBlur}
+              onFocus={onFocus}
+              onBlur={onBlur}
               secureTextEntry={secureTextEntry}
-            />
-            {eyeVisible && (
-              <View style={styles.iconWrapper}>
-                <Icon
-                  icon={secureTextEntry ? 'eye' : 'eye-off'}
-                  style={styles.icon}
-                  onPress={toggle}
-                  color={theme.colors.textMain}
+              right={
+                <TextInput.Icon
+                  name={secureTextEntry ? 'eye' : 'eye-off'}
+                  onPress={toggleSecureTextEntry}
                 />
-              </View>
-            )}
+              }
+            />
           </View>
           {showStrengthIndicator && (
             <PasswordStrengthIndicator
