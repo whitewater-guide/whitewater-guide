@@ -89,6 +89,10 @@ project.ext.react = [
     devDisabledInReleaseStaging: true,
 ]
 
+project.ext.sentryCli = [
+    logLevel: "debug"
+]
+
 apply from: "../../node_modules/react-native/react.gradle"
 apply from: "../../node_modules/react-native-ultimate-config/android/rnuc.gradle"
 apply from: "../../node_modules/@sentry/react-native/sentry.gradle"
@@ -140,7 +144,7 @@ android {
         resValue "string", "build_config_package", "guide.whitewater"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 100601242
+        versionCode 100601243
         versionName "1.13.2"
         testBuildType System.getProperty('testBuildType', 'debugDetox')
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'

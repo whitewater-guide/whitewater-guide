@@ -8,7 +8,7 @@ export const configErrors = () => {
     dsn: Config.SENTRY_DSN,
     environment: Config.ENV_NAME,
     enabled: !__DEV__,
-    integrations: (items) => items.filter((i) => i.name !== 'Breadcrumbs'),
+    // integrations: (items) => items.filter((i) => i.name !== 'Breadcrumbs'),
   });
   tracker.ready();
 };
