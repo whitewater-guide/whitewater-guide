@@ -3,4 +3,4 @@ app_identifier ENV['IOS_APP_IDENTIFIER']
 apple_id ENV['IOS_USER_ID']
 itc_team_id ENV['IOS_ITC_TEAM_ID']
 
-json_key_file "#{ENV['ANDROID_PROJECT_DIR']}/api-7539978730869786090-149286-33a49ec94c7a.json"
+json_key_file "#{ENV['ANDROID_PROJECT_DIR']}/google_service_account_key.json"
