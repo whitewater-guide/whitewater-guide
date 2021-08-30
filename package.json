@@ -22,7 +22,7 @@
     "dev:images": "scripts/dev_download_images.sh",
     "publish:manually": "scripts/publish_manually.sh",
     "postinstall": "scripts/postinstall.sh",
-    "backup_ignored": "git clean -dxn | sed 's/^Would remove \\(.*\\)/\\1/g' | zip -@ -r ignored.zip"
+    "backup_ignored": "npx backup-gitignored -v"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^13.1.0",

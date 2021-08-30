@@ -1,0 +1,17 @@
+**/*.generated.*
+**/__generated__
+**/node_modules
+**/Pods/
+**/dist/
+**/build/
+**/.DS_Store
+**/dev-mount
+**/.husky/
+**/rnuc.xcconfig
+**/*.ipa
+**/*.dSYM.zip
+**/xcuserdata/
+**/.gradle/
+**/dump/
+**/*.log
+**/report.xml
