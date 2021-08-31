@@ -2,9 +2,10 @@ import { useMapSelection, useRegion } from '@whitewater-guide/clients';
 import React, { useCallback } from 'react';
 import Animated from 'react-native-reanimated';
 
-import { usePremiumGuard } from '../../../features/purchases';
-import theme from '../../../theme';
-import useLastNotNull from '../../../utils/useLastNotNull';
+import { usePremiumGuard } from '~/features/purchases';
+import theme from '~/theme';
+import useLastNotNull from '~/utils/useLastNotNull';
+
 import { NAVIGATE_BUTTON_HEIGHT, NavigateButton } from '../../NavigateButton';
 import {
   SECTION_DETAILS_BUTTON_HEIGHT,

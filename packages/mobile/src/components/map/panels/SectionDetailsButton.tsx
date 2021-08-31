@@ -7,8 +7,9 @@ import { RectButton } from 'react-native-gesture-handler';
 import { Button } from 'react-native-paper';
 
 import { Screens } from '~/core/navigation';
+import theme from '~/theme';
 
-export const SECTION_DETAILS_BUTTON_HEIGHT = 36;
+export const SECTION_DETAILS_BUTTON_HEIGHT = 40;
 
 const styles = StyleSheet.create({
   button: {
@@ -16,6 +17,10 @@ const styles = StyleSheet.create({
     height: SECTION_DETAILS_BUTTON_HEIGHT,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  buttonContent: {
+    height: SECTION_DETAILS_BUTTON_HEIGHT,
+    width: theme.screenWidth,
   },
 });
 
@@ -43,7 +48,12 @@ export const SectionDetailsButton: React.FC<Props> = memo(({ sectionId }) => {
     );
   }
   return (
-    <Button mode="contained" style={styles.button} onPress={onPress}>
+    <Button
+      mode="contained"
+      style={styles.button}
+      contentStyle={styles.buttonContent}
+      onPress={onPress}
+    >
       {t('region:map.selectedSection.details')}
     </Button>
   );
