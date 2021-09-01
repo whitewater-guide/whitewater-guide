@@ -31,7 +31,6 @@ const DescentFormCommentView: React.FC = () => {
         }
         multiline
         label={t('screens:descentForm.comment.commentLabel')}
-        placeholder={t('screens:descentForm.comment.commentPlaceholder')}
         fullHeight
       />
       <CheckboxField
