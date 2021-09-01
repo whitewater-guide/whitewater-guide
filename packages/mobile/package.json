@@ -74,7 +74,7 @@
     "@whitewater-guide/clients": "*",
     "@whitewater-guide/commons": "*",
     "@whitewater-guide/schema": "*",
-    "@whitewater-guide/translations": "^2.5.3",
+    "@whitewater-guide/translations": "^2.5.5",
     "@whitewater-guide/validation": "*",
     "apollo-cache": "^1.3.5",
     "apollo-cache-inmemory": "^1.6.6",
