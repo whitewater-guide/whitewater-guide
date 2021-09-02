@@ -6263,10 +6263,10 @@
     prosemirror-view "^1.11.6"
     tslib "^1.10.0"
 
-"@whitewater-guide/translations@^2.5.5":
-  version "2.5.5"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/translations/-/translations-2.5.5.tgz#a2922108a990eb7b4f86081de5a72205157ea560"
-  integrity sha512-PztyRLjFa7/g7GHTOM9EdRlVzVduoSUcGPKtxbg8VssYfVIanh6a/TNhTBDfQqZrVpcbp/KAAAxA6HnXhxxMDg==
+"@whitewater-guide/translations@^2.5.6":
+  version "2.5.6"
+  resolved "https://registry.yarnpkg.com/@whitewater-guide/translations/-/translations-2.5.6.tgz#639266419362bd78d4e1f749a28219da2cc02be3"
+  integrity sha512-vgDkaaibbcXsCxTBKZ28HMu2gELk167GUWX+K2yya6ghG32c4g/2UEkmG3kRqYWvqdhczaz3GJ7UWB9h4Dv85w==
 
 "@wry/context@^0.4.0":
   version "0.4.4"
