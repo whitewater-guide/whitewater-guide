@@ -41,7 +41,7 @@ interface Props {
   regionId?: string | null;
   limit?: number | ((offset: number) => number);
   pollInterval?: number;
-  isConnected: boolean;
+  isConnected: boolean | null;
   client: ApolloClient<any>;
 }
 
@@ -107,12 +107,12 @@ export class SectionsListProvider extends React.PureComponent<
     this._mounted = true;
     const { isConnected } = this.props;
     const { count, sections } = this.state;
-    if (count === 0 || sections.length < count) {
-      await this.loadInitial();
-    } else {
-      await this.loadUpdates();
-    }
     if (isConnected) {
+      if (count === 0 || sections.length < count) {
+        await this.loadInitial();
+      } else {
+        await this.loadUpdates();
+      }
       await this.startPolling();
     }
   }

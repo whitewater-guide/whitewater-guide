@@ -1,11 +1,11 @@
 import { SectionsStatus } from '@whitewater-guide/clients';
-import debounce from 'lodash/debounce';
-import React from 'react';
-import { WithTranslation, withTranslation } from 'react-i18next';
+import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Caption } from 'react-native-paper';
+import { useDebounce } from 'use-debounce';
 
-import theme from '../../theme';
+import theme from '~/theme';
 
 const BAR_HEIGHT = 32;
 
@@ -36,45 +36,24 @@ interface Props {
   count: number;
 }
 
-interface State {
-  status: SectionsStatus;
-}
+const SectionsProgress: FC<Props> = (props) => {
+  const { loaded, count } = props;
+  const { t } = useTranslation();
+  const [status] = useDebounce(props.status, 200);
+  const visible = status !== SectionsStatus.READY && loaded < count;
 
-class SectionsProgress extends React.PureComponent<
-  Props & WithTranslation,
-  State
-> {
-  readonly state: State = { status: this.props.status };
+  const caption = t(
+    status === SectionsStatus.LOADING
+      ? 'region:sections.loading'
+      : 'region:sections.loadingUpdates',
+    { loaded, count },
+  );
 
-  updateState = debounce(this.setState, 200);
+  return (
+    <View style={[styles.body, visible ? styles.visible : styles.hidden]}>
+      <Caption style={styles.text}>{caption}</Caption>
+    </View>
+  );
+};
 
-  componentWillUnmount() {
-    this.updateState.cancel();
-  }
-
-  componentDidUpdate(prevProps: Props) {
-    if (prevProps.status !== this.props.status) {
-      this.updateState({ status: this.props.status });
-    }
-  }
-
-  render() {
-    const { loaded, count, t } = this.props;
-    const { status } = this.state;
-    const visible =
-      status !== SectionsStatus.READY && this.props.loaded < this.props.count;
-    const caption = t(
-      status === SectionsStatus.LOADING
-        ? 'region:sections.loading'
-        : 'region:sections.loadingUpdates',
-      { loaded, count },
-    );
-    return (
-      <View style={[styles.body, visible ? styles.visible : styles.hidden]}>
-        <Caption style={styles.text}>{caption}</Caption>
-      </View>
-    );
-  }
-}
-
-export default withTranslation()(SectionsProgress);
+export default SectionsProgress;

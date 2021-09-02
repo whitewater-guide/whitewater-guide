@@ -25,11 +25,12 @@ const InnerRegionScreen: React.FC<Props> = ({ regionId }) => {
   const filterOptions = useSectionsFilterOptions();
   const { isConnected } = useNetInfo();
   const client = useApolloClient();
+
   return (
     <SectionsListProvider
       filterOptions={filterOptions}
       regionId={regionId}
-      isConnected={!!isConnected}
+      isConnected={isConnected}
       client={client}
       limit={limitFn}
     >
