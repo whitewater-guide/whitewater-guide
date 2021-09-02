@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     height: ITEM_HEIGHT,
     flexDirection: 'row',
     padding: 8,
-    backgroundColor: theme.colors.primaryBackground,
+    backgroundColor: theme.colors.lightBackground,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderColor: theme.colors.border,
     alignItems: 'center',

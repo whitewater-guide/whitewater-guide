@@ -16,13 +16,14 @@ import theme from '~/theme';
 
 import { ItemProps } from '../types';
 import { runAnimation, SwipeableAnimation } from './animations';
+import FavoriteButton from './FavoriteButton';
 import SectionListBody from './SectionListBody';
 
 const styles = StyleSheet.create({
   container: {
     width: theme.screenWidth,
     height: NAVIGATE_BUTTON_HEIGHT,
-    backgroundColor: theme.colors.primaryBackground,
+    backgroundColor: theme.colors.lightBackground,
   },
   right: {
     position: 'absolute',
@@ -38,20 +39,20 @@ const activeOffsetX = [-15, 15];
 const activeOffsetY = [-10000, 10000];
 const failOffsetY = [-15, 15];
 
-type Props = ItemProps<ListedSectionFragment>;
+type SectionListItemProps = ItemProps<ListedSectionFragment>;
 
-export class SectionListItem extends React.Component<Props> {
+export class SectionListItem extends React.Component<SectionListItemProps> {
   private readonly _animation: SwipeableAnimation;
 
   private readonly _scalePI: Reanimated.Node<number>;
-
   private readonly _scaleTO: Reanimated.Node<number>;
+  private readonly _scaleFav: Reanimated.Node<number>;
 
   private readonly _animationStyle: any;
 
-  constructor(props: Props) {
+  constructor(props: SectionListItemProps) {
     super(props);
-    this._animation = runAnimation(-2 * NAVIGATE_BUTTON_WIDTH, this.onOpen);
+    this._animation = runAnimation(-3 * NAVIGATE_BUTTON_WIDTH, this.onOpen);
     this._animationStyle = {
       transform: [{ translateX: this._animation.position }],
     };
@@ -65,9 +66,14 @@ export class SectionListItem extends React.Component<Props> {
       outputRange: [1, 0],
       extrapolate: Reanimated.Extrapolate.CLAMP,
     });
+    this._scaleFav = Reanimated.interpolate(this._animation.position, {
+      inputRange: [-3 * NAVIGATE_BUTTON_WIDTH, -2 * NAVIGATE_BUTTON_WIDTH],
+      outputRange: [1, 0],
+      extrapolate: Reanimated.Extrapolate.CLAMP,
+    });
   }
 
-  shouldComponentUpdate(next: Readonly<Props>): boolean {
+  shouldComponentUpdate(next: Readonly<SectionListItemProps>): boolean {
     const { props } = this;
     return (
       props.forceCloseCnt !== next.forceCloseCnt ||
@@ -77,7 +83,7 @@ export class SectionListItem extends React.Component<Props> {
     );
   }
 
-  componentDidUpdate(prevProps: Props) {
+  componentDidUpdate(prevProps: SectionListItemProps) {
     const { swipedId, item, forceCloseCnt } = this.props;
     if (
       forceCloseCnt !== prevProps.forceCloseCnt ||
@@ -92,10 +98,8 @@ export class SectionListItem extends React.Component<Props> {
   onPress = () => this.props.onPress(this.props.item);
 
   onOpen = () => {
-    const { onMaximize, item } = this.props;
-    if (onMaximize) {
-      onMaximize(item.id);
-    }
+    const { onSwipe, item } = this.props;
+    onSwipe?.(item.id);
   };
 
   premiumGuard = () => {
@@ -109,10 +113,15 @@ export class SectionListItem extends React.Component<Props> {
   };
 
   render() {
-    const { item, regionPremium, testID } = this.props;
+    const { item, regionPremium, testID, onSwipe } = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.right}>
+          <FavoriteButton
+            section={item}
+            scale={this._scaleFav}
+            onToggle={onSwipe}
+          />
           <NavigateButton
             labelKey="commons:putIn"
             point={item.putIn}

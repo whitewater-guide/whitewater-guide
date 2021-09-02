@@ -5,12 +5,11 @@ import {
   RegionDetailsFragment,
   SectionsStatus,
 } from '@whitewater-guide/clients';
+import { BannerWithSourceFragment } from '@whitewater-guide/schema';
 
 import { Screens } from '~/core/navigation';
-import {
-  RegionTabsNavProp,
-  RegionTabsParamsList,
-} from '~/screens/region/types';
+
+import { RegionTabsNavProp, RegionTabsParamsList } from '../types';
 
 export interface ItemProps<T> {
   hasPremiumAccess: boolean;
@@ -19,7 +18,7 @@ export interface ItemProps<T> {
   swipedId: string;
   item: T;
   onPress: (section: ListedSectionFragment) => void;
-  onMaximize?: (id: string) => void;
+  onSwipe?: (id: string) => void;
   forceCloseCnt?: number;
   testID?: string;
 }
@@ -43,3 +42,7 @@ export interface RegionSectionsNavProps {
   navigation: RegionSectionsNavProp;
   route: RouteProp<RegionTabsParamsList, Screens.REGION_SECTIONS_LIST>;
 }
+
+export type SectionsListDataItem =
+  | ListedSectionFragment
+  | BannerWithSourceFragment;

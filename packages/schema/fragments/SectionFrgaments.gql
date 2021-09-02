@@ -25,6 +25,7 @@ fragment SectionCore on Section {
   helpNeeded
   demo
   verified
+  favorite
 
   season
   seasonNumeric

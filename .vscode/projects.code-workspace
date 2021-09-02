@@ -71,6 +71,7 @@
       "**/__generated__": true,
       "**/build": true,
       "**/dist": true,
+      "**/Pods/**": true,
       "**/node_modules": true,
       "**/yarn-error.log": true,
       "**/yarn.lock": true
@@ -85,6 +86,7 @@
       "**/build/**": true,
       "**/dist/**": true,
       "**/*.log": true,
+      "**/Pods/**": true,
       "**/yarn.lock": true
     },
     "typescript.disableAutomaticTypeAcquisition": true

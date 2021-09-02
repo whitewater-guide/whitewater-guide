@@ -1,38 +1,41 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import { StyleSheet } from 'react-native';
-import { RecyclerListView } from 'recyclerlistview';
+import { LargeList } from 'react-native-largelist';
 
-import { layoutProvider } from './item';
+import { ITEM_HEIGHT } from './item';
 import NoSectionsPlaceholder from './NoSectionsPlaceholder';
+import RefreshControl from './RefreshControl';
 import { ListProps } from './types';
-import useDataProvider from './useDataProvider';
-import useRenderer from './useRenderer';
+import useLargelist from './useLargelist';
 
-type Props = ListProps;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 
-export const SectionsList = React.memo(
-  forwardRef<any, Props>((props, ref) => {
-    const { region, sections } = props;
-    const dataProvider = useDataProvider(sections, region);
-    const { extendedState, renderItem, scrollViewProps } = useRenderer(props);
+const heightForIndexPath = () => ITEM_HEIGHT;
 
-    if (!region || sections.length === 0) {
-      return <NoSectionsPlaceholder />;
-    }
-    return (
-      <RecyclerListView
-        ref={ref}
-        style={StyleSheet.absoluteFill}
-        layoutProvider={layoutProvider}
-        dataProvider={dataProvider}
-        rowRenderer={renderItem}
-        extendedState={extendedState}
-        scrollViewProps={scrollViewProps}
-        testID="sections-list-recycler"
-      />
-    );
-  }),
-);
+export const SectionsList = React.memo<ListProps>((props) => {
+  const { region, sections } = props;
+  const listProps = useLargelist(props);
+
+  if (!region || sections.length === 0) {
+    return <NoSectionsPlaceholder />;
+  }
+
+  return (
+    <LargeList
+      directionalLockEnabled
+      style={styles.container}
+      heightForIndexPath={heightForIndexPath}
+      showsVerticalScrollIndicator={false}
+      refreshHeader={RefreshControl}
+      testID="sections-largelist"
+      {...listProps}
+    />
+  );
+});
 
 SectionsList.displayName = 'SectionsList';
 

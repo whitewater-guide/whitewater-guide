@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const NoSectionsPlaceholder: React.StatelessComponent = () => (
+const NoSectionsPlaceholder: React.FC = () => (
   <View style={styles.container}>
     <Subheading>Oops!</Subheading>
     <Paragraph>Could not find any sections</Paragraph>

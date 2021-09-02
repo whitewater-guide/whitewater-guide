@@ -1,3 +1,3 @@
 export * from './constants';
-export * from './layoutProvider';
 export * from './ListItem';
+export * from './SectionListSubtitle';
