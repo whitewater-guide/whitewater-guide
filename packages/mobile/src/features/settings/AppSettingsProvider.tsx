@@ -5,7 +5,14 @@ import React, { useContext, useEffect, useMemo, useState } from 'react';
 import Layers from '~/components/map/layers';
 
 export interface AppSettings {
+  /**
+   * Which map type user prefers (street terrain/satellite)
+   */
   mapType?: string;
+  /**
+   * True if user has interacted with swipeable section tip
+   */
+  seenSwipeableSectionTip?: boolean;
 }
 
 export interface AppSettingsCtx {

@@ -43,6 +43,12 @@ export interface RegionSectionsNavProps {
   route: RouteProp<RegionTabsParamsList, Screens.REGION_SECTIONS_LIST>;
 }
 
+export interface SwipeableSectionTipItem {
+  __typename: 'SwipeableSectionTipItem';
+  id: string;
+}
+
 export type SectionsListDataItem =
+  | SwipeableSectionTipItem
   | ListedSectionFragment
   | BannerWithSourceFragment;

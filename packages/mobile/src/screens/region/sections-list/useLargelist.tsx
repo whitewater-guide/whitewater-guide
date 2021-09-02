@@ -5,6 +5,7 @@ import { LargeList, LargeListPropType } from 'react-native-largelist';
 
 import { Screens } from '~/core/navigation';
 import { hasPremiumAccess, useIap } from '~/features/purchases';
+import { useAppSettings } from '~/features/settings';
 
 import getSectionsListData from './getSectionsListData';
 import {
@@ -35,6 +36,9 @@ export default function useLargelist(props: ListProps): UseLargeList {
   const { navigate } = useNavigation<RegionSectionsNavProp>();
   const { canMakePayments } = useIap();
   const ref = useRef<LargeList>(null);
+  const {
+    settings: { seenSwipeableSectionTip },
+  } = useAppSettings();
 
   const [extraState, setExtraState] = useState<ExtendedState>({
     swipedId: '',
@@ -44,7 +48,7 @@ export default function useLargelist(props: ListProps): UseLargeList {
 
   return useMemo(() => {
     const { region, refresh } = props;
-    const data = getSectionsListData(props);
+    const data = getSectionsListData(props, seenSwipeableSectionTip);
     const hasFavs = data.length > 1;
 
     const heightForSection = () =>
@@ -80,9 +84,12 @@ export default function useLargelist(props: ListProps): UseLargeList {
       row,
     }) => {
       const item = data[section].items[row];
+      const gotPremium =
+        item.__typename === 'Section' &&
+        hasPremiumAccess(canMakePayments, region, item);
       return (
         <ListItem
-          hasPremiumAccess={hasPremiumAccess(canMakePayments, region, item)}
+          hasPremiumAccess={gotPremium}
           buyRegion={buyRegion}
           regionPremium={region ? region.premium : false}
           forceCloseCnt={extraState.forceCloseCnt}
@@ -112,5 +119,13 @@ export default function useLargelist(props: ListProps): UseLargeList {
       onScrollBeginDrag: forceCloseRows,
       onScrollEndDrag: forceCloseRows,
     };
-  }, [props, navigate, canMakePayments, extraState, setExtraState, ref]);
+  }, [
+    props,
+    navigate,
+    canMakePayments,
+    extraState,
+    setExtraState,
+    seenSwipeableSectionTip,
+    ref,
+  ]);
 }

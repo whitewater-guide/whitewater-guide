@@ -5,32 +5,42 @@ import {
 } from '@whitewater-guide/schema';
 
 import { getBannersForPlacement } from '~/features/banners';
-import {
-  ListProps,
-  SectionsListDataItem,
-} from '~/screens/region/sections-list/types';
 
 import { ROWS_PER_SCREEN } from './item';
+import { ListProps, SectionsListDataItem } from './types';
 
 type SectionsListData = {
   label: string;
   items: SectionsListDataItem[];
 }[];
 
-export default function getSectionsListData({
-  sections,
-  region,
-}: ListProps): SectionsListData {
+export default function getSectionsListData(
+  { sections, region }: ListProps,
+  seenSwipeableSectionTip?: boolean,
+): SectionsListData {
   const favorites = sections.filter((s) => s.favorite);
   const favsCount = favorites.length;
-  const favsSection: SectionsListData = favsCount
-    ? [
-        {
-          items: favorites,
-          label: 'screens:region.sectionsList.favorites',
-        },
-      ]
-    : [];
+  let favsSection: SectionsListData = [];
+  if (favsCount) {
+    favsSection = [
+      {
+        items: favorites,
+        label: 'screens:region.sectionsList.favorites',
+      },
+    ];
+  } else if (!seenSwipeableSectionTip) {
+    favsSection = [
+      {
+        items: [
+          {
+            __typename: 'SwipeableSectionTipItem',
+            id: 'SwipeableSectionTipItem',
+          },
+        ],
+        label: 'screens:region.sectionsList.favorites',
+      },
+    ];
+  }
 
   if (!region) {
     return [

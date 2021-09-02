@@ -1,15 +1,12 @@
-import {
-  ListedSectionFragment,
-  sectionHasChanged,
-} from '@whitewater-guide/clients';
-import { BannerWithSourceFragment } from '@whitewater-guide/schema';
+import { sectionHasChanged } from '@whitewater-guide/clients';
 import React from 'react';
 
-import { ItemProps } from '../types';
+import { ItemProps, SectionsListDataItem } from '../types';
 import { SectionListBanner } from './SectionListBanner';
 import { SectionListItem } from './SectionListItem';
+import SwipeableSectionTip from './SwipeableSectionTip';
 
-type Props = ItemProps<ListedSectionFragment | BannerWithSourceFragment> & {
+type Props = ItemProps<SectionsListDataItem> & {
   swipedId: string;
 };
 
@@ -23,12 +20,21 @@ const propsAreEqual = (prev: Props, next: Props) =>
   prev.forceCloseCnt === next.forceCloseCnt;
 
 export const ListItem = React.memo<Props>((props) => {
-  if (props.item.__typename === 'Banner') {
-    return <SectionListBanner banner={props.item} />;
-  } else if (props.item.__typename === 'Section') {
-    return <SectionListItem {...props} item={props.item} />;
+  switch (props.item.__typename) {
+    case 'Banner':
+      return <SectionListBanner banner={props.item} />;
+    case 'Section':
+      return <SectionListItem {...props} item={props.item} />;
+    case 'SwipeableSectionTipItem':
+      return (
+        <SwipeableSectionTip
+          onSwipe={props.onSwipe}
+          swipedId={props.swipedId}
+        />
+      );
+    default:
+      return null;
   }
-  return null;
 }, propsAreEqual);
 
 ListItem.displayName = 'ListItem';
