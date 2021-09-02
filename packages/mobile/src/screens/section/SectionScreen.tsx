@@ -1,9 +1,11 @@
+import * as Sentry from '@sentry/react-native';
 import {
   MapSelectionProvider,
   RegionProvider,
+  SectionDetailsQuery,
   SectionProvider,
 } from '@whitewater-guide/clients';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import ErrorBoundary from '~/components/ErrorBoundary';
 import { SelectedPOIView } from '~/components/map';
@@ -13,6 +15,44 @@ import { SectionScreenNavProps } from '~/screens/section/types';
 import theme from '~/theme';
 
 import SectionTabs from './SectionTabs';
+
+interface SectionRegionProviderProps {
+  loading: boolean;
+  section: NonNullable<SectionDetailsQuery['section']>;
+}
+
+const SectionRegionProvider: React.FC<SectionRegionProviderProps> = ({
+  loading,
+  section,
+  children,
+}) => {
+  useEffect(() => {
+    Sentry.addBreadcrumb({
+      category: 'data',
+      level: Sentry.Severity.Info,
+      data: { section: section.id, keys: Object.keys(section), loading },
+    });
+  }, [section, loading]);
+
+  return (
+    <RegionProvider
+      regionId={section.region.id}
+      bannerWidth={theme.screenWidthPx}
+      fetchPolicy="cache-first"
+    >
+      {(r) => (
+        <WithNetworkError
+          hasData={!!r.data?.region}
+          hasError={!!r.error}
+          loading={r.loading}
+          refetch={r.refetch}
+        >
+          <MapSelectionProvider>{children}</MapSelectionProvider>
+        </WithNetworkError>
+      )}
+    </RegionProvider>
+  );
+};
 
 const SectionScreen: React.FC<SectionScreenNavProps> = (props) => {
   const { sectionId } = props.route.params;
@@ -27,25 +67,10 @@ const SectionScreen: React.FC<SectionScreenNavProps> = (props) => {
             refetch={refetch}
           >
             {data?.section && (
-              <RegionProvider
-                regionId={data.section.region.id}
-                bannerWidth={theme.screenWidthPx}
-                fetchPolicy="cache-first"
-              >
-                {(r) => (
-                  <WithNetworkError
-                    hasData={!!r.data?.region}
-                    hasError={!!r.error}
-                    loading={r.loading}
-                    refetch={r.refetch}
-                  >
-                    <MapSelectionProvider>
-                      <SectionTabs {...props} />
-                      <SelectedPOIView />
-                    </MapSelectionProvider>
-                  </WithNetworkError>
-                )}
-              </RegionProvider>
+              <SectionRegionProvider section={data?.section} loading={loading}>
+                <SectionTabs {...props} />
+                <SelectedPOIView />
+              </SectionRegionProvider>
             )}
           </WithNetworkError>
         )}
