@@ -7,7 +7,6 @@
   "repository": "https://github.com/doomsower/whitewater.git",
   "author": "doomsower <K.Kuznetcov@gmail.com>",
   "scripts": {
-    "dump:production": "scripts/refresh_dump.sh production",
-    "dump:staging": "scripts/refresh_dump.sh staging"
+    "dump": "scripts/refresh_dump.sh backups.whitewater.guide ww-prod"
   }
 }
