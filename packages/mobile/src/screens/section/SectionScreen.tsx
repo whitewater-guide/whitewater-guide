@@ -8,6 +8,7 @@ import {
 import React, { useEffect } from 'react';
 
 import ErrorBoundary from '~/components/ErrorBoundary';
+import Loading from '~/components/Loading';
 import { SelectedPOIView } from '~/components/map';
 import WithNetworkError from '~/components/WithNetworkError';
 import { PHOTO_SIZE_PX } from '~/features/media';
@@ -28,11 +29,17 @@ const SectionRegionProvider: React.FC<SectionRegionProviderProps> = ({
 }) => {
   useEffect(() => {
     Sentry.addBreadcrumb({
+      type: 'debug',
       category: 'data',
       level: Sentry.Severity.Info,
+      message: 'SectionRegionProvider debug info',
       data: { section: section.id, keys: Object.keys(section), loading },
     });
   }, [section, loading]);
+
+  if (!section.region && loading) {
+    return <Loading />;
+  }
 
   return (
     <RegionProvider
