@@ -1,5 +1,6 @@
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
+import compress from 'koa-compress';
 
 import { applyAuthMiddleware } from '~/auth';
 import { db } from '~/db';
@@ -13,15 +14,16 @@ export type App = Koa & {
   shutdown: () => Promise<any>;
 };
 
-export const createApp = (): App => {
+export function createApp(): App {
   const app = new Koa();
   app.silent = true;
   app.proxy = config.NODE_ENV === 'production';
   app.on('error', (err) => log.error(err));
 
   app.use(corsMiddleware);
-
   app.use(bodyParser());
+  app.use(compress());
+
   applyAuthMiddleware(app);
 
   addPingRoute(app);
@@ -29,4 +31,4 @@ export const createApp = (): App => {
   return Object.assign(app, {
     shutdown: () => Promise.all([db(true).destroy()]),
   });
-};
+}
