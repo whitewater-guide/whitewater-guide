@@ -81,14 +81,13 @@ export class SectionsConnector extends OffsetConnector<
     return query;
   }
 
-  getBatchQueue(keys: string[]): QueryBuilder {
+  protected override getBatchQuery(keys: string[]): QueryBuilder {
     const query = super.getBatchQuery(keys);
-    this.addHiddenWhere(query);
     this.addFavoriteColumn(query);
     return query;
   }
 
-  getMany(
+  public override getMany(
     info: GraphQLResolveInfo,
     { filter = {}, ...options }: GetManyOptions = {},
   ) {

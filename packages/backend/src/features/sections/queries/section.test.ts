@@ -250,7 +250,7 @@ describe('i18n', () => {
   it('should fall back to default language when both desired and english translations are not provided', async () => {
     const result = await testSectionDetails(
       { id: RUSSIA_MZYMTA_PASEKA },
-      fakeContext(EDITOR_NO_EC, 'pt'),
+      fakeContext(TEST_USER, 'pt'),
     );
     expect(result.errors).toBeUndefined();
     expect(result.data?.section).toMatchObject({
@@ -258,6 +258,7 @@ describe('i18n', () => {
       description: 'Пасека описание',
       distance: 2.2,
       pois: [{ name: 'Обнос прорыва' }],
+      favorite: true,
     });
   });
 });
