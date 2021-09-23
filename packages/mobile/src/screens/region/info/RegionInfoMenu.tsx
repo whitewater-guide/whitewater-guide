@@ -2,10 +2,11 @@ import { useActionSheet } from '@expo/react-native-action-sheet';
 import { useRegion } from '@whitewater-guide/clients';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Clipboard, Platform } from 'react-native';
+import { Platform } from 'react-native';
 import { IconButton } from 'react-native-paper';
 
 import theme from '~/theme';
+import copyAndToast from '~/utils/copyAndToast';
 
 const RegionInfoMenu: React.FC = () => {
   const region = useRegion();
@@ -24,7 +25,7 @@ const RegionInfoMenu: React.FC = () => {
           return;
         }
         if (region.description) {
-          Clipboard.setString(region.description);
+          copyAndToast(region.description);
         }
       },
     );

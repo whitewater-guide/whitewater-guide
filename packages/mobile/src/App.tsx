@@ -1,3 +1,4 @@
+import { ApolloClient, ApolloProvider } from '@apollo/client';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 import {
   AuthProvider,
@@ -5,15 +6,12 @@ import {
   RegionsFilterProvider,
   TagsProvider,
 } from '@whitewater-guide/clients';
-import ApolloClient from 'apollo-client';
 import React from 'react';
-import { ApolloProvider } from 'react-apollo';
 import { StyleSheet, View } from 'react-native';
 import NativeSplashScreen from 'react-native-bootsplash';
 import { Provider as PaperProvider } from 'react-native-paper';
 
 import Loading from '~/components/Loading';
-import { Snackbar, SnackbarProvider } from '~/components/snackbar';
 import {
   OfflineContentDialog,
   OfflineContentProvider,
@@ -46,7 +44,6 @@ class App extends React.PureComponent {
   }
 
   async componentDidMount() {
-    // findPath('src/App.tsx', 'node_modules/react-native-svg/src/elements/Pattern.tsx');
     this._apolloClient = await initApolloClient(this._authService);
     this.forceUpdate();
   }
@@ -59,10 +56,6 @@ class App extends React.PureComponent {
     NativeSplashScreen.hide();
     throw error;
   }
-
-  onSignOut = () => {
-    // TODO: navigation reset to home screen on sign out
-  };
 
   // See https://github.com/apollographql/apollo-cache-persist/issues/34#issuecomment-371177206 for explanation
   resetApolloCache = async () => {
@@ -84,26 +77,23 @@ class App extends React.PureComponent {
               >
                 <I18nProvider onUserLanguageChange={this.resetApolloCache}>
                   <UploadsProvider>
-                    <SnackbarProvider>
-                      <RegionsFilterProvider>
-                        <AppSettingsProvider>
-                          <IapProvider>
-                            <OfflineContentProvider>
-                              <ActionSheetProvider>
-                                <NavigationRoot>
-                                  <PreviousVersion />
-                                  <View style={StyleSheet.absoluteFill}>
-                                    <RootDrawer />
-                                    <OfflineContentDialog />
-                                  </View>
-                                  <Snackbar />
-                                </NavigationRoot>
-                              </ActionSheetProvider>
-                            </OfflineContentProvider>
-                          </IapProvider>
-                        </AppSettingsProvider>
-                      </RegionsFilterProvider>
-                    </SnackbarProvider>
+                    <RegionsFilterProvider>
+                      <AppSettingsProvider>
+                        <IapProvider>
+                          <OfflineContentProvider>
+                            <ActionSheetProvider>
+                              <NavigationRoot>
+                                <PreviousVersion />
+                                <View style={StyleSheet.absoluteFill}>
+                                  <RootDrawer />
+                                  <OfflineContentDialog />
+                                </View>
+                              </NavigationRoot>
+                            </ActionSheetProvider>
+                          </OfflineContentProvider>
+                        </IapProvider>
+                      </AppSettingsProvider>
+                    </RegionsFilterProvider>
                   </UploadsProvider>
                 </I18nProvider>
               </AuthProvider>

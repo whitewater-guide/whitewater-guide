@@ -2,7 +2,6 @@ import {
   anonContext,
   countRows,
   fakeContext,
-  isTimestamp,
   isUUID,
   noTimestamps,
   noUnstable,
@@ -138,8 +137,8 @@ describe('insert', () => {
   it('should return timestamps', () => {
     expect(insertedRiver.createdAt).toBeDefined();
     expect(insertedRiver.updatedAt).toBeDefined();
-    expect(isTimestamp(insertedRiver.createdAt)).toBe(true);
-    expect(isTimestamp(insertedRiver.updatedAt)).toBe(true);
+    expect(insertedRiver.createdAt).toBeInstanceOf(Date);
+    expect(insertedRiver.updatedAt).toBeInstanceOf(Date);
   });
 
   it('should match snapshot', () => {

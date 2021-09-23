@@ -1,5 +1,5 @@
 import { ListedSectionFragment } from '@whitewater-guide/clients';
-import React from 'react';
+import React, { memo, Ref } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 
@@ -52,12 +52,13 @@ interface Props {
   section: ListedSectionFragment;
   regionPremium?: boolean | null;
   onPress: () => void;
+  waitFor?: Ref<unknown>;
   testID?: string;
 }
 
-const SectionListBody: React.FC<Props> = React.memo(
-  ({ onPress, regionPremium, section, testID }) => (
-    <RectButton onPress={onPress} testID={testID}>
+const SectionListBody = memo<Props>(
+  ({ onPress, regionPremium, section, waitFor, testID }) => (
+    <RectButton onPress={onPress} waitFor={waitFor} testID={testID}>
       <View style={styles.container}>
         <DifficultyThumb
           difficulty={section.difficulty}

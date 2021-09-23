@@ -14,7 +14,7 @@ Object {
   ],
   "admin": true,
   "avatar": "https://ww.guide/pic.jpg",
-  "createdAt": "2017-02-01T00:00:00.000Z",
+  "createdAt": 2017-02-01T00:00:00.000Z,
   "editor": false,
   "editorSettings": null,
   "email": "kaospostage@gmail.com",
@@ -22,7 +22,7 @@ Object {
   "imperial": false,
   "language": "en",
   "name": "Ivan Ivanov",
-  "updatedAt": "2017-02-01T00:00:00.000Z",
+  "updatedAt": 2017-02-01T00:00:00.000Z,
   "verified": true,
 }
 `;
@@ -32,7 +32,7 @@ Object {
   "accounts": Array [],
   "admin": false,
   "avatar": null,
-  "createdAt": "2017-05-04T00:00:00.000Z",
+  "createdAt": 2017-05-04T00:00:00.000Z,
   "editor": false,
   "editorSettings": null,
   "email": "konstantin@gmail.com",
@@ -40,7 +40,7 @@ Object {
   "imperial": false,
   "language": "ru",
   "name": "Another usr",
-  "updatedAt": "2017-05-04T00:00:00.000Z",
+  "updatedAt": 2017-05-04T00:00:00.000Z,
   "verified": true,
 }
 `;

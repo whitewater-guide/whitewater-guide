@@ -5,6 +5,7 @@ export default (regionId?: string) => {
     fetchPolicy: 'network-only',
     variables: { regionId },
   });
+
   return {
     summary: data?.region?.mediaSummary,
     error: error,

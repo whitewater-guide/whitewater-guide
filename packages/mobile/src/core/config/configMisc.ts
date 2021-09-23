@@ -1,5 +1,6 @@
 import Mapbox from '@react-native-mapbox-gl/maps';
 import { LogBox, UIManager } from 'react-native';
+import { Settings } from 'react-native-fbsdk-next';
 import Config from 'react-native-ultimate-config';
 
 const configMisc = () => {
@@ -9,6 +10,8 @@ const configMisc = () => {
 
   Mapbox.setAccessToken(Config.MAPBOX_ACCESS_TOKEN);
   Mapbox.setTelemetryEnabled(false);
+
+  Settings.initializeSDK();
 
   LogBox.ignoreLogs(['`new NativeEventEmitter()`']);
 

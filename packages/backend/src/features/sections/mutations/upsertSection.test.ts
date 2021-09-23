@@ -141,7 +141,7 @@ const existingRiverSection: SectionInput = {
     [33, 33],
     [34, 42, 0],
     [34, 43, null],
-  ],
+  ] as any, // this imitates arbitrary input from client
   distance: 2.44,
   drop: 101.1,
   duration: Duration.LAPS,
@@ -162,7 +162,7 @@ const existingRiverSection: SectionInput = {
       name: 'playrun pt 2',
       description: 'pt 2 d',
       kind: 'portage',
-      coordinates: [33, 34], // 2d
+      coordinates: [33, 34] as any, // 2d - this imitates arbitrary input from client
     },
   ],
   media: [],
@@ -206,7 +206,7 @@ const updateData: SectionInput = {
       name: 'Updated new poi 1 name',
       description: 'Updated new poi 1 description',
       kind: 'portage',
-      coordinates: [66, 77, null],
+      coordinates: [66, 77, null] as any, // this imitates arbitrary input from client
     },
     {
       id: null,
@@ -674,7 +674,7 @@ describe('i18n', () => {
   });
 
   it('should update poi translation', async () => {
-    const updateRu = {
+    const updateRu: SectionInput = {
       ...updateData,
       pois: [
         {

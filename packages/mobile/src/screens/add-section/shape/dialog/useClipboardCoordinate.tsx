@@ -1,7 +1,8 @@
+import Clipboard from '@react-native-clipboard/clipboard';
 import Coordinates from 'coordinate-parser';
 import round from 'lodash/round';
 import { useCallback, useEffect, useState } from 'react';
-import { AppState, Clipboard } from 'react-native';
+import { AppState } from 'react-native';
 
 export default (): CodegenCoordinates | null => {
   const [coordinate, setCoordinate] = useState<CodegenCoordinates | null>(null);
@@ -18,9 +19,9 @@ export default (): CodegenCoordinates | null => {
       });
   }, [setCoordinate]);
   useEffect(() => {
-    AppState.addEventListener('change', inspectClipboard);
+    const sub = AppState.addEventListener('change', inspectClipboard);
     return () => {
-      AppState.removeEventListener('change', inspectClipboard);
+      sub.remove();
     };
   }, [inspectClipboard]);
   useEffect(() => {

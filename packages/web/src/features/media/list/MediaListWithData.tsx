@@ -1,7 +1,7 @@
 import { useRegion } from '@whitewater-guide/clients';
 import { MediaKind } from '@whitewater-guide/schema';
 import React, { Suspense, useCallback } from 'react';
-import useRouter from 'use-react-router';
+import { useHistory, useRouteMatch } from 'react-router';
 
 import { Loading } from '../../../components';
 import { LocalPhoto } from '../../../utils/files';
@@ -14,7 +14,8 @@ interface RouterParams {
 }
 
 export const MediaListWithData: React.FC = React.memo(() => {
-  const { history, match } = useRouter<RouterParams>();
+  const history = useHistory();
+  const match = useRouteMatch<RouterParams>();
   const { regionId, sectionId } = match.params;
   const region = useRegion();
   const { media, loading, removeMedia } = useSectionMedia(sectionId);

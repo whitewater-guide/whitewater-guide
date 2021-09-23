@@ -1,5 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 
+import showSnackbarError from '~/components/showSnackbarError';
+import showSnackbarMessage from '~/components/showSnackbarMessage';
 import { RootStackNav } from '~/core/navigation';
 
 import { useDeleteDescentMutation } from './deleteDescent.generated';
@@ -14,9 +16,16 @@ export default (descentId: string) => {
     loading,
     deleteDescent: () =>
       mutate()
-        .catch(() => {
-          // ignore error
+        .then((resp) => {
+          if (resp.errors) {
+            showSnackbarError(resp.errors[0]);
+          } else {
+            goBack();
+            showSnackbarMessage('screens:descent.deleteSuccess');
+          }
         })
-        .then(() => goBack()),
+        .catch((error) => {
+          showSnackbarError(error);
+        }),
   };
 };

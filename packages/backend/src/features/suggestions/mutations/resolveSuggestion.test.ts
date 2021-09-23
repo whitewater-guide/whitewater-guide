@@ -1,4 +1,4 @@
-import { countRows, fakeContext, TIMESTAMP_REGEX, UUID_REGEX } from '@test';
+import { countRows, fakeContext, UUID_REGEX } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 import { MediaKind, SuggestionStatus } from '@whitewater-guide/schema';
 import gql from 'graphql-tag';
@@ -99,7 +99,7 @@ it('admin should resolve', async () => {
   expect(result.errors).toBeUndefined();
   expect(result.data?.resolveSuggestion).toMatchObject({
     status: SuggestionStatus.Accepted,
-    resolvedAt: expect.stringMatching(TIMESTAMP_REGEX),
+    resolvedAt: expect.any(Date),
     resolvedBy: {
       id: ADMIN_ID,
     },

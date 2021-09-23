@@ -10,6 +10,7 @@ import useDownloadPhotos from './useDownloadPhotos';
 import useDownloadRegionData from './useDownloadRegionData';
 import useDownloadSections from './useDownloadSections';
 import useMediaSummary from './useMediaSummary';
+import useUpdateOfflineDate from './useUpdateOfflineDate';
 
 interface UseDownloadRegionHook {
   download: (selection: OfflineCategorySelection) => Promise<null | Error>;
@@ -34,6 +35,7 @@ export function useDownloadRegion(
   const photos = useDownloadPhotos(onProgress);
   const sections = useDownloadSections(onProgress);
   const maps = useDownloadMap(onProgress);
+  const updateOfflineDate = useUpdateOfflineDate();
 
   useEffect(() => {
     setProgress({});
@@ -71,6 +73,7 @@ export function useDownloadRegion(
       const err = errors.reduce((acc, e) => acc || e, null);
       if (!err) {
         analytics().logEvent('offline_download_complete', { region: regionId });
+        updateOfflineDate(regionId);
         return null;
       }
       throw err;
@@ -83,6 +86,7 @@ export function useDownloadRegion(
       photos,
       downloadRegionData,
       setProgress,
+      updateOfflineDate,
     ],
   );
 

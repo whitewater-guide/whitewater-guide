@@ -1,5 +1,7 @@
 import { sleep } from '@whitewater-guide/clients';
-import FastImage, { PreloadProgressHandler } from 'react-native-fast-image';
+import FastImage, {
+  PreloadProgressHandler,
+} from '@whitewater-guide/react-native-fast-image';
 
 import { OfflineProgress } from '../types';
 import { PhotoChannel } from '../utils';

@@ -1,9 +1,8 @@
 import { useRegionsFilter } from '@whitewater-guide/clients';
-import { Region } from '@whitewater-guide/schema';
 import React from 'react';
 import { FlatList, ListRenderItemInfo } from 'react-native';
 
-import WithNetworkError from '~/components/WithNetworkError';
+import WithQueryError from '~/components/WithQueryError';
 import theme from '~/theme';
 
 import { CARD_HEIGHT, RegionCard } from './card';
@@ -46,7 +45,7 @@ const rowsPerScreen = Math.ceil(theme.screenHeight / CARD_HEIGHT);
 const renderItem = ({
   item,
   index,
-}: ListRenderItemInfo<Region | RegionSubtitleData>) => {
+}: ListRenderItemInfo<ListedRegion | RegionSubtitleData>) => {
   if (item.__typename === 'Subtitle') {
     return <RegionsListSubtitle i18nkey={item.id} />;
   }
@@ -62,9 +61,9 @@ const RegionsListView: React.FC = React.memo(() => {
   const items = useFavRegions(regions);
 
   return (
-    <WithNetworkError
+    <WithQueryError
       hasData={!!data}
-      hasError={!!error}
+      error={error}
       loading={loading}
       refetch={refetch}
     >
@@ -81,7 +80,7 @@ const RegionsListView: React.FC = React.memo(() => {
         testID="regions-list-flat-list"
         maintainVisibleContentPosition={{ minIndexForVisible: 0 }}
       />
-    </WithNetworkError>
+    </WithQueryError>
   );
 });
 

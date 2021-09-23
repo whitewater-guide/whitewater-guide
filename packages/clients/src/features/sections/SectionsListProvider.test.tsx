@@ -1,12 +1,12 @@
+import { ApolloClient } from '@apollo/client';
+import { MockedResponse } from '@apollo/client/testing';
+import { MockList } from '@graphql-tools/mock';
 import FakeTimers from '@sinonjs/fake-timers';
 import { act, render, RenderResult, waitFor } from '@testing-library/react';
-import ApolloClient from 'apollo-client';
 import gql from 'graphql-tag';
-import { MockList } from 'graphql-tools';
 import React from 'react';
 import { Overwrite } from 'utility-types';
 
-import { dataIdFromObject } from '../../apollo';
 import {
   createFixedProvider,
   FixedProviderOptions,
@@ -35,11 +35,13 @@ const INITIAL_COUNT = 3;
 const PAGE_SIZE = 1;
 const POLL_INTERVAL = 1000;
 const TEST_REGION_ID = 'test_region_id';
+const ERROR_REGION_ID = 'error_region_id';
+const ERROR_WITH_DATA_REGION_ID = 'error_with_data_region_id';
 
 let seedSections: ListSectionsQuery['sections']['nodes'];
 let seedCount: number;
 let seedData: ListSectionsQuery;
-let mockedResponses: any[];
+let mockedResponses: MockedResponse[];
 
 const mockVariables = (
   offset = 0,
@@ -75,6 +77,7 @@ interface TestOptions
   isConnected?: boolean;
   filterOptions?: SectionFilterOptions;
   pollInterval?: number;
+  regionId?: string;
 }
 
 interface Harness {
@@ -91,6 +94,7 @@ const mountInHarness = async (options: TestOptions): Promise<Harness> => {
     filterOptions = null,
     pollInterval = 0,
     cache,
+    regionId = TEST_REGION_ID,
     ...opts
   } = options;
   const FixedProvider = createFixedProvider({
@@ -98,7 +102,7 @@ const mountInHarness = async (options: TestOptions): Promise<Harness> => {
     cache: cache && {
       query,
       data: cache,
-      variables: { filter: { regionId: TEST_REGION_ID } },
+      variables: { filter: { regionId } },
     },
   });
   const requestSpy = jest.spyOn(FixedProvider.client.link, 'request');
@@ -109,7 +113,7 @@ const mountInHarness = async (options: TestOptions): Promise<Harness> => {
     wrapper = render(
       <SectionsListProvider
         key="test_sections_list_loader"
-        regionId={TEST_REGION_ID}
+        regionId={regionId}
         filterOptions={filterOptions}
         isConnected={isConnected}
         client={FixedProvider.client}
@@ -132,7 +136,7 @@ const mountInHarness = async (options: TestOptions): Promise<Harness> => {
         await wrapper?.rerender(
           <SectionsListProvider
             key="test_sections_list_loader"
-            regionId={TEST_REGION_ID}
+            regionId={regionId}
             filterOptions={filterOptions}
             isConnected={isConnected}
             client={FixedProvider.client}
@@ -148,7 +152,7 @@ const mountInHarness = async (options: TestOptions): Promise<Harness> => {
   };
 };
 
-const mockPolledResponse = (n: number) => ({
+const mockPolledResponse = (n: number): MockedResponse => ({
   request: {
     query: PollRegionMeasurementsDocument,
     variables: { regionId: TEST_REGION_ID },
@@ -226,11 +230,53 @@ beforeAll(async () => {
       },
       result: mockResult(4, PAGE_SIZE, SEED_COUNT - INITIAL_COUNT),
     },
+    {
+      request: {
+        query,
+        variables: {
+          page: { limit: 1, offset: 0 },
+          filter: { regionId: ERROR_REGION_ID, updatedAfter: undefined },
+        },
+      },
+      error: {
+        message: 'fubar',
+        name: 'error_foobar',
+      },
+    },
+    {
+      request: {
+        query,
+        variables: {
+          page: { limit: 1, offset: 0 },
+          filter: {
+            regionId: ERROR_WITH_DATA_REGION_ID,
+            updatedAfter: undefined,
+          },
+        },
+      },
+      result: mockResult(0, 1, 2),
+    },
+    {
+      request: {
+        query,
+        variables: {
+          page: { limit: 1, offset: 1 },
+          filter: {
+            regionId: ERROR_WITH_DATA_REGION_ID,
+            updatedAfter: undefined,
+          },
+        },
+      },
+      error: {
+        message: 'fubar',
+        name: 'error_foobar',
+      },
+    },
   ];
 });
 
 beforeEach(() => {
-  jest.clearAllMocks();
+  jest.resetAllMocks();
 });
 
 // safeguard against query/fragments changes
@@ -258,12 +304,11 @@ it('should pass empty list first when cache is empty', async () => {
     responses: [],
   });
 
-  expect(harness.children).nthCalledWith(
-    1,
+  expect(harness.children).toHaveBeenCalledWith(
     expect.objectContaining({
       count: 0,
       status: SectionsStatus.READY,
-      sections: [],
+      sections: null,
     }),
   );
 });
@@ -273,15 +318,15 @@ it('should load initial data when cache contains no data', async () => {
     responses: mockedResponses,
   });
 
-  await waitFor(() =>
+  await waitFor(() => {
     expect(harness.children).lastCalledWith(
       expect.objectContaining({
         count: INITIAL_COUNT,
         status: SectionsStatus.READY,
         sections: seedSections.slice(0, INITIAL_COUNT),
       }),
-    ),
-  );
+    );
+  });
 });
 
 it('should load initial data page by page', async () => {
@@ -291,8 +336,8 @@ it('should load initial data page by page', async () => {
 
   await waitFor(() =>
     expect(harness.children.mock.calls).toMatchObject([
-      [{ count: 0, status: SectionsStatus.READY, sections: [] }],
-      [{ count: 0, status: SectionsStatus.LOADING, sections: [] }],
+      [{ count: 0, status: SectionsStatus.READY, sections: null }],
+      [{ count: 0, status: SectionsStatus.LOADING, sections: null }],
       [
         {
           count: 3,
@@ -383,15 +428,15 @@ it('should load updates page by page when cache is full', async () => {
     responses: mockedResponses,
   });
 
-  await waitFor(() =>
+  await waitFor(() => {
     expect(harness.children.mock.calls).toMatchObject([
       [{ sections: seedSections.slice(0, 3) }],
       [{ sections: seedSections.slice(0, 3) }],
       [{ sections: seedSections.slice(0, 4) }],
       [{ sections: seedSections.slice(0, 5) }],
       [{ sections: seedSections.slice(0, 5) }],
-    ]),
-  );
+    ]);
+  });
 });
 
 it('should change status while loading updates', async () => {
@@ -646,7 +691,7 @@ it('should pass updates when is changed outside the query', async () => {
   act(() => {
     harness.client.writeFragment({
       data: { __typename: 'Section', id: 'Section.id.1', difficulty: 9 },
-      id: dataIdFromObject({ __typename: 'Section', id: 'Section.id.1' })!,
+      id: 'Section:Section.id.1',
       fragment: gql`
         fragment testFrag on Section {
           id
@@ -661,7 +706,7 @@ it('should pass updates when is changed outside the query', async () => {
 
   await waitFor(() => {
     const diff = harness.children.mock.calls.find(([arg]: any) =>
-      arg.sections.some((s: any) => s.difficulty === 9),
+      (arg.sections ?? []).some((s: any) => s.difficulty === 9),
     );
     expect(diff).toBeDefined();
   });
@@ -742,4 +787,38 @@ it('should not load updates when already loading', async () => {
       },
     }),
   );
+});
+
+it('should provide null sections and error when error happens with no data', async () => {
+  const harness = await mountInHarness({
+    responses: mockedResponses,
+    regionId: ERROR_REGION_ID,
+  });
+
+  await waitFor(() => {
+    expect(harness.children).toHaveBeenCalledWith(
+      expect.objectContaining({
+        error: expect.any(Error),
+        status: SectionsStatus.READY,
+      }),
+    );
+  });
+});
+
+it('should provide some sections and error when error happens with data', async () => {
+  const harness = await mountInHarness({
+    responses: mockedResponses,
+    regionId: ERROR_WITH_DATA_REGION_ID,
+  });
+
+  await waitFor(() => {
+    expect(harness.children).toHaveBeenCalledWith(
+      expect.objectContaining({
+        error: expect.any(Error),
+        sections: expect.any(Array),
+        count: 2,
+        status: SectionsStatus.READY,
+      }),
+    );
+  });
 });

@@ -1,7 +1,8 @@
 import { getBBox } from '@whitewater-guide/clients';
 import { useMemo } from 'react';
 
-import theme from '../../../theme';
+import theme from '~/theme';
+
 import { MapboxBounds } from '../types';
 
 interface Result {

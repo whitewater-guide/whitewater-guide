@@ -1,4 +1,4 @@
-import { ServerError } from 'apollo-link-http-common';
+import { ServerError } from '@apollo/client/link/utils';
 
 export const isApolloServerError = (err: any): err is ServerError =>
   !!err && err.name === 'ServerError';

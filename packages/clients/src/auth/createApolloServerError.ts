@@ -1,8 +1,8 @@
-import { ServerError } from 'apollo-link-http-common';
+import { ServerError } from '@apollo/client';
 
 import { AuthResponse } from './types';
 
-export const createApolloServerError = (resp: AuthResponse) => {
+export function createApolloServerError(resp: AuthResponse): ServerError {
   const errorString = resp.error
     ? Object.entries(resp.error)[0].join('.')
     : 'form.unknown_error';
@@ -12,4 +12,4 @@ export const createApolloServerError = (resp: AuthResponse) => {
   error.statusCode = resp.status;
   error.result = resp;
   return error;
-};
+}

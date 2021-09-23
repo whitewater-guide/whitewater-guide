@@ -3,7 +3,7 @@ import CardActions from '@material-ui/core/CardActions';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { useFormikContext } from 'formik';
 import React, { useCallback } from 'react';
-import useRouter from 'use-react-router';
+import { useHistory } from 'react-router';
 
 import { ButtonProgress } from '../components';
 
@@ -25,7 +25,7 @@ const FormikCardActions = React.memo<Props>(
   ({ loading, submitLabel, extraActions }) => {
     const { submitForm, isSubmitting } = useFormikContext();
     const classes = useStyles();
-    const { history } = useRouter();
+    const history = useHistory();
     const onCancel = useCallback(() => history.goBack(), [history]);
 
     return (

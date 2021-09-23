@@ -1,8 +1,7 @@
 import CardHeader from '@material-ui/core/CardHeader';
 import { useRegion } from '@whitewater-guide/clients';
 import React from 'react';
-import { Route, Switch } from 'react-router';
-import useRouter from 'use-react-router';
+import { Route, Switch, useRouteMatch } from 'react-router';
 
 import { EditorLanguagePicker } from '../../../components/language';
 import { Card, CardContent, EditorFooter } from '../../../layout';
@@ -10,7 +9,7 @@ import RegionDetailsTabs from './RegionDetailsTabs';
 
 const RegionDetails: React.FC = () => {
   const region = useRegion();
-  const { match } = useRouter();
+  const match = useRouteMatch();
   return (
     <Card>
       <CardHeader

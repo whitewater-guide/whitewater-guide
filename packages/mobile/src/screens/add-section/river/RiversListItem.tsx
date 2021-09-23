@@ -1,72 +1,54 @@
-import { NEW_RIVER_ID } from '@whitewater-guide/commons';
 import { NamedNode } from '@whitewater-guide/schema';
-import React, { useCallback } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, View } from 'react-native';
-import { Subheading, TouchableRipple } from 'react-native-paper';
+import { StyleSheet } from 'react-native';
+import { ActivityIndicator, Subheading } from 'react-native-paper';
 
-import Icon from '~/components/Icon';
+import theme from '~/theme';
 
-import theme from '../../../theme';
+import RiversListItemBody from './RiversListItemBody';
+import RiversListRiverItem from './RiversListRiverItem';
+import { RiversListDataItem } from './types';
 
 const styles = StyleSheet.create({
-  row: {
-    height: theme.rowHeight,
-    padding: theme.margin.single,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  plusRow: {
-    marginLeft: -theme.margin.half,
-  },
-  plus: {
-    marginTop: 2,
-  },
-  disabled: {
-    opacity: 0.5,
-  },
-  subheading: {
-    fontSize: 18, // matches text input
+  loading: {
+    backgroundColor: theme.colors.primaryBackground,
+    justifyContent: 'center',
   },
 });
 
 interface Props {
-  id?: string;
-  name: string;
-  onPress: (node: NamedNode) => void;
+  item: RiversListDataItem;
+  onSelect?: (node: NamedNode) => void;
 }
 
-const RiversListItem: React.FC<Props> = (props) => {
+const RiversListItem: React.FC<Props> = ({ item, onSelect }) => {
   const { t } = useTranslation();
-  const { id, name, onPress } = props;
-  const onSelect = useCallback(
-    () =>
-      onPress({
-        id: id || NEW_RIVER_ID,
-        name,
-      }),
-    [id, name, onPress],
-  );
-  const disabled = !id && name.length < 2;
-  const showPlus = !id && name.length > 0;
-  return (
-    <TouchableRipple onPress={onSelect} disabled={disabled}>
-      <View
-        style={[
-          styles.row,
-          disabled && styles.disabled,
-          showPlus && styles.plusRow,
-        ]}
-      >
-        {showPlus && <Icon icon="plus" style={styles.plus} narrow />}
-        <Subheading style={styles.subheading}>
-          {name || t('screens:addSection.river.addItemPlaceholder')}
-        </Subheading>
-      </View>
-    </TouchableRipple>
-  );
+  switch (item.__typename) {
+    case 'Loading':
+      return (
+        <RiversListItemBody style={styles.loading}>
+          <ActivityIndicator size="small" color={theme.colors.primary} />
+        </RiversListItemBody>
+      );
+    case 'NotFound':
+      return (
+        <RiversListItemBody disabled>
+          <Subheading>{t(item.id)}</Subheading>
+        </RiversListItemBody>
+      );
+    case 'AddNewRiverItem':
+    case 'River':
+      return (
+        <RiversListRiverItem
+          id={item.id}
+          name={item.name}
+          onSelect={onSelect}
+        />
+      );
+    default:
+      return null;
+  }
 };
-
-RiversListItem.displayName = 'RiversListItem';
 
 export default RiversListItem;

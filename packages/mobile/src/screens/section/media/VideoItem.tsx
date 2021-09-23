@@ -1,11 +1,12 @@
 import { getVideoThumb, VideoThumb } from '@whitewater-guide/clients';
+import FastImage from '@whitewater-guide/react-native-fast-image';
 import { MediaWithThumbFragment } from '@whitewater-guide/schema';
 import React from 'react';
-import { Clipboard, Linking, StyleSheet, View } from 'react-native';
-import FastImage from 'react-native-fast-image';
+import { Linking, StyleSheet, View } from 'react-native';
 import { Caption, Paragraph, TouchableRipple } from 'react-native-paper';
 
 import { Row } from '~/components/Row';
+import copyAndToast from '~/utils/copyAndToast';
 
 import { trackError } from '../../../core/errors';
 import { PHOTO_PADDING, PHOTO_SIZE } from '../../../features/media';
@@ -68,7 +69,7 @@ class VideoItem extends React.PureComponent<Props, State> {
     });
   };
 
-  onLongPress = () => Clipboard.setString(this.props.video.url);
+  onLongPress = () => copyAndToast(this.props.video.url);
 
   renderThumb = () => {
     const { thumb } = this.state;

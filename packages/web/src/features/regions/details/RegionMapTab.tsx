@@ -41,6 +41,7 @@ const RegionMapTab: React.FC<Props> = ({ region, sections }) => {
       detailed={false}
       sections={sections}
       initialBounds={region.bounds}
+      saveBoundsKey={`region${region.id}`}
       pois={pois}
       controls={[
         <GaugesMapSwitch

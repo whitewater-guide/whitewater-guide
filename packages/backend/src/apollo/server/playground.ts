@@ -1,14 +1,14 @@
-import { ApolloServerPluginLandingPageGraphQLPlaygroundOptions } from 'apollo-server-core';
-import { getIntrospectionQuery, graphql, GraphQLSchema } from 'graphql';
+import { RootFieldFilter } from '@graphql-tools/utils';
 import {
-  FieldFilter,
   FilterObjectFields,
   FilterRootFields,
   FilterTypes,
   wrapSchema,
-} from 'graphql-tools';
+} from '@graphql-tools/wrap';
+import { ApolloServerPluginLandingPageGraphQLPlaygroundOptions } from 'apollo-server-core';
+import { getIntrospectionQuery, graphql, GraphQLSchema } from 'graphql';
 
-const adminFieldsFilter: FieldFilter = (operation, fieldName, field) => {
+const adminFieldsFilter: RootFieldFilter = (operation, fieldName, field) => {
   if (operation === 'Mutation') {
     return false;
   }

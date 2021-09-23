@@ -1,12 +1,8 @@
 directive @admin on FIELD_DEFINITION
-directive @connection(
-  key: String
-  filter: [String]
-  suggestions: [String]
-) on FIELD
 
 scalar JSON
 scalar Date
+scalar DateTime
 scalar Cursor
 """
 When used as input, this is either [lon, lat, alt] tuple where alt can be null, or [lon, lat] tuple
@@ -30,9 +26,9 @@ interface NamedNode {
 
 interface Timestamped {
   "creation date"
-  createdAt: Date!
+  createdAt: DateTime!
   "date of last modification"
-  updatedAt: Date!
+  updatedAt: DateTime!
 }
 
 input RefInput {

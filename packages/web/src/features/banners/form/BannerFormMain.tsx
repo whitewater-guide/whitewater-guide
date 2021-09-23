@@ -4,7 +4,7 @@ import { BannerPlacement, NamedNode } from '@whitewater-guide/schema';
 import snakeCase from 'lodash/snakeCase';
 import upperFirst from 'lodash/upperCase';
 import React from 'react';
-import useRouter from 'use-react-router';
+import { useRouteMatch } from 'react-router';
 
 import {
   CheckboxField,
@@ -33,7 +33,7 @@ interface Props {
 
 export const BannerFormMain = React.memo<Props>((props) => {
   const { regions = [], groups = [] } = props;
-  const { match } = useRouter<RouterParams>();
+  const match = useRouteMatch<RouterParams>();
   return (
     <Box padding={1} overflow="auto">
       <TextField

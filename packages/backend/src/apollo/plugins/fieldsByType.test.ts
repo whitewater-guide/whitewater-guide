@@ -1,5 +1,5 @@
+import { makeExecutableSchema } from '@graphql-tools/schema';
 import { parse } from 'graphql';
-import { makeExecutableSchema } from 'graphql-tools';
 
 import { fieldsByType } from './fieldsByType';
 

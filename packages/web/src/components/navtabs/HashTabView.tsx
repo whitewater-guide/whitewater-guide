@@ -1,6 +1,6 @@
 import Box, { BoxProps } from '@material-ui/core/Box';
 import React, { useEffect, useState } from 'react';
-import useRouter from 'use-react-router';
+import { useLocation } from 'react-router';
 
 interface Props extends BoxProps {
   value: string;
@@ -9,7 +9,7 @@ interface Props extends BoxProps {
 
 export const HashTabView: React.FC<Props> = (props) => {
   const { value, lazy, display, padding = 2, ...boxProps } = props;
-  const { location } = useRouter();
+  const location = useLocation();
   const hash = location.hash || '#main';
   const [loaded, setLoaded] = useState(hash === value);
 

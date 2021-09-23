@@ -1,18 +1,15 @@
 import Box from '@material-ui/core/Box';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import {
-  arrayToGmaps,
-  MapProps,
-  MapSelectionProvider,
-} from '@whitewater-guide/clients';
-import React, { useMemo } from 'react';
+import { MapProps, MapSelectionProvider } from '@whitewater-guide/clients';
+import React from 'react';
 
-import GoogleMap, { GoogleMapControlProps, InitialPosition } from './GoogleMap';
+import GoogleMap, { GoogleMapControlProps } from './GoogleMap';
 import MapLoader from './MapLoader';
 import POIMarker from './POIMarker';
 import SectionLine from './SectionLine';
 import SelectedPOIWeb from './SelectedPOIWeb';
 import SelectedSectionWeb from './SelectedSectionWeb';
+import useInitialPosition from './useInitialPosition';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -31,31 +28,37 @@ const useStyles = makeStyles(() =>
 );
 
 interface Props extends MapProps {
+  /**
+   * Initial bounds of the map.
+   * Usually bounds of region or shape of river
+   */
   initialBounds: CodegenCoordinates[];
+  /**
+   * When this key is set, position for map with this key will be remembered during user session.
+   * For example, when user navigates from region map to section details and then back to region map
+   * If not set, map will always start at initialBounds
+   */
+  saveBoundsKey?: string;
+  /**
+   * Whether to draw section shape or just line from put-in to take-out
+   */
   detailed?: boolean;
+  /**
+   * Map controls
+   */
   controls?: Array<React.ReactElement<GoogleMapControlProps>>;
 }
 
 const MapInternal = React.memo<Props>(
-  ({ initialBounds, sections, pois, detailed, controls }) => {
+  ({ initialBounds, saveBoundsKey, sections, pois, detailed, controls }) => {
     const classes = useStyles();
 
-    const initialPosition: InitialPosition = useMemo(() => {
-      const bounds = new google.maps.LatLngBounds();
-      initialBounds.forEach((point: CodegenCoordinates) =>
-        bounds.extend(arrayToGmaps(point)),
-      );
-      return {
-        center: bounds.getCenter(),
-        bounds,
-        zoom: -1,
-      };
-    }, [initialBounds]);
+    const positionProps = useInitialPosition(initialBounds, saveBoundsKey);
 
     return (
       <Box width={1} height={1} className={classes.mapRoot}>
         <MapSelectionProvider>
-          <GoogleMap initialPosition={initialPosition} controls={controls}>
+          <GoogleMap controls={controls} {...positionProps}>
             {
               sections.map((s) => (
                 <SectionLine key={s.id} section={s} detailed={detailed} />

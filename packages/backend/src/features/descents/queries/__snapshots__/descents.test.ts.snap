@@ -9,7 +9,7 @@ Object {
           "cursor": "djE6NzoxNTc4MzU1MjAwMDAw",
           "node": Object {
             "comment": "descent 7 comment",
-            "createdAt": "2020-01-07T00:00:00.000Z",
+            "createdAt": 2020-01-07T00:00:00.000Z,
             "duration": null,
             "id": "ac323bc5-47e7-43cf-b3dd-e029cf96fcf4",
             "level": Object {
@@ -30,15 +30,15 @@ Object {
                 "name": "Bzhuzha",
               },
             },
-            "startedAt": "2020-01-07T00:00:00.000Z",
-            "updatedAt": "2020-01-07T00:00:00.000Z",
+            "startedAt": 2020-01-07T00:00:00.000Z,
+            "updatedAt": 2020-01-07T00:00:00.000Z,
           },
         },
         Object {
           "cursor": "djE6NToxNTc4MTgyNDAwMDAw",
           "node": Object {
             "comment": "descent 5 comment",
-            "createdAt": "2020-01-05T00:00:00.000Z",
+            "createdAt": 2020-01-05T00:00:00.000Z,
             "duration": 1000,
             "id": "3a12cd33-2ccd-4fcd-9da5-7ce14006aa15",
             "level": Object {
@@ -59,15 +59,15 @@ Object {
                 "name": "Bzhuzha",
               },
             },
-            "startedAt": "2020-01-05T00:00:00.000Z",
-            "updatedAt": "2020-01-05T00:00:00.000Z",
+            "startedAt": 2020-01-05T00:00:00.000Z,
+            "updatedAt": 2020-01-05T00:00:00.000Z,
           },
         },
         Object {
           "cursor": "djE6MzoxNTc4MDA5NjAwMDAw",
           "node": Object {
             "comment": "descent 3 comment",
-            "createdAt": "2020-01-03T00:00:00.000Z",
+            "createdAt": 2020-01-03T00:00:00.000Z,
             "duration": null,
             "id": "7deddd48-9f7f-4a76-9ff9-811f694f52a4",
             "level": null,
@@ -85,15 +85,15 @@ Object {
                 "name": "Sjoa",
               },
             },
-            "startedAt": "2020-01-03T00:00:00.000Z",
-            "updatedAt": "2020-01-03T00:00:00.000Z",
+            "startedAt": 2020-01-03T00:00:00.000Z,
+            "updatedAt": 2020-01-03T00:00:00.000Z,
           },
         },
         Object {
           "cursor": "djE6MjoxNTc3OTIzMjAwMDAw",
           "node": Object {
             "comment": "descent 2 comment",
-            "createdAt": "2020-01-02T00:00:00.000Z",
+            "createdAt": 2020-01-02T00:00:00.000Z,
             "duration": 3000,
             "id": "3fb2b1da-6649-429e-8b0e-0cbbda055da7",
             "level": Object {
@@ -114,15 +114,15 @@ Object {
                 "name": "Beca",
               },
             },
-            "startedAt": "2020-01-02T00:00:00.000Z",
-            "updatedAt": "2020-01-02T00:00:00.000Z",
+            "startedAt": 2020-01-02T00:00:00.000Z,
+            "updatedAt": 2020-01-02T00:00:00.000Z,
           },
         },
         Object {
           "cursor": "djE6MTA6MTU3NzgzNjgwMDAwMA==",
           "node": Object {
             "comment": "descent 10, parent descent 1 comment",
-            "createdAt": "2020-01-10T00:00:00.000Z",
+            "createdAt": 2020-01-10T00:00:00.000Z,
             "duration": 3600,
             "id": "7f712c8a-45a9-4fd5-966a-c8b4d07f36df",
             "level": Object {
@@ -143,15 +143,15 @@ Object {
                 "name": "Beca",
               },
             },
-            "startedAt": "2020-01-01T00:00:00.000Z",
-            "updatedAt": "2020-01-10T00:00:00.000Z",
+            "startedAt": 2020-01-01T00:00:00.000Z,
+            "updatedAt": 2020-01-10T00:00:00.000Z,
           },
         },
         Object {
           "cursor": "djE6NDoxNTc3ODM2ODAwMDAw",
           "node": Object {
             "comment": "descent 4, parent descent 1 comment",
-            "createdAt": "2020-01-04T00:00:00.000Z",
+            "createdAt": 2020-01-04T00:00:00.000Z,
             "duration": 3600,
             "id": "ffd6ba41-d7e5-4fbf-8347-2481d583674e",
             "level": Object {
@@ -172,15 +172,15 @@ Object {
                 "name": "Beca",
               },
             },
-            "startedAt": "2020-01-01T00:00:00.000Z",
-            "updatedAt": "2020-01-04T00:00:00.000Z",
+            "startedAt": 2020-01-01T00:00:00.000Z,
+            "updatedAt": 2020-01-04T00:00:00.000Z,
           },
         },
         Object {
           "cursor": "djE6MToxNTc3ODM2ODAwMDAw",
           "node": Object {
             "comment": "descent 1 comment",
-            "createdAt": "2020-01-01T00:00:00.000Z",
+            "createdAt": 2020-01-01T00:00:00.000Z,
             "duration": 3600,
             "id": "97998f67-74f2-43db-a4e4-198c2ca540a7",
             "level": Object {
@@ -201,8 +201,8 @@ Object {
                 "name": "Beca",
               },
             },
-            "startedAt": "2020-01-01T00:00:00.000Z",
-            "updatedAt": "2020-01-01T00:00:00.000Z",
+            "startedAt": 2020-01-01T00:00:00.000Z,
+            "updatedAt": 2020-01-01T00:00:00.000Z,
           },
         },
       ],

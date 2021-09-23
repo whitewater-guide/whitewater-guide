@@ -16,7 +16,7 @@ it('useSection should return section', async () => {
   });
   expect(result.current.loading).toBe(true);
 
-  await waitFor(() =>
-    expect(result.current.data?.section?.name).toBe('Section.name.1'),
-  );
+  await waitFor(() => {
+    expect(result.current.data?.section?.name).toBe('Section.name.1');
+  });
 });

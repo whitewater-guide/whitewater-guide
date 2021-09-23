@@ -1,9 +1,9 @@
+import FastImage, {
+  FastImageProps,
+  OnProgressEvent,
+} from '@whitewater-guide/react-native-fast-image';
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import FastImage, {
-  FastImageProperties,
-  OnProgressEvent,
-} from 'react-native-fast-image';
 import { ProgressBar } from 'react-native-paper';
 
 import theme from '../../theme';
@@ -20,7 +20,7 @@ interface State {
   showProgress: boolean;
 }
 
-class LoadableImage extends React.PureComponent<FastImageProperties, State> {
+class LoadableImage extends React.PureComponent<FastImageProps, State> {
   state: State = {
     progress: 0,
     showProgress: false,

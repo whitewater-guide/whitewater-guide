@@ -17,7 +17,7 @@ import React, {
   useReducer,
   useState,
 } from 'react';
-import useRouter from 'use-react-router';
+import { useRouteMatch } from 'react-router';
 
 import { RiverFinder } from '../../../components';
 import { TextField } from '../../../formik/fields';
@@ -51,7 +51,7 @@ const reducer: Reducer<State, Action> = (state: State, action: Action) => {
 };
 
 export const SectionRiverField: React.FC = React.memo(() => {
-  const { match } = useRouter<RouterParams>();
+  const match = useRouteMatch<RouterParams>();
   const { regionId } = match.params;
 
   const { values, setFieldTouched, setFieldValue } = useFormikContext<any>();

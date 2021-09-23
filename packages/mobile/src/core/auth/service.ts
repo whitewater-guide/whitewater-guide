@@ -17,10 +17,9 @@ import {
   SignInBody,
 } from '@whitewater-guide/commons';
 import { AppState, AppStateStatus, Platform } from 'react-native';
-import { AccessToken, LoginManager, LoginResult } from 'react-native-fbsdk';
+import { AccessToken, LoginManager } from 'react-native-fbsdk-next';
 
 import { BACKEND_URL } from '~/utils/urls';
-import waitUntilActive from '~/utils/waitUntilActive';
 
 import { tracker, trackError } from '../errors';
 import { tokenStorage } from './tokens';
@@ -108,43 +107,7 @@ export class MobileAuthService extends BaseAuthService {
   ): Promise<AuthResponse<SignInBody>> {
     let resp: AuthResponse<SignInBody>;
     if (type === 'facebook') {
-      const result: LoginResult = await LoginManager.logInWithPermissions([
-        'public_profile',
-        'email',
-      ]);
-      if (result.isCancelled) {
-        return {
-          success: false,
-          error: { form: 'user_canceled' },
-          status: 400,
-        };
-      }
-      if (result.error) {
-        trackError('auth', new Error('facebook sign in failed'), {
-          error: result.error,
-        });
-        return { success: false, error: { form: result.error }, status: 400 };
-      }
-      // On real iOS device first backend login will fail
-      // Probably because of this bug https://github.com/AFNetworking/AFNetworking/issues/4279
-      // The app sends request when before it comes to foreground after fb login screen
-      // Both initial delay and retry can solve this problem alone
-      // After delay AppState.currentState is still `background`
-      // After 1000ms (one retry) AppState.currentState is `active`
-      await waitUntilActive(600);
-      const at = await AccessToken.getCurrentAccessToken();
-      if (!at) {
-        trackError('auth', new Error('fb_access_token_not_found'));
-        return {
-          success: false,
-          error: { form: 'fb_access_token_not_found' },
-          status: 400,
-        };
-      }
-      resp = await this._get('/auth/facebook/signin', {
-        access_token: at.accessToken,
-        fcm_token: this._fcmToken,
-      });
+      resp = await this.signInWithFacebook();
     } else if (type === 'apple') {
       resp = await this.signInWithApple();
     } else {
@@ -156,6 +119,42 @@ export class MobileAuthService extends BaseAuthService {
     await this.postSignIn(resp);
     this._fcmTokenSent = true;
     return resp;
+  }
+
+  private async signInWithFacebook(): Promise<AuthResponse<SignInBody>> {
+    try {
+      const result = await LoginManager.logInWithPermissions([
+        'public_profile',
+        'email',
+      ]);
+      if (result.isCancelled) {
+        return {
+          success: false,
+          error: { form: 'user_canceled' },
+          status: 400,
+        };
+      }
+
+      const at = await AccessToken.getCurrentAccessToken();
+      if (!at?.accessToken) {
+        trackError('auth', new Error('fb_access_token_not_found'));
+        return {
+          success: false,
+          error: { form: 'fb_access_token_not_found' },
+          status: 400,
+        };
+      }
+      const resp = await this._get('/auth/facebook/signin', {
+        access_token: at.accessToken,
+        fcm_token: this._fcmToken,
+      });
+      return resp;
+    } catch (error) {
+      trackError('auth', new Error('facebook sign in failed'), {
+        error,
+      });
+      return { success: false, error: { form: error }, status: 400 };
+    }
   }
 
   private async signInWithApple(): Promise<AuthResponse<SignInBody>> {
@@ -216,7 +215,11 @@ export class MobileAuthService extends BaseAuthService {
 
     await tokenStorage.setAccessToken(null);
     await tokenStorage.setRefreshToken(null);
-    LoginManager.logOut();
+    try {
+      LoginManager.logOut();
+    } catch (e) {
+      // ignore
+    }
     tracker.setUser(null);
     await this.emit('sign-out', force);
     return { success: true, status: 200 };

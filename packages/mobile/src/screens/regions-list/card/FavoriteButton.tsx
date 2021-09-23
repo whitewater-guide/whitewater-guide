@@ -1,12 +1,11 @@
 import { useAuth } from '@whitewater-guide/clients';
-import { Region } from '@whitewater-guide/schema';
-import React, { useCallback } from 'react';
+import React, { memo } from 'react';
 import { StyleSheet } from 'react-native';
 
 import Icon from '~/components/Icon';
 import theme from '~/theme';
 
-import { useToggleFavoriteRegionMutation } from './toggleFavoriteRegion.generated';
+import useToggleFavoriteRegion from './useToggleFavoriteRegion';
 
 const styles = StyleSheet.create({
   container: {
@@ -20,7 +19,7 @@ const styles = StyleSheet.create({
   iconContainer: {
     paddingTop: theme.margin.half,
   },
-  loadingContainer: {
+  togglingContainer: {
     paddingTop: theme.margin.single,
   },
   icon: {
@@ -32,17 +31,16 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  region: Pick<Region, 'id' | 'favorite'>;
+  regionId: string;
+  favorite?: boolean | null;
 }
 
-const FavoriteButton: React.FC<Props> = ({ region }) => {
-  const { id, favorite } = region;
+const FavoriteButton = memo<Props>(({ regionId, favorite }) => {
   const { me } = useAuth();
-  const [mutate, { loading }] = useToggleFavoriteRegionMutation();
-
-  const handleFavorite = useCallback(() => {
-    mutate({ variables: { id, favorite: !favorite } }).catch(() => {});
-  }, [mutate, id, favorite]);
+  const [toggleFavorite, toggling] = useToggleFavoriteRegion(
+    regionId,
+    favorite,
+  );
 
   if (!me) {
     return null;
@@ -53,12 +51,12 @@ const FavoriteButton: React.FC<Props> = ({ region }) => {
       icon={favorite ? 'heart' : 'heart-outline'}
       accessibilityLabel="favorite"
       style={[styles.container, styles.iconContainer]}
-      iconStyle={[styles.icon, loading && styles.iconDisabled]}
+      iconStyle={[styles.icon, toggling && styles.iconDisabled]}
       color={theme.colors.textLight}
-      onPress={loading ? undefined : handleFavorite}
+      onPress={toggling ? undefined : toggleFavorite}
     />
   );
-};
+});
 
 FavoriteButton.displayName = 'FavoriteButton';
 

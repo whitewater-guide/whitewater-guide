@@ -38,6 +38,7 @@ export function useChartMeasurements(
       data,
       refresh: query.refetch,
       loading: query.loading,
+      error: query.error,
     };
   }, [query, formulas]);
 }

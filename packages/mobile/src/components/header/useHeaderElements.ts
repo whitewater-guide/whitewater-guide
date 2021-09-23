@@ -1,11 +1,19 @@
 import { StackNavigationOptions } from '@react-navigation/stack';
 import noop from 'lodash/noop';
-import { useMemo } from 'react';
+import { ReactNode, useMemo } from 'react';
 
 import theme from '~/theme';
 
-export default (options: StackNavigationOptions) =>
-  useMemo(() => {
+interface HeaderElements {
+  headerLeft: ReactNode;
+  headerRight: ReactNode;
+  title: ReactNode;
+}
+
+export default function useHeaderElements(
+  options: StackNavigationOptions,
+): HeaderElements {
+  return useMemo(() => {
     const titleProp = options.headerTitle;
     const headerLeftProp = options.headerLeft;
     const headerRightProp = options.headerRight;
@@ -16,6 +24,7 @@ export default (options: StackNavigationOptions) =>
         ? titleProp({
             tintColor: headerTintColor,
             onLayout: noop,
+            children: '',
           })
         : titleProp;
 
@@ -36,3 +45,4 @@ export default (options: StackNavigationOptions) =>
       title,
     };
   }, [options]);
+}

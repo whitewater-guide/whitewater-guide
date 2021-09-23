@@ -1,14 +1,13 @@
 import Box from '@material-ui/core/Box';
 import React, { Suspense } from 'react';
-import { Route } from 'react-router';
-import useRouter from 'use-react-router';
+import { Route, useRouteMatch } from 'react-router';
 
 import { Loading } from '../../components';
 import MediaForm from './form';
 import { MediaListWithData } from './list';
 
 export const SectionMedia: React.FC = () => {
-  const { match } = useRouter();
+  const match = useRouteMatch();
   return (
     <Box padding={1}>
       <Suspense fallback={<Loading />}>

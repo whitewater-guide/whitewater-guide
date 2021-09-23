@@ -1,9 +1,7 @@
-import NetInfo from '@react-native-community/netinfo';
+import { ApolloLink } from '@apollo/client/link/core';
 import { AuthService, errorLink } from '@whitewater-guide/clients';
-import { ApolloLink } from 'apollo-link';
 
 import { trackError } from '../errors';
-import { inMemoryCache } from './cache';
 import {
   accessTokenLink,
   httpLink,
@@ -11,23 +9,22 @@ import {
   TokenRefreshLink,
 } from './links';
 
-export const createLink = (auth: AuthService) =>
-  ApolloLink.from([
+export function createLink(auth: AuthService): ApolloLink {
+  return ApolloLink.from([
     accessTokenLink,
-    errorLink(inMemoryCache, async (error) => {
-      if (error.type === 'fetch') {
-        const { isConnected } = await NetInfo.fetch();
-        if (isConnected) {
-          trackError('errorLink', error, { isConnected });
-        }
-      } else {
+    errorLink(
+      () => {
+        auth.signOut(true);
+      },
+      (error) => {
         trackError('errorLink', error);
-      }
-      if (error.type === 'auth') {
-        await auth.signOut(true);
-      }
-    }),
+        // query errors should be displayed (or not) alongside with data
+        // mutations errors should be displayed in a snackbar
+        // here we just track errors
+      },
+    ),
     new TokenRefreshLink(auth),
     retryLink,
     httpLink,
   ]);
+}

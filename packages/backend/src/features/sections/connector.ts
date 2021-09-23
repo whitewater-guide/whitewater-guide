@@ -14,6 +14,7 @@ import {
 
 interface GetManyOptions extends ManyBuilderOptions<Sql.SectionsView> {
   filter?: SectionsFilter;
+  updatedAfter?: Date | null;
 }
 
 const FIELDS_MAP: FieldsMap<Section, Sql.SectionsView> = {
@@ -89,14 +90,13 @@ export class SectionsConnector extends OffsetConnector<
 
   public override getMany(
     info: GraphQLResolveInfo,
-    { filter = {}, ...options }: GetManyOptions = {},
+    { filter = {}, updatedAfter, ...options }: GetManyOptions = {},
   ) {
     const query = super.getMany(info, options);
     this.addHiddenWhere(query);
     this.addFavoriteColumn(query);
 
-    const { riverId, regionId, updatedAfter, search, verified, editable } =
-      filter;
+    const { riverId, regionId, search, verified, editable } = filter;
 
     if (verified) {
       query.where({ verified });
@@ -114,8 +114,10 @@ export class SectionsConnector extends OffsetConnector<
       query.where({ region_id: regionId });
     }
 
-    if (updatedAfter) {
-      query.where('sections_view.updated_at', '>', updatedAfter);
+    // Support deprecated updatedAfter in filter as fallback
+    const updAfter = updatedAfter ?? filter.updatedAfter;
+    if (updAfter) {
+      query.where('sections_view.updated_at', '>', updAfter);
     }
 
     if (editable && !!this._user && !this._user.admin) {

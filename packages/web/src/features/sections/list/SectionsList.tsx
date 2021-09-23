@@ -1,5 +1,5 @@
 import React from 'react';
-import useRouter from 'use-react-router';
+import { useHistory } from 'react-router';
 
 import { useDeleteMutation } from '../../../apollo';
 import MergeSectionsDialog from './MergeSectionsDialog';
@@ -12,7 +12,7 @@ export const SectionsList = React.memo<OuterProps>((props) => {
   const removeSection = useDeleteMutation(RemoveSectionDocument, [
     'listSections',
   ]);
-  const { history } = useRouter();
+  const history = useHistory();
   return (
     <MergeSectionsProvider>
       <SectionsTable onRemove={removeSection} history={history} {...props} />

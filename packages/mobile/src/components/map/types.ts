@@ -1,6 +1,6 @@
 export interface MapboxBounds {
-  ne: CodegenCoordinates;
-  sw: CodegenCoordinates;
+  ne: [number, number];
+  sw: [number, number];
   paddingLeft?: number;
   paddingRight?: number;
   paddingTop?: number;

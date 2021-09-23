@@ -1,10 +1,10 @@
 import { arrayToLatLngString, useRegion } from '@whitewater-guide/clients';
 import React, { useCallback } from 'react';
-import { Clipboard } from 'react-native';
 import { Paragraph, Subheading } from 'react-native-paper';
 
 import Icon from '~/components/Icon';
 import { Left, Right, Row } from '~/components/Row';
+import copyAndToast from '~/utils/copyAndToast';
 
 import {
   PremiumSection,
@@ -28,7 +28,7 @@ const CoordinatesInfo: React.FC<Props> = React.memo((props) => {
 
   const onCopy = useCallback(() => {
     if (premiumGuard()) {
-      Clipboard.setString(prettyCoord);
+      copyAndToast(prettyCoord);
     }
   }, [premiumGuard, prettyCoord]);
 

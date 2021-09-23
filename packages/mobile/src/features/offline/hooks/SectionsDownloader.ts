@@ -1,5 +1,4 @@
-import { getListMerger } from '@whitewater-guide/clients';
-import ApolloClient from 'apollo-client';
+import { ApolloClient } from '@apollo/client';
 import { DocumentNode } from 'graphql';
 
 import { PHOTO_SIZE_PX } from '~/features/media';
@@ -39,7 +38,7 @@ export class SectionsDownloader {
     this._client = opts.apollo;
     this._photoChannel = opts.photoChannel;
     this._onProgress = opts.onProgress;
-    this._pageSize = opts.limit || 40;
+    this._pageSize = opts.limit || 120;
     this._query = opts.query || ListSectionsDocument;
   }
 
@@ -54,9 +53,20 @@ export class SectionsDownloader {
     this._called = true;
     let [offset, total] = [0, estimatedTotal];
     this._onProgress({ data: [offset, total] });
-    let merged: ListSectionsQuery | undefined;
-    const merger = getListMerger('sections');
+
     try {
+      // Delete exising sections and start fresh
+      this._client.cache.evict({
+        id: 'ROOT_QUERY',
+        fieldName: 'sections',
+        broadcast: false,
+        args: {
+          filter: {
+            regionId,
+          },
+        },
+      });
+
       while (offset < total) {
         const { data, errors } = await this._client.query<
           ListSectionsQuery,
@@ -75,18 +85,11 @@ export class SectionsDownloader {
         if (errors?.length) {
           throw errors[0];
         }
-        offset += data.sections.nodes.length;
+        const photos = extractPhotos(data.sections.nodes.slice(offset));
+        offset = data.sections.nodes.length;
         total = data.sections.count;
         this._onProgress({ data: [offset, total] });
-        this._photoChannel.put(extractPhotos(data.sections.nodes));
-        merged = merged
-          ? (merger(merged, { fetchMoreResult: data }) as any)
-          : data;
-        this._client.writeQuery({
-          query: this._query,
-          data: merged,
-          variables: { filter: { regionId } },
-        });
+        this._photoChannel.put(photos);
       }
     } catch (e) {
       this._photoChannel.break(e as Error);

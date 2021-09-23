@@ -1,4 +1,5 @@
 import { LocalPhotoStatus } from '@whitewater-guide/clients';
+import Image, { ImageStyle } from '@whitewater-guide/react-native-fast-image';
 import React, { useCallback, useMemo, useState } from 'react';
 import {
   Platform,
@@ -8,7 +9,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import Image, { ImageStyle } from 'react-native-fast-image';
 
 import { LocalPhoto } from '../../features/uploads';
 import theme from '../../theme';

@@ -1,6 +1,6 @@
+import { ImageStyle } from '@whitewater-guide/react-native-fast-image';
 import React from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
-import { ImageStyle } from 'react-native-fast-image';
 
 import LocalPhotoView from '~/components/photo-picker/LocalPhotoView';
 

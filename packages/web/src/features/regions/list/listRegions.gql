@@ -14,7 +14,7 @@ fragment ListedRegion on Region {
 }
 
 query listRegions($page: Page) {
-  regions(page: $page) @connection(key: "regions") {
+  regions(page: $page) {
     nodes {
       ...ListedRegion
     }

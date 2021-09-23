@@ -7,7 +7,8 @@ import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 import { TouchableRipple } from 'react-native-paper';
 
-import theme from '../../../theme';
+import theme from '~/theme';
+
 import { ListedGaugeFragment } from './findGauges.generated';
 
 const styles = StyleSheet.create({
@@ -15,6 +16,7 @@ const styles = StyleSheet.create({
     height: 56,
     padding: theme.margin.single,
     flexDirection: 'row',
+    backgroundColor: theme.colors.lightBackground,
   },
   body: {
     flex: 1,

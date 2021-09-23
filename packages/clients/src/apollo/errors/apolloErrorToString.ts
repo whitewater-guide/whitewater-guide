@@ -1,7 +1,7 @@
-import { ApolloError } from 'apollo-client';
+import { ApolloError } from '@apollo/client';
 import get from 'lodash/get';
 
-export const apolloErrorToString = (e?: ApolloError): string => {
+export function apolloErrorToString(e?: ApolloError): string {
   if (!e) {
     return '';
   }
@@ -24,4 +24,4 @@ export const apolloErrorToString = (e?: ApolloError): string => {
     return `${result}: ${networkError.message}`;
   }
   return 'Something bad happened';
-};
+}

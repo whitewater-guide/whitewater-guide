@@ -1,4 +1,4 @@
-import { anonContext, fakeContext, noTimestamps, TIMESTAMP_REGEX } from '@test';
+import { anonContext, fakeContext, noTimestamps } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 
@@ -269,11 +269,16 @@ describe('connections', () => {
 
   describe('sections', () => {
     const _q = gql`
-      query regionSections($id: ID, $page: Page, $filter: SectionsFilter) {
+      query regionSections(
+        $id: ID
+        $page: Page
+        $filter: SectionsFilter
+        $updatedAfter: DateTime
+      ) {
         region(id: $id) {
           id
           name
-          sections(page: $page, filter: $filter) {
+          sections(page: $page, filter: $filter, updatedAfter: $updatedAfter) {
             nodes {
               id
               name
@@ -307,6 +312,26 @@ describe('connections', () => {
     });
 
     it('should filter recently updated sections', async () => {
+      const up = await db()
+        .update({ rating: 1 })
+        .from('sections')
+        .where({ id: GEORGIA_BZHUZHA_LONG })
+        .returning('updated_at');
+      let u2: Date = up[0] as any;
+      u2 = new Date(u2.getTime() - 300);
+      const result = await testRegionSections(
+        {
+          id: REGION_GEORGIA,
+          updatedAfter: u2.toISOString() as any,
+        },
+        fakeContext(EDITOR_NO_EC),
+      );
+      expect(result.errors).toBeUndefined();
+      expect(result).toHaveProperty('data.region.sections.nodes.length', 1);
+      expect(result).toHaveProperty('data.region.sections.count', 1);
+    });
+
+    it('should filter recently updated sections (legacy, in filter)', async () => {
       const up = await db()
         .update({ rating: 1 })
         .from('sections')
@@ -580,7 +605,7 @@ it('should not fail on poll measurements query', async () => {
             latestMeasurement: {
               flow: null,
               level: 1.2,
-              timestamp: expect.stringMatching(TIMESTAMP_REGEX),
+              timestamp: expect.any(Date),
             },
           },
         ],
@@ -623,7 +648,7 @@ it('should not fail on legacy poll measurements query', async () => {
             lastMeasurement: {
               flow: null,
               level: 1.2,
-              timestamp: expect.stringMatching(TIMESTAMP_REGEX),
+              timestamp: expect.any(Date),
             },
           },
         ],

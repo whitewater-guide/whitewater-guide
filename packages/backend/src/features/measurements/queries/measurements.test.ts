@@ -1,4 +1,3 @@
-import { TIMESTAMP_REGEX } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 
@@ -78,7 +77,7 @@ it('should query by section', async () => {
   expect(r.data?.measurements[0]).toMatchObject({
     flow: null,
     level: 1.2,
-    timestamp: expect.stringMatching(TIMESTAMP_REGEX),
+    timestamp: expect.any(Date),
   });
 });
 
@@ -86,7 +85,7 @@ it('should return correct result shape', async () => {
   const r = await testMeasurements({ gaugeId: GAUGE_GAL_1_1, days: 1 });
   const m1 = r.data?.measurements[0];
   expect(m1).toMatchObject({
-    timestamp: expect.stringMatching(TIMESTAMP_REGEX),
+    timestamp: expect.any(Date),
     flow: null,
     level: 1.2,
   });
@@ -105,7 +104,7 @@ it('should handle deprecated query', async () => {
   const r = await testLastMeasurements({ gaugeId: GAUGE_GAL_1_1, days: 1 });
   const m1 = r.data?.lastMeasurements[0];
   expect(m1).toMatchObject({
-    timestamp: expect.stringMatching(TIMESTAMP_REGEX),
+    timestamp: expect.any(Date),
     flow: null,
     level: 1.2,
   });

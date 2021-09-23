@@ -1,6 +1,6 @@
+import Clipboard from '@react-native-clipboard/clipboard';
 import { fireEvent, render } from '@testing-library/react-native';
 import React from 'react';
-import { Clipboard } from 'react-native';
 
 import { usePremiumAccess } from '~/features/purchases';
 import { openGoogleMaps } from '~/utils/maps';

@@ -1,16 +1,26 @@
+import { ApolloCache, MutationUpdaterFunction } from '@apollo/client';
 import {
   ListSectionsDocument,
   ListSectionsQuery,
 } from '@whitewater-guide/clients';
-import { MutationUpdaterFn } from 'apollo-client';
 
 import { RouterParams } from './types';
-import { UpsertSectionMutation } from './upsertSection.generated';
+import {
+  UpsertSectionMutation,
+  UpsertSectionMutationVariables,
+} from './upsertSection.generated';
 
 const addToList =
-  ({ regionId }: RouterParams): MutationUpdaterFn<UpsertSectionMutation> =>
-  (store, result) => {
-    const section = result.data?.upsertSection;
+  ({
+    regionId,
+  }: RouterParams): MutationUpdaterFunction<
+    UpsertSectionMutation,
+    UpsertSectionMutationVariables,
+    unknown,
+    ApolloCache<any>
+  > =>
+  (store, { data }) => {
+    const section = data?.upsertSection;
     if (!section) {
       return;
     }
@@ -24,17 +34,23 @@ const addToList =
     if (!queryResult) {
       return;
     }
+
     const { sections } = queryResult;
     const isNew = sections.nodes.findIndex((s) => s.id === section.id) === -1;
     if (!isNew) {
       return;
     }
-    sections.count += 1;
-    sections.nodes.push(section);
     store.writeQuery({
       query: ListSectionsDocument,
       variables: { filter: { regionId } },
-      data: queryResult,
+      data: {
+        __typename: queryResult.__typename,
+        sections: {
+          ...sections,
+          nodes: [...sections.nodes, section],
+          count: sections.count + 1,
+        },
+      },
     });
   };
 

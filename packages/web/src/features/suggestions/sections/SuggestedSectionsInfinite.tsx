@@ -1,6 +1,5 @@
-import { getListMerger } from '@whitewater-guide/clients';
+import { ObservableQueryFields } from '@apollo/client';
 import React, { useCallback } from 'react';
-import { ObservableQueryFields } from 'react-apollo';
 import { Index, InfiniteLoader } from 'react-virtualized';
 
 import {
@@ -33,7 +32,6 @@ export const SuggestedSectionsInfinite = React.memo<Props>((props) => {
         variables: {
           page: { offset: nodes ? nodes.length : 0 },
         },
-        updateQuery: getListMerger('suggestedSections' as any),
       }),
     [nodes, fetchMore],
   );

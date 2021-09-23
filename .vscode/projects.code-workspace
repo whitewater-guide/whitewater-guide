@@ -17,6 +17,10 @@
       "path": "../packages/codegen-backend-tests"
     },
     {
+      "name": "codegen-typedefs",
+      "path": "../packages/codegen-typedefs"
+    },
+    {
       "name": "commons",
       "path": "../packages/commons"
     },

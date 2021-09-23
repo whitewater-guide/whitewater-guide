@@ -1,14 +1,15 @@
 import React from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 
-import theme from '../../../theme';
+import OfflineListHeader from '~/components/OfflineListHeader';
+import theme from '~/theme';
 
 const styles = StyleSheet.create({
   loadingWrapper: {
-    alignSelf: 'stretch',
+    // alignSelf: 'stretch',
     height: theme.rowHeight,
     justifyContent: 'center',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     paddingLeft: theme.margin.single,
   },
 });
@@ -18,14 +19,14 @@ interface Props {
 }
 
 const GaugeListHeader: React.FC<Props> = ({ loading }) => {
-  if (!loading) {
-    return null;
+  if (loading) {
+    return (
+      <View style={styles.loadingWrapper}>
+        <ActivityIndicator color={theme.colors.primary} size="small" />
+      </View>
+    );
   }
-  return (
-    <View style={styles.loadingWrapper}>
-      <ActivityIndicator color={theme.colors.primary} size="small" />
-    </View>
-  );
+  return <OfflineListHeader />;
 };
 
 GaugeListHeader.displayName = 'GaugeListHeader';

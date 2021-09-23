@@ -1,5 +1,5 @@
+import { QueryResult } from '@apollo/client';
 import React, { useContext } from 'react';
-import { QueryResult } from 'react-apollo';
 import { Overwrite, Required } from 'utility-types';
 
 import {
@@ -16,32 +16,25 @@ export const SectionContext = React.createContext<
   QueryResult<SectionDetailsQuery, SectionDetailsQueryVariables>
 >({} as any);
 
-type FunctionalChildren = (
-  result: QueryResult<SectionDetailsQuery, SectionDetailsQueryVariables>,
-) => React.ReactNode;
-
 interface Props {
   sectionId: string;
   thumbSize?: number;
-  children?: FunctionalChildren | React.ReactNode;
 }
 
 export const SectionProvider: React.FC<Props> = React.memo((props) => {
   const { sectionId, thumbSize, children } = props;
   const result = useSectionDetailsQuery({
     fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: 'cache-first',
     variables: { sectionId, withMedia: !!thumbSize, thumbSize },
     // This serves 2 purposes
     // 1. Render section details screen faster because we have partial section from list
     // 2. Return section from persisted cache even if section from user's cache has some missing fields (because it's from previous app version)
     returnPartialData: true,
   });
+
   return (
-    <SectionContext.Provider value={result}>
-      {typeof children === 'function'
-        ? (children as FunctionalChildren)(result)
-        : React.Children.only(children)}
-    </SectionContext.Provider>
+    <SectionContext.Provider value={result}>{children}</SectionContext.Provider>
   );
 });
 

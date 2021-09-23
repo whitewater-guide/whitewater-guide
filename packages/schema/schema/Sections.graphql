@@ -81,9 +81,9 @@ type Section implements NamedNode & Timestamped {
   "Array of tags"
   tags: [Tag!]!
   "When was this section added to whitewater.guide"
-  createdAt: Date!
+  createdAt: DateTime!
   "When was this section last modified"
-  updatedAt: Date!
+  updatedAt: DateTime!
   "Original author, can be null when user was deleted or for very old sections"
   createdBy: User
   "Photos, videos and blogs"
@@ -191,8 +191,12 @@ input SectionsFilter {
   riverId: ID
   "Region ID"
   regionId: ID
-  "Only list sections that weere update after this date"
-  updatedAfter: Date
+  """
+  Only list sections that weere update after this date
+
+  @deprecated Use special query argument instead
+  """
+  updatedAfter: DateTime @deprecated
   "String to search in full section name (river name + section name)"
   search: String
   "list only verified or unverified sections"
@@ -217,7 +221,7 @@ type SectionEditLogEntry {
   "JSON diff of change"
   diff: JSON
   "Date of action"
-  createdAt: Date!
+  createdAt: DateTime!
 }
 
 input SectionsEditLogFilter {
@@ -232,7 +236,11 @@ type SectionsEditLogList {
 
 type Query {
   "List sections"
-  sections(page: Page, filter: SectionsFilter): SectionsList!
+  sections(
+    page: Page
+    filter: SectionsFilter
+    updatedAfter: DateTime
+  ): SectionsList!
   "Gets section by id. Returns null when id is not provided"
   section(id: ID): Section
   "Returns edit logs"

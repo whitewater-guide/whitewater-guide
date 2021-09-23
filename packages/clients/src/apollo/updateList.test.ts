@@ -1,8 +1,7 @@
-import { Node } from '@whitewater-guide/schema';
-
 import { updateList } from './updateList';
 
-interface TestNode extends Node {
+interface TestNode {
+  __ref: string;
   txt: string;
 }
 
@@ -12,49 +11,49 @@ it.each([
   [
     'array without overlap',
     [
-      { id: '1', txt: 'foo' },
-      { id: '2', txt: 'oof' },
+      { __ref: '1', txt: 'foo' },
+      { __ref: '2', txt: 'oof' },
     ],
     [
-      { id: '3', txt: 'bar' },
-      { id: '4', txt: 'rab' },
+      { __ref: '3', txt: 'bar' },
+      { __ref: '4', txt: 'rab' },
     ],
     [
-      { id: '1', txt: 'foo' },
-      { id: '2', txt: 'oof' },
-      { id: '3', txt: 'bar' },
-      { id: '4', txt: 'rab' },
+      { __ref: '1', txt: 'foo' },
+      { __ref: '2', txt: 'oof' },
+      { __ref: '3', txt: 'bar' },
+      { __ref: '4', txt: 'rab' },
     ],
   ],
   [
     'fully overlapping arrays',
     [
-      { id: '1', txt: 'foo' },
-      { id: '2', txt: 'oof' },
+      { __ref: '1', txt: 'foo' },
+      { __ref: '2', txt: 'oof' },
     ],
     [
-      { id: '1', txt: 'bar' },
-      { id: '2', txt: 'rab' },
+      { __ref: '1', txt: 'bar' },
+      { __ref: '2', txt: 'rab' },
     ],
     [
-      { id: '1', txt: 'bar' },
-      { id: '2', txt: 'rab' },
+      { __ref: '1', txt: 'bar' },
+      { __ref: '2', txt: 'rab' },
     ],
   ],
   [
     'partially overlapping arrays',
     [
-      { id: '1', txt: 'foo' },
-      { id: '2', txt: 'oof' },
+      { __ref: '1', txt: 'foo' },
+      { __ref: '2', txt: 'oof' },
     ],
     [
-      { id: '2', txt: 'bar' },
-      { id: '4', txt: 'rab' },
+      { __ref: '2', txt: 'bar' },
+      { __ref: '4', txt: 'rab' },
     ],
     [
-      { id: '1', txt: 'foo' },
-      { id: '2', txt: 'bar' },
-      { id: '4', txt: 'rab' },
+      { __ref: '1', txt: 'foo' },
+      { __ref: '2', txt: 'bar' },
+      { __ref: '4', txt: 'rab' },
     ],
   ],
 ] as TestCase[])('should be correct for %s', (_, prev, next, expected) => {

@@ -1,6 +1,5 @@
-import { mockSingleLink } from '@apollo/react-testing';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import ApolloClient from 'apollo-client';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { mockSingleLink } from '@apollo/client/testing';
 
 import {
   graphqlErrorPath2,

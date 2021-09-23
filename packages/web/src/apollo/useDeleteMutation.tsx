@@ -1,16 +1,12 @@
+import { MutationHookOptions, useMutation } from '@apollo/client';
 import { DocumentNode } from 'graphql';
 import { useCallback } from 'react';
-import { MutationHookOptions, useMutation } from 'react-apollo';
 
-interface MVars {
-  id: string;
-}
-
-export const useDeleteMutation = (
+export function useDeleteMutation(
   mutation: DocumentNode,
   refetchQueries?: MutationHookOptions['refetchQueries'],
-) => {
-  const [mutate] = useMutation<unknown, MVars>(mutation, {
+): (id: string) => void {
+  const [mutate] = useMutation(mutation, {
     refetchQueries,
   });
   return useCallback(
@@ -21,4 +17,4 @@ export const useDeleteMutation = (
     },
     [mutate],
   );
-};
+}

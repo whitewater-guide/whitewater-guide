@@ -1,5 +1,5 @@
+import { useApolloClient } from '@apollo/client';
 import { DocumentNode } from 'graphql';
-import { useApolloClient } from 'react-apollo';
 import useAsyncFn from 'react-use/lib/useAsyncFn';
 
 import { OfflineProgress } from '../types';

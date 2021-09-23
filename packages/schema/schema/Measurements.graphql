@@ -1,7 +1,7 @@
 "Measurement represents gauge's value at one point in time"
 type Measurement {
   "When was this measurement taken"
-  timestamp: Date!
+  timestamp: DateTime!
   "Level value (cm/inches etc.) if present"
   level: Float
   "Flow value (cms/cfs etc.) if present"
@@ -10,9 +10,9 @@ type Measurement {
 
 input MeasurementsFilter {
   "Start of period, see gorge for default value"
-  from: Date
+  from: DateTime
   "End of period, defaults to now"
-  to: Date
+  to: DateTime
 }
 
 type Query {

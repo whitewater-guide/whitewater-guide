@@ -1,11 +1,12 @@
 import { useNetInfo } from '@react-native-community/netinfo';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Clipboard, Platform, StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Caption } from 'react-native-paper';
 
 import theme from '~/theme';
+import copyAndToast from '~/utils/copyAndToast';
 
 import { MapboxOfflineErrors } from '../errors';
 
@@ -40,7 +41,7 @@ const Errors: React.FC<Required<Props>> = ({ error }) => {
 
   const copyError = useCallback(() => {
     if (error) {
-      Clipboard.setString(JSON.stringify(error, null, 2));
+      copyAndToast(JSON.stringify(error, null, 2));
     }
   }, [error]);
 

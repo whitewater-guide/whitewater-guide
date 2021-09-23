@@ -1,6 +1,6 @@
+import { useApolloClient } from '@apollo/client';
 import { PostPolicyVersion } from '@whitewater-guide/schema';
 import { useCallback, useRef, useState } from 'react';
-import { useApolloClient } from 'react-apollo';
 
 import {
   GetUploadLinkDocument,

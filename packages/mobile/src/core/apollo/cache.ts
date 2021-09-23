@@ -1,24 +1,25 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import { configureApolloCache } from '@whitewater-guide/clients';
-import { CachePersistor } from 'apollo-cache-persist';
+import { CachePersistor, MMKVStorageWrapper } from 'apollo3-cache-persist';
+import MMKVStorage from 'react-native-mmkv-storage';
 
 import { trackError } from '../errors';
-import { storage } from './storage';
 
-const SCHEMA_VERSION = '2'; // Must be a string.
+const SCHEMA_VERSION = '3'; // Must be a string.
 const SCHEMA_VERSION_KEY = 'apollo-schema-version';
 
-export const inMemoryCache = configureApolloCache();
+export const cache = configureApolloCache();
+
+const storage = new MMKVStorage.Loader().initialize();
 
 export const apolloCachePersistor = new CachePersistor({
-  cache: inMemoryCache,
-  storage,
+  cache,
+  storage: new MMKVStorageWrapper(storage),
   maxSize: false,
   debug: __DEV__,
-  debounce: 5000,
 });
 
-export const assertCachePersistorVersion = async () => {
+export async function assertCachePersistorVersion(): Promise<void> {
   // Read the current schema version from AsyncStorage.
   const currentVersion = await AsyncStorage.getItem(SCHEMA_VERSION_KEY);
 
@@ -36,4 +37,4 @@ export const assertCachePersistorVersion = async () => {
     await apolloCachePersistor.purge();
     await AsyncStorage.setItem(SCHEMA_VERSION_KEY, SCHEMA_VERSION);
   }
-};
+}

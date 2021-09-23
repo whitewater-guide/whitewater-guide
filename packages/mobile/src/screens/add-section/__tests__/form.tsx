@@ -1,3 +1,4 @@
+import Clipboard from '@react-native-clipboard/clipboard';
 import { NavigationContainer } from '@react-navigation/native';
 import {
   fireEvent,
@@ -9,10 +10,7 @@ import {
 import * as clients from '@whitewater-guide/clients';
 import { mockApolloProvider } from '@whitewater-guide/clients/dist/test';
 import React from 'react';
-import { Clipboard } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
-
-import { SnackbarProvider } from '~/components/snackbar';
 
 import { I18nTestProvider } from '../../../i18n/I18nTestProvider';
 import AddSectionScreen from '../AddSectionScreen';
@@ -46,11 +44,9 @@ beforeEach(() => {
     <ApolloProvider>
       <PaperProvider>
         <I18nTestProvider>
-          <SnackbarProvider>
-            <NavigationContainer>
-              <AddSectionScreen />
-            </NavigationContainer>
-          </SnackbarProvider>
+          <NavigationContainer>
+            <AddSectionScreen />
+          </NavigationContainer>
         </I18nTestProvider>
       </PaperProvider>
     </ApolloProvider>,

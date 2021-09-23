@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom/extend-expect';
 
-import { MockedProvider, MockedResponse } from '@apollo/react-testing';
+import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import {
   fireEvent,
   render,
@@ -10,6 +10,7 @@ import {
 import { MyProfileFragment } from '@whitewater-guide/schema';
 import React from 'react';
 
+import { configureApolloCache } from '../apollo/configureApolloCache';
 import { AuthProvider } from './AuthProvider';
 import { AuthContext } from './context';
 import { MockAuthService } from './mockService';
@@ -68,8 +69,9 @@ let utils: RenderResult;
 function setup() {
   const mockService = new MockAuthService();
   mocks = { ...(mockService as any) };
+  const cache = configureApolloCache();
   const tree = (
-    <MockedProvider mocks={[response]}>
+    <MockedProvider mocks={[response]} cache={cache}>
       <AuthProvider
         service={mockService}
         renderInitializing={<div data-testid="initializing">Initializing</div>}

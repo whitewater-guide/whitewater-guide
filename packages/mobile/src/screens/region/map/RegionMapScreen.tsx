@@ -26,7 +26,7 @@ const RegionMapScreen: React.FC<RegionMapNavProps> = ({ navigation }) => {
       {region && (
         <Map
           pois={region.pois}
-          sections={sections}
+          sections={sections ?? []}
           initialBounds={region.bounds}
           testID="region-map"
         />

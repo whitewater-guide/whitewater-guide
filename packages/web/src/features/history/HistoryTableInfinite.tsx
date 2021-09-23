@@ -1,4 +1,3 @@
-import { getListMerger } from '@whitewater-guide/clients';
 import { NamedNode } from '@whitewater-guide/schema';
 import React from 'react';
 import { Index, InfiniteLoader } from 'react-virtualized';
@@ -35,7 +34,6 @@ class HistoryTableInfinite extends React.PureComponent<Props> {
       variables: {
         page: { offset: nodes ? nodes.length : 0 },
       },
-      updateQuery: getListMerger('history'),
     });
   };
 

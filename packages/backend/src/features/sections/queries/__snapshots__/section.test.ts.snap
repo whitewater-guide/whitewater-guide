@@ -15,6 +15,7 @@ Object {
   "distance": 3.2,
   "drop": 34.2,
   "duration": 10,
+  "favorite": false,
   "flows": null,
   "flowsText": "Amot flows text",
   "helpNeeded": "Suggest POIs please",

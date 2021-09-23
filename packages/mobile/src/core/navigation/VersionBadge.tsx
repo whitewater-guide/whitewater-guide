@@ -1,8 +1,9 @@
 import React from 'react';
-import { Alert, Clipboard, StyleSheet, View } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
 import { Caption } from 'react-native-paper';
 import Config from 'react-native-ultimate-config';
 
+import copyAndToast from '~/utils/copyAndToast';
 import { versioning } from '~/utils/versioning';
 
 const styles = StyleSheet.create({
@@ -39,7 +40,7 @@ Build: ${iosBuildNumber} / ${androidBuildNumber}
 Environment: ${Config.ENV_NAME}`;
 
     Alert.alert('Version info', info, [
-      { text: 'Copy', onPress: () => Clipboard.setString(info) },
+      { text: 'Copy', onPress: () => copyAndToast(info) },
       { text: 'OK' },
     ]);
   };

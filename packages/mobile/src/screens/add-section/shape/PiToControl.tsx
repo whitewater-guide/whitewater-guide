@@ -1,8 +1,8 @@
 import { arrayToLatLngString } from '@whitewater-guide/clients';
+import Image from '@whitewater-guide/react-native-fast-image';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import Image from 'react-native-fast-image';
 import { Subheading, Title } from 'react-native-paper';
 
 import { ICON_SIZE, PUT_IN_ICON, TAKE_OUT_ICON } from '../../../assets';

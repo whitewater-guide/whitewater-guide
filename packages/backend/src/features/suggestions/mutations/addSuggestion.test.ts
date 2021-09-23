@@ -5,7 +5,6 @@ import {
   fakeContext,
   fileExistsInBucket,
   resetTestMinio,
-  TIMESTAMP_REGEX,
   UUID_REGEX,
 } from '@test';
 import {
@@ -151,7 +150,7 @@ describe('regular user', () => {
       __typename: 'Suggestion',
       id: expect.stringMatching(UUID_REGEX),
       description: 'foobar',
-      createdAt: expect.stringMatching(TIMESTAMP_REGEX),
+      createdAt: expect.any(Date),
       createdBy: {
         id: BOOM_USER_1500_ID,
         name: BOOM_USER_1500.name,
@@ -205,7 +204,7 @@ describe('editor', () => {
       __typename: 'Suggestion',
       id: expect.stringMatching(UUID_REGEX),
       description: 'foobar',
-      createdAt: expect.stringMatching(TIMESTAMP_REGEX),
+      createdAt: expect.any(Date),
       createdBy: {
         id: EDITOR_GE_ID,
         name: EDITOR_GE.name,
@@ -215,7 +214,7 @@ describe('editor', () => {
         id: EDITOR_GE_ID,
         name: EDITOR_GE.name,
       },
-      resolvedAt: expect.stringMatching(TIMESTAMP_REGEX),
+      resolvedAt: expect.any(Date),
       section: {
         id: GEORGIA_BZHUZHA_EXTREME,
         name: 'Extreme race',
@@ -265,7 +264,7 @@ describe('editor', () => {
       __typename: 'Suggestion',
       id: expect.stringMatching(UUID_REGEX),
       description: 'foobar',
-      createdAt: expect.stringMatching(TIMESTAMP_REGEX),
+      createdAt: expect.any(Date),
       createdBy: {
         id: EDITOR_GE_ID,
         name: EDITOR_GE.name,

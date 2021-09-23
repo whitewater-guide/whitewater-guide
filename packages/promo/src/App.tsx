@@ -1,10 +1,9 @@
+import { ApolloClient, ApolloProvider } from '@apollo/client';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { AuthService } from '@whitewater-guide/clients';
 import { WebAuthService } from '@whitewater-guide/clients/dist/web';
-import { ApolloClient } from 'apollo-client';
 import React from 'react';
-import { ApolloProvider } from 'react-apollo';
 
 import { initApolloClient } from './apollo';
 import { API_HOST, FACEBOOK_APP_ID } from './environment';

@@ -25,17 +25,18 @@
     "typecheck": "tsc --noEmit",
     "prepare": "yarn build"
   },
-  "devDependencies": {
-    "@types/lodash": "^4.14.172",
-    "@types/validator": "^13.6.3",
-    "date-fns": "^2.23.0"
-  },
   "dependencies": {
     "cron-validator": "^1.2.1",
     "expr-eval": "^2.0.2",
     "lodash": "^4.17.21",
     "validator": "^13.6.0",
     "yup": "^0.32.9"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.173",
+    "@types/validator": "^13.6.3",
+    "date-fns": "^2.24.0",
+    "jest": "*"
   },
   "peerDependencies": {
     "date-fns": "*"

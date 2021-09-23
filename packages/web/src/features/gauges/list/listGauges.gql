@@ -11,8 +11,7 @@ fragment ListGaugesRow on Gauge {
 }
 
 query listGauges($filter: GaugesFilter, $page: Page) {
-  gauges(filter: $filter, page: $page)
-    @connection(key: "gauges", filter: ["filter"]) {
+  gauges(filter: $filter, page: $page) {
     nodes {
       ...ListGaugesRow
     }

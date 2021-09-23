@@ -1,10 +1,10 @@
+import { useApolloClient } from '@apollo/client';
 import {
   RegionDetailsDocument,
   RegionDetailsQuery,
   RegionDetailsQueryVariables,
 } from '@whitewater-guide/clients';
 import { useCallback } from 'react';
-import { useApolloClient } from 'react-apollo';
 
 import theme from '~/theme';
 

@@ -5,6 +5,7 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Paragraph } from 'react-native-paper';
 
 import Icon from '~/components/Icon';
+import OfflineListHeader from '~/components/OfflineListHeader';
 import { Screens } from '~/core/navigation';
 import theme from '~/theme';
 
@@ -24,6 +25,7 @@ const styles = StyleSheet.create({
 const AddNewHeader: React.FC = () => {
   const { t } = useTranslation();
   const { dispatch } = useNavigation();
+
   const onPress = useCallback(() => {
     dispatch((state) =>
       CommonActions.navigate({
@@ -32,8 +34,10 @@ const AddNewHeader: React.FC = () => {
       }),
     );
   }, [dispatch]);
+
   return (
     <>
+      <OfflineListHeader />
       <SectionHeader id="New" />
       <TouchableOpacity onPress={onPress}>
         <View style={styles.container}>

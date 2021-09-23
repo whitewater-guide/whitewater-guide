@@ -5,7 +5,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { useAuth } from '@whitewater-guide/clients';
 import React from 'react';
-import useRouter from 'use-react-router';
+import { useLocation } from 'react-router';
 
 import { DRAWER_WIDTH } from './constants';
 import DrawerItem from './DrawerItem';
@@ -48,7 +48,7 @@ interface Props {
 
 export const Drawer: React.FC<Props> = ({ onClose, isOpen }) => {
   const classes = useStyles();
-  const { location } = useRouter();
+  const location = useLocation();
   const permanent = usePermanentDrawer();
   const { me } = useAuth();
   const value = `/${location.pathname.split('/')[1]}`;

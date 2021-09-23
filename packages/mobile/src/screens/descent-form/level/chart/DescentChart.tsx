@@ -1,4 +1,5 @@
 import { useLayout } from '@react-native-community/hooks';
+import { useNetInfo } from '@react-native-community/netinfo';
 import { useChart } from '@whitewater-guide/clients';
 import { DescentLevelInput } from '@whitewater-guide/schema';
 import React from 'react';
@@ -30,18 +31,27 @@ export const DescentChart: React.FC<Props> = ({ onLoaded, startedAt }) => {
   const {
     gauge,
     section,
-    measurements: { loading, data },
+    measurements: { loading, data, error },
     filter,
     unit,
   } = useChart();
-  useOnDataLoaded({ data, unit, startedAt, gauge, onLoaded });
   const { height, width, onLayout } = useLayout();
+  const { isInternetReachable } = useNetInfo();
+
+  useOnDataLoaded({ data, unit, startedAt, gauge, onLoaded });
+
   if (loading) {
     return <Loading />;
   }
-  if (!data || data.length === 0) {
-    return <NoChart noData />;
+
+  if (isInternetReachable === false && !!error) {
+    return <NoChart reason="offline" />;
   }
+
+  if (!data || data.length === 0) {
+    return <NoChart reason="noData" />;
+  }
+
   return (
     <View style={styles.container} onLayout={onLayout}>
       {!!height && (

@@ -1,7 +1,6 @@
 import {
   anonContext,
   fakeContext,
-  isTimestamp,
   isUUID,
   noTimestamps,
   noUnstable,
@@ -153,8 +152,8 @@ describe('insert', () => {
   it('should have timestamps', () => {
     expect(insertedSource?.createdAt).toBeDefined();
     expect(insertedSource?.updatedAt).toBeDefined();
-    expect(isTimestamp(insertedSource?.createdAt)).toBe(true);
-    expect(isTimestamp(insertedSource?.updatedAt)).toBe(true);
+    expect(insertedSource?.createdAt).toBeInstanceOf(Date);
+    expect(insertedSource?.updatedAt).toBeInstanceOf(Date);
   });
 
   it('should connect region', async () => {

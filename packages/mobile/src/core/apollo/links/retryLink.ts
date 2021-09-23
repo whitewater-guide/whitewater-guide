@@ -1,4 +1,4 @@
-import { RetryLink } from 'apollo-link-retry';
+import { RetryLink } from '@apollo/client/link/retry';
 
 export const retryLink = new RetryLink({
   delay: {
@@ -7,7 +7,7 @@ export const retryLink = new RetryLink({
     jitter: true,
   },
   attempts: {
-    max: 5,
+    max: 3,
     retryIf: (error) =>
       // retries fetch errors (no status code) and 500 errors
       // 400 = refresh failed

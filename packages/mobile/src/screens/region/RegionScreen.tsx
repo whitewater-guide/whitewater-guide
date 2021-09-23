@@ -1,3 +1,4 @@
+import { useApolloClient } from '@apollo/client';
 import { useNetInfo } from '@react-native-community/netinfo';
 import {
   RegionProvider,
@@ -5,8 +6,7 @@ import {
   SectionsListProvider,
   useSectionsFilterOptions,
 } from '@whitewater-guide/clients';
-import React from 'react';
-import { useApolloClient } from 'react-apollo';
+import React, { memo } from 'react';
 
 import ErrorBoundary from '~/components/ErrorBoundary';
 import theme from '~/theme';
@@ -15,13 +15,13 @@ import RegionStack from './RegionStack';
 import { RegionScreenNavProps } from './types';
 
 // Load smaller batch first to display asap
-const limitFn = (offset: number) => (offset ? 60 : 20);
+const limitFn = (offset: number) => (offset ? 60 : 120);
 
 interface Props {
   regionId: string;
 }
 
-const InnerRegionScreen: React.FC<Props> = ({ regionId }) => {
+const InnerRegionScreen = memo<Props>(({ regionId }) => {
   const filterOptions = useSectionsFilterOptions();
   const { isConnected } = useNetInfo();
   const client = useApolloClient();
@@ -37,7 +37,7 @@ const InnerRegionScreen: React.FC<Props> = ({ regionId }) => {
       <RegionStack />
     </SectionsListProvider>
   );
-};
+});
 
 const RegionScreen: React.FC<RegionScreenNavProps> = ({ route }) => (
   // TODO navigation allow error boundary to reset to home screen

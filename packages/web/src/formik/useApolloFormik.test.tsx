@@ -1,4 +1,4 @@
-import { MockedProvider, MockedResponse } from '@apollo/react-testing';
+import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { act, renderHook } from '@testing-library/react-hooks';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 import { GraphQLError } from 'graphql';

@@ -2,7 +2,6 @@ import { useNetInfo } from '@react-native-community/netinfo';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  Clipboard,
   Platform,
   StyleSheet,
   Text,
@@ -10,6 +9,8 @@ import {
   View,
 } from 'react-native';
 import { Subheading } from 'react-native-paper';
+
+import copyAndToast from '~/utils/copyAndToast';
 
 import { IAPError } from '../../../features/purchases';
 import theme from '../../../theme';
@@ -46,7 +47,7 @@ const PurchaseErrorView: React.FC<Props> = React.memo(({ error }) => {
   const errorString = error ? t(error.message, error.options) : null;
   const copyError = useCallback(() => {
     if (error) {
-      Clipboard.setString(`${errorString}\n${error.description}`);
+      copyAndToast(`${errorString}\n${error.description}`);
     }
   }, [error, errorString]);
   if (!error) {

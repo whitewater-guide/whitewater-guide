@@ -20,7 +20,7 @@ export const SectionsList = React.memo<ListProps>((props) => {
   const { region, sections } = props;
   const listProps = useLargelist(props);
 
-  if (!region || sections.length === 0) {
+  if (!region || !sections?.length) {
     return <NoSectionsPlaceholder />;
   }
 

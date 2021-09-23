@@ -2,7 +2,6 @@ import {
   anonContext,
   countRows,
   fakeContext,
-  isTimestamp,
   isUUID,
   noTimestamps,
   noUnstable,
@@ -67,7 +66,7 @@ const fullRegion: RegionInput = {
     [10, 20, 0],
     [10, 10],
     [20, 20, null],
-  ],
+  ] as any, // this imitates arbitrary input from clients
   season: 'season description',
   seasonNumeric: [1, 2, 3],
   pois: [],
@@ -95,7 +94,7 @@ const fullRegionUpdate: RegionInput = {
       name: 'pt 2 u',
       description: 'pt 2 upd',
       kind: 'take-out',
-      coordinates: [33, 34, null],
+      coordinates: [33, 34, null] as any, // this imitates arbitrary input from client
     }, // new
     {
       id: GALICIA_PT_2,
@@ -116,14 +115,14 @@ const fullRegionWithPOIs: RegionInput = {
       name: 'pt 1',
       description: 'pt 1 d',
       kind: 'other',
-      coordinates: [10, 12], // 2d
+      coordinates: [10, 12] as any, // 2d - this imitates arbitrary input from client
     },
     {
       id: null,
       name: 'pt 2',
       description: 'pt 2 d',
       kind: 'take-out',
-      coordinates: [33, 34, 0], // 3d
+      coordinates: [33, 34, 0], // 3d - this imitates arbitrary input from client
     },
   ],
 };
@@ -229,8 +228,8 @@ describe('insert', () => {
   it('should return timestamps', () => {
     expect(insertedRegion.createdAt).toBeDefined();
     expect(insertedRegion.updatedAt).toBeDefined();
-    expect(isTimestamp(insertedRegion.createdAt)).toBe(true);
-    expect(isTimestamp(insertedRegion.updatedAt)).toBe(true);
+    expect(insertedRegion.createdAt).toBeInstanceOf(Date);
+    expect(insertedRegion.updatedAt).toBeInstanceOf(Date);
   });
 
   it('should return pois', () => {
@@ -376,7 +375,7 @@ describe('update', () => {
 });
 
 describe('i18n', () => {
-  const emptyRegionRu = {
+  const emptyRegionRu: RegionInput = {
     id: REGION_ECUADOR,
     name: 'Пустой регион',
     description: null,
@@ -424,7 +423,7 @@ describe('i18n', () => {
   });
 
   it('should modify translation', async () => {
-    const region = {
+    const region: RegionInput = {
       id: 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34',
       seasonNumeric: [20, 21],
       bounds: [
@@ -463,7 +462,7 @@ describe('i18n', () => {
   });
 
   it('should update poi translation', async () => {
-    const region = {
+    const region: RegionInput = {
       ...fullRegion,
       id: 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34',
       pois: [

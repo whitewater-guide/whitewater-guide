@@ -1,4 +1,4 @@
-import { MockedResponse } from '@apollo/react-testing';
+import { MockedResponse } from '@apollo/client/testing';
 import { GraphQLError } from 'graphql';
 import gql from 'graphql-tag';
 
@@ -11,8 +11,7 @@ export const TEST_OFFLINE_SECTIONS = gql`
     $thumbWidth: Int
     $thumbHeight: Int
   ) {
-    sections(page: $page, filter: $filter)
-      @connection(key: "offline_sections", filter: ["filter"]) {
+    sections(page: $page, filter: $filter) {
       nodes {
         id
         media {

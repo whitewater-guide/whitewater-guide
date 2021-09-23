@@ -1,7 +1,7 @@
-import { useStreamingQuery } from '@whitewater-guide/clients';
+import { useChunkedQuery } from '@whitewater-guide/clients';
 import { Node } from '@whitewater-guide/schema';
 import React from 'react';
-import useRouter from 'use-react-router';
+import { useHistory } from 'react-router';
 
 import { useDeleteMutation } from '../../../apollo';
 import { Loading } from '../../../components';
@@ -19,14 +19,15 @@ interface Props {
 
 export const GaugesList = React.memo<Props>((props) => {
   const { source } = props;
-  const { history } = useRouter();
-  const { data, loading } = useStreamingQuery<
+  const history = useHistory();
+  const { data, loading } = useChunkedQuery<
     ListGaugesQuery,
     ListGaugesQueryVariables
   >(
     ListGaugesDocument,
     {
       fetchPolicy: 'cache-and-network',
+      nextFetchPolicy: 'cache-first',
       variables: { filter: { sourceId: source.id } },
     },
     60,

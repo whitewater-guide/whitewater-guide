@@ -1,3 +1,7 @@
+import { ApolloClient, ApolloProvider } from '@apollo/client';
+import { SchemaLink } from '@apollo/client/link/schema';
+import { addMocksToSchema } from '@graphql-tools/mock';
+import { makeExecutableSchema } from '@graphql-tools/schema';
 import {
   BannerKind,
   BannerPlacement,
@@ -5,13 +9,9 @@ import {
   TagCategory,
   typeDefs,
 } from '@whitewater-guide/schema';
-import { ApolloClient } from 'apollo-client';
-import { SchemaLink } from 'apollo-link-schema';
 import { GraphQLFieldResolver, GraphQLResolveInfo } from 'graphql';
-import { addMocksToSchema, makeExecutableSchema } from 'graphql-tools';
-import GraphQLJSON from 'graphql-type-json';
+import { JSONResolver } from 'graphql-scalars';
 import React from 'react';
-import { ApolloProvider } from 'react-apollo';
 
 import { configureApolloCache } from '../apollo';
 
@@ -66,7 +66,7 @@ export const mockApolloClient = (
   const { Query = {}, Mutation = {}, mocks = {} } = options;
   let schema = makeExecutableSchema({
     typeDefs,
-    resolvers: { JSON: GraphQLJSON },
+    resolvers: { JSON: JSONResolver },
   });
 
   const primitiveMocks: RecursiveMockResolver = {
@@ -113,6 +113,12 @@ export const mockApolloClient = (
       return { json: `${key}.${seq}` };
     },
     Date: (_, __, { counters }, info) => {
+      const { seq } = counters.resolveNext(info);
+      const result = new Date(2017, 1, 1);
+      result.setDate(result.getDate() + seq);
+      return result;
+    },
+    DateTime: (_, __, { counters }, info) => {
       const { seq } = counters.resolveNext(info);
       const result = new Date(2017, 1, 1);
       result.setDate(result.getDate() + seq);

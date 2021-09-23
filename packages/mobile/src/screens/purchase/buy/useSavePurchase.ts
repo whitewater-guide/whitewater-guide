@@ -10,7 +10,7 @@ type Hook = (
   purchase: InAppPurchase,
 ) => Promise<{ error?: IAPError; saved: boolean }>;
 
-export default (sectionId?: string): Hook => {
+export default function useSavePurchase(sectionId?: string): Hook {
   const [mutate] = useAddPurchaseMutation();
   return useCallback(
     (purchase: InAppPurchase) =>
@@ -51,4 +51,4 @@ export default (sectionId?: string): Hook => {
         })),
     [mutate, sectionId],
   );
-};
+}

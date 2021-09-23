@@ -1,14 +1,12 @@
+import { makeExecutableSchema } from '@graphql-tools/schema';
 import { typeDefs } from '@whitewater-guide/schema';
-import { makeExecutableSchema } from 'graphql-tools';
 
-import { AdminDirective } from '../directives';
+import { addAdminDirective } from '../directives';
 import { resolvers } from './resolvers';
 
-export const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers,
-  allowUndefinedInResolve: false,
-  schemaDirectives: {
-    admin: AdminDirective,
-  },
-});
+export const schema = addAdminDirective(
+  makeExecutableSchema({
+    typeDefs,
+    resolvers,
+  }),
+);

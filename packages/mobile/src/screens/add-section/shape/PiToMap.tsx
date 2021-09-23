@@ -74,7 +74,7 @@ const PiToMap = React.memo(
   forwardRef<Mapbox.MapView, Props>((props, ref) => {
     const { shape, selected, ...mapProps } = props;
     const sectionsList = useSectionsList();
-    const { sections, arrows } = useMapboxData(sectionsList.sections);
+    const { sections, arrows } = useMapboxData(sectionsList.sections ?? []);
 
     const putIn = shape[0]
       ? {

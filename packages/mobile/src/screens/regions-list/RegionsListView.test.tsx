@@ -1,12 +1,11 @@
+import { MockList } from '@graphql-tools/mock';
 import {
   act,
   render,
   waitForElementToBeRemoved,
 } from '@testing-library/react-native';
-import { dataIdFromObject } from '@whitewater-guide/clients';
 import { mockApolloProvider } from '@whitewater-guide/clients/dist/test';
 import gql from 'graphql-tag';
-import { MockList } from 'graphql-tools';
 import React from 'react';
 
 import RegionsListView from './RegionsListView';
@@ -52,7 +51,7 @@ it('should rerender when premium changes', async () => {
   act(() =>
     ApolloProvider.client.writeFragment({
       data: { __typename: 'Region', id: 'Region.id.1', hasPremiumAccess: true },
-      id: dataIdFromObject({ __typename: 'Region', id: 'Region.id.1' })!,
+      id: 'Region:Region.id.1',
       fragment: gql`
         fragment testFrag on Region {
           id

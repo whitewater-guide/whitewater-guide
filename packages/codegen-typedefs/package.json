@@ -1,0 +1,16 @@
+{
+  "name": "@whitewater-guide/codegen-typedefs",
+  "private": false,
+  "sideEffects": false,
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "Konstantin Kuznetsov",
+  "scripts": {},
+  "dependencies": {
+    "@graphql-tools/utils": "^8.2.2"
+  }
+}

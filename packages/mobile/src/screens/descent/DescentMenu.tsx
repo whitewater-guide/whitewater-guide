@@ -1,11 +1,12 @@
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Clipboard, Platform } from 'react-native';
+import { Platform } from 'react-native';
 import { IconButton } from 'react-native-paper';
 
 import descentToString from '~/features/descents/descentToString';
 import theme from '~/theme';
+import copyAndToast from '~/utils/copyAndToast';
 
 import DeleteDescentDialog from './DeleteDescentDialog';
 import { DescentDetailsFragment } from './descentDetails.generated';
@@ -49,7 +50,7 @@ const DescentMenu: React.FC<Props> = ({ descent }) => {
             setDeleteDialogVisible(true);
             break;
           case 3:
-            Clipboard.setString(descentToString(t, descent));
+            copyAndToast(descentToString(t, descent));
             break;
           default:
           // do nothing

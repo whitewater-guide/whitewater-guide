@@ -4,14 +4,19 @@ fragment ListedSection on Section {
     id
   }
   ...SectionEnds
-  ...SectionMeasurements
   ...SectionTags
+  gauge {
+    id
+    levelUnit
+    flowUnit
+    ...GaugeLatestMeasurement
+  }
+  ...SectionFlows
   updatedAt
 }
 
 query listSections($page: Page, $filter: SectionsFilter) {
-  sections(page: $page, filter: $filter)
-    @connection(key: "sections", filter: ["filter"]) {
+  sections(page: $page, filter: $filter) {
     nodes {
       ...ListedSection
     }

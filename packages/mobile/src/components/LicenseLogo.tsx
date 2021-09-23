@@ -1,8 +1,10 @@
 import { isLicenseWithLogo } from '@whitewater-guide/clients';
+import FastImage, {
+  ImageStyle,
+} from '@whitewater-guide/react-native-fast-image';
 import { License } from '@whitewater-guide/schema';
 import React, { memo } from 'react';
 import { Linking, Pressable, StyleProp, StyleSheet } from 'react-native';
-import FastImage, { ImageStyle } from 'react-native-fast-image';
 import Config from 'react-native-ultimate-config';
 
 const styles = StyleSheet.create({

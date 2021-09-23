@@ -20,7 +20,7 @@ interface Props {
   onUserLanguageChange?: (language: string) => void;
 }
 
-const _i18n = i18next.use(initReactI18next);
+export const i18n = i18next.use(initReactI18next);
 
 const getMyLanguage = (me?: MyProfileFragment | null) => {
   const [{ languageCode }] = getLocales();
@@ -40,7 +40,7 @@ export const I18nProvider: React.FC<Props> = ({
       const [{ languageCode }] = getLocales();
       const language = me?.language ?? languageCode ?? 'en';
       const lng = Config.E2E_MODE === 'true' ? 'cimode' : language.substr(0, 2);
-      await _i18n.init({
+      await i18n.init({
         lng,
         fallbackLng: 'en',
         whitelist: SUPPORTED_LANGUAGES,
@@ -59,7 +59,7 @@ export const I18nProvider: React.FC<Props> = ({
         resources,
         appendNamespaceToCIMode: true,
       });
-      const dfnsLng = Config.E2E_MODE === 'true' ? 'en' : _i18n.languages[0];
+      const dfnsLng = Config.E2E_MODE === 'true' ? 'en' : i18n.languages[0];
       configDateFNS(dfnsLng);
       setReady(true);
     };
@@ -75,7 +75,7 @@ export const I18nProvider: React.FC<Props> = ({
       return;
     }
     i18next.changeLanguage(language).then(() => {
-      configDateFNS(_i18n.languages[0]);
+      configDateFNS(i18n.languages[0]);
     });
     // should not fire on login or logout, only on change
     if (onUserLanguageChange && !!me && !!prevMe) {

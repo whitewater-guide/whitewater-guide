@@ -1,3 +1,4 @@
+import { useApolloClient } from '@apollo/client';
 import { MyProfileDocument } from '@whitewater-guide/clients';
 import { useCallback, useEffect, useRef } from 'react';
 import { Linking } from 'react-native';
@@ -5,7 +6,6 @@ import urlParse from 'url-parse';
 
 import { DEEP_LINKING_URL } from '~/utils/urls';
 
-import { apolloClient } from '../apollo';
 import { RootStackNav } from './navigation-params';
 import { Screens } from './screen-names';
 
@@ -30,7 +30,8 @@ const isReset = ({ href, query }: Parsed) =>
 
 const isVerified = ({ href }: Parsed) => href.indexOf('verified') >= 0;
 
-export const useLinking = ({ navigate }: RootStackNav) => {
+export function useLinking({ navigate }: RootStackNav) {
+  const apolloClient = useApolloClient();
   const navigateRef = useRef(navigate);
   navigateRef.current = navigate;
 
@@ -38,7 +39,7 @@ export const useLinking = ({ navigate }: RootStackNav) => {
     (url: URLish) => {
       const parts = parseURL(url);
       if (parts && isReset(parts)) {
-        navigateRef.current(Screens.AUTH_STACK, {
+        navigateRef.current(Screens.AUTH_STACK as any, {
           screen: Screens.AUTH_RESET,
           params: parts.query,
         });
@@ -48,7 +49,7 @@ export const useLinking = ({ navigate }: RootStackNav) => {
         });
       }
     },
-    [navigateRef],
+    [navigateRef, apolloClient],
   );
   return useEffect(() => {
     Linking.getInitialURL()
@@ -57,9 +58,9 @@ export const useLinking = ({ navigate }: RootStackNav) => {
         // there's nothing we can do, just ignore it
       });
 
-    Linking.addEventListener('url', handleURL);
+    const sub = Linking.addEventListener('url', handleURL);
     return () => {
-      Linking.removeEventListener('url', handleURL);
+      sub.remove();
     };
   }, [handleURL]);
-};
+}

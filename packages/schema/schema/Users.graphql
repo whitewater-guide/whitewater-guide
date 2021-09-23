@@ -12,9 +12,9 @@ type User implements NamedNode & Timestamped {
   "user is editor in any of regions"
   editor: Boolean!
   "registration date"
-  createdAt: Date!
+  createdAt: DateTime!
   "last profle update date"
-  updatedAt: Date!
+  updatedAt: DateTime!
   "Prerferred UI language"
   language: String!
   "Prefer imperial measurement system"

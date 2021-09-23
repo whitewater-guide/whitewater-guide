@@ -17,7 +17,7 @@
 		<key>CFBundlePackageType</key>
 		<string>APPL</string>
 		<key>CFBundleShortVersionString</key>
-		<string>1.14.4</string>
+		<string>1.15.0</string>
 		<key>CFBundleSignature</key>
 		<string>????</string>
 		<key>CFBundleURLTypes</key>
@@ -30,9 +30,11 @@
 			</dict>
 		</array>
 		<key>CFBundleVersion</key>
-		<string>309</string>
+		<string>316</string>
 		<key>FacebookAppID</key>
 		<string>$(FACEBOOK_APP_ID)</string>
+		<key>FacebookClientToken</key>
+		<string>$(FACEBOOK_CLIENT_TOKEN)</string>
 		<key>FacebookDisplayName</key>
 		<string>whitewater.guide</string>
 		<key>ITSAppUsesNonExemptEncryption</key>

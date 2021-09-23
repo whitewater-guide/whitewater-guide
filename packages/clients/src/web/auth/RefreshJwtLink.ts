@@ -1,11 +1,11 @@
+import { fromError } from '@apollo/client';
 import {
   ApolloLink,
   FetchResult,
-  fromError,
   NextLink,
-  Observable,
   Operation,
-} from 'apollo-link';
+} from '@apollo/client/link/core';
+import Observable from 'zen-observable';
 
 import { JWT_EXPIRED_CTX_KEY } from '../../apollo/errors';
 import { AuthService, createApolloServerError } from '../../auth';

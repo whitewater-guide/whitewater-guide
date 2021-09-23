@@ -15,6 +15,7 @@ const TagsCtx = React.createContext(defaultContext);
 export const TagsProvider: React.FC = ({ children }) => {
   const { data, loading } = useListTagsQuery({
     fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: 'cache-first',
   });
   const value = useMemo<TagsContext>(
     () => ({ tags: data?.tags ?? [], loading }),

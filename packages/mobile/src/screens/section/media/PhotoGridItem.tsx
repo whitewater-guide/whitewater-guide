@@ -1,6 +1,9 @@
+import FastImage from '@whitewater-guide/react-native-fast-image';
 import React from 'react';
-import { Clipboard, StyleSheet, TouchableOpacity } from 'react-native';
-import FastImage from 'react-native-fast-image';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+
+import theme from '~/theme';
+import copyAndToast from '~/utils/copyAndToast';
 
 import { PHOTO_PADDING, PHOTO_SIZE } from '../../../features/media';
 
@@ -9,6 +12,7 @@ const styles = StyleSheet.create({
     margin: PHOTO_PADDING / 2,
     width: PHOTO_SIZE,
     height: PHOTO_SIZE,
+    backgroundColor: theme.colors.border,
   },
 });
 
@@ -22,7 +26,7 @@ interface Props {
 class PhotoGridItem extends React.PureComponent<Props> {
   onPress = () => this.props.onPress(this.props.index);
 
-  onLongPress = () => Clipboard.setString(this.props.image);
+  onLongPress = () => copyAndToast(this.props.image);
 
   render() {
     const { thumb } = this.props;

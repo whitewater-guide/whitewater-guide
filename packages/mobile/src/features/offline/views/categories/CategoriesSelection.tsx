@@ -3,27 +3,30 @@ import React from 'react';
 
 import { OfflineCategorySelection, OfflineCategoryType } from '../../types';
 import OfflineCategory from './OfflineCategory';
+import OfflineCategoryData from './OfflineCategoryData';
 import OfflineCategoryMaps from './OfflineCategoryMaps';
 import useLabels from './useLabels';
 
 interface Props {
+  regionId: string;
   summary: RegionMediaSummary;
   selection: OfflineCategorySelection;
   onToggleCategory?: (type: OfflineCategoryType, value: boolean) => void;
 }
 
 const CategoriesSelection: React.FC<Props> = (props) => {
-  const { summary, selection, onToggleCategory } = props;
+  const { summary, selection, onToggleCategory, regionId } = props;
   const labels = useLabels(summary);
 
   return (
     <>
-      <OfflineCategory
+      <OfflineCategoryData
         type="data"
         label={labels.data}
         selected={selection.data}
         disabled
         onToggle={onToggleCategory}
+        regionId={regionId}
       />
       <OfflineCategory
         type="media"

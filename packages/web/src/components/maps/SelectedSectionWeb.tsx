@@ -11,7 +11,7 @@ import {
 } from '@whitewater-guide/clients';
 import { Durations } from '@whitewater-guide/schema';
 import React, { useCallback } from 'react';
-import useRouter from 'use-react-router';
+import { useHistory, useRouteMatch } from 'react-router';
 
 import { Title } from '../../layout/details';
 import { paths } from '../../utils';
@@ -29,7 +29,8 @@ const useStyles = makeStyles(() =>
 
 const SelectedSectionWeb: React.FC<MapElementProps> = (props) => {
   const [selection, onSelected] = useMapSelection();
-  const { history, match } = useRouter<{ regionId: string }>();
+  const history = useHistory();
+  const match = useRouteMatch<{ regionId: string }>();
   const classes = useStyles();
 
   const onDetails = useCallback(() => {

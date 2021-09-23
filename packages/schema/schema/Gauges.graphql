@@ -5,9 +5,9 @@ type HarvestStatus {
   "Was last harvest successful or not"
   success: Boolean
   "When was this gauge/source last harvested"
-  timestamp: Date
+  timestamp: DateTime
   "When will this gauge/source be harvested next time"
-  next: Date
+  next: DateTime
   "Error message from last harvest"
   error: String
 }
@@ -32,9 +32,9 @@ type Gauge implements NamedNode & Timestamped {
   "Is gauge being harvested?"
   enabled: Boolean
   "Creation date (in whitewater.guide)"
-  createdAt: Date!
+  createdAt: DateTime!
   "Updated date (in whitewater.guide)"
-  updatedAt: Date!
+  updatedAt: DateTime!
 
   "Last known measurement"
   latestMeasurement: Measurement

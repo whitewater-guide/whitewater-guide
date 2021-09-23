@@ -1,0 +1,6 @@
+type Region {
+  """
+  Date when this region has been last downloaded for offline use
+  """
+  offlineDate: DateTime
+}

@@ -18,7 +18,7 @@ type Descent implements Node & Timestamped {
   "Section on which was descended"
   section: Section!
   "Date and time of start of descent"
-  startedAt: Date!
+  startedAt: DateTime!
 
   "Duration in milliseconds"
   duration: Int
@@ -30,9 +30,9 @@ type Descent implements Node & Timestamped {
   public: Boolean
 
   "Creation date"
-  createdAt: Date!
+  createdAt: DateTime!
   "Date of last update"
-  updatedAt: Date!
+  updatedAt: DateTime!
 }
 
 input DescentInput {
@@ -42,7 +42,7 @@ input DescentInput {
   "ID of section which was decended"
   sectionId: ID!
   "Date and time of start of descent"
-  startedAt: Date!
+  startedAt: DateTime!
   "Duration in milliseconds"
   duration: Int
 
@@ -66,9 +66,9 @@ type DescentsConnection {
 
 input DescentsFilter {
   "Min start date of descent"
-  startDate: Date
+  startDate: DateTime
   "Max start date of descent"
-  endDate: Date
+  endDate: DateTime
   "Range of difficulty of descended section"
   difficulty: [Float!]
 

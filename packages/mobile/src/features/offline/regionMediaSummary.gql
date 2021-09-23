@@ -1,6 +1,8 @@
 query regionMediaSummary($regionId: ID) {
   region(id: $regionId) {
     id
+    # This is currently broken in apollo: after writeFragment query wont read from cache
+    # offlineDate @client
     mediaSummary {
       photo {
         count

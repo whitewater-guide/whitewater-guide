@@ -1,6 +1,6 @@
 {
   "watch": ["src"],
-  "ext": "ts,json,kml,graphql,mjml",
+  "ext": "ts,json,sql,mjml",
   "ignore": [
     "**/*.test.ts",
     "**/__tests__/**/*",

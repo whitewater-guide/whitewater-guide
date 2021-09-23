@@ -1,13 +1,12 @@
+import { ApolloError } from '@apollo/client';
 import { useNetInfo } from '@react-native-community/netinfo';
-import { ApolloError } from 'apollo-client';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { Button, Caption, Subheading } from 'react-native-paper';
 
 import Icon from '~/components/Icon';
-
-import theme from '../../../theme';
+import theme from '~/theme';
 
 const styles = StyleSheet.create({
   container: {

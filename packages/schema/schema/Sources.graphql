@@ -16,9 +16,9 @@ type Source implements NamedNode & Timestamped {
   "Is harvesting ON?"
   enabled: Boolean
   "Creation date"
-  createdAt: Date!
+  createdAt: DateTime!
   "Last modification date"
-  updatedAt: Date!
+  updatedAt: DateTime!
 
   "Last harvest operation status"
   status: HarvestStatus

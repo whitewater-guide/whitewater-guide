@@ -18,9 +18,10 @@ export default function getSectionsListData(
   { sections, region }: ListProps,
   seenSwipeableSectionTip?: boolean,
 ): SectionsListData {
-  const favorites = sections.filter((s) => s.favorite);
+  const favorites = sections?.filter((s) => s.favorite) ?? [];
   const favsCount = favorites.length;
   let favsSection: SectionsListData = [];
+
   if (favsCount) {
     favsSection = [
       {
@@ -45,18 +46,18 @@ export default function getSectionsListData(
   if (!region) {
     return [
       ...favsSection,
-      { items: sections, label: 'screens:region.sectionsList.all' },
+      { items: sections ?? [], label: 'screens:region.sectionsList.all' },
     ];
   }
   const { banners: bannerNodes } = region;
   if (!bannerNodes) {
     return [
       ...favsSection,
-      { items: sections, label: 'screens:region.sectionsList.all' },
+      { items: sections ?? [], label: 'screens:region.sectionsList.all' },
     ];
   }
   const { nodes } = bannerNodes;
-  const numSections = sections.length;
+  const numSections = sections?.length ?? 0;
   const numBanners = numSections >= 2 * ROWS_PER_SCREEN + 1 ? 2 : 1;
   const banners = getBannersForPlacement(
     nodes ?? [],
@@ -64,7 +65,7 @@ export default function getSectionsListData(
     numBanners,
   );
   const result: Array<ListedSectionFragment | BannerWithSourceFragment> = [
-    ...sections,
+    ...(sections ?? []),
   ];
   for (let i = 1; i <= banners.length; i += 1) {
     const insertAt = Math.max(0, i * ROWS_PER_SCREEN + 2 - favsCount);

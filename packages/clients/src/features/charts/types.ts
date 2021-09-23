@@ -1,3 +1,4 @@
+import { ApolloError } from '@apollo/client';
 import {
   GaugeForChartFragment,
   Measurement,
@@ -26,6 +27,7 @@ export type ChartDataPoint = Overwrite<Measurement, { timestamp: Date }>;
 export interface WithChartData {
   measurements: {
     data: ChartDataPoint[];
+    error?: ApolloError | null;
     loading: boolean;
     refresh: () => void;
   };

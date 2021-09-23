@@ -1,6 +1,6 @@
-import { useStreamingQuery } from '@whitewater-guide/clients';
+import { useChunkedQuery } from '@whitewater-guide/clients';
 import React, { useCallback, useState } from 'react';
-import useRouter from 'use-react-router';
+import { useRouteMatch } from 'react-router';
 
 import { useDeleteMutation } from '../../../apollo';
 import { Loading } from '../../../components';
@@ -15,7 +15,7 @@ import RiversTable from './RiversTable';
 import { RouterParams } from './types';
 
 export const RiversList: React.FC = React.memo(() => {
-  const { match } = useRouter<RouterParams>();
+  const match = useRouteMatch<RouterParams>();
 
   const [dialogRiverId, setDialogRiverId] = useState<string | null>(null);
   const closeDialog = useCallback(
@@ -23,13 +23,14 @@ export const RiversList: React.FC = React.memo(() => {
     [setDialogRiverId],
   );
 
-  const { data, loading } = useStreamingQuery<
+  const { data, loading } = useChunkedQuery<
     ListRiversQuery,
     ListRiversQueryVariables
   >(
     ListRiversDocument,
     {
       fetchPolicy: 'cache-and-network',
+      nextFetchPolicy: 'cache-first',
       variables: { filter: match.params },
     },
     60,

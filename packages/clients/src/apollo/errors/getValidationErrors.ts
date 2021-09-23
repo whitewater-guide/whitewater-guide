@@ -1,11 +1,11 @@
+import { ApolloError } from '@apollo/client';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import { ApolloError } from 'apollo-client';
 import { GraphQLError } from 'graphql';
 import merge from 'lodash/merge';
 
-export const getValidationErrors = (
+export function getValidationErrors(
   e: ApolloError | GraphQLError[],
-): Record<string, any> => {
+): Record<string, any> {
   const errors = Array.isArray(e) ? e : e.graphQLErrors || [];
   if (errors.length === 0) {
     return {};
@@ -16,11 +16,12 @@ export const getValidationErrors = (
       ge.extensions &&
       ge.extensions.code === ApolloErrorCodes.BAD_USER_INPUT
     ) {
-      validationErrors = merge(
-        {},
-        validationErrors,
-        ge.extensions.exception.validationErrors,
-      );
+      // https://www.apollographql.com/docs/apollo-server/migration/#reading-error-extensions
+      // Support errors from apollo-server v2 and v3
+      const ve =
+        ge.extensions.validationErrors ??
+        ge.extensions.exception.validationErrors;
+      validationErrors = merge({}, validationErrors, ve);
     }
   });
 
@@ -28,4 +29,4 @@ export const getValidationErrors = (
   const nested = Object.values(validationErrors);
 
   return nested[0] || {};
-};
+}

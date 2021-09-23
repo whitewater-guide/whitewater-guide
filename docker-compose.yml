@@ -20,6 +20,7 @@ services:
       - -carchive_mode=off
       - -cmax_wal_senders=0
       - -cwal_level=minimal
+      - -clog_statement=all
     volumes:
       - type: tmpfs
         target: /tmp
@@ -32,6 +33,10 @@ services:
         target: /docker-entrypoint-initdb.d
     ports:
       - '5432:5432'
+    networks:
+      default:
+        aliases:
+          - db.local
 
   # Minio to store images
   minio:
@@ -103,3 +108,11 @@ services:
       default:
         aliases:
           - gorge.local
+
+  pgadmin:
+    <<: *ww-commons
+    container_name: ww-pgadmin
+    build:
+      context: ./services/pgadmin/
+    ports:
+      - '4000:80'

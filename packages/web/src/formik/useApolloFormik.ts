@@ -1,16 +1,16 @@
+import {
+  MutationHookOptions,
+  QueryHookOptions,
+  useMutation,
+  useQuery,
+} from '@apollo/client';
 import { getValidationErrors } from '@whitewater-guide/clients';
 import { omitTypename } from '@whitewater-guide/commons';
 import { FormikHelpers } from 'formik';
 import { DocumentNode } from 'graphql';
 import isEmpty from 'lodash/isEmpty';
 import { useCallback, useMemo, useRef } from 'react';
-import {
-  MutationHookOptions,
-  QueryHookOptions,
-  useMutation,
-  useQuery,
-} from 'react-apollo';
-import useRouter from 'use-react-router';
+import { useHistory } from 'react-router';
 
 export interface ApolloFormikOptions<
   QVars,
@@ -45,7 +45,7 @@ export function useApolloFormik<QVars, QResult, FData, MVars, MResult = any>(
   const queryToForm = useRef(options.queryToForm);
   const formToMutation = useRef(options.formToMutation);
 
-  const { history } = useRouter();
+  const history = useHistory();
 
   const queryResult = useQuery<QResult, QVars>(query.current, {
     ...queryOptions,

@@ -22,11 +22,19 @@ interface Props {
   inProgress?: boolean;
   progress: OfflineProgress;
   summary: RegionMediaSummary;
+  regionId: string;
   onToggleCategory?: (type: OfflineCategoryType, value: boolean) => void;
 }
 
 export const Categories: React.FC<Props> = (props) => {
-  const { inProgress, progress, selection, summary, onToggleCategory } = props;
+  const {
+    inProgress,
+    progress,
+    selection,
+    summary,
+    onToggleCategory,
+    regionId,
+  } = props;
   return (
     <View style={styles.categoriesContainer}>
       {inProgress ? (
@@ -36,6 +44,7 @@ export const Categories: React.FC<Props> = (props) => {
           summary={summary}
           selection={selection}
           onToggleCategory={onToggleCategory}
+          regionId={regionId}
         />
       )}
     </View>

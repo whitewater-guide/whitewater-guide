@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useScrollToTop } from '@react-navigation/native';
 import { Section } from '@whitewater-guide/schema';
 import React, { RefObject, useMemo, useRef, useState } from 'react';
 import { LargeList, LargeListPropType } from 'react-native-largelist';
@@ -36,6 +36,7 @@ export default function useLargelist(props: ListProps): UseLargeList {
   const { navigate } = useNavigation<RegionSectionsNavProp>();
   const { canMakePayments } = useIap();
   const ref = useRef<LargeList>(null);
+  useScrollToTop(ref);
   const {
     settings: { seenSwipeableSectionTip },
   } = useAppSettings();

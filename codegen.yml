@@ -18,7 +18,7 @@ generates:
     plugins:
       - add:
           content: '/* eslint-disable @typescript-eslint/no-explicit-any */'
-      - ./packages/schema/plugins/codegen-typedefs.js
+      - '@whitewater-guide/codegen-typedefs'
 
   ./packages/schema/src/__generated__/fragments.ts:
     preset: import-types
@@ -38,8 +38,10 @@ generates:
   ./packages/schema/src/__generated__/fragmentTypes.ts:
     plugins:
       - fragment-matcher
-    config:
-      apolloClientVersion: 2
+
+  ./packages/clients/src/apollo/helpers.generated.ts:
+    plugins:
+      - typescript-apollo-client-helpers
 
   # GRAPHQL resolvers
   ./packages/backend/src/apollo/resolvers.generated.ts:
@@ -94,7 +96,6 @@ generates:
   ./:
     documents:
       - ./packages/clients/src/**/*.gql
-      - ./packages/mobile/src/**/*.gql
       - ./packages/promo/src/**/*.gql
       - ./packages/web/src/**/*.gql
     preset: near-operation-file
@@ -107,13 +108,21 @@ generates:
           content: '/* eslint-disable @typescript-eslint/no-explicit-any */'
       - typescript-operations
       - typescript-react-apollo
-    config:
-      apolloClientVersion: 2
-      withComponent: false
-      withHOC: false
-      withHooks: true
-      withMutationFn: false
-      reactApolloVersion: 2
+
+  ./packages/mobile/src/:
+    schema: ./packages/mobile/schema/mobile-local-schema.graphql
+    documents:
+      - ./packages/mobile/src/**/*.gql
+    preset: near-operation-file
+    presetConfig:
+      extension: .generated.ts
+      baseTypesPath: '~@whitewater-guide/schema'
+      importAllFragmentsFrom: '~@whitewater-guide/schema'
+    plugins:
+      - add:
+          content: '/* eslint-disable @typescript-eslint/no-explicit-any */'
+      - typescript-operations
+      - typescript-react-apollo
 
 config:
   # Due to serialization/deserialization scalars have different type on backend and frontend

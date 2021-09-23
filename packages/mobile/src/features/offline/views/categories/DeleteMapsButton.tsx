@@ -41,13 +41,12 @@ const DeleteMapsButton: React.FC<Props> = ({ size, onDelete }) => {
   if (!size) {
     return null;
   }
+
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.deleteWrapper}>
         <Icon icon="delete" narrow style={styles.deleteIcon} />
-        <Caption style={styles.deleteText}>
-          {prettyBytes(size, { maximumFractionDigits: 0 }).toString()}
-        </Caption>
+        <Caption style={styles.deleteText}>{prettyBytes(size)}</Caption>
       </View>
     </TouchableOpacity>
   );

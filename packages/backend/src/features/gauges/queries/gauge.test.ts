@@ -5,7 +5,6 @@ import { holdTransaction, rollbackTransaction } from '~/db';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
 import { GAUGE_GAL_1_1, GAUGE_RU_1 } from '~/seeds/test/06_gauges';
 
-import { TIMESTAMP_REGEX } from '../../../../test/isTimestamp';
 import {
   testGaugeDetails,
   testGaugeMeasurements,
@@ -120,6 +119,6 @@ it('should return latest measurement', async () => {
   expect(result.data?.gauge?.latestMeasurement).toEqual({
     flow: null,
     level: 1.2,
-    timestamp: expect.stringMatching(TIMESTAMP_REGEX),
+    timestamp: expect.any(Date),
   });
 });

@@ -34,8 +34,12 @@ beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
 const _query = gql`
-  query listSections($page: Page, $filter: SectionsFilter) {
-    sections(page: $page, filter: $filter) {
+  query listSections(
+    $page: Page
+    $filter: SectionsFilter
+    $updatedAfter: DateTime
+  ) {
+    sections(page: $page, filter: $filter, updatedAfter: $updatedAfter) {
       nodes {
         ...SectionCore
         region {
@@ -177,7 +181,7 @@ it('should search full name (river + section)', async () => {
   expect(ids).toEqual([GEORGIA_BZHUZHA_LONG]);
 });
 
-it('should filter recently updated', async () => {
+it('should filter recently updated using deprecated filter.updatedAfter', async () => {
   const id = '21f2351e-d52a-11e7-9296-cec278b6b50a';
   const update = await db()
     .update({ rating: 1 })
@@ -188,6 +192,24 @@ it('should filter recently updated', async () => {
   u2 = new Date(u2.getTime() - 300);
   const result = await testListSections({
     filter: { updatedAfter: u2.toISOString() as any },
+  });
+  expect(result.errors).toBeUndefined();
+  expect(result).toHaveProperty('data.sections.nodes.length', 1);
+  expect(result).toHaveProperty('data.sections.count', 1);
+  expect(result).toHaveProperty('data.sections.nodes.0.rating', 1);
+});
+
+it('should filter recently updated', async () => {
+  const id = '21f2351e-d52a-11e7-9296-cec278b6b50a';
+  const update = await db()
+    .update({ rating: 1 })
+    .from('sections')
+    .where({ id })
+    .returning('updated_at');
+  let u2: Date = update[0] as any;
+  u2 = new Date(u2.getTime() - 300);
+  const result = await testListSections({
+    updatedAfter: u2.toISOString() as any,
   });
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.sections.nodes.length', 1);

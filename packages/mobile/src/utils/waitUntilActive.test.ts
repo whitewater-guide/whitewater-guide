@@ -10,6 +10,7 @@ class MockAppState implements AppStateStatic {
 
   addEventListener(type: any, listener: any) {
     this.emitter.on(type, listener);
+    return { remove: this.emitter.off(type, listener) } as any;
   }
 
   removeEventListener(type: any, listener: any) {

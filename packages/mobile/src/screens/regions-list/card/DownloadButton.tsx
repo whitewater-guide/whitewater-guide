@@ -1,5 +1,5 @@
 import { Region } from '@whitewater-guide/schema';
-import React from 'react';
+import React, { memo } from 'react';
 import {
   ActivityIndicator,
   StyleSheet,
@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 
 import Icon from '~/components/Icon';
+import { useOfflineDate } from '~/features/offline';
 import theme from '~/theme';
 
 const styles = StyleSheet.create({
@@ -41,7 +42,7 @@ interface Props {
   downloadRegion: () => void;
 }
 
-const DownloadButton: React.FC<Props> = React.memo((props) => {
+const DownloadButton = memo<Props>((props) => {
   const {
     region,
     regionInProgress,
@@ -50,6 +51,8 @@ const DownloadButton: React.FC<Props> = React.memo((props) => {
     offlineError,
   } = props;
   const { premium, hasPremiumAccess } = region;
+  // This is a workaround. For some reason, apollo query won't return local field from regionsListQuery
+  const offlineDate = useOfflineDate(region.id);
 
   if (premium && !hasPremiumAccess && !canMakePayments) {
     return null;
@@ -82,7 +85,13 @@ const DownloadButton: React.FC<Props> = React.memo((props) => {
       testID="download-button"
       style={[styles.container, styles.iconContainer]}
       iconStyle={[styles.icon, disabled && styles.iconDisabled]}
-      color={hasFailed ? theme.colors.error : theme.colors.textLight}
+      color={
+        hasFailed
+          ? theme.colors.error
+          : offlineDate
+          ? theme.colors.accent
+          : theme.colors.textLight
+      }
       onPress={disabled ? undefined : downloadRegion}
     />
   );

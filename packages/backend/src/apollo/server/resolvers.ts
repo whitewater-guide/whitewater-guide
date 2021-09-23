@@ -1,5 +1,4 @@
-import { GraphQLDateTime } from 'graphql-iso-date';
-import GraphQLJSON from 'graphql-type-json';
+import { DateResolver, DateTimeResolver, JSONResolver } from 'graphql-scalars';
 import merge from 'lodash/merge';
 
 import { bannersResolvers } from '~/features/banners';
@@ -46,8 +45,9 @@ export const resolvers = merge(
   measurementsResolvers,
   uploadsResolvers,
   {
-    Date: GraphQLDateTime,
-    JSON: GraphQLJSON,
+    Date: DateResolver,
+    DateTime: DateTimeResolver,
+    JSON: JSONResolver,
     Cursor: CursorScalar,
     Coordinates: CoordinatesScalar,
   },

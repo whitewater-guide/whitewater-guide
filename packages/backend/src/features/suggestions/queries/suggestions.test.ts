@@ -1,4 +1,4 @@
-import { anonContext, fakeContext, TIMESTAMP_REGEX } from '@test';
+import { anonContext, fakeContext } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 import { SuggestionStatus } from '@whitewater-guide/schema';
 import gql from 'graphql-tag';
@@ -88,7 +88,7 @@ it('admin should get all suggestions', async () => {
   expect(result.data?.suggestions?.nodes[0]).toEqual({
     __typename: 'Suggestion',
     copyright: null,
-    createdAt: expect.stringMatching(TIMESTAMP_REGEX),
+    createdAt: expect.any(Date),
     createdBy: {
       id: TEST_USER_ID,
       name: expect.any(String),

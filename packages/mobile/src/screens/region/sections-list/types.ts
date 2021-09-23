@@ -24,7 +24,7 @@ export interface ItemProps<T> {
 }
 
 export interface ListProps {
-  sections: ListedSectionFragment[];
+  sections: ListedSectionFragment[] | null;
   region?: RegionDetailsFragment | null;
   refresh: () => Promise<any>;
   status: SectionsStatus;

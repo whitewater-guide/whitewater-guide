@@ -1,5 +1,5 @@
+import { ApolloError } from '@apollo/client';
 import { act, renderHook } from '@testing-library/react-hooks';
-import { ApolloError } from 'apollo-client';
 
 import { Screens } from '~/core/navigation';
 

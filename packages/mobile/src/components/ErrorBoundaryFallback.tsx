@@ -1,7 +1,9 @@
 import React, { ErrorInfo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Clipboard, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Caption, Subheading } from 'react-native-paper';
+
+import copyAndToast from '~/utils/copyAndToast';
 
 import Icon from './Icon';
 
@@ -20,9 +22,9 @@ interface Props {
 }
 
 const ErrorBoundaryFallback: React.FC<Props> = ({ error, info }) => {
-  const [t] = useTranslation();
+  const { t } = useTranslation();
   const copyBugReport = useCallback(() => {
-    Clipboard.setString(
+    copyAndToast(
       `Error:\n${error}\n\nComponent stack: ${info?.componentStack}`,
     );
   }, [error, info]);

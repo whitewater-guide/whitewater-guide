@@ -9,7 +9,7 @@ Object {
           "cursor": "djE6MzoxNTc4MDA5NjAwMDAw",
           "node": Object {
             "comment": "descent 3 comment",
-            "createdAt": "2020-01-03T00:00:00.000Z",
+            "createdAt": 2020-01-03T00:00:00.000Z,
             "duration": null,
             "id": "7deddd48-9f7f-4a76-9ff9-811f694f52a4",
             "level": null,
@@ -22,15 +22,15 @@ Object {
                 "name": "Sjoa",
               },
             },
-            "startedAt": "2020-01-03T00:00:00.000Z",
-            "updatedAt": "2020-01-03T00:00:00.000Z",
+            "startedAt": 2020-01-03T00:00:00.000Z,
+            "updatedAt": 2020-01-03T00:00:00.000Z,
           },
         },
         Object {
           "cursor": "djE6MjoxNTc3OTIzMjAwMDAw",
           "node": Object {
             "comment": "descent 2 comment",
-            "createdAt": "2020-01-02T00:00:00.000Z",
+            "createdAt": 2020-01-02T00:00:00.000Z,
             "duration": 3000,
             "id": "3fb2b1da-6649-429e-8b0e-0cbbda055da7",
             "level": Object {
@@ -46,15 +46,15 @@ Object {
                 "name": "Beca",
               },
             },
-            "startedAt": "2020-01-02T00:00:00.000Z",
-            "updatedAt": "2020-01-02T00:00:00.000Z",
+            "startedAt": 2020-01-02T00:00:00.000Z,
+            "updatedAt": 2020-01-02T00:00:00.000Z,
           },
         },
         Object {
           "cursor": "djE6MToxNTc3ODM2ODAwMDAw",
           "node": Object {
             "comment": "descent 1 comment",
-            "createdAt": "2020-01-01T00:00:00.000Z",
+            "createdAt": 2020-01-01T00:00:00.000Z,
             "duration": 3600,
             "id": "97998f67-74f2-43db-a4e4-198c2ca540a7",
             "level": Object {
@@ -70,8 +70,8 @@ Object {
                 "name": "Beca",
               },
             },
-            "startedAt": "2020-01-01T00:00:00.000Z",
-            "updatedAt": "2020-01-01T00:00:00.000Z",
+            "startedAt": 2020-01-01T00:00:00.000Z,
+            "updatedAt": 2020-01-01T00:00:00.000Z,
           },
         },
       ],

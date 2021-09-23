@@ -1,16 +1,19 @@
 /* eslint-disable jest/no-done-callback */
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { ApolloLink, execute, Observable } from 'apollo-link';
-import { throwServerError } from 'apollo-link-http-common';
+import { ApolloLink, execute, throwServerError } from '@apollo/client';
 import gql from 'graphql-tag';
+import Observable from 'zen-observable';
 
-import { AppError } from './AppError';
-import { APP_ERROR_QUERY, AppErrorQueryResult } from './appError.query';
 import { errorLink, JWT_EXPIRED_CTX_KEY } from './errorLink';
 
 const query = gql`
   {
     foo
+  }
+`;
+
+const mutation = gql`
+  mutation bar {
+    bar
   }
 `;
 
@@ -25,14 +28,14 @@ describe('network errors', () => {
     const handleError = jest.fn();
 
     const link = ApolloLink.from([
-      errorLink(new InMemoryCache()),
+      errorLink(),
       new ApolloLink((operation) => {
         if (timesCalled === 0) {
           timesCalled += 1;
           // simulate the first request being an error
           return new Observable(() => {
             throwServerError(
-              { status: 401 },
+              { status: 401 } as any,
               { success: false, error: 'jwt.expired' },
               'server error',
             );
@@ -60,16 +63,16 @@ describe('network errors', () => {
     });
   });
 
-  it('should call handleError in case of other 401 errors', (done) => {
-    const handleError = jest.fn();
+  it('should call handleAuthError in case of other 401 errors', (done) => {
+    const handleAuthError = jest.fn();
 
     const link = ApolloLink.from([
-      errorLink(new InMemoryCache(), handleError),
+      errorLink(handleAuthError),
       new ApolloLink(
         () =>
           new Observable(() => {
             throwServerError(
-              { status: 401 },
+              { status: 401 } as any,
               { success: false, error: 'unauthenticated' },
               'server error',
             );
@@ -79,10 +82,7 @@ describe('network errors', () => {
 
     execute(link, { query }).subscribe({
       error() {
-        expect(handleError).toHaveBeenCalled();
-        const appError = handleError.mock.calls[0][0];
-        expect(appError).toBeInstanceOf(AppError);
-        expect(appError.type).toBe('auth');
+        expect(handleAuthError).toHaveBeenCalled();
         done();
       },
       complete() {
@@ -91,24 +91,18 @@ describe('network errors', () => {
     });
   });
 
-  it('should call support async handlers', (done) => {
-    const handleError = jest.fn();
-    const asyncHandleError = async (err: AppError) =>
-      new Promise<void>((resolve) => {
-        setTimeout(() => {
-          handleError(err);
-          resolve();
-        }, 0);
-      });
+  it('should call error handler on non-auth errors', (done) => {
+    const handleAuthError = jest.fn();
+    const handleOtherError = jest.fn();
 
     const link = ApolloLink.from([
-      errorLink(new InMemoryCache(), asyncHandleError),
+      errorLink(handleAuthError, handleOtherError),
       new ApolloLink(
         () =>
           new Observable(() => {
             throwServerError(
-              { status: 401 },
-              { success: false, error: 'unauthenticated' },
+              { status: 500 } as any,
+              { success: false, error: 'server failure' },
               'server error',
             );
           }),
@@ -117,112 +111,12 @@ describe('network errors', () => {
 
     execute(link, { query }).subscribe({
       error() {
-        expect(handleError).toHaveBeenCalled();
-        const appError = handleError.mock.calls[0][0];
-        expect(appError).toBeInstanceOf(AppError);
-        expect(appError.type).toBe('auth');
+        expect(handleAuthError).not.toHaveBeenCalled();
+        expect(handleOtherError).toHaveBeenCalledWith(expect.any(Error), false);
         done();
       },
       complete() {
         done.fail('Should not forward');
-      },
-    });
-  });
-
-  it('should save error in case of other 401 errors', (done) => {
-    const cache = new InMemoryCache();
-    const link = ApolloLink.from([
-      errorLink(cache),
-      new ApolloLink(
-        () =>
-          new Observable(() => {
-            throwServerError(
-              { status: 401 },
-              { success: false, error: 'unauthenticated' },
-              'server error',
-            );
-          }),
-      ),
-    ]);
-
-    execute(link, { query }).subscribe({
-      error() {
-        const readQuery = cache.readQuery<AppErrorQueryResult>({
-          query: APP_ERROR_QUERY,
-        });
-        expect(readQuery).toHaveProperty('appError');
-        done();
-      },
-      complete() {
-        done.fail('should not forward');
-      },
-    });
-  });
-
-  it('should save error in case of 500 error', (done) => {
-    const handleError = jest.fn();
-    const cache = new InMemoryCache();
-    const link = ApolloLink.from([
-      errorLink(cache, handleError),
-      new ApolloLink(
-        () =>
-          new Observable(() => {
-            throwServerError(
-              { status: 500 },
-              { success: false, error: 'internal server error' },
-              'server error',
-            );
-          }),
-      ),
-    ]);
-
-    execute(link, { query }).subscribe({
-      error() {
-        const readQuery = cache.readQuery<AppErrorQueryResult>({
-          query: APP_ERROR_QUERY,
-        });
-        expect(handleError).toHaveBeenCalledWith(
-          expect.objectContaining({ type: 'default' }),
-        );
-        expect(readQuery).toHaveProperty('appError');
-        done();
-      },
-      complete() {
-        done.fail('should not forward');
-      },
-    });
-  });
-
-  it('should save error in case of fetch error', (done) => {
-    const handleError = jest.fn();
-    const cache = new InMemoryCache();
-    const link = ApolloLink.from([
-      errorLink(cache, handleError),
-      new ApolloLink(
-        () =>
-          new Observable(() => {
-            throw new Error('fetch failed');
-          }),
-      ),
-    ]);
-
-    execute(link, { query }).subscribe({
-      error() {
-        const readQuery = cache.readQuery<AppErrorQueryResult>({
-          query: APP_ERROR_QUERY,
-        });
-        expect(handleError).toHaveBeenCalledWith(expect.any(AppError));
-        expect(handleError).toHaveBeenCalledWith(
-          expect.objectContaining({ type: 'fetch' }),
-        );
-        expect(readQuery).toHaveProperty(
-          'appError.original.networkError.message',
-          'fetch failed',
-        );
-        done();
-      },
-      complete() {
-        done.fail('should not forward');
       },
     });
   });
@@ -233,10 +127,9 @@ describe('graphql errors', () => {
     const handleError = jest.fn();
     let timesCalled = 0;
     let forwarded = false;
-    const cache = new InMemoryCache();
 
     const link = ApolloLink.from([
-      errorLink(cache),
+      errorLink(),
       new ApolloLink((operation) => {
         if (timesCalled === 0) {
           timesCalled += 1;
@@ -273,24 +166,24 @@ describe('graphql errors', () => {
     });
   });
 
-  it('should save other GRAPHQL errors', (done) => {
-    const handleError = jest.fn();
+  it('should call error hander on non-auth errors', (done) => {
+    const handleAuthError = jest.fn();
+    const handleOtherError = jest.fn();
     let timesCalled = 0;
     let forwarded = false;
-    const cache = new InMemoryCache();
 
     const link = ApolloLink.from([
-      errorLink(cache),
-      new ApolloLink(() => {
+      errorLink(handleAuthError, handleOtherError),
+      new ApolloLink((operation) => {
         if (timesCalled === 0) {
           timesCalled += 1;
           // simulate the first request being an error
           return Observable.of({
-            data: { foo: { id: 1 } },
+            data: { bar: { id: 1 } },
             errors: [
               {
-                message: 'unauthorized',
-                extensions: { code: 'UNAUTHORIZED' },
+                message: 'ignore',
+                extensions: { code: 'BOOM' },
               } as any,
             ],
           });
@@ -303,20 +196,11 @@ describe('graphql errors', () => {
       }),
     ]);
 
-    execute(link, { query }).subscribe({
-      error() {
-        done.fail('should not error');
-      },
+    execute(link, { query: mutation }).subscribe({
       complete() {
         expect(forwarded).toBe(false);
-        const readQuery = cache.readQuery<AppErrorQueryResult>({
-          query: APP_ERROR_QUERY,
-        });
-        expect(handleError).not.toHaveBeenCalled();
-        expect(readQuery).toHaveProperty(
-          'appError.original.graphQLErrors.0.message',
-          'unauthorized',
-        );
+        expect(handleAuthError).not.toHaveBeenCalled();
+        expect(handleOtherError).toHaveBeenCalledWith(expect.any(Error), true);
         done();
       },
     });
@@ -326,7 +210,7 @@ describe('graphql errors', () => {
 // eslint-disable-next-line jest/expect-expect
 it('completes if no error', (done) => {
   const link = ApolloLink.from([
-    errorLink(new InMemoryCache()),
+    errorLink(),
     new ApolloLink(() => Observable.of({ data: { foo: true } })),
   ]);
 

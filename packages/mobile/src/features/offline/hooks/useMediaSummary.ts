@@ -1,5 +1,5 @@
+import { useApolloClient } from '@apollo/client';
 import { useCallback } from 'react';
-import { useApolloClient } from 'react-apollo';
 
 import {
   RegionMediaSummaryDocument,

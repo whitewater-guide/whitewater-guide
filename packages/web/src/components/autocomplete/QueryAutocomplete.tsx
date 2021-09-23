@@ -1,8 +1,7 @@
+import { QueryResult, useQuery, WatchQueryFetchPolicy } from '@apollo/client';
 import { NamedNode } from '@whitewater-guide/schema';
-import { WatchQueryFetchPolicy } from 'apollo-client';
 import { DocumentNode } from 'graphql';
 import React, { useState } from 'react';
-import { Query, QueryResult } from 'react-apollo';
 
 import { Autocomplete } from './Autocomplete';
 import itemToString from './itemToString';
@@ -23,28 +22,22 @@ export const QueryAutocomplete: React.FC<QueryAutocompleteProps> = (props) => {
     query,
     getVariables,
     getNodes,
-    fetchPolicy = 'network-only',
+    fetchPolicy = 'no-cache',
     ...rest
   } = props;
   const [inputValue, setInputValue] = useState(itemToString(props.value));
+  const result = useQuery(query, {
+    variables: getVariables(inputValue),
+    fetchPolicy,
+  });
+  const options = getNodes(result);
   return (
-    <Query
-      query={query}
-      variables={getVariables(inputValue)}
-      fetchPolicy={fetchPolicy}
-    >
-      {(result: any) => {
-        const options = getNodes(result);
-        return (
-          <Autocomplete
-            {...rest}
-            inputValue={inputValue}
-            onInputValueChange={setInputValue}
-            options={options}
-            filterOptions={filterOptions}
-          />
-        );
-      }}
-    </Query>
+    <Autocomplete
+      {...rest}
+      inputValue={inputValue}
+      onInputValueChange={setInputValue}
+      options={options}
+      filterOptions={filterOptions}
+    />
   );
 };

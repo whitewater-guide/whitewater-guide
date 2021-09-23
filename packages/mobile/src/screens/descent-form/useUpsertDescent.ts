@@ -4,18 +4,16 @@ import { omitTypename } from '@whitewater-guide/commons';
 import { FormikHelpers } from 'formik';
 import isNil from 'lodash/isNil';
 import { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
 
-import { useSnackbarMessage } from '~/components/snackbar';
+import showSnackbarError from '~/components/showSnackbarError';
+import showSnackbarMessage from '~/components/showSnackbarMessage';
 
 import { DescentFormData } from './types';
 import { useUpsertDescentMutation } from './upsertDescent.generated';
 
 export default () => {
-  const { t } = useTranslation();
   const [mutate] = useUpsertDescentMutation();
   const { goBack } = useNavigation();
-  const setSnackbar = useSnackbarMessage();
   return useCallback(
     (
       { section, level, ...data }: DescentFormData,
@@ -33,23 +31,20 @@ export default () => {
       })
         .then((resp) => {
           if (resp.errors) {
-            setSnackbar(resp.errors[0]);
-            helpers.setErrors(getValidationErrors(resp.errors));
+            showSnackbarError(resp.errors[0]);
+            helpers.setErrors(getValidationErrors([...resp.errors]));
           } else {
-            setSnackbar({
-              short: data.id
-                ? t('screens:descentForm.updateSuccessMessage')
-                : t('screens:descentForm.createSuccessMessage'),
-            });
+            showSnackbarMessage(
+              data.id
+                ? 'screens:descentForm.updateSuccessMessage'
+                : 'screens:descentForm.createSuccessMessage',
+            );
             goBack();
           }
         })
         .catch(() => {
-          setSnackbar({
-            short: t('common:networkError'),
-            error: true,
-          });
+          showSnackbarError('common:networkError');
         }),
-    [mutate, goBack, setSnackbar, t],
+    [mutate, goBack],
   );
 };

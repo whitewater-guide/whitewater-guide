@@ -1,0 +1,5 @@
+fragment RegionOfflineDate on Region {
+  __typename
+  id
+  offlineDate @client
+}

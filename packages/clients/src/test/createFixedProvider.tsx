@@ -1,20 +1,12 @@
-import { ApolloClient } from 'apollo-client';
+import { ApolloClient, ApolloProvider } from '@apollo/client';
+import { MockedResponse, mockSingleLink } from '@apollo/client/testing';
 import { DocumentNode } from 'graphql';
 import React from 'react';
-import { ApolloProvider } from 'react-apollo';
 
 import { configureApolloCache } from '../apollo';
-import { mockSingleLink } from './test-links';
 
 export interface FixedProviderOptions<TResult = any, TVars = any> {
-  responses: Array<{
-    request?: {
-      query: DocumentNode;
-      variables?: TVars;
-    };
-    result?: { data: TResult };
-    error?: any;
-  }>;
+  responses: MockedResponse[];
   addTypename?: boolean;
   cache?: {
     query: DocumentNode;

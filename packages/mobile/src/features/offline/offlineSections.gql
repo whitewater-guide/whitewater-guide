@@ -4,8 +4,7 @@ query listSections(
   $thumbWidth: Int
   $thumbHeight: Int
 ) {
-  sections(page: $page, filter: $filter)
-    @connection(key: "offline_sections", filter: ["filter"]) {
+  sections(page: $page, filter: $filter) {
     nodes {
       ...SectionCore
       description

@@ -6,9 +6,9 @@ type River implements NamedNode & Timestamped {
   "Alternative names, e.g. english transliteration for names that contain umlauts"
   altNames: [String!]!
   "Creation date"
-  createdAt: Date!
+  createdAt: DateTime!
   "Last modification date"
-  updatedAt: Date!
+  updatedAt: DateTime!
   "River region"
   region: Region!
   "List of sections"

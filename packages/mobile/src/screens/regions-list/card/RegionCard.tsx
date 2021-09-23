@@ -1,14 +1,14 @@
-import { Region } from '@whitewater-guide/schema';
-import React from 'react';
+import Image from '@whitewater-guide/react-native-fast-image';
+import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
-import Image from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 import { Caption, Title, TouchableRipple } from 'react-native-paper';
 
 import Paper from '~/components/Paper';
 import theme from '~/theme';
 
+import { ListedRegion } from '../useFavRegions';
 import DownloadButton from './DownloadButton';
 import FavoriteButton from './FavoriteButton';
 import PremiumBadge from './PremiumBadge';
@@ -67,11 +67,11 @@ export const CARD_HEIGHT =
   FOOTER_HEIGHT;
 
 interface Props {
-  region: Region;
+  region: ListedRegion;
   index: number;
 }
 
-export const RegionCard: React.FC<Props> = React.memo(({ region, index }) => {
+export const RegionCard = memo<Props>(({ region, index }) => {
   const { t } = useTranslation();
   const cardProps = useCommonCardProps(region);
   const uri = region.coverImage.mobile || undefined;
@@ -94,7 +94,7 @@ export const RegionCard: React.FC<Props> = React.memo(({ region, index }) => {
               offlineError={cardProps.offlineError}
               region={region}
             />
-            <FavoriteButton region={region} />
+            <FavoriteButton regionId={region.id} favorite={region.favorite} />
             <Title style={styles.title}>{region.name}</Title>
           </LinearGradient>
         </Image>

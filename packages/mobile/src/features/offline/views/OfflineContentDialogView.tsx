@@ -51,6 +51,7 @@ const OfflineContentDialogView: React.FC<Props> = React.memo((props) => {
       {summary.summary ? (
         <View style={styles.root}>
           <Categories
+            regionId={region.id}
             summary={summary.summary}
             inProgress={inProgress}
             progress={progress}

@@ -1,10 +1,10 @@
 import { useAuth } from '@whitewater-guide/clients';
 import { useCallback } from 'react';
-import useRouter from 'use-react-router';
+import { useHistory } from 'react-router';
 
 export default (backPath?: string) => {
   const { service } = useAuth();
-  const { history } = useRouter();
+  const history = useHistory();
   return useCallback(
     () =>
       service.signIn('facebook').then(({ success }) => {

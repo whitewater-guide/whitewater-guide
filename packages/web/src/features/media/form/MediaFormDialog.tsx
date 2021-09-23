@@ -3,7 +3,7 @@ import { MediaInput, MediaInputSchema } from '@whitewater-guide/schema';
 import { createSafeValidator } from '@whitewater-guide/validation';
 import { Formik } from 'formik';
 import React, { Suspense, useCallback, useMemo } from 'react';
-import useRouter from 'use-react-router';
+import { useHistory, useLocation } from 'react-router';
 
 import { Loading } from '../../../components';
 import { UseApolloFormik } from '../../../formik';
@@ -15,7 +15,8 @@ type Props = UseApolloFormik<MediaFormQuery, MediaInput>;
 
 const MediaFormDialog = React.memo<Props>((props) => {
   const { onSubmit, loading, initialValues } = props;
-  const { history, location } = useRouter();
+  const history = useHistory();
+  const location = useLocation();
   const onCancel = useCallback(() => history.goBack(), [history]);
   const localPhoto: LocalPhoto | undefined =
     location.state && (location.state as any).file;

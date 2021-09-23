@@ -22,8 +22,7 @@ fragment SectionEditLogEntryRow on SectionEditLogEntry {
 }
 
 query sectionsEditLog($filter: SectionsEditLogFilter, $page: Page) {
-  history: sectionsEditLog(filter: $filter, page: $page)
-    @connection(key: "history", filter: ["filter"]) {
+  history: sectionsEditLog(filter: $filter, page: $page) {
     nodes {
       ...SectionEditLogEntryRow
     }

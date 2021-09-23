@@ -10,15 +10,16 @@ import {
   Platform,
   StyleSheet,
 } from 'react-native';
-import { Searchbar, Surface } from 'react-native-paper';
+import { Searchbar } from 'react-native-paper';
 
 import { Screen } from '~/components/Screen';
+import theme from '~/theme';
 
-import theme from '../../../theme';
 import EmptyListPlaceholder from './EmptyListPlaceholder';
 import { ListedGaugeFragment } from './findGauges.generated';
 import GaugeListHeader from './GaugeListHeader';
 import GaugesListItem from './GaugesListItem';
+import GaugesListSeparator from './GaugesListSeparator';
 import useGaugesQuery from './useGaugesQuery';
 
 const styles = StyleSheet.create({
@@ -27,9 +28,7 @@ const styles = StyleSheet.create({
     marginHorizontal: theme.margin.single,
   },
   content: {
-    flex: 1,
-    margin: theme.margin.single,
-    elevation: 4,
+    padding: theme.margin.single,
   },
   section: {
     marginVertical: 0,
@@ -86,17 +85,17 @@ const GaugeScreen: React.FC = () => {
         style={styles.kav}
         keyboardVerticalOffset={82}
       >
-        <Surface style={styles.content}>
-          <FlatList<ListedGaugeFragment>
-            data={gauges}
-            renderItem={renderItem}
-            keyExtractor={keyExtractor}
-            ListHeaderComponent={<GaugeListHeader loading={loading} />}
-            ListEmptyComponent={<EmptyListPlaceholder search={search} />}
-            getItemLayout={getItemLayout}
-            keyboardShouldPersistTaps="always"
-          />
-        </Surface>
+        <FlatList<ListedGaugeFragment>
+          contentContainerStyle={styles.content}
+          data={gauges}
+          renderItem={renderItem}
+          keyExtractor={keyExtractor}
+          ListHeaderComponent={<GaugeListHeader loading={loading} />}
+          ListEmptyComponent={<EmptyListPlaceholder search={search} />}
+          ItemSeparatorComponent={GaugesListSeparator}
+          getItemLayout={getItemLayout}
+          keyboardShouldPersistTaps="always"
+        />
       </KeyboardAvoidingView>
     </Screen>
   );

@@ -118,7 +118,8 @@ export class SectionListItem extends React.Component<SectionListItemProps> {
       <View style={styles.container}>
         <View style={styles.right}>
           <FavoriteButton
-            section={item}
+            sectionId={item.id}
+            favorite={item.favorite}
             scale={this._scaleFav}
             onToggle={onSwipe}
           />

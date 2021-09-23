@@ -1,11 +1,12 @@
-import ApolloClient, {
+import {
+  ApolloClient,
+  ApolloError,
   ApolloQueryResult,
   NetworkStatus,
   ObservableQuery,
-} from 'apollo-client';
+} from '@apollo/client';
 import React, { useContext } from 'react';
 
-import { getListMerger } from '../../apollo';
 import {
   PollRegionMeasurementsDocument,
   PollRegionMeasurementsQueryVariables,
@@ -20,7 +21,8 @@ import {
 import { SectionFilterOptions, SectionsStatus } from './types';
 
 export interface InnerState {
-  sections: ListedSectionFragment[];
+  sections: ListedSectionFragment[] | null;
+  error: ApolloError | null;
   count: number;
   status: SectionsStatus;
 }
@@ -31,7 +33,8 @@ export interface SectionsListContext extends InnerState {
 
 const SectionsListCtx = React.createContext<SectionsListContext>({
   count: 0,
-  sections: [],
+  sections: null,
+  error: null,
   status: SectionsStatus.READY,
   refresh: () => Promise.resolve(),
 });
@@ -71,7 +74,12 @@ export class SectionsListProvider extends React.PureComponent<
     super(props);
     const { client, regionId } = props;
     if (!regionId) {
-      this.state = { sections: [], count: 0, status: SectionsStatus.READY };
+      this.state = {
+        sections: null,
+        count: 0,
+        error: null,
+        status: SectionsStatus.READY,
+      };
       return;
     }
 
@@ -85,7 +93,8 @@ export class SectionsListProvider extends React.PureComponent<
       /* ignore, not in cache */
     }
     this.state = {
-      sections: (fromCache?.sections?.nodes ?? []) as ListedSectionFragment[],
+      error: null,
+      sections: fromCache?.sections?.nodes ?? null,
       count: fromCache?.sections?.count ?? 0,
       status: SectionsStatus.READY,
     };
@@ -98,9 +107,10 @@ export class SectionsListProvider extends React.PureComponent<
       query: ListSectionsDocument,
       fetchPolicy: 'cache-only', // to start loading manually
       variables: { filter: { regionId } },
-      fetchResults: false,
     });
-    this._subscription = this._query.subscribe(this.onUpdate);
+    this._subscription = this._query.subscribe(this.onUpdate, (error) => {
+      this.setState({ error });
+    });
   }
 
   async componentDidMount() {
@@ -108,7 +118,7 @@ export class SectionsListProvider extends React.PureComponent<
     const { isConnected } = this.props;
     const { count, sections } = this.state;
     if (isConnected) {
-      if (count === 0 || sections.length < count) {
+      if (count === 0 || !sections || sections.length < count) {
         await this.loadInitial();
       } else {
         await this.loadUpdates();
@@ -120,7 +130,7 @@ export class SectionsListProvider extends React.PureComponent<
   async componentDidUpdate(prevProps: Props) {
     if (this.props.isConnected && !prevProps.isConnected) {
       const { count, sections } = this.state;
-      if (count === 0 || sections.length < count) {
+      if (count === 0 || !sections || sections.length < count) {
         await this.loadInitial();
       } else {
         await this.loadUpdates();
@@ -143,14 +153,17 @@ export class SectionsListProvider extends React.PureComponent<
   }
 
   onUpdate = (props: ApolloQueryResult<ListSectionsQuery>) => {
-    const { data, networkStatus } = props;
+    const { data, networkStatus, error } = props;
+    if (error) {
+      this.setState({ error });
+    }
     if (networkStatus !== NetworkStatus.ready) {
       return;
     }
     // Fetch more triggers update twice
     // https://github.com/apollographql/apollo-client/issues/3948
     const lastId =
-      (data.sections?.nodes.length &&
+      (data?.sections?.nodes?.length &&
         data.sections.nodes[data.sections.nodes.length - 1].id) ||
       undefined;
     if (lastId === this._lastUpdatedId && !this._pollQuery) {
@@ -158,12 +171,12 @@ export class SectionsListProvider extends React.PureComponent<
     }
     this._lastUpdatedId = lastId;
     // this will happen when trying to read from cache when cache is empty
-    if (!this._mounted || !data.sections) {
+    if (!this._mounted || !data?.sections) {
       return;
     }
     this.setState({
-      sections: data.sections.nodes as ListedSectionFragment[],
-      count: data.sections.count,
+      sections: data?.sections?.nodes as ListedSectionFragment[],
+      count: data?.sections?.count ?? 0,
     });
   };
 
@@ -180,24 +193,26 @@ export class SectionsListProvider extends React.PureComponent<
     }
     // This is a hack to allow refetch, because cache-only won't allow it now
     this._query.options.fetchPolicy = 'cache-first';
-    try {
-      const { data } = await this._query.fetchMore({
-        query: ListSectionsDocument,
-        variables: {
-          page: { limit: nLimit, offset },
-          filter: { regionId, updatedAfter: updatedAfter?.toISOString() },
-        },
-        updateQuery: getListMerger('sections') as any,
-      });
+    const { data, error } = await this._query.fetchMore({
+      query: ListSectionsDocument,
+      variables: {
+        page: { limit: nLimit, offset },
+        filter: { regionId, updatedAfter: updatedAfter?.toISOString() },
+      },
+    });
 
-      const {
-        sections: { nodes, count },
-      } = data;
-      if (offset + nodes.length < count) {
-        await this.loadSections(offset + nodes.length, updatedAfter);
-      }
-    } catch (e) {
-      // Ignore
+    if (error) {
+      this.setState({ error });
+    }
+
+    if (!data?.sections) {
+      return;
+    }
+
+    const { nodes, count } = data.sections;
+
+    if (offset + nodes.length < count) {
+      await this.loadSections(offset + nodes.length, updatedAfter);
     }
   };
 
@@ -205,32 +220,45 @@ export class SectionsListProvider extends React.PureComponent<
     if (!this._mounted) {
       return;
     }
-    this.setState({ status: SectionsStatus.LOADING });
-    await this.loadSections(this.state.sections.length);
-    if (!this._mounted) {
-      return;
+    this.setState({ status: SectionsStatus.LOADING, error: null });
+    try {
+      await this.loadSections(this.state.sections?.length);
+    } catch (error: any) {
+      if (this._mounted) {
+        this.setState({ error });
+      }
+    } finally {
+      if (this._mounted) {
+        this.setState({ status: SectionsStatus.READY });
+      }
     }
-    this.setState({ status: SectionsStatus.READY });
   };
 
   loadUpdates = async () => {
     if (!this._mounted) {
       return;
     }
+
     // get latest updated section
-    const updatedAfter: Date | undefined = this.state.sections.reduce(
+    const updatedAfter: Date | undefined = this.state.sections?.reduce(
       (acc, { updatedAt }) =>
         acc && acc > new Date(updatedAt ?? '')
           ? acc
           : new Date(updatedAt ?? ''),
       undefined as Date | undefined,
     );
-    this.setState({ status: SectionsStatus.LOADING_UPDATES });
-    await this.loadSections(0, updatedAfter);
-    if (!this._mounted) {
-      return;
+    this.setState({ status: SectionsStatus.LOADING_UPDATES, error: null });
+    try {
+      await this.loadSections(0, updatedAfter);
+    } catch (error: any) {
+      if (this._mounted) {
+        this.setState({ error });
+      }
+    } finally {
+      if (this._mounted) {
+        this.setState({ status: SectionsStatus.READY });
+      }
     }
-    this.setState({ status: SectionsStatus.READY });
   };
 
   startPolling = async () => {
@@ -259,7 +287,7 @@ export class SectionsListProvider extends React.PureComponent<
     if (!this._mounted || status !== SectionsStatus.READY) {
       return;
     }
-    if (sections.length < count) {
+    if (!sections || sections.length < count) {
       await this.loadInitial();
     } else {
       await this.loadUpdates();
@@ -268,15 +296,21 @@ export class SectionsListProvider extends React.PureComponent<
 
   render() {
     const { filterOptions, children } = this.props;
-    const { status, count, sections } = this.state;
-    const filteredSections = applySearch(sections, filterOptions);
+    const { status, count, sections, error } = this.state;
+
+    const filteredSections = sections
+      ? applySearch(sections, filterOptions)
+      : null;
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     const value: SectionsListContext = {
+      error,
       count,
       status,
       sections: filteredSections,
       refresh: this.refresh,
     };
+    // Functional children is just ugly hack to make tests easier.
+    // Never use them irl
     return (
       <SectionsListCtx.Provider value={value}>
         {typeof children === 'function' ? children(value) : children}

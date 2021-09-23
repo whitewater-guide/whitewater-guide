@@ -7,7 +7,7 @@ Object {
     Object {
       "__typename": "SectionEditLogEntry",
       "action": "update",
-      "createdAt": "2017-02-04T00:00:00.000Z",
+      "createdAt": 2017-02-04T00:00:00.000Z,
       "diff": null,
       "editor": Object {
         "__typename": "User",
@@ -34,7 +34,7 @@ Object {
     Object {
       "__typename": "SectionEditLogEntry",
       "action": "update",
-      "createdAt": "2017-02-03T00:00:00.000Z",
+      "createdAt": 2017-02-03T00:00:00.000Z,
       "diff": null,
       "editor": Object {
         "__typename": "User",
@@ -61,7 +61,7 @@ Object {
     Object {
       "__typename": "SectionEditLogEntry",
       "action": "create",
-      "createdAt": "2017-02-02T00:00:00.000Z",
+      "createdAt": 2017-02-02T00:00:00.000Z,
       "diff": null,
       "editor": Object {
         "__typename": "User",
@@ -88,7 +88,7 @@ Object {
     Object {
       "__typename": "SectionEditLogEntry",
       "action": "delete",
-      "createdAt": "2017-02-01T00:00:00.000Z",
+      "createdAt": 2017-02-01T00:00:00.000Z,
       "diff": null,
       "editor": Object {
         "__typename": "User",

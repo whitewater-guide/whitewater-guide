@@ -50,7 +50,7 @@ const SectionChartScreen: React.FC<SectionChartNavProps> = ({ navigation }) => {
       {section && gauge ? (
         <ChartLayout section={section} gauge={gauge} collapsed={collapsed} />
       ) : (
-        <NoChart />
+        <NoChart reason="noGauge" />
       )}
     </Screen>
   );

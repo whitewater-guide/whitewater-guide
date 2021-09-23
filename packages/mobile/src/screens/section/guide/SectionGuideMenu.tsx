@@ -3,11 +3,12 @@ import { useNavigation } from '@react-navigation/core';
 import { ROOT_LICENSE, SafeSectionDetails } from '@whitewater-guide/clients';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Clipboard, Platform } from 'react-native';
+import { Platform } from 'react-native';
 import { IconButton } from 'react-native-paper';
 
 import { Screens } from '~/core/navigation';
 import theme from '~/theme';
+import copyAndToast from '~/utils/copyAndToast';
 
 import { SectionGuideNavProp } from './types';
 
@@ -33,7 +34,7 @@ const SectionGuideMenu: React.FC<Props> = ({ section }) => {
       },
       (index: number) => {
         if (index === 0 && section?.description) {
-          Clipboard.setString(section?.description);
+          copyAndToast(section?.description);
         }
         if (index === 1) {
           navigate(Screens.LICENSE, {

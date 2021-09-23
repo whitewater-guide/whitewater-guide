@@ -1,7 +1,8 @@
 import React from 'react';
 import { ActivityIndicator } from 'react-native';
 
-import theme from '../../../../theme';
+import theme from '~/theme';
+
 import DeleteMapsButton from './DeleteMapsButton';
 import OfflineCategory, { OfflineCategoryProps } from './OfflineCategory';
 import useOfflineMapsPack from './useOfflineMapsPack';

@@ -10,8 +10,7 @@ fragment ListedSuggestion on Suggestion {
 }
 
 query listSuggestions($filter: SuggestionsFilter, $page: Page) {
-  suggestions(filter: $filter, page: $page)
-    @connection(key: "suggestions", suggestions: ["filter"]) {
+  suggestions(filter: $filter, page: $page) {
     nodes {
       ...ListedSuggestion
     }

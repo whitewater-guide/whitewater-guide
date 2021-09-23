@@ -1,7 +1,7 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Tabs, { TabsProps } from '@material-ui/core/Tabs';
 import React from 'react';
-import useRouter from 'use-react-router';
+import { useLocation, useRouteMatch } from 'react-router';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -14,7 +14,8 @@ const useStyles = makeStyles((theme) =>
 
 export const NavTabs: React.FC<Omit<TabsProps, 'value'>> = (props) => {
   const classes = useStyles();
-  const { location, match } = useRouter();
+  const location = useLocation();
+  const match = useRouteMatch();
   const base = match.url;
   const value = location.pathname.replace(base, '') || '/main';
   return <Tabs {...props} classes={classes} value={value} />;
@@ -22,7 +23,7 @@ export const NavTabs: React.FC<Omit<TabsProps, 'value'>> = (props) => {
 
 export const HashTabs: React.FC<Omit<TabsProps, 'value'>> = (props) => {
   const classes = useStyles();
-  const { location } = useRouter();
+  const location = useLocation();
   const value = location.hash || '#main';
   return <Tabs {...props} classes={classes} value={value} />;
 };

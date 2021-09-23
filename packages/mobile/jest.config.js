@@ -12,11 +12,7 @@ const excludedModules = [
     pkg.includes('react-navigation'),
 );
 
-const notIgnoredModules = [
-  ...excludedModules,
-  'apollo-client',
-  'redux-persist-fs-storage',
-].join('|');
+const notIgnoredModules = [...excludedModules, '@apollo/client'].join('|');
 
 module.exports = {
   displayName: require('./package.json').name,

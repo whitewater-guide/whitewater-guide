@@ -1,7 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { sleep, useAuth } from '@whitewater-guide/clients';
-import { Section } from '@whitewater-guide/schema';
-import React from 'react';
+import React, { memo } from 'react';
 import { StyleSheet } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { useAsyncFn } from 'react-use';
@@ -14,7 +13,7 @@ import {
 import { Screens } from '~/core/navigation';
 import theme from '~/theme';
 
-import { useToggleFavoriteSectionMutation } from './toggleFavoriteSection.generated';
+import useToggleFavoriteSection from './useToggleFavoriteSection';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,7 +23,7 @@ const styles = StyleSheet.create({
   iconContainer: {
     paddingTop: theme.margin.half,
   },
-  loadingContainer: {
+  togglingContainer: {
     paddingTop: theme.margin.single,
   },
   iconDisabled: {
@@ -37,16 +36,20 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  section: Pick<Section, 'id' | 'favorite'>;
+  sectionId: string;
+  favorite?: boolean | null;
   scale: Animated.Node<number>;
   onToggle?: (swipeId: string) => void;
 }
 
-const FavoriteButton: React.FC<Props> = ({ section, scale, onToggle }) => {
-  const { id, favorite } = section;
+const FavoriteButton = memo<Props>((props) => {
+  const { sectionId, favorite, scale, onToggle } = props;
 
   const { me } = useAuth();
-  const [mutate, { loading }] = useToggleFavoriteSectionMutation();
+  const [toggleFavorite, toggling] = useToggleFavoriteSection(
+    sectionId,
+    favorite,
+  );
   const { navigate } = useNavigation();
 
   const [_, handleFavorite] = useAsyncFn(async () => {
@@ -55,20 +58,11 @@ const FavoriteButton: React.FC<Props> = ({ section, scale, onToggle }) => {
     if (me) {
       // Give it some time to collapse
       await sleep(200);
-      await mutate({
-        variables: { id, favorite: !favorite },
-        optimisticResponse: {
-          toggleFavoriteSection: {
-            __typename: 'Section',
-            id,
-            favorite: !favorite,
-          },
-        },
-      }).catch(() => {});
+      await toggleFavorite();
     } else {
       navigate(Screens.AUTH_STACK);
     }
-  }, [mutate, id, favorite, me, navigate, onToggle]);
+  }, [toggleFavorite, me, navigate, onToggle]);
 
   return (
     <Animated.View style={[styles.wrapper, { transform: [{ scale }] } as any]}>
@@ -76,13 +70,13 @@ const FavoriteButton: React.FC<Props> = ({ section, scale, onToggle }) => {
         icon={favorite ? 'heart' : 'heart-outline'}
         accessibilityLabel="favorite"
         style={[styles.container, styles.iconContainer]}
-        iconStyle={loading && styles.iconDisabled}
+        iconStyle={toggling && styles.iconDisabled}
         color={theme.colors.textMain}
-        onPress={loading ? undefined : handleFavorite}
+        onPress={toggling ? undefined : handleFavorite}
       />
     </Animated.View>
   );
-};
+});
 
 FavoriteButton.displayName = 'FavoriteButton';
 

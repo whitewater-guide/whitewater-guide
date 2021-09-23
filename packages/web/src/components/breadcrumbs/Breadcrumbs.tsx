@@ -1,7 +1,7 @@
 import MUIBreadcrumbs from '@material-ui/core/Breadcrumbs';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import React from 'react';
-import useRouter from 'use-react-router';
+import { useLocation } from 'react-router';
 
 import Breadcrumb from './Breadcrumb';
 import getPathTokens from './getPathTokens';
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) =>
 
 export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ routes }) => {
   const classes = useStyles();
-  const { location } = useRouter();
+  const location = useLocation();
   const breadcrumbs: BreadcrumbMatch[] = getPathTokens(location.pathname)
     .map((token) => getRouteMatch(routes, token))
     .filter((b): b is BreadcrumbMatch => !!b);

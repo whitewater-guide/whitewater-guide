@@ -31,7 +31,7 @@ const AddSectionTabs: React.FC<AddSectionTabsNavProps> = () => {
         swipeEnabled: false,
         lazy: true,
         tabBarShowIcon: false,
-        tabBarScrollEnabled: false,
+        tabBarScrollEnabled: true,
         tabBarIndicatorStyle: {
           bottom: undefined,
           top: 0,
@@ -40,6 +40,7 @@ const AddSectionTabs: React.FC<AddSectionTabsNavProps> = () => {
         tabBarStyle: {
           backgroundColor: theme.colors.primary,
         },
+        tabBarAllowFontScaling: true,
       }}
     >
       <Tab.Screen

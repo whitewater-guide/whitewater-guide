@@ -1,7 +1,7 @@
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import React from 'react';
-import useRouter from 'use-react-router';
+import { useHistory } from 'react-router';
 
 import { useDeleteMutation } from '../../../apollo';
 import { EditorLanguagePicker } from '../../../components';
@@ -15,7 +15,7 @@ import SourcesTable from './SourcesTable';
 import useToggleSource from './useToggleSource';
 
 export const SourcesList: React.FC = React.memo(() => {
-  const { history } = useRouter();
+  const history = useHistory();
   const { data, loading } = useListSourcesQuery({
     fetchPolicy: 'cache-and-network',
   });

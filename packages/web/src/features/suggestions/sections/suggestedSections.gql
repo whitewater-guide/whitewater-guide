@@ -17,8 +17,7 @@ fragment SuggestedSection on Section {
 }
 
 query suggestedSections($filter: SectionsFilter, $page: Page) {
-  sections(filter: $filter, page: $page)
-    @connection(key: "suggestedSections", suggestions: ["filter"]) {
+  sections(filter: $filter, page: $page) {
     nodes {
       ...SuggestedSection
     }

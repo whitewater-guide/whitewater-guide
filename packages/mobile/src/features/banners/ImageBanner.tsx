@@ -1,3 +1,4 @@
+import FastImage from '@whitewater-guide/react-native-fast-image';
 import { BannerWithSourceFragment } from '@whitewater-guide/schema';
 import React, { useCallback } from 'react';
 import {
@@ -8,7 +9,6 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import FastImage from 'react-native-fast-image';
 
 import theme from '../../theme';
 import aspectRatios from './aspectRatios';

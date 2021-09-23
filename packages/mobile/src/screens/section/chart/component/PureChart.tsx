@@ -1,3 +1,5 @@
+import { ApolloError } from '@apollo/client';
+import { useNetInfo } from '@react-native-community/netinfo';
 import { ChartViewProps } from '@whitewater-guide/clients';
 import React, { useCallback, useState } from 'react';
 import {
@@ -24,11 +26,13 @@ const styles = StyleSheet.create({
 
 interface Props extends Omit<ChartViewProps, 'width' | 'height'> {
   loading: boolean;
+  error?: ApolloError | null;
 }
 
 const PureChart: React.FC<Props> = React.memo((props) => {
-  const { section, gauge, loading, data, filter, unit } = props;
+  const { section, gauge, loading, data, filter, unit, error } = props;
   const [layout, setLayout] = useState<LayoutRectangle | null>(null);
+  const { isInternetReachable } = useNetInfo();
 
   const onLayout = useCallback(
     (event: LayoutChangeEvent) => {
@@ -41,8 +45,12 @@ const PureChart: React.FC<Props> = React.memo((props) => {
     return <Loading />;
   }
 
+  if (isInternetReachable === false && !!error) {
+    return <NoChart reason="offline" />;
+  }
+
   if (!data || data.length === 0) {
-    return <NoChart noData />;
+    return <NoChart reason="noData" />;
   }
 
   return (

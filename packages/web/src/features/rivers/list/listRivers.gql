@@ -12,8 +12,7 @@ fragment ListedRiver on River {
 }
 
 query listRivers($page: Page, $filter: RiversFilter) {
-  rivers(page: $page, filter: $filter)
-    @connection(key: "rivers", filter: ["filter"]) {
+  rivers(page: $page, filter: $filter) {
     nodes {
       ...ListedRiver
     }

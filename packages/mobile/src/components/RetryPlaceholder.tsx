@@ -1,9 +1,19 @@
+import { ApolloError } from '@apollo/client';
 import { useNetInfo } from '@react-native-community/netinfo';
-import React, { memo } from 'react';
+import stringify from 'fast-json-stable-stringify';
+import React, { memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
-import { Button, Subheading } from 'react-native-paper';
+import {
+  ActivityIndicator,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { Button, Caption, Subheading } from 'react-native-paper';
+import { initialWindowMetrics } from 'react-native-safe-area-context';
 import { useDebouncedCallback } from 'use-debounce';
+
+import copyAndToast from '~/utils/copyAndToast';
 
 import theme from '../theme';
 import Icon from './Icon';
@@ -21,6 +31,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  copyBugReport: {
+    position: 'absolute',
+    bottom: (initialWindowMetrics?.insets.bottom ?? 0) + theme.margin.double,
+    alignItems: 'center',
+  },
 });
 
 interface Props {
@@ -28,18 +43,27 @@ interface Props {
   loading?: boolean;
   labelKey?: string;
   buttonKey?: string;
+  error?: ApolloError | null;
 }
 
 const RetryPlaceholder = memo<Props>((props) => {
-  const { refetch, loading, buttonKey = 'commons:retry' } = props;
+  const { refetch, loading, buttonKey = 'commons:retry', error } = props;
+  const { t } = useTranslation();
+  const { isInternetReachable } = useNetInfo();
+
   const onPress = useDebouncedCallback(() => {
     refetch?.();
   }, 1000);
-  const { t } = useTranslation();
-  const { isInternetReachable } = useNetInfo();
+
   const labelKey = isInternetReachable
     ? props.labelKey ?? 'commons:bug'
     : 'commons:offline';
+
+  const copyBugReport = useCallback(() => {
+    if (error) {
+      copyAndToast(stringify(error));
+    }
+  }, [error]);
 
   return (
     <View style={styles.container}>
@@ -50,7 +74,9 @@ const RetryPlaceholder = memo<Props>((props) => {
           <Icon narrow icon="alert" />
         )}
       </View>
+
       <Subheading>{t(labelKey)}</Subheading>
+
       {!!refetch && (
         <Button
           color={theme.colors.primary}
@@ -61,8 +87,18 @@ const RetryPlaceholder = memo<Props>((props) => {
           {t(buttonKey)}
         </Button>
       )}
+
+      {!!error && isInternetReachable && (
+        <View style={styles.copyBugReport}>
+          <TouchableOpacity onPress={copyBugReport}>
+            <Caption>{t('commons:copyBugReport')}</Caption>
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 });
+
+RetryPlaceholder.displayName = 'RetryPlaceholder';
 
 export default RetryPlaceholder;

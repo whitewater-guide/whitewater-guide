@@ -1,4 +1,4 @@
-import { fakeContext, TIMESTAMP_REGEX, UUID_REGEX } from '@test';
+import { fakeContext, UUID_REGEX } from '@test';
 import { DescentInput } from '@whitewater-guide/schema';
 import gql from 'graphql-tag';
 
@@ -99,7 +99,7 @@ it('should insert', async () => {
       },
     },
 
-    startedAt: expect.stringMatching(TIMESTAMP_REGEX),
+    startedAt: expect.any(Date),
     duration: 3600,
     comment: 'comment',
     level: {
@@ -108,8 +108,8 @@ it('should insert', async () => {
     },
     public: true,
 
-    createdAt: expect.stringMatching(TIMESTAMP_REGEX),
-    updatedAt: expect.stringMatching(TIMESTAMP_REGEX),
+    createdAt: expect.any(Date),
+    updatedAt: expect.any(Date),
   });
 });
 
@@ -139,7 +139,7 @@ it('should update', async () => {
       },
     },
 
-    startedAt: new Date(Date.UTC(2000, 1, 1)).toISOString(),
+    startedAt: new Date(Date.UTC(2000, 1, 1)),
     duration: 3600,
     comment: 'comment',
     level: {
@@ -147,8 +147,8 @@ it('should update', async () => {
       unit: 'cfs',
     },
     public: true,
-    createdAt: new Date(Date.UTC(2020, 0, 1)).toISOString(),
-    updatedAt: expect.stringMatching(TIMESTAMP_REGEX),
+    createdAt: new Date(Date.UTC(2020, 0, 1)),
+    updatedAt: expect.any(Date),
   });
 });
 

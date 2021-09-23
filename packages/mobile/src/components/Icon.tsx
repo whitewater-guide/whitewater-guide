@@ -1,12 +1,12 @@
 import React from 'react';
 import {
+  Pressable,
   StyleProp,
   StyleSheet,
   TextStyle,
   View,
   ViewStyle,
 } from 'react-native';
-import { TouchableRipple } from 'react-native-paper';
 import MDCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import theme from '../theme';
@@ -60,9 +60,10 @@ const IconBase = React.forwardRef<any, IconBaseProps>((props, ref) => {
   } = props;
   const clr = color || (primary ? theme.colors.primary : theme.colors.textMain);
   const sz = large ? theme.icons.large : size;
+
   if (onPress || onLongPress) {
     return (
-      <TouchableRipple
+      <Pressable
         onPress={onPress}
         onLongPress={onLongPress}
         style={style}
@@ -72,7 +73,7 @@ const IconBase = React.forwardRef<any, IconBaseProps>((props, ref) => {
         testID={testID}
       >
         <MDCommunity name={icon} size={sz} color={clr} style={iconStyle} />
-      </TouchableRipple>
+      </Pressable>
     );
   }
   return (

@@ -16,9 +16,9 @@ type Region implements NamedNode & Timestamped {
   "Points of interest"
   pois: [Point!]!
   "Date when the region was added to whitewater.guide"
-  createdAt: Date!
+  createdAt: DateTime!
   "Date when the region was last modified"
-  updatedAt: Date!
+  updatedAt: DateTime!
 
   "List of rivers"
   rivers(page: Page): RegionRiverConnection!
@@ -30,7 +30,11 @@ type Region implements NamedNode & Timestamped {
   """
   List of sections
   """
-  sections(page: Page, filter: SectionsFilter): RegionSectionConnection!
+  sections(
+    page: Page
+    filter: SectionsFilter
+    updatedAfter: DateTime
+  ): RegionSectionConnection!
   """
   List of sources
   """

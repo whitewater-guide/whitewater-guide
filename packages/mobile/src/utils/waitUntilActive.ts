@@ -1,26 +1,26 @@
-import { AppState, AppStateStatus } from 'react-native';
+import { AppState, AppStateStatus, EmitterSubscription } from 'react-native';
 
 const waitUntilActive = (timeout?: number): Promise<boolean> => {
-  let listener: any;
+  let subscription: EmitterSubscription | undefined;
+
   const statePromise = new Promise<boolean>((resolve) => {
     if (AppState.currentState === 'active') {
       resolve(true);
     } else {
-      listener = (status: AppStateStatus) => {
+      const listener = (status: AppStateStatus) => {
         if (status === 'active') {
-          AppState.removeEventListener('change', listener);
+          subscription?.remove();
           resolve(true);
         }
       };
-      AppState.addEventListener('change', listener);
+      subscription = AppState.addEventListener('change', listener);
     }
   });
+
   if (timeout) {
     const timeoutPromise = new Promise<boolean>((resolve) => {
       setTimeout(() => {
-        if (listener) {
-          AppState.removeEventListener('change', listener);
-        }
+        subscription?.remove();
         resolve(false);
       }, timeout);
     });

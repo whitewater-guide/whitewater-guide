@@ -1,6 +1,5 @@
-import { FetchPolicy } from 'apollo-client';
+import { FetchPolicy, QueryResult } from '@apollo/client';
 import React, { useContext } from 'react';
-import { QueryResult } from 'react-apollo';
 
 import {
   RegionDetailsQuery,
@@ -15,13 +14,11 @@ type RegionContext = QueryResult<
 
 const RegionCtx = React.createContext<RegionContext>({} as any);
 
-type FunctionalChildren = (data: RegionContext) => React.ReactNode;
-
 interface Props {
   regionId: string;
   bannerWidth?: number;
   fetchPolicy?: FetchPolicy;
-  children?: FunctionalChildren | React.ReactNode;
+  children?: any;
 }
 
 export const RegionProvider = React.memo<Props>((props) => {
@@ -37,11 +34,7 @@ export const RegionProvider = React.memo<Props>((props) => {
   });
 
   return (
-    <RegionCtx.Provider value={queryResult}>
-      {typeof children === 'function'
-        ? (children as FunctionalChildren)(queryResult)
-        : React.Children.only(children)}
-    </RegionCtx.Provider>
+    <RegionCtx.Provider value={queryResult}>{children}</RegionCtx.Provider>
   );
 });
 

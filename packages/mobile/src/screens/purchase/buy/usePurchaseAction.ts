@@ -10,6 +10,7 @@ import {
 } from 'react-native-iap';
 import useUpdateEffect from 'react-use/lib/useUpdateEffect';
 
+import showSnackbarError from '~/components/showSnackbarError';
 import { trackError } from '~/core/errors';
 import { Screens } from '~/core/navigation';
 import { IAPError } from '~/features/purchases';
@@ -87,8 +88,8 @@ export default (sku: string | null, sectionId?: string) => {
           return;
         }
         setState((current) => ({ ...current, loading: true }));
-        requestPurchase(sku, false).catch(() => {
-          // ignore, maybe show snackbar later
+        requestPurchase(sku, false).catch((error) => {
+          showSnackbarError(error);
         });
         return;
       }

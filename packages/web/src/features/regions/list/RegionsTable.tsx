@@ -1,7 +1,7 @@
 import { useRegionsFilter } from '@whitewater-guide/clients';
 import React, { useCallback } from 'react';
+import { useHistory } from 'react-router';
 import { Column } from 'react-virtualized';
-import useRouter from 'use-react-router';
 
 import { UnstyledLink } from '../../../components';
 import {
@@ -41,7 +41,7 @@ interface Props {
 const RegionsTable = React.memo<Props>((props) => {
   const { regions, onRemove } = props;
   const { nodes = [], count = 0 } = regions ?? {};
-  const { history } = useRouter();
+  const history = useHistory();
   const filtered = useRegionsFilter(nodes);
 
   const renderNameHeader = useCallback(() => <RegionNameFilter />, []);

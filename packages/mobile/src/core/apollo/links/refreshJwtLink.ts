@@ -1,18 +1,18 @@
+import { fromError } from '@apollo/client';
+import {
+  ApolloLink,
+  FetchResult,
+  NextLink,
+  Operation,
+} from '@apollo/client/link/core';
 import {
   AuthService,
   createApolloServerError,
   JWT_EXPIRED_CTX_KEY,
 } from '@whitewater-guide/clients';
-import {
-  ApolloLink,
-  FetchResult,
-  fromError,
-  NextLink,
-  Observable,
-  Operation,
-} from 'apollo-link';
 import { OperationQueuing } from 'apollo-link-token-refresh';
 import decode from 'jwt-decode';
+import Observable from 'zen-observable';
 
 import { ACCESS_TOKEN_CTX_KEY, getAccessTokenContext } from './acessTokenLink';
 

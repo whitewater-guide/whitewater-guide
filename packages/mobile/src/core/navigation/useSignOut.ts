@@ -1,13 +1,13 @@
+import { useApolloClient } from '@apollo/client';
 import { useAuth } from '@whitewater-guide/clients';
 import { useEffect } from 'react';
-import { useApolloClient } from 'react-apollo';
 
 import { apolloCachePersistor } from '~/core/apollo';
 
 import { RootStackNav } from './navigation-params';
 import { Screens } from './screen-names';
 
-export default ({ reset }: RootStackNav) => {
+export default function useSignOut({ reset }: RootStackNav) {
   const { service } = useAuth();
   const apollo = useApolloClient();
 
@@ -26,6 +26,7 @@ export default ({ reset }: RootStackNav) => {
             },
           ],
         });
+        // See https://github.com/apollographql/apollo-cache-persist/issues/34#issuecomment-371177206 for explanation
         apolloCachePersistor.pause();
         await apolloCachePersistor.purge();
         await apollo.resetStore();
@@ -33,4 +34,4 @@ export default ({ reset }: RootStackNav) => {
       }),
     [service, apollo, reset],
   );
-};
+}

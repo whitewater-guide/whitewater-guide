@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react-hooks';
-import FastImage from 'react-native-fast-image';
+import FastImage from '@whitewater-guide/react-native-fast-image';
 
 import { mockImagePreload } from '../test-utils';
 import { PhotoChannel } from '../utils';

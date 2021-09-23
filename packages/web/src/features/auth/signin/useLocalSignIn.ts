@@ -1,11 +1,11 @@
 import { Credentials, useAuth } from '@whitewater-guide/clients';
 import { FormikHelpers } from 'formik';
 import { useCallback } from 'react';
-import useRouter from 'use-react-router';
+import { useHistory } from 'react-router';
 
 const useLocalSignIn = (backPath?: string) => {
   const { service } = useAuth();
-  const { history } = useRouter();
+  const history = useHistory();
 
   return useCallback(
     (values: Credentials, actions: FormikHelpers<Credentials>) => {

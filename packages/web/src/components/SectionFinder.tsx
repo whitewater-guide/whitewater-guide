@@ -1,7 +1,7 @@
+import { QueryResult } from '@apollo/client';
 import { NamedNode, SectionNameShortFragment } from '@whitewater-guide/schema';
 import get from 'lodash/get';
 import React, { useCallback } from 'react';
-import { QueryResult } from 'react-apollo';
 
 import { AutocompleteProps, QueryAutocomplete } from './autocomplete';
 import { FindSectionsDocument } from './findSections.generated';

@@ -2,14 +2,14 @@ import { RegionResolvers } from '~/apollo';
 
 const sectionsResolver: RegionResolvers['sections'] = async (
   { id },
-  { page, filter },
+  { page, filter, updatedAfter },
   { dataSources },
   info,
 ) => {
-  const { updatedAfter } = filter ?? {};
   const sections = await dataSources.sections.getMany(info, {
     page,
-    filter: { regionId: id, updatedAfter },
+    filter: { ...filter, regionId: id },
+    updatedAfter,
   });
   return sections;
 };

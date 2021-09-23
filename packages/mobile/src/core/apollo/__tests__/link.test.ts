@@ -1,9 +1,10 @@
+import { toPromise } from '@apollo/client';
+import { ApolloLink, execute } from '@apollo/client/link/core';
 import { AuthBody, RefreshBody } from '@whitewater-guide/commons';
-import { ApolloLink, execute, toPromise } from 'apollo-link';
 import gql from 'graphql-tag';
 import { sign } from 'jsonwebtoken';
 import noop from 'lodash/noop';
-import { LoginManager } from 'react-native-fbsdk';
+import { LoginManager } from 'react-native-fbsdk-next';
 
 import { fetchMock } from '../../../test';
 import { MobileAuthService, tokenStorage } from '../../auth';

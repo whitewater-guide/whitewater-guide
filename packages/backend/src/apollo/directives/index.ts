@@ -1,1 +1,1 @@
-export * from './AdminDirective';
+export * from './addAdminDirective';

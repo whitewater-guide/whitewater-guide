@@ -1,6 +1,5 @@
 query listMyDescents($filter: DescentsFilter, $page: Page) {
-  myDescents(filter: $filter, page: $page)
-    @connection(key: "myDescents", filter: ["filter"]) {
+  myDescents(filter: $filter, page: $page) {
     edges {
       node {
         ...DescentCore

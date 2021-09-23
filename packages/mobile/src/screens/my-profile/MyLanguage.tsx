@@ -1,13 +1,13 @@
+import { MutationFunction } from '@apollo/client';
 import { MyProfileFragment } from '@whitewater-guide/schema';
 import identity from 'lodash/identity';
 import memoize from 'lodash/memoize';
 import React from 'react';
-import { MutationFunction } from 'react-apollo';
 import { useTranslation } from 'react-i18next';
 
 import RadioDialog from '~/components/radio-dialog';
+import { LANGUAGE_NAMES, SUPPORTED_LANGUAGES } from '~/i18n';
 
-import { LANGUAGE_NAMES, SUPPORTED_LANGUAGES } from '../../i18n';
 import {
   UpdateProfileMutation,
   UpdateProfileMutationVariables,

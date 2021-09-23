@@ -1,11 +1,4 @@
-import {
-  anonContext,
-  countRows,
-  fakeContext,
-  isTimestamp,
-  isUUID,
-  noUnstable,
-} from '@test';
+import { anonContext, countRows, fakeContext, isUUID, noUnstable } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 import { GaugeInput } from '@whitewater-guide/schema';
 import gql from 'graphql-tag';
@@ -128,8 +121,8 @@ describe('insert', () => {
     const gauge = result?.data?.upsertGauge;
     expect(result.errors).toBeUndefined();
     expect(isUUID(gauge?.id)).toBe(true);
-    expect(isTimestamp(gauge?.createdAt)).toBe(true);
-    expect(isTimestamp(gauge?.updatedAt)).toBe(true);
+    expect(gauge?.createdAt).toBeInstanceOf(Date);
+    expect(gauge?.updatedAt).toBeInstanceOf(Date);
     expect(gauge).toHaveProperty('source');
     expect(gauge).toHaveProperty('location');
   });

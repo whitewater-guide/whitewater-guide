@@ -1,5 +1,5 @@
+import { QueryResult } from '@apollo/client';
 import { DocumentNode } from 'graphql';
-import { QueryResult } from 'react-apollo';
 
 /**
  * simple queries with selection aliased as 'node', e.g.

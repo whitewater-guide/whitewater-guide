@@ -41,11 +41,13 @@ export function FormikCard<QResult, FData>(props: Props<QResult, FData>) {
   );
 
   const submitLabel =
-    props.submitLabel || isNode(initialValues) ? 'Update' : 'Create';
+    props.submitLabel ?? (isNode(initialValues) && initialValues.id)
+      ? 'Update'
+      : 'Create';
   const headerLabel =
     typeof header === 'string'
       ? header
-      : isNamedNode(initialValues)
+      : isNamedNode(initialValues) && initialValues.id
       ? `${initialValues.name} settings`
       : `New ${header.resourceType}`;
 

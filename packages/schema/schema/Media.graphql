@@ -24,8 +24,8 @@ type Media implements Timestamped {
   size: Int
   "weight for sorting"
   weight: Int
-  createdAt: Date!
-  updatedAt: Date!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 
   "Not persistent. Indicates that client should not display this item in lists"
   deleted: Boolean

@@ -1,7 +1,7 @@
+import { useApolloClient } from '@apollo/client';
 import { StepProps } from '@material-ui/core/Step';
 import { BoomPromoInfo } from '@whitewater-guide/schema';
 import React, { FC, useState } from 'react';
-import { useApolloClient } from 'react-apollo';
 import { useTranslation } from 'react-i18next';
 
 import {

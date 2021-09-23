@@ -2,7 +2,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import {
   RegionsFilterProvider,
-  useStreamingQuery,
+  useChunkedQuery,
 } from '@whitewater-guide/clients';
 import React from 'react';
 
@@ -19,13 +19,14 @@ import RegionsTable from './RegionsTable';
 import { RemoveRegionDocument } from './removeRegion.generated';
 
 export const RegionsList: React.FC = React.memo(() => {
-  const { data, loading } = useStreamingQuery<
+  const { data, loading } = useChunkedQuery<
     ListRegionsQuery,
     ListRegionsQueryVariables
   >(
     ListRegionsDocument,
     {
       fetchPolicy: 'cache-and-network',
+      nextFetchPolicy: 'cache-first',
     },
     20,
   );

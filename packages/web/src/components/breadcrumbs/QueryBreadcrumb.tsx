@@ -1,5 +1,5 @@
+import { QueryResult, useQuery } from '@apollo/client';
 import React from 'react';
-import { QueryResult, useQuery } from 'react-apollo';
 
 import SimpleBreadcrumb from './SimpleBreadcrumb';
 import { BQVars, QueryBreadcrumbValue } from './types';

@@ -1,9 +1,9 @@
-import { MockedProvider, MockedResponse } from '@apollo/react-testing';
+import { MockedProvider, MockedResponse } from '@apollo/client/testing';
+import { MockList } from '@graphql-tools/mock';
 import { act, renderHook } from '@testing-library/react-hooks';
 import { RegionDetailsDocument } from '@whitewater-guide/clients';
 import { mockApolloProvider } from '@whitewater-guide/clients/dist/test';
 import { GraphQLError } from 'graphql';
-import { MockList } from 'graphql-tools';
 import React from 'react';
 
 import theme from '~/theme';

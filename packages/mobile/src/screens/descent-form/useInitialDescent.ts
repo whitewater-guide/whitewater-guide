@@ -1,6 +1,6 @@
+import { useApolloClient } from '@apollo/client';
 import { useFormikContext } from 'formik';
 import { useRef } from 'react';
-import { useApolloClient } from 'react-apollo';
 import useAsync from 'react-use/lib/useAsync';
 
 import {

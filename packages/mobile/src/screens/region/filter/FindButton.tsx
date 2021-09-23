@@ -1,3 +1,4 @@
+import { useQuery } from '@apollo/client';
 import { useNavigation } from '@react-navigation/native';
 import {
   applySearch,
@@ -7,7 +8,6 @@ import {
   useSectionsFilterOptionsSetter,
 } from '@whitewater-guide/clients';
 import React, { useCallback, useMemo } from 'react';
-import { useQuery } from 'react-apollo';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
