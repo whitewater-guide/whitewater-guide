@@ -6,7 +6,7 @@ import {
   flushPromises,
 } from '@whitewater-guide/clients/dist/test';
 import { AuthBody, RefreshBody, SignInBody } from '@whitewater-guide/commons';
-import { AccessToken, LoginManager } from 'react-native-fbsdk';
+import { AccessToken, LoginManager } from 'react-native-fbsdk-next';
 
 import { fetchMock } from '../../test';
 import { MobileAuthService } from './service';
@@ -26,8 +26,6 @@ const REFRESH_TOKEN = '__refreshToken__';
 const resetApolloCache = jest.fn().mockResolvedValue({});
 const onSignOut = jest.fn();
 let service: AuthService;
-
-jest.mock('../../utils/waitUntilActive', () => () => Promise.resolve());
 
 beforeEach(async () => {
   await tokenStorage.setAccessToken(null);
