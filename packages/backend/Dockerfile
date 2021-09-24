@@ -4,6 +4,7 @@ WORKDIR /opt/app
 
 COPY packages/commons ./packages/commons
 COPY packages/codegen-backend-tests ./packages/codegen-backend-tests
+COPY packages/codegen-typedefs ./packages/codegen-typedefs
 COPY packages/backend ./packages/backend
 COPY packages/schema ./packages/schema
 COPY packages/validation ./packages/validation
