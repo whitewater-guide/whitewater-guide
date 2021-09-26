@@ -36,7 +36,9 @@ export function useChartMeasurements(
     }, [] as ChartDataPoint[]);
     return {
       data,
-      refresh: query.refetch,
+      refresh: async () => {
+        await query.refetch().catch(() => {});
+      },
       loading: query.loading,
       error: query.error,
     };

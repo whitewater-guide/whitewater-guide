@@ -1,11 +1,15 @@
 import { useAppState } from '@react-native-community/hooks';
 import { useChart } from '@whitewater-guide/clients';
-import React from 'react';
+import React, { forwardRef, useImperativeHandle } from 'react';
 import useUpdateEffect from 'react-use/lib/useUpdateEffect';
 
 import PureChart from './PureChart';
 
-export const Chart: React.FC = () => {
+export interface ChartStatic {
+  refresh: () => Promise<void>;
+}
+
+export const Chart = forwardRef<ChartStatic>((_props, ref) => {
   const {
     gauge,
     section,
@@ -22,6 +26,10 @@ export const Chart: React.FC = () => {
     }
   }, [appState, refresh]);
 
+  useImperativeHandle(ref, () => ({
+    refresh,
+  }));
+
   return (
     <PureChart
       loading={loading}
@@ -33,6 +41,6 @@ export const Chart: React.FC = () => {
       error={error}
     />
   );
-};
+});
 
 Chart.displayName = 'Chart';

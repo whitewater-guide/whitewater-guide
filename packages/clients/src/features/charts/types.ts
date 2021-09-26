@@ -29,6 +29,6 @@ export interface WithChartData {
     data: ChartDataPoint[];
     error?: ApolloError | null;
     loading: boolean;
-    refresh: () => void;
+    refresh: () => Promise<void>;
   };
 }
