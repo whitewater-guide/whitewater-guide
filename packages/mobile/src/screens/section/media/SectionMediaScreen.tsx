@@ -1,3 +1,4 @@
+import { useFocusEffect } from '@react-navigation/native';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
@@ -17,7 +18,16 @@ const styles = StyleSheet.create({
   },
 });
 
-const SectionMediaScreen: React.FC<SectionMediaNavProps> = () => {
+const SectionMediaScreen: React.FC<SectionMediaNavProps> = ({ navigation }) => {
+  useFocusEffect(
+    React.useCallback(() => {
+      navigation.getParent()?.setOptions({
+        // eslint-disable-next-line react/no-unstable-nested-components
+        headerRight: () => null,
+      });
+    }, [navigation]),
+  );
+
   return (
     <Screen>
       <ScrollView contentContainerStyle={styles.content}>

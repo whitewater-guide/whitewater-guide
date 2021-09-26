@@ -31,12 +31,6 @@ const SectionGuideScreen: React.FC<SectionGuideNavProps> = ({ navigation }) => {
         // eslint-disable-next-line react/no-unstable-nested-components
         headerRight: () => <SectionGuideMenu section={section} />,
       });
-
-      return () => {
-        navigation.getParent()?.setOptions({
-          headerRight: () => null,
-        });
-      };
     }, [navigation, section]),
   );
 

@@ -1,3 +1,4 @@
+import { useFocusEffect } from '@react-navigation/native';
 import {
   getSectionContentBounds,
   MapSection,
@@ -10,8 +11,18 @@ import { Screen } from '~/components/Screen';
 
 import { SectionMapNavProps } from './types';
 
-const SectionMapScreen: React.FC<SectionMapNavProps> = () => {
+const SectionMapScreen: React.FC<SectionMapNavProps> = ({ navigation }) => {
   const section = useSection();
+
+  useFocusEffect(
+    React.useCallback(() => {
+      navigation.getParent()?.setOptions({
+        // eslint-disable-next-line react/no-unstable-nested-components
+        headerRight: () => null,
+      });
+    }, [navigation]),
+  );
+
   const initialBounds = useMemo(
     () => getSectionContentBounds(section),
     [section],

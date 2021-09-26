@@ -27,22 +27,17 @@ const SectionChartScreen: React.FC<SectionChartNavProps> = ({ navigation }) => {
     React.useCallback(() => {
       navigation.getParent()?.setOptions({
         // eslint-disable-next-line react/no-unstable-nested-components
-        headerRight: () => (
-          <Pressable onPress={handleCollapse}>
-            <Icon
-              icon={collapsed ? 'arrow-collapse-all' : 'arrow-expand-all'}
-              color={theme.colors.lightBackground}
-            />
-          </Pressable>
-        ),
+        headerRight: () =>
+          gauge ? (
+            <Pressable onPress={handleCollapse}>
+              <Icon
+                icon={collapsed ? 'arrow-collapse-all' : 'arrow-expand-all'}
+                color={theme.colors.lightBackground}
+              />
+            </Pressable>
+          ) : null,
       });
-
-      return () => {
-        navigation.getParent()?.setOptions({
-          headerRight: () => null,
-        });
-      };
-    }, [navigation, collapsed, handleCollapse]),
+    }, [navigation, collapsed, handleCollapse, gauge]),
   );
 
   return (
