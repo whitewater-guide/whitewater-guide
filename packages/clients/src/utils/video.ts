@@ -130,16 +130,20 @@ const getVimeoThumb = async (
 ): Promise<VideoThumb | null> => {
   const videoId = getVimeoId(url);
   if (videoId) {
-    const vimeoResponse = await fetch(
-      `https://vimeo.com/api/v2/video/${videoId}.json`,
-    );
-    const vimeoJson = await vimeoResponse.json();
-    const { name, width, height } = getThumbSize(minHeight, VIMEO_SIZES);
-    return {
-      thumb: get(vimeoJson, `0.${name}`, null),
-      width,
-      height,
-    };
+    try {
+      const vimeoResponse = await fetch(
+        `https://vimeo.com/api/v2/video/${videoId}.json`,
+      );
+      const vimeoJson = await vimeoResponse.json();
+      const { name, width, height } = getThumbSize(minHeight, VIMEO_SIZES);
+      return {
+        thumb: get(vimeoJson, `0.${name}`, null),
+        width,
+        height,
+      };
+    } catch {
+      return null;
+    }
   }
   return Promise.resolve(null);
 };
