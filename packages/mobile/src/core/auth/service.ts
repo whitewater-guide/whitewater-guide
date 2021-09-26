@@ -66,20 +66,18 @@ export class MobileAuthService extends BaseAuthService {
       };
     }
     const req: RefreshPayload = { refreshToken };
-    const resp = await this._post('/auth/jwt/refresh', req);
+    const resp: AuthResponse<RefreshBody> = await this._post(
+      '/auth/jwt/refresh',
+      req,
+    );
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    const { success, accessToken, status, error, error_id } = resp;
+    const { success, accessToken, status, error } = resp;
     if (success && accessToken) {
       await tokenStorage.setAccessToken(accessToken);
     } else if (status === 400) {
-      trackError(
-        'auth',
-        new Error('token refresh failed'),
-        {
-          error,
-        },
-        error_id,
-      );
+      trackError('auth', new Error('token refresh failed'), {
+        error,
+      });
       // call internal function, so _loading status doesn't prevent it from running
       await this.signOut(true);
     }
@@ -93,6 +91,7 @@ export class MobileAuthService extends BaseAuthService {
         })
         .catch(() => {});
     }
+    tracker.setUser({ id: resp.id });
     return resp;
   }
 
@@ -137,7 +136,9 @@ export class MobileAuthService extends BaseAuthService {
 
       const at = await AccessToken.getCurrentAccessToken();
       if (!at?.accessToken) {
-        trackError('auth', new Error('fb_access_token_not_found'));
+        trackError('auth', new Error('fb access token not found'), {
+          provider: 'facebook',
+        });
         return {
           success: false,
           error: { form: 'fb_access_token_not_found' },
@@ -150,9 +151,7 @@ export class MobileAuthService extends BaseAuthService {
       });
       return resp;
     } catch (error) {
-      trackError('auth', new Error('facebook sign in failed'), {
-        error,
-      });
+      trackError('auth', error, { provider: 'facebook' });
       return { success: false, error: { form: error }, status: 400 };
     }
   }

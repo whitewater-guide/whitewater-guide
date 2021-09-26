@@ -6,13 +6,15 @@ import {
   Product,
 } from 'react-native-iap';
 
-import { trackError } from '../../core/errors';
+import { trackError } from '~/core/errors';
+
 import { IAPError } from './IAPError';
 
 const LOGGER = 'iap';
 
-function isBillingUnavailable(e: Error): boolean {
+function isBillingUnavailable(e: unknown): boolean {
   return (
+    e instanceof Error &&
     Platform.OS === 'android' &&
     e.message?.indexOf('Billing is unavailable') === 0
   );
@@ -21,7 +23,7 @@ function isBillingUnavailable(e: Error): boolean {
 export async function safeEndConnection() {
   try {
     await endConnection();
-  } catch (e: any) {
+  } catch (e) {
     trackError(LOGGER, e);
   }
 }
@@ -31,7 +33,7 @@ export async function safeInitConnection(): Promise<boolean> {
   let result = true;
   try {
     result = !!(await initConnection());
-  } catch (e: any) {
+  } catch (e) {
     // This is not error, just android emulator
     if (isBillingUnavailable(e)) {
       result = false;
@@ -47,13 +49,13 @@ export async function safeGetProducts(skus: string[]) {
   let error: IAPError | undefined;
   try {
     products = await getProducts(skus);
-  } catch (e: any) {
+  } catch (e) {
     if (!isBillingUnavailable(e)) {
       error = new IAPError(
         'screens:purchase.buy.errors.fetchProduct',
-        e.message,
+        (e as Error).message,
       );
-      trackError(LOGGER, error);
+      trackError(LOGGER, e);
     }
   }
   return {

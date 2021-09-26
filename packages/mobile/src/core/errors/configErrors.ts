@@ -7,16 +7,17 @@ export const configErrors = () => {
   Sentry.init({
     dsn: Config.SENTRY_DSN,
     environment: Config.ENV_NAME,
-    enabled: !__DEV__,
-    // integrations: (items) => items.filter((i) => i.name !== 'Breadcrumbs'),
     beforeBreadcrumb: (breadcrumb) => {
+      const statusCode = Number(breadcrumb.data?.status_code);
+      const url: string | undefined = breadcrumb.data?.url;
       if (
         // This just spams useless rn logs
         breadcrumb.category === 'console' ||
-        // Usually we don't care about successful requests
-        // EqEq because different versions of sentry use string or number
-        // eslint-disable-next-line eqeqeq
-        (breadcrumb.category === 'xhr' && breadcrumb.data?.status_code == 200)
+        (breadcrumb.category === 'xhr' &&
+          // Usually we don't care about successful requests
+          ((statusCode >= 200 && statusCode < 300) ||
+            // and aboute RN dev server
+            url?.includes('localhost:8081')))
       ) {
         return null;
       }

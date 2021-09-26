@@ -17,9 +17,9 @@ import Chips from '~/components/Chips';
 import { Body, Left, Right, Row } from '~/components/Row';
 import SimpleStarRating from '~/components/SimpleStarRating';
 import { PremiumSection } from '~/features/purchases';
+import { getSeasonLocalizer } from '~/i18n';
+import theme from '~/theme';
 
-import { getSeasonLocalizer } from '../../../i18n';
-import theme from '../../../theme';
 import CoordinatesInfo from './CoordinatesInfo';
 import HelpNeeded from './HelpNeeded';
 

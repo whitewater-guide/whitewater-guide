@@ -6,10 +6,10 @@ import { Linking, StyleSheet, View } from 'react-native';
 import { Caption, Paragraph, TouchableRipple } from 'react-native-paper';
 
 import { Row } from '~/components/Row';
+import { trackError } from '~/core/errors';
+import { PHOTO_PADDING, PHOTO_SIZE } from '~/features/media';
 import copyAndToast from '~/utils/copyAndToast';
 
-import { trackError } from '../../../core/errors';
-import { PHOTO_PADDING, PHOTO_SIZE } from '../../../features/media';
 import VideoThumbPlaceholder from './VideoThumbPlaceholder';
 
 const styles = StyleSheet.create({
@@ -52,7 +52,7 @@ class VideoItem extends React.PureComponent<Props, State> {
     try {
       thumb = await getVideoThumb(this.props.video.url, PHOTO_SIZE);
     } catch (e) {
-      trackError('VideoItem', e as Error);
+      trackError('VideoItem', e);
     }
     if (this._mounted) {
       this.setState({ thumb: thumb ? thumb.thumb : null });

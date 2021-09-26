@@ -29,7 +29,7 @@ export async function assertCachePersistorVersion(): Promise<void> {
     try {
       await apolloCachePersistor.restore();
     } catch (e) {
-      trackError('apollo-cache-persistor', e as Error);
+      trackError('apollo-cache-persistor', e);
     }
   } else {
     // Otherwise, we'll want to purge the outdated persisted cache

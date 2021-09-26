@@ -1,7 +1,7 @@
 import { getAvailablePurchases } from 'react-native-iap';
 
-import { trackError } from '../../../core/errors';
-import { IAPError } from '../../../features/purchases';
+import { trackError } from '~/core/errors';
+import { IAPError } from '~/features/purchases';
 
 const safeRestorePurchase = async (sku: string) => {
   try {
@@ -27,7 +27,7 @@ const safeRestorePurchase = async (sku: string) => {
       'screens:purchase.buy.errors.restoreFailed',
       (e as Error).message,
     );
-    trackError('iap', error);
+    trackError('iap', e);
     return {
       purchase: undefined,
       error,

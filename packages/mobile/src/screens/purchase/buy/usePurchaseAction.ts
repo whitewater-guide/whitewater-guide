@@ -70,7 +70,7 @@ export default (sku: string | null, sectionId?: string) => {
           'screens:purchase.buy.errors.requestPurchase',
           e.message,
         );
-        trackError('iap', error);
+        trackError('iap', e);
         setState((current) => ({ ...current, error, loading: false }));
       }
     });

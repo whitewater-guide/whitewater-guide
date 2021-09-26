@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { LargeList } from 'react-native-largelist';
 
+import ErrorBoundary from '~/components/ErrorBoundary';
+
 import { ITEM_HEIGHT } from './item';
 import NoSectionsPlaceholder from './NoSectionsPlaceholder';
 import RefreshControl from './RefreshControl';
@@ -25,15 +27,17 @@ export const SectionsList = React.memo<ListProps>((props) => {
   }
 
   return (
-    <LargeList
-      directionalLockEnabled
-      style={styles.container}
-      heightForIndexPath={heightForIndexPath}
-      showsVerticalScrollIndicator={false}
-      refreshHeader={RefreshControl}
-      testID="sections-largelist"
-      {...listProps}
-    />
+    <ErrorBoundary>
+      <LargeList
+        directionalLockEnabled
+        style={styles.container}
+        heightForIndexPath={heightForIndexPath}
+        showsVerticalScrollIndicator={false}
+        refreshHeader={RefreshControl}
+        testID="sections-largelist"
+        {...listProps}
+      />
+    </ErrorBoundary>
   );
 });
 

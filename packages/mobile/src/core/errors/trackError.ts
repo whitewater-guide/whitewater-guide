@@ -1,10 +1,15 @@
 import { tracker } from './tracker';
 
-export const trackError = (
+/**
+ * This function wraps sentry error tracking
+ * @param logger
+ * @param error
+ * @param extra
+ */
+export function trackError(
   logger: string,
-  error: Error,
+  error: unknown,
   extra?: { [key: string]: any },
-  transactionId?: string,
-) => {
-  tracker.track({ error, logger, transactionId, extra });
-};
+) {
+  tracker.track({ error, logger, extra });
+}

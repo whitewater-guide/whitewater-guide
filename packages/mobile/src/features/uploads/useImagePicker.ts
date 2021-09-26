@@ -41,7 +41,7 @@ export const useImagePicker = (
       }
       const { fileName, uri, type, width, height, fileSize } = assets[0];
       if (errorCode) {
-        trackError('imagePicker', new Error(errorCode));
+        trackError('imagePicker', new Error('error: ' + errorCode));
         return;
       }
       if (!uri || didCancel) {

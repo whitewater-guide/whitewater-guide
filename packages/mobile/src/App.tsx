@@ -1,5 +1,6 @@
 import { ApolloClient, ApolloProvider } from '@apollo/client';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
+import * as Sentry from '@sentry/react-native';
 import {
   AuthProvider,
   AuthService,
@@ -107,4 +108,60 @@ class App extends React.PureComponent {
   }
 }
 
-export default App;
+export default Sentry.wrap(App, {
+  profilerProps: {
+    name: 'whitewater',
+    disabled: true,
+    updateProps: {},
+  },
+  touchEventBoundaryProps: {
+    ignoreNames: [
+      'Background',
+      'Card',
+      'CellRenderer',
+      'ErrorBoundary',
+      'FastImage',
+      'FlatList',
+      'Handler',
+      'Icon',
+      'IconBase',
+      'LargeList',
+      'Left',
+      'LinearGradient',
+      'ListItem',
+      'MaybeScreen',
+      'MaybeScreenContainer',
+      'OptimizedComponent',
+      'Paper',
+      'Pressable',
+      'Right',
+      'Row',
+      'Screen',
+      'ScreenContainer',
+      'StaticContainer',
+      'Surface',
+      'Text',
+      'ThemedComponent',
+      'View',
+      /.*[nN]ative.*/,
+      /.*[nN]avigat.*/,
+      /.*Button.*/,
+      /.*GestureHandler.*/,
+      /.*Provider/,
+      /.*Scene.*/,
+      /.*ScrollView.*/,
+      /[\s]*/,
+      /[wW]ith.*/,
+      /[wW]rap.*/,
+      /Animated.*/,
+      /Drawer.*/,
+      /Lazy.*/,
+      /Material.*/,
+      /SafeArea.*/,
+      /Stack.*/,
+      /Themed.*/,
+      /Touchable.*/,
+      /Virtualized.*/,
+    ],
+  },
+});

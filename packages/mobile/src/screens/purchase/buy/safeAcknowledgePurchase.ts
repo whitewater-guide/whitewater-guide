@@ -1,8 +1,8 @@
 import { Platform } from 'react-native';
 import { finishTransaction, InAppPurchase } from 'react-native-iap';
 
-import { trackError } from '../../../core/errors';
-import { IAPError } from '../../../features/purchases';
+import { trackError } from '~/core/errors';
+import { IAPError } from '~/features/purchases';
 
 const safeAcknowledgePurchase = async (purchase: InAppPurchase) => {
   try {
@@ -24,7 +24,7 @@ const safeAcknowledgePurchase = async (purchase: InAppPurchase) => {
       JSON.stringify({ error: (e as Error).message, purchase }, null, 2),
       { transactionId: purchase.transactionId },
     );
-    trackError('iap', error);
+    trackError('iap', e, { transactionId: purchase.transactionId });
     return {
       error,
       acknowledged: false,

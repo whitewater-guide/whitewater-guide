@@ -5,7 +5,8 @@ import {
 } from '@whitewater-guide/clients';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 
-import { trackError } from '../../core/errors';
+import { trackError } from '~/core/errors';
+
 import { LocalPhoto } from './types';
 
 interface UploadsContext {

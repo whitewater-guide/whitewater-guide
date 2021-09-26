@@ -1,4 +1,5 @@
-import React, { ErrorInfo, useCallback } from 'react';
+import stringify from 'fast-json-stable-stringify';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Caption, Subheading } from 'react-native-paper';
@@ -18,16 +19,17 @@ const styles = StyleSheet.create({
 
 interface Props {
   error: Error;
-  info: ErrorInfo | null;
+  componentStack: string | null;
+  eventId: string | null;
 }
 
-const ErrorBoundaryFallback: React.FC<Props> = ({ error, info }) => {
+const ErrorBoundaryFallback: React.FC<Props> = (props) => {
   const { t } = useTranslation();
+
   const copyBugReport = useCallback(() => {
-    copyAndToast(
-      `Error:\n${error}\n\nComponent stack: ${info?.componentStack}`,
-    );
-  }, [error, info]);
+    copyAndToast(stringify(props));
+  }, [props]);
+
   return (
     <View style={styles.container}>
       <Icon icon="bug" />

@@ -1,39 +1,31 @@
-import React, { ErrorInfo } from 'react';
+import * as Sentry from '@sentry/react';
+import React, { FC } from 'react';
 
-import { trackError } from '../core/errors';
 import ErrorBoundaryFallback from './ErrorBoundaryFallback';
 
 interface Props {
   logger?: string;
 }
 
-interface State {
-  error: Error | null;
-  info: ErrorInfo | null;
-}
-
-class ErrorBoundary extends React.PureComponent<Props, State> {
-  readonly state: State = {
-    error: null,
-    info: null,
-  };
-
-  componentDidCatch(error: Error, info: ErrorInfo) {
-    const { logger = 'errorBoundary' } = this.props;
-    trackError(logger, error, { componentStack: info.componentStack });
-    this.setState({ error, info });
-  }
-
-  render() {
-    const { children } = this.props;
-    const { error, info } = this.state;
-
-    if (error) {
-      return <ErrorBoundaryFallback error={error} info={info} />;
-    }
-
-    return children || null;
-  }
-}
+export const ErrorBoundary: FC<Props> = ({ children, logger }) => {
+  return (
+    <Sentry.ErrorBoundary
+      fallback={({ error, componentStack, eventId }) => (
+        <ErrorBoundaryFallback
+          error={error}
+          componentStack={componentStack}
+          eventId={eventId}
+        />
+      )}
+      beforeCapture={(scope) => {
+        if (logger) {
+          scope.setTag('logger', logger);
+        }
+      }}
+    >
+      {children}
+    </Sentry.ErrorBoundary>
+  );
+};
 
 export default ErrorBoundary;

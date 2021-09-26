@@ -1,11 +1,9 @@
-// eslint-disable-next-line import/default
 import analytics from '@react-native-firebase/analytics';
 import * as Sentry from '@sentry/react-native';
 
 interface Trace {
   logger: string;
-  transactionId?: string;
-  error: Error;
+  error: unknown;
   extra?: { [key: string]: any };
 }
 
@@ -21,7 +19,7 @@ class ErrorTracker {
   };
 
   track = (trace: Trace) => {
-    const { logger, transactionId, error, extra } = trace;
+    const { logger, error, extra } = trace;
     if (__DEV__) {
       try {
         // eslint-disable-next-line no-console
@@ -35,26 +33,22 @@ class ErrorTracker {
       this._queue.push(trace);
       return;
     }
-    Sentry.withScope((scope) => {
-      scope.setTag('logger', logger);
-      if (transactionId) {
-        scope.setTransaction(transactionId);
-      }
-      if (extra) {
-        scope.setExtras(extra);
-      }
-      Sentry.captureException(error);
+    Sentry.captureException(error, {
+      tags: { logger },
+      extra,
     });
   };
 
-  setScreen = (screen: string, params: any) => {
+  trackScreen = (from: string, to: string, _params?: any) => {
     Sentry.addBreadcrumb({
+      type: 'navigation',
       category: 'navigation',
-      level: Sentry.Severity.Info,
-      message: screen,
-      data: params,
+      data: {
+        from,
+        to,
+      },
     });
-    analytics().logScreenView({ screen_name: screen });
+    analytics().logScreenView({ screen_name: to });
   };
 
   setUser = (user: any) => {
