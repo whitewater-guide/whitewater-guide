@@ -6,7 +6,6 @@ import React, {
   useContext,
   useEffect,
   useReducer,
-  useState,
 } from 'react';
 import { Product } from 'react-native-iap';
 import useMountedState from 'react-use/lib/useMountedState';
@@ -21,6 +20,7 @@ import { SKU } from './types';
 import useSkus from './useSkus';
 
 interface State {
+  initialized: boolean;
   canMakePayments: boolean;
   loading: boolean;
   products: Map<SKU, Product>;
@@ -32,6 +32,7 @@ export interface IapContext extends State {
 }
 
 const IapCtx = createContext<IapContext>({
+  initialized: false,
   canMakePayments: true,
   loading: false,
   products: new Map(),
@@ -40,6 +41,7 @@ const IapCtx = createContext<IapContext>({
 });
 
 const initialState: State = {
+  initialized: false,
   canMakePayments: true,
   loading: false,
   products: new Map(),
@@ -47,13 +49,13 @@ const initialState: State = {
 };
 
 enum ActionType {
-  SET_CMP,
+  INITIALIZE,
   LOAD_PRODUCTS,
   LOADED_PRODUCTS,
 }
 
 type Action =
-  | { type: ActionType.SET_CMP; canMakePayments: boolean }
+  | { type: ActionType.INITIALIZE; canMakePayments: boolean }
   | { type: ActionType.LOAD_PRODUCTS }
   | {
       type: ActionType.LOADED_PRODUCTS;
@@ -63,8 +65,12 @@ type Action =
 
 const reducer: Reducer<State, Action> = (state, action) => {
   switch (action.type) {
-    case ActionType.SET_CMP:
-      return { ...state, canMakePayments: action.canMakePayments };
+    case ActionType.INITIALIZE:
+      return {
+        ...state,
+        canMakePayments: action.canMakePayments,
+        initialized: true,
+      };
     case ActionType.LOAD_PRODUCTS:
       return { ...state, loading: true, error: undefined };
     case ActionType.LOADED_PRODUCTS: {
@@ -80,21 +86,19 @@ const reducer: Reducer<State, Action> = (state, action) => {
 export const IapProvider: React.FC = ({ children }) => {
   const isMounted = useMountedState();
   const [state, dispatch] = useReducer(reducer, initialState);
-
-  const [initialized, setInitialized] = useState(false);
   const skus = useSkus();
+  const { initialized, canMakePayments } = state;
 
   useEffect(() => {
     safeInitConnection().then((canMakePayments) => {
       if (isMounted()) {
-        setInitialized(true);
-        dispatch({ type: ActionType.SET_CMP, canMakePayments });
+        dispatch({ type: ActionType.INITIALIZE, canMakePayments });
       }
     });
-  }, [dispatch, setInitialized, isMounted]);
+  }, [dispatch, isMounted]);
 
   const refresh = useCallback(() => {
-    if (skus.size === 0) {
+    if (skus.size === 0 || !canMakePayments) {
       return;
     }
     dispatch({ type: ActionType.LOAD_PRODUCTS });
@@ -103,7 +107,7 @@ export const IapProvider: React.FC = ({ children }) => {
         dispatch({ type: ActionType.LOADED_PRODUCTS, ...resp });
       }
     });
-  }, [skus, dispatch, isMounted]);
+  }, [skus, canMakePayments, dispatch, isMounted]);
 
   useEffect(() => {
     if (initialized) {

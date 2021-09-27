@@ -34,10 +34,8 @@ export async function safeInitConnection(): Promise<boolean> {
   try {
     result = !!(await initConnection());
   } catch (e) {
-    // This is not error, just android emulator
-    if (isBillingUnavailable(e)) {
-      result = false;
-    } else {
+    result = false;
+    if (!isBillingUnavailable(e)) {
       trackError(LOGGER, e);
     }
   }
