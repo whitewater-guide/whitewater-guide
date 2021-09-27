@@ -1,6 +1,6 @@
 import { useAppState } from '@react-native-community/hooks';
 import { useChart } from '@whitewater-guide/clients';
-import React, { forwardRef, useImperativeHandle } from 'react';
+import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import useUpdateEffect from 'react-use/lib/useUpdateEffect';
 
 import PureChart from './PureChart';
@@ -17,14 +17,16 @@ export const Chart = forwardRef<ChartStatic>((_props, ref) => {
     filter,
     unit,
   } = useChart();
+  const refreshRef = useRef(refresh);
+  refreshRef.current = refresh;
 
   // Refresh chart every time app comes from background
   const appState = useAppState();
   useUpdateEffect(() => {
     if (appState === 'active') {
-      refresh();
+      refreshRef.current();
     }
-  }, [appState, refresh]);
+  }, [appState, refreshRef]);
 
   useImperativeHandle(ref, () => ({
     refresh,
