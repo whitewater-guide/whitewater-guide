@@ -17,7 +17,7 @@ function useZoomedData(
     const endIndex = data.findIndex((d) => d.timestamp > zoomedXDomain[1]);
     let filtered = data.slice(
       Math.max(startIndex - 1, 0),
-      endIndex === -1 ? -1 : endIndex + 1,
+      endIndex === -1 ? undefined : endIndex + 1,
     );
     // const filtered = data.slice(startIndex, endIndex);
 
@@ -39,6 +39,7 @@ function useZoomedData(
         filtered.push(latest);
       }
     }
+
     return filtered;
   }, [data, zoomedDomain, width, maxDensity]);
 }

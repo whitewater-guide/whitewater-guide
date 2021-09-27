@@ -45,7 +45,10 @@ function useChartMeta(
     }
 
     const yDelta = (yDeltaRatio * (result[1] - result[0])) / height;
-    const yDomain: [number, number] = [result[0] - yDelta, result[1] + yDelta];
+    let yDomain: [number, number] = [result[0] - yDelta, result[1] + yDelta];
+    if (yDomain[0] === yDomain[1]) {
+      yDomain = [yDomain[0] * 0.9, yDomain[1] * 1.1];
+    }
     const yTickValues = ticks.concat(
       scaleLinear().domain(yDomain).ticks(yTicks),
     );
