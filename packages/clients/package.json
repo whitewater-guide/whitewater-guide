@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/clients",
   "private": false,
-  "version": "0.0.335",
+  "version": "0.0.336",
   "description": "shared code for whitewater.guide clients",
   "license": "UNLICENSED",
   "main": "dist/index.js",
@@ -28,9 +28,9 @@
   "dependencies": {
     "@turf/bearing": "^6.5.0",
     "@turf/helpers": "^6.5.0",
-    "@whitewater-guide/commons": "*",
-    "@whitewater-guide/schema": "*",
-    "@whitewater-guide/validation": "*",
+    "@whitewater-guide/commons": "^0.0.213",
+    "@whitewater-guide/schema": "^0.0.212",
+    "@whitewater-guide/validation": "^1.2.2",
     "async-retry": "^1.3.3",
     "color": "^3.2.1",
     "d3-scale": "^1.0.0",

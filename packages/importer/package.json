@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/importer",
   "private": true,
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "UNLICENSED",
   "description": "json converter for whitewater.guide importing",
   "repository": "https://github.com/doomsower/whitewater.git",
@@ -11,8 +11,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@whitewater-guide/commons": "*",
-    "@whitewater-guide/schema": "*"
+    "@whitewater-guide/commons": "^0.0.213",
+    "@whitewater-guide/schema": "^0.0.212"
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.13",

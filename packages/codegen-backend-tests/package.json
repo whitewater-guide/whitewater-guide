@@ -2,7 +2,7 @@
   "name": "@whitewater-guide/codegen-backend-tests",
   "private": false,
   "sideEffects": false,
-  "version": "0.0.211",
+  "version": "0.0.212",
   "license": "UNLICENSED",
   "description": "Plugin for graphql-code-generator that generates typed tests executors",
   "main": "dist/index.js",
