@@ -19,8 +19,12 @@ export interface QueryMap {
   [name: string]: (variables: any) => any;
 }
 
+export type MockedApolloClient = ApolloClient<unknown> & {
+  resetCounters: () => void;
+};
+
 export type MockedProviderStatic = React.FC & {
-  client: ApolloClient<any> & { resetCounters: () => void };
+  client: MockedApolloClient;
 };
 
 class CounterMap extends Map<string, number> {
@@ -60,9 +64,9 @@ export interface MockedProviderOptions {
 
 const TAG_CATEGORIES = Object.values(TagCategory);
 
-export const mockApolloClient = (
+export function mockApolloClient(
   options: MockedProviderOptions = {},
-): ApolloClient<any> & { resetCounters: () => void } => {
+): MockedApolloClient {
   const { Query = {}, Mutation = {}, mocks = {} } = options;
   let schema = makeExecutableSchema({
     typeDefs,
@@ -152,11 +156,11 @@ export const mockApolloClient = (
       },
     },
   );
-};
+}
 
-export const mockApolloProvider = (
+export function mockApolloProvider(
   options: MockedProviderOptions = {},
-): MockedProviderStatic => {
+): MockedProviderStatic {
   const client = mockApolloClient(options);
 
   const MP: React.FC = ({ children }) => (
@@ -164,4 +168,4 @@ export const mockApolloProvider = (
   );
 
   return Object.assign(MP, { client });
-};
+}

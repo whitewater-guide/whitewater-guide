@@ -33,7 +33,7 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.173",
+    "@types/lodash": "^4.14.175",
     "@types/validator": "^13.6.3",
     "date-fns": "^2.24.0",
     "jest": "*"

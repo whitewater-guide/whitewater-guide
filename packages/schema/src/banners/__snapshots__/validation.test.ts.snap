@@ -32,7 +32,7 @@ Object {
   "placement": Object {
     "key": "yup:mixed.oneOf",
     "options": Object {
-      "values": "mobileSectionDescription, mobileSectionRow, mobileSectionMedia, mobileRegionDescription",
+      "values": "mobileRegionDescription, mobileSectionDescription, mobileSectionMedia, mobileSectionRow",
     },
   },
 }

@@ -440,7 +440,7 @@ PODS:
     - React
   - react-native-ultimate-config (3.4.1):
     - React
-  - react-native-webview (11.13.0):
+  - react-native-webview (11.13.1):
     - React-Core
   - react-native-zxcvbn (1.0.1):
     - React
@@ -554,8 +554,8 @@ PODS:
     - React-Core
   - RNSpringScrollView (3.0.2):
     - React
-  - RNSVG (12.1.1):
-    - React
+  - RNSVG (12.2.0):
+    - React-Core
   - RNTextSize (4.0.0-rc.1):
     - React
   - RNVectorIcons (8.1.0):
@@ -900,7 +900,7 @@ SPEC CHECKSUMS:
   react-native-sensitive-info: 400c6e3d27945e15c8cddb5b4b92233c85ee06f8
   react-native-startup-time: 1a068b744ce5097a85ebe0fbff691b05961c324d
   react-native-ultimate-config: 7301d864d5511016587ccc89bb8787e6fcf17723
-  react-native-webview: 133a6a5149f963259646e710b4545c67ef35d7c9
+  react-native-webview: 3680f8b7d2b62e97b781efdc5e74a39179b2a5e2
   react-native-zxcvbn: ba72ee34accf0531cdd60778d98b3fe491c562bf
   React-perflogger: fd28ee1f2b5b150b00043f0301d96bd417fdc339
   React-RCTActionSheet: 7f3fa0855c346aa5d7c60f9ced16e067db6d29fa
@@ -932,7 +932,7 @@ SPEC CHECKSUMS:
   RNSentry: 49abc89b0190b4c8afe0fa5d065f98e36cb53233
   RNSnackbar: be3333a21a453ccc272f41a8add5a71f7d44dfcd
   RNSpringScrollView: e354167d96f2c3d2f20b186990b2c3946987cb3c
-  RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
+  RNSVG: 4ecc2e8f38b6ebe7889909570c26f3abe8059767
   RNTextSize: 7efa06531c6bb7ab6ed070b4ce0d1248cf06fcdf
   RNVectorIcons: 31cebfcf94e8cf8686eb5303ae0357da64d7a5a4
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d

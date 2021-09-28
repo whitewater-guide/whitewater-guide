@@ -5,7 +5,7 @@ Object {
   "kind": Object {
     "key": "yup:mixed.oneOf",
     "options": Object {
-      "values": "photo, video, blog",
+      "values": "blog, photo, video",
     },
   },
 }

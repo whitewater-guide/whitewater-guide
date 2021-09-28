@@ -5,7 +5,7 @@ Object {
   "category": Object {
     "key": "yup:mixed.oneOf",
     "options": Object {
-      "values": "kayaking, hazards, supply, misc",
+      "values": "hazards, kayaking, misc, supply",
     },
   },
 }
