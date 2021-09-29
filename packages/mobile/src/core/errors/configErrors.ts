@@ -8,16 +8,26 @@ export const configErrors = () => {
     dsn: Config.SENTRY_DSN,
     environment: Config.ENV_NAME,
     beforeBreadcrumb: (breadcrumb) => {
-      const statusCode = Number(breadcrumb.data?.status_code);
-      const url: string | undefined = breadcrumb.data?.url;
+      const { category = 'default', data = {}, message = '' } = breadcrumb;
+      const statusCode = Number(data.status_code);
+      const url: string | undefined = data.url;
       if (
-        // This just spams useless rn logs
-        breadcrumb.category === 'console' ||
-        (breadcrumb.category === 'xhr' &&
+        // These categories are meaningless:
+        // console - we do not log into console. RN logs some useless info
+        // device.orientation - we're always in portrait mode
+        // ui.lifecycle - these are just {screen: RNSScreen} and {screen: RNScreensViewController}
+        ['console', 'device.orientation', 'ui.lifecycle'].includes(category) ||
+        (['xhr', 'http'].includes(category) &&
           // Usually we don't care about successful requests
-          ((statusCode >= 200 && statusCode < 300) ||
+          (statusCode === 0 ||
+            (statusCode >= 200 && statusCode < 300) ||
             // and aboute RN dev server
-            url?.includes('localhost:8081')))
+            url?.includes('localhost:8081'))) ||
+        // this is also spam
+        (category === 'device.event' &&
+          data.action === 'BATTERY_STATE_CHANGE') ||
+        // this is also spam by GestureHandleer
+        (category === 'touch' && message.startsWith('handleTouch'))
       ) {
         return null;
       }
