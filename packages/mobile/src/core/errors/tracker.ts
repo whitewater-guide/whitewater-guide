@@ -21,13 +21,8 @@ class ErrorTracker {
   track = (trace: Trace) => {
     const { logger, error, extra } = trace;
     if (__DEV__) {
-      try {
-        // eslint-disable-next-line no-console
-        console.dir(error);
-      } catch {
-        // eslint-disable-next-line no-console
-        console.log(error);
-      }
+      // eslint-disable-next-line no-console
+      console.log(error);
     }
     if (!this._ready) {
       this._queue.push(trace);
