@@ -63,9 +63,6 @@ static void InitializeFlipper(UIApplication *application) {
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
 
-  [[FBSDKApplicationDelegate sharedInstance] application:application
-                           didFinishLaunchingWithOptions:launchOptions];
-
   [RNBootSplash initWithStoryboard:@"BootSplash" rootView:rootView];
 
   return YES;
