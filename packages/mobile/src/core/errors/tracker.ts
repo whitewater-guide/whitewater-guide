@@ -34,13 +34,14 @@ class ErrorTracker {
     });
   };
 
-  trackScreen = (from: string, to: string, _params?: any) => {
+  trackScreen = (from: string, to: string, params?: any) => {
     Sentry.addBreadcrumb({
       type: 'navigation',
       category: 'navigation',
       data: {
         from,
         to,
+        params,
       },
     });
     analytics().logScreenView({ screen_name: to });
