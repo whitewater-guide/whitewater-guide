@@ -17,7 +17,10 @@ export function createLink(auth: AuthService): ApolloLink {
         auth.signOut(true);
       },
       (error) => {
-        trackError('errorLink', error);
+        // do not hit sentry every time when user is offline
+        if (error.networkError?.message !== 'Network request failed') {
+          trackError('errorLink', error);
+        }
         // query errors should be displayed (or not) alongside with data
         // mutations errors should be displayed in a snackbar
         // here we just track errors
