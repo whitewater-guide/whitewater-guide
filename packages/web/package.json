@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/web",
   "private": true,
-  "version": "0.1.448",
+  "version": "0.1.449",
   "license": "UNLICENSED",
   "scripts": {
     "clean": "rimraf build src/__generated__ && find src -name \"*.generated.ts\" -delete",

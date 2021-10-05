@@ -69,6 +69,7 @@ export default (isCopy?: boolean) =>
       demo: _demo,
       media,
       verified: _verified,
+      favorite: _favorite,
       ...section
     } = result.section;
 
