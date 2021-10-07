@@ -149,8 +149,8 @@ android {
         resValue "string", "build_config_package", "guide.whitewater"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 100601285
-        versionName "1.16.2"
+        versionCode 100601286
+        versionName "1.16.3"
         testBuildType System.getProperty('testBuildType', 'debugDetox')
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         // react-native-iap: we only use the Google Play flavor
