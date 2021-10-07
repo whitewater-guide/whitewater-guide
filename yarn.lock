@@ -21018,10 +21018,10 @@ react-native-markdown-display@^7.0.0-alpha.2:
     prop-types "^15.7.2"
     react-native-fit-image "^1.5.5"
 
-react-native-mmkv-storage@^0.6.4:
-  version "0.6.4"
-  resolved "https://registry.yarnpkg.com/react-native-mmkv-storage/-/react-native-mmkv-storage-0.6.4.tgz#a2e01781147bde96ddaeebc8fec2be5eed909f41"
-  integrity sha512-55K8RRm0ZPpN8RbFjMdoBZWo2S7e9RkIYIB8HsI5toGAwpMvM68nORPtW/Q3XhRZJ8PA6wE5wGyTOTEgbGyeGA==
+react-native-mmkv-storage@^0.6.5:
+  version "0.6.5"
+  resolved "https://registry.yarnpkg.com/react-native-mmkv-storage/-/react-native-mmkv-storage-0.6.5.tgz#66e93ee97b706e5f5ea5765b591df250aa2cc79c"
+  integrity sha512-QYcmfUYPT1OZ4+x8+GC6Ym9x1vwFEyCzL0vvMXCVyhsI0bNBTWMEni+RGkYy9geD/Ncaxq8rKHp0VDvBFw7ToA==
 
 react-native-mock-render@^0.1.9:
   version "0.1.9"

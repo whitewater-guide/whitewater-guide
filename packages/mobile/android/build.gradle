@@ -1,4 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(rootProject.file("local.properties")))
 
 buildscript {
     ext {
@@ -43,6 +45,20 @@ allprojects {
         maven {
             // All of Detox' artifacts are provided via the npm module
             url "$rootDir/../node_modules/detox/Detox-android"
+        }
+        // https://github.com/react-native-mapbox-gl/maps/blob/master/android/install.md#mapbox-maps-sdk
+        maven {
+            url 'https://api.mapbox.com/downloads/v2/releases/maven'
+            authentication {
+                basic(BasicAuthentication)
+            }
+            credentials {
+                // Do not change the username below.
+                // This should always be `mapbox` (not your username).
+                username = 'mapbox'
+                // Use the secret token you stored in local.properties as the password
+                password = localProperties['MAPBOX_DOWNLOADS_TOKEN'] ?: ""
+            }
         }
 
         google()
