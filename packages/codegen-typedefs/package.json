@@ -11,6 +11,6 @@
   "author": "Konstantin Kuznetsov",
   "scripts": {},
   "dependencies": {
-    "@graphql-tools/utils": "^8.2.3"
+    "@graphql-tools/utils": "^8.2.5"
   }
 }

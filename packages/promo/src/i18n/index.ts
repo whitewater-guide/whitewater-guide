@@ -8,8 +8,9 @@ i18n
   .use(initReactI18next)
   .use(LanguageDetector)
   .init({
+    compatibilityJSON: 'v3',
     resources,
-    whitelist: Object.keys(resources),
+    supportedLngs: Object.keys(resources),
     fallbackLng: 'en',
 
     interpolation: {

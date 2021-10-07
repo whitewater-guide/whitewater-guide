@@ -26,24 +26,24 @@ PODS:
     - FBSDKShareKit/Share (= 9.3.0)
   - FBSDKShareKit/Share (9.3.0):
     - FBSDKCoreKit (~> 9.3.0)
-  - Firebase/AnalyticsWithoutAdIdSupport (8.7.0):
+  - Firebase/AnalyticsWithoutAdIdSupport (8.8.0):
     - Firebase/CoreOnly
-    - FirebaseAnalytics/WithoutAdIdSupport (~> 8.7.0)
-  - Firebase/CoreOnly (8.7.0):
-    - FirebaseCore (= 8.7.0)
-  - Firebase/Messaging (8.7.0):
+    - FirebaseAnalytics/WithoutAdIdSupport (~> 8.8.0)
+  - Firebase/CoreOnly (8.8.0):
+    - FirebaseCore (= 8.8.0)
+  - Firebase/Messaging (8.8.0):
     - Firebase/CoreOnly
-    - FirebaseMessaging (~> 8.7.0)
-  - FirebaseAnalytics/WithoutAdIdSupport (8.7.0):
+    - FirebaseMessaging (~> 8.8.0)
+  - FirebaseAnalytics/WithoutAdIdSupport (8.8.0):
     - FirebaseCore (~> 8.0)
     - FirebaseInstallations (~> 8.0)
-    - GoogleAppMeasurement/WithoutAdIdSupport (= 8.7.0)
+    - GoogleAppMeasurement/WithoutAdIdSupport (= 8.8.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
     - GoogleUtilities/MethodSwizzler (~> 7.4)
     - GoogleUtilities/Network (~> 7.4)
     - "GoogleUtilities/NSData+zlib (~> 7.4)"
     - nanopb (~> 2.30908.0)
-  - FirebaseCore (8.7.0):
+  - FirebaseCore (8.8.0):
     - FirebaseCoreDiagnostics (~> 8.0)
     - GoogleUtilities/Environment (~> 7.4)
     - GoogleUtilities/Logger (~> 7.4)
@@ -57,7 +57,7 @@ PODS:
     - GoogleUtilities/Environment (~> 7.4)
     - GoogleUtilities/UserDefaults (~> 7.4)
     - PromisesObjC (< 3.0, >= 1.2)
-  - FirebaseMessaging (8.7.0):
+  - FirebaseMessaging (8.8.0):
     - FirebaseCore (~> 8.0)
     - FirebaseInstallations (~> 8.0)
     - GoogleDataTransport (~> 9.0)
@@ -128,7 +128,7 @@ PODS:
     - FlipperKit/FlipperKitNetworkPlugin
   - fmt (6.2.1)
   - glog (0.3.5)
-  - GoogleAppMeasurement/WithoutAdIdSupport (8.7.0):
+  - GoogleAppMeasurement/WithoutAdIdSupport (8.8.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
     - GoogleUtilities/MethodSwizzler (~> 7.4)
     - GoogleUtilities/Network (~> 7.4)
@@ -159,15 +159,15 @@ PODS:
     - GoogleUtilities/Logger
   - hermes-engine (0.9.0)
   - libevent (2.1.12)
-  - libwebp (1.2.0):
-    - libwebp/demux (= 1.2.0)
-    - libwebp/mux (= 1.2.0)
-    - libwebp/webp (= 1.2.0)
-  - libwebp/demux (1.2.0):
+  - libwebp (1.2.1):
+    - libwebp/demux (= 1.2.1)
+    - libwebp/mux (= 1.2.1)
+    - libwebp/webp (= 1.2.1)
+  - libwebp/demux (1.2.1):
     - libwebp/webp
-  - libwebp/mux (1.2.0):
+  - libwebp/mux (1.2.1):
     - libwebp/demux
-  - libwebp/webp (1.2.0)
+  - libwebp/webp (1.2.1)
   - Mapbox-iOS-SDK (5.9.0):
     - MapboxMobileEvents (= 0.10.2)
   - MapboxMobileEvents (0.10.2)
@@ -396,21 +396,21 @@ PODS:
   - React-jsinspector (0.66.0)
   - React-logger (0.66.0):
     - glog
-  - react-native-fbsdk-next (4.5.0):
+  - react-native-fbsdk-next (4.6.0):
     - React-Core
-    - react-native-fbsdk-next/Core (= 4.5.0)
-    - react-native-fbsdk-next/Login (= 4.5.0)
-    - react-native-fbsdk-next/Share (= 4.5.0)
-  - react-native-fbsdk-next/Core (4.5.0):
+    - react-native-fbsdk-next/Core (= 4.6.0)
+    - react-native-fbsdk-next/Login (= 4.6.0)
+    - react-native-fbsdk-next/Share (= 4.6.0)
+  - react-native-fbsdk-next/Core (4.6.0):
     - FBSDKCoreKit (~> 9.3)
     - React-Core
-  - react-native-fbsdk-next/Login (4.5.0):
+  - react-native-fbsdk-next/Login (4.6.0):
     - FBSDKLoginKit (~> 9.3)
     - React-Core
-  - react-native-fbsdk-next/Share (4.5.0):
+  - react-native-fbsdk-next/Share (4.6.0):
     - FBSDKShareKit (~> 9.3)
     - React-Core
-  - react-native-flipper (0.111.0):
+  - react-native-flipper (0.114.0):
     - React-Core
   - react-native-image-picker (4.1.1):
     - React-Core
@@ -441,7 +441,7 @@ PODS:
     - React
   - react-native-startup-time (2.0.0):
     - React
-  - react-native-ultimate-config (3.4.1):
+  - react-native-ultimate-config (3.4.2):
     - React
   - react-native-webview (11.14.0):
     - React-Core
@@ -529,15 +529,15 @@ PODS:
     - React-Core
     - SDWebImage (~> 5.11.1)
     - SDWebImageWebPCoder (~> 0.8.4)
-  - RNFBAnalytics (12.8.0):
-    - Firebase/AnalyticsWithoutAdIdSupport (= 8.7.0)
+  - RNFBAnalytics (12.9.0):
+    - Firebase/AnalyticsWithoutAdIdSupport (= 8.8.0)
     - React-Core
     - RNFBApp
-  - RNFBApp (12.8.0):
-    - Firebase/CoreOnly (= 8.7.0)
+  - RNFBApp (12.9.0):
+    - Firebase/CoreOnly (= 8.8.0)
     - React-Core
-  - RNFBMessaging (12.8.0):
-    - Firebase/Messaging (= 8.7.0)
+  - RNFBMessaging (12.9.0):
+    - Firebase/Messaging (= 8.8.0)
     - React-Core
     - RNFBApp
   - RNGestureHandler (1.10.3):
@@ -856,12 +856,12 @@ SPEC CHECKSUMS:
   FBSDKCoreKit: 0d1ae58388a458b8222f72025804cdc84eb5d0c3
   FBSDKLoginKit: aea68df6121c5e165ccae2fabfdc83c4644ee40f
   FBSDKShareKit: 70889c97c62f0c6b3ccb8b999e73a85f19024001
-  Firebase: bc9325d5ee2041524bac78a5213d0e530c651309
-  FirebaseAnalytics: 52768800c2add1d84b751420cb4caaf8195f2c41
-  FirebaseCore: f4804c1d3f4bbbefc88904d15653038f2c99ddf7
+  Firebase: 629510f1a9ddb235f3a7c5c8ceb23ba887f0f814
+  FirebaseAnalytics: 5506ea8b867d8423485a84b4cd612d279f7b0b8a
+  FirebaseCore: 98b29e3828f0a53651c363937a7f7d92a19f1ba2
   FirebaseCoreDiagnostics: fe77f42da6329d6d83d21fd9d621a6b704413bfc
   FirebaseInstallations: 2563cb18a723ef9c6ef18318a49519b75dce613c
-  FirebaseMessaging: 93227dd71d7888e200baef65043f81acb2b6596e
+  FirebaseMessaging: 419b5c9d84f294a753c6501d8cfb9ced1ce37304
   Flipper: 30e8eeeed6abdc98edaf32af0cda2f198be4b733
   Flipper-Boost-iOSX: fd1e2b8cbef7e662a122412d7ac5f5bea715403c
   Flipper-DoubleConversion: 57ffbe81ef95306cc9e69c4aa3aeeeeb58a6a28c
@@ -873,12 +873,12 @@ SPEC CHECKSUMS:
   FlipperKit: d8d346844eca5d9120c17d441a2f38596e8ed2b9
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 5337263514dd6f09803962437687240c5dc39aa4
-  GoogleAppMeasurement: 2be61ce546ad074dbe4dd545f222ac6033bb1d9e
+  GoogleAppMeasurement: 5ba1164e3c844ba84272555e916d0a6d3d977e91
   GoogleDataTransport: 85fd18ff3019bb85d3f2c551d04c481dedf71fc9
   GoogleUtilities: 8de2a97a17e15b6b98e38e8770e2d129a57c0040
   hermes-engine: bf7577d12ac6ccf53ab8b5af3c6ccf0dd8458c5c
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
-  libwebp: e90b9c01d99205d03b6bb8f2c8c415e5a4ef66f0
+  libwebp: 98a37e597e40bfdb4c911fc98f2c53d0b12d05fc
   Mapbox-iOS-SDK: a5915700ec84bc1a7f8b3e746d474789e35b7956
   MapboxMobileEvents: 2bc0ca2eedb627b73cf403258dce2b2fa98074a6
   MMKV: 76033b9ace2006623308910a3afcc0e25eba3140
@@ -899,8 +899,8 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 6a05173dc0142abc582bd4edd2d23146b8cc218a
   React-jsinspector: be95ad424ba9f7b817aff22732eb9b1b810a000a
   React-logger: 9a9cd87d4ea681ae929b32ef580638ff1b50fb24
-  react-native-fbsdk-next: 4eccacef3540758367a02738331d7249f266bddf
-  react-native-flipper: c388766d1414066f00de1d1611d8abe5afc06fa0
+  react-native-fbsdk-next: a0dd8905af573ec4d21b7bc398423ccaa2ce2b07
+  react-native-flipper: 117dac1f1758346575933a6d62d2c472c847a7b6
   react-native-image-picker: 92f51a85a62c2d829dcbd0dda5af99e6f988a113
   react-native-mapbox-gl: 94ddd813fd5d4fdab9ca9d45ce108125480cfffd
   react-native-mmkv-storage: ef0108761e775232be39fda2f41fef040406d858
@@ -909,7 +909,7 @@ SPEC CHECKSUMS:
   react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057
   react-native-sensitive-info: 400c6e3d27945e15c8cddb5b4b92233c85ee06f8
   react-native-startup-time: 1a068b744ce5097a85ebe0fbff691b05961c324d
-  react-native-ultimate-config: 7301d864d5511016587ccc89bb8787e6fcf17723
+  react-native-ultimate-config: 92916d2709359094d6154d7b3b36bd15e0feab26
   react-native-webview: d70bc760daaa0e2667dec569b93014882565819c
   react-native-zxcvbn: ba72ee34accf0531cdd60778d98b3fe491c562bf
   React-perflogger: 1f554c2b684e2f484f9edcdfdaeedab039fbaca8
@@ -931,9 +931,9 @@ SPEC CHECKSUMS:
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
   RNDateTimePicker: 7658208086d86d09e1627b5c34ba0cf237c60140
   RNFastImage: 72a2d5802adef70f8e42fce486f78878f8b47dae
-  RNFBAnalytics: eb76b56c1c53a0caa99a21d5906ca5b22f419638
-  RNFBApp: b97d6654509a5852d49f0abf93be76b300fd2e2c
-  RNFBMessaging: c1de144b096aaeec85e9fa3f0def62cc7a39b271
+  RNFBAnalytics: b98a2c822bdbfe34528ac504b5ad4d2f665d5346
+  RNFBApp: d11e8ae04b9b6230f3a28b70761f2edd185deaa8
+  RNFBMessaging: dd0bd7d837b7b6b8e881248a2639af5dc36b28ef
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNIap: f632e0685e37759e1a63651868d38fd08efe9a87
   RNLocalize: 74b82db20cc3895ccc25af992c644879bcec2815

@@ -17,18 +17,18 @@
     "copy:prod": "aws s3 cp build s3://whitewater.guide/promo --recursive --profile ww-prod  "
   },
   "dependencies": {
-    "@apollo/client": "^3.4.15",
+    "@apollo/client": "^3.4.16",
     "@material-ui/core": "^4.12.3",
     "@whitewater-guide/clients": "^0.0.336",
     "@whitewater-guide/commons": "^0.0.213",
     "@whitewater-guide/schema": "^0.0.212",
     "@whitewater-guide/translations": "^2.5.11",
-    "date-fns": "^2.24.0",
+    "date-fns": "^2.25.0",
     "downshift": "^6.1.7",
     "formik": "^2.2.9",
-    "graphql": "^15.6.0",
+    "graphql": "^15.6.1",
     "graphql-tag": "^2.12.5",
-    "i18next": "^20.6.1",
+    "i18next": "^21.2.4",
     "i18next-browser-languagedetector": "^6.1.2",
     "lodash": "^4.17.21",
     "react": "^17.0.2",
@@ -41,11 +41,10 @@
   "devDependencies": {
     "@testing-library/react-hooks": "^7.0.2",
     "@types/lodash": "^4.14.175",
-    "@types/react": "^17.0.24",
+    "@types/react": "^17.0.27",
     "@types/react-dom": "^17.0.9",
     "babel-loader": "^8.2.2",
     "jest": "*",
-    "jest-watch-typeahead": "^0.6.4",
     "react-test-renderer": "^17.0.2"
   },
   "browserslist": [

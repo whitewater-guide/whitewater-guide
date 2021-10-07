@@ -41,9 +41,10 @@ export const I18nProvider: React.FC<Props> = ({
       const language = me?.language ?? languageCode ?? 'en';
       const lng = Config.E2E_MODE === 'true' ? 'cimode' : language.substr(0, 2);
       await i18n.init({
+        compatibilityJSON: 'v3',
         lng,
         fallbackLng: 'en',
-        whitelist: SUPPORTED_LANGUAGES,
+        supportedLngs: SUPPORTED_LANGUAGES,
         interpolation: {
           escapeValue: false, // not needed for react!!
           format: (value, format) => {
