@@ -47,13 +47,18 @@ Environment: ${Config.ENV_NAME}`;
 
   render() {
     const { humanVersion } = this.state;
-    const version = `${humanVersion} ${Config.ENV_NAME}`;
+    const version = [
+      humanVersion,
+      Config.ENV_NAME === 'production' ? '' : Config.ENV_NAME,
+      '(details)',
+    ]
+      .filter(Boolean)
+      .join(' ');
     return (
       <View style={styles.container}>
-        <Caption
-          style={styles.text}
-          onPress={this.showDetails}
-        >{`${version} (details)`}</Caption>
+        <Caption style={styles.text} onPress={this.showDetails}>
+          {version}
+        </Caption>
       </View>
     );
   }
