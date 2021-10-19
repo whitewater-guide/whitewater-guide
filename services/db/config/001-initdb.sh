@@ -1,25 +1,20 @@
-#!/bin/bash
+#! /bin/bash
 set -e
 
 echo "[initdb] Installing extensions"
-psql --variable=ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname=$POSTGRES_DB <<-EOSQL
+psql --variable=ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname=postgres <<- SQL
   CREATE EXTENSION IF NOT EXISTS "pg_trgm";
   CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
   CREATE EXTENSION IF NOT EXISTS "postgis";
-EOSQL
+  CREATE EXTENSION IF NOT EXISTS "fuzzystrmatch";
+  CREATE EXTENSION IF NOT EXISTS "postgis_tiger_geocoder";
+  CREATE EXTENSION IF NOT EXISTS "postgis_topology";
+SQL
 # CREATE EXTENSION IF NOT EXISTS "timescaledb" CASCADE;
 
-echo "[initdb] Creating gorge database"
-psql --variable=ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname=$POSTGRES_DB <<-EOSQL
+echo "[initdb] Creating gorge and wwguide databases"
+psql --variable=ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname=postgres <<-SQL
   CREATE DATABASE gorge;
-EOSQL
-
-# echo "[initdb] Updating timescale on $POSTGRES_DB db"
-# psql --username "$POSTGRES_USER" --dbname=$POSTGRES_DB -X <<-EOSQL
-#   ALTER EXTENSION timescaledb UPDATE;
-# EOSQL
-
-# echo "[initdb] Updating timescale on gorge db"
-# psql --username "$POSTGRES_USER" --dbname=gorge -X <<-EOSQL
-#   ALTER EXTENSION timescaledb UPDATE;
-# EOSQL
+  CREATE DATABASE wwguide;
+  CREATE DATABASE wwtest;
+SQL

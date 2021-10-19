@@ -7,17 +7,18 @@ set -e
 
 rm -rf config/dump/*
 
-S3_BUCKET=$1
-AWS_PROFILE=$2
+S3_BUCKET=backups.whitewater.guide
+S3_PREFIX=v3/
+AWS_PROFILE=$1
 DUMP_NAME="backup.tar"
 
-LATEST_BACKUP=$(aws s3 ls s3://$S3_BUCKET --profile $AWS_PROFILE | sort | tail -n 1 | awk '{ print $4 }')
+LATEST_BACKUP=$(aws s3api list-objects-v2 --bucket "${S3_BUCKET}" --prefix "${S3_PREFIX}backup" --query 'reverse(sort_by(Contents, &LastModified))[:1].Key' --output=text --profile ${AWS_PROFILE})
 
 echo "Fetching ${LATEST_BACKUP} from S3"
-aws s3 cp s3://$S3_BUCKET/${LATEST_BACKUP} --profile $AWS_PROFILE config/dump/${DUMP_NAME}
+aws s3 cp s3://${S3_BUCKET}/${LATEST_BACKUP} --profile ${AWS_PROFILE} config/dump/${DUMP_NAME}
 cd config/dump
 tar -xvf ${DUMP_NAME}
 rm ${DUMP_NAME}
 # dev database doesn't use it, because it's too big for tmpfs database
-rm config/dump/gorge.bak
+rm gorge.bak
 echo "Success"

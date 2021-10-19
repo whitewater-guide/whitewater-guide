@@ -10,10 +10,9 @@ services:
     <<: *ww-commons
     container_name: ww-db
     environment:
-      - POSTGRES_DB=wwguide
       - POSTGRES_PASSWORD=whitewater
       - PGDATA=/var/lib/postgresql/data/pgdata
-    image: postgis/postgis:12-3.1-alpine
+    image: ghcr.io/whitewater-guide/postgres:1.1.0
     command:
       # These settings enable faster pg_restore
       - postgres
@@ -26,8 +25,13 @@ services:
         target: /tmp
       - type: tmpfs
         target: /run/postgresql
+      # Uncomment this if you want temporary db storage
       - type: tmpfs
         target: /var/lib/postgresql/data
+      # Uncomment this if you want permanent db storage
+      # - type: bind
+      #   source: ./dev-mount/postgres/data
+      #   target: /var/lib/postgresql/data
       - type: bind
         source: ./services/db/config
         target: /docker-entrypoint-initdb.d
@@ -87,7 +91,7 @@ services:
   gorge:
     <<: *ww-commons
     container_name: ww-gorge
-    image: ghcr.io/whitewater-guide/gorge:1.20.2
+    image: ghcr.io/whitewater-guide/gorge:2.0.8
     depends_on:
       - db
     command:
@@ -100,7 +104,6 @@ services:
         'whitewater',
         '--db-chunk-size',
         '1000',
-        '--pg-without-timescale',
       ]
     ports:
       - '7080:7080'
