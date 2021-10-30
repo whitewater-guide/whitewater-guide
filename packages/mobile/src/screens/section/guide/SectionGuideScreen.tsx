@@ -1,14 +1,14 @@
 import { useFocusEffect } from '@react-navigation/native';
-import { useSection } from '@whitewater-guide/clients';
+import { useSectionQuery } from '@whitewater-guide/clients';
 import { BannerPlacement } from '@whitewater-guide/schema';
 import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
 
-import { Screen } from '~/components/Screen';
 import { RegionBanners } from '~/features/banners';
 import theme from '~/theme';
 
 import SectionFAB from '../SectionFAB';
+import SectionTabsScreen from '../SectionTabsScreen';
 import SectionGuideMenu from './SectionGuideMenu';
 import SectionGuideView from './SectionGuideView';
 import { SectionGuideNavProps } from './types';
@@ -23,7 +23,8 @@ const styles = StyleSheet.create({
 });
 
 const SectionGuideScreen: React.FC<SectionGuideNavProps> = ({ navigation }) => {
-  const section = useSection();
+  const { data, loading, refetch } = useSectionQuery();
+  const section = data?.section;
 
   useFocusEffect(
     React.useCallback(() => {
@@ -35,8 +36,13 @@ const SectionGuideScreen: React.FC<SectionGuideNavProps> = ({ navigation }) => {
   );
 
   return (
-    <Screen>
-      <ScrollView contentContainerStyle={styles.content}>
+    <SectionTabsScreen>
+      <ScrollView
+        contentContainerStyle={styles.content}
+        refreshControl={
+          <RefreshControl refreshing={loading} onRefresh={refetch} />
+        }
+      >
         <SectionGuideView section={section} />
         <RegionBanners
           placement={BannerPlacement.MobileRegionDescription}
@@ -44,8 +50,9 @@ const SectionGuideScreen: React.FC<SectionGuideNavProps> = ({ navigation }) => {
         />
         <View style={styles.fabHelper} />
       </ScrollView>
+
       <SectionFAB testID="section-guide-fab" />
-    </Screen>
+    </SectionTabsScreen>
   );
 };
 

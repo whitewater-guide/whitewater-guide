@@ -6,9 +6,9 @@ import useToggle from 'react-use/lib/useToggle';
 
 import { NoChart } from '~/components/chart';
 import Icon from '~/components/Icon';
-import { Screen } from '~/components/Screen';
 import theme from '~/theme';
 
+import SectionTabsScreen from '../SectionTabsScreen';
 import ChartLayout from './ChartLayout';
 import { SectionChartNavProps } from './types';
 
@@ -41,13 +41,13 @@ const SectionChartScreen: React.FC<SectionChartNavProps> = ({ navigation }) => {
   );
 
   return (
-    <Screen>
-      {section && gauge ? (
+    <SectionTabsScreen>
+      {gauge ? (
         <ChartLayout section={section} gauge={gauge} collapsed={collapsed} />
       ) : (
         <NoChart reason="noGauge" />
       )}
-    </Screen>
+    </SectionTabsScreen>
   );
 };
 

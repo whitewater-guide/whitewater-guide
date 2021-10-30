@@ -188,6 +188,7 @@ export class SectionsListProvider extends React.PureComponent<
   loadSections = async (offset = 0, updatedAfter?: Date) => {
     const { isConnected, regionId, limit } = this.props;
     const nLimit = typeof limit === 'function' ? limit(offset) : limit;
+
     if (!this._mounted || !regionId || !isConnected) {
       return;
     }

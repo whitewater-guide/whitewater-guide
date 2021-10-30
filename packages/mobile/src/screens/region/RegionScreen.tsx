@@ -23,14 +23,14 @@ interface Props {
 
 const InnerRegionScreen = memo<Props>(({ regionId }) => {
   const filterOptions = useSectionsFilterOptions();
-  const { isConnected } = useNetInfo();
+  const { isInternetReachable } = useNetInfo();
   const client = useApolloClient();
 
   return (
     <SectionsListProvider
       filterOptions={filterOptions}
       regionId={regionId}
-      isConnected={isConnected}
+      isConnected={isInternetReachable}
       client={client}
       limit={limitFn}
     >

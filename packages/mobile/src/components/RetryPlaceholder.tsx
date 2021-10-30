@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  refetch?: () => Promise<any>;
+  refetch?: () => void;
   loading?: boolean;
   labelKey?: string;
   buttonKey?: string;

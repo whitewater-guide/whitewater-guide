@@ -2,9 +2,8 @@ import { useFocusEffect } from '@react-navigation/native';
 import { useSection } from '@whitewater-guide/clients';
 import React, { useCallback } from 'react';
 
-import { Screen } from '~/components/Screen';
-
 import SectionFAB from '../SectionFAB';
+import SectionTabsScreen from '../SectionTabsScreen';
 import SectionInfoMenu from './SectionInfoMenu';
 import SectionInfoView from './SectionInfoView';
 import { SectionInfoNavProps } from './types';
@@ -28,10 +27,10 @@ const SectionInfoScreen: React.FC<SectionInfoNavProps> = ({ navigation }) => {
   );
 
   return (
-    <Screen>
+    <SectionTabsScreen>
       <SectionInfoView />
       <SectionFAB testID="section-info-fab" />
-    </Screen>
+    </SectionTabsScreen>
   );
 };
 

@@ -8,8 +8,9 @@ interface Props {
   hasData: boolean;
   error?: ApolloError | null;
   loading: boolean;
-  refetch: () => Promise<any>;
+  refetch: () => void;
   children?: any;
+  testID?: string;
 }
 
 const WithQueryError = memo<Props>(
@@ -23,6 +24,7 @@ const WithQueryError = memo<Props>(
         <RetryPlaceholder refetch={refetch} loading={loading} error={error} />
       );
     }
+
     return children;
   },
 );

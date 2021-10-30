@@ -2,10 +2,10 @@ import { useFocusEffect } from '@react-navigation/native';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
-import { Screen } from '~/components/Screen';
 import theme from '~/theme';
 
 import SectionFAB from '../SectionFAB';
+import SectionTabsScreen from '../SectionTabsScreen';
 import SectionMediaScreenContent from './SectionMediaScreenContent';
 import { SectionMediaNavProps } from './types';
 
@@ -29,13 +29,13 @@ const SectionMediaScreen: React.FC<SectionMediaNavProps> = ({ navigation }) => {
   );
 
   return (
-    <Screen>
+    <SectionTabsScreen>
       <ScrollView contentContainerStyle={styles.content}>
         <SectionMediaScreenContent />
         <View style={styles.fabHelper} />
       </ScrollView>
       <SectionFAB />
-    </Screen>
+    </SectionTabsScreen>
   );
 };
 

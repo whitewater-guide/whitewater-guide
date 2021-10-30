@@ -6,6 +6,7 @@ import {
 } from '@whitewater-guide/clients';
 import { TagCategory } from '@whitewater-guide/schema';
 import groupBy from 'lodash/groupBy';
+import isNil from 'lodash/isNil';
 import trim from 'lodash/trim';
 import upperFirst from 'lodash/upperFirst';
 import React from 'react';
@@ -36,9 +37,11 @@ const SectionInfoView: React.FC = () => {
   const { data, refetch, loading } = useSectionQuery();
   const section = data?.section;
   const { t } = useTranslation();
+
   if (!section) {
     return null;
   }
+
   let season = upperFirst(
     trim(
       `${stringifySeason(section.seasonNumeric, false, getSeasonLocalizer(t))}`,
@@ -48,6 +51,7 @@ const SectionInfoView: React.FC = () => {
     season = `${season}\n${section.season}`;
   }
   const tagsByCategory = groupBy(section.tags, 'category');
+
   return (
     <ScrollView
       contentContainerStyle={styles.content}
@@ -57,7 +61,7 @@ const SectionInfoView: React.FC = () => {
     >
       <HelpNeeded section={section} />
 
-      {section.difficulty && (
+      {!isNil(section.difficulty) && (
         <Row>
           <Left>
             <Subheading>{t('commons:difficulty')}</Subheading>

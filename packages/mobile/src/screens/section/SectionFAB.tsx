@@ -102,6 +102,10 @@ export const SectionFAB: React.FC<Props> = ({ testID }) => {
     [navigate, dispatch, section, onPickAndUpload, t],
   );
 
+  if (!section) {
+    return null;
+  }
+
   return (
     <FAButton.Group
       testID={testID}

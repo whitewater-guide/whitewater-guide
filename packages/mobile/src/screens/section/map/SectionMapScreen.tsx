@@ -7,8 +7,8 @@ import {
 import React, { useMemo } from 'react';
 
 import { Map } from '~/components/map';
-import { Screen } from '~/components/Screen';
 
+import SectionTabsScreen from '../SectionTabsScreen';
 import { SectionMapNavProps } from './types';
 
 const SectionMapScreen: React.FC<SectionMapNavProps> = ({ navigation }) => {
@@ -43,8 +43,8 @@ const SectionMapScreen: React.FC<SectionMapNavProps> = ({ navigation }) => {
   }, [section]);
 
   return (
-    <Screen>
-      {section?.shape && initialBounds && (
+    <SectionTabsScreen>
+      {!!(section?.shape && initialBounds) && (
         <Map
           sections={[section as MapSection]}
           initialBounds={initialBounds}
@@ -53,7 +53,7 @@ const SectionMapScreen: React.FC<SectionMapNavProps> = ({ navigation }) => {
           testID="section-map"
         />
       )}
-    </Screen>
+    </SectionTabsScreen>
   );
 };
 

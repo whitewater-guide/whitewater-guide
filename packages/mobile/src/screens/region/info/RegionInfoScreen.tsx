@@ -3,10 +3,10 @@ import { BannerPlacement } from '@whitewater-guide/schema';
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 
-import { Screen } from '~/components/Screen';
 import { RegionBanners } from '~/features/banners';
 import theme from '~/theme';
 
+import RegionTabsScreen from '../RegionTabsScreen';
 import RegionInfoMenu from './RegionInfoMenu';
 import RegionInfoView from './RegionInfoView';
 import RegionLicense from './RegionLicense';
@@ -29,13 +29,13 @@ const RegionInfoScreen: React.FC<RegionInfoNavProps> = ({ navigation }) => {
   );
 
   return (
-    <Screen>
+    <RegionTabsScreen>
       <ScrollView contentContainerStyle={styles.content}>
         <RegionBanners placement={BannerPlacement.MobileRegionDescription} />
         <RegionInfoView />
         <RegionLicense />
       </ScrollView>
-    </Screen>
+    </RegionTabsScreen>
   );
 };
 

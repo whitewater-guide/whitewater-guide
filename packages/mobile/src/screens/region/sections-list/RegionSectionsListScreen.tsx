@@ -2,9 +2,9 @@ import { useFocusEffect } from '@react-navigation/native';
 import { useRegion, useSectionsList } from '@whitewater-guide/clients';
 import React from 'react';
 
-import { Screen } from '~/components/Screen';
 import FilterButton from '~/screens/region/FilterButton';
 
+import RegionTabsScreen from '../RegionTabsScreen';
 import SectionsList from './SectionsList';
 import { RegionSectionsNavProps } from './types';
 
@@ -22,15 +22,16 @@ const RegionSectionsListScreen: React.FC<RegionSectionsNavProps> = ({
 
   const { sections, status, refresh } = useSectionsList();
   const region = useRegion();
+
   return (
-    <Screen>
+    <RegionTabsScreen>
       <SectionsList
         status={status}
         sections={sections}
         region={region}
         refresh={refresh}
       />
-    </Screen>
+    </RegionTabsScreen>
   );
 };
 

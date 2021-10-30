@@ -7,7 +7,7 @@ import {
   SectionsSearchStringSetterContext,
   useRegion,
 } from '@whitewater-guide/clients';
-import React from 'react';
+import React, { useMemo } from 'react';
 import Config from 'react-native-ultimate-config';
 
 import { getHeaderRenderer } from '~/components/header';
@@ -20,19 +20,26 @@ import RegionTitle from './RegionTitle';
 
 const Stack = createStackNavigator<RegionStackParamsList>();
 
-const screenOptions: StackNavigationOptions = {
-  headerMode: 'screen',
-  header: getHeaderRenderer(
-    false,
-    [SectionsSearchStringContext, SectionsSearchStringSetterContext],
-    'region:sectionSearchPlaceholder',
-  ),
-  gestureEnabled: false,
-  animationEnabled: Config.E2E_MODE !== 'true',
-};
-
 const RegionStack: React.FC = () => {
   const region = useRegion();
+  const regionLoaded = !!region;
+
+  const screenOptions = useMemo(
+    (): StackNavigationOptions => ({
+      headerMode: 'screen',
+      header: getHeaderRenderer(
+        false,
+        regionLoaded
+          ? [SectionsSearchStringContext, SectionsSearchStringSetterContext]
+          : undefined,
+        'region:sectionSearchPlaceholder',
+      ),
+      gestureEnabled: false,
+      animationEnabled: Config.E2E_MODE !== 'true',
+    }),
+    [regionLoaded],
+  );
+
   return (
     <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Screen

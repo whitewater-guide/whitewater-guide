@@ -15,7 +15,7 @@ type RegionContext = QueryResult<
 const RegionCtx = React.createContext<RegionContext>({} as any);
 
 interface Props {
-  regionId: string;
+  regionId?: string | null;
   bannerWidth?: number;
   fetchPolicy?: FetchPolicy;
   children?: any;

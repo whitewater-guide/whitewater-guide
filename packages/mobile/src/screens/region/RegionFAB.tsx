@@ -50,6 +50,7 @@ export const RegionFAB = React.memo(({ region }: Props) => {
     ],
     [navigate, region, t],
   );
+
   return (
     <FAButton.Group
       testID="add-section-fab"
