@@ -3,14 +3,15 @@ import {
   createContainer,
   VictoryAxis,
   VictoryChart,
+  VictoryClipContainer,
   VictoryLine,
   VictoryScatter,
-  VictoryTooltip,
   VictoryVoronoiContainerProps,
   VictoryZoomContainerProps,
 } from 'victory-native';
 
 import {
+  Crosshair,
   HorizontalGrid,
   HorizontalLabel,
   HorizontalTick,
@@ -27,9 +28,10 @@ const VictoryZoomVoronoiContainer = createContainer<
 const DescentChartComponent = createChartView(
   {
     ChartComponent: VictoryChart,
+    ClipContainerComponent: VictoryClipContainer,
     AxisComponent: VictoryAxis,
     ScatterComponent: VictoryScatter,
-    TooltipComponent: VictoryTooltip,
+    TooltipComponent: Crosshair,
     LineComponent: VictoryLine,
     TimeLabelComponent: DescentTimeLabel,
     TimeGridComponent: DescentTimeGrid,

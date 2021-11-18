@@ -6,7 +6,11 @@ import * as yup from 'yup';
 import { Context } from './context';
 
 export const isInputValidResolver = <TSource, Vars>(
-  schema: yup.SchemaOf<Vars>,
+  // It used to be schema: yup.SchemaOf<Vars>, but I had to relax it because it was incompatible with codegen's RequireFields in resolver
+  // It caused errors like
+  // TypeOfShape<{ gauge: ObjectSchemaOf<GaugeInput, never> | Lazy<ObjectSchemaOf<GaugeInput, never>, any>; }>' is not assignable to type
+  // maybe it'll be fixed in future yup versions
+  schema: yup.SchemaOf<unknown>,
   resolver: GraphQLFieldResolver<TSource, Context, Vars>,
 ): GraphQLFieldResolver<TSource, Context, Vars> => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment

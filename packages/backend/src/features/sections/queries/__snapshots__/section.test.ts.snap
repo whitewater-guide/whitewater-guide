@@ -75,6 +75,7 @@ Object {
     "id": "21f2351e-d52a-11e7-9296-cec278b6b50a_takeOut",
     "kind": "take-out",
   },
+  "timezone": "Europe/Oslo",
   "verified": null,
 }
 `;

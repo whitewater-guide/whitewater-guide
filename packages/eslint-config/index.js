@@ -38,6 +38,7 @@ module.exports = {
     'sort-imports': 'off',
   },
   settings: {
+    'import/ignore': ['victory.*'],
     'import/resolver': {
       typescript: {
         project: ['packages/*/tsconfig.json'],

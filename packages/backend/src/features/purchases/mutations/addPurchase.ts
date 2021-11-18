@@ -20,7 +20,7 @@ import { db, Sql } from '~/db';
 import logger from '../logger';
 
 const Schema: yup.SchemaOf<MutationAddPurchaseArgs> = yup.object({
-  purchase: PurchaseInputSchema.clone(),
+  purchase: PurchaseInputSchema.clone().required(),
 });
 
 const processBoomstarterPurchase = async (

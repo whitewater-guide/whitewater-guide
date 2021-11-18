@@ -62,18 +62,22 @@ const SectionInfo: React.FC<Props> = ({ section }) => {
           <Rating value={section.rating} precision={0.5} readOnly />
         </Grid>
       </Row>
+
       <Row>
         <Title>Drop</Title>
-        <Grid>{`${section.drop} m`}</Grid>
+        <Grid>{section.drop ? `${section.drop} m` : ''}</Grid>
       </Row>
+
       <Row>
         <Title>Length</Title>
-        <Grid>{`${section.distance} km`}</Grid>
+        <Grid>{section.distance ? `${section.distance} km` : ''}</Grid>
       </Row>
+
       <Row>
         <Title>Duration</Title>
         <Grid>{section.duration && Durations.get(section.duration)}</Grid>
       </Row>
+
       <Row>
         <Title>Season</Title>
         <Grid>
@@ -81,29 +85,38 @@ const SectionInfo: React.FC<Props> = ({ section }) => {
           <div>{stringifySeason(section.seasonNumeric)}</div>
         </Grid>
       </Row>
+
       <Row>
         <Title>Kayaking types</Title>
         <Grid>
           {renderTags(tagsByCategory[TagCategory.Kayaking], classes.chip)}
         </Grid>
       </Row>
+
       <Row>
         <Title>Hazards</Title>
         <Grid>
           {renderTags(tagsByCategory[TagCategory.Hazards], classes.chip)}
         </Grid>
       </Row>
+
       <Row>
         <Title>River supply types</Title>
         <Grid>
           {renderTags(tagsByCategory[TagCategory.Supply], classes.chip)}
         </Grid>
       </Row>
+
       <Row>
         <Title>Miscellaneous tags</Title>
         <Grid>
           {renderTags(tagsByCategory[TagCategory.Misc], classes.chip)}
         </Grid>
+      </Row>
+
+      <Row>
+        <Title>Timezone</Title>
+        <Grid>{section.timezone}</Grid>
       </Row>
     </Grid>
   );

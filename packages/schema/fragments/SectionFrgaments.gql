@@ -36,6 +36,8 @@ fragment SectionCore on Section {
   difficulty
   difficultyXtra
   rating
+
+  timezone
 }
 
 fragment SectionEnds on Section {
@@ -59,6 +61,7 @@ fragment SectionFlows on Section {
     ...GaugeBindingAll
   }
   flowsText
+  timezone
 }
 
 fragment SectionMeasurements on Section {
@@ -105,6 +108,7 @@ fragment SectionLicense on Section {
 fragment DescentSection on Section {
   ...SectionNameShort
   difficulty
+  timezone
   region {
     id
     name

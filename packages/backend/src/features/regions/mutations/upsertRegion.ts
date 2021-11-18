@@ -8,7 +8,7 @@ import { isInputValidResolver, MutationResolvers } from '~/apollo';
 import { db, rawUpsert } from '~/db';
 
 const Schema: yup.SchemaOf<MutationUpsertRegionArgs> = yup.object({
-  region: RegionInputSchema.clone(),
+  region: RegionInputSchema.clone().required(),
 });
 
 const upsertRegion: MutationResolvers['upsertRegion'] = async (

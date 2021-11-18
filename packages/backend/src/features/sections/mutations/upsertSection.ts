@@ -125,7 +125,7 @@ const maybeUpdateJobs = async (
 };
 
 const Schema: yup.SchemaOf<MutationUpsertSectionArgs> = yup.object({
-  section: SectionInputSchema.clone(),
+  section: SectionInputSchema.clone().required(),
 });
 
 const upsertSection: AuthenticatedMutation['upsertSection'] = async (

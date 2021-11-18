@@ -86,6 +86,7 @@ const sections = [
       name: 'Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)',
       url: 'https://creativecommons.org/licenses/by-sa/4.0/',
     },
+    timezone: 'Europe/Madrid',
   },
   {
     id: GALICIA_BECA_UPPER,
@@ -121,6 +122,7 @@ const sections = [
     license: {
       name: 'Proprietary license',
     },
+    timezone: 'Europe/Madrid',
   },
   {
     id: NORWAY_SJOA_AMOT,
@@ -138,6 +140,7 @@ const sections = [
     help_needed: 'Suggest POIs please',
     created_by: TEST_USER2_ID,
     default_lang: 'en',
+    timezone: 'Europe/Oslo',
   },
   {
     id: NORWAY_FINNA_GORGE,
@@ -154,6 +157,7 @@ const sections = [
     rating: 4,
     hidden: true,
     default_lang: 'en',
+    timezone: 'Europe/Oslo',
   },
   {
     id: GEORGIA_BZHUZHA_LONG,
@@ -175,6 +179,7 @@ const sections = [
     hidden: false,
     demo: false,
     default_lang: 'en',
+    timezone: 'Asia/Tbilisi',
   },
   {
     id: GEORGIA_BZHUZHA_EXTREME,
@@ -195,6 +200,7 @@ const sections = [
     hidden: false,
     demo: false,
     default_lang: 'en',
+    timezone: 'Asia/Tbilisi',
   },
   {
     id: GEORGIA_BZHUZHA_QUALI,
@@ -214,6 +220,7 @@ const sections = [
     hidden: false,
     demo: true,
     default_lang: 'en',
+    timezone: 'Asia/Tbilisi',
   },
   {
     id: ECUADOR_QUIJOS_BRIDGE,
@@ -233,6 +240,7 @@ const sections = [
     hidden: false,
     demo: true,
     default_lang: 'en',
+    timezone: 'America/Guayaquil',
   },
   {
     id: ECUADOR_QUIJOS_CHEESE,
@@ -253,6 +261,7 @@ const sections = [
     hidden: false,
     demo: true,
     default_lang: 'en',
+    timezone: 'America/Guayaquil',
   },
   {
     id: RUSSIA_MZYMTA_PASEKA,
@@ -272,6 +281,7 @@ const sections = [
     hidden: false,
     demo: false,
     default_lang: 'ru',
+    timezone: 'Europe/Moscow',
   },
 ];
 

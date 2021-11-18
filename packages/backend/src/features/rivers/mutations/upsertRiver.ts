@@ -8,7 +8,7 @@ import { isInputValidResolver, MutationResolvers } from '~/apollo';
 import { db, rawUpsert } from '~/db';
 
 const Schema: yup.SchemaOf<MutationUpsertRiverArgs> = yup.object({
-  river: RiverInputSchema.clone(),
+  river: RiverInputSchema.clone().required(),
 });
 
 const upsertRiver: MutationResolvers['upsertRiver'] = async (

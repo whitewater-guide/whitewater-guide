@@ -5,6 +5,7 @@ fragment GaugeCore on Gauge {
   levelUnit
   flowUnit
   url
+  timezone
 }
 
 fragment GaugeLocation on Gauge {

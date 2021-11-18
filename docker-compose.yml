@@ -19,7 +19,7 @@ services:
       - -carchive_mode=off
       - -cmax_wal_senders=0
       - -cwal_level=minimal
-      - -clog_statement=all
+      # - -clog_statement=all
     volumes:
       - type: tmpfs
         target: /tmp
@@ -46,7 +46,7 @@ services:
   minio:
     <<: *ww-commons
     container_name: ww-minio
-    image: 'minio/minio:RELEASE.2020-09-08T23-05-18Z'
+    image: 'minio/minio:RELEASE.2021-10-10T16-53-30Z'
     command: server /data
     environment:
       - MINIO_ACCESS_KEY=__minio_access_key__
@@ -68,7 +68,7 @@ services:
   imageproxy:
     <<: *ww-commons
     container_name: ww-imageproxy
-    image: 'darthsim/imgproxy:v2.14'
+    image: 'darthsim/imgproxy:v2.17'
     environment:
       - AWS_ACCESS_KEY_ID=__minio_access_key__
       - AWS_SECRET_ACCESS_KEY=__minio_secret__
@@ -91,7 +91,7 @@ services:
   gorge:
     <<: *ww-commons
     container_name: ww-gorge
-    image: ghcr.io/whitewater-guide/gorge:2.0.8
+    image: ghcr.io/whitewater-guide/gorge:2.3.4
     depends_on:
       - db
     command:

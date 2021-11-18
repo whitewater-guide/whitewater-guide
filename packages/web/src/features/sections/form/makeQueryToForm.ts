@@ -51,6 +51,7 @@ const emptySection = (region: NamedNode, river: any): SectionFormData => ({
   media: [],
   license: null,
   copyright: null,
+  timezone: null,
 });
 
 export default (isCopy?: boolean) =>
@@ -91,6 +92,9 @@ export default (isCopy?: boolean) =>
       river: toNamedNode(section.river),
       region: toNamedNode(result.region),
       description: fromMarkdown(description),
+      timezone: section.timezone
+        ? { id: section.timezone, name: section.timezone }
+        : null,
       ...groupTags(tags),
     };
   };

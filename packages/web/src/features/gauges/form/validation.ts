@@ -21,5 +21,11 @@ const LoosePointSchema: yup.SchemaOf<PointInput> = yup
 export const GaugeFormSchema: yup.SchemaOf<GaugeFormData> =
   GaugeInputSchema.clone().shape({
     location: LoosePointSchema.clone().nullable(),
+    timezone: yup
+      .object({
+        id: yup.string().required() as yup.StringSchema<string>,
+        name: yup.string().required() as yup.StringSchema<string>,
+      })
+      .nullable(),
     requestParams: yup.string().jsonString().nullable(),
   });

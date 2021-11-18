@@ -51,6 +51,7 @@ export const SectionInputSchema: yup.SchemaOf<SectionInput> = yup
     levels: GaugeBindingSchema.clone().nullable(),
     flows: GaugeBindingSchema.clone().nullable(),
     flowsText: yup.string().nullable(),
+    timezone: yup.string().nullable(),
 
     shape: yup
       .array()

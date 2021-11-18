@@ -11,6 +11,7 @@ export const GaugeInputSchema: yup.SchemaOf<GaugeInput> = yup
     code: yup.string().nonEmpty(),
     levelUnit: yup.string().nullable(),
     flowUnit: yup.string().nullable(),
+    timezone: yup.string().nullable(),
     location: PointInputSchema.clone().nullable(),
     requestParams: yup.mixed().nullable(),
     url: yup.string().url().nullable(),

@@ -130,6 +130,7 @@ describe('SectionInput', () => {
       name: 'Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)',
       url: 'https://creativecommons.org/licenses/by-sa/4.0/',
     },
+    timezone: 'Europe/Moscow',
   };
 
   const { license: _l, copyright: _c, ...legacy } = correct;

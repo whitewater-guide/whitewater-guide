@@ -1,5 +1,6 @@
 import { Unit } from '@whitewater-guide/schema';
-import format from 'date-fns/format';
+import utcFormat from 'date-fns/format';
+import { format } from 'date-fns-tz';
 import { useCallback } from 'react';
 
 interface Datum {
@@ -12,15 +13,19 @@ function useTooltipLabel(
   unit: Unit,
   levelUnit?: string | null,
   flowUnit?: string | null,
+  timeZone?: string | null,
 ) {
   return useCallback(
     ({ datum }: { datum: Datum }) => {
       const ts = datum.timestamp;
       const val = datum[unit];
       const unitName = unit === Unit.FLOW ? flowUnit : levelUnit;
-      return `${val} ${unitName}\n${format(ts, 'Pp')}`;
+      const timeStr = timeZone
+        ? format(ts, 'Pp zzz', { timeZone })
+        : utcFormat(ts, 'Pp zzz');
+      return `${val} ${unitName}\n${timeStr}`;
     },
-    [unit, levelUnit, flowUnit],
+    [unit, levelUnit, flowUnit, timeZone],
   );
 }
 

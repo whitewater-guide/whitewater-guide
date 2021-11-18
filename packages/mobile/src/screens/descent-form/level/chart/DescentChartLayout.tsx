@@ -35,6 +35,7 @@ export const DescentChartLayout = React.memo(
       return null;
     }
 
+    // Filter should be in UTC
     const initialFilter = {
       from: subDays(new Date(startedAt), 1).toISOString(),
       to: addDays(new Date(startedAt), 1).toISOString(),

@@ -8,7 +8,7 @@ import { isInputValidResolver, MutationResolvers } from '~/apollo';
 import { db, rawUpsert, Sql } from '~/db';
 
 const Schema: yup.SchemaOf<MutationUpsertGaugeArgs> = yup.object({
-  gauge: GaugeInputSchema.clone(),
+  gauge: GaugeInputSchema.clone().required(),
 });
 
 const upsertGauge: MutationResolvers['upsertGauge'] = async (

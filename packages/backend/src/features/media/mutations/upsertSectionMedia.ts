@@ -8,7 +8,7 @@ import { isInputValidResolver, MutationResolvers } from '~/apollo';
 
 const Schema: yup.SchemaOf<MutationUpsertSectionMediaArgs> = yup.object({
   sectionId: yup.string().uuid().required(),
-  media: MediaInputSchema.clone(),
+  media: MediaInputSchema.clone().required(),
 });
 
 const upsertSectionMedia: MutationResolvers['upsertSectionMedia'] = async (

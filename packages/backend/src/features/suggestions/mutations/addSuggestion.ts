@@ -11,7 +11,7 @@ import { db, Sql } from '~/db';
 import { MEDIA, s3Client } from '~/s3';
 
 const schema: yup.SchemaOf<MutationAddSuggestionArgs> = yup.object({
-  suggestion: SuggestionInputSchema,
+  suggestion: SuggestionInputSchema.clone().required(),
 });
 
 const addSuggestion: MutationResolvers['addSuggestion'] = async (

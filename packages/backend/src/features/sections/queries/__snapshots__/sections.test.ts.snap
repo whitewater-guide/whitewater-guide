@@ -48,6 +48,7 @@ Object {
           "name": "Galicia",
           "termsOfUse": "Terms of use for Galicia",
         },
+        "timezone": "Europe/Madrid",
         "url": "http://ya.ru",
       },
       "helpNeeded": null,
@@ -109,6 +110,7 @@ Object {
         "id": "2b01742c-d443-11e7-9296-cec278b6b50a_takeOut",
         "kind": "take-out",
       },
+      "timezone": "Europe/Madrid",
       "verified": false,
     },
     Object {
@@ -153,6 +155,7 @@ Object {
           "name": "Galicia",
           "termsOfUse": "Terms of use for Galicia",
         },
+        "timezone": "Europe/Madrid",
         "url": "http://ya.ru",
       },
       "helpNeeded": null,
@@ -203,6 +206,7 @@ Object {
         "id": "3a6e3210-d529-11e7-9296-cec278b6b50a_takeOut",
         "kind": "take-out",
       },
+      "timezone": "Europe/Madrid",
       "verified": true,
     },
     Object {
@@ -229,6 +233,7 @@ Object {
           "name": "Georgia",
           "termsOfUse": null,
         },
+        "timezone": "Asia/Tbilisi",
         "url": null,
       },
       "helpNeeded": null,
@@ -283,6 +288,7 @@ Object {
         "id": "9e9c0366-84e2-11e8-adc0-fa7ae01bbebc_takeOut",
         "kind": "take-out",
       },
+      "timezone": "Asia/Tbilisi",
       "verified": null,
     },
     Object {
@@ -309,6 +315,7 @@ Object {
           "name": "Georgia",
           "termsOfUse": null,
         },
+        "timezone": "Asia/Tbilisi",
         "url": null,
       },
       "helpNeeded": null,
@@ -363,6 +370,7 @@ Object {
         "id": "e6e0e826-5db4-11e8-9c2d-fa7ae01bbebc_takeOut",
         "kind": "take-out",
       },
+      "timezone": "Asia/Tbilisi",
       "verified": null,
     },
     Object {
@@ -429,6 +437,7 @@ Object {
         "id": "f73b533c-5db4-11e8-9c2d-fa7ae01bbebc_takeOut",
         "kind": "take-out",
       },
+      "timezone": "Asia/Tbilisi",
       "verified": null,
     },
     Object {
@@ -498,6 +507,7 @@ Object {
         "id": "7104f00c-31ad-4375-992e-5efebef813dd_takeOut",
         "kind": "take-out",
       },
+      "timezone": "America/Guayaquil",
       "verified": null,
     },
     Object {
@@ -572,6 +582,7 @@ Object {
         "id": "2ffe67e5-6394-4341-9ae3-415271ce71fd_takeOut",
         "kind": "take-out",
       },
+      "timezone": "America/Guayaquil",
       "verified": null,
     },
     Object {
@@ -632,6 +643,7 @@ Object {
         "id": "21f2351e-d52a-11e7-9296-cec278b6b50a_takeOut",
         "kind": "take-out",
       },
+      "timezone": "Europe/Oslo",
       "verified": null,
     },
     Object {
@@ -698,6 +710,7 @@ Object {
         "id": "b06c0a6e-9975-4a46-8a77-580a4f453973_takeOut",
         "kind": "take-out",
       },
+      "timezone": "Europe/Moscow",
       "verified": null,
     },
   ],

@@ -29,6 +29,7 @@ Array [
       "id": "6d0d717e-aa9d-11e7-abc4-cec278b6b50a",
     },
     "status": null,
+    "timezone": "Europe/Madrid",
     "url": "http://ya.ru",
   },
   Object {
@@ -48,6 +49,7 @@ Array [
       "id": "6d0d717e-aa9d-11e7-abc4-cec278b6b50a",
     },
     "status": null,
+    "timezone": "Europe/Madrid",
     "url": null,
   },
   Object {
@@ -64,6 +66,7 @@ Array [
       "id": "9f962a34-bff9-11e7-abc4-cec278b6b50a",
     },
     "status": null,
+    "timezone": "Europe/Madrid",
     "url": null,
   },
   Object {
@@ -80,6 +83,7 @@ Array [
       "id": "9f962a34-bff9-11e7-abc4-cec278b6b50a",
     },
     "status": null,
+    "timezone": "Europe/Madrid",
     "url": null,
   },
   Object {
@@ -96,6 +100,7 @@ Array [
       "id": "53af1a54-19fe-11e8-accf-0ed5f89f718b",
     },
     "status": null,
+    "timezone": "Asia/Tbilisi",
     "url": null,
   },
   Object {
@@ -112,6 +117,7 @@ Array [
       "id": "53af1a54-19fe-11e8-accf-0ed5f89f718b",
     },
     "status": null,
+    "timezone": "Asia/Tbilisi",
     "url": null,
   },
   Object {
@@ -128,6 +134,7 @@ Array [
       "id": "53af1a54-19fe-11e8-accf-0ed5f89f718b",
     },
     "status": null,
+    "timezone": "Asia/Tbilisi",
     "url": null,
   },
   Object {
@@ -144,6 +151,7 @@ Array [
       "id": "53af1a54-19fe-11e8-accf-0ed5f89f718b",
     },
     "status": null,
+    "timezone": "Asia/Tbilisi",
     "url": null,
   },
   Object {
@@ -162,6 +170,7 @@ Array [
       "id": "786251d4-aa9d-11e7-abc4-cec278b6b50a",
     },
     "status": null,
+    "timezone": "Europe/Oslo",
     "url": "http://yarr.ru",
   },
   Object {
@@ -178,6 +187,7 @@ Array [
       "id": "786251d4-aa9d-11e7-abc4-cec278b6b50a",
     },
     "status": null,
+    "timezone": "Europe/Oslo",
     "url": null,
   },
   Object {
@@ -194,6 +204,7 @@ Array [
       "id": "786251d4-aa9d-11e7-abc4-cec278b6b50a",
     },
     "status": null,
+    "timezone": "Europe/Oslo",
     "url": null,
   },
   Object {
@@ -210,6 +221,7 @@ Array [
       "id": "786251d4-aa9d-11e7-abc4-cec278b6b50a",
     },
     "status": null,
+    "timezone": "Europe/Oslo",
     "url": null,
   },
   Object {
@@ -226,6 +238,7 @@ Array [
       "id": "8e37e9d2-1d7b-11e8-b467-0ed5f89f718b",
     },
     "status": null,
+    "timezone": "Europe/Moscow",
     "url": null,
   },
 ]

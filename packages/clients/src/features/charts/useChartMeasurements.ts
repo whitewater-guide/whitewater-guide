@@ -1,8 +1,10 @@
 import {
+  GaugeForChartFragment,
   MeasurementsFilter,
   Node,
   SectionFlowsFragment,
 } from '@whitewater-guide/schema';
+import { utcToZonedTime } from 'date-fns-tz';
 import { useMemo } from 'react';
 
 import { useFormulas } from '../sections';
@@ -11,7 +13,7 @@ import { ChartDataPoint, WithChartData } from './types';
 
 export function useChartMeasurements(
   filter: MeasurementsFilter,
-  gauge?: Node,
+  gauge: GaugeForChartFragment,
   section?: Node & SectionFlowsFragment,
 ): WithChartData['measurements'] {
   const query = useMeasurementsQuery({
@@ -23,6 +25,7 @@ export function useChartMeasurements(
     fetchPolicy: 'no-cache',
   });
   const formulas = useFormulas(section);
+  const { timezone } = gauge;
 
   return useMemo(() => {
     const original = query.data?.measurements || [];
@@ -30,7 +33,9 @@ export function useChartMeasurements(
       acc.push({
         flow: formulas.flows(v.flow),
         level: formulas.levels(v.level),
-        timestamp: new Date(v.timestamp),
+        timestamp: timezone
+          ? utcToZonedTime(v.timestamp, timezone)
+          : new Date(v.timestamp),
       });
       return acc;
     }, [] as ChartDataPoint[]);
@@ -42,5 +47,5 @@ export function useChartMeasurements(
       loading: query.loading,
       error: query.error,
     };
-  }, [query, formulas]);
+  }, [query, formulas, timezone]);
 }

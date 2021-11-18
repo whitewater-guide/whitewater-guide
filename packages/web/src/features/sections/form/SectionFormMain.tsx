@@ -2,11 +2,13 @@ import Grid from '@material-ui/core/Grid';
 import React from 'react';
 
 import {
+  AutocompleteField,
   CheckboxField,
   MultiTextField,
   RatingField,
   TextField,
 } from '../../../formik/fields';
+import { TIMEZONES } from '../../../utils/timezones';
 import { DifficultyField } from './DifficultyField';
 import { SectionRiverField } from './SectionRiverField';
 
@@ -49,6 +51,16 @@ export const SectionFormMain: React.FC = () => (
       <Grid item xs={4}>
         <RatingField name="rating" label="Rating" />
       </Grid>
+    </Grid>
+
+    <Grid item xs={12}>
+      <AutocompleteField
+        name="timezone"
+        options={TIMEZONES}
+        allowNull
+        placeholder="Select timezone"
+        label="Timezone"
+      />
     </Grid>
 
     <Grid item xs={12}>

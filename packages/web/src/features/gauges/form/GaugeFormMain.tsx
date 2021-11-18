@@ -1,7 +1,8 @@
 import Box from '@material-ui/core/Box';
 import React from 'react';
 
-import { POIField, TextField } from '../../../formik/fields';
+import { AutocompleteField, POIField, TextField } from '../../../formik/fields';
+import { TIMEZONES } from '../../../utils/timezones';
 import useNilCoordinates from './useNillCoordinates';
 
 const GaugeFormMain: React.FC = React.memo(() => {
@@ -19,6 +20,13 @@ const GaugeFormMain: React.FC = React.memo(() => {
       <TextField fullWidth name="levelUnit" label="Level unit" />
       <TextField fullWidth name="flowUnit" label="Flow unit" />
       <TextField fullWidth name="url" label="URL" />
+      <AutocompleteField
+        name="timezone"
+        options={TIMEZONES}
+        allowNull
+        placeholder="Select timezone"
+        label="Timezone"
+      />
       <TextField fullWidth name="requestParams" label="Request params" />
       <TextField fullWidth name="cron" label="Cron" />
     </Box>

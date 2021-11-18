@@ -32,6 +32,7 @@ COPY --from=builder /opt/app/packages/validation/dist ./packages/validation/dist
 COPY --from=builder /opt/app/packages/validation/package.json ./packages/validation/package.json
 
 COPY --from=builder /opt/app/packages/backend/dist ./packages/backend/dist
+COPY --from=builder /opt/app/packages/backend/scripts ./packages/backend/scripts
 COPY --from=builder /opt/app/packages/backend/package.json ./packages/backend/package.json
 
 COPY patches ./patches

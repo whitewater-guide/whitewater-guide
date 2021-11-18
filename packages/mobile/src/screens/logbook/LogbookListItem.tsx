@@ -1,13 +1,15 @@
 import { useNavigation } from '@react-navigation/native';
-import { Descent } from '@whitewater-guide/schema';
-import format from 'date-fns/format';
+import { format, utcToZonedTime } from 'date-fns-tz';
 import React, { useCallback } from 'react';
 import { ListRenderItemInfo, Pressable, StyleSheet, View } from 'react-native';
 import { Caption, Subheading } from 'react-native-paper';
 
 import { Screens } from '~/core/navigation';
 import descentLevelToString from '~/features/descents/descentLevelToString';
+import getSectionTimezone from '~/features/descents/getSectionTimezone';
 import theme from '~/theme';
+
+import { MyDescentFragment } from './myDescents.generated';
 
 const ITEM_HEIGHT = 64;
 
@@ -29,7 +31,7 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  descent: Descent;
+  descent: MyDescentFragment;
 }
 
 const LogbookListItem: React.FC<Props> = ({ descent }) => {
@@ -37,6 +39,11 @@ const LogbookListItem: React.FC<Props> = ({ descent }) => {
   const onPress = useCallback(() => {
     navigate(Screens.DESCENT, { descentId: descent.id });
   }, [navigate, descent]);
+
+  const timeZone = getSectionTimezone(descent.section);
+  const zonedStartedAt = utcToZonedTime(descent.startedAt, timeZone);
+  const startedAtStr = format(zonedStartedAt, 'PP p zzz', { timeZone });
+
   return (
     <Pressable onPress={onPress}>
       <View style={styles.container}>
@@ -44,7 +51,7 @@ const LogbookListItem: React.FC<Props> = ({ descent }) => {
           <Subheading>
             {`${descent.section.river.name} - ${descent.section.name}`}
           </Subheading>
-          <Caption>{format(new Date(descent.startedAt), 'PP p')}</Caption>
+          <Caption>{startedAtStr}</Caption>
         </View>
         {descent.level && (
           <View style={styles.levelBlock}>
@@ -62,10 +69,6 @@ export const getItemLayout = (data: any, index: number) => ({
   index,
 });
 
-export const useRenderDescent = () =>
-  useCallback(
-    ({ item }: ListRenderItemInfo<Descent>) => (
-      <LogbookListItem descent={item} />
-    ),
-    [],
-  );
+export const renderDescent = ({
+  item,
+}: ListRenderItemInfo<MyDescentFragment>) => <LogbookListItem descent={item} />;

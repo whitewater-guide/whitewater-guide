@@ -14,7 +14,11 @@ import {
 } from 'victory';
 import { VictoryAxisProps } from 'victory-axis';
 import { VictoryChartProps } from 'victory-chart';
-import { TextAnchorType, VictoryLabelProps } from 'victory-core';
+import {
+  TextAnchorType,
+  VictoryClipContainerProps,
+  VictoryLabelProps,
+} from 'victory-core';
 import { VictoryLineProps } from 'victory-line';
 
 import { ChartDataPoint } from '../types';
@@ -35,11 +39,13 @@ export interface XMeta {
 export interface ChartViewProps {
   width: number;
   height: number;
+  // dates in this array should be in gauge's timezone
   data: Array<ChartDataPoint>;
   unit: Unit;
   gauge: GaugeForChartFragment;
   section?: Node & SectionFlowsFragment;
   filter: MeasurementsFilter;
+  // date gauge's timezone
   highlightedDate?: Date;
 }
 
@@ -94,10 +100,18 @@ export interface HorizontalGridProps {
   color?: string;
 }
 
+export type ExtendedTooltipProps = Pick<
+  ChartViewProps,
+  'unit' | 'gauge' | 'section' | 'highlightedDate'
+>;
+
 export interface ChartComponents {
   ChartComponent: React.ComponentType<VictoryChartProps>;
+  ClipContainerComponent: React.ComponentType<VictoryClipContainerProps>;
   ScatterComponent: React.ComponentType<VictoryScatterProps>;
-  TooltipComponent: React.ComponentType<VictoryTooltipProps>;
+  TooltipComponent: React.ComponentType<
+    VictoryTooltipProps & ExtendedTooltipProps
+  >;
   AxisComponent: React.ComponentType<VictoryAxisProps>;
   LineComponent: React.ComponentType<VictoryLineProps>;
   TimeLabelComponent: React.ComponentType<TimeLabelProps>;

@@ -13,7 +13,7 @@ import {
 import { db } from '~/db';
 
 const Schema: yup.SchemaOf<MutationUpsertDescentArgs> = yup.object({
-  descent: DescentInputSchema.clone(),
+  descent: DescentInputSchema.clone().required(),
   shareToken: yup.string().optional().nullable(true),
 });
 

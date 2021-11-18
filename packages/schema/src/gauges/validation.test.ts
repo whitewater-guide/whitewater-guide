@@ -30,6 +30,7 @@ const gauge: GaugeInput = {
   },
   requestParams: { foo: 'bar' },
   url: 'http://google.com',
+  timezone: 'Europe/Moscow',
 };
 
 const correctValues: TestValue[] = [
@@ -45,6 +46,7 @@ const correctValues: TestValue[] = [
       location: null,
       requestParams: null,
       url: null,
+      timezone: null,
     },
   ],
   [

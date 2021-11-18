@@ -10,6 +10,12 @@ export interface UseDailyChart {
   onChangeDays: (days: number) => void;
 }
 
+/**
+ * Utility hook that transforms UTC Datetime filter into days from now filter
+ * @param filter
+ * @param onChangeFilter
+ * @returns
+ */
 export function useDailyChart(
   filter: MeasurementsFilter,
   onChangeFilter: (value: MeasurementsFilter) => void,

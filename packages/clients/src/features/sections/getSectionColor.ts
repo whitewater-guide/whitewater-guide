@@ -337,20 +337,29 @@ const colorTable: ColorTable = {
 
 export function getSectionColorRaw(
   section: ColorizeableSectionFragment,
+  value?: { flow?: number | null; level?: number | null },
 ): color {
-  if (!section.gauge || !section.gauge.latestMeasurement) {
+  const measurement = value ?? section.gauge?.latestMeasurement;
+  if (!measurement) {
     return Colors.none;
   }
-  const { flow, level } = section.gauge.latestMeasurement;
-  if (!flow && !level) {
+  const { flow, level } = measurement;
+  // Yes, we check for null AND undefined
+  // eslint-disable-next-line no-eq-null, eqeqeq
+  if (flow == null && level == null) {
     return Colors.none;
   }
   let lastValue: number | null = 0;
   let binding: GaugeBinding | undefined;
-  if (flow && section.flows) {
+  // Yes, we check for null AND undefined
+  // eslint-disable-next-line no-eq-null, eqeqeq
+  if (flow != null && section.flows) {
     lastValue = getBindingFormula(section.flows)(flow);
     binding = section.flows;
-  } else if (level && section.levels) {
+  }
+  // Yes, we check for null AND undefined
+  // eslint-disable-next-line no-eq-null, eqeqeq
+  else if (level != null && section.levels) {
     // it makes no sense to use formulas for levels...
     lastValue = level;
     binding = section.levels;
@@ -373,6 +382,16 @@ export function getSectionColorRaw(
   return result;
 }
 
-export function getSectionColor(section: ColorizeableSectionFragment): string {
-  return getSectionColorRaw(section).string();
+/**
+ * Returns RGB string with color indicating water level in provided section.
+ * If measurement value is provided, it is used for colorization. Otherwise, latest measurement from section gauge is used.
+ * @param section
+ * @param value
+ * @returns
+ */
+export function getSectionColor(
+  section: ColorizeableSectionFragment,
+  value?: { flow?: number | null; level?: number | null },
+): string {
+  return getSectionColorRaw(section, value).string();
 }

@@ -22,7 +22,7 @@ const Mixes = {
 
 const makeSection = (
   binding: Omit<GaugeBinding, 'approximate'>,
-  value = 0,
+  value?: number,
 ): ColorizeableSectionFragment => ({
   flows: {
     ...binding,
@@ -30,7 +30,8 @@ const makeSection = (
   },
   levels: null,
   gauge: {
-    latestMeasurement: { flow: value, level: 0 },
+    latestMeasurement:
+      value === undefined ? undefined : { flow: value, level: 0 },
   },
 });
 
@@ -114,7 +115,7 @@ describe('Not enough input data', () => {
         impossible: 4,
         approximate: false,
       },
-      gauge: { latestMeasurement: { level: 0, flow: 0 } },
+      gauge: { latestMeasurement: { level: null, flow: null } },
     };
     expect(getSectionColor(input)).toBe(ColorStrings.none);
   });
@@ -140,7 +141,7 @@ describe('Not enough input data', () => {
         impossible: 4,
         approximate: false,
       },
-      gauge: { latestMeasurement: { level: 0, flow: 10 } },
+      gauge: { latestMeasurement: { level: null, flow: 10 } },
     };
     expect(getSectionColor(input)).toBe(ColorStrings.none);
   });
@@ -875,5 +876,19 @@ it('Should handle sections with formulas', () => {
   };
   expect(getSectionColor(makeSection(binding, 20))).toBe(
     ColorStrings.impossible,
+  );
+});
+
+it('should colorize provided value', () => {
+  const binding = {
+    minimum: 20,
+    optimum: 40,
+    maximum: 60,
+    impossible: 80,
+    approximate: false,
+    formula: '(x + 20) * 3',
+  };
+  expect(getSectionColor(makeSection(binding, 2000), { flow: 0 })).toBe(
+    ColorStrings.maximum,
   );
 });

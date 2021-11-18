@@ -30,7 +30,7 @@
     "expr-eval": "^2.0.2",
     "lodash": "^4.17.21",
     "validator": "^13.6.0",
-    "yup": "^0.32.9"
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.175",

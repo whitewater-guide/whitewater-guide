@@ -9,13 +9,14 @@
     "start:dev": "HTTPS=true REACT_APP_API=https://api.whitewater-dev.com REACT_APP_S3=https://content.whitewater-dev.com react-scripts start",
     "start:prod": "HTTPS=true REACT_APP_API=https://api.whitewater.guide REACT_APP_S3=https://content.whitewater.guide react-scripts start",
     "build": "react-scripts build",
-    "build:dev": "env-cmd -f .env.dev yarn build",
+    "build:dev": "env-cmd -f .env.staging yarn build",
     "analyze": "source-map-explorer build/static/js/*.chunk.*",
-    "test": "react-scripts test",
+    "tepgst": "react-scripts test",
     "typecheck": "tsc --noEmit",
     "eject": "react-scripts eject",
     "version": "yarn build",
-    "copy:prod": "aws s3 cp build s3://admin.whitewater.guide --recursive --profile ww-prod"
+    "copy:prod": "aws s3 cp build s3://admin.whitewater.guide --recursive --profile ww-prod",
+    "copy:dev": "aws s3 cp build s3://admin.whitewater-dev.com --recursive --profile ww-dev"
   },
   "dependencies": {
     "@apollo/client": "^3.4.16",
@@ -33,12 +34,13 @@
     "@whitewater-guide/commons": "^0.0.213",
     "@whitewater-guide/md-editor": "2.0.2",
     "@whitewater-guide/schema": "^0.0.212",
-    "@whitewater-guide/translations": "^2.5.11",
+    "@whitewater-guide/translations": "^2.5.12",
     "@whitewater-guide/validation": "^1.2.2",
     "clipboard-copy": "^4.0.1",
     "clsx": "^1.1.1",
     "coordinate-parser": "^1.0.7",
     "date-fns": "^2.25.0",
+    "date-fns-tz": "^1.1.6",
     "downshift": "^6.1.7",
     "formik": "^2.2.9",
     "graphql": "^15.6.1",
@@ -70,8 +72,8 @@
     "react-youtube": "^7.13.1",
     "shortid": "^2.2.16",
     "validator": "^13.6.0",
-    "victory": "35.10.0",
-    "yup": "^0.32.9"
+    "victory": "36.2.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.14.1",

@@ -13,16 +13,23 @@ import {
   WelcomeVerifiedPayload,
 } from './types';
 
-const transport = createTransport({
-  host: config.MAIL_SMTP_SERVER,
-  port: 465,
-  secure: true,
-  auth: {
-    user: config.MAIL_NOREPLY_BOX,
-    pass: config.MAIL_PASSWORD,
-  },
-  logger: logger as any,
-});
+let _transport: ReturnType<typeof createTransport> | undefined;
+
+function getTransport(): ReturnType<typeof createTransport> {
+  if (!_transport) {
+    _transport = createTransport({
+      host: config.MAIL_SMTP_SERVER,
+      port: 465,
+      secure: true,
+      auth: {
+        user: config.MAIL_NOREPLY_BOX,
+        pass: config.MAIL_PASSWORD,
+      },
+      logger: logger as any,
+    });
+  }
+  return _transport;
+}
 
 const SUBJECTS = new Map([
   [MailType.WELCOME_VERIFIED, 'Welcome to whitewater.guide'],
@@ -71,6 +78,7 @@ export async function sendMail(
     contentURL: contentPublicURL,
   };
   const html = await render(type, data);
+  const transport = getTransport();
   await transport.sendMail({
     from: {
       name: 'whitewater.guide',

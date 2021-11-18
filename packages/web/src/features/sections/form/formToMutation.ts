@@ -28,6 +28,7 @@ export default (form: SectionFormData): UpsertSectionMutationVariables => {
       name: upperFirst(name.trim()),
       tags,
       description: toMarkdown(description),
+      timezone: rest.timezone?.id ?? null,
     },
   };
 };

@@ -1,4 +1,5 @@
 import 'react-native-gesture-handler';
+import './src/i18n/polyfill';
 import '@whitewater-guide/validation/dist/esm/extensions';
 
 import { AppRegistry } from 'react-native';

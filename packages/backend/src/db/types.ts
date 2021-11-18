@@ -95,6 +95,7 @@ export namespace Sql {
     flow_unit: string | null;
     request_params: TRequestParams | null;
     url: string | null;
+    timezone: string | null;
   }
 
   export interface GaugesTranslations extends Translation {
@@ -300,6 +301,7 @@ export namespace Sql {
     help_needed: string | null;
     verified: boolean | null;
     license: TLicense | null;
+    timezone: string | null;
   }
 
   export interface SectionsTranslations extends Translation, Timestamped {

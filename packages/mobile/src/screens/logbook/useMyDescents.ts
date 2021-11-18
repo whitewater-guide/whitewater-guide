@@ -12,14 +12,18 @@ export default function useMyDescents() {
   const props = useMemo(
     () => ({
       descents: data?.myDescents?.edges?.map((e) => e.node),
-      loadMore: () =>
-        fetchMore({
+      loadMore: () => {
+        if (!data?.myDescents?.pageInfo.hasMore) {
+          return;
+        }
+        return fetchMore({
           variables: {
             page: {
               after: data?.myDescents?.pageInfo.endCursor,
             },
           },
-        }),
+        });
+      },
     }),
     [data, fetchMore],
   );

@@ -3,11 +3,12 @@ import {
   createContainer,
   VictoryAxis,
   VictoryChart,
+  VictoryClipContainer,
   VictoryLine,
   VictoryScatter,
-  VictoryTooltip,
 } from 'victory';
 
+import Crosshair from './Crosshair';
 import HorizontalGrid from './HorizontalGrid';
 import HorizontalLabel from './HorizontalLabel';
 import HorizontalTick from './HorizontalTick';
@@ -19,10 +20,11 @@ const VictoryZoomVoronoiContainer = createContainer('zoom', 'voronoi');
 const ChartView = createChartView(
   {
     ChartComponent: VictoryChart,
+    ClipContainerComponent: VictoryClipContainer,
     AxisComponent: VictoryAxis,
     LineComponent: VictoryLine,
     ScatterComponent: VictoryScatter,
-    TooltipComponent: VictoryTooltip,
+    TooltipComponent: Crosshair,
     TimeLabelComponent: TimeLabel,
     TimeGridComponent: TimeGrid,
     HorizontalTickComponent: HorizontalTick,

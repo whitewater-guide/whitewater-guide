@@ -66,6 +66,7 @@ const PureChart: React.FC<Props> = React.memo((props) => {
           height={layout.height}
           padding={{ top: 20, bottom: 54, left: 48, right: 16 }}
           theme={VictoryTheme}
+          domainPadding={{ x: 0, y: [0, 30] }}
         />
       )}
     </View>

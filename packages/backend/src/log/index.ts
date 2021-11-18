@@ -6,7 +6,7 @@ import {
   withScope,
 } from '@sentry/node';
 import pickBy from 'lodash/pickBy';
-import pino, { LogFn } from 'pino';
+import pino from 'pino';
 
 import config from '~/config';
 
@@ -32,13 +32,17 @@ class Logger {
       logger ||
       pino({
         level: config.logLevel,
-        prettyPrint:
+        transport:
           config.NODE_ENV === 'development'
-            ? ({
-                colorize: true,
-                levelFirst: true,
-              } as any)
-            : false,
+            ? {
+                target: 'pino-pretty',
+                options: {
+                  colorize: true,
+                  levelFirst: true,
+                },
+              }
+            : undefined,
+        timestamp: pino.stdTimeFunctions.isoTime,
       });
   }
 
@@ -101,11 +105,11 @@ class Logger {
     this._logger.warn.apply(this._logger, this.getPinoPayload(payload));
   };
 
-  info: LogFn = (...args: any[]) => {
+  info: pino.LogFn = (...args: any[]) => {
     this._logger.info.apply(this._logger, args);
   };
 
-  debug: LogFn = (...args: any[]) => {
+  debug: pino.LogFn = (...args: any[]) => {
     this._logger.debug.apply(this._logger, args);
   };
 }

@@ -4,7 +4,7 @@ export function getDefaultTimeAxisSettings(days: number): TimeAxisSettings {
   if (days > 7) {
     return {
       tickFormat: 'do MMM',
-      tickCount: 31,
+      tickCount: days,
     };
   }
   if (days === 7) {

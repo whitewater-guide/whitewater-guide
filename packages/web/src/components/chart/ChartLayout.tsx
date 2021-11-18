@@ -67,6 +67,7 @@ const ChartLayout: React.FC = () => {
               unit={unit}
               section={section}
               theme={VictoryTheme.material}
+              domainPadding={{ x: [0, 50], y: [0, 30] }}
             />
           )}
         </div>

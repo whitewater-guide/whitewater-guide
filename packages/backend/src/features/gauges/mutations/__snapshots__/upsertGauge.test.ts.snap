@@ -22,6 +22,7 @@ Object {
     "termsOfUse": null,
   },
   "status": null,
+  "timezone": "Africa/Lagos",
   "url": "http://nve.no/nor5",
 }
 `;
@@ -48,6 +49,7 @@ Object {
     "termsOfUse": "Terms of use for Galicia",
   },
   "status": null,
+  "timezone": "Africa/Lagos",
   "url": "http://galic.ia/gal1",
 }
 `;

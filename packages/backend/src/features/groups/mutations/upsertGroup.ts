@@ -8,7 +8,7 @@ import { isInputValidResolver, MutationResolvers } from '~/apollo';
 import { db, rawUpsert } from '~/db';
 
 const Schema: yup.SchemaOf<MutationUpsertGroupArgs> = yup.object({
-  group: GroupInputSchema.clone(),
+  group: GroupInputSchema.clone().required(),
 });
 
 const upsertGroup: MutationResolvers['upsertGroup'] = (

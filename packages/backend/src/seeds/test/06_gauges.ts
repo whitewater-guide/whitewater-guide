@@ -1,5 +1,6 @@
 import Knex from 'knex';
 
+import { Sql } from '../../db';
 import {
   SOURCE_GALICIA_1,
   SOURCE_GALICIA_2,
@@ -22,7 +23,7 @@ export const GAUGE_GEO_3 = '53af2bb6-19fe-11e8-accf-0ed5f89f718b';
 export const GAUGE_GEO_4 = '53af2e2c-19fe-11e8-accf-0ed5f89f718b';
 export const GAUGE_RU_1 = 'b58d9662-c1b1-43f0-a399-dcbd12c6e113';
 
-const gauges = [
+const gauges: Partial<Sql.Gauges>[] = [
   {
     id: GAUGE_GAL_1_1,
     source_id: SOURCE_GALICIA_1,
@@ -33,24 +34,28 @@ const gauges = [
     request_params: JSON.stringify({ foo: 'bar' }),
     url: 'http://ya.ru',
     default_lang: 'en',
+    timezone: 'Europe/Madrid',
   },
   {
     id: GAUGE_GAL_1_2,
     source_id: SOURCE_GALICIA_1,
     code: 'gal2',
     default_lang: 'en',
+    timezone: 'Europe/Madrid',
   },
   {
     id: GAUGE_GAL_2_1,
     source_id: SOURCE_GALICIA_2,
     code: 'gal2_1',
     default_lang: 'en',
+    timezone: 'Europe/Madrid',
   },
   {
     id: GAUGE_GAL_2_2,
     source_id: SOURCE_GALICIA_2,
     code: 'gal2_2',
     default_lang: 'en',
+    timezone: 'Europe/Madrid',
   },
   {
     id: GAUGE_NOR_1,
@@ -61,54 +66,63 @@ const gauges = [
     request_params: JSON.stringify({ nor: 'way' }),
     url: 'http://yarr.ru',
     default_lang: 'en',
+    timezone: 'Europe/Oslo',
   },
   {
     id: GAUGE_NOR_2,
     source_id: SOURCE_NORWAY,
     code: 'nor2',
     default_lang: 'en',
+    timezone: 'Europe/Oslo',
   },
   {
     id: GAUGE_NOR_3,
     source_id: SOURCE_NORWAY,
     code: 'nor3',
     default_lang: 'en',
+    timezone: 'Europe/Oslo',
   },
   {
     id: GAUGE_NOR_4,
     source_id: SOURCE_NORWAY,
     code: 'nor4',
     default_lang: 'en',
+    timezone: 'Europe/Oslo',
   },
   {
     id: GAUGE_GEO_1,
     source_id: SOURCE_GEORGIA,
     code: 'geo1',
     default_lang: 'en',
+    timezone: 'Asia/Tbilisi',
   },
   {
     id: GAUGE_GEO_2,
     source_id: SOURCE_GEORGIA,
     code: 'geo2',
     default_lang: 'en',
+    timezone: 'Asia/Tbilisi',
   },
   {
     id: GAUGE_GEO_3,
     source_id: SOURCE_GEORGIA,
     code: 'geo3',
     default_lang: 'en',
+    timezone: 'Asia/Tbilisi',
   },
   {
     id: GAUGE_GEO_4,
     source_id: SOURCE_GEORGIA,
     code: 'geo4',
     default_lang: 'en',
+    timezone: 'Asia/Tbilisi',
   },
   {
     id: GAUGE_RU_1,
     source_id: SOURCE_RUSSIA,
     code: 'ru1',
     default_lang: 'ru',
+    timezone: 'Europe/Moscow',
   },
 ];
 

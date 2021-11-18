@@ -9,7 +9,7 @@ const TimeLabel = React.memo<TimeLabelProps>(
     if (props.datum && days >= 30 && isSunday(props.datum as any)) {
       return null; // Only render sundays
     }
-    return <VictoryLabel {...props} angle={90} dx={15} dy={-6} />;
+    return <VictoryLabel {...props} angle={45} dx={15} dy={-6} />;
   },
 );
 

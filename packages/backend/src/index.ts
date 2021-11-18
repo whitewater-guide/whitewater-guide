@@ -24,8 +24,10 @@ async function startup() {
         ),
     });
   }
+  let dbVersion = await db(true).migrate.currentVersion();
+  log.info(`Migrating from ${dbVersion}`);
   await db(true).migrate.latest();
-  const dbVersion = await db(true).migrate.currentVersion();
+  dbVersion = await db(true).migrate.currentVersion();
   log.info(`Current DB version: ${dbVersion}`);
   const app = createApp();
   await createApolloServer(app);

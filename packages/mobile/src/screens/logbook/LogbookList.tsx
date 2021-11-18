@@ -6,7 +6,7 @@ import { FlatList } from 'react-native';
 import WithQueryError from '~/components/WithQueryError';
 
 import LogbookEmpty from './LogbookEmpty';
-import { getItemLayout, useRenderDescent } from './LogbookListItem';
+import { getItemLayout, renderDescent } from './LogbookListItem';
 import useMyDescents from './useMyDescents';
 
 const keyExtractor = (descent: Descent) => descent.id;
@@ -15,7 +15,6 @@ const LogbookList: React.FC = () => {
   const { descents, networkStatus, refetch, loadMore, loading, error } =
     useMyDescents();
 
-  const renderItem = useRenderDescent();
   return (
     <WithQueryError
       hasData={!!descents}
@@ -25,7 +24,7 @@ const LogbookList: React.FC = () => {
     >
       <FlatList
         data={descents}
-        renderItem={renderItem}
+        renderItem={renderDescent}
         getItemLayout={getItemLayout}
         keyExtractor={keyExtractor}
         refreshing={networkStatus === NetworkStatus.refetch}

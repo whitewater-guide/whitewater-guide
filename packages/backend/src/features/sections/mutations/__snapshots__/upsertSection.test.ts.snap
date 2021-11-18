@@ -25,6 +25,7 @@ Object {
       "name": "Norway",
       "termsOfUse": null,
     },
+    "timezone": "Europe/Oslo",
     "url": "http://yarr.ru",
   },
   "helpNeeded": "please proofread this",
@@ -127,6 +128,7 @@ Object {
     ],
     "kind": "take-out",
   },
+  "timezone": "Etc/GMT-2",
   "verified": true,
 }
 `;
@@ -166,6 +168,7 @@ Object {
       "name": "Galicia",
       "termsOfUse": "Terms of use for Galicia",
     },
+    "timezone": "Europe/Madrid",
     "url": "http://ya.ru",
   },
   "helpNeeded": "fix take-out",
@@ -292,6 +295,7 @@ Object {
     ],
     "kind": "take-out",
   },
+  "timezone": "Etc/GMT-2",
   "verified": true,
 }
 `;

@@ -31,10 +31,12 @@ export const GaugeCard = React.memo<Props>(({ gauge }) => (
                 <GaugeName gauge={gauge} />
               </Grid>
             </Row>
+
             <Row>
               <Title>Code</Title>
               <Grid>{gauge.code}</Grid>
             </Row>
+
             <Row>
               <Title>Location</Title>
               <Grid>
@@ -43,12 +45,19 @@ export const GaugeCard = React.memo<Props>(({ gauge }) => (
                   : ''}
               </Grid>
             </Row>
+
+            <Row>
+              <Title>Timezone</Title>
+              <Grid>{gauge.timezone}</Grid>
+            </Row>
+
             <Row>
               <Title>Status</Title>
               <Grid>
                 <HarvestStatusIndicator withText status={gauge.status} />
               </Grid>
             </Row>
+
             <GaugeFlow gauge={gauge} />
             <GaugeLevel gauge={gauge} />
           </Grid>

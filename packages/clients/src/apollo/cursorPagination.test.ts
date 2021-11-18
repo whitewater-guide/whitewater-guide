@@ -93,3 +93,57 @@ it('should merge when existing is not empty', () => {
   };
   expect(actual).toEqual(expected);
 });
+
+it('should not duplicate', () => {
+  const pagination = cursorPagination();
+
+  const existing = {
+    __typename: 'DescentsConnection',
+    edges: [
+      {
+        __typename: 'DescentEdge',
+        node: { __ref: 'Descent:f579b3aa-01c0-11ec-84e3-236de75209f5' },
+        cursor: 'djE6NTIxOjE2MjkzODA2NDAwMDA=',
+      },
+    ],
+    pageInfo: {
+      __typename: 'PageInfo',
+      endCursor: 'djE6NTIxOjE2MjkzODA2NDAwMDA=',
+      hasMore: true,
+    },
+  };
+
+  const incoming = {
+    __typename: 'DescentsConnection',
+    edges: [
+      {
+        __typename: 'DescentEdge',
+        node: { __ref: 'Descent:f579b3aa-01c0-11ec-84e3-236de75209f5' },
+        cursor: 'djE6NTIxOjE2MjkzODA2NDAwMDA=',
+      },
+    ],
+    pageInfo: {
+      __typename: 'PageInfo',
+      endCursor: 'djE6NTIxOjE2MjkzODA2NDAwMDA=',
+      hasMore: true,
+    },
+  };
+
+  const actual = pagination.merge(existing, incoming);
+  const expected = {
+    __typename: 'DescentsConnection',
+    edges: [
+      {
+        __typename: 'DescentEdge',
+        node: { __ref: 'Descent:f579b3aa-01c0-11ec-84e3-236de75209f5' },
+        cursor: 'djE6NTIxOjE2MjkzODA2NDAwMDA=',
+      },
+    ],
+    pageInfo: {
+      __typename: 'PageInfo',
+      endCursor: 'djE6NTIxOjE2MjkzODA2NDAwMDA=',
+      hasMore: true,
+    },
+  };
+  expect(actual).toEqual(expected);
+});

@@ -25,6 +25,7 @@ export const createChartView = (
   const {
     AxisComponent,
     ChartComponent,
+    ClipContainerComponent,
     ScatterComponent,
     TooltipComponent,
     LineComponent,
@@ -51,7 +52,12 @@ export const createChartView = (
     const binding =
       section && (unit === Unit.LEVEL ? section.levels : section.flows);
     const meta = useDomainMeta(props, metaSettings);
-    const tooltipLabel = useTooltipLabel(unit, gauge.levelUnit, gauge.flowUnit);
+    const tooltipLabel = useTooltipLabel(
+      unit,
+      gauge.levelUnit,
+      gauge.flowUnit,
+      gauge.timezone,
+    );
     const [zoomedDomain, setZoomedDomain] = useState(meta.domain);
     const zoomedData = useZoomedData(
       data,
@@ -75,6 +81,11 @@ export const createChartView = (
             onZoomDomainChange={setZoomedDomain as any}
             zoomDimension="x"
             voronoiPadding={metaSettings?.maxDensity}
+            clipContainerComponent={
+              <ClipContainerComponent
+                clipPadding={{ top: 0, right: 0, left: 0, bottom: 0 }}
+              />
+            }
           />
         }
       >
@@ -133,7 +144,15 @@ export const createChartView = (
           x="timestamp"
           y={unit}
           labels={tooltipLabel}
-          labelComponent={<TooltipComponent renderInPortal={false} />}
+          labelComponent={
+            <TooltipComponent
+              renderInPortal={false}
+              gauge={gauge}
+              section={section}
+              unit={unit}
+              highlightedDate={highlightedDate}
+            />
+          }
         />
         {children}
       </ChartComponent>

@@ -90,6 +90,8 @@ type Section implements NamedNode & Timestamped {
   media(page: Page): SectionMediaConnection!
   "Points of interest"
   pois: [Point!]!
+  "IANA timezone name, one of listed here https://github.com/evansiroky/timezone-boundary-builder"
+  timezone: String
 
   "Section is not ready for publication yet"
   hidden: Boolean!
@@ -160,6 +162,8 @@ input SectionInput {
   pois: [PointInput!]!
   "Photos, videos and blogs"
   media: [MediaInput!]!
+  "IANA timezone name, one of listed here https://github.com/evansiroky/timezone-boundary-builder"
+  timezone: String
 
   "Section is not ready for publication yet"
   hidden: Boolean!

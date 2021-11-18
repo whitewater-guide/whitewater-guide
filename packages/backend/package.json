@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/backend",
   "private": true,
-  "version": "0.0.485",
+  "version": "0.0.486",
   "main": "index.js",
   "author": "Konstantin Kuznetsov",
   "license": "UNLICENSED",
@@ -9,7 +9,7 @@
     "node": ">=14"
   },
   "scripts": {
-    "assets": "cpy '**/*.sql' '**/*.mjml' ../dist/ --cwd=src/ --no-overwrite --parents",
+    "assets": "cpy '**/*.sql' '**/*.mjml' '**/*.json' ../dist/ --cwd=src/ --no-overwrite --parents",
     "clean": "rimraf dist src/__generated__ && find src -name \"*.generated.ts\" -delete",
     "build": "tsc --project tsconfig.build.json && yarn assets",
     "docker": "docker build --file ./Dockerfile ../../",
@@ -17,6 +17,7 @@
     "test": "NODE_ENV=test jest --forceExit",
     "test:debug": "NODE_ENV=test node --inspect ../../node_modules/.bin/jest --runInBand",
     "prestart": "NODE_ENV=test TS_NODE_FILES=true ts-node -r tsconfig-paths/register -r dotenv-flow/config test/prestart.ts",
+    "postinstall": "./scripts/postinstall.sh",
     "typecheck": "tsc --noEmit",
     "start": "nodemon src/index.ts",
     "madge": "madge --circular --basedir ./dist --webpackConfig madge.js dist/index.js",
@@ -39,7 +40,7 @@
     "apollo-server-koa": "^3.3.0",
     "apple-signin-auth": "^1.5.1",
     "aws-sdk": "^2.1002.0",
-    "axios": "^0.22.0",
+    "axios": "^0.24.0",
     "bcrypt": "^5.0.1",
     "cookie": "^0.4.1",
     "dataloader": "^2.0.0",
@@ -77,7 +78,7 @@
     "passport-local": "^1.0.0",
     "pg": "^8.7.1",
     "pg-error-constants": "^1.0.0",
-    "pino": "^6.13.3",
+    "pino": "^7.0.5",
     "pino-pretty": "^7.0.1",
     "shortid": "^2.2.16",
     "tar-stream": "^2.2.0",
@@ -86,7 +87,7 @@
     "validator": "^13.6.0",
     "wait-for-expect": "^3.0.2",
     "wkx": "^0.5.0",
-    "yup": "^0.32.9",
+    "yup": "^0.32.11",
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {

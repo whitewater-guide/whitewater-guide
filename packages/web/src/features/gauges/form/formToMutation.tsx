@@ -14,6 +14,7 @@ export default (gauge: GaugeFormData): UpsertGaugeMutationVariables => ({
           ...gauge.location,
         }
       : null,
+    timezone: gauge.timezone?.id ?? null,
     requestParams: toJSON(gauge.requestParams),
   },
 });

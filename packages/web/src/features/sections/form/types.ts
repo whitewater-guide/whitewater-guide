@@ -1,5 +1,10 @@
 import { MdEditorValue } from '@whitewater-guide/md-editor';
-import { RefInput, SectionInput, TagInput } from '@whitewater-guide/schema';
+import {
+  NamedNode,
+  RefInput,
+  SectionInput,
+  TagInput,
+} from '@whitewater-guide/schema';
 import { Overwrite } from 'utility-types';
 
 export type SectionFormData = Overwrite<
@@ -7,6 +12,7 @@ export type SectionFormData = Overwrite<
   {
     description: MdEditorValue;
     river: RefInput;
+    timezone?: NamedNode | null;
   }
 > & {
   kayakingTags: TagInput[];

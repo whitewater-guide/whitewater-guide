@@ -1,4 +1,5 @@
 import { FieldPolicy, Reference } from '@apollo/client';
+import uniqBy from 'lodash/uniqBy';
 
 /**
  * Custom pagination helper for our weird cursor pagination style that we use in whitewater.guide for descents
@@ -19,7 +20,7 @@ export default function cursorPagination<T = Reference>(
       return newEdges.length
         ? {
             __typename: incoming?.__typename,
-            edges: [...oldEdges, ...newEdges],
+            edges: uniqBy([...oldEdges, ...newEdges], 'cursor'),
             pageInfo: { ...pageInfo },
           }
         : existing;

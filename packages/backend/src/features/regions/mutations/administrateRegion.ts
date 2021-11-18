@@ -16,7 +16,7 @@ import { db, Sql } from '~/db';
 import { COVERS, s3Client } from '~/s3';
 
 const Schema: yup.SchemaOf<MutationAdministrateRegionArgs> = yup.object({
-  settings: RegionAdminSettingsSchema.clone(),
+  settings: RegionAdminSettingsSchema.clone().required(),
 });
 
 const updateImageFile = async (

@@ -25,6 +25,7 @@ Object {
     "termsOfUse": "Terms of use for Galicia",
   },
   "status": null,
+  "timezone": "Europe/Madrid",
   "url": "http://ya.ru",
 }
 `;

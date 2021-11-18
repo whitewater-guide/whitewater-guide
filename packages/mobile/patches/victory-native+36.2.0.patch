@@ -1,8 +1,8 @@
-diff --git a/node_modules/victory-native/lib/helpers/native-zoom-helpers.js b/node_modules/victory-native/lib/helpers/native-zoom-helpers.js
-index ecc6c32..693926a 100644
---- a/node_modules/victory-native/lib/helpers/native-zoom-helpers.js
-+++ b/node_modules/victory-native/lib/helpers/native-zoom-helpers.js
-@@ -62,8 +62,10 @@ const Helpers = {
+diff --git a/node_modules/victory-native/src/helpers/native-zoom-helpers.js b/node_modules/victory-native/src/helpers/native-zoom-helpers.js
+index 724a8bf..e12e5d3 100644
+--- a/node_modules/victory-native/src/helpers/native-zoom-helpers.js
++++ b/node_modules/victory-native/src/helpers/native-zoom-helpers.js
+@@ -87,8 +87,11 @@ const Helpers = {
  
    getScaleFactorNative(evt, props) {
      const { touches } = evt.nativeEvent;
@@ -11,10 +11,11 @@ index ecc6c32..693926a 100644
 +    // patch: originally, when zooming out, originalPinchDistance is 0, so the first time factor is < 1
 +    // so we start with serious zoom in and then begin to zoom out, and getting nowhere as a result
 +    const originalPinchDistance = props.originalPinchDistance ||  currentPinchDistance;
-     const scaledPinchChange = (currentPinchDistance - originalPinchDistance) / screenSize;
++
+     const scaledPinchChange =
+       (currentPinchDistance - originalPinchDistance) / screenSize;
      return 1 - scaledPinchChange;
-   },
-@@ -72,7 +74,11 @@ const Helpers = {
+@@ -99,7 +102,11 @@ const Helpers = {
      const [from, to] = currentDomain;
      const range = Math.abs(to - from);
      const minimumZoom = props.minimumZoom && props.minimumZoom[axis];
@@ -27,12 +28,13 @@ index ecc6c32..693926a 100644
      if (minimumZoom && range <= minimumZoom && factor < 1) {
        return currentDomain;
      }
-@@ -93,7 +99,8 @@ const Helpers = {
+@@ -128,8 +135,9 @@ const Helpers = {
  };
  
  const makeThrottledHandler = (handler) => {
--  const throttledHandler = throttle(handler, 16, { leading: true });
 +  // Patch: original throttle was 16, which equals to 60fps. 30fps will do it
+   // eslint-disable-next-line no-magic-numbers
+-  const throttledHandler = throttle(handler, 16, { leading: true });
 +  const throttledHandler = throttle(handler, 32, { leading: true });
    return (evt, ...otherParams) => {
      evt.persist(); // ensure that the react native event is persisted!

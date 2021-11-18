@@ -12,7 +12,7 @@ import {
 import { db, rawUpsert } from '~/db';
 
 const Schema: yup.SchemaOf<MutationUpsertSourceArgs> = yup.object({
-  source: SourceInputSchema.clone(),
+  source: SourceInputSchema.clone().required(),
 });
 
 const upsertSource: MutationResolvers['upsertSource'] = async (

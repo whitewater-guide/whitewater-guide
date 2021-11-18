@@ -21,7 +21,7 @@ import logger from '../logger';
 import { acknowledgeAndroid } from './utils';
 
 const Schema: yup.SchemaOf<MutationSavePurchaseArgs> = yup.object({
-  purchase: PurchaseInputSchema.clone(),
+  purchase: PurchaseInputSchema.clone().required(),
   sectionId: yup.string().uuid().notRequired().nullable(),
 });
 
