@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@apollo/client@>=3.4", "@apollo/client@^3.0.0", "@apollo/client@^3.4.16":
-  version "3.4.16"
-  resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.4.16.tgz#67090d5655aa843fa64d26f1913315e384a5fa0f"
-  integrity sha512-iF4zEYwvebkri0BZQyv8zfavPfVEafsK0wkOofa6eC2yZu50J18uTutKtC174rjHZ2eyxZ8tV7NvAPKRT+OtZw==
+"@apollo/client@>=3.5", "@apollo/client@^3.0.0", "@apollo/client@^3.5.3":
+  version "3.5.3"
+  resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.5.3.tgz#938181be042cdd31152948fd6ac915bae0dc1f70"
+  integrity sha512-Zo6OzaKIoLADsq0afpnuq0x/SI+gr9TXukDN5AvaIfU5Jwm37TNpzayDUx3Xgu1G4lmt5UBDTg7MUoaBa53yoQ==
   dependencies:
     "@graphql-typed-document-node/core" "^3.0.0"
     "@wry/context" "^0.6.0"
@@ -18,7 +18,7 @@
     symbol-observable "^4.0.0"
     ts-invariant "^0.9.0"
     tslib "^2.3.0"
-    zen-observable-ts "~1.1.0"
+    zen-observable-ts "^1.2.0"
 
 "@apollo/protobufjs@1.2.2":
   version "1.2.2"
@@ -4074,10 +4074,10 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/masked-view/-/masked-view-0.1.11.tgz#2f4c6e10bee0786abff4604e39a37ded6f3980ce"
   integrity sha512-rQfMIGSR/1r/SyN87+VD8xHHzDYeHaJq6elOSCAD+0iLagXkSI2pfA0LmSXP21uw5i3em7GkkRjfJ8wpqWXZNw==
 
-"@react-native-community/netinfo@^7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@react-native-community/netinfo/-/netinfo-7.0.0.tgz#1da998320c99062c291248fe0788846803f1a587"
-  integrity sha512-vYqeWMBeQXV0eOjppPn81uj2PXLPAOBuBwxZrm096vDquZLUNOqV/+eX1M+rSczuVQCmYTbIZcMRmf4w18BpAg==
+"@react-native-community/netinfo@^7.1.2":
+  version "7.1.2"
+  resolved "https://registry.yarnpkg.com/@react-native-community/netinfo/-/netinfo-7.1.2.tgz#992d1d92e946d6fbfc5024207bff2af2ef8d5b76"
+  integrity sha512-QknIAs1rNUwkBotOHZb+uKZ12cHk/aBJjNaf/oGO9PnguEkHAXLKpHcbvw3ZTk/Dr5cCKxaEEIsgYxgSU1IBfQ==
 
 "@react-native-firebase/analytics@^13.0.1":
   version "13.0.1"
@@ -9729,10 +9729,10 @@ date-fns@^1.27.2:
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
   integrity sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==
 
-date-fns@^2.25.0:
-  version "2.25.0"
-  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.25.0.tgz#8c5c8f1d958be3809a9a03f4b742eba894fc5680"
-  integrity sha512-ovYRFnTrbGPD4nqaEqescPEv1mNwvt+UTqI3Ay9SzNtey9NZnYu6E2qCcBBgJ6/2VF1zGGygpyTDITqpQQ5e+w==
+date-fns@^2.26.0:
+  version "2.26.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.26.0.tgz#fa45305543c392c4f914e50775fd2a4461e60fbd"
+  integrity sha512-VQI812dRi3cusdY/fhoBKvc6l2W8BPWU1FNVnFH9Nttjx4AFBRzfSVb/Eyc7jBT6e9sg1XtAGsYpBQ6c/jygbg==
 
 dateformat@^3.0.0:
   version "3.0.3"
@@ -26779,12 +26779,19 @@ yup@^0.32.11:
     property-expr "^2.0.4"
     toposort "^2.0.2"
 
-zen-observable-ts@~1.1.0:
+zen-observable-ts@*:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/zen-observable-ts/-/zen-observable-ts-1.1.0.tgz#2d1aa9d79b87058e9b75698b92791c1838551f83"
   integrity sha512-1h4zlLSqI2cRLPJUHJFL8bCWHhkpuXkF+dbGkRaWjgDIG26DmzyshUMrdV/rL3UnR+mhaX4fRq8LPouq0MYYIA==
   dependencies:
     "@types/zen-observable" "0.8.3"
+    zen-observable "0.8.15"
+
+zen-observable-ts@^1.2.0:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/zen-observable-ts/-/zen-observable-ts-1.2.3.tgz#c2f5ccebe812faf0cfcde547e6004f65b1a6d769"
+  integrity sha512-hc/TGiPkAWpByykMwDcem3SdUgA4We+0Qb36bItSuJC9xD0XVBZoFHYoadAomDSNf64CG8Ydj0Qb8Od8BUWz5g==
+  dependencies:
     zen-observable "0.8.15"
 
 zen-observable@0.8.15:

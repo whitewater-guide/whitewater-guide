@@ -17,13 +17,13 @@
     "copy:prod": "aws s3 cp build s3://whitewater.guide/promo --recursive --profile ww-prod  "
   },
   "dependencies": {
-    "@apollo/client": "^3.4.16",
+    "@apollo/client": "^3.5.3",
     "@material-ui/core": "^4.12.3",
     "@whitewater-guide/clients": "^0.0.336",
     "@whitewater-guide/commons": "^0.0.213",
     "@whitewater-guide/schema": "^0.0.212",
     "@whitewater-guide/translations": "^2.5.12",
-    "date-fns": "^2.25.0",
+    "date-fns": "^2.26.0",
     "downshift": "^6.1.7",
     "formik": "^2.2.9",
     "graphql": "^15.6.1",

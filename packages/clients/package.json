@@ -40,10 +40,11 @@
     "lodash": "^4.17.21",
     "shortid": "^2.2.16",
     "url-parse": "^1.5.3",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "zen-observable-ts": "*"
   },
   "peerDependencies": {
-    "@apollo/client": "^3.4",
+    "@apollo/client": "^3.5",
     "date-fns": "*",
     "date-fns-tz": "*",
     "graphql": "*",
@@ -56,7 +57,7 @@
     "victory-line": "*"
   },
   "devDependencies": {
-    "@apollo/client": "^3.4.16",
+    "@apollo/client": "^3.5.3",
     "@graphql-tools/mock": "^8.4.0",
     "@graphql-tools/schema": "^8.2.0",
     "@testing-library/jest-dom": "^5.14.1",
@@ -72,7 +73,7 @@
     "@types/react-test-renderer": "^17.0.1",
     "@types/shortid": "^0.0.29",
     "@types/url-parse": "^1.4.4",
-    "date-fns": "^2.25.0",
+    "date-fns": "^2.26.0",
     "date-fns-tz": "^1.1.6",
     "graphql": "^15.6.1",
     "graphql-scalars": "^1.11.1",

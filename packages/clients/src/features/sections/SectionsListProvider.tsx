@@ -6,6 +6,7 @@ import {
   ObservableQuery,
 } from '@apollo/client';
 import React, { useContext } from 'react';
+import { Subscription } from 'zen-observable-ts';
 
 import {
   PollRegionMeasurementsDocument,
@@ -62,9 +63,9 @@ export class SectionsListProvider extends React.PureComponent<
 
   _pollQuery!: ObservableQuery<any, PollRegionMeasurementsQueryVariables>;
 
-  _subscription: ZenObservable.Subscription | undefined;
+  _subscription: Subscription | undefined;
 
-  _pollSub: ZenObservable.Subscription | undefined;
+  _pollSub: Subscription | undefined;
 
   _mounted = false;
 

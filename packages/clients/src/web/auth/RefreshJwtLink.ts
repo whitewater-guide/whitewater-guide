@@ -5,7 +5,7 @@ import {
   NextLink,
   Operation,
 } from '@apollo/client/link/core';
-import Observable from 'zen-observable';
+import { Observable } from 'zen-observable-ts';
 
 import { JWT_EXPIRED_CTX_KEY } from '../../apollo/errors';
 import { AuthService, createApolloServerError } from '../../auth';
