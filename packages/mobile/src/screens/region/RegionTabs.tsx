@@ -29,6 +29,10 @@ const RegionTabs: React.FC<RegionTabsNavProps> = () => {
   const sectionsList = useSectionsList();
   const regionQuery = useRegionQuery();
   const hasData = !!sectionsList.sections && !!regionQuery.data?.region;
+  // regionId is not necessary for the app to work
+  // it's here because passing it via [initialParams](https://reactnavigation.org/docs/screen#initialparams)
+  // seems to be simplest way to track screen params in sentry
+  const regionId = regionQuery.data?.region?.id;
 
   return (
     <MapSelectionProvider>
@@ -51,6 +55,7 @@ const RegionTabs: React.FC<RegionTabsNavProps> = () => {
             tabBarIcon: ({ color }) => <Icon icon="map" color={color} />,
             tabBarTestID: 'region-tab-map',
           }}
+          initialParams={{ regionId }}
         />
 
         <Tab.Screen
@@ -61,6 +66,7 @@ const RegionTabs: React.FC<RegionTabsNavProps> = () => {
             tabBarIcon: ({ color }) => <Icon icon="view-list" color={color} />,
             tabBarTestID: 'region-tab-list',
           }}
+          initialParams={{ regionId }}
         />
 
         <Tab.Screen
@@ -73,6 +79,7 @@ const RegionTabs: React.FC<RegionTabsNavProps> = () => {
             ),
             tabBarTestID: 'region-tab-info',
           }}
+          initialParams={{ regionId }}
         />
       </Tab.Navigator>
 

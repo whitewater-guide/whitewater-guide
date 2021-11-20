@@ -24,6 +24,10 @@ const Tab = createMaterialBottomTabNavigator<SectionTabsParamsList>();
 const SectionTabs: React.FC<SectionScreenNavProps> = ({ navigation }) => {
   const { t } = useTranslation();
   const section = useSection();
+  // sectionId is not necessary for the app to work
+  // it's here because passing it via [initialParams](https://reactnavigation.org/docs/screen#initialparams)
+  // seems to be simplest way to track screen params in sentry
+  const sectionId = section?.id;
 
   useEffectOnce(() => {
     navigation.setOptions({
@@ -52,6 +56,7 @@ const SectionTabs: React.FC<SectionScreenNavProps> = ({ navigation }) => {
           tabBarIcon: () => <Icon icon="map" color={theme.colors.textLight} />,
           tabBarTestID: 'section-tab-map',
         }}
+        initialParams={{ sectionId }}
       />
       <Tab.Screen
         name={Screens.SECTION_CHART}
@@ -75,6 +80,7 @@ const SectionTabs: React.FC<SectionScreenNavProps> = ({ navigation }) => {
           ),
           tabBarTestID: 'section-tab-info',
         }}
+        initialParams={{ sectionId }}
       />
       <Tab.Screen
         name={Screens.SECTION_GUIDE}
@@ -87,6 +93,7 @@ const SectionTabs: React.FC<SectionScreenNavProps> = ({ navigation }) => {
           ),
           tabBarTestID: 'section-tab-guide',
         }}
+        initialParams={{ sectionId }}
       />
       <Tab.Screen
         name={Screens.SECTION_MEDIA}
@@ -99,6 +106,7 @@ const SectionTabs: React.FC<SectionScreenNavProps> = ({ navigation }) => {
           ),
           tabBarTestID: 'section-tab-media',
         }}
+        initialParams={{ sectionId }}
       />
     </Tab.Navigator>
   );

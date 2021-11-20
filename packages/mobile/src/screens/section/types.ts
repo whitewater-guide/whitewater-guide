@@ -21,10 +21,15 @@ export interface SectionScreenNavProps {
   route: RouteProp<RootStackParamsList, Screens.SECTION_SCREEN>;
 }
 
+/**
+ * sectionId is not necessary for the app to work
+ * it's here because passing it via [initialParams](https://reactnavigation.org/docs/screen#initialparams)
+ * seems to be simplest way to track screen params in sentry
+ */
 export interface SectionTabsParamsList extends ParamListBase {
-  [Screens.SECTION_MAP]: undefined;
-  [Screens.SECTION_CHART]: undefined;
-  [Screens.SECTION_INFO]: undefined;
-  [Screens.SECTION_GUIDE]: undefined;
-  [Screens.SECTION_MEDIA]: undefined;
+  [Screens.SECTION_MAP]: { sectionId?: string } | undefined;
+  [Screens.SECTION_CHART]: { sectionId?: string } | undefined;
+  [Screens.SECTION_INFO]: { sectionId?: string } | undefined;
+  [Screens.SECTION_GUIDE]: { sectionId?: string } | undefined;
+  [Screens.SECTION_MEDIA]: { sectionId?: string } | undefined;
 }

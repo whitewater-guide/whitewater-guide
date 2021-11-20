@@ -19,10 +19,15 @@ export type RegionStackParamsList = {
   [Screens.FILTER]: undefined;
 };
 
+/**
+ * regionId is not necessary for the app to work
+ * it's here because passing it via [initialParams](https://reactnavigation.org/docs/screen#initialparams)
+ * seems to be simplest way to track screen params in sentry
+ */
 export type RegionTabsParamsList = {
-  [Screens.REGION_MAP]: undefined;
-  [Screens.REGION_SECTIONS_LIST]: undefined;
-  [Screens.REGION_INFO]: undefined;
+  [Screens.REGION_MAP]: { regionId?: string } | undefined;
+  [Screens.REGION_SECTIONS_LIST]: { regionId?: string } | undefined;
+  [Screens.REGION_INFO]: { regionId?: string } | undefined;
 };
 
 export type RegionTabsNavProp = CompositeNavigationProp<
