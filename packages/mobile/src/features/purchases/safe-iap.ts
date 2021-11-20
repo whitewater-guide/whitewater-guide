@@ -1,3 +1,4 @@
+import NetInfo from '@react-native-community/netinfo';
 import { Platform } from 'react-native';
 import {
   endConnection,
@@ -49,11 +50,14 @@ export async function safeGetProducts(skus: string[]) {
     products = await getProducts(skus);
   } catch (e) {
     if (!isBillingUnavailable(e)) {
-      error = new IAPError(
-        'screens:purchase.buy.errors.fetchProduct',
-        (e as Error).message,
-      );
-      trackError(LOGGER, e);
+      const { isInternetReachable } = await NetInfo.fetch();
+      if (isInternetReachable) {
+        error = new IAPError(
+          'screens:purchase.buy.errors.fetchProduct',
+          (e as Error).message,
+        );
+        trackError(LOGGER, e);
+      }
     }
   }
   return {
