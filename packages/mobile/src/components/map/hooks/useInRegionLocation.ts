@@ -4,16 +4,19 @@ import { Feature, lineString, point, Polygon } from '@turf/helpers';
 import lineToPolygon from '@turf/line-to-polygon';
 import { ensureAltitude } from '@whitewater-guide/clients';
 import { useEffect } from 'react';
+import { AppStateStatus } from 'react-native';
 
 import { useCamera } from './useCamera';
 
-export const useInRegionLocation = (
+export function useInRegionLocation(
   bounds: CodegenCoordinates[],
   locationPermissionGranted: boolean,
-) => {
+  appState: AppStateStatus,
+): void {
   const camera = useCamera();
+
   useEffect(() => {
-    if (!camera || !locationPermissionGranted) {
+    if (!camera || !locationPermissionGranted || appState !== 'active') {
       return;
     }
     Mapbox.locationManager
@@ -42,5 +45,5 @@ export const useInRegionLocation = (
       .catch(() => {
         // do not care if we fail
       });
-  }, [camera, locationPermissionGranted, bounds]);
-};
+  }, [camera, locationPermissionGranted, bounds, appState]);
+}

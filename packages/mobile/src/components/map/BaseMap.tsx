@@ -1,3 +1,4 @@
+import { useAppState } from '@react-native-community/hooks';
 import Mapbox, { MapboxViewProps } from '@react-native-mapbox-gl/maps';
 import React, { forwardRef, useCallback } from 'react';
 import { Keyboard, StyleSheet } from 'react-native';
@@ -18,21 +19,23 @@ export const BaseMap = React.memo(
       onPress,
       ...mapboxProps
     } = props;
+    // Rendering certain map parts/props only in active state should prevent location access in background on android
+    // More here: https://github.com/react-native-mapbox-gl/maps/discussions/1362
+    const appState = useAppState();
     const setCamera = useCameraSetter();
     const bounds = useMapboxBounds(props.initialBounds);
     const onMapPress = useCallback(
       (e) => {
         Keyboard.dismiss();
-        if (onPress) {
-          onPress(e);
-        }
+        onPress?.(e);
       },
       [onPress],
     );
+
     if (!detailed) {
       // detailed should not change during map existence
       // eslint-disable-next-line react-hooks/rules-of-hooks
-      useInRegionLocation(initialBounds, locationPermissionGranted);
+      useInRegionLocation(initialBounds, locationPermissionGranted, appState);
     }
     return (
       <Mapbox.MapView
@@ -41,7 +44,6 @@ export const BaseMap = React.memo(
         pitchEnabled={false}
         rotateEnabled={false}
         compassEnabled={false}
-        showUserLocation={locationPermissionGranted}
         styleURL={mapType}
         style={StyleSheet.absoluteFill}
         onPress={onMapPress}
@@ -52,9 +54,15 @@ export const BaseMap = React.memo(
           {...bounds}
           animationDuration={0}
           animationMode="moveTo"
+          // Properties below are intended to fix location acces in background on Android
+          allowUpdates={appState === 'active'}
+          followUserMode="normal"
+          followUserLocation={false}
         />
 
-        <Mapbox.UserLocation visible={locationPermissionGranted} />
+        {locationPermissionGranted && appState === 'active' && (
+          <Mapbox.UserLocation visible />
+        )}
 
         {children}
       </Mapbox.MapView>

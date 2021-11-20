@@ -235,6 +235,7 @@ declare module '@react-native-mapbox-gl/maps' {
   export interface CameraProps extends ViewProperties, CameraSettings {
     animationDuration?: number;
     animationMode?: 'flyTo' | 'easeTo' | 'moveTo';
+    allowUpdates?: boolean;
     defaultSettings: CameraSettings;
     minZoomLevel?: number;
     maxZoomLevel?: number;

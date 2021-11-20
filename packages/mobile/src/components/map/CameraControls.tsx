@@ -1,7 +1,7 @@
 import Mapbox from '@react-native-mapbox-gl/maps';
 import { getBBox } from '@whitewater-guide/clients';
 import React, { useCallback } from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
+import { AppState, Platform, StyleSheet, View } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 
 import theme from '../../theme';
@@ -47,6 +47,9 @@ const maybeGetMyLocation = async (locationPermissionGranted: boolean) => {
     isGranted = await Mapbox.requestAndroidLocationPermissions();
   }
   if (!isGranted) {
+    return null;
+  }
+  if (AppState.currentState !== 'active') {
     return null;
   }
   try {
