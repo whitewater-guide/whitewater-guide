@@ -57,7 +57,7 @@
     "victory-line": "*"
   },
   "devDependencies": {
-    "@apollo/client": "^3.5.3",
+    "@apollo/client": "^3.5.4",
     "@graphql-tools/mock": "^8.4.0",
     "@graphql-tools/schema": "^8.2.0",
     "@testing-library/jest-dom": "^5.14.1",

@@ -1,0 +1,47 @@
+diff --git a/node_modules/date-fns-tz/_lib/tzParseTimezone/index.js b/node_modules/date-fns-tz/_lib/tzParseTimezone/index.js
+index f37e4b4..5036853 100644
+--- a/node_modules/date-fns-tz/_lib/tzParseTimezone/index.js
++++ b/node_modules/date-fns-tz/_lib/tzParseTimezone/index.js
+@@ -115,14 +115,15 @@ function validateTimezone(hours, minutes) {
+   return true;
+ }
+ 
++var validIANATimezoneCache = {}
+ function isValidTimezoneIANAString(timeZoneString) {
++  if (validIANATimezoneCache[timeZoneString]) return true
+   try {
+-    Intl.DateTimeFormat(undefined, {
+-      timeZone: timeZoneString
+-    });
+-    return true;
++    Intl.DateTimeFormat(undefined, { timeZone: timeZoneString })
++    validIANATimezoneCache[timeZoneString] = true
++    return true
+   } catch (error) {
+-    return false;
++    return false
+   }
+ }
+ 
+diff --git a/node_modules/date-fns-tz/esm/_lib/tzParseTimezone/index.js b/node_modules/date-fns-tz/esm/_lib/tzParseTimezone/index.js
+index 3182cf5..1af5e99 100644
+--- a/node_modules/date-fns-tz/esm/_lib/tzParseTimezone/index.js
++++ b/node_modules/date-fns-tz/esm/_lib/tzParseTimezone/index.js
+@@ -125,11 +125,14 @@ function validateTimezone(hours, minutes) {
+   return true
+ }
+ 
++var validIANATimezoneCache = {}
+ function isValidTimezoneIANAString(timeZoneString) {
++  if (validIANATimezoneCache[timeZoneString]) return true
+   try {
+-    Intl.DateTimeFormat(undefined, {timeZone: timeZoneString});
+-    return true;
++    Intl.DateTimeFormat(undefined, { timeZone: timeZoneString })
++    validIANATimezoneCache[timeZoneString] = true
++    return true
+   } catch (error) {
+-    return false;
++    return false
+   }
+ }
