@@ -16,7 +16,7 @@
             android:icon="@mipmap/ic_launcher"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:allowBackup="false"
-            android:theme="@style/AppTheme"
+            android:theme="@style/BootTheme"
             android:requestLegacyExternalStorage="true">
 
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
@@ -40,12 +40,6 @@
                 <data android:scheme="@string/BACKEND_PROTOCOL"
                       android:host="@string/DEEP_LINKING_DOMAIN"/>
             </intent-filter>
-        </activity>
-
-        <activity
-                android:name="com.zoontek.rnbootsplash.RNBootSplashActivity"
-                android:theme="@style/BootTheme"
-                android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

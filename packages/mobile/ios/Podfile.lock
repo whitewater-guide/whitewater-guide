@@ -406,7 +406,7 @@ PODS:
   - react-native-fbsdk-next/Share (6.1.0):
     - FBSDKShareKit (~> 12.1.0)
     - React-Core
-  - react-native-flipper (0.117.0):
+  - react-native-flipper (0.120.0):
     - React-Core
   - react-native-image-picker (4.3.0):
     - React-Core
@@ -511,7 +511,7 @@ PODS:
     - React-perflogger (= 0.66.3)
   - RNAppleAuthentication (2.1.5):
     - React-Core
-  - RNBootSplash (3.2.6):
+  - RNBootSplash (4.0.0):
     - React-Core
   - RNCAsyncStorage (1.12.1):
     - React-Core
@@ -547,9 +547,9 @@ PODS:
   - RNScreens (3.9.0):
     - React-Core
     - React-RCTImage
-  - RNSentry (3.2.1):
+  - RNSentry (3.2.3):
     - React-Core
-    - Sentry (= 7.4.8)
+    - Sentry (= 7.5.1)
   - RNSnackbar (2.4.0):
     - React-Core
   - RNSpringScrollView (3.0.2):
@@ -566,9 +566,9 @@ PODS:
   - SDWebImageWebPCoder (0.8.4):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.10)
-  - Sentry (7.4.8):
-    - Sentry/Core (= 7.4.8)
-  - Sentry/Core (7.4.8)
+  - Sentry (7.5.1):
+    - Sentry/Core (= 7.5.1)
+  - Sentry/Core (7.5.1)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -900,7 +900,7 @@ SPEC CHECKSUMS:
   React-jsinspector: d9c8eb0b53f0da206fed56612b289fec84991157
   React-logger: e522e76fa3e9ec3e7d7115b49485cc065cf4ae06
   react-native-fbsdk-next: 1ca7a04be352827ab7cbfee0748cf06a6c4b5e79
-  react-native-flipper: cd9eabd8917104c1bbdca2621717cdca3b2addef
+  react-native-flipper: e30ae82a1536e8f6f4f34012353ebdf1d8aa5157
   react-native-image-picker: 869530859570f2af86ae57bc48886a5e2367a825
   react-native-mapbox-gl: c533564b89e89cf7538d00b6fb24ec47978686c9
   react-native-mmkv-storage: 28514ffe9e67c5223b3d00e725bc72c8194a9eee
@@ -925,7 +925,7 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: bbbdb3d8fcf327c6e2249ee71b6ef1764b7dc266
   ReactCommon: 9bac022ab71596f2b0fde1268272543184c63971
   RNAppleAuthentication: 63c2127ace11985b94f852fc480eb84145653712
-  RNBootSplash: 51eef7e143faeab63f81ddbb7c1de38b8fba66ed
+  RNBootSplash: 89cff8b692b14d16de04f914c4a045c0f4a770ca
   RNCAsyncStorage: b03032fdbdb725bea0bd9e5ec5a7272865ae7398
   RNCClipboard: 99fc8ad669a376b756fbc8098ae2fd05c0ed0668
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
@@ -939,7 +939,7 @@ SPEC CHECKSUMS:
   RNLocalize: 74b82db20cc3895ccc25af992c644879bcec2815
   RNReanimated: 514a11da3a2bcc6c3dfd9de32b38e2b9bf101926
   RNScreens: 4d79118be80f79fa1f4aa131909a1d6e86280af3
-  RNSentry: 791f73292501ed1b2e95e62e9388b68fcc13261d
+  RNSentry: 97bc62fa65b7d663daee16fbf9771470852217cf
   RNSnackbar: be3333a21a453ccc272f41a8add5a71f7d44dfcd
   RNSpringScrollView: e354167d96f2c3d2f20b186990b2c3946987cb3c
   RNSVG: 4ecc2e8f38b6ebe7889909570c26f3abe8059767
@@ -947,7 +947,7 @@ SPEC CHECKSUMS:
   RNVectorIcons: 4143ba35feebab8fdbe6bc43d1e776b393d47ac8
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: f93010f3f6c031e2f8fb3081ca4ee6966c539815
-  Sentry: df92b78ba4ab86cf2a47ff4cdc07758a5ce18f03
+  Sentry: 0718c3ad7a08e1107599610795adaf08864102f3
   Yoga: 32a18c0e845e185f4a2a66ec76e1fd1f958f22fa
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
   zxcvbn-ios: fef98b7c80f1512ff0eec47ac1fa399fc00f7e3c

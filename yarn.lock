@@ -4365,10 +4365,10 @@
     lru_map "^0.3.3"
     tslib "^1.9.3"
 
-"@sentry/react-native@3.2.1":
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/@sentry/react-native/-/react-native-3.2.1.tgz#e7fa40a6aaeb786b36a40e8cc0b3267d94887da7"
-  integrity sha512-S9rVGppeYj8o0sTfAxgLPw8RTjaN2kqgCV4dw5N7e9fUtVL7OqGqYLr8OFXBNcF00lEhzNIDvRXUlGhmSF5Clg==
+"@sentry/react-native@3.2.3":
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/@sentry/react-native/-/react-native-3.2.3.tgz#39faf729a152f8cc9699b1d427ed0e8d095042a8"
+  integrity sha512-1d7RpprRDZ6WG53VhP1vhGllxlk3weZ1nbsTx3rHPuFXehhUsc8+W3M+WoVB4SHIUn9LWIHe01E9XnKZX/BSoQ==
   dependencies:
     "@sentry/browser" "6.12.0"
     "@sentry/cli" "^1.68.0"
@@ -12894,14 +12894,7 @@ graphql-sse@^1.0.1:
   resolved "https://registry.yarnpkg.com/graphql-sse/-/graphql-sse-1.0.6.tgz#4f98e0a06f2020542ed054399116108491263224"
   integrity sha512-y2mVBN2KwNrzxX2KBncQ6kzc6JWvecxuBernrl0j65hsr6MAS3+Yn8PTFSOgRmtolxugepxveyZVQEuaNEbw3w==
 
-graphql-tag@2.12.5:
-  version "2.12.5"
-  resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.12.5.tgz#5cff974a67b417747d05c8d9f5f3cb4495d0db8f"
-  integrity sha512-5xNhP4063d16Pz3HBtKprutsPrmHZi5IdUGOWRxA2B6VF7BIRGOHZ5WQvDmJXZuPcBg7rYwaFxvQYjqkSdR3TQ==
-  dependencies:
-    tslib "^2.1.0"
-
-graphql-tag@^2.11.0, graphql-tag@^2.12.3, graphql-tag@^2.12.5, graphql-tag@^2.12.6:
+graphql-tag@2.12.6, graphql-tag@^2.11.0, graphql-tag@^2.12.3, graphql-tag@^2.12.5, graphql-tag@^2.12.6:
   version "2.12.6"
   resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.12.6.tgz#d441a569c1d2537ef10ca3d1633b48725329b5f1"
   integrity sha512-FdSNcu2QQcWnM2VNvSCCDCVS5PpPqpzgFT8+GXzqJuoDd0CBncxCY278u4mhRO7tMgo2JjgJA5aZ+nWSQ/Z+xg==
@@ -21006,15 +20999,7 @@ react-full-screen@^0.2.4:
     "@types/react" "*"
     fscreen "^1.0.1"
 
-react-i18next@11.13.0:
-  version "11.13.0"
-  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-11.13.0.tgz#7b6f23f717154a44cf3f70d62a9368152bf8a73f"
-  integrity sha512-AY8ydSqx8LVm1Tn5yXFA0JwCeSWpcFOSr96HrjUXXVAWWbptamZOY2iMxVaGNlGxSLnRY0U2sdCIPVYHcmhBxQ==
-  dependencies:
-    "@babel/runtime" "^7.14.5"
-    html-parse-stringify "^3.0.1"
-
-react-i18next@^11.11.4:
+react-i18next@11.14.2, react-i18next@^11.11.4:
   version "11.14.2"
   resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-11.14.2.tgz#2ff28f6a0ddf06eaf79435ed6c70c441d709cf34"
   integrity sha512-fmDhwNA0zDmSEL3BBT5qwNMvxrKu25oXDDAZyHprfB0AHZmWXfBmRLf8MX8i1iBd2I2C2vsA2D9wxYBIwzooEQ==
@@ -21080,10 +21065,10 @@ react-native-animatable@^1.3.3:
   dependencies:
     prop-types "^15.7.2"
 
-react-native-bootsplash@^3.2.6:
-  version "3.2.6"
-  resolved "https://registry.yarnpkg.com/react-native-bootsplash/-/react-native-bootsplash-3.2.6.tgz#610e476b1156ab29817aa394d5bb64871c1f1f42"
-  integrity sha512-zNEXIe2K1A06J45QOAg+OBo3wIyId9lZXOwITUcwNR2bQEg/3CO6uvcRB7MLuy2ct54R1PlbADHDZK/Ozt7mfA==
+react-native-bootsplash@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-bootsplash/-/react-native-bootsplash-4.0.0.tgz#a072e81e2c45e66b741db20ceee3e8ea43b6d7d4"
+  integrity sha512-9ZSdcNuqm+YL8sL9Y3jUa3peafMwhsBlYxtYSji2VIpmuIhAYZMPgKF5aKDZM0T3qxjTONha+l8ZmBu9XqzW+g==
   dependencies:
     chalk "^4.1.2"
     fs-extra "^10.0.0"
@@ -21130,10 +21115,10 @@ react-native-fit-image@^1.5.5:
   dependencies:
     prop-types "^15.5.10"
 
-react-native-flipper@^0.117.0:
-  version "0.117.0"
-  resolved "https://registry.yarnpkg.com/react-native-flipper/-/react-native-flipper-0.117.0.tgz#d5e1bf4f8403b674c1e39f240b13d1137a5e2018"
-  integrity sha512-r5IdubsO1rdDhRSDIL2Xk3DSZQSwWcNgjxgz7NcD+NuBv8y7mw48LbiW0779/MTHM2K9URshGnfLT0mrI0ZBKA==
+react-native-flipper@^0.120.0:
+  version "0.120.0"
+  resolved "https://registry.yarnpkg.com/react-native-flipper/-/react-native-flipper-0.120.0.tgz#a383b0f157fa94e0f61265c09d32b671b94f0670"
+  integrity sha512-Vacbfe64BjU46GOkMlVe3mVwiKbhX/9i92zkRoKXhQN3inJ/TOh6kSZo8Rpm0Fee+POKVGRin+8mElv32bYQgA==
 
 react-native-gesture-handler@^1.10.3:
   version "1.10.3"
