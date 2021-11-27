@@ -64,20 +64,30 @@
     "[sql]": {
       "editor.formatOnSave": false
     },
-    "editor.codeActionsOnSave": ["source.fixAll.eslint"],
+    "editor.codeActionsOnSave": [
+      "source.fixAll.eslint"
+    ],
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
     "jest.autoRun": "off",
-    "jest.debugCodeLens.showWhenTestStateIn": ["fail", "pass", "unknown"],
-    "jest.disabledWorkspaceFolders": ["_ROOT"],
+    "jest.debugCodeLens.showWhenTestStateIn": [
+      "fail",
+      "pass",
+      "unknown"
+    ],
+    "jest.disabledWorkspaceFolders": [
+      "_ROOT"
+    ],
     "search.exclude": {
-      "**/*.generated.*": true,
       "**/__generated__": true,
+      "**/.idea/**": true,
+      "**/*.generated.*": true,
       "**/build": true,
       "**/dist": true,
-      "**/Pods/**": true,
       "**/node_modules": true,
-      "**/yarn-error.log": true,
+      "**/packages/android-placeholder/**": true,
+      "**/Pods/**": true,
+      "**/*.log": true,
       "**/yarn.lock": true
     },
     "typescript.tsdk": "_ROOT/node_modules/typescript/lib",
@@ -85,11 +95,13 @@
     "files.watcherExclude": {
       "**/.git/objects/**": true,
       "**/.git/subtree-cache/**": true,
-      "**/node_modules/*/**": true,
       "**/.hg/store/**": true,
+      "**/.idea/**": true,
+      "**/*.log": true,
       "**/build/**": true,
       "**/dist/**": true,
-      "**/*.log": true,
+      "**/node_modules/*/**": true,
+      "**/packages/android-placeholder/**": true,
       "**/Pods/**": true,
       "**/yarn.lock": true
     },
