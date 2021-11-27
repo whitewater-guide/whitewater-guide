@@ -392,35 +392,35 @@ PODS:
   - React-jsinspector (0.66.3)
   - React-logger (0.66.3):
     - glog
-  - react-native-fbsdk-next (6.1.0):
+  - react-native-fbsdk-next (6.1.1):
     - React-Core
-    - react-native-fbsdk-next/Core (= 6.1.0)
-    - react-native-fbsdk-next/Login (= 6.1.0)
-    - react-native-fbsdk-next/Share (= 6.1.0)
-  - react-native-fbsdk-next/Core (6.1.0):
+    - react-native-fbsdk-next/Core (= 6.1.1)
+    - react-native-fbsdk-next/Login (= 6.1.1)
+    - react-native-fbsdk-next/Share (= 6.1.1)
+  - react-native-fbsdk-next/Core (6.1.1):
     - FBSDKCoreKit (~> 12.1.0)
     - React-Core
-  - react-native-fbsdk-next/Login (6.1.0):
+  - react-native-fbsdk-next/Login (6.1.1):
     - FBSDKLoginKit (~> 12.1.0)
     - React-Core
-  - react-native-fbsdk-next/Share (6.1.0):
+  - react-native-fbsdk-next/Share (6.1.1):
     - FBSDKShareKit (~> 12.1.0)
     - React-Core
   - react-native-flipper (0.120.0):
     - React-Core
   - react-native-image-picker (4.3.0):
     - React-Core
-  - react-native-mapbox-gl (8.4.0):
+  - react-native-mapbox-gl (8.5.0):
     - Mapbox-iOS-SDK (~> 6.4)
     - React
     - React-Core
-    - react-native-mapbox-gl/DynamicLibrary (= 8.4.0)
-    - react-native-mapbox-gl/StaticLibraryFixer (= 8.4.0)
-  - react-native-mapbox-gl/DynamicLibrary (8.4.0):
+    - react-native-mapbox-gl/DynamicLibrary (= 8.5.0)
+    - react-native-mapbox-gl/StaticLibraryFixer (= 8.5.0)
+  - react-native-mapbox-gl/DynamicLibrary (8.5.0):
     - Mapbox-iOS-SDK (~> 6.4)
     - React
     - React-Core
-  - react-native-mapbox-gl/StaticLibraryFixer (8.4.0):
+  - react-native-mapbox-gl/StaticLibraryFixer (8.5.0):
     - Mapbox-iOS-SDK (~> 6.4)
     - React
     - React-Core
@@ -439,7 +439,7 @@ PODS:
     - React
   - react-native-ultimate-config (3.4.2):
     - React
-  - react-native-webview (11.14.3):
+  - react-native-webview (11.14.4):
     - React-Core
   - react-native-zxcvbn (1.0.1):
     - React
@@ -511,7 +511,7 @@ PODS:
     - React-perflogger (= 0.66.3)
   - RNAppleAuthentication (2.1.5):
     - React-Core
-  - RNBootSplash (4.0.0):
+  - RNBootSplash (4.0.2):
     - React-Core
   - RNCAsyncStorage (1.12.1):
     - React-Core
@@ -899,10 +899,10 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 433a691aee158533a6a6ee9c86cb4a1684fa2853
   React-jsinspector: d9c8eb0b53f0da206fed56612b289fec84991157
   React-logger: e522e76fa3e9ec3e7d7115b49485cc065cf4ae06
-  react-native-fbsdk-next: 1ca7a04be352827ab7cbfee0748cf06a6c4b5e79
+  react-native-fbsdk-next: 50b2ce0e56ef9b68cb0fd7f19072364296896c20
   react-native-flipper: e30ae82a1536e8f6f4f34012353ebdf1d8aa5157
   react-native-image-picker: 869530859570f2af86ae57bc48886a5e2367a825
-  react-native-mapbox-gl: c533564b89e89cf7538d00b6fb24ec47978686c9
+  react-native-mapbox-gl: 0308cba1da4edbc1aa0e82a7584ba50e52725996
   react-native-mmkv-storage: 28514ffe9e67c5223b3d00e725bc72c8194a9eee
   react-native-netinfo: 07e8299fff4d2bea17d00b519d4f9c67c7dbbe9b
   react-native-pager-view: 3ee7d4c7697fb3ef788346e834a60cca97ed8540
@@ -910,7 +910,7 @@ SPEC CHECKSUMS:
   react-native-sensitive-info: 400c6e3d27945e15c8cddb5b4b92233c85ee06f8
   react-native-startup-time: 1a068b744ce5097a85ebe0fbff691b05961c324d
   react-native-ultimate-config: 92916d2709359094d6154d7b3b36bd15e0feab26
-  react-native-webview: b83cf1aa6b4453fe53ffcc5896c36cdf37f0383f
+  react-native-webview: a287d7c405756d253d88ed8e4f3c1a5256834d30
   react-native-zxcvbn: ba72ee34accf0531cdd60778d98b3fe491c562bf
   React-perflogger: 73732888d37d4f5065198727b167846743232882
   React-RCTActionSheet: 96c6d774fa89b1f7c59fc460adc3245ba2d7fd79
@@ -925,7 +925,7 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: bbbdb3d8fcf327c6e2249ee71b6ef1764b7dc266
   ReactCommon: 9bac022ab71596f2b0fde1268272543184c63971
   RNAppleAuthentication: 63c2127ace11985b94f852fc480eb84145653712
-  RNBootSplash: 89cff8b692b14d16de04f914c4a045c0f4a770ca
+  RNBootSplash: 5e82ba24a59a07315cbb2bb4855bb8d76fc7e802
   RNCAsyncStorage: b03032fdbdb725bea0bd9e5ec5a7272865ae7398
   RNCClipboard: 99fc8ad669a376b756fbc8098ae2fd05c0ed0668
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
