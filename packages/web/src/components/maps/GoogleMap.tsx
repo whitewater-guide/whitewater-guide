@@ -95,7 +95,7 @@ export default class GoogleMap extends React.Component<GoogleMapProps, State> {
       return;
     }
     // eslint-disable-next-line react/no-find-dom-node
-    this.map = new google.maps.Map(findDOMNode(ref) as Element, {
+    this.map = new google.maps.Map(findDOMNode(ref) as HTMLElement, {
       center: DEFAULT_CENTER,
       zoom: this.state.zoom,
       keyboardShortcuts: false,
