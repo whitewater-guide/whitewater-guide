@@ -91,7 +91,7 @@ services:
   gorge:
     <<: *ww-commons
     container_name: ww-gorge
-    image: ghcr.io/whitewater-guide/gorge:3.0.0
+    image: ghcr.io/whitewater-guide/gorge:3.0.2
     depends_on:
       - db
     command: [
@@ -118,12 +118,13 @@ services:
         # '--hooks-health-url',
         # 'http://host.docker.internal:3333/gorge/health',
 
-        # '--hooks-health-headers', # same as in .env files in backend dir
-        # 'x-api-key: __test_gorge_health_key__',
+        # '--hooks-health-headers',
+        # 'x-api-key: $$GORGE_HEALTH_KEY', # this env is evaluated by gorge during runtime, not by docker!
       ]
     environment:
-      # prefer env to cli flag because in aws fargate it's passed via env
+      # prefer env to cli flags because in AWS Fargate it's passed via env
       - POSTGRES_PASSWORD=whitewater
+      - GORGE_HEALTH_KEY=__test_gorge_health_key__
     ports:
       - '7080:7080'
     networks:
