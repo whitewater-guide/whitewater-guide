@@ -3,9 +3,9 @@ import { Middleware } from 'koa';
 import isUUID from 'validator/lib/isUUID';
 
 import { db, Sql } from '~/db';
+import { MailType, sendMail } from '~/mail';
 
 import { SALT_ROUNDS } from '../../constants';
-import { MailType, sendMail } from '../../mail';
 import logger from '../logger';
 import { isPasswordWeak } from '../utils';
 

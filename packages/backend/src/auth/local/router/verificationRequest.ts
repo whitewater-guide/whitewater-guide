@@ -2,8 +2,8 @@ import { Middleware } from 'koa';
 import isUUID from 'validator/lib/isUUID';
 
 import { db, Sql } from '~/db';
+import { MailType, sendMail } from '~/mail';
 
-import { MailType, sendMail } from '../../mail';
 import logger from '../logger';
 import { randomToken } from '../utils';
 

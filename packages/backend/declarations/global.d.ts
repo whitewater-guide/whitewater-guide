@@ -42,6 +42,9 @@ declare namespace NodeJS {
 
     GORGE_HOST?: string;
     GORGE_PORT?: string;
+    GORGE_HEALTH_EMAILS?: string;
+    GORGE_HEALTH_KEY?: string;
+    GORGE_HEALTH_HOSTS?: string;
 
     FB_APP_ID: string;
     FB_SECRET: string;

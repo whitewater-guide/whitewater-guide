@@ -1,0 +1,32 @@
+<mjml>
+  <mj-include path="./head.mjml" />
+
+  <mj-body background-color="#eee">
+    <mj-include path="./header.mjml" />
+
+    <mj-section background-color="#fff">
+      <mj-column>
+        <mj-text>
+          <h2>Some scripts are unhealthy</h2>
+        </mj-text>
+
+        <mj-table>
+          <tr
+            style="
+              border-bottom: 1px solid #ecedee;
+              text-align: left;
+              padding: 15px 0;
+            "
+          >
+            <th style="padding: 0 15px 0 0">Script</th>
+            <th style="padding: 0 15px">Last run</th>
+            <th style="padding: 0 0 0 15px">Last Success</th>
+          </tr>
+          <mj-raw>${unhealthyMsg}</mj-raw>
+        </mj-table>
+      </mj-column>
+    </mj-section>
+
+    <mj-include path="./footer.mjml" />
+  </mj-body>
+</mjml>

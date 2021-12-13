@@ -67,6 +67,26 @@ class Config {
 
   public GORGE_PORT = process.env.GORGE_PORT || '7080';
 
+  /**
+   * Emails where we send notifications when gorge scripts are unhealthy.
+   */
+  public GORGE_HEALTH_EMAILS = (process.env.GORGE_HEALTH_EMAILS ?? '')
+    .split(',')
+    .filter((s) => !!s);
+
+  /**
+   * API key header to verify that gorge health webhook calls are valid
+   */
+  public GORGE_HEALTH_KEY = process.env.GORGE_HEALTH_KEY;
+
+  /**
+   * Gorge health webhook calls should have valid host header
+   */
+  public GORGE_HEALTH_HOSTS = (process.env.GORGE_HEALTH_HOSTS ?? '')
+    .split(',')
+    .filter((s) => !!s)
+    .concat('api.local');
+
   public FB_APP_ID = process.env.FB_APP_ID;
 
   public FB_SECRET = process.env.FB_SECRET;

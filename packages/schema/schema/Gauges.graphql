@@ -2,15 +2,32 @@
 type HarvestStatus {
   "How many measurements were harvested last time"
   count: Int
-  "Was last harvest successful or not"
-  success: Boolean
-  "When was this gauge/source last harvested"
-  timestamp: DateTime
-  "When will this gauge/source be harvested next time"
-  next: DateTime
   "Error message from last harvest"
   error: String
+  "When was this gauge/source last harvested"
+  lastRun: DateTime
+  "When was this gauge/source last harvested and returned one or more measurements"
+  lastSuccess: DateTime
+  "When will this gauge/source be harvested next time"
+  nextRun: DateTime
+
+  """
+  Did last harvest result in error or not
+  Deprecated, because now it's just error field as boolean
+  """
+  success: Boolean @deprecated
+  """
+  When was this gauge/source last harvested
+  Depreatced, renamed to lastRun
+  """
+  timestamp: DateTime @deprecated
+  """
+  When will this gauge/source be harvested next time
+  Deprecated, renamed to nextRun
+  """
+  next: DateTime @deprecated
 }
+
 type Gauge implements NamedNode & Timestamped {
   "Unique ID"
   id: ID!

@@ -1,17 +1,12 @@
+import castArray from 'lodash/castArray';
 import { createTransport } from 'nodemailer';
 
 import config from '~/config';
 
-import logger from '../logger';
+import { MailPayloadMap } from '.';
+import logger from './logger';
 import { render } from './templates';
-import {
-  MailType,
-  ResetRequestPayload,
-  ResetSuccessPayload,
-  VerificationRequestPayload,
-  WelcomeUnverifiedPayload,
-  WelcomeVerifiedPayload,
-} from './types';
+import { MailType } from './types';
 
 let _transport: ReturnType<typeof createTransport> | undefined;
 
@@ -32,42 +27,18 @@ function getTransport(): ReturnType<typeof createTransport> {
 }
 
 const SUBJECTS = new Map([
-  [MailType.WELCOME_VERIFIED, 'Welcome to whitewater.guide'],
-  [MailType.WELCOME_UNVERIFIED, 'Welcome to whitewater.guide'],
+  [MailType.GORGE_UNHEALTHY, 'Some scripts are unhealthy'],
   [MailType.RESET_REQUEST, 'whitewater.guide password reset'],
   [MailType.RESET_SUCCESS, 'whitewater.guide password changed'],
   [MailType.VERIFICATION_REQUEST, 'whitewater.guide user verification'],
+  [MailType.WELCOME_UNVERIFIED, 'Welcome to whitewater.guide'],
+  [MailType.WELCOME_VERIFIED, 'Welcome to whitewater.guide'],
 ]);
 
-export async function sendMail(
-  type: MailType.WELCOME_VERIFIED,
-  email: string,
-  payload: WelcomeVerifiedPayload,
-): Promise<void>;
-export async function sendMail(
-  type: MailType.WELCOME_UNVERIFIED,
-  email: string,
-  payload: WelcomeUnverifiedPayload,
-): Promise<void>;
-export async function sendMail(
-  type: MailType.RESET_REQUEST,
-  email: string,
-  payload: ResetRequestPayload,
-): Promise<void>;
-export async function sendMail(
-  type: MailType.RESET_SUCCESS,
-  email: string,
-  payload: ResetSuccessPayload,
-): Promise<void>;
-export async function sendMail(
-  type: MailType.VERIFICATION_REQUEST,
-  email: string,
-  payload: VerificationRequestPayload,
-): Promise<void>;
-export async function sendMail(
+export async function sendMail<T extends keyof MailPayloadMap>(
   type: MailType,
-  email: string,
-  payload: any,
+  emails: string | string[],
+  payload: MailPayloadMap[T],
 ): Promise<void> {
   const { PROTOCOL, API_DOMAIN, DEEP_LINKING_DOMAIN, contentPublicURL } =
     config;
@@ -79,12 +50,21 @@ export async function sendMail(
   };
   const html = await render(type, data);
   const transport = getTransport();
+
+  const recipients = castArray(emails);
+  if (recipients.length === 0) {
+    logger.error({ message: 'sendMail must have at least 1 recipient' });
+    return;
+  }
+  const [to, ...cc] = recipients;
+
   await transport.sendMail({
     from: {
       name: 'whitewater.guide',
       address: config.MAIL_NOREPLY_BOX,
     },
-    to: email,
+    to,
+    cc,
     subject: SUBJECTS.get(type),
     html,
   });

@@ -30,11 +30,11 @@ fragment GaugeLatestMeasurement on Gauge {
 
 fragment GaugeStatus on Gauge {
   status {
-    timestamp
-    success
     count
     error
-    next
+    lastRun
+    lastSuccess
+    nextRun
   }
 }
 

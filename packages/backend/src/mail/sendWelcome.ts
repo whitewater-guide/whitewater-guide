@@ -1,6 +1,6 @@
 import { Sql } from '~/db';
 
-import authLogger from '../logger';
+import logger from './logger';
 import { sendMail } from './sendMail';
 import { MailType } from './types';
 
@@ -13,7 +13,7 @@ export async function sendWelcome(user: Sql.Users) {
       user: { id: user.id, name: user.name || '' },
     });
   } catch (e) {
-    authLogger.error({
+    logger.error({
       extra: {
         email: user.email,
         error: (e as Error).message,

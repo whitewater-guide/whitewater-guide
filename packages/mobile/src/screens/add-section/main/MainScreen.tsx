@@ -86,7 +86,7 @@ const MainScreen: React.FC<AddSectionMainNavProps> = React.memo((props) => {
             <TextField
               name="difficultyXtra"
               autoCapitalize="characters"
-              autoCompleteType="off"
+              autoComplete="off"
               autoCorrect={false}
               maxLength={8}
               testID="difficultyXtra"

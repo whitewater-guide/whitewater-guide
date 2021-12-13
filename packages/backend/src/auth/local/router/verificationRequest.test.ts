@@ -2,6 +2,7 @@ import Koa from 'koa';
 import agent from 'supertest-koa-agent';
 
 import { db, holdTransaction, rollbackTransaction } from '~/db';
+import { sendMail } from '~/mail';
 import {
   ADMIN_ID,
   UNVERIFIED_USER_ID,
@@ -10,9 +11,8 @@ import {
 } from '~/seeds/test/01_users';
 
 import { createApp } from '../../../app';
-import { sendMail } from '../../mail';
 
-jest.mock('../../mail');
+jest.mock('~/mail');
 
 let app: Koa;
 

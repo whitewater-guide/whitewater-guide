@@ -61,7 +61,7 @@ const DescentFormLevelView: React.FC<DescentFormDateNavProps> = ({
             helperText={t('screens:descentForm.level.unitHelper')}
             autoCapitalize="none"
             autoCorrect={false}
-            autoCompleteType="off"
+            autoComplete="off"
           />
           {'gauge' in section && !!height && (
             <DescentChartLayout

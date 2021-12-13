@@ -65,7 +65,7 @@ const TextField = React.memo(
               value={field.value}
               onChangeText={onChange}
               onBlur={onBlur}
-              accessibilityLabel={props.label}
+              accessibilityLabel={props.label as string}
               error={meta.touched && !!meta.error}
             />
           </View>

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should match snapshot for "verification-request" 1`] = `
+exports[`should match snapshot for "gorge-unhealthy" 1`] = `
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:v="urn:schemas-microsoft-com:vml"
@@ -64,6 +64,8 @@ exports[`should match snapshot for "verification-request" 1`] = `
       table.mj-full-width-mobile { width: 100% !important; }
       td.mj-full-width-mobile { width: auto !important; }
     }
+    </style>
+    <style type="text/css">
     </style>
   </head>
   <body style="word-spacing:normal;background-color:#eeeeee;">
@@ -160,89 +162,40 @@ exports[`should match snapshot for "verification-request" 1`] = `
                         >
                           <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:20px;text-align:left;color:#555555;">
                             <h2>
-                              Hi User Name,
+                              Some scripts are unhealthy
                             </h2>
-                            You're receiving this email because you requested email verification
-          in
-                            <b>
-                              whitewater.guide
-                            </b>
-                            app.
-                            <br>
-                            To do so, please confirm your email address:
                           </div>
                         </td>
                       </tr>
                       <tr>
                         <td align="left"
-                            vertical-align="middle"
                             style="font-size:0px;padding:10px 25px;word-break:break-word;"
                         >
-                          <table border="0"
-                                 cellpadding="0"
+                          <table cellpadding="0"
                                  cellspacing="0"
-                                 role="presentation"
-                                 style="border-collapse:separate;line-height:100%;"
+                                 width="100%"
+                                 border="0"
+                                 style="color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;table-layout:auto;width:100%;border:none;"
                           >
-                            <tbody>
-                              <tr>
-                                <td align="center"
-                                    bgcolor="#007ab0"
-                                    role="presentation"
-                                    style="border:none;border-radius:3px;cursor:auto;mso-padding-alt:10px 25px;background:#007ab0;"
-                                    valign="middle"
-                                >
-                                  <a href="https://api.whitewater.guide/auth/local/verification?id=__user_id__&token=__token__"
-                                     style="display:inline-block;background:#007ab0;color:#FFFFFF;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:uppercase;padding:10px 25px;mso-padding-alt:0px;border-radius:3px;"
-                                     target="_blank"
-                                  >
-                                    Confirm
-                                  </a>
-                                </td>
-                              </tr>
-                            </tbody>
+                            <tr style="
+              border-bottom: 1px solid #ecedee;
+              text-align: left;
+              padding: 15px 0;
+            ">
+                              <th style="padding: 0 15px 0 0">
+                                Script
+                              </th>
+                              <th style="padding: 0 15px">
+                                Last run
+                              </th>
+                              <th style="padding: 0 0 0 15px">
+                                Last Success
+                              </th>
+                            </tr>
+                            <mj-raw>
+                              unhealthy
+                            </mj-raw>
                           </table>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td align="left"
-                            style="font-size:0px;padding:10px 25px;word-break:break-word;"
-                        >
-                          <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:20px;text-align:left;color:#555555;">
-                            Can't click the button above? Copy and paste this link into your
-          browser:
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td align="left"
-                            style="font-size:0px;padding:10px 25px;word-break:break-word;"
-                        >
-                          <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:20px;text-align:left;color:#555555;">
-                            https://api.whitewater.guide/auth/local/verification?id=__user_id__&token=__token__
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td align="left"
-                            style="font-size:0px;padding:10px 25px;word-break:break-word;"
-                        >
-                          <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:20px;text-align:left;color:#555555;">
-                            Please note that this link will expire in 24 hours.
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td align="left"
-                            style="font-size:0px;padding:10px 25px;word-break:break-word;"
-                        >
-                          <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:20px;text-align:left;color:#555555;">
-                            Cheers,
-                            <br>
-                            <b>
-                              whitewater.guide team
-                            </b>
-                          </div>
                         </td>
                       </tr>
                     </tbody>
@@ -539,7 +492,7 @@ exports[`should match snapshot for "verification-request" 1`] = `
                                       style="font-size:0px;padding:10px 25px;word-break:break-word;"
                                   >
                                     <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:20px;text-align:center;color:#555555;">
-                                      © 2016‒2020 whitewater.guide
+                                      © 2016‒2021 whitewater.guide
                                     </div>
                                   </td>
                                 </tr>

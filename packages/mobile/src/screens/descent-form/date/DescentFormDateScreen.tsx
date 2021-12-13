@@ -44,7 +44,7 @@ export const DescentFormDateScreen: React.FC<DescentFormDateNavProps> = ({
           mode="outlined"
           editable={false}
           autoFocus={false}
-          autoCompleteType="none"
+          autoComplete="off"
         />
 
         <DatePicker name="startedAt" timezone={timezone} />

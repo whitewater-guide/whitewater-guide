@@ -2,8 +2,8 @@ import { Middleware } from 'koa';
 import isEmail from 'validator/lib/isEmail';
 
 import { db, Sql } from '~/db';
+import { MailType, sendMail } from '~/mail';
 
-import { MailType, sendMail } from '../../mail';
 import logger from '../logger';
 import { randomToken } from '../utils';
 

@@ -2,12 +2,12 @@ import Koa from 'koa';
 import agent from 'supertest-koa-agent';
 
 import { db, holdTransaction, rollbackTransaction } from '~/db';
+import { MailType, sendMail } from '~/mail';
 import { BOOM_USER_3500_ID } from '~/seeds/test/01_users';
 
 import { createApp } from '../../../app';
-import { MailType, sendMail } from '../../mail';
 
-jest.mock('../../mail');
+jest.mock('~/mail');
 
 let app: Koa;
 

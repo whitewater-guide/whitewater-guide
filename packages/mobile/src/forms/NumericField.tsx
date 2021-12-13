@@ -70,7 +70,7 @@ const NumericField = React.memo(
         <View style={wrapperStyle}>
           <TextInput
             {...props}
-            accessibilityLabel={props.label}
+            accessibilityLabel={props.label as string}
             mode="outlined"
             ref={inputRef as any}
             value={valueStr}

@@ -91,20 +91,39 @@ services:
   gorge:
     <<: *ww-commons
     container_name: ww-gorge
-    image: ghcr.io/whitewater-guide/gorge:2.3.4
+    image: ghcr.io/whitewater-guide/gorge:3.0.0
     depends_on:
       - db
-    command:
-      [
+    command: [
         '--cache',
         'inmemory',
+
         '--pg-db',
         'gorge',
-        '--pg-password',
-        'whitewater',
+
         '--db-chunk-size',
         '1000',
+
+        '--log-format',
+        'plain',
+
+        '--log-level',
+        'debug',
+        # '--hooks-health-cron',
+        # '*/2 * * * *',
+
+        # '--hooks-health-threshold',
+        # '1',
+
+        # '--hooks-health-url',
+        # 'http://host.docker.internal:3333/gorge/health',
+
+        # '--hooks-health-headers', # same as in .env files in backend dir
+        # 'x-api-key: __test_gorge_health_key__',
       ]
+    environment:
+      # prefer env to cli flag because in aws fargate it's passed via env
+      - POSTGRES_PASSWORD=whitewater
     ports:
       - '7080:7080'
     networks:

@@ -74,10 +74,11 @@ export class HarvestStatusIndicator extends React.PureComponent<Props, State> {
     let statusText = 'unknown';
     const error = status ? status.error : null;
     const now = new Date();
-    const ts = status?.timestamp ? parseISO(status.timestamp) : now;
+    const ts = status?.lastRun ? parseISO(status.lastRun) : now;
+    const success = !status?.error;
     if (status) {
-      color = status.success ? green[500] : red[500];
-      statusText = status.success ? 'healthy' : 'error';
+      color = success ? green[500] : red[500];
+      statusText = success ? 'healthy' : 'error';
       if (status.count === 0) {
         countStyle = { color: red[500] };
         color = amber[500];
@@ -107,24 +108,38 @@ export class HarvestStatusIndicator extends React.PureComponent<Props, State> {
         <Popover open={open} anchorEl={anchorEl} onClose={this.onClose}>
           {status && (
             <Grid container style={styles.popover}>
-              {status.timestamp && (
+              {status.lastRun && (
                 <Grid container style={tsStyle}>
                   <Grid item sm={4}>
-                    <b>Timestamp</b>
+                    <b>Last run</b>
                   </Grid>
                   <Grid item>
-                    {formatDate(parseISO(status.timestamp), 'dd/MM/yyyy H:mm')}
+                    {formatDate(parseISO(status.lastRun), 'dd/MM/yyyy H:mm')}
                   </Grid>
                 </Grid>
               )}
 
-              {status.next && (
+              {status.nextRun && (
                 <Grid container style={tsStyle}>
                   <Grid item sm={4}>
-                    <b>Next</b>
+                    <b>Next run</b>
                   </Grid>
                   <Grid item>
-                    {formatDate(parseISO(status.next), 'dd/MM/yyyy H:mm')}
+                    {formatDate(parseISO(status.nextRun), 'dd/MM/yyyy H:mm')}
+                  </Grid>
+                </Grid>
+              )}
+
+              {status.lastSuccess && (
+                <Grid container style={tsStyle}>
+                  <Grid item sm={4}>
+                    <b>Last success</b>
+                  </Grid>
+                  <Grid item>
+                    {formatDate(
+                      parseISO(status.lastSuccess),
+                      'dd/MM/yyyy H:mm',
+                    )}
                   </Grid>
                 </Grid>
               )}

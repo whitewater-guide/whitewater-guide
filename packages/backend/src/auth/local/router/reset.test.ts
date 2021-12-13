@@ -4,6 +4,7 @@ import superagent from 'superagent';
 import agent from 'supertest-koa-agent';
 
 import { db, holdTransaction, rollbackTransaction } from '~/db';
+import { MailType, sendMail } from '~/mail';
 import {
   ADMIN_ID,
   EDITOR_GA_EC_ID,
@@ -12,9 +13,8 @@ import {
 } from '~/seeds/test/01_users';
 
 import { createApp } from '../../../app';
-import { MailType, sendMail } from '../../mail';
 
-jest.mock('../../mail');
+jest.mock('~/mail');
 
 const ROUTE = '/auth/local/reset';
 const TOKEN = '_reset_token_';

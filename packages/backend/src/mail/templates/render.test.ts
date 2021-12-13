@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 import { MailType } from '../types';
 import { render } from './render';
 
@@ -20,6 +19,7 @@ it.each(types)('should match snapshot for "%s"', async (type: any) => {
     token: {
       raw: '__token__',
     },
+    unhealthyMsg: 'unhealthy',
   };
   const html = await render(type, data);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment

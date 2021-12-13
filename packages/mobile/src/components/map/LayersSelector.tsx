@@ -52,7 +52,7 @@ const LayersSelector: React.FC = React.memo(() => {
         cancelButtonIndex: NUM_LAYERS,
       },
       (i) => {
-        if (i < NUM_LAYERS) {
+        if (i !== undefined && i < NUM_LAYERS) {
           setMapType(LAYERS_ARRAY[i].url);
         }
       },

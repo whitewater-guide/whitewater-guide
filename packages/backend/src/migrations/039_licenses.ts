@@ -3,7 +3,7 @@ import path from 'path';
 
 import { createViews, dropViews, runSqlFile } from '~/db';
 
-const VIEWS = ['media', 'sections', 'rivers', 'regions'];
+const VIEWS = ['gauges', 'media', 'sections', 'rivers', 'regions'];
 
 /**
  * This patch adds license field and copyright field to regions, sections and media
@@ -40,6 +40,15 @@ export const up = async (db: Knex) => {
 
 export const down = async (db: Knex) => {
   await dropViews(db, ...VIEWS);
+  await db.schema.raw(
+    'DROP FUNCTION IF EXISTS upsert_section_media(section_id VARCHAR, media JSON, lang LANGUAGE_CODE) CASCADE',
+  );
+  await db.schema.raw(
+    'DROP FUNCTION IF EXISTS upsert_section(section JSON, lang LANGUAGE_CODE) CASCADE',
+  );
+  await db.schema.raw(
+    'DROP FUNCTION IF EXISTS upsert_region(r JSON, lang LANGUAGE_CODE) CASCADE',
+  );
 
   await db.schema.table('sections', (table) => {
     table.dropColumn('license');

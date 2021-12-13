@@ -8,6 +8,7 @@ import { SuperTest, Test } from 'supertest';
 import agent from 'supertest-koa-agent';
 
 import { holdTransaction, rollbackTransaction } from '~/db';
+import { sendWelcome } from '~/mail';
 import {
   ADMIN_FB_PROFILE,
   ADMIN_ID,
@@ -16,9 +17,8 @@ import {
 
 import { createApp } from '../../../app';
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from '../../constants';
-import { sendWelcome } from '../../mail';
 
-jest.mock('../../mail');
+jest.mock('~/mail');
 const ROUTE = '/auth/facebook/signin?web=true&';
 
 let app: Koa;

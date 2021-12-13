@@ -8,8 +8,9 @@
       <mj-column>
         <mj-text>
           <h2>Hi ${user.name},</h2>
-          Thank you for registering in <b>whitewater.guide</b> app.<br />
-          To complete your sign up, please confirm your email address:
+          You're receiving this email because you requested email verification
+          in <b>whitewater.guide</b> app.<br />
+          To do so, please confirm your email address:
         </mj-text>
 
         <mj-button
@@ -25,9 +26,7 @@
         <mj-text>
           ${baseURL}/auth/local/verification?id=${user.id}&token=${token.raw}
         </mj-text>
-        <mj-text>
-          Please note that this link will expire in 24 hours.
-        </mj-text>
+        <mj-text> Please note that this link will expire in 24 hours. </mj-text>
 
         <mj-text>Cheers,<br /><b>whitewater.guide team</b></mj-text>
       </mj-column>

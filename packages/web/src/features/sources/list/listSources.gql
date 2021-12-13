@@ -7,10 +7,11 @@ fragment ListedSource on Source {
     count
   }
   status {
-    success
     count
-    timestamp
     error
+    lastRun
+    lastSuccess
+    nextRun
   }
 }
 

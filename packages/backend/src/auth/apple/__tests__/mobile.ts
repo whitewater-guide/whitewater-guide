@@ -4,17 +4,16 @@ import Koa from 'koa';
 import superagent from 'superagent';
 import { SuperTest, Test } from 'supertest';
 import agent from 'supertest-koa-agent';
-import {} from 'util';
 import { DeepPartial } from 'utility-types';
 
 import { db, holdTransaction, rollbackTransaction } from '~/db';
+import { sendWelcome } from '~/mail';
 import { ADMIN_ID } from '~/seeds/test/01_users';
 
 import { createApp } from '../../../app';
-import { sendWelcome } from '../../mail';
 import { AppleSignInPayload } from '../types';
 
-jest.mock('../../mail');
+jest.mock('~/mail');
 
 const ROUTE = '/auth/apple/signin';
 

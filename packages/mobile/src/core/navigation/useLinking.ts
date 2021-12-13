@@ -22,11 +22,11 @@ const parseURL = (urlish: URLish) => {
   return urlParse(url, true);
 };
 
-const isReset = ({ href, query }: Parsed) =>
+const isReset = ({ href, query }: urlParse<any>): boolean =>
   href.indexOf(RESET_CALLBACK_URL) === 0 &&
-  query &&
-  !!query.id &&
-  !!query.token;
+  !!query &&
+  !!query?.id &&
+  !!query?.token;
 
 const isVerified = ({ href }: Parsed) => href.indexOf('verified') >= 0;
 

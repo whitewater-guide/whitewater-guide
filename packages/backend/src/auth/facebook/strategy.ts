@@ -1,8 +1,8 @@
 import FacebookTokenStrategy from 'passport-facebook-token';
 
 import config from '~/config';
+import { sendWelcome } from '~/mail';
 
-import { sendWelcome } from '../mail';
 import getFBUser from './getFBUser';
 
 export const facebookStrategy = new FacebookTokenStrategy(

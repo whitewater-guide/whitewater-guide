@@ -7,9 +7,9 @@ import { Overwrite } from 'utility-types';
 import isEmail from 'validator/lib/isEmail';
 
 import { db, Sql } from '~/db';
+import { MailType, sendMail } from '~/mail';
 
 import { SALT_ROUNDS } from '../constants';
-import { MailType, sendMail } from '../mail';
 import logger from './logger';
 import { isPasswordWeak, randomToken } from './utils';
 

@@ -86,8 +86,7 @@ it('should list jobs', async () => {
       options: { gauges: 1 },
       status: {
         count: 0,
-        success: false,
-        timestamp: '2019-01-01',
+        lastRun: '2019-01-01',
         error: 'something is broken',
       },
     },
@@ -115,8 +114,7 @@ it('should dedupe list jobs calls', async () => {
       options: { gauges: 1 },
       status: {
         count: 0,
-        success: false,
-        timestamp: '2019-01-01',
+        lastRun: '2019-01-01',
         error: 'something is broken',
       },
     },
@@ -139,8 +137,7 @@ it('should get job', async () => {
       options: { gauges: 1 },
       status: {
         count: 0,
-        success: false,
-        timestamp: '2019-01-01',
+        lastRun: '2019-01-01',
         error: 'something is broken',
       },
     },
@@ -167,8 +164,8 @@ it('should get gauge statuses', async () => {
   const gauges: Record<string, gorge.Status> = {
     g000: {
       count: 1,
-      success: true,
-      timestamp: '2019-01-01',
+      lastRun: '2019-01-01',
+      lastSuccess: '2019-01-01',
     },
   };
   const expected = new Map([['g000', gauges.g000]]);

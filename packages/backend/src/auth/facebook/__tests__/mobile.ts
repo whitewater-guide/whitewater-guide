@@ -9,6 +9,7 @@ import { SuperTest, Test } from 'supertest';
 import agent from 'supertest-koa-agent';
 
 import { db, holdTransaction, rollbackTransaction } from '~/db';
+import { sendWelcome } from '~/mail';
 import {
   ADMIN_FB_PROFILE,
   ADMIN_ID,
@@ -18,9 +19,8 @@ import {
 } from '~/seeds/test/01_users';
 
 import { createApp } from '../../../app';
-import { sendWelcome } from '../../mail';
 
-jest.mock('../../mail');
+jest.mock('~/mail');
 
 const ROUTE = '/auth/facebook/signin';
 

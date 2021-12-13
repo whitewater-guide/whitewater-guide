@@ -6,12 +6,12 @@ import { SuperTest, Test } from 'supertest';
 import agent from 'supertest-koa-agent';
 
 import { db, holdTransaction, rollbackTransaction } from '~/db';
+import { sendMail } from '~/mail';
 
 import { createApp } from '../../../app';
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from '../../constants';
-import { sendMail } from '../../mail';
 
-jest.mock('../../mail');
+jest.mock('~/mail');
 
 const ROUTE = '/auth/local/signup';
 

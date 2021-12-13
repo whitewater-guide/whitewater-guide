@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should match snapshot for "welcome-unverified" 1`] = `
+exports[`should match snapshot for "reset-request" 1`] = `
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:v="urn:schemas-microsoft-com:vml"
@@ -64,6 +64,8 @@ exports[`should match snapshot for "welcome-unverified" 1`] = `
       table.mj-full-width-mobile { width: 100% !important; }
       td.mj-full-width-mobile { width: auto !important; }
     }
+    </style>
+    <style type="text/css">
     </style>
   </head>
   <body style="word-spacing:normal;background-color:#eeeeee;">
@@ -141,7 +143,7 @@ exports[`should match snapshot for "welcome-unverified" 1`] = `
         >
           <tbody>
             <tr>
-              <td style="direction:ltr;font-size:0px;padding:20px 0;text-align:center;">
+              <td style="direction:ltr;font-size:0px;padding:20px 0;padding-bottom:0px;text-align:center;">
                 <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:600px;" ><![endif]-->
                 <div class="mj-column-per-100 mj-outlook-group-fix"
                      style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;"
@@ -162,13 +164,11 @@ exports[`should match snapshot for "welcome-unverified" 1`] = `
                             <h2>
                               Hi User Name,
                             </h2>
-                            Thank you for registering in
+                            We got a request to reset your
                             <b>
                               whitewater.guide
                             </b>
-                            app.
-                            <br>
-                            To complete your sign up, please confirm your email address:
+                            password
                           </div>
                         </td>
                       </tr>
@@ -191,11 +191,11 @@ exports[`should match snapshot for "welcome-unverified" 1`] = `
                                     style="border:none;border-radius:3px;cursor:auto;mso-padding-alt:10px 25px;background:#007ab0;"
                                     valign="middle"
                                 >
-                                  <a href="https://api.whitewater.guide/auth/local/verification?id=__user_id__&token=__token__"
+                                  <a href="https://app.whitewater.guide/auth/local/reset/callback?id=__user_id__&token=__token__"
                                      style="display:inline-block;background:#007ab0;color:#FFFFFF;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:uppercase;padding:10px 25px;mso-padding-alt:0px;border-radius:3px;"
                                      target="_blank"
                                   >
-                                    Confirm
+                                    Reset Password
                                   </a>
                                 </td>
                               </tr>
@@ -208,8 +208,8 @@ exports[`should match snapshot for "welcome-unverified" 1`] = `
                             style="font-size:0px;padding:10px 25px;word-break:break-word;"
                         >
                           <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:20px;text-align:left;color:#555555;">
-                            Can't click the button above? Copy and paste this link into your
-          browser:
+                            Please note that you should open this link on mobile device with
+          whitewater.guide app installed.
                           </div>
                         </td>
                       </tr>
@@ -218,15 +218,9 @@ exports[`should match snapshot for "welcome-unverified" 1`] = `
                             style="font-size:0px;padding:10px 25px;word-break:break-word;"
                         >
                           <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:20px;text-align:left;color:#555555;">
-                            https://api.whitewater.guide/auth/local/verification?id=__user_id__&token=__token__
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td align="left"
-                            style="font-size:0px;padding:10px 25px;word-break:break-word;"
-                        >
-                          <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:20px;text-align:left;color:#555555;">
+                            If you didn't request a password reset, you can ignore this message.
+          Someone probably typed in your email by accident.
+                            <br>
                             Please note that this link will expire in 24 hours.
                           </div>
                         </td>
@@ -538,7 +532,7 @@ exports[`should match snapshot for "welcome-unverified" 1`] = `
                                       style="font-size:0px;padding:10px 25px;word-break:break-word;"
                                   >
                                     <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:20px;text-align:center;color:#555555;">
-                                      © 2016‒2020 whitewater.guide
+                                      © 2016‒2021 whitewater.guide
                                     </div>
                                   </td>
                                 </tr>

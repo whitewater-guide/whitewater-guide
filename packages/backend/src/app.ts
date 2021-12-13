@@ -9,6 +9,7 @@ import { addPingRoute } from '~/utils';
 
 import config from './config';
 import { corsMiddleware } from './cors';
+import { addGorgeWebhooks } from './features/gorge/webhooks';
 
 export type App = Koa & {
   shutdown: () => Promise<any>;
@@ -27,6 +28,7 @@ export function createApp(): App {
   applyAuthMiddleware(app);
 
   addPingRoute(app);
+  addGorgeWebhooks(app);
 
   return Object.assign(app, {
     shutdown: () => Promise.all([db(true).destroy()]),

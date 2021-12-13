@@ -2,7 +2,8 @@ import { SocialMediaProvider } from '@whitewater-guide/schema';
 import { verifyIdToken } from 'apple-signin-auth';
 import { Strategy } from 'passport-custom';
 
-import { sendWelcome } from '../mail';
+import { sendWelcome } from '~/mail';
+
 import { negotiateLanguage, storeUser } from '../social';
 import { AppleSignInPayload } from './types';
 

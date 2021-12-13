@@ -76,7 +76,7 @@ const GaugeScreen: React.FC = () => {
         value={search}
         style={styles.searchBar}
         autoCorrect={false}
-        autoCompleteType="off"
+        autoComplete="off"
         autoFocus
         testID="gauge-searchbar"
       />
