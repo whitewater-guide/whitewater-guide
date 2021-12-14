@@ -129,7 +129,7 @@ const bulkInsert: MutationResolvers['bulkInsert'] = async (
   try {
     // with streamObject it's hard to handle file not found errors
     await s3Client.statObject(TEMP, filename);
-    const tarStream: any = s3Client.streamObject(TEMP, filename);
+    const tarStream = await s3Client.streamObject(TEMP, filename);
     const filesStream = tarStream.pipe(createGunzip()).pipe(extract());
     const jsonFiles: string[] = [];
     const riverIds = new Map<string, string>();

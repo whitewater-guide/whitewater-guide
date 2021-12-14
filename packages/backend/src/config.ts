@@ -1,5 +1,5 @@
 /* eslint-disable node/no-process-env */
-import AWS from 'aws-sdk';
+import { S3ClientConfig } from '@aws-sdk/client-s3';
 import { readJSON } from 'fs-extra';
 
 class Config {
@@ -36,16 +36,18 @@ class Config {
 
   public MAILCHIMP_LIST_ID = process.env.MAILCHIMP_LIST_ID;
 
-  public s3?: AWS.S3.Types.ClientConfiguration =
+  public s3?: S3ClientConfig =
     process.env.NODE_ENV === 'production'
       ? undefined
       : {
+          credentials: {
+            accessKeyId: process.env.MINIO_ACCESS_KEY!,
+            secretAccessKey: process.env.MINIO_SECRET_KEY!,
+          },
           // https://docs.min.io/docs/how-to-use-aws-sdk-for-javascript-with-minio-server.html
-          accessKeyId: process.env.MINIO_ACCESS_KEY,
-          secretAccessKey: process.env.MINIO_SECRET_KEY,
           endpoint: `http://${process.env.MINIO_HOST}:${process.env.MINIO_PORT}`,
-          s3ForcePathStyle: true, // needed with minio?
-          signatureVersion: 'v4',
+          forcePathStyle: true, // needed with minio?
+          // signatureVersion: 'v4',
         };
 
   public contentPublicURL =

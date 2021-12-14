@@ -1,5 +1,18 @@
+import {
+  CopyObjectCommand,
+  DeleteObjectCommand,
+  GetObjectCommand,
+  HeadObjectCommand,
+  ListBucketsCommand,
+  paginateListObjectsV2,
+  S3Client as AWSS3Client,
+} from '@aws-sdk/client-s3';
+import {
+  createPresignedPost,
+  PresignedPostOptions,
+} from '@aws-sdk/s3-presigned-post';
 import { MAX_FILE_SIZE, MIN_FILE_SIZE } from '@whitewater-guide/commons';
-import AWS from 'aws-sdk';
+import { Readable } from 'stream';
 import { Required } from 'utility-types';
 
 import config from '~/config';
@@ -18,11 +31,11 @@ export interface PostPolicy {
 export type PostPolicyVersion = 'V3';
 
 export class S3Client {
-  private _client: AWS.S3 | undefined;
+  private _client: AWSS3Client | undefined;
 
-  private get client() {
+  private get client(): AWSS3Client {
     if (!this._client) {
-      this._client = new AWS.S3(config.s3);
+      this._client = new AWSS3Client(config.s3 ?? {});
     }
     return this._client;
   }
@@ -35,31 +48,28 @@ export class S3Client {
     // Only allow content size in range 10KB to 10MB in production
     const minSize = config.NODE_ENV === 'production' ? MIN_FILE_SIZE : 1;
 
-    const params: Required<AWS.S3.PresignedPost.Params, 'Conditions'> = {
+    const params: Required<PresignedPostOptions, 'Conditions'> = {
       Bucket: CONTENT_BUCKET,
       Expires: 30 * 60, // 30 minutes
       Conditions: [
-        // Legacy mobile clients do not add Content-Type and so this is temporary disabled
-        version === 'V3' ? ['starts-with', '$Content-Type', 'image/'] : [],
         ['starts-with', '$key', key ? `${TEMP}/${key}` : `${TEMP}/`],
         ['content-length-range', minSize, MAX_FILE_SIZE],
-      ].filter((c) => c.length > 0),
+      ],
+      Key: `${TEMP}/\${filename}`,
     };
+    // Legacy mobile clients do not add Content-Type and so this is temporary disabled
+    if (version === 'V3') {
+      params.Conditions.unshift(['starts-with', '$Content-Type', 'image/']);
+    }
 
     if (uploadedBy) {
       params.Conditions.push(['eq', '$x-amz-meta-uploaded-by', uploadedBy]);
       params.Fields = { 'x-amz-meta-uploaded-by': uploadedBy };
     }
 
-    return new Promise((resolve, reject) => {
-      this.client.createPresignedPost(params, (err, data) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve({ postURL: data.url, formData: data.fields });
-        }
-      });
-    });
+    const data = await createPresignedPost(this.client, params);
+
+    return { postURL: data.url, formData: data.fields };
   }
 
   public renameFile(from: string, to?: string) {
@@ -101,16 +111,17 @@ export class S3Client {
         throw new Error('moveTempImage: filename not found');
       }
       const newFile = this.renameFile(filename, newFileName);
-      await this.client
-        .copyObject({
-          CopySource: `/${CONTENT_BUCKET}/${TEMP}/${filename}`,
-          Bucket: CONTENT_BUCKET,
-          Key: `${toPrefix}/${newFile}`,
-        })
-        .promise();
-      await this.client
-        .deleteObject({ Bucket: CONTENT_BUCKET, Key: `${TEMP}/${filename}` })
-        .promise();
+      const copyCmd = new CopyObjectCommand({
+        CopySource: `/${CONTENT_BUCKET}/${TEMP}/${filename}`,
+        Bucket: CONTENT_BUCKET,
+        Key: `${toPrefix}/${newFile}`,
+      });
+      await this.client.send(copyCmd);
+      const deleteCmd = new DeleteObjectCommand({
+        Bucket: CONTENT_BUCKET,
+        Key: `${TEMP}/${filename}`,
+      });
+      await this.client.send(deleteCmd);
     } catch (e) {
       logger.error({
         error: e as Error,
@@ -142,27 +153,56 @@ export class S3Client {
   }
 
   public async removeFile(prefix: S3Prefix, filename: string) {
-    await this.client
-      .deleteObject({ Bucket: CONTENT_BUCKET, Key: `${prefix}/${filename}` })
-      .promise();
+    const cmd = new DeleteObjectCommand({
+      Bucket: CONTENT_BUCKET,
+      Key: `${prefix}/${filename}`,
+    });
+    await this.client.send(cmd);
   }
 
   public async statObject(prefix: S3Prefix, filename: string) {
-    return this.client
-      .headObject({ Bucket: CONTENT_BUCKET, Key: `${prefix}/${filename}` })
-      .promise();
+    const cmd = new HeadObjectCommand({
+      Bucket: CONTENT_BUCKET,
+      Key: `${prefix}/${filename}`,
+    });
+    return this.client.send(cmd);
   }
 
-  public streamObject(prefix: S3Prefix, filename: string) {
-    return this.client
-      .getObject({ Bucket: CONTENT_BUCKET, Key: `${prefix}/${filename}` })
-      .createReadStream();
+  public async streamObject(
+    prefix: S3Prefix,
+    filename: string,
+  ): Promise<Readable> {
+    const cmd = new GetObjectCommand({
+      Bucket: CONTENT_BUCKET,
+      Key: `${prefix}/${filename}`,
+    });
+    // return this.client.getObject().createReadStream();
+    const item = await this.client.send(cmd);
+    return item.Body as Readable;
   }
 
-  public listObjects(prefix: S3Prefix) {
-    return this.client
-      .listObjectsV2({ Bucket: CONTENT_BUCKET, Prefix: prefix })
-      .createReadStream();
+  public async listObjects(prefix: S3Prefix) {
+    const paginator = paginateListObjectsV2(
+      {
+        client: this.client,
+        pageSize: 1000,
+      },
+      {
+        Bucket: CONTENT_BUCKET,
+        Prefix: prefix,
+      },
+    );
+
+    const result = [];
+    for await (const page of paginator) {
+      result.push(...(page.Contents ?? []));
+    }
+    return result;
+  }
+
+  public async listBuckets() {
+    const cmd = new ListBucketsCommand({});
+    return this.client.send(cmd);
   }
 }
 

@@ -17,6 +17,8 @@ describe('getTempPostPolicy', () => {
         'X-Amz-Credential': expect.any(String),
         'X-Amz-Date': expect.stringMatching(/[0-9TZ]+/),
         'X-Amz-Signature': expect.any(String),
+        // eslint-disable-next-line no-template-curly-in-string
+        key: 'temp/${filename}',
       },
       postURL: `http://localhost:9000/${CONTENT_BUCKET}`,
     });
@@ -33,6 +35,8 @@ describe('getTempPostPolicy', () => {
         'X-Amz-Credential': expect.any(String),
         'X-Amz-Date': expect.stringMatching(/[0-9TZ]+/),
         'X-Amz-Signature': expect.any(String),
+        // eslint-disable-next-line no-template-curly-in-string
+        key: 'temp/${filename}',
       },
       postURL: `http://localhost:9000/${CONTENT_BUCKET}`,
     });
@@ -50,6 +54,8 @@ describe('getTempPostPolicy', () => {
         'X-Amz-Date': expect.stringMatching(/[0-9TZ]+/),
         'X-Amz-Signature': expect.any(String),
         'x-amz-meta-uploaded-by': 'uuid',
+        // eslint-disable-next-line no-template-curly-in-string
+        key: 'temp/${filename}',
       },
       postURL: `http://localhost:9000/${CONTENT_BUCKET}`,
     });

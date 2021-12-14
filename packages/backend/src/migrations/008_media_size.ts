@@ -11,15 +11,14 @@ interface BucketFile {
   size: number;
 }
 
-function readFiles(): Promise<BucketFile[]> {
-  return new Promise((resolve) => {
-    const files: BucketFile[] = [];
-    s3Client
-      .listObjects(MEDIA)
-      .on('data', ({ name, size }) => files.push({ name, size }))
-      .on('end', () => resolve(files))
-      .on('error', () => resolve([]));
-  });
+async function readFiles(): Promise<BucketFile[]> {
+  try {
+    const files = await s3Client.listObjects(MEDIA);
+    return files.map((f: any) => ({ name: f.name, size: f.size }));
+  } catch (e) {
+    // this fails in pretest migrations, but it's expected
+    return [];
+  }
 }
 
 async function setFileSizes(db: Knex) {

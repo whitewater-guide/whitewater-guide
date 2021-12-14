@@ -47,6 +47,8 @@ describe('response', () => {
         'X-Amz-Date': expect.stringMatching(/[0-9TZ]+/),
         'X-Amz-Signature': expect.any(String),
         'x-amz-meta-uploaded-by': TEST_USER_ID,
+        // eslint-disable-next-line no-template-curly-in-string
+        key: 'temp/${filename}',
       },
       key: expect.any(String),
     });

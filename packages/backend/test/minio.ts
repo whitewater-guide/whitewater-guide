@@ -27,7 +27,7 @@ const createBucketIfNotExists = async (bucketName: string) => {
     exists = false;
   }
   if (!exists) {
-    await minioClient.makeBucket(bucketName, 'eu-west-1');
+    await minioClient.makeBucket(bucketName, 'us-east-1');
     await minioClient.setBucketPolicy(
       bucketName,
       JSON.stringify({
