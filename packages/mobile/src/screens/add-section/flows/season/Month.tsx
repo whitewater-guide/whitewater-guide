@@ -1,8 +1,9 @@
 import { getMonthName } from '@whitewater-guide/clients';
-import React from 'react';
+import React, { memo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import theme from '../../../../theme';
+import theme from '~/theme';
+
 import HalfMonth from './HalfMonth';
 
 const HEADER_HEIGHT = 24;
@@ -36,30 +37,24 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props {
+interface MonthProps {
   index: number;
   children: any;
 }
 
-type MonthComponent = React.FC<Props> & { height: number };
+type MonthComponent = React.FC<MonthProps> & { height: number };
 
 const Month: MonthComponent = Object.assign(
-  // eslint-disable-next-line react/display-name
-  React.memo((props: Props) => {
-    const { index, children } = props;
-    return (
-      <View style={styles.container}>
-        <View
-          style={[styles.labelWrapper, index % 3 < 2 && styles.labelBorder]}
-        >
-          <Text style={styles.label}>{getMonthName(index)}</Text>
-        </View>
-        <View style={[styles.halves, index % 3 < 2 && styles.halvesBorder]}>
-          {children}
-        </View>
+  memo<MonthProps>(({ index, children }) => (
+    <View style={styles.container}>
+      <View style={[styles.labelWrapper, index % 3 < 2 && styles.labelBorder]}>
+        <Text style={styles.label}>{getMonthName(index)}</Text>
       </View>
-    );
-  }),
+      <View style={[styles.halves, index % 3 < 2 && styles.halvesBorder]}>
+        {children}
+      </View>
+    </View>
+  )),
   { height: HalfMonth.height + HEADER_HEIGHT },
 );
 

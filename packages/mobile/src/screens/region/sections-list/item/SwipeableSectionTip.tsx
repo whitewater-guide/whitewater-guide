@@ -58,7 +58,7 @@ const SwipeableSectionTip: FC<Props> = ({ onSwipe, swipedId }) => {
   ).current;
 
   const scale = useRef(
-    Reanimated.interpolate(animation.position, {
+    Reanimated.interpolateNode(animation.position, {
       inputRange: [-SWIPEABLE_SECTION_TIP_BUTTON_WIDTH, 0],
       outputRange: [1, 0],
       extrapolate: Reanimated.Extrapolate.CLAMP,
@@ -80,7 +80,6 @@ const SwipeableSectionTip: FC<Props> = ({ onSwipe, swipedId }) => {
       <Reanimated.Code exec={animation.watchOnOpen} />
 
       <PanGestureHandler
-        minDist={20}
         activeOffsetX={activeOffsetX}
         activeOffsetY={activeOffsetY}
         failOffsetY={failOffsetY}

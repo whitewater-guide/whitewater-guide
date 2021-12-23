@@ -32,6 +32,10 @@
 # react-native-unitmate-config
 -keep class guide.whitewater.BuildConfig { *; }
 
+# react-native-reanimated
+-keep class com.swmansion.reanimated.** { *; }
+-keep class com.facebook.react.turbomodule.** { *; }
+
 # hermes
 -keep class com.facebook.hermes.unicode.** { *; }
 -keep class com.facebook.jni.** { *; }
@@ -43,4 +47,4 @@
 -dontwarn com.facebook.flipper.**
 -dontwarn com.facebook.yoga.**
 -dontwarn org.mozilla.**
--dontwarn  com.facebook.fbui.**
+-dontwarn com.facebook.fbui.**

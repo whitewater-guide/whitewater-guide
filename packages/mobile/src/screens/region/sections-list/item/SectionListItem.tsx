@@ -56,17 +56,17 @@ export class SectionListItem extends React.Component<SectionListItemProps> {
     this._animationStyle = {
       transform: [{ translateX: this._animation.position }],
     };
-    this._scaleTO = Reanimated.interpolate(this._animation.position, {
+    this._scaleTO = Reanimated.interpolateNode(this._animation.position, {
       inputRange: [-NAVIGATE_BUTTON_WIDTH, 0],
       outputRange: [1, 0],
       extrapolate: Reanimated.Extrapolate.CLAMP,
     });
-    this._scalePI = Reanimated.interpolate(this._animation.position, {
+    this._scalePI = Reanimated.interpolateNode(this._animation.position, {
       inputRange: [-2 * NAVIGATE_BUTTON_WIDTH, -NAVIGATE_BUTTON_WIDTH],
       outputRange: [1, 0],
       extrapolate: Reanimated.Extrapolate.CLAMP,
     });
-    this._scaleFav = Reanimated.interpolate(this._animation.position, {
+    this._scaleFav = Reanimated.interpolateNode(this._animation.position, {
       inputRange: [-3 * NAVIGATE_BUTTON_WIDTH, -2 * NAVIGATE_BUTTON_WIDTH],
       outputRange: [1, 0],
       extrapolate: Reanimated.Extrapolate.CLAMP,
@@ -140,7 +140,6 @@ export class SectionListItem extends React.Component<SectionListItemProps> {
         <Reanimated.Code exec={this._animation.watchOnOpen} />
 
         <PanGestureHandler
-          minDist={20}
           activeOffsetX={activeOffsetX}
           activeOffsetY={activeOffsetY}
           failOffsetY={failOffsetY}

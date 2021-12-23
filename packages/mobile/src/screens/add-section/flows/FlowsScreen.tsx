@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollViewProps, StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -27,15 +27,13 @@ const styles = StyleSheet.create({
 const FlowsScreen: React.FC<AddSectionFlowsNavProps> = React.memo(
   ({ navigation }) => {
     const { t } = useTranslation();
-    const scrollViewRef = useRef();
     return (
       <Screen>
-        <KAVScroll ref={scrollViewRef} contentContainerStyle={styles.content}>
+        <KAVScroll contentContainerStyle={styles.content}>
           <Title>{t('commons:season')}</Title>
           <SeasonNumericField
             name="seasonNumeric"
             testID="season-numeric-picker"
-            waitFor={scrollViewRef}
           />
           <TextField
             name="season"

@@ -82,7 +82,7 @@ class Config {
   public GORGE_HEALTH_KEY = process.env.GORGE_HEALTH_KEY;
 
   /**
-   * Gorge health webhook calls should have valid host header
+   * Gorge health webhook calls should have valid host header (port is stripped)
    */
   public GORGE_HEALTH_HOSTS = (process.env.GORGE_HEALTH_HOSTS ?? '')
     .split(',')

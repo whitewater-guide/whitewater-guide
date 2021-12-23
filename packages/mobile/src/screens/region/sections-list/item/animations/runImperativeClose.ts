@@ -1,4 +1,4 @@
-import Animated, { Easing } from 'react-native-reanimated';
+import Animated, { EasingNode } from 'react-native-reanimated';
 
 const {
   Clock,
@@ -35,7 +35,7 @@ const runImperativeClose = (
     ]),
     timing(clock, state, {
       duration: 300,
-      easing: Easing.in(Easing.ease),
+      easing: EasingNode.in(EasingNode.ease),
       toValue: 0,
     }),
     cond(state.finished, [stopClock(clock), set(imperativeFlag, 0)]),

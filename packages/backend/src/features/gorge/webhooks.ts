@@ -54,8 +54,10 @@ export function addGorgeWebhooks(app: Koa, route = '/gorge'): void {
       logger.warn({ message: 'invalid gorge health key' });
       return;
     }
-    const host = ctx.headers?.['host'] ?? ctx.headers?.['Host'];
-    if (typeof host !== 'string' || !config.GORGE_HEALTH_HOSTS.includes(host)) {
+    const hostHeader = ctx.headers?.['host'] ?? ctx.headers?.['Host'];
+    const host =
+      typeof hostHeader === 'string' ? hostHeader.split(':')[0] : undefined; // Strip port
+    if (!host || !config.GORGE_HEALTH_HOSTS.includes(host)) {
       ctx.status = 401;
       ctx.body = 'Unauthorized';
       logger.warn({ message: `invalid gorge health host header: ${host}` });

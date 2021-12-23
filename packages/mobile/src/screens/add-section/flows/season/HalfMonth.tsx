@@ -1,6 +1,10 @@
-import React, { useCallback } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { State, TapGestureHandler } from 'react-native-gesture-handler';
+import React, { FC, memo } from 'react';
+import { StyleSheet } from 'react-native';
+import Animated, {
+  SharedValue,
+  useAnimatedStyle,
+  useSharedValue,
+} from 'react-native-reanimated';
 
 import theme from '~/theme';
 
@@ -8,54 +12,35 @@ const HEIGHT = 40;
 const WIDTH = (theme.screenWidth - 2 * theme.margin.single) / 6;
 
 const styles = StyleSheet.create({
-  touchable: {
-    width: WIDTH,
-    height: HEIGHT,
-  },
   container: {
     width: WIDTH,
     height: HEIGHT,
   },
-  hover: {
-    position: 'absolute',
-    width: WIDTH,
-    height: HEIGHT,
-  },
-  selected: {
-    backgroundColor: theme.colors.accent,
-  },
 });
 
-interface Props {
+interface HalfMonthProps {
+  currentValue: SharedValue<number[]>;
   index: number;
-  onPress: (index: number) => void;
-  selected: boolean;
-  panHandlerRef: any;
 }
 
-type HalfMonthComponent = React.FC<Props> & { height: number; width: number };
+type HalfMonthComponent = FC<HalfMonthProps> & {
+  height: number;
+  width: number;
+};
 
 const HalfMonth: HalfMonthComponent = Object.assign(
-  // eslint-disable-next-line react/display-name
-  React.memo((props: Props) => {
-    const { index, onPress, selected, panHandlerRef } = props;
-    const onTap = useCallback(
-      (e) => {
-        if (e.nativeEvent.state === State.END) {
-          onPress(index);
-        }
-      },
-      [index, onPress],
-    );
-    return (
-      <TapGestureHandler
-        simultaneousHandlers={panHandlerRef}
-        onHandlerStateChange={onTap}
-        maxDurationMs={200}
-      >
-        <View style={[styles.container, selected && styles.selected]} />
-      </TapGestureHandler>
-    );
+  memo<HalfMonthProps>((props) => {
+    const { currentValue } = props;
+    const index = useSharedValue(props.index);
+
+    const style = useAnimatedStyle(() => {
+      const selected = currentValue.value.includes(index.value);
+      return {
+        backgroundColor: selected ? theme.colors.accent : 'transparent',
+      };
+    });
+
+    return <Animated.View style={[styles.container, style]} />;
   }),
   { height: HEIGHT, width: WIDTH },
 );

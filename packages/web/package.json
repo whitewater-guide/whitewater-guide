@@ -19,7 +19,7 @@
     "copy:dev": "aws s3 cp build s3://admin.whitewater-dev.com --recursive --profile ww-dev"
   },
   "dependencies": {
-    "@apollo/client": "^3.5.5",
+    "@apollo/client": "^3.5.6",
     "@date-io/date-fns": "2.11.0",
     "@googlemaps/js-api-loader": "^1.12.5",
     "@mapbox/togeojson": "^0.16.0",

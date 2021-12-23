@@ -4,8 +4,8 @@ PODS:
     - React
   - CocoaAsyncSocket (7.6.5)
   - DoubleConversion (1.1.6)
-  - FBAEMKit (12.1.0):
-    - FBSDKCoreKit_Basics (= 12.1.0)
+  - FBAEMKit (12.2.1):
+    - FBSDKCoreKit_Basics (= 12.2.1)
   - FBLazyVector (0.66.4)
   - FBReactNativeSpec (0.66.4):
     - RCT-Folly (= 2021.06.28.00-v2)
@@ -14,14 +14,14 @@ PODS:
     - React-Core (= 0.66.4)
     - React-jsi (= 0.66.4)
     - ReactCommon/turbomodule/core (= 0.66.4)
-  - FBSDKCoreKit (12.1.0):
-    - FBAEMKit (= 12.1.0)
-    - FBSDKCoreKit_Basics (= 12.1.0)
-  - FBSDKCoreKit_Basics (12.1.0)
-  - FBSDKLoginKit (12.1.0):
-    - FBSDKCoreKit (= 12.1.0)
-  - FBSDKShareKit (12.1.0):
-    - FBSDKCoreKit (= 12.1.0)
+  - FBSDKCoreKit (12.2.1):
+    - FBAEMKit (= 12.2.1)
+    - FBSDKCoreKit_Basics (= 12.2.1)
+  - FBSDKCoreKit_Basics (12.2.1)
+  - FBSDKLoginKit (12.2.1):
+    - FBSDKCoreKit (= 12.2.1)
+  - FBSDKShareKit (12.2.1):
+    - FBSDKCoreKit (= 12.2.1)
   - Firebase/AnalyticsWithoutAdIdSupport (8.10.0):
     - Firebase/CoreOnly
     - FirebaseAnalytics/WithoutAdIdSupport (~> 8.10.0)
@@ -392,19 +392,19 @@ PODS:
   - React-jsinspector (0.66.4)
   - React-logger (0.66.4):
     - glog
-  - react-native-fbsdk-next (6.1.1):
+  - react-native-fbsdk-next (6.2.0):
     - React-Core
-    - react-native-fbsdk-next/Core (= 6.1.1)
-    - react-native-fbsdk-next/Login (= 6.1.1)
-    - react-native-fbsdk-next/Share (= 6.1.1)
-  - react-native-fbsdk-next/Core (6.1.1):
-    - FBSDKCoreKit (~> 12.1.0)
+    - react-native-fbsdk-next/Core (= 6.2.0)
+    - react-native-fbsdk-next/Login (= 6.2.0)
+    - react-native-fbsdk-next/Share (= 6.2.0)
+  - react-native-fbsdk-next/Core (6.2.0):
+    - FBSDKCoreKit (~> 12.2.1)
     - React-Core
-  - react-native-fbsdk-next/Login (6.1.1):
-    - FBSDKLoginKit (~> 12.1.0)
+  - react-native-fbsdk-next/Login (6.2.0):
+    - FBSDKLoginKit (~> 12.2.1)
     - React-Core
-  - react-native-fbsdk-next/Share (6.1.1):
-    - FBSDKShareKit (~> 12.1.0)
+  - react-native-fbsdk-next/Share (6.2.0):
+    - FBSDKShareKit (~> 12.2.1)
     - React-Core
   - react-native-flipper (0.120.0):
     - React-Core
@@ -427,7 +427,7 @@ PODS:
   - react-native-mmkv-storage (0.6.6):
     - MMKV (= 1.2.10)
     - React-Core
-  - react-native-netinfo (7.1.5):
+  - react-native-netinfo (7.1.7):
     - React-Core
   - react-native-pager-view (5.4.9):
     - React-Core
@@ -519,31 +519,57 @@ PODS:
     - React-Core
   - RNCMaskedView (0.1.11):
     - React
-  - RNDateTimePicker (3.5.2):
+  - RNDateTimePicker (5.1.0):
     - React-Core
   - RNFastImage (8.6.0):
     - React-Core
     - SDWebImage (~> 5.11.1)
     - SDWebImageWebPCoder (~> 0.8.4)
-  - RNFBAnalytics (13.1.0):
+  - RNFBAnalytics (14.1.0):
     - Firebase/AnalyticsWithoutAdIdSupport (= 8.10.0)
     - React-Core
     - RNFBApp
-  - RNFBApp (13.1.0):
+  - RNFBApp (14.1.0):
     - Firebase/CoreOnly (= 8.10.0)
     - React-Core
-  - RNFBMessaging (13.1.0):
+  - RNFBMessaging (14.1.0):
     - Firebase/Messaging (= 8.10.0)
     - React-Core
     - RNFBApp
-  - RNGestureHandler (1.10.3):
+  - RNGestureHandler (2.1.0):
     - React-Core
-  - RNIap (7.5.1):
+  - RNIap (7.5.3):
     - React-Core
   - RNLocalize (2.1.6):
     - React-Core
-  - RNReanimated (1.13.3):
+  - RNReanimated (2.3.1):
+    - DoubleConversion
+    - FBLazyVector
+    - FBReactNativeSpec
+    - glog
+    - RCT-Folly
+    - RCTRequired
+    - RCTTypeSafety
+    - React
+    - React-callinvoker
     - React-Core
+    - React-Core/DevSupport
+    - React-Core/RCTWebSocket
+    - React-CoreModules
+    - React-cxxreact
+    - React-jsi
+    - React-jsiexecutor
+    - React-jsinspector
+    - React-RCTActionSheet
+    - React-RCTAnimation
+    - React-RCTBlob
+    - React-RCTImage
+    - React-RCTLinking
+    - React-RCTNetwork
+    - React-RCTSettings
+    - React-RCTText
+    - ReactCommon/turbomodule/core
+    - Yoga
   - RNScreens (3.10.1):
     - React-Core
     - React-RCTImage
@@ -849,13 +875,13 @@ SPEC CHECKSUMS:
   BVLinearGradient: e3aad03778a456d77928f594a649e96995f1c872
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: 831926d9b8bf8166fd87886c4abab286c2422662
-  FBAEMKit: 56c0bb9b42e3747cd82b67934f0c2b19325382ea
+  FBAEMKit: 4cea610d0bc1680572f2aad7b25db7a2f2690d82
   FBLazyVector: e5569e42a1c79ca00521846c223173a57aca1fe1
   FBReactNativeSpec: fe08c1cd7e2e205718d77ad14b34957cce949b58
-  FBSDKCoreKit: 75368765d9c2303073145a7925dfaa9d60bcd77b
-  FBSDKCoreKit_Basics: 39865aff97e5f6951a78fb3e89dc4460e35e1895
-  FBSDKLoginKit: e993f97c7cc794c5da4056d8aec3c3d66033a727
-  FBSDKShareKit: 24943f539dbe382a6fad04952ea1aee29b100c1f
+  FBSDKCoreKit: 5b1992fe65802ca26be7e68bc4fac5f59fa39908
+  FBSDKCoreKit_Basics: a6a92ca628e05f86f458a4721574c5ddfb058ba3
+  FBSDKLoginKit: 7467b7f988ca4fdf48f12a839bcfce4264752429
+  FBSDKShareKit: 25fe0e2cd0811918e5b5b1603cb3fc580154cc48
   Firebase: 44213362f1dcc52555b935dc925ed35ac55f1b20
   FirebaseAnalytics: 319c9b3b1bdd400d60e2f415dff0c5f6959e6760
   FirebaseCore: 04186597c095da37d90ff9fd3e53bc61a1ff2440
@@ -899,12 +925,12 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 94ce921e1d8ce7023366873ec371f3441383b396
   React-jsinspector: d0374f7509d407d2264168b6d0fad0b54e300b85
   React-logger: 933f80c97c633ee8965d609876848148e3fef438
-  react-native-fbsdk-next: 50b2ce0e56ef9b68cb0fd7f19072364296896c20
+  react-native-fbsdk-next: 3a9545d174f16ec343e7bcaf12f970fdc82feed2
   react-native-flipper: e30ae82a1536e8f6f4f34012353ebdf1d8aa5157
   react-native-image-picker: 8c83c5c7d137e866bcb9a2db93f1e1ca866fddbf
   react-native-mapbox-gl: 0308cba1da4edbc1aa0e82a7584ba50e52725996
   react-native-mmkv-storage: 28514ffe9e67c5223b3d00e725bc72c8194a9eee
-  react-native-netinfo: a3ece35948490a9507da0c56694da525b83357df
+  react-native-netinfo: 27f287f2d191693f3b9d01a4273137fcf91c3b5d
   react-native-pager-view: 3ee7d4c7697fb3ef788346e834a60cca97ed8540
   react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057
   react-native-sensitive-info: 400c6e3d27945e15c8cddb5b4b92233c85ee06f8
@@ -929,15 +955,15 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: b03032fdbdb725bea0bd9e5ec5a7272865ae7398
   RNCClipboard: 99fc8ad669a376b756fbc8098ae2fd05c0ed0668
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
-  RNDateTimePicker: 7658208086d86d09e1627b5c34ba0cf237c60140
+  RNDateTimePicker: 1dd15d7ed1ab7d999056bc77879a42920d139c12
   RNFastImage: 72a2d5802adef70f8e42fce486f78878f8b47dae
-  RNFBAnalytics: e85f5353ac97fd6fe5bde3c9c09b6abfb8cd1027
-  RNFBApp: 1d553b3f201e9aaeba03d777b1dea51eaacc24cc
-  RNFBMessaging: 0815242e4c06e3200f79e6eea312d124be357a13
-  RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
-  RNIap: 5a03bf7852ba58a939051077c0e138caf301d22f
+  RNFBAnalytics: 44096fa57d72e2f7327e8a8c7a79db1b56085da5
+  RNFBApp: e884e9a2dcc5edfa73e2651ef6638df5e0672f89
+  RNFBMessaging: 8b7c281136bf8fbd78b332b5b9db7e604853174f
+  RNGestureHandler: e5c7cab5f214503dcefd6b2b0cefb050e1f51c4a
+  RNIap: 7ac6e0bcb9d5d457e3dbec305ba8aceef201cb8b
   RNLocalize: f10d91c76a5692d4cf6f218c70f6e4d7dcb42d1c
-  RNReanimated: 514a11da3a2bcc6c3dfd9de32b38e2b9bf101926
+  RNReanimated: da3860204e5660c0dd66739936732197d359d753
   RNScreens: 522705f2e5c9d27efb17f24aceb2bf8335bc7b8e
   RNSentry: 97bc62fa65b7d663daee16fbf9771470852217cf
   RNSnackbar: be3333a21a453ccc272f41a8add5a71f7d44dfcd

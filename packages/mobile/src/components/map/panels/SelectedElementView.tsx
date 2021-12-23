@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
 
 const HIDE_THRESHOLD_OVERSHOOT = 10;
 
-const { Value, Extrapolate, color, interpolate } = Animated;
+const { Value, Extrapolate, color, interpolateNode } = Animated;
 
 interface Props {
   selection: ListedSectionFragment | PointCoreFragment | null;
@@ -64,13 +64,13 @@ class SelectedElementView extends React.PureComponent<Props> {
       0,
       0,
       0,
-      interpolate(this._headerPosition, {
+      interpolateNode(this._headerPosition, {
         inputRange: [0, snapPoints[0] - snapPoints[1]],
         outputRange: [0.5, 0.0],
         extrapolate: Extrapolate.CLAMP,
       }),
     );
-    this._buttonsScale = interpolate(this._headerPosition, {
+    this._buttonsScale = interpolateNode(this._headerPosition, {
       inputRange: [
         snapPoints[0] - snapPoints[1],
         snapPoints[0] - snapPoints[2],
