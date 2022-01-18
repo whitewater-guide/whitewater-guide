@@ -8,8 +8,7 @@
   "module": "dist/esm/index.js",
   "types": "dist/cjs/index.d.ts",
   "files": [
-    "cjs",
-    "esm"
+    "dist"
   ],
   "license": "MIT",
   "private": false,
@@ -35,8 +34,8 @@
   "devDependencies": {
     "@types/lodash": "^4.14.175",
     "@types/validator": "^13.6.3",
-    "date-fns": "^2.26.0",
-    "jest": "*"
+    "date-fns": "^2.28.0",
+    "jest": "27.4.7"
   },
   "peerDependencies": {
     "date-fns": "*"

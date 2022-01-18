@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="72dp"
+    android:background="@drawable/section_item_bg"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/difficulty_group"
+        android:layout_width="60dp"
+        android:layout_height="52dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/difficulty_thumb_bg"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/difficulty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="III-IV"
+            android:textAlignment="center"
+            android:textColor="@color/text_main"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/difficultyExtra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(IV+)"
+            android:textAlignment="center"
+            android:textColor="@color/text_main"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/section_body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="false"
+        android:layout_centerVertical="false"
+        android:layout_toLeftOf="@id/flows_group"
+        android:layout_toRightOf="@id/difficulty_group"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingLeft="4dp">
+
+        <TextView
+            android:id="@+id/river_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="1"
+            android:text="Bzhuzha"
+            android:textAlignment="center"
+            android:textColor="@color/text_main"
+            android:textSize="14sp"
+            android:autoSizeTextType="uniform" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/section_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Race course"
+                android:textAlignment="center"
+                android:textColor="@color/text_main"
+                android:textSize="14sp"
+                android:autoSizeTextType="uniform" />
+
+            <TextView
+                android:id="@+id/demo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="\uF0340"
+                android:textAlignment="center"
+                android:textColor="@color/text_main"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="⭐⭐⭐⭐⭐"
+                android:textAlignment="center"
+                android:textColor="@color/component_border"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/unverified"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:background="@drawable/unverified_border"
+                android:padding="2dp"
+                android:text="unverified"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/component_border"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/flows_group"
+        android:visibility="gone"
+        android:layout_width="110dp"
+        android:layout_height="52dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:background="@drawable/flows_thumb_bg"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="4dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/flow_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="123.45"
+                android:textAlignment="center"
+                android:textColor="@color/text_main"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/flow_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:text="cfs"
+                android:textAlignment="center"
+                android:textColor="@color/text_main"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/flow_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoSizeTextType="uniform"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="about 2 hours ago"
+            android:textAlignment="center"
+            android:textColor="@color/text_main"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+</RelativeLayout>

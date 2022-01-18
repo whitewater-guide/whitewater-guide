@@ -19,13 +19,13 @@
     "prepare": "yarn build"
   },
   "dependencies": {
-    "@whitewater-guide/validation": "^1.2.2",
+    "@whitewater-guide/validation": "*",
     "graphql": "^15.6.1",
     "graphql-tag": "^2.12.5",
     "lodash": "^4.17.21",
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "jest": "*"
+    "jest": "27.4.7"
   }
 }

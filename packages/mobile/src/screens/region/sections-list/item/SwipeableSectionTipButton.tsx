@@ -1,12 +1,17 @@
-import React, { FC, useCallback } from 'react';
+import React, { memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, View } from 'react-native';
-import { Button } from 'react-native-paper';
-import Animated from 'react-native-reanimated';
+import { StyleSheet, Text } from 'react-native';
+import { RectButton } from 'react-native-gesture-handler';
+import Animated, {
+  Extrapolation,
+  interpolate,
+  SharedValue,
+  useAnimatedStyle,
+} from 'react-native-reanimated';
 
 import { NAVIGATE_BUTTON_HEIGHT } from '~/components/NavigateButton';
+import { useSwipeableList } from '~/components/swipeable';
 import { useAppSettings } from '~/features/settings';
-import theme from '~/theme';
 
 export const SWIPEABLE_SECTION_TIP_BUTTON_WIDTH = 100;
 
@@ -24,29 +29,41 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  scale: Animated.Node<number>;
-  onSwipe?: (id: string) => void;
+  position: SharedValue<number>;
 }
 
-export const SwipeableSectionTipButton: FC<Props> = ({ scale, onSwipe }) => {
+export const SwipeableSectionTipButton = memo<Props>(({ position }) => {
   const { t } = useTranslation();
   const { updateSettings } = useAppSettings();
+  const [_, close] = useSwipeableList();
 
   const onClose = useCallback(() => {
+    close();
     // update after closing animation
-    onSwipe?.('');
     setTimeout(() => {
       updateSettings({ seenSwipeableSectionTip: true });
-    }, 200);
-  }, [updateSettings, onSwipe]);
+    }, 250);
+  }, [close, updateSettings]);
+
+  const animatedStyle = useAnimatedStyle(() => {
+    const scale = interpolate(
+      position.value,
+      [-SWIPEABLE_SECTION_TIP_BUTTON_WIDTH, 0],
+      [1, 0],
+      Extrapolation.CLAMP,
+    );
+    return {
+      transform: [{ scale }],
+    };
+  });
 
   return (
-    <View style={styles.container}>
-      <Animated.View style={{ transform: [{ scale }] }}>
-        <Button mode="text" color={theme.colors.textLight} onPress={onClose}>
-          {t('commons:close')}
-        </Button>
-      </Animated.View>
-    </View>
+    <Animated.View style={[styles.container, animatedStyle]}>
+      <RectButton onPress={onClose}>
+        <Text>{t('commons:close')}</Text>
+      </RectButton>
+    </Animated.View>
   );
-};
+});
+
+SwipeableSectionTipButton.displayName = 'SwipeableSectionTipButton';

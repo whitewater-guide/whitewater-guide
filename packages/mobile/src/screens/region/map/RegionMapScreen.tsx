@@ -2,7 +2,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { useRegion, useSectionsList } from '@whitewater-guide/clients';
 import React from 'react';
 
-import { Map } from '~/components/map';
+import { Map, SelectedPOISheet, SelectedSectionSheet } from '~/components/map';
 import FilterButton from '~/screens/region/FilterButton';
 
 import RegionTabsScreen from '../RegionTabsScreen';
@@ -31,6 +31,8 @@ const RegionMapScreen: React.FC<RegionMapNavProps> = ({ navigation }) => {
           testID="region-map"
         />
       )}
+      <SelectedPOISheet />
+      <SelectedSectionSheet />
     </RegionTabsScreen>
   );
 };

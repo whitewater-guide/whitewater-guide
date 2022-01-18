@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 
 import { Screens } from '~/core/navigation';
 import { useOfflineContent } from '~/features/offline';
-import { useIap, usePremiumGuard } from '~/features/purchases';
+import { useIap, usePremiumCallback } from '~/features/purchases';
 
 import { RegionsListNavProp } from '../types';
 import { ListedRegion } from '../useFavRegions';
@@ -14,12 +14,15 @@ export default function useCommonCardProps(region: ListedRegion) {
   const offline = useOfflineContent();
   const { setDialogRegion } = offline;
 
-  const premiumGuard = usePremiumGuard(region);
-  const downloadRegion = useCallback(() => {
-    if (premiumGuard()) {
-      setDialogRegion(region);
-    }
-  }, [setDialogRegion, region, premiumGuard]);
+  const [downloadRegion] = usePremiumCallback<ListedRegion>(
+    region,
+    null,
+    (reg) => {
+      if (reg) {
+        setDialogRegion(reg);
+      }
+    },
+  );
 
   const buyRegion = useCallback(() => {
     navigate(Screens.PURCHASE_STACK, { region });

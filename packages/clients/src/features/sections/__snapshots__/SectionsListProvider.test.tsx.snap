@@ -31,7 +31,6 @@ Object {
         "flowsText": "Section.flowsText.1",
         "gauge": Object {
           "__typename": "Gauge",
-          "code": "Gauge.code.1",
           "flowUnit": "Gauge.flowUnit.1",
           "id": "Gauge.id.1",
           "latestMeasurement": Object {
@@ -41,24 +40,6 @@ Object {
             "timestamp": 2017-02-01T21:00:00.000Z,
           },
           "levelUnit": "Gauge.levelUnit.1",
-          "location": Object {
-            "__typename": "Point",
-            "coordinates": Array [
-              3,
-              4,
-              5,
-            ],
-            "id": "Point.id.3",
-            "kind": "Point.kind.3",
-          },
-          "name": "Gauge.name.1",
-          "source": Object {
-            "__typename": "Source",
-            "id": "Source.id.1",
-            "name": "Source.name.1",
-            "termsOfUse": "Source.termsOfUse.1",
-          },
-          "url": "Gauge.url.1",
         },
         "helpNeeded": "Section.helpNeeded.1",
         "hidden": false,
@@ -105,13 +86,13 @@ Object {
         "tags": Array [
           Object {
             "__typename": "Tag",
-            "category": "hazards",
+            "category": "kayaking",
             "id": "Tag.id.1",
             "name": "Tag.name.1",
           },
           Object {
             "__typename": "Tag",
-            "category": "supply",
+            "category": "misc",
             "id": "Tag.id.2",
             "name": "Tag.name.2",
           },
@@ -126,6 +107,7 @@ Object {
           "id": "Point.id.2",
           "kind": "Point.kind.2",
         },
+        "timezone": "Section.timezone.1",
         "updatedAt": 2017-02-01T21:00:00.000Z,
         "verified": false,
       },
@@ -154,7 +136,6 @@ Object {
         "flowsText": "Section.flowsText.2",
         "gauge": Object {
           "__typename": "Gauge",
-          "code": "Gauge.code.2",
           "flowUnit": "Gauge.flowUnit.2",
           "id": "Gauge.id.2",
           "latestMeasurement": Object {
@@ -164,24 +145,6 @@ Object {
             "timestamp": 2017-02-02T21:00:00.000Z,
           },
           "levelUnit": "Gauge.levelUnit.2",
-          "location": Object {
-            "__typename": "Point",
-            "coordinates": Array [
-              6,
-              7,
-              8,
-            ],
-            "id": "Point.id.6",
-            "kind": "Point.kind.6",
-          },
-          "name": "Gauge.name.2",
-          "source": Object {
-            "__typename": "Source",
-            "id": "Source.id.2",
-            "name": "Source.name.2",
-            "termsOfUse": "Source.termsOfUse.2",
-          },
-          "url": "Gauge.url.2",
         },
         "helpNeeded": "Section.helpNeeded.2",
         "hidden": true,
@@ -199,12 +162,12 @@ Object {
         "putIn": Object {
           "__typename": "Point",
           "coordinates": Array [
+            3,
             4,
             5,
-            6,
           ],
-          "id": "Point.id.4",
-          "kind": "Point.kind.4",
+          "id": "Point.id.3",
+          "kind": "Point.kind.3",
         },
         "rating": 2.5,
         "region": Object {
@@ -228,13 +191,13 @@ Object {
         "tags": Array [
           Object {
             "__typename": "Tag",
-            "category": "misc",
+            "category": "supply",
             "id": "Tag.id.3",
             "name": "Tag.name.3",
           },
           Object {
             "__typename": "Tag",
-            "category": "kayaking",
+            "category": "hazards",
             "id": "Tag.id.4",
             "name": "Tag.name.4",
           },
@@ -242,13 +205,14 @@ Object {
         "takeOut": Object {
           "__typename": "Point",
           "coordinates": Array [
+            4,
             5,
             6,
-            7,
           ],
-          "id": "Point.id.5",
-          "kind": "Point.kind.5",
+          "id": "Point.id.4",
+          "kind": "Point.kind.4",
         },
+        "timezone": "Section.timezone.2",
         "updatedAt": 2017-02-02T21:00:00.000Z,
         "verified": true,
       },
@@ -277,7 +241,6 @@ Object {
         "flowsText": "Section.flowsText.3",
         "gauge": Object {
           "__typename": "Gauge",
-          "code": "Gauge.code.3",
           "flowUnit": "Gauge.flowUnit.3",
           "id": "Gauge.id.3",
           "latestMeasurement": Object {
@@ -287,24 +250,6 @@ Object {
             "timestamp": 2017-02-03T21:00:00.000Z,
           },
           "levelUnit": "Gauge.levelUnit.3",
-          "location": Object {
-            "__typename": "Point",
-            "coordinates": Array [
-              9,
-              10,
-              11,
-            ],
-            "id": "Point.id.9",
-            "kind": "Point.kind.9",
-          },
-          "name": "Gauge.name.3",
-          "source": Object {
-            "__typename": "Source",
-            "id": "Source.id.3",
-            "name": "Source.name.3",
-            "termsOfUse": "Source.termsOfUse.3",
-          },
-          "url": "Gauge.url.3",
         },
         "helpNeeded": "Section.helpNeeded.3",
         "hidden": false,
@@ -322,12 +267,12 @@ Object {
         "putIn": Object {
           "__typename": "Point",
           "coordinates": Array [
+            5,
+            6,
             7,
-            8,
-            9,
           ],
-          "id": "Point.id.7",
-          "kind": "Point.kind.7",
+          "id": "Point.id.5",
+          "kind": "Point.kind.5",
         },
         "rating": 3.5,
         "region": Object {
@@ -351,13 +296,13 @@ Object {
         "tags": Array [
           Object {
             "__typename": "Tag",
-            "category": "hazards",
+            "category": "kayaking",
             "id": "Tag.id.5",
             "name": "Tag.name.5",
           },
           Object {
             "__typename": "Tag",
-            "category": "supply",
+            "category": "misc",
             "id": "Tag.id.6",
             "name": "Tag.name.6",
           },
@@ -365,13 +310,14 @@ Object {
         "takeOut": Object {
           "__typename": "Point",
           "coordinates": Array [
+            6,
+            7,
             8,
-            9,
-            10,
           ],
-          "id": "Point.id.8",
-          "kind": "Point.kind.8",
+          "id": "Point.id.6",
+          "kind": "Point.kind.6",
         },
+        "timezone": "Section.timezone.3",
         "updatedAt": 2017-02-03T21:00:00.000Z,
         "verified": false,
       },
@@ -400,7 +346,6 @@ Object {
         "flowsText": "Section.flowsText.4",
         "gauge": Object {
           "__typename": "Gauge",
-          "code": "Gauge.code.4",
           "flowUnit": "Gauge.flowUnit.4",
           "id": "Gauge.id.4",
           "latestMeasurement": Object {
@@ -410,24 +355,6 @@ Object {
             "timestamp": 2017-02-04T21:00:00.000Z,
           },
           "levelUnit": "Gauge.levelUnit.4",
-          "location": Object {
-            "__typename": "Point",
-            "coordinates": Array [
-              12,
-              13,
-              14,
-            ],
-            "id": "Point.id.12",
-            "kind": "Point.kind.12",
-          },
-          "name": "Gauge.name.4",
-          "source": Object {
-            "__typename": "Source",
-            "id": "Source.id.4",
-            "name": "Source.name.4",
-            "termsOfUse": "Source.termsOfUse.4",
-          },
-          "url": "Gauge.url.4",
         },
         "helpNeeded": "Section.helpNeeded.4",
         "hidden": true,
@@ -445,12 +372,12 @@ Object {
         "putIn": Object {
           "__typename": "Point",
           "coordinates": Array [
-            10,
-            11,
-            12,
+            7,
+            8,
+            9,
           ],
-          "id": "Point.id.10",
-          "kind": "Point.kind.10",
+          "id": "Point.id.7",
+          "kind": "Point.kind.7",
         },
         "rating": 4.5,
         "region": Object {
@@ -474,13 +401,13 @@ Object {
         "tags": Array [
           Object {
             "__typename": "Tag",
-            "category": "misc",
+            "category": "supply",
             "id": "Tag.id.7",
             "name": "Tag.name.7",
           },
           Object {
             "__typename": "Tag",
-            "category": "kayaking",
+            "category": "hazards",
             "id": "Tag.id.8",
             "name": "Tag.name.8",
           },
@@ -488,13 +415,14 @@ Object {
         "takeOut": Object {
           "__typename": "Point",
           "coordinates": Array [
-            11,
-            12,
-            13,
+            8,
+            9,
+            10,
           ],
-          "id": "Point.id.11",
-          "kind": "Point.kind.11",
+          "id": "Point.id.8",
+          "kind": "Point.kind.8",
         },
+        "timezone": "Section.timezone.4",
         "updatedAt": 2017-02-04T21:00:00.000Z,
         "verified": true,
       },
@@ -523,7 +451,6 @@ Object {
         "flowsText": "Section.flowsText.5",
         "gauge": Object {
           "__typename": "Gauge",
-          "code": "Gauge.code.5",
           "flowUnit": "Gauge.flowUnit.5",
           "id": "Gauge.id.5",
           "latestMeasurement": Object {
@@ -533,24 +460,6 @@ Object {
             "timestamp": 2017-02-05T21:00:00.000Z,
           },
           "levelUnit": "Gauge.levelUnit.5",
-          "location": Object {
-            "__typename": "Point",
-            "coordinates": Array [
-              15,
-              16,
-              17,
-            ],
-            "id": "Point.id.15",
-            "kind": "Point.kind.15",
-          },
-          "name": "Gauge.name.5",
-          "source": Object {
-            "__typename": "Source",
-            "id": "Source.id.5",
-            "name": "Source.name.5",
-            "termsOfUse": "Source.termsOfUse.5",
-          },
-          "url": "Gauge.url.5",
         },
         "helpNeeded": "Section.helpNeeded.5",
         "hidden": false,
@@ -568,12 +477,12 @@ Object {
         "putIn": Object {
           "__typename": "Point",
           "coordinates": Array [
-            13,
-            14,
-            15,
+            9,
+            10,
+            11,
           ],
-          "id": "Point.id.13",
-          "kind": "Point.kind.13",
+          "id": "Point.id.9",
+          "kind": "Point.kind.9",
         },
         "rating": 5.5,
         "region": Object {
@@ -597,13 +506,13 @@ Object {
         "tags": Array [
           Object {
             "__typename": "Tag",
-            "category": "hazards",
+            "category": "kayaking",
             "id": "Tag.id.9",
             "name": "Tag.name.9",
           },
           Object {
             "__typename": "Tag",
-            "category": "supply",
+            "category": "misc",
             "id": "Tag.id.10",
             "name": "Tag.name.10",
           },
@@ -611,13 +520,14 @@ Object {
         "takeOut": Object {
           "__typename": "Point",
           "coordinates": Array [
-            14,
-            15,
-            16,
+            10,
+            11,
+            12,
           ],
-          "id": "Point.id.14",
-          "kind": "Point.kind.14",
+          "id": "Point.id.10",
+          "kind": "Point.kind.10",
         },
+        "timezone": "Section.timezone.5",
         "updatedAt": 2017-02-05T21:00:00.000Z,
         "verified": false,
       },

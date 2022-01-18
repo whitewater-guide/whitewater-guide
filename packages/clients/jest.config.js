@@ -4,4 +4,5 @@ module.exports = {
   testEnvironment: 'jsdom',
   testPathIgnorePatterns: ['<rootDir>/dist/', '<rootDir>/node_modules/'],
   reporters: ['default', 'jest-summary-reporter'],
+  setupFilesAfterEnv: ['jest-extended/all'],
 };

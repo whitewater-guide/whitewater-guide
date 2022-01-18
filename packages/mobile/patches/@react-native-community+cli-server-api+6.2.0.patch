@@ -1,0 +1,13 @@
+diff --git a/node_modules/@react-native-community/cli-server-api/build/websocket/eventsSocketServer.js b/node_modules/@react-native-community/cli-server-api/build/websocket/eventsSocketServer.js
+index a51da93..c25775d 100644
+--- a/node_modules/@react-native-community/cli-server-api/build/websocket/eventsSocketServer.js
++++ b/node_modules/@react-native-community/cli-server-api/build/websocket/eventsSocketServer.js
+@@ -128,7 +128,7 @@ function attachToServer(server, path, messageSocket) {
+     }) {
+       // This exposes the full JS logs and enables issuing commands like reload
+       // so let's make sure only locally running stuff can connect to it
+-      return origin.startsWith('http://localhost:') || origin.startsWith('file:');
++      return !origin || origin.startsWith('http://localhost:') || origin.startsWith('file:');
+     }
+ 
+   });

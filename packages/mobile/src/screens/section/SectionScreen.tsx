@@ -7,7 +7,6 @@ import {
 import React, { FC } from 'react';
 
 import ErrorBoundary from '~/components/ErrorBoundary';
-import { SelectedPOIView } from '~/components/map';
 import { PHOTO_SIZE_PX } from '~/features/media';
 import { SectionScreenNavProps } from '~/screens/section/types';
 import theme from '~/theme';
@@ -18,7 +17,6 @@ const SectionScreenContent: FC<SectionScreenNavProps> = (props) => {
   return (
     <MapSelectionProvider>
       <SectionTabs {...props} />
-      <SelectedPOIView />
     </MapSelectionProvider>
   );
 };

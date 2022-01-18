@@ -34,7 +34,7 @@ interface Props {
   color?: string;
   sectionId: string;
   favorite?: boolean | null;
-  onToggle?: (swipeId: string) => void;
+  onToggle?: () => void;
 }
 
 export const SectionFavoriteButton = memo<Props>((props) => {
@@ -54,7 +54,7 @@ export const SectionFavoriteButton = memo<Props>((props) => {
 
   const [_, handleFavorite] = useAsyncFn(async () => {
     // Close row first. If we don't do this now, then due to larglist workings we can end up wiih wrong open row
-    onToggle?.('');
+    onToggle?.();
     if (me) {
       // Give it some time to collapse
       await sleep(200);

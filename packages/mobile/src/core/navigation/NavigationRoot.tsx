@@ -1,3 +1,4 @@
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { useFlipper } from '@react-navigation/devtools';
 import {
   NavigationContainer,
@@ -35,7 +36,7 @@ export const NavigationRoot: React.FC = ({ children }) => {
       onReady={screenTracker.onReady}
       onStateChange={screenTracker.onStateChange}
     >
-      {children}
+      <BottomSheetModalProvider>{children}</BottomSheetModalProvider>
     </NavigationContainer>
   );
 };

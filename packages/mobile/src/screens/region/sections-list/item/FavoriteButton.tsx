@@ -1,7 +1,11 @@
-import React, { memo } from 'react';
+import React, { FC } from 'react';
 import { StyleSheet } from 'react-native';
-import Animated from 'react-native-reanimated';
+import Animated, {
+  SharedValue,
+  useAnimatedStyle,
+} from 'react-native-reanimated';
 
+import { useSwipeableList } from '~/components/swipeable';
 import { SectionFavoriteButton } from '~/features/sections';
 
 const styles = StyleSheet.create({
@@ -14,19 +18,24 @@ const styles = StyleSheet.create({
 interface Props {
   sectionId: string;
   favorite?: boolean | null;
-  scale: Animated.Node<number>;
-  onToggle?: (swipeId: string) => void;
+  scale: SharedValue<number>;
 }
 
-const FavoriteButton = memo<Props>((props) => {
+const FavoriteButton: FC<Props> = (props) => {
   const { scale, ...rest } = props;
 
+  const [_, close] = useSwipeableList();
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+  }));
+
   return (
-    <Animated.View style={[styles.wrapper, { transform: [{ scale }] } as any]}>
-      <SectionFavoriteButton {...rest} />
+    <Animated.View style={[styles.wrapper, animatedStyle]}>
+      <SectionFavoriteButton {...rest} onToggle={close} />
     </Animated.View>
   );
-});
+};
 
 FavoriteButton.displayName = 'FavoriteButton';
 

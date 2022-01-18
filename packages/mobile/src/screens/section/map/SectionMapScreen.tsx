@@ -6,7 +6,7 @@ import {
 } from '@whitewater-guide/clients';
 import React, { useMemo } from 'react';
 
-import { Map } from '~/components/map';
+import { Map, SelectedPOISheet } from '~/components/map';
 
 import SectionTabsScreen from '../SectionTabsScreen';
 import { SectionMapNavProps } from './types';
@@ -53,6 +53,7 @@ const SectionMapScreen: React.FC<SectionMapNavProps> = ({ navigation }) => {
           testID="section-map"
         />
       )}
+      <SelectedPOISheet />
     </SectionTabsScreen>
   );
 };

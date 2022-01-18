@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   footer: {
     height: FOOTER_HEIGHT,
     flexDirection: 'row',
-    paddingHorizontal: theme.margin.single,
+    paddingLeft: theme.margin.single,
     alignItems: 'center',
   },
   image: {

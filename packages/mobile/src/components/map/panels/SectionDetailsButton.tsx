@@ -1,9 +1,8 @@
+import { useBottomSheet } from '@gorhom/bottom-sheet';
 import { useNavigation } from '@react-navigation/native';
-import { useRegion } from '@whitewater-guide/clients';
 import React, { memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Platform, StyleSheet } from 'react-native';
-import { RectButton } from 'react-native-gesture-handler';
+import { StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 
 import { Screens } from '~/core/navigation';
@@ -17,6 +16,8 @@ const styles = StyleSheet.create({
     height: SECTION_DETAILS_BUTTON_HEIGHT,
     alignItems: 'center',
     justifyContent: 'center',
+    shadowRadius: 0,
+    elevation: 0,
   },
   buttonContent: {
     height: SECTION_DETAILS_BUTTON_HEIGHT,
@@ -31,22 +32,15 @@ interface Props {
 export const SectionDetailsButton: React.FC<Props> = memo(({ sectionId }) => {
   const { t } = useTranslation();
   const { navigate } = useNavigation();
-  const region = useRegion();
+  const { close } = useBottomSheet();
+
   const onPress = useCallback(() => {
-    if (sectionId && region) {
+    if (sectionId) {
+      close();
       navigate(Screens.SECTION_SCREEN, { sectionId });
     }
-  }, [sectionId, navigate, region]);
-  // TODO: works on android only: https://github.com/kmagiera/react-native-gesture-handler/pull/537
-  if (Platform.OS === 'android') {
-    return (
-      <RectButton onPress={onPress}>
-        <Button mode="contained" style={styles.button}>
-          {t('region:map.selectedSection.details')}
-        </Button>
-      </RectButton>
-    );
-  }
+  }, [sectionId, navigate, close]);
+
   return (
     <Button
       mode="contained"

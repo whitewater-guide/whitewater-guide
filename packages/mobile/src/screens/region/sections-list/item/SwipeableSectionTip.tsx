@@ -1,106 +1,79 @@
-import React, { FC, useEffect, useRef } from 'react';
+import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, View } from 'react-native';
-import { PanGestureHandler } from 'react-native-gesture-handler';
-import { Subheading } from 'react-native-paper';
-import Reanimated from 'react-native-reanimated';
+import { StyleSheet, Text } from 'react-native';
+import { SharedValue } from 'react-native-reanimated';
 
 import Icon from '~/components/Icon';
-import { NAVIGATE_BUTTON_HEIGHT } from '~/components/NavigateButton';
+import { Swipeable } from '~/components/swipeable';
 import theme from '~/theme';
 
-import { runAnimation } from './animations';
+import { ITEM_HEIGHT } from './constants';
 import {
   SWIPEABLE_SECTION_TIP_BUTTON_WIDTH,
   SwipeableSectionTipButton,
 } from './SwipeableSectionTipButton';
 
 const styles = StyleSheet.create({
-  container: {
+  swipeable: {
     width: theme.screenWidth,
-    height: NAVIGATE_BUTTON_HEIGHT,
+    height: ITEM_HEIGHT,
     backgroundColor: theme.colors.lightBackground,
-  },
-  right: {
-    position: 'absolute',
     flexDirection: 'row',
-    justifyContent: 'flex-end',
-    height: NAVIGATE_BUTTON_HEIGHT,
-    backgroundColor: theme.colors.primary,
-    right: 0,
   },
-  body: {
+  overlay: {
+    height: ITEM_HEIGHT,
+    width: theme.screenWidth,
     flexDirection: 'row',
     alignItems: 'center',
-    width: theme.screenWidth,
-    height: NAVIGATE_BUTTON_HEIGHT,
     backgroundColor: theme.colors.lightBackground,
-    paddingHorizontal: theme.margin.double,
+    paddingHorizontal: 8,
     justifyContent: 'space-between',
+  },
+  underlay: {
+    width: theme.screenWidth,
+    height: ITEM_HEIGHT,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    backgroundColor: theme.colors.primary,
+  },
+  text: {
+    color: theme.colors.textMain,
   },
 });
 
-const activeOffsetX = [-15, 15];
-const activeOffsetY = [-10000, 10000];
-const failOffsetY = [-15, 15];
-
-interface Props {
-  swipedId: string;
-  onSwipe?: (id: string) => void;
-}
-
-const SwipeableSectionTip: FC<Props> = ({ onSwipe, swipedId }) => {
+const SwipeableSectionTip = memo(() => {
   const { t } = useTranslation();
-  const animation = useRef(
-    runAnimation(-SWIPEABLE_SECTION_TIP_BUTTON_WIDTH, () =>
-      onSwipe?.('SwipeableSectionTipItem'),
-    ),
-  ).current;
 
-  const scale = useRef(
-    Reanimated.interpolateNode(animation.position, {
-      inputRange: [-SWIPEABLE_SECTION_TIP_BUTTON_WIDTH, 0],
-      outputRange: [1, 0],
-      extrapolate: Reanimated.Extrapolate.CLAMP,
-    }),
-  ).current;
+  const renderOverlay = () => (
+    <>
+      <Text style={styles.text}>
+        {t('screens:region.sectionsList.swipeableTip')}
+      </Text>
+      <Icon
+        icon="chevron-triple-left"
+        color={theme.colors.textMain}
+        size={16}
+      />
+    </>
+  );
 
-  useEffect(() => {
-    if (swipedId !== 'SwipeableSectionTipItem') {
-      animation.close();
-    }
-  }, [swipedId, animation]);
+  const renderUnderlay = (position: SharedValue<number>) => (
+    <SwipeableSectionTipButton position={position} />
+  );
 
   return (
-    <View style={styles.container}>
-      <View style={styles.right}>
-        <SwipeableSectionTipButton scale={scale} onSwipe={onSwipe} />
-      </View>
-
-      <Reanimated.Code exec={animation.watchOnOpen} />
-
-      <PanGestureHandler
-        activeOffsetX={activeOffsetX}
-        activeOffsetY={activeOffsetY}
-        failOffsetY={failOffsetY}
-        onGestureEvent={animation.gestureHandler}
-        onHandlerStateChange={animation.gestureHandler}
-      >
-        <Reanimated.View
-          style={{
-            transform: [{ translateX: animation.position }],
-          }}
-        >
-          <View style={styles.body}>
-            <Subheading>
-              {t('screens:region.sectionsList.swipeableTip')}
-            </Subheading>
-            <Icon icon="chevron-triple-left" color={theme.colors.textMain} />
-          </View>
-        </Reanimated.View>
-      </PanGestureHandler>
-    </View>
+    <Swipeable
+      snapPoint={-SWIPEABLE_SECTION_TIP_BUTTON_WIDTH}
+      id="swipeable_tip"
+      style={styles.swipeable}
+      renderOverlay={renderOverlay}
+      overlayStyle={styles.overlay}
+      renderUnderlay={renderUnderlay}
+      underlayStyle={styles.underlay}
+    />
   );
-};
+});
+
+SwipeableSectionTip.displayName = 'SwipeableSectionTip';
 
 export default SwipeableSectionTip;

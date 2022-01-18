@@ -12,8 +12,6 @@ const styles = StyleSheet.create({
     height: SECTIONS_LIST_SUBTITLE_HEIGHT,
     justifyContent: 'center',
     paddingLeft: theme.margin.single,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderColor: theme.colors.border,
     backgroundColor: theme.colors.primaryBackground,
   },
 });

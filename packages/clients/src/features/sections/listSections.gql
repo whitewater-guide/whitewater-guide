@@ -15,8 +15,12 @@ fragment ListedSection on Section {
   updatedAt
 }
 
-query listSections($page: Page, $filter: SectionsFilter) {
-  sections(page: $page, filter: $filter) {
+query listSections(
+  $page: Page
+  $filter: SectionsFilter
+  $updatedAfter: DateTime
+) {
+  sections(page: $page, filter: $filter, updatedAfter: $updatedAfter) {
     nodes {
       ...ListedSection
     }

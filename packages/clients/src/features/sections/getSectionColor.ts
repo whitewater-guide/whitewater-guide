@@ -31,7 +31,7 @@ export const Colors = {
   impossible: color.hsl(0, 100, 30),
 };
 
-export const ColorStrings = mapValues(Colors, (clr) => clr.hsl().string());
+export const ColorStrings = mapValues(Colors, (clr) => clr.hex());
 
 /**
  * Function for highlighting gauge binding values in UI, does no mixing, only exact threshold values are colorized
@@ -393,5 +393,5 @@ export function getSectionColor(
   section: ColorizeableSectionFragment,
   value?: { flow?: number | null; level?: number | null },
 ): string {
-  return getSectionColorRaw(section, value).string();
+  return getSectionColorRaw(section, value).hex();
 }

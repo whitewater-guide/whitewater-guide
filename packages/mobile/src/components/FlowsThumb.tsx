@@ -1,12 +1,7 @@
 import {
-  formatDistanceToNow,
-  getSectionColor,
   ListedSectionFragment,
-  prettyNumber,
-  useFormulas,
+  SectionDerivedFields,
 } from '@whitewater-guide/clients';
-import parseISO from 'date-fns/parseISO';
-import isNil from 'lodash/isNil';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
@@ -40,51 +35,24 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  section: ListedSectionFragment;
+  section: ListedSectionFragment & SectionDerivedFields;
 }
 
 const FlowsThumb: React.FC<Props> = ({ section }) => {
-  const [t] = useTranslation();
-  const formulas = useFormulas(section);
-  const { gauge } = section;
-  if (!gauge) {
+  const { t } = useTranslation();
+  const { flowsThumb } = section;
+  if (!flowsThumb) {
     return null;
   }
-  const { latestMeasurement, flowUnit, levelUnit } = gauge;
-  if (
-    !latestMeasurement ||
-    (!latestMeasurement.flow && !latestMeasurement.level)
-  ) {
-    return null;
-  }
-  const color = getSectionColor(section);
-  const data = latestMeasurement.flow
-    ? {
-        label: t('commons:flow'),
-        unit: flowUnit,
-        value: formulas.flows(latestMeasurement.flow),
-      }
-    : {
-        label: t('commons:level'),
-        unit: levelUnit,
-        value: formulas.levels(latestMeasurement.level),
-      };
-  if (isNil(data.value)) {
-    return null;
-  }
-  const fromNow = formatDistanceToNow(parseISO(latestMeasurement.timestamp), {
-    addSuffix: true,
-  });
   return (
     <View style={styles.container}>
-      <Text style={styles.unitLine}>{data.label}</Text>
-      <Text style={[styles.mainLine, { color }]}>
-        {prettyNumber(data.value)}
-        <Text style={[styles.unitLine, { color }]}>
-          {` ${t(`commons:${data.unit}`)}`}
+      <Text style={[styles.mainLine, { color: flowsThumb.color }]}>
+        {flowsThumb.value}
+        <Text style={[styles.unitLine, { color: flowsThumb.color }]}>
+          {` ${t(`commons:${flowsThumb.unit}`)}`}
         </Text>
       </Text>
-      <Text style={styles.timeLine}>{fromNow}</Text>
+      <Text style={styles.timeLine}>{flowsThumb.fromNow}</Text>
     </View>
   );
 };

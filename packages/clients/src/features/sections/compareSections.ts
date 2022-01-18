@@ -1,6 +1,6 @@
-import { Section } from '@whitewater-guide/schema';
 import deburr from 'lodash/deburr';
 
+import { ListedSectionFragment } from '.';
 import {
   DefaultSectionFilterOptions,
   SectionFilterOptions,
@@ -10,25 +10,26 @@ import {
 // sortBy: 'name' | 'difficulty' | 'duration' | 'rating';
 // sortDirection: 'ASC' | 'DESC';
 
-const fullName = ({ river, name }: Section) =>
+const fullName = ({ river, name }: ListedSectionFragment) =>
   deburr(`${river?.name}${name}`.toLowerCase());
 
-export type SectionComparator = (a: Section, b: Section) => number;
+export type SectionComparator = (
+  a: ListedSectionFragment,
+  b: ListedSectionFragment,
+) => number;
 
 const comparators: { [key in SectionSortBy]: SectionComparator } = {
-  name: (a: Section, b: Section) => fullName(a).localeCompare(fullName(b)),
-  difficulty: (a: Section, b: Section) => a.difficulty - b.difficulty,
-  duration: ({ duration: a }: Section, { duration: b }: Section) =>
-    (a || 0) - (b || 0),
-  rating: ({ rating: a }: Section, { rating: b }: Section) =>
-    (a || 0) - (b || 0),
+  name: (a, b) => fullName(a).localeCompare(fullName(b)),
+  difficulty: (a, b) => a.difficulty - b.difficulty,
+  duration: ({ duration: a }, { duration: b }) => (a || 0) - (b || 0),
+  rating: ({ rating: a }, { rating: b }) => (a || 0) - (b || 0),
 };
 
-export const getSectionsComparator = (
+export function getSectionsComparator(
   terms: SectionFilterOptions | null,
-): SectionComparator => {
+): SectionComparator {
   const { sortBy, sortDirection } = terms || DefaultSectionFilterOptions;
   const comparator = comparators[sortBy];
   const x = sortDirection.toLowerCase() === 'asc' ? 1 : -1;
-  return (a: Section, b: Section) => x * comparator(a, b);
-};
+  return (a, b) => x * comparator(a, b);
+}

@@ -8,7 +8,6 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '~/components/Icon';
-import { SelectedPOIView, SelectedSectionView } from '~/components/map';
 import { Screens } from '~/core/navigation';
 import {
   RegionTabsNavProps,
@@ -42,7 +41,7 @@ const RegionTabs: React.FC<RegionTabsNavProps> = () => {
         activeColor={theme.colors.textLight}
         barStyle={{
           backgroundColor: theme.colors.primary,
-          height: hasData ? undefined : 0,
+          // height: hasData ? undefined : 0,
         }}
         sceneAnimationEnabled={false}
         keyboardHidesNavigationBar={false}
@@ -85,8 +84,6 @@ const RegionTabs: React.FC<RegionTabsNavProps> = () => {
 
       {hasData && <RegionFAB region={regionQuery.data?.region} />}
 
-      <SelectedPOIView />
-      <SelectedSectionView />
       <SectionsProgress
         status={sectionsList.status}
         loaded={sectionsList.sections?.length ?? 0}

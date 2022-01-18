@@ -1,17 +1,12 @@
-import { arrayToLatLngString, useRegion } from '@whitewater-guide/clients';
-import React, { useCallback } from 'react';
+import { arrayToLatLngString } from '@whitewater-guide/clients';
+import React, { memo } from 'react';
 import { Paragraph, Subheading } from 'react-native-paper';
 
 import Icon from '~/components/Icon';
 import { Left, Right, Row } from '~/components/Row';
+import { PremiumSection, useRegionPremiumCallback } from '~/features/purchases';
 import copyAndToast from '~/utils/copyAndToast';
-
-import {
-  PremiumSection,
-  usePremiumAccess,
-  usePremiumGuard,
-} from '../../../features/purchases';
-import { openGoogleMaps } from '../../../utils/maps';
+import { openGoogleMaps } from '~/utils/maps';
 
 interface Props {
   label: string;
@@ -19,24 +14,15 @@ interface Props {
   section: PremiumSection;
 }
 
-const CoordinatesInfo: React.FC<Props> = React.memo((props) => {
+const CoordinatesInfo = memo<Props>((props) => {
   const { coordinates, label, section } = props;
-  const region = useRegion();
-  const isFree = usePremiumAccess(region, section);
-  const premiumGuard = usePremiumGuard(region, section);
-  const prettyCoord = isFree ? arrayToLatLngString(coordinates) : '';
-
-  const onCopy = useCallback(() => {
-    if (premiumGuard()) {
-      copyAndToast(prettyCoord);
-    }
-  }, [premiumGuard, prettyCoord]);
-
-  const onNavigate = useCallback(() => {
-    if (premiumGuard()) {
-      openGoogleMaps(coordinates);
-    }
-  }, [premiumGuard, coordinates]);
+  const prettyCoord = arrayToLatLngString(coordinates);
+  const [onCopy, accessAllowed] = useRegionPremiumCallback(section, () =>
+    copyAndToast(prettyCoord),
+  );
+  const [onNavigate] = useRegionPremiumCallback(section, () =>
+    openGoogleMaps(coordinates),
+  );
 
   return (
     <Row>
@@ -44,7 +30,7 @@ const CoordinatesInfo: React.FC<Props> = React.memo((props) => {
         <Subheading>{label}</Subheading>
       </Left>
       <Right row>
-        <Paragraph>{prettyCoord}</Paragraph>
+        <Paragraph>{accessAllowed ? prettyCoord : ''}</Paragraph>
         <Icon
           icon="content-copy"
           accessibilityLabel="copy coordinate"

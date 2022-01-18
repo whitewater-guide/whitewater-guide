@@ -12,6 +12,8 @@ import {
   PollRegionMeasurementsDocument,
   PollRegionMeasurementsQueryVariables,
 } from '../regions';
+import { SectionDerivedFields } from '.';
+import { addDerivedFields } from './addDerivedFields';
 import { applySearch } from './applySearch';
 import {
   ListedSectionFragment,
@@ -22,7 +24,7 @@ import {
 import { SectionFilterOptions, SectionsStatus } from './types';
 
 export interface InnerState {
-  sections: ListedSectionFragment[] | null;
+  sections: Array<ListedSectionFragment & SectionDerivedFields> | null;
   error: ApolloError | null;
   count: number;
   status: SectionsStatus;
@@ -95,7 +97,7 @@ export class SectionsListProvider extends React.PureComponent<
     }
     this.state = {
       error: null,
-      sections: fromCache?.sections?.nodes ?? null,
+      sections: fromCache?.sections?.nodes?.map(addDerivedFields) ?? null,
       count: fromCache?.sections?.count ?? 0,
       status: SectionsStatus.READY,
     };
@@ -176,7 +178,7 @@ export class SectionsListProvider extends React.PureComponent<
       return;
     }
     this.setState({
-      sections: data?.sections?.nodes as ListedSectionFragment[],
+      sections: data?.sections?.nodes.map(addDerivedFields),
       count: data?.sections?.count ?? 0,
     });
   };
@@ -199,7 +201,8 @@ export class SectionsListProvider extends React.PureComponent<
       query: ListSectionsDocument,
       variables: {
         page: { limit: nLimit, offset },
-        filter: { regionId, updatedAfter: updatedAfter?.toISOString() },
+        filter: { regionId },
+        updatedAfter: updatedAfter?.toISOString(),
       },
     });
 
@@ -311,11 +314,9 @@ export class SectionsListProvider extends React.PureComponent<
       sections: filteredSections,
       refresh: this.refresh,
     };
-    // Functional children is just ugly hack to make tests easier.
-    // Never use them irl
     return (
       <SectionsListCtx.Provider value={value}>
-        {typeof children === 'function' ? children(value) : children}
+        {children}
       </SectionsListCtx.Provider>
     );
   }

@@ -1,20 +1,23 @@
 import { toRomanDifficulty } from '@whitewater-guide/clients';
 import memoize from 'lodash/memoize';
-import React from 'react';
+import React, { FC } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import theme from '~/theme';
 
 const styles = StyleSheet.create({
-  container: {
+  withoutBorder: {
     width: 60,
     height: 52,
     alignItems: 'center',
     justifyContent: 'center',
   },
   withBorder: {
+    width: 60,
+    height: 52,
+    alignItems: 'center',
     justifyContent: 'center',
-    borderColor: '#c9c9c9',
+    borderColor: theme.colors.componentBorder,
     borderRightWidth: StyleSheet.hairlineWidth,
     paddingRight: 4,
     marginRight: 4,
@@ -41,21 +44,21 @@ const denseRoman = memoize((difficulty: number) =>
   toRomanDifficulty(difficulty).replace(/\s/gi, ''),
 );
 
-const DifficultyThumb: React.FC<Props> = React.memo(
-  ({ difficulty, difficultyXtra, noBorder }) => {
-    const style = noBorder
-      ? styles.container
-      : [styles.container, styles.withBorder];
-    return (
-      <View style={style}>
-        <Text style={styles.mainLine}>{denseRoman(difficulty)}</Text>
-        {!!difficultyXtra && (
-          <Text style={styles.xtraLine}>{`(${difficultyXtra})`}</Text>
-        )}
-      </View>
-    );
-  },
-);
+const DifficultyThumb: FC<Props> = ({
+  difficulty,
+  difficultyXtra,
+  noBorder,
+}) => {
+  const style = noBorder ? styles.withoutBorder : styles.withBorder;
+  return (
+    <View style={style}>
+      <Text style={styles.mainLine}>{denseRoman(difficulty)}</Text>
+      {!!difficultyXtra && (
+        <Text style={styles.xtraLine}>{`(${difficultyXtra})`}</Text>
+      )}
+    </View>
+  );
+};
 
 DifficultyThumb.displayName = 'DifficultyThumb';
 

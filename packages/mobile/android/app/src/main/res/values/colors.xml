@@ -2,4 +2,7 @@
 <resources>
     <color name="primary_dark">#000000</color>
     <color name="bootsplash_background">#0078B4</color>
+    <color name="text_main">#343434</color>
+    <color name="component_border">#9E9E9E</color>
+    <color name="light_background">#FFFFFF</color>
 </resources>

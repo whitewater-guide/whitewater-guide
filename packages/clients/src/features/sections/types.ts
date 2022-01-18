@@ -41,3 +41,12 @@ export const DefaultSectionFilterOptions: SectionFilterOptions = {
   withTags: [],
   withoutTags: [],
 };
+
+export interface SectionDerivedFields {
+  flowsThumb?: {
+    color: string;
+    unit: string;
+    value: string;
+    fromNow: string;
+  };
+}

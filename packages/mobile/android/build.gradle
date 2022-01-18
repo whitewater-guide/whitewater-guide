@@ -46,8 +46,6 @@ buildscript {
 
 allprojects {
     repositories {
-        mavenCentral()
-        mavenLocal()
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url("$rootDir/../node_modules/react-native/android")
@@ -59,6 +57,13 @@ allprojects {
         maven {
             // All of Detox' artifacts are provided via the npm module
             url "$rootDir/../node_modules/detox/Detox-android"
+        }
+        mavenCentral {
+            // We don't want to fetch react-native from Maven Central as there are
+            // older versions over there.
+            content {
+                excludeGroup "com.facebook.react"
+            }
         }
         // https://github.com/react-native-mapbox-gl/maps/blob/master/android/install.md#mapbox-maps-sdk
         maven {

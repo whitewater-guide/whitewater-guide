@@ -1,9 +1,4 @@
 import { InMemoryCache } from '@apollo/client';
-import {
-  QuerySectionsArgs,
-  RegionSectionsArgs,
-} from '@whitewater-guide/schema';
-import stringify from 'fast-json-stable-stringify';
 
 import cursorPagination from './cursorPagination';
 import { StrictTypedTypePolicies } from './helpers.generated';
@@ -18,11 +13,7 @@ export function configureApolloCache(): InMemoryCache {
         mediaBySection: nodesPagination(['sectionId']),
         regions: nodesPagination(['filter']),
         rivers: nodesPagination(['filter']),
-        sections: nodesPagination((args: QuerySectionsArgs, { fieldName }) => {
-          // Updated after is more like page really, but it's in filter
-          const { updatedAfter: _updatedAfter, ...filter } = args.filter ?? {};
-          return fieldName + ':' + stringify(filter);
-        }),
+        sections: nodesPagination(['filter']),
         sectionsEditLog: nodesPagination(['filter']),
         sources: nodesPagination(),
         suggestions: nodesPagination(['filter']),
@@ -51,14 +42,7 @@ export function configureApolloCache(): InMemoryCache {
         banners: nodesPagination(),
         gauges: nodesPagination(),
         rivers: nodesPagination(),
-        sections: nodesPagination(
-          (args: RegionSectionsArgs | null, { fieldName }) => {
-            // Updated after is more like page really, but it's in filter
-            const { updatedAfter: _updatedAfter, ...filter } =
-              args?.filter ?? {};
-            return fieldName + ':' + stringify(filter);
-          },
-        ),
+        sections: nodesPagination(['filter']),
         sources: nodesPagination(),
       },
     },

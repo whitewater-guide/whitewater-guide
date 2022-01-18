@@ -1,3 +1,4 @@
+import { useBottomSheetModal } from '@gorhom/bottom-sheet';
 import { useNavigation } from '@react-navigation/native';
 import {
   DefaultSectionFilterOptions,
@@ -15,7 +16,15 @@ import { RegionTabsNavProp } from './types';
 const FilterButton: React.FC = () => {
   const filterOptions = useSectionsFilterOptions();
   const { navigate } = useNavigation<RegionTabsNavProp>();
-  const onPress = useCallback(() => navigate(Screens.FILTER), [navigate]);
+  const { dismissAll } = useBottomSheetModal();
+
+  const onPress = useCallback(() => {
+    dismissAll();
+    setTimeout(() => {
+      navigate(Screens.FILTER);
+    }, 100);
+  }, [navigate, dismissAll]);
+
   const icon = isEqual(filterOptions, DefaultSectionFilterOptions)
     ? 'filter-outline'
     : 'filter';

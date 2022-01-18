@@ -241,8 +241,8 @@ type SectionsEditLogList {
 type Query {
   "List sections"
   sections(
-    page: Page
     filter: SectionsFilter
+    page: Page
     updatedAfter: DateTime
   ): SectionsList!
   "Gets section by id. Returns null when id is not provided"

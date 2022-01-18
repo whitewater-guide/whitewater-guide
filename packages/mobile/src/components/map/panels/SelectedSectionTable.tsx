@@ -10,8 +10,9 @@ import { StyleSheet, View } from 'react-native';
 import { Paragraph, Subheading } from 'react-native-paper';
 import Svg, { Path } from 'react-native-svg';
 
-import { getSeasonLocalizer } from '../../../i18n';
-import theme from '../../../theme';
+import { getSeasonLocalizer } from '~/i18n';
+import theme from '~/theme';
+
 import Icon from '../../Icon';
 import { NAVIGATE_BUTTON_WIDTH } from '../../NavigateButton';
 import SectionFlowsRow from './SectionFlowsRow';
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
   row3: {
     flexDirection: 'row',
     height: theme.rowHeight,
-    padding: theme.margin.single,
+    paddingHorizontal: theme.margin.single,
     alignItems: 'center',
     justifyContent: 'space-between',
   },

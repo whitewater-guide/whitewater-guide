@@ -22,6 +22,8 @@ interface Props {
   banner: BannerWithSourceFragment;
 }
 
-export const SectionListBanner: React.FC<Props> = ({ banner }) => (
+const SectionListBanner: React.FC<Props> = ({ banner }) => (
   <BannerView banner={banner} style={styles.banner} />
 );
+
+export default SectionListBanner;

@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'flex-end',
   },
   premium: {
     color: theme.colors.primary,
@@ -22,7 +23,6 @@ const styles = StyleSheet.create({
   },
   premiumTouchable: {
     flex: 1,
-    paddingHorizontal: theme.margin.single,
   },
 });
 

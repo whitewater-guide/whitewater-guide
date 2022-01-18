@@ -1,23 +1,21 @@
 import { GaugeBinding } from '@whitewater-guide/schema';
 import color from 'color';
-import mapValues from 'lodash/mapValues';
 
 import {
   Colors,
+  ColorStrings,
   getDryLevel,
   getSectionColor,
   hslMix,
 } from './getSectionColor';
 import { ColorizeableSectionFragment } from './sectionOnMap.generated';
 
-const ColorStrings = mapValues(Colors, (c) => c.hsl().string());
-
 const Mixes = {
-  MaxImp: hslMix(Colors.maximum, Colors.impossible).hsl().string(),
-  OptImp: hslMix(Colors.optimum, Colors.impossible).hsl().string(),
-  OptMax: hslMix(Colors.optimum, Colors.maximum).hsl().string(),
-  MinOpt: hslMix(Colors.minimum, Colors.optimum).hsl().string(),
-  DryMin: hslMix(Colors.dry, Colors.minimum).hsl().string(),
+  MaxImp: hslMix(Colors.maximum, Colors.impossible).hex(),
+  OptImp: hslMix(Colors.optimum, Colors.impossible).hex(),
+  OptMax: hslMix(Colors.optimum, Colors.maximum).hex(),
+  MinOpt: hslMix(Colors.minimum, Colors.optimum).hex(),
+  DryMin: hslMix(Colors.dry, Colors.minimum).hex(),
 };
 
 const makeSection = (

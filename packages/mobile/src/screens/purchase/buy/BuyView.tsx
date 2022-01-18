@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, StyleSheet, View } from 'react-native';
 import { Button, Title } from 'react-native-paper';
 
 import Markdown from '~/components/Markdown';
 import Spacer from '~/components/Spacer';
+import { PremiumRegion } from '~/features/purchases';
+import theme from '~/theme';
 
-import { PremiumRegion } from '../../../features/purchases';
-import theme from '../../../theme';
 import CloseButton from './CloseButton';
 import PurchaseErrorView from './PurchaseErrorView';
 import { PurchaseState } from './types';
@@ -35,7 +35,7 @@ interface Props {
   purchaseState: PurchaseState;
 }
 
-const BuyView: React.FC<Props> = React.memo((props) => {
+const BuyView = memo<Props>((props) => {
   const { region, purchaseState } = props;
   const { t } = useTranslation();
 
@@ -46,7 +46,7 @@ const BuyView: React.FC<Props> = React.memo((props) => {
       </View>
       <Title>{t('screens:purchase.buy.title', { region: region.name })}</Title>
       <Markdown styles={mdStyles}>
-        {t('screens:purchase.buy.descriptionMd')}
+        {t('screens:purchase.buy.descriptionMd', { region: region.name })}
       </Markdown>
       <PurchaseErrorView error={purchaseState.error} />
       <Spacer />

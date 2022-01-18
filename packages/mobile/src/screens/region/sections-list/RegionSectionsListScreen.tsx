@@ -5,7 +5,7 @@ import React from 'react';
 import FilterButton from '~/screens/region/FilterButton';
 
 import RegionTabsScreen from '../RegionTabsScreen';
-import SectionsList from './SectionsList';
+import { SectionsList } from './biglist';
 import { RegionSectionsNavProps } from './types';
 
 const RegionSectionsListScreen: React.FC<RegionSectionsNavProps> = ({
