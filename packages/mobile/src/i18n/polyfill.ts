@@ -13,3 +13,6 @@ require('@formatjs/intl-numberformat/locale-data/en');
 require('@formatjs/intl-datetimeformat/polyfill');
 require('@formatjs/intl-datetimeformat/locale-data/en');
 require('@formatjs/intl-datetimeformat/add-all-tz');
+
+// Intl.Collator required by matrix client
+require('./collator-polyfill');

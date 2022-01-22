@@ -139,3 +139,23 @@ services:
       context: ./services/pgadmin/
     ports:
       - '4000:80'
+
+  synapse:
+    <<: *ww-commons
+    container_name: ww-synapse
+    image: matrixdotorg/synapse:v1.50.1
+    environment:
+      - SYNAPSE_CONFIG_PATH=/config/homeserver.yaml
+    volumes:
+      - type: bind
+        source: ./services/synapse/config
+        target: /config
+      - type: bind
+        source: ./dev-mount/synapse/data
+        target: /data
+    ports:
+      - '8008:8008'
+    networks:
+      default:
+        aliases:
+          - synapse.local

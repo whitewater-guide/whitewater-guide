@@ -24,6 +24,7 @@ import { MobileAuthService } from './core/auth';
 import configMisc from './core/config/configMisc';
 import { configErrors } from './core/errors';
 import { NavigationRoot, RootDrawer } from './core/navigation';
+import { ChatClientProvider } from './features/chat';
 import { IapProvider } from './features/purchases';
 import { UploadsProvider } from './features/uploads';
 import { I18nProvider } from './i18n';
@@ -77,25 +78,27 @@ class App extends React.PureComponent {
                 renderInitializing={<Loading />}
               >
                 <I18nProvider onUserLanguageChange={this.resetApolloCache}>
-                  <UploadsProvider>
-                    <RegionsFilterProvider>
-                      <AppSettingsProvider>
-                        <IapProvider>
-                          <OfflineContentProvider>
-                            <ActionSheetProvider>
-                              <NavigationRoot>
-                                <PreviousVersion />
-                                <View style={StyleSheet.absoluteFill}>
-                                  <RootDrawer />
-                                  <OfflineContentDialog />
-                                </View>
-                              </NavigationRoot>
-                            </ActionSheetProvider>
-                          </OfflineContentProvider>
-                        </IapProvider>
-                      </AppSettingsProvider>
-                    </RegionsFilterProvider>
-                  </UploadsProvider>
+                  <ChatClientProvider>
+                    <UploadsProvider>
+                      <RegionsFilterProvider>
+                        <AppSettingsProvider>
+                          <IapProvider>
+                            <OfflineContentProvider>
+                              <ActionSheetProvider>
+                                <NavigationRoot>
+                                  <PreviousVersion />
+                                  <View style={StyleSheet.absoluteFill}>
+                                    <RootDrawer />
+                                    <OfflineContentDialog />
+                                  </View>
+                                </NavigationRoot>
+                              </ActionSheetProvider>
+                            </OfflineContentProvider>
+                          </IapProvider>
+                        </AppSettingsProvider>
+                      </RegionsFilterProvider>
+                    </UploadsProvider>
+                  </ChatClientProvider>
                 </I18nProvider>
               </AuthProvider>
             </TagsProvider>

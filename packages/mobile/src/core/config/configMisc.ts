@@ -13,7 +13,7 @@ const configMisc = () => {
 
   Settings.initializeSDK();
 
-  LogBox.ignoreLogs(['`new NativeEventEmitter()`']);
+  LogBox.ignoreLogs(['`new NativeEventEmitter()`', /WebRTC/]);
 
   // https://github.com/jhen0409/react-native-debugger/blob/master/docs/network-inspect-of-chrome-devtools.md#how-it-works
   // uncomment for network inspection

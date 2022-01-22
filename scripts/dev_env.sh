@@ -8,6 +8,7 @@ mkdir -p ./dev-mount/minio/log
 mkdir -p ./dev-mount/postgres/data
 mkdir -p ./dev-mount/gorge/cookies
 mkdir -p ./dev-mount/gorge/cache
+mkdir -p ./dev-mount/synapse/data
 
 echo "Development volumes setup complete"
 
