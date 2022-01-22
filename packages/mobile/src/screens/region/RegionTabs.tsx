@@ -6,6 +6,7 @@ import {
 } from '@whitewater-guide/clients';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { View } from 'react-native';
 
 import Icon from '~/components/Icon';
 import { Screens } from '~/core/navigation';
@@ -20,6 +21,7 @@ import { LazyRegionMapScreen } from './map';
 import RegionFAB from './RegionFAB';
 import { LazyRegionSectionsListScreen } from './sections-list';
 import SectionsProgress from './SectionsProgress';
+import useFakeChatTab from './useFakeChatTab';
 
 const Tab = createMaterialBottomTabNavigator<RegionTabsParamsList>();
 
@@ -32,6 +34,7 @@ const RegionTabs: React.FC<RegionTabsNavProps> = () => {
   // it's here because passing it via [initialParams](https://reactnavigation.org/docs/screen#initialparams)
   // seems to be simplest way to track screen params in sentry
   const regionId = regionQuery.data?.region?.id;
+  const chatListeners = useFakeChatTab();
 
   return (
     <MapSelectionProvider>
@@ -78,6 +81,20 @@ const RegionTabs: React.FC<RegionTabsNavProps> = () => {
             ),
             tabBarTestID: 'region-tab-info',
           }}
+          initialParams={{ regionId }}
+        />
+
+        <Tab.Screen
+          name={Screens.REGION_FAKE_CHAT}
+          component={View}
+          options={{
+            tabBarLabel: t('region:info.chat'),
+            tabBarIcon: ({ color }) => (
+              <Icon icon="message-text" color={color} />
+            ),
+            tabBarTestID: 'region-tab-chat',
+          }}
+          listeners={chatListeners}
           initialParams={{ regionId }}
         />
       </Tab.Navigator>

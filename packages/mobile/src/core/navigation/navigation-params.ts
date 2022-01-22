@@ -51,6 +51,10 @@ export type RootStackParamsList = {
     region?: RegionDetailsFragment | null;
     fromDescentFormKey?: string;
   };
+  [Screens.CHAT]: {
+    roomType: string;
+    roomId: string;
+  };
 };
 
 declare global {

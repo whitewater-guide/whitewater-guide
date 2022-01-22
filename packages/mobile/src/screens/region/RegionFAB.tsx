@@ -3,7 +3,7 @@ import {
   RegionDetailsFragment,
   useMapSelection,
 } from '@whitewater-guide/clients';
-import React, { useCallback, useMemo } from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, StyleSheet } from 'react-native';
 import { FAB as FAButton } from 'react-native-paper';
@@ -24,7 +24,7 @@ interface Props {
   region?: RegionDetailsFragment | null;
 }
 
-export const RegionFAB = React.memo(({ region }: Props) => {
+export const RegionFAB = memo<Props>(({ region }) => {
   const { t } = useTranslation();
   const { navigate } = useNavigation();
   const [selection, onSelected] = useMapSelection();
