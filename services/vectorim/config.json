@@ -1,0 +1,25 @@
+{
+  "default_server_config": {
+    "m.homeserver": {
+      "base_url": "http://localhost:8008",
+      "server_name": "whitewater.guide"
+    }
+  },
+  "disable_custom_urls": false,
+  "disable_guests": false,
+  "disable_login_language_selector": false,
+  "disable_3pid_login": true,
+  "brand": "Element",
+  "integrations_ui_url": "https://scalar.vector.im/",
+  "integrations_rest_url": "https://scalar.vector.im/api",
+  "bug_report_endpoint_url": "https://element.io/bugreports/submit",
+  "defaultCountryCode": "GB",
+  "showLabsSettings": false,
+  "features": {},
+  "default_federate": false,
+  "default_theme": "light",
+  "piwik": false,
+  "settingDefaults": {
+    "breadcrumbs": true
+  }
+}

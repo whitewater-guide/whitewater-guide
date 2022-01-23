@@ -50,5 +50,9 @@ declare namespace NodeJS {
     FB_SECRET: string;
 
     GOOGLE_SERVICE_ACCOUNT?: string;
+
+    SYNAPSE_HOST: string;
+    SYNAPSE_REGISTRATION_SHARED_SECRET: string;
+    SYNAPSE_ADMIN_PASSWORD: string;
   }
 }

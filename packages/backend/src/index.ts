@@ -7,10 +7,13 @@ import log from '~/log';
 import { createApolloServer } from './apollo/server';
 import { createApp } from './app';
 import config from './config';
+import { synapseClient } from './features/chats';
 import startServer from './server';
 
 async function startup() {
   await waitForDb();
+  await synapseClient.waitForSynapse();
+
   if (config.SENTRY_DSN) {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const pjson = require('../package.json');
