@@ -13,7 +13,11 @@ const configMisc = () => {
 
   Settings.initializeSDK();
 
-  LogBox.ignoreLogs(['`new NativeEventEmitter()`', /WebRTC/]);
+  LogBox.ignoreLogs([
+    '`new NativeEventEmitter()`',
+    /WebRTC/,
+    "[react-native-gesture-handler] Seems like you're using an old API ",
+  ]);
 
   // https://github.com/jhen0409/react-native-debugger/blob/master/docs/network-inspect-of-chrome-devtools.md#how-it-works
   // uncomment for network inspection

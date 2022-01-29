@@ -144,6 +144,8 @@ services:
     <<: *ww-commons
     container_name: ww-synapse
     image: matrixdotorg/synapse:v1.50.1
+    depends_on:
+      - db
     environment:
       - SYNAPSE_CONFIG_PATH=/config/homeserver.yaml
     volumes:

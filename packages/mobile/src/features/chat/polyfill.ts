@@ -5,6 +5,19 @@ import { EventEmitter } from 'fbemitter';
 //   return require('unorm')[String(form).toLowerCase()](this);
 // };
 
+//
+if (!Promise.allSettled) {
+  Promise.allSettled = (promises) => {
+    return Promise.all(
+      promises.map((promise) =>
+        promise
+          .then((value) => ({ state: 'fulfilled', value }))
+          .catch((reason) => ({ state: 'rejected', reason })),
+      ),
+    );
+  };
+}
+
 class Document {
   constructor() {
     this.emitter = new EventEmitter();

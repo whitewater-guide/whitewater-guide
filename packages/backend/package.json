@@ -41,6 +41,7 @@
     "apollo-server-errors": "^3.3.0",
     "apollo-server-koa": "^3.5.0",
     "apple-signin-auth": "^1.5.1",
+    "async-retry": "^1.3.3",
     "axios": "^0.24.0",
     "bcrypt": "^5.0.1",
     "cookie": "^0.4.1",
@@ -94,6 +95,7 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
+    "@types/async-retry": "^1.4.3",
     "@types/bcrypt": "^5.0.0",
     "@types/body-parser": "^1.19.2",
     "@types/cookie": "^0.4.1",

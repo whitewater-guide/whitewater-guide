@@ -521,6 +521,8 @@ PODS:
     - React
   - RNDateTimePicker (5.1.0):
     - React-Core
+  - RNDeviceInfo (8.4.8):
+    - React-Core
   - RNFastImage (8.6.0):
     - React-Core
     - SDWebImage (~> 5.11.1)
@@ -674,6 +676,7 @@ DEPENDENCIES:
   - "RNCClipboard (from `../node_modules/@react-native-clipboard/clipboard`)"
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
+  - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - "RNFastImage (from `../node_modules/@whitewater-guide/react-native-fast-image`)"
   - "RNFBAnalytics (from `../node_modules/@react-native-firebase/analytics`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
@@ -834,6 +837,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/masked-view"
   RNDateTimePicker:
     :path: "../node_modules/@react-native-community/datetimepicker"
+  RNDeviceInfo:
+    :path: "../node_modules/react-native-device-info"
   RNFastImage:
     :path: "../node_modules/@whitewater-guide/react-native-fast-image"
   RNFBAnalytics:
@@ -951,6 +956,7 @@ SPEC CHECKSUMS:
   RNCClipboard: 99fc8ad669a376b756fbc8098ae2fd05c0ed0668
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
   RNDateTimePicker: 1dd15d7ed1ab7d999056bc77879a42920d139c12
+  RNDeviceInfo: 0400a6d0c94186d1120c3cbd97b23abc022187a9
   RNFastImage: 72a2d5802adef70f8e42fce486f78878f8b47dae
   RNFBAnalytics: ad4bcbff05cad78bb41e7919461ab85762b406f2
   RNFBApp: 78d0446e8b28dc30616c134a9e4d8d4b01f9f966

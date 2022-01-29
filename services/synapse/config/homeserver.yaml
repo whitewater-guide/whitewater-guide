@@ -24,9 +24,20 @@ allow_profile_lookup_over_federation: false
 allow_device_name_lookup_over_federation: false
 
 database:
-  name: sqlite3
+  name: psycopg2
+  txn_limit: 10000
   args:
-    database: /data/homeserver.db
+    user: postgres
+    password: whitewater
+    database: synapse
+    host: db.local
+    port: 5432
+    cp_min: 5
+    cp_max: 10
+    args:
+    keepalives_idle: 10
+    keepalives_interval: 10
+    keepalives_count: 3
 
 log_config: '/config/my.matrix.host.log.config'
 

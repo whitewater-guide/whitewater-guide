@@ -3,10 +3,14 @@ import './polyfill';
 import { useAuth } from '@whitewater-guide/clients';
 import * as sdk from 'matrix-js-sdk';
 import React, { createContext, FC, useContext, useEffect } from 'react';
+import DeviceInfo from 'react-native-device-info';
 
 import { tokenStorage } from '~/core/auth';
 
-const client = sdk.createClient('http://localhost:8008');
+const client = sdk.createClient({
+  baseUrl: 'http://localhost:8008',
+  deviceId: DeviceInfo.getUniqueId(),
+});
 
 const ChatClientCtx = createContext<sdk.MatrixClient>(client);
 
@@ -22,9 +26,7 @@ export const ChatClientProvider: FC = ({ children }) => {
     tokenStorage
       .getAccessToken()
       .then((token) => client.login('org.matrix.login.jwt', { token }))
-      .then(() => {
-        client.startClient({});
-      });
+      .then(() => client.startClient({}));
 
     return () => {
       client.stopClient();
