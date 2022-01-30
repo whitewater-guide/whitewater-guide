@@ -9,8 +9,9 @@ const MATERIAL_BOTTOM_BAR_HEIGHT = 56;
 const DEFAULT_APPBAR_HEIGHT = 56;
 
 const colors = {
-  primary: '#2196f3', // Blue 500
   logoBlue: '#0078b4',
+  primaryLighter: '#90CAF9', // Blue 200
+  primary: '#2196f3', // Blue 500
   primaryDarker: '#1769aa',
   accent: '#FF9900',
   lightBackground: '#FFFFFF',

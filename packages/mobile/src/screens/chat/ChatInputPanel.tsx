@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Keyboard, StyleSheet, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
 
@@ -32,6 +33,7 @@ const ChatInputPanel: FC<ChatInputPanelProps> = ({ roomId }) => {
   const { client } = useChatClient();
   const [text, setText] = useState('');
   const [sending, setSending] = useState(false);
+  const { t } = useTranslation();
 
   const handlePress = () => {
     const msg = text.trim();
@@ -52,6 +54,7 @@ const ChatInputPanel: FC<ChatInputPanelProps> = ({ roomId }) => {
         multiline
         value={text}
         onChangeText={setText}
+        placeholder={t('screens:chat.inputPlaceholder')}
       />
       <Icon
         icon="send"

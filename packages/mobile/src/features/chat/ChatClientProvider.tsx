@@ -7,6 +7,7 @@ import React, {
   FC,
   useContext,
   useEffect,
+  useRef,
   useState,
 } from 'react';
 import DeviceInfo from 'react-native-device-info';
@@ -32,6 +33,8 @@ export const ChatClientProvider: FC = ({ children }) => {
   const { me, service } = useAuth();
   const [loading, setLoading] = useState(true);
   const myId = me?.id;
+  const myName = useRef(me?.name);
+  myName.current = me?.name;
 
   useEffect(() => {
     if (!myId) {
@@ -48,14 +51,19 @@ export const ChatClientProvider: FC = ({ children }) => {
     tokenStorage
       .getAccessToken()
       .then((token) => client.login('org.matrix.login.jwt', { token }))
-      .then(() => client.startClient({ initialSyncLimit: 30 }));
+      .then(() => {
+        client.startClient({ initialSyncLimit: 30 });
+        if (myName.current) {
+          client.setDisplayName(myName.current);
+        }
+      });
 
     return () => {
       client.off('sync', onSync);
       client.stopClient();
       client.logout();
     };
-  }, [myId, service, setLoading]);
+  }, [myId, myName, service, setLoading]);
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
