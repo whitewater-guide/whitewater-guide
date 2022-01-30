@@ -7,7 +7,7 @@ import { useRoom, useScrollOnLiveEvent } from '~/features/chat';
 import theme from '~/theme';
 
 import ChatInputPanel from './ChatInputPanel';
-import Item from './Item';
+import useRenderEvent from './useRenderEvent';
 
 const styles = StyleSheet.create({
   kav: {
@@ -33,6 +33,7 @@ const Chat: React.FC<ChatProps> = ({ roomId }) => {
   const listRef = useRef<FlatList<MatrixEvent>>(null);
   const { timeline, loading, loadOlder } = useRoom(roomId);
   const scrollProps = useScrollOnLiveEvent(listRef, timeline);
+  const renderItem = useRenderEvent(timeline.length);
 
   return (
     <KeyboardAvoidingView
@@ -46,7 +47,7 @@ const Chat: React.FC<ChatProps> = ({ roomId }) => {
         style={styles.list}
         contentContainerStyle={styles.content}
         data={timeline}
-        renderItem={({ item }) => <Item message={item} />}
+        renderItem={renderItem}
         onEndReached={() => {
           if (!loading) {
             loadOlder();

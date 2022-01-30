@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { StyleSheet } from 'react-native';
 import { Paragraph, Surface } from 'react-native-paper';
 
-import { mapEvent } from '~/features/chat/utils';
+import { getMessage } from '~/features/chat';
 import theme from '~/theme';
 
 const styles = StyleSheet.create({
@@ -13,16 +13,16 @@ const styles = StyleSheet.create({
   },
 });
 
-interface ItemProps {
+interface TextMessageProps {
   message: MatrixEvent;
 }
 
-const Item: FC<ItemProps> = ({ message }) => {
+const TextMessage: FC<TextMessageProps> = ({ message }) => {
   return (
     <Surface style={styles.msg}>
-      <Paragraph>{JSON.stringify(mapEvent(message), null, 2)}</Paragraph>
+      <Paragraph>{getMessage(message)}</Paragraph>
     </Surface>
   );
 };
 
-export default Item;
+export default TextMessage;

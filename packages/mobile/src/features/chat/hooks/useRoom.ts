@@ -5,6 +5,22 @@ import useList from 'react-use/lib/useList';
 
 import { useChatClient } from '../ChatClientProvider';
 import { IRoomTimelineData } from '../types';
+import { isEventRenderable } from '../utils';
+
+function getRenderableTimeline(room: Room): MatrixEvent[] {
+  const result: MatrixEvent[] = [];
+
+  room
+    .getLiveTimeline()
+    .getEvents()
+    .forEach((e) => {
+      if (isEventRenderable(e)) {
+        result.unshift(e);
+      }
+    });
+
+  return result;
+}
 
 /**
  * This hook makes user join the room and returns timeline and pagination
@@ -29,14 +45,16 @@ export function useRoom(roomId: string) {
       if (!data.liveEvent) {
         return;
       }
+      if (!isEventRenderable(e)) {
+        return;
+      }
       insertAt(0, e);
     };
 
     client.on('Room.timeline', onTimelineEvent);
 
     client.joinRoom(roomId).then((room) => {
-      const events = [...room.getLiveTimeline().getEvents()].reverse();
-      set(events);
+      set(getRenderableTimeline(room));
     });
 
     return () => {
@@ -53,8 +71,7 @@ export function useRoom(roomId: string) {
         backwards: true,
         limit: 40,
       });
-      const events = [...liveTimeline.getEvents()];
-      set(events.reverse());
+      set(getRenderableTimeline(room));
     }
   }, [client, roomId, set]);
 
