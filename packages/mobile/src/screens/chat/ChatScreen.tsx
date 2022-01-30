@@ -1,9 +1,9 @@
 import { MatrixEvent } from 'matrix-js-sdk';
-import React from 'react';
+import React, { useRef } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 
 import { Screen } from '~/components/Screen';
-import { useRoom } from '~/features/chat';
+import { useRoom, useScrollOnLiveEvent } from '~/features/chat';
 import theme from '~/theme';
 
 import Item from './Item';
@@ -18,14 +18,19 @@ const styles = StyleSheet.create({
   },
 });
 
-const ChatScreen: React.FC<ChatNavProps> = ({ route: { params } }) => {
-  const { roomId, roomType } = params;
-
+const ChatScreen: React.FC<ChatNavProps> = ({
+  route: {
+    params: { roomId },
+  },
+}) => {
+  const listRef = useRef<FlatList<MatrixEvent>>(null);
   const { timeline, loading, loadOlder } = useRoom(roomId);
+  const scrollProps = useScrollOnLiveEvent(listRef, timeline);
 
   return (
     <Screen>
       <FlatList<MatrixEvent>
+        ref={listRef}
         inverted
         style={styles.list}
         contentContainerStyle={styles.content}
@@ -36,6 +41,7 @@ const ChatScreen: React.FC<ChatNavProps> = ({ route: { params } }) => {
             loadOlder();
           }
         }}
+        {...scrollProps}
       />
     </Screen>
   );
