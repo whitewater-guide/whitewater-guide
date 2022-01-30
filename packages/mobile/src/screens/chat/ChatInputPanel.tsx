@@ -29,7 +29,7 @@ interface ChatInputPanelProps {
 }
 
 const ChatInputPanel: FC<ChatInputPanelProps> = ({ roomId }) => {
-  const client = useChatClient();
+  const { client } = useChatClient();
   const [text, setText] = useState('');
   const [sending, setSending] = useState(false);
 
