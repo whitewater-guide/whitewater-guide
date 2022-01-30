@@ -3,12 +3,11 @@ import { useEffect, useRef } from 'react';
 import useAsyncFn from 'react-use/lib/useAsyncFn';
 import useList from 'react-use/lib/useList';
 
-import { IRoomTimelineData } from '~/features/chat/model/types';
-
 import { useChatClient } from '../ChatClientProvider';
+import { IRoomTimelineData } from '../types';
 
 export function useRoom(id: string) {
-  const alias = `#${id}:whitewater.guide`;
+  const alias = `!${id}:whitewater.guide`;
   const roomIdRef = useRef('');
   const client = useChatClient();
   const [timeline, { insertAt, set }] = useList<MatrixEvent>([]);

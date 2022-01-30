@@ -52,7 +52,6 @@ export type RootStackParamsList = {
     fromDescentFormKey?: string;
   };
   [Screens.CHAT]: {
-    roomType: string;
     roomId: string;
   };
 };

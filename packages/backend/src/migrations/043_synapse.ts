@@ -2,14 +2,25 @@ import Knex from 'knex';
 import { Visibility } from 'matrix-js-sdk/lib/@types/partials';
 
 import config from '~/config';
-import { Sql } from '~/db';
+import { createViews, dropViews, Sql } from '~/db';
 import { matrixClient, synapseClient } from '~/features/chats';
 import log from '~/log';
+
+const VIEWS = ['sections', 'rivers', 'regions'];
 
 /**
  * This migration adds initial support for synapse chats
  */
 export const up = async (db: Knex) => {
+  await dropViews(db, ...VIEWS);
+  await db.schema.table('sections', (table) => {
+    table.text('room_id').nullable();
+  });
+  await db.schema.table('regions', (table) => {
+    table.text('room_id').nullable();
+  });
+  await createViews(db, 43, ...VIEWS);
+
   // Create system users
   // Admin (acces via UI)
   await synapseClient.registerAdmin(
@@ -39,27 +50,18 @@ export const up = async (db: Knex) => {
   } catch (e) {
     log.error({ error: e as Error, message: 'lobby creation error' });
   }
-  // create one room for each region
-  const regions: Array<Pick<Sql.RegionsView, 'id' | 'name'>> = await db
-    .table('regions_view')
-    .select(['id', 'name'])
-    .where({ language: 'en' });
-  for (let region of regions) {
-    try {
-      const room = await matrixClient.createRoom({
-        room_alias_name: region.id,
-        name: region.name,
-        visibility: Visibility.Public,
-        creation_content: { subject: 'Region' },
-      });
-      log.debug({ room }, 'created room');
-    } catch (e) {
-      log.error({ error: e as Error, message: 'room creation error' });
-    }
-  }
   await matrixClient.logout();
 };
 
-export const down = async (db: Knex) => {};
+export const down = async (db: Knex) => {
+  await dropViews(db, ...VIEWS);
+  await db.schema.table('sections', (table) => {
+    table.dropColumn('room_id');
+  });
+  await db.schema.table('regions', (table) => {
+    table.dropColumn('room_id');
+  });
+  await createViews(db, 42, ...VIEWS);
+};
 
 export const configuration = { transaction: true };

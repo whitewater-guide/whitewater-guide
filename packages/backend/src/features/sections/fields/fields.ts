@@ -7,6 +7,7 @@ import gauge from './gauge';
 import media from './media';
 import region from './region';
 import river from './river';
+import roomId from './roomId';
 import shape from './shape';
 
 export const sectionFieldResolvers: SectionResolvers = {
@@ -38,6 +39,7 @@ export const sectionFieldResolvers: SectionResolvers = {
   media,
   region,
   river,
+  roomId,
   gauge,
   createdBy,
   helpNeeded: (s) => s.help_needed,

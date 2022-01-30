@@ -42,10 +42,9 @@ export default function useFakeChatTab() {
         e.preventDefault();
         if (!me) {
           navigation.navigate(Screens.AUTH_STACK);
-        } else if (route.params?.regionId) {
+        } else if (route.params?.roomId) {
           navigation.navigate(Screens.CHAT, {
-            roomId: route.params.regionId,
-            roomType: 'Region',
+            roomId: route.params?.roomId,
           });
         }
       },

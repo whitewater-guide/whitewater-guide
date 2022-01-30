@@ -34,6 +34,7 @@ const RegionTabs: React.FC<RegionTabsNavProps> = () => {
   // it's here because passing it via [initialParams](https://reactnavigation.org/docs/screen#initialparams)
   // seems to be simplest way to track screen params in sentry
   const regionId = regionQuery.data?.region?.id;
+  const roomId = regionQuery.data?.region?.roomId;
   const chatListeners = useFakeChatTab();
 
   return (
@@ -95,7 +96,7 @@ const RegionTabs: React.FC<RegionTabsNavProps> = () => {
             tabBarTestID: 'region-tab-chat',
           }}
           listeners={chatListeners}
-          initialParams={{ regionId }}
+          initialParams={{ roomId }}
         />
       </Tab.Navigator>
 

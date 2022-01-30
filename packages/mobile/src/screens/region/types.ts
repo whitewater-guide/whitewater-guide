@@ -28,7 +28,7 @@ export type RegionTabsParamsList = {
   [Screens.REGION_MAP]: { regionId?: string } | undefined;
   [Screens.REGION_SECTIONS_LIST]: { regionId?: string } | undefined;
   [Screens.REGION_INFO]: { regionId?: string } | undefined;
-  [Screens.REGION_FAKE_CHAT]: { regionId?: string } | undefined;
+  [Screens.REGION_FAKE_CHAT]: { roomId?: string | null } | undefined;
 };
 
 export type RegionTabsNavProp = CompositeNavigationProp<

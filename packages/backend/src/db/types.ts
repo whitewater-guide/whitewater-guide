@@ -201,6 +201,7 @@ export namespace Sql {
     cover_image: RegionCoverImage;
     maps_size: number;
     license: TLicense | null;
+    room_id: string | null;
   }
 
   export interface RegionsTranslations extends Translation, Timestamped {
@@ -302,6 +303,7 @@ export namespace Sql {
     verified: boolean | null;
     license: TLicense | null;
     timezone: string | null;
+    room_id: string | null;
   }
 
   export interface SectionsTranslations extends Translation, Timestamped {
