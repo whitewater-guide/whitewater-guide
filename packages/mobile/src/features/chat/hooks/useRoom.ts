@@ -1,15 +1,18 @@
 import { MatrixEvent, Room } from 'matrix-js-sdk';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import useAsyncFn from 'react-use/lib/useAsyncFn';
 import useList from 'react-use/lib/useList';
 
 import { useChatClient } from '../ChatClientProvider';
 import { IRoomTimelineData } from '../types';
 
-export function useRoom(id: string) {
-  const alias = `!${id}:whitewater.guide`;
-  const roomIdRef = useRef('');
-  const client = useChatClient();
+/**
+ * This hook makes user join the room and returns timeline and pagination
+ * @param roomId Full internal room id (starts with exclamation marks and contains :domain)
+ * @returns
+ */
+export function useRoom(roomId: string) {
+  const { client } = useChatClient();
   const [timeline, { insertAt, set }] = useList<MatrixEvent>([]);
 
   useEffect(() => {
@@ -20,7 +23,7 @@ export function useRoom(id: string) {
       _remove: boolean,
       data: IRoomTimelineData,
     ) => {
-      if (room.roomId !== roomIdRef.current) {
+      if (room.roomId !== roomId) {
         return;
       }
       if (!data.liveEvent) {
@@ -31,20 +34,19 @@ export function useRoom(id: string) {
 
     client.on('Room.timeline', onTimelineEvent);
 
-    client.joinRoom(alias).then((room) => {
-      roomIdRef.current = room.roomId;
+    client.joinRoom(roomId).then((room) => {
       const events = [...room.getLiveTimeline().getEvents()].reverse();
       set(events);
     });
 
     return () => {
       client.off('Room.timeline', onTimelineEvent);
-      client.leave(roomIdRef.current);
+      client.leave(roomId);
     };
-  }, [client, alias, set, insertAt, roomIdRef]);
+  }, [client, set, insertAt, roomId]);
 
   const [{ loading }, loadOlder] = useAsyncFn(async () => {
-    const room = client.getRoom(roomIdRef.current);
+    const room = client.getRoom(roomId);
     const liveTimeline = room?.getLiveTimeline();
     if (liveTimeline) {
       await client.paginateEventTimeline(liveTimeline, {
@@ -54,7 +56,7 @@ export function useRoom(id: string) {
       const events = [...liveTimeline.getEvents()];
       set(events.reverse());
     }
-  }, [client, roomIdRef, set]);
+  }, [client, roomId, set]);
 
   return { timeline, loading, loadOlder };
 }

@@ -39,7 +39,7 @@ const ChatInputPanel: FC<ChatInputPanelProps> = ({ roomId }) => {
     Keyboard.dismiss();
     if (msg.length) {
       setSending(true);
-      client.sendTextMessage(`!${roomId}:whitewater.guide`, msg).finally(() => {
+      client.sendTextMessage(roomId, msg).finally(() => {
         setSending(false);
       });
     }
