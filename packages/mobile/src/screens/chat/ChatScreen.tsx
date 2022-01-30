@@ -18,6 +18,8 @@ const styles = StyleSheet.create({
   },
 });
 
+const keyExtractor = (item: MatrixEvent) => item.getId();
+
 const ChatScreen: React.FC<ChatNavProps> = ({
   route: {
     params: { roomId },
@@ -41,6 +43,7 @@ const ChatScreen: React.FC<ChatNavProps> = ({
             loadOlder();
           }
         }}
+        keyExtractor={keyExtractor}
         {...scrollProps}
       />
     </Screen>
