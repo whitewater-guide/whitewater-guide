@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Insets,
   Pressable,
   StyleProp,
   StyleSheet,
@@ -41,6 +42,8 @@ interface IconBaseProps {
   accessibilityHint?: string;
   accessibilityLabel?: string;
   testID?: string;
+  disabled?: boolean;
+  hitSlop?: Insets;
 }
 
 const IconBase = React.forwardRef<any, IconBaseProps>((props, ref) => {
@@ -57,6 +60,8 @@ const IconBase = React.forwardRef<any, IconBaseProps>((props, ref) => {
     accessibilityHint,
     accessibilityLabel,
     testID,
+    disabled,
+    hitSlop,
   } = props;
   const clr = color || (primary ? theme.colors.primary : theme.colors.textMain);
   const sz = large ? theme.icons.large : size;
@@ -71,6 +76,8 @@ const IconBase = React.forwardRef<any, IconBaseProps>((props, ref) => {
         accessibilityHint={accessibilityHint}
         accessibilityLabel={accessibilityLabel}
         testID={testID}
+        disabled={disabled}
+        hitSlop={hitSlop}
       >
         <MDCommunity name={icon} size={sz} color={clr} style={iconStyle} />
       </Pressable>
