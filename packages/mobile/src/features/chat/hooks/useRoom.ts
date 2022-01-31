@@ -69,10 +69,7 @@ export function useRoom({ id: roomId, alias }: TRoom) {
     const room = client.getRoom(roomId);
     const liveTimeline = room?.getLiveTimeline();
     if (liveTimeline) {
-      await client.paginateEventTimeline(liveTimeline, {
-        backwards: true,
-        limit: 40,
-      });
+      await client.scrollback(room, 40);
       set(getRenderableTimeline(room));
     }
   }, [client, roomId, set]);
