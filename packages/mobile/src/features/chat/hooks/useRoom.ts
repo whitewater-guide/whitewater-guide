@@ -1,3 +1,4 @@
+import { Room as TRoom } from '@whitewater-guide/schema';
 import { MatrixEvent, Room } from 'matrix-js-sdk';
 import { useEffect } from 'react';
 import useAsyncFn from 'react-use/lib/useAsyncFn';
@@ -24,10 +25,10 @@ function getRenderableTimeline(room: Room): MatrixEvent[] {
 
 /**
  * This hook makes user join the room and returns timeline and pagination
- * @param roomId Full internal room id (starts with exclamation marks and contains :domain)
+ * @param room as returned by graphql
  * @returns
  */
-export function useRoom(roomId: string) {
+export function useRoom({ id: roomId, alias }: TRoom) {
   const { client } = useChatClient();
   const [timeline, { insertAt, set }] = useList<MatrixEvent>([]);
 
@@ -53,7 +54,8 @@ export function useRoom(roomId: string) {
 
     client.on('Room.timeline', onTimelineEvent);
 
-    client.joinRoom(roomId).then((room) => {
+    // synapse does not allow joining by room id, we have to use alias
+    client.joinRoom(alias).then((room) => {
       set(getRenderableTimeline(room));
     });
 
@@ -61,7 +63,7 @@ export function useRoom(roomId: string) {
       client.off('Room.timeline', onTimelineEvent);
       client.leave(roomId);
     };
-  }, [client, set, insertAt, roomId]);
+  }, [client, set, insertAt, roomId, alias]);
 
   const [{ loading }, loadOlder] = useAsyncFn(async () => {
     const room = client.getRoom(roomId);

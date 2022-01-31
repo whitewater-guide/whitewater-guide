@@ -14,9 +14,7 @@ const ChatScreen: React.FC<ChatNavProps> = (props) => {
   useChatHeaderTitle(props);
 
   return (
-    <Screen>
-      {loading ? <Loading /> : <Chat roomId={route.params.roomId} />}
-    </Screen>
+    <Screen>{loading ? <Loading /> : <Chat room={route.params.room} />}</Screen>
   );
 };
 

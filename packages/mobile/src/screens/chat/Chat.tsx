@@ -1,3 +1,4 @@
+import { Room } from '@whitewater-guide/schema';
 import { MatrixEvent } from 'matrix-js-sdk';
 import React, { useRef } from 'react';
 import { FlatList, Platform, StyleSheet } from 'react-native';
@@ -26,12 +27,12 @@ const keyExtractor = (item: MatrixEvent) => item.getId();
 const OFFSET = (Platform.OS === 'ios' ? 72 : 64) + theme.safeBottom;
 
 interface ChatProps {
-  roomId: string;
+  room: Room;
 }
 
-const Chat: React.FC<ChatProps> = ({ roomId }) => {
+const Chat: React.FC<ChatProps> = ({ room }) => {
   const listRef = useRef<FlatList<MatrixEvent>>(null);
-  const { timeline, loading, loadOlder } = useRoom(roomId);
+  const { timeline, loading, loadOlder } = useRoom(room);
   const scrollProps = useScrollOnLiveEvent(listRef, timeline);
   const renderItem = useRenderEvent(timeline.length);
 
@@ -56,7 +57,7 @@ const Chat: React.FC<ChatProps> = ({ roomId }) => {
         keyExtractor={keyExtractor}
         {...scrollProps}
       />
-      <ChatInputPanel roomId={roomId} />
+      <ChatInputPanel room={room} />
     </KeyboardAvoidingView>
   );
 };

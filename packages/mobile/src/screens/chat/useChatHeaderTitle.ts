@@ -18,13 +18,15 @@ export default function useChatHeaderTitle({
   navigation,
   route,
 }: ChatNavProps) {
-  const { roomId } = route.params;
+  const {
+    room: { id: roomId, alias },
+  } = route.params;
   const apollo = useApolloClient();
   const { client: chats } = useChatClient();
 
   useEffect(() => {
     // Trying to read region or section name from local apollo cache
-    const id = roomId.split(':')[0].slice(1);
+    const id = alias.split(':')[0].slice(1);
     let name: string | undefined;
     const regName = apollo.cache.readQuery<
       RegionNameQuery,
@@ -55,5 +57,5 @@ export default function useChatHeaderTitle({
     navigation.setOptions({
       headerTitle: name,
     });
-  }, [navigation, apollo, chats, roomId]);
+  }, [navigation, apollo, chats, roomId, alias]);
 }

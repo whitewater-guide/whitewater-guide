@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { Room } from '@whitewater-guide/schema';
 
 import { RootStackNav, RootStackParamsList, Screens } from '~/core/navigation';
 
@@ -28,7 +29,7 @@ export type RegionTabsParamsList = {
   [Screens.REGION_MAP]: { regionId?: string } | undefined;
   [Screens.REGION_SECTIONS_LIST]: { regionId?: string } | undefined;
   [Screens.REGION_INFO]: { regionId?: string } | undefined;
-  [Screens.REGION_FAKE_CHAT]: { roomId?: string | null } | undefined;
+  [Screens.REGION_FAKE_CHAT]: { room?: Room | null } | undefined;
 };
 
 export type RegionTabsNavProp = CompositeNavigationProp<

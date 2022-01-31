@@ -1,3 +1,4 @@
+import { Room } from '@whitewater-guide/schema';
 import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Keyboard, StyleSheet, View } from 'react-native';
@@ -26,10 +27,10 @@ const styles = StyleSheet.create({
 });
 
 interface ChatInputPanelProps {
-  roomId: string;
+  room: Room;
 }
 
-const ChatInputPanel: FC<ChatInputPanelProps> = ({ roomId }) => {
+const ChatInputPanel: FC<ChatInputPanelProps> = ({ room }) => {
   const { client } = useChatClient();
   const [text, setText] = useState('');
   const [sending, setSending] = useState(false);
@@ -41,7 +42,7 @@ const ChatInputPanel: FC<ChatInputPanelProps> = ({ roomId }) => {
     Keyboard.dismiss();
     if (msg.length) {
       setSending(true);
-      client.sendTextMessage(roomId, msg).finally(() => {
+      client.sendTextMessage(room.id, msg).finally(() => {
         setSending(false);
       });
     }
