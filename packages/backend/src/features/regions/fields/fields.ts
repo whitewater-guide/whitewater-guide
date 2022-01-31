@@ -10,7 +10,7 @@ import gauges from './gauges';
 import hasPremiumAccess from './hasPremiumAccess';
 import mediaSummary from './mediaSummary';
 import rivers from './rivers';
-import roomId from './roomId';
+import room from './room';
 import sections from './sections';
 import sources from './sources';
 
@@ -25,7 +25,7 @@ export const regionFieldResolvers: RegionResolvers = {
   favorite,
   hasPremiumAccess,
   rivers,
-  roomId,
+  room,
   sections,
   gauges,
   sources,

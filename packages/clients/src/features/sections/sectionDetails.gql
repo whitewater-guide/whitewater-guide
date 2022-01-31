@@ -6,7 +6,10 @@ fragment SectionDetails on Section {
     id
     ...RegionLicense
   }
-  roomId
+  room {
+    id
+    alias
+  }
   ...SectionEnds
   ...SectionMeasurements
   ...SectionPOIs

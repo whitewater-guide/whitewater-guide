@@ -6,13 +6,13 @@ import { db } from '~/db';
 import { matrixClient } from '~/features/chats';
 import log from '~/log';
 
-const roomIdResolver: RegionResolvers['roomId'] = async ({
-  id,
-  name,
-  room_id,
-}) => {
+const roomResolver: RegionResolvers['room'] = async ({ id, name, room_id }) => {
+  const alias = `#${id}:${config.SYNAPSE_HOME_SERVER}`;
   if (room_id) {
-    return `!${room_id}:${config.SYNAPSE_HOME_SERVER}`;
+    return {
+      id: `!${room_id}:${config.SYNAPSE_HOME_SERVER}`,
+      alias,
+    };
   }
   let roomId: string | null = null;
   // Lazily create room if it doesn't exist
@@ -37,7 +37,7 @@ const roomIdResolver: RegionResolvers['roomId'] = async ({
   } finally {
     await matrixClient.logout();
   }
-  return roomId;
+  return roomId ? { id: roomId, alias } : null;
 };
 
-export default roomIdResolver;
+export default roomResolver;

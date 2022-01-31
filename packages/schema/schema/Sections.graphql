@@ -105,10 +105,10 @@ type Section implements NamedNode & Timestamped {
   favorite: Boolean
 
   """
-  Chat room id (with domain and exclamation mark)
+  Chat room for this region
   This resolver will lazily create room if it doesn't exist. So it's not recommended to call it in list queries
   """
-  roomId: String
+  room: Room
 
   "Licensing information"
   license: License

@@ -22,35 +22,39 @@ export const up = async (db: Knex) => {
   await createViews(db, 43, ...VIEWS);
 
   // Create system users
-  // Admin (acces via UI)
-  await synapseClient.registerAdmin(
-    config.SYNAPSE_ADMIN_USER,
-    config.SYNAPSE_ADMIN_PASSWORD,
-  );
-  // API (programatic backend access)
-  await synapseClient.registerAdmin(config.SYNAPSE_API_USER);
-  // Find all 'admin' users from database, register them with admin privilegies
-  const admins: Sql.Users[] = await db
-    .table('users')
-    .select()
-    .where({ admin: true });
-  for (let admin of admins) {
-    // use random password. these users should log in with jwt token
-    await synapseClient.registerAdmin(admin.id);
+  try {
+    // Admin (acces via UI)
+    await synapseClient.registerAdmin(
+      config.SYNAPSE_ADMIN_USER,
+      config.SYNAPSE_ADMIN_PASSWORD,
+    );
+    // API (programatic backend access)
+    await synapseClient.registerAdmin(config.SYNAPSE_API_USER);
+    // Find all 'admin' users from database, register them with admin privilegies
+    const admins: Sql.Users[] = await db
+      .table('users')
+      .select()
+      .where({ admin: true });
+    for (let admin of admins) {
+      // use random password. these users should log in with jwt token
+      await synapseClient.registerAdmin(admin.id);
+    }
+  } catch (e) {
+    log.error({ error: e as Error, message: 'admin creation error' });
   }
   // Create some system rooms
-  await matrixClient.loginAsApi();
   try {
+    await matrixClient.loginAsApi();
     const room = await matrixClient.createRoom({
       room_alias_name: 'lobby',
       name: 'Whitewater.guide global chat',
       visibility: Visibility.Public,
     });
     log.debug({ room }, 'created lobby');
+    await matrixClient.logout();
   } catch (e) {
     log.error({ error: e as Error, message: 'lobby creation error' });
   }
-  await matrixClient.logout();
 };
 
 export const down = async (db: Knex) => {

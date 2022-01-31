@@ -3,6 +3,7 @@ import { ApolloErrorCodes } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 
 import { holdTransaction, rollbackTransaction } from '~/db';
+import { matrixClient } from '~/features/chats';
 import {
   ADMIN,
   BOOM_USER_1500,
@@ -30,9 +31,15 @@ import {
   testSectionPremium,
   testSectionRegion,
   testSectionRiver,
+  testSectionRoom,
 } from './section.test.generated';
 
-beforeEach(holdTransaction);
+jest.mock('../../chats/MatrixClient');
+
+beforeEach(async () => {
+  jest.resetAllMocks();
+  await holdTransaction();
+});
 afterEach(rollbackTransaction);
 
 const _query = gql`
@@ -358,5 +365,57 @@ describe('premium access', () => {
       'data.section.description',
       'Bzhuzha Extreme race description',
     );
+  });
+});
+
+describe('chat room', () => {
+  const _q = gql`
+    query sectionRoom($id: ID) {
+      section(id: $id) {
+        id
+        room {
+          id
+          alias
+        }
+      }
+    }
+  `;
+
+  it('should lazily create synapse room', async () => {
+    const createRoomSpy = jest.spyOn(matrixClient, 'createRoom');
+    const result = await testSectionRoom(
+      { id: GALICIA_BECA_LOWER },
+      fakeContext(TEST_USER),
+    );
+    expect(result.errors).toBeUndefined();
+    expect(result.data).toMatchObject({
+      section: {
+        id: GALICIA_BECA_LOWER,
+        room: {
+          id: `!__new_room_id__:whitewater.guide`,
+          alias: `#${GALICIA_BECA_LOWER}:whitewater.guide`,
+        },
+      },
+    });
+    expect(createRoomSpy).toHaveBeenCalled();
+  });
+
+  it('should return existing room', async () => {
+    const createRoomSpy = jest.spyOn(matrixClient, 'createRoom');
+    const result = await testSectionRoom(
+      { id: RUSSIA_MZYMTA_PASEKA },
+      fakeContext(TEST_USER),
+    );
+    expect(result.errors).toBeUndefined();
+    expect(result.data).toMatchObject({
+      section: {
+        id: RUSSIA_MZYMTA_PASEKA,
+        room: {
+          id: `!room_mzymta_paseka:whitewater.guide`,
+          alias: `#${RUSSIA_MZYMTA_PASEKA}:whitewater.guide`,
+        },
+      },
+    });
+    expect(createRoomSpy).not.toHaveBeenCalled();
   });
 });

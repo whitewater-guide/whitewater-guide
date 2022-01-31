@@ -3,6 +3,7 @@ import { ApolloErrorCodes } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 
 import { db, holdTransaction, rollbackTransaction } from '~/db';
+import { matrixClient } from '~/features/chats';
 import {
   ADMIN,
   BOOM_USER_1500,
@@ -16,6 +17,7 @@ import {
   REGION_GEORGIA,
   REGION_LAOS,
   REGION_NORWAY,
+  REGION_RUSSIA,
 } from '~/seeds/test/04_regions';
 import { GAUGE_GAL_1_1 } from '~/seeds/test/06_gauges';
 import { GEORGIA_BZHUZHA_LONG } from '~/seeds/test/09_sections';
@@ -37,14 +39,19 @@ import {
   testRegionGauges,
   testRegionMediaSummary,
   testRegionRivers,
+  testRegionRoom,
   testRegionSections,
   testRegionSectionsRegion,
   testRegionSources,
 } from './region.test.generated';
 
 jest.mock('../../gorge/connector');
+jest.mock('../../chats/MatrixClient');
 
-beforeEach(holdTransaction);
+beforeEach(async () => {
+  jest.resetAllMocks();
+  await holdTransaction();
+});
 afterEach(rollbackTransaction);
 
 const _query = gql`
@@ -655,5 +662,57 @@ it('should not fail on legacy poll measurements query', async () => {
       },
       id: REGION_GALICIA,
     },
+  });
+});
+
+describe('chat room', () => {
+  const _q = gql`
+    query regionRoom($id: ID) {
+      region(id: $id) {
+        id
+        room {
+          id
+          alias
+        }
+      }
+    }
+  `;
+
+  it('should lazily create synapse room', async () => {
+    const createRoomSpy = jest.spyOn(matrixClient, 'createRoom');
+    const result = await testRegionRoom(
+      { id: REGION_GALICIA },
+      fakeContext(TEST_USER),
+    );
+    expect(result.errors).toBeUndefined();
+    expect(result.data).toMatchObject({
+      region: {
+        id: REGION_GALICIA,
+        room: {
+          id: `!__new_room_id__:whitewater.guide`,
+          alias: `#${REGION_GALICIA}:whitewater.guide`,
+        },
+      },
+    });
+    expect(createRoomSpy).toHaveBeenCalled();
+  });
+
+  it('should return existing room', async () => {
+    const createRoomSpy = jest.spyOn(matrixClient, 'createRoom');
+    const result = await testRegionRoom(
+      { id: REGION_RUSSIA },
+      fakeContext(TEST_USER),
+    );
+    expect(result.errors).toBeUndefined();
+    expect(result.data).toMatchObject({
+      region: {
+        id: REGION_RUSSIA,
+        room: {
+          id: `!room_russia:whitewater.guide`,
+          alias: `#${REGION_RUSSIA}:whitewater.guide`,
+        },
+      },
+    });
+    expect(createRoomSpy).not.toHaveBeenCalled();
   });
 });

@@ -1,0 +1,13 @@
+"""
+Chat room
+"""
+type Room {
+  """
+  Chat room id (starts with exclamation mark and has domain)
+  """
+  id: ID!
+  """
+  Canonical room alias (starts with #uuid and has domain)
+  """
+  alias: String!
+}
