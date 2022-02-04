@@ -20,8 +20,8 @@
   },
   "dependencies": {
     "@whitewater-guide/validation": "*",
-    "graphql": "^15.6.1",
-    "graphql-tag": "^2.12.5",
+    "graphql": "^15.8.0",
+    "graphql-tag": "^2.12.6",
     "lodash": "^4.17.21",
     "yup": "^0.32.11"
   },
