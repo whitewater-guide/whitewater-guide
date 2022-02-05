@@ -2,7 +2,7 @@ import { Visibility } from 'matrix-js-sdk/lib/@types/partials';
 
 import { SectionResolvers } from '~/apollo';
 import config from '~/config';
-import { db } from '~/db';
+import { db, Sql } from '~/db';
 import { matrixClient } from '~/features/chats';
 import log from '~/log';
 
@@ -29,9 +29,13 @@ const roomResolver: SectionResolvers['room'] = async (section) => {
     // this returns smth like !gzbjXAxsDGrMsbigGF:whitewater.guide
     // we only want actual id part
     roomId = room.room_id.split(':')[0].slice(1);
-    roomId = `!${roomId}:${config.SYNAPSE_HOME_SERVER}`;
-    await db().table('sections').update({ room_id: roomId }).where({ id });
-    log.debug({ room }, 'created section room');
+    const resp = await db()
+      .table('sections')
+      .update({ room_id: roomId })
+      .where({ id })
+      .returning<Sql.Sections[]>(['id', 'room_id']);
+    roomId = `!${resp[0].room_id}:${config.SYNAPSE_HOME_SERVER}`;
+    log.debug({ room, resp }, 'created section room');
   } catch (e) {
     log.error({ error: e as Error, message: 'section room creation error' });
   } finally {
