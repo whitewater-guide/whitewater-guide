@@ -12,7 +12,7 @@
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "setup-dev-env": "rnuc .env.development.yml",
-    "android": "yarn setup-dev-env && adb reverse tcp:3333 tcp:3333 && react-native run-android --appIdSuffix staging",
+    "android": "yarn setup-dev-env && adb reverse tcp:3333 tcp:3333 && adb reverse tcp:8008 tcp:8008 && react-native run-android --appIdSuffix staging",
     "android:clean": "(cd android && ./gradlew clean || true) && rm -rf android/build && rm -rf android/app/build",
     "android:staging": "fastlane android staging --env staging",
     "android:production": "fastlane android production --env production",
