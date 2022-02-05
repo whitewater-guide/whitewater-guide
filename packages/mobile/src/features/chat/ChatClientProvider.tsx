@@ -11,11 +11,12 @@ import React, {
   useState,
 } from 'react';
 import DeviceInfo from 'react-native-device-info';
+import Config from 'react-native-ultimate-config';
 
 import { tokenStorage } from '~/core/auth';
 
 const client = createClient({
-  baseUrl: 'http://localhost:8008',
+  baseUrl: `http://${Config.CHAT_HOST}`,
   deviceId: DeviceInfo.getUniqueId(),
 });
 
@@ -50,7 +51,9 @@ export const ChatClientProvider: FC = ({ children }) => {
 
     tokenStorage
       .getAccessToken()
-      .then((token) => client.login('org.matrix.login.jwt', { token }))
+      .then(async (token) => {
+        await client.login('org.matrix.login.jwt', { token });
+      })
       .then(() => {
         client.startClient({ initialSyncLimit: 30 });
         if (myName.current) {
