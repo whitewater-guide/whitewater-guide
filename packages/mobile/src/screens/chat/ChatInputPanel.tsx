@@ -1,7 +1,7 @@
 import { Room } from '@whitewater-guide/schema';
 import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Keyboard, StyleSheet, View } from 'react-native';
+import { Keyboard, Platform, StyleSheet, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
 
 import Icon from '~/components/Icon';
@@ -13,7 +13,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingHorizontal: theme.margin.double,
     paddingTop: theme.margin.double,
-    paddingBottom: Math.max(theme.margin.double, theme.safeBottom),
+    paddingBottom:
+      Platform.OS === 'ios'
+        ? Math.max(theme.margin.double, theme.safeBottom)
+        : theme.margin.double,
 
     backgroundColor: theme.colors.lightBackground,
     borderTopColor: theme.colors.border,

@@ -2,6 +2,7 @@ import React from 'react';
 
 import Loading from '~/components/Loading';
 import { Screen } from '~/components/Screen';
+import { SoftInputMode } from '~/components/SoftInput';
 import { useChatClient } from '~/features/chat';
 
 import Chat from './Chat';
@@ -14,7 +15,9 @@ const ChatScreen: React.FC<ChatNavProps> = (props) => {
   useChatHeaderTitle(props);
 
   return (
-    <Screen>{loading ? <Loading /> : <Chat room={route.params.room} />}</Screen>
+    <Screen softInputMode={SoftInputMode.ADJUST_RESIZE}>
+      {loading ? <Loading /> : <Chat room={route.params.room} />}
+    </Screen>
   );
 };
 

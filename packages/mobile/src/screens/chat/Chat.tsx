@@ -39,7 +39,7 @@ const Chat: React.FC<ChatProps> = ({ room }) => {
   return (
     <KeyboardAvoidingView
       style={styles.kav}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'none'}
       keyboardVerticalOffset={OFFSET}
     >
       <FlatList<MatrixEvent>

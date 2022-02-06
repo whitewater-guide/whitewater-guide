@@ -13,6 +13,7 @@ import com.reactnativeultimateconfig.UltimateConfigModule;
 
 import guide.whitewater.CustomMMKVJSIModulePackage;
 import guide.whitewater.section_item.SectionItemPackage;
+import guide.whitewater.soft_input.SoftInputPackage;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -32,6 +33,7 @@ public class MainApplication extends Application implements ReactApplication {
                 List<ReactPackage> packages = new PackageList(this).getPackages();
                 // Packages that cannot be autolinked yet can be added manually here, for example:
                 packages.add(new SectionItemPackage());
+                packages.add(new SoftInputPackage());
                 return packages;
             }
 

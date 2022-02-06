@@ -19,7 +19,7 @@ interface Props extends ViewProps {
   /**
    * Specify how to react to the presence of the keyboard.
    */
-  behavior?: 'height' | 'position' | 'padding';
+  behavior?: 'height' | 'position' | 'padding' | 'none';
 
   /**
    * Style of the content container when `behavior` is 'position'.
@@ -165,6 +165,8 @@ export default class KeyboardAvoidingView extends React.Component<
     const bottomHeight = enabled ? this.state.bottom : 0;
     let heightStyle;
     switch (behavior) {
+      case 'none':
+        return <View style={style}>{children}</View>;
       case 'height':
         if (!!this._frame && this.state.bottom > 0) {
           // Note that we only apply a height change when there is keyboard present,
