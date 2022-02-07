@@ -55,8 +55,16 @@ export function useRoom({ id: roomId, alias }: TRoom) {
     client.on('Room.timeline', onTimelineEvent);
 
     // synapse does not allow joining by room id, we have to use alias
-    client.joinRoom(alias).then((room) => {
-      set(getRenderableTimeline(room));
+    client.joinRoom(alias).then((_room) => {
+      // at this point _room is not fully synced, so we wait for sync event
+      const onSync = (state: string) => {
+        const room = client.getRoom(roomId);
+        if (state === 'SYNCING' && room) {
+          set(getRenderableTimeline(room));
+          client.off('sync', onSync);
+        }
+      };
+      client.on('sync', onSync);
     });
 
     return () => {
