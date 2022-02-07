@@ -89,7 +89,6 @@ const RegionTabs: React.FC<RegionTabsNavProps> = () => {
           name={Screens.REGION_FAKE_CHAT}
           component={View}
           options={{
-            tabBarLabel: t('region:info.chat'),
             tabBarIcon: ({ color }) => (
               <Icon icon="message-text" color={color} />
             ),

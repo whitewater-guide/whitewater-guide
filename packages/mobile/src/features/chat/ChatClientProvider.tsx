@@ -55,7 +55,11 @@ export const ChatClientProvider: FC = ({ children }) => {
         await client.login('org.matrix.login.jwt', { token });
       })
       .then(() => {
-        client.startClient({ initialSyncLimit: 30 });
+        client.startClient({
+          initialSyncLimit: 30,
+          disablePresence: true,
+          lazyLoadMembers: true,
+        });
         if (myName.current) {
           client.setDisplayName(myName.current);
         }
