@@ -6,6 +6,7 @@ import {
   ScreenListeners,
 } from '@react-navigation/native';
 import { useAuth } from '@whitewater-guide/clients';
+import { Room } from '@whitewater-guide/schema';
 import { useCallback } from 'react';
 
 import { Screens } from '~/core/navigation';
@@ -27,13 +28,12 @@ interface RegionChatNavProps {
   route: RouteProp<RegionTabsParamsList, Screens.REGION_FAKE_CHAT>;
 }
 
-export default function useFakeChatTab() {
+export default function useFakeChatTab(room?: Room | null) {
   const { me } = useAuth();
 
   return useCallback(
     ({
       navigation,
-      route,
     }: RegionChatNavProps): ScreenListeners<
       any,
       MaterialBottomTabNavigationEventMap
@@ -42,13 +42,13 @@ export default function useFakeChatTab() {
         e.preventDefault();
         if (!me) {
           navigation.navigate(Screens.AUTH_STACK);
-        } else if (route.params?.room) {
+        } else if (room) {
           navigation.navigate(Screens.CHAT, {
-            room: route.params?.room,
+            room,
           });
         }
       },
     }),
-    [me],
+    [me, room],
   );
 }
