@@ -58,17 +58,19 @@ const SectionTabs: React.FC<SectionScreenNavProps> = ({ navigation }) => {
         }}
         initialParams={{ sectionId }}
       />
-      <Tab.Screen
-        name={Screens.SECTION_CHART}
-        component={LazySectionChartScreen}
-        options={{
-          tabBarLabel: t('section:chart.title'),
-          tabBarIcon: () => (
-            <Icon icon="chart-line" color={theme.colors.textLight} />
-          ),
-          tabBarTestID: 'section-tab-chart',
-        }}
-      />
+      {!!section?.gauge && (
+        <Tab.Screen
+          name={Screens.SECTION_CHART}
+          component={LazySectionChartScreen}
+          options={{
+            tabBarLabel: t('section:chart.title'),
+            tabBarIcon: () => (
+              <Icon icon="chart-line" color={theme.colors.textLight} />
+            ),
+            tabBarTestID: 'section-tab-chart',
+          }}
+        />
+      )}
       <Tab.Screen
         name={Screens.SECTION_INFO}
         component={LazySectionInfoScreen}
