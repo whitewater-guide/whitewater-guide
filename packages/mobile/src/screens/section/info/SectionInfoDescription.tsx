@@ -12,16 +12,18 @@ interface Props {
 // Priorities:
 // section description is empty string when there is no description (even for premium)
 // section description is null when premium is required
-const SectionGuideView: React.FC<Props> = ({ section }) => {
+const SectionInfoDescription: React.FC<Props> = ({ section }) => {
   if (!section) {
     return null;
   }
+
   if (section.description) {
     return <Markdown>{section.description}</Markdown>;
   }
+
   return (
     <Placeholder section={section} premium={section.description === null} />
   );
 };
 
-export default SectionGuideView;
+export default SectionInfoDescription;

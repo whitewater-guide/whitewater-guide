@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { useCallback, useEffect, useState } from 'react';
 import Config from 'react-native-ultimate-config';
 
-const PERSISTENCE_KEY = 'wwguide1';
+const PERSISTENCE_KEY = 'wwguide2';
 
 export default () => {
   const [isReady, setIsReady] = useState(Config.E2E_MODE === 'true');

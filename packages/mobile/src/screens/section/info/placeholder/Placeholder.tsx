@@ -1,7 +1,8 @@
 import { SafeSectionDetails } from '@whitewater-guide/clients';
 import React from 'react';
 
-import { useIap } from '../../../../features/purchases';
+import { useIap } from '~/features/purchases';
+
 import NoDataPlaceholder from './NoDataPlaceholder';
 import PremiumPlaceholder from './PremiumPlaceholder';
 

@@ -1,6 +1,6 @@
 import { useFocusEffect } from '@react-navigation/native';
 import { useSection } from '@whitewater-guide/clients';
-import React, { useCallback } from 'react';
+import React from 'react';
 
 import SectionFAB from '../SectionFAB';
 import SectionTabsScreen from '../SectionTabsScreen';
@@ -12,16 +12,10 @@ const SectionInfoScreen: React.FC<SectionInfoNavProps> = ({ navigation }) => {
   const section = useSection();
 
   useFocusEffect(
-    useCallback(() => {
+    React.useCallback(() => {
       navigation.getParent()?.setOptions({
-        // eslint-disable-next-line react/no-unstable-nested-components
         headerRight: () =>
-          section ? (
-            <SectionInfoMenu
-              sectionId={section.id}
-              favorite={section.favorite}
-            />
-          ) : null,
+          section ? <SectionInfoMenu section={section} /> : null,
       });
     }, [navigation, section]),
   );

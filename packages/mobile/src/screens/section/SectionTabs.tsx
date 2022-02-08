@@ -13,7 +13,6 @@ import {
 
 import theme from '../../theme';
 import { LazySectionChartScreen } from './chart';
-import { LazySectionGuideScreen } from './guide';
 import { LazySectionInfoScreen } from './info';
 import { LazySectionMapScreen } from './map';
 import { LazySectionMediaScreen } from './media';
@@ -81,19 +80,6 @@ const SectionTabs: React.FC<SectionScreenNavProps> = ({ navigation }) => {
             <Icon icon="information" color={theme.colors.textLight} />
           ),
           tabBarTestID: 'section-tab-info',
-        }}
-        initialParams={{ sectionId }}
-      />
-      <Tab.Screen
-        name={Screens.SECTION_GUIDE}
-        component={LazySectionGuideScreen}
-        options={{
-          tabBarLabel: t('section:guide.title'),
-          // eslint-disable-next-line react/display-name
-          tabBarIcon: () => (
-            <Icon icon="book-open-variant" color={theme.colors.textLight} />
-          ),
-          tabBarTestID: 'section-tab-guide',
         }}
         initialParams={{ sectionId }}
       />

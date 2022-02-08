@@ -4,7 +4,7 @@ import { Paragraph } from 'react-native-paper';
 
 const NoDataPlaceholder: React.FC = () => {
   const { t } = useTranslation();
-  return <Paragraph>{t('section:guide.noData')}</Paragraph>;
+  return <Paragraph>{t('section:info.description.noData')}</Paragraph>;
 };
 
 export default NoDataPlaceholder;

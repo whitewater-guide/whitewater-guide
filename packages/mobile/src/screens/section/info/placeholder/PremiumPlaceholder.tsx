@@ -29,10 +29,10 @@ const PremiumPlaceholder: FC<Props> = ({ section }) => {
   return (
     <View style={styles.container}>
       <Caption>
-        {t('screens:section.guide.premiumMessage', { region: name })}
+        {t('screens:section.info.description.premiumMessage', { region: name })}
       </Caption>
       <Button mode="contained" onPress={onBuy}>
-        {t('screens:section.guide.premiumButton')}
+        {t('screens:section.info.description.premiumButton')}
       </Button>
     </View>
   );

@@ -12,7 +12,7 @@ import {
 import { Screens } from '~/core/navigation';
 import theme from '~/theme';
 
-import useToggleFavoriteSection from './useToggleFavoriteSection';
+import { useToggleFavoriteSection } from './useToggleFavoriteSection';
 
 const styles = StyleSheet.create({
   container: {
