@@ -1,7 +1,9 @@
 import { SafeSectionDetails } from '@whitewater-guide/clients';
 import React from 'react';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 import Markdown from '~/components/Markdown';
+import copyAndToast from '~/utils/copyAndToast';
 
 import Placeholder from './placeholder';
 
@@ -18,7 +20,13 @@ const SectionInfoDescription: React.FC<Props> = ({ section }) => {
   }
 
   if (section.description) {
-    return <Markdown>{section.description}</Markdown>;
+    return (
+      <TouchableWithoutFeedback
+        onLongPress={() => copyAndToast(section.description!)}
+      >
+        <Markdown>{section.description}</Markdown>
+      </TouchableWithoutFeedback>
+    );
   }
 
   return (
