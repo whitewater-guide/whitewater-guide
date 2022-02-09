@@ -11,19 +11,19 @@ import { useCallback } from 'react';
 
 import { Screens } from '~/core/navigation';
 
-import { RegionTabsNavProp, RegionTabsParamsList } from './types';
+import { SectionScreenNavProp, SectionTabsParamsList } from './types';
 
-type RegionChatNavProp = CompositeNavigationProp<
+type SectionChatNavProp = CompositeNavigationProp<
   MaterialBottomTabNavigationProp<
-    RegionTabsParamsList,
-    Screens.REGION_FAKE_CHAT
+    SectionTabsParamsList,
+    Screens.SECTION_FAKE_CHAT
   >,
-  RegionTabsNavProp
+  SectionScreenNavProp
 >;
 
-interface RegionChatNavProps {
-  navigation: RegionChatNavProp;
-  route: RouteProp<RegionTabsParamsList, Screens.REGION_FAKE_CHAT>;
+interface SectionChatNavProps {
+  navigation: SectionChatNavProp;
+  route: RouteProp<SectionTabsParamsList, Screens.SECTION_FAKE_CHAT>;
 }
 
 export default function useFakeChatTab(room?: Room | null) {
@@ -32,7 +32,7 @@ export default function useFakeChatTab(room?: Room | null) {
   return useCallback(
     ({
       navigation,
-    }: RegionChatNavProps): ScreenListeners<
+    }: SectionChatNavProps): ScreenListeners<
       any,
       MaterialBottomTabNavigationEventMap
     > => ({

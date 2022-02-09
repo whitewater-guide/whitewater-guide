@@ -2,6 +2,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { useSection } from '@whitewater-guide/clients';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { View } from 'react-native';
 import useEffectOnce from 'react-use/lib/useEffectOnce';
 
 import Icon from '~/components/Icon';
@@ -17,6 +18,7 @@ import { LazySectionInfoScreen } from './info';
 import { LazySectionMapScreen } from './map';
 import { LazySectionMediaScreen } from './media';
 import SectionTitle from './SectionTitle';
+import useFakeChatTab from './useFakeChatTab';
 
 const Tab = createMaterialBottomTabNavigator<SectionTabsParamsList>();
 
@@ -27,6 +29,7 @@ const SectionTabs: React.FC<SectionScreenNavProps> = ({ navigation }) => {
   // it's here because passing it via [initialParams](https://reactnavigation.org/docs/screen#initialparams)
   // seems to be simplest way to track screen params in sentry
   const sectionId = section?.id;
+  const chatListeners = useFakeChatTab(section?.room);
 
   useEffectOnce(() => {
     navigation.setOptions({
@@ -95,6 +98,15 @@ const SectionTabs: React.FC<SectionScreenNavProps> = ({ navigation }) => {
           tabBarTestID: 'section-tab-media',
         }}
         initialParams={{ sectionId }}
+      />
+      <Tab.Screen
+        name={Screens.SECTION_FAKE_CHAT}
+        component={View}
+        options={{
+          tabBarIcon: ({ color }) => <Icon icon="message-text" color={color} />,
+          tabBarTestID: 'section-tab-chat',
+        }}
+        listeners={chatListeners}
       />
     </Tab.Navigator>
   );
