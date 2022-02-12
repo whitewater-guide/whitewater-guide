@@ -1,0 +1,30 @@
+{
+  "name": "@whitewater-guide/csv-exporter",
+  "private": true,
+  "version": "0.0.3",
+  "license": "UNLICENSED",
+  "description": "exports whitewater.guide sections to csv",
+  "repository": "https://github.com/doomsower/whitewater.git",
+  "author": "doomsower <K.Kuznetcov@gmail.com>",
+  "scripts": {
+    "clean": "rimraf dist",
+    "export": "ts-node index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@whitewater-guide/commons": "^0.0.213",
+    "@whitewater-guide/schema": "^0.0.212",
+    "csv-stringify": "^6.0.5",
+    "fs-extra": "^10.0.0",
+    "lodash": "^4.17.21",
+    "pg": "^8.7.3",
+    "pg-query-stream": "^4.2.3"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "@types/lodash": "^4.14.178",
+    "@types/pg": "^8.6.4",
+    "@types/rimraf": "^3.0.2",
+    "@types/tar": "^6.1.1"
+  }
+}
