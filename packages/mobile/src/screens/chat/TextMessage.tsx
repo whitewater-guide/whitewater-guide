@@ -1,7 +1,8 @@
 import format from 'date-fns/format';
 import { MatrixEvent } from 'matrix-js-sdk';
 import React, { FC, useCallback } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { Caption, Paragraph } from 'react-native-paper';
 
@@ -26,6 +27,18 @@ const styles = StyleSheet.create({
   date: {
     alignSelf: 'flex-end',
   },
+  deleted: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  deletedIcon: {
+    fontSize: 18,
+    fontFamily:
+      Platform.OS === 'android'
+        ? 'MaterialCommunityIcons'
+        : 'Material Design Icons',
+    color: theme.colors.componentBorder,
+  },
 });
 
 interface TextMessageProps {
@@ -34,9 +47,12 @@ interface TextMessageProps {
 }
 
 const TextMessage: FC<TextMessageProps> = ({ message, onLongPress }) => {
+  const { t } = useTranslation();
   const handleLongPress = useCallback(() => {
     onLongPress?.(message);
   }, [message, onLongPress]);
+
+  const content = getMessage(message);
 
   return (
     <TouchableWithoutFeedback onLongPress={handleLongPress}>
@@ -50,7 +66,16 @@ const TextMessage: FC<TextMessageProps> = ({ message, onLongPress }) => {
           </Caption>
         </View>
 
-        <Paragraph>{getMessage(message)}</Paragraph>
+        {!!content && <Paragraph>{content}</Paragraph>}
+
+        {message.isRedacted() && (
+          <View style={styles.deleted}>
+            <Text style={styles.deletedIcon}>
+              {String.fromCodePoint(985721)}
+            </Text>
+            <Caption>{' ' + t('screens:chat.message.deleted')}</Caption>
+          </View>
+        )}
       </View>
     </TouchableWithoutFeedback>
   );

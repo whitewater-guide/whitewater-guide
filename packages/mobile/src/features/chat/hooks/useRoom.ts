@@ -53,7 +53,15 @@ export function useRoom({ id: roomId, alias }: TRoom) {
       insertAt(0, e);
     };
 
+    const onRedaction = (e: MatrixEvent, room: Room) => {
+      if (room.roomId !== roomId) {
+        return;
+      }
+      set(getRenderableTimeline(room));
+    };
+
     client.on('Room.timeline', onTimelineEvent);
+    client.on('Room.redaction', onRedaction);
 
     // synapse does not allow joining by room id, we have to use alias
     client.joinRoom(alias).then((_room) => {
@@ -70,6 +78,7 @@ export function useRoom({ id: roomId, alias }: TRoom) {
 
     return () => {
       client.off('Room.timeline', onTimelineEvent);
+      client.off('Room.redaction', onRedaction);
       client.leave(roomId);
     };
   }, [client, set, insertAt, roomId, alias]);
