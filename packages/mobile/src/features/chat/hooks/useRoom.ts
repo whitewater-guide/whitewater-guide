@@ -50,6 +50,11 @@ export function useRoom({ id: roomId, alias }: TRoom) {
       if (!isEventRenderable(e)) {
         return;
       }
+      if (e.isRelation('m.replace')) {
+        // This event marks another event as edited
+        // TODO: handle edits live
+        return;
+      }
       insertAt(0, e);
     };
 
@@ -57,6 +62,7 @@ export function useRoom({ id: roomId, alias }: TRoom) {
       if (room.roomId !== roomId) {
         return;
       }
+      // Just rerender timeline
       set(getRenderableTimeline(room));
     };
 
@@ -91,6 +97,8 @@ export function useRoom({ id: roomId, alias }: TRoom) {
       set(getRenderableTimeline(room));
     }
   }, [client, roomId, set]);
+
+  // console.log(JSON.stringify(timeline.map((t) => t.event)));
 
   return { timeline, loading, loadOlder };
 }

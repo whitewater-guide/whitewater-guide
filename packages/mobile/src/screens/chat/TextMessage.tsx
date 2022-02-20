@@ -53,6 +53,7 @@ const TextMessage: FC<TextMessageProps> = ({ message, onLongPress }) => {
   }, [message, onLongPress]);
 
   const content = getMessage(message);
+  const redacted = message.isRedacted();
 
   return (
     <TouchableWithoutFeedback onLongPress={handleLongPress}>
@@ -68,7 +69,7 @@ const TextMessage: FC<TextMessageProps> = ({ message, onLongPress }) => {
 
         {!!content && <Paragraph>{content}</Paragraph>}
 
-        {message.isRedacted() && (
+        {redacted && (
           <View style={styles.deleted}>
             <Text style={styles.deletedIcon}>
               {String.fromCodePoint(985721)}
