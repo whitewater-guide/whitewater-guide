@@ -4,7 +4,8 @@ import { useEffect } from 'react';
 import useAsyncFn from 'react-use/lib/useAsyncFn';
 import useList from 'react-use/lib/useList';
 
-import { useChatClient } from '../ChatClientProvider';
+import { useChatClient } from '../ChatProvider';
+import { MESSAGES_IN_BATCH } from '../constants';
 import { IRoomTimelineData } from '../types';
 import { isEventRenderable } from '../utils';
 
@@ -29,7 +30,7 @@ function getRenderableTimeline(room: Room): MatrixEvent[] {
  * @returns
  */
 export function useRoom({ id: roomId, alias }: TRoom) {
-  const { client } = useChatClient();
+  const client = useChatClient();
   const [timeline, { insertAt, set }] = useList<MatrixEvent>([]);
 
   useEffect(() => {
@@ -77,7 +78,7 @@ export function useRoom({ id: roomId, alias }: TRoom) {
     const room = client.getRoom(roomId);
     const liveTimeline = room?.getLiveTimeline();
     if (liveTimeline) {
-      await client.scrollback(room, 40);
+      await client.scrollback(room, MESSAGES_IN_BATCH);
       set(getRenderableTimeline(room));
     }
   }, [client, roomId, set]);

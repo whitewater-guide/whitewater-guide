@@ -148,10 +148,10 @@ services:
       - db
     environment:
       POSTGRES_PASSWORD: whitewater
-      REGISTRATION_SHARED_SECRET: __registration_shared_secret__
-      MACAROON_SECRET_KEY: __macaroon_secret_key__
-      FORM_SECRET: __form_secret__
-      JWT_SECRET: __jwt_secret__
+      REGISTRATION_SHARED_SECRET: __synapse_registration_shared_secret__
+      MACAROON_SECRET_KEY: 'pI#RbIZi05*KAUC.E0M4SPBAHSFykyoIKh;8.ao1CRlqpBASB+'
+      FORM_SECRET: 'xS^pf6FzkdI4py&A8@NCohs~WO68b#xbK8mi2^d;Wx;C^Dbioo'
+      JWT_SECRET: __access_token_secret__
       SIGNING_KEY: 'ed25519 a_tBub K5t4CFo368xBVcJWBaw34hUsHhg4H/XE7NlSa+jIZK8'
     volumes:
       - type: bind

@@ -24,7 +24,7 @@ import { MobileAuthService } from './core/auth';
 import configMisc from './core/config/configMisc';
 import { configErrors } from './core/errors';
 import { NavigationRoot, RootDrawer } from './core/navigation';
-import { ChatClientProvider } from './features/chat';
+import { ChatClientStateProvider } from './features/chat';
 import { IapProvider } from './features/purchases';
 import { UploadsProvider } from './features/uploads';
 import { I18nProvider } from './i18n';
@@ -78,7 +78,7 @@ class App extends React.PureComponent {
                 renderInitializing={<Loading />}
               >
                 <I18nProvider onUserLanguageChange={this.resetApolloCache}>
-                  <ChatClientProvider>
+                  <ChatClientStateProvider>
                     <UploadsProvider>
                       <RegionsFilterProvider>
                         <AppSettingsProvider>
@@ -98,7 +98,7 @@ class App extends React.PureComponent {
                         </AppSettingsProvider>
                       </RegionsFilterProvider>
                     </UploadsProvider>
-                  </ChatClientProvider>
+                  </ChatClientStateProvider>
                 </I18nProvider>
               </AuthProvider>
             </TagsProvider>

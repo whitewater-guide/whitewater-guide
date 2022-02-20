@@ -22,7 +22,8 @@ export default function useChatHeaderTitle({
     room: { id: roomId, alias },
   } = route.params;
   const apollo = useApolloClient();
-  const { client: chats } = useChatClient();
+  // This hook will work even outside ChatProvider
+  const chats = useChatClient();
 
   useEffect(() => {
     // Trying to read region or section name from local apollo cache
