@@ -7,6 +7,7 @@ import KeyboardAvoidingView from '~/components/KeyboardAvoidingView';
 import { useRoom, useScrollOnLiveEvent } from '~/features/chat';
 import theme from '~/theme';
 
+import ChatFooter from './ChatFooter';
 import ChatInputPanel from './ChatInputPanel';
 import useRenderEvent from './useRenderEvent';
 
@@ -49,11 +50,13 @@ const Chat: React.FC<ChatProps> = ({ room }) => {
         contentContainerStyle={styles.content}
         data={timeline}
         renderItem={renderItem}
-        onEndReached={() => {
-          if (!loading) {
-            loadOlder();
-          }
-        }}
+        ListFooterComponent={
+          <ChatFooter
+            lastEvent={timeline[timeline.length - 1]}
+            loading={loading}
+            loadOlder={loadOlder}
+          />
+        }
         keyExtractor={keyExtractor}
         {...scrollProps}
       />
