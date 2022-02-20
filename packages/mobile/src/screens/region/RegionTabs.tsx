@@ -73,18 +73,6 @@ const RegionTabs: React.FC<RegionTabsNavProps> = () => {
         />
 
         <Tab.Screen
-          name={Screens.REGION_FAKE_CHAT}
-          component={View}
-          options={{
-            tabBarIcon: ({ color }) => (
-              <Icon icon="message-text" color={color} />
-            ),
-            tabBarTestID: 'region-tab-chat',
-          }}
-          listeners={chatListeners}
-        />
-
-        <Tab.Screen
           name={Screens.REGION_INFO}
           component={LazyRegionInfoScreen}
           options={{
@@ -95,6 +83,18 @@ const RegionTabs: React.FC<RegionTabsNavProps> = () => {
             tabBarTestID: 'region-tab-info',
           }}
           initialParams={{ regionId }}
+        />
+
+        <Tab.Screen
+          name={Screens.REGION_FAKE_CHAT}
+          component={View}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <Icon icon="message-text" color={color} />
+            ),
+            tabBarTestID: 'region-tab-chat',
+          }}
+          listeners={chatListeners}
         />
       </Tab.Navigator>
 
