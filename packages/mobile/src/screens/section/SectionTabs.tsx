@@ -53,7 +53,7 @@ const SectionTabs: React.FC<SectionScreenNavProps> = ({ navigation }) => {
         name={Screens.SECTION_MAP}
         component={LazySectionMapScreen}
         options={{
-          tabBarLabel: t('section:map.title'),
+          tabBarLabel: t('screens:section.map.title'),
           // eslint-disable-next-line react/display-name
           tabBarIcon: () => <Icon icon="map" color={theme.colors.textLight} />,
           tabBarTestID: 'section-tab-map',
@@ -65,7 +65,7 @@ const SectionTabs: React.FC<SectionScreenNavProps> = ({ navigation }) => {
           name={Screens.SECTION_CHART}
           component={LazySectionChartScreen}
           options={{
-            tabBarLabel: t('section:chart.title'),
+            tabBarLabel: t('screens:section.chart.title'),
             tabBarIcon: () => (
               <Icon icon="chart-line" color={theme.colors.textLight} />
             ),
@@ -77,7 +77,7 @@ const SectionTabs: React.FC<SectionScreenNavProps> = ({ navigation }) => {
         name={Screens.SECTION_INFO}
         component={LazySectionInfoScreen}
         options={{
-          tabBarLabel: t('section:info.title'),
+          tabBarLabel: t('screens:section.info.title'),
           // eslint-disable-next-line react/display-name
           tabBarIcon: () => (
             <Icon icon="information" color={theme.colors.textLight} />
@@ -90,7 +90,7 @@ const SectionTabs: React.FC<SectionScreenNavProps> = ({ navigation }) => {
         name={Screens.SECTION_MEDIA}
         component={LazySectionMediaScreen}
         options={{
-          tabBarLabel: t('section:media.title'),
+          tabBarLabel: t('screens:section.media.title'),
           // eslint-disable-next-line react/display-name
           tabBarIcon: () => (
             <Icon icon="image-multiple" color={theme.colors.textLight} />

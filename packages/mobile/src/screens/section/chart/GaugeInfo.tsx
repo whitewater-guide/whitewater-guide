@@ -74,7 +74,7 @@ const GaugeInfo: React.FC<Props> = (props) => {
         <Left>
           <Subheading>
             {approximate || !!formula
-              ? t('section:chart.baseGauge')
+              ? t('screens:section.chart.baseGauge')
               : t('commons:gauge')}
           </Subheading>
         </Left>
@@ -85,17 +85,17 @@ const GaugeInfo: React.FC<Props> = (props) => {
                 <View style={styles.approximatePopover}>
                   <Paragraph>
                     {formula
-                      ? t('section:chart.formulaWarning')
-                      : t('section:chart.approximateWarning')}
+                      ? t('screens:section.chart.formulaWarning')
+                      : t('screens:section.chart.approximateWarning')}
                   </Paragraph>
                   {formula && (
                     <Paragraph style={styles.formula}>{formula}</Paragraph>
                   )}
                   {formula && (
                     <Paragraph>
-                      {t('section:chart.formulaWarning2')}
+                      {t('screens:section.chart.formulaWarning2')}
                       <Text style={styles.x}>{' x '}</Text>
-                      {t('section:chart.formulaWarning3')}
+                      {t('screens:section.chart.formulaWarning3')}
                     </Paragraph>
                   )}
                 </View>
@@ -112,13 +112,15 @@ const GaugeInfo: React.FC<Props> = (props) => {
 
       <Row>
         <Left>
-          <Subheading>{t('section:chart.lastUpdated')}</Subheading>
+          <Subheading>{t('screens:section.chart.lastUpdated')}</Subheading>
         </Left>
         <Right row>
           <Paragraph>{fromNow}</Paragraph>
           {isOutdated && (
             <GaugeWarning>
-              <Paragraph>{t('section:chart.outdatedWarning')}</Paragraph>
+              <Paragraph>
+                {t('screens:section.chart.outdatedWarning')}
+              </Paragraph>
             </GaugeWarning>
           )}
         </Right>

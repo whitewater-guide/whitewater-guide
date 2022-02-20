@@ -29,13 +29,13 @@ const SectionInfoMenu: React.FC<Props> = ({ section }) => {
   const showMenu = useCallback(() => {
     showActionSheetWithOptions(
       {
-        title: t('section:info.menu.title'),
+        title: t('screens:section.info.menu.title'),
         options: [
           t(
-            'section:info.menu.favorite.' +
+            'screens:section.info.menu.favorite.' +
               (section.favorite ? 'remove' : 'add'),
           ),
-          t('section:info.menu.license'),
+          t('screens:section.info.menu.license'),
           t('commons:cancel'),
         ],
         cancelButtonIndex: 2,

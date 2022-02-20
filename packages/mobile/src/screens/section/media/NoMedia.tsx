@@ -21,7 +21,7 @@ interface Props {
 
 const NoMedia: React.FC<Props> = ({ kind }) => {
   const [t] = useTranslation();
-  const text = t(`section:media.noMedia.${kind}`);
+  const text = t(`screens:section.media.noMedia.${kind}`);
   return (
     <View style={styles.container}>
       <Subheading>{text}</Subheading>
