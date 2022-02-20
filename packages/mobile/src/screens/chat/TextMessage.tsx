@@ -1,31 +1,26 @@
-import { MyProfileFragment } from '@whitewater-guide/schema';
-import formatRelative from 'date-fns/formatRelative';
+import format from 'date-fns/format';
 import { MatrixEvent } from 'matrix-js-sdk';
 import React, { FC } from 'react';
-import { StyleSheet } from 'react-native';
-import { Caption, Paragraph, Surface } from 'react-native-paper';
+import { StyleSheet, View } from 'react-native';
+import { Caption, Paragraph } from 'react-native-paper';
 
 import { getMessage } from '~/features/chat';
 import theme from '~/theme';
 
 const styles = StyleSheet.create({
-  myMessage: {
-    padding: theme.margin.double,
-    marginBottom: theme.margin.double,
-    marginLeft: theme.screenWidth / 8, // TODO: avatar width + padding
-    backgroundColor: theme.colors.primaryLighter,
-    alignItems: 'flex-end',
-    borderRadius: theme.rounding.double,
+  container: {
+    padding: theme.margin.single,
+    marginVertical: theme.margin.single,
+    backgroundColor: theme.colors.lightBackground,
   },
-  otherMessage: {
-    alignItems: 'flex-start',
-    borderRadius: theme.rounding.double,
-    padding: theme.margin.double,
-    marginBottom: theme.margin.double,
-    marginRight: theme.screenWidth / 8,
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   sender: {
     color: theme.colors.primary,
+    fontWeight: 'bold',
   },
   date: {
     alignSelf: 'flex-end',
@@ -34,22 +29,18 @@ const styles = StyleSheet.create({
 
 interface TextMessageProps {
   message: MatrixEvent;
-  me?: MyProfileFragment | null;
 }
 
-const TextMessage: FC<TextMessageProps> = ({ message, me }) => {
-  const isMine = !!me?.id && message.sender.userId.includes(me.id);
-
+const TextMessage: FC<TextMessageProps> = ({ message }) => {
   return (
-    <Surface style={isMine ? styles.myMessage : styles.otherMessage}>
-      {!isMine && (
+    <View style={styles.container}>
+      <View style={styles.header}>
         <Caption style={styles.sender}>{message.sender.rawDisplayName}</Caption>
-      )}
+        <Caption style={styles.date}>{format(message.getTs(), 'PPpp')}</Caption>
+      </View>
+
       <Paragraph>{getMessage(message)}</Paragraph>
-      <Caption style={styles.date}>
-        {formatRelative(message.getTs(), Date.now())}
-      </Caption>
-    </Surface>
+    </View>
   );
 };
 
