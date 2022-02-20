@@ -49,7 +49,7 @@ export default function useMessageActionsheet() {
         },
       ];
 
-      if (myId && message.getSender().includes(myId)) {
+      if (myId && message.getSender().includes(myId) && !message.isRedacted()) {
         options.push({
           title: t('screens:chat.message.actionsheet.delete.title'),
           handler: () => {
