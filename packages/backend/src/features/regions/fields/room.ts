@@ -25,6 +25,12 @@ const roomResolver: RegionResolvers['room'] = async ({ id, name, room_id }) => {
       creation_content: {
         __typename: 'Region',
       },
+      power_level_content_override: {
+        users: {
+          [`@${config.SYNAPSE_API_USER}:${config.SYNAPSE_HOME_SERVER}`]: 100,
+          [`@${config.SYNAPSE_ADMIN_USER}:${config.SYNAPSE_HOME_SERVER}`]: 100,
+        },
+      },
     });
     // this returns smth like !gzbjXAxsDGrMsbigGF:whitewater.guide
     // we only want actual id part
