@@ -5,9 +5,13 @@ import Collapsible from 'react-native-collapsible';
 import { Button, Paragraph } from 'react-native-paper';
 import useToggle from 'react-use/lib/useToggle';
 
-import Paper from '~/components/Paper';
+import theme from '~/theme';
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: theme.colors.lightBackground,
+    padding: theme.margin.single,
+  },
   buttonWrapper: {
     alignItems: 'flex-end',
   },
@@ -27,14 +31,14 @@ const HelpNeeded = memo<Props>(({ section }) => {
   }
   return (
     <Collapsible collapsed={collapsed}>
-      <Paper>
+      <View style={styles.container}>
         <Paragraph>{helpNeeded}</Paragraph>
         <View style={styles.buttonWrapper}>
           <Button mode="text" onPress={onClose}>
             OK
           </Button>
         </View>
-      </Paper>
+      </View>
     </Collapsible>
   );
 });

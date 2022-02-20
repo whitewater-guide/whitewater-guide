@@ -6,13 +6,13 @@ import { StyleSheet, View } from 'react-native';
 import { Button, Caption } from 'react-native-paper';
 
 import { useRegionPremiumCallback } from '~/features/purchases';
+import theme from '~/theme';
 
 const styles = StyleSheet.create({
   container: {
-    height: 100,
     alignSelf: 'stretch',
-    alignItems: 'center',
     justifyContent: 'center',
+    paddingBottom: theme.margin.single,
   },
 });
 

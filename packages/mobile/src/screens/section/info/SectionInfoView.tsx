@@ -2,10 +2,10 @@ import { useSectionQuery } from '@whitewater-guide/clients';
 import { BannerPlacement } from '@whitewater-guide/schema';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { RefreshControl, ScrollView, StyleSheet } from 'react-native';
+import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
 import Collapsible from 'react-native-collapsible';
 import { RectButton } from 'react-native-gesture-handler';
-import { Caption, Surface } from 'react-native-paper';
+import { Caption } from 'react-native-paper';
 import { useToggle } from 'react-use';
 
 import Icon from '~/components/Icon';
@@ -40,8 +40,15 @@ const styles = StyleSheet.create({
     transform: [{ rotate: '180deg' }],
   },
   descriptionBlock: {
-    marginTop: theme.margin.double,
     padding: theme.margin.single,
+    backgroundColor: theme.colors.lightBackground,
+  },
+  infoBlock: {
+    backgroundColor: theme.colors.lightBackground,
+  },
+  caption: {
+    height: 32,
+    justifyContent: 'center',
   },
 });
 
@@ -69,7 +76,11 @@ const SectionInfoView: React.FC = () => {
     >
       <HelpNeeded section={section} />
 
-      <Surface>
+      <View style={styles.caption}>
+        <Caption>{t('screens:section.info.infoBlock')}</Caption>
+      </View>
+
+      <View style={styles.infoBlock}>
         <Collapsible
           collapsed={collapsed}
           collapsedHeight={Math.min(3, tableRowCount) * theme.rowHeight}
@@ -94,15 +105,19 @@ const SectionInfoView: React.FC = () => {
             </Row>
           </RectButton>
         )}
-      </Surface>
+      </View>
 
-      <Surface style={styles.descriptionBlock}>
+      <View style={styles.caption}>
+        <Caption>{t('screens:section.info.descriptionBlock')}</Caption>
+      </View>
+
+      <View style={styles.descriptionBlock}>
         <SectionInfoDescription section={section} />
         <RegionBanners
           placement={BannerPlacement.MobileRegionDescription}
           count={10}
         />
-      </Surface>
+      </View>
     </ScrollView>
   );
 };
