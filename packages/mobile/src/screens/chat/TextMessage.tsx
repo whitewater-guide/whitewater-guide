@@ -1,7 +1,8 @@
 import format from 'date-fns/format';
 import { MatrixEvent } from 'matrix-js-sdk';
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { Caption, Paragraph } from 'react-native-paper';
 
 import { getMessage } from '~/features/chat';
@@ -29,18 +30,29 @@ const styles = StyleSheet.create({
 
 interface TextMessageProps {
   message: MatrixEvent;
+  onLongPress?: (message: MatrixEvent) => void;
 }
 
-const TextMessage: FC<TextMessageProps> = ({ message }) => {
-  return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Caption style={styles.sender}>{message.sender.rawDisplayName}</Caption>
-        <Caption style={styles.date}>{format(message.getTs(), 'PPpp')}</Caption>
-      </View>
+const TextMessage: FC<TextMessageProps> = ({ message, onLongPress }) => {
+  const handleLongPress = useCallback(() => {
+    onLongPress?.(message);
+  }, [message, onLongPress]);
 
-      <Paragraph>{getMessage(message)}</Paragraph>
-    </View>
+  return (
+    <TouchableWithoutFeedback onLongPress={handleLongPress}>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Caption style={styles.sender}>
+            {message.sender.rawDisplayName}
+          </Caption>
+          <Caption style={styles.date}>
+            {format(message.getTs(), 'PPpp')}
+          </Caption>
+        </View>
+
+        <Paragraph>{getMessage(message)}</Paragraph>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
