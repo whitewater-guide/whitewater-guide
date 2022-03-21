@@ -2,7 +2,7 @@
   "name": "@whitewater-guide/importer",
   "private": true,
   "version": "0.0.3",
-  "license": "UNLICENSED",
+  "license": "CC-BY-NC-SA-4.0",
   "description": "json converter for whitewater.guide importing",
   "repository": "https://github.com/doomsower/whitewater.git",
   "author": "doomsower <K.Kuznetcov@gmail.com>",

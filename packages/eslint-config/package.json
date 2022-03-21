@@ -2,7 +2,7 @@
   "name": "@whitewater-guide/eslint-config",
   "private": true,
   "version": "0.0.148",
-  "license": "UNLICENSED",
+  "license": "CC-BY-NC-SA-4.0",
   "description": "eslint config for whitewater.guide monorepo",
   "repository": "https://github.com/doomsower/whitewater.git",
   "author": "doomsower <K.Kuznetcov@gmail.com>",

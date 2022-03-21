@@ -3,7 +3,7 @@
   "private": false,
   "sideEffects": false,
   "version": "0.0.212",
-  "license": "UNLICENSED",
+  "license": "CC-BY-NC-SA-4.0",
   "description": "Plugin for graphql-code-generator that generates typed tests executors",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

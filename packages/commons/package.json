@@ -3,7 +3,7 @@
   "private": false,
   "sideEffects": false,
   "version": "0.0.213",
-  "license": "UNLICENSED",
+  "license": "CC-BY-NC-SA-4.0",
   "description": "shared code for whitewater.guide backend and frontend",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",

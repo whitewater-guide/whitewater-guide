@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/schema",
   "version": "0.0.212",
-  "license": "UNLICENSED",
+  "license": "CC-BY-NC-SA-4.0",
   "description": "graphql schema of whitewater.guide",
   "private": false,
   "publishConfig": {

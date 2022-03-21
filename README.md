@@ -288,3 +288,7 @@ Notes on arguments:
 First, run `dev:images` to download images from production to local machine
 
 Then run `staging:images` to upload images from local machine to staging machine
+
+## License
+
+The source code and mobile apps are distributed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) license

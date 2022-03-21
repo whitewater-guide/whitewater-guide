@@ -2,7 +2,7 @@
   "name": "@whitewater-guide/promo",
   "private": true,
   "version": "0.0.228",
-  "license": "UNLICENSED",
+  "license": "CC-BY-NC-SA-4.0",
   "homepage": "/promo/",
   "scripts": {
     "clean": "rm -rf build src/__generated__ && find src -name \"*.generated.ts\" -delete",

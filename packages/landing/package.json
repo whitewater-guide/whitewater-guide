@@ -2,7 +2,7 @@
   "name": "@whitewater-guide/landing",
   "private": true,
   "version": "0.0.77",
-  "license": "UNLICENSED",
+  "license": "CC-BY-NC-SA-4.0",
   "description": "Static landing pages for whitewater.guide",
   "scripts": {
     "start": "browser-sync start --server 'src' --files 'src' --port 3002"

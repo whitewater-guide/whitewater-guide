@@ -2,7 +2,7 @@
   "name": "@whitewater-guide/mobile",
   "private": true,
   "version": "1.18.1",
-  "license": "UNLICENSED",
+  "license": "CC-BY-NC-SA-4.0",
   "scripts": {
     "postinstall": "./scripts/postinstall.sh",
     "start": "react-native start",

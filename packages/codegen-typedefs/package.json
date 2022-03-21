@@ -3,7 +3,7 @@
   "private": false,
   "sideEffects": false,
   "version": "1.0.1",
-  "license": "UNLICENSED",
+  "license": "CC-BY-NC-SA-4.0",
   "main": "index.js",
   "publishConfig": {
     "access": "public"
