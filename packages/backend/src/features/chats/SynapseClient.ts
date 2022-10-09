@@ -84,6 +84,25 @@ export class SynapseClient {
       }
     }
   }
+
+  /**
+   * Deletes users in GDPR-compliant way from synapse database
+   *
+   * https://matrix-org.github.io/synapse/latest/admin_api/user_admin_api.html#deactivate-account
+   * @param userId
+   */
+  public async deactivateAccount(userId: string): Promise<void> {
+    const resp = await this.axios.post(
+      `/_synapse/admin/v1/deactivate/${userId}`,
+      {
+        erase: true,
+      },
+    );
+    if (resp.status !== 200) {
+      this.logger.debug(resp.data, 'failed to deactivate user');
+      throw new Error('failed to deactivate user');
+    }
+  }
 }
 
 export const synapseClient = new SynapseClient();

@@ -7,12 +7,9 @@ Most likely, it won't work on Windows because of various issues with symlinks, d
 
 These things need to be installed:
 
-- node.js 14.15+
+- node.js
   - prefer to install via `nvm`, the project contains `.nvmrc` file
-- Latest docker for mac (tested with `Docker v18.09.1`, `docker-compose v1.23.2`, `docker-machine v0.16.1`)
-- [watchman](https://facebook.github.io/watchman/)
-- [git-secret](http://git-secret.io/)
-- [yarn](https://yarnpkg.com/en/)
+- Docker
 - [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
 - Fastlane
   - It's recommended to install ruby with `rvm` ([guide](https://medium.com/@raymondctc/fastlane-with-rvm-on-macos-147446ce0f09))

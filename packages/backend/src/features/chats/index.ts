@@ -1,2 +1,2 @@
 export * from './MatrixClient';
-export * from './SynapsClient';
+export * from './SynapseClient';

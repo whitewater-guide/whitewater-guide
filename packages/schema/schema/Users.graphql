@@ -81,4 +81,6 @@ type Mutation {
   addFCMToken(token: String!): Boolean
   "Removes FCM token for push notifications"
   removeFCMToken(token: String!): Boolean
+  "Deletes users's profile"
+  deleteProfile: Boolean
 }
