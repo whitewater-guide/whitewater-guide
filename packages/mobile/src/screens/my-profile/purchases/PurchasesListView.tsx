@@ -52,7 +52,7 @@ const PurchasesListView: React.FC = () => {
   return (
     <ErrorBoundary>
       <Paper>
-        <Title>{t('myProfile:purchases.title')}</Title>
+        <Title>{t('screens:myprofile.purchases.title')}</Title>
         <Divider />
         <PurchasesList />
       </Paper>

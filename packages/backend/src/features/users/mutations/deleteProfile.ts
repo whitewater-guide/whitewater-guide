@@ -13,7 +13,10 @@ const updateProfile: AuthenticatedMutation['deleteProfile'] = async (
     throw new ForbiddenError('not allowed');
   }
   await db().table('users').delete().where({ id: context.user.id });
-  await synapseClient.deactivateAccount(context.user.id);
+  // If use has no comments, this will fail
+  try {
+    await synapseClient.deactivateAccount(context.user.id);
+  } catch {}
   return true;
 };
 

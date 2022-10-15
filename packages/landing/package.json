@@ -9,7 +9,7 @@
   },
   "author": "Konstantin Kuznetsov",
   "devDependencies": {
-    "@whitewater-guide/translations": "^2.5.14",
+    "@whitewater-guide/translations": "^2.6.0",
     "browser-sync": "^2.27.7"
   }
 }

@@ -41,7 +41,7 @@ const MyProfileView = React.memo(() => {
   }, [refreshProfile, setRefreshing]);
 
   if (!me) {
-    return <RetryPlaceholder labelKey="myProfile:notLoggedIn" />;
+    return <RetryPlaceholder labelKey="screens:myprofile.notLoggedIn" />;
   }
 
   const username = me.name || '';
@@ -60,7 +60,7 @@ const MyProfileView = React.memo(() => {
           <VerificationStatus />
         </Paper>
         <Paper gutterBottom>
-          <Title>{t('myProfile:general')}</Title>
+          <Title>{t('screens:myprofile.general')}</Title>
           <Divider style={{ marginBottom: theme.margin.single }} />
           <MyLanguage me={me} />
         </Paper>
