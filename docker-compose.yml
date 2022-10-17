@@ -167,7 +167,7 @@ services:
   vectorim:
     <<: *ww-commons
     container_name: ww-vectorim
-    image: vectorim/element-web:v1.9.9
+    image: vectorim/element-web:v1.11.10
     volumes:
       - type: bind
         source: ./services/vectorim/config.json

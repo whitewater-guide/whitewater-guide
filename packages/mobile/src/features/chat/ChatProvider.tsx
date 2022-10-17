@@ -1,7 +1,7 @@
 import './polyfill';
 
 import { useAuth } from '@whitewater-guide/clients';
-import { createClient, MatrixClient } from 'matrix-js-sdk';
+import { ClientEvent, createClient, MatrixClient } from 'matrix-js-sdk';
 import React, {
   createContext,
   FC,
@@ -63,7 +63,7 @@ export const ChatClientStateProvider: FC = ({ children }) => {
         setState((s) => ({ ...s, prepared: true }));
       }
     };
-    client.on('sync', onSync);
+    client.on(ClientEvent.Sync, onSync);
 
     tokenStorage
       .getAccessToken()
@@ -79,7 +79,7 @@ export const ChatClientStateProvider: FC = ({ children }) => {
 
     return () => {
       client
-        .off('sync', onSync)
+        .off(ClientEvent.Sync, onSync)
         .logout()
         .then(() => {
           setState({ loggedIn: false, prepared: false });

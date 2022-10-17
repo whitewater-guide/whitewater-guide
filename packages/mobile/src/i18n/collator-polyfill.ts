@@ -13,7 +13,7 @@ if (!Intl.Collator) {
    * @param {Boolean} [options.numeric]
    * @param {Boolean} [options.caseFirst]
    */
-  function Collator(locales, options) {
+  function Collator(this: any, locales: any, options: any) {
     if (typeof locales === 'string') {
       locales = [locales];
     }
@@ -44,7 +44,7 @@ if (!Intl.Collator) {
    * @param {Object} options
    * @returns {Array}
    */
-  Collator.supportedLocalesOf = function (locales, options) {
+  Collator.supportedLocalesOf = function (locales: any, options: any) {
     console.warn('The function Collator.supportedLocalesOf is only a stub.');
     return [];
   };
@@ -80,7 +80,7 @@ if (!Intl.Collator) {
    * @param {String} string2
    * @returns {Number}
    */
-  Collator.prototype.compare = function (string1, string2) {
+  Collator.prototype.compare = function (string1: any, string2: any) {
     if (typeof string1 !== 'string' || typeof string2 !== 'string') {
       return NaN;
     }
@@ -117,5 +117,5 @@ if (!Intl.Collator) {
     };
   };
 
-  Intl.Collator = Collator;
+  Intl.Collator = Collator as any;
 }

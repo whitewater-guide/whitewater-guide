@@ -24,12 +24,12 @@ export const up = async (db: Knex) => {
   // Create system users
   try {
     // Admin (acces via UI)
-    await synapseClient.registerAdmin(
+    await synapseClient.registerUser(
       config.SYNAPSE_ADMIN_USER,
       config.SYNAPSE_ADMIN_PASSWORD,
     );
     // API (programatic backend access)
-    await synapseClient.registerAdmin(config.SYNAPSE_API_USER);
+    await synapseClient.registerUser(config.SYNAPSE_API_USER);
     // Find all 'admin' users from database, register them with admin privilegies
     const admins: Sql.Users[] = await db
       .table('users')
@@ -37,7 +37,7 @@ export const up = async (db: Knex) => {
       .where({ admin: true });
     for (let admin of admins) {
       // use random password. these users should log in with jwt token
-      await synapseClient.registerAdmin(admin.id);
+      await synapseClient.registerUser(admin.id);
     }
   } catch (e) {
     log.error({ error: e as Error, message: 'admin creation error' });

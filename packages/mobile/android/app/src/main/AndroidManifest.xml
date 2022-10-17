@@ -31,7 +31,6 @@
                 android:screenOrientation="portrait"
                 android:launchMode="singleTask"
                 android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode|screenLayout|smallestScreenSize"
-                <!-- Screens adjust windowSoftInputMode automatically -->
                 android:windowSoftInputMode="adjustPan"
                 android:exported="true">
             <intent-filter android:autoVerify="true">

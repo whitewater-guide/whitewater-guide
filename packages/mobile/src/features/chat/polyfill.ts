@@ -1,3 +1,4 @@
+// @ts-ignore
 import { EventEmitter } from 'fbemitter';
 // import unorm from 'unorm';
 
@@ -7,7 +8,7 @@ import { EventEmitter } from 'fbemitter';
 
 //
 if (!Promise.allSettled) {
-  Promise.allSettled = (promises) => {
+  Promise.allSettled = (promises: Promise<unknown>[]): any => {
     return Promise.all(
       promises.map((promise) =>
         promise
@@ -19,6 +20,8 @@ if (!Promise.allSettled) {
 }
 
 class Document {
+  emitter: any;
+
   constructor() {
     this.emitter = new EventEmitter();
     this.addEventListener = this.addEventListener.bind(this);
@@ -26,7 +29,7 @@ class Document {
     this._checkEmitter = this._checkEmitter.bind(this);
   }
 
-  createElement(tagName) {
+  createElement() {
     return {};
   }
 
@@ -43,7 +46,7 @@ class Document {
     }
   }
 
-  addEventListener(eventName, listener) {
+  addEventListener(eventName: string, listener: any) {
     this._checkEmitter();
     if (this.emitter.on) {
       this.emitter.on(eventName, listener);
@@ -54,7 +57,7 @@ class Document {
     }
   }
 
-  removeEventListener(eventName, listener) {
+  removeEventListener(eventName: string, listener: any) {
     this._checkEmitter();
     if (this.emitter.off) {
       this.emitter.off(eventName, listener);

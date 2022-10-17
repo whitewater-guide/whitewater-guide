@@ -46,9 +46,10 @@ export class SynapseClient {
     return hmac.digest('hex');
   }
 
-  public async registerAdmin(
+  public async registerUser(
     username: string,
     password?: string,
+    admin = true,
   ): Promise<void> {
     this.logger.debug({ username }, 'registering admin');
 
@@ -61,8 +62,8 @@ export class SynapseClient {
         username,
         displayname: username,
         password: pwd,
-        admin: true,
-        mac: this.generateHmac(nonce, username, pwd, true),
+        admin,
+        mac: this.generateHmac(nonce, username, pwd, admin),
       });
 
       if (resp.status === 200 && resp.data.user_id) {

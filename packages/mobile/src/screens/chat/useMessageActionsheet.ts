@@ -23,6 +23,10 @@ export default function useMessageActionsheet() {
 
   return useCallback(
     (message: MatrixEvent) => {
+      const roomId = message.getRoomId();
+      if (!roomId) {
+        return;
+      }
       const options: Option[] = [
         {
           title: t('screens:chat.message.actionsheet.copy.title'),
@@ -34,7 +38,7 @@ export default function useMessageActionsheet() {
           title: t('screens:chat.message.actionsheet.report.title'),
           handler: () => {
             client
-              .reportEvent(message.getRoomId(), message.getId(), -10, '')
+              .reportEvent(roomId, message.getId(), -10, '')
               .then(() => {
                 showSnackbarMessage(
                   'screens:chat.message.actionsheet.report.sent',
@@ -53,7 +57,7 @@ export default function useMessageActionsheet() {
         options.push({
           title: t('screens:chat.message.actionsheet.delete.title'),
           handler: () => {
-            client.redactEvent(message.getRoomId(), message.getId());
+            client.redactEvent(roomId, message.getId());
           },
           destructive: true,
         });

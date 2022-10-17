@@ -1,5 +1,5 @@
 import { Room as TRoom } from '@whitewater-guide/schema';
-import { MatrixEvent, Room } from 'matrix-js-sdk';
+import { ClientEvent, MatrixEvent, Room, RoomEvent } from 'matrix-js-sdk';
 import { useEffect } from 'react';
 import useAsyncFn from 'react-use/lib/useAsyncFn';
 import useList from 'react-use/lib/useList';
@@ -66,8 +66,8 @@ export function useRoom({ id: roomId, alias }: TRoom) {
       set(getRenderableTimeline(room));
     };
 
-    client.on('Room.timeline', onTimelineEvent);
-    client.on('Room.redaction', onRedaction);
+    client.on(RoomEvent.Timeline, onTimelineEvent);
+    client.on(RoomEvent.Redaction, onRedaction);
 
     // synapse does not allow joining by room id, we have to use alias
     client.joinRoom(alias).then((_room) => {
@@ -76,15 +76,15 @@ export function useRoom({ id: roomId, alias }: TRoom) {
         const room = client.getRoom(roomId);
         if (state === 'SYNCING' && room) {
           set(getRenderableTimeline(room));
-          client.off('sync', onSync);
+          client.off(ClientEvent.Sync, onSync);
         }
       };
-      client.on('sync', onSync);
+      client.on(ClientEvent.Sync, onSync);
     });
 
     return () => {
-      client.off('Room.timeline', onTimelineEvent);
-      client.off('Room.redaction', onRedaction);
+      client.off(RoomEvent.Timeline, onTimelineEvent);
+      client.off(RoomEvent.Redaction, onRedaction);
       client.leave(roomId);
     };
   }, [client, set, insertAt, roomId, alias]);
@@ -92,7 +92,7 @@ export function useRoom({ id: roomId, alias }: TRoom) {
   const [{ loading }, loadOlder] = useAsyncFn(async () => {
     const room = client.getRoom(roomId);
     const liveTimeline = room?.getLiveTimeline();
-    if (liveTimeline) {
+    if (room && liveTimeline) {
       await client.scrollback(room, MESSAGES_IN_BATCH);
       set(getRenderableTimeline(room));
     }
