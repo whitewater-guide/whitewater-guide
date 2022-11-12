@@ -62,6 +62,28 @@ export default function useMessageActionsheet() {
           destructive: true,
         });
       }
+      if (!!myId && !message.getSender().includes(myId)) {
+        options.push({
+          title: t('screens:chat.message.actionsheet.blockUser.title'),
+          handler: () => {
+            const ignoredUsers = new Set(client.getIgnoredUsers());
+            ignoredUsers.add(message.getSender());
+            client
+              .setIgnoredUsers(Array.from(ignoredUsers))
+              .then(() => {
+                showSnackbarMessage(
+                  'screens:chat.message.actionsheet.blockUser.sent',
+                );
+              })
+              .catch(() => {
+                showSnackbarMessage(
+                  'screens:chat.message.actionsheet.blockUser.error',
+                );
+              });
+          },
+          destructive: true,
+        });
+      }
 
       showActionSheetWithOptions(
         {

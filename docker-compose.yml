@@ -143,7 +143,7 @@ services:
   synapse:
     <<: *ww-commons
     container_name: ww-synapse
-    image: ghcr.io/whitewater-guide/synapse:1.2.0
+    image: ghcr.io/whitewater-guide/synapse:1.3.0
     depends_on:
       - db
     environment:
@@ -167,7 +167,7 @@ services:
   vectorim:
     <<: *ww-commons
     container_name: ww-vectorim
-    image: vectorim/element-web:v1.11.10
+    image: vectorim/element-web:v1.11.14
     volumes:
       - type: bind
         source: ./services/vectorim/config.json
