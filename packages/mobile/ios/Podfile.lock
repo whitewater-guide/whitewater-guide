@@ -448,11 +448,11 @@ PODS:
     - React-Core
   - react-native-sensitive-info (5.5.8):
     - React
-  - react-native-startup-time (2.0.0):
-    - React
+  - react-native-startup-time (2.0.1):
+    - React-Core
   - react-native-ultimate-config (4.0.0):
     - React
-  - react-native-webview (11.16.0):
+  - react-native-webview (11.23.1):
     - React-Core
   - react-native-zxcvbn (1.0.1):
     - React
@@ -593,11 +593,11 @@ PODS:
     - Sentry (= 7.29.0)
   - RNSnackbar (2.4.0):
     - React-Core
-  - RNSVG (12.2.0):
+  - RNSVG (13.5.0):
     - React-Core
   - RNTextSize (4.0.0-rc.1):
     - React
-  - RNVectorIcons (9.0.0):
+  - RNVectorIcons (9.2.0):
     - React-Core
   - SDWebImage (5.11.1):
     - SDWebImage/Core (= 5.11.1)
@@ -952,9 +952,9 @@ SPEC CHECKSUMS:
   react-native-pager-view: 3ee7d4c7697fb3ef788346e834a60cca97ed8540
   react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057
   react-native-sensitive-info: 400c6e3d27945e15c8cddb5b4b92233c85ee06f8
-  react-native-startup-time: 1a068b744ce5097a85ebe0fbff691b05961c324d
+  react-native-startup-time: 90dc8ded4242ba45523e7d974d5fdef883a23160
   react-native-ultimate-config: ff96eb4a4e7b8595814dbc7f1ae8e1291770f591
-  react-native-webview: 28a8636d97ee641f2ee8f20492d7a6c269c1d703
+  react-native-webview: d33e2db8925d090871ffeb232dfa50cb3a727581
   react-native-zxcvbn: ba72ee34accf0531cdd60778d98b3fe491c562bf
   React-perflogger: 0458a87ea9a7342079e7a31b0d32b3734fb8415f
   React-RCTActionSheet: 22538001ea2926dea001111dd2846c13a0730bc9
@@ -986,9 +986,9 @@ SPEC CHECKSUMS:
   RNScreens: 4d83613b50b74ed277026375dc0810893b0c347f
   RNSentry: db7fd7b66efda28885e4e904a8b5e7349aec61c1
   RNSnackbar: be3333a21a453ccc272f41a8add5a71f7d44dfcd
-  RNSVG: 4ecc2e8f38b6ebe7889909570c26f3abe8059767
+  RNSVG: 38ca962c970dbce1ca38991a5aebf26d163f9efb
   RNTextSize: 7efa06531c6bb7ab6ed070b4ce0d1248cf06fcdf
-  RNVectorIcons: 4143ba35feebab8fdbe6bc43d1e776b393d47ac8
+  RNVectorIcons: fcc2f6cb32f5735b586e66d14103a74ce6ad61f8
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d
   Sentry: 4272663eb0eda312024d795ca3f5a562a8ce5e18
