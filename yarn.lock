@@ -6802,10 +6802,10 @@
   resolved "https://registry.yarnpkg.com/@whitewater-guide/react-native-fast-image/-/react-native-fast-image-8.6.0.tgz#87117e0eb6a3a03ccfa7ca5d237b350029f9a4fc"
   integrity sha512-XM55efTY8XdtsKHHzQ1fvVbzEUEMapg7nXfJHclqMztcCWFvdyvozNHOxHrqnBa28iBqjIgLZuFdrXt7UB4U4g==
 
-"@whitewater-guide/translations@^2.6.0":
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/translations/-/translations-2.6.0.tgz#fcd0ee6bdc917350faf09cf459f7ec14755d6385"
-  integrity sha512-bi/2Hej6DgFUzc6fo6waqhvLcyY+nPxzEeRjPcWXWkh7JtH3lDezwG9MJjeqesFJ8aTYzL7gd1MQVXSbguzRLQ==
+"@whitewater-guide/translations@^2.6.1":
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/@whitewater-guide/translations/-/translations-2.6.1.tgz#0c876981b6d71d83db1101cf2dead828029376ac"
+  integrity sha512-I59AOSv8MVLqFcPJQGSBBNJ9KU68kMUaJbCbNfhU6lfAPqlMDqkldCV3UNSj4pujTJew7Yy8xJnkObj++n/ghA==
 
 "@wry/context@^0.6.0":
   version "0.6.1"
