@@ -18,7 +18,7 @@ import { tokenStorage } from '~/core/auth';
 
 const client = createClient({
   baseUrl: `http://${Config.CHAT_HOST}`,
-  deviceId: DeviceInfo.getUniqueId(),
+  deviceId: DeviceInfo.getUniqueIdSync(),
 });
 
 export interface ChatClientState {

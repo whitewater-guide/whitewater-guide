@@ -229,7 +229,7 @@ dependencies {
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
     // Required by react-native-bootsplash: https://github.com/zoontek/react-native-bootsplash/blob/master/MIGRATION.md
-    implementation "androidx.core:core-splashscreen:1.0.0-alpha02"
+    implementation "androidx.core:core-splashscreen:1.0.0"
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'
     }
