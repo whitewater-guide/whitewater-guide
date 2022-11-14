@@ -1,5 +1,5 @@
 import { QueryResult } from '@apollo/client';
-import React, { useContext } from 'react';
+import React, { FC, memo, PropsWithChildren, useContext } from 'react';
 import { Overwrite, Required } from 'utility-types';
 
 import {
@@ -21,7 +21,7 @@ interface Props {
   thumbSize?: number;
 }
 
-export const SectionProvider: React.FC<Props> = React.memo((props) => {
+export const SectionProvider: FC<PropsWithChildren<Props>> = memo((props) => {
   const { sectionId, thumbSize, children } = props;
   const result = useSectionDetailsQuery({
     fetchPolicy: 'cache-and-network',

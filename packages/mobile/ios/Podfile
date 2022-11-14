@@ -8,7 +8,6 @@ $RNFirebaseAnalyticsWithoutAdIdSupport = true
 $ReactNativeMapboxGLIOSVersion = '~> 6.4'
 
 project 'whitewater',
-  'Detox' => :debug,
   'Debug' => :debug,
   'Staging' => :release,
   'Release' => :release

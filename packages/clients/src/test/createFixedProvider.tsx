@@ -1,7 +1,7 @@
 import { ApolloClient, ApolloProvider } from '@apollo/client';
 import { MockedResponse, mockSingleLink } from '@apollo/client/testing';
 import { DocumentNode } from 'graphql';
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
 import { configureApolloCache } from '../apollo';
 
@@ -15,7 +15,7 @@ export interface FixedProviderOptions<TResult = any, TVars = any> {
   };
 }
 
-export type FixedProviderStatic = React.SFC & {
+export type FixedProviderStatic = React.FC & {
   client: ApolloClient<any>;
 };
 
@@ -29,7 +29,7 @@ export function createFixedProvider<TResult = any, TVars = any>(
     cache: configureApolloCache(),
   });
 
-  const FixedProvider: React.FC = ({ children }) => (
+  const FixedProvider = ({ children }: PropsWithChildren) => (
     <ApolloProvider client={client}>{children}</ApolloProvider>
   );
 

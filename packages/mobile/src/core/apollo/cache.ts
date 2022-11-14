@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { configureApolloCache } from '@whitewater-guide/clients';
 import { CachePersistor, MMKVStorageWrapper } from 'apollo3-cache-persist';
 import { MMKVLoader } from 'react-native-mmkv-storage';

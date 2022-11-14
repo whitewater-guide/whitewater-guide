@@ -1,6 +1,6 @@
 import { PointCoreFragment } from '@whitewater-guide/schema';
 import noop from 'lodash/noop';
-import React, { useState } from 'react';
+import React, { createContext, memo, PropsWithChildren, useState } from 'react';
 
 import { ListedSectionFragment } from '../sections';
 
@@ -9,12 +9,9 @@ export type MapSelection = [
   onSelected: (node: ListedSectionFragment | PointCoreFragment | null) => void,
 ];
 
-export const MapSelectionContext = React.createContext<MapSelection>([
-  null,
-  noop,
-]);
+export const MapSelectionContext = createContext<MapSelection>([null, noop]);
 
-export const MapSelectionProvider = React.memo(({ children }) => {
+export const MapSelectionProvider = memo<PropsWithChildren>(({ children }) => {
   const state = useState<ListedSectionFragment | PointCoreFragment | null>(
     null,
   );

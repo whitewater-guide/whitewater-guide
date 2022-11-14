@@ -1,5 +1,5 @@
 import noop from 'lodash/noop';
-import React, { useCallback, useState } from 'react';
+import React, { PropsWithChildren, useCallback, useState } from 'react';
 
 interface SearchableFilterOptions {
   searchString?: string | null;
@@ -13,7 +13,7 @@ export function createGenericFilter<T extends SearchableFilterOptions>(
   const SearchContext = React.createContext('');
   const SearchSetterContext = React.createContext<(v: string) => void>(noop);
 
-  const Provider: React.FC = ({ children }) => {
+  const Provider = ({ children }: PropsWithChildren) => {
     const [filterOptions, setFilterOptions] = useState<T>(defaultValue);
 
     const setSearchString = useCallback(

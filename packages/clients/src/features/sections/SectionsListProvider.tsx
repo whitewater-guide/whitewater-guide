@@ -5,7 +5,7 @@ import {
   NetworkStatus,
   ObservableQuery,
 } from '@apollo/client';
-import React, { useContext } from 'react';
+import React, { PropsWithChildren, useContext } from 'react';
 import { Subscription } from 'zen-observable-ts';
 
 import {
@@ -52,7 +52,7 @@ interface Props {
 }
 
 export class SectionsListProvider extends React.PureComponent<
-  Props,
+  PropsWithChildren<Props>,
   InnerState
 > {
   static defaultProps: Partial<Props> = {

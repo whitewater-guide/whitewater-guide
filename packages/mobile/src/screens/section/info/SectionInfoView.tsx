@@ -6,7 +6,7 @@ import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
 import Collapsible from 'react-native-collapsible';
 import { RectButton } from 'react-native-gesture-handler';
 import { Caption } from 'react-native-paper';
-import { useToggle } from 'react-use';
+import useToggle from 'react-use/lib/useToggle';
 
 import Icon from '~/components/Icon';
 import { Row } from '~/components/Row';

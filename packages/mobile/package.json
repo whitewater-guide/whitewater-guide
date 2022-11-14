@@ -18,7 +18,6 @@
     "android:production": "fastlane android production --env production",
     "android:uninstall": "adb uninstall guide.whitewater.staging || adb uninstall guide.whitewater",
     "android:linking": "./scripts/android_linking.sh",
-    "android:e2e": "detox test -c android.sim.debug",
     "ios": "yarn setup-dev-env && yarn react-native run-ios",
     "ios:clean": "rm -rf ios/build/* && rm -rf $HOME/Library/Developer/Xcode/DerivedData/* && cd ios && pod deintegrate && (rm Podfile.lock || true)",
     "ios:setup_push": "fastlane ios setup_push --env staging",
@@ -26,7 +25,6 @@
     "ios:production": "fastlane ios production --env production",
     "ios:uninstall": "xcrun simctl uninstall booted guide.whitewater",
     "ios:linking": "xcrun simctl openurl booted",
-    "ios:e2e": "detox test -c ios.sim.debug",
     "release": "scripts/prepare_release.sh"
   },
   "workspaces": {
@@ -41,7 +39,6 @@
       "@react-navigation/*",
       "@whitewater-guide/react-native-fast-image",
       "@sentry/*",
-      "detox",
       "jetifier",
       "react-native",
       "react-native/**",
@@ -60,17 +57,17 @@
     "@formatjs/intl-numberformat": "^7.4.2",
     "@formatjs/intl-pluralrules": "^4.3.2",
     "@gorhom/bottom-sheet": "^4.4.5",
-    "@invertase/react-native-apple-authentication": "^2.1.5",
-    "@react-native-clipboard/clipboard": "^1.11.0",
-    "@react-native-community/async-storage": "^1.12.1",
-    "@react-native-community/datetimepicker": "^5.1.0",
+    "@invertase/react-native-apple-authentication": "^2.2.2",
+    "@react-native-async-storage/async-storage": "^1.17.11",
+    "@react-native-clipboard/clipboard": "^1.11.1",
+    "@react-native-community/datetimepicker": "^6.6.0",
     "@react-native-community/hooks": "^2.8.1",
-    "@react-native-community/masked-view": "^0.1.11",
-    "@react-native-community/netinfo": "^8.0.0",
+    "@react-native-community/netinfo": "^9.3.6",
     "@react-native-firebase/analytics": "^14.12.0",
     "@react-native-firebase/app": "^14.12.0",
     "@react-native-firebase/messaging": "^14.12.0",
     "@react-native-mapbox-gl/maps": "^8.5.0",
+    "@react-native-masked-view/masked-view": "^0.2.8",
     "@react-navigation/drawer": "^6.5.0",
     "@react-navigation/material-bottom-tabs": "^6.2.4",
     "@react-navigation/material-top-tabs": "^6.3.0",
@@ -102,14 +99,14 @@
     "formik": "^2.2.9",
     "graphql": "^15.8.0",
     "graphql-tag": "^2.12.6",
-    "i18next": "^21.6.11",
+    "i18next": "^22.0.5",
     "intl-collator": "^0.1.6",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
     "markdown-it": "^12.2.0",
     "markdown-it-attrs": "^4.0.0",
     "matrix-js-sdk": "^21.1.0",
-    "nanoid": "^3.2.0",
+    "nanoid": "^4.0.0",
     "postinstall-postinstall": "^2.1.0",
     "pretty-bytes": "^5.6.0",
     "react": "^17.0.2",
@@ -137,7 +134,7 @@
     "react-native-pager-view": "^6.1.0",
     "react-native-paper": "^4.12.5",
     "react-native-reanimated": "^2.12.0",
-    "react-native-redash": "^16.2.3",
+    "react-native-redash": "^18.1.0",
     "react-native-safe-area-context": "^4.4.1",
     "react-native-screens": "^3.18.2",
     "react-native-sensitive-info": "^5.5.8",
@@ -151,10 +148,10 @@
     "react-native-vector-icons": "^9.2.0",
     "react-native-webview": "^11.23.1",
     "react-native-zxcvbn": "^1.0.1",
-    "react-use": "^17.3.2",
+    "react-use": "^17.4.0",
     "shortid": "^2.2.16",
     "unorm": "^1.6.0",
-    "url-parse": "^1.5.4",
+    "url-parse": "^1.5.10",
     "use-debounce": "^7.0.1",
     "victory-native": "^36.2.1",
     "yup": "^0.32.11"
@@ -176,9 +173,9 @@
     "@types/lodash": "^4.14.178",
     "@types/markdown-it": "^12.2.3",
     "@types/prop-types": "^15.7.4",
-    "@types/react": "^17.0.39",
-    "@types/react-native": "^0.66.15",
-    "@types/react-native-vector-icons": "^6.4.10",
+    "@types/react": "^18.0.25",
+    "@types/react-native": "^0.70.6",
+    "@types/react-native-vector-icons": "^6.4.12",
     "@types/react-test-renderer": "^17.0.1",
     "@types/shortid": "^0.0.29",
     "@types/url-parse": "^1.4.8",
@@ -188,7 +185,6 @@
     "babel-plugin-lodash": "^3.3.4",
     "babel-plugin-module-resolver": "^4.1.0",
     "deep-diff": "^1.0.2",
-    "detox": "^19.4.5",
     "dotenv": "^16.0.0",
     "fetch-mock": "^9.11.0",
     "jest": "^27.5.1",
@@ -202,27 +198,5 @@
     "react-native-performance-monitor": "^1.2.1",
     "react-test-renderer": "^17.0.2",
     "uri-scheme": "^1.0.114"
-  },
-  "detox": {
-    "configurations": {
-      "ios.sim.debug": {
-        "binaryPath": "ios/build/Build/Products/Detox-iphonesimulator/whitewater.app",
-        "build": "xcodebuild -workspace ios/whitewater.xcworkspace -scheme whitewater -configuration Detox -sdk iphonesimulator -derivedDataPath ios/build",
-        "type": "ios.simulator",
-        "device": {
-          "type": "iPhone 8"
-        }
-      },
-      "android.sim.debug": {
-        "binaryPath": "android/app/build/outputs/apk/debugDetox/app-x86-debugDetox.apk",
-        "testBinaryPath": "android/app/build/outputs/apk/androidTest/debugDetox/app-debugDetox-androidTest.apk",
-        "build": "cd android && ./gradlew assembleDebugDetox assembleAndroidTest -DtestBuildType=debugDetox && cd ..",
-        "type": "android.emulator",
-        "device": {
-          "avdName": "Nexus"
-        }
-      }
-    },
-    "test-runner": "jest"
   }
 }

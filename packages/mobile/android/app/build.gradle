@@ -83,8 +83,6 @@ import com.android.build.OutputFile
 
 project.ext.react = [
     enableHermes: true,  // clean and rebuild if changing
-    bundleInDebugDetox: true,
-    devDisabledInDebugDetox: true,
     bundleInReleaseStaging: true,
     devDisabledInReleaseStaging: true,
 ]
@@ -151,7 +149,6 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 100601328
         versionName "1.18.1"
-        testBuildType System.getProperty('testBuildType', 'debugDetox')
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         // react-native-iap: we only use the Google Play flavor
         missingDimensionStrategy 'store', 'play'
@@ -187,12 +184,6 @@ android {
                     abiFilters nativeArchitectures.split(',')
                 }
             }
-        }
-        debugDetox {
-            initWith debug
-            applicationIdSuffix ""
-            resValue "string", "app_name", "WW DETOX"
-            matchingFallbacks = ['debug']
         }
         release {
             resValue "string", "app_name", "whitewater.guide"
@@ -240,9 +231,6 @@ dependencies {
     debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.flipper'
     }
-    // Require by detox
-    androidTestImplementation('com.wix:detox:+') { transitive = true }
-    androidTestImplementation 'junit:junit:4.12'
     // Required by react-navigation
     implementation("androidx.appcompat:appcompat:${rootProject.ext.appCompatVersion}")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:${rootProject.ext.swiperefreshlayoutVersion}")
@@ -250,7 +238,6 @@ dependencies {
     if (enableHermes) {
       def hermesPath = "../../node_modules/hermes-engine/android/";
       debugImplementation files(hermesPath + "hermes-debug.aar")
-      debugDetoxImplementation files(hermesPath + "hermes-debug.aar")
       releaseImplementation files(hermesPath + "hermes-release.aar")
       releaseStagingImplementation files(hermesPath + "hermes-release.aar")
     } else {

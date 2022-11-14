@@ -11,7 +11,7 @@ import {
 } from '@whitewater-guide/schema';
 import { GraphQLFieldResolver, GraphQLResolveInfo } from 'graphql';
 import { JSONResolver } from 'graphql-scalars';
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
 import { configureApolloCache } from '../apollo';
 
@@ -163,7 +163,7 @@ export function mockApolloProvider(
 ): MockedProviderStatic {
   const client = mockApolloClient(options);
 
-  const MP: React.FC = ({ children }) => (
+  const MP = ({ children }: PropsWithChildren) => (
     <ApolloProvider client={client}>{children}</ApolloProvider>
   );
 

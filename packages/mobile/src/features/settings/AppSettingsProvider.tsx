@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import noop from 'lodash/noop';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 
