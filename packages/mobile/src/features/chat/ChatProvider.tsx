@@ -5,6 +5,7 @@ import { ClientEvent, createClient, MatrixClient } from 'matrix-js-sdk';
 import React, {
   createContext,
   FC,
+  PropsWithChildren,
   useContext,
   useEffect,
   useRef,
@@ -41,7 +42,9 @@ const ChatClientStateCtx = createContext<ChatClientState>({
  *
  * @returns
  */
-export const ChatClientStateProvider: FC = ({ children }) => {
+export const ChatClientStateProvider: FC<PropsWithChildren> = ({
+  children,
+}) => {
   const { me, service } = useAuth();
   const [state, setState] = useState<ChatClientState>({
     loggedIn: false,
@@ -101,7 +104,7 @@ const ChatCtx = createContext<MatrixClient>(client);
  * It provides chat client instance to all the children of chat screen
  * @returns
  */
-export const ChatProvider: FC = ({ children }) => {
+export const ChatProvider: FC<PropsWithChildren> = ({ children }) => {
   const { prepared, loggedIn } = useContext(ChatClientStateCtx);
 
   useEffect(() => {

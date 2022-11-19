@@ -1,0 +1,27 @@
+diff --git a/node_modules/matrix-js-sdk/lib/http-api/fetch.js b/node_modules/matrix-js-sdk/lib/http-api/fetch.js
+index 8a7c3a6..cb2162c 100644
+--- a/node_modules/matrix-js-sdk/lib/http-api/fetch.js
++++ b/node_modules/matrix-js-sdk/lib/http-api/fetch.js
+@@ -133,6 +133,9 @@ class FetchHttpApi {
+         queryParams.access_token = this.opts.accessToken;
+       }
+     }
++    if (Object.getOwnPropertyNames(queryParams).length === 0) {
++      queryParams = undefined;
++    }
+     const requestPromise = this.request(method, path, queryParams, body, opts);
+     requestPromise.catch(err => {
+       if (err.errcode == 'M_UNKNOWN_TOKEN' && !(opts !== null && opts !== void 0 && opts.inhibitLogoutEmit)) {
+@@ -271,9 +274,10 @@ class FetchHttpApi {
+    * @return {string} URL
+    */
+   getUrl(path, queryParams, prefix, baseUrl) {
+-    const url = new URL((baseUrl !== null && baseUrl !== void 0 ? baseUrl : this.opts.baseUrl) + (prefix !== null && prefix !== void 0 ? prefix : this.opts.prefix) + path);
++    let url = (baseUrl ?? this.opts.baseUrl) + (prefix ?? this.opts.prefix) + path;
+     if (queryParams) {
+-      utils.encodeParams(queryParams, url.searchParams);
++      const params = utils.encodeParams(queryParams);
++      url = url + "?" + params.toString();
+     }
+     return url;
+   }

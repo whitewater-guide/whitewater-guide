@@ -50,7 +50,11 @@ const inspectField = (
   if (!isObjectType(type)) {
     return;
   }
-  const selections: SelectionNode[] = get(field, 'selectionSet.selections', []);
+  const selections = get(
+    field,
+    'selectionSet.selections',
+    [],
+  ) as SelectionNode[];
   const fields = type.getFields();
   const fieldType = unwrap(fields[field.name.value].type);
   // this is a recursion
@@ -69,11 +73,11 @@ const inspectSelections = (
       inspectField(subField, type, fragments, acc);
     } else if (isFragmentSpread(subField)) {
       const fragment = fragments[subField.name.value];
-      const fragmentSelections: SelectionNode[] = get(
+      const fragmentSelections = get(
         fragment,
         'selectionSet.selections',
         [],
-      );
+      ) as SelectionNode[];
       inspectSelections(fragmentSelections, type, fragments, acc);
     }
   });

@@ -64,7 +64,7 @@ export function addGorgeWebhooks(app: Koa, route = '/gorge'): void {
       return;
     }
 
-    const jobs: UnhealthyJob[] = ctx.request.body;
+    const jobs = ctx.request.body as UnhealthyJob[];
     logger.debug({ jobs }, 'unhealthy jobs webhook called');
     if (jobs.length === 0) {
       ctx.body = 'Acknowledged';
