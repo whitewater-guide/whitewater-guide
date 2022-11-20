@@ -71,7 +71,8 @@ class Config {
 
   public SYNAPSE_URL = `http://${process.env.SYNAPSE_HOST}`;
 
-  public SYNAPSE_HOME_SERVER = 'whitewater.guide';
+  public SYNAPSE_HOME_SERVER =
+    process.env.SYNAPSE_HOME_SERVER ?? 'whitewater.guide';
 
   public SYNAPSE_API_USER = 'system_api';
 
