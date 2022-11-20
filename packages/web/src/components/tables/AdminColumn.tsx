@@ -1,3 +1,6 @@
-import { Column } from 'react-virtualized';
+import { FC } from 'react';
+import { Column, ColumnProps } from 'react-virtualized';
 
-export class AdminColumn extends Column {}
+class _AdminColumn extends Column {}
+
+export const AdminColumn = _AdminColumn as unknown as FC<ColumnProps>;

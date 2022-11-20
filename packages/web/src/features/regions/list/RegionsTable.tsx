@@ -1,11 +1,11 @@
 import { useRegionsFilter } from '@whitewater-guide/clients';
 import React, { useCallback } from 'react';
 import { useHistory } from 'react-router';
-import { Column } from 'react-virtualized';
 
 import { UnstyledLink } from '../../../components';
 import {
   BooleanColumn,
+  Column,
   isEmptyRow,
   Table,
   TableCellRenderer,

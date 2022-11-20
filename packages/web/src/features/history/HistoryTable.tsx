@@ -4,10 +4,11 @@ import { NamedNode } from '@whitewater-guide/schema';
 import parseISO from 'date-fns/parseISO';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Column, TableProps } from 'react-virtualized';
+import { TableProps } from 'react-virtualized';
 
 import {
   Clipboard,
+  Column,
   isEmptyRow,
   RegionFinder,
   Table,

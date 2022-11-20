@@ -2,7 +2,13 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { useAuth, useRegion } from '@whitewater-guide/clients';
 import { Node } from '@whitewater-guide/schema';
 import clsx from 'clsx';
-import React, { useCallback, useMemo } from 'react';
+import React, {
+  forwardRef,
+  memo,
+  PropsWithChildren,
+  useCallback,
+  useMemo,
+} from 'react';
 import {
   AutoSizer,
   Index,
@@ -64,7 +70,7 @@ const useStyles = makeStyles((theme) =>
   }),
 );
 
-interface Props {
+interface Props extends PropsWithChildren {
   data?: Node[];
   count?: number;
   onNodeClick?: (id?: string) => void;
@@ -75,8 +81,8 @@ interface Props {
   scrollToIndex?: number;
 }
 
-export const Table = React.memo(
-  React.forwardRef((props: Props, ref: React.Ref<VirtualizedTable>) => {
+export const Table = memo(
+  forwardRef((props: Props, ref: React.Ref<VirtualizedTable>) => {
     const {
       data = [],
       count,

@@ -3,10 +3,11 @@ import { SuggestionStatus } from '@whitewater-guide/schema';
 import parseISO from 'date-fns/parseISO';
 import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { Column, TableProps } from 'react-virtualized';
+import { TableProps } from 'react-virtualized';
 
 import {
   AdminColumn,
+  Column,
   isEmptyRow,
   Table,
   TableCellRenderer,

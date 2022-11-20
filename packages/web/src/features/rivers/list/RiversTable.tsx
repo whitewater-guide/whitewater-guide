@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
-import { Column } from 'react-virtualized';
 
 import {
+  Column,
   EditorColumn,
   isEmptyRow,
   Table,

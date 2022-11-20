@@ -3,10 +3,10 @@ import { History } from 'history';
 import snakeCase from 'lodash/snakeCase';
 import upperFirst from 'lodash/upperFirst';
 import React from 'react';
-import { Column } from 'react-virtualized';
 
 import {
   ClickBlocker,
+  Column,
   DeleteButton,
   IconLink,
   isEmptyRow,

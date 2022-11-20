@@ -1,7 +1,7 @@
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import React from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 
 const useStyles = makeStyles(({ palette }) =>
   createStyles({
@@ -24,7 +24,7 @@ interface Props {
   className?: string;
 }
 
-export const ButtonProgress: React.FC<Props> = ({
+export const ButtonProgress: FC<PropsWithChildren<Props>> = ({
   loading,
   children,
   className,
