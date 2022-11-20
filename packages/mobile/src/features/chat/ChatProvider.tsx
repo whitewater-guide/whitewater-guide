@@ -12,13 +12,13 @@ import React, {
   useState,
 } from 'react';
 import DeviceInfo from 'react-native-device-info';
-import Config from 'react-native-ultimate-config';
 
 import Loading from '~/components/Loading';
 import { tokenStorage } from '~/core/auth';
+import { CHAT_URL } from '~/utils/urls';
 
 const client = createClient({
-  baseUrl: `http://${Config.CHAT_HOST}`,
+  baseUrl: CHAT_URL,
   deviceId: DeviceInfo.getUniqueIdSync(),
 });
 
