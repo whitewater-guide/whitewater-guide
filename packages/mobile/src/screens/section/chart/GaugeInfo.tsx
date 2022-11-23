@@ -1,10 +1,10 @@
 /* eslint-disable import/no-duplicates */
-import { formatDistanceToNow } from '@whitewater-guide/clients';
-import { GaugeForChartFragment } from '@whitewater-guide/schema';
+import { formatDistanceToNow, useChart } from '@whitewater-guide/clients';
+import { Unit } from '@whitewater-guide/schema';
 import differenceInDays from 'date-fns/differenceInDays';
 import parseISO from 'date-fns/parseISO';
 import upperFirst from 'lodash/upperFirst';
-import React from 'react';
+import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 import { Paragraph, Subheading } from 'react-native-paper';
@@ -47,14 +47,14 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props {
-  gauge: GaugeForChartFragment;
-  approximate: boolean;
-  formula?: string | null;
-}
-
-const GaugeInfo: React.FC<Props> = (props) => {
-  const { gauge, approximate, formula } = props;
+const GaugeInfo: FC = () => {
+  const { unit, gauge, section } = useChart();
+  const approximate =
+    unit === Unit.FLOW
+      ? section?.flows?.approximate
+      : section?.levels?.approximate;
+  const formula =
+    unit === Unit.FLOW ? section?.flows?.formula : section?.levels?.formula;
   const { name, latestMeasurement } = gauge;
 
   const { t } = useTranslation();

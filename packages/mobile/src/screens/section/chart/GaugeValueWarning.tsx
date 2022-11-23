@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 import { StyleSheet } from 'react-native';
 import { Popover, usePopover } from 'react-native-modal-popover';
 
@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const GaugeWarning: React.FC = ({ children }) => {
+const GaugeWarning: FC<PropsWithChildren> = ({ children }) => {
   const {
     openPopover,
     closePopover,
