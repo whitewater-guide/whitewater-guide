@@ -1,7 +1,7 @@
 import Button from '@material-ui/core/Button';
 import CardActions from '@material-ui/core/CardActions';
 import { AdminOnly } from '@whitewater-guide/clients';
-import React, { useMemo } from 'react';
+import React, { FC, PropsWithChildren, useMemo } from 'react';
 import { useHistory, useRouteMatch } from 'react-router';
 
 import { EditorOnly } from '../components/EditorOnly';
@@ -17,7 +17,9 @@ export interface EditorFooterProps {
   administrate?: boolean;
 }
 
-export const EditorFooter: React.FC<EditorFooterProps> = (props) => {
+export const EditorFooter: FC<PropsWithChildren<EditorFooterProps>> = (
+  props,
+) => {
   const { adminOnly, add, administrate, edit, children } = props;
   const { push } = useHistory();
   const { url } = useRouteMatch();

@@ -2,7 +2,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Rating from '@material-ui/lab/Rating';
 import { useField } from 'formik';
-import React, { useCallback } from 'react';
+import React, { ChangeEvent, useCallback } from 'react';
 
 import { FormikFormControl } from '../helpers';
 import { useFakeHandlers } from '../utils';
@@ -26,7 +26,10 @@ export const RatingField = React.memo<Props>((props) => {
   const { onChange } = useFakeHandlers(name);
   const classes = useStyles();
   // Because event.target.value is string
-  const handleChange = useCallback((_, v) => onChange(v), [onChange]);
+  const handleChange = useCallback(
+    (_: ChangeEvent, v: number | null) => onChange(v),
+    [onChange],
+  );
   return (
     <FormikFormControl name={name}>
       <Typography variant="caption" className={classes.label}>

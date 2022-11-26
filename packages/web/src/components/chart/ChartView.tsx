@@ -20,10 +20,10 @@ const VictoryZoomVoronoiContainer = createContainer('zoom', 'voronoi');
 const ChartView = createChartView(
   {
     ChartComponent: VictoryChart,
-    ClipContainerComponent: VictoryClipContainer,
-    AxisComponent: VictoryAxis,
-    LineComponent: VictoryLine,
-    ScatterComponent: VictoryScatter,
+    ClipContainerComponent: VictoryClipContainer as any,
+    AxisComponent: VictoryAxis as any,
+    LineComponent: VictoryLine as any,
+    ScatterComponent: VictoryScatter as any,
     TooltipComponent: Crosshair,
     TimeLabelComponent: TimeLabel,
     TimeGridComponent: TimeGrid,

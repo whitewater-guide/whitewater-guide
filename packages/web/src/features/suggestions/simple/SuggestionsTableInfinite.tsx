@@ -1,8 +1,9 @@
 import { ObservableQueryFields } from '@apollo/client';
 import { SuggestionStatus } from '@whitewater-guide/schema';
 import React, { useCallback } from 'react';
-import { Index, InfiniteLoader } from 'react-virtualized';
+import { Index } from 'react-virtualized';
 
+import { InfiniteLoader } from '../../../components';
 import {
   ListSuggestionsQuery,
   ListSuggestionsQueryVariables,

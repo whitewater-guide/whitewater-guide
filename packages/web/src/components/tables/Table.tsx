@@ -10,16 +10,14 @@ import React, {
   useMemo,
 } from 'react';
 import {
-  AutoSizer,
   Index,
   RowMouseEventHandlerParams,
-  Table as VirtualizedTable,
   TableProps,
 } from 'react-virtualized';
 
 import columnMapper from './columnMapper';
 import { TABLE_HEADER_HEIGHT, TABLE_ROW_HEIGHT } from './constants';
-import { EMPTY_ROW } from './types';
+import { AutoSizer, EMPTY_ROW, VirtualizedTable } from './types';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -82,7 +80,7 @@ interface Props extends PropsWithChildren {
 }
 
 export const Table = memo(
-  forwardRef((props: Props, ref: React.Ref<VirtualizedTable>) => {
+  forwardRef((props: Props, ref: React.Ref<typeof VirtualizedTable>) => {
     const {
       data = [],
       count,

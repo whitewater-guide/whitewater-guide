@@ -1,5 +1,13 @@
-import React from 'react';
-import { TableCellProps as TCP } from 'react-virtualized';
+import React, { FC } from 'react';
+import {
+  AutoSizer as ASizer,
+  AutoSizerProps,
+  InfiniteLoader as IL,
+  InfiniteLoaderProps,
+  Table,
+  TableCellProps as TCP,
+  TableProps,
+} from 'react-virtualized';
 
 export interface EmptyRow {
   __emptyRow: true;
@@ -23,3 +31,7 @@ export interface TableCellProps<R, C> extends TCP {
 export type TableCellRenderer<R, C = any> = (
   props: TableCellProps<R, C>,
 ) => React.ReactNode;
+
+export const InfiniteLoader = IL as unknown as FC<InfiniteLoaderProps>;
+export const AutoSizer = ASizer as unknown as FC<AutoSizerProps>;
+export const VirtualizedTable = Table as unknown as FC<TableProps>;

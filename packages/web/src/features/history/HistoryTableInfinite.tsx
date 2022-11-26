@@ -1,7 +1,8 @@
 import { NamedNode } from '@whitewater-guide/schema';
 import React from 'react';
-import { Index, InfiniteLoader } from 'react-virtualized';
+import { Index } from 'react-virtualized';
 
+import { InfiniteLoader } from '../../components';
 import HistoryTable from './HistoryTable';
 import {
   SectionsEditLogQuery,
