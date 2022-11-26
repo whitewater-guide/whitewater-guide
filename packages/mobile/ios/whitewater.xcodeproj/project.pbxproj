@@ -383,7 +383,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = whitewater/whitewater.entitlements;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 334;
+				CURRENT_PROJECT_VERSION = 335;
 				DEVELOPMENT_TEAM = 922TKPGBXZ;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 922TKPGBXZ;
 				ENABLE_BITCODE = NO;
@@ -423,7 +423,7 @@
 				CODE_SIGN_ENTITLEMENTS = whitewater/whitewater.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 334;
+				CURRENT_PROJECT_VERSION = 335;
 				DEVELOPMENT_TEAM = 922TKPGBXZ;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 922TKPGBXZ;
 				INFOPLIST_FILE = whitewater/Info.plist;
@@ -526,7 +526,7 @@
 				CODE_SIGN_ENTITLEMENTS = whitewater/whitewater.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 334;
+				CURRENT_PROJECT_VERSION = 335;
 				DEVELOPMENT_TEAM = 922TKPGBXZ;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 922TKPGBXZ;
 				INFOPLIST_FILE = whitewater/Info.plist;
