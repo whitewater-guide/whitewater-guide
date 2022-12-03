@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/backend",
   "private": true,
-  "version": "0.0.492",
+  "version": "0.0.493",
   "main": "index.js",
   "author": "Konstantin Kuznetsov",
   "license": "UNLICENSED",
@@ -24,8 +24,8 @@
     "version": "yarn build"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.49.0",
-    "@aws-sdk/s3-presigned-post": "^3.49.0",
+    "@aws-sdk/client-s3": "^3.223.0",
+    "@aws-sdk/s3-presigned-post": "^3.223.0",
     "@graphql-tools/schema": "^8.3.1",
     "@graphql-tools/utils": "^8.6.1",
     "@graphql-tools/wrap": "^8.3.3",
