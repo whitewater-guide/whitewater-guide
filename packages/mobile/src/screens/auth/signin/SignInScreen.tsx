@@ -1,5 +1,5 @@
 import { useAuth } from '@whitewater-guide/clients';
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 import { Button } from 'react-native-paper';
@@ -16,13 +16,16 @@ const SignInScreen: React.FC<AuthSignInNavProps> = ({ navigation }) => {
   const { loading } = useAuth();
   const { t } = useTranslation();
   const { navigate } = navigation;
-  const register = useCallback(() => navigate(Screens.AUTH_REGISTER), [
-    navigate,
-  ]);
+  const register = useCallback(
+    () => navigate(Screens.AUTH_REGISTER),
+    [navigate],
+  );
+  const keyboardScrollRef = useRef<View>(null);
   return (
-    <AuthScreenBase>
+    <AuthScreenBase keyboardScrollRef={keyboardScrollRef}>
       <View>
         <SignInForm />
+        <View ref={keyboardScrollRef} collapsable={false} />
         <FacebookButton label={t('screens:auth.signin.facebook')} />
       </View>
       <View>

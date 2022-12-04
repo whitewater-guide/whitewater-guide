@@ -1,10 +1,11 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import React, { FC, PropsWithChildren } from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 import Logo from '~/components/Logo';
 import { Screen } from '~/components/Screen';
 import theme from '~/theme';
+
+import useAvoidKeyboard from './useAvoidKeyboard';
 
 const styles = StyleSheet.create({
   body: {
@@ -20,17 +21,37 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     maxHeight: 200,
   },
+  scroll: {
+    flex: 1,
+  },
 });
 
-export const AuthScreenBase: React.FC = ({ children }) => (
-  <Screen safeBottom>
-    <KeyboardAwareScrollView>
-      <View style={styles.body}>
-        <View style={styles.logoWrapper}>
-          <Logo />
+interface Props {
+  keyboardScrollRef?: React.RefObject<View>;
+}
+
+export const AuthScreenBase: FC<PropsWithChildren<Props>> = ({
+  children,
+  keyboardScrollRef,
+}) => {
+  const scrollView = useAvoidKeyboard(keyboardScrollRef);
+
+  return (
+    <Screen safeBottom>
+      <ScrollView
+        ref={scrollView}
+        style={styles.scroll}
+        bounces={false}
+        overScrollMode="always"
+        contentInsetAdjustmentBehavior="always"
+      >
+        <View style={styles.body}>
+          <View style={styles.logoWrapper}>
+            <Logo />
+          </View>
+          {children}
         </View>
-        {children}
-      </View>
-    </KeyboardAwareScrollView>
-  </Screen>
-);
+      </ScrollView>
+    </Screen>
+  );
+};

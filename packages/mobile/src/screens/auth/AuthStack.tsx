@@ -3,6 +3,8 @@ import {
   StackNavigationOptions,
 } from '@react-navigation/stack';
 import React from 'react';
+import { Platform } from 'react-native';
+import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import Config from 'react-native-ultimate-config';
 
 import { getHeaderRenderer } from '~/components/header';
@@ -25,6 +27,7 @@ const screenOptions: StackNavigationOptions = {
   gestureEnabled: false,
   animationEnabled: Config.E2E_MODE !== 'true',
   headerStyle: {
+    marginTop: Platform.OS === 'android' ? getStatusBarHeight(true) : undefined,
     backgroundColor: theme.colors.primaryBackground,
     borderBottomWidth: 0,
     elevation: 0,

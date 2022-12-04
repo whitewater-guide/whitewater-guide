@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Screen } from '~/components/Screen';
-import { SoftInputMode } from '~/components/SoftInput';
 import { ChatProvider } from '~/features/chat';
 
 import Chat from './Chat';
@@ -13,7 +12,7 @@ const ChatScreen: React.FC<ChatNavProps> = (props) => {
   useChatHeaderTitle(props);
 
   return (
-    <Screen softInputMode={SoftInputMode.ADJUST_RESIZE}>
+    <Screen avoidKeyboard>
       <ChatProvider>
         <Chat room={route.params.room} />
       </ChatProvider>
