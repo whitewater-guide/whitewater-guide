@@ -12,7 +12,7 @@ const ChatScreen: React.FC<ChatNavProps> = (props) => {
   useChatHeaderTitle(props);
 
   return (
-    <Screen avoidKeyboard>
+    <Screen>
       <ChatProvider>
         <Chat room={route.params.room} />
       </ChatProvider>

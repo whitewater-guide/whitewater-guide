@@ -1,5 +1,7 @@
 import 'react-native-gesture-handler';
 import './src/i18n/polyfill';
+// This polyfill is required because synapse won't accept urls from react-native version of fetch
+import 'react-native-url-polyfill/auto';
 import '@whitewater-guide/validation/dist/esm/extensions';
 
 import { AppRegistry } from 'react-native';

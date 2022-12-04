@@ -146,6 +146,7 @@
     "react-native-tab-view": "^3.3.0",
     "react-native-text-size": "^4.0.0-rc.1",
     "react-native-ultimate-config": "^4.0.0",
+    "react-native-url-polyfill": "^1.3.0",
     "react-native-vector-icons": "^9.2.0",
     "react-native-webview": "^11.23.1",
     "react-native-zxcvbn": "^1.0.1",

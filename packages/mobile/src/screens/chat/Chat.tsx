@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const keyExtractor = (item: MatrixEvent) => item.getId();
+const keyExtractor = (item: MatrixEvent) => item.getId()!;
 
 const OFFSET = (Platform.OS === 'ios' ? 72 : 64) + theme.safeBottom;
 
