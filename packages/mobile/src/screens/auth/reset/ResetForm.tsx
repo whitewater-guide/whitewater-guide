@@ -1,8 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
 import { ResetPayload, useAuth } from '@whitewater-guide/clients';
 import { Formik } from 'formik';
-import React, { useCallback, useMemo } from 'react';
+import React, { FC, RefObject, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { View } from 'react-native';
 import { Button } from 'react-native-paper';
 
 import Spacer from '~/components/Spacer';
@@ -18,9 +19,10 @@ import { AuthResetNavProp } from './types';
 interface Props {
   id: string;
   token: string;
+  keyboardScrollRef: RefObject<View>;
 }
 
-export const ResetForm: React.FC<Props> = ({ id, token }) => {
+export const ResetForm: FC<Props> = ({ id, token, keyboardScrollRef }) => {
   const initialValues: ResetPayload = useMemo(
     () => ({
       id,
@@ -44,7 +46,7 @@ export const ResetForm: React.FC<Props> = ({ id, token }) => {
       validationSchema={getValidationSchema()}
     >
       {({ isSubmitting, handleSubmit, submitCount, errors }) => (
-        <>
+        <View ref={keyboardScrollRef}>
           <PasswordField
             name="password"
             label={t('screens:auth.reset.newPassword')}
@@ -71,7 +73,7 @@ export const ResetForm: React.FC<Props> = ({ id, token }) => {
               ? t('screens:auth.reset.goBack')
               : t('screens:auth.reset.submit')}
           </Button>
-        </>
+        </View>
       )}
     </Formik>
   );

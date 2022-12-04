@@ -1,8 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
 import { RequestResetPayload, useAuth } from '@whitewater-guide/clients';
 import { Formik } from 'formik';
-import React, { useCallback } from 'react';
+import React, { FC, RefObject, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { View } from 'react-native';
 import { Button } from 'react-native-paper';
 
 import Spacer from '~/components/Spacer';
@@ -19,7 +20,11 @@ const initialValues: RequestResetPayload = {
   email: '',
 };
 
-export const ForgotForm: React.FC = () => {
+interface Props {
+  keyboardScrollRef: RefObject<View>;
+}
+
+export const ForgotForm: FC<Props> = ({ keyboardScrollRef }) => {
   const { t } = useTranslation();
   const { service } = useAuth();
   const { navigate } = useNavigation<AuthForgotNavProp>();
@@ -37,7 +42,7 @@ export const ForgotForm: React.FC = () => {
       onSubmit={submit}
     >
       {({ isSubmitting, handleSubmit, submitCount, errors }) => (
-        <>
+        <View ref={keyboardScrollRef}>
           <TextField
             name="email"
             label={t('commons:email')}
@@ -72,7 +77,7 @@ export const ForgotForm: React.FC = () => {
               ? t('screens:auth.forgot.goBack')
               : t('screens:auth.forgot.submit')}
           </Button>
-        </>
+        </View>
       )}
     </Formik>
   );
