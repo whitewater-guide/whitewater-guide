@@ -2,10 +2,14 @@ import { LANGUAGES, SocialMediaProvider } from '@whitewater-guide/schema';
 import get from 'lodash/get';
 import { preferredLanguages } from 'negotiator/lib/language';
 import { Profile } from 'passport';
+import FacebookTokenStrategy from 'passport-facebook-token';
+
+import config from '~/config';
+import { sendWelcome } from '~/mail';
 
 import { negotiateLanguage, storeUser } from '../social';
 
-const getFBUser = async (profile: Profile, req: any) => {
+async function getFBUser(profile: Profile, req: any) {
   // Use fake content-negotiation to determine best language for user based on facebook locale
   // Accept-language uses dashes, facebook uses underscore
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language
@@ -29,6 +33,27 @@ const getFBUser = async (profile: Profile, req: any) => {
     },
     language,
   );
-};
+}
 
-export default getFBUser;
+const classicStrategy = new FacebookTokenStrategy(
+  {
+    clientID: config.FB_APP_ID,
+    clientSecret: config.FB_SECRET,
+    profileFields: ['name', 'email', 'picture', 'link', 'locale'],
+    passReqToCallback: true,
+  },
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  async (req, accessToken, refreshToken, profile, done) => {
+    try {
+      const { isNew, user } = await getFBUser(profile, req);
+      if (user && isNew) {
+        await sendWelcome(user);
+      }
+      done(null, user, { isNew });
+    } catch (err) {
+      done(err);
+    }
+  },
+);
+
+export default classicStrategy;

@@ -17,7 +17,11 @@ import {
   SignInBody,
 } from '@whitewater-guide/commons';
 import { AppState, AppStateStatus, Platform } from 'react-native';
-import { AccessToken, LoginManager } from 'react-native-fbsdk-next';
+import {
+  AccessToken,
+  AuthenticationToken,
+  LoginManager,
+} from 'react-native-fbsdk-next';
 
 import { BACKEND_URL } from '~/utils/urls';
 
@@ -122,10 +126,12 @@ export class MobileAuthService extends BaseAuthService {
 
   private async signInWithFacebook(): Promise<AuthResponse<SignInBody>> {
     try {
-      const result = await LoginManager.logInWithPermissions([
-        'public_profile',
-        'email',
-      ]);
+      const result = await LoginManager.logInWithPermissions(
+        ['public_profile', 'email'],
+        // https://github.com/thebergamo/react-native-fbsdk-next#limited-login-ios
+        Platform.OS === 'ios' ? 'limited' : 'enabled',
+      );
+
       if (result.isCancelled) {
         return {
           success: false,
@@ -134,19 +140,31 @@ export class MobileAuthService extends BaseAuthService {
         };
       }
 
-      const at = await AccessToken.getCurrentAccessToken();
-      if (!at?.accessToken) {
-        trackError('auth', new Error('fb access token not found'), {
-          provider: 'facebook',
-        });
-        return {
-          success: false,
-          error: { form: 'fb_access_token_not_found' },
-          status: 400,
-        };
+      const token: { access_token?: string; auth_token?: string } = {};
+
+      // https://github.com/thebergamo/react-native-fbsdk-next#limited-login-ios
+      // for limited login on ios, set auth_token, otherwise set access_token
+      // on backend custom facebook passport strategy will delegate to substrategy based on which token we provide
+      if (Platform.OS === 'ios') {
+        const at = await AuthenticationToken.getAuthenticationTokenIOS();
+        token.auth_token = at?.authenticationToken;
+      } else {
+        const at = await AccessToken.getCurrentAccessToken();
+        if (!at?.accessToken) {
+          trackError('auth', new Error('fb access token not found'), {
+            provider: 'facebook',
+          });
+          return {
+            success: false,
+            error: { form: 'fb_access_token_not_found' },
+            status: 400,
+          };
+        }
+        token.access_token = at.accessToken;
       }
+
       const resp = await this._get('/auth/facebook/signin', {
-        access_token: at.accessToken,
+        ...token,
         fcm_token: this._fcmToken,
       });
       return resp;

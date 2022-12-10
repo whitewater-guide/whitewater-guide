@@ -1,1 +1,1 @@
-export * from './strategy';
+export * from './wrappedStartegy';
