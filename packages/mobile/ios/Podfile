@@ -52,6 +52,24 @@ target 'whitewater' do
 
     # required by react-native-mapbox-gl
     $RNMBGL.post_install(installer)
+
+    # https://github.com/rnmapbox/maps/issues/1733#issuecomment-1073355744
+    # --- fix to build for M1 iPhone 14 simulator
+    projects = installer.aggregate_targets
+      .map{ |t| t.user_project }
+      .uniq{ |p| p.path }
+      .push(installer.pods_project)
+
+    projects.each do |project|
+      project.build_configurations.each do |config|
+        config.build_settings['ARCHS[sdk=iphonesimulator*]'] = 'x86_64'
+        config.build_settings['ONLY_ACTIVE_ARCH'] = 'YES'
+        config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'i386 arm64'
+      end
+
+      project.save()
+    end
+    # ---- end of fix
   end
 
 end
