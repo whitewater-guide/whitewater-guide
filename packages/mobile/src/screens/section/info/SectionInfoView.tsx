@@ -112,7 +112,7 @@ const SectionInfoView: React.FC = () => {
       </View>
 
       <View style={styles.descriptionBlock}>
-        <SectionInfoDescription section={section} />
+        <SectionInfoDescription section={section} loading={loading} />
         <RegionBanners
           placement={BannerPlacement.MobileRegionDescription}
           count={10}

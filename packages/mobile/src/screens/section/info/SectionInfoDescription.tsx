@@ -9,12 +9,13 @@ import Placeholder from './placeholder';
 
 interface Props {
   section?: SafeSectionDetails | null;
+  loading?: boolean;
 }
 
 // Priorities:
 // section description is empty string when there is no description (even for premium)
 // section description is null when premium is required
-const SectionInfoDescription: React.FC<Props> = ({ section }) => {
+const SectionInfoDescription: React.FC<Props> = ({ section, loading }) => {
   if (!section) {
     return null;
   }
@@ -30,7 +31,11 @@ const SectionInfoDescription: React.FC<Props> = ({ section }) => {
   }
 
   return (
-    <Placeholder section={section} premium={section.description === null} />
+    <Placeholder
+      section={section}
+      premium={section.description === null}
+      loading={loading}
+    />
   );
 };
 

@@ -1,10 +1,10 @@
 import { useRegionQuery, useSectionQuery } from '@whitewater-guide/clients';
-import React, { FC, useCallback } from 'react';
+import React, { FC, PropsWithChildren, useCallback } from 'react';
 
 import { Screen } from '~/components/Screen';
 import WithQueryError from '~/components/WithQueryError';
 
-const SectionTabsScreen: FC = ({ children }) => {
+const SectionTabsScreen: FC<PropsWithChildren> = ({ children }) => {
   const regionQuery = useRegionQuery();
   const sectionQuery = useSectionQuery();
 
