@@ -28,7 +28,9 @@ const ChatFooter: FC<ChatFooterProps> = ({ lastEvent, loading, loadOlder }) => {
     return (
       <View style={styles.container}>
         <ActivityIndicator size="small" />
-        {isInternetReachable && <Caption>{t('commons:offline')}</Caption>}
+        {isInternetReachable === false && (
+          <Caption>{t('commons:offline')}</Caption>
+        )}
       </View>
     );
   }
