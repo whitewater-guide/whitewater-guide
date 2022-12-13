@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropsWithChildren, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 
 export interface InfoWindowProps {
@@ -32,7 +32,9 @@ const EVENT_MAP_ENTRIES: Array<[keyof InfoWindowProps, string]> = [
  *
  * @see https://developers.google.com/maps/documentation/javascript/3.exp/reference#InfoWindow
  */
-export class InfoWindow extends React.PureComponent<InfoWindowProps> {
+export class InfoWindow extends PureComponent<
+  PropsWithChildren<InfoWindowProps>
+> {
   infoWindow: google.maps.InfoWindow;
 
   containerElement: HTMLElement = document.createElement('div');

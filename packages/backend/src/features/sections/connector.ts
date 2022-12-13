@@ -27,6 +27,7 @@ const FIELDS_MAP: FieldsMap<Section, Sql.SectionsView> = {
   gauge: 'gauge_id',
   media: null,
   favorite: null,
+  room: 'room_id',
 };
 
 export class SectionsConnector extends OffsetConnector<

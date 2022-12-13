@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { RegisterPayload, useAuth } from '@whitewater-guide/clients';
 import { Formik } from 'formik';
-import React, { useCallback, useMemo, useRef } from 'react';
+import React, { memo, RefObject, useCallback, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Button, Title } from 'react-native-paper';
@@ -22,7 +22,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export const RegisterForm: React.FC = React.memo(() => {
+interface Props {
+  keyboardScrollRef: RefObject<View>;
+}
+
+export const RegisterForm = memo(({ keyboardScrollRef }: Props) => {
   const { t, i18n } = useTranslation();
   const initialValues: RegisterPayload = useMemo(
     () => ({
@@ -47,16 +51,19 @@ export const RegisterForm: React.FC = React.memo(() => {
   );
   const nameField = useRef<any>();
   const passwordField = useRef<any>();
+
   const onEmailSubmit = useCallback(() => {
     if (nameField.current) {
       nameField.current.focus();
     }
   }, [nameField]);
+
   const onNameSubmit = useCallback(() => {
     if (passwordField.current) {
       passwordField.current.focus();
     }
   }, [passwordField]);
+
   return (
     <Formik<RegisterPayload>
       initialValues={initialValues}
@@ -99,7 +106,7 @@ export const RegisterForm: React.FC = React.memo(() => {
               onSubmitEditing={handleSubmit as any}
             />
           </View>
-          <View>
+          <View ref={keyboardScrollRef}>
             {(errors as any)?.form && (
               <HelperText error={t((errors as any).form)} touched noPad />
             )}

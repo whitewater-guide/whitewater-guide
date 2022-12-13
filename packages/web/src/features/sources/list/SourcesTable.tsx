@@ -1,9 +1,9 @@
 import { History } from 'history';
 import React from 'react';
-import { Column } from 'react-virtualized';
 
 import {
   ClickBlocker,
+  Column,
   DeleteButton,
   HarvestStatusIndicator,
   IconLink,

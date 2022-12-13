@@ -59,6 +59,12 @@ type Region implements NamedNode & Timestamped {
   "Indicates that current user has marked this region as favorite"
   favorite: Boolean
 
+  """
+  Chat room for this region
+  This resolver will lazily create room if it doesn't exist. So it's not recommended to call it in list queries
+  """
+  room: Room
+
   "Licensing information"
   license: License
   "copyright"

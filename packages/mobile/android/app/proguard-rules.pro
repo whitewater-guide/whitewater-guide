@@ -36,6 +36,12 @@
 -keep class com.swmansion.reanimated.** { *; }
 -keep class com.facebook.react.turbomodule.** { *; }
 
+# react-native-device-info
+-keepclassmembers class com.android.installreferrer.api.** {
+  *;
+}
+-keep class com.google.android.gms.common.** {*;}
+
 # hermes
 -keep class com.facebook.hermes.unicode.** { *; }
 -keep class com.facebook.jni.** { *; }

@@ -1,6 +1,6 @@
 import Grid from '@material-ui/core/Grid';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import React from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -10,7 +10,7 @@ const useStyles = makeStyles(() =>
   }),
 );
 
-export const Title: React.FC = ({ children }) => {
+export const Title: FC<PropsWithChildren> = ({ children }) => {
   const classes = useStyles();
   return (
     <Grid item xs={3} className={classes.title}>

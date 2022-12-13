@@ -10,6 +10,7 @@ import {
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import NativeSplashScreen from 'react-native-bootsplash';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Provider as PaperProvider } from 'react-native-paper';
 
 import Loading from '~/components/Loading';
@@ -24,6 +25,7 @@ import { MobileAuthService } from './core/auth';
 import configMisc from './core/config/configMisc';
 import { configErrors } from './core/errors';
 import { NavigationRoot, RootDrawer } from './core/navigation';
+import { ChatClientStateProvider } from './features/chat';
 import { IapProvider } from './features/purchases';
 import { UploadsProvider } from './features/uploads';
 import { I18nProvider } from './i18n';
@@ -68,42 +70,46 @@ class App extends React.PureComponent {
 
   render() {
     return (
-      <PaperProvider theme={PaperTheme}>
-        {this._apolloClient ? (
-          <ApolloProvider client={this._apolloClient}>
-            <TagsProvider>
-              <AuthProvider
-                service={this._authService}
-                renderInitializing={<Loading />}
-              >
-                <I18nProvider onUserLanguageChange={this.resetApolloCache}>
-                  <UploadsProvider>
-                    <RegionsFilterProvider>
-                      <AppSettingsProvider>
-                        <IapProvider>
-                          <OfflineContentProvider>
-                            <ActionSheetProvider>
-                              <NavigationRoot>
-                                <PreviousVersion />
-                                <View style={StyleSheet.absoluteFill}>
-                                  <RootDrawer />
-                                  <OfflineContentDialog />
-                                </View>
-                              </NavigationRoot>
-                            </ActionSheetProvider>
-                          </OfflineContentProvider>
-                        </IapProvider>
-                      </AppSettingsProvider>
-                    </RegionsFilterProvider>
-                  </UploadsProvider>
-                </I18nProvider>
-              </AuthProvider>
-            </TagsProvider>
-          </ApolloProvider>
-        ) : (
-          <Loading />
-        )}
-      </PaperProvider>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <PaperProvider theme={PaperTheme}>
+          {this._apolloClient ? (
+            <ApolloProvider client={this._apolloClient}>
+              <TagsProvider>
+                <AuthProvider
+                  service={this._authService}
+                  renderInitializing={<Loading />}
+                >
+                  <I18nProvider onUserLanguageChange={this.resetApolloCache}>
+                    <ChatClientStateProvider>
+                      <UploadsProvider>
+                        <RegionsFilterProvider>
+                          <AppSettingsProvider>
+                            <IapProvider>
+                              <OfflineContentProvider>
+                                <ActionSheetProvider>
+                                  <NavigationRoot>
+                                    <PreviousVersion />
+                                    <View style={StyleSheet.absoluteFill}>
+                                      <RootDrawer />
+                                      <OfflineContentDialog />
+                                    </View>
+                                  </NavigationRoot>
+                                </ActionSheetProvider>
+                              </OfflineContentProvider>
+                            </IapProvider>
+                          </AppSettingsProvider>
+                        </RegionsFilterProvider>
+                      </UploadsProvider>
+                    </ChatClientStateProvider>
+                  </I18nProvider>
+                </AuthProvider>
+              </TagsProvider>
+            </ApolloProvider>
+          ) : (
+            <Loading />
+          )}
+        </PaperProvider>
+      </GestureHandlerRootView>
     );
   }
 }

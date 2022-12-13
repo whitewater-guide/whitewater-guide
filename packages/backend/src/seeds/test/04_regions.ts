@@ -131,6 +131,7 @@ const regions = [
       [17, -89, 0],
     ]),
     default_lang: 'ru',
+    room_id: 'room_russia',
   },
 ];
 

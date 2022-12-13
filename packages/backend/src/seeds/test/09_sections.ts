@@ -282,6 +282,7 @@ const sections = [
     demo: false,
     default_lang: 'ru',
     timezone: 'Europe/Moscow',
+    room_id: 'room_mzymta_paseka',
   },
 ];
 

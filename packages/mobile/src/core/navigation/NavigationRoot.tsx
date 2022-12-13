@@ -1,5 +1,5 @@
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-import { useFlipper } from '@react-navigation/devtools';
+// import { useFlipper } from '@react-navigation/devtools';
 import {
   NavigationContainer,
   useNavigationContainerRef,
@@ -17,7 +17,7 @@ export const NavigationRoot: React.FC = ({ children }) => {
   const { state, ready, onStateChange } = usePersistence();
   const navigationRef = useNavigationContainerRef();
   const screenTracker = useTracking(navigationRef, onStateChange);
-  useFlipper(navigationRef);
+  // useFlipper(navigationRef);
 
   useEffectOnce(() => {
     if (Config.E2E_MODE === 'true') {

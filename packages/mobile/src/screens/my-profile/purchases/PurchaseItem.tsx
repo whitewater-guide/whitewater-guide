@@ -32,8 +32,8 @@ const PurchaseItem: React.FC<Props> = ({ last, region, group }) => {
   }
   const title = region ? region.name : group?.name;
   const description = region
-    ? t('myProfile:purchases.region')
-    : t('myProfile:purchases.group');
+    ? t('screens:myprofile.purchases.region')
+    : t('screens:myprofile.purchases.group');
   return (
     <View style={[styles.container, last && styles.last]}>
       <Subheading style={styles.noMargin}>{title}</Subheading>

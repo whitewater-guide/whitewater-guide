@@ -11,5 +11,5 @@ COPY ./servers.json /pgadmin4/servers.json
 ENV PGPASS_DIR=/var/lib/pgadmin/storage/user_domain.com
 RUN mkdir -p -m 700 ${PGPASS_DIR} \
     && echo 'db:5432:*:postgres:whitewater' > ${PGPASS_DIR}/pgpass \
-    && chmod 600 ${PGPASS_DIR}/pgpass \
-    && chown -R pgadmin:pgadmin ${PGPASS_DIR}
+    && chmod 600 ${PGPASS_DIR}/pgpass
+# && chown -R pgadmin:pgadmin ${PGPASS_DIR}

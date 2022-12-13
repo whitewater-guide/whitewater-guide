@@ -59,7 +59,7 @@ export default class PlacesAutocomplete extends React.Component<
   componentDidMount() {
     this.props.map.controls[google.maps.ControlPosition.TOP_LEFT].push(
       // eslint-disable-next-line react/no-find-dom-node
-      findDOMNode(this) as Element,
+      findDOMNode(this) as HTMLElement,
     );
   }
 

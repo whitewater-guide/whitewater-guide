@@ -13,11 +13,12 @@ import parseISO from 'date-fns/parseISO';
 import { History } from 'history';
 import isNil from 'lodash/isNil';
 import React from 'react';
-import { Column, IndexRange, TableProps } from 'react-virtualized';
+import { IndexRange, TableProps } from 'react-virtualized';
 
 import {
   AdminColumn,
   ClickBlocker,
+  Column,
   EditorColumn,
   IconLink,
   isEmptyRow,

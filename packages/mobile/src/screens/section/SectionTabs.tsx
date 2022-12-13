@@ -2,6 +2,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { useSection } from '@whitewater-guide/clients';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { View } from 'react-native';
 import useEffectOnce from 'react-use/lib/useEffectOnce';
 
 import Icon from '~/components/Icon';
@@ -13,11 +14,11 @@ import {
 
 import theme from '../../theme';
 import { LazySectionChartScreen } from './chart';
-import { LazySectionGuideScreen } from './guide';
 import { LazySectionInfoScreen } from './info';
 import { LazySectionMapScreen } from './map';
 import { LazySectionMediaScreen } from './media';
 import SectionTitle from './SectionTitle';
+import useFakeChatTab from './useFakeChatTab';
 
 const Tab = createMaterialBottomTabNavigator<SectionTabsParamsList>();
 
@@ -28,6 +29,7 @@ const SectionTabs: React.FC<SectionScreenNavProps> = ({ navigation }) => {
   // it's here because passing it via [initialParams](https://reactnavigation.org/docs/screen#initialparams)
   // seems to be simplest way to track screen params in sentry
   const sectionId = section?.id;
+  const chatListeners = useFakeChatTab(section?.room);
 
   useEffectOnce(() => {
     navigation.setOptions({
@@ -51,29 +53,31 @@ const SectionTabs: React.FC<SectionScreenNavProps> = ({ navigation }) => {
         name={Screens.SECTION_MAP}
         component={LazySectionMapScreen}
         options={{
-          tabBarLabel: t('section:map.title'),
+          tabBarLabel: t('screens:section.map.title'),
           // eslint-disable-next-line react/display-name
           tabBarIcon: () => <Icon icon="map" color={theme.colors.textLight} />,
           tabBarTestID: 'section-tab-map',
         }}
         initialParams={{ sectionId }}
       />
-      <Tab.Screen
-        name={Screens.SECTION_CHART}
-        component={LazySectionChartScreen}
-        options={{
-          tabBarLabel: t('section:chart.title'),
-          tabBarIcon: () => (
-            <Icon icon="chart-line" color={theme.colors.textLight} />
-          ),
-          tabBarTestID: 'section-tab-chart',
-        }}
-      />
+      {!!section?.gauge && (
+        <Tab.Screen
+          name={Screens.SECTION_CHART}
+          component={LazySectionChartScreen}
+          options={{
+            tabBarLabel: t('screens:section.chart.title'),
+            tabBarIcon: () => (
+              <Icon icon="chart-line" color={theme.colors.textLight} />
+            ),
+            tabBarTestID: 'section-tab-chart',
+          }}
+        />
+      )}
       <Tab.Screen
         name={Screens.SECTION_INFO}
         component={LazySectionInfoScreen}
         options={{
-          tabBarLabel: t('section:info.title'),
+          tabBarLabel: t('screens:section.info.title'),
           // eslint-disable-next-line react/display-name
           tabBarIcon: () => (
             <Icon icon="information" color={theme.colors.textLight} />
@@ -83,23 +87,10 @@ const SectionTabs: React.FC<SectionScreenNavProps> = ({ navigation }) => {
         initialParams={{ sectionId }}
       />
       <Tab.Screen
-        name={Screens.SECTION_GUIDE}
-        component={LazySectionGuideScreen}
-        options={{
-          tabBarLabel: t('section:guide.title'),
-          // eslint-disable-next-line react/display-name
-          tabBarIcon: () => (
-            <Icon icon="book-open-variant" color={theme.colors.textLight} />
-          ),
-          tabBarTestID: 'section-tab-guide',
-        }}
-        initialParams={{ sectionId }}
-      />
-      <Tab.Screen
         name={Screens.SECTION_MEDIA}
         component={LazySectionMediaScreen}
         options={{
-          tabBarLabel: t('section:media.title'),
+          tabBarLabel: t('screens:section.media.title'),
           // eslint-disable-next-line react/display-name
           tabBarIcon: () => (
             <Icon icon="image-multiple" color={theme.colors.textLight} />
@@ -107,6 +98,15 @@ const SectionTabs: React.FC<SectionScreenNavProps> = ({ navigation }) => {
           tabBarTestID: 'section-tab-media',
         }}
         initialParams={{ sectionId }}
+      />
+      <Tab.Screen
+        name={Screens.SECTION_FAKE_CHAT}
+        component={View}
+        options={{
+          tabBarIcon: ({ color }) => <Icon icon="message-text" color={color} />,
+          tabBarTestID: 'section-tab-chat',
+        }}
+        listeners={chatListeners}
       />
     </Tab.Navigator>
   );

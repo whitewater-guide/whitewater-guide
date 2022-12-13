@@ -69,6 +69,20 @@ class Config {
 
   public GORGE_PORT = process.env.GORGE_PORT || '7080';
 
+  public SYNAPSE_URL = `http://${process.env.SYNAPSE_HOST}`;
+
+  public SYNAPSE_HOME_SERVER =
+    process.env.SYNAPSE_HOME_SERVER ?? 'whitewater.guide';
+
+  public SYNAPSE_API_USER = 'system_api';
+
+  public SYNAPSE_ADMIN_USER = 'system_admin';
+
+  public SYNAPSE_ADMIN_PASSWORD = process.env.SYNAPSE_ADMIN_PASSWORD;
+
+  public SYNAPSE_REGISTRATION_SHARED_SECRET =
+    process.env.SYNAPSE_REGISTRATION_SHARED_SECRET;
+
   /**
    * Emails where we send notifications when gorge scripts are unhealthy.
    */

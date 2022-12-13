@@ -104,6 +104,12 @@ type Section implements NamedNode & Timestamped {
   "Indicates that current user has marked this section as favorite"
   favorite: Boolean
 
+  """
+  Chat room for this region
+  This resolver will lazily create room if it doesn't exist. So it's not recommended to call it in list queries
+  """
+  room: Room
+
   "Licensing information"
   license: License
   "copyright"

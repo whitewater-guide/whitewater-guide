@@ -4,6 +4,10 @@ fragment RegionDetailsInternal on Region {
   ...RegionPOIs
   ...RegionFlags
   ...RegionLicense
+  room {
+    id
+    alias
+  }
   description
   bounds
   sku

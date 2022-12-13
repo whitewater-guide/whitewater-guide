@@ -17,4 +17,9 @@ psql --variable=ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname=postgres <<
   CREATE DATABASE gorge;
   CREATE DATABASE wwguide;
   CREATE DATABASE wwtest;
+  CREATE DATABASE synapse
+    LC_COLLATE 'C'
+    LC_CTYPE 'C'
+    ENCODING UTF8
+    TEMPLATE template0;
 SQL

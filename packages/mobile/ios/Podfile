@@ -1,13 +1,13 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-platform :ios, '11.0'
+platform :ios, '12.0'
+install! 'cocoapods', :deterministic_uuids => false
 
 $RNFirebaseAnalyticsWithoutAdIdSupport = true
 $ReactNativeMapboxGLIOSVersion = '~> 6.4'
 
 project 'whitewater',
-  'Detox' => :debug,
   'Debug' => :debug,
   'Staging' => :release,
   'Release' => :release
@@ -18,7 +18,10 @@ target 'whitewater' do
   use_react_native!(
     :path => config[:reactNativePath],
     # to enable hermes on iOS, change `false` to `true` and then install pods
-    :hermes_enabled => true
+    :hermes_enabled => true,
+    :fabric_enabled => false,
+    # An absolute path to your application root.
+    :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
   pre_install do |installer|
@@ -30,12 +33,43 @@ target 'whitewater' do
   #
   # Note that if you have use_frameworks! enabled, Flipper will not work and
   # you should disable these next few lines.
-  use_flipper!()
+  use_flipper!({'Flipper' => '0.174.0'})
   post_install do |installer|
     react_native_post_install(installer)
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
+
+    # Fix for this issue
+    # Supposedly no longer required after v70.3
+    # https://github.com/facebook/react-native/issues/34673#issuecomment-1276318220
+    installer.pods_project.targets.each do |target|
+      if target.respond_to?(:product_type) and target.product_type == "com.apple.product-type.bundle"
+        target.build_configurations.each do |config|
+            config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
+        end
+      end
+    end
+    # --- end of fix
+
     # required by react-native-mapbox-gl
     $RNMBGL.post_install(installer)
+
+    # https://github.com/rnmapbox/maps/issues/1733#issuecomment-1073355744
+    # --- fix to build for M1 iPhone 14 simulator
+    projects = installer.aggregate_targets
+      .map{ |t| t.user_project }
+      .uniq{ |p| p.path }
+      .push(installer.pods_project)
+
+    projects.each do |project|
+      project.build_configurations.each do |config|
+        config.build_settings['ARCHS[sdk=iphonesimulator*]'] = 'x86_64'
+        config.build_settings['ONLY_ACTIVE_ARCH'] = 'YES'
+        config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'i386 arm64'
+      end
+
+      project.save()
+    end
+    # ---- end of fix
   end
 
 end

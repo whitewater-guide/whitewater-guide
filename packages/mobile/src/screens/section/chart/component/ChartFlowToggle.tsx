@@ -21,7 +21,7 @@ export const ChartFlowToggle: React.FC = React.memo(() => {
   const showMenu = useCallback(() => {
     showActionSheetWithOptions(
       {
-        title: t('section:chart.flowToggle'),
+        title: t('screens:section.chart.flowToggle'),
         options: [t('commons:flow'), t('commons:level'), t('commons:cancel')],
         cancelButtonIndex: 2,
       },
@@ -46,7 +46,9 @@ export const ChartFlowToggle: React.FC = React.memo(() => {
   return (
     <Row>
       <Left row>
-        <Subheading>{`${t('section:chart.lastRecorded.title')} `}</Subheading>
+        <Subheading>{`${t(
+          'screens:section.chart.lastRecorded.title',
+        )} `}</Subheading>
         <ChartFlowToggleUnit unit={unit} />
       </Left>
       <Right row>

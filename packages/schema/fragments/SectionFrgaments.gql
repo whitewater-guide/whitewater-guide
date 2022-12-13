@@ -108,6 +108,7 @@ fragment SectionLicense on Section {
 fragment DescentSection on Section {
   ...SectionNameShort
   difficulty
+  difficultyXtra
   timezone
   region {
     id

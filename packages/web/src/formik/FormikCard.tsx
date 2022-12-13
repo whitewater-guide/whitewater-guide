@@ -3,7 +3,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import { isNamedNode, isNode } from '@whitewater-guide/schema';
 import { createSafeValidator } from '@whitewater-guide/validation';
-import { Formik, FormikConfig } from 'formik';
+import { Formik, FormikConfig, FormikValues } from 'formik';
 import React, { useMemo } from 'react';
 
 import { EditorLanguagePicker } from '../components';
@@ -21,7 +21,9 @@ interface Props<QResult, FData> extends UseApolloFormik<QResult, FData> {
   extraActions?: React.ReactElement;
 }
 
-export function FormikCard<QResult, FData>(props: Props<QResult, FData>) {
+export function FormikCard<QResult, FData extends FormikValues>(
+  props: Props<QResult, FData>,
+) {
   const {
     header,
     onSubmit,

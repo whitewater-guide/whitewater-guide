@@ -91,6 +91,13 @@ const FlowsScreen: React.FC<AddSectionFlowsNavProps> = React.memo(
             name="levels.impossible"
             label={t('screens:addSection.flows.levels.imp')}
           />
+          <TextField
+            name="levels.formula"
+            autoCapitalize="none"
+            autoCorrect={false}
+            label={t('screens:addSection.flows.flows.formulaLabel')}
+            helperText={t('screens:addSection.flows.flows.formulaHelper')}
+          />
         </KAVScroll>
       </Screen>
     );

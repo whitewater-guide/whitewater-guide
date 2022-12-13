@@ -1,4 +1,4 @@
-FROM node:14.17.6 AS builder
+FROM node:16.18.1 AS builder
 
 WORKDIR /opt/app
 
@@ -18,7 +18,7 @@ RUN yarn install --frozen-lockfile --non-interactive
 RUN yarn workspace @whitewater-guide/backend build
 
 # Skip development modules
-FROM node:14.17.6 AS production
+FROM node:16.18.1 AS production
 
 WORKDIR /opt/app
 
@@ -47,7 +47,7 @@ ENV NODE_ENV=production
 RUN yarn install --production --frozen-lockfile --non-interactive
 
 # Final image
-FROM gcr.io/distroless/nodejs:14
+FROM gcr.io/distroless/nodejs:16
 
 ENV NODE_ENV=production
 

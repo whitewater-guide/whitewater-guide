@@ -1,12 +1,12 @@
 import { renderHook } from '@testing-library/react-hooks';
-import React from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 
 import { mockApolloProvider } from '../../test';
 import { SectionProvider, useSectionQuery } from './SectionProvider';
 
 it('useSection should return section', async () => {
   const Provider = mockApolloProvider();
-  const wrapper: React.FC = ({ children }) => (
+  const wrapper: FC<PropsWithChildren> = ({ children }) => (
     <Provider>
       <SectionProvider sectionId="foo">{children}</SectionProvider>
     </Provider>

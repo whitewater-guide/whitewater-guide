@@ -22,10 +22,10 @@ const useGaugeActionSheet = (
   return useCallback(() => {
     showActionSheetWithOptions(
       {
-        title: t('section:chart.gaugeMenu.title'),
+        title: t('screens:section.chart.gaugeMenu.title'),
         options: [
-          t('section:chart.gaugeMenu.aboutSource'),
-          t('section:chart.gaugeMenu.webPage'),
+          t('screens:section.chart.gaugeMenu.aboutSource'),
+          t('screens:section.chart.gaugeMenu.webPage'),
           t('commons:cancel'),
         ],
         cancelButtonIndex: 2,
@@ -39,7 +39,7 @@ const useGaugeActionSheet = (
           }
         } else if (index === 0) {
           navigate(Screens.PLAIN, {
-            title: t('section:chart.gaugeMenu.aboutSource'),
+            title: t('screens:section.chart.gaugeMenu.aboutSource'),
             text: gauge.source.termsOfUse,
           });
         }

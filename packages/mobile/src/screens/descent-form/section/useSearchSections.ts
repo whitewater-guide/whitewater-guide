@@ -19,7 +19,7 @@ export function useSearchSections(
     const recent = uniqBy(
       data?.myDescents?.edges.map((e) => e.node.section) || [],
       'id',
-    );
+    ).filter((s) => !regionId || s.region.id === regionId);
     const found = search ? data?.sections.nodes || [] : [];
     if (mandatory && !found.some((s) => s.id === mandatory.id)) {
       found.unshift(mandatory);
@@ -32,7 +32,7 @@ export function useSearchSections(
       all.push({ id: 'Search', data: found });
     }
     return all;
-  }, [data, search, mandatory]);
+  }, [data, search, mandatory, regionId]);
   return { loading, result };
 }
 

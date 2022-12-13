@@ -10,6 +10,7 @@ import { getHeaderRenderer } from '~/components/header';
 import { RootStackNavProps, RootStackParamsList } from '~/core/navigation';
 import { LazyAddSectionScreen } from '~/screens/add-section';
 import { LazyAuthStack } from '~/screens/auth';
+import { LazyChatScreen } from '~/screens/chat';
 import { LazyDescentScreen } from '~/screens/descent';
 import { LazyDescentFormScreen } from '~/screens/descent-form';
 import { LazyLicenseScreen } from '~/screens/license';
@@ -90,6 +91,7 @@ const RootStack: React.FC<RootStackNavProps> = ({ navigation }) => {
         options={{ headerTitle: t('screens:license.headerTitle') }}
       />
       <Stack.Screen name={Screens.MY_PROFILE} component={LazyMyProfileScreen} />
+      <Stack.Screen name={Screens.CHAT} component={LazyChatScreen} />
     </Stack.Navigator>
   );
 };

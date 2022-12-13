@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, PropsWithChildren } from 'react';
 import {
   LayoutChangeEvent,
   StyleProp,
@@ -31,7 +31,7 @@ export interface ScreenProps {
 const NO_TOP_EDGE: any = { edges: ['left', 'right', 'bottom'] };
 const NO_BOTTOM_EDGE: any = { edges: ['left', 'right', 'top'] };
 
-export const Screen: React.FC<ScreenProps> = React.memo((props) => {
+export const Screen = memo((props: PropsWithChildren<ScreenProps>) => {
   const {
     padding,
     children,

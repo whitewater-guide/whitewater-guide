@@ -25,6 +25,10 @@
       "path": "../packages/commons"
     },
     {
+      "name": "csv-exporter",
+      "path": "../packages/csv-exporter"
+    },
+    {
       "name": "eslint-config",
       "path": "../packages/eslint-config"
     },

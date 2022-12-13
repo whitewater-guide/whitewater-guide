@@ -1,7 +1,7 @@
 import Input, { InputProps } from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import { useField } from 'formik';
-import React, { useCallback } from 'react';
+import React, { ChangeEvent, useCallback } from 'react';
 
 import { FormikFormControl } from '../helpers';
 
@@ -17,7 +17,7 @@ export const TextField = React.memo<Props>((props) => {
   const { onChange } = field;
   const value = field.value || '';
   const handleChange = useCallback(
-    (e) => {
+    (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
       onChange({
         target: {
           ...e.target,

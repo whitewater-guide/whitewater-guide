@@ -1,7 +1,8 @@
 import { ObservableQueryFields } from '@apollo/client';
 import React, { useCallback } from 'react';
-import { Index, InfiniteLoader } from 'react-virtualized';
+import { Index } from 'react-virtualized';
 
+import { InfiniteLoader } from '../../../components';
 import {
   SuggestedSectionsQuery,
   SuggestedSectionsQueryVariables,

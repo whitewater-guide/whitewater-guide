@@ -2,9 +2,10 @@ import { formatDate } from '@whitewater-guide/clients';
 import parseISO from 'date-fns/parseISO';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Column, TableProps } from 'react-virtualized';
+import { TableProps } from 'react-virtualized';
 
 import {
+  Column,
   IconLink,
   isEmptyRow,
   Table,

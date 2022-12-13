@@ -30,7 +30,7 @@ export const SignOutButton: React.FC = () => {
       style={styles.button}
       color={theme.colors.error}
     >
-      {t('myProfile:logout')}
+      {t('screens:myprofile.logout')}
     </Button>
   );
 };

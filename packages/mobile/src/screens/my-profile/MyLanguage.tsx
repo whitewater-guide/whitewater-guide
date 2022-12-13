@@ -50,7 +50,7 @@ const MyLanguage: React.FC<Props> = React.memo(({ me }) => {
   const [mutate] = useUpdateProfileMutation();
   return (
     <RadioDialog
-      handleTitle={t('myProfile:language')}
+      handleTitle={t('screens:myprofile.language')}
       cancelLabel={t('commons:cancel')}
       value={me.language || 'en'}
       options={SUPPORTED_LANGUAGES}

@@ -21,6 +21,7 @@ const FIELDS_MAP: FieldsMap<Region, ResolvableRegion> = {
   sources: null,
   mediaSummary: null,
   banners: null,
+  room: 'room_id',
 };
 
 export class RegionsConnector extends OffsetConnector<

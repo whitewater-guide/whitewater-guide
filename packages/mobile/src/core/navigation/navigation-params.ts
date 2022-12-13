@@ -2,7 +2,7 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { RegionDetailsFragment } from '@whitewater-guide/clients';
-import { License } from '@whitewater-guide/schema';
+import { License, Room } from '@whitewater-guide/schema';
 
 import { PurchaseParams } from '~/features/purchases/types';
 import { DescentFormData } from '~/screens/descent-form';
@@ -50,6 +50,9 @@ export type RootStackParamsList = {
   [Screens.ADD_SECTION_SCREEN]: {
     region?: RegionDetailsFragment | null;
     fromDescentFormKey?: string;
+  };
+  [Screens.CHAT]: {
+    room: Room;
   };
 };
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, memo, PropsWithChildren, useEffect, useState } from 'react';
 
 import { AuthContext, AuthState } from './context';
 import { useMyProfileQuery } from './myProfile.generated';
@@ -9,7 +9,7 @@ interface Props {
   renderInitializing?: React.ReactElement;
 }
 
-export const AuthProvider: React.FC<Props> = React.memo((props) => {
+export const AuthProvider: FC<PropsWithChildren<Props>> = memo((props) => {
   const { service, renderInitializing, children } = props;
   const [loading, setLoading] = useState(false);
   const [initializing, setInitializing] = useState(true);

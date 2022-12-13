@@ -58,7 +58,14 @@ export const SectionFormFlows: React.FC<Props> = ({ gauges }) => (
           placeholder="Absolute maximum"
         />
       </Grid>
-      <Grid item xs={2} />
+      <Grid item xs={2}>
+        <TextField
+          fullWidth
+          name="levels.formula"
+          label="Formula"
+          placeholder="Formula"
+        />
+      </Grid>
       <Grid item xs={2}>
         <CheckboxField name="levels.approximate" label="Approximate" />
       </Grid>

@@ -360,8 +360,7 @@ export function getSectionColorRaw(
   // Yes, we check for null AND undefined
   // eslint-disable-next-line no-eq-null, eqeqeq
   else if (level != null && section.levels) {
-    // it makes no sense to use formulas for levels...
-    lastValue = level;
+    lastValue = getBindingFormula(section.levels)(level);
     binding = section.levels;
   }
   if (!binding || lastValue === null) {

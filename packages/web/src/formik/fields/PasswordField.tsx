@@ -2,7 +2,7 @@ import { Icon, IconButton, Input, InputLabel } from '@material-ui/core';
 import { InputProps } from '@material-ui/core/Input';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { useField } from 'formik';
-import React, { useCallback, useState } from 'react';
+import React, { ChangeEvent, useCallback, useState } from 'react';
 
 import { FormikFormControl } from '../helpers';
 
@@ -21,7 +21,7 @@ export const PasswordField = React.memo<Props>((props) => {
   const { onChange } = field;
   const value = field.value || '';
   const handleChange = useCallback(
-    (e) => {
+    (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
       onChange({
         target: {
           ...e.target,

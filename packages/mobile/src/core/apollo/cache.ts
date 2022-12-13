@@ -1,7 +1,7 @@
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { configureApolloCache } from '@whitewater-guide/clients';
 import { CachePersistor, MMKVStorageWrapper } from 'apollo3-cache-persist';
-import MMKVStorage from 'react-native-mmkv-storage';
+import { MMKVLoader } from 'react-native-mmkv-storage';
 
 import { trackError } from '../errors';
 
@@ -10,11 +10,11 @@ const SCHEMA_VERSION_KEY = 'apollo-schema-version';
 
 export const cache = configureApolloCache();
 
-const storage = new MMKVStorage.Loader().initialize();
+const storage = new MMKVLoader().initialize();
 
 export const apolloCachePersistor = new CachePersistor({
   cache,
-  storage: new MMKVStorageWrapper(storage),
+  storage: new MMKVStorageWrapper(storage as any),
   maxSize: false,
   debug: __DEV__,
 });

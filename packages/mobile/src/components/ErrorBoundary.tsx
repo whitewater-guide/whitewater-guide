@@ -1,5 +1,5 @@
 import * as Sentry from '@sentry/react';
-import React, { FC } from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 
 import ErrorBoundaryFallback from './ErrorBoundaryFallback';
 
@@ -7,7 +7,10 @@ interface Props {
   logger?: string;
 }
 
-export const ErrorBoundary: FC<Props> = ({ children, logger }) => {
+export const ErrorBoundary: FC<PropsWithChildren<Props>> = ({
+  children,
+  logger,
+}) => {
   return (
     <Sentry.ErrorBoundary
       fallback={({ error, componentStack, eventId }) => (

@@ -4,10 +4,10 @@ import parseISO from 'date-fns/parseISO';
 import { History } from 'history';
 import isNil from 'lodash/isNil';
 import React from 'react';
-import { Column } from 'react-virtualized';
 
 import {
   ClickBlocker,
+  Column,
   DeleteButton,
   HarvestStatusIndicator,
   IconLink,

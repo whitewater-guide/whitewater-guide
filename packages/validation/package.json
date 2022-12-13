@@ -25,15 +25,15 @@
     "prepare": "yarn build"
   },
   "dependencies": {
-    "cron-validator": "^1.2.1",
+    "cron-validator": "^1.3.1",
     "expr-eval": "^2.0.2",
     "lodash": "^4.17.21",
-    "validator": "^13.6.0",
+    "validator": "^13.7.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.175",
-    "@types/validator": "^13.6.3",
+    "@types/lodash": "^4.14.178",
+    "@types/validator": "^13.7.1",
     "date-fns": "^2.28.0",
     "jest": "27.4.7"
   },

@@ -39,19 +39,21 @@ export const SignInForm: React.FC = () => {
     [service],
   );
   const passwordField = createRef<any>();
+
   const onEmailSubmit = useCallback(() => {
-    if (passwordField.current) {
-      passwordField.current.focus();
-    }
+    passwordField.current?.focus();
   }, [passwordField]);
+
   const onSuccess = useCallback(() => {
     getParent()?.goBack();
   }, [getParent]);
+
   const [submit] = useAuthSubmit(
     'screens:auth.signin.',
     localSignIn,
     onSuccess,
   );
+
   return (
     <Formik<Credentials>
       initialValues={initialValues}

@@ -39,12 +39,12 @@ export const ChartPeriodToggle: React.FC = React.memo(() => {
   const showMenu = useCallback(() => {
     showActionSheetWithOptions(
       {
-        title: t('section:chart.periodToggle.title'),
+        title: t('screens:section.chart.periodToggle.title'),
         options: [
-          t('section:chart.periodToggle.day'),
-          t('section:chart.periodToggle.3days'),
-          t('section:chart.periodToggle.week'),
-          t('section:chart.periodToggle.month'),
+          t('screens:section.chart.periodToggle.day'),
+          t('screens:section.chart.periodToggle.3days'),
+          t('screens:section.chart.periodToggle.week'),
+          t('screens:section.chart.periodToggle.month'),
           t('commons:cancel'),
         ],
         cancelButtonIndex: DAYS.length,
@@ -63,11 +63,11 @@ export const ChartPeriodToggle: React.FC = React.memo(() => {
   return (
     <Row>
       <Left row>
-        <Subheading>{t('section:chart.periodToggle.title')}</Subheading>
+        <Subheading>{t('screens:section.chart.periodToggle.title')}</Subheading>
       </Left>
       <Right row>
         <Paragraph style={styles.link} onPress={showMenu}>
-          {t(`section:chart.periodToggle.${getI18nSuffix(days)}`)}
+          {t(`screens:section.chart.periodToggle.${getI18nSuffix(days)}`)}
         </Paragraph>
       </Right>
     </Row>

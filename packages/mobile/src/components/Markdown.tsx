@@ -1,7 +1,7 @@
 import { ColorStrings } from '@whitewater-guide/clients';
 import deepmerge from 'deepmerge';
 import Attributes from 'markdown-it-attrs';
-import React from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 import { Platform, StyleProp, StyleSheet, Text } from 'react-native';
 import SimpleMarkdown, {
   MarkdownIt,
@@ -82,7 +82,7 @@ interface Props {
   styles?: StyleSheet.NamedStyles<any>;
 }
 
-const Markdown: React.FC<Props> = ({ children, styles }) => {
+const Markdown: FC<PropsWithChildren<Props>> = ({ children, styles }) => {
   const actualStyles: any = styles
     ? deepmerge(StyleSheet.flatten(defaultStyles), styles)
     : defaultStyles;

@@ -1,6 +1,6 @@
 import { ListedSectionFragment } from '@whitewater-guide/clients';
 import noop from 'lodash/noop';
-import React, { useContext, useState } from 'react';
+import React, { FC, PropsWithChildren, useContext, useState } from 'react';
 
 type MergeSectionsContext = [
   ListedSectionFragment | null,
@@ -12,7 +12,7 @@ const MergeSectionsCtx = React.createContext<MergeSectionsContext>([
   noop,
 ]);
 
-export const MergeSectionsProvider: React.FC = ({ children }) => {
+export const MergeSectionsProvider: FC<PropsWithChildren> = ({ children }) => {
   const state = useState<ListedSectionFragment | null>(null);
   return (
     <MergeSectionsCtx.Provider value={state}>

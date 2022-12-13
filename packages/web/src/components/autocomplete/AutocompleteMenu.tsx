@@ -2,7 +2,7 @@ import Paper from '@material-ui/core/Paper';
 import Popper, { PopperProps } from '@material-ui/core/Popper';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import React from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 
 import { AutocompleteMenuProps } from './types';
 
@@ -23,7 +23,7 @@ interface Props extends AutocompleteMenuProps {
   anchorEl?: PopperProps['anchorEl'];
 }
 
-const AutocompleteMenu: React.FC<Props> = (props) => {
+const AutocompleteMenu: FC<PropsWithChildren<Props>> = (props) => {
   const {
     isOpen,
     anchorEl,

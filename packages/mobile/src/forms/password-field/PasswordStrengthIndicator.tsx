@@ -61,6 +61,8 @@ const PasswordStrengthIndicator: React.FC<Props> = React.memo(
         const size = await rnTextSize.measure({
           text,
           fontSize: 14, // see paper's Paragraph style
+          fontWeight: '400',
+          letterSpacing: 0.25,
         });
         setTextWidth(size.width);
       };
@@ -95,6 +97,7 @@ const PasswordStrengthIndicator: React.FC<Props> = React.memo(
           />
         </View>
         <Paragraph
+          numberOfLines={1}
           style={{ width: textWidth, textAlign: 'right', color: COLORS[score] }}
         >
           {t(`components:PasswordStrengthIndicator.strength${score}`)}

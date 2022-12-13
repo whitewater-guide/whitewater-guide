@@ -1,10 +1,10 @@
 /* eslint-disable import/no-duplicates */
-import { formatDistanceToNow } from '@whitewater-guide/clients';
-import { GaugeForChartFragment } from '@whitewater-guide/schema';
+import { formatDistanceToNow, useChart } from '@whitewater-guide/clients';
+import { Unit } from '@whitewater-guide/schema';
 import differenceInDays from 'date-fns/differenceInDays';
 import parseISO from 'date-fns/parseISO';
 import upperFirst from 'lodash/upperFirst';
-import React from 'react';
+import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 import { Paragraph, Subheading } from 'react-native-paper';
@@ -47,14 +47,14 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props {
-  gauge: GaugeForChartFragment;
-  approximate: boolean;
-  formula?: string | null;
-}
-
-const GaugeInfo: React.FC<Props> = (props) => {
-  const { gauge, approximate, formula } = props;
+const GaugeInfo: FC = () => {
+  const { unit, gauge, section } = useChart();
+  const approximate =
+    unit === Unit.FLOW
+      ? section?.flows?.approximate
+      : section?.levels?.approximate;
+  const formula =
+    unit === Unit.FLOW ? section?.flows?.formula : section?.levels?.formula;
   const { name, latestMeasurement } = gauge;
 
   const { t } = useTranslation();
@@ -74,7 +74,7 @@ const GaugeInfo: React.FC<Props> = (props) => {
         <Left>
           <Subheading>
             {approximate || !!formula
-              ? t('section:chart.baseGauge')
+              ? t('screens:section.chart.baseGauge')
               : t('commons:gauge')}
           </Subheading>
         </Left>
@@ -85,17 +85,17 @@ const GaugeInfo: React.FC<Props> = (props) => {
                 <View style={styles.approximatePopover}>
                   <Paragraph>
                     {formula
-                      ? t('section:chart.formulaWarning')
-                      : t('section:chart.approximateWarning')}
+                      ? t('screens:section.chart.formulaWarning')
+                      : t('screens:section.chart.approximateWarning')}
                   </Paragraph>
                   {formula && (
                     <Paragraph style={styles.formula}>{formula}</Paragraph>
                   )}
                   {formula && (
                     <Paragraph>
-                      {t('section:chart.formulaWarning2')}
+                      {t('screens:section.chart.formulaWarning2')}
                       <Text style={styles.x}>{' x '}</Text>
-                      {t('section:chart.formulaWarning3')}
+                      {t('screens:section.chart.formulaWarning3')}
                     </Paragraph>
                   )}
                 </View>
@@ -112,13 +112,15 @@ const GaugeInfo: React.FC<Props> = (props) => {
 
       <Row>
         <Left>
-          <Subheading>{t('section:chart.lastUpdated')}</Subheading>
+          <Subheading>{t('screens:section.chart.lastUpdated')}</Subheading>
         </Left>
         <Right row>
           <Paragraph>{fromNow}</Paragraph>
           {isOutdated && (
             <GaugeWarning>
-              <Paragraph>{t('section:chart.outdatedWarning')}</Paragraph>
+              <Paragraph>
+                {t('screens:section.chart.outdatedWarning')}
+              </Paragraph>
             </GaugeWarning>
           )}
         </Right>

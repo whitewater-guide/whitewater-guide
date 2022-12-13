@@ -58,7 +58,7 @@ export function useApolloFormik<QVars, QResult, FData, MVars, MResult = any>(
   );
 
   const onSubmitSuccess = useCallback(
-    (mutationResult) => {
+    (mutationResult?: MResult) => {
       if (!onSuccess) {
         history.goBack();
       } else if (typeof onSuccess === 'string') {

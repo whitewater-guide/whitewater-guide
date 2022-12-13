@@ -31,12 +31,14 @@ const ChartFlowToggleUnit: React.FC<Props> = React.memo(({ unit }) => {
         delay={200}
         style={styles.text}
       >
-        {t(`section:chart.lastRecorded.${unit}`)}
+        {t(`screens:section.chart.lastRecorded.${unit}`)}
       </Animatable.Text>
     );
   }
   return (
-    <Text style={styles.text}>{t(`section:chart.lastRecorded.${unit}`)}</Text>
+    <Text style={styles.text}>
+      {t(`screens:section.chart.lastRecorded.${unit}`)}
+    </Text>
   );
 });
 

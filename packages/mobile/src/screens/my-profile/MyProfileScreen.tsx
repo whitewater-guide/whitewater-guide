@@ -4,6 +4,7 @@ import useEffectOnce from 'react-use/lib/useEffectOnce';
 
 import { Screen } from '~/components/Screen';
 
+import { MyProfileMenu } from './menu';
 import MyProfileView from './MyProfileView';
 import { MyProfileNavProps } from './types';
 
@@ -11,7 +12,10 @@ const MyProfileScreen: React.FC<MyProfileNavProps> = ({ navigation }) => {
   const { t } = useTranslation();
 
   useEffectOnce(() => {
-    navigation.setOptions({ headerTitle: t('myProfile:title') });
+    navigation.setOptions({
+      headerTitle: t('screens:myprofile.title'),
+      headerRight: () => <MyProfileMenu />,
+    });
   });
 
   return (

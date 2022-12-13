@@ -18,7 +18,13 @@ const DatePickerDialog: React.FC<Props> = (props) => {
   const element = (
     <DateTimePicker
       mode={mode}
-      display={Platform.OS === 'ios' ? 'compact' : 'default'}
+      display={
+        Platform.OS === 'ios'
+          ? mode === 'time'
+            ? 'spinner'
+            : 'inline'
+          : 'default'
+      }
       {...rest}
       // @ts-expect-error: DateTimePicker types are mixed for ios and android
       is24Hour

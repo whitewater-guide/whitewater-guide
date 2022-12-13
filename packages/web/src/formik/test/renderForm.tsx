@@ -3,7 +3,7 @@ import {
   mockApolloProvider,
   MockedProviderOptions,
 } from '@whitewater-guide/clients/dist/test';
-import React from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 import { MemoryRouter, Route, Switch } from 'react-router';
 
 const initialEntries = ['/back', '/form'];
@@ -16,7 +16,7 @@ export const renderForm = (
   options?: Omit<RenderOptions, 'queries' | 'wrapper'>,
 ) => {
   const Provider = mockApolloProvider(providerOptions);
-  const wrapper: React.FC = ({ children }) => (
+  const wrapper: FC<PropsWithChildren> = ({ children }) => (
     <Provider>
       <MemoryRouter
         initialEntries={initialEntries}

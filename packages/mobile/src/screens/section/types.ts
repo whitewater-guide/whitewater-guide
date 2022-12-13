@@ -30,6 +30,6 @@ export interface SectionTabsParamsList extends ParamListBase {
   [Screens.SECTION_MAP]: { sectionId?: string } | undefined;
   [Screens.SECTION_CHART]: { sectionId?: string } | undefined;
   [Screens.SECTION_INFO]: { sectionId?: string } | undefined;
-  [Screens.SECTION_GUIDE]: { sectionId?: string } | undefined;
+  [Screens.SECTION_FAKE_CHAT]: undefined;
   [Screens.SECTION_MEDIA]: { sectionId?: string } | undefined;
 }

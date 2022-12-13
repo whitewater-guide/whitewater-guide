@@ -7,7 +7,7 @@ import { useToggleFavoriteSectionMutation } from './toggleFavoriteSection.genera
 
 type Hook = [() => Promise<void>, boolean];
 
-export default function useToggleFavoriteSection(
+export function useToggleFavoriteSection(
   id: string,
   favorite?: boolean | null,
 ): Hook {

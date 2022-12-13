@@ -45,10 +45,6 @@ const ChartLayout: React.FC<ChartLayoutProps> = ({
   section,
   collapsed,
 }) => {
-  const approximate =
-    section?.flows?.approximate || section?.levels?.approximate;
-  const formula = section?.flows?.formula;
-
   // Pull overlay to refresh chart
   const [refreshing, setRefreshing] = useState(false);
   const chartRef = useRef<ChartStatic>(null);
@@ -82,11 +78,7 @@ const ChartLayout: React.FC<ChartLayoutProps> = ({
 
         <View style={collapsed ? styles.controlsCollapsed : styles.controls}>
           <ChartPeriodToggle />
-          <GaugeInfo
-            gauge={gauge}
-            approximate={!!approximate}
-            formula={formula}
-          />
+          <GaugeInfo />
           <ChartFlowToggle />
         </View>
       </View>

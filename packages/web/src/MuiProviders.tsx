@@ -3,11 +3,11 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { SnackbarProvider } from 'notistack';
-import React, { FC } from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 
 import { theme } from './styles';
 
-const MuiProviders: FC = ({ children }) => {
+const MuiProviders: FC<PropsWithChildren> = ({ children }) => {
   return (
     <>
       <CssBaseline />

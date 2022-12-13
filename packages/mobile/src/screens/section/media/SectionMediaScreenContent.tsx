@@ -27,13 +27,13 @@ const SectionMediaScreenContent: React.FC = () => {
     <>
       <StatusBar hidden={Platform.OS === 'ios' && openPhotoIndex >= 0} />
 
-      <Title>{t('section:media.photo')}</Title>
+      <Title>{t('screens:section.media.photo')}</Title>
       <PhotoGrid photos={groups.photo} onPress={setOpenPhotoIndex} />
 
-      <Title>{t('section:media.video')}</Title>
+      <Title>{t('screens:section.media.video')}</Title>
       <VideoList videos={groups.video} />
 
-      <Title>{t('section:media.blog')}</Title>
+      <Title>{t('screens:section.media.blog')}</Title>
       <BlogList blogs={groups.blog} />
 
       <RegionBanners placement={BannerPlacement.MobileSectionMedia} />

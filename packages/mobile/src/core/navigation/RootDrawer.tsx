@@ -20,6 +20,7 @@ export const RootDrawer: React.FC = () => (
     drawerContent={drawerContent}
     initialRouteName={Screens.ROOT_STACK}
     screenOptions={{ swipeEnabled: false, headerShown: false }}
+    useLegacyImplementation={true}
   >
     <Drawer.Screen name={Screens.ROOT_STACK} component={RootStack} />
   </Drawer.Navigator>
