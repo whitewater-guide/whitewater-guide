@@ -3,11 +3,10 @@ import { BannerPlacement } from '@whitewater-guide/schema';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
-import Collapsible from 'react-native-collapsible';
 import { RectButton } from 'react-native-gesture-handler';
 import { Caption } from 'react-native-paper';
-import useToggle from 'react-use/lib/useToggle';
 
+import { Collapsible, useCollapsible } from '~/components/Collapsible';
 import Icon from '~/components/Icon';
 import { Row } from '~/components/Row';
 import { RegionBanners } from '~/features/banners';
@@ -56,7 +55,7 @@ const SectionInfoView: React.FC = () => {
   const { t } = useTranslation();
   const { data, refetch, loading } = useSectionQuery();
   const section = data?.section;
-  const [collapsed, toggleCollapsed] = useToggle(true);
+  const [collapsed, toggleCollapsed] = useCollapsible(true);
   const tableRowCount = useMemo(
     () => getSectionInfoTableRowCount(section),
     [section],
@@ -89,7 +88,7 @@ const SectionInfoView: React.FC = () => {
         </Collapsible>
 
         {tableRowCount > 3 && (
-          <RectButton onPress={() => toggleCollapsed()}>
+          <RectButton onPress={toggleCollapsed}>
             <Row style={styles.more}>
               <Caption style={styles.moreText}>
                 {t(

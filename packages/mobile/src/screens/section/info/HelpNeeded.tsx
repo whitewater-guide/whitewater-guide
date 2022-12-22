@@ -1,10 +1,9 @@
 import { Section } from '@whitewater-guide/schema';
-import React, { memo, useCallback } from 'react';
+import React, { memo } from 'react';
 import { StyleSheet, View } from 'react-native';
-import Collapsible from 'react-native-collapsible';
 import { Button, Paragraph } from 'react-native-paper';
-import useToggle from 'react-use/lib/useToggle';
 
+import { Collapsible, useCollapsible } from '~/components/Collapsible';
 import theme from '~/theme';
 
 const styles = StyleSheet.create({
@@ -23,18 +22,17 @@ interface Props {
 
 const HelpNeeded = memo<Props>(({ section }) => {
   const { helpNeeded, description } = section;
-  const [collapsed, setCollapsed] = useToggle(false);
-  const onClose = useCallback(() => setCollapsed(true), [setCollapsed]);
+  const [collapsed, setCollapsed] = useCollapsible(false);
   // section description is null when premium is required
   if (!helpNeeded || description === null) {
     return null;
   }
   return (
-    <Collapsible collapsed={collapsed}>
+    <Collapsible collapsed={collapsed} collapsedHeight={0}>
       <View style={styles.container}>
         <Paragraph>{helpNeeded}</Paragraph>
         <View style={styles.buttonWrapper}>
-          <Button mode="text" onPress={onClose}>
+          <Button mode="text" onPress={setCollapsed}>
             OK
           </Button>
         </View>
