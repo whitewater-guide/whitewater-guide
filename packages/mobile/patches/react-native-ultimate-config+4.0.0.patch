@@ -1,0 +1,19 @@
+diff --git a/node_modules/react-native-ultimate-config/android/build.gradle b/node_modules/react-native-ultimate-config/android/build.gradle
+index 7ba78ad..a7d4951 100644
+--- a/node_modules/react-native-ultimate-config/android/build.gradle
++++ b/node_modules/react-native-ultimate-config/android/build.gradle
+@@ -109,10 +109,11 @@ afterEvaluate { project ->
+     task androidJavadoc(type: Javadoc) {
+         source = android.sourceSets.main.java.srcDirs
+         classpath += files(android.bootClasspath)
+-        project.getConfigurations().implementation.setCanBeResolved(true)
+-        classpath += files(project.getConfigurations().getByName('implementation').asList())
++        // https://github.com/maxkomarychev/react-native-ultimate-config/issues/107
++        // This is only for publishing to maven, so commenting it out does not affect app
++        // project.getConfigurations().implementation.setCanBeResolved(true)
++        // classpath += files(project.getConfigurations().getByName('implementation').asList())
+         include '**/*.java'
+-
+     }
+
+     task androidJavadocJar(type: Jar, dependsOn: androidJavadoc) {

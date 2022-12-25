@@ -13,3 +13,6 @@ rm -rf node_modules/react/
 yarn jetify
 yarn setup-dev-env
 yarn patch-package
+
+# fixing matix-js-sdk
+cat <<< "$(jq 'del(.browser)' node_modules/matrix-js-sdk/package.json)" > node_modules/matrix-js-sdk/package.json

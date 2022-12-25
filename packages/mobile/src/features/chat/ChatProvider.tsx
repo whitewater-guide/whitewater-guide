@@ -1,5 +1,3 @@
-import './polyfill';
-
 import { useAuth } from '@whitewater-guide/clients';
 import { ClientEvent, createClient, MatrixClient } from 'matrix-js-sdk';
 import React, {

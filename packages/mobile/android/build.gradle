@@ -4,7 +4,6 @@ localProperties.load(new FileInputStream(rootProject.file("local.properties")))
 
 buildscript {
     ext {
-        ndkVersion = "21.4.7075529"
         buildToolsVersion = "31.0.0"
         minSdkVersion = 23
         compileSdkVersion = 31
@@ -43,9 +42,9 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:7.0.4")
+        classpath("com.android.tools.build:gradle:7.2.1")
         classpath("com.facebook.react:react-native-gradle-plugin")
-        classpath("de.undercouch:gradle-download-task:4.1.2")
+        classpath("de.undercouch:gradle-download-task:5.0.1")
         classpath 'com.google.gms:google-services:4.3.10'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:1.0.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"

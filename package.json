@@ -71,7 +71,9 @@
     "**/graphql": "^15.8.0",
     "**/markdown-it": "^12.2.0",
     "**/micromatch": "^4.0.4",
-    "**/react": "^17.0.2",
+    "**/react": "^18.2.0",
+    "**/react-dom": "^18.2.0",
+    "**/react-test-renderer": "^18.2.0",
     "**/typescript": "^4.5.5"
   }
 }

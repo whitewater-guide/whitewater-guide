@@ -1,7 +1,7 @@
 import { configDateFNS, useAuth } from '@whitewater-guide/clients';
 import { MyProfileFragment } from '@whitewater-guide/schema';
 import i18next from 'i18next';
-import React, { useEffect, useState } from 'react';
+import { FC, PropsWithChildren, useEffect, useState } from 'react';
 import { initReactI18next } from 'react-i18next';
 import { getLocales } from 'react-native-localize';
 import Config from 'react-native-ultimate-config';
@@ -27,7 +27,7 @@ const getMyLanguage = (me?: MyProfileFragment | null) => {
   return (me?.language ?? languageCode ?? 'en').substr(0, 2);
 };
 
-export const I18nProvider: React.FC<Props> = ({
+export const I18nProvider: FC<PropsWithChildren<Props>> = ({
   onUserLanguageChange,
   children,
 }) => {
