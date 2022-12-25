@@ -18,14 +18,20 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
+    alignSelf: 'stretch',
     justifyContent: 'space-between',
+    overflow: 'hidden',
   },
   sender: {
     color: theme.colors.primary,
     fontWeight: 'bold',
+    flexGrow: 0,
+    flexShrink: 1,
   },
   date: {
     alignSelf: 'flex-end',
+    flexGrow: 0,
+    flexShrink: 0,
   },
   deleted: {
     flexDirection: 'row',
@@ -59,8 +65,8 @@ const TextMessage: FC<TextMessageProps> = ({ message, onLongPress }) => {
     <TouchableWithoutFeedback onLongPress={handleLongPress}>
       <View style={styles.container}>
         <View style={styles.header}>
-          <Caption style={styles.sender}>
-            {message.sender.rawDisplayName}
+          <Caption style={styles.sender} numberOfLines={1}>
+            {message.sender?.rawDisplayName}
           </Caption>
           <Caption style={styles.date}>
             {format(message.getTs(), 'PPpp')}

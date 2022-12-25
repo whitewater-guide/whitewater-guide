@@ -1,5 +1,5 @@
 import { useAuth } from '@whitewater-guide/clients';
-import { ClientEvent, createClient, MatrixClient } from 'matrix-js-sdk';
+import { ClientEvent, createClient, Filter, MatrixClient } from 'matrix-js-sdk';
 import React, {
   createContext,
   FC,
@@ -13,20 +13,25 @@ import DeviceInfo from 'react-native-device-info';
 
 import Loading from '~/components/Loading';
 import { tokenStorage } from '~/core/auth';
-import { CHAT_URL } from '~/utils/urls';
+import { CHAT_DOMAIN, CHAT_URL } from '~/utils/urls';
+
+import { MESSAGES_IN_BATCH } from './constants';
 
 const client = createClient({
   baseUrl: CHAT_URL,
   deviceId: DeviceInfo.getUniqueIdSync(),
+  timelineSupport: true,
 });
 
 export interface ChatClientState {
-  loggedIn: boolean;
   prepared: boolean;
+  /**
+   * User id in terms of matrix ("#<uuid>@whitewater.guide")
+   */
+  userId?: string;
 }
 
 const ChatClientStateCtx = createContext<ChatClientState>({
-  loggedIn: false,
   prepared: false,
 });
 
@@ -45,7 +50,6 @@ export const ChatClientStateProvider: FC<PropsWithChildren> = ({
 }) => {
   const { me, service } = useAuth();
   const [state, setState] = useState<ChatClientState>({
-    loggedIn: false,
     prepared: false,
   });
 
@@ -55,7 +59,7 @@ export const ChatClientStateProvider: FC<PropsWithChildren> = ({
 
   useEffect(() => {
     if (!myId) {
-      setState({ loggedIn: false, prepared: false });
+      setState({ userId: undefined, prepared: false });
       return;
     }
 
@@ -72,7 +76,11 @@ export const ChatClientStateProvider: FC<PropsWithChildren> = ({
         await client.login('org.matrix.login.jwt', { token });
       })
       .then(() => {
-        setState((s) => ({ ...s, loggedIn: true }));
+        setState((s) => ({
+          ...s,
+          loggedIn: true,
+          userId: `#${myId}@${CHAT_DOMAIN}`,
+        }));
         if (myName.current) {
           client.setDisplayName(myName.current);
         }
@@ -83,7 +91,7 @@ export const ChatClientStateProvider: FC<PropsWithChildren> = ({
         .off(ClientEvent.Sync, onSync)
         .logout()
         .then(() => {
-          setState({ loggedIn: false, prepared: false });
+          setState({ userId: undefined, prepared: false });
         });
     };
   }, [myId, myName, service, setState]);
@@ -103,27 +111,39 @@ const ChatCtx = createContext<MatrixClient>(client);
  * @returns
  */
 export const ChatProvider: FC<PropsWithChildren> = ({ children }) => {
-  const { prepared, loggedIn } = useContext(ChatClientStateCtx);
+  const { prepared, userId } = useContext(ChatClientStateCtx);
 
   useEffect(() => {
-    if (!loggedIn) {
+    if (!userId) {
       return;
     }
-
+    // TODO: reuse filter
     client.startClient({
-      initialSyncLimit: 30,
       disablePresence: true,
-      lazyLoadMembers: true,
+      filter: Filter.fromJson(userId, '0', {
+        room: {
+          state: {
+            lazy_load_members: true,
+            include_redundant_members: false,
+            limit: MESSAGES_IN_BATCH,
+          },
+          timeline: {
+            lazy_load_members: true,
+            include_redundant_members: false,
+            limit: MESSAGES_IN_BATCH,
+          },
+        },
+      }),
     });
 
     return () => {
       client.stopClient();
     };
-  }, [loggedIn]);
+  }, [userId]);
 
   return (
     <ChatCtx.Provider value={client}>
-      {loggedIn && prepared ? children : <Loading />}
+      {!!userId && prepared ? children : <Loading />}
     </ChatCtx.Provider>
   );
 };

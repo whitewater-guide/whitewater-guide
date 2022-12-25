@@ -12,6 +12,7 @@ export const BACKEND_URL = `${Config.BACKEND_PROTOCOL}://${lh(
   Config.BACKEND_HOST,
 )}`;
 export const CHAT_URL = `${Config.BACKEND_PROTOCOL}://${lh(Config.CHAT_HOST)}`;
+export const CHAT_DOMAIN = Config.CHAT_HOST.replace('synapse.', '');
 
 export const WEB_URL = BACKEND_URL.replace('api.', '');
 export const STATIC_CONTENT_URL_BASE = lh(Config.STATIC_CONTENT_URL_BASE);

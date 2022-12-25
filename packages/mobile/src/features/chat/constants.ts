@@ -1,1 +1,1 @@
-export const MESSAGES_IN_BATCH = 30;
+export const MESSAGES_IN_BATCH = 100;
