@@ -1,6 +1,5 @@
 import React, { FC, PropsWithChildren, useCallback, useEffect } from 'react';
-import { LayoutAnimation, StyleSheet } from 'react-native';
-import { View } from 'react-native-animatable';
+import { LayoutAnimation, StyleSheet, View } from 'react-native';
 import useToggle from 'react-use/lib/useToggle';
 
 const styles = StyleSheet.create({

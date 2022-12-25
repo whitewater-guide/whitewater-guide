@@ -2,7 +2,7 @@ import { Unit } from '@whitewater-guide/schema';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text } from 'react-native';
-import * as Animatable from 'react-native-animatable';
+import Animated, { FadeIn } from 'react-native-reanimated';
 
 const styles = StyleSheet.create({
   text: {
@@ -20,19 +20,16 @@ interface Props {
 const ChartFlowToggleUnit: React.FC<Props> = React.memo(({ unit }) => {
   const { t } = useTranslation();
   const [pulse, setPulse] = useState(-1);
+
   useEffect(() => {
     setPulse((p) => p + 1);
   }, [unit, setPulse]);
+
   if (pulse > 0) {
     return (
-      <Animatable.Text
-        key={`txt${pulse}`}
-        animation="fadeIn"
-        delay={200}
-        style={styles.text}
-      >
+      <Animated.Text key={`txt${pulse}`} entering={FadeIn} style={styles.text}>
         {t(`screens:section.chart.lastRecorded.${unit}`)}
-      </Animatable.Text>
+      </Animated.Text>
     );
   }
   return (

@@ -105,7 +105,6 @@
     "react": "^18.2.0",
     "react-i18next": "^12.1.1",
     "react-native": "^0.70.6",
-    "react-native-animatable": "^1.3.3",
     "react-native-avoid-softinput": "^3.0.2",
     "react-native-big-list": "^1.6.0",
     "react-native-bootsplash": "^4.4.0",
