@@ -26,7 +26,8 @@ async function getFBUser(profile: Profile, req: any) {
     SocialMediaProvider.FACEBOOK,
     {
       id: profile.id,
-      email: profile.emails?.[0]?.value?.toLowerCase() ?? null,
+      // do not use ??, because we do not want empty string emails
+      email: profile.emails?.[0]?.value?.toLowerCase() || null,
       username,
       displayName: username,
       profile: profile._json,

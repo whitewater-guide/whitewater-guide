@@ -26,7 +26,8 @@ async function getFBUser(profile: AuthToken, req: any) {
     SocialMediaProvider.FACEBOOK,
     {
       id: profile.sub,
-      email: profile.email ?? null,
+      // do not use ??, because we do not want empty string emails
+      email: profile.email || null,
       username: profile.name,
       displayName: profile.name,
       profile: { picture: profile.picture },
