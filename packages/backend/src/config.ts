@@ -11,7 +11,7 @@ class Config {
     process.env.NODE_ENV === 'test'
       ? 'silent'
       : process.env.NODE_ENV === 'production'
-      ? 'info'
+      ? (process.env.LOG_LEVEL ?? 'info').toLowerCase()
       : 'debug';
 
   public PROTOCOL = this.NODE_ENV === 'production' ? 'https' : 'http';
