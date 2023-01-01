@@ -42,7 +42,14 @@ class Logger {
                 },
               }
             : undefined,
-        timestamp: pino.stdTimeFunctions.isoTime,
+        formatters: {
+          level: (label) => {
+            return {
+              level: label,
+            };
+          },
+        },
+        timestamp: () => `,"time":${Date.now() / 1000.0}`,
       });
   }
 

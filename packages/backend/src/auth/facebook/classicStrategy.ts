@@ -7,6 +7,7 @@ import FacebookTokenStrategy from 'passport-facebook-token';
 import config from '~/config';
 import { sendWelcome } from '~/mail';
 
+import logger from '../logger';
 import { negotiateLanguage, storeUser } from '../social';
 
 async function getFBUser(profile: Profile, req: any) {
@@ -45,6 +46,7 @@ const classicStrategy = new FacebookTokenStrategy(
   },
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   async (req, accessToken, refreshToken, profile, done) => {
+    logger.debug({ profile }, 'Classic FB signin');
     try {
       const { isNew, user } = await getFBUser(profile, req);
       if (user && isNew) {

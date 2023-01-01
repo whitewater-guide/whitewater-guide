@@ -6,6 +6,7 @@ import { ExtractJwt, Strategy, VerifiedCallback } from 'passport-jwt';
 import config from '~/config';
 import { sendWelcome } from '~/mail';
 
+import logger from '../logger';
 import { negotiateLanguage, storeUser } from '../social';
 
 interface AuthToken {
@@ -51,6 +52,7 @@ const limitedStrategy = new Strategy(
     issuer: 'https://www.facebook.com',
   },
   async (req: express.Request, token: AuthToken, done: VerifiedCallback) => {
+    logger.debug({ profile: token }, 'Limited FB signin');
     try {
       const { isNew, user } = await getFBUser(token, req);
       if (user && isNew) {
