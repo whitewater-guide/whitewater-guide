@@ -16,6 +16,7 @@ import { LazyMainScreen } from './main';
 import { LazyRegisterScreen } from './register';
 import { LazyResetScreen } from './reset';
 import { LazySignInScreen } from './signin';
+import { LazySocialScreen } from './social';
 import { AuthStackNavProps, AuthStackParamsList } from './types';
 import { LazyWelcomeScreen } from './welcome';
 
@@ -42,6 +43,7 @@ const AuthStack: React.FC<AuthStackNavProps> = () => (
     <Stack.Screen name={Screens.AUTH_REGISTER} component={LazyRegisterScreen} />
     <Stack.Screen name={Screens.AUTH_FORGOT} component={LazyForgotScreen} />
     <Stack.Screen name={Screens.AUTH_RESET} component={LazyResetScreen} />
+    <Stack.Screen name={Screens.AUTH_SOCIAL} component={LazySocialScreen} />
     <Stack.Screen name={Screens.AUTH_WELCOME} component={LazyWelcomeScreen} />
   </Stack.Navigator>
 );

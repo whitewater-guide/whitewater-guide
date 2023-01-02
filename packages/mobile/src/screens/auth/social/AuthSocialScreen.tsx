@@ -1,18 +1,18 @@
-import { useAuth } from '@whitewater-guide/clients';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, Text, View } from 'react-native';
-import { Button, Caption } from 'react-native-paper';
+import { Platform, StyleSheet, Text, View } from 'react-native';
+import { Caption } from 'react-native-paper';
 
-import Divider from '~/components/Divider';
 import { Screens } from '~/core/navigation';
 import theme from '~/theme';
 
 import { AuthScreenBase } from '../AuthScreenBase';
-import LocalButton from './LocalButton';
+import AppleButton from './AppleButton';
+import { FacebookButton } from './FacebookButton';
 import { AuthMainNavProps } from './types';
 
 const styles = StyleSheet.create({
+  container: { flex: 1, justifyContent: 'center' },
   caption: {
     marginTop: theme.margin.single,
   },
@@ -21,27 +21,29 @@ const styles = StyleSheet.create({
   },
 });
 
-const AuthMainScreen: React.FC<AuthMainNavProps> = ({ navigation }) => {
-  const { loading } = useAuth();
+const AuthSocialScreen: React.FC<AuthMainNavProps> = ({ navigation }) => {
   const { t } = useTranslation();
   const { navigate } = navigation;
-  const signIn = useCallback(() => navigate(Screens.AUTH_SIGN_IN), [navigate]);
+
   const showPolicy = useCallback(() => {
     navigate(Screens.WEB_VIEW, {
       fixture: 'privacy_policy',
       title: t('commons:privacyPolicy'),
     });
   }, [navigate, t]);
+
   const showTerms = useCallback(() => {
     navigate(Screens.WEB_VIEW, {
       fixture: 'terms_and_conditions',
       title: t('commons:termsOfService'),
     });
   }, [navigate, t]);
+
   return (
     <AuthScreenBase>
-      <View>
-        <LocalButton label={t('screens:auth.main.local')} />
+      <View style={styles.container}>
+        <FacebookButton label={t('screens:auth.social.facebook')} />
+        {Platform.OS === 'ios' && <AppleButton />}
         <Caption style={styles.caption}>
           {`${t('screens:auth.main.legalNotice')} `}
           <Text style={styles.link} onPress={showPolicy}>
@@ -54,19 +56,8 @@ const AuthMainScreen: React.FC<AuthMainNavProps> = ({ navigation }) => {
           {t('screens:auth.main.legalNotice2')}
         </Caption>
       </View>
-      <View>
-        <Divider label={t('screens:auth.main.gotAccount')} />
-        <Button
-          mode="text"
-          onPress={signIn}
-          disabled={loading}
-          testID="auth-main-signin"
-        >
-          {t('screens:auth.main.signin')}
-        </Button>
-      </View>
     </AuthScreenBase>
   );
 };
 
-export default AuthMainScreen;
+export default AuthSocialScreen;

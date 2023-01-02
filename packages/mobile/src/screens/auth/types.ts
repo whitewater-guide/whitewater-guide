@@ -24,6 +24,7 @@ export type AuthStackParamsList = {
   [Screens.AUTH_SIGN_IN]: undefined;
   [Screens.AUTH_REGISTER]: undefined;
   [Screens.AUTH_FORGOT]: undefined;
+  [Screens.AUTH_SOCIAL]: undefined;
   [Screens.AUTH_RESET]: {
     id: string;
     token: string;

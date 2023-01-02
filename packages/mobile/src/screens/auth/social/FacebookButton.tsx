@@ -6,9 +6,9 @@ import { Button } from 'react-native-paper';
 import MDCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { Screens } from '~/core/navigation';
+import theme from '~/theme';
 
-import theme from '../../theme';
-import type { AuthMainNavProp } from './main/types';
+import type { AuthMainNavProp } from '../main/types';
 
 const styles = StyleSheet.create({
   fb: {
