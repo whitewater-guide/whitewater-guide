@@ -8,7 +8,7 @@
 #import <Firebase.h>
 #import "RNBootSplash.h"
 #import <React/RCTAppSetupUtils.h>
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKCoreKit/FBSDKCoreKit-swift.h>
 
 #if RCT_NEW_ARCH_ENABLED
 #import <React/CoreModulesPlugins.h>

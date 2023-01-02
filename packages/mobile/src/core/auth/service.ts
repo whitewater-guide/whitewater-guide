@@ -129,6 +129,7 @@ export class MobileAuthService extends BaseAuthService {
       const result = await LoginManager.logInWithPermissions(
         ['public_profile', 'email'],
         // https://github.com/thebergamo/react-native-fbsdk-next#limited-login-ios
+        // https://github.com/facebook/facebook-ios-sdk/issues/2148
         Platform.OS === 'ios' ? 'limited' : 'enabled',
       );
 

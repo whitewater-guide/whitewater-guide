@@ -111,7 +111,7 @@
     "react-native-bundle-splitter": "^2.2.3",
     "react-native-debugger-open": "^0.3.25",
     "react-native-device-info": "^10.3.0",
-    "react-native-fbsdk-next": "^10.1.0",
+    "react-native-fbsdk-next": "^11.1.0",
     "react-native-gesture-handler": "^2.8.0",
     "react-native-iap": "^12.4.9",
     "react-native-image-picker": "^4.10.3",
