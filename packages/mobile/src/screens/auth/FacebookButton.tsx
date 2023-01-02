@@ -55,7 +55,7 @@ export const FacebookButton: React.FC<Props> = ({ label }) => {
   return (
     <Button
       mode="contained"
-      color={theme.colors.facebook}
+      buttonColor={theme.colors.facebook}
       icon={renderIcon}
       style={styles.fb}
       onPress={loading ? undefined : signInWithFB}

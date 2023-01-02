@@ -37,6 +37,10 @@
 		<string>$(FACEBOOK_CLIENT_TOKEN)</string>
 		<key>FacebookDisplayName</key>
 		<string>whitewater.guide</string>
+		<key>FacebookAutoLogAppEventsEnabled</key>
+		<string>FALSE</string>
+		<key>FacebookAdvertiserIDCollectionEnabled</key>
+		<string>FALSE</string>
 		<key>ITSAppUsesNonExemptEncryption</key>
 		<false/>
 		<key>LSApplicationQueriesSchemes</key>
