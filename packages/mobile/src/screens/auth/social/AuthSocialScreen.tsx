@@ -42,9 +42,7 @@ const AuthSocialScreen: React.FC<AuthMainNavProps> = ({ navigation }) => {
   return (
     <AuthScreenBase>
       <View style={styles.container}>
-        {Platform.OS === 'android' && (
-          <FacebookButton label={t('screens:auth.social.facebook')} />
-        )}
+        <FacebookButton label={t('screens:auth.social.facebook')} />
         {Platform.OS === 'ios' && <AppleButton />}
         <Caption style={styles.caption}>
           {`${t('screens:auth.main.legalNotice')} `}
