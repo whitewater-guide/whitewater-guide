@@ -26,14 +26,14 @@ const SignInScreen: React.FC<AuthSignInNavProps> = ({ navigation }) => {
       <View>
         <SignInForm />
         <View ref={keyboardScrollRef} collapsable={false} />
-        {/* <Button
+        <Button
           mode="text"
           onPress={social}
           disabled={loading}
           testID="auth-signin-social"
         >
           {t('screens:auth.signin.social')}
-        </Button> */}
+        </Button>
       </View>
       <View>
         <Divider label={t('screens:auth.signin.noAccount')} />
