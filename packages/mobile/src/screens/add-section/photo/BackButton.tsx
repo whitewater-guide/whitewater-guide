@@ -21,7 +21,7 @@ const BackButton: React.FC<Props> = React.memo(({ index, onPress }) => {
 
   return (
     <Button
-      color={theme.colors.textLight}
+      textColor={theme.colors.textLight}
       onPress={onPress}
       disabled={isBusy}
       accessibilityLabel={t('commons:done')}

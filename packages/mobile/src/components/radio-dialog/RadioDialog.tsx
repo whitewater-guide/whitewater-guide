@@ -92,7 +92,10 @@ export class RadioDialog extends React.PureComponent<Props, State> {
               <Button onPress={this.closeDialog}>
                 {cancelLabel || 'Cancel'}
               </Button>
-              <Button color={theme.colors.primary} onPress={this.submitDialog}>
+              <Button
+                textColor={theme.colors.primary}
+                onPress={this.submitDialog}
+              >
                 {okLabel || 'OK'}
               </Button>
             </Dialog.Actions>

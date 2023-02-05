@@ -28,7 +28,7 @@ export const SignOutButton: React.FC = () => {
       loading={loading}
       onPress={onPress}
       style={styles.button}
-      color={theme.colors.error}
+      textColor={theme.colors.error}
     >
       {t('screens:myprofile.logout')}
     </Button>

@@ -36,7 +36,7 @@ export const MyProfileMenu: React.FC = () => {
     <IconButton
       testID="my-profile-menu-button"
       icon={Platform.OS === 'ios' ? 'dots-horizontal' : 'dots-vertical'}
-      color={theme.colors.textLight}
+      iconColor={theme.colors.textLight}
       onPress={showMenu}
     />
   );

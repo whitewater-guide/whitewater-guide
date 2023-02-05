@@ -23,7 +23,7 @@ const DoneButton: React.FC = () => {
   }, [setDisabled]);
   return (
     <Button
-      color={theme.colors.textLight}
+      textColor={theme.colors.textLight}
       disabled={disabled}
       onPress={onPress}
       accessibilityLabel={t('commons:done')}

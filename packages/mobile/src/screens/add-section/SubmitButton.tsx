@@ -60,7 +60,7 @@ const SubmitButton = memo(() => {
 
   return (
     <Button
-      color={theme.colors.textLight}
+      textColor={theme.colors.textLight}
       style={!isValid && styles.disabled}
       onPress={handlePress}
       onLayout={onLayout}

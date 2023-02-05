@@ -18,7 +18,7 @@ const ResetFilterButton: React.FC = () => {
     goBack();
   }, [setFilterOptions, goBack]);
   return (
-    <Button compact color={theme.colors.textLight} onPress={onPress}>
+    <Button compact textColor={theme.colors.textLight} onPress={onPress}>
       {t('filter:reset')}
     </Button>
   );

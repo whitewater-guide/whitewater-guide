@@ -64,7 +64,7 @@ const DescentMenu: React.FC<Props> = ({ descent }) => {
       <IconButton
         testID="decent-menu-button"
         icon={Platform.OS === 'ios' ? 'dots-horizontal' : 'dots-vertical'}
-        color={theme.colors.textLight}
+        iconColor={theme.colors.textLight}
         onPress={showMenu}
       />
       {descent && deleteDialogVisible && (

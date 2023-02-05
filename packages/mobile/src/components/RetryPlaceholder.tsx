@@ -79,7 +79,7 @@ const RetryPlaceholder = memo<Props>((props) => {
 
       {!!refetch && (
         <Button
-          color={theme.colors.primary}
+          textColor={theme.colors.primary}
           compact
           disabled={loading}
           onPress={onPress}
