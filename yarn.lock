@@ -7712,6 +7712,11 @@
   resolved "https://registry.yarnpkg.com/@whitewater-guide/translations/-/translations-2.6.2.tgz#1d21c75c416a377f6fe9ed7549ec5cf77393f03e"
   integrity sha512-PbuIxeL+FzTY6nY3rB/KQ8qOCAVbA/4jXgo1ebZG+okJ8Hrk2JHsdfqqQ2NBvEubtF6a2sP3qaE+TEyM8jdaRA==
 
+"@whitewater-guide/translations@^2.6.3":
+  version "2.6.3"
+  resolved "https://registry.yarnpkg.com/@whitewater-guide/translations/-/translations-2.6.3.tgz#98e818efe1e1b07279029be4d9f0669803b64e65"
+  integrity sha512-b35gAm8ODf2ComYGr6GtUP6VhsSFXp7DTwogOe3JBs1dyI7ZA6qLV5wo/VD6WFViLnaE3/rt/55+aoAH415zCQ==
+
 "@wry/context@^0.7.0":
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/@wry/context/-/context-0.7.0.tgz#be88e22c0ddf62aeb0ae9f95c3d90932c619a5c8"
