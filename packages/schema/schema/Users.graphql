@@ -83,4 +83,6 @@ type Mutation {
   removeFCMToken(token: String!): Boolean
   "Deletes users's profile"
   deleteProfile: Boolean
+  "Deletes profile of other user by id or email, admin only"
+  deleteUser(id: String, email: String): Boolean @admin
 }
