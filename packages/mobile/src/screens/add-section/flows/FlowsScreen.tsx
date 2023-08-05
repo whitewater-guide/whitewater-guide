@@ -14,9 +14,12 @@ import GaugePlaceholder from './GaugePlaceholder';
 import { SeasonNumericField } from './season';
 import { AddSectionFlowsNavProps } from './types';
 
+// weird hack to make listenToKeyboardEvents work
+ScrollView.displayName = 'ScrollView';
 const KAVScroll: React.ComponentType<
   ScrollViewProps & React.RefAttributes<unknown>
 > = listenToKeyboardEvents(ScrollView);
+KAVScroll.displayName = 'KAVScroll';
 
 const styles = StyleSheet.create({
   content: {
