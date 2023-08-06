@@ -5,8 +5,8 @@ skip_docs
 
 # Check Git Status
 private_lane :check_git_status do
-  ensure_git_status_clean
   if ENV["ENV"] == "production"
+    ensure_git_status_clean
     ensure_git_branch(
       branch: ENV["BRANCH"]
     )
@@ -212,7 +212,6 @@ platform :android do
 
   lane :staging do |options|
     unless options[:skipBuild]
-      bump
       build
     end
     # TODO: use minio
