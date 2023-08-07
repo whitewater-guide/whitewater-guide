@@ -4,7 +4,7 @@ import { AuthenticatedMutation, isAuthenticatedResolver } from '~/apollo';
 import { db } from '~/db';
 import { synapseClient } from '~/features/chats';
 
-const updateProfile: AuthenticatedMutation['deleteProfile'] = async (
+const deleteProfile: AuthenticatedMutation['deleteProfile'] = async (
   _,
   __,
   context,
@@ -20,4 +20,4 @@ const updateProfile: AuthenticatedMutation['deleteProfile'] = async (
   return true;
 };
 
-export default isAuthenticatedResolver(updateProfile);
+export default isAuthenticatedResolver(deleteProfile);

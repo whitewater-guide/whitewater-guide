@@ -479,7 +479,7 @@ exports[`should match snapshot for "reset-success" 1`] = `
                                       style="font-size:0px;padding:10px 25px;word-break:break-word;"
                                   >
                                     <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:20px;text-align:center;color:#555555;">
-                                      © 2016‒2021 whitewater.guide
+                                      © 2016‒2023 whitewater.guide
                                     </div>
                                   </td>
                                 </tr>

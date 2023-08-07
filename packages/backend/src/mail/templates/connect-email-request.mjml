@@ -1,0 +1,39 @@
+<mjml>
+  <mj-include path="./head.mjml" />
+
+  <mj-body background-color="#eee">
+    <mj-include path="./header.mjml" />
+
+    <mj-section background-color="#fff" padding-bottom="0px">
+      <mj-column>
+        <mj-text>
+          <h2>Hi ${user.name},</h2>
+          We got a request to add email+password authorization to your
+          <b>whitewater.guide</b> account
+        </mj-text>
+
+        <mj-button
+          href="${deepLinkingURL}/auth/local/connect-email?id=${user.id}&email=${email}&token=${token.raw}"
+        >
+          Connect email
+        </mj-button>
+        <mj-text>
+          Please note that you should open this link on mobile device with
+          whitewater.guide app installed.
+        </mj-text>
+        <mj-text>
+          If you have problems with opening the link, you may use following code
+          in the app: <b>${token.raw}</b>
+        </mj-text>
+        <mj-text>
+          If you didn't request this change, you can ignore this message.
+          Someone probably typed in your email by accident. <br />
+          Please note that this link will expire in 24 hours.
+        </mj-text>
+        <mj-text>Cheers,<br /><b>whitewater.guide team</b></mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-include path="./footer.mjml" />
+  </mj-body>
+</mjml>

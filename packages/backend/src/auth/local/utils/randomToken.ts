@@ -13,7 +13,7 @@ export interface RandomToken {
   expires: number;
 }
 
-export const randomToken = (size: number = RANDOM_TOKEN_SIZE) =>
+export const randomToken = (payload = '', size: number = RANDOM_TOKEN_SIZE) =>
   new Promise<RandomToken>((resolve, reject) => {
     const buffer = Buffer.alloc(size);
     randomFill(buffer, (err, buff) => {
@@ -21,7 +21,7 @@ export const randomToken = (size: number = RANDOM_TOKEN_SIZE) =>
         reject(err);
       } else {
         const raw = buff.toString('hex');
-        hash(raw, SALT_ROUNDS)
+        hash(payload + raw, SALT_ROUNDS)
           .then((encrypted) =>
             resolve({
               raw,

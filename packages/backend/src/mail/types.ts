@@ -7,6 +7,8 @@ export enum MailType {
   VERIFICATION_REQUEST = 'verification-request',
   WELCOME_UNVERIFIED = 'welcome-unverified',
   WELCOME_VERIFIED = 'welcome-verified',
+  CONNECT_EMAIL_REQUEST = 'connect-email-request',
+  CONNECT_EMAIL_SUCCESS = 'connect-email-success',
 }
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
@@ -17,6 +19,8 @@ export type MailPayloadMap = {
   [MailType.VERIFICATION_REQUEST]: VerificationRequestPayload;
   [MailType.WELCOME_UNVERIFIED]: WelcomeUnverifiedPayload;
   [MailType.WELCOME_VERIFIED]: WelcomeVerifiedPayload;
+  [MailType.CONNECT_EMAIL_REQUEST]: ConnectEmailRequestPayload;
+  [MailType.CONNECT_EMAIL_SUCCESS]: ConnectEmailSuccessPayload;
 };
 
 interface MailUser {
@@ -39,6 +43,16 @@ export interface ResetRequestPayload {
 }
 
 export interface ResetSuccessPayload {
+  user: MailUser;
+}
+
+export interface ConnectEmailRequestPayload {
+  email: string;
+  user: MailUser;
+  token: RandomToken;
+}
+
+export interface ConnectEmailSuccessPayload {
   user: MailUser;
 }
 

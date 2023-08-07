@@ -9,6 +9,7 @@ const types = Object.values(MailType).map((t) => [t]);
 
 it.each(types)('should match snapshot for "%s"', async (type: any) => {
   const data = {
+    email: 'test@mail.com',
     baseURL: 'https://api.whitewater.guide',
     contentURL: 'https://content.whitewater.guide',
     deepLinkingURL: 'https://app.whitewater.guide',
@@ -21,6 +22,7 @@ it.each(types)('should match snapshot for "%s"', async (type: any) => {
     },
     unhealthyMsg: 'unhealthy',
   };
+  // eslint-disable-next-line testing-library/render-result-naming-convention
   const html = await render(type, data);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore

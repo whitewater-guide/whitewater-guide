@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should match snapshot for "gorge-unhealthy" 1`] = `
+exports[`should match snapshot for "connect-email-success" 1`] = `
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:v="urn:schemas-microsoft-com:vml"
@@ -162,8 +162,14 @@ exports[`should match snapshot for "gorge-unhealthy" 1`] = `
                         >
                           <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:20px;text-align:left;color:#555555;">
                             <h2>
-                              Some scripts are unhealthy
+                              Hi User Name,
                             </h2>
+                            You can now login to your
+                            <b>
+                              whitewater.guide
+                            </b>
+                            account using email
+          and password.
                           </div>
                         </td>
                       </tr>
@@ -171,31 +177,13 @@ exports[`should match snapshot for "gorge-unhealthy" 1`] = `
                         <td align="left"
                             style="font-size:0px;padding:10px 25px;word-break:break-word;"
                         >
-                          <table cellpadding="0"
-                                 cellspacing="0"
-                                 width="100%"
-                                 border="0"
-                                 style="color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;table-layout:auto;width:100%;border:none;"
-                          >
-                            <tr style="
-              border-bottom: 1px solid #ecedee;
-              text-align: left;
-              padding: 15px 0;
-            ">
-                              <th style="padding: 0 15px 0 0">
-                                Script
-                              </th>
-                              <th style="padding: 0 15px">
-                                Last run
-                              </th>
-                              <th style="padding: 0 0 0 15px">
-                                Last Success
-                              </th>
-                            </tr>
-                            <mj-raw>
-                              unhealthy
-                            </mj-raw>
-                          </table>
+                          <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:20px;text-align:left;color:#555555;">
+                            If you didn't request this change, please
+                            <a href="mailto:info@whitewater.guide">
+                              contact
+                            </a>
+                            us.
+                          </div>
                         </td>
                       </tr>
                     </tbody>

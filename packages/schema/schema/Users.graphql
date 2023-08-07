@@ -85,4 +85,16 @@ type Mutation {
   deleteProfile: Boolean
   "Deletes profile of other user by id or email, admin only"
   deleteUser(id: String, email: String): Boolean @admin
+  """
+  Called by user who was registered via social networks before to obtain email+password login
+  Will send an email with token
+  Similar to resetRequest/reset flow for users who forgot their passwords
+  """
+  requestConnectEmail(email: String!): Boolean
+  """
+  Called by user who was registered via social networks.
+  Given token sent to email, will set email+password to user
+  Similar to resetRequest/reset flow for users who forgot their passwords
+  """
+  connectEmail(email: String!, password: String!, token: String!): Boolean
 }

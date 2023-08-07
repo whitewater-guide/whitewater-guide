@@ -166,6 +166,50 @@ export const ADMIN_APPLE_ACCOUNT: Sql.Accounts = {
   updated_at: new Date(Date.UTC(2017, 1, 1)),
 };
 
+export const EDITOR_GE_FB_ACCOUNT: Sql.Accounts = {
+  user_id: EDITOR_GE_ID,
+  id: '__fb_editor_ge_id__',
+  provider: 'facebook',
+  username: 'Editor Ge',
+  tokens: { accessToken: '__editor_ge_fb_access_token__' },
+  profile: {},
+  created_at: new Date(Date.UTC(2018, 1, 1)),
+  updated_at: new Date(Date.UTC(2018, 1, 1)),
+};
+
+export const EDITOR_NO_FB_ACCOUNT: Sql.Accounts = {
+  user_id: EDITOR_NO_ID,
+  id: '__fb_editor_no_id__',
+  provider: 'facebook',
+  username: 'Editor No',
+  tokens: { accessToken: '__editor_no_fb_access_token__' },
+  profile: {},
+  created_at: new Date(Date.UTC(2019, 1, 1)),
+  updated_at: new Date(Date.UTC(2019, 1, 1)),
+};
+
+export const EDITOR_NO_EC_FB_ACCOUNT: Sql.Accounts = {
+  user_id: EDITOR_NO_EC_ID,
+  id: '__fb_editor_no_ec_id__',
+  provider: 'facebook',
+  username: 'Editor No EC',
+  tokens: { accessToken: '__editor_no_ec_fb_access_token__' },
+  profile: {},
+  created_at: new Date(Date.UTC(2019, 2, 1)),
+  updated_at: new Date(Date.UTC(2019, 2, 1)),
+};
+
+export const TEST_USER2_FB_ACCOUNT: Sql.Accounts = {
+  user_id: TEST_USER2_ID,
+  id: '__test_user2_no_id__',
+  provider: 'facebook',
+  username: 'Test User Two',
+  tokens: { accessToken: '__test_user2_fb_access_token__' },
+  profile: {},
+  created_at: new Date(Date.UTC(2020, 1, 1)),
+  updated_at: new Date(Date.UTC(2020, 1, 1)),
+};
+
 export const EDITOR_GA_EC: InsertedUser = {
   id: EDITOR_GA_EC_ID,
   name: 'Konstantin Kuznetsov',
@@ -194,7 +238,13 @@ export const EDITOR_NO_EC: InsertedUser = {
   imperial: false,
   password: null,
   verified: true,
-  tokens: JSON.stringify([]),
+  tokens: JSON.stringify([
+    {
+      claim: 'connectEmail',
+      value: hashSync('test2@user.com__connect_email_token__', SALT_ROUNDS),
+      expires: 1000,
+    },
+  ]),
   created_at: new Date(Date.UTC(2017, 3, 3)),
   updated_at: new Date(Date.UTC(2017, 3, 3)),
 };
@@ -254,7 +304,13 @@ export const TEST_USER2: InsertedUser = {
   imperial: false,
   password: null,
   verified: true,
-  tokens: JSON.stringify([]),
+  tokens: JSON.stringify([
+    {
+      claim: 'connectEmail',
+      value: hashSync('test2@user.com__connect_email_token__', SALT_ROUNDS),
+      expires: 2145906000000,
+    },
+  ]),
   created_at: new Date(Date.UTC(2017, 4, 4)),
   updated_at: new Date(Date.UTC(2017, 4, 4)),
 };
@@ -405,6 +461,15 @@ const users = [
   EXP_VER_USER,
 ];
 
+const accounts = [
+  ADMIN_FB_ACCOUNT,
+  ADMIN_APPLE_ACCOUNT,
+  EDITOR_GE_FB_ACCOUNT,
+  EDITOR_NO_FB_ACCOUNT,
+  EDITOR_NO_EC_FB_ACCOUNT,
+  TEST_USER2_FB_ACCOUNT,
+];
+
 const fcmTokens = [
   { user_id: TEST_USER_ID, token: '__user_fcm_token__' },
   { user_id: ADMIN_ID, token: '__admin_fcm_token__' },
@@ -415,7 +480,7 @@ export async function seed(db: Knex) {
   await db.table('accounts').del();
   await db.raw('ALTER TABLE users DISABLE TRIGGER ALL');
   await db.table('users').insert(users);
-  await db.table('accounts').insert([ADMIN_FB_ACCOUNT, ADMIN_APPLE_ACCOUNT]);
+  await db.table('accounts').insert(accounts);
   await db.table('fcm_tokens').insert(fcmTokens);
   await db.raw('ALTER TABLE users ENABLE TRIGGER ALL');
 }

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should match snapshot for "gorge-unhealthy" 1`] = `
+exports[`should match snapshot for "connect-email-request" 1`] = `
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:v="urn:schemas-microsoft-com:vml"
@@ -143,7 +143,7 @@ exports[`should match snapshot for "gorge-unhealthy" 1`] = `
         >
           <tbody>
             <tr>
-              <td style="direction:ltr;font-size:0px;padding:20px 0;text-align:center;">
+              <td style="direction:ltr;font-size:0px;padding:20px 0;padding-bottom:0px;text-align:center;">
                 <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:600px;" ><![endif]-->
                 <div class="mj-column-per-100 mj-outlook-group-fix"
                      style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;"
@@ -162,8 +162,54 @@ exports[`should match snapshot for "gorge-unhealthy" 1`] = `
                         >
                           <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:20px;text-align:left;color:#555555;">
                             <h2>
-                              Some scripts are unhealthy
+                              Hi User Name,
                             </h2>
+                            We got a request to add email+password authorization to your
+                            <b>
+                              whitewater.guide
+                            </b>
+                            account
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="left"
+                            vertical-align="middle"
+                            style="font-size:0px;padding:10px 25px;word-break:break-word;"
+                        >
+                          <table border="0"
+                                 cellpadding="0"
+                                 cellspacing="0"
+                                 role="presentation"
+                                 style="border-collapse:separate;line-height:100%;"
+                          >
+                            <tbody>
+                              <tr>
+                                <td align="center"
+                                    bgcolor="#007ab0"
+                                    role="presentation"
+                                    style="border:none;border-radius:3px;cursor:auto;mso-padding-alt:10px 25px;background:#007ab0;"
+                                    valign="middle"
+                                >
+                                  <a href="https://app.whitewater.guide/auth/local/connect-email?id=__user_id__&email=test@mail.com&token=__token__"
+                                     style="display:inline-block;background:#007ab0;color:#FFFFFF;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:uppercase;padding:10px 25px;mso-padding-alt:0px;border-radius:3px;"
+                                     target="_blank"
+                                  >
+                                    Connect email
+                                  </a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="left"
+                            style="font-size:0px;padding:10px 25px;word-break:break-word;"
+                        >
+                          <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:20px;text-align:left;color:#555555;">
+                            Please note that you should open this link on mobile device with
+          whitewater.guide app installed.
                           </div>
                         </td>
                       </tr>
@@ -171,31 +217,38 @@ exports[`should match snapshot for "gorge-unhealthy" 1`] = `
                         <td align="left"
                             style="font-size:0px;padding:10px 25px;word-break:break-word;"
                         >
-                          <table cellpadding="0"
-                                 cellspacing="0"
-                                 width="100%"
-                                 border="0"
-                                 style="color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;table-layout:auto;width:100%;border:none;"
-                          >
-                            <tr style="
-              border-bottom: 1px solid #ecedee;
-              text-align: left;
-              padding: 15px 0;
-            ">
-                              <th style="padding: 0 15px 0 0">
-                                Script
-                              </th>
-                              <th style="padding: 0 15px">
-                                Last run
-                              </th>
-                              <th style="padding: 0 0 0 15px">
-                                Last Success
-                              </th>
-                            </tr>
-                            <mj-raw>
-                              unhealthy
-                            </mj-raw>
-                          </table>
+                          <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:20px;text-align:left;color:#555555;">
+                            If you have problems with opening the link, you may use following code
+          in the app:
+                            <b>
+                              __token__
+                            </b>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="left"
+                            style="font-size:0px;padding:10px 25px;word-break:break-word;"
+                        >
+                          <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:20px;text-align:left;color:#555555;">
+                            If you didn't request this change, you can ignore this message.
+          Someone probably typed in your email by accident.
+                            <br>
+                            Please note that this link will expire in 24 hours.
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="left"
+                            style="font-size:0px;padding:10px 25px;word-break:break-word;"
+                        >
+                          <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:20px;text-align:left;color:#555555;">
+                            Cheers,
+                            <br>
+                            <b>
+                              whitewater.guide team
+                            </b>
+                          </div>
                         </td>
                       </tr>
                     </tbody>
