@@ -1,0 +1,11 @@
+fragment UsersTableUser on User {
+  id
+  name
+  email
+}
+
+query usersTable($filter: UserFilterOptions!) {
+  users: findUsers(filter: $filter) {
+    ...UsersTableUser
+  }
+}

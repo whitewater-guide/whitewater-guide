@@ -6,6 +6,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 
 import { Loading } from '../components';
 import SignInRoute from '../features/auth/signin';
+import { AdminRoute } from './AdminRoute';
 import { DRAWER_WIDTH, usePermanentDrawer } from './drawer';
 import LogoutRoute from './LogoutRoute';
 import Page403 from './Page403';
@@ -30,6 +31,7 @@ const LazyTagsRoute = React.lazy(() => import('../features/tags/TagsRoute'));
 const LazySuggestionsRoute = React.lazy(
   () => import('../features/suggestions/SuggestionsRoute'),
 );
+const LazyUsersRoute = React.lazy(() => import('../features/users/UsersRoute'));
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -66,6 +68,7 @@ const RootRouter: React.FC = () => {
             <Route path="/banners" component={LazyBannersRoute} />
             <Route path="/history" component={LazyHistoryRoute} />
             <Route path="/suggestions" component={LazySuggestionsRoute} />
+            <AdminRoute path="/users" component={LazyUsersRoute} />
 
             <Route path="/signin" component={SignInRoute} />
             <Route path="/logout">

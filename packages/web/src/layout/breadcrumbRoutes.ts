@@ -5,6 +5,7 @@ import { regionBreadcrumbs } from '../features/regions/breadcrumbs';
 import { sourceBreadcrumbs } from '../features/sources/breadcrumbs';
 import { suggestionsBreadcrumbs } from '../features/suggestions/breadcrumbs';
 import { tagsBreadcrumbs } from '../features/tags/breadcrumbs';
+import { usersBreadcrumbs } from '../features/users/breadcrumbs';
 
 export default {
   '/': 'Home',
@@ -17,4 +18,5 @@ export default {
   ...bannerBreadcrumbs,
   ...historyBreadcrumbs,
   ...suggestionsBreadcrumbs,
+  ...usersBreadcrumbs,
 };

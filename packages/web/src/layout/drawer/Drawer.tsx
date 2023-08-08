@@ -39,6 +39,7 @@ const ITEMS: DrawerEntry[] = [
   { title: 'Banners', path: '/banners', admin: true },
   { title: 'History of edits', path: '/history', admin: true },
   { title: 'User suggestions', path: '/suggestions', editor: true },
+  { title: 'Users', path: '/users', admin: true },
 ];
 
 interface Props {
