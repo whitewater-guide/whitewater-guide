@@ -8,6 +8,7 @@ import {
   BOOM_USER_3500,
   BOOM_USER_3500_ID,
   EDITOR_GA_EC,
+  EDITOR_NO,
   TEST_USER,
   TEST_USER_ID,
 } from '~/seeds/test/01_users';
@@ -57,6 +58,12 @@ it('should return local user', async () => {
 
 it('should return facebook user', async () => {
   const result = await testMyProfile(undefined, fakeContext(ADMIN));
+  expect(result.errors).toBeUndefined();
+  expect(result.data?.me).toMatchSnapshot();
+});
+
+it('should return local and facebook user', async () => {
+  const result = await testMyProfile(undefined, fakeContext(EDITOR_NO));
   expect(result.errors).toBeUndefined();
   expect(result.data?.me).toMatchSnapshot();
 });

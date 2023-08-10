@@ -2,6 +2,7 @@ import { SocialMediaProvider, User } from '@whitewater-guide/schema';
 import { DataSourceConfig } from 'apollo-datasource';
 import { AuthenticationError, ForbiddenError } from 'apollo-server-koa';
 import axios from 'axios';
+import { QueryBuilder } from 'knex';
 import get from 'lodash/get';
 
 import { Context } from '~/apollo';
@@ -153,5 +154,10 @@ export class UsersConnector extends OffsetConnector<User, ResolvableUser> {
       }
     }
     return null;
+  }
+
+  getBatchQuery(keys: string[]): QueryBuilder {
+    const query = super.getBatchQuery(keys);
+    return query.select(db().raw('password IS NOT NULL AS has_password'));
   }
 }

@@ -6,4 +6,5 @@ import { Sql } from '~/db';
 export interface ResolvableUser extends Sql.Users {
   accounts: Sql.Accounts[] | null;
   editor: boolean;
+  has_password: boolean;
 }

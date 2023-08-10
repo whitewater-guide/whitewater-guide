@@ -23,7 +23,9 @@ type User implements NamedNode & Timestamped {
   editorSettings: EditorSettings
   "True if user is verified"
   verified: Boolean!
-  "Social media accounts"
+  """
+  Contains accounts (login methods) that this user has: local/fb/apple
+  """
   accounts: [SocialMediaAccount!]!
 
   "Which regions current user has purchased"
@@ -32,9 +34,14 @@ type User implements NamedNode & Timestamped {
   purchasedGroups: [Group!]!
 }
 
+"""
+This is not necessary social media account, and more like login method
+It will return "local" for email+password auth
+It's not renamed for backward compatibility reason
+"""
 type SocialMediaAccount {
   id: ID!
-  "facebook/apple"
+  "local/facebook/apple"
   provider: String!
 }
 
