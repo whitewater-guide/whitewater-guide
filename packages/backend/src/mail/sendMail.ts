@@ -33,6 +33,8 @@ const SUBJECTS = new Map([
   [MailType.VERIFICATION_REQUEST, 'whitewater.guide user verification'],
   [MailType.WELCOME_UNVERIFIED, 'Welcome to whitewater.guide'],
   [MailType.WELCOME_VERIFIED, 'Welcome to whitewater.guide'],
+  [MailType.CONNECT_EMAIL_REQUEST, 'whitewater.guide email login request'],
+  [MailType.CONNECT_EMAIL_SUCCESS, 'whitewater.guide email login confirmed'],
 ]);
 
 export async function sendMail<T extends keyof MailPayloadMap>(

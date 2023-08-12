@@ -33,7 +33,7 @@ const requestConnectEmail: AuthenticatedMutation['requestConnectEmail'] =
       throw new ForbiddenError('must not have password already set');
     }
 
-    const token = await randomToken(email);
+    const token = await randomToken(email, 3);
     const tokens = user.tokens
       .filter((t) => t.claim !== 'connectEmail')
       .concat({
