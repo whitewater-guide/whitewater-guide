@@ -1,8 +1,8 @@
 import { useAuth } from '@whitewater-guide/clients';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { RefreshControl, ScrollView, StyleSheet } from 'react-native';
-import { Divider, Title } from 'react-native-paper';
+import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
+import { Caption, Divider, Title } from 'react-native-paper';
 
 import Paper from '~/components/Paper';
 import RetryPlaceholder from '~/components/RetryPlaceholder';
@@ -27,6 +27,12 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     backgroundColor: theme.colors.primary,
+  },
+  name: {
+    alignSelf: 'stretch',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 });
 
@@ -56,8 +62,11 @@ const MyProfileView = React.memo(() => {
         }
       >
         <Paper gutterBottom style={styles.userHeader}>
-          <Title>{username}</Title>
-          <VerificationStatus />
+          <View style={styles.name}>
+            <Title>{username}</Title>
+            <VerificationStatus />
+          </View>
+          {me.email && <Caption>{me.email}</Caption>}
         </Paper>
         <Paper gutterBottom>
           <Title>{t('screens:myprofile.general')}</Title>

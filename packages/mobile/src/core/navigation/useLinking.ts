@@ -10,13 +10,14 @@ import { RootStackNav } from './navigation-params';
 import { Screens } from './screen-names';
 
 const RESET_CALLBACK_URL = `${DEEP_LINKING_URL}/auth/local/reset/callback`;
+const CONNECT_EMAIL_URL = `${DEEP_LINKING_URL}/auth/local/connect-email`;
 
 type URLish = string | null | { url: string | null };
 type Parsed = ReturnType<typeof urlParse>;
 
 const parseURL = (urlish: URLish) => {
   const url = !!urlish && typeof urlish === 'object' ? urlish.url : urlish;
-  if (!url || url.indexOf(RESET_CALLBACK_URL) !== 0) {
+  if (!url) {
     return null;
   }
   return urlParse(url, true);
@@ -27,6 +28,9 @@ const isReset = ({ href, query }: urlParse<any>): boolean =>
   !!query &&
   !!query?.id &&
   !!query?.token;
+
+const isConnectEmail = ({ href, query }: urlParse<any>): boolean =>
+  href.indexOf(CONNECT_EMAIL_URL) === 0 && !!query?.email && !!query?.token;
 
 const isVerified = ({ href }: Parsed) => href.indexOf('verified') >= 0;
 
@@ -47,10 +51,13 @@ export function useLinking({ navigate }: RootStackNav) {
         apolloClient.query({ query: MyProfileDocument }).catch(() => {
           // if refresh my profile fails, we can do nothing about it
         });
+      } else if (parts && isConnectEmail(parts)) {
+        navigateRef.current(Screens.CONNECT_EMAIL as any, parts.query);
       }
     },
     [navigateRef, apolloClient],
   );
+
   return useEffect(() => {
     Linking.getInitialURL()
       .then(handleURL)

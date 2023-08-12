@@ -7702,20 +7702,10 @@
   resolved "https://registry.yarnpkg.com/@whitewater-guide/react-native-fast-image/-/react-native-fast-image-8.6.0.tgz#87117e0eb6a3a03ccfa7ca5d237b350029f9a4fc"
   integrity sha512-XM55efTY8XdtsKHHzQ1fvVbzEUEMapg7nXfJHclqMztcCWFvdyvozNHOxHrqnBa28iBqjIgLZuFdrXt7UB4U4g==
 
-"@whitewater-guide/translations@^2.6.1":
-  version "2.6.1"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/translations/-/translations-2.6.1.tgz#0c876981b6d71d83db1101cf2dead828029376ac"
-  integrity sha512-I59AOSv8MVLqFcPJQGSBBNJ9KU68kMUaJbCbNfhU6lfAPqlMDqkldCV3UNSj4pujTJew7Yy8xJnkObj++n/ghA==
-
-"@whitewater-guide/translations@^2.6.2":
-  version "2.6.2"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/translations/-/translations-2.6.2.tgz#1d21c75c416a377f6fe9ed7549ec5cf77393f03e"
-  integrity sha512-PbuIxeL+FzTY6nY3rB/KQ8qOCAVbA/4jXgo1ebZG+okJ8Hrk2JHsdfqqQ2NBvEubtF6a2sP3qaE+TEyM8jdaRA==
-
-"@whitewater-guide/translations@^2.6.3":
-  version "2.6.3"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/translations/-/translations-2.6.3.tgz#98e818efe1e1b07279029be4d9f0669803b64e65"
-  integrity sha512-b35gAm8ODf2ComYGr6GtUP6VhsSFXp7DTwogOe3JBs1dyI7ZA6qLV5wo/VD6WFViLnaE3/rt/55+aoAH415zCQ==
+"@whitewater-guide/translations@^2.6.5":
+  version "2.6.5"
+  resolved "https://registry.yarnpkg.com/@whitewater-guide/translations/-/translations-2.6.5.tgz#ce4087a270f59702ca8d6de4908984d40b099f2e"
+  integrity sha512-dWVG9ETbfeXHcgjMuBXhyp5jw/LeWFIPOP7ftEDSdgiVEUZTcjKec6wXHAZvVrw7T4uHuVc6oF8xLX4po9NZPw==
 
 "@wry/context@^0.7.0":
   version "0.7.0"

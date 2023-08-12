@@ -10,6 +10,9 @@ import { getHeaderRenderer } from '~/components/header';
 import { RootStackNavProps, RootStackParamsList } from '~/core/navigation';
 import { LazyAddSectionScreen } from '~/screens/add-section';
 import { LazyAuthStack } from '~/screens/auth';
+import { LazyConnectEmailScreen } from '~/screens/auth/connect-email';
+import { LazyConnectEmailRequestScreen } from '~/screens/auth/connect-email-request';
+import { LazyConnectEmailSuccessScreen } from '~/screens/auth/connect-email-success';
 import { LazyChatScreen } from '~/screens/chat';
 import { LazyDescentScreen } from '~/screens/descent';
 import { LazyDescentFormScreen } from '~/screens/descent-form';
@@ -91,6 +94,26 @@ const RootStack: React.FC<RootStackNavProps> = ({ navigation }) => {
         options={{ headerTitle: t('screens:license.headerTitle') }}
       />
       <Stack.Screen name={Screens.MY_PROFILE} component={LazyMyProfileScreen} />
+      <Stack.Screen
+        name={Screens.CONNECT_EMAIL_REQUEST}
+        component={LazyConnectEmailRequestScreen}
+        options={{
+          headerTitle: t('screens:connectEmailRequest.headerTitle'),
+          gestureEnabled: false,
+        }}
+      />
+      <Stack.Screen
+        name={Screens.CONNECT_EMAIL}
+        component={LazyConnectEmailScreen}
+        options={{
+          headerTitle: t('screens:connectEmail.headerTitle'),
+          gestureEnabled: false,
+        }}
+      />
+      <Stack.Screen
+        name={Screens.CONNECT_EMAIL_SUCCESS}
+        component={LazyConnectEmailSuccessScreen}
+      />
       <Stack.Screen name={Screens.CHAT} component={LazyChatScreen} />
     </Stack.Navigator>
   );

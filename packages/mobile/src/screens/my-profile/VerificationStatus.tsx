@@ -6,7 +6,6 @@ import { StyleSheet, View } from 'react-native';
 import { Button, Paragraph } from 'react-native-paper';
 
 import Icon from '~/components/Icon';
-import Spacer from '~/components/Spacer';
 import theme from '~/theme';
 
 const styles = StyleSheet.create({
@@ -60,7 +59,6 @@ export const VerificationStatusInternal: React.FC<Props> = ({
       <Paragraph>
         {t(`screens:myprofile.${isVerified ? '' : 'un'}verified`)}
       </Paragraph>
-      <Spacer />
       {!isVerified && (
         <Button mode="text" compact onPress={showMenu}>
           {t('screens:myprofile.verification.showMenu')}

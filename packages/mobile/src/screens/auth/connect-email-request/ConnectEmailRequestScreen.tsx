@@ -1,0 +1,22 @@
+import React, { useRef } from 'react';
+import { View } from 'react-native';
+
+import { AuthScreenBase } from '../AuthScreenBase';
+import { ConnectEmailRequestForm } from './ConnectEmailRequestForm';
+import { ConnectEmailRequestNavProps } from './types';
+
+const ConnectEmailRequestScreen: React.FC<ConnectEmailRequestNavProps> = ({
+  route: { params },
+}) => {
+  const keyboardScrollRef = useRef<View>(null);
+  return (
+    <AuthScreenBase keyboardScrollRef={keyboardScrollRef}>
+      <ConnectEmailRequestForm
+        keyboardScrollRef={keyboardScrollRef}
+        email={params.email}
+      />
+    </AuthScreenBase>
+  );
+};
+
+export default ConnectEmailRequestScreen;

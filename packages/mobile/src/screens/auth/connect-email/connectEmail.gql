@@ -1,0 +1,3 @@
+mutation connectEmail($email: String!, $password: String!, $token: String!) {
+  connectEmail(email: $email, password: $password, token: $token)
+}

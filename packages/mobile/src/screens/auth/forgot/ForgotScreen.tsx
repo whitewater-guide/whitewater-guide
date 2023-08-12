@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Paragraph, Title } from 'react-native-paper';
 
-import { AuthScreenBase } from '~/screens/auth/AuthScreenBase';
-import { ForgotForm } from '~/screens/auth/forgot/ForgotForm';
 import theme from '~/theme';
 
+import { AuthScreenBase } from '../AuthScreenBase';
+import { ForgotForm } from './ForgotForm';
 import { AuthForgotNavProps } from './types';
 
 const styles = StyleSheet.create({

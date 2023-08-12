@@ -1,0 +1,3 @@
+mutation requestConnectEmail($email: String!) {
+  requestConnectEmail(email: $email)
+}

@@ -37,6 +37,13 @@ export type RootStackParamsList = {
   [Screens.AUTH_STACK]: undefined;
   [Screens.PURCHASE_STACK]: PurchaseParams;
   [Screens.MY_PROFILE]: undefined;
+  [Screens.CONNECT_EMAIL_REQUEST]: { email?: string };
+  [Screens.CONNECT_EMAIL]: {
+    email: string;
+    token?: string;
+    editableEmail?: boolean;
+  };
+  [Screens.CONNECT_EMAIL_SUCCESS]: undefined;
   [Screens.LOGBOOK]: undefined;
   [Screens.DESCENT_FORM]: {
     regionId?: string;

@@ -44,6 +44,7 @@ export const AuthScreenBase: FC<PropsWithChildren<Props>> = ({
         bounces={false}
         overScrollMode="always"
         contentInsetAdjustmentBehavior="always"
+        collapsable={false}
       >
         <View style={styles.body}>
           <View style={styles.logoWrapper}>

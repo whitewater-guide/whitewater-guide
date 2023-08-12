@@ -22,7 +22,7 @@
     "@whitewater-guide/clients": "^0.0.336",
     "@whitewater-guide/commons": "^0.0.213",
     "@whitewater-guide/schema": "^0.0.212",
-    "@whitewater-guide/translations": "^2.6.1",
+    "@whitewater-guide/translations": "^2.6.5",
     "date-fns": "^2.28.0",
     "downshift": "^6.1.7",
     "formik": "^2.2.9",
