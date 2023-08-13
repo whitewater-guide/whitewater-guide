@@ -43,6 +43,7 @@ export default class MapDownloader {
     if (offlinePack) {
       const status = await offlinePack.status();
       // do not download what is already downloaded
+      // state is actually a string, it's a bug in mapbox types
       if (status?.state === MapboxOfflinePackState.COMPLETE) {
         this.onProgress(100);
         return;
@@ -94,6 +95,7 @@ export default class MapDownloader {
 
   private onPackProgress = (_: OfflinePack, status: OfflineProgressStatus) => {
     this.onProgress(Math.floor(status.percentage));
+    // state is actually a string, it's a bug in mapbox types
     if (status.state === MapboxOfflinePackState.COMPLETE) {
       this._resolve();
     }

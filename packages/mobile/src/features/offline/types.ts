@@ -1,5 +1,3 @@
-import { Platform } from 'react-native';
-
 export type OfflineCategoryType = 'data' | 'media' | 'maps';
 
 export type OfflineCategorySelection = {
@@ -7,11 +5,8 @@ export type OfflineCategorySelection = {
 };
 
 export const MapboxOfflinePackState = {
-  UNKNOWN: Platform.OS === 'ios' ? 0 : -11,
-  INACTIVE: Platform.OS === 'ios' ? 1 : 0,
-  ACTIVE: Platform.OS === 'ios' ? 'active' : 1,
-  COMPLETE: Platform.OS === 'ios' ? 'complete' : 2,
-  INVALID: Platform.OS === 'ios' ? 4 : -10,
+  ACTIVE: 'active',
+  COMPLETE: 'complete',
 };
 
 export interface OfflineProgress {
