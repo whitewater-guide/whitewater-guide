@@ -1,5 +1,5 @@
 import Mapbox from '@rnmapbox/maps';
-import React, { MutableRefObject } from 'react';
+import React, { FC, MutableRefObject, PropsWithChildren } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { useMapType } from '../../features/settings';
@@ -20,35 +20,37 @@ interface Props {
   cameraRef?: MutableRefObject<Mapbox.Camera | null>;
 }
 
-export const MapLayoutBase: React.FC<Props> = React.memo((props) => {
-  const { initialBounds, detailed, mapView, cameraRef, children } = props;
-  const { mapType } = useMapType();
-  const permissionStatus = useLocationPermission();
-  const locationPermissionGranted =
-    permissionStatus === LocationPermission.GRANTED;
+export const MapLayoutBase: FC<PropsWithChildren<Props>> = React.memo(
+  (props) => {
+    const { initialBounds, detailed, mapView, cameraRef, children } = props;
+    const { mapType } = useMapType();
+    const permissionStatus = useLocationPermission();
+    const locationPermissionGranted =
+      permissionStatus === LocationPermission.GRANTED;
 
-  return (
-    <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
-      {permissionStatus === LocationPermission.FETCHING ? (
-        <Loading />
-      ) : (
-        <CameraProvider cameraRef={cameraRef}>
-          {React.cloneElement(mapView, {
-            mapType,
-            initialBounds,
-            detailed,
-            locationPermissionGranted,
-          })}
-          {children}
-          <LayersSelector />
-          <CameraControls
-            locationPermissionGranted={locationPermissionGranted}
-            initialBounds={props.initialBounds}
-          />
-        </CameraProvider>
-      )}
-    </View>
-  );
-});
+    return (
+      <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
+        {permissionStatus === LocationPermission.FETCHING ? (
+          <Loading />
+        ) : (
+          <CameraProvider cameraRef={cameraRef}>
+            {React.cloneElement(mapView, {
+              mapType,
+              initialBounds,
+              detailed,
+              locationPermissionGranted,
+            })}
+            {children}
+            <LayersSelector />
+            <CameraControls
+              locationPermissionGranted={locationPermissionGranted}
+              initialBounds={props.initialBounds}
+            />
+          </CameraProvider>
+        )}
+      </View>
+    );
+  },
+);
 
 MapLayoutBase.displayName = 'MapLayoutBase';

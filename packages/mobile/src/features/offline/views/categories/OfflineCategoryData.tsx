@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 import { StyleSheet } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
 
@@ -21,7 +21,7 @@ interface Props extends OfflineCategoryProps {
   regionId: string;
 }
 
-const OfflineCategoryData: React.FC<Props> = (props) => {
+const OfflineCategoryData: FC<PropsWithChildren<Props>> = (props) => {
   const { type, label, selected, onToggle, regionId } = props;
   const offlineDate = useOfflineDate(regionId);
   const [{ loading }, onDelete] = useDeleteOfflineData(regionId);

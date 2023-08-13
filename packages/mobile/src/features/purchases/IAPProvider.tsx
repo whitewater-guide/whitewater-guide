@@ -1,6 +1,8 @@
 import noop from 'lodash/noop';
-import React, {
+import {
   createContext,
+  FC,
+  PropsWithChildren,
   Reducer,
   useCallback,
   useContext,
@@ -83,7 +85,7 @@ const reducer: Reducer<State, Action> = (state, action) => {
   }
 };
 
-export const IapProvider: React.FC = ({ children }) => {
+export const IapProvider: FC<PropsWithChildren> = ({ children }) => {
   const isMounted = useMountedState();
   const [state, dispatch] = useReducer(reducer, initialState);
   const skus = useSkus();

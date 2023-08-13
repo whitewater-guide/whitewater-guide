@@ -1,6 +1,14 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import noop from 'lodash/noop';
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, {
+  createContext,
+  FC,
+  PropsWithChildren,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 
 import Layers from '~/components/map/layers';
 
@@ -24,7 +32,7 @@ export const DEFAULT_APP_SETTINGS: AppSettings = {
   mapType: Layers.TERRAIN.url,
 };
 
-export const AppSettingsContext = React.createContext<AppSettingsCtx>({
+export const AppSettingsContext = createContext<AppSettingsCtx>({
   settings: DEFAULT_APP_SETTINGS,
   updateSettings: noop,
 });
@@ -47,7 +55,7 @@ const persistSettings = async (v: AppSettings) => {
   await AsyncStorage.setItem(KEY, JSON.stringify(v));
 };
 
-export const AppSettingsProvider: React.FC = ({ children }) => {
+export const AppSettingsProvider: FC<PropsWithChildren> = ({ children }) => {
   const [settings, setSettings] = useState(DEFAULT_APP_SETTINGS);
 
   useEffect(() => {

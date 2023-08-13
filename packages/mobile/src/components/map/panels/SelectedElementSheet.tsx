@@ -1,7 +1,7 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { ListedSectionFragment } from '@whitewater-guide/clients';
 import { PointCoreFragment } from '@whitewater-guide/schema';
-import React, { FC, useCallback, useRef } from 'react';
+import { FC, PropsWithChildren, useCallback, useRef } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import useUpdateEffect from 'react-use/lib/useUpdateEffect';
@@ -39,7 +39,9 @@ interface SelectedElementSheetProps {
   Buttons: React.ReactElement;
 }
 
-const SelectedElementSheet: FC<SelectedElementSheetProps> = (props) => {
+const SelectedElementSheet: FC<PropsWithChildren<SelectedElementSheetProps>> = (
+  props,
+) => {
   const {
     selection,
     selectionType,

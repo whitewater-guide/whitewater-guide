@@ -44,7 +44,7 @@ export const PasswordInput = React.memo(
               secureTextEntry={secureTextEntry}
               right={
                 <TextInput.Icon
-                  name={secureTextEntry ? 'eye' : 'eye-off'}
+                  icon={secureTextEntry ? 'eye' : 'eye-off'}
                   onPress={toggleSecureTextEntry}
                 />
               }

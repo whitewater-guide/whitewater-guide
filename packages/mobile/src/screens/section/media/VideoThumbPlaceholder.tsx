@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import Icon from '~/components/Icon';
-
-import { PHOTO_PADDING, PHOTO_SIZE } from '../../../features/media';
-import theme from '../../../theme';
+import { PHOTO_PADDING, PHOTO_SIZE } from '~/features/media';
+import theme from '~/theme';
 
 const styles = StyleSheet.create({
   container: {
@@ -17,7 +16,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const VideoThumbPlaceholder: React.SFC = () => (
+const VideoThumbPlaceholder: FC = () => (
   <View style={styles.container}>
     <Icon icon="video" />
   </View>

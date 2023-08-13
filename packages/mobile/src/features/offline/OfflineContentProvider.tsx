@@ -1,6 +1,12 @@
 import { NamedNode } from '@whitewater-guide/schema';
 import noop from 'lodash/noop';
-import React, { useCallback, useContext, useState } from 'react';
+import React, {
+  FC,
+  PropsWithChildren,
+  useCallback,
+  useContext,
+  useState,
+} from 'react';
 
 import { useDownloadRegion } from './hooks';
 import { OfflineCategorySelection, OfflineProgress } from './types';
@@ -22,7 +28,7 @@ const OfflineContentContext = React.createContext<OfflineContentCtx>({
   dialogRegion: null,
 });
 
-export const OfflineContentProvider: React.FC = ({ children }) => {
+export const OfflineContentProvider: FC<PropsWithChildren> = ({ children }) => {
   const [dialogRegion, setDialogReg] = useState<NamedNode | null>(null);
   const [regionInProgress, setRegionInProgress] = useState<string | null>(null);
 

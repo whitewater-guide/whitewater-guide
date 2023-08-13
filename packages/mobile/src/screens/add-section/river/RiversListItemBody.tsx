@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { TouchableRipple } from 'react-native-paper';
 
@@ -23,7 +23,7 @@ interface Props {
   style?: StyleProp<ViewStyle>;
 }
 
-const RiversListItemBody: React.FC<Props> = (props) => {
+const RiversListItemBody: FC<PropsWithChildren<Props>> = (props) => {
   const { children, disabled, onPress, style } = props;
   return (
     <TouchableRipple onPress={onPress} disabled={disabled}>

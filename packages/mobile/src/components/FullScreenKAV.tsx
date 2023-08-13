@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 import { Platform, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 import theme from '~/theme';
@@ -17,7 +17,10 @@ interface Props {
 // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
 const OFFSET = (Platform.OS === 'ios' ? 72 : 64) + theme.safeBottom;
 
-const FullScreenKAV: React.FC<Props> = ({ contentStyle, children }) => (
+const FullScreenKAV: FC<PropsWithChildren<Props>> = ({
+  contentStyle,
+  children,
+}) => (
   <KeyboardAvoidingView
     behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     style={styles.container}

@@ -1,8 +1,11 @@
-import { RegionChangeEvent } from '@rnmapbox/maps';
+import { RegionPayload } from '@rnmapbox/maps/lib/typescript/components/MapView';
 import { BBox, getBBox } from '@whitewater-guide/clients';
 import { MutableRefObject, useCallback, useRef } from 'react';
 
-type UseBoundsRef = [MutableRefObject<BBox>, (e: RegionChangeEvent) => void];
+type UseBoundsRef = [
+  MutableRefObject<BBox>,
+  (e: GeoJSON.Feature<GeoJSON.Point, RegionPayload>) => void,
+];
 
 export const useBoundsRef = (
   initialBounds: CodegenCoordinates[],
@@ -15,11 +18,11 @@ export const useBoundsRef = (
   }
 
   const onRegionDidChange = useCallback(
-    (e: RegionChangeEvent) => {
+    (e: GeoJSON.Feature<GeoJSON.Point, RegionPayload>) => {
       const {
         properties: { visibleBounds: vb },
       } = e;
-      visibleBounds.current = vb;
+      visibleBounds.current = vb as BBox;
     },
     [visibleBounds],
   );

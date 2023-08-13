@@ -1,5 +1,5 @@
 import { RegionDetailsFragment } from '@whitewater-guide/clients';
-import React, { useContext } from 'react';
+import React, { FC, PropsWithChildren, useContext } from 'react';
 
 const AddSectionRegionContext = React.createContext<
   RegionDetailsFragment | null | undefined
@@ -9,7 +9,7 @@ interface Props {
   region?: RegionDetailsFragment | null;
 }
 
-export const AddSectionRegionProvider: React.FC<Props> = ({
+export const AddSectionRegionProvider: FC<PropsWithChildren<Props>> = ({
   region,
   children,
 }) => (

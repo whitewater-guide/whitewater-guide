@@ -2,7 +2,7 @@ import { MockList } from '@graphql-tools/mock';
 import { renderHook } from '@testing-library/react-hooks';
 import { act } from '@testing-library/react-native';
 import { mockApolloProvider } from '@whitewater-guide/clients/dist/test';
-import React from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 
 import { RegionsListDocument } from '~/screens/regions-list/regionsList.generated';
 
@@ -33,7 +33,9 @@ const prepare = async () => {
 
 it('should read skus from regions list query', async () => {
   const { Provider } = await prepare();
-  const wrapper: React.FC = ({ children }) => <Provider>{children}</Provider>;
+  const wrapper: FC<PropsWithChildren> = ({ children }) => (
+    <Provider>{children}</Provider>
+  );
   const { result, waitForNextUpdate, unmount } = renderHook(() => useSkus(), {
     wrapper,
   });
@@ -49,7 +51,9 @@ it('should read skus from regions list query', async () => {
 
 it('should not change when query is refreshed', async () => {
   const { Provider, query } = await prepare();
-  const wrapper: React.FC = ({ children }) => <Provider>{children}</Provider>;
+  const wrapper: FC<PropsWithChildren> = ({ children }) => (
+    <Provider>{children}</Provider>
+  );
   const { result, waitForNextUpdate, unmount } = renderHook(() => useSkus(), {
     wrapper,
   });

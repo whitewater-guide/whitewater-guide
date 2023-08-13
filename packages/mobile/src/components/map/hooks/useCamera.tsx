@@ -1,6 +1,12 @@
 import Mapbox from '@rnmapbox/maps';
 import noop from 'lodash/noop';
-import React, { MutableRefObject, useContext, useState } from 'react';
+import React, {
+  FC,
+  MutableRefObject,
+  PropsWithChildren,
+  useContext,
+  useState,
+} from 'react';
 
 type CameraSetter = (value: Mapbox.Camera | null) => void;
 
@@ -11,7 +17,7 @@ interface Props {
   cameraRef?: MutableRefObject<Mapbox.Camera | null>;
 }
 
-export const CameraProvider: React.FC<Props> = React.memo(
+export const CameraProvider: FC<PropsWithChildren<Props>> = React.memo(
   ({ cameraRef, children }) => {
     const [camera, setCamera] = useState<Mapbox.Camera | null>(null);
     if (cameraRef) {

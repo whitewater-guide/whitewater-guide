@@ -3,7 +3,14 @@ import {
   LocalPhotoStatus,
   useUploadLink,
 } from '@whitewater-guide/clients';
-import React, { useCallback, useContext, useMemo, useState } from 'react';
+import React, {
+  FC,
+  PropsWithChildren,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from 'react';
 
 import { trackError } from '~/core/errors';
 
@@ -19,7 +26,7 @@ const PhotosContext = React.createContext<UploadsContext>({
   localPhotos: {},
 });
 
-export const UploadsProvider: React.FC = ({ children }) => {
+export const UploadsProvider: FC<PropsWithChildren> = ({ children }) => {
   const [localPhotos, setLocalPhotos] = useState<Record<string, LocalPhoto>>(
     {},
   );

@@ -1,7 +1,7 @@
 import { MockList } from '@graphql-tools/mock';
 import { act, renderHook } from '@testing-library/react-hooks';
 import { mockApolloProvider } from '@whitewater-guide/clients/dist/test';
-import React from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 
 import { useDownloadRegion } from './hooks';
 import {
@@ -35,7 +35,7 @@ const render = () => {
       }),
     },
   });
-  const wrapper: React.FC = ({ children }: any) => (
+  const wrapper: FC<PropsWithChildren> = ({ children }) => (
     <Provider>
       <OfflineContentProvider>{children}</OfflineContentProvider>
     </Provider>

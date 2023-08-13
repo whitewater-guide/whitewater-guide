@@ -1,5 +1,5 @@
 import MarkdownIt from 'markdown-it';
-import React, { useCallback } from 'react';
+import React, { FC, PropsWithChildren, useCallback } from 'react';
 import { StyleProp, StyleSheet, Text, TextStyle } from 'react-native';
 
 import theme from '../theme';
@@ -48,7 +48,12 @@ interface LinkProps {
   style?: StyleProp<TextStyle>;
 }
 
-const Link: React.FC<LinkProps> = ({ index, onLink, style, children }) => {
+const Link: FC<PropsWithChildren<LinkProps>> = ({
+  index,
+  onLink,
+  style,
+  children,
+}) => {
   const onPress = useCallback(() => {
     onLink(index);
   }, [index, onLink]);

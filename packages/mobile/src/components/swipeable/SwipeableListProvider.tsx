@@ -1,6 +1,7 @@
-import React, {
+import {
   createContext,
   FC,
+  PropsWithChildren,
   RefObject,
   useContext,
   useMemo,
@@ -23,7 +24,10 @@ interface Props {
   listRef: RefObject<any>;
 }
 
-export const SwipeableListProvider: FC<Props> = ({ children, listRef }) => {
+export const SwipeableListProvider: FC<PropsWithChildren<Props>> = ({
+  children,
+  listRef,
+}) => {
   const selected = useSharedValue('');
 
   const ctx = useMemo<SwipeableListContext>(() => {
