@@ -1,8 +1,9 @@
-import MapboxGL, {
-  OfflineError,
-  OfflinePack,
-  OfflinePackStatus,
-} from '@rnmapbox/maps';
+import { offlineManager } from '@rnmapbox/maps';
+import {
+  OfflinePackError,
+  OfflineProgressStatus,
+} from '@rnmapbox/maps/lib/typescript/modules/offline/offlineManager';
+import OfflinePack from '@rnmapbox/maps/lib/typescript/modules/offline/OfflinePack';
 import { getBBox } from '@whitewater-guide/clients';
 import { Region } from '@whitewater-guide/schema';
 
@@ -37,7 +38,7 @@ export default class MapDownloader {
     }
     this._called = true;
     this.onProgress(0);
-    const offlinePack = await MapboxGL.offlineManager.getPack(this._regionId);
+    const offlinePack = await offlineManager.getPack(this._regionId);
 
     if (offlinePack) {
       const status = await offlinePack.status();
@@ -52,20 +53,23 @@ export default class MapDownloader {
       await result;
       return;
     }
-    this.subscribe();
     const result = this.promisify();
-    MapboxGL.offlineManager.createPack({
-      name: this._regionId,
-      styleURL: Layers.TERRAIN.url,
-      bounds: getBBox(this._bounds),
-      minZoom: 1,
-      maxZoom: 10,
-    });
+    await offlineManager.createPack(
+      {
+        name: this._regionId,
+        styleURL: Layers.TERRAIN.url,
+        bounds: getBBox(this._bounds),
+        minZoom: 1,
+        maxZoom: 10,
+      },
+      this.onPackProgress,
+      this.onPackError,
+    );
     await result;
   }
 
   private subscribe() {
-    MapboxGL.offlineManager.subscribe(
+    offlineManager.subscribe(
       this._regionId,
       this.onPackProgress,
       this.onPackError,
@@ -73,7 +77,7 @@ export default class MapDownloader {
   }
 
   private unsubscribe() {
-    MapboxGL.offlineManager.unsubscribe(this._regionId);
+    offlineManager.unsubscribe(this._regionId);
   }
 
   private promisify = (): Promise<unknown> =>
@@ -88,14 +92,14 @@ export default class MapDownloader {
     this._onProgress({ maps: [percentage, 100] });
   };
 
-  private onPackProgress = (_: OfflinePack, status: OfflinePackStatus) => {
+  private onPackProgress = (_: OfflinePack, status: OfflineProgressStatus) => {
     this.onProgress(Math.floor(status.percentage));
     if (status.state === MapboxOfflinePackState.COMPLETE) {
       this._resolve();
     }
   };
 
-  private onPackError = (_: OfflinePack, e: OfflineError) => {
+  private onPackError = (_: OfflinePack, e: OfflinePackError) => {
     const error = new MapboxOfflineError(e);
     if (!error.recoverable) {
       trackError('offlineMaps', error, e);
