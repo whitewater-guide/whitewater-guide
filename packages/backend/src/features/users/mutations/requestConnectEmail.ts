@@ -47,7 +47,7 @@ const requestConnectEmail: AuthenticatedMutation['requestConnectEmail'] =
       .where({ id: user.id });
 
     await sendMail(MailType.CONNECT_EMAIL_REQUEST, email, {
-      email,
+      email: encodeURIComponent(email),
       user: {
         id: user.id,
         name: user.name || '',

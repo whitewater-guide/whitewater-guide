@@ -13,7 +13,7 @@
         </mj-text>
 
         <mj-button
-          href="${deepLinkingURL}/auth/local/connect-email?id=${user.id}&email=${email}&token=${token.raw}"
+          href="${deepLinkingURL}/auth/local/connect-email?email=${email}&token=${token}"
         >
           Connect email
         </mj-button>
