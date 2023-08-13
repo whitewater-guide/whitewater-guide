@@ -1,4 +1,4 @@
-import Mapbox from '@react-native-mapbox-gl/maps';
+import Mapbox from '@rnmapbox/maps';
 import { Coordinate2d, ensureAltitude } from '@whitewater-guide/clients';
 import { SectionInput } from '@whitewater-guide/schema';
 import round from 'lodash/round';

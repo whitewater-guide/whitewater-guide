@@ -1,8 +1,4 @@
-import {
-  OfflineManager,
-  OfflinePack,
-  OfflinePackStatus,
-} from '@react-native-mapbox-gl/maps';
+import { OfflineManager, OfflinePack, OfflinePackStatus } from '@rnmapbox/maps';
 import noop from 'lodash/noop';
 
 import { MapboxOfflinePackState } from '../types';

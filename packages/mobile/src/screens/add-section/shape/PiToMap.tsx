@@ -1,4 +1,4 @@
-import Mapbox, { RegionChangeEvent } from '@react-native-mapbox-gl/maps';
+import Mapbox, { RegionChangeEvent } from '@rnmapbox/maps';
 import { ColorStrings, useSectionsList } from '@whitewater-guide/clients';
 import React, { forwardRef, RefAttributes } from 'react';
 

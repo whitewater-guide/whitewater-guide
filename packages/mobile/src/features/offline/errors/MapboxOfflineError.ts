@@ -1,4 +1,4 @@
-import { OfflineError } from '@react-native-mapbox-gl/maps';
+import { OfflineError } from '@rnmapbox/maps';
 
 export enum MapboxOfflineErrors {
   TILE_LIMIT_EXCEEDED = 'MAPBOX_TILE_LIMIT_EXCEEDED',

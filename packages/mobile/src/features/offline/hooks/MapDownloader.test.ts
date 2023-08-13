@@ -1,4 +1,4 @@
-import Mapbox from '@react-native-mapbox-gl/maps';
+import Mapbox from '@rnmapbox/maps';
 import { Region } from '@whitewater-guide/schema';
 
 import { mockPack, mockPackSubscribe } from '../test-utils';

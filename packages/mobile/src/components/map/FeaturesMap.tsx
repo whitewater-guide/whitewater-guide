@@ -2,7 +2,7 @@ import Mapbox, {
   CircleLayerStyle,
   LineLayerStyle,
   SymbolLayerStyle,
-} from '@react-native-mapbox-gl/maps';
+} from '@rnmapbox/maps';
 import { MapProps } from '@whitewater-guide/clients';
 import React from 'react';
 import { Platform } from 'react-native';

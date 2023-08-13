@@ -1,4 +1,4 @@
-import Mapbox from '@react-native-mapbox-gl/maps';
+import Mapbox from '@rnmapbox/maps';
 import React, { MutableRefObject } from 'react';
 import { StyleSheet, View } from 'react-native';
 

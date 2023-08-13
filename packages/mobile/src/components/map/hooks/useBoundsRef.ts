@@ -1,4 +1,4 @@
-import { RegionChangeEvent } from '@react-native-mapbox-gl/maps';
+import { RegionChangeEvent } from '@rnmapbox/maps';
 import { BBox, getBBox } from '@whitewater-guide/clients';
 import { MutableRefObject, useCallback, useRef } from 'react';
 

@@ -1,4 +1,4 @@
-import { OnPressEvent } from '@react-native-mapbox-gl/maps';
+import { OnPressEvent } from '@rnmapbox/maps';
 import area from '@turf/area';
 import bbox from '@turf/bbox';
 import bboxPolygon from '@turf/bbox-polygon';

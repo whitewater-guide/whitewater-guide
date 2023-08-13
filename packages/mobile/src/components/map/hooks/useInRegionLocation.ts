@@ -1,4 +1,4 @@
-import Mapbox from '@react-native-mapbox-gl/maps';
+import Mapbox from '@rnmapbox/maps';
 import pointInPolygon from '@turf/boolean-point-in-polygon';
 import { Feature, lineString, point, Polygon } from '@turf/helpers';
 import lineToPolygon from '@turf/line-to-polygon';

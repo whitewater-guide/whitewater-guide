@@ -1,4 +1,4 @@
-import Mapbox from '@react-native-mapbox-gl/maps';
+import Mapbox from '@rnmapbox/maps';
 import noop from 'lodash/noop';
 import React, { MutableRefObject, useContext, useState } from 'react';
 

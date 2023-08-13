@@ -1,4 +1,4 @@
-import Mapbox from '@react-native-mapbox-gl/maps';
+import Mapbox from '@rnmapbox/maps';
 import { getBBox } from '@whitewater-guide/clients';
 import React, { useCallback } from 'react';
 import { AppState, Platform, StyleSheet, View } from 'react-native';

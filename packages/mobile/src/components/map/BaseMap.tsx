@@ -1,15 +1,21 @@
 import { useAppState } from '@react-native-community/hooks';
-import Mapbox, { MapboxViewProps } from '@react-native-mapbox-gl/maps';
-import React, { forwardRef, useCallback } from 'react';
+import {
+  Camera,
+  MapView,
+  UserLocation,
+  UserTrackingMode,
+} from '@rnmapbox/maps';
+import React, { ComponentProps, forwardRef, useCallback } from 'react';
 import { Keyboard, StyleSheet } from 'react-native';
 
 import { useCameraSetter, useInRegionLocation, useMapboxBounds } from './hooks';
 import { MapViewProps } from './types';
 
+type MapboxViewProps = ComponentProps<typeof MapView>;
 type Props = MapViewProps & MapboxViewProps & { children?: any };
 
 export const BaseMap = React.memo(
-  forwardRef<Mapbox.MapView, Props>((props, ref) => {
+  forwardRef<MapView, Props>((props, ref) => {
     const {
       mapType,
       detailed,
@@ -25,7 +31,7 @@ export const BaseMap = React.memo(
     const setCamera = useCameraSetter();
     const bounds = useMapboxBounds(props.initialBounds);
     const onMapPress = useCallback(
-      (e) => {
+      (e: GeoJSON.Feature) => {
         Keyboard.dismiss();
         onPress?.(e);
       },
@@ -38,34 +44,35 @@ export const BaseMap = React.memo(
       useInRegionLocation(initialBounds, locationPermissionGranted, appState);
     }
     return (
-      <Mapbox.MapView
+      <MapView
         ref={ref}
         localizeLabels
         pitchEnabled={false}
         rotateEnabled={false}
         compassEnabled={false}
+        scaleBarEnabled={false}
         styleURL={mapType}
         style={StyleSheet.absoluteFill}
         onPress={onMapPress}
         {...mapboxProps}
       >
-        <Mapbox.Camera
+        <Camera
           ref={setCamera}
           {...bounds}
           animationDuration={0}
           animationMode="moveTo"
           // Properties below are intended to fix location acces in background on Android
           allowUpdates={appState === 'active'}
-          followUserMode="normal"
+          followUserMode={UserTrackingMode.Follow}
           followUserLocation={false}
         />
 
         {locationPermissionGranted && appState === 'active' && (
-          <Mapbox.UserLocation visible />
+          <UserLocation visible />
         )}
 
         {children}
-      </Mapbox.MapView>
+      </MapView>
     );
   }),
 );

@@ -1,5 +1,9 @@
-require_relative '../node_modules/react-native/scripts/react_native_pods'
-require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+# Resolve react_native_pods.rb with node to allow for hoisting
+require Pod::Executable.execute_command('node', ['-p',
+  'require.resolve(
+    "react-native/scripts/react_native_pods.rb",
+    {paths: [process.argv[1]]},
+  )', __dir__]).strip
 
 platform :ios, min_ios_version_supported
 prepare_react_native_project!
@@ -20,7 +24,7 @@ if linkage != nil
 end
 
 $RNFirebaseAnalyticsWithoutAdIdSupport = true
-$ReactNativeMapboxGLIOSVersion = '~> 6.4'
+$RNMapboxMapsImpl = 'mapbox'
 
 project 'whitewater',
   'Debug' => :debug,
@@ -51,38 +55,19 @@ target 'whitewater' do
 
   pre_install do |installer|
     # required by react-native-mapbox-gl
-    $RNMBGL.pre_install(installer)
+    $RNMapboxMaps.pre_install(installer)
   end
 
   post_install do |installer|
+    # required by react-native-mapbox-gl
+    $RNMapboxMaps.post_install(installer)
+
     react_native_post_install(
       installer,
-      # Set `mac_catalyst_enabled` to `true` in order to apply patches
-      # necessary for Mac Catalyst builds
+      config[:reactNativePath],
       :mac_catalyst_enabled => false
     )
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
-
-    # required by react-native-mapbox-gl
-    $RNMBGL.post_install(installer)
-
-    # https://github.com/rnmapbox/maps/issues/1733#issuecomment-1073355744
-    # --- fix to build for M1 iPhone 14 simulator
-    projects = installer.aggregate_targets
-      .map{ |t| t.user_project }
-      .uniq{ |p| p.path }
-      .push(installer.pods_project)
-
-    projects.each do |project|
-      project.build_configurations.each do |config|
-        config.build_settings['ARCHS[sdk=iphonesimulator*]'] = 'x86_64'
-        config.build_settings['ONLY_ACTIVE_ARCH'] = 'YES'
-        config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'i386 arm64'
-      end
-
-      project.save()
-    end
-    # ---- end of fix
   end
 
 end

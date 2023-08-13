@@ -2,7 +2,7 @@ import MapboxGL, {
   OfflineError,
   OfflinePack,
   OfflinePackStatus,
-} from '@react-native-mapbox-gl/maps';
+} from '@rnmapbox/maps';
 import { getBBox } from '@whitewater-guide/clients';
 import { Region } from '@whitewater-guide/schema';
 

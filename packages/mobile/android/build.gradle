@@ -18,18 +18,7 @@ buildscript {
         swiperefreshlayoutVersion = "1.1.0"
 
         // Required by mapbox
-        // https://github.com/react-native-mapbox-gl/maps/blob/master/android/install.md#mapbox-maps-sdk
-        rnmbglMapboxLibs = {
-            implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.7.1'
-            implementation 'com.mapbox.mapboxsdk:mapbox-sdk-services:5.8.0'
-        }
-        rnmbglMapboxPlugins = {
-            implementation "com.mapbox.mapboxsdk:mapbox-android-gestures:0.7.0"
-            implementation "com.mapbox.mapboxsdk:mapbox-android-plugin-localization-v9:0.14.0"
-            implementation "com.mapbox.mapboxsdk:mapbox-android-plugin-annotation-v9:0.8.0"
-            implementation "com.mapbox.mapboxsdk:mapbox-android-plugin-markerview-v9:0.4.0"
-            implementation 'com.mapbox.mapboxsdk:mapbox-sdk-turf:5.8.0'
-        }
+        RNMapboxMapsImpl = "mapbox" // required for v10
     }
     repositories {
         google()
@@ -37,7 +26,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:7.3.1")
+        classpath("com.android.tools.build:gradle")
         classpath("com.facebook.react:react-native-gradle-plugin")
         classpath 'com.google.gms:google-services:4.3.10'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:1.0.3'
