@@ -1,4 +1,4 @@
-import { ApolloError, ForbiddenError, UserInputError } from 'apollo-server-koa';
+import { ForbiddenError, UserInputError } from 'apollo-server-koa';
 import isEmail from 'validator/lib/isEmail';
 
 import { AuthenticatedMutation, isAuthenticatedResolver } from '~/apollo';
@@ -40,7 +40,9 @@ const requestConnectEmail: AuthenticatedMutation['requestConnectEmail'] =
       .first();
 
     if (byEmail && byEmail.id !== context.user.id) {
-      throw new ApolloError('this email cannot be used', 'EMAIL_TAKEN');
+      throw new UserInputError('invalid input', {
+        validationErrors: { email: 'string.emailTaken' },
+      });
     }
 
     const token = await randomToken(email, 3);

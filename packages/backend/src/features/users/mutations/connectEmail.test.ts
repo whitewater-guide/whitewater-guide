@@ -68,7 +68,7 @@ it('should fail if email does not match email for token', async () => {
     { email: 'foo@bar.com', password: PASSWORD, token: TOKEN },
     fakeContext(TEST_USER2),
   );
-  expect(result).toHaveGraphqlError(ApolloErrorCodes.BAD_USER_INPUT);
+  expect(result).toHaveGraphqlValidationError();
 });
 
 it('should fail if user has no token', async () => {

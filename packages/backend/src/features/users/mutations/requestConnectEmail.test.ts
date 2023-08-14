@@ -50,7 +50,7 @@ it('should fail if email is taken by other user', async () => {
     { email: 'kaospostage@gmail.com' },
     fakeContext(TEST_USER2),
   );
-  expect(result).toHaveGraphqlError('EMAIL_TAKEN');
+  expect(result).toHaveGraphqlValidationError();
 });
 
 it('should fail if user is not verified', async () => {
