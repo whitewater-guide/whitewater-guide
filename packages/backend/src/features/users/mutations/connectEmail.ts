@@ -1,4 +1,4 @@
-import { ForbiddenError, UserInputError } from 'apollo-server-koa';
+import { ApolloError, ForbiddenError, UserInputError } from 'apollo-server-koa';
 import { compare, hash } from 'bcrypt';
 import isEmail from 'validator/lib/isEmail';
 
@@ -47,6 +47,16 @@ const connectEmail: AuthenticatedMutation['connectEmail'] = async (
   const tokenMatches = await compare(email + token, connectToken.value);
   if (!tokenMatches) {
     throw new UserInputError('invalid token');
+  }
+
+  const byEmail: Sql.Users | undefined = await db()
+    .select('id')
+    .from('users')
+    .where({ email })
+    .first();
+
+  if (byEmail && byEmail.id !== context.user.id) {
+    throw new ApolloError('this email cannot be used', 'EMAIL_TAKEN');
   }
 
   const hashedPassword = await hash(password, SALT_ROUNDS);

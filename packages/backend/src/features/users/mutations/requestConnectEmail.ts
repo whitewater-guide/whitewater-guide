@@ -1,4 +1,4 @@
-import { ForbiddenError, UserInputError } from 'apollo-server-koa';
+import { ApolloError, ForbiddenError, UserInputError } from 'apollo-server-koa';
 import isEmail from 'validator/lib/isEmail';
 
 import { AuthenticatedMutation, isAuthenticatedResolver } from '~/apollo';
@@ -31,6 +31,16 @@ const requestConnectEmail: AuthenticatedMutation['requestConnectEmail'] =
     }
     if (user.password) {
       throw new ForbiddenError('must not have password already set');
+    }
+
+    const byEmail: Sql.Users | undefined = await db()
+      .select('*')
+      .from('users')
+      .where({ email })
+      .first();
+
+    if (byEmail && byEmail.id !== context.user.id) {
+      throw new ApolloError('this email cannot be used', 'EMAIL_TAKEN');
     }
 
     const token = await randomToken(email, 3);

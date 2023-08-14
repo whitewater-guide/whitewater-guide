@@ -45,6 +45,14 @@ it('should fail if email is invalid', async () => {
   expect(result).toHaveGraphqlValidationError();
 });
 
+it('should fail if email is taken by other user', async () => {
+  const result = await testRequestConnectEmail(
+    { email: 'kaospostage@gmail.com' },
+    fakeContext(TEST_USER2),
+  );
+  expect(result).toHaveGraphqlError('EMAIL_TAKEN');
+});
+
 it('should fail if user is not verified', async () => {
   const result = await testRequestConnectEmail(
     { email: 'foo@mail.com' },
@@ -120,7 +128,7 @@ it('should send email', async () => {
     MailType.CONNECT_EMAIL_REQUEST,
     'foo@mail.com',
     {
-      email: 'foo@mail.com',
+      email: 'foo%40mail.com',
       user: {
         id: EDITOR_GE.id,
         name: EDITOR_GE.name,
