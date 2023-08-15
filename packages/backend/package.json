@@ -6,7 +6,7 @@
   "author": "Konstantin Kuznetsov",
   "license": "CC-BY-NC-SA-4.0",
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "scripts": {
     "assets": "cpy '**/*.sql' '**/*.mjml' '**/*.json' ../dist/ --cwd=src/ --no-overwrite --parents",
