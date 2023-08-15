@@ -25,13 +25,15 @@ const connectEmail: AuthenticatedMutation['connectEmail'] = async (
 
   if (isPasswordWeak(password)) {
     throw new UserInputError('invalid input', {
-      validationErrors: { password: 'string.weak_password' },
+      validationErrors: {
+        connectEmail: { password: 'string.weak_password' },
+      },
     });
   }
 
   if (!isEmail(email)) {
     throw new UserInputError('invalid input', {
-      validationErrors: { email: 'string.email' },
+      validationErrors: { connectEmail: { email: 'string.email' } },
     });
   }
 
@@ -42,14 +44,18 @@ const connectEmail: AuthenticatedMutation['connectEmail'] = async (
 
   if (new Date().valueOf() > connectToken.expires) {
     throw new UserInputError('invalid input', {
-      validationErrors: { email: 'string.tokenExpired' },
+      validationErrors: {
+        connectEmail: { email: 'string.tokenExpired' },
+      },
     });
   }
 
   const tokenMatches = await compare(email + token, connectToken.value);
   if (!tokenMatches) {
     throw new UserInputError('invalid input', {
-      validationErrors: { email: 'string.tokenInvalid' },
+      validationErrors: {
+        connectEmail: { email: 'string.tokenInvalid' },
+      },
     });
   }
 
@@ -61,7 +67,7 @@ const connectEmail: AuthenticatedMutation['connectEmail'] = async (
 
   if (byEmail && byEmail.id !== context.user.id) {
     throw new UserInputError('invalid input', {
-      validationErrors: { email: 'string.emailTaken' },
+      validationErrors: { connectEmail: { email: 'string.emailTaken' } },
     });
   }
 

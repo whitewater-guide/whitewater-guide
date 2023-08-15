@@ -10,7 +10,7 @@ const requestConnectEmail: AuthenticatedMutation['requestConnectEmail'] =
   async (_, { email }, context) => {
     if (!isEmail(email)) {
       throw new UserInputError('invalid input', {
-        validationErrors: { email: 'string.email' },
+        validationErrors: { requestConnectEmail: { email: 'string.email' } },
       });
     }
 
@@ -41,7 +41,9 @@ const requestConnectEmail: AuthenticatedMutation['requestConnectEmail'] =
 
     if (byEmail && byEmail.id !== context.user.id) {
       throw new UserInputError('invalid input', {
-        validationErrors: { email: 'string.emailTaken' },
+        validationErrors: {
+          requestConnectEmail: { email: 'string.emailTaken' },
+        },
       });
     }
 
