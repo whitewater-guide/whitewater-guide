@@ -26,14 +26,14 @@ const connectEmail: AuthenticatedMutation['connectEmail'] = async (
   if (isPasswordWeak(password)) {
     throw new UserInputError('invalid input', {
       validationErrors: {
-        connectEmail: { password: 'string.weak_password' },
+        connectEmail: { password: 'yup:string.weak_password' },
       },
     });
   }
 
   if (!isEmail(email)) {
     throw new UserInputError('invalid input', {
-      validationErrors: { connectEmail: { email: 'string.email' } },
+      validationErrors: { connectEmail: { email: 'yup:string.email' } },
     });
   }
 
@@ -45,7 +45,7 @@ const connectEmail: AuthenticatedMutation['connectEmail'] = async (
   if (new Date().valueOf() > connectToken.expires) {
     throw new UserInputError('invalid input', {
       validationErrors: {
-        connectEmail: { email: 'string.tokenExpired' },
+        connectEmail: { email: 'yup:string.tokenExpired' },
       },
     });
   }
@@ -54,7 +54,7 @@ const connectEmail: AuthenticatedMutation['connectEmail'] = async (
   if (!tokenMatches) {
     throw new UserInputError('invalid input', {
       validationErrors: {
-        connectEmail: { email: 'string.tokenInvalid' },
+        connectEmail: { email: 'yup:string.tokenInvalid' },
       },
     });
   }
@@ -67,7 +67,7 @@ const connectEmail: AuthenticatedMutation['connectEmail'] = async (
 
   if (byEmail && byEmail.id !== context.user.id) {
     throw new UserInputError('invalid input', {
-      validationErrors: { connectEmail: { email: 'string.emailTaken' } },
+      validationErrors: { connectEmail: { email: 'yup:string.emailTaken' } },
     });
   }
 

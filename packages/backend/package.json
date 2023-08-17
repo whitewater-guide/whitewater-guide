@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/backend",
   "private": true,
-  "version": "0.0.506",
+  "version": "0.0.507",
   "main": "index.js",
   "author": "Konstantin Kuznetsov",
   "license": "CC-BY-NC-SA-4.0",
@@ -138,7 +138,7 @@
     "jest-serializer-sql": "^1.0.0",
     "jest-specific-snapshot": "^5.0.0",
     "jest-summary-reporter": "^0.0.2",
-    "madge": "^5.0.1",
+    "madge": "^6.1.0",
     "minio": "^7.0.26",
     "nodemon": "^2.0.15",
     "passport-mocked": "^1.4.0",
