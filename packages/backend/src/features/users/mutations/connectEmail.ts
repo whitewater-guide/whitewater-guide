@@ -45,7 +45,7 @@ const connectEmail: AuthenticatedMutation['connectEmail'] = async (
   if (new Date().valueOf() > connectToken.expires) {
     throw new UserInputError('invalid input', {
       validationErrors: {
-        connectEmail: { email: 'yup:string.tokenExpired' },
+        connectEmail: { token: 'yup:string.tokenExpired' },
       },
     });
   }
@@ -54,7 +54,7 @@ const connectEmail: AuthenticatedMutation['connectEmail'] = async (
   if (!tokenMatches) {
     throw new UserInputError('invalid input', {
       validationErrors: {
-        connectEmail: { email: 'yup:string.tokenInvalid' },
+        connectEmail: { token: 'yup:string.tokenInvalid' },
       },
     });
   }
