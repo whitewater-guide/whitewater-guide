@@ -19,7 +19,7 @@
     "prestart": "NODE_ENV=test TS_NODE_FILES=true ts-node -r tsconfig-paths/register -r dotenv-flow/config test/prestart.ts",
     "postinstall": "./scripts/postinstall.sh",
     "typecheck": "tsc --noEmit",
-    "start": "nodemon src/index.ts",
+    "start": "npx nodemon src/index.ts",
     "madge": "npx madge --circular --basedir ./dist --webpackConfig madge.js dist/index.js",
     "version": "yarn build"
   },
@@ -138,9 +138,7 @@
     "jest-serializer-sql": "^1.0.0",
     "jest-specific-snapshot": "^5.0.0",
     "jest-summary-reporter": "^0.0.2",
-    "madge": "^6.1.0",
     "minio": "^7.0.26",
-    "nodemon": "^2.0.15",
     "passport-mocked": "^1.4.0",
     "superagent": "^7.1.1",
     "supertest": "^6.2.2",
