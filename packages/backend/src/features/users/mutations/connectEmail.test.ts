@@ -30,6 +30,10 @@ const _mutation = gql`
     connectEmail(email: $email, password: $password, token: $token) {
       id
       email
+      accounts {
+        id
+        provider
+      }
     }
   }
 `;
@@ -106,6 +110,16 @@ it('should set email and password, delete token', async () => {
   expect(result.data?.connectEmail).toEqual({
     id: TEST_USER2.id,
     email: EMAIL,
+    accounts: [
+      {
+        id: '__test_user2_no_id__',
+        provider: 'facebook',
+      },
+      {
+        id: '65fa3f3a-62a7-11e8-adc0-fa7ae01bbebc',
+        provider: 'local',
+      },
+    ],
   });
   const user = await db(false)
     .select('*')
@@ -125,6 +139,16 @@ it('should send email', async () => {
   expect(result.data?.connectEmail).toEqual({
     id: TEST_USER2.id,
     email: EMAIL,
+    accounts: [
+      {
+        id: '__test_user2_no_id__',
+        provider: 'facebook',
+      },
+      {
+        id: '65fa3f3a-62a7-11e8-adc0-fa7ae01bbebc',
+        provider: 'local',
+      },
+    ],
   });
   expect(sendMail).toHaveBeenCalledWith(MailType.CONNECT_EMAIL_SUCCESS, EMAIL, {
     user: {

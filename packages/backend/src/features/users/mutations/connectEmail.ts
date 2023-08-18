@@ -95,8 +95,7 @@ const connectEmail: AuthenticatedMutation['connectEmail'] = async (
       extra: { email: user.email },
     });
   }
-
-  return db().table('users').where({ id: context.user.id }).first();
+  return context.dataSources.users.getById(context.user.id);
 };
 
 export default isAuthenticatedResolver(connectEmail);
