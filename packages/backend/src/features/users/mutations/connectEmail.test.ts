@@ -27,7 +27,10 @@ const PASSWORD = 'p@__w01rd';
 
 const _mutation = gql`
   mutation connectEmail($email: String!, $password: String!, $token: String!) {
-    connectEmail(email: $email, password: $password, token: $token)
+    connectEmail(email: $email, password: $password, token: $token) {
+      id
+      email
+    }
   }
 `;
 
@@ -100,7 +103,10 @@ it('should set email and password, delete token', async () => {
     { email: EMAIL, password: PASSWORD, token: TOKEN },
     fakeContext(TEST_USER2),
   );
-  expect(result.data?.connectEmail).toBe(true);
+  expect(result.data?.connectEmail).toEqual({
+    id: TEST_USER2.id,
+    email: EMAIL,
+  });
   const user = await db(false)
     .select('*')
     .from('users')
@@ -116,7 +122,10 @@ it('should send email', async () => {
     { email: EMAIL, password: PASSWORD, token: TOKEN },
     fakeContext(TEST_USER2),
   );
-  expect(result.data?.connectEmail).toBe(true);
+  expect(result.data?.connectEmail).toEqual({
+    id: TEST_USER2.id,
+    email: EMAIL,
+  });
   expect(sendMail).toHaveBeenCalledWith(MailType.CONNECT_EMAIL_SUCCESS, EMAIL, {
     user: {
       id: TEST_USER2.id,
