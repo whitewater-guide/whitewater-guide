@@ -21,9 +21,11 @@ const ConnectEmailSuccessScreen: React.FC<ConnectEmailSuccessNavProps> = ({
   return (
     <AuthScreenBase>
       <View style={styles.body}>
-        <Title>{t('screens:connectEmailSuccess.title', { user: me })}</Title>
+        <Title>
+          {t('screens:connectEmailSuccess.title', { name: me?.name })}
+        </Title>
         <Paragraph>
-          {t('screens:connectEmailSuccess.description', { user: me })}
+          {t('screens:connectEmailSuccess.description', { email: me?.email })}
         </Paragraph>
       </View>
       <Button mode="contained" onPress={() => navigation.goBack()}>

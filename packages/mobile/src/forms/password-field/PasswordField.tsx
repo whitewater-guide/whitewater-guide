@@ -39,6 +39,7 @@ export const PasswordField = React.memo(
           onChangeText={onChange}
           onBlur={onBlur}
           onFocus={onFocus}
+          error={meta.touched && !!meta.error}
         />
         {!props.showStrengthIndicator && (
           <HelperText touched={meta.touched} error={meta.error} />

@@ -36,7 +36,7 @@ export const MyProfileMenu: React.FC = () => {
         if (index === 0) {
           deleteProfile();
         }
-        if (index === 1) {
+        if (index === 1 && options.length === 3) {
           navigate(Screens.CONNECT_EMAIL_REQUEST, {
             email: me?.email ?? undefined,
           });

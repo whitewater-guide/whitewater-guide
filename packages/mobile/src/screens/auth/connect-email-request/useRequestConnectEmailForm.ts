@@ -1,10 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
 import { FormikHelpers } from 'formik';
-import mapValues from 'lodash/mapValues';
 import { useCallback } from 'react';
 
 import { Screens } from '~/core/navigation';
 
+import getFormErrors from '../getFormErrors';
 import {
   RequestConnectEmailMutationVariables,
   useRequestConnectEmailMutation,
@@ -24,20 +24,13 @@ export default function useRequestConnectEmailForm() {
         .then((resp) => {
           const { errors } = resp;
           if (errors) {
-            actions.setErrors(
-              mapValues(
-                errors,
-                (v, k) => `screens:connectEmailRequest.${k}.${v}`,
-              ) as any,
-            );
+            actions.setErrors(getFormErrors(errors));
           } else {
             replace(Screens.CONNECT_EMAIL, { email: values.email });
           }
         })
         .catch(() => {
-          actions.setErrors({
-            form: `screens:connectEmailRequest.form.fetch_error`,
-          } as any);
+          actions.setErrors({ form: `commons:networkError` } as any);
         })
         .finally(() => {
           actions.setSubmitting(false);

@@ -103,5 +103,5 @@ type Mutation {
   Given token sent to email, will set email+password to user
   Similar to resetRequest/reset flow for users who forgot their passwords
   """
-  connectEmail(email: String!, password: String!, token: String!): Boolean
+  connectEmail(email: String!, password: String!, token: String!): User
 }

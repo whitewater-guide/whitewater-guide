@@ -1,9 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
 import { FormikHelpers } from 'formik';
-import mapValues from 'lodash/mapValues';
 import { useCallback } from 'react';
 
 import { Screens } from '~/core/navigation';
+import getFormErrors from '~/screens/auth/getFormErrors';
 
 import {
   ConnectEmailMutationVariables,
@@ -24,20 +24,13 @@ export default function useConnectEmailForm() {
         .then((resp) => {
           const { errors } = resp;
           if (errors) {
-            actions.setErrors(
-              mapValues(
-                errors,
-                (v, k) => `screens:connectEmail.${k}.${v}`,
-              ) as any,
-            );
+            actions.setErrors(getFormErrors(errors));
           } else {
             replace(Screens.CONNECT_EMAIL_SUCCESS);
           }
         })
         .catch(() => {
-          actions.setErrors({
-            form: `screens:connectEmail.form.fetch_error`,
-          } as any);
+          actions.setErrors({ form: `commons:networkError` } as any);
         })
         .finally(() => {
           actions.setSubmitting(false);

@@ -5,6 +5,8 @@
 
 #import <Firebase.h>
 #import "RNBootSplash.h"
+#import <AuthenticationServices/AuthenticationServices.h>
+#import <SafariServices/SafariServices.h>
 #import <FBSDKCoreKit/FBSDKCoreKit-swift.h>
 
 @implementation AppDelegate
