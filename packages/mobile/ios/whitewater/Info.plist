@@ -78,6 +78,8 @@
 		</dict>
 		<key>NSCameraUsageDescription</key>
 		<string>This permission is required to upload your photos</string>
+		<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+		<string>It needs this permission to show you how close you are to this or that river</string>
 		<key>NSLocationAlwaysUsageDescription</key>
 		<string>It needs this permission to show you how close you are to this or that river</string>
 		<key>NSLocationWhenInUseUsageDescription</key>
