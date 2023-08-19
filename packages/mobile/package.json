@@ -184,7 +184,6 @@
     "jest-summary-reporter": "^0.0.2",
     "jsonwebtoken": "^9.0.1",
     "pod-install": "^0.1.38",
-    "react-native-flipper": "0.211.0",
     "react-native-mock-render": "^0.1.9",
     "react-native-performance-monitor": "^2.0.0",
     "react-test-renderer": "^18.2.0",
