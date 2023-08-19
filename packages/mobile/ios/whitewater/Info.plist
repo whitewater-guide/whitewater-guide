@@ -30,7 +30,7 @@
 			</dict>
 		</array>
 		<key>CFBundleVersion</key>
-		<string>346</string>
+		<string>347</string>
 		<key>FacebookAppID</key>
 		<string>$(FACEBOOK_APP_ID)</string>
 		<key>FacebookClientToken</key>
