@@ -6290,6 +6290,16 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
+"@ronradtke/react-native-markdown-display@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@ronradtke/react-native-markdown-display/-/react-native-markdown-display-8.0.0.tgz#ac2763290e19efed5d054fdb59c595af7b5edeea"
+  integrity sha512-i56CYXGXWDGN+dxF72dGiEn4Kld0L6c/JvcOrO4azX9YzVVl02F5EDgdb6fWUaiOl8gPqyUI7YIEU2OVGnIg6Q==
+  dependencies:
+    css-to-react-native "^3.2.0"
+    markdown-it "^13.0.1"
+    prop-types "^15.7.2"
+    react-native-fit-image "^1.5.5"
+
 "@rushstack/eslint-patch@^1.1.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.2.0.tgz#8be36a1f66f3265389e90b5f9c9962146758f728"
@@ -11294,10 +11304,10 @@ css-select@^5.1.0:
     domutils "^3.0.1"
     nth-check "^2.0.1"
 
-css-to-react-native@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/css-to-react-native/-/css-to-react-native-3.0.0.tgz#62dbe678072a824a689bcfee011fc96e02a7d756"
-  integrity sha512-Ro1yETZA813eoyUp2GDBhG2j+YggidUmzO1/v9eYBKR2EHVEniE2MI/NqpTQ954BMpTPZFsGNPm46qFB9dpaPQ==
+css-to-react-native@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/css-to-react-native/-/css-to-react-native-3.2.0.tgz#cdd8099f71024e149e4f6fe17a7d46ecd55f1e32"
+  integrity sha512-e8RKaLXMOFii+02mOlqwjbD00KSEKqblnpO9e++1aXS1fPQOpS1YoqdVHBqPjHNoxeF2mimzVqawm2KCbEdtHQ==
   dependencies:
     camelize "^1.0.0"
     css-color-keywords "^1.0.0"
@@ -17754,7 +17764,7 @@ markdown-it-attrs@^4.1.6:
   resolved "https://registry.yarnpkg.com/markdown-it-attrs/-/markdown-it-attrs-4.1.6.tgz#2bc331c7649d8c6396a0613c2bba1093f3e64da9"
   integrity sha512-O7PDKZlN8RFMyDX13JnctQompwrrILuz2y43pW2GagcwpIIElkAdfeek+erHfxUOlXWPsjFeWmZ8ch1xtRLWpA==
 
-markdown-it@^10.0.0, markdown-it@^12.2.0, markdown-it@^13.0.1, markdown-it@^8.4.2:
+markdown-it@^12.2.0, markdown-it@^13.0.1, markdown-it@^8.4.2:
   version "12.3.2"
   resolved "https://registry.yarnpkg.com/markdown-it/-/markdown-it-12.3.2.tgz#bf92ac92283fe983fe4de8ff8abfb5ad72cd0c90"
   integrity sha512-TchMembfxfNVpHkbtriWltGWc+m3xszaRD0CZup7GFFhzIgQqxIfn3eGj1yZpfuflzPvfkt611B2Q/Bsk1YnGg==
@@ -21943,16 +21953,6 @@ react-native-localize@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/react-native-localize/-/react-native-localize-3.0.2.tgz#43fa75c0097dbdb24a54ff320b3c8ad732407365"
   integrity sha512-/l/oE1LVNgIRRhLbhmfFMHiWV0xhUn0A0iz1ytLVRYywL7FTp8Rx2vkJS/q/RpExDvV7yLw2493XZBYIM1dnLQ==
-
-react-native-markdown-display@^7.0.0-alpha.2:
-  version "7.0.0-alpha.2"
-  resolved "https://registry.yarnpkg.com/react-native-markdown-display/-/react-native-markdown-display-7.0.0-alpha.2.tgz#a48a70d3cb5c510a52ecf7f1509a4a3d14d728aa"
-  integrity sha512-Od1a4wJEcVGwO1bh02sHivsEkKKpu99+ew/OtmVTPRmfT8V3B0aTut7k7ICV0Vej9F4ZjylRHvm28/maYUBeGw==
-  dependencies:
-    css-to-react-native "^3.0.0"
-    markdown-it "^10.0.0"
-    prop-types "^15.7.2"
-    react-native-fit-image "^1.5.5"
 
 react-native-mmkv-storage@^0.9.1:
   version "0.9.1"

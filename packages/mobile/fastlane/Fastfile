@@ -219,7 +219,7 @@ platform :android do
       aws_profile: 'default',
       bucket: ENV['S3_BUCKET'],
       region: ENV['S3_REGION'],
-      apk: ENV['ANDROID_UNIVERSAL_APK_PATH'],
+      apk: ENV['ANDROID_APK_PATH'],
       app_directory: 'android',
       # path: 'v{CFBundleShortVersionString}_b{CFBundleVersion}/', # This is actually the default.
       upload_metadata: true,

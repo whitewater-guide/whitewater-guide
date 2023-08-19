@@ -1,12 +1,12 @@
-import { ColorStrings } from '@whitewater-guide/clients';
-import deepmerge from 'deepmerge';
-import Attributes from 'markdown-it-attrs';
-import React, { FC, PropsWithChildren } from 'react';
-import { Platform, StyleProp, StyleSheet, Text } from 'react-native';
 import SimpleMarkdown, {
   MarkdownIt,
   RenderRules,
-} from 'react-native-markdown-display';
+} from '@ronradtke/react-native-markdown-display';
+import { ColorStrings } from '@whitewater-guide/clients';
+import deepmerge from 'deepmerge';
+import Attributes from 'markdown-it-attrs';
+import React, { FC } from 'react';
+import { Platform, StyleProp, StyleSheet, Text } from 'react-native';
 
 import theme from '../theme';
 
@@ -80,9 +80,10 @@ const rules: RenderRules = {
 
 interface Props {
   styles?: StyleSheet.NamedStyles<any>;
+  children: string;
 }
 
-const Markdown: FC<PropsWithChildren<Props>> = ({ children, styles }) => {
+const Markdown: FC<Props> = ({ children, styles }) => {
   const actualStyles: any = styles
     ? deepmerge(StyleSheet.flatten(defaultStyles), styles)
     : defaultStyles;
