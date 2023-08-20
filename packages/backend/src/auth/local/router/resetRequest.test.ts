@@ -45,6 +45,16 @@ describe('errors', () => {
     });
   });
 
+  it('should fail when there is not password to reset', async () => {
+    const resp = await request('kaki@gmail.com');
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'reset_request.errors.form.not_local',
+      error_id: expect.any(String),
+    });
+  });
+
   it('should fail when sending email fails', async () => {
     (sendMail as any).mockImplementationOnce(() => {
       throw new Error('sendMail failed');

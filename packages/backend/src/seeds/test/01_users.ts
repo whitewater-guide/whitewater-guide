@@ -324,7 +324,7 @@ export const UNVERIFIED_USER: InsertedUser = {
   language: 'en',
   editor_settings: null,
   imperial: false,
-  password: null,
+  password: '123',
   verified: false,
   tokens: JSON.stringify([
     {
@@ -400,7 +400,7 @@ export const BOOM_USER_3500: InsertedUser = {
   language: 'en',
   editor_settings: null,
   imperial: false,
-  password: null,
+  password: '123',
   verified: true,
   tokens: JSON.stringify([
     {
@@ -422,7 +422,7 @@ export const BOOM_USER_1500: InsertedUser = {
   language: 'en',
   editor_settings: null,
   imperial: false,
-  password: null,
+  password: '123',
   verified: true,
   tokens: JSON.stringify([]),
   created_at: new Date(Date.UTC(2017, 4, 5)),

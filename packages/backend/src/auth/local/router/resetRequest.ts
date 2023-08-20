@@ -30,6 +30,13 @@ const resetRequest: Middleware<any, any> = async (ctx, next) => {
     return;
   }
 
+  if (!user.password) {
+    ctx.throw(400, 'reset_request.errors.form.not_local', {
+      payload: { email },
+    });
+    return;
+  }
+
   const token = await randomToken();
   const tokens = user.tokens
     .filter((t) => t.claim !== 'passwordReset')
