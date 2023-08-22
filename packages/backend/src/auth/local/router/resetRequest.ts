@@ -10,7 +10,7 @@ import { randomToken } from '../utils';
 const resetRequest: Middleware<any, any> = async (ctx, next) => {
   let { email } = ctx.request.body;
   if (!email || !isEmail(email)) {
-    ctx.throw(400, 'reset_request.errors.email.invalid', {
+    ctx.throw(400, 'forgot.errors.email.invalid', {
       payload: { email },
     });
     return;
@@ -24,14 +24,14 @@ const resetRequest: Middleware<any, any> = async (ctx, next) => {
     .first();
 
   if (!user) {
-    ctx.throw(400, 'reset_request.errors.email.not_found', {
+    ctx.throw(400, 'forgot.errors.email.not_found', {
       payload: { email },
     });
     return;
   }
 
   if (!user.password) {
-    ctx.throw(400, 'reset_request.errors.form.not_local', {
+    ctx.throw(400, 'forgot.errors.form.not_local', {
       payload: { email },
     });
     return;
@@ -59,7 +59,7 @@ const resetRequest: Middleware<any, any> = async (ctx, next) => {
       token,
     });
   } catch {
-    ctx.throw(400, 'reset_request.errors.email.send_failed', {
+    ctx.throw(400, 'forgot.errors.email.send_failed', {
       payload: { email },
     });
     return;
