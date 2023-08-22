@@ -81,7 +81,7 @@
     "@whitewater-guide/commons": "^0.0.213",
     "@whitewater-guide/react-native-fast-image": "^8.6.0",
     "@whitewater-guide/schema": "^0.0.212",
-    "@whitewater-guide/translations": "^2.6.7",
+    "@whitewater-guide/translations": "^2.6.8",
     "@whitewater-guide/validation": "^1.2.2",
     "apollo-link-token-refresh": "^0.4.0",
     "apollo3-cache-persist": "^0.14.1",

@@ -8206,10 +8206,10 @@
   resolved "https://registry.yarnpkg.com/@whitewater-guide/react-native-fast-image/-/react-native-fast-image-8.6.0.tgz#87117e0eb6a3a03ccfa7ca5d237b350029f9a4fc"
   integrity sha512-XM55efTY8XdtsKHHzQ1fvVbzEUEMapg7nXfJHclqMztcCWFvdyvozNHOxHrqnBa28iBqjIgLZuFdrXt7UB4U4g==
 
-"@whitewater-guide/translations@^2.6.7":
-  version "2.6.7"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/translations/-/translations-2.6.7.tgz#20a488274ef1e9ad6f7cc2440eb2fc124e5a9bb5"
-  integrity sha512-Vzng0oOzawv1nR5wM/5X6pPNy6dQepnJmysBxfiDad29KK5ehjZ6VORDHn0tVHAKicZWKO2der3FAB7BQ1IQ3w==
+"@whitewater-guide/translations@^2.6.8":
+  version "2.6.8"
+  resolved "https://registry.yarnpkg.com/@whitewater-guide/translations/-/translations-2.6.8.tgz#dd825cf958708d3729a42319e969725f5fae460f"
+  integrity sha512-FCACSeqCEIXlXRVqHrz4kWTnZCwc9TFTttyH2lXerTQRvycIuKwNG4UYtj89e8Lp+GkMliDKBijnjb4mZ47WwQ==
 
 "@wry/context@^0.7.0":
   version "0.7.0"
@@ -21890,11 +21890,6 @@ react-native-fit-image@^1.5.5:
   integrity sha512-Wl3Vq2DQzxgsWKuW4USfck9zS7YzhvLNPpkwUUCF90bL32e1a0zOVQ3WsJILJOwzmPdHfzZmWasiiAUNBkhNkg==
   dependencies:
     prop-types "^15.5.10"
-
-react-native-flipper@0.211.0:
-  version "0.211.0"
-  resolved "https://registry.yarnpkg.com/react-native-flipper/-/react-native-flipper-0.211.0.tgz#f8663bfdb582348f961be034af0acacdccea470a"
-  integrity sha512-8yyAbfW74T4Fqr9dFe1NrMG00mzPwUXuKandya0MojbJhs+zlLvPAD7hGQnGZa27Hk1U/7zoPZOKDSA9GG8rJg==
 
 react-native-gesture-handler@^2.12.1:
   version "2.12.1"
