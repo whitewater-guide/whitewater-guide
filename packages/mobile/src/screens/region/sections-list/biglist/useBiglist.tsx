@@ -73,6 +73,7 @@ export default function useBiglist(
       batchSizeThreshold: 2,
       controlItemRender: true,
       maintainVisibleContentPosition: { minIndexForVisible: 0 },
+      overScrollMode: 'never',
     };
   }, [props, navigate, seenSwipeableSectionTip, listRef]);
 }
