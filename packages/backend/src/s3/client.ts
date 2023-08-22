@@ -73,6 +73,7 @@ export class S3Client {
   }
 
   public renameFile(from: string, to?: string) {
+    logger.debug({ from, to }, 'rename file');
     if (from.indexOf('/') >= 0) {
       throw new Error(`from file name expected, but found: ${from}`);
     }
@@ -105,6 +106,7 @@ export class S3Client {
     toPrefix: S3Prefix,
     newFileName?: string,
   ): Promise<void> {
+    logger.debug({ url, toPrefix, newFileName }, 'move temp image');
     try {
       const filename = this.getLocalFileName(url);
       if (!filename) {
@@ -153,6 +155,7 @@ export class S3Client {
   }
 
   public async removeFile(prefix: S3Prefix, filename: string) {
+    logger.debug({ prefix, filename }, 'remove file');
     const cmd = new DeleteObjectCommand({
       Bucket: CONTENT_BUCKET,
       Key: `${prefix}/${filename}`,

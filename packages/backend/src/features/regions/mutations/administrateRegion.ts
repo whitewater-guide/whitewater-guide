@@ -15,6 +15,8 @@ import {
 import { db, Sql } from '~/db';
 import { COVERS, s3Client } from '~/s3';
 
+import logger from '../logger';
+
 const Schema: yup.SchemaOf<MutationAdministrateRegionArgs> = yup.object({
   settings: RegionAdminSettingsSchema.clone().required(),
 });
@@ -27,6 +29,7 @@ const updateImageFile = async (
 ) => {
   const oldValue = get(oldData, oldPath);
   const newValue = get(newData, newPath);
+  logger.debug({ oldValue, newValue, oldPath, newPath }, 'updateImageFile');
   if (oldValue && oldValue !== newValue) {
     await s3Client.removeFile(COVERS, oldValue);
   }
@@ -40,6 +43,7 @@ const administrateRegion: MutationResolvers['administrateRegion'] = async (
   { settings },
   context,
 ) => {
+  logger.debug({ settings }, 'administrateRegion');
   const oldRegion: Sql.RegionsView = await db()
     .table('regions')
     .select(['id', 'cover_image'])
