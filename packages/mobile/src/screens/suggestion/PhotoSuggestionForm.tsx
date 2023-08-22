@@ -18,9 +18,6 @@ const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
   },
-  containerContent: {
-    height: theme.stackScreenHeight,
-  },
   content: {
     height: theme.stackScreenHeight,
     padding: theme.margin.single,
