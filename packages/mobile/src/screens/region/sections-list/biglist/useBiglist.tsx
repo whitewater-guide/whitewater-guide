@@ -72,6 +72,7 @@ export default function useBiglist(
       actionSheetScrollRef: listRef,
       batchSizeThreshold: 2,
       controlItemRender: true,
+      maintainVisibleContentPosition: { minIndexForVisible: 0 },
     };
   }, [props, navigate, seenSwipeableSectionTip, listRef]);
 }
