@@ -13,7 +13,8 @@ COPY scripts ./scripts
 COPY package.json yarn.lock tsconfig.json codegen.yml lerna.json ./
 
 # This runs prepare and postinstall scripts, which in turn run codegen and build libs
-RUN yarn install --frozen-lockfile --non-interactive
+RUN --mount=type=cache,target=/usr/local/share/.cache/yarn \
+    yarn install --frozen-lockfile --non-interactive
 # Now backend can be built
 RUN yarn workspace @whitewater-guide/backend build
 
@@ -44,7 +45,8 @@ COPY packages/backend/tsconfig.prod.json packages/backend/tsconfig.json
 # setting NODE_ENV=production will skip certain parts of 'prepare' and 'postinstall' scripts
 # that were run in 'builder' before
 ENV NODE_ENV=production
-RUN yarn install --production --frozen-lockfile --non-interactive
+RUN --mount=type=cache,target=/usr/local/share/.cache/yarn \
+    yarn install --production --frozen-lockfile --non-interactive
 
 # Final image
 FROM gcr.io/distroless/nodejs:18
