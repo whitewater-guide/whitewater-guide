@@ -20,10 +20,14 @@ import { RegionSectionsNavProp } from '../types';
 import getData from './getData';
 import { ListProps } from './types';
 
+function keyExtractor(item: SectionsListDataItem): string {
+  return item.key;
+}
+
 export default function useBiglist(
   props: ListProps,
   listRef: RefObject<any>,
-): BigListProps<SectionsListDataItem> {
+): Omit<BigListProps<SectionsListDataItem>, 'renderFooter' | 'renderHeader'> {
   const { navigate } = useNavigation<RegionSectionsNavProp>();
   const {
     settings: { seenSwipeableSectionTip },
@@ -62,7 +66,7 @@ export default function useBiglist(
         <SectionsListSubtitle i18nkey={subtitles[index]} />
       ),
       sectionHeaderHeight: SECTIONS_LIST_SUBTITLE_HEIGHT,
-      keyExtractor: (i) => i.id,
+      keyExtractor,
       refreshing: status === SectionsStatus.LOADING_UPDATES,
       onRefresh: refresh,
       actionSheetScrollRef: listRef,

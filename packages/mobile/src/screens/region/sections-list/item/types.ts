@@ -16,7 +16,9 @@ export interface SwipeableSectionTipItem {
   id: string;
 }
 
-export type SectionsListDataItem =
+type SectionsListDataOptions =
   | SwipeableSectionTipItem
   | (ListedSectionFragment & SectionDerivedFields)
   | BannerWithSourceFragment;
+
+export type SectionsListDataItem = SectionsListDataOptions & { key: string };

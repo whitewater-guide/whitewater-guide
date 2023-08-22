@@ -16,19 +16,23 @@ export default function getData(
   const subtitles: string[] = [];
 
   if (favsCount) {
-    data.push(favorites);
+    data.push(favorites.map((i) => ({ key: 'fav-' + i.id, ...i })));
     subtitles.push('screens:region.sectionsList.favorites');
   } else if (!seenSwipeableSectionTip) {
     data.push([
       {
         __typename: 'SwipeableSectionTipItem',
         id: 'SwipeableSectionTipItem',
+        key: 'SwipeableSectionTipItem',
       },
     ]);
     subtitles.push('screens:region.sectionsList.favorites');
   }
 
-  const items: SectionsListDataItem[] = sections ?? [];
+  const items: SectionsListDataItem[] = (sections ?? []).map((i) => ({
+    key: i.id,
+    ...i,
+  }));
 
   if (region?.banners) {
     const { nodes } = region.banners;
@@ -41,7 +45,8 @@ export default function getData(
     );
     for (let i = 1; i <= banners.length; i += 1) {
       const insertAt = Math.max(0, i * ROWS_PER_SCREEN + 2 - favsCount);
-      items.splice(insertAt, 0, banners[i - 1]);
+      const banner = banners[i - 1];
+      items.splice(insertAt, 0, { ...banner, key: banner.id });
     }
   }
   data.push(items);
