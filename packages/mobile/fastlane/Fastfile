@@ -124,9 +124,10 @@ platform :ios do
     )
     git_add
     unless options[:skipCommit]
+      conf = options[:configuration]
       git_commit(
         path: "*",
-        message: "chore(mobile): iOS staging #{ENV['IOS_VERSION']}@#{ENV['IOS_BUILD_NUMBER']}",
+        message: "chore(mobile): iOS #{conf} #{ENV['IOS_VERSION']}@#{ENV['IOS_BUILD_NUMBER']}",
       )
     end
   end
@@ -139,7 +140,7 @@ platform :ios do
       readonly: true
     )
     unless options[:skipBuild]
-      bump
+      bump(configuration: 'staging')
       build(
         configuration: 'Staging'
       )
@@ -158,6 +159,7 @@ platform :ios do
       clone_branch_directly: true,
       readonly: true
     )
+    bump(configuration: 'release')
     unless options[:skipBuild]
       build(
         configuration: 'Release'
