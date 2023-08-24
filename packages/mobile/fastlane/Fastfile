@@ -230,6 +230,7 @@ platform :android do
   end
 
   lane :production do |options|
+    bump
     build
     upload_to_play_store(
       package_name: ENV['ANDROID_PACKAGE_NAME'],
