@@ -83,6 +83,10 @@ class Config {
   public SYNAPSE_REGISTRATION_SHARED_SECRET =
     process.env.SYNAPSE_REGISTRATION_SHARED_SECRET;
 
+  public PUCON_PROMO_EMAILS = (process.env.PUCON_PROMO_EMAILS ?? '')
+    .split(',')
+    .filter((s) => !!s);
+
   /**
    * Emails where we send notifications when gorge scripts are unhealthy.
    */

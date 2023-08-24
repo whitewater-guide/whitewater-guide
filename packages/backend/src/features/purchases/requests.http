@@ -1,0 +1,11 @@
+POST https://api.whitewater.guide/graphql
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+mutation generateCampaignCode($campaign: String!) {
+    generateCampaignCode(campaign: $campaign)
+}
+
+{
+    "campaign": "pucon"
+}

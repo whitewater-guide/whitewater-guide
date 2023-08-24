@@ -9,6 +9,7 @@ export enum MailType {
   WELCOME_VERIFIED = 'welcome-verified',
   CONNECT_EMAIL_REQUEST = 'connect-email-request',
   CONNECT_EMAIL_SUCCESS = 'connect-email-success',
+  PUCON_PROMO_GENERATED = 'pucon-promo-generated',
 }
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
@@ -21,6 +22,7 @@ export type MailPayloadMap = {
   [MailType.WELCOME_VERIFIED]: WelcomeVerifiedPayload;
   [MailType.CONNECT_EMAIL_REQUEST]: ConnectEmailRequestPayload;
   [MailType.CONNECT_EMAIL_SUCCESS]: ConnectEmailSuccessPayload;
+  [MailType.PUCON_PROMO_GENERATED]: { code: string };
 };
 
 interface MailUser {

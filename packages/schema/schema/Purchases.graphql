@@ -43,4 +43,6 @@ type Mutation {
   addPurchase(purchase: PurchaseInput!): Boolean @deprecated
   "Saves purchase. Section ID can be used to return premium section instantly"
   savePurchase(purchase: PurchaseInput!, sectionId: ID): SavedPurchase
+  "Generates promocode for given promo campaign"
+  generateCampaignCode(campaign: String!): String
 }
