@@ -180,7 +180,7 @@ platform :android do
   lane :build do |options|
     check_git_status
     gradle(
-      task: "assemble",
+      task: ENV['GRADLE_BUILD_TASK'],
       build_type: ENV['GRADLE_BUILD_TYPE'],
       project_dir: ENV['ANDROID_PROJECT_DIR']
     )
@@ -234,12 +234,8 @@ platform :android do
     upload_to_play_store(
       package_name: ENV['ANDROID_PACKAGE_NAME'],
       track: 'production',
-      apk_paths: [
-        ENV['ANDROID_ARM64_APK_PATH'],
-        ENV['ANDROID_ARMEABI_APK_PATH'],
-        ENV['ANDROID_X86_APK_PATH'],
-        ENV['ANDROID_X64_APK_PATH'],
-      ],
+      skip_upload_apk: true,
+      aab: ENV['ANDROID_AAB_PATH'],
     )
   end
 
