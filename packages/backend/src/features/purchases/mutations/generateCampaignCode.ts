@@ -19,7 +19,7 @@ const generateCampaignCode: MutationResolvers['generateCampaignCode'] = async (
   let { code } = await db()
     .select(db().raw(`nextval('pucon_promo') as code`))
     .first();
-  code = 'pucon_' + padStart(code, 4, '0');
+  code = 'WWGPucon' + padStart(code, 4, '0');
 
   if (config.PUCON_PROMO_EMAILS.length) {
     await sendMail(MailType.PUCON_PROMO_GENERATED, config.PUCON_PROMO_EMAILS, {
