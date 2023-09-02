@@ -29,11 +29,11 @@ it('should fail for unknown campaing', async () => {
 it('should generate codes', async () => {
   let result = await testGenerateCampaignCode({ campaign: 'pucon' });
   expect(result.errors).toBeUndefined();
-  expect(result.data?.generateCampaignCode).toBe('WWGPucon0001');
+  expect(result.data?.generateCampaignCode).toBe('WWGPucon1');
 
   result = await testGenerateCampaignCode({ campaign: 'pucon' });
   expect(result.errors).toBeUndefined();
-  expect(result.data?.generateCampaignCode).toBe('WWGPucon0002');
+  expect(result.data?.generateCampaignCode).toBe('WWGPucon2');
 });
 
 it('should send email', async () => {
@@ -42,7 +42,7 @@ it('should send email', async () => {
     MailType.PUCON_PROMO_GENERATED,
     ['test1@yandex.ru', 'test2@whitewater.guide'],
     {
-      code: 'WWGPucon0003',
+      code: 'WWGPucon3',
     },
   );
 });

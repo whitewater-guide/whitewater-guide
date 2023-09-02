@@ -1,5 +1,4 @@
 import { UserInputError } from 'apollo-server-errors';
-import padStart from 'lodash/padStart';
 
 import { MutationResolvers } from '~/apollo';
 import config from '~/config';
@@ -19,7 +18,7 @@ const generateCampaignCode: MutationResolvers['generateCampaignCode'] = async (
   let { code } = await db()
     .select(db().raw(`nextval('pucon_promo') as code`))
     .first();
-  code = 'WWGPucon' + padStart(code, 4, '0');
+  code = 'WWGPucon' + code;
 
   if (config.PUCON_PROMO_EMAILS.length) {
     await sendMail(MailType.PUCON_PROMO_GENERATED, config.PUCON_PROMO_EMAILS, {
