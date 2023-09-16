@@ -1,13 +1,13 @@
-import {
-  MutationUpsertRiverArgs,
-  RiverInputSchema,
-} from '@whitewater-guide/schema';
-import * as yup from 'yup';
+import type { MutationUpsertRiverArgs } from '@whitewater-guide/schema';
+import { RiverInputSchema } from '@whitewater-guide/schema';
+import type { ObjectSchema } from 'yup';
+import { object } from 'yup';
 
-import { isInputValidResolver, MutationResolvers } from '~/apollo';
-import { db, rawUpsert } from '~/db';
+import type { MutationResolvers } from '../../../apollo/index';
+import { isInputValidResolver } from '../../../apollo/index';
+import { db, rawUpsert } from '../../../db/index';
 
-const Schema: yup.SchemaOf<MutationUpsertRiverArgs> = yup.object({
+const Schema: ObjectSchema<MutationUpsertRiverArgs> = object({
   river: RiverInputSchema.clone().required(),
 });
 

@@ -1,12 +1,12 @@
-import { fireEvent } from '@testing-library/react';
-import { MockedProviderOptions } from '@whitewater-guide/clients/dist/test';
+import { fireEvent, screen } from '@testing-library/react';
+import type { MockedProviderOptions } from '@whitewater-guide/clients/dist/test';
 import React from 'react';
-import { RouteComponentProps } from 'react-router';
-import { DeepPartial } from 'utility-types';
+import type { RouteComponentProps } from 'react-router';
+import type { DeepPartial } from 'utility-types';
 
 import { FORM_SUCCEEDED, renderForm } from '../../../formik/test';
 import MediaForm from './MediaForm';
-import { RouterParams } from './types';
+import type { RouterParams } from './types';
 
 jest.mock('validator/lib/isUUID', () => () => true);
 
@@ -17,24 +17,24 @@ describe('existing media', () => {
   const renderIt = () => renderForm(<MediaForm {...(route as any)} />);
 
   it('should begin in loading state', () => {
-    const { getByRole, getByLabelText } = renderIt();
-    expect(getByRole('progressbar')).toBeTruthy();
-    expect(() => getByLabelText('Name')).toThrow();
+    renderIt();
+    expect(screen.getByRole('progressbar')).toBeTruthy();
+    expect(() => screen.getByLabelText('Name')).toThrow();
   });
 
   it('should provide initial data', async () => {
-    const { findByLabelText, findByText } = renderIt();
-    await expect(findByLabelText('Description')).resolves.toHaveValue(
+    renderIt();
+    await expect(screen.findByLabelText('Description')).resolves.toHaveValue(
       'Media.description.1',
     );
-    await expect(findByText('Update')).resolves.toBeTruthy();
+    await expect(screen.findByText('Update')).resolves.toBeTruthy();
   });
 
   it('should submit form', async () => {
-    const { findByText } = renderIt();
-    const button = await findByText('Update');
+    renderIt();
+    const button = await screen.findByText('Update');
     fireEvent.click(button);
-    await expect(findByText(FORM_SUCCEEDED)).resolves.toBeTruthy();
+    await expect(screen.findByText(FORM_SUCCEEDED)).resolves.toBeTruthy();
   });
 });
 
@@ -47,23 +47,25 @@ describe('new media', () => {
   const renderIt = () => renderForm(<MediaForm {...(route as any)} />, options);
 
   it('should begin in loading state', () => {
-    const { getByRole, getByLabelText } = renderIt();
-    expect(getByRole('progressbar')).toBeTruthy();
-    expect(() => getByLabelText('Name')).toThrow();
+    renderIt();
+    expect(screen.getByRole('progressbar')).toBeTruthy();
+    expect(() => screen.getByLabelText('Name')).toThrow();
   });
 
   it('should provide initial data', async () => {
-    const { findByLabelText, findByText } = renderIt();
-    await expect(findByLabelText('Description')).resolves.toHaveValue('');
-    await expect(findByText('Create')).resolves.toBeTruthy();
+    renderIt();
+    await expect(screen.findByLabelText('Description')).resolves.toHaveValue(
+      '',
+    );
+    await expect(screen.findByText('Create')).resolves.toBeTruthy();
   });
 
   it('should submit form', async () => {
-    const { findByLabelText, findByText } = renderIt();
-    const url = await findByLabelText('URL');
-    const button = await findByText('Create');
+    renderIt();
+    const url = await screen.findByLabelText('URL');
+    const button = await screen.findByText('Create');
     fireEvent.change(url, { target: { value: 'https://foo.bar' } });
     fireEvent.click(button);
-    await expect(findByText(FORM_SUCCEEDED)).resolves.toBeTruthy();
+    await expect(screen.findByText(FORM_SUCCEEDED)).resolves.toBeTruthy();
   });
 });

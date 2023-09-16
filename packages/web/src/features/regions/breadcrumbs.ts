@@ -1,6 +1,6 @@
 import mapKeys from 'lodash/mapKeys';
 
-import { BreadcrumbsMap } from '../../components/breadcrumbs';
+import type { BreadcrumbsMap } from '../../components/breadcrumbs';
 import { riverBreadcrumbs } from '../rivers';
 import { sectionBreadcrumbs } from '../sections';
 import { RegionBreadcrumbDocument } from './regionBreadcrumb.generated';

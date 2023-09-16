@@ -1,5 +1,5 @@
-import { QueryResolvers } from '~/apollo';
-import { Sql } from '~/db';
+import type { QueryResolvers } from '../../../apollo/index';
+import type { Sql } from '../../../db/index';
 
 const descent: QueryResolvers['descent'] = async (
   _,

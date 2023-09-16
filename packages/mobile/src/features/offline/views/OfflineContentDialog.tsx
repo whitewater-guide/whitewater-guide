@@ -4,12 +4,8 @@ import { useOfflineContent } from '../OfflineContentProvider';
 import LazyOfflineContentDialogView from './LazyOfflineContentDialogView';
 
 export const OfflineContentDialog: React.FC = () => {
-  const {
-    dialogRegion,
-    progress,
-    regionInProgress,
-    error,
-  } = useOfflineContent();
+  const { dialogRegion, progress, regionInProgress, error } =
+    useOfflineContent();
 
   if (!dialogRegion) {
     return null;

@@ -7,11 +7,12 @@ import Config from 'react-native-ultimate-config';
 
 import Icon from '~/components/Icon';
 import { Screens } from '~/core/navigation';
-import { LocalPhoto, useImagePicker, useLocalPhotos } from '~/features/uploads';
+import type { LocalPhoto } from '~/features/uploads';
+import { useImagePicker, useLocalPhotos } from '~/features/uploads';
 import theme from '~/theme';
 
-import { MediaFormInput, SectionFormInput } from '../types';
-import { AddSectionPhotosNavProp } from './types';
+import type { MediaFormInput, SectionFormInput } from '../types';
+import type { AddSectionPhotosNavProp } from './types';
 
 const styles = StyleSheet.create({
   container: {

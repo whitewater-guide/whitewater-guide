@@ -1,11 +1,12 @@
-/* eslint-disable import/namespace */
-import knex from 'knex';
+import type { Knex } from 'knex';
 
-import * as development from './knex.development';
-import * as production from './knex.production';
-import * as test from './knex.testing';
+import development from './knex.development';
+import production from './knex.production';
+import test from './knex.testing';
 
-const configs: { [env: string]: knex.Config } = {
+// Uses factory functions because knex will modify connection object to hide password
+// and wee need this to wait for db to start
+const configs: { [env: string]: () => Knex.Config } = {
   production,
   development,
   test,

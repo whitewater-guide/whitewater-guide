@@ -1,7 +1,8 @@
+import type { TypePolicies } from '@apollo/client';
 import { InMemoryCache } from '@apollo/client';
 
 import cursorPagination from './cursorPagination';
-import { StrictTypedTypePolicies } from './helpers.generated';
+import type { StrictTypedTypePolicies } from './helpers.generated';
 import nodesPagination from './nodesPagination';
 
 export function configureApolloCache(): InMemoryCache {
@@ -64,6 +65,6 @@ export function configureApolloCache(): InMemoryCache {
     },
   };
   return new InMemoryCache({
-    typePolicies,
+    typePolicies: typePolicies as TypePolicies,
   });
 }

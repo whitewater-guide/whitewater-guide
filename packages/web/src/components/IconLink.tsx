@@ -1,7 +1,8 @@
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import React from 'react';
-import { Link, LinkProps } from 'react-router-dom';
+import type { LinkProps } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 interface Props extends LinkProps {
   icon?: string;

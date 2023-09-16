@@ -1,6 +1,6 @@
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import { useNavigation } from '@react-navigation/native';
-import {
+import type {
   GaugeCoreFragment,
   GaugeSourceFragment,
 } from '@whitewater-guide/schema';
@@ -10,7 +10,7 @@ import { Linking } from 'react-native';
 
 import { Screens } from '~/core/navigation';
 
-import { SectionChartNavProp } from './types';
+import type { SectionChartNavProp } from './types';
 
 const useGaugeActionSheet = (
   gauge: GaugeCoreFragment & GaugeSourceFragment,

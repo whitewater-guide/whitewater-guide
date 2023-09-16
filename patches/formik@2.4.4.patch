@@ -1,0 +1,21 @@
+diff --git a/dist/formik.cjs.development.js b/dist/formik.cjs.development.js
+index 2943602aa1e4435c872fb96624b1f14703099f9a..9918d91e2da338a252993739f689ef845745dabc 100644
+--- a/dist/formik.cjs.development.js
++++ b/dist/formik.cjs.development.js
+@@ -929,16 +929,6 @@ function useFormik(_ref) {
+     // a common gotcha in forms with both reset and submit buttons,
+     // where the dev forgets to add type="button" to the reset button.
+ 
+-
+-    if ( typeof document !== 'undefined') {
+-      // Safely get the active element (works with IE)
+-      var activeElement = getActiveElement();
+-
+-      if (activeElement !== null && activeElement instanceof HTMLButtonElement) {
+-        !(activeElement.attributes && activeElement.attributes.getNamedItem('type')) ?  invariant(false, 'You submitted a Formik form using a button with an unspecified `type` attribute.  Most browsers default button elements to `type="submit"`. If this is not a submit button, please add `type="button"`.')  : void 0;
+-      }
+-    }
+-
+     submitForm()["catch"](function (reason) {
+       console.warn("Warning: An unhandled error was caught from submitForm()", reason);
+     });

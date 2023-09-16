@@ -1,8 +1,8 @@
-import { NamedNode } from '@whitewater-guide/schema';
+import type { NamedNode } from '@whitewater-guide/schema';
 import deburr from 'lodash/deburr';
 import take from 'lodash/take';
 
-import { AutocompleteFilterOptions } from './types';
+import type { AutocompleteFilterOptions } from './types';
 
 const defaultMatcher = (input: string | null, option: NamedNode) => {
   if (!input) {

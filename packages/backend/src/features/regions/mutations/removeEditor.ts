@@ -1,6 +1,5 @@
-import { MutationResolvers } from '~/apollo';
-import { db } from '~/db';
-
+import type { MutationResolvers } from '../../../apollo/index';
+import { db } from '../../../db/index';
 import logger from '../logger';
 
 const removeEditor: MutationResolvers['removeEditor'] = async (

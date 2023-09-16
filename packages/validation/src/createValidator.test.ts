@@ -1,12 +1,12 @@
-import * as yup from 'yup';
+import { number, object, string } from 'yup';
 
 import { createSafeValidator } from './createValidator';
 
-const objectSchema = yup.object({
-  x: yup.number(),
+const objectSchema = object({
+  x: number(),
 });
 
-const stringSchema: any = yup.string();
+const stringSchema: any = string();
 
 describe('default options', () => {
   it('should handle object schemas', () => {

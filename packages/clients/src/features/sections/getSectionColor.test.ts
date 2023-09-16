@@ -1,4 +1,4 @@
-import { GaugeBinding } from '@whitewater-guide/schema';
+import type { GaugeBinding } from '@whitewater-guide/schema';
 import color from 'color';
 
 import {
@@ -8,7 +8,7 @@ import {
   getSectionColor,
   hslMix,
 } from './getSectionColor';
-import { ColorizeableSectionFragment } from './sectionOnMap.generated';
+import type { ColorizeableSectionFragment } from './sectionOnMap.generated';
 
 const Mixes = {
   MaxImp: hslMix(Colors.maximum, Colors.impossible).hex(),

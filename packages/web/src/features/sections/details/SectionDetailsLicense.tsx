@@ -1,6 +1,7 @@
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import { ROOT_LICENSE, SafeSectionDetails } from '@whitewater-guide/clients';
+import type { SafeSectionDetails } from '@whitewater-guide/clients';
+import { ROOT_LICENSE } from '@whitewater-guide/clients';
 import React from 'react';
 
 import { Row, Title } from '../../../layout/details';

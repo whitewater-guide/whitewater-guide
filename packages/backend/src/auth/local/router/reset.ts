@@ -1,13 +1,13 @@
-import { compare, hash } from 'bcrypt';
-import { Middleware } from 'koa';
-import isUUID from 'validator/lib/isUUID';
+import { compare, hash } from '@node-rs/bcrypt';
+import type { Middleware } from 'koa';
 
-import { db, Sql } from '~/db';
-import { MailType, sendMail } from '~/mail';
-
+import type { Sql } from '../../../db/index';
+import { db } from '../../../db/index';
+import { MailType, sendMail } from '../../../mail/index';
+import { isUUID } from '../../../utils/index';
 import { SALT_ROUNDS } from '../../constants';
 import logger from '../logger';
-import { isPasswordWeak } from '../utils';
+import { isPasswordWeak } from '../utils/index';
 
 const reset: Middleware<any, any> = async (ctx, next) => {
   const { id, token, password } = ctx.request.body;

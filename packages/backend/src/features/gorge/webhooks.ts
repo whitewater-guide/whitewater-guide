@@ -1,12 +1,12 @@
-import { UnhealthyJob } from '@whitewater-guide/gorge';
-import format from 'date-fns/format';
-import Koa from 'koa';
+import type { UnhealthyJob } from '@whitewater-guide/gorge';
+import { format } from 'date-fns';
+import type Koa from 'koa';
 import Router from 'koa-router';
 import xss from 'xss';
 
-import config from '~/config';
-import logger from '~/log';
-import { MailType, sendMail } from '~/mail';
+import config from '../../config';
+import logger from '../../log/index';
+import { MailType, sendMail } from '../../mail/index';
 
 async function notifyViaEmail(jobs: UnhealthyJob[]) {
   const unhealthyMsg = jobs

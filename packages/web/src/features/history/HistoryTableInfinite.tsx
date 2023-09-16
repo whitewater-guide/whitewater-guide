@@ -1,14 +1,14 @@
-import { NamedNode } from '@whitewater-guide/schema';
+import type { NamedNode } from '@whitewater-guide/schema';
 import React from 'react';
-import { Index } from 'react-virtualized';
+import type { Index } from 'react-virtualized';
 
 import { InfiniteLoader } from '../../components';
 import HistoryTable from './HistoryTable';
-import {
+import type {
   SectionsEditLogQuery,
   SectionsEditLogQueryResult,
 } from './sectionsEditLog.generated';
-import { Diff } from './types';
+import type { Diff } from './types';
 
 interface Props {
   history: SectionsEditLogQuery['history'];

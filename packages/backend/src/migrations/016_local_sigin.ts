@@ -1,11 +1,11 @@
-import Knex from 'knex';
+import type { Knex } from 'knex';
 
-import { createTable } from './utils';
+import { createTable } from './utils/index';
 
 /**
  * This patch moves banners from regions column into separate tables
  */
-export const up = async (db: Knex) => {
+export async function up(db: Knex): Promise<void> {
   await db.schema.alterTable('users', (table) => {
     table.text('email').nullable().alter();
     table.text('name').nullable().alter();
@@ -18,7 +18,7 @@ export const up = async (db: Knex) => {
   // All existing users are facebook users and therefore are verified
   await db.raw(`UPDATE users
     SET verified = TRUE,
-        email = CASE WHEN email = '' THEN NULL ELSE email END 
+        email = CASE WHEN email = '' THEN NULL ELSE email END
   `);
 
   await db.schema.alterTable('users', (table) => {
@@ -32,9 +32,9 @@ export const up = async (db: Knex) => {
   });
 
   await db.schema.renameTable('logins', 'accounts');
-};
+}
 
-export const down = async (db: Knex) => {
+export async function down(db: Knex): Promise<void> {
   await db.schema.renameTable('accounts', 'logins');
 
   await db.schema.dropTableIfExists('tokens_blacklist');
@@ -54,6 +54,4 @@ export const down = async (db: Knex) => {
     table.dropColumn('verified');
     table.dropColumn('tokens');
   });
-};
-
-export const configuration = { transaction: true };
+}

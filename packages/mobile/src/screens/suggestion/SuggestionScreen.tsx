@@ -6,7 +6,7 @@ import { Screen } from '~/components/Screen';
 
 import PhotoSuggestionForm from './PhotoSuggestionForm';
 import SimpleSuggestionForm from './SimpleSuggestionForm';
-import { SuggestionNavProps } from './types';
+import type { SuggestionNavProps } from './types';
 
 const SuggestionScreen: React.FC<SuggestionNavProps> = ({
   navigation,

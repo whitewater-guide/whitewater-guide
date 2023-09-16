@@ -1,5 +1,5 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { Tag } from '@whitewater-guide/schema';
+import type { Tag } from '@whitewater-guide/schema';
 import React from 'react';
 
 import TagChip from './TagChip';

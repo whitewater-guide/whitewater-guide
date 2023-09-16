@@ -1,16 +1,16 @@
-import {
+import type {
   CompositeNavigationProp,
   ParamListBase,
   RouteProp,
 } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { MediaInput, SectionInput } from '@whitewater-guide/schema';
-import { Overwrite } from 'utility-types';
+import type { StackNavigationProp } from '@react-navigation/stack';
+import type { MediaInput, SectionInput } from '@whitewater-guide/schema';
+import type { Overwrite } from 'utility-types';
 
-import { RootStackParamsList, Screens } from '~/core/navigation';
-import { LocalPhoto } from '~/features/uploads';
+import type { RootStackParamsList, Screens } from '~/core/navigation';
+import type { LocalPhoto } from '~/features/uploads';
 
-import { PiToState } from './shape/usePiToState';
+import type { PiToState } from './shape/usePiToState';
 
 export type Shape = Pick<PiToState, 'shape'>;
 

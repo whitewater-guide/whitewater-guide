@@ -1,5 +1,5 @@
 import { sectionName } from '@whitewater-guide/clients';
-import { SectionNameShortFragment } from '@whitewater-guide/schema';
+import type { SectionNameShortFragment } from '@whitewater-guide/schema';
 import React from 'react';
 import { Text } from 'react-native';
 

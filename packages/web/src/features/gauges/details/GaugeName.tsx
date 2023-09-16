@@ -1,4 +1,4 @@
-import { GaugeCoreFragment } from '@whitewater-guide/schema';
+import type { GaugeCoreFragment } from '@whitewater-guide/schema';
 import React from 'react';
 
 interface Props {

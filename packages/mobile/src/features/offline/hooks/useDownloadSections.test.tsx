@@ -1,4 +1,5 @@
-import { MockedProvider, MockedResponse } from '@apollo/client/testing';
+import type { MockedResponse } from '@apollo/client/testing';
+import { MockedProvider } from '@apollo/client/testing';
 import { act, renderHook } from '@testing-library/react-hooks';
 import React from 'react';
 
@@ -10,7 +11,7 @@ import {
   netErrorPath2,
   TEST_OFFLINE_SECTIONS,
 } from '../test-utils/mockOfflineSections';
-import { OfflineProgress } from '../types';
+import type { OfflineProgress } from '../types';
 import { PhotoChannel } from '../utils';
 import useDownloadSections from './useDownloadSections';
 

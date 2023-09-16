@@ -8,7 +8,7 @@ import { Left, Right, Row } from '~/components/Row';
 import descentLevelToString from '~/features/descents/descentLevelToString';
 import theme from '~/theme';
 
-import { DescentDetailsFragment } from './descentDetails.generated';
+import type { DescentDetailsFragment } from './descentDetails.generated';
 
 const styles = StyleSheet.create({
   content: {

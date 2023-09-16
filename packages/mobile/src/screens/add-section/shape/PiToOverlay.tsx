@@ -1,7 +1,8 @@
 import Image from '@whitewater-guide/react-native-fast-image';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
+import type { LayoutChangeEvent } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Caption } from 'react-native-paper';
 
 import {

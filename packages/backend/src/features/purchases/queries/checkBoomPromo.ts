@@ -1,5 +1,7 @@
-import { AuthenticatedQuery, isAuthenticatedResolver } from '~/apollo';
-import { db, Sql } from '~/db';
+import type { AuthenticatedQuery } from '../../../apollo/index';
+import { isAuthenticatedResolver } from '../../../apollo/index';
+import type { Sql } from '../../../db/index';
+import { db } from '../../../db/index';
 
 const checkBoomPromo: AuthenticatedQuery['checkBoomPromo'] = async (
   _,

@@ -1,12 +1,13 @@
 import { useField } from 'formik';
 import React, { forwardRef, useCallback, useState } from 'react';
 import { StyleSheet } from 'react-native';
-import { TextInput } from 'react-native-paper';
+import type { TextInput } from 'react-native-paper';
 
 import HelperText from '../HelperText';
 import useFocus from '../useFocus';
 import useReactNativeHandlers from '../useReactNativeHandlers';
-import { PasswordInput, PasswordInputProps } from './PasswordInput';
+import type { PasswordInputProps } from './PasswordInput';
+import { PasswordInput } from './PasswordInput';
 
 type TextInputProps = React.ComponentProps<typeof TextInput>;
 

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Styles } from '../../styles';
+import type { Styles } from '../../styles';
 import { MediaImg } from '../MediaImg';
-import { LightboxItem } from './types';
+import type { LightboxItem } from './types';
 
 const styles: Styles = {
   container: {
@@ -18,9 +18,7 @@ const styles: Styles = {
 };
 
 interface Props {
-  currentIndex: number;
   data: LightboxItem;
-  interactionIsIdle: boolean;
 }
 
 const LightboxPhotoView: React.FC<Props> = ({ data }) => {

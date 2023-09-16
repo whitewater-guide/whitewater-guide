@@ -1,7 +1,8 @@
 import { useField } from 'formik';
 import React, { useCallback } from 'react';
 
-import { CoordinateInput, CoordinateInputProps } from '../../components';
+import type { CoordinateInputProps } from '../../components';
+import { CoordinateInput } from '../../components';
 import { useFakeHandlers } from '../utils';
 
 interface Props

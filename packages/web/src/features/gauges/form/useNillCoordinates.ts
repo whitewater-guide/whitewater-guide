@@ -1,4 +1,4 @@
-import { PointInput } from '@whitewater-guide/schema';
+import type { PointInput } from '@whitewater-guide/schema';
 import { useFormikContext } from 'formik';
 import isNil from 'lodash/isNil';
 import { useEffect } from 'react';

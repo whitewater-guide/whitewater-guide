@@ -1,4 +1,4 @@
-import { QueryResolvers } from '~/apollo';
+import type { QueryResolvers } from '../../../apollo/index';
 
 const sections: QueryResolvers['sections'] = async (
   _,
@@ -10,7 +10,7 @@ const sections: QueryResolvers['sections'] = async (
     return [];
   }
   const result = await dataSources.sections.getMany(info, {
-    filter,
+    filter: filter!,
     page,
     updatedAfter,
   });

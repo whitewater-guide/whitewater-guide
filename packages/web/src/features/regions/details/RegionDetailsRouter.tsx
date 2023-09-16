@@ -1,5 +1,6 @@
 import React from 'react';
-import { Route, RouteComponentProps, Switch } from 'react-router';
+import type { RouteComponentProps } from 'react-router';
+import { Route, Switch } from 'react-router';
 
 import { RiversRoute } from '../../rivers';
 import { SectionsRoute } from '../../sections';

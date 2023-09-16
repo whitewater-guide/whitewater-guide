@@ -1,13 +1,12 @@
 import FastImage from '@whitewater-guide/react-native-fast-image';
-import { BannerWithSourceFragment } from '@whitewater-guide/schema';
+import type { BannerWithSourceFragment } from '@whitewater-guide/schema';
 import React, { useCallback } from 'react';
+import type { StyleProp, ViewStyle } from 'react-native';
 import {
   Linking,
-  StyleProp,
   StyleSheet,
   TouchableWithoutFeedback,
   View,
-  ViewStyle,
 } from 'react-native';
 
 import theme from '../../theme';

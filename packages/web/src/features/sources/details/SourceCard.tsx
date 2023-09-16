@@ -11,7 +11,7 @@ import { Card, CardContent, EditorFooter } from '../../../layout';
 import { GaugesList } from '../../gauges/list';
 import AutofillButton from './AutofillButton';
 import RemoveAllGaugesButton from './RemoveAllGaugesButton';
-import { SourceDetailsFragment } from './sourceDetails.generated';
+import type { SourceDetailsFragment } from './sourceDetails.generated';
 import SourceDetailsMain from './SourceDetailsMain';
 
 interface Props {

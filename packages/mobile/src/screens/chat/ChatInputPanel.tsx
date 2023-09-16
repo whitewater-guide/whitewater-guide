@@ -1,5 +1,6 @@
-import { Room } from '@whitewater-guide/schema';
-import React, { FC, useState } from 'react';
+import type { Room } from '@whitewater-guide/schema';
+import type { FC } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Keyboard, Platform, StyleSheet, View } from 'react-native';
 import { TextInput } from 'react-native-paper';

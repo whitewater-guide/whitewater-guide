@@ -1,15 +1,17 @@
+import type { MutationUpdateProfileArgs } from '@whitewater-guide/schema';
+import { UserInputSchema } from '@whitewater-guide/schema';
+import { pickBy } from 'lodash';
+import type { ObjectSchema } from 'yup';
+import { object } from 'yup';
+
+import type { MutationResolvers } from '../../../apollo/index';
 import {
-  MutationUpdateProfileArgs,
-  UserInputSchema,
-} from '@whitewater-guide/schema';
-import { AuthenticationError } from 'apollo-server-koa';
-import pickBy from 'lodash/pickBy';
-import * as yup from 'yup';
+  AuthenticationError,
+  isInputValidResolver,
+} from '../../../apollo/index';
+import { db } from '../../../db/index';
 
-import { isInputValidResolver, MutationResolvers } from '~/apollo';
-import { db } from '~/db';
-
-const Schema: yup.SchemaOf<MutationUpdateProfileArgs> = yup.object({
+const Schema: ObjectSchema<MutationUpdateProfileArgs> = object({
   user: UserInputSchema.clone(),
 });
 

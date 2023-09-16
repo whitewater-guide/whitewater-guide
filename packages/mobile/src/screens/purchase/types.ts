@@ -1,16 +1,16 @@
-import {
+import type {
   CompositeNavigationProp,
   ParamListBase,
   RouteProp,
 } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import type { StackNavigationProp } from '@react-navigation/stack';
 
-import {
+import type {
   RootDrawerParamsList,
   RootStackParamsList,
   Screens,
 } from '~/core/navigation';
-import { PurchaseParams } from '~/features/purchases/types';
+import type { PurchaseParams } from '~/features/purchases/types';
 
 export type PurchaseStackNavProp = CompositeNavigationProp<
   StackNavigationProp<RootStackParamsList, Screens.SECTION_SCREEN>,

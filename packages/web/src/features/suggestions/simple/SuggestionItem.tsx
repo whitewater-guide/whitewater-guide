@@ -2,7 +2,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import React, { useLayoutEffect, useRef, useState } from 'react';
 
-import { ListedSuggestionFragment } from './listSuggestions.generated';
+import type { ListedSuggestionFragment } from './listSuggestions.generated';
 import LongDescriptionDialog from './LongDescriptionDialog';
 import SuggestionThumb from './SuggestionThumb';
 

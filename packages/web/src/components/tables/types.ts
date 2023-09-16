@@ -1,12 +1,15 @@
-import React, { FC } from 'react';
-import {
-  AutoSizer as ASizer,
+import type { FC } from 'react';
+import type React from 'react';
+import type {
   AutoSizerProps,
-  InfiniteLoader as IL,
   InfiniteLoaderProps,
-  Table,
   TableCellProps as TCP,
   TableProps,
+} from 'react-virtualized';
+import {
+  AutoSizer as ASizer,
+  InfiniteLoader as IL,
+  Table,
 } from 'react-virtualized';
 
 export interface EmptyRow {

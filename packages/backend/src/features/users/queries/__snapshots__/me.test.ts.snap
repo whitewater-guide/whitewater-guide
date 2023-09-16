@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should return facebook user 1`] = `
-Object {
-  "accounts": Array [
-    Object {
+{
+  "accounts": [
+    {
       "id": "__fb_admin_id__",
       "provider": "facebook",
     },
-    Object {
+    {
       "id": "__apple_admin_id__",
       "provider": "apple",
     },
@@ -28,13 +28,13 @@ Object {
 `;
 
 exports[`should return local and facebook user 1`] = `
-Object {
-  "accounts": Array [
-    Object {
+{
+  "accounts": [
+    {
       "id": "__fb_editor_no_id__",
       "provider": "facebook",
     },
-    Object {
+    {
       "id": "0da87d58-378f-11e8-b467-0ed5f89f718b",
       "provider": "local",
     },
@@ -43,7 +43,7 @@ Object {
   "avatar": "https://ww.guide/pic.jpg",
   "createdAt": 2017-07-06T00:00:00.000Z,
   "editor": true,
-  "editorSettings": Object {
+  "editorSettings": {
     "language": "de",
   },
   "email": "dude@nve.no",
@@ -57,9 +57,9 @@ Object {
 `;
 
 exports[`should return local user 1`] = `
-Object {
-  "accounts": Array [
-    Object {
+{
+  "accounts": [
+    {
       "id": "fa3ce7ba-36ab-11e8-b467-0ed5f89f718b",
       "provider": "local",
     },

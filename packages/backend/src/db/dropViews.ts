@@ -1,4 +1,4 @@
-import Knex from 'knex';
+import type { Knex } from 'knex';
 
 export async function dropViews(db: Knex, ...views: string[]) {
   for (const view of views) {

@@ -1,10 +1,11 @@
-import { Context, RegionResolvers } from '~/apollo';
+import type { Context, RegionResolvers } from '../../../apollo/index';
+import type { ResolvableRegion } from '../types';
 
-import { ResolvableRegion } from '../types';
-
-const favoriteResolver: RegionResolvers<Context, ResolvableRegion>['favorite'] =
-  ({ favorite }) => {
-    return favorite ?? false;
-  };
+const favoriteResolver: RegionResolvers<
+  Context,
+  ResolvableRegion
+>['favorite'] = ({ favorite }) => {
+  return favorite ?? false;
+};
 
 export default favoriteResolver;

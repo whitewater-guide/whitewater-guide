@@ -1,5 +1,5 @@
-import { MutationResolvers } from '~/apollo';
-import { db, rawUpsert } from '~/db';
+import type { MutationResolvers } from '../../../apollo/index';
+import { db, rawUpsert } from '../../../db/index';
 
 const removeSection: MutationResolvers['removeSection'] = async (
   _,

@@ -11,14 +11,14 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@whitewater-guide/commons": "^0.0.213",
-    "@whitewater-guide/schema": "^0.0.212"
+    "@whitewater-guide/commons": "workspace:*",
+    "@whitewater-guide/schema": "workspace:*"
   },
   "devDependencies": {
-    "@types/fs-extra": "^9.0.13",
-    "@types/rimraf": "^3.0.2",
+    "@types/fs-extra": "^11.0.1",
+    "@types/rimraf": "^4.0.5",
     "@types/tar": "^6.1.1",
-    "fs-extra": "^10.0.0",
+    "fs-extra": "^11.1.1",
     "tar": "^6.1.11"
   }
 }

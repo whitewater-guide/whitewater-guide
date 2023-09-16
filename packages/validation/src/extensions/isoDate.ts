@@ -1,10 +1,7 @@
 import parseISO from 'date-fns/parseISO';
-import * as yup from 'yup';
+import type { StringSchema } from 'yup';
 
-export default function isoDate(
-  this: yup.StringSchema<any, any, any>,
-  errorMessage?: string,
-) {
+export default function isoDate(this: StringSchema, errorMessage?: string) {
   return this.test({
     name: 'is-iso-date',
     exclusive: true,

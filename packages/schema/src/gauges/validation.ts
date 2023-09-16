@@ -1,21 +1,21 @@
 import { yupSchemas } from '@whitewater-guide/validation';
-import * as yup from 'yup';
+import type { ObjectSchema } from 'yup';
+import { mixed, object, string } from 'yup';
 
-import { GaugeInput } from '../__generated__/types';
+import type { GaugeInput } from '../__generated__/types';
 import { PointInputSchema } from '../points';
 
-export const GaugeInputSchema: yup.SchemaOf<GaugeInput> = yup
-  .object({
-    id: yup.string().uuid().nullable(),
-    name: yup.string().nonEmpty(),
-    code: yup.string().nonEmpty(),
-    levelUnit: yup.string().nullable(),
-    flowUnit: yup.string().nullable(),
-    timezone: yup.string().nullable(),
-    location: PointInputSchema.clone().nullable(),
-    requestParams: yup.mixed().nullable(),
-    url: yup.string().url().nullable(),
-    source: yupSchemas.refInput().defined().nullable(false),
-  })
+export const GaugeInputSchema: ObjectSchema<GaugeInput> = object({
+  id: string().uuid().nullable(),
+  name: string().nonEmpty(),
+  code: string().nonEmpty(),
+  levelUnit: string().nullable(),
+  flowUnit: string().nullable(),
+  timezone: string().nullable(),
+  location: PointInputSchema.clone().nullable(),
+  requestParams: mixed().nullable(),
+  url: string().url().nullable(),
+  source: yupSchemas.refInput().required(),
+})
   .strict(true)
   .noUnknown();

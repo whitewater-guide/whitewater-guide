@@ -1,4 +1,5 @@
-import { AuthServiceEvent, BaseAuthService } from './service';
+import type { AuthServiceEvent } from './service';
+import { BaseAuthService } from './service';
 
 export class MockAuthService extends BaseAuthService {
   constructor() {

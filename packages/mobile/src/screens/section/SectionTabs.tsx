@@ -7,7 +7,7 @@ import useEffectOnce from 'react-use/lib/useEffectOnce';
 
 import Icon from '~/components/Icon';
 import { Screens } from '~/core/navigation';
-import {
+import type {
   SectionScreenNavProps,
   SectionTabsParamsList,
 } from '~/screens/section/types';

@@ -1,9 +1,8 @@
-import { anonContext, fakeContext } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
-
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
+import { anonContext, fakeContext } from '../../../test/index';
 import { testListScripts } from './scripts.test.generated';
 
 jest.mock('../../gorge/connector');

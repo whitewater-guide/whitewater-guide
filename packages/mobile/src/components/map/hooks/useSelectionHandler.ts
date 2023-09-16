@@ -1,16 +1,14 @@
-import { OnPressEvent } from '@rnmapbox/maps';
+import type { OnPressEvent } from '@rnmapbox/maps';
 import area from '@turf/area';
 import bbox from '@turf/bbox';
 import bboxPolygon from '@turf/bbox-polygon';
-import { Feature } from '@turf/helpers';
+import type { Feature } from '@turf/helpers';
 import square from '@turf/square';
-import {
-  BBox,
-  ListedSectionFragment,
-  useMapSelection,
-} from '@whitewater-guide/clients';
-import { PointCoreFragment } from '@whitewater-guide/schema';
-import { MutableRefObject, useCallback } from 'react';
+import type { BBox, ListedSectionFragment } from '@whitewater-guide/clients';
+import { useMapSelection } from '@whitewater-guide/clients';
+import type { PointCoreFragment } from '@whitewater-guide/schema';
+import type { MutableRefObject } from 'react';
+import { useCallback } from 'react';
 
 import theme from '../../../theme';
 import { useCamera } from './useCamera';

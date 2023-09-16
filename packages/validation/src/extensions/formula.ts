@@ -1,10 +1,7 @@
 import { Parser } from 'expr-eval';
-import * as yup from 'yup';
+import type { StringSchema } from 'yup';
 
-export default function formula(
-  this: yup.StringSchema<any, any, any>,
-  errorMessage?: string,
-) {
+export default function formula(this: StringSchema, errorMessage?: string) {
   return this.test({
     name: 'is-formula',
     exclusive: true,

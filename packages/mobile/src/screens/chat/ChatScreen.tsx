@@ -4,7 +4,7 @@ import { Screen } from '~/components/Screen';
 import { ChatProvider } from '~/features/chat';
 
 import Chat from './Chat';
-import { ChatNavProps } from './types';
+import type { ChatNavProps } from './types';
 import useChatHeaderTitle from './useChatHeaderTitle';
 
 const ChatScreen: React.FC<ChatNavProps> = (props) => {

@@ -1,13 +1,14 @@
-import {
-  GaugeInputSchema,
-  MutationUpsertGaugeArgs,
-} from '@whitewater-guide/schema';
-import * as yup from 'yup';
+import type { MutationUpsertGaugeArgs } from '@whitewater-guide/schema';
+import { GaugeInputSchema } from '@whitewater-guide/schema';
+import type { ObjectSchema } from 'yup';
+import { object } from 'yup';
 
-import { isInputValidResolver, MutationResolvers } from '~/apollo';
-import { db, rawUpsert, Sql } from '~/db';
+import type { MutationResolvers } from '../../../apollo/index';
+import { isInputValidResolver } from '../../../apollo/index';
+import type { Sql } from '../../../db/index';
+import { db, rawUpsert } from '../../../db/index';
 
-const Schema: yup.SchemaOf<MutationUpsertGaugeArgs> = yup.object({
+const Schema: ObjectSchema<MutationUpsertGaugeArgs> = object({
   gauge: GaugeInputSchema.clone().required(),
 });
 

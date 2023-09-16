@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ClickBlocker, DeleteButton } from '../../../components';
-import { UsersTableUserFragment } from './usersTable.generated';
+import type { UsersTableUserFragment } from './usersTable.generated';
 
 interface Props {
   user: UsersTableUserFragment;

@@ -1,4 +1,4 @@
-import { FormatFunction } from 'i18next';
+import type { FormatFunction } from 'i18next';
 
 import brackets from './brackets';
 import byteSize from './byteSize';

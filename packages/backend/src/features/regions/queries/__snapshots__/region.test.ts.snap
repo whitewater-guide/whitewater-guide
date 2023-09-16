@@ -1,31 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`connections banners should get all banners 1`] = `
-Object {
-  "banners": Object {
+{
+  "banners": {
     "count": 5,
-    "nodes": Array [
-      Object {
+    "nodes": [
+      {
         "id": "af282b16-c66d-11e8-a355-529269fb1459",
         "name": "galicia region descr banner 2",
         "priority": 10,
       },
-      Object {
+      {
         "id": "577ef5e8-c66d-11e8-a355-529269fb1459",
         "name": "galicia section row banner",
         "priority": 1,
       },
-      Object {
+      {
         "id": "8c89e25c-c66d-11e8-a355-529269fb1459",
         "name": "galicia region descr banner",
         "priority": 1,
       },
-      Object {
+      {
         "id": "79f904c4-c66d-11e8-a355-529269fb1459",
         "name": "all section row banner disabled",
         "priority": 20,
       },
-      Object {
+      {
         "id": "cebb31b2-c66d-11e8-a355-529269fb1459",
         "name": "all section row banner",
         "priority": 10,
@@ -38,14 +38,14 @@ Object {
 `;
 
 exports[`connections gauges should get gauges 1`] = `
-Object {
+{
   "count": 2,
-  "nodes": Array [
-    Object {
+  "nodes": [
+    {
       "id": "53af2530-19fe-11e8-accf-0ed5f89f718b",
       "name": "Georgian gauge 1",
     },
-    Object {
+    {
       "id": "53af2e2c-19fe-11e8-accf-0ed5f89f718b",
       "name": "Georgian gauge 4",
     },
@@ -54,22 +54,22 @@ Object {
 `;
 
 exports[`connections media summary should get media summary 1`] = `
-Object {
+{
   "id": "b968e2b2-76c5-11e7-b5a5-be2e44b06b34",
-  "mediaSummary": Object {
-    "blog": Object {
+  "mediaSummary": {
+    "blog": {
       "count": 1,
       "size": 0,
     },
-    "maps": Object {
+    "maps": {
       "count": 0,
       "size": 123456789,
     },
-    "photo": Object {
+    "photo": {
       "count": 2,
       "size": 433333,
     },
-    "video": Object {
+    "video": {
       "count": 1,
       "size": 0,
     },
@@ -79,14 +79,14 @@ Object {
 `;
 
 exports[`connections rivers should get rivers 1`] = `
-Object {
+{
   "count": 2,
-  "nodes": Array [
-    Object {
+  "nodes": [
+    {
       "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
       "name": "Beca",
     },
-    Object {
+    {
       "id": "d69dbabc-bfe3-11e7-abc4-cec278b6b50a",
       "name": "Cabe",
     },
@@ -95,14 +95,14 @@ Object {
 `;
 
 exports[`connections sections should get sections 1`] = `
-Object {
+{
   "count": 2,
-  "nodes": Array [
-    Object {
+  "nodes": [
+    {
       "id": "2b01742c-d443-11e7-9296-cec278b6b50a",
       "name": "Lower",
     },
-    Object {
+    {
       "id": "3a6e3210-d529-11e7-9296-cec278b6b50a",
       "name": "Upper",
     },
@@ -111,14 +111,14 @@ Object {
 `;
 
 exports[`connections sources should get sources 1`] = `
-Object {
+{
   "count": 2,
-  "nodes": Array [
-    Object {
+  "nodes": [
+    {
       "id": "6d0d717e-aa9d-11e7-abc4-cec278b6b50a",
       "name": "Galicia",
     },
-    Object {
+    {
       "id": "9f962a34-bff9-11e7-abc4-cec278b6b50a",
       "name": "Galicia2",
     },
@@ -127,24 +127,24 @@ Object {
 `;
 
 exports[`data should return region 1`] = `
-Object {
-  "bounds": Array [
-    Array [
+{
+  "bounds": [
+    [
       -114,
       46,
       0,
     ],
-    Array [
+    [
       -115,
       46,
       0,
     ],
-    Array [
+    [
       -115,
       47,
       0,
     ],
-    Array [
+    [
       -114,
       47,
       0,
@@ -158,9 +158,9 @@ Object {
   "license": null,
   "mapsSize": 0,
   "name": "Galicia",
-  "pois": Array [
-    Object {
-      "coordinates": Array [
+  "pois": [
+    {
+      "coordinates": [
         20,
         30,
         40,
@@ -170,8 +170,8 @@ Object {
       "kind": "kayak-shop",
       "name": "Galicia Point 1",
     },
-    Object {
-      "coordinates": Array [
+    {
+      "coordinates": [
         11,
         22,
         33,
@@ -184,7 +184,7 @@ Object {
   ],
   "premium": false,
   "season": "Late autumn - early spring",
-  "seasonNumeric": Array [
+  "seasonNumeric": [
     20,
     21,
   ],

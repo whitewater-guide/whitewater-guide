@@ -1,16 +1,15 @@
-import Knex from 'knex';
-import path from 'path';
+import type { Knex } from 'knex';
 
-import { createViews, dropViews, runSqlFile } from '~/db';
-
-import { createTable } from './utils';
+import { createViews, dropViews, runSqlFile } from '../db/index';
+import { resolveRelative } from '../utils/index';
+import { createTable } from './utils/index';
 
 const VIEWS = ['sections', 'rivers', 'regions'];
 
 /**
  * This patch moves banners from regions column into separate tables
  */
-export const up = async (db: Knex) => {
+export async function up(db: Knex): Promise<void> {
   await dropViews(db, ...VIEWS);
 
   await db.schema.table('regions', (table) => {
@@ -62,12 +61,12 @@ export const up = async (db: Knex) => {
       .onDelete('CASCADE');
     table.primary(['banner_id', 'group_id']);
   });
-  await runSqlFile(db, path.resolve(__dirname, '010/upsert_banner.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '010/upsert_banner.sql'));
 
   await createViews(db, 10, ...VIEWS);
-};
+}
 
-export const down = async (db: Knex) => {
+export async function down(db: Knex): Promise<void> {
   await dropViews(db, ...VIEWS);
 
   await db.schema.table('regions', (table) => {
@@ -83,6 +82,4 @@ export const down = async (db: Knex) => {
   await db.schema.dropTableIfExists('banners');
 
   await createViews(db, 9, ...VIEWS);
-};
-
-export const configuration = { transaction: true };
+}

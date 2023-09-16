@@ -1,9 +1,12 @@
-import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import type {
+  CompositeNavigationProp,
+  RouteProp,
+} from '@react-navigation/native';
+import type { StackNavigationProp } from '@react-navigation/stack';
 
-import { Screens } from '~/core/navigation';
+import type { Screens } from '~/core/navigation';
 
-import { AddSectionNavProp, AddSectionStackParamsList } from '../types';
+import type { AddSectionNavProp, AddSectionStackParamsList } from '../types';
 
 export type AddSectionShapeNavProp = CompositeNavigationProp<
   StackNavigationProp<AddSectionStackParamsList, Screens.ADD_SECTION_SHAPE>,

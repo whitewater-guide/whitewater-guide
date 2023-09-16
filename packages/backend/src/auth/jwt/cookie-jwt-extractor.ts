@@ -1,7 +1,7 @@
-// eslint-disable-next-line import/default
 import cookie from 'cookie';
-import identity from 'lodash/identity';
-import { JwtFromRequestFunction } from 'passport-jwt';
+import type { JwtFromRequestFunction } from 'passport-jwt';
+
+import { identity } from '../../utils/index';
 
 type CookieJwtExtractor = (cookieName: string) => JwtFromRequestFunction;
 

@@ -2,7 +2,7 @@ import { BannerResolutions, LocalPhotoStatus } from '@whitewater-guide/clients';
 import { BannerPlacement } from '@whitewater-guide/schema';
 import { createSafeValidator } from '@whitewater-guide/validation';
 
-import { BannerFormData } from './types';
+import type { BannerFormData } from './types';
 import { BannerFormSchema } from './validation';
 
 type TestValue = [string, BannerFormData];

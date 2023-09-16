@@ -1,4 +1,4 @@
-import {
+import type {
   DefinitionNode,
   DocumentNode,
   FieldNode,
@@ -7,15 +7,13 @@ import {
   GraphQLNamedType,
   GraphQLOutputType,
   GraphQLSchema,
-  isObjectType,
-  isWrappingType,
   OperationDefinitionNode,
   SelectionNode,
 } from 'graphql';
-import get from 'lodash/get';
-import upperFirst from 'lodash/upperFirst';
+import { isObjectType, isWrappingType } from 'graphql';
 
-import { FieldsByType } from './types';
+import { upperFirst } from '../../utils/upperFirst';
+import type { FieldsByType } from './types';
 
 interface Fragments {
   [key: string]: FragmentDefinitionNode;
@@ -50,11 +48,8 @@ const inspectField = (
   if (!isObjectType(type)) {
     return;
   }
-  const selections = get(
-    field,
-    'selectionSet.selections',
-    [],
-  ) as SelectionNode[];
+
+  const selections = field.selectionSet?.selections ?? [];
   const fields = type.getFields();
   const fieldType = unwrap(fields[field.name.value].type);
   // this is a recursion
@@ -63,7 +58,7 @@ const inspectField = (
 };
 
 const inspectSelections = (
-  selections: SelectionNode[],
+  selections: readonly SelectionNode[],
   type: GraphQLNamedType,
   fragments: Fragments,
   acc: FieldsByType,
@@ -73,11 +68,7 @@ const inspectSelections = (
       inspectField(subField, type, fragments, acc);
     } else if (isFragmentSpread(subField)) {
       const fragment = fragments[subField.name.value];
-      const fragmentSelections = get(
-        fragment,
-        'selectionSet.selections',
-        [],
-      ) as SelectionNode[];
+      const fragmentSelections = fragment.selectionSet.selections ?? [];
       inspectSelections(fragmentSelections, type, fragments, acc);
     }
   });

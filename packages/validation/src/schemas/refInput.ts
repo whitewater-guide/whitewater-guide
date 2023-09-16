@@ -1,14 +1,15 @@
-import * as yup from 'yup';
+import type { ObjectSchema } from 'yup';
+import { object, string } from 'yup';
 
-interface RefInput {
+export interface RefInput {
   id: string;
   name?: string | null;
 }
 
-const refInput = (): yup.SchemaOf<RefInput> =>
-  yup.object({
-    id: yup.string().uuid().defined().nullable(false),
-    name: yup.string().optional(),
+const refInput = (): ObjectSchema<RefInput> =>
+  object({
+    id: string().uuid().defined().nonNullable(),
+    name: string(),
   });
 
 export default refInput;

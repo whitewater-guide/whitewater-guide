@@ -1,6 +1,7 @@
 import Avatar from '@material-ui/core/Avatar';
 import MenuItem from '@material-ui/core/MenuItem';
-import Popover, { PopoverOrigin } from '@material-ui/core/Popover';
+import type { PopoverOrigin } from '@material-ui/core/Popover';
+import Popover from '@material-ui/core/Popover';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { useAuth } from '@whitewater-guide/clients';
 import React, { useCallback, useState } from 'react';

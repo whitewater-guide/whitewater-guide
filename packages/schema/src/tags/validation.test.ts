@@ -1,6 +1,7 @@
 import { createSafeValidator } from '@whitewater-guide/validation';
 
-import { TagCategory, TagInput } from '../__generated__/types';
+import type { TagInput } from '../__generated__/types';
+import { TagCategory } from '../__generated__/types';
 import { TagInputSchema } from './validation';
 
 const validator = createSafeValidator(TagInputSchema);

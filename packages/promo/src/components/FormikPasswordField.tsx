@@ -6,9 +6,10 @@ import {
   Input,
   InputLabel,
 } from '@material-ui/core';
-import { InputProps } from '@material-ui/core/Input';
+import type { InputProps } from '@material-ui/core/Input';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import { Field, FieldProps } from 'formik';
+import type { FieldProps } from 'formik';
+import { Field } from 'formik';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 

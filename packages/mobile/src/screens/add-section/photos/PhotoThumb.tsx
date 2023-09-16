@@ -3,10 +3,10 @@ import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import Icon from '~/components/Icon';
 import { Screens } from '~/core/navigation';
-import { LocalPhoto } from '~/features/uploads';
+import type { LocalPhoto } from '~/features/uploads';
 import theme from '~/theme';
 
-import { AddSectionPhotosNavProp } from './types';
+import type { AddSectionPhotosNavProp } from './types';
 
 const styles = StyleSheet.create({
   image: {

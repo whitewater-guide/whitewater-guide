@@ -1,4 +1,4 @@
-import express from 'express';
+import type express from 'express';
 import passport from 'passport-strategy';
 
 import classicStrategy from './classicStrategy';

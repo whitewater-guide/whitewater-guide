@@ -1,10 +1,11 @@
 import Mapbox from '@rnmapbox/maps';
 import pointInPolygon from '@turf/boolean-point-in-polygon';
-import { Feature, lineString, point, Polygon } from '@turf/helpers';
+import type { Feature, Polygon } from '@turf/helpers';
+import { lineString, point } from '@turf/helpers';
 import lineToPolygon from '@turf/line-to-polygon';
 import { ensureAltitude } from '@whitewater-guide/clients';
 import { useEffect } from 'react';
-import { AppStateStatus } from 'react-native';
+import type { AppStateStatus } from 'react-native';
 
 import { useCamera } from './useCamera';
 

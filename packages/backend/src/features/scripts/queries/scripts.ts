@@ -1,6 +1,6 @@
-import { ScriptDescriptor } from '@whitewater-guide/gorge';
+import type { ScriptDescriptor } from '@whitewater-guide/gorge';
 
-import { QueryResolvers } from '~/apollo';
+import type { QueryResolvers } from '../../../apollo/index';
 
 const scripts: QueryResolvers['scripts'] = async (_, __, { dataSources }) => {
   const data: ScriptDescriptor[] = await dataSources.gorge.listScripts();

@@ -1,7 +1,9 @@
 /* eslint-disable node/no-process-env */
-import knex from 'knex';
+import type { Knex } from 'knex';
 
-const test: knex.Config = {
+import FsMigrationSource from './FsMigrationSource';
+
+const test = (): Knex.Config => ({
   client: 'pg',
   connection: {
     host: process.env.POSTGRES_HOST,
@@ -16,15 +18,14 @@ const test: knex.Config = {
     idleTimeoutMillis: 500,
   },
   migrations: {
-    loadExtensions: ['.ts'],
     tableName: 'migrations',
-    directory: './src/migrations',
-  } as any,
+    migrationSource: new FsMigrationSource('./src/migrations'),
+  },
   seeds: {
     loadExtensions: ['.ts'],
     directory: './src/seeds/test',
-  } as any,
-  debug: false,
-};
+  },
+  // debug: true,
+});
 
-module.exports = test;
+export default test;

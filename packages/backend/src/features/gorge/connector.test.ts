@@ -1,10 +1,9 @@
-import * as gorge from '@whitewater-guide/gorge';
+import type * as gorge from '@whitewater-guide/gorge';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
-import { SOURCE_GALICIA_1 } from '~/seeds/test/05_sources';
-
+import { holdTransaction, rollbackTransaction } from '../../db/index';
+import { SOURCE_GALICIA_1 } from '../../seeds/test/05_sources';
 import { GorgeConnector } from './connector';
 
 const mock = new MockAdapter(axios);
@@ -277,7 +276,7 @@ describe('create job', () => {
   it('should fail if source does not exist', async () => {
     const badId = '9964317f-1068-4523-8969-913a36c2b336';
     const connector = new GorgeConnector();
-    await expect(connector.createJobForSource(badId)).rejects.toThrowError(
+    await expect(connector.createJobForSource(badId)).rejects.toThrow(
       /not\sfound/,
     );
   });

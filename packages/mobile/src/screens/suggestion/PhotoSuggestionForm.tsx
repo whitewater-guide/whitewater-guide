@@ -1,7 +1,8 @@
 import { Formik } from 'formik';
 import React, { useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ScrollView, StyleSheet, TextInput } from 'react-native';
+import type { TextInput } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 
 import CCNote from '~/components/CCNote';
@@ -10,7 +11,7 @@ import PhotoUploadField from '~/forms/photo-upload';
 import TextField from '~/forms/TextField';
 
 import theme from '../../theme';
-import { PhotoSuggestion } from './types';
+import type { PhotoSuggestion } from './types';
 import useKeyboard from './useKeyboard';
 import usePhotoSuggestionForm from './usePhotoSuggestionForm';
 

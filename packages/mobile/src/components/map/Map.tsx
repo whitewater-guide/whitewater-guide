@@ -1,4 +1,4 @@
-import { MapProps } from '@whitewater-guide/clients';
+import type { MapProps } from '@whitewater-guide/clients';
 import React from 'react';
 
 import FeaturesMap from './FeaturesMap';

@@ -1,16 +1,18 @@
 /* eslint-disable @typescript-eslint/no-invalid-this */
-import { Section, SectionsFilter } from '@whitewater-guide/schema';
-import { AuthenticationError, ForbiddenError } from 'apollo-server-koa';
-import { GraphQLResolveInfo } from 'graphql';
-import { QueryBuilder } from 'knex';
+import type { Section, SectionsFilter } from '@whitewater-guide/schema';
+import type { GraphQLResolveInfo } from 'graphql';
+import type { Knex } from 'knex';
 
-import { UnknownError } from '~/apollo';
-import { db, Sql } from '~/db';
+import type { Context } from '../../apollo/index';
 import {
-  FieldsMap,
-  ManyBuilderOptions,
-  OffsetConnector,
-} from '~/db/connectors';
+  AuthenticationError,
+  ForbiddenError,
+  UnknownError,
+} from '../../apollo/index';
+import type { FieldsMap, ManyBuilderOptions } from '../../db/connectors/index';
+import { OffsetConnector } from '../../db/connectors/index';
+import type { Sql } from '../../db/index';
+import { db } from '../../db/index';
 
 interface GetManyOptions extends ManyBuilderOptions<Sql.SectionsView> {
   filter?: SectionsFilter;
@@ -34,8 +36,8 @@ export class SectionsConnector extends OffsetConnector<
   Section,
   Sql.SectionsView
 > {
-  constructor() {
-    super();
+  constructor(context: Context) {
+    super(context);
     this._tableName = 'sections_view';
     this._graphqlTypeName = 'Section';
     this._fieldsMap = FIELDS_MAP;
@@ -47,7 +49,7 @@ export class SectionsConnector extends OffsetConnector<
     ];
   }
 
-  private addHiddenWhere(query: QueryBuilder) {
+  private addHiddenWhere(query: Knex.QueryBuilder) {
     const user = this._user;
     if (!user) {
       query.where('sections_view.hidden', false);
@@ -55,7 +57,7 @@ export class SectionsConnector extends OffsetConnector<
       query.where((qb) => {
         qb.where('sections_view.hidden', false).orWhereIn(
           'sections_view.region_id',
-          function (this: QueryBuilder) {
+          function (this: Knex.QueryBuilder) {
             this.select('regions_editors.region_id')
               .from('regions_editors')
               .where('regions_editors.user_id', user.id);
@@ -66,7 +68,7 @@ export class SectionsConnector extends OffsetConnector<
     return query;
   }
 
-  private addFavoriteColumn(query: QueryBuilder) {
+  private addFavoriteColumn(query: Knex.QueryBuilder) {
     const sectionFields = this._fieldsByType.get('Section') ?? new Set();
     if (this._user && sectionFields.has('favorite')) {
       // Add 'favorite' column as subquery
@@ -83,7 +85,7 @@ export class SectionsConnector extends OffsetConnector<
     return query;
   }
 
-  protected override getBatchQuery(keys: string[]): QueryBuilder {
+  protected override getBatchQuery(keys: string[]): Knex.QueryBuilder {
     const query = super.getBatchQuery(keys);
     this.addFavoriteColumn(query);
     return query;
@@ -123,7 +125,7 @@ export class SectionsConnector extends OffsetConnector<
 
     if (editable && !!this._user && !this._user.admin) {
       const uid = this._user?.id;
-      query.whereExists(function (this: QueryBuilder) {
+      query.whereExists(function (this: Knex.QueryBuilder) {
         this.select('*')
           .from('regions_editors')
           .where('regions_editors.user_id', uid)

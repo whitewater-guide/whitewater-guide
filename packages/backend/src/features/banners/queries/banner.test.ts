@@ -1,17 +1,16 @@
-import { fakeContext } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
-import { GROUP_ALL } from '~/seeds/test/03_groups';
-import { REGION_GALICIA } from '~/seeds/test/04_regions';
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
+import { GROUP_ALL } from '../../../seeds/test/03_groups';
+import { REGION_GALICIA } from '../../../seeds/test/04_regions';
 import {
   ALL_SECTION_ROW_BANNER,
   GALICIA_REGION_DESCR_BANNER2,
   GALICIA_SECTION_ROW_BANNER,
-} from '~/seeds/test/14_banners';
-
+} from '../../../seeds/test/14_banners';
+import { fakeContext } from '../../../test/index';
 import {
   testBannerDetails,
   testBannerGroups,

@@ -1,9 +1,8 @@
-import { anonContext } from '@test';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
-import { NORWAY_SJOA_AMOT } from '~/seeds/test/09_sections';
-
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
+import { NORWAY_SJOA_AMOT } from '../../../seeds/test/09_sections';
+import { anonContext } from '../../../test/index';
 import { testMediaBySection } from './mediaBySection.test.generated';
 
 beforeEach(holdTransaction);

@@ -1,7 +1,8 @@
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { Credentials, useAuth } from '@whitewater-guide/clients';
+import type { Credentials } from '@whitewater-guide/clients';
+import { useAuth } from '@whitewater-guide/clients';
 import { Formik } from 'formik';
 import React from 'react';
 

@@ -1,5 +1,5 @@
 import { useLayout } from '@react-native-community/hooks';
-import { DescentLevelInput } from '@whitewater-guide/schema';
+import type { DescentLevelInput } from '@whitewater-guide/schema';
 import { useFormikContext } from 'formik';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -10,9 +10,9 @@ import { Button } from 'react-native-paper';
 import { Screens } from '~/core/navigation';
 import NumericField from '~/forms/NumericField';
 import TextField from '~/forms/TextField';
-import { DescentFormDateNavProps } from '~/screens/descent-form/date/types';
+import type { DescentFormDateNavProps } from '~/screens/descent-form/date/types';
 
-import { DescentFormData } from '../types';
+import type { DescentFormData } from '../types';
 import { DescentChartLayout } from './chart';
 
 const styles = StyleSheet.create({

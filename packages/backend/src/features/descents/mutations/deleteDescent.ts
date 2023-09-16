@@ -1,4 +1,5 @@
-import { AuthenticatedMutation, isAuthenticatedResolver } from '~/apollo';
+import type { AuthenticatedMutation } from '../../../apollo/index';
+import { isAuthenticatedResolver } from '../../../apollo/index';
 
 const resolver: AuthenticatedMutation['deleteDescent'] = async (
   _,

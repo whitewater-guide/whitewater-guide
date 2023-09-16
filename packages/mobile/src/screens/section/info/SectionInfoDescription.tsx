@@ -1,4 +1,4 @@
-import { SafeSectionDetails } from '@whitewater-guide/clients';
+import type { SafeSectionDetails } from '@whitewater-guide/clients';
 import React from 'react';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 

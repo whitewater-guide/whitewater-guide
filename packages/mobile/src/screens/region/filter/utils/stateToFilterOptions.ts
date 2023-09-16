@@ -1,8 +1,8 @@
-import { SectionFilterOptions } from '@whitewater-guide/clients';
+import type { SectionFilterOptions } from '@whitewater-guide/clients';
 
 import { TagSelection } from '~/features/tags';
 
-import { SearchState } from '../types';
+import type { SearchState } from '../types';
 
 type Acc = Pick<SectionFilterOptions, 'withTags' | 'withoutTags'>;
 

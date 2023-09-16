@@ -1,11 +1,9 @@
 import { getIn, useFormikContext } from 'formik';
 import React, { useCallback } from 'react';
 
-import {
-  ImageUploader,
-  ImageUploaderProps,
-} from '../../components/image-uploader';
-import { LocalPhoto } from '../../utils/files';
+import type { ImageUploaderProps } from '../../components/image-uploader';
+import { ImageUploader } from '../../components/image-uploader';
+import type { LocalPhoto } from '../../utils/files';
 import { FormikFormControl } from '../helpers';
 
 type Props = Omit<ImageUploaderProps, 'value' | 'onChange'> & { name: string };

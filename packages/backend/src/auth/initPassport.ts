@@ -1,9 +1,9 @@
 import { SocialMediaProvider } from '@whitewater-guide/schema';
 
-import { apppleStrategy } from './apple';
-import { facebookStrategy } from './facebook';
-import { jwtStrategy } from './jwt';
-import { localSignInStrategy, localSignUpStrategy } from './local';
+import { apppleStrategy } from './apple/index';
+import { facebookStrategy } from './facebook/index';
+import { jwtStrategy } from './jwt/index';
+import { localSignInStrategy, localSignUpStrategy } from './local/index';
 import { KoaPassport } from './types';
 
 const initPassport = () => {

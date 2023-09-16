@@ -1,11 +1,11 @@
 import { createSafeValidator } from '@whitewater-guide/validation';
 
-import {
+import type {
   GaugeBindingInput,
-  MediaKind,
   SectionAdminSettings,
   SectionInput,
 } from '../__generated__/types';
+import { MediaKind } from '../__generated__/types';
 import { Duration } from './types';
 import {
   GaugeBindingSchema,

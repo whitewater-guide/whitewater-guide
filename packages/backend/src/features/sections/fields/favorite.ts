@@ -1,6 +1,5 @@
-import { Context, SectionResolvers } from '~/apollo';
-
-import { ResolvableSection } from '../types';
+import type { Context, SectionResolvers } from '../../../apollo/index';
+import type { ResolvableSection } from '../types';
 
 const favoriteResolver: SectionResolvers<
   Context,

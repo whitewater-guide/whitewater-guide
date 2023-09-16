@@ -1,4 +1,4 @@
-import { FileLike } from './types';
+import type { FileLike } from './types';
 
 export const getDotExt = (file: FileLike) => {
   const parts = file.name.split('.');

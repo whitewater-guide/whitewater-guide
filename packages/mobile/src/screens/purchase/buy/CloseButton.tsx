@@ -4,7 +4,7 @@ import React, { useCallback } from 'react';
 import Icon from '~/components/Icon';
 import theme from '~/theme';
 
-import { PurchaseBuyNavProp } from './types';
+import type { PurchaseBuyNavProp } from './types';
 
 interface Props {
   disabled?: boolean;

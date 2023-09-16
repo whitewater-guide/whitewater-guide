@@ -1,4 +1,4 @@
-import { PremiumRegion, PremiumSection } from './types';
+import type { PremiumRegion, PremiumSection } from './types';
 
 export const hasPremiumAccess = (
   canMakePayments: boolean,

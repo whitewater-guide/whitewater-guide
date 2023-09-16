@@ -1,5 +1,5 @@
-import { QueryResolvers } from '~/apollo';
-import { db } from '~/db';
+import type { QueryResolvers } from '../../../apollo/index';
+import { db } from '../../../db/index';
 
 const findUsers: QueryResolvers['findUsers'] = async (_, { filter }) => {
   const { searchString, editorsOnly } = filter;

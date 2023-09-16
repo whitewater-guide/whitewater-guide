@@ -1,8 +1,9 @@
 import { MediaKind, SuggestionStatus } from '@whitewater-guide/schema';
-import { UserInputError } from 'apollo-server-koa';
 
-import { MutationNotAllowedError, MutationResolvers } from '~/apollo';
-import { db, Sql } from '~/db';
+import type { MutationResolvers } from '../../../apollo/index';
+import { MutationNotAllowedError, UserInputError } from '../../../apollo/index';
+import type { Sql } from '../../../db/index';
+import { db } from '../../../db/index';
 
 const resolveSuggestion: MutationResolvers['resolveSuggestion'] = async (
   _,
@@ -44,7 +45,7 @@ const resolveSuggestion: MutationResolvers['resolveSuggestion'] = async (
         weight: null,
       },
       suggestion.section_id,
-      suggestion.created_by,
+      suggestion.created_by ?? undefined,
     );
   }
 

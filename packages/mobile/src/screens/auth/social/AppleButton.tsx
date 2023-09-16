@@ -7,7 +7,7 @@ import { StyleSheet } from 'react-native';
 import { Screens } from '~/core/navigation';
 import theme from '~/theme';
 
-import { AuthMainNavProp } from './types';
+import type { AuthMainNavProp } from './types';
 
 const styles = StyleSheet.create({
   button: {

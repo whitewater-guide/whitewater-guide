@@ -1,4 +1,5 @@
-import { MockedProvider, MockedResponse } from '@apollo/client/testing';
+import type { MockedResponse } from '@apollo/client/testing';
+import { MockedProvider } from '@apollo/client/testing';
 import { act, renderHook } from '@testing-library/react-hooks';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 import { GraphQLError } from 'graphql';
@@ -242,7 +243,7 @@ describe('submit success', () => {
   });
 
   it('should go back', async () => {
-    const goBack = jest.spyOn(mockHistory, 'goBack');
+    const goBack = jest.spyOn(mockHistory, 'back');
     const { result, waitFor } = renderWrapper({
       mocks: [queryNotFound, mutationSuccess],
     });

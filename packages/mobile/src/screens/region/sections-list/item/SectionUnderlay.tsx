@@ -1,10 +1,11 @@
-import { ListedSectionFragment } from '@whitewater-guide/clients';
-import React, { FC } from 'react';
+import type { ListedSectionFragment } from '@whitewater-guide/clients';
+import type { FC } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
+import type { SharedValue } from 'react-native-reanimated';
 import {
   Extrapolation,
   interpolate,
-  SharedValue,
   useDerivedValue,
 } from 'react-native-reanimated';
 

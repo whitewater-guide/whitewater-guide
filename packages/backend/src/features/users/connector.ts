@@ -1,17 +1,19 @@
-import { SocialMediaProvider, User } from '@whitewater-guide/schema';
-import { DataSourceConfig } from 'apollo-datasource';
-import { AuthenticationError, ForbiddenError } from 'apollo-server-koa';
+import type { User } from '@whitewater-guide/schema';
+import { SocialMediaProvider } from '@whitewater-guide/schema';
 import axios from 'axios';
-import { QueryBuilder } from 'knex';
-import get from 'lodash/get';
+import type { Knex } from 'knex';
 
-import { Context } from '~/apollo';
-import config from '~/config';
-import { db, knex } from '~/db';
-import { FieldsMap, OffsetConnector } from '~/db/connectors';
-import log from '~/log';
-
-import { ResolvableUser } from './types';
+import {
+  AuthenticationError,
+  type Context,
+  ForbiddenError,
+} from '../../apollo/index';
+import config from '../../config';
+import type { FieldsMap } from '../../db/connectors/index';
+import { OffsetConnector } from '../../db/connectors/index';
+import { db, knex } from '../../db/index';
+import log from '../../log/index';
+import type { ResolvableUser } from './types';
 
 const { FB_APP_ID, FB_SECRET } = config;
 
@@ -44,15 +46,11 @@ const Keys = new Map<keyof PermissionsQuery, string>([
 ]);
 
 export class UsersConnector extends OffsetConnector<User, ResolvableUser> {
-  constructor() {
-    super();
+  constructor(context: Context) {
+    super(context);
     this._tableName = 'users';
     this._graphqlTypeName = 'User';
     this._fieldsMap = FIELDS_MAP;
-  }
-
-  initialize(cfg: DataSourceConfig<Context>) {
-    super.initialize(cfg);
     // users are not multilingual table, language is just an attribute of user
     this._language = undefined;
   }
@@ -128,7 +126,9 @@ export class UsersConnector extends OffsetConnector<User, ResolvableUser> {
     return Promise.reject(result);
   }
 
-  async getAvatar(user: ResolvableUser): Promise<string | null> {
+  async getAvatar(
+    user: Pick<ResolvableUser, 'avatar' | 'accounts'>,
+  ): Promise<string | null> {
     if (user.avatar) {
       return user.avatar;
     }
@@ -143,7 +143,7 @@ export class UsersConnector extends OffsetConnector<User, ResolvableUser> {
         const { data } = await axios.get(
           `https://graph.facebook.com/${fb.id}/picture?redirect=false&access_token=${FB_APP_ID}|${FB_SECRET}`,
         );
-        const downloaded = get(data, 'data.url', null);
+        const downloaded = data?.data?.url ?? null;
         return downloaded;
       } catch (e) {
         log.error({
@@ -156,7 +156,7 @@ export class UsersConnector extends OffsetConnector<User, ResolvableUser> {
     return null;
   }
 
-  getBatchQuery(keys: string[]): QueryBuilder {
+  getBatchQuery(keys: string[]): Knex.QueryBuilder {
     const query = super.getBatchQuery(keys);
     return query.select(db().raw('password IS NOT NULL AS has_password'));
   }

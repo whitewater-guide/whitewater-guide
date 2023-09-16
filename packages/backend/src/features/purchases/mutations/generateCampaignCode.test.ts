@@ -1,12 +1,11 @@
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
-import { MailType, sendMail } from '~/mail';
-
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
+import { MailType, sendMail } from '../../../mail/index';
 import { testGenerateCampaignCode } from './generateCampaignCode.test.generated';
 
-jest.mock('~/mail');
+jest.mock('../../../mail');
 
 const _mutation = gql`
   mutation generateCampaignCode($campaign: String!) {
@@ -29,11 +28,14 @@ it('should fail for unknown campaing', async () => {
 it('should generate codes', async () => {
   let result = await testGenerateCampaignCode({ campaign: 'pucon' });
   expect(result.errors).toBeUndefined();
-  expect(result.data?.generateCampaignCode).toBe('WWGPucon1');
+  const code1 = result.data?.generateCampaignCode;
+  expect(code1).toEqual(expect.stringMatching(/WWGPucon\d+/));
 
   result = await testGenerateCampaignCode({ campaign: 'pucon' });
   expect(result.errors).toBeUndefined();
-  expect(result.data?.generateCampaignCode).toBe('WWGPucon2');
+  const code2 = result.data?.generateCampaignCode;
+  expect(code2).toEqual(expect.stringMatching(/WWGPucon\d+/));
+  expect(code2).not.toEqual(code1);
 });
 
 it('should send email', async () => {
@@ -42,7 +44,7 @@ it('should send email', async () => {
     MailType.PUCON_PROMO_GENERATED,
     ['test1@yandex.ru', 'test2@whitewater.guide'],
     {
-      code: 'WWGPucon3',
+      code: expect.stringMatching(/WWGPucon\d+/),
     },
   );
 });

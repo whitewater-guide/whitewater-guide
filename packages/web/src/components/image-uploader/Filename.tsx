@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { LocalPhoto } from '../../utils/files';
+import type { LocalPhoto } from '../../utils/files';
 
 interface Props {
   value: LocalPhoto | null;

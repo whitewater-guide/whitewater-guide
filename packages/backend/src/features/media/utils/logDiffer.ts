@@ -1,6 +1,6 @@
 import { DiffPatcher } from 'jsondiffpatch';
 
-import { Sql } from '~/db';
+import type { Sql } from '../../../db/index';
 
 export const logDiffer = new DiffPatcher({
   propertyFilter: (name: keyof Sql.MediaView) =>

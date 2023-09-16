@@ -1,8 +1,8 @@
-import { SocialMediaProvider } from '@whitewater-guide/schema';
+import type { SocialMediaProvider } from '@whitewater-guide/schema';
 
-import { db, Sql } from '~/db';
-
-import { SocialUser } from './types';
+import type { Sql } from '../../db/index';
+import { db } from '../../db/index';
+import type { SocialUser } from './types';
 
 export async function storeUser(
   provider: SocialMediaProvider,

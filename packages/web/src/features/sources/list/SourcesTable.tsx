@@ -1,6 +1,7 @@
-import { History } from 'history';
+import type { History } from 'history';
 import React from 'react';
 
+import type { TableCellRenderer } from '../../../components';
 import {
   ClickBlocker,
   Column,
@@ -9,12 +10,11 @@ import {
   IconLink,
   isEmptyRow,
   MutationToggle,
-  TableCellRenderer,
   UnstyledLink,
 } from '../../../components';
 import { AdminColumn, Table } from '../../../components/tables';
 import { paths } from '../../../utils';
-import { ListedSourceFragment } from './listSources.generated';
+import type { ListedSourceFragment } from './listSources.generated';
 
 const renderName: TableCellRenderer<ListedSourceFragment> = ({ rowData }) => {
   if (isEmptyRow(rowData)) {

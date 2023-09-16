@@ -7,7 +7,7 @@ import { Screen } from '~/components/Screen';
 import Spacer from '~/components/Spacer';
 import theme from '~/theme';
 
-import { PurchaseSuccessNavProps } from './types';
+import type { PurchaseSuccessNavProps } from './types';
 
 const styles = StyleSheet.create({
   container: {

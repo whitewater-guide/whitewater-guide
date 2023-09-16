@@ -1,4 +1,5 @@
-import { ApolloLink, NextLink, Operation } from '@apollo/client/link/core';
+import type { NextLink, Operation } from '@apollo/client/link/core';
+import { ApolloLink } from '@apollo/client/link/core';
 import get from 'lodash/get';
 
 export class EditorLanguageLink extends ApolloLink {

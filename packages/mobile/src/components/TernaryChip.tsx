@@ -2,7 +2,8 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Chip } from 'react-native-paper';
 
-import { SelectableTag, TagSelection } from '~/features/tags';
+import type { SelectableTag } from '~/features/tags';
+import { TagSelection } from '~/features/tags';
 
 import theme from '../theme';
 import Icon from './Icon';

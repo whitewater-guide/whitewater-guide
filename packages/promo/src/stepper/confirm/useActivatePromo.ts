@@ -1,12 +1,9 @@
-import {
-  BoomPromoInfo,
-  PurchaseInput,
-  PurchasePlatform,
-} from '@whitewater-guide/schema';
+import type { BoomPromoInfo, PurchaseInput } from '@whitewater-guide/schema';
+import { PurchasePlatform } from '@whitewater-guide/schema';
 import { useTranslation } from 'react-i18next';
 import useAsyncFn from 'react-use/lib/useAsyncFn';
 
-import { PromoRegionFragment } from '../promoRegion.generated';
+import type { PromoRegionFragment } from '../promoRegion.generated';
 import { useActivatePromoMutation } from './activatePromo.generated';
 
 interface Result {

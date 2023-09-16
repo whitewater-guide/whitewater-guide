@@ -1,7 +1,9 @@
 /* eslint-disable node/no-process-env */
-import knex from 'knex';
+import type { Knex } from 'knex';
 
-const development: knex.Config = {
+import FsMigrationSource from './FsMigrationSource';
+
+const production = (): Knex.Config => ({
   client: 'pg',
   connection: {
     host: process.env.POSTGRES_HOST,
@@ -12,18 +14,13 @@ const development: knex.Config = {
     keepAlive: true,
   },
   migrations: {
-    loadExtensions: ['.js'],
     tableName: 'migrations',
-    directory: './dist/migrations',
-  },
-  seeds: {
-    loadExtensions: ['.js'],
-    directory: './dist/seeds/production',
+    migrationSource: new FsMigrationSource('./dist/migrations'),
   },
   pool: {
     min: 0,
   },
   // debug: true,
-} as any;
+});
 
-module.exports = development;
+export default production;

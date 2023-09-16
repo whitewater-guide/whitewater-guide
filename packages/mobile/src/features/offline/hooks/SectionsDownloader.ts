@@ -1,15 +1,16 @@
-import { ApolloClient } from '@apollo/client';
-import { DocumentNode } from 'graphql';
+import type { ApolloClient } from '@apollo/client';
+import type { DocumentNode } from 'graphql';
 
 import { PHOTO_SIZE_PX } from '~/features/media';
 
-import {
-  ListSectionsDocument,
+import type {
   ListSectionsQuery,
   ListSectionsQueryVariables,
 } from '../offlineSections.generated';
-import { OfflineProgress } from '../types';
-import { extractPhotos, PhotoChannel } from '../utils';
+import { ListSectionsDocument } from '../offlineSections.generated';
+import type { OfflineProgress } from '../types';
+import type { PhotoChannel } from '../utils';
+import { extractPhotos } from '../utils';
 
 type ProgressListener = (progress: Pick<OfflineProgress, 'data'>) => void;
 

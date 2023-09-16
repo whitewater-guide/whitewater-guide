@@ -1,8 +1,8 @@
 import { BannerKind } from '@whitewater-guide/schema';
 
 import { toJSON } from '../../../formik/utils';
-import { BannerFormData } from './types';
-import { UpsertBannerMutationVariables } from './upsertBanner.generated';
+import type { BannerFormData } from './types';
+import type { UpsertBannerMutationVariables } from './upsertBanner.generated';
 
 export default (banner: BannerFormData): UpsertBannerMutationVariables => {
   const { extras, source, ...rest } = banner;

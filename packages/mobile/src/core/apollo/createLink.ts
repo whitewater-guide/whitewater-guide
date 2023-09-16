@@ -1,5 +1,7 @@
 import { ApolloLink } from '@apollo/client/link/core';
-import { AuthService, errorLink } from '@whitewater-guide/clients';
+import { removeTypenameFromVariables } from '@apollo/client/link/remove-typename';
+import type { AuthService } from '@whitewater-guide/clients';
+import { errorLink } from '@whitewater-guide/clients';
 
 import { trackError } from '../errors';
 import {
@@ -26,6 +28,7 @@ export function createLink(auth: AuthService): ApolloLink {
         // here we just track errors
       },
     ),
+    removeTypenameFromVariables(),
     new TokenRefreshLink(auth),
     retryLink,
     httpLink,

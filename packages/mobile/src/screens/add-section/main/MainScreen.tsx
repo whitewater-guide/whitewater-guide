@@ -10,7 +10,7 @@ import { Screen } from '~/components/Screen';
 import { Screens } from '~/core/navigation';
 import ModalPickerField from '~/forms/modal-picker';
 import TextField from '~/forms/TextField';
-import { AddSectionMainNavProps } from '~/screens/add-section/main/types';
+import type { AddSectionMainNavProps } from '~/screens/add-section/main/types';
 
 import theme from '../../../theme';
 import PiToPlaceholder from './PiToPlaceholder';

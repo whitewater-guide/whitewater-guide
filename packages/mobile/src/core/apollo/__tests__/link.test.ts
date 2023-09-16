@@ -1,6 +1,7 @@
 import { toPromise } from '@apollo/client';
-import { ApolloLink, execute } from '@apollo/client/link/core';
-import { AuthBody, RefreshBody } from '@whitewater-guide/commons';
+import type { ApolloLink } from '@apollo/client/link/core';
+import { execute } from '@apollo/client/link/core';
+import type { AuthBody, RefreshBody } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 import { sign } from 'jsonwebtoken';
 import noop from 'lodash/noop';

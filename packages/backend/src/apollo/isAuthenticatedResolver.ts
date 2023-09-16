@@ -1,9 +1,9 @@
-import { AuthenticationError } from 'apollo-server-koa';
-import { GraphQLFieldResolver } from 'graphql';
-import { Required } from 'utility-types';
+import type { GraphQLFieldResolver } from 'graphql';
+import type { Required } from 'utility-types';
 
-import { Context } from './context';
-import {
+import type { Context } from './context';
+import { AuthenticationError } from './errors';
+import type {
   MutationResolvers,
   QueryResolvers,
   Resolver,

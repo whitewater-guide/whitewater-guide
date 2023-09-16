@@ -1,9 +1,10 @@
-import Mapbox, {
+import type {
   CircleLayerStyle,
   LineLayerStyle,
   SymbolLayerStyle,
 } from '@rnmapbox/maps';
-import { MapProps } from '@whitewater-guide/clients';
+import Mapbox from '@rnmapbox/maps';
+import type { MapProps } from '@whitewater-guide/clients';
 import React from 'react';
 import { Platform } from 'react-native';
 
@@ -14,7 +15,7 @@ import {
   useMapboxSelectionFilter,
   useSelectionHandler,
 } from './hooks';
-import { MapViewProps } from './types';
+import type { MapViewProps } from './types';
 
 const layerStyles: Record<
   string,

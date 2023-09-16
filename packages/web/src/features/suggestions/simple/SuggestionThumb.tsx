@@ -1,8 +1,9 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import React, { useCallback, useMemo, useState } from 'react';
 
-import { Lightbox, LightboxItem } from '../../../components/lightbox';
-import { ListedSuggestionFragment } from './listSuggestions.generated';
+import type { LightboxItem } from '../../../components/lightbox';
+import { Lightbox } from '../../../components/lightbox';
+import type { ListedSuggestionFragment } from './listSuggestions.generated';
 
 const useStyles = makeStyles(({ spacing }) =>
   createStyles({

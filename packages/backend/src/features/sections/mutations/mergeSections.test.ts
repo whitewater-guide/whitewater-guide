@@ -1,26 +1,25 @@
-import { anonContext, countRows, fakeContext, UUID_REGEX } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { db, holdTransaction, rollbackTransaction, Sql } from '~/db';
+import type { Sql } from '../../../db/index';
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
 import {
   EDITOR_GA_EC,
   EDITOR_GA_EC_ID,
   TEST_USER,
-} from '~/seeds/test/01_users';
-import { REGION_GALICIA } from '~/seeds/test/04_regions';
-import { RIVER_GAL_BECA } from '~/seeds/test/07_rivers';
+} from '../../../seeds/test/01_users';
+import { REGION_GALICIA } from '../../../seeds/test/04_regions';
+import { RIVER_GAL_BECA } from '../../../seeds/test/07_rivers';
 import {
   GALICIA_BECA_LOWER,
   GALICIA_BECA_UPPER,
   NORWAY_FINNA_GORGE,
   NORWAY_SJOA_AMOT,
-} from '~/seeds/test/09_sections';
-
-import {
-  MergeSectionsMutationResult,
-  testMergeSections,
-} from './mergeSections.test.generated';
+} from '../../../seeds/test/09_sections';
+import { anonContext, countRows, fakeContext } from '../../../test/index';
+import { UUID_REGEX } from '../../../utils/index';
+import type { MergeSectionsMutationResult } from './mergeSections.test.generated';
+import { testMergeSections } from './mergeSections.test.generated';
 
 let sBefore: number;
 let pBefore: number;

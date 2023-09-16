@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should get sections 1`] = `
-Object {
+{
   "count": 2,
-  "nodes": Array [
-    Object {
+  "nodes": [
+    {
       "id": "2b01742c-d443-11e7-9296-cec278b6b50a",
       "name": "Lower",
     },
-    Object {
+    {
       "id": "3a6e3210-d529-11e7-9296-cec278b6b50a",
       "name": "Upper",
     },
@@ -17,22 +17,22 @@ Object {
 `;
 
 exports[`should return river 1`] = `
-Object {
-  "altNames": Array [],
+{
+  "altNames": [],
   "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
   "name": "Beca",
-  "region": Object {
+  "region": {
     "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
     "name": "Galicia",
   },
-  "sections": Object {
+  "sections": {
     "count": 2,
-    "nodes": Array [
-      Object {
+    "nodes": [
+      {
         "id": "2b01742c-d443-11e7-9296-cec278b6b50a",
         "name": "Lower",
       },
-      Object {
+      {
         "id": "3a6e3210-d529-11e7-9296-cec278b6b50a",
         "name": "Upper",
       },

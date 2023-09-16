@@ -1,15 +1,14 @@
-import { fakeContext, noTimestamps } from '@test';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { db, holdTransaction, rollbackTransaction } from '~/db';
-import { ADMIN, EDITOR_NO_EC } from '~/seeds/test/01_users';
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
+import { ADMIN, EDITOR_NO_EC } from '../../../seeds/test/01_users';
 import {
   RIVER_BZHUZHA,
   RIVER_GAL_BECA,
   RIVER_MZYMTA,
   RIVER_SJOA,
-} from '~/seeds/test/07_rivers';
-
+} from '../../../seeds/test/07_rivers';
+import { fakeContext, noTimestamps } from '../../../test/index';
 import {
   testRiverDetails,
   testRiverSectionRiver,

@@ -1,16 +1,12 @@
 import clamp from 'lodash/clamp';
 import React, { memo, useEffect, useRef } from 'react';
-import {
-  Animated,
-  GestureResponderEvent,
-  StyleSheet,
-  View,
-} from 'react-native';
+import type { GestureResponderEvent } from 'react-native';
+import { Animated, StyleSheet, View } from 'react-native';
 
 import theme from '~/theme';
 
 import Thumb, { THUMB_SCALE_RATIO } from './Thumb';
-import { RangeSliderProps } from './types';
+import type { RangeSliderProps } from './types';
 
 // extra spacing enlarging the touchable area
 const TRACK_EXTRA_MARGIN_V = 5;

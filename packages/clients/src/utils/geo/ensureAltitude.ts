@@ -1,4 +1,4 @@
-import { Coordinate3d } from './types';
+import type { Coordinate3d } from './types';
 
 export function ensureAltitude(coordinates: CodegenCoordinates): Coordinate3d;
 export function ensureAltitude(

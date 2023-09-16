@@ -1,11 +1,12 @@
-import { QueryResult, useQuery, WatchQueryFetchPolicy } from '@apollo/client';
-import { NamedNode } from '@whitewater-guide/schema';
-import { DocumentNode } from 'graphql';
+import type { QueryResult, WatchQueryFetchPolicy } from '@apollo/client';
+import { useQuery } from '@apollo/client';
+import type { NamedNode } from '@whitewater-guide/schema';
+import type { DocumentNode } from 'graphql';
 import React, { useState } from 'react';
 
 import { Autocomplete } from './Autocomplete';
 import itemToString from './itemToString';
-import { AutocompleteFilterOptions, AutocompleteProps } from './types';
+import type { AutocompleteFilterOptions, AutocompleteProps } from './types';
 
 const filterOptions: AutocompleteFilterOptions = { matchInput: true };
 

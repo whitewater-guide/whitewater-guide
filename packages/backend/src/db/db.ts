@@ -1,12 +1,13 @@
 /* eslint-disable node/no-process-env */
-import Knex from 'knex';
+import type { Knex } from 'knex';
+import { knex as knexClient } from 'knex';
 
 import knexConfig from './knexfile';
 
 const env = process.env.NODE_ENV || 'development';
-const config: Knex.Config = knexConfig[env];
+const config: Knex.Config = knexConfig[env]();
 
-export const knex = Knex(config);
+export const knex = knexClient(config);
 
 let testTransaction: Knex.Transaction | null = null;
 

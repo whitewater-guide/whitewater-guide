@@ -2,10 +2,8 @@ import { useState } from 'react';
 import { useDebounce } from 'use-debounce';
 
 import { useAddSectionRegion } from '../context';
-import {
-  ListedGaugeFragment,
-  useFindGaugesQuery,
-} from './findGauges.generated';
+import type { ListedGaugeFragment } from './findGauges.generated';
+import { useFindGaugesQuery } from './findGauges.generated';
 
 type Result = [string, (txt: string) => void, boolean, ListedGaugeFragment[]];
 

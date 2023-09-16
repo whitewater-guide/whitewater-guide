@@ -1,7 +1,7 @@
-import { BannerInput } from '@whitewater-guide/schema';
-import { Overwrite } from 'utility-types';
+import type { BannerInput } from '@whitewater-guide/schema';
+import type { Overwrite } from 'utility-types';
 
-import { LocalPhoto } from '../../../utils/files';
+import type { LocalPhoto } from '../../../utils/files';
 
 export type BannerFormData = Overwrite<
   BannerInput,

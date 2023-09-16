@@ -1,4 +1,4 @@
-import Knex from 'knex';
+import type { Knex } from 'knex';
 
 export const BOOM_PROMO_REGION_ACTIVE = 'fbWYzB9y';
 export const BOOM_PROMO_REGION_REDEEMED = '6UJPjFZc';

@@ -1,5 +1,4 @@
-import { Sql } from '~/db';
-
+import type { Sql } from '../db/index';
 import logger from './logger';
 import { sendMail } from './sendMail';
 import { MailType } from './types';

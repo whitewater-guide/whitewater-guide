@@ -1,7 +1,7 @@
 import { formatDistanceToNow, prettyNumber } from '@whitewater-guide/clients';
-import { RefInput } from '@whitewater-guide/schema';
+import type { RefInput } from '@whitewater-guide/schema';
 import parseISO from 'date-fns/parseISO';
-import * as i18next from 'i18next';
+import type * as i18next from 'i18next';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
@@ -9,7 +9,7 @@ import { TouchableRipple } from 'react-native-paper';
 
 import theme from '~/theme';
 
-import { ListedGaugeFragment } from './findGauges.generated';
+import type { ListedGaugeFragment } from './findGauges.generated';
 
 const styles = StyleSheet.create({
   row: {

@@ -1,5 +1,5 @@
-import { Room } from '@whitewater-guide/schema';
-import { MatrixEvent } from 'matrix-js-sdk';
+import type { Room } from '@whitewater-guide/schema';
+import type { MatrixEvent } from 'matrix-js-sdk';
 import React, { useRef } from 'react';
 import { FlatList, Platform, StyleSheet } from 'react-native';
 

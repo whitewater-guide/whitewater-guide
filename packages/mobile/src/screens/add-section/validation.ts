@@ -1,26 +1,28 @@
 import { getLocalPhotoSchema } from '@whitewater-guide/clients';
 import { MediaInputSchema, SectionInputSchema } from '@whitewater-guide/schema';
-import * as yup from 'yup';
+import type { ObjectSchema } from 'yup';
+import { array } from 'yup';
 
-import { MAX_PHOTO_MEGAPIXELS } from '../../features/uploads';
-import { MediaFormInput, SectionFormInput } from './types';
+import type { PhotoFile } from '~/features/uploads';
+import { MAX_PHOTO_MEGAPIXELS } from '~/features/uploads';
 
-const LocalPhotoSchema = getLocalPhotoSchema({
+import type { MediaFormInput, SectionFormInput } from './types';
+
+const LocalPhotoSchema = getLocalPhotoSchema<PhotoFile>({
   mpxOrResolution: MAX_PHOTO_MEGAPIXELS,
-});
+}).clone();
 
-const MediaFormSchema: yup.SchemaOf<MediaFormInput> = MediaInputSchema.clone()
+const MediaFormSchema: ObjectSchema<MediaFormInput> = MediaInputSchema.clone()
   .shape({
-    url: yup.mixed().oneOf([undefined]),
-    resolution: yup.mixed().oneOf([undefined]),
-    photo: LocalPhotoSchema.clone().defined().nullable(false),
+    photo: LocalPhotoSchema.required(),
   })
+  .omit(['url', 'resolution'])
   .defined();
 
-export const SectionFormSchema: yup.SchemaOf<SectionFormInput> =
+export const SectionFormSchema: ObjectSchema<SectionFormInput> =
   SectionInputSchema.clone()
     .shape({
-      media: yup.array().of(MediaFormSchema.clone()),
+      media: array().of(MediaFormSchema.clone()).required(),
     })
     .defined()
     .strict(true)

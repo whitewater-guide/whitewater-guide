@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ScrollViewProps, StyleSheet } from 'react-native';
+import type { ScrollViewProps } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { listenToKeyboardEvents } from 'react-native-keyboard-aware-scroll-view';
 import { Title } from 'react-native-paper';
@@ -12,7 +13,7 @@ import theme from '~/theme';
 
 import GaugePlaceholder from './GaugePlaceholder';
 import { SeasonNumericField } from './season';
-import { AddSectionFlowsNavProps } from './types';
+import type { AddSectionFlowsNavProps } from './types';
 
 // weird hack to make listenToKeyboardEvents work
 ScrollView.displayName = 'ScrollView';

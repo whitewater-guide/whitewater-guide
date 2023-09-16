@@ -1,4 +1,4 @@
-import { NamedNode } from '@whitewater-guide/schema';
+import type { NamedNode } from '@whitewater-guide/schema';
 
 import { filterRegions } from './filterRegions';
 

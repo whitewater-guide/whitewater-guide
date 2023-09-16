@@ -1,17 +1,16 @@
-import { anonContext, fakeContext } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
 import {
   ADMIN,
   EDITOR_GA_EC,
   EDITOR_GA_EC_ID,
   EDITOR_NO_EC_ID,
   TEST_USER,
-} from '~/seeds/test/01_users';
-import { REGION_ECUADOR, REGION_GALICIA } from '~/seeds/test/04_regions';
-
+} from '../../../seeds/test/01_users';
+import { REGION_ECUADOR, REGION_GALICIA } from '../../../seeds/test/04_regions';
+import { anonContext, fakeContext } from '../../../test/index';
 import { testRegionEditors } from './regionEditors.test.generated';
 
 const _q = gql`

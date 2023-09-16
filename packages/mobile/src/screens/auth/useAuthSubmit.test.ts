@@ -1,8 +1,9 @@
 import { act, renderHook } from '@testing-library/react-hooks';
-import { AuthResponse } from '@whitewater-guide/clients';
-import { FormikHelpers } from 'formik';
+import type { AuthResponse } from '@whitewater-guide/clients';
+import type { FormikHelpers } from 'formik';
 
-import { UseAuthSubmit, useAuthSubmit } from './useAuthSubmit';
+import type { UseAuthSubmit } from './useAuthSubmit';
+import { useAuthSubmit } from './useAuthSubmit';
 
 const TEST_PREFIX = '__prefix__';
 const apiCall = jest.fn();

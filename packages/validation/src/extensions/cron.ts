@@ -1,10 +1,7 @@
 import * as cronValidator from 'cron-validator';
-import * as yup from 'yup';
+import type { StringSchema } from 'yup';
 
-export default function cron(
-  this: yup.StringSchema<any, any, any>,
-  errorMessage?: string,
-) {
+export default function cron(this: StringSchema, errorMessage?: string) {
   return this.test({
     name: 'is-cron',
     exclusive: true,

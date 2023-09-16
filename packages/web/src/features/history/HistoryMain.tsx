@@ -5,7 +5,7 @@ import React from 'react';
 import { Card } from '../../layout';
 import { DiffDialog } from './DiffDialog';
 import HistoryTableContainer from './HistoryTableContainer';
-import { Diff } from './types';
+import type { Diff } from './types';
 
 interface State {
   openDiff: null | Diff;

@@ -5,14 +5,14 @@ import { useRouteMatch } from 'react-router';
 import { useDeleteMutation } from '../../../apollo';
 import { Loading } from '../../../components';
 import ChangeRegionDialog from './ChangeRegionDialog';
-import {
-  ListRiversDocument,
+import type {
   ListRiversQuery,
   ListRiversQueryVariables,
 } from './listRivers.generated';
+import { ListRiversDocument } from './listRivers.generated';
 import { RemoveRiverDocument } from './removeRiver.generated';
 import RiversTable from './RiversTable';
-import { RouterParams } from './types';
+import type { RouterParams } from './types';
 
 export const RiversList: React.FC = React.memo(() => {
   const match = useRouteMatch<RouterParams>();

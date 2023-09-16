@@ -1,4 +1,4 @@
-import { BannerWithSourceFragment } from '@whitewater-guide/schema';
+import type { BannerWithSourceFragment } from '@whitewater-guide/schema';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 

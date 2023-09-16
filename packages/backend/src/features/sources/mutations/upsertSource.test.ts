@@ -1,28 +1,28 @@
-import {
-  anonContext,
-  fakeContext,
-  isUUID,
-  noTimestamps,
-  noUnstable,
-} from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import { SourceInput } from '@whitewater-guide/schema';
-import gql from 'graphql-tag';
+import type { SourceInput } from '@whitewater-guide/schema';
+import { gql } from 'graphql-tag';
 
-import { db, holdTransaction, rollbackTransaction, Sql } from '~/db';
-import { GorgeConnector } from '~/features/gorge';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
+import type { Sql } from '../../../db/index';
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
+import { GorgeConnector } from '../../../features/gorge/index';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
 import {
   SOURCE_GALICIA_1,
   SOURCE_GEORGIA,
   SOURCE_RUSSIA,
-} from '~/seeds/test/05_sources';
-
+} from '../../../seeds/test/05_sources';
 import {
-  testUpsertSource,
+  anonContext,
+  fakeContext,
+  noTimestamps,
+  noUnstable,
+} from '../../../test/index';
+import { isUUID } from '../../../utils/index';
+import type {
   UpsertSourceMutation,
   UpsertSourceMutationResult,
 } from './upsertSource.test.generated';
+import { testUpsertSource } from './upsertSource.test.generated';
 
 jest.mock('../../gorge/connector');
 

@@ -1,28 +1,14 @@
-import {
-  copyToS3,
-  copyToTemp,
-  countRows,
-  fakeContext,
-  fileExistsInBucket,
-  noUnstable,
-  resetTestMinio,
-  UUID_REGEX,
-} from '@test';
 import { ApolloErrorCodes, NEW_RIVER_ID } from '@whitewater-guide/commons';
-import {
-  Duration,
-  MediaInput,
-  MediaKind,
-  SectionInput,
-} from '@whitewater-guide/schema';
-import gql from 'graphql-tag';
+import type { MediaInput, SectionInput } from '@whitewater-guide/schema';
+import { Duration, MediaKind } from '@whitewater-guide/schema';
+import { gql } from 'graphql-tag';
 import set from 'lodash/fp/set';
-import * as path from 'path';
 
-import config from '~/config';
-import { db, holdTransaction, rollbackTransaction, Sql } from '~/db';
-import { OTHERS_REGION_ID } from '~/features/regions';
-import { MEDIA, TEMP } from '~/s3';
+import config from '../../../config';
+import type { Sql } from '../../../db/index';
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
+import { OTHERS_REGION_ID } from '../../../features/regions/index';
+import { MEDIA, TEMP } from '../../../s3/index';
 import {
   ADMIN,
   ADMIN_ID,
@@ -32,34 +18,46 @@ import {
   EDITOR_NO_EC,
   EDITOR_NO_EC_ID,
   TEST_USER,
-} from '~/seeds/test/01_users';
-import { LOWER_BECA_PT_1 } from '~/seeds/test/02_points';
-import { REGION_GALICIA, REGION_NORWAY } from '~/seeds/test/04_regions';
-import { SOURCE_GALICIA_1, SOURCE_GEORGIA } from '~/seeds/test/05_sources';
+} from '../../../seeds/test/01_users';
+import { LOWER_BECA_PT_1 } from '../../../seeds/test/02_points';
+import { REGION_GALICIA, REGION_NORWAY } from '../../../seeds/test/04_regions';
+import {
+  SOURCE_GALICIA_1,
+  SOURCE_GEORGIA,
+} from '../../../seeds/test/05_sources';
 import {
   GAUGE_GAL_1_1,
   GAUGE_GAL_1_2,
   GAUGE_GEO_1,
-} from '~/seeds/test/06_gauges';
+} from '../../../seeds/test/06_gauges';
 import {
   RIVER_BZHUZHA,
   RIVER_GAL_BECA,
   RIVER_GAL_CABE,
   RIVER_QUIJOS,
   RIVER_SJOA,
-} from '~/seeds/test/07_rivers';
+} from '../../../seeds/test/07_rivers';
 import {
   GALICIA_BECA_LOWER,
   GEORGIA_BZHUZHA_QUALI,
   NORWAY_SJOA_AMOT,
-} from '~/seeds/test/09_sections';
-import { PHOTO_1, PHOTO_2 } from '~/seeds/test/11_media';
-
+} from '../../../seeds/test/09_sections';
+import { PHOTO_1, PHOTO_2 } from '../../../seeds/test/11_media';
 import {
-  testUpsertSection,
+  copyToS3,
+  copyToTemp,
+  countRows,
+  fakeContext,
+  fileExistsInBucket,
+  noUnstable,
+  resetTestMinio,
+} from '../../../test/index';
+import { resolveRelative, UUID_REGEX } from '../../../utils/index';
+import type {
   UpsertSectionMutation,
   UpsertSectionMutationResult,
 } from './upsertSection.test.generated';
+import { testUpsertSection } from './upsertSection.test.generated';
 
 jest.mock('../../gorge/connector');
 
@@ -753,12 +751,12 @@ describe('media', () => {
 
   beforeEach(async () => {
     await copyToTemp(
-      path.resolve(__dirname, '__tests__/test.jpg'),
+      resolveRelative(__dirname, '__tests__/test.jpg'),
       'photo.jpg',
     );
     await copyToS3(
       MEDIA,
-      path.resolve(__dirname, '__tests__/test.jpg'),
+      resolveRelative(__dirname, '__tests__/test.jpg'),
       'media_suggestion1.jpg',
     );
   });

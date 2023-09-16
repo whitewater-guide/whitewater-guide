@@ -1,16 +1,19 @@
+import type { MutationAddSuggestionArgs } from '@whitewater-guide/schema';
 import {
   MediaKind,
-  MutationAddSuggestionArgs,
   SuggestionInputSchema,
   SuggestionStatus,
 } from '@whitewater-guide/schema';
-import * as yup from 'yup';
+import type { ObjectSchema } from 'yup';
+import { object } from 'yup';
 
-import { isInputValidResolver, MutationResolvers } from '~/apollo';
-import { db, Sql } from '~/db';
-import { MEDIA, s3Client } from '~/s3';
+import type { MutationResolvers } from '../../../apollo/index';
+import { isInputValidResolver } from '../../../apollo/index';
+import type { Sql } from '../../../db/index';
+import { db } from '../../../db/index';
+import { MEDIA, s3Client } from '../../../s3/index';
 
-const schema: yup.SchemaOf<MutationAddSuggestionArgs> = yup.object({
+const schema: ObjectSchema<MutationAddSuggestionArgs> = object({
   suggestion: SuggestionInputSchema.clone().required(),
 });
 
@@ -41,7 +44,7 @@ const addSuggestion: MutationResolvers['addSuggestion'] = async (
         id: null,
         description: suggestion.description,
         copyright: suggestion.copyright,
-        url: suggestion.filename,
+        url: suggestion.filename!,
         kind: MediaKind.Photo,
         resolution: suggestion.resolution,
         weight: null,

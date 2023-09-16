@@ -1,7 +1,10 @@
-import { RegionMediaSummary } from '@whitewater-guide/schema';
+import type { RegionMediaSummary } from '@whitewater-guide/schema';
 import React from 'react';
 
-import { OfflineCategorySelection, OfflineCategoryType } from '../../types';
+import type {
+  OfflineCategorySelection,
+  OfflineCategoryType,
+} from '../../types';
 import OfflineCategory from './OfflineCategory';
 import OfflineCategoryData from './OfflineCategoryData';
 import OfflineCategoryMaps from './OfflineCategoryMaps';

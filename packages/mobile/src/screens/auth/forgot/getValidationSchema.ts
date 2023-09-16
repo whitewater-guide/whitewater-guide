@@ -1,14 +1,14 @@
-import { RequestResetPayload } from '@whitewater-guide/clients';
-import * as yup from 'yup';
+import type { RequestResetPayload } from '@whitewater-guide/clients';
+import type { ObjectSchema } from 'yup';
+import { object, string } from 'yup';
 
-let _schema: yup.SchemaOf<RequestResetPayload>;
+let _schema: ObjectSchema<RequestResetPayload>;
 
 const getValidationSchema = () => {
   if (!_schema) {
-    _schema = yup
-      .object()
+    _schema = object()
       .shape({
-        email: yup.string().email().required(),
+        email: string().email().required(),
       })
       .defined();
   }

@@ -1,6 +1,8 @@
-import { RegionPayload } from '@rnmapbox/maps/lib/typescript/components/MapView';
-import { BBox, getBBox } from '@whitewater-guide/clients';
-import { MutableRefObject, useCallback, useRef } from 'react';
+import type { RegionPayload } from '@rnmapbox/maps/lib/typescript/components/MapView';
+import type { BBox } from '@whitewater-guide/clients';
+import { getBBox } from '@whitewater-guide/clients';
+import type { MutableRefObject } from 'react';
+import { useCallback, useRef } from 'react';
 
 type UseBoundsRef = [
   MutableRefObject<BBox>,

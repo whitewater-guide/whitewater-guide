@@ -1,4 +1,4 @@
-import { SectionInput } from '@whitewater-guide/schema';
+import type { SectionInput } from '@whitewater-guide/schema';
 import { useFormikContext } from 'formik';
 import { useCallback } from 'react';
 

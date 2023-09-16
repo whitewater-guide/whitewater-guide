@@ -1,4 +1,4 @@
-import { ProductPurchase, PurchaseError } from 'react-native-iap';
+import type { ProductPurchase, PurchaseError } from 'react-native-iap';
 
 const { IAPErrorCode: errorCode } = jest.requireActual('react-native-iap');
 

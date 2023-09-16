@@ -1,6 +1,8 @@
 import MarkdownIt from 'markdown-it';
-import React, { FC, PropsWithChildren, useCallback } from 'react';
-import { StyleProp, StyleSheet, Text, TextStyle } from 'react-native';
+import type { FC, PropsWithChildren } from 'react';
+import React, { useCallback } from 'react';
+import type { StyleProp, TextStyle } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 
 import theme from '../theme';
 

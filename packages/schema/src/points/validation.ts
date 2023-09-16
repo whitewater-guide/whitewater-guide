@@ -1,12 +1,11 @@
-import isArray from 'lodash/isArray';
-import isNumber from 'lodash/isNumber';
-import * as yup from 'yup';
+import { isArray, isNumber } from 'lodash';
+import type { ObjectSchema, Schema } from 'yup';
+import { array, object, string } from 'yup';
 
-import { PointInput } from '../__generated__/types';
+import type { PointInput } from '../__generated__/types';
 import { POITypes } from './POITypes';
 
-export const CoordinateSchema: yup.SchemaOf<CodegenCoordinates> = yup
-  .array()
+export const CoordinateSchema: Schema<CodegenCoordinates> = array()
   .max(3)
   .test({
     name: 'is-coordinate3d-lng',
@@ -38,15 +37,14 @@ export const CoordinateSchema: yup.SchemaOf<CodegenCoordinates> = yup
         this.createError({ path, message: 'yup:number.altitude' })
       );
     },
-  });
+  }) as any;
 
-export const PointInputSchema: yup.SchemaOf<PointInput> = yup
-  .object({
-    id: yup.string().uuid().defined().nullable(),
-    name: yup.string().nullable(),
-    description: yup.string().nullable(),
-    coordinates: CoordinateSchema.clone() as any,
-    kind: yup.mixed().defined().oneOf(POITypes),
-  })
+export const PointInputSchema: ObjectSchema<PointInput> = object({
+  id: string().uuid().defined().nullable(),
+  name: string().nullable(),
+  description: string().nullable(),
+  coordinates: CoordinateSchema.clone(),
+  kind: string().defined().oneOf(POITypes),
+})
   .strict(true)
   .noUnknown();

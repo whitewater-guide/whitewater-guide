@@ -1,17 +1,16 @@
-import {
-  MutationUpsertSourceArgs,
-  SourceInputSchema,
-} from '@whitewater-guide/schema';
-import * as yup from 'yup';
+import type { MutationUpsertSourceArgs } from '@whitewater-guide/schema';
+import { SourceInputSchema } from '@whitewater-guide/schema';
+import type { ObjectSchema } from 'yup';
+import { object } from 'yup';
 
+import type { MutationResolvers } from '../../../apollo/index';
 import {
   isInputValidResolver,
   MutationNotAllowedError,
-  MutationResolvers,
-} from '~/apollo';
-import { db, rawUpsert } from '~/db';
+} from '../../../apollo/index';
+import { db, rawUpsert } from '../../../db/index';
 
-const Schema: yup.SchemaOf<MutationUpsertSourceArgs> = yup.object({
+const Schema: ObjectSchema<MutationUpsertSourceArgs> = object({
   source: SourceInputSchema.clone().required(),
 });
 

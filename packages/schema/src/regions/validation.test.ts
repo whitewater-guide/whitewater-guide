@@ -1,6 +1,6 @@
 import { createSafeValidator } from '@whitewater-guide/validation';
 
-import { RegionAdminSettings, RegionInput } from '../__generated__/types';
+import type { RegionAdminSettings, RegionInput } from '../__generated__/types';
 import { RegionAdminSettingsSchema, RegionInputSchema } from './validation';
 
 describe('RegionInput', () => {
@@ -63,7 +63,7 @@ describe('RegionInput', () => {
   const incorrectValues: IncorrectTestValue[] = [
     ['null name', { ...correct, name: null }],
     ['bad id', { ...correct, id: 'foo' }],
-    ['empty name', { ...correct, name: '' }],
+    ['empty name', { ...correct, name: '   ' }],
     [
       'bad season numeric (bad half-month)',
       { ...correct, seasonNumeric: [10, 100, -10, 11] },

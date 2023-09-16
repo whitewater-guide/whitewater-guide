@@ -1,10 +1,11 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 
 import BrokenImage from './BrokenImage';
 import { THUMB_HEIGHT } from './constants';
 import ThumbImage from './ThumbImage';
-import { ThumbProps } from './types';
+import type { ThumbProps } from './types';
 import useThumb from './useThumb';
 
 const useStyles = makeStyles(({ spacing }) =>

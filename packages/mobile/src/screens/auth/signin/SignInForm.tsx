@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
-import { Credentials, useAuth } from '@whitewater-guide/clients';
+import type { Credentials } from '@whitewater-guide/clients';
+import { useAuth } from '@whitewater-guide/clients';
 import { Formik } from 'formik';
 import React, { createRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -14,7 +15,7 @@ import TextField from '~/forms/TextField';
 import theme from '../../../theme';
 import { useAuthSubmit } from '../useAuthSubmit';
 import getValidationSchema from './getValidationSchema';
-import { AuthSignInNavProp } from './types';
+import type { AuthSignInNavProp } from './types';
 
 const styles = StyleSheet.create({
   forgot: {

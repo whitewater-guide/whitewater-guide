@@ -1,10 +1,14 @@
-import { ForbiddenError, UserInputError } from 'apollo-server-koa';
-import isEmail from 'validator/lib/isEmail';
-
-import { AuthenticatedMutation, isAuthenticatedResolver } from '~/apollo';
-import { randomToken } from '~/auth';
-import { db, Sql } from '~/db';
-import { MailType, sendMail } from '~/mail';
+import type { AuthenticatedMutation } from '../../../apollo/index';
+import {
+  ForbiddenError,
+  isAuthenticatedResolver,
+  UserInputError,
+} from '../../../apollo/index';
+import { randomToken } from '../../../auth/index';
+import type { Sql } from '../../../db/index';
+import { db } from '../../../db/index';
+import { MailType, sendMail } from '../../../mail/index';
+import { isEmail } from '../../../utils/index';
 
 const requestConnectEmail: AuthenticatedMutation['requestConnectEmail'] =
   async (_, { email }, context) => {

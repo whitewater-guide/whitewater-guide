@@ -1,12 +1,12 @@
-import { anonContext, countRows, fakeContext, UUID_REGEX } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import { GroupInput } from '@whitewater-guide/schema';
-import gql from 'graphql-tag';
+import type { GroupInput } from '@whitewater-guide/schema';
+import { gql } from 'graphql-tag';
 
-import { db, holdTransaction, rollbackTransaction } from '~/db';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
-import { GROUP_EU } from '~/seeds/test/03_groups';
-
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
+import { GROUP_EU } from '../../../seeds/test/03_groups';
+import { anonContext, countRows, fakeContext } from '../../../test/index';
+import { UUID_REGEX } from '../../../utils/index';
 import { testUpsertGroup } from './upsertGroup.test.generated';
 
 let gBefore: number;

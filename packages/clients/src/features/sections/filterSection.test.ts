@@ -1,10 +1,11 @@
 import { Duration, TagCategory } from '@whitewater-guide/schema';
 import pickBy from 'lodash/pickBy';
-import { DeepPartial } from 'utility-types';
+import type { DeepPartial } from 'utility-types';
 
 import { getFilter } from './filterSection';
-import { ListedSectionFragment } from './listSections.generated';
-import { DefaultSectionFilterOptions, SectionFilterOptions } from './types';
+import type { ListedSectionFragment } from './listSections.generated';
+import type { SectionFilterOptions } from './types';
+import { DefaultSectionFilterOptions } from './types';
 
 const section: ListedSectionFragment = {
   id: 'ea67cd9e-9917-11e9-bd1b-3fc9ab40b1ef',

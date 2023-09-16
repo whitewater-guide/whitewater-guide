@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies, max-classes-per-file */
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 import 'raf/polyfill';
 import 'react-app-polyfill/stable';
 import 'url-search-params-polyfill';

@@ -1,14 +1,13 @@
 import { useNavigation } from '@react-navigation/native';
 import { getValidationErrors } from '@whitewater-guide/clients';
-import { omitTypename } from '@whitewater-guide/commons';
-import { FormikHelpers } from 'formik';
+import type { FormikHelpers } from 'formik';
 import isNil from 'lodash/isNil';
 import { useCallback } from 'react';
 
 import showSnackbarError from '~/components/showSnackbarError';
 import showSnackbarMessage from '~/components/showSnackbarMessage';
 
-import { DescentFormData } from './types';
+import type { DescentFormData } from './types';
 import { useUpsertDescentMutation } from './upsertDescent.generated';
 
 export default () => {
@@ -22,7 +21,7 @@ export default () => {
       mutate({
         variables: {
           descent: {
-            ...omitTypename(data),
+            ...data,
             level: isNil(level?.value) ? null : level,
             sectionId: section.id,
           },

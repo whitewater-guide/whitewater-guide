@@ -1,5 +1,5 @@
-import { SectionInput } from '@whitewater-guide/schema';
-import { DeepPartial } from 'utility-types';
+import type { SectionInput } from '@whitewater-guide/schema';
+import type { DeepPartial } from 'utility-types';
 
 import { parseDifficultyString } from '../utils/parseDifficultyString';
 

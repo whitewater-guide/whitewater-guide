@@ -21,7 +21,8 @@
     "**/packages/android-placeholder/**": true,
     "**/Pods/**": true,
     "**/*.log": true,
-    "**/yarn.lock": true
+    "**/yarn.lock": true,
+    "**/pnpm-lock.yaml": true
   },
   "typescript.tsdk": "_ROOT/node_modules/typescript/lib",
   "search.useIgnoreFiles": false,
@@ -36,7 +37,8 @@
     "**/node_modules/*/**": true,
     "**/packages/android-placeholder/**": true,
     "**/Pods/**": true,
-    "**/yarn.lock": true
+    "**/yarn.lock": true,
+    "**/pnpm-lock.yaml": true
   },
   "typescript.disableAutomaticTypeAcquisition": true
 }

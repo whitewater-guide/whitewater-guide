@@ -1,4 +1,4 @@
-import { FormatFunction } from 'i18next';
+import type { FormatFunction } from 'i18next';
 import toNumber from 'lodash/toNumber';
 import prettyBytes from 'pretty-bytes';
 

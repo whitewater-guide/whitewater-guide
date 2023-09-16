@@ -3,7 +3,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import React, { useCallback } from 'react';
 
-import { GoogleMapControlProps } from '../../../components/maps/GoogleMap';
+import type { GoogleMapControlProps } from '../../../components/maps/GoogleMap';
 
 const useStyles = makeStyles(() =>
   createStyles({

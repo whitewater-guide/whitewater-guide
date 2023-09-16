@@ -1,15 +1,14 @@
-import { anonContext, fakeContext } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { db, holdTransaction, rollbackTransaction } from '~/db';
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
 import {
   ADMIN,
   EDITOR_GA_EC,
   TEST_USER,
   TEST_USER_ID,
-} from '~/seeds/test/01_users';
-
+} from '../../../seeds/test/01_users';
+import { anonContext, fakeContext } from '../../../test/index';
 import { testDeleteUser } from './deleteUser.test.generated';
 
 jest.mock('../../chats/SynapseClient');

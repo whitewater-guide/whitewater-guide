@@ -1,13 +1,13 @@
-import {
+import type {
   AccessTokenPayload,
   AuthBody,
   SignInBody,
 } from '@whitewater-guide/commons';
-import { ParameterizedContext } from 'koa';
-import { IRouterParamContext } from 'koa-router';
+import type { ParameterizedContext } from 'koa';
+import type { IRouterParamContext } from 'koa-router';
 
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from '../constants';
-import { commonCookieOptions } from '../utils';
+import { commonCookieOptions } from '../utils/index';
 import { getAccessToken, getRefreshToken } from './tokens';
 
 type Ctx = ParameterizedContext<any, IRouterParamContext<any, unknown>>;

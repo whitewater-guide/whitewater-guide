@@ -1,6 +1,7 @@
 import Box from '@material-ui/core/Box';
 import { BannerRatios } from '@whitewater-guide/clients';
-import { BannerPlacement, NamedNode } from '@whitewater-guide/schema';
+import type { NamedNode } from '@whitewater-guide/schema';
+import { BannerPlacement } from '@whitewater-guide/schema';
 import snakeCase from 'lodash/snakeCase';
 import upperFirst from 'lodash/upperCase';
 import React from 'react';
@@ -15,7 +16,7 @@ import {
   TextField,
 } from '../../../formik/fields';
 import { BannerSourceFields } from './source';
-import { RouterParams } from './types';
+import type { RouterParams } from './types';
 
 const PLACEMENTS = Object.values(BannerPlacement).map((placement) => {
   const name = upperFirst(snakeCase(placement)).replace(/_/g, ' ');

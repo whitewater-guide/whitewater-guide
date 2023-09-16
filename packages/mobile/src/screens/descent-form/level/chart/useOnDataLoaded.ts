@@ -1,9 +1,9 @@
-import { ChartDataPoint } from '@whitewater-guide/clients';
-import {
+import type { ChartDataPoint } from '@whitewater-guide/clients';
+import type {
   DescentLevelInput,
   GaugeCoreFragment,
-  Unit,
 } from '@whitewater-guide/schema';
+import { Unit } from '@whitewater-guide/schema';
 import differenceInMilliseconds from 'date-fns/differenceInMilliseconds';
 import sortBy from 'lodash/sortBy';
 import { useEffect } from 'react';

@@ -1,8 +1,7 @@
-import Knex from 'knex';
+import type { Knex } from 'knex';
 
-import { OTHERS_REGION_ID } from '~/features/regions';
-
-import { getBounds } from '../../utils';
+import { OTHERS_REGION_ID } from '../../features/regions/index';
+import { getBounds } from '../../utils/index';
 import {
   EDITOR_GA_EC_ID,
   EDITOR_GE_ID,

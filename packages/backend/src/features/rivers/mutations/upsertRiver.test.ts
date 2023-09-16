@@ -1,16 +1,9 @@
-import {
-  anonContext,
-  countRows,
-  fakeContext,
-  isUUID,
-  noTimestamps,
-  noUnstable,
-} from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import { RiverInput } from '@whitewater-guide/schema';
-import gql from 'graphql-tag';
+import type { RiverInput } from '@whitewater-guide/schema';
+import { gql } from 'graphql-tag';
 
-import { db, holdTransaction, rollbackTransaction, Sql } from '~/db';
+import type { Sql } from '../../../db/index';
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
 import {
   ADMIN_ID,
   EDITOR_GA_EC,
@@ -18,10 +11,17 @@ import {
   EDITOR_NO,
   EDITOR_NO_EC,
   TEST_USER,
-} from '~/seeds/test/01_users';
-import { REGION_GALICIA, REGION_NORWAY } from '~/seeds/test/04_regions';
-import { RIVER_GAL_BECA, RIVER_SJOA } from '~/seeds/test/07_rivers';
-
+} from '../../../seeds/test/01_users';
+import { REGION_GALICIA, REGION_NORWAY } from '../../../seeds/test/04_regions';
+import { RIVER_GAL_BECA, RIVER_SJOA } from '../../../seeds/test/07_rivers';
+import {
+  anonContext,
+  countRows,
+  fakeContext,
+  noTimestamps,
+  noUnstable,
+} from '../../../test/index';
+import { isUUID } from '../../../utils/index';
 import { testUpsertRiver } from './upsertRiver.test.generated';
 
 let rBefore: number;

@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should be invalid for bad group 1`] = `
-Object {
-  "regions": Array [
+{
+  "regions": [
     ,
-    Object {
-      "id": Object {
+    {
+      "id": {
         "key": "yup:string.uuid",
-        "options": Object {
+        "options": {
           "path": "regions[1].id",
         },
       },
@@ -17,10 +17,10 @@ Object {
 `;
 
 exports[`should be invalid for bad link 1`] = `
-Object {
-  "link": Object {
+{
+  "link": {
     "key": "yup:string.url",
-    "options": Object {
+    "options": {
       "path": "link",
     },
   },
@@ -28,10 +28,10 @@ Object {
 `;
 
 exports[`should be invalid for bad placement 1`] = `
-Object {
-  "placement": Object {
+{
+  "placement": {
     "key": "yup:mixed.oneOf",
-    "options": Object {
+    "options": {
       "values": "mobileRegionDescription, mobileSectionDescription, mobileSectionMedia, mobileSectionRow",
     },
   },
@@ -39,13 +39,13 @@ Object {
 `;
 
 exports[`should be invalid for bad region 1`] = `
-Object {
-  "regions": Array [
+{
+  "regions": [
     ,
-    Object {
-      "id": Object {
+    {
+      "id": {
         "key": "yup:string.uuid",
-        "options": Object {
+        "options": {
           "path": "regions[1].id",
         },
       },
@@ -55,22 +55,22 @@ Object {
 `;
 
 exports[`should be invalid for bad slug 1 1`] = `
-Object {
+{
   "slug": "yup:string.slug",
 }
 `;
 
 exports[`should be invalid for bad slug 2 1`] = `
-Object {
+{
   "slug": "yup:string.slug",
 }
 `;
 
 exports[`should be invalid for bad uuid 1`] = `
-Object {
-  "id": Object {
+{
+  "id": {
     "key": "yup:string.uuid",
-    "options": Object {
+    "options": {
       "path": "id",
     },
   },
@@ -78,10 +78,10 @@ Object {
 `;
 
 exports[`should be invalid for casting priority 1`] = `
-Object {
-  "priority": Object {
+{
+  "priority": {
     "key": "yup:mixed.notType",
-    "options": Object {
+    "options": {
       "type": "number",
     },
   },
@@ -89,24 +89,24 @@ Object {
 `;
 
 exports[`should be invalid for empty name 1`] = `
-Object {
+{
   "name": "yup:mixed.required",
 }
 `;
 
 exports[`should be invalid for empty source 1`] = `
-Object {
-  "source": Object {
+{
+  "source": {
     "url": "yup:mixed.required",
   },
 }
 `;
 
 exports[`should be invalid for extra fields 1`] = `
-Object {
-  "": Object {
+{
+  "": {
     "key": "yup:object.noUnknown",
-    "options": Object {
+    "options": {
       "path": "this",
     },
   },
@@ -114,16 +114,16 @@ Object {
 `;
 
 exports[`should be invalid for http link 1`] = `
-Object {
+{
   "link": "yup:string.https",
 }
 `;
 
 exports[`should be invalid for source with extra fields 1`] = `
-Object {
-  "source": Object {
+{
+  "source": {
     "key": "yup:object.noUnknown",
-    "options": Object {
+    "options": {
       "path": "source",
     },
   },

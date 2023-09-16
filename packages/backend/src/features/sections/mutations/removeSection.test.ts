@@ -1,24 +1,25 @@
-import { anonContext, countRows, fakeContext, UUID_REGEX } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { db, holdTransaction, rollbackTransaction, Sql } from '~/db';
-import { GorgeConnector } from '~/features/gorge';
+import type { Sql } from '../../../db/index';
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
+import { GorgeConnector } from '../../../features/gorge/index';
 import {
   ADMIN,
   EDITOR_GA_EC,
   EDITOR_GA_EC_ID,
   EDITOR_NO_EC,
   TEST_USER,
-} from '~/seeds/test/01_users';
-import { REGION_GALICIA } from '~/seeds/test/04_regions';
-import { SOURCE_GALICIA_1 } from '~/seeds/test/05_sources';
-import { RIVER_FINNA, RIVER_GAL_BECA } from '~/seeds/test/07_rivers';
+} from '../../../seeds/test/01_users';
+import { REGION_GALICIA } from '../../../seeds/test/04_regions';
+import { SOURCE_GALICIA_1 } from '../../../seeds/test/05_sources';
+import { RIVER_FINNA, RIVER_GAL_BECA } from '../../../seeds/test/07_rivers';
 import {
   GALICIA_BECA_LOWER,
   NORWAY_FINNA_GORGE,
-} from '~/seeds/test/09_sections';
-
+} from '../../../seeds/test/09_sections';
+import { anonContext, countRows, fakeContext } from '../../../test/index';
+import { UUID_REGEX } from '../../../utils/index';
 import { testRemoveSection } from './removeSection.test.generated';
 
 jest.mock('../../gorge/connector');

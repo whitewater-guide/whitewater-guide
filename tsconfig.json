@@ -14,16 +14,13 @@
     "noEmitHelpers": true,
     "jsx": "react",
     "lib": ["esnext", "dom"],
-    "target": "es2020",
-    "module": "es2020",
+    "target": "ESNext",
+    "module": "ESNext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-
     "skipLibCheck": true,
-
     "strict": true,
     "strictFunctionTypes": false,
-
     "pretty": true
   }
 }

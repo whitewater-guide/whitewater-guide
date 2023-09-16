@@ -4,7 +4,7 @@ import { useMapSelection } from '@whitewater-guide/clients';
 import React, { useCallback } from 'react';
 
 import { InfoWindow } from './InfoWindow';
-import { MapElementProps } from './types';
+import type { MapElementProps } from './types';
 import { isPoint } from './utils';
 
 const SelectedPOIWeb: React.FC<MapElementProps> = (props) => {

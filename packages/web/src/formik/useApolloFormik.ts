@@ -1,19 +1,19 @@
-import {
+import type {
   MutationHookOptions,
+  OperationVariables,
   QueryHookOptions,
-  useMutation,
-  useQuery,
 } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { getValidationErrors } from '@whitewater-guide/clients';
-import { omitTypename } from '@whitewater-guide/commons';
-import { FormikHelpers } from 'formik';
-import { DocumentNode } from 'graphql';
+import type { FormikHelpers } from 'formik';
+import type { DocumentNode } from 'graphql';
+import type { History } from 'history';
 import isEmpty from 'lodash/isEmpty';
 import { useCallback, useMemo, useRef } from 'react';
 import { useHistory } from 'react-router';
 
 export interface ApolloFormikOptions<
-  QVars,
+  QVars extends OperationVariables,
   QResult,
   FormData,
   MVars,
@@ -35,7 +35,13 @@ export interface UseApolloFormik<QResult, FData> {
   rawData?: QResult;
 }
 
-export function useApolloFormik<QVars, QResult, FData, MVars, MResult = any>(
+export function useApolloFormik<
+  QVars extends OperationVariables,
+  QResult,
+  FData,
+  MVars,
+  MResult = any,
+>(
   options: ApolloFormikOptions<QVars, QResult, FData, MVars, MResult>,
 ): UseApolloFormik<QResult, FData> {
   const { queryOptions, mutationOptions, onSuccess } = options;
@@ -45,7 +51,7 @@ export function useApolloFormik<QVars, QResult, FData, MVars, MResult = any>(
   const queryToForm = useRef(options.queryToForm);
   const formToMutation = useRef(options.formToMutation);
 
-  const history = useHistory();
+  const history: History = useHistory();
 
   const queryResult = useQuery<QResult, QVars>(query.current, {
     ...queryOptions,
@@ -60,7 +66,7 @@ export function useApolloFormik<QVars, QResult, FData, MVars, MResult = any>(
   const onSubmitSuccess = useCallback(
     (mutationResult?: MResult) => {
       if (!onSuccess) {
-        history.goBack();
+        history.back();
       } else if (typeof onSuccess === 'string') {
         history.replace(onSuccess);
       } else if (typeof onSuccess === 'function') {
@@ -74,7 +80,7 @@ export function useApolloFormik<QVars, QResult, FData, MVars, MResult = any>(
     (data: FData, formikHelpers: FormikHelpers<FData>) => {
       // Reset form error
       formikHelpers.setStatus({ success: false });
-      return mutate({ variables: omitTypename(formToMutation.current(data)) })
+      return mutate({ variables: formToMutation.current(data) })
         .then((res: any) => {
           formikHelpers.setStatus({ success: true });
           onSubmitSuccess(res.data);
@@ -98,10 +104,10 @@ export function useApolloFormik<QVars, QResult, FData, MVars, MResult = any>(
     () => ({
       initialValues:
         !queryResult.loading && queryResult.data
-          ? queryToForm.current(omitTypename(queryResult.data))
+          ? queryToForm.current(queryResult.data)
           : null,
       loading: queryResult.loading,
-      rawData: omitTypename(queryResult.data),
+      rawData: queryResult.data,
       onSubmit,
     }),
     [queryResult, onSubmit],

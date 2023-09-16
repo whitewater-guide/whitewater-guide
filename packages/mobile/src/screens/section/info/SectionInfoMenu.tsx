@@ -1,6 +1,7 @@
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import { useNavigation } from '@react-navigation/core';
-import { ROOT_LICENSE, SafeSectionDetails } from '@whitewater-guide/clients';
+import type { SafeSectionDetails } from '@whitewater-guide/clients';
+import { ROOT_LICENSE } from '@whitewater-guide/clients';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform } from 'react-native';
@@ -10,7 +11,7 @@ import { Screens } from '~/core/navigation';
 import { useToggleFavoriteSection } from '~/features/sections';
 import theme from '~/theme';
 
-import { SectionInfoNavProp } from './types';
+import type { SectionInfoNavProp } from './types';
 
 interface Props {
   section: SafeSectionDetails;

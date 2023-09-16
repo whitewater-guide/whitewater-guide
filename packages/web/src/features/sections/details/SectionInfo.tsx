@@ -2,14 +2,17 @@ import Chip from '@material-ui/core/Chip';
 import Grid from '@material-ui/core/Grid';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Rating from '@material-ui/lab/Rating';
-import {
+import type {
   DifficultyFragment,
-  renderDifficulty,
   SafeSectionDetails,
+} from '@whitewater-guide/clients';
+import {
+  renderDifficulty,
   sectionName,
   stringifySeason,
 } from '@whitewater-guide/clients';
-import { Durations, Tag, TagCategory } from '@whitewater-guide/schema';
+import type { Tag } from '@whitewater-guide/schema';
+import { Durations, TagCategory } from '@whitewater-guide/schema';
 import groupBy from 'lodash/groupBy';
 import React from 'react';
 

@@ -9,7 +9,7 @@ import Loading from '~/components/Loading';
 import { Screen } from '~/components/Screen';
 
 import { WEB_URL } from '../../utils/urls';
-import { WebViewNavProps } from './types';
+import type { WebViewNavProps } from './types';
 
 const renderLoading = () => <Loading />;
 

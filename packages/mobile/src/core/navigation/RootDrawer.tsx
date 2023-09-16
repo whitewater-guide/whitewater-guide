@@ -1,7 +1,5 @@
-import {
-  createDrawerNavigator,
-  DrawerContentComponentProps,
-} from '@react-navigation/drawer';
+import type { DrawerContentComponentProps } from '@react-navigation/drawer';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import React from 'react';
 
 import { Screens } from '~/core/navigation';

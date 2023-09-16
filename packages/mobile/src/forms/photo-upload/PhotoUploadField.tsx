@@ -6,7 +6,8 @@ import { StyleSheet, View } from 'react-native';
 import Loading from '~/components/Loading';
 import { PhotoPicker } from '~/components/photo-picker';
 
-import { LocalPhoto, useLocalPhotos } from '../../features/uploads';
+import type { LocalPhoto } from '../../features/uploads';
+import { useLocalPhotos } from '../../features/uploads';
 import theme from '../../theme';
 import HelperText from '../HelperText';
 

@@ -1,12 +1,7 @@
-import {
-  createContext,
-  FC,
-  PropsWithChildren,
-  RefObject,
-  useContext,
-  useMemo,
-} from 'react';
-import { runOnUI, SharedValue, useSharedValue } from 'react-native-reanimated';
+import type { FC, PropsWithChildren, RefObject } from 'react';
+import { createContext, useContext, useMemo } from 'react';
+import type { SharedValue } from 'react-native-reanimated';
+import { runOnUI, useSharedValue } from 'react-native-reanimated';
 
 type SwipeableListContext = [
   selected: SharedValue<string> | undefined,

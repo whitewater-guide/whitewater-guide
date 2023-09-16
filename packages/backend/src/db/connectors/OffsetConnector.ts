@@ -1,22 +1,19 @@
-import { DataSource } from 'apollo-datasource';
-import { GraphQLResolveInfo } from 'graphql';
+import type { GraphQLResolveInfo } from 'graphql';
 import gqf from 'graphql-fields';
-import { QueryBuilder } from 'knex';
+import type { Knex } from 'knex';
 
-import { Context } from '~/apollo';
-import { db } from '~/db';
-
+import { db } from '../../db/index';
 import { BaseConnector } from './BaseConnector';
-import { ManyBuilderOptions } from './types';
+import type { ManyBuilderOptions } from './types';
 
-export abstract class OffsetConnector<TGraphql, TSql extends { id: string }>
-  extends BaseConnector<TGraphql, TSql>
-  implements DataSource<Context>
-{
+export abstract class OffsetConnector<
+  TGraphql,
+  TSql extends { id: string },
+> extends BaseConnector<TGraphql, TSql> {
   public getMany(
     info: GraphQLResolveInfo,
     options: ManyBuilderOptions<TSql> = {},
-  ): QueryBuilder {
+  ): Knex.QueryBuilder {
     const tree = gqf(info);
     const { nodes, count } = tree;
 

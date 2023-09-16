@@ -3,15 +3,15 @@ import React, { useCallback } from 'react';
 import { useHistory } from 'react-router';
 
 import { UnstyledLink } from '../../../components';
+import type { TableCellRenderer } from '../../../components/tables';
 import {
   BooleanColumn,
   Column,
   isEmptyRow,
   Table,
-  TableCellRenderer,
 } from '../../../components/tables';
 import { paths } from '../../../utils';
-import {
+import type {
   ListedRegionFragment,
   ListRegionsQuery,
 } from './listRegions.generated';

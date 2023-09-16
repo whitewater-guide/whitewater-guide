@@ -1,16 +1,16 @@
-import { Credentials } from '@whitewater-guide/clients';
+import type { Credentials } from '@whitewater-guide/clients';
 import { PASSWORD_MIN_LENGTH } from '@whitewater-guide/commons';
-import * as yup from 'yup';
+import type { ObjectSchema } from 'yup';
+import { object, string } from 'yup';
 
-let _schema: yup.SchemaOf<Credentials>;
+let _schema: ObjectSchema<Credentials>;
 
 const getValidationSchema = () => {
   if (!_schema) {
-    _schema = yup
-      .object()
+    _schema = object()
       .shape({
-        email: yup.string().email().required(),
-        password: yup.string().trim().min(PASSWORD_MIN_LENGTH).required(),
+        email: string().email().required(),
+        password: string().trim().min(PASSWORD_MIN_LENGTH).required(),
       })
       .defined();
   }

@@ -1,10 +1,10 @@
 import gqf from 'graphql-fields';
 
-import { SectionResolvers } from '~/apollo';
+import type { SectionResolvers } from '../../../apollo/index';
 
 const EMBEDDED_RIVER_FIELDS = ['__typename', 'id', 'name'];
 
-const riverResolver: SectionResolvers['river'] = (
+const riverResolver: SectionResolvers['river'] = async (
   { river_id, river_name },
   _,
   { dataSources },
@@ -17,7 +17,8 @@ const riverResolver: SectionResolvers['river'] = (
       name: river_name,
     };
   }
-  return dataSources.rivers.getById(river_id);
+  const river = await dataSources.rivers.getById(river_id);
+  return river!;
 };
 
 export default riverResolver;

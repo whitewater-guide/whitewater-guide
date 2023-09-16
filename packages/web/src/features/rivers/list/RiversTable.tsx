@@ -1,13 +1,16 @@
 import React, { useCallback } from 'react';
 
+import type { TableCellRenderer } from '../../../components/tables';
 import {
   Column,
   EditorColumn,
   isEmptyRow,
   Table,
-  TableCellRenderer,
 } from '../../../components/tables';
-import { ListedRiverFragment, ListRiversQuery } from './listRivers.generated';
+import type {
+  ListedRiverFragment,
+  ListRiversQuery,
+} from './listRivers.generated';
 import RiversTableActions from './RiversTableActions';
 
 const renderAltNames: TableCellRenderer<ListedRiverFragment> = ({

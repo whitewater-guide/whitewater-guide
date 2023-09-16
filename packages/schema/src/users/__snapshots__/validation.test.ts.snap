@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should be invalid for bad email 1`] = `
-Object {
-  "email": Object {
+{
+  "email": {
     "key": "yup:string.email",
-    "options": Object {
+    "options": {
       "path": "email",
     },
   },
@@ -12,10 +12,10 @@ Object {
 `;
 
 exports[`should be invalid for empty name 1`] = `
-Object {
-  "name": Object {
+{
+  "name": {
     "key": "yup:string.min",
-    "options": Object {
+    "options": {
       "min": 1,
       "path": "name",
     },
@@ -24,10 +24,10 @@ Object {
 `;
 
 exports[`should be invalid for extra fields 1`] = `
-Object {
-  "": Object {
+{
+  "": {
     "key": "yup:object.noUnknown",
-    "options": Object {
+    "options": {
       "path": "this",
     },
   },

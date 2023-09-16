@@ -1,10 +1,12 @@
-import { Gauge } from '@whitewater-guide/gorge';
-import { GaugeInput, PointInput } from '@whitewater-guide/schema';
-import keyBy from 'lodash/keyBy';
+import type { Gauge } from '@whitewater-guide/gorge';
+import type { GaugeInput, PointInput } from '@whitewater-guide/schema';
+import { keyBy } from 'lodash';
 
-import { MutationResolvers, UnknownError } from '~/apollo';
-import { db, rawUpsert, Sql } from '~/db';
-import log from '~/log';
+import type { MutationResolvers } from '../../../apollo/index';
+import { UnknownError } from '../../../apollo/index';
+import type { Sql } from '../../../db/index';
+import { db, rawUpsert } from '../../../db/index';
+import log from '../../../log/index';
 
 const convertLocation = (
   info: Gauge,

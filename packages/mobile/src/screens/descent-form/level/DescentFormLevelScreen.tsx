@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DescentFormDateNavProps } from '~/screens/descent-form/date/types';
+import type { DescentFormDateNavProps } from '~/screens/descent-form/date/types';
 
 import { DescentFormScreen } from '../DescentFormContext';
 import DescentFormLevelView from './DescentFormLevelView';

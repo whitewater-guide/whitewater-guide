@@ -1,16 +1,17 @@
 import { LocalPhotoStatus } from '@whitewater-guide/clients';
-import Image, { ImageStyle } from '@whitewater-guide/react-native-fast-image';
+import type { ImageStyle } from '@whitewater-guide/react-native-fast-image';
+import Image from '@whitewater-guide/react-native-fast-image';
 import React, { useCallback, useMemo, useState } from 'react';
+import type { StyleProp } from 'react-native';
 import {
   Platform,
   StatusBar,
-  StyleProp,
   StyleSheet,
   TouchableOpacity,
   View,
 } from 'react-native';
 
-import { LocalPhoto } from '../../features/uploads';
+import type { LocalPhoto } from '../../features/uploads';
 import theme from '../../theme';
 import Icon from '../Icon';
 import { PhotoGallery } from '../photo-gallery';

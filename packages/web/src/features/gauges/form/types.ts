@@ -1,5 +1,9 @@
-import { GaugeInput, NamedNode, PointInput } from '@whitewater-guide/schema';
-import { Overwrite } from 'utility-types';
+import type {
+  GaugeInput,
+  NamedNode,
+  PointInput,
+} from '@whitewater-guide/schema';
+import type { Overwrite } from 'utility-types';
 
 export interface RouterParams {
   sourceId: string;

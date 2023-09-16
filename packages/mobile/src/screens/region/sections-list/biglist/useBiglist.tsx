@@ -1,24 +1,23 @@
 import { useNavigation, useScrollToTop } from '@react-navigation/native';
-import {
-  ListedSectionFragment,
-  SectionsStatus,
-} from '@whitewater-guide/clients';
-import React, { RefObject, useMemo } from 'react';
-import { BigListProps } from 'react-native-big-list';
+import type { ListedSectionFragment } from '@whitewater-guide/clients';
+import { SectionsStatus } from '@whitewater-guide/clients';
+import type { RefObject } from 'react';
+import React, { useMemo } from 'react';
+import type { BigListProps } from 'react-native-big-list';
 
 import { Screens } from '~/core/navigation';
 import { useAppSettings } from '~/features/settings';
 
+import type { SectionsListDataItem } from '../item';
 import {
   ITEM_HEIGHT,
   ListItem,
   SECTIONS_LIST_SUBTITLE_HEIGHT,
-  SectionsListDataItem,
   SectionsListSubtitle,
 } from '../item';
-import { RegionSectionsNavProp } from '../types';
+import type { RegionSectionsNavProp } from '../types';
 import getData from './getData';
-import { ListProps } from './types';
+import type { ListProps } from './types';
 
 function keyExtractor(item: SectionsListDataItem): string {
   return item.key;

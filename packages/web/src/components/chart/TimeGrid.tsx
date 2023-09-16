@@ -1,4 +1,4 @@
-import { TimeGridProps } from '@whitewater-guide/clients';
+import type { TimeGridProps } from '@whitewater-guide/clients';
 import isSunday from 'date-fns/isSunday';
 import React from 'react';
 import { LineSegment } from 'victory';

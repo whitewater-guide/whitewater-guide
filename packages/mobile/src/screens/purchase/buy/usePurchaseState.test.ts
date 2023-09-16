@@ -3,9 +3,10 @@ import { act, renderHook } from '@testing-library/react-hooks';
 
 import { Screens } from '~/core/navigation';
 
-import { IAPError, PremiumRegion, useIap } from '../../../features/purchases';
-import usePremiumQuery from './usePremiumQuery';
-import usePurchaseAction from './usePurchaseAction';
+import type { PremiumRegion, useIap } from '../../../features/purchases';
+import { IAPError } from '../../../features/purchases';
+import type usePremiumQuery from './usePremiumQuery';
+import type usePurchaseAction from './usePurchaseAction';
 import usePurchaseState from './usePurchaseState';
 
 const mockNavigate = jest.fn();

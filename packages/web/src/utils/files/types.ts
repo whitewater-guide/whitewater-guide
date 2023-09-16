@@ -1,9 +1,9 @@
+import type { LocalPhoto as TLocalPhoto } from '@whitewater-guide/clients';
 import {
-  LocalPhoto as TLocalPhoto,
   LocalPhotoStatus,
   validateResolution,
 } from '@whitewater-guide/clients';
-import shortid from 'shortid';
+import { nanoid } from 'nanoid';
 
 import { getImageResolution } from './getImageResolution';
 
@@ -26,7 +26,7 @@ export const toLocalPhoto = async (
   const resolution = await getImageResolution(file);
   const error = validateResolution(resolution, mpxOrResolution);
   return {
-    id: shortid(),
+    id: nanoid(),
     file: withPreview(file),
     resolution,
     status: LocalPhotoStatus.PICKING,

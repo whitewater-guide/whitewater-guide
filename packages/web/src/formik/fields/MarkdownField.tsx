@@ -1,6 +1,8 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { MdEditor, MdEditorValue } from '@whitewater-guide/md-editor';
-import { FastField, FieldInputProps } from 'formik';
+import type { MdEditorValue } from '@whitewater-guide/md-editor';
+import { MdEditor } from '@whitewater-guide/md-editor';
+import type { FieldInputProps } from 'formik';
+import { FastField } from 'formik';
 import React, { useMemo } from 'react';
 
 const useStyles = makeStyles((theme) =>

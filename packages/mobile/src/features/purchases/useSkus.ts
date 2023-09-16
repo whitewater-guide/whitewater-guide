@@ -2,7 +2,7 @@ import isEqual from 'lodash/isEqual';
 import { useEffect, useState } from 'react';
 
 import { useRegionSkUsQuery } from './regionSKUs.generated';
-import { SKU } from './types';
+import type { SKU } from './types';
 
 export default (): Map<SKU, boolean> => {
   const [skus, setSkus] = useState<Map<SKU, boolean>>(new Map());

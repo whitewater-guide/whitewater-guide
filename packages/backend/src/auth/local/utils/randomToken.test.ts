@@ -1,6 +1,7 @@
-import { compare } from 'bcrypt';
+import { compare } from '@node-rs/bcrypt';
 
-import { RandomToken, randomToken } from './randomToken';
+import type { RandomToken } from './randomToken';
+import { randomToken } from './randomToken';
 
 it('should generate random token', async () => {
   const token = await randomToken();

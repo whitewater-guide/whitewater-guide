@@ -1,13 +1,14 @@
 import { SocialMediaProvider } from '@whitewater-guide/schema';
-import * as express from 'express';
+import type * as express from 'express';
 import jwksRsa from 'jwks-rsa';
-import { ExtractJwt, Strategy, VerifiedCallback } from 'passport-jwt';
+import type { VerifiedCallback } from 'passport-jwt';
+import { ExtractJwt, Strategy } from 'passport-jwt';
 
-import config from '~/config';
-import { sendWelcome } from '~/mail';
-
+import config from '../../config';
+import { sendWelcome } from '../../mail/index';
 import logger from '../logger';
-import { negotiateLanguage, storeUser } from '../social';
+import { storeUser } from '../social/index';
+import { negotiateLanguage } from '../utils/index';
 
 interface AuthToken {
   sub?: string;
@@ -22,7 +23,7 @@ async function getFBUser(profile: AuthToken, req: any) {
   if (!profile.sub) {
     throw new Error('sub not specified');
   }
-  const language = negotiateLanguage(req, []);
+  const language = negotiateLanguage(req);
   return storeUser(
     SocialMediaProvider.FACEBOOK,
     {

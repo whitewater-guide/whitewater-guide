@@ -1,4 +1,4 @@
-import { BannerKind } from '@whitewater-guide/schema';
+import type { BannerKind } from '@whitewater-guide/schema';
 /* eslint-disable @typescript-eslint/no-namespace */
 // Types of raw postgres tables and views
 export namespace Sql {

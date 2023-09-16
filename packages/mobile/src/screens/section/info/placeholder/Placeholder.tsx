@@ -1,5 +1,6 @@
-import { SafeSectionDetails } from '@whitewater-guide/clients';
-import React, { FC } from 'react';
+import type { SafeSectionDetails } from '@whitewater-guide/clients';
+import type { FC } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import Loading from '~/components/Loading';

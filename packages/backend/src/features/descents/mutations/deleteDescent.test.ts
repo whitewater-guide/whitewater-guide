@@ -1,11 +1,10 @@
-import { countRows, fakeContext } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { db, holdTransaction, rollbackTransaction } from '~/db';
-import { TEST_USER, TEST_USER2 } from '~/seeds/test/01_users';
-import { DESCENT_01, DESCENT_04 } from '~/seeds/test/18_descents';
-
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
+import { TEST_USER, TEST_USER2 } from '../../../seeds/test/01_users';
+import { DESCENT_01, DESCENT_04 } from '../../../seeds/test/18_descents';
+import { countRows, fakeContext } from '../../../test/index';
 import { testDeleteDescent } from './deleteDescent.test.generated';
 
 let dBefore: number;

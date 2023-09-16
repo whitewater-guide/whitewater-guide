@@ -3,18 +3,12 @@ import {
   LocalPhotoStatus,
   useUploadLink,
 } from '@whitewater-guide/clients';
-import React, {
-  FC,
-  PropsWithChildren,
-  useCallback,
-  useContext,
-  useMemo,
-  useState,
-} from 'react';
+import type { FC, PropsWithChildren } from 'react';
+import React, { useCallback, useContext, useMemo, useState } from 'react';
 
 import { trackError } from '~/core/errors';
 
-import { LocalPhoto } from './types';
+import type { LocalPhoto } from './types';
 
 interface UploadsContext {
   upload: (photo: LocalPhoto) => Promise<void>;

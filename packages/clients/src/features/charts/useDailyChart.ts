@@ -1,4 +1,4 @@
-import { MeasurementsFilter } from '@whitewater-guide/schema';
+import type { MeasurementsFilter } from '@whitewater-guide/schema';
 // eslint-disable-next-line import/no-duplicates
 import differenceInDays from 'date-fns/differenceInDays';
 // eslint-disable-next-line import/no-duplicates

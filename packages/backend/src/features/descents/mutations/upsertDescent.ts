@@ -1,20 +1,19 @@
-import {
-  DescentInputSchema,
-  MutationUpsertDescentArgs,
-} from '@whitewater-guide/schema';
-import { ForbiddenError } from 'apollo-server-koa';
-import * as yup from 'yup';
+import type { MutationUpsertDescentArgs } from '@whitewater-guide/schema';
+import { DescentInputSchema } from '@whitewater-guide/schema';
+import type { ObjectSchema } from 'yup';
+import { object, string } from 'yup';
 
+import type { AuthenticatedMutation } from '../../../apollo/index';
 import {
-  AuthenticatedMutation,
+  ForbiddenError,
   isAuthenticatedResolver,
   isInputValidResolver,
-} from '~/apollo';
-import { db } from '~/db';
+} from '../../../apollo/index';
+import { db } from '../../../db/index';
 
-const Schema: yup.SchemaOf<MutationUpsertDescentArgs> = yup.object({
+const Schema: ObjectSchema<MutationUpsertDescentArgs> = object({
   descent: DescentInputSchema.clone().required(),
-  shareToken: yup.string().optional().nullable(true),
+  shareToken: string().notRequired(),
 });
 
 const resolver: AuthenticatedMutation['upsertDescent'] = async (

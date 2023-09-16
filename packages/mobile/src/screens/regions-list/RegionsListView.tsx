@@ -1,6 +1,7 @@
 import { useRegionsFilter } from '@whitewater-guide/clients';
 import React from 'react';
-import { FlatList, ListRenderItemInfo } from 'react-native';
+import type { ListRenderItemInfo } from 'react-native';
+import { FlatList } from 'react-native';
 
 import WithQueryError from '~/components/WithQueryError';
 import theme from '~/theme';
@@ -11,10 +12,8 @@ import {
   REGIONS_LIST_SUBTITLE_HEIGHT,
   RegionsListSubtitle,
 } from './RegionsListSubtitle';
-import useFavRegions, {
-  ListedRegion,
-  RegionSubtitleData,
-} from './useFavRegions';
+import type { ListedRegion, RegionSubtitleData } from './useFavRegions';
+import useFavRegions from './useFavRegions';
 
 const keyExtractor = (
   item: (ListedRegion & { key?: string }) | RegionSubtitleData,

@@ -3,14 +3,15 @@ import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import { isNamedNode, isNode } from '@whitewater-guide/schema';
 import { createSafeValidator } from '@whitewater-guide/validation';
-import { Formik, FormikConfig, FormikValues } from 'formik';
+import type { FormikConfig, FormikValues } from 'formik';
+import { Formik } from 'formik';
 import React, { useMemo } from 'react';
 
 import { EditorLanguagePicker } from '../components';
 import { Card } from '../layout';
 import FormikCardActions from './FormikCardActions';
 import { UnsavedPrompt } from './helpers';
-import { UseApolloFormik } from './useApolloFormik';
+import type { UseApolloFormik } from './useApolloFormik';
 
 interface Props<QResult, FData> extends UseApolloFormik<QResult, FData> {
   header: string | { resourceType: string };

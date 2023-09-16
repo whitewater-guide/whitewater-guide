@@ -6,7 +6,7 @@ import { Screen } from '~/components/Screen';
 import DescentInfo from './DescentInfo';
 import DescentMenu from './DescentMenu';
 import DescentNotFound from './DescentNotFound';
-import { DescentNavProps } from './types';
+import type { DescentNavProps } from './types';
 import useDescentDetails from './useDescentDetails';
 
 const DescentScreen: React.FC<DescentNavProps> = ({ navigation, route }) => {

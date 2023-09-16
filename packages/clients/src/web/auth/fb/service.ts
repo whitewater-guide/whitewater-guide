@@ -1,5 +1,5 @@
 import { callWithTimeout } from '../../../utils';
-import { FBSDK } from './types';
+import type { FBSDK } from './types';
 
 const FB_ELEMENT_ID = 'facebook-jssdk';
 const FB_API_VERSION = 'v3.3';

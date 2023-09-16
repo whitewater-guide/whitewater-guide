@@ -3,13 +3,13 @@ import { useFormikContext } from 'formik';
 import { useRef } from 'react';
 import useAsync from 'react-use/lib/useAsync';
 
-import {
+import type {
   DescentFormFragment,
-  GetDescentDocument,
   GetDescentQuery,
   GetDescentQueryVariables,
 } from './getDescent.generated';
-import { DescentFormData, DescentFormNavProps } from './types';
+import { GetDescentDocument } from './getDescent.generated';
+import type { DescentFormData, DescentFormNavProps } from './types';
 
 export default function useInitialDescent(
   props: DescentFormNavProps['route']['params'],

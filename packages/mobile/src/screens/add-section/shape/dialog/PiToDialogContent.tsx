@@ -1,4 +1,4 @@
-import { FormikProps } from 'formik';
+import type { FormikProps } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, StyleSheet, View } from 'react-native';
@@ -9,7 +9,7 @@ import HelperText from '~/forms/HelperText';
 import NumericField from '~/forms/NumericField';
 
 import theme from '../../../../theme';
-import { Shape } from '../../types';
+import type { Shape } from '../../types';
 import { getShapeError, isShapeTouched } from '../../utils';
 import PiToPointHeader from './PiToPointHeader';
 

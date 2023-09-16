@@ -1,8 +1,7 @@
-import { anonContext, fakeContext } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
 import {
   ADMIN,
   ADMIN_ID,
@@ -10,8 +9,8 @@ import {
   EDITOR_NO_EC,
   EDITOR_NO_EC_ID,
   TEST_USER_ID,
-} from '~/seeds/test/01_users';
-
+} from '../../../seeds/test/01_users';
+import { anonContext, fakeContext } from '../../../test/index';
 import { testFindUsers } from './findUsers.test.generated';
 
 const _query = gql`

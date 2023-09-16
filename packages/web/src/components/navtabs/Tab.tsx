@@ -1,4 +1,5 @@
-import Tab, { TabProps } from '@material-ui/core/Tab';
+import type { TabProps } from '@material-ui/core/Tab';
+import Tab from '@material-ui/core/Tab';
 import React, { useCallback } from 'react';
 import { useHistory, useLocation, useRouteMatch } from 'react-router';
 

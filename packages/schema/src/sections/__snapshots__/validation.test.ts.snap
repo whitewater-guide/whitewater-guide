@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`GaugeBinding should be invalid for bad variable 1`] = `
-Object {
+{
   "formula": "yup:string.formula",
 }
 `;
 
 exports[`GaugeBinding should be invalid for extra fields 1`] = `
-Object {
-  "": Object {
+{
+  "": {
     "key": "yup:object.noUnknown",
-    "options": Object {
+    "options": {
       "path": "this",
     },
   },
@@ -18,28 +18,28 @@ Object {
 `;
 
 exports[`GaugeBinding should be invalid for incorrect formula 1`] = `
-Object {
+{
   "formula": "yup:string.formula",
 }
 `;
 
 exports[`GaugeBinding should be invalid for too many variables 1`] = `
-Object {
+{
   "formula": "yup:string.formula",
 }
 `;
 
 exports[`SectionAdminSettings should be invalid for demo undefined 1`] = `
-Object {
+{
   "demo": "yup:mixed.defined",
 }
 `;
 
 exports[`SectionAdminSettings should be invalid for extra fields 1`] = `
-Object {
-  "": Object {
+{
+  "": {
     "key": "yup:object.noUnknown",
-    "options": Object {
+    "options": {
       "path": "this",
     },
   },
@@ -47,8 +47,8 @@ Object {
 `;
 
 exports[`SectionInput should be invalid for bad alt name 1`] = `
-Object {
-  "altNames": Array [
+{
+  "altNames": [
     ,
     "yup:mixed.required",
   ],
@@ -56,10 +56,10 @@ Object {
 `;
 
 exports[`SectionInput should be invalid for bad difficulty (fraction) 1`] = `
-Object {
-  "difficulty": Object {
+{
+  "difficulty": {
     "key": "yup:mixed.oneOf",
-    "options": Object {
+    "options": {
       "values": "0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6",
     },
   },
@@ -67,10 +67,10 @@ Object {
 `;
 
 exports[`SectionInput should be invalid for bad difficulty (max) 1`] = `
-Object {
-  "difficulty": Object {
+{
+  "difficulty": {
     "key": "yup:mixed.oneOf",
-    "options": Object {
+    "options": {
       "values": "0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6",
     },
   },
@@ -78,10 +78,10 @@ Object {
 `;
 
 exports[`SectionInput should be invalid for bad difficulty (min) 1`] = `
-Object {
-  "difficulty": Object {
+{
+  "difficulty": {
     "key": "yup:mixed.oneOf",
-    "options": Object {
+    "options": {
       "values": "0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6",
     },
   },
@@ -89,10 +89,10 @@ Object {
 `;
 
 exports[`SectionInput should be invalid for bad distance 1`] = `
-Object {
-  "distance": Object {
+{
+  "distance": {
     "key": "yup:number.positive",
-    "options": Object {
+    "options": {
       "path": "distance",
     },
   },
@@ -100,10 +100,10 @@ Object {
 `;
 
 exports[`SectionInput should be invalid for bad drop 1`] = `
-Object {
-  "drop": Object {
+{
+  "drop": {
     "key": "yup:number.positive",
-    "options": Object {
+    "options": {
       "path": "drop",
     },
   },
@@ -111,21 +111,21 @@ Object {
 `;
 
 exports[`SectionInput should be invalid for bad duration 1`] = `
-Object {
-  "duration": Object {
+{
+  "duration": {
     "key": "yup:mixed.oneOf",
-    "options": Object {
-      "values": ", 10, 20, 30, 40, 50",
+    "options": {
+      "values": "10, 20, 30, 40, 50",
     },
   },
 }
 `;
 
 exports[`SectionInput should be invalid for bad extra difficulty 1`] = `
-Object {
-  "difficultyXtra": Object {
+{
+  "difficultyXtra": {
     "key": "yup:string.max",
-    "options": Object {
+    "options": {
       "max": 32,
       "path": "difficultyXtra",
     },
@@ -134,11 +134,11 @@ Object {
 `;
 
 exports[`SectionInput should be invalid for bad gauge id 1`] = `
-Object {
-  "gauge": Object {
-    "id": Object {
+{
+  "gauge": {
+    "id": {
       "key": "yup:string.uuid",
-      "options": Object {
+      "options": {
         "path": "gauge.id",
       },
     },
@@ -147,10 +147,10 @@ Object {
 `;
 
 exports[`SectionInput should be invalid for bad id 1`] = `
-Object {
-  "id": Object {
+{
+  "id": {
     "key": "yup:string.uuid",
-    "options": Object {
+    "options": {
       "path": "id",
     },
   },
@@ -158,19 +158,19 @@ Object {
 `;
 
 exports[`SectionInput should be invalid for bad name 1`] = `
-Object {
+{
   "name": "yup:string.nonEmpty",
 }
 `;
 
 exports[`SectionInput should be invalid for bad pois 1`] = `
-Object {
-  "pois": Array [
+{
+  "pois": [
     ,
-    Object {
-      "id": Object {
+    {
+      "id": {
         "key": "yup:string.uuid",
-        "options": Object {
+        "options": {
           "path": "pois[1].id",
         },
       },
@@ -180,58 +180,58 @@ Object {
 `;
 
 exports[`SectionInput should be invalid for bad rating (fraction) 1`] = `
-Object {
-  "rating": Object {
+{
+  "rating": {
     "key": "yup:mixed.oneOf",
-    "options": Object {
-      "values": ", 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5",
+    "options": {
+      "values": "0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5",
     },
   },
 }
 `;
 
 exports[`SectionInput should be invalid for bad rating (max) 1`] = `
-Object {
-  "rating": Object {
+{
+  "rating": {
     "key": "yup:mixed.oneOf",
-    "options": Object {
-      "values": ", 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5",
+    "options": {
+      "values": "0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5",
     },
   },
 }
 `;
 
 exports[`SectionInput should be invalid for bad rating (min) 1`] = `
-Object {
-  "rating": Object {
+{
+  "rating": {
     "key": "yup:mixed.oneOf",
-    "options": Object {
-      "values": ", 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5",
+    "options": {
+      "values": "0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5",
     },
   },
 }
 `;
 
 exports[`SectionInput should be invalid for bad river id 1`] = `
-Object {
+{
   "river": "yup:mixed.newNode",
 }
 `;
 
 exports[`SectionInput should be invalid for bad season numeric (bad half-month) 1`] = `
-Object {
-  "seasonNumeric": Array [
+{
+  "seasonNumeric": [
     ,
-    Object {
+    {
       "key": "yup:number.max",
-      "options": Object {
+      "options": {
         "max": 23,
         "path": "seasonNumeric[1]",
       },
     },
-    Object {
+    {
       "key": "yup:number.min",
-      "options": Object {
+      "options": {
         "min": 0,
         "path": "seasonNumeric[2]",
       },
@@ -241,10 +241,10 @@ Object {
 `;
 
 exports[`SectionInput should be invalid for bad season numeric (too many items) 1`] = `
-Object {
-  "seasonNumeric": Object {
+{
+  "seasonNumeric": {
     "key": "yup:array.max",
-    "options": Object {
+    "options": {
       "max": 24,
       "path": "seasonNumeric",
     },
@@ -253,10 +253,10 @@ Object {
 `;
 
 exports[`SectionInput should be invalid for bad shape (bad point) 1`] = `
-Object {
-  "shape": Array [
+{
+  "shape": [
     ,
-    Array [
+    [
       "yup:number.longitude",
     ],
   ],
@@ -264,10 +264,10 @@ Object {
 `;
 
 exports[`SectionInput should be invalid for bad shape (not enough points) 1`] = `
-Object {
-  "shape": Object {
+{
+  "shape": {
     "key": "yup:array.min",
-    "options": Object {
+    "options": {
       "min": 2,
       "path": "shape",
     },
@@ -276,23 +276,23 @@ Object {
 `;
 
 exports[`SectionInput should be invalid for bad tags 1`] = `
-Object {
-  "tags": Array [
-    Object {
+{
+  "tags": [
+    {
       "key": "yup:mixed.notType",
-      "options": Object {
+      "options": {
         "type": "object",
       },
     },
-    Object {
+    {
       "key": "yup:mixed.notType",
-      "options": Object {
+      "options": {
         "type": "object",
       },
     },
-    Object {
+    {
       "key": "yup:mixed.notType",
-      "options": Object {
+      "options": {
         "type": "object",
       },
     },
@@ -301,10 +301,10 @@ Object {
 `;
 
 exports[`SectionInput should be invalid for extra fields 1`] = `
-Object {
-  "": Object {
+{
+  "": {
     "key": "yup:object.noUnknown",
-    "options": Object {
+    "options": {
       "path": "this",
     },
   },
@@ -312,12 +312,12 @@ Object {
 `;
 
 exports[`SectionInput should be invalid for incorrect media 1`] = `
-Object {
-  "media": Array [
-    Object {
-      "id": Object {
+{
+  "media": [
+    {
+      "id": {
         "key": "yup:string.uuid",
-        "options": Object {
+        "options": {
           "path": "media[0].id",
         },
       },
@@ -327,18 +327,13 @@ Object {
 `;
 
 exports[`SectionInput should be invalid for new river without name 1`] = `
-Object {
+{
   "river": "yup:mixed.newNode",
 }
 `;
 
 exports[`SectionInput should be invalid for null media 1`] = `
-Object {
-  "media": Object {
-    "key": "yup:mixed.notType",
-    "options": Object {
-      "type": "array",
-    },
-  },
+{
+  "media": "yup:mixed.required",
 }
 `;

@@ -1,9 +1,12 @@
-import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import type {
+  CompositeNavigationProp,
+  RouteProp,
+} from '@react-navigation/native';
+import type { StackNavigationProp } from '@react-navigation/stack';
 
-import { Screens } from '~/core/navigation';
+import type { Screens } from '~/core/navigation';
 
-import { DescentFormNavProp, DescentFormParamsList } from '../types';
+import type { DescentFormNavProp, DescentFormParamsList } from '../types';
 
 export type DescentFormCommentNavProp = CompositeNavigationProp<
   StackNavigationProp<DescentFormParamsList, Screens.DESCENT_FORM_COMMENT>,

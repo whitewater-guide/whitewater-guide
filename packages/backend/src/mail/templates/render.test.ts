@@ -21,6 +21,7 @@ it.each(types)('should match snapshot for "%s"', async (type: any) => {
       raw: '__token__',
     },
     unhealthyMsg: 'unhealthy',
+    code: 'WWGPucon1',
   };
   // eslint-disable-next-line testing-library/render-result-naming-convention
   const html = await render(type, data);

@@ -1,7 +1,5 @@
-import {
-  createStackNavigator,
-  StackNavigationOptions,
-} from '@react-navigation/stack';
+import type { StackNavigationOptions } from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import {
   SectionsSearchStringContext,
   SectionsSearchStringSetterContext,
@@ -12,7 +10,7 @@ import Config from 'react-native-ultimate-config';
 
 import { getHeaderRenderer } from '~/components/header';
 import { Screens } from '~/core/navigation';
-import { RegionStackParamsList } from '~/screens/region/types';
+import type { RegionStackParamsList } from '~/screens/region/types';
 
 import { LazyFilterScreen } from './filter';
 import RegionTabs from './RegionTabs';

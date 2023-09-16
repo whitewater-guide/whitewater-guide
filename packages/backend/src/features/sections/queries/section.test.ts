@@ -1,9 +1,8 @@
-import { anonContext, fakeContext, noTimestamps } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
-import { matrixClient } from '~/features/chats';
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
+import { matrixClient } from '../../../features/chats/index';
 import {
   ADMIN,
   BOOM_USER_1500,
@@ -12,7 +11,7 @@ import {
   EDITOR_NO_EC,
   TEST_USER,
   TEST_USER2,
-} from '~/seeds/test/01_users';
+} from '../../../seeds/test/01_users';
 import {
   GALICIA_BECA_LOWER,
   GALICIA_BECA_UPPER,
@@ -22,8 +21,8 @@ import {
   NORWAY_FINNA_GORGE,
   NORWAY_SJOA_AMOT,
   RUSSIA_MZYMTA_PASEKA,
-} from '~/seeds/test/09_sections';
-
+} from '../../../seeds/test/09_sections';
+import { anonContext, fakeContext, noTimestamps } from '../../../test/index';
 import {
   testSectionDetails,
   testSectionGauge,

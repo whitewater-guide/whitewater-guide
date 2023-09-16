@@ -3,7 +3,7 @@ import React from 'react';
 
 import { ClickBlocker, DeleteButton, IconLink } from '../../../components';
 import { paths } from '../../../utils';
-import { ListedRegionFragment } from './listRegions.generated';
+import type { ListedRegionFragment } from './listRegions.generated';
 
 interface Props {
   region: ListedRegionFragment;

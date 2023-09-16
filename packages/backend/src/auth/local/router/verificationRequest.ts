@@ -1,11 +1,11 @@
-import { Middleware } from 'koa';
-import isUUID from 'validator/lib/isUUID';
+import type { Middleware } from 'koa';
 
-import { db, Sql } from '~/db';
-import { MailType, sendMail } from '~/mail';
-
+import type { Sql } from '../../../db/index';
+import { db } from '../../../db/index';
+import { MailType, sendMail } from '../../../mail/index';
+import { isUUID } from '../../../utils/index';
 import logger from '../logger';
-import { randomToken } from '../utils';
+import { randomToken } from '../utils/index';
 
 const verificationRequest: Middleware<any, any> = async (ctx, next) => {
   const id: string | undefined = ctx.request.body?.id;

@@ -1,5 +1,6 @@
-import Mapbox from '@rnmapbox/maps';
-import React, { FC, MutableRefObject, PropsWithChildren } from 'react';
+import type Mapbox from '@rnmapbox/maps';
+import type { FC, MutableRefObject, PropsWithChildren } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { useMapType } from '../../features/settings';
@@ -11,7 +12,7 @@ import {
   useLocationPermission,
 } from './hooks';
 import LayersSelector from './LayersSelector';
-import { MapViewProps } from './types';
+import type { MapViewProps } from './types';
 
 interface Props {
   detailed?: boolean;

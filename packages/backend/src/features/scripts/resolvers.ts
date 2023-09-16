@@ -1,4 +1,4 @@
-import Query from './queries';
+import Query from './queries/index';
 
 export const scriptsResolvers = {
   Query,

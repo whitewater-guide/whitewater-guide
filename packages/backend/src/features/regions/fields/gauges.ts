@@ -1,6 +1,6 @@
-import { QueryBuilder } from 'knex';
+import type { Knex } from 'knex';
 
-import { RegionResolvers } from '~/apollo';
+import type { RegionResolvers } from '../../../apollo/index';
 
 const gaugesResolver: RegionResolvers['gauges'] = (
   { id },
@@ -16,7 +16,7 @@ const gaugesResolver: RegionResolvers['gauges'] = (
       'sources_regions.source_id',
     )
     .where('sources_regions.region_id', '=', id)
-    .whereExists((qb: QueryBuilder) => {
+    .whereExists((qb: Knex.QueryBuilder) => {
       qb.select('*')
         .from('sections')
         .whereRaw('sections.gauge_id = gauges_view.id');

@@ -1,4 +1,5 @@
-import Button, { ButtonProps } from '@material-ui/core/Button';
+import type { ButtonProps } from '@material-ui/core/Button';
+import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import SvgIcon from '@material-ui/core/SvgIcon';

@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { NamedNode } from '@whitewater-guide/schema';
+import type { NamedNode } from '@whitewater-guide/schema';
 import { useFormikContext } from 'formik';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -14,8 +14,8 @@ import { Searchbar } from 'react-native-paper';
 import { Screen } from '~/components/Screen';
 import theme from '~/theme';
 
-import { SectionFormInput } from '../types';
-import { RiversListDataItem } from './types';
+import type { SectionFormInput } from '../types';
+import type { RiversListDataItem } from './types';
 import useRiversSearch from './useRiversSearch';
 
 const styles = StyleSheet.create({

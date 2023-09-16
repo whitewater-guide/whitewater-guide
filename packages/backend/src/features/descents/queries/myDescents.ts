@@ -1,4 +1,5 @@
-import { AuthenticatedQuery, isAuthenticatedResolver } from '~/apollo';
+import type { AuthenticatedQuery } from '../../../apollo/index';
+import { isAuthenticatedResolver } from '../../../apollo/index';
 
 const myDescents: AuthenticatedQuery['myDescents'] = async (
   _,

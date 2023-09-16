@@ -1,4 +1,4 @@
-import { MediaWithThumbFragment } from '@whitewater-guide/schema';
+import type { MediaWithThumbFragment } from '@whitewater-guide/schema';
 import React from 'react';
 import { Linking } from 'react-native';
 import { List } from 'react-native-paper';

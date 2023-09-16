@@ -2,7 +2,7 @@ import React from 'react';
 
 import QueryBreadcrumb from './QueryBreadcrumb';
 import SimpleBreadcrumb from './SimpleBreadcrumb';
-import { BQVars, BreadcrumbValue } from './types';
+import type { BQVars, BreadcrumbValue } from './types';
 
 interface Props {
   path: string;

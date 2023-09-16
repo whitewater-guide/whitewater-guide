@@ -1,15 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  StyleProp,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  ViewStyle,
-} from 'react-native';
+import type { StyleProp, ViewStyle } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Subheading } from 'react-native-paper';
 
-import { LocalPhoto, useImagePicker } from '~/features/uploads';
+import type { LocalPhoto } from '~/features/uploads';
+import { useImagePicker } from '~/features/uploads';
 import theme, { PaperTheme } from '~/theme';
 
 import Icon from '../Icon';

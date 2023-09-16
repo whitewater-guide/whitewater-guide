@@ -1,4 +1,8 @@
 import { createChartView } from '@whitewater-guide/clients';
+import type {
+  VictoryVoronoiContainerProps,
+  VictoryZoomContainerProps,
+} from 'victory-native';
 import {
   createContainer,
   VictoryAxis,
@@ -6,8 +10,6 @@ import {
   VictoryClipContainer,
   VictoryLine,
   VictoryScatter,
-  VictoryVoronoiContainerProps,
-  VictoryZoomContainerProps,
 } from 'victory-native';
 
 import {

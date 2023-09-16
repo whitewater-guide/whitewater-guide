@@ -1,10 +1,11 @@
-import { Visibility } from 'matrix-js-sdk/lib/@types/partials';
+import { Visibility } from 'matrix-js-sdk';
 
-import { RegionResolvers } from '~/apollo';
-import config from '~/config';
-import { db, Sql } from '~/db';
-import { matrixClient } from '~/features/chats';
-import log from '~/log';
+import type { RegionResolvers } from '../../../apollo/index';
+import config from '../../../config';
+import type { Sql } from '../../../db/index';
+import { db } from '../../../db/index';
+import { matrixClient } from '../../../features/chats/index';
+import log from '../../../log/index';
 
 const roomResolver: RegionResolvers['room'] = async ({ id, name, room_id }) => {
   const alias = `#${id}:${config.SYNAPSE_HOME_SERVER}`;

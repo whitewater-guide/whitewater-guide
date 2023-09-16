@@ -1,9 +1,8 @@
-import {
+import type {
   DifficultyFragment,
-  renderDifficulty,
   SafeSectionDetails,
-  stringifySeason,
 } from '@whitewater-guide/clients';
+import { renderDifficulty, stringifySeason } from '@whitewater-guide/clients';
 import { TagCategory } from '@whitewater-guide/schema';
 import groupBy from 'lodash/groupBy';
 import isNil from 'lodash/isNil';
@@ -16,7 +15,7 @@ import { Paragraph, Subheading } from 'react-native-paper';
 import Chips from '~/components/Chips';
 import { Body, Left, Right, Row } from '~/components/Row';
 import SimpleStarRating from '~/components/SimpleStarRating';
-import { PremiumSection } from '~/features/purchases';
+import type { PremiumSection } from '~/features/purchases';
 import { getSeasonLocalizer } from '~/i18n';
 
 import CoordinatesInfo from './CoordinatesInfo';

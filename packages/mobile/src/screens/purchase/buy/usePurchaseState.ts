@@ -3,8 +3,9 @@ import { useTranslation } from 'react-i18next';
 
 import { Screens } from '~/core/navigation';
 
-import { IAPError, PremiumRegion, useIap } from '../../../features/purchases';
-import { PurchaseBuyNavProp, PurchaseState } from './types';
+import type { PremiumRegion } from '../../../features/purchases';
+import { IAPError, useIap } from '../../../features/purchases';
+import type { PurchaseBuyNavProp, PurchaseState } from './types';
 import usePremiumQuery from './usePremiumQuery';
 import usePurchaseAction from './usePurchaseAction';
 

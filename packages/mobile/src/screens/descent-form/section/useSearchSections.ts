@@ -1,4 +1,4 @@
-import { DescentSectionFragment } from '@whitewater-guide/schema';
+import type { DescentSectionFragment } from '@whitewater-guide/schema';
 import uniqBy from 'lodash/uniqBy';
 import { useMemo } from 'react';
 

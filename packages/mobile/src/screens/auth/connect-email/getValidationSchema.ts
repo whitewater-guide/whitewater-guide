@@ -1,20 +1,19 @@
 import { PASSWORD_MIN_SCORE } from '@whitewater-guide/commons';
 import * as zxcvbn from 'react-native-zxcvbn';
-import * as yup from 'yup';
+import type { ObjectSchema } from 'yup';
+import { object, string } from 'yup';
 
-import { ConnectEmailMutationVariables } from './connectEmail.generated';
+import type { ConnectEmailMutationVariables } from './connectEmail.generated';
 
-let _schema: yup.SchemaOf<ConnectEmailMutationVariables>;
+let _schema: ObjectSchema<ConnectEmailMutationVariables>;
 
 const getValidationSchema = () => {
   if (!_schema) {
-    _schema = yup
-      .object()
+    _schema = object()
       .shape({
-        email: yup.string().email().required(),
-        token: yup.string().required(),
-        password: yup
-          .string()
+        email: string().email().required(),
+        token: string().required(),
+        password: string()
           .test(
             'is-password',
             'yup:yup:string.weak_password',

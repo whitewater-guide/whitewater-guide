@@ -1,14 +1,12 @@
-import {
-  createStackNavigator,
-  StackNavigationOptions,
-} from '@react-navigation/stack';
+import type { StackNavigationOptions } from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { initialWindowMetrics } from 'react-native-safe-area-context';
 import Config from 'react-native-ultimate-config';
 
 import { getHeaderRenderer } from '~/components/header';
 import { Screens } from '~/core/navigation';
-import {
+import type {
   PurchaseStackNavProps,
   PurchaseStackParamsList,
 } from '~/screens/purchase/types';

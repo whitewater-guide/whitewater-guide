@@ -1,4 +1,5 @@
-import { Ref, useImperativeHandle, useRef } from 'react';
+import type { Ref } from 'react';
+import { useImperativeHandle, useRef } from 'react';
 
 interface Focusable {
   /**

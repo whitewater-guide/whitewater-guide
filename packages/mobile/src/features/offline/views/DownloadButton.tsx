@@ -5,7 +5,7 @@ import { Button } from 'react-native-paper';
 
 import theme from '../../../theme';
 import { useOfflineContent } from '../OfflineContentProvider';
-import { OfflineCategorySelection } from '../types';
+import type { OfflineCategorySelection } from '../types';
 
 const styles = StyleSheet.create({
   okButton: {

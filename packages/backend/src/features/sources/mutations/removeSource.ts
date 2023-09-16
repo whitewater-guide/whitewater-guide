@@ -1,5 +1,5 @@
-import { MutationResolvers } from '~/apollo';
-import { db } from '~/db';
+import type { MutationResolvers } from '../../../apollo/index';
+import { db } from '../../../db/index';
 
 const removeSource: MutationResolvers['removeSource'] = async (
   _,
@@ -11,8 +11,9 @@ const removeSource: MutationResolvers['removeSource'] = async (
     .del()
     .where({ id })
     .returning('id');
-  await dataSources.gorge.deleteJobForSource(result);
-  return result;
+  const deletedId = result.id;
+  await dataSources.gorge.deleteJobForSource(deletedId);
+  return deletedId;
 };
 
 export default removeSource;

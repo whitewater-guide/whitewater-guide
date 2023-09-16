@@ -1,15 +1,12 @@
-import { Region } from '@whitewater-guide/schema';
-import { GraphQLResolveInfo } from 'graphql';
-import { QueryBuilder } from 'knex';
+import type { Region } from '@whitewater-guide/schema';
+import type { GraphQLResolveInfo } from 'graphql';
+import type { Knex } from 'knex';
 
-import { db } from '~/db';
-import {
-  FieldsMap,
-  ManyBuilderOptions,
-  OffsetConnector,
-} from '~/db/connectors';
-
-import { ResolvableRegion } from './types';
+import type { Context } from '../../apollo/index';
+import type { FieldsMap, ManyBuilderOptions } from '../../db/connectors/index';
+import { OffsetConnector } from '../../db/connectors/index';
+import { db } from '../../db/index';
+import type { ResolvableRegion } from './types';
 
 const FIELDS_MAP: FieldsMap<Region, ResolvableRegion> = {
   editable: null,
@@ -28,14 +25,14 @@ export class RegionsConnector extends OffsetConnector<
   Region,
   ResolvableRegion
 > {
-  constructor() {
-    super();
+  constructor(context: Context) {
+    super(context);
     this._tableName = 'regions_view';
     this._graphqlTypeName = 'Region';
     this._fieldsMap = FIELDS_MAP;
   }
 
-  private addFavoriteColumn(query: QueryBuilder) {
+  private addFavoriteColumn(query: Knex.QueryBuilder) {
     const regionFields = this._fieldsByType.get('Region') ?? new Set();
     if (this._user && regionFields.has('favorite')) {
       // Add 'favorite' column as subquery
@@ -52,7 +49,7 @@ export class RegionsConnector extends OffsetConnector<
     return query;
   }
 
-  getBatchQuery(keys: string[]): QueryBuilder {
+  getBatchQuery(keys: string[]): Knex.QueryBuilder {
     const query = super.getBatchQuery(keys);
     const regionFields = this._fieldsByType.get('Region') ?? new Set();
     if (
@@ -97,7 +94,7 @@ export class RegionsConnector extends OffsetConnector<
         db().raw(`(SELECT EXISTS (${editableQ.toString()})) as editable`),
       );
 
-      query.where(function (this: QueryBuilder) {
+      query.where(function (this: Knex.QueryBuilder) {
         this.where('regions_view.hidden', false).orWhereExists(editableQ);
       });
     }

@@ -1,8 +1,7 @@
-import { listResolvers } from '~/apollo';
-
-import { bannerResolvers, bannerSourceResolvers } from './fields';
-import Mutation from './mutations';
-import Query from './queries';
+import { listResolvers } from '../../apollo/index';
+import { bannerResolvers, bannerSourceResolvers } from './fields/index';
+import Mutation from './mutations/index';
+import Query from './queries/index';
 
 export const bannersResolvers = {
   Banner: bannerResolvers,

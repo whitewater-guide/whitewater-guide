@@ -1,6 +1,6 @@
 import { DiffPatcher } from 'jsondiffpatch';
 
-import { Sql } from '~/db';
+import type { Sql } from '../../../../db/index';
 
 export const differ = new DiffPatcher({
   propertyFilter: (name: keyof Sql.SectionsView) =>

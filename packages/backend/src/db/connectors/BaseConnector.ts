@@ -1,16 +1,12 @@
-import { DataSource, DataSourceConfig } from 'apollo-datasource';
 import DataLoader from 'dataloader';
-import { QueryBuilder } from 'knex';
-import snakeCase from 'lodash/snakeCase';
+import type { Knex } from 'knex';
+import { snakeCase } from 'lodash';
 
-import { Context, ContextUser } from '~/apollo';
-import { db } from '~/db';
+import type { Context, ContextUser } from '../../apollo/index';
+import { db } from '../../db/index';
+import type { FieldsMap, OrderBy } from './types';
 
-import { FieldsMap, OrderBy } from './types';
-
-export abstract class BaseConnector<TGraphql, TSql extends { id: string }>
-  implements DataSource<Context>
-{
+export abstract class BaseConnector<TGraphql, TSql extends { id: string }> {
   protected readonly _loader: DataLoader<string, TSql | null>;
 
   protected _context!: Context;
@@ -37,17 +33,14 @@ export abstract class BaseConnector<TGraphql, TSql extends { id: string }>
     { column: 'id', direction: 'asc' },
   ];
 
-  constructor() {
-    this._loader = new DataLoader<string, TSql | null>(
-      this.getBatch.bind(this),
-    );
-  }
-
-  initialize({ context }: DataSourceConfig<Context>) {
+  constructor(context: Context) {
     this._context = context;
     this._user = context.user;
     this._language = context.language;
     this._fieldsByType = context.fieldsByType;
+    this._loader = new DataLoader<string, TSql | null>(
+      this.getBatch.bind(this),
+    );
   }
 
   private async getBatch(keys: string[]): Promise<Array<TSql | null>> {
@@ -57,7 +50,7 @@ export abstract class BaseConnector<TGraphql, TSql extends { id: string }>
   }
 
   // Builds select query without WHERE cleauses
-  public buildGenericQuery(): QueryBuilder {
+  public buildGenericQuery(): Knex.QueryBuilder {
     const fields: Set<keyof TGraphql> = this._fieldsByType.get(
       this._graphqlTypeName,
     ) as any;
@@ -91,7 +84,7 @@ export abstract class BaseConnector<TGraphql, TSql extends { id: string }>
     return query as any;
   }
 
-  protected getBatchQuery(ids: string[]): QueryBuilder {
+  protected getBatchQuery(ids: string[]): Knex.QueryBuilder {
     const query = this.buildGenericQuery();
     return query.whereIn('id', ids);
   }

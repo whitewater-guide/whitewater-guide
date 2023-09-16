@@ -1,4 +1,4 @@
-import { River } from '@whitewater-guide/schema';
+import type { River } from '@whitewater-guide/schema';
 
 export interface AddNewRiverItem {
   __typename: 'AddNewRiverItem';

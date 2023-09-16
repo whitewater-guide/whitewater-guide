@@ -1,15 +1,12 @@
-import { ChartProps, ChartProvider, sleep } from '@whitewater-guide/clients';
+import type { ChartProps } from '@whitewater-guide/clients';
+import { ChartProvider, sleep } from '@whitewater-guide/clients';
 import React, { useCallback, useRef, useState } from 'react';
 import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
 
 import theme from '~/theme';
 
-import {
-  Chart,
-  ChartFlowToggle,
-  ChartPeriodToggle,
-  ChartStatic,
-} from './component';
+import type { ChartStatic } from './component';
+import { Chart, ChartFlowToggle, ChartPeriodToggle } from './component';
 import GaugeInfo from './GaugeInfo';
 
 const styles = StyleSheet.create({

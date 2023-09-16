@@ -1,10 +1,11 @@
 import { formatDistanceToNow } from '@whitewater-guide/clients';
-import { Node } from '@whitewater-guide/schema';
+import type { Node } from '@whitewater-guide/schema';
 import parseISO from 'date-fns/parseISO';
-import { History } from 'history';
+import type { History } from 'history';
 import isNil from 'lodash/isNil';
 import React from 'react';
 
+import type { TableCellRenderer } from '../../../components';
 import {
   ClickBlocker,
   Column,
@@ -12,12 +13,14 @@ import {
   HarvestStatusIndicator,
   IconLink,
   isEmptyRow,
-  TableCellRenderer,
   UnstyledLink,
 } from '../../../components';
 import { AdminColumn, BooleanColumn, Table } from '../../../components/tables';
 import { paths } from '../../../utils';
-import { ListGaugesQuery, ListGaugesRowFragment } from './listGauges.generated';
+import type {
+  ListGaugesQuery,
+  ListGaugesRowFragment,
+} from './listGauges.generated';
 
 interface Props {
   source: Node;

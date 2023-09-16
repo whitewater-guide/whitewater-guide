@@ -1,7 +1,7 @@
-import { Region } from '@whitewater-guide/schema';
+import type { Region } from '@whitewater-guide/schema';
 import useAsyncFn from 'react-use/lib/useAsyncFn';
 
-import { OfflineProgress } from '../types';
+import type { OfflineProgress } from '../types';
 import MapDownloader from './MapDownloader';
 
 interface Hook {

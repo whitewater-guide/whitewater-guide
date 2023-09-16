@@ -1,7 +1,7 @@
-import { RegionMediaSummary } from '@whitewater-guide/schema';
+import type { RegionMediaSummary } from '@whitewater-guide/schema';
 import React from 'react';
 
-import { OfflineProgress } from '../../types';
+import type { OfflineProgress } from '../../types';
 import OfflineCategoryProgress from './OfflineCategoryProgress';
 import useLabels from './useLabels';
 

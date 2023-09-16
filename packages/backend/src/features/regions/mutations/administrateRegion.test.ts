@@ -1,19 +1,18 @@
+import { ApolloErrorCodes } from '@whitewater-guide/commons';
+import { gql } from 'graphql-tag';
+import set from 'lodash/fp/set';
+
+import config from '../../../config';
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
+import { COVERS, TEMP } from '../../../s3/index';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
+import { REGION_GALICIA } from '../../../seeds/test/04_regions';
 import {
   anonContext,
   fakeContext,
   fileExistsInBucket,
   resetTestMinio,
-} from '@test';
-import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
-import set from 'lodash/fp/set';
-
-import config from '~/config';
-import { holdTransaction, rollbackTransaction } from '~/db';
-import { COVERS, TEMP } from '~/s3';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
-import { REGION_GALICIA } from '~/seeds/test/04_regions';
-
+} from '../../../test/index';
 import { testAdministrateRegion } from './administrateRegion.test.generated';
 
 const _mutation = gql`

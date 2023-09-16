@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { Gesture } from 'react-native-gesture-handler';
-import { runOnJS, SharedValue, useSharedValue } from 'react-native-reanimated';
+import type { SharedValue } from 'react-native-reanimated';
+import { runOnJS, useSharedValue } from 'react-native-reanimated';
 
 import HalfMonth from './HalfMonth';
 import Month from './Month';

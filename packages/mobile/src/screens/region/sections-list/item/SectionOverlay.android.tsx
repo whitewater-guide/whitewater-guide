@@ -1,10 +1,11 @@
-import {
+import type {
   ListedSectionFragment,
   SectionDerivedFields,
-  toRomanDifficulty,
 } from '@whitewater-guide/clients';
+import { toRomanDifficulty } from '@whitewater-guide/clients';
 import memoize from 'lodash/memoize';
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 import { StyleSheet } from 'react-native';
 
 import theme from '~/theme';

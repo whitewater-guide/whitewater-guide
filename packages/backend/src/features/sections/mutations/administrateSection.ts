@@ -1,14 +1,14 @@
-import {
-  MutationAdministrateSectionArgs,
-  SectionAdminSettingsSchema,
-} from '@whitewater-guide/schema';
-import * as yup from 'yup';
+import type { MutationAdministrateSectionArgs } from '@whitewater-guide/schema';
+import { SectionAdminSettingsSchema } from '@whitewater-guide/schema';
+import type { ObjectSchema } from 'yup';
+import { object, string } from 'yup';
 
-import { isInputValidResolver, MutationResolvers } from '~/apollo';
-import { db } from '~/db';
+import type { MutationResolvers } from '../../../apollo/index';
+import { isInputValidResolver } from '../../../apollo/index';
+import { db } from '../../../db/index';
 
-const Schema: yup.SchemaOf<MutationAdministrateSectionArgs> = yup.object({
-  id: yup.string().uuid().required(),
+const Schema: ObjectSchema<MutationAdministrateSectionArgs> = object({
+  id: string().uuid().required(),
   settings: SectionAdminSettingsSchema.clone(),
 });
 

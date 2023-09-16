@@ -5,7 +5,7 @@ import { FAB as FAButton } from 'react-native-paper';
 import { Screens } from '~/core/navigation';
 
 import theme from '../../theme';
-import { LogbookNavProp } from './types';
+import type { LogbookNavProp } from './types';
 
 const styles = StyleSheet.create({
   fab: {

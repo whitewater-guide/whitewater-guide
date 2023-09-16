@@ -1,22 +1,21 @@
-import { anonContext, fakeContext } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
 import {
   ADMIN,
   ADMIN_ID,
   EDITOR_GA_EC,
   TEST_USER,
-} from '~/seeds/test/01_users';
-import { REGION_GEORGIA } from '~/seeds/test/04_regions';
+} from '../../../seeds/test/01_users';
+import { REGION_GEORGIA } from '../../../seeds/test/04_regions';
 import {
   SECTION_EDIT_LOG_ENTRY_1,
   SECTION_EDIT_LOG_ENTRY_2,
   SECTION_EDIT_LOG_ENTRY_3,
   SECTION_EDIT_LOG_ENTRY_4,
-} from '~/seeds/test/15_sections_edit_log';
-
+} from '../../../seeds/test/15_sections_edit_log';
+import { anonContext, fakeContext } from '../../../test/index';
 import { testSectionsEditLog } from './sectionsEditLog.test.generated';
 
 beforeEach(holdTransaction);

@@ -1,4 +1,4 @@
-import { ApolloError } from '@apollo/client';
+import type { ApolloError } from '@apollo/client';
 import { useNetInfo } from '@react-native-community/netinfo';
 import stringify from 'fast-json-stable-stringify';
 import React, { memo, useCallback } from 'react';

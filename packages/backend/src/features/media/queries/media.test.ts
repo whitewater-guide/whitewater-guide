@@ -1,9 +1,13 @@
-import { anonContext } from '@test';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
-import { BLOG_1, PASEKA_BLOG_1, PHOTO_1, VIDEO_1 } from '~/seeds/test/11_media';
-
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
+import {
+  BLOG_1,
+  PASEKA_BLOG_1,
+  PHOTO_1,
+  VIDEO_1,
+} from '../../../seeds/test/11_media';
+import { anonContext } from '../../../test/index';
 import { testMedia } from './media.test.generated';
 
 beforeEach(holdTransaction);

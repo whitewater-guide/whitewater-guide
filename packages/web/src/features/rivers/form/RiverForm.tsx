@@ -1,21 +1,20 @@
 import Box from '@material-ui/core/Box';
-import { RiverInput, RiverInputSchema } from '@whitewater-guide/schema';
+import type { RiverInput } from '@whitewater-guide/schema';
+import { RiverInputSchema } from '@whitewater-guide/schema';
 import React from 'react';
 
 import { FormikCard, useApolloFormik } from '../../../formik';
 import { MultiTextField, TextField } from '../../../formik/fields';
 import formToMutation from './formToMutation';
 import makeQueryToForm from './makeQueryToForm';
-import {
-  RiverFormDocument,
+import type {
   RiverFormQuery,
   RiverFormQueryVariables,
 } from './riverForm.generated';
-import { RouterParams } from './types';
-import {
-  UpsertRiverDocument,
-  UpsertRiverMutationVariables,
-} from './upsertRiver.generated';
+import { RiverFormDocument } from './riverForm.generated';
+import type { RouterParams } from './types';
+import type { UpsertRiverMutationVariables } from './upsertRiver.generated';
+import { UpsertRiverDocument } from './upsertRiver.generated';
 
 const header = { resourceType: 'river' };
 

@@ -1,16 +1,16 @@
 import { useFocusEffect } from '@react-navigation/native';
-import React, { useCallback, useRef } from 'react';
-import {
+import type React from 'react';
+import type { ElementRef } from 'react';
+import { useCallback, useRef } from 'react';
+import type {
   HostComponent,
   LayoutRectangle,
-  Platform,
   ScrollView,
   View,
 } from 'react-native';
-import {
-  AvoidSoftInput,
-  SoftInputEventData,
-} from 'react-native-avoid-softinput';
+import { Platform } from 'react-native';
+import type { SoftInputEventData } from 'react-native-avoid-softinput';
+import { AvoidSoftInput } from 'react-native-avoid-softinput';
 
 export const measureElement = async (
   element: React.RefObject<View>,
@@ -24,7 +24,7 @@ export const measureElement = async (
 
 export const measureInLayout = async (
   element: React.RefObject<View>,
-  layout: HostComponent<unknown>,
+  layout: ElementRef<HostComponent<unknown>>,
 ): Promise<LayoutRectangle> => {
   return new Promise((resolve, reject) => {
     element.current?.measureLayout(
@@ -67,7 +67,7 @@ export default function useAvoidKeyboard(ref?: React.RefObject<View>) {
       AvoidSoftInput.setEnabled(false);
       AvoidSoftInput.setDefaultAppSoftInputMode();
     };
-  }, []);
+  }, [ref]);
 
   useFocusEffect(onFocusEffect);
 

@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react-native';
+import { fireEvent, render, screen } from '@testing-library/react-native';
 import React from 'react';
 
 import TextWithLinks from './TextWithLinks';
@@ -55,8 +55,8 @@ it('should render correctly', () => {
 
 it('should fire onLink', () => {
   const onLink = jest.fn();
-  const { getByText } = setup(onLink);
-  const policy = getByText('Privacy Policy');
+  setup(onLink);
+  const policy = screen.getByText('Privacy Policy');
   fireEvent.press(policy);
   expect(onLink).toHaveBeenCalledWith(2);
 });

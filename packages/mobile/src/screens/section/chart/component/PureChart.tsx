@@ -1,13 +1,9 @@
-import { ApolloError } from '@apollo/client';
+import type { ApolloError } from '@apollo/client';
 import { useNetInfo } from '@react-native-community/netinfo';
-import { ChartViewProps } from '@whitewater-guide/clients';
+import type { ChartViewProps } from '@whitewater-guide/clients';
 import React, { useCallback, useState } from 'react';
-import {
-  LayoutChangeEvent,
-  LayoutRectangle,
-  StyleSheet,
-  View,
-} from 'react-native';
+import type { LayoutChangeEvent, LayoutRectangle } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { NoChart, VictoryTheme } from '~/components/chart';
 import Loading from '~/components/Loading';

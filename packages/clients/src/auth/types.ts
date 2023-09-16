@@ -1,4 +1,4 @@
-import { User } from '@whitewater-guide/schema';
+import type { User } from '@whitewater-guide/schema';
 
 export interface TokenStorage {
   setAccessToken: (value: string | null) => Promise<void>;

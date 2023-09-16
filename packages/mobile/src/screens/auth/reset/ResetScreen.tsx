@@ -8,7 +8,7 @@ import theme from '~/theme';
 import { AuthScreenBase } from '../AuthScreenBase';
 import MissingParams from './MissingParams';
 import { ResetForm } from './ResetForm';
-import { AuthResetNavProps } from './types';
+import type { AuthResetNavProps } from './types';
 
 const styles = StyleSheet.create({
   container: {

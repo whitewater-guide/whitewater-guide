@@ -1,10 +1,10 @@
-import { FormikHelpers } from 'formik';
+import type { FormikHelpers } from 'formik';
 import { useCallback, useMemo } from 'react';
 
 import useValidate from '~/forms/useValidate';
 
 import { useLocalPhotos } from '../../features/uploads';
-import { PhotoSuggestion } from './types';
+import type { PhotoSuggestion } from './types';
 import useAddSuggestion from './useAddSuggestion';
 import { PhotoSuggestionInputSchema } from './validation';
 

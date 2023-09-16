@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`insert should match snapshot 1`] = `
-Object {
-  "bounds": Array [
-    Array [
+{
+  "bounds": [
+    [
       10,
       20,
       0,
     ],
-    Array [
+    [
       10,
       10,
       0,
     ],
-    Array [
+    [
       20,
       20,
       0,
@@ -21,9 +21,9 @@ Object {
   ],
   "description": "Full region description",
   "name": "Full region",
-  "pois": Array [
-    Object {
-      "coordinates": Array [
+  "pois": [
+    {
+      "coordinates": [
         10,
         12,
         0,
@@ -32,8 +32,8 @@ Object {
       "kind": "other",
       "name": "pt 1",
     },
-    Object {
-      "coordinates": Array [
+    {
+      "coordinates": [
         33,
         34,
         0,
@@ -44,7 +44,7 @@ Object {
     },
   ],
   "season": "season description",
-  "seasonNumeric": Array [
+  "seasonNumeric": [
     1,
     2,
     3,
@@ -53,19 +53,19 @@ Object {
 `;
 
 exports[`update should match snapshot 1`] = `
-Object {
-  "bounds": Array [
-    Array [
+{
+  "bounds": [
+    [
       10,
       20,
       0,
     ],
-    Array [
+    [
       10,
       10,
       0,
     ],
-    Array [
+    [
       20,
       20,
       0,
@@ -74,9 +74,9 @@ Object {
   "description": "Full region description",
   "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
   "name": "Full region",
-  "pois": Array [
-    Object {
-      "coordinates": Array [
+  "pois": [
+    {
+      "coordinates": [
         10,
         12,
         0,
@@ -85,8 +85,8 @@ Object {
       "kind": "other",
       "name": "pt 1 u",
     },
-    Object {
-      "coordinates": Array [
+    {
+      "coordinates": [
         33,
         34,
         0,
@@ -95,8 +95,8 @@ Object {
       "kind": "take-out",
       "name": "pt 2 u",
     },
-    Object {
-      "coordinates": Array [
+    {
+      "coordinates": [
         1,
         2,
         3,
@@ -107,7 +107,7 @@ Object {
     },
   ],
   "season": "season description",
-  "seasonNumeric": Array [
+  "seasonNumeric": [
     1,
     2,
     3,

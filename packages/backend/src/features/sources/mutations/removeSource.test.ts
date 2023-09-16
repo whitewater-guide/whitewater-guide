@@ -1,16 +1,13 @@
-import { anonContext, countRows, fakeContext } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
-import { GorgeConnector } from '~/features/gorge';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
-import { SOURCE_GALICIA_1 } from '~/seeds/test/05_sources';
-
-import {
-  RemoveSourceMutationResult,
-  testRemoveSource,
-} from './removeSource.test.generated';
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
+import { GorgeConnector } from '../../../features/gorge/index';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
+import { SOURCE_GALICIA_1 } from '../../../seeds/test/05_sources';
+import { anonContext, countRows, fakeContext } from '../../../test/index';
+import type { RemoveSourceMutationResult } from './removeSource.test.generated';
+import { testRemoveSource } from './removeSource.test.generated';
 
 jest.mock('../../gorge/connector');
 

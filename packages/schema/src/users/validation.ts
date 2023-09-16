@@ -1,22 +1,21 @@
-import * as yup from 'yup';
+import type { ObjectSchema } from 'yup';
+import { bool, object, string } from 'yup';
 
-import { EditorSettingsInput, UserInput } from '../__generated__/types';
+import type { EditorSettingsInput, UserInput } from '../__generated__/types';
 import { LANGUAGES } from '../i18n';
 
-export const UserInputSchema: yup.SchemaOf<UserInput> = yup
-  .object({
-    name: yup.string().notRequired().min(1),
-    avatar: yup.string().notRequired().nullable(),
-    language: yup.string().oneOf(LANGUAGES).optional(),
-    imperial: yup.bool().notRequired(),
-    email: yup.string().email().notRequired().nullable(),
-  })
+export const UserInputSchema: ObjectSchema<UserInput> = object({
+  name: string().notRequired().min(1),
+  avatar: string().notRequired().nullable(),
+  language: string().oneOf(LANGUAGES).optional(),
+  imperial: bool().notRequired(),
+  email: string().email().notRequired().nullable(),
+})
   .strict(true)
   .noUnknown();
 
-export const EditorSettingsSchema: yup.SchemaOf<EditorSettingsInput> = yup
-  .object({
-    language: yup.string().oneOf(LANGUAGES).required(),
-  })
+export const EditorSettingsSchema: ObjectSchema<EditorSettingsInput> = object({
+  language: string().oneOf(LANGUAGES).required(),
+})
   .strict(true)
   .noUnknown();

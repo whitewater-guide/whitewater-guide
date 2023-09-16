@@ -1,7 +1,9 @@
 import { ApolloClient, ApolloProvider } from '@apollo/client';
-import { MockedResponse, mockSingleLink } from '@apollo/client/testing';
-import { DocumentNode } from 'graphql';
-import React, { PropsWithChildren } from 'react';
+import type { MockedResponse } from '@apollo/client/testing';
+import { mockSingleLink } from '@apollo/client/testing';
+import type { DocumentNode } from 'graphql';
+import type { PropsWithChildren } from 'react';
+import React from 'react';
 
 import { configureApolloCache } from '../apollo';
 

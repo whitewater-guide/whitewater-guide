@@ -5,7 +5,7 @@ import { Screen } from '~/components/Screen';
 
 import DoneButton from './DoneButton';
 import PiToField from './PiToField';
-import { AddSectionShapeNavProps } from './types';
+import type { AddSectionShapeNavProps } from './types';
 
 const ShapeScreen: React.FC<AddSectionShapeNavProps> = ({ navigation }) => {
   useEffectOnce(() => {

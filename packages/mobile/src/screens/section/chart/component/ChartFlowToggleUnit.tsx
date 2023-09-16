@@ -1,4 +1,4 @@
-import { Unit } from '@whitewater-guide/schema';
+import type { Unit } from '@whitewater-guide/schema';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text } from 'react-native';

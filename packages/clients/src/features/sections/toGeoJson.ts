@@ -1,14 +1,10 @@
 import bearing from '@turf/bearing';
-import {
-  bearingToAzimuth,
-  Feature,
-  FeatureCollection,
-  LineString,
-} from '@turf/helpers';
-import { Section } from '@whitewater-guide/schema';
+import type { Feature, FeatureCollection, LineString } from '@turf/helpers';
+import { bearingToAzimuth } from '@turf/helpers';
+import type { Section } from '@whitewater-guide/schema';
 
 import { getSectionColor } from './getSectionColor';
-import { ListedSectionFragment } from './listSections.generated';
+import type { ListedSectionFragment } from './listSections.generated';
 import { sectionName } from './sectionName';
 
 const removeAlt = ([lng, lat]: CodegenCoordinates): [number, number] => [

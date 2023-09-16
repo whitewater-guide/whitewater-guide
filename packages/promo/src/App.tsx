@@ -1,7 +1,8 @@
-import { ApolloClient, ApolloProvider } from '@apollo/client';
+import type { ApolloClient } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import { AuthService } from '@whitewater-guide/clients';
+import type { AuthService } from '@whitewater-guide/clients';
 import { WebAuthService } from '@whitewater-guide/clients/dist/web';
 import React from 'react';
 

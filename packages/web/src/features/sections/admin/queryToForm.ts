@@ -1,6 +1,6 @@
-import { SectionAdminSettings } from '@whitewater-guide/schema';
+import type { SectionAdminSettings } from '@whitewater-guide/schema';
 
-import { SectionAdminSettingsQuery } from './sectionAdminSettings.generated';
+import type { SectionAdminSettingsQuery } from './sectionAdminSettings.generated';
 
 const queryToForm = (
   data?: SectionAdminSettingsQuery,

@@ -1,12 +1,11 @@
 import { CoordinateSchema } from '@whitewater-guide/schema';
 import { createSafeValidator } from '@whitewater-guide/validation';
 import toArray from 'lodash/toArray';
-import * as yup from 'yup';
+import { array, object } from 'yup';
 
-export const schema = yup
-  .object({
-    shape: yup.array().min(2).max(2).of(CoordinateSchema),
-  })
+export const schema = object({
+  shape: array().min(2).max(2).of(CoordinateSchema),
+})
   .transform(({ shape }) => ({
     shape: [
       shape[0] ? toArray(shape[0]) : undefined,

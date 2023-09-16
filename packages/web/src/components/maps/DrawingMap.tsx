@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-redeclare */
+import type { Coordinate2d } from '@whitewater-guide/clients';
 import {
   arrayToGmaps,
-  Coordinate2d,
   ensureAltitude,
   getCoordinatesPatch,
   gmapsToArray,
@@ -10,7 +10,8 @@ import update from 'immutability-helper';
 import React from 'react';
 
 import { geometryToLatLngs } from '../../utils/google-maps';
-import GoogleMap, { InitialPosition } from './GoogleMap';
+import type { InitialPosition } from './GoogleMap';
+import GoogleMap from './GoogleMap';
 import MapLoader from './MapLoader';
 import PlacesAutocomplete from './PlacesAutocomplete';
 

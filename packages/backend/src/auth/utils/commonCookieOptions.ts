@@ -1,6 +1,6 @@
-import Cookies from 'cookies';
+import type Cookies from 'cookies';
 
-import config from '~/config';
+import config from '../../config';
 
 export const commonCookieOptions: Cookies.SetOption = {
   httpOnly: true,

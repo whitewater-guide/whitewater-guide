@@ -1,13 +1,16 @@
-import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { SuggestionInput } from '@whitewater-guide/schema';
+import type {
+  CompositeNavigationProp,
+  RouteProp,
+} from '@react-navigation/native';
+import type { StackNavigationProp } from '@react-navigation/stack';
+import type { SuggestionInput } from '@whitewater-guide/schema';
 
-import {
+import type {
   RootDrawerParamsList,
   RootStackParamsList,
   Screens,
 } from '~/core/navigation';
-import { LocalPhoto } from '~/features/uploads';
+import type { LocalPhoto } from '~/features/uploads';
 
 export type PhotoSuggestion = Omit<
   SuggestionInput,

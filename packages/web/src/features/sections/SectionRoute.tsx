@@ -1,11 +1,8 @@
 import { SectionProvider, useSectionQuery } from '@whitewater-guide/clients';
-import React, { FC, Suspense } from 'react';
-import {
-  Route,
-  RouteComponentProps,
-  Switch,
-  useRouteMatch,
-} from 'react-router-dom';
+import type { FC } from 'react';
+import React, { Suspense } from 'react';
+import type { RouteComponentProps } from 'react-router-dom';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
 
 import { Loading } from '../../components';
 import { AdminRoute, EditorRoute } from '../../layout';

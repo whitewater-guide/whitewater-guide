@@ -2,18 +2,16 @@ import React, { useMemo } from 'react';
 
 import { FormikCard, useApolloFormik } from '../../../formik';
 import formToMutation from './formToMutation';
-import {
-  GaugeFormDocument,
+import type {
   GaugeFormQuery,
   GaugeFormQueryVariables,
 } from './gaugeForm.generated';
+import { GaugeFormDocument } from './gaugeForm.generated';
 import GaugeFormMain from './GaugeFormMain';
 import makeQueryToForm from './makeQueryToForm';
-import { GaugeFormData, RouterParams } from './types';
-import {
-  UpsertGaugeDocument,
-  UpsertGaugeMutationVariables,
-} from './upsertGauge.generated';
+import type { GaugeFormData, RouterParams } from './types';
+import type { UpsertGaugeMutationVariables } from './upsertGauge.generated';
+import { UpsertGaugeDocument } from './upsertGauge.generated';
 import { GaugeFormSchema } from './validation';
 
 const header = { resourceType: 'gauge' };

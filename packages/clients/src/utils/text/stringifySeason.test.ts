@@ -1,4 +1,5 @@
-import { SeasonLocalizer, stringifySeason } from './stringifySeason';
+import type { SeasonLocalizer } from './stringifySeason';
+import { stringifySeason } from './stringifySeason';
 
 test('should return empty string for empty input', () => {
   expect(stringifySeason()).toBe('');

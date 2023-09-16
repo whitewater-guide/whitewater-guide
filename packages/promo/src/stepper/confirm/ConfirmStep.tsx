@@ -1,8 +1,9 @@
 import { useMyProfileQuery } from '@whitewater-guide/clients';
-import { BoomPromoInfo } from '@whitewater-guide/schema';
-import React, { FC, useState } from 'react';
+import type { BoomPromoInfo } from '@whitewater-guide/schema';
+import type { FC } from 'react';
+import React, { useState } from 'react';
 
-import { PromoRegionFragment } from '../promoRegion.generated';
+import type { PromoRegionFragment } from '../promoRegion.generated';
 import ConfirmStepView from './ConfirmStepView';
 import useActivatePromo from './useActivatePromo';
 

@@ -1,5 +1,6 @@
 import noop from 'lodash/noop';
-import React, { PropsWithChildren, useCallback, useState } from 'react';
+import type { PropsWithChildren } from 'react';
+import React, { useCallback, useState } from 'react';
 
 interface SearchableFilterOptions {
   searchString?: string | null;

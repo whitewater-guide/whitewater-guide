@@ -1,13 +1,6 @@
 import React from 'react';
-import {
-  Insets,
-  Pressable,
-  StyleProp,
-  StyleSheet,
-  TextStyle,
-  View,
-  ViewStyle,
-} from 'react-native';
+import type { Insets } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import MDCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import theme from '../theme';
@@ -37,8 +30,8 @@ interface IconBaseProps {
   onLongPress?: () => void;
   size?: number;
   large?: boolean;
-  style?: StyleProp<ViewStyle>;
-  iconStyle?: StyleProp<TextStyle>;
+  style?: any; // StyleProp<ViewStyle>;
+  iconStyle?: any; // StyleProp<TextStyle>;
   accessibilityHint?: string;
   accessibilityLabel?: string;
   testID?: string;

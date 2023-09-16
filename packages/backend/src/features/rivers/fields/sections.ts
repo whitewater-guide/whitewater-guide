@@ -1,4 +1,4 @@
-import { RiverResolvers } from '~/apollo';
+import type { RiverResolvers } from '../../../apollo/index';
 
 const sectionsResolver: RiverResolvers['sections'] = async (
   { id },

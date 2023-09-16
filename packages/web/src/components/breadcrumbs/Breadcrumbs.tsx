@@ -6,7 +6,7 @@ import { useLocation } from 'react-router';
 import Breadcrumb from './Breadcrumb';
 import getPathTokens from './getPathTokens';
 import getRouteMatch from './getRouteMatch';
-import { BreadcrumbMatch, BreadcrumbsProps } from './types';
+import type { BreadcrumbMatch, BreadcrumbsProps } from './types';
 
 const useStyles = makeStyles((theme) =>
   createStyles({

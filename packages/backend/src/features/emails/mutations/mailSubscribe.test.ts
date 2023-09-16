@@ -9,10 +9,9 @@ jest.mock('mailchimp-api-v3', () =>
   jest.fn().mockImplementation(() => ({ post: mockPost })),
 );
 
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
-
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
 import { testMailSubscribe } from './mailSubscribe.test.generated';
 
 const _mutation = gql`

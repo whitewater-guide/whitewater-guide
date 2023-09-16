@@ -1,7 +1,8 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { _mockResponse, IAPErrorCode, ProductPurchase } from 'react-native-iap';
+import type { ProductPurchase } from 'react-native-iap';
+import { _mockResponse, IAPErrorCode } from 'react-native-iap';
 
 import { IAPError } from '../../../features/purchases';
 import safeAcknowledgePurchase from './safeAcknowledgePurchase';

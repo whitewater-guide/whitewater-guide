@@ -1,5 +1,6 @@
-import Mapbox, { RegionChangeEvent } from '@rnmapbox/maps';
-import { SectionInput } from '@whitewater-guide/schema';
+import type { RegionChangeEvent } from '@rnmapbox/maps';
+import type Mapbox from '@rnmapbox/maps';
+import type { SectionInput } from '@whitewater-guide/schema';
 import { useFormikContext } from 'formik';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';

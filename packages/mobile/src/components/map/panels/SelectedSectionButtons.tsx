@@ -1,5 +1,5 @@
 import { useBottomSheet } from '@gorhom/bottom-sheet';
-import { ListedSectionFragment } from '@whitewater-guide/clients';
+import type { ListedSectionFragment } from '@whitewater-guide/clients';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 

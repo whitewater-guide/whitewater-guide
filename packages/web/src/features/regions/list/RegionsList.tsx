@@ -10,11 +10,11 @@ import { useDeleteMutation } from '../../../apollo';
 import { Loading } from '../../../components';
 import { EditorLanguagePicker } from '../../../components/language';
 import { Card, EditorFooter } from '../../../layout';
-import {
-  ListRegionsDocument,
+import type {
   ListRegionsQuery,
   ListRegionsQueryVariables,
 } from './listRegions.generated';
+import { ListRegionsDocument } from './listRegions.generated';
 import RegionsTable from './RegionsTable';
 import { RemoveRegionDocument } from './removeRegion.generated';
 

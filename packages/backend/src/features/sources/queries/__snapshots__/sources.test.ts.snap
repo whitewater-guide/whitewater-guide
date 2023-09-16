@@ -1,54 +1,54 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`connections should count gauges 1`] = `
-Object {
-  "sources": Object {
+{
+  "sources": {
     "count": 7,
-    "nodes": Array [
-      Object {
-        "gauges": Object {
+    "nodes": [
+      {
+        "gauges": {
           "count": 0,
         },
         "id": "1628c0a2-1a0a-11e8-accf-0ed5f89f718b",
         "name": "Alps",
       },
-      Object {
-        "gauges": Object {
+      {
+        "gauges": {
           "count": 0,
         },
         "id": "ce81ed89-5558-49d1-86f6-1fa8bcd944bb",
         "name": "Empty",
       },
-      Object {
-        "gauges": Object {
+      {
+        "gauges": {
           "count": 2,
         },
         "id": "6d0d717e-aa9d-11e7-abc4-cec278b6b50a",
         "name": "Galicia",
       },
-      Object {
-        "gauges": Object {
+      {
+        "gauges": {
           "count": 2,
         },
         "id": "9f962a34-bff9-11e7-abc4-cec278b6b50a",
         "name": "Galicia2",
       },
-      Object {
-        "gauges": Object {
+      {
+        "gauges": {
           "count": 4,
         },
         "id": "53af1a54-19fe-11e8-accf-0ed5f89f718b",
         "name": "Georgia",
       },
-      Object {
-        "gauges": Object {
+      {
+        "gauges": {
           "count": 4,
         },
         "id": "786251d4-aa9d-11e7-abc4-cec278b6b50a",
         "name": "Norway",
       },
-      Object {
-        "gauges": Object {
+      {
+        "gauges": {
           "count": 1,
         },
         "id": "8e37e9d2-1d7b-11e8-b467-0ed5f89f718b",
@@ -60,56 +60,56 @@ Object {
 `;
 
 exports[`connections should count regions 1`] = `
-Object {
-  "sources": Object {
+{
+  "sources": {
     "count": 7,
-    "nodes": Array [
-      Object {
+    "nodes": [
+      {
         "id": "1628c0a2-1a0a-11e8-accf-0ed5f89f718b",
         "name": "Alps",
-        "regions": Object {
+        "regions": {
           "count": 0,
         },
       },
-      Object {
+      {
         "id": "ce81ed89-5558-49d1-86f6-1fa8bcd944bb",
         "name": "Empty",
-        "regions": Object {
+        "regions": {
           "count": 0,
         },
       },
-      Object {
+      {
         "id": "6d0d717e-aa9d-11e7-abc4-cec278b6b50a",
         "name": "Galicia",
-        "regions": Object {
+        "regions": {
           "count": 2,
         },
       },
-      Object {
+      {
         "id": "9f962a34-bff9-11e7-abc4-cec278b6b50a",
         "name": "Galicia2",
-        "regions": Object {
+        "regions": {
           "count": 1,
         },
       },
-      Object {
+      {
         "id": "53af1a54-19fe-11e8-accf-0ed5f89f718b",
         "name": "Georgia",
-        "regions": Object {
+        "regions": {
           "count": 1,
         },
       },
-      Object {
+      {
         "id": "786251d4-aa9d-11e7-abc4-cec278b6b50a",
         "name": "Norway",
-        "regions": Object {
+        "regions": {
           "count": 1,
         },
       },
-      Object {
+      {
         "id": "8e37e9d2-1d7b-11e8-b467-0ed5f89f718b",
         "name": "Россия",
-        "regions": Object {
+        "regions": {
           "count": 0,
         },
       },
@@ -119,8 +119,8 @@ Object {
 `;
 
 exports[`data should list sources 1`] = `
-Array [
-  Object {
+[
+  {
     "cron": "10 * * * *",
     "enabled": true,
     "id": "1628c0a2-1a0a-11e8-accf-0ed5f89f718b",
@@ -129,18 +129,18 @@ Array [
     "script": "alps",
     "url": "http://yandex.ru",
   },
-  Object {
+  {
     "cron": null,
     "enabled": false,
     "id": "ce81ed89-5558-49d1-86f6-1fa8bcd944bb",
     "name": "Empty",
-    "requestParams": Object {
+    "requestParams": {
       "foo": "bar",
     },
     "script": "empty",
     "url": null,
   },
-  Object {
+  {
     "cron": "0 * * * *",
     "enabled": true,
     "id": "6d0d717e-aa9d-11e7-abc4-cec278b6b50a",
@@ -149,7 +149,7 @@ Array [
     "script": "galicia",
     "url": "http://ya.ru",
   },
-  Object {
+  {
     "cron": null,
     "enabled": true,
     "id": "9f962a34-bff9-11e7-abc4-cec278b6b50a",
@@ -158,7 +158,7 @@ Array [
     "script": "galicia2",
     "url": "http://yandex.ru",
   },
-  Object {
+  {
     "cron": null,
     "enabled": false,
     "id": "53af1a54-19fe-11e8-accf-0ed5f89f718b",
@@ -167,7 +167,7 @@ Array [
     "script": "one_by_one",
     "url": null,
   },
-  Object {
+  {
     "cron": null,
     "enabled": true,
     "id": "786251d4-aa9d-11e7-abc4-cec278b6b50a",
@@ -176,12 +176,12 @@ Array [
     "script": "norway",
     "url": null,
   },
-  Object {
+  {
     "cron": null,
     "enabled": false,
     "id": "8e37e9d2-1d7b-11e8-b467-0ed5f89f718b",
     "name": "Россия",
-    "requestParams": Object {
+    "requestParams": {
       "foo": "bar",
     },
     "script": "russia",

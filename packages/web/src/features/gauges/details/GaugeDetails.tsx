@@ -1,11 +1,11 @@
 import React from 'react';
-import { RouteComponentProps } from 'react-router';
+import type { RouteComponentProps } from 'react-router';
 
 import { Loading, NotFound } from '../../../components';
 import { Card } from '../../../layout';
 import GaugeCard from './GaugeCard';
 import { useGaugeDetailsQuery } from './gaugeDetails.generated';
-import { RouterParams } from './types';
+import type { RouterParams } from './types';
 
 export const GaugeDetails: React.FC<RouteComponentProps<RouterParams>> =
   React.memo((props) => {

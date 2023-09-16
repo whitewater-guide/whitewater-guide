@@ -1,10 +1,12 @@
-import { MutationMergeSectionsArgs } from '@whitewater-guide/schema';
-import * as yup from 'yup';
+import type { MutationMergeSectionsArgs } from '@whitewater-guide/schema';
+import type { ObjectSchema } from 'yup';
+import { object, string } from 'yup';
 
-import { ContextUser, isInputValidResolver, MutationResolvers } from '~/apollo';
-import { db, Sql } from '~/db';
-
-import { differ } from './utils';
+import type { ContextUser, MutationResolvers } from '../../../apollo/index';
+import { isInputValidResolver } from '../../../apollo/index';
+import type { Sql } from '../../../db/index';
+import { db } from '../../../db/index';
+import { differ } from './utils/differ';
 
 const getLogSaver = async (
   user: ContextUser,
@@ -37,9 +39,9 @@ const getLogSaver = async (
   };
 };
 
-const Struct: yup.SchemaOf<MutationMergeSectionsArgs> = yup.object({
-  sourceId: yup.string().uuid().required().nullable(false),
-  destinationId: yup.string().uuid().required().nullable(false),
+const Struct: ObjectSchema<MutationMergeSectionsArgs> = object({
+  sourceId: string().uuid().required(),
+  destinationId: string().uuid().required(),
 });
 
 const mergeSections: MutationResolvers['mergeSections'] = async (

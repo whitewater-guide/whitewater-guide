@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
-import { Route, RouteComponentProps, Switch } from 'react-router-dom';
+import type { RouteComponentProps } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import { Loading } from '../../components';
 import { EditorRoute } from '../../layout';

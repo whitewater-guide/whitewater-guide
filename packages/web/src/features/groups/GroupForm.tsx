@@ -3,11 +3,12 @@ import IconButton from '@material-ui/core/IconButton';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import TextField from '@material-ui/core/TextField';
-import { GroupInput } from '@whitewater-guide/schema';
-import React, { FC, useState } from 'react';
+import type { GroupInput } from '@whitewater-guide/schema';
+import type { FC } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { ListedGroupFragment } from './listGroups.generated';
+import type { ListedGroupFragment } from './listGroups.generated';
 
 type State = ListedGroupFragment | GroupInput;
 

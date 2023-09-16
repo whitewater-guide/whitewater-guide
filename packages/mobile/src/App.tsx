@@ -1,9 +1,10 @@
-import { ApolloClient, ApolloProvider } from '@apollo/client';
+import type { ApolloClient } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 import * as Sentry from '@sentry/react-native';
+import type { AuthService } from '@whitewater-guide/clients';
 import {
   AuthProvider,
-  AuthService,
   RegionsFilterProvider,
   TagsProvider,
 } from '@whitewater-guide/clients';

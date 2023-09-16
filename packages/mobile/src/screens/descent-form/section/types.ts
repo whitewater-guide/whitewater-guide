@@ -1,8 +1,11 @@
-import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import type {
+  CompositeNavigationProp,
+  RouteProp,
+} from '@react-navigation/native';
+import type { StackNavigationProp } from '@react-navigation/stack';
 
-import { Screens } from '~/core/navigation';
-import {
+import type { Screens } from '~/core/navigation';
+import type {
   DescentFormNavProp,
   DescentFormParamsList,
 } from '~/screens/descent-form/types';

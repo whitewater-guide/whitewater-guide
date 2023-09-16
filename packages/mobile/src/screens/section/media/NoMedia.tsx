@@ -1,4 +1,4 @@
-import { MediaKind } from '@whitewater-guide/schema';
+import type { MediaKind } from '@whitewater-guide/schema';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';

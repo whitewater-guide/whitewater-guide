@@ -3,7 +3,8 @@ import map from 'lodash/map';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { SelectableTag, TagSelection, TagSelections } from '~/features/tags';
+import type { SelectableTag } from '~/features/tags';
+import { TagSelection, TagSelections } from '~/features/tags';
 
 import TernaryChip from './TernaryChip';
 

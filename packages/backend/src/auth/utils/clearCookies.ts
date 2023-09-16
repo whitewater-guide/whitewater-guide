@@ -1,4 +1,4 @@
-import Koa from 'koa';
+import type Koa from 'koa';
 
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from '../constants';
 import { commonCookieOptions } from './commonCookieOptions';

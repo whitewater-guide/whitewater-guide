@@ -1,22 +1,25 @@
 /* eslint-disable @typescript-eslint/no-invalid-this */
-import {
+import type {
   Descent,
   DescentInput,
   DescentsFilter,
   RelayConnection,
 } from '@whitewater-guide/schema';
-import { DataSourceConfig } from 'apollo-datasource';
-import { ForbiddenError, UserInputError } from 'apollo-server-koa';
-import * as jwt from 'jsonwebtoken';
-import { QueryBuilder } from 'knex';
+import jwt from 'jsonwebtoken';
+import type { Knex } from 'knex';
 
-import { Context, Cursor } from '~/apollo';
-import config from '~/config';
-import { db, Sql } from '~/db';
-import { FieldsMap, ManyBuilderOptions } from '~/db/connectors';
-import { RelayConnector } from '~/db/connectors/RelayConnector';
-
-import { ShareToken } from './types';
+import {
+  type Context,
+  type Cursor,
+  ForbiddenError,
+  UserInputError,
+} from '../../apollo/index';
+import config from '../../config';
+import type { FieldsMap, ManyBuilderOptions } from '../../db/connectors/index';
+import { RelayConnector } from '../../db/connectors/index';
+import type { Sql } from '../../db/index';
+import { db } from '../../db/index';
+import type { ShareToken } from './types';
 
 const FIELDS_MAP: FieldsMap<Descent, Sql.Descents> = {
   section: 'section_id',
@@ -28,8 +31,8 @@ interface GetManyOptions extends ManyBuilderOptions<Sql.Descents> {
 }
 
 export class DescentsConnector extends RelayConnector<Descent, Sql.Descents> {
-  constructor() {
-    super();
+  constructor(context: Context) {
+    super(context);
     this._tableName = 'descents';
     this._graphqlTypeName = 'Descent';
     this._fieldsMap = FIELDS_MAP;
@@ -38,10 +41,6 @@ export class DescentsConnector extends RelayConnector<Descent, Sql.Descents> {
       { column: 'ord_id', direction: 'desc' },
     ];
     this._sqlFields.push('ord_id', 'user_id');
-  }
-
-  initialize(cfg: DataSourceConfig<Context>) {
-    super.initialize(cfg);
     // Descents are not i18ned
     this._language = undefined;
   }
@@ -51,10 +50,10 @@ export class DescentsConnector extends RelayConnector<Descent, Sql.Descents> {
     return `("descents"."started_at", "descents"."ord_id") < ('${afterval}', ${cursor.ordId})`;
   }
 
-  public buildGenericQuery(): QueryBuilder {
+  public buildGenericQuery(): Knex.QueryBuilder {
     const query = super.buildGenericQuery();
     if (this._fieldsByType.get(this._graphqlTypeName)?.has('section')) {
-      let sectionsQuery: QueryBuilder =
+      let sectionsQuery: Knex.QueryBuilder =
         this._context.dataSources.sections.buildGenericQuery();
       sectionsQuery = sectionsQuery.whereRaw(
         '"sections_view"."id" = "descents"."section_id"',

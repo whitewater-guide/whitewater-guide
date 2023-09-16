@@ -2,7 +2,8 @@ import { MockList } from '@graphql-tools/mock';
 import { renderHook } from '@testing-library/react-hooks';
 import { act } from '@testing-library/react-native';
 import { mockApolloProvider } from '@whitewater-guide/clients/dist/test';
-import React, { FC, PropsWithChildren } from 'react';
+import type { FC, PropsWithChildren } from 'react';
+import React from 'react';
 
 import { RegionsListDocument } from '~/screens/regions-list/regionsList.generated';
 

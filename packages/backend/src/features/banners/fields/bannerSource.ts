@@ -1,11 +1,11 @@
-import {
-  BannerKind,
+import type {
   BannerSourceSrcArgs,
   BannerSourceUrlArgs,
 } from '@whitewater-guide/schema';
+import { BannerKind } from '@whitewater-guide/schema';
 
-import { BannerSourceResolvers } from '~/apollo';
-import { Imgproxy } from '~/s3';
+import type { BannerSourceResolvers } from '../../../apollo/index';
+import { Imgproxy } from '../../../s3/index';
 
 export const bannerSourceResolvers: BannerSourceResolvers = {
   // @deprecated, keep for old clients

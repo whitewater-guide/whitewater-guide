@@ -3,9 +3,9 @@ import { MediaKind } from '@whitewater-guide/schema';
 import { useEffect, useRef, useState } from 'react';
 
 import { S3_HOST } from '../../../../../environment';
-import { ListedMedia } from '../types';
+import type { ListedMedia } from '../types';
 import { THUMB_HEIGHT } from './constants';
-import { ThumbState } from './types';
+import type { ThumbState } from './types';
 
 function getThumbURL(media: ListedMedia): string {
   const thumb = media.thumb ?? media.url;

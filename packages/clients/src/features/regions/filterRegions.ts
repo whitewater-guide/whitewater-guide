@@ -1,4 +1,4 @@
-import { NamedNode, RegionFilterOptions } from '@whitewater-guide/schema';
+import type { NamedNode, RegionFilterOptions } from '@whitewater-guide/schema';
 import deburr from 'lodash/deburr';
 
 /**

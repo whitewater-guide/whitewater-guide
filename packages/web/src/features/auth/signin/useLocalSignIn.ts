@@ -1,5 +1,6 @@
-import { Credentials, useAuth } from '@whitewater-guide/clients';
-import { FormikHelpers } from 'formik';
+import type { Credentials } from '@whitewater-guide/clients';
+import { useAuth } from '@whitewater-guide/clients';
+import type { FormikHelpers } from 'formik';
 import { useCallback } from 'react';
 import { useHistory } from 'react-router';
 

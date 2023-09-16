@@ -1,22 +1,34 @@
+import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
+import Modal from '@material-ui/core/Modal';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import Carousel from 'nuka-carousel';
 import React from 'react';
-import Carousel, { Modal, ModalGateway } from 'react-images';
 
-import LightboxFooter from './LightboxFooter';
+import LightboxBottomLeft from './LightboxBottomLeft';
+import LightboxBottomRight from './LightboxBottomRight';
 import LightboxView from './LightboxView';
-import { LightboxItem } from './types';
+import type { LightboxItem } from './types';
 
-const customStyles = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  blanket: (base: any) => ({
-    ...base,
-    zIndex: 1600,
+const useStyles = makeStyles(() =>
+  createStyles({
+    modal: {
+      height: '100vh',
+    },
+    slide: {
+      height: '100vh',
+      width: '100vw',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    close: {
+      color: 'white',
+    },
   }),
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  positioner: (base: any) => ({
-    ...base,
-    zIndex: 1700,
-  }),
-};
+);
 
 interface Props {
   items: LightboxItem[];
@@ -26,24 +38,37 @@ interface Props {
 
 export const Lightbox = React.memo<Props>((props) => {
   const { currentModal, items, onClose } = props;
+  const classes = useStyles();
+  // eslint-disable-next-line no-eq-null, eqeqeq
+  if (currentModal == null) {
+    return null;
+  }
   return (
-    <ModalGateway>
-      {currentModal !== null && (
-        <Modal
-          allowFullscreen={false}
-          onClose={onClose}
-          styles={customStyles}
-          className="foo"
-        >
-          <Carousel
-            currentIndex={currentModal}
-            components={{ View: LightboxView, Footer: LightboxFooter }}
-            frameProps={{ autoSize: 'height' }}
-            views={items}
-          />
-        </Modal>
-      )}
-    </ModalGateway>
+    <Modal open className={classes.modal}>
+      <Carousel
+        wrapAround
+        slideIndex={currentModal}
+        defaultControlsConfig={{
+          nextButtonText: <ChevronRightIcon />,
+          prevButtonText: <ChevronLeftIcon />,
+        }}
+        renderBottomLeftControls={(props) => (
+          <LightboxBottomLeft items={items} {...props} />
+        )}
+        renderTopRightControls={() => (
+          <IconButton size="medium" onClick={onClose}>
+            <Icon className={classes.close}>close</Icon>
+          </IconButton>
+        )}
+        renderBottomRightControls={LightboxBottomRight}
+      >
+        {items.map((i) => (
+          <div key={i.id} className={classes.slide}>
+            <LightboxView data={i} />
+          </div>
+        ))}
+      </Carousel>
+    </Modal>
   );
 });
 

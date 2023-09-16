@@ -1,17 +1,19 @@
-import { PurchaseInput } from '@whitewater-guide/schema';
-import Verifier, {
+import type { PurchaseInput } from '@whitewater-guide/schema';
+import type {
   IVerifier,
   VerificationResponse,
 } from 'google-play-billing-validator';
+import Verifier from 'google-play-billing-validator';
 
-import config from '~/config';
-import log from '~/log';
+import config from '../../../../config';
+import log from '../../../../log/index';
 
 let _verifier: IVerifier;
 
 const getVerifier = async () => {
   if (!_verifier) {
     const gServiceAcc = await config.getGoogleServiceAccount();
+    // @ts-ignore
     _verifier = new Verifier({
       email: gServiceAcc.client_email,
       key: gServiceAcc.private_key,

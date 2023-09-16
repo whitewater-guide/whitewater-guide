@@ -2,7 +2,8 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Rating from '@material-ui/lab/Rating';
 import { useField } from 'formik';
-import React, { ChangeEvent, useCallback } from 'react';
+import type { ChangeEvent } from 'react';
+import React, { useCallback } from 'react';
 
 import { FormikFormControl } from '../helpers';
 import { useFakeHandlers } from '../utils';

@@ -1,17 +1,15 @@
-import Knex from 'knex';
-import path from 'path';
+import type { Knex } from 'knex';
 
-import { runSqlFile } from '~/db';
+import { runSqlFile } from '../db/index';
+import { resolveRelative } from '../utils/index';
 
 /**
  * This patch allows to set demo on upsert (when section is approved)
  */
-export const up = async (db: Knex) => {
-  await runSqlFile(db, path.resolve(__dirname, '027/upsert_section.sql'));
-};
+export async function up(db: Knex): Promise<void> {
+  await runSqlFile(db, resolveRelative(__dirname, '027/upsert_section.sql'));
+}
 
-export const down = async (db: Knex) => {
-  await runSqlFile(db, path.resolve(__dirname, '025/upsert_section.sql'));
-};
-
-export const configuration = { transaction: true };
+export async function down(db: Knex): Promise<void> {
+  await runSqlFile(db, resolveRelative(__dirname, '025/upsert_section.sql'));
+}

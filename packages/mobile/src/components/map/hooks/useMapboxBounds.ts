@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 
 import theme from '~/theme';
 
-import { MapboxBounds } from '../types';
+import type { MapboxBounds } from '../types';
 
 interface Result {
   defaultSettings: { bounds: MapboxBounds };

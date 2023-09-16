@@ -1,12 +1,12 @@
-import * as yup from 'yup';
+import type { ObjectSchema } from 'yup';
+import { object, string } from 'yup';
 
-import { LicenseInput } from '../__generated__/types';
+import type { LicenseInput } from '../__generated__/types';
 
-export const LicenseInputSchema: yup.SchemaOf<LicenseInput> = yup
-  .object({
-    url: yup.string().url().nullable(true),
-    name: yup.string().min(2).defined().nullable(false),
-    slug: yup.string().slug().nullable(true),
-  })
+export const LicenseInputSchema: ObjectSchema<LicenseInput> = object({
+  url: string().url().nullable(),
+  name: string().min(2).defined().nonNullable(),
+  slug: string().slug().nullable(),
+})
   .strict(true)
   .noUnknown();

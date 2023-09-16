@@ -1,7 +1,8 @@
-import FastImage, {
+import type {
   FastImageProps,
   OnProgressEvent,
 } from '@whitewater-guide/react-native-fast-image';
+import FastImage from '@whitewater-guide/react-native-fast-image';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { ProgressBar } from 'react-native-paper';

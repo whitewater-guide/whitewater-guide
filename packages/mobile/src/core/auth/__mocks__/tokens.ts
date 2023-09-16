@@ -1,4 +1,4 @@
-import { TokenStorage } from '@whitewater-guide/clients';
+import type { TokenStorage } from '@whitewater-guide/clients';
 
 class SecureTokenStorage implements TokenStorage {
   private _accessToken: string | null = null;

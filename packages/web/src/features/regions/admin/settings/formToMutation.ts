@@ -1,5 +1,5 @@
-import { AdministrateRegionMutationVariables } from './administrateRegion.generated';
-import { RegionAdminFormData } from './types';
+import type { AdministrateRegionMutationVariables } from './administrateRegion.generated';
+import type { RegionAdminFormData } from './types';
 
 export default (
   settings: RegionAdminFormData,

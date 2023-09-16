@@ -1,29 +1,30 @@
-import { anonContext, fakeContext, UUID_REGEX } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import { PurchaseInput, PurchasePlatform } from '@whitewater-guide/schema';
-import gql from 'graphql-tag';
+import type { PurchaseInput } from '@whitewater-guide/schema';
+import { PurchasePlatform } from '@whitewater-guide/schema';
+import { gql } from 'graphql-tag';
 import { isValidated, validate } from 'in-app-purchase';
 
-import { db, holdTransaction, rollbackTransaction } from '~/db';
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
 import {
   BOOM_USER_3500,
   BOOM_USER_3500_ID,
   TEST_USER,
   TEST_USER2,
-} from '~/seeds/test/01_users';
+} from '../../../seeds/test/01_users';
 import {
   REGION_ECUADOR,
   REGION_GEORGIA,
   REGION_NORWAY,
-} from '~/seeds/test/04_regions';
-import { GEORGIA_BZHUZHA_EXTREME } from '~/seeds/test/09_sections';
+} from '../../../seeds/test/04_regions';
+import { GEORGIA_BZHUZHA_EXTREME } from '../../../seeds/test/09_sections';
 import {
   BOOM_PROMO_EU_CIS_ACTIVE,
   BOOM_PROMO_LATIN_REDEEMED,
   BOOM_PROMO_REGION_ACTIVE,
   BOOM_PROMO_REGION_REDEEMED,
-} from '~/seeds/test/12_boom_promos';
-
+} from '../../../seeds/test/12_boom_promos';
+import { anonContext, fakeContext } from '../../../test/index';
+import { UUID_REGEX } from '../../../utils/index';
 import {
   testSavePurchase,
   testSavePurchaseNoSection,

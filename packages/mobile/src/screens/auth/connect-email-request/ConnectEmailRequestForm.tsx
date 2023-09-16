@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
-import React, { FC, RefObject, useMemo } from 'react';
+import type { FC, RefObject } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 import { Button } from 'react-native-paper';
@@ -11,8 +12,8 @@ import HelperText from '~/forms/HelperText';
 import TextField from '~/forms/TextField';
 
 import getValidationSchema from './getValidationSchema';
-import { RequestConnectEmailMutationVariables } from './requestConnectEmail.generated';
-import { ConnectEmailRequestNavProp } from './types';
+import type { RequestConnectEmailMutationVariables } from './requestConnectEmail.generated';
+import type { ConnectEmailRequestNavProp } from './types';
 import useRequestConnectEmailForm from './useRequestConnectEmailForm';
 
 interface Props {
@@ -65,7 +66,7 @@ export const ConnectEmailRequestForm: FC<Props> = ({
             <Button
               mode="contained"
               loading={isSubmitting}
-              onPress={handleSubmit}
+              onPress={() => handleSubmit()}
             >
               {t('screens:connectEmailRequest.submit')}
             </Button>

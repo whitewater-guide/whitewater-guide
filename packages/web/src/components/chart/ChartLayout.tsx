@@ -3,7 +3,7 @@ import React from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { VictoryTheme } from 'victory';
 
-import { Styles } from '../../styles';
+import type { Styles } from '../../styles';
 import { Loading } from '../Loading';
 import ChartFlowToggle from './ChartFlowToggle';
 import ChartPeriodToggle from './ChartPeriodToggle';

@@ -1,7 +1,8 @@
-import Input, { InputProps } from '@material-ui/core/Input';
+import type { InputProps } from '@material-ui/core/Input';
+import Input from '@material-ui/core/Input';
 import { strToFloat } from '@whitewater-guide/clients';
 import React, { useCallback, useEffect, useState } from 'react';
-import { Overwrite } from 'utility-types';
+import type { Overwrite } from 'utility-types';
 
 const PARTIAL_NUMERIC = /(-)?[0-9]*([,|.][0-9]*)?/;
 

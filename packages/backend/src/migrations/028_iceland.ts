@@ -8,5 +8,3 @@ export const up = async () => {
 export const down = async () => {
   // Data migrations are no longer available is source code
 };
-
-export const configuration = { transaction: true };

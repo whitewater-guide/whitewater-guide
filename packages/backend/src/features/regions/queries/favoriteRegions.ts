@@ -1,4 +1,5 @@
-import { isAuthenticatedResolver, QueryResolvers } from '~/apollo';
+import type { QueryResolvers } from '../../../apollo/index';
+import { isAuthenticatedResolver } from '../../../apollo/index';
 
 const favoriteRegions: QueryResolvers['favoriteRegions'] = async (
   _,

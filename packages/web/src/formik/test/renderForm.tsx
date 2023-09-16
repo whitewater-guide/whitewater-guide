@@ -1,20 +1,20 @@
-import { render, RenderOptions } from '@testing-library/react';
-import {
-  mockApolloProvider,
-  MockedProviderOptions,
-} from '@whitewater-guide/clients/dist/test';
-import React, { FC, PropsWithChildren } from 'react';
+import type { RenderOptions } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import type { MockedProviderOptions } from '@whitewater-guide/clients/dist/test';
+import { mockApolloProvider } from '@whitewater-guide/clients/dist/test';
+import type { FC, PropsWithChildren } from 'react';
+import React from 'react';
 import { MemoryRouter, Route, Switch } from 'react-router';
 
 const initialEntries = ['/back', '/form'];
 
 export const FORM_SUCCEEDED = 'form_succeeded';
 
-export const renderForm = (
+export function renderForm(
   ui: React.ReactElement,
   providerOptions?: MockedProviderOptions,
   options?: Omit<RenderOptions, 'queries' | 'wrapper'>,
-) => {
+): void {
   const Provider = mockApolloProvider(providerOptions);
   const wrapper: FC<PropsWithChildren> = ({ children }) => (
     <Provider>
@@ -32,5 +32,5 @@ export const renderForm = (
       </MemoryRouter>
     </Provider>
   );
-  return render(ui, { wrapper, ...options });
-};
+  render(ui, { wrapper, ...options });
+}

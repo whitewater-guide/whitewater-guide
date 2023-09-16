@@ -1,6 +1,6 @@
-import { DescentResolvers, timestampedResolvers } from '~/apollo';
-import { Sql } from '~/db';
-
+import type { DescentResolvers } from '../../../apollo/index';
+import { timestampedResolvers } from '../../../apollo/index';
+import type { Sql } from '../../../db/index';
 import section from './section';
 
 const descentFieldResolvers: DescentResolvers = {

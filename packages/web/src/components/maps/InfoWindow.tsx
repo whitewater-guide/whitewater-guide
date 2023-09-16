@@ -1,4 +1,5 @@
-import React, { PropsWithChildren, PureComponent } from 'react';
+import type { PropsWithChildren } from 'react';
+import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 
 export interface InfoWindowProps {

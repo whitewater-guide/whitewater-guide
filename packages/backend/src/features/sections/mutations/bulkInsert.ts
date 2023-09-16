@@ -1,32 +1,32 @@
 import { NEW_RIVER_ID } from '@whitewater-guide/commons';
-import {
+import type {
   MutationBulkInsertArgs,
   SectionInput,
-  SectionInputSchema,
 } from '@whitewater-guide/schema';
+import { SectionInputSchema } from '@whitewater-guide/schema';
 import { createSafeValidator } from '@whitewater-guide/validation';
-import { UserInputError } from 'apollo-server-koa';
 import deepmerge from 'deepmerge';
 import { EventIterator } from 'event-iterator';
 import JSONStream from 'jsonstream2';
-import { PassThrough } from 'stream';
-import { Extract, extract, Headers } from 'tar-stream';
-import * as yup from 'yup';
+import type { PassThrough } from 'stream';
+import type { Extract, Headers } from 'tar-stream';
+import { extract } from 'tar-stream';
+import type { ObjectSchema } from 'yup';
+import { boolean, object, string } from 'yup';
 import { createGunzip } from 'zlib';
 
-import { isInputValidResolver, MutationResolvers } from '~/apollo';
-import { db, rawUpsert } from '~/db';
-import { s3Client, TEMP } from '~/s3';
-
+import type { MutationResolvers } from '../../../apollo/index';
+import { isInputValidResolver, UserInputError } from '../../../apollo/index';
+import { db, rawUpsert } from '../../../db/index';
+import { s3Client, TEMP } from '../../../s3/index';
 import { NULL_SECTION_INPUT } from '../constants';
-import { RawSectionUpsertResult } from '../types';
+import type { RawSectionUpsertResult } from '../types';
 import { checkForNewRiver, insertNewRiver } from './upsertUtils';
 
-const Schema: yup.SchemaOf<MutationBulkInsertArgs> = yup.object({
-  regionId: yup.string().uuid().required(),
-  hidden: yup.boolean(),
-  archiveURL: yup
-    .string()
+const Schema: ObjectSchema<MutationBulkInsertArgs> = object({
+  regionId: string().uuid().required(),
+  hidden: boolean(),
+  archiveURL: string()
     .matches(/^.*\.gz$/)
     .required(),
 });

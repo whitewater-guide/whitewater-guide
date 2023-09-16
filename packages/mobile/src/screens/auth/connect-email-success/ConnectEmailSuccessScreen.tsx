@@ -5,7 +5,7 @@ import { StyleSheet, View } from 'react-native';
 import { Button, Paragraph, Title } from 'react-native-paper';
 
 import { AuthScreenBase } from '../AuthScreenBase';
-import { ConnectEmailSuccessNavProps } from './types';
+import type { ConnectEmailSuccessNavProps } from './types';
 
 const styles = StyleSheet.create({
   body: {

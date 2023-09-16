@@ -1,7 +1,7 @@
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import React from 'react';
-import { RouteComponentProps } from 'react-router';
+import type { RouteComponentProps } from 'react-router';
 
 import { useDeleteMutation } from '../../../apollo';
 import { Card, EditorFooter } from '../../../layout';

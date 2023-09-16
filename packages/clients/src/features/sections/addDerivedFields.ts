@@ -4,8 +4,8 @@ import { formatDistanceToNow } from '../../i18n';
 import { prettyNumber } from '.';
 import { getBindingFormula } from './formulas';
 import { getSectionColor } from './getSectionColor';
-import { ListedSectionFragment } from './listSections.generated';
-import { SectionDerivedFields } from './types';
+import type { ListedSectionFragment } from './listSections.generated';
+import type { SectionDerivedFields } from './types';
 
 export function addDerivedFields(
   section: ListedSectionFragment,

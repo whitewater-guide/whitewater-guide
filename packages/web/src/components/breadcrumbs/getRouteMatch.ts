@@ -1,6 +1,6 @@
 import { matchPath } from 'react-router-dom';
 
-import { BreadcrumbMatch, BreadcrumbsMap } from './types';
+import type { BreadcrumbMatch, BreadcrumbsMap } from './types';
 
 const getRouteMatch = (
   routes: BreadcrumbsMap,

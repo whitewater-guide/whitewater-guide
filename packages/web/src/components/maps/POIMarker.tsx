@@ -1,8 +1,9 @@
 import { useMapSelection } from '@whitewater-guide/clients';
-import { PointCoreFragment } from '@whitewater-guide/schema';
-import React, { useEffect, useRef } from 'react';
+import type { PointCoreFragment } from '@whitewater-guide/schema';
+import type React from 'react';
+import { useEffect, useRef } from 'react';
 
-import { MapElementProps } from './types';
+import type { MapElementProps } from './types';
 
 const markerIconURL = require('./gauge_marker.png');
 

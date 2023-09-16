@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { Subheading } from 'react-native-paper';
 
 import RangeSlider from './RangeSlider';
-import { RangeSliderProps } from './types';
+import type { RangeSliderProps } from './types';
 
 const styles = StyleSheet.create({
   sliderWrapper: {

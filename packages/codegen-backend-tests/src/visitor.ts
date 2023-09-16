@@ -1,14 +1,13 @@
-import { Types } from '@graphql-codegen/plugin-helpers';
-import {
-  ClientSideBaseVisitor,
+import type { Types } from '@graphql-codegen/plugin-helpers';
+import type {
   LoadedFragment,
   RawClientSideBasePluginConfig,
 } from '@graphql-codegen/visitor-plugin-common';
-import { GraphQLSchema, OperationDefinitionNode } from 'graphql';
+import { ClientSideBaseVisitor } from '@graphql-codegen/visitor-plugin-common';
+import type { GraphQLSchema, OperationDefinitionNode } from 'graphql';
 import upperFirst from 'lodash/upperFirst';
 
 export class BackendTestsVisitor extends ClientSideBaseVisitor {
-  private _externalImportPrefix: string;
   protected rawConfig: RawClientSideBasePluginConfig;
 
   constructor(
@@ -19,19 +18,16 @@ export class BackendTestsVisitor extends ClientSideBaseVisitor {
   ) {
     super(schema, fragments, rawConfig, {});
     this.rawConfig = rawConfig;
-    this._externalImportPrefix = this.config.importOperationTypesFrom
-      ? `${this.config.importOperationTypesFrom}.`
-      : '';
     this._documents = documents;
   }
 
   public getImports(): string[] {
     const baseImports = super.getImports();
     return [
-      "import { anonContext, createTestClient } from '@test';",
-      "import { GraphQLResponse } from 'apollo-server-types';",
-      "import { createTestServer } from '~/apollo/server';",
-      "import { Context } from '~/apollo';",
+      "import { anonContext, createTestClient } from '../../../test/index';",
+      "import type { FormattedExecutionResult } from 'graphql';",
+      "import { createTestServer } from '../../../apollo/server/index';",
+      "import { Context } from '../../../apollo/index';",
       ...baseImports,
     ];
   }
@@ -47,19 +43,17 @@ export class BackendTestsVisitor extends ClientSideBaseVisitor {
 
     const clientCall =
       operationType === 'Query'
-        ? `client.query<${operationResultType}>({ query: ${documentVariableName}, variables })`
-        : `client.mutate<${operationResultType}>({ mutation: ${documentVariableName}, variables })`;
+        ? `client.query<${operationResultType}>({ query: ${documentVariableName}, variables }, context ?? anonContext())`
+        : `client.mutate<${operationResultType}>({ mutation: ${documentVariableName}, variables }, context ?? anonContext())`;
 
     return `
-      export type ${operationResultType}Result = Omit<GraphQLResponse, 'data'> & {
-        data?: ${operationResultType};
-      };
+      export type ${operationResultType}Result = FormattedExecutionResult<${operationResultType}>;
 
       export function test${operationName}(
         variables?: ${operationVariablesTypes},
-        context?: Omit<Context, 'dataSources'>
+        context?: Context,
       ) {
-        const server = createTestServer(context || anonContext());
+        const server = createTestServer();
         const client = createTestClient(server);
         return ${clientCall};
       }`;

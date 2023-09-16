@@ -1,7 +1,7 @@
-import { ForbiddenError } from 'apollo-server-koa';
-import { QueryBuilder } from 'knex';
+import type { Knex } from 'knex';
 
-import { AuthenticatedQuery, isAuthenticatedResolver } from '~/apollo';
+import type { AuthenticatedQuery } from '../../../apollo/index';
+import { ForbiddenError, isAuthenticatedResolver } from '../../../apollo/index';
 
 const suggestions: AuthenticatedQuery['suggestions'] = async (
   _,
@@ -20,7 +20,7 @@ const suggestions: AuthenticatedQuery['suggestions'] = async (
     }
     query = query.where({ created_by: userId });
   } else if (!user.admin) {
-    query = query.whereExists((qb: QueryBuilder) =>
+    query = query.whereExists((qb: Knex.QueryBuilder) =>
       qb
         .select('user_id')
         .from('regions_editors')

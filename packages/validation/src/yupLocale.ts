@@ -1,7 +1,11 @@
+import { ValidationError } from 'yup';
+
 export const mixed = {
   default: 'yup:mixed.default',
   defined: 'yup:mixed.defined',
   required: 'yup:mixed.required',
+  nonNullable: 'yup:mixed.required',
+  nonNull: 'yup:mixed.required',
   oneOf: ({ values }: any) => ({ key: 'yup:mixed.oneOf', options: { values } }),
   notOneOf: ({ values }: any) => ({
     key: 'yup:mixed.notOneOf',
@@ -110,12 +114,34 @@ export const array = {
   }),
 };
 
+export const tuple = {
+  notType: (params: any) => {
+    const { path, value, spec } = params;
+    const size = spec.types.length;
+    if (Array.isArray(value)) {
+      if (value.length < size)
+        return {
+          key: 'yup:tuple.tooFew',
+          options: { path, size },
+        };
+      if (value.length > size)
+        return {
+          key: 'yup:tuple.tooMany',
+          options: { path, size },
+        };
+    }
+
+    return ValidationError.formatError(mixed.notType, params);
+  },
+};
+
 export const yupLocale: any = {
-  mixed,
-  string,
-  number,
-  date,
-  object,
   array,
   boolean,
+  date,
+  mixed,
+  number,
+  object,
+  string,
+  tuple,
 };

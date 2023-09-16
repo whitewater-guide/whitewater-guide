@@ -6,19 +6,17 @@ import { DrawingMapField, MarkdownField } from '../../../formik/fields';
 import { FormikTab } from '../../../formik/helpers';
 import formToMutation from './formToMutation';
 import queryToForm from './queryToForm';
-import {
-  RegionFormDocument,
+import type {
   RegionFormQuery,
   RegionFormQueryVariables,
 } from './regionForm.generated';
+import { RegionFormDocument } from './regionForm.generated';
 import RegionFormLicense from './RegionFormLicense';
 import RegionFormMain from './RegionFormMain';
 import RegionFormPOIs from './RegionFormPOIs';
-import { RegionFormData, RouterParams } from './types';
-import {
-  UpsertRegionDocument,
-  UpsertRegionMutationVariables,
-} from './upsertRegion.generated';
+import type { RegionFormData, RouterParams } from './types';
+import type { UpsertRegionMutationVariables } from './upsertRegion.generated';
+import { UpsertRegionDocument } from './upsertRegion.generated';
 import { RegionFormSchema } from './validation';
 
 const header = { resourceType: 'region' };

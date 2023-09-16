@@ -1,12 +1,13 @@
 import Divider from '@material-ui/core/Divider';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { StepProps } from '@material-ui/core/Step';
+import type { StepProps } from '@material-ui/core/Step';
 import StepContent from '@material-ui/core/StepContent';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import React, { FC, useState } from 'react';
+import type { FC } from 'react';
+import React, { useState } from 'react';
 
 import { StepFooter } from '../../components';
-import { PromoRegionFragment } from '../promoRegion.generated';
+import type { PromoRegionFragment } from '../promoRegion.generated';
 import NoRegions from './NoRegions';
 import { usePromoRegionsQuery } from './promoRegions.generated';
 import RegionSelector from './RegionSelector';

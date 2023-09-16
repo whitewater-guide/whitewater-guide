@@ -1,16 +1,16 @@
-import { anonContext, fakeContext } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import { TagCategory, TagInput } from '@whitewater-guide/schema';
-import gql from 'graphql-tag';
+import type { TagInput } from '@whitewater-guide/schema';
+import { TagCategory } from '@whitewater-guide/schema';
+import { gql } from 'graphql-tag';
 
-import { db, holdTransaction, rollbackTransaction } from '~/db';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
-
-import {
-  testUpsertTag,
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
+import { anonContext, fakeContext } from '../../../test/index';
+import type {
   UpsertTagMutation,
   UpsertTagMutationResult,
 } from './upsertTag.test.generated';
+import { testUpsertTag } from './upsertTag.test.generated';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);

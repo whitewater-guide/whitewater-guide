@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleProp, StyleSheet, TextStyle } from 'react-native';
+import type { StyleProp, TextStyle } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { HelperText as PaperHelperText } from 'react-native-paper';
 
 import theme from '~/theme';
@@ -33,7 +34,7 @@ const HelperText: React.FC<Props> = React.memo(
         errorText = t(`${prefix}${error}`);
       } else {
         try {
-          errorText = t(`${prefix}${error.key}`, error.options);
+          errorText = t(`${prefix}${error.key}`, error.options) as string;
         } catch {
           /* Ignore */
         }

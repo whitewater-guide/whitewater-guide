@@ -1,9 +1,13 @@
-import { QueryResult } from '@apollo/client';
-import { NamedNode, SectionNameShortFragment } from '@whitewater-guide/schema';
+import type { QueryResult } from '@apollo/client';
+import type {
+  NamedNode,
+  SectionNameShortFragment,
+} from '@whitewater-guide/schema';
 import get from 'lodash/get';
 import React, { useCallback } from 'react';
 
-import { AutocompleteProps, QueryAutocomplete } from './autocomplete';
+import type { AutocompleteProps } from './autocomplete';
+import { QueryAutocomplete } from './autocomplete';
 import { FindSectionsDocument } from './findSections.generated';
 
 const optionToString = (option: SectionNameShortFragment) => (

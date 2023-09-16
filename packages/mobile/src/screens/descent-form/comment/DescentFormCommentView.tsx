@@ -9,7 +9,7 @@ import CheckboxField from '~/forms/CheckboxField';
 import TextField from '~/forms/TextField';
 import theme from '~/theme';
 
-import { DescentFormData } from '../types';
+import type { DescentFormData } from '../types';
 
 const styles = StyleSheet.create({
   container: {

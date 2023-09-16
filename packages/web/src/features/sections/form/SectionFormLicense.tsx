@@ -1,5 +1,5 @@
 import Grid from '@material-ui/core/Grid';
-import { License } from '@whitewater-guide/schema';
+import type { License } from '@whitewater-guide/schema';
 import React from 'react';
 
 import { TextField } from '../../../formik/fields';

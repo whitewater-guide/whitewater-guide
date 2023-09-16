@@ -7,7 +7,7 @@ import { Subheading, Title } from 'react-native-paper';
 
 import { ICON_SIZE, PUT_IN_ICON, TAKE_OUT_ICON } from '../../../assets';
 import theme from '../../../theme';
-import { PiToState } from './usePiToState';
+import type { PiToState } from './usePiToState';
 
 const styles = StyleSheet.create({
   touchable: {

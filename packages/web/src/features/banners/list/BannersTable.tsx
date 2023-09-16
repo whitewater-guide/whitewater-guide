@@ -1,22 +1,22 @@
-import { NamedNode } from '@whitewater-guide/schema';
-import { History } from 'history';
+import type { NamedNode } from '@whitewater-guide/schema';
+import type { History } from 'history';
 import snakeCase from 'lodash/snakeCase';
 import upperFirst from 'lodash/upperFirst';
 import React from 'react';
 
+import type { TableCellRenderer } from '../../../components';
 import {
   ClickBlocker,
   Column,
   DeleteButton,
   IconLink,
   isEmptyRow,
-  TableCellRenderer,
 } from '../../../components';
 import { AdminColumn, BooleanColumn, Table } from '../../../components/tables';
-import { Styles } from '../../../styles';
+import type { Styles } from '../../../styles';
 import { paths } from '../../../utils';
 import BannerPreview from './BannerPreview';
-import { ListedBannerFragment } from './listBanners.generated';
+import type { ListedBannerFragment } from './listBanners.generated';
 
 const styles: Styles = {
   multiline: {

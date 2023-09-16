@@ -1,11 +1,11 @@
 import { isFacebook, isVimeo, isYoutube } from '@whitewater-guide/clients';
 import React from 'react';
 
-import { Styles } from '../../styles';
+import type { Styles } from '../../styles';
 import LightboxFacebook from './LightboxFacebook';
 import LightboxVimeo from './LightboxVimeo';
 import LightboxYoutube from './LightboxYoutube';
-import { LightboxItem } from './types';
+import type { LightboxItem } from './types';
 
 const styles: Styles = {
   container: {
@@ -22,9 +22,7 @@ const styles: Styles = {
 };
 
 interface Props {
-  currentIndex: number;
   data: LightboxItem;
-  interactionIsIdle: boolean;
 }
 
 const LightboxVideoView = React.memo<Props>((props) => {

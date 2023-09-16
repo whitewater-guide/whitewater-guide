@@ -1,4 +1,4 @@
-import { QueryResolvers } from '~/apollo';
+import type { QueryResolvers } from '../../../apollo/index';
 
 const mediaBySection: QueryResolvers['mediaBySection'] = (
   _,

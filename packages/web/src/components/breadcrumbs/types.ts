@@ -1,5 +1,5 @@
-import { QueryResult } from '@apollo/client';
-import { DocumentNode } from 'graphql';
+import type { QueryResult } from '@apollo/client';
+import type { DocumentNode } from 'graphql';
 
 /**
  * simple queries with selection aliased as 'node', e.g.

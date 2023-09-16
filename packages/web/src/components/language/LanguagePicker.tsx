@@ -1,5 +1,6 @@
 import MenuItem from '@material-ui/core/MenuItem';
-import Select, { SelectProps } from '@material-ui/core/Select';
+import type { SelectProps } from '@material-ui/core/Select';
+import Select from '@material-ui/core/Select';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import React, { useCallback } from 'react';
 

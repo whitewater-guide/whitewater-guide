@@ -1,6 +1,8 @@
-import { SafeSectionDetails, useRegion } from '@whitewater-guide/clients';
+import type { SafeSectionDetails } from '@whitewater-guide/clients';
+import { useRegion } from '@whitewater-guide/clients';
 import noop from 'lodash/noop';
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Button, Caption } from 'react-native-paper';

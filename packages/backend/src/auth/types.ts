@@ -1,4 +1,4 @@
-import { Middleware } from 'koa';
+import type { Middleware } from 'koa';
 import { KoaPassport as OriginalKoaPassport } from 'koa-passport';
 
 export class KoaPassport extends OriginalKoaPassport {}

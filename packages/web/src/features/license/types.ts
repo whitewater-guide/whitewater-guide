@@ -1,4 +1,4 @@
-import { License } from '@whitewater-guide/schema';
+import type { License } from '@whitewater-guide/schema';
 
 export interface LicenseInputOption {
   inputValue: string;

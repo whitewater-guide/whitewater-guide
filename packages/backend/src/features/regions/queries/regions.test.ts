@@ -1,8 +1,7 @@
-import { anonContext, fakeContext, noTimestamps } from '@test';
-import gql from 'graphql-tag';
-import countBy from 'lodash/countBy';
+import { gql } from 'graphql-tag';
+import { countBy } from 'lodash';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
 import {
   ADMIN,
   BOOM_USER_1500,
@@ -11,15 +10,15 @@ import {
   EDITOR_NO_EC,
   TEST_USER,
   TEST_USER2,
-} from '~/seeds/test/01_users';
+} from '../../../seeds/test/01_users';
 import {
   NUM_REGIONS,
   REGION_ECUADOR,
   REGION_GALICIA,
   REGION_GEORGIA,
   REGION_NORWAY,
-} from '~/seeds/test/04_regions';
-
+} from '../../../seeds/test/04_regions';
+import { anonContext, fakeContext, noTimestamps } from '../../../test/index';
 import {
   testCountGauges,
   testCountRegions,

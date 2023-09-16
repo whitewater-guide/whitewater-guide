@@ -1,15 +1,14 @@
-import retry from 'async-retry';
 import * as sdk from 'matrix-js-sdk';
+import retry from 'p-retry';
 
-import { getAccessToken } from '~/auth';
-import config from '~/config';
+import { getAccessToken } from '../../auth/index';
+import config from '../../config';
 
 class MatrixClient extends sdk.MatrixClient {
   constructor(opts: sdk.IMatrixClientCreateOpts) {
-    const { request, scheduler, ...rest } = opts;
+    const { scheduler, ...rest } = opts;
     super({
       ...rest,
-      request: request ?? sdk.getRequest(),
       scheduler: scheduler ?? new sdk.MatrixScheduler(),
     });
   }

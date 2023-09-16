@@ -1,27 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`insert should match snapshot 1`] = `
-Object {
-  "altNames": Array [
+{
+  "altNames": [
     "upserted",
     "oopserted",
   ],
   "name": "Upsert River",
-  "region": Object {
+  "region": {
     "name": "Ecuador",
   },
 }
 `;
 
 exports[`update should match snapshot 1`] = `
-Object {
-  "altNames": Array [
+{
+  "altNames": [
     "upserted",
     "oopserted",
   ],
   "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
   "name": "Upsert River",
-  "region": Object {
+  "region": {
     "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
     "name": "Galicia",
   },

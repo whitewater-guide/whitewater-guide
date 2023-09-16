@@ -1,4 +1,4 @@
-import { ApolloError } from '@apollo/client';
+import type { ApolloError } from '@apollo/client';
 import { useNetInfo } from '@react-native-community/netinfo';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';

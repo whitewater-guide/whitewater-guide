@@ -1,4 +1,4 @@
-import Mutation from './mutations';
+import Mutation from './mutations/index';
 
 export const emailsResolvers = {
   Mutation,

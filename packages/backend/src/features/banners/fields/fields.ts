@@ -1,4 +1,4 @@
-import { BannerResolvers } from '~/apollo';
+import type { BannerResolvers } from '../../../apollo/index';
 
 export const bannerResolvers: BannerResolvers = {
   regions: ({ id }, _, { dataSources }, info) => {

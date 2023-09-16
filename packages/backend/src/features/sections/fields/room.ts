@@ -1,10 +1,11 @@
-import { Visibility } from 'matrix-js-sdk/lib/@types/partials';
+import { Visibility } from 'matrix-js-sdk';
 
-import { SectionResolvers } from '~/apollo';
-import config from '~/config';
-import { db, Sql } from '~/db';
-import { matrixClient } from '~/features/chats';
-import log from '~/log';
+import type { SectionResolvers } from '../../../apollo/index';
+import config from '../../../config';
+import type { Sql } from '../../../db/index';
+import { db } from '../../../db/index';
+import { matrixClient } from '../../../features/chats/index';
+import log from '../../../log/index';
 
 const roomResolver: SectionResolvers['room'] = async (section) => {
   const { id, room_id, river_name, name } = section;

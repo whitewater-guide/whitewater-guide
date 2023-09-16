@@ -11,7 +11,7 @@ import { Appbar } from 'react-native-paper';
 import { Screens } from '~/core/navigation';
 import theme from '~/theme';
 
-import { RegionTabsNavProp } from './types';
+import type { RegionTabsNavProp } from './types';
 
 const FilterButton: React.FC = () => {
   const filterOptions = useSectionsFilterOptions();

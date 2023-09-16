@@ -1,9 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import noop from 'lodash/noop';
+import type { FC, PropsWithChildren } from 'react';
 import React, {
   createContext,
-  FC,
-  PropsWithChildren,
   useContext,
   useEffect,
   useMemo,

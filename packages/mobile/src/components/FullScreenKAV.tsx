@@ -1,5 +1,7 @@
-import React, { FC, PropsWithChildren } from 'react';
-import { Platform, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import type { FC, PropsWithChildren } from 'react';
+import React from 'react';
+import type { StyleProp, ViewStyle } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 
 import theme from '~/theme';
 

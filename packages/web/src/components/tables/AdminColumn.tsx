@@ -1,5 +1,6 @@
-import { FC } from 'react';
-import { Column, ColumnProps } from 'react-virtualized';
+import type { FC } from 'react';
+import type { ColumnProps } from 'react-virtualized';
+import { Column } from 'react-virtualized';
 
 class _AdminColumn extends Column {}
 

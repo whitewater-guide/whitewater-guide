@@ -1,4 +1,4 @@
-import { BreadcrumbsMap } from '../../components/breadcrumbs';
+import type { BreadcrumbsMap } from '../../components/breadcrumbs';
 import { BannerBreadcrumbDocument } from './bannerBreadcrumb.generated';
 
 export const bannerBreadcrumbs: BreadcrumbsMap = {

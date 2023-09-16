@@ -1,9 +1,13 @@
-import Knex from 'knex';
-import path from 'path';
+import type { Knex } from 'knex';
 
-import { addUpdatedAtTrigger, createViews, dropViews, runSqlFile } from '~/db';
-
-import { createTable } from './utils';
+import {
+  addUpdatedAtTrigger,
+  createViews,
+  dropViews,
+  runSqlFile,
+} from '../db/index';
+import { resolveRelative } from '../utils/index';
+import { createTable } from './utils/index';
 
 const VIEWS = ['groups', 'gauges', 'sections', 'rivers', 'regions', 'points'];
 const ALL_REGIONS_GROUP = 'f38c7006-5c4a-11e8-9c2d-fa7ae01bbebc';
@@ -13,7 +17,7 @@ const ALL_REGIONS_GROUP = 'f38c7006-5c4a-11e8-9c2d-fa7ae01bbebc';
  * And makes SKU unique for groups and regions
  * Adds premium attribute to sections (inherit from region)
  */
-export const up = async (db: Knex) => {
+export async function up(db: Knex): Promise<void> {
   // Never really used this
   await db.raw('DROP TABLE IF EXISTS purchases CASCADE');
   // Need to drop views first
@@ -37,7 +41,7 @@ export const up = async (db: Knex) => {
     'ALTER TABLE regions ADD CONSTRAINT regions_sku_unique UNIQUE (sku)',
   );
 
-  await runSqlFile(db, path.resolve(__dirname, '004/platform_type.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '004/platform_type.sql'));
   await createTable(db, 'transactions', (table) => {
     table
       .uuid('id')
@@ -82,9 +86,9 @@ export const up = async (db: Knex) => {
       name: 'All regions',
     });
   }
-};
+}
 
-export const down = async (db: Knex) => {
+export async function down(db: Knex): Promise<void> {
   if (process.env.NODE_ENV !== 'test') {
     await db.table('groups').del().where({ id: ALL_REGIONS_GROUP });
   }
@@ -106,6 +110,4 @@ export const down = async (db: Knex) => {
   // Do not recreate purchases table because it was never really used
 
   await createViews(db, 3, ...VIEWS);
-};
-
-export const configuration = { transaction: true };
+}

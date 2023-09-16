@@ -1,8 +1,8 @@
 import { sleep } from '@whitewater-guide/clients';
 import { useMemo, useState } from 'react';
 
-import { OfflineProgress } from '../../types';
-import { PhotoChannel } from '../../utils';
+import type { OfflineProgress } from '../../types';
+import type { PhotoChannel } from '../../utils';
 
 interface Hook {
   loading: boolean;

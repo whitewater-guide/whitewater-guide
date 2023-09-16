@@ -1,6 +1,7 @@
 import { toRomanDifficulty } from '@whitewater-guide/clients';
 import memoize from 'lodash/memoize';
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import theme from '~/theme';

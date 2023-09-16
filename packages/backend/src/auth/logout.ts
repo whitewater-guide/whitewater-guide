@@ -1,17 +1,14 @@
-import { Context } from 'koa';
+import type { Context } from 'koa';
 import Router from 'koa-router';
-import get from 'lodash/get';
 
-import { db } from '~/db';
-
-import { clearCookies } from './utils';
+import { db } from '../db/index';
+import { clearCookies } from './utils/index';
 
 export const logoutRouter: Router<any, Context> = new Router();
 
 logoutRouter.get('/auth/logout', async (ctx, next) => {
-  const token =
-    get(ctx, 'request.body.fcm_token') || get(ctx, 'query.fcm_token');
-  const user_id = get(ctx, 'state.user.id');
+  const token = (ctx?.request?.body as any)?.fcm_token || ctx?.query?.fcm_token;
+  const user_id = ctx?.state?.user?.id;
   if (token && user_id) {
     // No await here because it should not affect result
     Promise.resolve(

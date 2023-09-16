@@ -1,7 +1,7 @@
-import Knex from 'knex';
-import path from 'path';
+import type { Knex } from 'knex';
 
-import { createViews, dropViews, runSqlFile } from '~/db';
+import { createViews, dropViews, runSqlFile } from '../db/index';
+import { resolveRelative } from '../utils/index';
 
 const VIEWS = ['gauges', 'sources'];
 /**
@@ -10,7 +10,7 @@ const VIEWS = ['gauges', 'sources'];
  * @param {Knex} db
  * @returns {Promise<void>}
  */
-export const up = async (db: Knex) => {
+export async function up(db: Knex): Promise<void> {
   await dropViews(db, ...VIEWS);
   await db.schema.table('sources', (table) => {
     table.dropColumn('enabled');
@@ -20,13 +20,13 @@ export const up = async (db: Knex) => {
     table.dropColumn('enabled');
     table.dropColumn('cron');
   });
-  await runSqlFile(db, path.resolve(__dirname, '031/upsert_source.sql'));
-  await runSqlFile(db, path.resolve(__dirname, '031/upsert_gauge.sql'));
-  await runSqlFile(db, path.resolve(__dirname, '031/jobs_view.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '031/upsert_source.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '031/upsert_gauge.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '031/jobs_view.sql'));
   await createViews(db, 31, ...VIEWS);
-};
+}
 
-export const down = async (db: Knex) => {
+export async function down(db: Knex): Promise<void> {
   await dropViews(db, ...VIEWS);
   await db.raw('DROP VIEW IF EXISTS jobs_view');
   await db.schema.alterTable('sources', (table) => {
@@ -40,9 +40,7 @@ export const down = async (db: Knex) => {
     table.boolean('enabled').notNullable().defaultTo(false);
     table.string('cron');
   });
-  await runSqlFile(db, path.resolve(__dirname, '018/upsert_source.sql'));
-  await runSqlFile(db, path.resolve(__dirname, '001/upsert_gauge.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '018/upsert_source.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '001/upsert_gauge.sql'));
   await createViews(db, 30, ...VIEWS);
-};
-
-export const configuration = { transaction: true };
+}

@@ -1,5 +1,6 @@
 import { SectionsStatus } from '@whitewater-guide/clients';
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Caption } from 'react-native-paper';

@@ -1,4 +1,4 @@
-import { Section, SectionPoIsFragment } from '@whitewater-guide/schema';
+import type { Section, SectionPoIsFragment } from '@whitewater-guide/schema';
 
 import { getSectionPOIs } from './getSectionPOIs';
 

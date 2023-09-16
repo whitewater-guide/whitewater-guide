@@ -1,15 +1,10 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { useAuth, useRegion } from '@whitewater-guide/clients';
-import { Node } from '@whitewater-guide/schema';
+import type { Node } from '@whitewater-guide/schema';
 import clsx from 'clsx';
-import React, {
-  forwardRef,
-  memo,
-  PropsWithChildren,
-  useCallback,
-  useMemo,
-} from 'react';
-import {
+import type { PropsWithChildren } from 'react';
+import React, { forwardRef, memo, useCallback, useMemo } from 'react';
+import type {
   Index,
   RowMouseEventHandlerParams,
   TableProps,

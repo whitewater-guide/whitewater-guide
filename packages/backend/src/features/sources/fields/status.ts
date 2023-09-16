@@ -1,6 +1,6 @@
-import { JobDescription } from '@whitewater-guide/gorge';
+import type { JobDescription } from '@whitewater-guide/gorge';
 
-import { SourceResolvers } from '~/apollo';
+import type { SourceResolvers } from '../../../apollo/index';
 
 const statusResolver: SourceResolvers['status'] = async (
   { id },

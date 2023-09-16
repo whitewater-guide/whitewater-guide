@@ -1,18 +1,14 @@
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import { LocalPhotoStatus } from '@whitewater-guide/clients';
+import { nanoid } from 'nanoid';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  Callback,
-  ImageLibraryOptions,
-  launchCamera,
-  launchImageLibrary,
-} from 'react-native-image-picker';
-import shortid from 'shortid';
+import type { Callback, ImageLibraryOptions } from 'react-native-image-picker';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
 import { trackError } from '~/core/errors';
 
-import { LocalPhoto } from './types';
+import type { LocalPhoto } from './types';
 
 export const MAX_PHOTO_DIMENSION = 1920;
 export const MAX_PHOTO_MEGAPIXELS = 1.92 * 1.92;
@@ -33,7 +29,7 @@ export const useImagePicker = (
   const { showActionSheetWithOptions } = useActionSheet();
 
   return useCallback(() => {
-    const id = defaultId || shortid();
+    const id = defaultId || nanoid();
 
     const onPick: Callback = ({ didCancel, errorCode, assets }) => {
       if (!assets?.length) {

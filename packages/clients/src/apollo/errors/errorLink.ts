@@ -1,6 +1,6 @@
 import { ApolloError } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
-import { AuthBody } from '@whitewater-guide/commons';
+import type { AuthBody } from '@whitewater-guide/commons';
 import get from 'lodash/get';
 
 import { isApolloServerError } from './utils';

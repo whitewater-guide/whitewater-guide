@@ -1,5 +1,6 @@
 import { useRegionQuery, useSectionQuery } from '@whitewater-guide/clients';
-import React, { FC, PropsWithChildren, useCallback } from 'react';
+import type { FC, PropsWithChildren } from 'react';
+import React, { useCallback } from 'react';
 
 import { Screen } from '~/components/Screen';
 import WithQueryError from '~/components/WithQueryError';

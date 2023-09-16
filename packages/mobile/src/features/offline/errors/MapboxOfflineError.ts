@@ -1,4 +1,4 @@
-import { OfflineError } from '@rnmapbox/maps';
+import type { OfflineError } from '@rnmapbox/maps';
 
 export enum MapboxOfflineErrors {
   TILE_LIMIT_EXCEEDED = 'MAPBOX_TILE_LIMIT_EXCEEDED',

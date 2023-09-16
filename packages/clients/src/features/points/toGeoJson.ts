@@ -1,5 +1,9 @@
-import { Feature, FeatureCollection, Point as TurfPoint } from '@turf/helpers';
-import { Point, PointCoreFragment } from '@whitewater-guide/schema';
+import type {
+  Feature,
+  FeatureCollection,
+  Point as TurfPoint,
+} from '@turf/helpers';
+import type { Point, PointCoreFragment } from '@whitewater-guide/schema';
 
 type Props = Pick<Point, 'kind'>;
 

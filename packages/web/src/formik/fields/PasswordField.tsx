@@ -1,8 +1,9 @@
 import { Icon, IconButton, Input, InputLabel } from '@material-ui/core';
-import { InputProps } from '@material-ui/core/Input';
+import type { InputProps } from '@material-ui/core/Input';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { useField } from 'formik';
-import React, { ChangeEvent, useCallback, useState } from 'react';
+import type { ChangeEvent } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { FormikFormControl } from '../helpers';
 

@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import showSnackbarError from '~/components/showSnackbarError';
 import showSnackbarMessage from '~/components/showSnackbarMessage';
-import { RootStackNav } from '~/core/navigation';
+import type { RootStackNav } from '~/core/navigation';
 
 import { useDeleteDescentMutation } from './deleteDescent.generated';
 

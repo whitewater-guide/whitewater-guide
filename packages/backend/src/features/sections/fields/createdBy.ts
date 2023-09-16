@@ -1,4 +1,4 @@
-import { SectionResolvers } from '~/apollo';
+import type { SectionResolvers } from '../../../apollo/index';
 
 const createdByResolver: SectionResolvers['createdBy'] = (
   { created_by },

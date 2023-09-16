@@ -1,222 +1,213 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should match snapshot 1`] = `
-Object {
-  "data": Object {
-    "descents": Object {
-      "edges": Array [
-        Object {
-          "cursor": "djE6NzoxNTc4MzU1MjAwMDAw",
-          "node": Object {
-            "comment": "descent 7 comment",
-            "createdAt": 2020-01-07T00:00:00.000Z,
-            "duration": null,
-            "id": "ac323bc5-47e7-43cf-b3dd-e029cf96fcf4",
-            "level": Object {
-              "unit": "cm",
-              "value": 211,
-            },
-            "public": true,
-            "section": Object {
-              "difficulty": 4.5,
-              "id": "9e9c0366-84e2-11e8-adc0-fa7ae01bbebc",
-              "name": "Extreme race",
-              "region": Object {
-                "id": "8e119768-37f3-11e8-b467-0ed5f89f718b",
-                "name": "Georgia",
-              },
-              "river": Object {
-                "id": "b80554ba-5db4-11e8-9c2d-fa7ae01bbebc",
-                "name": "Bzhuzha",
-              },
-            },
-            "startedAt": 2020-01-07T00:00:00.000Z,
-            "updatedAt": 2020-01-07T00:00:00.000Z,
+{
+  "descents": {
+    "edges": [
+      {
+        "cursor": "djE6NzoxNTc4MzU1MjAwMDAw",
+        "node": {
+          "comment": "descent 7 comment",
+          "createdAt": 2020-01-07T00:00:00.000Z,
+          "duration": null,
+          "id": "ac323bc5-47e7-43cf-b3dd-e029cf96fcf4",
+          "level": {
+            "unit": "cm",
+            "value": 211,
           },
-        },
-        Object {
-          "cursor": "djE6NToxNTc4MTgyNDAwMDAw",
-          "node": Object {
-            "comment": "descent 5 comment",
-            "createdAt": 2020-01-05T00:00:00.000Z,
-            "duration": 1000,
-            "id": "3a12cd33-2ccd-4fcd-9da5-7ce14006aa15",
-            "level": Object {
-              "unit": null,
-              "value": 4,
+          "public": true,
+          "section": {
+            "difficulty": 4.5,
+            "id": "9e9c0366-84e2-11e8-adc0-fa7ae01bbebc",
+            "name": "Extreme race",
+            "region": {
+              "id": "8e119768-37f3-11e8-b467-0ed5f89f718b",
+              "name": "Georgia",
             },
-            "public": true,
-            "section": Object {
-              "difficulty": 3.5,
-              "id": "e6e0e826-5db4-11e8-9c2d-fa7ae01bbebc",
-              "name": "Long Race",
-              "region": Object {
-                "id": "8e119768-37f3-11e8-b467-0ed5f89f718b",
-                "name": "Georgia",
-              },
-              "river": Object {
-                "id": "b80554ba-5db4-11e8-9c2d-fa7ae01bbebc",
-                "name": "Bzhuzha",
-              },
+            "river": {
+              "id": "b80554ba-5db4-11e8-9c2d-fa7ae01bbebc",
+              "name": "Bzhuzha",
             },
-            "startedAt": 2020-01-05T00:00:00.000Z,
-            "updatedAt": 2020-01-05T00:00:00.000Z,
           },
+          "startedAt": 2020-01-07T00:00:00.000Z,
+          "updatedAt": 2020-01-07T00:00:00.000Z,
         },
-        Object {
-          "cursor": "djE6MzoxNTc4MDA5NjAwMDAw",
-          "node": Object {
-            "comment": "descent 3 comment",
-            "createdAt": 2020-01-03T00:00:00.000Z,
-            "duration": null,
-            "id": "7deddd48-9f7f-4a76-9ff9-811f694f52a4",
-            "level": null,
-            "public": true,
-            "section": Object {
-              "difficulty": 4,
-              "id": "21f2351e-d52a-11e7-9296-cec278b6b50a",
-              "name": "Amot",
-              "region": Object {
-                "id": "b968e2b2-76c5-11e7-b5a5-be2e44b06b34",
-                "name": "Norway",
-              },
-              "river": Object {
-                "id": "d4396dac-d528-11e7-9296-cec278b6b50a",
-                "name": "Sjoa",
-              },
-            },
-            "startedAt": 2020-01-03T00:00:00.000Z,
-            "updatedAt": 2020-01-03T00:00:00.000Z,
-          },
-        },
-        Object {
-          "cursor": "djE6MjoxNTc3OTIzMjAwMDAw",
-          "node": Object {
-            "comment": "descent 2 comment",
-            "createdAt": 2020-01-02T00:00:00.000Z,
-            "duration": 3000,
-            "id": "3fb2b1da-6649-429e-8b0e-0cbbda055da7",
-            "level": Object {
-              "unit": "m",
-              "value": 0.9,
-            },
-            "public": false,
-            "section": Object {
-              "difficulty": 4.5,
-              "id": "3a6e3210-d529-11e7-9296-cec278b6b50a",
-              "name": "Upper",
-              "region": Object {
-                "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
-                "name": "Galicia",
-              },
-              "river": Object {
-                "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
-                "name": "Beca",
-              },
-            },
-            "startedAt": 2020-01-02T00:00:00.000Z,
-            "updatedAt": 2020-01-02T00:00:00.000Z,
-          },
-        },
-        Object {
-          "cursor": "djE6MTA6MTU3NzgzNjgwMDAwMA==",
-          "node": Object {
-            "comment": "descent 10, parent descent 1 comment",
-            "createdAt": 2020-01-10T00:00:00.000Z,
-            "duration": 3600,
-            "id": "7f712c8a-45a9-4fd5-966a-c8b4d07f36df",
-            "level": Object {
-              "unit": "m3/s",
-              "value": 99.9,
-            },
-            "public": true,
-            "section": Object {
-              "difficulty": 3.5,
-              "id": "2b01742c-d443-11e7-9296-cec278b6b50a",
-              "name": "Lower",
-              "region": Object {
-                "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
-                "name": "Galicia",
-              },
-              "river": Object {
-                "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
-                "name": "Beca",
-              },
-            },
-            "startedAt": 2020-01-01T00:00:00.000Z,
-            "updatedAt": 2020-01-10T00:00:00.000Z,
-          },
-        },
-        Object {
-          "cursor": "djE6NDoxNTc3ODM2ODAwMDAw",
-          "node": Object {
-            "comment": "descent 4, parent descent 1 comment",
-            "createdAt": 2020-01-04T00:00:00.000Z,
-            "duration": 3600,
-            "id": "ffd6ba41-d7e5-4fbf-8347-2481d583674e",
-            "level": Object {
-              "unit": "m3/s",
-              "value": 99.9,
-            },
-            "public": true,
-            "section": Object {
-              "difficulty": 3.5,
-              "id": "2b01742c-d443-11e7-9296-cec278b6b50a",
-              "name": "Lower",
-              "region": Object {
-                "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
-                "name": "Galicia",
-              },
-              "river": Object {
-                "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
-                "name": "Beca",
-              },
-            },
-            "startedAt": 2020-01-01T00:00:00.000Z,
-            "updatedAt": 2020-01-04T00:00:00.000Z,
-          },
-        },
-        Object {
-          "cursor": "djE6MToxNTc3ODM2ODAwMDAw",
-          "node": Object {
-            "comment": "descent 1 comment",
-            "createdAt": 2020-01-01T00:00:00.000Z,
-            "duration": 3600,
-            "id": "97998f67-74f2-43db-a4e4-198c2ca540a7",
-            "level": Object {
-              "unit": "m3/s",
-              "value": 99.9,
-            },
-            "public": true,
-            "section": Object {
-              "difficulty": 3.5,
-              "id": "2b01742c-d443-11e7-9296-cec278b6b50a",
-              "name": "Lower",
-              "region": Object {
-                "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
-                "name": "Galicia",
-              },
-              "river": Object {
-                "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
-                "name": "Beca",
-              },
-            },
-            "startedAt": 2020-01-01T00:00:00.000Z,
-            "updatedAt": 2020-01-01T00:00:00.000Z,
-          },
-        },
-      ],
-      "pageInfo": Object {
-        "endCursor": "djE6MToxNTc3ODM2ODAwMDAw",
-        "hasMore": false,
       },
-    },
-  },
-  "errors": undefined,
-  "extensions": undefined,
-  "http": Object {
-    "headers": Headers {
-      Symbol(map): Object {},
+      {
+        "cursor": "djE6NToxNTc4MTgyNDAwMDAw",
+        "node": {
+          "comment": "descent 5 comment",
+          "createdAt": 2020-01-05T00:00:00.000Z,
+          "duration": 1000,
+          "id": "3a12cd33-2ccd-4fcd-9da5-7ce14006aa15",
+          "level": {
+            "unit": null,
+            "value": 4,
+          },
+          "public": true,
+          "section": {
+            "difficulty": 3.5,
+            "id": "e6e0e826-5db4-11e8-9c2d-fa7ae01bbebc",
+            "name": "Long Race",
+            "region": {
+              "id": "8e119768-37f3-11e8-b467-0ed5f89f718b",
+              "name": "Georgia",
+            },
+            "river": {
+              "id": "b80554ba-5db4-11e8-9c2d-fa7ae01bbebc",
+              "name": "Bzhuzha",
+            },
+          },
+          "startedAt": 2020-01-05T00:00:00.000Z,
+          "updatedAt": 2020-01-05T00:00:00.000Z,
+        },
+      },
+      {
+        "cursor": "djE6MzoxNTc4MDA5NjAwMDAw",
+        "node": {
+          "comment": "descent 3 comment",
+          "createdAt": 2020-01-03T00:00:00.000Z,
+          "duration": null,
+          "id": "7deddd48-9f7f-4a76-9ff9-811f694f52a4",
+          "level": null,
+          "public": true,
+          "section": {
+            "difficulty": 4,
+            "id": "21f2351e-d52a-11e7-9296-cec278b6b50a",
+            "name": "Amot",
+            "region": {
+              "id": "b968e2b2-76c5-11e7-b5a5-be2e44b06b34",
+              "name": "Norway",
+            },
+            "river": {
+              "id": "d4396dac-d528-11e7-9296-cec278b6b50a",
+              "name": "Sjoa",
+            },
+          },
+          "startedAt": 2020-01-03T00:00:00.000Z,
+          "updatedAt": 2020-01-03T00:00:00.000Z,
+        },
+      },
+      {
+        "cursor": "djE6MjoxNTc3OTIzMjAwMDAw",
+        "node": {
+          "comment": "descent 2 comment",
+          "createdAt": 2020-01-02T00:00:00.000Z,
+          "duration": 3000,
+          "id": "3fb2b1da-6649-429e-8b0e-0cbbda055da7",
+          "level": {
+            "unit": "m",
+            "value": 0.9,
+          },
+          "public": false,
+          "section": {
+            "difficulty": 4.5,
+            "id": "3a6e3210-d529-11e7-9296-cec278b6b50a",
+            "name": "Upper",
+            "region": {
+              "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
+              "name": "Galicia",
+            },
+            "river": {
+              "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
+              "name": "Beca",
+            },
+          },
+          "startedAt": 2020-01-02T00:00:00.000Z,
+          "updatedAt": 2020-01-02T00:00:00.000Z,
+        },
+      },
+      {
+        "cursor": "djE6MTA6MTU3NzgzNjgwMDAwMA==",
+        "node": {
+          "comment": "descent 10, parent descent 1 comment",
+          "createdAt": 2020-01-10T00:00:00.000Z,
+          "duration": 3600,
+          "id": "7f712c8a-45a9-4fd5-966a-c8b4d07f36df",
+          "level": {
+            "unit": "m3/s",
+            "value": 99.9,
+          },
+          "public": true,
+          "section": {
+            "difficulty": 3.5,
+            "id": "2b01742c-d443-11e7-9296-cec278b6b50a",
+            "name": "Lower",
+            "region": {
+              "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
+              "name": "Galicia",
+            },
+            "river": {
+              "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
+              "name": "Beca",
+            },
+          },
+          "startedAt": 2020-01-01T00:00:00.000Z,
+          "updatedAt": 2020-01-10T00:00:00.000Z,
+        },
+      },
+      {
+        "cursor": "djE6NDoxNTc3ODM2ODAwMDAw",
+        "node": {
+          "comment": "descent 4, parent descent 1 comment",
+          "createdAt": 2020-01-04T00:00:00.000Z,
+          "duration": 3600,
+          "id": "ffd6ba41-d7e5-4fbf-8347-2481d583674e",
+          "level": {
+            "unit": "m3/s",
+            "value": 99.9,
+          },
+          "public": true,
+          "section": {
+            "difficulty": 3.5,
+            "id": "2b01742c-d443-11e7-9296-cec278b6b50a",
+            "name": "Lower",
+            "region": {
+              "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
+              "name": "Galicia",
+            },
+            "river": {
+              "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
+              "name": "Beca",
+            },
+          },
+          "startedAt": 2020-01-01T00:00:00.000Z,
+          "updatedAt": 2020-01-04T00:00:00.000Z,
+        },
+      },
+      {
+        "cursor": "djE6MToxNTc3ODM2ODAwMDAw",
+        "node": {
+          "comment": "descent 1 comment",
+          "createdAt": 2020-01-01T00:00:00.000Z,
+          "duration": 3600,
+          "id": "97998f67-74f2-43db-a4e4-198c2ca540a7",
+          "level": {
+            "unit": "m3/s",
+            "value": 99.9,
+          },
+          "public": true,
+          "section": {
+            "difficulty": 3.5,
+            "id": "2b01742c-d443-11e7-9296-cec278b6b50a",
+            "name": "Lower",
+            "region": {
+              "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
+              "name": "Galicia",
+            },
+            "river": {
+              "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
+              "name": "Beca",
+            },
+          },
+          "startedAt": 2020-01-01T00:00:00.000Z,
+          "updatedAt": 2020-01-01T00:00:00.000Z,
+        },
+      },
+    ],
+    "pageInfo": {
+      "endCursor": "djE6MToxNTc3ODM2ODAwMDAw",
+      "hasMore": false,
     },
   },
 }

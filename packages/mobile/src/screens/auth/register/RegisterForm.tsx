@@ -1,7 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
-import { RegisterPayload, useAuth } from '@whitewater-guide/clients';
+import type { RegisterPayload } from '@whitewater-guide/clients';
+import { useAuth } from '@whitewater-guide/clients';
 import { Formik } from 'formik';
-import React, { memo, RefObject, useCallback, useMemo, useRef } from 'react';
+import type { RefObject } from 'react';
+import React, { memo, useCallback, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Button, Title } from 'react-native-paper';
@@ -14,7 +16,7 @@ import theme from '~/theme';
 
 import { useAuthSubmit } from '../useAuthSubmit';
 import getValidationSchema from './getValidationSchema';
-import { AuthRegisterNavProp } from './types';
+import type { AuthRegisterNavProp } from './types';
 
 const styles = StyleSheet.create({
   submitButton: {

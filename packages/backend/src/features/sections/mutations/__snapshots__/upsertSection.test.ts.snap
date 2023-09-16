@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`insert should return result 1`] = `
-Object {
-  "altNames": Array [],
+{
+  "altNames": [],
   "copyright": "section copyright",
   "demo": false,
   "description": "Playrun description",
@@ -14,14 +14,14 @@ Object {
   "favorite": false,
   "flows": null,
   "flowsText": "Playrun flows",
-  "gauge": Object {
+  "gauge": {
     "code": "nor1",
     "flowUnit": "m3/s",
     "latestMeasurement": null,
     "levelUnit": "cm",
     "location": null,
     "name": "Norway gauge 1",
-    "source": Object {
+    "source": {
       "name": "Norway",
       "termsOfUse": null,
     },
@@ -30,7 +30,7 @@ Object {
   },
   "helpNeeded": "please proofread this",
   "hidden": false,
-  "levels": Object {
+  "levels": {
     "approximate": false,
     "formula": null,
     "impossible": null,
@@ -38,19 +38,19 @@ Object {
     "minimum": 100,
     "optimum": null,
   },
-  "license": Object {
+  "license": {
     "name": "Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)",
     "slug": "CC_BY-SA",
     "url": "https://creativecommons.org/licenses/by-sa/4.0/",
   },
-  "media": Object {
+  "media": {
     "count": 0,
-    "nodes": Array [],
+    "nodes": [],
   },
   "name": "Playrun",
-  "pois": Array [
-    Object {
-      "coordinates": Array [
+  "pois": [
+    {
+      "coordinates": [
         10,
         12,
         0,
@@ -59,8 +59,8 @@ Object {
       "kind": "other",
       "name": "playrun pt 1",
     },
-    Object {
-      "coordinates": Array [
+    {
+      "coordinates": [
         33,
         34,
         0,
@@ -70,8 +70,8 @@ Object {
       "name": "playrun pt 2",
     },
   ],
-  "putIn": Object {
-    "coordinates": Array [
+  "putIn": {
+    "coordinates": [
       33,
       33,
       0,
@@ -79,49 +79,49 @@ Object {
     "kind": "put-in",
   },
   "rating": 5,
-  "region": Object {},
-  "river": Object {
-    "altNames": Array [
+  "region": {},
+  "river": {
+    "altNames": [
       "Shoa",
       "Sjøa",
     ],
     "name": "Sjoa",
   },
   "season": "Playrun season",
-  "seasonNumeric": Array [
+  "seasonNumeric": [
     1,
     2,
     3,
   ],
-  "shape": Array [
-    Array [
+  "shape": [
+    [
       33,
       33,
       0,
     ],
-    Array [
+    [
       34,
       42,
       0,
     ],
-    Array [
+    [
       34,
       43,
       0,
     ],
   ],
-  "tags": Array [
-    Object {
+  "tags": [
+    {
       "category": "kayaking",
       "name": "Waterfalls",
     },
-    Object {
+    {
       "category": "hazards",
       "name": "Undercuts",
     },
   ],
-  "takeOut": Object {
-    "coordinates": Array [
+  "takeOut": {
+    "coordinates": [
       34,
       43,
       0,
@@ -134,8 +134,8 @@ Object {
 `;
 
 exports[`update should return result 1`] = `
-Object {
-  "altNames": Array [],
+{
+  "altNames": [],
   "copyright": "section copyright",
   "demo": false,
   "description": "Playrun description",
@@ -147,16 +147,16 @@ Object {
   "favorite": false,
   "flows": null,
   "flowsText": "Playrun flows",
-  "gauge": Object {
+  "gauge": {
     "code": "gal1",
     "flowUnit": "m3/s",
-    "latestMeasurement": Object {
+    "latestMeasurement": {
       "flow": null,
       "level": 1.2,
     },
     "levelUnit": "cm",
-    "location": Object {
-      "coordinates": Array [
+    "location": {
+      "coordinates": [
         1.1,
         2.2,
         3.3,
@@ -164,7 +164,7 @@ Object {
       "kind": "gauge",
     },
     "name": "Galicia gauge 1",
-    "source": Object {
+    "source": {
       "name": "Galicia",
       "termsOfUse": "Terms of use for Galicia",
     },
@@ -173,7 +173,7 @@ Object {
   },
   "helpNeeded": "fix take-out",
   "hidden": false,
-  "levels": Object {
+  "levels": {
     "approximate": false,
     "formula": null,
     "impossible": null,
@@ -181,20 +181,20 @@ Object {
     "minimum": 100,
     "optimum": null,
   },
-  "license": Object {
+  "license": {
     "name": "Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)",
     "slug": "CC_BY-SA",
     "url": "https://creativecommons.org/licenses/by-sa/4.0/",
   },
-  "media": Object {
+  "media": {
     "count": 1,
-    "nodes": Array [
-      Object {
+    "nodes": [
+      {
         "copyright": "Video 2 copyright",
         "description": "Video 2 description",
         "kind": "video",
         "license": null,
-        "resolution": Array [
+        "resolution": [
           1920,
           1080,
         ],
@@ -204,9 +204,9 @@ Object {
     ],
   },
   "name": "Playrun",
-  "pois": Array [
-    Object {
-      "coordinates": Array [
+  "pois": [
+    {
+      "coordinates": [
         2.1,
         2.3,
         3.4,
@@ -215,8 +215,8 @@ Object {
       "kind": "other",
       "name": "Updated poi name",
     },
-    Object {
-      "coordinates": Array [
+    {
+      "coordinates": [
         66,
         77,
         0,
@@ -225,8 +225,8 @@ Object {
       "kind": "portage",
       "name": "Updated new poi 1 name",
     },
-    Object {
-      "coordinates": Array [
+    {
+      "coordinates": [
         50.1,
         50.2,
         333,
@@ -236,8 +236,8 @@ Object {
       "name": "Updated new poi 2 name",
     },
   ],
-  "putIn": Object {
-    "coordinates": Array [
+  "putIn": {
+    "coordinates": [
       33,
       33,
       0,
@@ -245,50 +245,50 @@ Object {
     "kind": "put-in",
   },
   "rating": 5,
-  "region": Object {},
-  "river": Object {
-    "altNames": Array [],
+  "region": {},
+  "river": {
+    "altNames": [],
     "name": "Beca",
   },
   "season": "Playrun season",
-  "seasonNumeric": Array [
+  "seasonNumeric": [
     1,
     2,
     3,
   ],
-  "shape": Array [
-    Array [
+  "shape": [
+    [
       33,
       33,
       0,
     ],
-    Array [
+    [
       34,
       42,
       0,
     ],
-    Array [
+    [
       34,
       43,
       0,
     ],
   ],
-  "tags": Array [
-    Object {
+  "tags": [
+    {
       "category": "kayaking",
       "name": "Creeking",
     },
-    Object {
+    {
       "category": "hazards",
       "name": "Undercuts",
     },
-    Object {
+    {
       "category": "supply",
       "name": "Snowmelt",
     },
   ],
-  "takeOut": Object {
-    "coordinates": Array [
+  "takeOut": {
+    "coordinates": [
       34,
       43,
       0,

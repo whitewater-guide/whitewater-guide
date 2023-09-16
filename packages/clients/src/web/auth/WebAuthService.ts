@@ -1,15 +1,15 @@
-import { ResetBody, SignInBody } from '@whitewater-guide/commons';
+import type { ResetBody, SignInBody } from '@whitewater-guide/commons';
 
-import {
+import type {
   AuthResponse,
   AuthType,
-  BaseAuthService,
   Credentials,
   RegisterPayload,
   RequestResetPayload,
   RequestVerificationPayload,
   ResetPayload,
 } from '../../auth';
+import { BaseAuthService } from '../../auth';
 import { fbWebService } from './fb';
 
 export class WebAuthService extends BaseAuthService {

@@ -1,5 +1,5 @@
-import { MutationResolvers } from '~/apollo';
-import { db } from '~/db';
+import type { MutationResolvers } from '../../../apollo/index';
+import { db } from '../../../db/index';
 
 const removeRegionFromGroup: MutationResolvers['removeRegionFromGroup'] =
   async (_, { regionId, groupId }) => {

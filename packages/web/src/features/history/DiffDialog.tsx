@@ -3,12 +3,13 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import React, { FC, useState } from 'react';
+import type { FC } from 'react';
+import React, { useState } from 'react';
 import useAsync from 'react-use/lib/useAsync';
 
 import { Loading } from '../../components';
-import { Styles } from '../../styles';
-import { Diff } from './types';
+import type { Styles } from '../../styles';
+import type { Diff } from './types';
 
 const styles: Styles = {
   wrapper: {

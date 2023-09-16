@@ -1,10 +1,9 @@
-import { anonContext, fakeContext, noTimestamps } from '@test';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
-import { ADMIN, EDITOR_NO_EC, TEST_USER } from '~/seeds/test/01_users';
-import { TOTAL_SOURCES } from '~/seeds/test/05_sources';
-
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
+import { ADMIN, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
+import { TOTAL_SOURCES } from '../../../seeds/test/05_sources';
+import { anonContext, fakeContext, noTimestamps } from '../../../test/index';
 import {
   testListSources,
   testListSourcesGauges,

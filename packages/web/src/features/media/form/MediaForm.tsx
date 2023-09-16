@@ -1,21 +1,19 @@
-import { MediaInput } from '@whitewater-guide/schema';
+import type { MediaInput } from '@whitewater-guide/schema';
 import React, { useMemo } from 'react';
-import { RouteComponentProps } from 'react-router';
+import type { RouteComponentProps } from 'react-router';
 
 import { useApolloFormik } from '../../../formik';
 import makeFormToMutation from './makeFormToMutation';
 import makeQueryToForm from './makeQueryToForm';
-import {
-  MediaFormDocument,
+import type {
   MediaFormQuery,
   MediaFormQueryVariables,
 } from './mediaForm.generated';
+import { MediaFormDocument } from './mediaForm.generated';
 import MediaFormDialog from './MediaFormDialog';
-import { RouterParams } from './types';
-import {
-  UpsertMediaDocument,
-  UpsertMediaMutationVariables,
-} from './upsertMedia.generated';
+import type { RouterParams } from './types';
+import type { UpsertMediaMutationVariables } from './upsertMedia.generated';
+import { UpsertMediaDocument } from './upsertMedia.generated';
 
 type Props = RouteComponentProps<RouterParams>;
 

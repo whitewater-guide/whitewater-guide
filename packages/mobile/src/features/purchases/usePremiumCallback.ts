@@ -6,7 +6,7 @@ import { Screens } from '~/core/navigation';
 
 import { hasPremiumAccess } from './hasPremiumAccess';
 import { useIap } from './IAPProvider';
-import { PremiumRegion, PremiumSection } from './types';
+import type { PremiumRegion, PremiumSection } from './types';
 
 export type PremiumCallbackHook = [
   callback: () => void,

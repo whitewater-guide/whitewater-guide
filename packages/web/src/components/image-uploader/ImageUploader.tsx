@@ -2,16 +2,15 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { i18nizeUploadError, useUploadLink } from '@whitewater-guide/clients';
 import clsx from 'clsx';
 import React, { useCallback, useEffect, useRef } from 'react';
-import { Required } from 'utility-types';
+import type { Required } from 'utility-types';
 
-import { cleanupPreview, LocalPhoto } from '../../utils/files';
+import type { LocalPhoto } from '../../utils/files';
+import { cleanupPreview } from '../../utils/files';
 import { DeleteButton } from '../DeleteButton';
 import AddFile from './AddFile';
 import Filename from './Filename';
-import {
-  ImageUploaderPreview,
-  ImageUploaderPreviewProps,
-} from './ImageUploaderPreview';
+import type { ImageUploaderPreviewProps } from './ImageUploaderPreview';
+import { ImageUploaderPreview } from './ImageUploaderPreview';
 
 const useStyles = makeStyles(({ spacing }) =>
   createStyles({

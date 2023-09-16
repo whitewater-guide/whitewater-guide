@@ -1,13 +1,12 @@
-import * as gorge from '@whitewater-guide/gorge';
-import { MeasurementsFilter } from '@whitewater-guide/schema';
-import { DataSource } from 'apollo-datasource';
-import Axios, { AxiosResponse } from 'axios';
+import type * as gorge from '@whitewater-guide/gorge';
+import type { MeasurementsFilter } from '@whitewater-guide/schema';
+import type { AxiosResponse } from 'axios';
+import Axios from 'axios';
 import DataLoader from 'dataloader';
 import { stringify } from 'querystring';
 
-import { Context } from '~/apollo';
-import config from '~/config';
-import { db } from '~/db';
+import config from '../../config';
+import { db } from '../../db/index';
 
 const { GORGE_HOST } = config;
 const { GORGE_PORT } = config;
@@ -23,7 +22,7 @@ const DLOptions: DataLoader.Options<Key, gorge.Measurement, string> = {
   cacheKeyFn: ({ script, code }: Key) => `${script}:${code}`,
 };
 
-export class GorgeConnector implements DataSource<Context> {
+export class GorgeConnector {
   private _scripts?: gorge.ScriptDescriptor[];
 
   private _gauges?: gorge.Gauge[];

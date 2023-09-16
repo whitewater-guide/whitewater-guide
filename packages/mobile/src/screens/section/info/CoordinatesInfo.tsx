@@ -4,7 +4,8 @@ import { Paragraph, Subheading } from 'react-native-paper';
 
 import Icon from '~/components/Icon';
 import { Left, Right, Row } from '~/components/Row';
-import { PremiumSection, useRegionPremiumCallback } from '~/features/purchases';
+import type { PremiumSection } from '~/features/purchases';
+import { useRegionPremiumCallback } from '~/features/purchases';
 import copyAndToast from '~/utils/copyAndToast';
 import { openGoogleMaps } from '~/utils/maps';
 

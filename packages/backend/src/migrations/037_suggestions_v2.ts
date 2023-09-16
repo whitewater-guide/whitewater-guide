@@ -1,11 +1,11 @@
-import { RegionInput, SuggestionStatus } from '@whitewater-guide/schema';
-import Knex from 'knex';
-import path from 'path';
+import type { RegionInput } from '@whitewater-guide/schema';
+import { SuggestionStatus } from '@whitewater-guide/schema';
+import type { Knex } from 'knex';
 
-import { createViews, dropViews, rawUpsert, runSqlFile } from '~/db';
-import { OTHERS_REGION_ID } from '~/features/regions';
-
-import { createTable } from './utils';
+import { createViews, dropViews, rawUpsert, runSqlFile } from '../db/index';
+import { OTHERS_REGION_ID } from '../features/regions/index';
+import { resolveRelative } from '../utils/index';
+import { createTable } from './utils/index';
 
 const VIEWS = ['gauges', 'sections'];
 
@@ -15,7 +15,7 @@ const VIEWS = ['gauges', 'sections'];
  * @param {Knex} db
  * @returns {Promise<void>}
  */
-export const up = async (db: Knex) => {
+export async function up(db: Knex): Promise<void> {
   await db.schema.dropTableIfExists('suggested_sections');
 
   await dropViews(db, ...VIEWS);
@@ -24,7 +24,7 @@ export const up = async (db: Knex) => {
   });
   await db.table('sections').update({ verified: true });
   await createViews(db, 37, ...VIEWS);
-  await runSqlFile(db, path.resolve(__dirname, '037/upsert_section.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '037/upsert_section.sql'));
 
   const othersRegion: RegionInput = {
     id: OTHERS_REGION_ID,
@@ -56,9 +56,9 @@ export const up = async (db: Knex) => {
   `,
     OTHERS_REGION_ID,
   );
-};
+}
 
-export const down = async (db: Knex) => {
+export async function down(db: Knex): Promise<void> {
   await db.delete().from('regions').where({ id: OTHERS_REGION_ID });
   await createTable(db, 'suggested_sections', (table) => {
     table
@@ -82,7 +82,5 @@ export const down = async (db: Knex) => {
     table.dropColumn('verified');
   });
   await createViews(db, 36, ...VIEWS);
-  await runSqlFile(db, path.resolve(__dirname, '033/upsert_section.sql'));
-};
-
-export const configuration = { transaction: true };
+  await runSqlFile(db, resolveRelative(__dirname, '033/upsert_section.sql'));
+}

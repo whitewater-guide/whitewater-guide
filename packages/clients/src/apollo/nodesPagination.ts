@@ -1,4 +1,4 @@
-import { FieldPolicy, Reference } from '@apollo/client';
+import type { FieldPolicy, Reference } from '@apollo/client';
 
 import { updateList } from './updateList';
 

@@ -4,7 +4,7 @@ import './index.css';
 
 import { init } from '@sentry/react';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import App from './App';
 import { API_HOST } from './environment';
@@ -24,4 +24,6 @@ if (process.env.NODE_ENV === 'production' && process.env.REACT_APP_SENTRY_DSN) {
   });
 }
 
-ReactDOM.render(<App />, document.getElementById('root') as HTMLElement);
+const container = document.getElementById('root');
+const root = createRoot(container!);
+root.render(<App />);

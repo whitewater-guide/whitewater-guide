@@ -1,7 +1,7 @@
-import { Node } from '@whitewater-guide/schema';
+import type { Node } from '@whitewater-guide/schema';
 
-import { MutationResolvers } from '~/apollo';
-import { db } from '~/db';
+import type { MutationResolvers } from '../../../apollo/index';
+import { db } from '../../../db/index';
 
 const removeGauges: MutationResolvers['removeGauges'] = async (
   _,

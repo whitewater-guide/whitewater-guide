@@ -1,6 +1,6 @@
-import { RiverInput } from '@whitewater-guide/schema';
+import type { RiverInput } from '@whitewater-guide/schema';
 
-import { RiverFormQuery } from './riverForm.generated';
+import type { RiverFormQuery } from './riverForm.generated';
 
 export default (regionId: string) =>
   (result?: RiverFormQuery): RiverInput => {

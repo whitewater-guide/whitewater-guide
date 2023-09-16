@@ -1,4 +1,4 @@
-import { BreadcrumbsMap } from '../../components/breadcrumbs';
+import type { BreadcrumbsMap } from '../../components/breadcrumbs';
 import { GaugeBreadcrumbDocument } from './gaugeBreadcrumb.generated';
 
 export const gaugeBreadcrumbs: BreadcrumbsMap = {

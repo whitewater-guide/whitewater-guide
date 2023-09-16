@@ -1,10 +1,10 @@
 import { useRegion } from '@whitewater-guide/clients';
-import { MediaKind } from '@whitewater-guide/schema';
+import type { MediaKind } from '@whitewater-guide/schema';
 import React, { Suspense, useCallback } from 'react';
 import { useHistory, useRouteMatch } from 'react-router';
 
 import { Loading } from '../../../components';
-import { LocalPhoto } from '../../../utils/files';
+import type { LocalPhoto } from '../../../utils/files';
 import { LazyMediaList } from '../components/list';
 import useSectionMedia from './useSectionMedia';
 

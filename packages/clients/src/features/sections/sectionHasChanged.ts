@@ -1,4 +1,4 @@
-import { Gauge, Section } from '@whitewater-guide/schema';
+import type { Gauge, Section } from '@whitewater-guide/schema';
 
 type SectionChanges = Pick<Section, 'id' | 'updatedAt'> & {
   gauge?: Pick<Gauge, 'latestMeasurement'> | null;

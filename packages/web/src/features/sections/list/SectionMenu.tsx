@@ -1,7 +1,8 @@
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { AdminOnly, ListedSectionFragment } from '@whitewater-guide/clients';
+import type { ListedSectionFragment } from '@whitewater-guide/clients';
+import { AdminOnly } from '@whitewater-guide/clients';
 import React from 'react';
 
 import { Clipboard, DeleteButton } from '../../../components';

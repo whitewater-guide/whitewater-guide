@@ -1,10 +1,9 @@
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
-import { GAUGE_GAL_1_1, GAUGE_GAL_2_1 } from '~/seeds/test/06_gauges';
-import { GALICIA_BECA_LOWER } from '~/seeds/test/09_sections';
-
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
+import { GAUGE_GAL_1_1, GAUGE_GAL_2_1 } from '../../../seeds/test/06_gauges';
+import { GALICIA_BECA_LOWER } from '../../../seeds/test/09_sections';
 import {
   testLastMeasurements,
   testMeasurements,

@@ -1,5 +1,5 @@
 import MenuItem from '@material-ui/core/MenuItem';
-import { NamedNode } from '@whitewater-guide/schema';
+import type { NamedNode } from '@whitewater-guide/schema';
 import React from 'react';
 
 const defaultOptionToString = ({ name }: NamedNode) => name;

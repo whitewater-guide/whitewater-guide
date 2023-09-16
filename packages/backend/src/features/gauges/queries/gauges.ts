@@ -1,6 +1,6 @@
-import { QueryBuilder } from 'knex';
+import type { Knex } from 'knex';
 
-import { QueryResolvers } from '~/apollo';
+import type { QueryResolvers } from '../../../apollo/index';
 
 const gauges: QueryResolvers['gauges'] = async (
   _,
@@ -15,7 +15,7 @@ const gauges: QueryResolvers['gauges'] = async (
     query = query.where('name', 'ilike', `%${search}%`);
   }
   if (!sourceId && regionId) {
-    query = query.whereExists((qb: QueryBuilder) =>
+    query = query.whereExists((qb: Knex.QueryBuilder) =>
       qb
         .select('region_id')
         .from('sources_regions')

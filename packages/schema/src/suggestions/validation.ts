@@ -1,63 +1,55 @@
 import { yupSchemas } from '@whitewater-guide/validation';
-import * as yup from 'yup';
+import type { ObjectSchema } from 'yup';
+import { array, number, object, string } from 'yup';
 
-import { SuggestionInput } from '../__generated__/types';
+import type { SuggestionInput } from '../__generated__/types';
 
 function makeSuggestingSchema(
   photoRequired: boolean,
-): yup.SchemaOf<SuggestionInput> {
-  return yup
-    .object({
-      section: yupSchemas.refInput().defined(),
-      description: yup
-        .string()
-        .nullable(true)
-        .test({
-          name: 'correct-description',
-          message: 'yup:mixed.required',
-          test(v) {
-            return photoRequired || !!v || !!this.parent.filename;
-          },
-        }),
-      copyright: yup.string().nullable(true),
-      filename: yup
-        .string()
-        // nullable typedf is tricky
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .nullable(!photoRequired as any)
-        .test({
-          name: 'correct-filename',
-          message: 'yup:mixed.required',
-          test(v) {
-            if (!v) {
-              return !!this.parent.description;
-            }
-            return !!this.parent.resolution;
-          },
-        }),
-      resolution: yup
-        .array()
-        .of(yup.number().integer().positive())
-        .min(2)
-        .max(2)
-        .optional()
-        // nullable typedf is tricky
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .nullable(!photoRequired as any)
-        .test({
-          name: 'correct-resolution',
-          message: 'yup:mixed.required',
-          test(v: SuggestionInput) {
-            return v ? !!this.parent.filename : !this.parent.filename;
-          },
-        }),
+): ObjectSchema<SuggestionInput> {
+  const description = photoRequired
+    ? string().notRequired()
+    : string().required();
+  const filename = photoRequired ? string().required() : string().notRequired();
+  const resolutionArr = array()
+    .of(number().integer().positive().required())
+    .min(2)
+    .max(2);
+  const resolution = photoRequired
+    ? resolutionArr.required()
+    : resolutionArr.notRequired();
+
+  return object({
+    section: yupSchemas.refInput().defined(),
+    description,
+    copyright: string().nullable(),
+    filename,
+    resolution,
+  })
+    .test({
+      name: 'filename_and_resolution',
+      test(v) {
+        if (!!v.filename && !v.resolution) {
+          return this.createError({
+            path: 'resolution',
+            message: 'yup:mixed.required',
+          });
+        }
+        if (!v.filename && !!v.resolution) {
+          return this.createError({
+            path: 'filename',
+            message: 'yup:mixed.required',
+          });
+        }
+        return true;
+      },
     })
     .strict(true)
     .noUnknown();
 }
 
-export const SuggestionInputSchema: yup.SchemaOf<SuggestionInput> =
+export const SuggestionInputSchema: ObjectSchema<SuggestionInput> =
   makeSuggestingSchema(false);
 
-export const PhotoSuggestionInputSchema: yup.SchemaOf<SuggestionInput> =
+export const PhotoSuggestionInputSchema: ObjectSchema<SuggestionInput> =
   makeSuggestingSchema(true);

@@ -1,9 +1,9 @@
 import { useApolloClient } from '@apollo/client';
-import {
-  RegionDetailsDocument,
+import type {
   RegionDetailsQuery,
   RegionDetailsQueryVariables,
 } from '@whitewater-guide/clients';
+import { RegionDetailsDocument } from '@whitewater-guide/clients';
 import { useCallback } from 'react';
 
 import theme from '~/theme';

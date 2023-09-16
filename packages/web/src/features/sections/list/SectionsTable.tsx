@@ -1,20 +1,21 @@
 import Box from '@material-ui/core/Box';
 import Icon from '@material-ui/core/Icon';
 import Rating from '@material-ui/lab/Rating';
+import type { ListedSectionFragment } from '@whitewater-guide/clients';
 import {
   formatDistanceToNow,
   getBindingFormula,
   getSectionColor,
-  ListedSectionFragment,
   renderDifficulty,
   sectionName,
 } from '@whitewater-guide/clients';
 import parseISO from 'date-fns/parseISO';
-import { History } from 'history';
+import type { History } from 'history';
 import isNil from 'lodash/isNil';
 import React from 'react';
-import { IndexRange, TableProps } from 'react-virtualized';
+import type { IndexRange, TableProps } from 'react-virtualized';
 
+import type { TableCellRenderer } from '../../../components';
 import {
   AdminColumn,
   ClickBlocker,
@@ -22,14 +23,13 @@ import {
   EditorColumn,
   IconLink,
   isEmptyRow,
-  TableCellRenderer,
   UnstyledLink,
 } from '../../../components';
 import { Table } from '../../../components/tables';
 import { paths } from '../../../utils';
 import NameFilter from './NameFilter';
 import SectionMenu from './SectionMenu';
-import { OuterProps } from './types';
+import type { OuterProps } from './types';
 
 interface Props extends OuterProps {
   onRemove: (id: string) => void;

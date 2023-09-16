@@ -1,4 +1,4 @@
-import Knex from 'knex';
+import type { Knex } from 'knex';
 
 export const GROUP_EU = 'c9bf96be-37f5-11e8-b467-0ed5f89f718b';
 export const GROUP_EU_CIS = '88a55b3c-37f5-11e8-b467-0ed5f89f718b';

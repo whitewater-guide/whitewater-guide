@@ -1,5 +1,6 @@
-import { NamedNode } from '@whitewater-guide/schema';
-import Downshift, { ControllerStateAndHelpers } from 'downshift';
+import type { NamedNode } from '@whitewater-guide/schema';
+import type { ControllerStateAndHelpers } from 'downshift';
+import Downshift from 'downshift';
 import React from 'react';
 
 import AutocompleteAdornment from './AutocompleteAdornment';
@@ -8,7 +9,7 @@ import AutocompleteMenu from './AutocompleteMenu';
 import AutocompleteMenuItem from './AutocompleteMenuItem';
 import filterOptions from './filterOptions';
 import itemToString from './itemToString';
-import { AutocompleteProps } from './types';
+import type { AutocompleteProps } from './types';
 
 export class Autocomplete<
   T extends NamedNode = NamedNode,

@@ -1,6 +1,6 @@
 import Icon from '@material-ui/core/Icon';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { TabProps } from '@material-ui/core/Tab';
+import type { TabProps } from '@material-ui/core/Tab';
 import { useFormikContext } from 'formik';
 import isEmpty from 'lodash/isEmpty';
 import React, { useMemo } from 'react';

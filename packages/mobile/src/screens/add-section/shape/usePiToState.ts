@@ -1,14 +1,10 @@
-import Mapbox from '@rnmapbox/maps';
-import { Coordinate2d, ensureAltitude } from '@whitewater-guide/clients';
-import { SectionInput } from '@whitewater-guide/schema';
+import type Mapbox from '@rnmapbox/maps';
+import type { Coordinate2d } from '@whitewater-guide/clients';
+import { ensureAltitude } from '@whitewater-guide/clients';
+import type { SectionInput } from '@whitewater-guide/schema';
 import round from 'lodash/round';
-import {
-  MutableRefObject,
-  useEffect,
-  useMemo,
-  useReducer,
-  useRef,
-} from 'react';
+import type { MutableRefObject } from 'react';
+import { useEffect, useMemo, useReducer, useRef } from 'react';
 
 import notifier from './notifier';
 

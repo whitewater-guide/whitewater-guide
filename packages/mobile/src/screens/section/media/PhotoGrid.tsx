@@ -1,7 +1,7 @@
-import { MediaKind, MediaWithThumbFragment } from '@whitewater-guide/schema';
+import type { MediaWithThumbFragment } from '@whitewater-guide/schema';
+import { MediaKind } from '@whitewater-guide/schema';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { hasPresentKey } from 'ts-is-present';
 
 import { PHOTO_PADDING, PHOTO_SIZE } from '../../../features/media';
 import NoMedia from './NoMedia';
@@ -35,13 +35,12 @@ const PhotoGrid: React.FC<Props> = ({ photos, onPress }) => {
   return (
     <View style={styles.grid}>
       {photos
-        .filter(hasPresentKey('image'))
-        .filter(hasPresentKey('thumb'))
+        .filter((p) => !!p.image && !!p.thumb)
         .map(({ id, image, thumb }, index) => (
           <PhotoGridItem
             key={id}
-            image={image}
-            thumb={thumb}
+            image={image!}
+            thumb={thumb!}
             index={index}
             onPress={onPress}
           />

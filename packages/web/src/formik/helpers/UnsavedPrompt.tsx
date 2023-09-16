@@ -1,5 +1,5 @@
 import { useFormikContext } from 'formik';
-import { Location } from 'history';
+import type { Location } from 'history';
 import isEmpty from 'lodash/isEmpty';
 import React, { useCallback } from 'react';
 import Prompt from 'react-router-navigation-prompt';

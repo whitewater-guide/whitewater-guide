@@ -1,8 +1,8 @@
-import * as yup from 'yup';
+import { object, string } from 'yup';
 
 const node = () =>
-  yup.object({
-    id: yup.string().uuid().defined().nullable(false),
+  object({
+    id: string().uuid().defined().nonNullable(),
   });
 
 export default node;

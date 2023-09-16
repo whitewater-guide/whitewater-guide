@@ -1,29 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`data should return banner 1`] = `
-Object {
+{
   "enabled": true,
   "extras": null,
-  "groups": Object {
+  "groups": {
     "count": 0,
-    "nodes": Array [],
+    "nodes": [],
   },
   "id": "577ef5e8-c66d-11e8-a355-529269fb1459",
   "link": "http://go.to/galicia_section_row_banner",
   "name": "galicia section row banner",
   "placement": "mobileSectionRow",
   "priority": 1,
-  "regions": Object {
+  "regions": {
     "count": 1,
-    "nodes": Array [
-      Object {
+    "nodes": [
+      {
         "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
         "name": "Galicia",
       },
     ],
   },
   "slug": "galicia_section_row_banner",
-  "source": Object {
+  "source": {
     "kind": "WebView",
     "url": "http://whitewater.guide/galicia_section_row_banner",
   },

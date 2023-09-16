@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`insert should match snapshot 1`] = `
-Object {
+{
   "cron": null,
   "enabled": false,
   "name": "New Source",
-  "requestParams": Object {
+  "requestParams": {
     "foo": "bar",
   },
   "script": "newScript",
@@ -15,12 +15,12 @@ Object {
 `;
 
 exports[`update should match snapshot 1`] = `
-Object {
+{
   "cron": "1 1 * * *",
   "enabled": false,
   "id": "6d0d717e-aa9d-11e7-abc4-cec278b6b50a",
   "name": "Updated source",
-  "requestParams": Object {
+  "requestParams": {
     "foo": "bar",
   },
   "script": "updatedScript",

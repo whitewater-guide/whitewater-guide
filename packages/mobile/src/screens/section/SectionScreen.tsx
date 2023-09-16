@@ -4,11 +4,12 @@ import {
   SectionProvider,
   useSection,
 } from '@whitewater-guide/clients';
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 
 import ErrorBoundary from '~/components/ErrorBoundary';
 import { PHOTO_SIZE_PX } from '~/features/media';
-import { SectionScreenNavProps } from '~/screens/section/types';
+import type { SectionScreenNavProps } from '~/screens/section/types';
 import theme from '~/theme';
 
 import SectionTabs from './SectionTabs';

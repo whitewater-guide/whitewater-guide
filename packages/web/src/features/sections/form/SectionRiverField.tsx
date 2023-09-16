@@ -7,21 +7,16 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Divider from '@material-ui/core/Divider';
 import TextInput from '@material-ui/core/TextField';
 import { NEW_RIVER_ID } from '@whitewater-guide/commons';
-import { NamedNode } from '@whitewater-guide/schema';
+import type { NamedNode } from '@whitewater-guide/schema';
 import { useFormikContext } from 'formik';
 import upperFirst from 'lodash/upperFirst';
-import React, {
-  ChangeEvent,
-  Reducer,
-  useCallback,
-  useReducer,
-  useState,
-} from 'react';
+import type { ChangeEvent, Reducer } from 'react';
+import React, { useCallback, useReducer, useState } from 'react';
 import { useRouteMatch } from 'react-router';
 
 import { RiverFinder } from '../../../components';
 import { TextField } from '../../../formik/fields';
-import { RouterParams } from './types';
+import type { RouterParams } from './types';
 
 interface State {
   selected: NamedNode | null;

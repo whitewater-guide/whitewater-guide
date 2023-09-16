@@ -10,7 +10,7 @@ import theme from '~/theme';
 
 import { AuthScreenBase } from '../AuthScreenBase';
 import LocalButton from './LocalButton';
-import { AuthMainNavProps } from './types';
+import type { AuthMainNavProps } from './types';
 
 const styles = StyleSheet.create({
   caption: {

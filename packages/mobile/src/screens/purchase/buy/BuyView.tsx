@@ -5,12 +5,12 @@ import { Button, Title } from 'react-native-paper';
 
 import Markdown from '~/components/Markdown';
 import Spacer from '~/components/Spacer';
-import { PremiumRegion } from '~/features/purchases';
+import type { PremiumRegion } from '~/features/purchases';
 import theme from '~/theme';
 
 import CloseButton from './CloseButton';
 import PurchaseErrorView from './PurchaseErrorView';
-import { PurchaseState } from './types';
+import type { PurchaseState } from './types';
 
 const styles = StyleSheet.create({
   container: {

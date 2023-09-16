@@ -1,6 +1,6 @@
-import Knex from 'knex';
+import type { Knex } from 'knex';
 
-import { Sql } from '../../db';
+import type { Sql } from '../../db/index';
 import {
   SOURCE_GALICIA_1,
   SOURCE_GALICIA_2,

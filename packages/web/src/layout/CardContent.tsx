@@ -1,6 +1,5 @@
-import MUICardContent, {
-  CardContentProps,
-} from '@material-ui/core/CardContent';
+import type { CardContentProps } from '@material-ui/core/CardContent';
+import MUICardContent from '@material-ui/core/CardContent';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 

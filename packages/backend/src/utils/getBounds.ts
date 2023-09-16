@@ -1,6 +1,6 @@
 import { Point, Polygon } from 'wkx';
 
-import { Coordinates } from '~/apollo';
+import type { Coordinates } from '../apollo/index';
 
 export function getBounds(bounds: Coordinates[] | null) {
   let rawBounds = null;

@@ -1,9 +1,8 @@
 import cors from '@koa/cors';
 import { parse } from 'tldts';
 
-import log from '~/log';
-
 import config from './config';
+import log from './log/index';
 
 export const getCorsMiddleware = (whitelist: string[], appURL: string) => {
   const appDomain = parse(appURL, { validHosts: ['localhost'] }).domain;
@@ -14,6 +13,9 @@ export const getCorsMiddleware = (whitelist: string[], appURL: string) => {
     allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
     origin: (ctx) => {
       const origin = ctx.get('Origin');
+      if (!origin) {
+        return '';
+      }
       const originDomain =
         parse(origin, { validHosts: ['localhost'] }).domain || '';
       if (appDomain === originDomain) {

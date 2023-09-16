@@ -1,6 +1,6 @@
 import { getValidationErrors } from '@whitewater-guide/clients';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import { GraphQLError } from 'graphql';
+import type { GraphQLError } from 'graphql';
 
 export default function getFormErrors(errors: ReadonlyArray<GraphQLError>) {
   if (errors.length === 0) {

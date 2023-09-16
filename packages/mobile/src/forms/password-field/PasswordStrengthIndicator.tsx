@@ -1,13 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  LayoutAnimation,
-  LayoutChangeEvent,
-  StyleProp,
-  StyleSheet,
-  View,
-  ViewStyle,
-} from 'react-native';
+import type { LayoutChangeEvent, StyleProp, ViewStyle } from 'react-native';
+import { LayoutAnimation, StyleSheet, View } from 'react-native';
 import { Paragraph } from 'react-native-paper';
 import rnTextSize from 'react-native-text-size';
 import * as zxcvbn from 'react-native-zxcvbn';

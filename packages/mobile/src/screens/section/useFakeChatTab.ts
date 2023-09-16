@@ -1,17 +1,17 @@
-import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs';
-import { MaterialBottomTabNavigationEventMap } from '@react-navigation/material-bottom-tabs/lib/typescript/src/types';
-import {
+import type { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs';
+import type { MaterialBottomTabNavigationEventMap } from '@react-navigation/material-bottom-tabs/lib/typescript/src/types';
+import type {
   CompositeNavigationProp,
   RouteProp,
   ScreenListeners,
 } from '@react-navigation/native';
 import { useAuth } from '@whitewater-guide/clients';
-import { Room } from '@whitewater-guide/schema';
+import type { Room } from '@whitewater-guide/schema';
 import { useCallback } from 'react';
 
 import { Screens } from '~/core/navigation';
 
-import { SectionScreenNavProp, SectionTabsParamsList } from './types';
+import type { SectionScreenNavProp, SectionTabsParamsList } from './types';
 
 type SectionChatNavProp = CompositeNavigationProp<
   MaterialBottomTabNavigationProp<

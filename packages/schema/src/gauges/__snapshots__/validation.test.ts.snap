@@ -1,44 +1,44 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should be invalid for all 1`] = `
-Object {
+{
   "code": "yup:string.nonEmpty",
-  "id": Object {
+  "id": {
     "key": "yup:string.uuid",
-    "options": Object {
+    "options": {
       "path": "id",
     },
   },
-  "location": Object {
-    "coordinates": Array [
+  "location": {
+    "coordinates": [
       "yup:number.longitude",
       "yup:number.latitude",
     ],
-    "id": Object {
+    "id": {
       "key": "yup:string.uuid",
-      "options": Object {
+      "options": {
         "path": "location.id",
       },
     },
-    "kind": Object {
+    "kind": {
       "key": "yup:mixed.oneOf",
-      "options": Object {
+      "options": {
         "values": "put-in, put-in-alt, put-in-road, take-out, take-out-alt, take-out-road, waterfall, rapid, portage, playspot, hazard, river-campsite, wild-camping, paid-camping, gauge, hike-waypoint, bridge, dam, power-plant, kayak-shop, other",
       },
     },
   },
   "name": "yup:string.nonEmpty",
-  "source": Object {
-    "id": Object {
+  "source": {
+    "id": {
       "key": "yup:string.uuid",
-      "options": Object {
+      "options": {
         "path": "source.id",
       },
     },
   },
-  "url": Object {
+  "url": {
     "key": "yup:string.url",
-    "options": Object {
+    "options": {
       "path": "url",
     },
   },
@@ -46,10 +46,10 @@ Object {
 `;
 
 exports[`should be invalid for extra field 1`] = `
-Object {
-  "": Object {
+{
+  "": {
     "key": "yup:object.noUnknown",
-    "options": Object {
+    "options": {
       "path": "this",
     },
   },
@@ -57,30 +57,25 @@ Object {
 `;
 
 exports[`should be invalid for null source 1`] = `
-Object {
-  "source": Object {
-    "key": "yup:mixed.notType",
-    "options": Object {
-      "type": "object",
-    },
-  },
+{
+  "source": "yup:mixed.required",
 }
 `;
 
 exports[`should be invalid for undefined code 1`] = `
-Object {
+{
   "code": "yup:string.nonEmpty",
 }
 `;
 
 exports[`should be invalid for undefined name 1`] = `
-Object {
+{
   "name": "yup:string.nonEmpty",
 }
 `;
 
 exports[`should be invalid for undefined source 1`] = `
-Object {
-  "source": "yup:mixed.defined",
+{
+  "source": "yup:mixed.required",
 }
 `;

@@ -1,12 +1,16 @@
 import { Unit } from '@whitewater-guide/schema';
 import React, { useState } from 'react';
-import { VictoryChartProps } from 'victory-chart';
-import { VictoryCommonProps } from 'victory-core';
+import type { VictoryChartProps } from 'victory-chart';
+import type { VictoryCommonProps } from 'victory-core';
 
 import HorizontalGrid from './HorizontalGrid';
 import HorizontalLabel from './HorizontalLabel';
 import HorizontalTick from './HorizontalTick';
-import { ChartComponents, ChartMetaSettings, ChartViewProps } from './types';
+import type {
+  ChartComponents,
+  ChartMetaSettings,
+  ChartViewProps,
+} from './types';
 import useDomainMeta from './useDomainMeta';
 import useTooltipLabel from './useTooltipLabel';
 import useXMeta from './useXMeta';

@@ -8,7 +8,7 @@ import { Caption, Title, TouchableRipple } from 'react-native-paper';
 import Paper from '~/components/Paper';
 import theme from '~/theme';
 
-import { ListedRegion } from '../useFavRegions';
+import type { ListedRegion } from '../useFavRegions';
 import DownloadButton from './DownloadButton';
 import FavoriteButton from './FavoriteButton';
 import PremiumBadge from './PremiumBadge';
@@ -100,14 +100,12 @@ export const RegionCard = memo<Props>(({ region, index }) => {
         </Image>
         <View style={styles.footer}>
           <View style={styles.col}>
-            <Caption>{`${t('regionsList:sectionsCount')}: ${
-              region.sections?.count
-            }`}</Caption>
+            <Caption>{`${t('regionsList:sectionsCount')}: ${region.sections
+              ?.count}`}</Caption>
           </View>
           <View style={styles.col}>
-            <Caption>{`${t('regionsList:gaugesCount')}: ${
-              region.gauges?.count
-            }`}</Caption>
+            <Caption>{`${t('regionsList:gaugesCount')}: ${region.gauges
+              ?.count}`}</Caption>
           </View>
           <PremiumBadge
             region={region}

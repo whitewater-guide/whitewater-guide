@@ -1,4 +1,4 @@
-import { PageInfo } from '../__generated__/types';
+import type { PageInfo } from '../__generated__/types';
 
 /**
  * Relay-styles edge

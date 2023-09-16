@@ -1,19 +1,19 @@
-import { fakeContext, UUID_REGEX } from '@test';
-import { DescentInput } from '@whitewater-guide/schema';
-import gql from 'graphql-tag';
+import type { DescentInput } from '@whitewater-guide/schema';
+import { gql } from 'graphql-tag';
 
-import { db, holdTransaction, rollbackTransaction } from '~/db';
-import { TEST_USER, TEST_USER2 } from '~/seeds/test/01_users';
-import { REGION_GEORGIA } from '~/seeds/test/04_regions';
-import { RIVER_BZHUZHA } from '~/seeds/test/07_rivers';
-import { GEORGIA_BZHUZHA_QUALI } from '~/seeds/test/09_sections';
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
+import { TEST_USER, TEST_USER2 } from '../../../seeds/test/01_users';
+import { REGION_GEORGIA } from '../../../seeds/test/04_regions';
+import { RIVER_BZHUZHA } from '../../../seeds/test/07_rivers';
+import { GEORGIA_BZHUZHA_QUALI } from '../../../seeds/test/09_sections';
 import {
   DESCENT_01,
   DESCENT_02,
   DESCENT_2_SHARE_TOKEN,
   DESCENT_4_SHARE_TOKEN,
-} from '~/seeds/test/18_descents';
-
+} from '../../../seeds/test/18_descents';
+import { fakeContext } from '../../../test/index';
+import { UUID_REGEX } from '../../../utils/index';
 import { testUpsertDescent } from './upsertDescent.test.generated';
 
 beforeEach(holdTransaction);

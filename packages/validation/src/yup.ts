@@ -1,21 +1,21 @@
-import * as yup from 'yup';
-import { RequiredStringSchema } from 'yup/lib/string';
-import { AnyObject, Maybe } from 'yup/lib/types';
+/* eslint-disable @typescript-eslint/method-signature-style */
+import type { AnyObject, Flags, Maybe, Schema } from 'yup';
 
 declare module 'yup' {
-  class StringSchema<
+  interface StringSchema<
     TType extends Maybe<string> = string | undefined,
-    TContext extends AnyObject = AnyObject,
-    TOut extends TType = TType,
-  > extends yup.BaseSchema<TType, TContext, TOut> {
-    cron(errorMessage?: string): StringSchema<TType, TContext>;
-    formula(errorMessage?: string): StringSchema<TType, TContext>;
-    https(errorMessage?: string): StringSchema<TType, TContext>;
-    jsonString(errorMessage?: string): StringSchema<TType, TContext>;
+    TContext = AnyObject,
+    TDefault = undefined,
+    TFlags extends Flags = '',
+  > extends Schema<TType, TContext, TDefault, TFlags> {
+    cron(errorMessage?: string): this;
+    formula(errorMessage?: string): this;
+    https(errorMessage?: string): this;
+    jsonString(errorMessage?: string): this;
     nonEmpty(
       errorMessage?: string,
-    ): RequiredStringSchema<Exclude<TType, null>, TContext>;
-    slug(errorMessage?: string): StringSchema<TType, TContext>;
-    isoDate(errorMessage?: string): StringSchema<TType, TContext>;
+    ): StringSchema<NonNullable<TType>, TContext, TDefault, TFlags>;
+    slug(errorMessage?: string): this;
+    isoDate(errorMessage?: string): this;
   }
 }

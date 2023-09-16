@@ -1,11 +1,10 @@
-import castArray from 'lodash/castArray';
+import { castArray } from 'lodash';
 import { createTransport } from 'nodemailer';
 
-import config from '~/config';
-
-import { MailPayloadMap } from '.';
+import config from '../config';
 import logger from './logger';
-import { render } from './templates';
+import { render } from './templates/index';
+import type { MailPayloadMap } from './types';
 import { MailType } from './types';
 
 let _transport: ReturnType<typeof createTransport> | undefined;

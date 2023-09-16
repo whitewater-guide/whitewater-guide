@@ -1,21 +1,20 @@
+import { ApolloErrorCodes } from '@whitewater-guide/commons';
+import { gql } from 'graphql-tag';
+
+import config from '../../../config';
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
+import { TEMP } from '../../../s3/index';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
+import { REGION_GALICIA } from '../../../seeds/test/04_regions';
+import { GAUGE_GAL_1_1 } from '../../../seeds/test/06_gauges';
 import {
   copyToTemp,
   countRows,
   fakeContext,
   fileExistsInBucket,
   resetTestMinio,
-} from '@test';
-import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
-import path from 'path';
-
-import config from '~/config';
-import { db, holdTransaction, rollbackTransaction } from '~/db';
-import { TEMP } from '~/s3';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
-import { REGION_GALICIA } from '~/seeds/test/04_regions';
-import { GAUGE_GAL_1_1 } from '~/seeds/test/06_gauges';
-
+} from '../../../test/index';
+import { resolveRelative } from '../../../utils/index';
 import { testBulkInsert } from './bulkInsert.test.generated';
 
 const _mutation = gql`
@@ -44,11 +43,11 @@ beforeEach(async () => {
   await holdTransaction();
   await resetTestMinio();
   await copyToTemp(
-    path.resolve(__dirname, '__tests__/good.tar.gz'),
+    resolveRelative(__dirname, '__tests__/good.tar.gz'),
     'good.tar.gz',
   );
   await copyToTemp(
-    path.resolve(__dirname, '__tests__/badJson.tar.gz'),
+    resolveRelative(__dirname, '__tests__/badJson.tar.gz'),
     'badJson.tar.gz',
   );
 });

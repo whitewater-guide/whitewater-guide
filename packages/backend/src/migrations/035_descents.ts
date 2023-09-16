@@ -1,13 +1,12 @@
-import Knex from 'knex';
+import type { Knex } from 'knex';
 
-import { addUpdatedAtTrigger } from '~/db';
-
-import { createTable } from './utils';
+import { addUpdatedAtTrigger } from '../db/index';
+import { createTable } from './utils/index';
 
 /**
  * This patch adds descents (logbook entries)
  */
-export const up = async (db: Knex) => {
+export async function up(db: Knex): Promise<void> {
   await createTable(db, 'descents', (table) => {
     table
       .uuid('id')
@@ -49,10 +48,8 @@ export const up = async (db: Knex) => {
     table.timestamps(false, true);
   });
   await addUpdatedAtTrigger(db, 'descents');
-};
+}
 
-export const down = async (db: Knex) => {
+export async function down(db: Knex): Promise<void> {
   await db.schema.dropTableIfExists('descents');
-};
-
-export const configuration = { transaction: true };
+}

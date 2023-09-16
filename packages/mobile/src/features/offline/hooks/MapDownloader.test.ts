@@ -1,5 +1,5 @@
 import Mapbox from '@rnmapbox/maps';
-import { Region } from '@whitewater-guide/schema';
+import type { Region } from '@whitewater-guide/schema';
 
 import { mockPack, mockPackSubscribe } from '../test-utils';
 import MapDownloader from './MapDownloader';

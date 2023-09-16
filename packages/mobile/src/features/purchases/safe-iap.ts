@@ -1,11 +1,7 @@
 import NetInfo from '@react-native-community/netinfo';
 import { Platform } from 'react-native';
-import {
-  endConnection,
-  getProducts,
-  initConnection,
-  Product,
-} from 'react-native-iap';
+import type { Product } from 'react-native-iap';
+import { endConnection, getProducts, initConnection } from 'react-native-iap';
 
 import { trackError } from '~/core/errors';
 
@@ -47,7 +43,7 @@ export async function safeGetProducts(skus: string[]) {
   let products: Product[] = [];
   let error: IAPError | undefined;
   try {
-    products = await getProducts(skus);
+    products = await getProducts({ skus });
   } catch (e) {
     if (!isBillingUnavailable(e)) {
       const { isInternetReachable } = await NetInfo.fetch();

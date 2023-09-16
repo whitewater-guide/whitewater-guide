@@ -1,13 +1,13 @@
-import {
-  GroupInputSchema,
-  MutationUpsertGroupArgs,
-} from '@whitewater-guide/schema';
-import * as yup from 'yup';
+import type { MutationUpsertGroupArgs } from '@whitewater-guide/schema';
+import { GroupInputSchema } from '@whitewater-guide/schema';
+import type { ObjectSchema } from 'yup';
+import { object } from 'yup';
 
-import { isInputValidResolver, MutationResolvers } from '~/apollo';
-import { db, rawUpsert } from '~/db';
+import type { MutationResolvers } from '../../../apollo/index';
+import { isInputValidResolver } from '../../../apollo/index';
+import { db, rawUpsert } from '../../../db/index';
 
-const Schema: yup.SchemaOf<MutationUpsertGroupArgs> = yup.object({
+const Schema: ObjectSchema<MutationUpsertGroupArgs> = object({
   group: GroupInputSchema.clone().required(),
 });
 

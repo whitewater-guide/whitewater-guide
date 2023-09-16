@@ -1,6 +1,6 @@
 import { createSafeValidator } from '@whitewater-guide/validation';
 
-import { RiverInput } from '../__generated__/types';
+import type { RiverInput } from '../__generated__/types';
 import { RiverInputSchema } from './validation';
 
 const validator = createSafeValidator(RiverInputSchema);

@@ -1,10 +1,9 @@
 import { MediaKind } from '@whitewater-guide/schema';
 
-import { MutationResolvers } from '~/apollo';
-import { db } from '~/db';
-import { MEDIA, s3Client } from '~/s3';
-
-import { insertLog } from '../utils';
+import type { MutationResolvers } from '../../../apollo/index';
+import { db } from '../../../db/index';
+import { MEDIA, s3Client } from '../../../s3/index';
+import { insertLog } from '../utils/index';
 
 const removeMedia: MutationResolvers['removeMedia'] = async (
   _,

@@ -1,13 +1,11 @@
-import {
-  createStackNavigator,
-  StackNavigationOptions,
-} from '@react-navigation/stack';
+import type { StackNavigationOptions } from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Config from 'react-native-ultimate-config';
 
 import { getHeaderRenderer } from '~/components/header';
-import { RootStackNavProps, RootStackParamsList } from '~/core/navigation';
+import type { RootStackNavProps, RootStackParamsList } from '~/core/navigation';
 import { LazyAddSectionScreen } from '~/screens/add-section';
 import { LazyAuthStack } from '~/screens/auth';
 import { LazyConnectEmailScreen } from '~/screens/auth/connect-email';

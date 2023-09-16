@@ -2,7 +2,8 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { paths, PathsOpts } from '../utils';
+import type { PathsOpts } from '../utils';
+import { paths } from '../utils';
 
 const useStyles = makeStyles(() =>
   createStyles({

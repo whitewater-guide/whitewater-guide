@@ -1,18 +1,19 @@
-import { QueryBuilder } from 'knex';
+import type { Knex } from 'knex';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
-
+import { Context } from '../../apollo/index';
+import { holdTransaction, rollbackTransaction } from '../../db/index';
 import { BaseConnector } from './BaseConnector';
-import { FieldsMap } from './types';
+import type { FieldsMap } from './types';
 
 beforeAll(holdTransaction);
 afterAll(rollbackTransaction);
 
 class TestConnector extends BaseConnector<any, any> {
   constructor() {
-    super();
+    super(new Context());
     this._tableName = 'test_table';
     this._graphqlTypeName = 'TestType';
+    this._language = undefined;
   }
 
   public fieldsByType(fields: string[]): this {
@@ -35,7 +36,7 @@ class TestConnector extends BaseConnector<any, any> {
     return this;
   }
 
-  public getBatchQuery(keys: string[]): QueryBuilder {
+  public getBatchQuery(keys: string[]): Knex.QueryBuilder {
     return super.getBatchQuery(keys);
   }
 }
@@ -47,7 +48,7 @@ describe('generic query', () => {
       .buildGenericQuery()
       .toString();
     expect(query).toMatchInlineSnapshot(
-      `"select \\"id\\", \\"name\\", \\"age\\" from \\"test_table\\""`,
+      `"select "id", "name", "age" from "test_table""`,
     );
   });
 

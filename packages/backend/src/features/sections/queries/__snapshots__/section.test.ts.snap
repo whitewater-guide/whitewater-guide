@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`data should return simple data 1`] = `
-Object {
-  "altNames": Array [],
+{
+  "altNames": [],
   "copyright": null,
-  "createdBy": Object {
+  "createdBy": {
     "id": "65fa3f3a-62a7-11e8-adc0-fa7ae01bbebc",
     "name": "Test user 2",
   },
@@ -24,9 +24,9 @@ Object {
   "levels": null,
   "license": null,
   "name": "Amot",
-  "pois": Array [],
-  "putIn": Object {
-    "coordinates": Array [
+  "pois": [],
+  "putIn": {
+    "coordinates": [
       1,
       1,
       0,
@@ -35,8 +35,8 @@ Object {
     "kind": "put-in",
   },
   "rating": 5,
-  "river": Object {
-    "altNames": Array [
+  "river": {
+    "altNames": [
       "Shoa",
       "Sjøa",
     ],
@@ -44,7 +44,7 @@ Object {
     "name": "Sjoa",
   },
   "season": "Amot season",
-  "seasonNumeric": Array [
+  "seasonNumeric": [
     10,
     11,
     12,
@@ -53,21 +53,21 @@ Object {
     15,
     16,
   ],
-  "shape": Array [
-    Array [
+  "shape": [
+    [
       1,
       1,
       0,
     ],
-    Array [
+    [
       2,
       2,
       0,
     ],
   ],
-  "tags": Array [],
-  "takeOut": Object {
-    "coordinates": Array [
+  "tags": [],
+  "takeOut": {
+    "coordinates": [
       2,
       2,
       0,

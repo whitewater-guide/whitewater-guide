@@ -1,23 +1,23 @@
-import {
+import type {
   MutationAdministrateRegionArgs,
   RegionAdminSettings,
-  RegionAdminSettingsSchema,
 } from '@whitewater-guide/schema';
-import get from 'lodash/get';
-import mapValues from 'lodash/mapValues';
-import * as yup from 'yup';
+import { RegionAdminSettingsSchema } from '@whitewater-guide/schema';
+import { get, mapValues } from 'lodash';
+import type { ObjectSchema } from 'yup';
+import { object } from 'yup';
 
+import type { MutationResolvers } from '../../../apollo/index';
 import {
   isInputValidResolver,
   MutationNotAllowedError,
-  MutationResolvers,
-} from '~/apollo';
-import { db, Sql } from '~/db';
-import { COVERS, s3Client } from '~/s3';
-
+} from '../../../apollo/index';
+import type { Sql } from '../../../db/index';
+import { db } from '../../../db/index';
+import { COVERS, s3Client } from '../../../s3/index';
 import logger from '../logger';
 
-const Schema: yup.SchemaOf<MutationAdministrateRegionArgs> = yup.object({
+const Schema: ObjectSchema<MutationAdministrateRegionArgs> = object({
   settings: RegionAdminSettingsSchema.clone().required(),
 });
 

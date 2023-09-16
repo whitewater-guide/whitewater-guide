@@ -6,7 +6,7 @@ import urlParse from 'url-parse';
 
 import { DEEP_LINKING_URL } from '~/utils/urls';
 
-import { RootStackNav } from './navigation-params';
+import type { RootStackNav } from './navigation-params';
 import { Screens } from './screen-names';
 
 const RESET_CALLBACK_URL = `${DEEP_LINKING_URL}/auth/local/reset/callback`;

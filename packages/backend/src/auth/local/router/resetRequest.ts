@@ -1,11 +1,11 @@
-import { Middleware } from 'koa';
-import isEmail from 'validator/lib/isEmail';
+import type { Middleware } from 'koa';
 
-import { db, Sql } from '~/db';
-import { MailType, sendMail } from '~/mail';
-
+import type { Sql } from '../../../db/index';
+import { db } from '../../../db/index';
+import { MailType, sendMail } from '../../../mail/index';
+import { isEmail } from '../../../utils/index';
 import logger from '../logger';
-import { randomToken } from '../utils';
+import { randomToken } from '../utils/index';
 
 const resetRequest: Middleware<any, any> = async (ctx, next) => {
   let { email } = ctx.request.body;

@@ -1,4 +1,4 @@
-import { Region, Section } from '@whitewater-guide/schema';
+import type { Region, Section } from '@whitewater-guide/schema';
 
 export type SKU = string;
 

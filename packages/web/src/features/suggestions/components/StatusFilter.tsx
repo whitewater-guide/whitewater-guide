@@ -1,4 +1,5 @@
-import { Popover, PopoverOrigin } from '@material-ui/core';
+import type { PopoverOrigin } from '@material-ui/core';
+import { Popover } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -7,7 +8,8 @@ import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { SuggestionStatus } from '@whitewater-guide/schema';
-import React, { ChangeEvent, useCallback, useState } from 'react';
+import type { ChangeEvent } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import updateStatusesArray from '../simple/updateStatusesArray';
 

@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-import { OfflineCategorySelection, OfflineCategoryType } from '../types';
+import type { OfflineCategorySelection, OfflineCategoryType } from '../types';
 
 type Hook = [
   OfflineCategorySelection,

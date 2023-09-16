@@ -1,4 +1,4 @@
-import Knex from 'knex';
+import type { Knex } from 'knex';
 
 import { ADMIN_ID } from './01_users';
 import {

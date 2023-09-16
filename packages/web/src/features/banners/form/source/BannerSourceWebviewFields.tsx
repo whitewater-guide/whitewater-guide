@@ -6,7 +6,7 @@ import debounceRender from 'react-debounce-render';
 import Iframe from 'react-iframe';
 
 import { TextField } from '../../../../formik/fields';
-import { BannerFormData } from '../types';
+import type { BannerFormData } from '../types';
 
 const DebouncedIframe = debounceRender(Iframe);
 

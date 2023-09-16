@@ -1,18 +1,15 @@
 import { getDirective, MapperKind, mapSchema } from '@graphql-tools/utils';
-import {
-  ApolloError,
-  AuthenticationError,
-  ForbiddenError,
-} from 'apollo-server-koa';
-import {
-  defaultFieldResolver,
+import type {
+  GraphQLError,
   GraphQLFieldResolver,
   GraphQLSchema,
 } from 'graphql';
+import { defaultFieldResolver } from 'graphql';
 
-import { Context } from '../context';
+import type { Context } from '../context';
+import { AuthenticationError, ForbiddenError } from '../errors';
 
-function checkPermissions(context: Context): ApolloError | null {
+function checkPermissions(context: Context): GraphQLError | null {
   if (!context.user) {
     return new AuthenticationError('must authenticate');
   }

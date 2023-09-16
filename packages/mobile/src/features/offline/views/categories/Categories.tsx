@@ -1,9 +1,9 @@
-import { RegionMediaSummary } from '@whitewater-guide/schema';
+import type { RegionMediaSummary } from '@whitewater-guide/schema';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import theme from '../../../../theme';
-import {
+import type {
   OfflineCategorySelection,
   OfflineCategoryType,
   OfflineProgress,

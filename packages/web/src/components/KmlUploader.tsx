@@ -2,12 +2,12 @@ import { kml } from '@mapbox/togeojson';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import Snackbar from '@material-ui/core/Snackbar';
-import { Feature, FeatureCollection, LineString } from '@turf/helpers';
-import { Coordinate3d } from '@whitewater-guide/clients';
+import type { Feature, FeatureCollection, LineString } from '@turf/helpers';
+import type { Coordinate3d } from '@whitewater-guide/clients';
 import React from 'react';
 import Dropzone from 'react-dropzone';
 
-import { Styles } from '../styles';
+import type { Styles } from '../styles';
 
 const styles: Styles = {
   dz: {
@@ -26,6 +26,10 @@ interface Props {
 interface State {
   warningOpen: boolean;
 }
+
+const acceptedKml = {
+  'application/*': ['.kml'],
+};
 
 export class KmlUploader extends React.PureComponent<Props, State> {
   readonly state: State = { warningOpen: false };
@@ -69,7 +73,7 @@ export class KmlUploader extends React.PureComponent<Props, State> {
   render(): React.ReactNode {
     return (
       <>
-        <Dropzone onDrop={this.onDrop} multiple={false} accept=".kml">
+        <Dropzone onDrop={this.onDrop} multiple={false} accept={acceptedKml}>
           {({ getRootProps, getInputProps }) => (
             <div {...getRootProps()} style={styles.dz}>
               <Button color="primary" variant="contained" fullWidth>

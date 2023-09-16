@@ -1,15 +1,14 @@
-import { anonContext, fakeContext } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
-import { BOOM_USER_3500 } from '~/seeds/test/01_users';
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
+import { BOOM_USER_3500 } from '../../../seeds/test/01_users';
 import {
   BOOM_PROMO_ALL_REGIONS_ACTIVE,
   BOOM_PROMO_EU_CIS_ACTIVE,
   BOOM_PROMO_REGION_REDEEMED,
-} from '~/seeds/test/12_boom_promos';
-
+} from '../../../seeds/test/12_boom_promos';
+import { anonContext, fakeContext } from '../../../test/index';
 import { testCheckBoomPromo } from './checkBoomPromo.test.generated';
 
 beforeEach(holdTransaction);

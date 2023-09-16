@@ -1,8 +1,9 @@
-import { MeasurementsFilter, Unit } from '@whitewater-guide/schema';
+import type { MeasurementsFilter } from '@whitewater-guide/schema';
+import { Unit } from '@whitewater-guide/schema';
 import subDays from 'date-fns/subDays';
 import React, { useContext, useMemo, useState } from 'react';
 
-import { ChartContext, ChartProps, WithChartData } from './types';
+import type { ChartContext, ChartProps, WithChartData } from './types';
 import { useChartMeasurements } from './useChartMeasurements';
 
 const ChartCtx = React.createContext<ChartContext & WithChartData>({} as any);

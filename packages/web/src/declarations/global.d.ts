@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom/extend-expect';
 
-import { addBreadcrumb, init } from '@sentry/react';
+import type { addBreadcrumb, init } from '@sentry/react';
 
 declare global {
   interface SentryLike {

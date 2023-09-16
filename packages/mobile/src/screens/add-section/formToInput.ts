@@ -1,6 +1,6 @@
-import { MediaInput, SectionInput } from '@whitewater-guide/schema';
+import type { MediaInput, SectionInput } from '@whitewater-guide/schema';
 
-import { MediaFormInput, SectionFormInput } from './types';
+import type { MediaFormInput, SectionFormInput } from './types';
 
 function convertMedia(form: MediaFormInput): MediaInput {
   const { photo, ...rest } = form;

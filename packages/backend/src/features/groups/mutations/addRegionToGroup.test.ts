@@ -1,12 +1,11 @@
-import { anonContext, countRows, fakeContext } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
-import { GROUP_EMPTY, GROUP_EU } from '~/seeds/test/03_groups';
-import { REGION_GALICIA } from '~/seeds/test/04_regions';
-
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
+import { GROUP_EMPTY, GROUP_EU } from '../../../seeds/test/03_groups';
+import { REGION_GALICIA } from '../../../seeds/test/04_regions';
+import { anonContext, countRows, fakeContext } from '../../../test/index';
 import { testAddRegionToGroup } from './addRegionToGroup.test.generated';
 
 let rgBefore: number;

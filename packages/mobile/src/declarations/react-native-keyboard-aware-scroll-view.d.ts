@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 
 declare module 'react-native-keyboard-aware-scroll-view' {
   export declare const listenToKeyboardEvents: (

@@ -1,18 +1,21 @@
-import { formatApolloErrors } from 'apollo-server-errors';
-import set from 'lodash/set';
-import shortid from 'shortid';
+import type { GraphQLFormattedError } from 'graphql';
+import { nanoid } from 'nanoid';
 
 import { logger } from './logger';
 
-export const formatError = (error: any) => {
-  const apolloError = formatApolloErrors([error], { debug: true })[0];
+export function formatError(
+  formattedError: GraphQLFormattedError,
+  _error: unknown,
+): GraphQLFormattedError {
   // Put unique id into extensions, to grep server logs easier
-  // It should be in extensions and not on the root level: https://facebook.github.io/graphql/June2018/#example-9008d
-  const id = shortid.generate();
-  set(apolloError, 'extensions.id', id);
-  logger.error({ error: apolloError });
-
-  set(apolloError, 'extensions.exception.stacktrace', undefined);
-  apolloError.stack = undefined;
-  return apolloError;
-};
+  const id = nanoid();
+  const errorWithId = {
+    ...formattedError,
+    extensions: { ...formattedError.extensions, id },
+  };
+  // currently, message is not hidden from client
+  // for example, in case of sql error, both formattedError.message and _error.message are
+  // "message": "select * from \"abcd\" - relation \"abcd\" does not exist",
+  logger.error({ error: { name: 'GraphQLFormattedError', ...errorWithId } });
+  return errorWithId;
+}

@@ -4,7 +4,8 @@ import {
   NavigationContainer,
   useNavigationContainerRef,
 } from '@react-navigation/native';
-import React, { FC, PropsWithChildren } from 'react';
+import type { FC, PropsWithChildren } from 'react';
+import React from 'react';
 import Config from 'react-native-ultimate-config';
 import useEffectOnce from 'react-use/lib/useEffectOnce';
 

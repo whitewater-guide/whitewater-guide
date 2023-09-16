@@ -1,7 +1,7 @@
 import useAsyncFn from 'react-use/lib/useAsyncFn';
 
-import { OfflineProgress } from '../types';
-import { PhotoChannel } from '../utils';
+import type { OfflineProgress } from '../types';
+import type { PhotoChannel } from '../utils';
 import { PhotoDownloader } from './PhotoDownloader';
 
 interface Hook {

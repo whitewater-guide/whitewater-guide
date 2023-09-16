@@ -1,26 +1,25 @@
-import { countRows, UUID_REGEX } from '@test';
-import { AuthBody, SignInBody } from '@whitewater-guide/commons';
-import Koa from 'koa';
-import get from 'lodash/get';
-import { Profile } from 'passport-facebook';
+import type { AuthBody, SignInBody } from '@whitewater-guide/commons';
+import type Koa from 'koa';
+import type { Profile } from 'passport-facebook';
 import FacebookTokenStrategy from 'passport-facebook-token';
-import superagent from 'superagent';
-import { SuperTest, Test } from 'supertest';
+import type superagent from 'superagent';
+import type { SuperTest, Test } from 'supertest';
 import agent from 'supertest-koa-agent';
 
-import { db, holdTransaction, rollbackTransaction } from '~/db';
-import { sendWelcome } from '~/mail';
+import { createApp } from '../../../app';
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
+import { sendWelcome } from '../../../mail/index';
 import {
   ADMIN_FB_PROFILE,
   ADMIN_ID,
   NEW_FB_PROFILE,
   NEW_FB_PROFILE_NO_EMAIL,
   NEW_FB_PROFILE_W_LOCALE,
-} from '~/seeds/test/01_users';
+} from '../../../seeds/test/01_users';
+import { countRows } from '../../../test/index';
+import { UUID_REGEX } from '../../../utils/index';
 
-import { createApp } from '../../../app';
-
-jest.mock('~/mail');
+jest.mock('../../../mail');
 
 const ROUTE = '/auth/facebook/signin';
 
@@ -122,7 +121,7 @@ describe.each([
       .where({ id })
       .first();
     expect(user).toMatchObject({
-      email: get(mockProfile, 'emails.0.value', null),
+      email: mockProfile.emails?.[0]?.value ?? null,
       verified: true,
       language: 'en',
     });
@@ -142,7 +141,7 @@ describe.each([
   });
 
   it('should send welcome email', async () => {
-    const email = get(mockProfile, 'emails.0.value', null);
+    const email = mockProfile.emails?.[0]?.value ?? null;
     expect(sendWelcome).toHaveBeenCalledWith(
       expect.objectContaining({
         id: expect.stringMatching(UUID_REGEX),
@@ -170,7 +169,7 @@ describe('language', () => {
       .where({ id })
       .first();
     expect(user).toMatchObject({
-      email: get(NEW_FB_PROFILE_W_LOCALE, 'emails.0.value', null),
+      email: NEW_FB_PROFILE_W_LOCALE.emails?.[0]?.value ?? null,
       language: 'it',
     });
   });
@@ -191,7 +190,7 @@ describe('language', () => {
       .where({ id })
       .first();
     expect(user).toMatchObject({
-      email: get(NEW_FB_PROFILE_W_LOCALE, 'emails.0.value', null),
+      email: NEW_FB_PROFILE_W_LOCALE.emails?.[0]?.value ?? null,
       language: 'ru',
     });
   });
@@ -212,7 +211,7 @@ describe('language', () => {
       .where({ id })
       .first();
     expect(user).toMatchObject({
-      email: get(NEW_FB_PROFILE, 'emails.0.value', null),
+      email: NEW_FB_PROFILE.emails?.[0]?.value ?? null,
       language: 'fr',
     });
   });

@@ -1,6 +1,6 @@
 import qs from 'qs';
 import React, { useMemo } from 'react';
-import { RouteComponentProps } from 'react-router';
+import type { RouteComponentProps } from 'react-router';
 
 import { HashTabs, HashTabView } from '../../../components/navtabs';
 import { FormikCard, useApolloFormik } from '../../../formik';
@@ -9,22 +9,20 @@ import { FormikTab } from '../../../formik/helpers';
 import addToList from './addToList';
 import formToMutation from './formToMutation';
 import makeQueryToForm from './makeQueryToForm';
-import {
-  SectionFormDocument,
+import type {
   SectionFormQuery,
   SectionFormQueryVariables,
 } from './sectionForm.generated';
+import { SectionFormDocument } from './sectionForm.generated';
 import { SectionFormFlows } from './SectionFormFlows';
 import SectionFormLicense from './SectionFormLicense';
 import { SectionFormMain } from './SectionFormMain';
 import { SectionFormMap } from './SectionFormMap';
 import SectionFormMedia from './SectionFormMedia';
 import { SectionFormProperties } from './SectionFormProperties';
-import { RouterParams, SectionFormData } from './types';
-import {
-  UpsertSectionDocument,
-  UpsertSectionMutationVariables,
-} from './upsertSection.generated';
+import type { RouterParams, SectionFormData } from './types';
+import type { UpsertSectionMutationVariables } from './upsertSection.generated';
+import { UpsertSectionDocument } from './upsertSection.generated';
 import { SectionFormSchema } from './validation';
 
 const header = { resourceType: 'section' };

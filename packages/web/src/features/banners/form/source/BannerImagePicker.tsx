@@ -1,7 +1,7 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 
-import { ImageUploaderProps } from '../../../../components/image-uploader';
+import type { ImageUploaderProps } from '../../../../components/image-uploader';
 import { ImageUploadField } from '../../../../formik/fields';
 
 const useStyles = makeStyles(() =>

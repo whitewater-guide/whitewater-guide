@@ -1,7 +1,9 @@
-import { Source } from '@whitewater-guide/schema';
+import type { Source } from '@whitewater-guide/schema';
 
-import { Sql } from '~/db';
-import { FieldsMap, OffsetConnector } from '~/db/connectors';
+import type { Context } from '../../apollo/index';
+import type { FieldsMap } from '../../db/connectors/index';
+import { OffsetConnector } from '../../db/connectors/index';
+import type { Sql } from '../../db/index';
 
 const FIELDS_MAP: FieldsMap<Source, Sql.SourcesView> = {
   status: 'script',
@@ -11,8 +13,8 @@ const FIELDS_MAP: FieldsMap<Source, Sql.SourcesView> = {
 };
 
 export class SourcesConnector extends OffsetConnector<Source, Sql.SourcesView> {
-  constructor() {
-    super();
+  constructor(context: Context) {
+    super(context);
     this._tableName = 'sources_view';
     this._graphqlTypeName = 'Source';
     this._fieldsMap = FIELDS_MAP;

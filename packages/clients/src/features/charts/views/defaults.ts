@@ -1,4 +1,4 @@
-import { TimeAxisSettings } from './types';
+import type { TimeAxisSettings } from './types';
 
 export function getDefaultTimeAxisSettings(days: number): TimeAxisSettings {
   if (days > 7) {

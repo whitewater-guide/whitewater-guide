@@ -1,5 +1,5 @@
 import { NEW_RIVER_ID } from '@whitewater-guide/commons';
-import { SectionInput } from '@whitewater-guide/schema';
+import type { SectionInput } from '@whitewater-guide/schema';
 
 export const NULL_SECTION_INPUT: SectionInput = {
   id: null,

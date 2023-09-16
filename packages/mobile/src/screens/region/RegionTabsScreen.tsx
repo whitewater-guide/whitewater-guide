@@ -3,7 +3,8 @@ import {
   useRegionQuery,
   useSectionsList,
 } from '@whitewater-guide/clients';
-import { FC, PropsWithChildren, useCallback } from 'react';
+import type { FC, PropsWithChildren } from 'react';
+import { useCallback } from 'react';
 
 import { Screen } from '~/components/Screen';
 import WithQueryError from '~/components/WithQueryError';

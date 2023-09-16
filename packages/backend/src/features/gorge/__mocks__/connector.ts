@@ -1,11 +1,6 @@
-/* eslint-disable import/no-duplicates */
-import * as gorge from '@whitewater-guide/gorge';
-import { MeasurementsFilter } from '@whitewater-guide/schema';
-import { DataSource } from 'apollo-datasource';
-import compareDesc from 'date-fns/compareDesc';
-import parseISO from 'date-fns/parseISO';
-
-import { Context } from '~/apollo';
+import type * as gorge from '@whitewater-guide/gorge';
+import type { MeasurementsFilter } from '@whitewater-guide/schema';
+import { compareDesc, parseISO } from 'date-fns';
 
 import {
   SOURCE_ALPS,
@@ -22,7 +17,7 @@ const { GorgeConnector: Original } = jest.requireActual('../connector.ts');
 
 export const mockUpdateJobForSource = jest.fn();
 
-export class GorgeConnector extends Original implements DataSource<Context> {
+export class GorgeConnector extends Original {
   private _jobs: Map<string, gorge.JobDescription> = new Map<
     string,
     gorge.JobDescription

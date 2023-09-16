@@ -1,11 +1,10 @@
 import { CookieAccessInfo } from 'cookiejar';
-import Koa from 'koa';
+import type Koa from 'koa';
 import agent from 'supertest-koa-agent';
 
-import { db, holdTransaction, rollbackTransaction } from '~/db';
-import { TEST_USER_ID } from '~/seeds/test/01_users';
-
 import { createApp } from '../app';
+import { db, holdTransaction, rollbackTransaction } from '../db/index';
+import { TEST_USER_ID } from '../seeds/test/01_users';
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from './constants';
 
 const LOGIN_ROUTE = '/auth/local/signin';

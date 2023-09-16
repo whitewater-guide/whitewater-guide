@@ -1,4 +1,4 @@
-import { Section } from '@whitewater-guide/schema';
+import type { Section } from '@whitewater-guide/schema';
 import React, { memo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, Paragraph } from 'react-native-paper';

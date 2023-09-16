@@ -1,24 +1,22 @@
 import noop from 'lodash/noop';
+import type { FC, PropsWithChildren, Reducer } from 'react';
 import {
   createContext,
-  FC,
-  PropsWithChildren,
-  Reducer,
   useCallback,
   useContext,
   useEffect,
   useReducer,
 } from 'react';
-import { Product } from 'react-native-iap';
+import type { Product } from 'react-native-iap';
 import useMountedState from 'react-use/lib/useMountedState';
 
-import { IAPError } from './IAPError';
+import type { IAPError } from './IAPError';
 import {
   safeEndConnection,
   safeGetProducts,
   safeInitConnection,
 } from './safe-iap';
-import { SKU } from './types';
+import type { SKU } from './types';
 import useSkus from './useSkus';
 
 interface State {

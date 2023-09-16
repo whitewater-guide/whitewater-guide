@@ -1,6 +1,7 @@
 import { useAuth } from '@whitewater-guide/clients';
 import React from 'react';
-import { Redirect, Route, RouteProps } from 'react-router-dom';
+import type { RouteProps } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 
 export const AdminRoute = React.memo((props: RouteProps) => {
   const { me, loading } = useAuth();

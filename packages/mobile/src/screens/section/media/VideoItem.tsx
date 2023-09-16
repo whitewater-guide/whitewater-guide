@@ -1,6 +1,7 @@
-import { getVideoThumb, VideoThumb } from '@whitewater-guide/clients';
+import type { VideoThumb } from '@whitewater-guide/clients';
+import { getVideoThumb } from '@whitewater-guide/clients';
 import FastImage from '@whitewater-guide/react-native-fast-image';
-import { MediaWithThumbFragment } from '@whitewater-guide/schema';
+import type { MediaWithThumbFragment } from '@whitewater-guide/schema';
 import React from 'react';
 import { Linking, StyleSheet, View } from 'react-native';
 import { Caption, Paragraph, TouchableRipple } from 'react-native-paper';

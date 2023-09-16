@@ -1,4 +1,4 @@
-import { HorizontalTickProps } from '@whitewater-guide/clients';
+import type { HorizontalTickProps } from '@whitewater-guide/clients';
 import React from 'react';
 import { Line } from 'react-native-svg';
 

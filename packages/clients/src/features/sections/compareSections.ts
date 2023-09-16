@@ -1,11 +1,8 @@
 import deburr from 'lodash/deburr';
 
-import { ListedSectionFragment } from '.';
-import {
-  DefaultSectionFilterOptions,
-  SectionFilterOptions,
-  SectionSortBy,
-} from './types';
+import type { ListedSectionFragment } from '.';
+import type { SectionFilterOptions, SectionSortBy } from './types';
+import { DefaultSectionFilterOptions } from './types';
 
 // sortBy: 'name' | 'difficulty' | 'duration' | 'rating';
 // sortDirection: 'ASC' | 'DESC';

@@ -1,7 +1,5 @@
-import {
-  SuggestionInput,
-  SuggestionInputSchema,
-} from '@whitewater-guide/schema';
+import type { SuggestionInput } from '@whitewater-guide/schema';
+import { SuggestionInputSchema } from '@whitewater-guide/schema';
 import { Formik } from 'formik';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';

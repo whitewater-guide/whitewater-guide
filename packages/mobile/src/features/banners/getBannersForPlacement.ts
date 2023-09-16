@@ -1,4 +1,4 @@
-import {
+import type {
   BannerPlacement,
   BannerWithSourceFragment,
 } from '@whitewater-guide/schema';

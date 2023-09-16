@@ -1,15 +1,12 @@
 import { useFocusEffect } from '@react-navigation/native';
-import {
-  getSectionContentBounds,
-  MapSection,
-  useSection,
-} from '@whitewater-guide/clients';
+import type { MapSection } from '@whitewater-guide/clients';
+import { getSectionContentBounds, useSection } from '@whitewater-guide/clients';
 import React, { useMemo } from 'react';
 
 import { Map, SelectedPOISheet } from '~/components/map';
 
 import SectionTabsScreen from '../SectionTabsScreen';
-import { SectionMapNavProps } from './types';
+import type { SectionMapNavProps } from './types';
 
 const SectionMapScreen: React.FC<SectionMapNavProps> = ({ navigation }) => {
   const section = useSection();

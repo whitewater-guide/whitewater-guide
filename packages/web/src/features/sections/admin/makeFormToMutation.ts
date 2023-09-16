@@ -1,6 +1,6 @@
-import { SectionAdminSettings } from '@whitewater-guide/schema';
+import type { SectionAdminSettings } from '@whitewater-guide/schema';
 
-import { AdministrateSectionMutationVariables } from './administrateSection.generated';
+import type { AdministrateSectionMutationVariables } from './administrateSection.generated';
 
 const makeFormToMutation =
   (sectionId: string) =>

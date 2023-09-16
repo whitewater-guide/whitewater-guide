@@ -1,4 +1,5 @@
-import React, { FC, PropsWithChildren } from 'react';
+import type { FC, PropsWithChildren } from 'react';
+import React from 'react';
 import { StyleSheet } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
 
@@ -6,7 +7,8 @@ import Icon from '~/components/Icon';
 import theme from '~/theme';
 
 import { useOfflineDate } from '../../hooks';
-import OfflineCategory, { OfflineCategoryProps } from './OfflineCategory';
+import type { OfflineCategoryProps } from './OfflineCategory';
+import OfflineCategory from './OfflineCategory';
 import useDeleteOfflineData from './useDeleteOfflineData';
 
 const styles = StyleSheet.create({

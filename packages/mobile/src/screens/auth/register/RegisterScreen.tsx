@@ -1,9 +1,9 @@
 import React, { useRef } from 'react';
-import { View } from 'react-native';
+import type { View } from 'react-native';
 
 import { AuthScreenBase } from '../AuthScreenBase';
 import { RegisterForm } from './RegisterForm';
-import { AuthRegisterNavProps } from './types';
+import type { AuthRegisterNavProps } from './types';
 
 const RegisterScreen: React.FC<AuthRegisterNavProps> = () => {
   const keyboardScrollRef = useRef<View>(null);

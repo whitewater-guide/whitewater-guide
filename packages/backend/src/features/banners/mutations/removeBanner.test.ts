@@ -1,18 +1,17 @@
+import { ApolloErrorCodes } from '@whitewater-guide/commons';
+import { gql } from 'graphql-tag';
+
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
+import { BANNERS } from '../../../s3/index';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
+import { GALICIA_REGION_DESCR_BANNER2 } from '../../../seeds/test/14_banners';
 import {
   anonContext,
   countRows,
   fakeContext,
   fileExistsInBucket,
   resetTestMinio,
-} from '@test';
-import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
-
-import { holdTransaction, rollbackTransaction } from '~/db';
-import { BANNERS } from '~/s3';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
-import { GALICIA_REGION_DESCR_BANNER2 } from '~/seeds/test/14_banners';
-
+} from '../../../test/index';
 import { testRemoveBanner } from './removeBanner.test.generated';
 
 const _query = gql`

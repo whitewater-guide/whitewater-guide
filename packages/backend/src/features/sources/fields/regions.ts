@@ -1,4 +1,4 @@
-import { SourceResolvers } from '~/apollo';
+import type { SourceResolvers } from '../../../apollo/index';
 
 const regionsResolver: SourceResolvers['regions'] = (
   { id },

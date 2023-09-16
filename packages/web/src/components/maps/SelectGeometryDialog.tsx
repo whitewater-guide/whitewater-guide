@@ -7,7 +7,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import React, { useCallback, useState } from 'react';
 
 import { DrawingMap } from './DrawingMap';
-import { DrawingMode } from './types';
+import type { DrawingMode } from './types';
 
 const useStyles = makeStyles(() =>
   createStyles({

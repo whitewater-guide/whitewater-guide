@@ -1,10 +1,13 @@
-import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs';
-import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
-import { SectionDetailsFragment } from '@whitewater-guide/clients';
+import type { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs';
+import type {
+  CompositeNavigationProp,
+  RouteProp,
+} from '@react-navigation/native';
+import type { SectionDetailsFragment } from '@whitewater-guide/clients';
 
-import { Screens } from '~/core/navigation';
+import type { Screens } from '~/core/navigation';
 
-import { SectionScreenNavProp, SectionTabsParamsList } from '../types';
+import type { SectionScreenNavProp, SectionTabsParamsList } from '../types';
 
 export type SectionGauge = SectionDetailsFragment['gauge'];
 

@@ -1,5 +1,6 @@
 import { useTags } from '@whitewater-guide/clients';
-import { Duration, Durations } from '@whitewater-guide/schema';
+import type { Duration } from '@whitewater-guide/schema';
+import { Durations } from '@whitewater-guide/schema';
 import groupBy from 'lodash/groupBy';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';

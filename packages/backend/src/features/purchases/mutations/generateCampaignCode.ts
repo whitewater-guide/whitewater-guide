@@ -1,10 +1,7 @@
-import { UserInputError } from 'apollo-server-errors';
-
-import { MutationResolvers } from '~/apollo';
-import config from '~/config';
-import { db } from '~/db';
-import { MailType, sendMail } from '~/mail';
-
+import { type MutationResolvers, UserInputError } from '../../../apollo/index';
+import config from '../../../config';
+import { db } from '../../../db/index';
+import { MailType, sendMail } from '../../../mail/index';
 import logger from '../logger';
 
 const generateCampaignCode: MutationResolvers['generateCampaignCode'] = async (

@@ -1,4 +1,4 @@
-import { Sql } from '~/db';
+import type { Sql } from '../../db/index';
 
 /**
  * User with extra fields, see connector's field map

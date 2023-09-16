@@ -18,14 +18,17 @@
   "scripts": {
     "clean": "rimraf dist",
     "build": "tsc",
-    "postinstall": "yarn build",
     "test": "jest",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@graphql-codegen/plugin-helpers": "2.3.2",
-    "@graphql-codegen/visitor-plugin-common": "2.5.2",
-    "graphql": "^15.8.0",
+    "@graphql-codegen/plugin-helpers": "^5.0.1",
+    "@graphql-codegen/visitor-plugin-common": "^4.0.1",
+    "graphql": "^16.8.0",
     "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.197",
+    "typescript": "^5.2.2"
   }
 }

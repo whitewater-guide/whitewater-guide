@@ -3,3 +3,6 @@
 dist/
 build/
 packages/landing/
+packages/backend/src/migrations/042/combined-with-oceans.json
+**/Pods/
+pnpm-lock.yaml 4490ms

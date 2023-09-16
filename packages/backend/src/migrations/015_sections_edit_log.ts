@@ -1,8 +1,7 @@
-import Knex from 'knex';
+import type { Knex } from 'knex';
 
-import { createViews, dropViews } from '~/db';
-
-import { createTable } from './utils';
+import { createViews, dropViews } from '../db/index';
+import { createTable } from './utils/index';
 
 const VIEWS = ['sections'];
 /**
@@ -11,7 +10,7 @@ const VIEWS = ['sections'];
  * @param {Knex} db
  * @returns {Promise<void>}
  */
-export const up = async (db: Knex) => {
+export async function up(db: Knex): Promise<void> {
   // Add "region_name" column to "sections_view" as it's frequently used
   await dropViews(db, ...VIEWS);
   await createViews(db, 15, ...VIEWS);
@@ -55,12 +54,10 @@ export const up = async (db: Knex) => {
       sections_view.created_by IS NOT NULL AND
       sections_view.language = 'en'
   `);
-};
+}
 
-export const down = async (db: Knex) => {
+export async function down(db: Knex): Promise<void> {
   await dropViews(db, ...VIEWS);
   await createViews(db, 14, ...VIEWS);
   await db.schema.dropTable('sections_edit_log');
-};
-
-export const configuration = { transaction: true };
+}

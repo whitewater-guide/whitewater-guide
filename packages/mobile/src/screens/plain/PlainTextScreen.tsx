@@ -5,7 +5,7 @@ import Markdown from '~/components/Markdown';
 import { Screen } from '~/components/Screen';
 import theme from '~/theme';
 
-import { PlainNavProps } from './types';
+import type { PlainNavProps } from './types';
 
 const styles = StyleSheet.create({
   content: {
@@ -27,7 +27,7 @@ const PlainTextScreen: React.FC<PlainNavProps> = ({ navigation, route }) => {
         style={StyleSheet.absoluteFill}
         contentContainerStyle={styles.content}
       >
-        <Markdown>{text}</Markdown>
+        {!!text && <Markdown>{text}</Markdown>}
       </ScrollView>
     </Screen>
   );

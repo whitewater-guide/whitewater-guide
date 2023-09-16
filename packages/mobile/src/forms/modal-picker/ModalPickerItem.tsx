@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
-import { StyleProp, StyleSheet, ViewStyle } from 'react-native';
+import type { StyleProp, ViewStyle } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Title, TouchableRipple } from 'react-native-paper';
 
 import theme from '../../theme';

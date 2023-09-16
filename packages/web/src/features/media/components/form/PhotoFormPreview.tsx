@@ -2,8 +2,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import React from 'react';
 
 import { MediaImg } from '../../../../components';
-import { Styles } from '../../../../styles';
-import { LocalPhoto } from '../../../../utils/files';
+import type { Styles } from '../../../../styles';
+import type { LocalPhoto } from '../../../../utils/files';
 
 const PREVIEW_SIZE = 360;
 

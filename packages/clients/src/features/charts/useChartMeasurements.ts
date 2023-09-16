@@ -1,4 +1,4 @@
-import {
+import type {
   GaugeForChartFragment,
   MeasurementsFilter,
   Node,
@@ -9,7 +9,7 @@ import { useMemo } from 'react';
 
 import { useFormulas } from '../sections';
 import { useMeasurementsQuery } from './measurements.generated';
-import { ChartDataPoint, WithChartData } from './types';
+import type { ChartDataPoint, WithChartData } from './types';
 
 export function useChartMeasurements(
   filter: MeasurementsFilter,

@@ -1,24 +1,24 @@
-import { countRows, UUID_REGEX } from '@test';
-import { AuthBody, SignInBody } from '@whitewater-guide/commons';
+import type { AuthBody, SignInBody } from '@whitewater-guide/commons';
 import { CookieAccessInfo } from 'cookiejar';
-import Koa from 'koa';
+import type Koa from 'koa';
 import FacebookTokenStrategy from 'passport-facebook-token';
-import superagent from 'superagent';
-import { SuperTest, Test } from 'supertest';
+import type superagent from 'superagent';
+import type { SuperTest, Test } from 'supertest';
 import agent from 'supertest-koa-agent';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
-import { sendWelcome } from '~/mail';
+import { createApp } from '../../../app';
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
+import { sendWelcome } from '../../../mail/index';
 import {
   ADMIN_FB_PROFILE,
   ADMIN_ID,
   NEW_FB_PROFILE,
-} from '~/seeds/test/01_users';
-
-import { createApp } from '../../../app';
+} from '../../../seeds/test/01_users';
+import { countRows } from '../../../test/index';
+import { UUID_REGEX } from '../../../utils/index';
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from '../../constants';
 
-jest.mock('~/mail');
+jest.mock('../../../mail');
 const ROUTE = '/auth/facebook/signin?web=true&';
 
 let app: Koa;

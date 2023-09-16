@@ -1,5 +1,5 @@
 import getRouteMatch from './getRouteMatch';
-import { BreadcrumbsMap } from './types';
+import type { BreadcrumbsMap } from './types';
 
 const map: BreadcrumbsMap = {
   '/regions': 'Regions',

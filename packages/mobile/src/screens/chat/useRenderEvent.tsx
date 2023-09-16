@@ -1,6 +1,7 @@
-import { EventType, MatrixEvent } from 'matrix-js-sdk';
+import type { MatrixEvent } from 'matrix-js-sdk';
+import { EventType } from 'matrix-js-sdk';
 import React, { useCallback } from 'react';
-import { ListRenderItemInfo } from 'react-native';
+import type { ListRenderItemInfo } from 'react-native';
 
 import RoomStart from './RoomStart';
 import TextMessage from './TextMessage';

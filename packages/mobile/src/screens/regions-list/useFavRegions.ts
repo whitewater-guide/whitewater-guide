@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
-import { ValuesType } from 'utility-types';
+import type { ValuesType } from 'utility-types';
 
-import { RegionsListQuery } from './regionsList.generated';
+import type { RegionsListQuery } from './regionsList.generated';
 
 export type ListedRegion = ValuesType<RegionsListQuery['regions']['nodes']>;
 

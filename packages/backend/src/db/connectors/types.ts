@@ -1,12 +1,12 @@
-import { Page } from '@whitewater-guide/schema';
-import Knex, { Raw } from 'knex';
+import type { Page } from '@whitewater-guide/schema';
+import type { Knex } from 'knex';
 
-import { createConnectors } from './createConnectors';
+import type { createConnectors } from './createConnectors';
 
 export type Connectors = ReturnType<typeof createConnectors>;
 
 export type FieldsMap<TGraphql, TSql> = {
-  [P in keyof TGraphql]?: keyof TSql | Array<keyof TSql> | null | Raw;
+  [P in keyof TGraphql]?: keyof TSql | Array<keyof TSql> | null | Knex.Raw;
 };
 
 export interface BuilderOptions<TGraphql, TSql> {
@@ -27,7 +27,7 @@ export type Where<TSql> =
   | Knex.Raw;
 
 export interface ManyBuilderOptions<TSql> {
-  page?: Page;
+  page?: Page | null;
   orderBy?: OrderBy[];
   where?: Where<TSql>;
 }

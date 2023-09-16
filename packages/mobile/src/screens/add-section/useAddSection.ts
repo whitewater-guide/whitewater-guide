@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { getValidationErrors } from '@whitewater-guide/clients';
-import { FormikHelpers } from 'formik';
+import type { FormikHelpers } from 'formik';
 import { useCallback } from 'react';
 
 import showSnackbarError from '~/components/showSnackbarError';
@@ -9,7 +9,7 @@ import { resetToDescentForm } from '~/screens/add-section/resetToDescentForm';
 
 import { useAddSectionMutation } from './addSection.generated';
 import formToInput from './formToInput';
-import { SectionFormInput } from './types';
+import type { SectionFormInput } from './types';
 
 export default function useAddSection(fromDescentFormKey?: string) {
   const [mutate] = useAddSectionMutation();

@@ -1,4 +1,5 @@
-import { ChartProps, ChartProvider } from '@whitewater-guide/clients';
+import type { ChartProps } from '@whitewater-guide/clients';
+import { ChartProvider } from '@whitewater-guide/clients';
 import React from 'react';
 
 import ChartLayout from './ChartLayout';

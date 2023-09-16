@@ -1,14 +1,13 @@
 import { CookieAccessInfo } from 'cookiejar';
-import { sign } from 'jsonwebtoken';
-import Koa from 'koa';
+import jwt from 'jsonwebtoken';
+import type Koa from 'koa';
 import agent from 'supertest-koa-agent';
 
-import config from '~/config';
-import { holdTransaction, rollbackTransaction } from '~/db';
-import { ADMIN_ID } from '~/seeds/test/01_users';
-import { BLACKLISTED_REFRESH_TOKEN } from '~/seeds/test/16_tokens_blacklist';
-
 import { createApp } from '../../app';
+import config from '../../config';
+import { holdTransaction, rollbackTransaction } from '../../db/index';
+import { ADMIN_ID } from '../../seeds/test/01_users';
+import { BLACKLISTED_REFRESH_TOKEN } from '../../seeds/test/16_tokens_blacklist';
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from '../constants';
 import { getAccessToken } from './tokens';
 
@@ -39,7 +38,10 @@ describe('mobile', () => {
   });
 
   it('should fail if refresh token is corrupt', async () => {
-    const refreshToken = sign({ id: ADMIN_ID, refresh: true }, 'ajsdhflksdhf');
+    const refreshToken = jwt.sign(
+      { id: ADMIN_ID, refresh: true },
+      'ajsdhflksdhf',
+    );
     const resp = await request(refreshToken);
     expect(resp.status).toBe(400);
     expect(resp.body).toEqual({
@@ -62,7 +64,10 @@ describe('mobile', () => {
   });
 
   it('should fail if id is missing', async () => {
-    const refreshToken = sign({ refresh: true }, config.REFRESH_TOKEN_SECRET);
+    const refreshToken = jwt.sign(
+      { refresh: true },
+      config.REFRESH_TOKEN_SECRET,
+    );
 
     const resp = await request(refreshToken);
     expect(resp.status).toBe(400);
@@ -84,7 +89,7 @@ describe('mobile', () => {
   });
 
   it('should send new access token on success', async () => {
-    const refreshToken = sign(
+    const refreshToken = jwt.sign(
       { id: ADMIN_ID, refresh: true },
       config.REFRESH_TOKEN_SECRET,
     );
@@ -103,7 +108,10 @@ describe('mobile', () => {
 describe('web', () => {
   it('should clear cookies if refresh token is corrupt', async () => {
     const testAgent = agent(app);
-    const refreshToken = sign({ id: ADMIN_ID, refresh: true }, 'ajsdhflksdhf');
+    const refreshToken = jwt.sign(
+      { id: ADMIN_ID, refresh: true },
+      'ajsdhflksdhf',
+    );
     testAgent.jar.setCookie(
       `${REFRESH_TOKEN_COOKIE}=${refreshToken}`,
       undefined,
@@ -158,7 +166,10 @@ describe('web', () => {
 
   it('should fail if id is missing', async () => {
     const testAgent = agent(app);
-    const refreshToken = sign({ refresh: true }, config.REFRESH_TOKEN_SECRET);
+    const refreshToken = jwt.sign(
+      { refresh: true },
+      config.REFRESH_TOKEN_SECRET,
+    );
 
     testAgent.jar.setCookie(
       `${REFRESH_TOKEN_COOKIE}=${refreshToken}`,
@@ -213,7 +224,7 @@ describe('web', () => {
 
   it('should send new access token on success', async () => {
     const testAgent = agent(app);
-    const refreshToken = sign(
+    const refreshToken = jwt.sign(
       { id: ADMIN_ID, refresh: true },
       config.REFRESH_TOKEN_SECRET,
     );

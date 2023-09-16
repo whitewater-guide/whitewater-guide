@@ -1,8 +1,8 @@
 import { createContext, useContext, useEffect, useRef, useState } from 'react';
-import { TextInput } from 'react-native';
+import type { TextInput } from 'react-native';
 import useDebounce from 'react-use/lib/useDebounce';
 
-import { SearchContexts } from './types';
+import type { SearchContexts } from './types';
 
 type MaybeSearch = undefined | ((v: string) => void);
 

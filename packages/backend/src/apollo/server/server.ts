@@ -1,51 +1,52 @@
-import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core';
-import { ApolloServer } from 'apollo-server-koa';
-import * as Koa from 'koa';
+import type http from 'node:http';
 
-import config from '~/config';
-import { createConnectors } from '~/db/connectors';
+import { ApolloServer } from '@apollo/server';
+import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
+import { koaMiddleware } from '@as-integrations/koa';
+import type Koa from 'koa';
+import Router from 'koa-router';
 
-import { Context, newContext } from '../context';
+import config from '../../config';
+import { koaContext } from '../context';
 import { formatError } from '../formatError';
 import { logger } from '../logger';
-import { FieldsByTypePlugin } from '../plugins';
-import { getPlaygroundConfig } from './playground';
+import { FieldsByTypePlugin } from '../plugins/index';
 import { schema } from './schema';
 
-export async function createApolloServer(app: Koa) {
-  const playground = await getPlaygroundConfig(schema);
+export async function createApolloServer(
+  app: Koa,
+  httpServer?: http.Server,
+): Promise<void> {
   const server = new ApolloServer({
     schema,
-    context: newContext,
-    dataSources: createConnectors,
     formatError,
-    debug: config.NODE_ENV === 'development',
-    introspection: config.NODE_ENV === 'development',
+    includeStacktraceInErrorResponses: config.NODE_ENV === 'development',
     plugins: [
+      ...(httpServer
+        ? [ApolloServerPluginDrainHttpServer({ httpServer })]
+        : []),
       new FieldsByTypePlugin(schema),
-      ApolloServerPluginLandingPageGraphQLPlayground(playground),
+      //     ApolloServerPluginLandingPageGraphQLPlayground(playground),
     ],
   });
-
   await server.start();
 
-  server.applyMiddleware({
-    app,
-    bodyParserConfig: false,
-    cors: false,
+  const router = new Router();
+  const graphqlMiddleware = koaMiddleware(server as any, {
+    context: koaContext,
   });
+  router.post('/graphql', graphqlMiddleware as any);
+  app.use(router.routes());
 
   logger.info('Initialized apollo-server-koa');
 }
 
-export function createTestServer(context: Omit<Context, 'dataSources'>) {
+export function createTestServer() {
   return new ApolloServer({
     schema,
-    context,
-    dataSources: createConnectors,
     formatError,
-    debug: false,
     introspection: false,
+    includeStacktraceInErrorResponses: true,
     plugins: [new FieldsByTypePlugin(schema)],
   });
 }

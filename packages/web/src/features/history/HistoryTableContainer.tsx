@@ -1,9 +1,9 @@
-import { NamedNode } from '@whitewater-guide/schema';
+import type { NamedNode } from '@whitewater-guide/schema';
 import React, { useState } from 'react';
 
 import HistoryTableInfinite from './HistoryTableInfinite';
 import { useSectionsEditLogQuery } from './sectionsEditLog.generated';
-import { Diff } from './types';
+import type { Diff } from './types';
 
 const EMPTY_HISTORY = { nodes: [], count: 0 };
 

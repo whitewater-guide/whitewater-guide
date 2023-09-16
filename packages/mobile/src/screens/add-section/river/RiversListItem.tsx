@@ -1,4 +1,4 @@
-import { NamedNode } from '@whitewater-guide/schema';
+import type { NamedNode } from '@whitewater-guide/schema';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
@@ -8,7 +8,7 @@ import theme from '~/theme';
 
 import RiversListItemBody from './RiversListItemBody';
 import RiversListRiverItem from './RiversListRiverItem';
-import { RiversListDataItem } from './types';
+import type { RiversListDataItem } from './types';
 
 const styles = StyleSheet.create({
   loading: {

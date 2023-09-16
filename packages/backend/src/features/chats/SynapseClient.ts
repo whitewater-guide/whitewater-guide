@@ -1,25 +1,24 @@
 import axios from 'axios';
 import { createHmac } from 'crypto';
-import waitForExpect from 'wait-for-expect';
+import retry from 'p-retry';
 
-import config from '~/config';
-import logger from '~/log';
-import { randomString } from '~/utils';
+import config from '../../config';
+import logger from '../../log/index';
+import { randomString } from '../../utils/index';
 
 export class SynapseClient {
   private axios = axios.create({ baseURL: config.SYNAPSE_URL });
   private logger = logger.child({ logger: 'chats' });
 
   public async waitForSynapse(): Promise<void> {
-    await waitForExpect(
+    await retry(
       async () => {
         const resp = await this.axios.get('/health');
         if (resp.status !== 200) {
           throw new Error('synapse is unhelathy');
         }
       },
-      30000,
-      1000,
+      { factor: 1, retries: 30 },
     );
   }
 

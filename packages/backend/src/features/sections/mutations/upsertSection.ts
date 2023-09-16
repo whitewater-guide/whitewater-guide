@@ -1,28 +1,30 @@
-import {
-  MediaKind,
+import type {
   MutationUpsertSectionArgs,
   SectionInput,
-  SectionInputSchema,
 } from '@whitewater-guide/schema';
-import { ForbiddenError } from 'apollo-server-koa';
-import uniq from 'lodash/uniq';
-import * as yup from 'yup';
+import { MediaKind, SectionInputSchema } from '@whitewater-guide/schema';
+import { uniq } from 'lodash';
+import type { ObjectSchema } from 'yup';
+import { object } from 'yup';
 
-import {
+import type {
   AuthenticatedMutation,
   Context,
   ContextUser,
+} from '../../../apollo/index';
+import {
+  ForbiddenError,
   isAuthenticatedResolver,
   isInputValidResolver,
   UnknownError,
-} from '~/apollo';
-import { db, rawUpsert, Sql } from '~/db';
-import { OTHERS_REGION_ID } from '~/features/regions';
-import { MEDIA, s3Client } from '~/s3';
-
-import { RawSectionUpsertResult } from '../types';
+} from '../../../apollo/index';
+import type { Sql } from '../../../db/index';
+import { db, rawUpsert } from '../../../db/index';
+import { OTHERS_REGION_ID } from '../../../features/regions/index';
+import { MEDIA, s3Client } from '../../../s3/index';
+import type { RawSectionUpsertResult } from '../types';
 import { checkForNewRiver, insertNewRiver, isNewRiverId } from './upsertUtils';
-import { differ } from './utils';
+import { differ } from './utils/differ';
 
 const transformSection = (section: SectionInput): SectionInput => ({
   ...section,
@@ -124,7 +126,7 @@ const maybeUpdateJobs = async (
   }
 };
 
-const Schema: yup.SchemaOf<MutationUpsertSectionArgs> = yup.object({
+const Schema: ObjectSchema<MutationUpsertSectionArgs> = object({
   section: SectionInputSchema.clone().required(),
 });
 
@@ -146,9 +148,8 @@ const upsertSection: AuthenticatedMutation['upsertSection'] = async (
     section.river.id = await insertNewRiver(section, language);
   }
 
-  const old: Sql.SectionsView | undefined = await dataSources.sections.getById(
-    section.id,
-  );
+  const old: Sql.SectionsView | undefined =
+    (await dataSources.sections.getById(section.id)) ?? undefined;
   const result: RawSectionUpsertResult = await rawUpsert(
     db(),
     'SELECT upsert_section(?, ?)',

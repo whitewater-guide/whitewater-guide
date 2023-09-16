@@ -2,8 +2,9 @@ import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import Paper from '@material-ui/core/Paper';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { PointInput } from '@whitewater-guide/schema';
-import { FieldArray, FieldArrayRenderProps } from 'formik';
+import type { PointInput } from '@whitewater-guide/schema';
+import type { FieldArrayRenderProps } from 'formik';
+import { FieldArray } from 'formik';
 import React, { useCallback } from 'react';
 
 import { POIField } from './POIField';

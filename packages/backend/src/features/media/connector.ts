@@ -1,19 +1,17 @@
-import { Media, MediaInput, MediaKind } from '@whitewater-guide/schema';
-import { UserInputError } from 'apollo-server-koa';
-import { GraphQLResolveInfo } from 'graphql';
-import { QueryBuilder } from 'knex';
+import type { Media, MediaInput } from '@whitewater-guide/schema';
+import { MediaKind } from '@whitewater-guide/schema';
+import type { GraphQLResolveInfo } from 'graphql';
+import type { Knex } from 'knex';
 
-import { db, Sql } from '~/db';
-import {
-  FieldsMap,
-  ManyBuilderOptions,
-  OffsetConnector,
-} from '~/db/connectors';
-import { rawUpsert } from '~/db/rawUpsert';
-import log from '~/log';
-import { MEDIA, s3Client, TEMP } from '~/s3';
-
-import { insertLog, logDiffer } from './utils';
+import type { Context } from '../../apollo/index';
+import { UserInputError } from '../../apollo/index';
+import type { FieldsMap, ManyBuilderOptions } from '../../db/connectors/index';
+import { OffsetConnector } from '../../db/connectors/index';
+import type { Sql } from '../../db/index';
+import { db, rawUpsert } from '../../db/index';
+import log from '../../log/index';
+import { MEDIA, s3Client, TEMP } from '../../s3/index';
+import { insertLog, logDiffer } from './utils/index';
 
 const FIELDS_MAP: FieldsMap<Media, Sql.MediaView> = {
   deleted: null,
@@ -25,8 +23,8 @@ interface GetManyOptions extends ManyBuilderOptions<Sql.MediaView> {
 }
 
 export class MediaConnector extends OffsetConnector<Media, Sql.MediaView> {
-  constructor() {
-    super();
+  constructor(context: Context) {
+    super(context);
     this._tableName = 'media_view';
     this._graphqlTypeName = 'Media';
     this._fieldsMap = FIELDS_MAP;
@@ -38,7 +36,7 @@ export class MediaConnector extends OffsetConnector<Media, Sql.MediaView> {
 
   getMany(info: GraphQLResolveInfo, { sectionId, ...options }: GetManyOptions) {
     const query = super.getMany(info, options);
-    query.whereExists(function (this: QueryBuilder) {
+    query.whereExists(function (this: Knex.QueryBuilder) {
       this.select('*')
         .from('sections_media')
         .where({ section_id: sectionId })

@@ -1,7 +1,5 @@
-import {
-  createStackNavigator,
-  StackNavigationOptions,
-} from '@react-navigation/stack';
+import type { StackNavigationOptions } from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { Platform } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
@@ -17,7 +15,7 @@ import { LazyRegisterScreen } from './register';
 import { LazyResetScreen } from './reset';
 import { LazySignInScreen } from './signin';
 import { LazySocialScreen } from './social';
-import { AuthStackNavProps, AuthStackParamsList } from './types';
+import type { AuthStackNavProps, AuthStackParamsList } from './types';
 import { LazyWelcomeScreen } from './welcome';
 
 const Stack = createStackNavigator<AuthStackParamsList>();

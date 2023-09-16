@@ -1,4 +1,4 @@
-import { FormikHelpers } from 'formik';
+import type { FormikHelpers } from 'formik';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';

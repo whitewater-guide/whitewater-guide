@@ -1,10 +1,10 @@
 import { fromMarkdown } from '@whitewater-guide/md-editor';
-import { NamedNode, Tag } from '@whitewater-guide/schema';
+import type { NamedNode, Tag } from '@whitewater-guide/schema';
 import { flow, groupBy } from 'lodash/fp';
 
 import { toNamedNode } from '../../../formik/utils';
-import { SectionFormQuery } from './sectionForm.generated';
-import { SectionFormData } from './types';
+import type { SectionFormQuery } from './sectionForm.generated';
+import type { SectionFormData } from './types';
 
 const groupTags = (tags: Tag[]) => {
   const grouped = flow(groupBy('category'))(tags);

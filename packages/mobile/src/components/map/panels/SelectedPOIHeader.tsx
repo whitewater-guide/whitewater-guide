@@ -1,4 +1,4 @@
-import { PointCoreFragment } from '@whitewater-guide/schema';
+import type { PointCoreFragment } from '@whitewater-guide/schema';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';

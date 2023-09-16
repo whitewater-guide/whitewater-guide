@@ -1,23 +1,22 @@
 import { POITypes } from '@whitewater-guide/schema';
-import Knex from 'knex';
-import path from 'path';
+import type { Knex } from 'knex';
 
 import {
   addUpdatedAtFunction,
   addUpdatedAtTrigger,
   removeUpdatedAtFunction,
   runSqlFile,
-} from '~/db';
+} from '../db/index';
+import { resolveRelative } from '../utils/index';
+import { createTable } from './utils/index';
 
-import { createTable } from './utils';
-
-export const up = async (db: Knex) => {
+export async function up(db: Knex): Promise<void> {
   await db.schema.raw('CREATE EXTENSION IF NOT EXISTS "postgis"');
   await db.schema.raw('CREATE EXTENSION IF NOT EXISTS "pg_trgm"');
   await db.schema.raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
-  await runSqlFile(db, path.resolve(__dirname, '001/language_code.sql'));
-  await runSqlFile(db, path.resolve(__dirname, '001/tag_category.sql'));
-  await runSqlFile(db, path.resolve(__dirname, '001/media_kind.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '001/language_code.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '001/tag_category.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '001/media_kind.sql'));
   await addUpdatedAtFunction(db);
 
   // USERS
@@ -542,47 +541,53 @@ export const up = async (db: Knex) => {
   });
   await addUpdatedAtTrigger(db, 'purchases');
 
-  await runSqlFile(db, path.resolve(__dirname, '001/array_json_to_int.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '001/array_json_to_int.sql'));
   await runSqlFile(
     db,
-    path.resolve(__dirname, '001/array_json_to_varchar.sql'),
+    resolveRelative(__dirname, '001/array_json_to_varchar.sql'),
   );
-  await runSqlFile(db, path.resolve(__dirname, '001/point_from_json.sql'));
-  await runSqlFile(db, path.resolve(__dirname, '001/polygon_from_json.sql'));
-  await runSqlFile(db, path.resolve(__dirname, '001/linestring_from_json.sql'));
-  await runSqlFile(db, path.resolve(__dirname, '001/points_view.sql'));
-  await runSqlFile(db, path.resolve(__dirname, '001/tags_view.sql'));
-  await runSqlFile(db, path.resolve(__dirname, '001/regions_view.sql'));
-  await runSqlFile(db, path.resolve(__dirname, '001/groups_view.sql'));
-  await runSqlFile(db, path.resolve(__dirname, '001/sections_view.sql'));
-  await runSqlFile(db, path.resolve(__dirname, '001/upsert_points.sql'));
-  await runSqlFile(db, path.resolve(__dirname, '001/upsert_region.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '001/point_from_json.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '001/polygon_from_json.sql'));
   await runSqlFile(
     db,
-    path.resolve(__dirname, '001/regions_points_trigger.sql'),
+    resolveRelative(__dirname, '001/linestring_from_json.sql'),
+  );
+  await runSqlFile(db, resolveRelative(__dirname, '001/points_view.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '001/tags_view.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '001/regions_view.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '001/groups_view.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '001/sections_view.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '001/upsert_points.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '001/upsert_region.sql'));
+  await runSqlFile(
+    db,
+    resolveRelative(__dirname, '001/regions_points_trigger.sql'),
   );
   await runSqlFile(
     db,
-    path.resolve(__dirname, '001/sections_points_trigger.sql'),
+    resolveRelative(__dirname, '001/sections_points_trigger.sql'),
   );
   await runSqlFile(
     db,
-    path.resolve(__dirname, '001/gauges_points_trigger.sql'),
+    resolveRelative(__dirname, '001/gauges_points_trigger.sql'),
   );
-  await runSqlFile(db, path.resolve(__dirname, '001/sources_view.sql'));
-  await runSqlFile(db, path.resolve(__dirname, '001/gauges_view.sql'));
-  await runSqlFile(db, path.resolve(__dirname, '001/rivers_view.sql'));
-  await runSqlFile(db, path.resolve(__dirname, '001/media_view.sql'));
-  await runSqlFile(db, path.resolve(__dirname, '001/upsert_group.sql'));
-  await runSqlFile(db, path.resolve(__dirname, '001/upsert_tag.sql'));
-  await runSqlFile(db, path.resolve(__dirname, '001/upsert_river.sql'));
-  await runSqlFile(db, path.resolve(__dirname, '001/upsert_source.sql'));
-  await runSqlFile(db, path.resolve(__dirname, '001/upsert_gauge.sql'));
-  await runSqlFile(db, path.resolve(__dirname, '001/upsert_section.sql'));
-  await runSqlFile(db, path.resolve(__dirname, '001/upsert_section_media.sql'));
-};
+  await runSqlFile(db, resolveRelative(__dirname, '001/sources_view.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '001/gauges_view.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '001/rivers_view.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '001/media_view.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '001/upsert_group.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '001/upsert_tag.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '001/upsert_river.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '001/upsert_source.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '001/upsert_gauge.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '001/upsert_section.sql'));
+  await runSqlFile(
+    db,
+    resolveRelative(__dirname, '001/upsert_section_media.sql'),
+  );
+}
 
-export const down = async (db: Knex) => {
+export async function down(db: Knex): Promise<void> {
   await db.schema.raw('DROP TABLE IF EXISTS sources_regions CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS logins CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS users CASCADE');
@@ -676,6 +681,4 @@ export const down = async (db: Knex) => {
   await db.schema.raw('DROP TYPE IF EXISTS tag_category CASCADE');
   await db.schema.raw('DROP TYPE IF EXISTS media_kind CASCADE');
   await removeUpdatedAtFunction(db);
-};
-
-export const configuration = { transaction: true };
+}

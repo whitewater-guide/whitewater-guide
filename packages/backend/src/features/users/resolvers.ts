@@ -1,6 +1,6 @@
-import User from './fields';
-import Mutation from './mutations';
-import Query from './queries';
+import User from './fields/index';
+import Mutation from './mutations/index';
+import Query from './queries/index';
 
 export const usersResolvers = {
   User,

@@ -1,12 +1,11 @@
-import { hashSync } from 'bcrypt';
-import Knex from 'knex';
+import { hashSync } from '@node-rs/bcrypt';
+import type { Knex } from 'knex';
 import set from 'lodash/fp/set';
-import { Profile } from 'passport-facebook';
-import { Overwrite } from 'utility-types';
-
-import { Sql } from '~/db';
+import type { Profile } from 'passport-facebook';
+import type { Overwrite } from 'utility-types';
 
 import { SALT_ROUNDS } from '../../auth/constants';
+import type { Sql } from '../../db/index';
 
 export const ADMIN_ID = 'bed59990-749d-11e7-8cf7-a6006ad3dba0';
 export const EDITOR_GA_EC_ID = '477a0bec-8a78-11e7-b3e6-9beeff45d731';

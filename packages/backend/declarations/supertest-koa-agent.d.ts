@@ -1,6 +1,6 @@
 declare module 'supertest-koa-agent' {
-  import Koa from 'koa';
-  import { SuperTest, Test } from 'supertest';
+  import type Koa from 'koa';
+  import type { SuperTest, Test } from 'supertest';
 
   type Agent = (app: Koa) => SuperTest<Test>;
 

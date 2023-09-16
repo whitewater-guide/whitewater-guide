@@ -1,4 +1,4 @@
-import { ListedMedia } from '../types';
+import type { ListedMedia } from '../types';
 
 export interface ThumbProps {
   index: number;

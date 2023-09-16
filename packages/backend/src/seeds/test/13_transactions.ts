@@ -1,8 +1,7 @@
 import { PurchasePlatform } from '@whitewater-guide/schema';
-import Knex from 'knex';
+import type { Knex } from 'knex';
 
-import { Sql } from '~/db';
-
+import type { Sql } from '../../db/index';
 import { BOOM_USER_1500_ID, BOOM_USER_3500_ID, TEST_USER_ID } from './01_users';
 import {
   BOOM_PROMO_ALL_REGIONS_REDEEMED,

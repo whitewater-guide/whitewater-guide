@@ -1,19 +1,14 @@
 import { formatDate, sectionName } from '@whitewater-guide/clients';
-import { SuggestionStatus } from '@whitewater-guide/schema';
+import type { SuggestionStatus } from '@whitewater-guide/schema';
 import parseISO from 'date-fns/parseISO';
 import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { TableProps } from 'react-virtualized';
+import type { TableProps } from 'react-virtualized';
 
-import {
-  AdminColumn,
-  Column,
-  isEmptyRow,
-  Table,
-  TableCellRenderer,
-} from '../../../components';
+import type { TableCellRenderer } from '../../../components';
+import { AdminColumn, Column, isEmptyRow, Table } from '../../../components';
 import { StatusFilter } from '../components';
-import { ListedSuggestionFragment } from './listSuggestions.generated';
+import type { ListedSuggestionFragment } from './listSuggestions.generated';
 import SuggestionItem from './SuggestionItem';
 import SuggestionStatusView from './SuggestionStatusView';
 

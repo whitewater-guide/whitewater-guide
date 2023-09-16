@@ -1,9 +1,12 @@
-import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs';
-import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
+import type { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs';
+import type {
+  CompositeNavigationProp,
+  RouteProp,
+} from '@react-navigation/native';
 
-import { Screens } from '~/core/navigation';
+import type { Screens } from '~/core/navigation';
 
-import { RegionTabsNavProp, RegionTabsParamsList } from '../types';
+import type { RegionTabsNavProp, RegionTabsParamsList } from '../types';
 
 export type RegionSectionsNavProp = CompositeNavigationProp<
   MaterialBottomTabNavigationProp<

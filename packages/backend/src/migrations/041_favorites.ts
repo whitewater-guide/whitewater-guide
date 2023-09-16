@@ -1,13 +1,13 @@
-import Knex from 'knex';
+import type { Knex } from 'knex';
 
-import { createTable } from './utils';
+import { createTable } from './utils/index';
 
 /**
  * This migration adds tables for favorite regions and sections
  * @param {Knex} db
  * @returns {Promise<void>}
  */
-export const up = async (db: Knex) => {
+export async function up(db: Knex): Promise<void> {
   await createTable(db, 'fav_regions', (table) => {
     table
       .uuid('user_id')
@@ -38,11 +38,9 @@ export const up = async (db: Knex) => {
       .onDelete('CASCADE');
     table.primary(['user_id', 'section_id']);
   });
-};
+}
 
-export const down = async (db: Knex) => {
+export async function down(db: Knex): Promise<void> {
   await db.schema.dropTable('fav_regions');
   await db.schema.dropTable('fav_sections');
-};
-
-export const configuration = { transaction: true };
+}

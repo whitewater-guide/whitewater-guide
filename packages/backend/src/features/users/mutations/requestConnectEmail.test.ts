@@ -1,9 +1,8 @@
-import { anonContext, fakeContext } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { db, holdTransaction, rollbackTransaction } from '~/db';
-import { MailType, sendMail } from '~/mail';
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
+import { MailType, sendMail } from '../../../mail/index';
 import {
   ADMIN,
   EDITOR_GE,
@@ -11,11 +10,11 @@ import {
   TEST_USER,
   TEST_USER2,
   UNVERIFIED_USER,
-} from '~/seeds/test/01_users';
-
+} from '../../../seeds/test/01_users';
+import { anonContext, fakeContext } from '../../../test/index';
 import { testRequestConnectEmail } from './requestConnectEmail.test.generated';
 
-jest.mock('~/mail');
+jest.mock('../../../mail');
 
 beforeEach(async () => {
   jest.resetAllMocks();

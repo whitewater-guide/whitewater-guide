@@ -1,5 +1,5 @@
 import { isLicenseWithLogo, ROOT_LICENSE } from '@whitewater-guide/clients';
-import { License } from '@whitewater-guide/schema';
+import type { License } from '@whitewater-guide/schema';
 import React from 'react';
 import {
   LayoutAnimation,
@@ -14,7 +14,7 @@ import useBoolean from 'react-use/lib/useBoolean';
 import theme from '../../theme';
 import Icon from '../Icon';
 import LicenseLogo from '../LicenseLogo';
-import { PhotoGalleryItem } from './types';
+import type { PhotoGalleryItem } from './types';
 
 const styles = StyleSheet.create({
   footerDescription: {

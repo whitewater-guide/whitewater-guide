@@ -6,7 +6,7 @@ import { useMemo, useRef } from 'react';
 
 import { formatDate } from '../../../i18n';
 import { getDefaultTimeAxisSettings } from './defaults';
-import { ChartMetaSettings, ChartViewProps, XMeta } from './types';
+import type { ChartMetaSettings, ChartViewProps, XMeta } from './types';
 
 function useXMeta(
   xDomain: [Date, Date],

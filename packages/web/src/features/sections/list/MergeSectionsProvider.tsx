@@ -1,6 +1,7 @@
-import { ListedSectionFragment } from '@whitewater-guide/clients';
+import type { ListedSectionFragment } from '@whitewater-guide/clients';
 import noop from 'lodash/noop';
-import React, { FC, PropsWithChildren, useContext, useState } from 'react';
+import type { FC, PropsWithChildren } from 'react';
+import React, { useContext, useState } from 'react';
 
 type MergeSectionsContext = [
   ListedSectionFragment | null,

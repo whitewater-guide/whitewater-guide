@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { OfflineCategorySelection } from '../types';
+import type { OfflineCategorySelection } from '../types';
 import BackgroundButton from './BackgroundButton';
 import CancelButton from './CancelButton';
 import DownloadButton from './DownloadButton';

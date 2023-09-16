@@ -1,4 +1,5 @@
-import { HostComponent, requireNativeComponent, ViewProps } from 'react-native';
+import type { HostComponent, ViewProps } from 'react-native';
+import { requireNativeComponent } from 'react-native';
 
 export interface RNSectionItemProps {
   difficulty: string;

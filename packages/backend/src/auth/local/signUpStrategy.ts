@@ -1,23 +1,21 @@
-import { LANGUAGES } from '@whitewater-guide/schema';
-import { hash } from 'bcrypt';
-import Negotiator from 'negotiator';
-import { preferredLanguages } from 'negotiator/lib/language';
+import { hash } from '@node-rs/bcrypt';
 import { Strategy } from 'passport-local';
-import { Overwrite } from 'utility-types';
-import isEmail from 'validator/lib/isEmail';
+import type { Overwrite } from 'utility-types';
 
-import { db, Sql } from '~/db';
-import { MailType, sendMail } from '~/mail';
-
+import type { Sql } from '../../db/index';
+import { db } from '../../db/index';
+import { MailType, sendMail } from '../../mail/index';
+import { isEmail } from '../../utils/index';
 import { SALT_ROUNDS } from '../constants';
+import { negotiateLanguage } from '../utils/index';
 import logger from './logger';
-import { isPasswordWeak, randomToken } from './utils';
+import { isPasswordWeak, randomToken } from './utils/index';
 
 export const localSignUpStrategy = new Strategy(
   { usernameField: 'email', session: false, passReqToCallback: true },
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   async (req, username, password, done) => {
-    const { imperial, language, name } = req.body;
+    const { imperial, name } = req.body;
     const email = username.toLowerCase();
     if (!email || !password) {
       return done(null, false, {
@@ -36,17 +34,9 @@ export const localSignUpStrategy = new Strategy(
         payload: { email },
       });
     }
-    const negotiator = new Negotiator(req);
+    const language = negotiateLanguage(req);
     const hashedPassword = await hash(password, SALT_ROUNDS);
     const verificationToken = await randomToken();
-    const explicitLangs = language
-      ? preferredLanguages(`${language.replace('_', '-')};q=1.0`, LANGUAGES)
-      : [];
-    const bestLanguage = [
-      ...explicitLangs,
-      ...negotiator.languages(LANGUAGES),
-      'en',
-    ][0];
     const userInput: Overwrite<Partial<Sql.Users>, { tokens: string }> = {
       email,
       password: hashedPassword,
@@ -58,7 +48,7 @@ export const localSignUpStrategy = new Strategy(
         },
       ]),
       name,
-      language: bestLanguage as Sql.Lang,
+      language: language as Sql.Lang,
       imperial,
     };
     let user: Sql.Users;

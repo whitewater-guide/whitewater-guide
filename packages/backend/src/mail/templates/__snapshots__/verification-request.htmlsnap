@@ -60,7 +60,7 @@ exports[`should match snapshot for "verification-request" 1`] = `
 .moz-text-html .mj-column-per-20 { width:20% !important; max-width: 20%; }
     </style>
     <style type="text/css">
-      @media only screen and (max-width:480px) {
+      @media only screen and (max-width:479px) {
       table.mj-full-width-mobile { width: 100% !important; }
       td.mj-full-width-mobile { width: auto !important; }
     }
@@ -111,10 +111,10 @@ exports[`should match snapshot for "verification-request" 1`] = `
                                      target="_blank"
                                   >
                                     <img alt="whitewater.guide"
-                                         height="auto"
                                          src="https://content.whitewater.guide/static/mail/logo_5.png"
                                          style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;"
                                          width="250"
+                                         height="auto"
                                     >
                                   </a>
                                 </td>
@@ -313,10 +313,10 @@ exports[`should match snapshot for "verification-request" 1`] = `
                                                  target="_blank"
                                               >
                                                 <img alt="Facebook"
-                                                     height="auto"
                                                      src="https://img.icons8.com/material/24/555555/facebook.png"
                                                      style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;"
                                                      width="24"
+                                                     height="auto"
                                                 >
                                               </a>
                                             </td>
@@ -357,10 +357,10 @@ exports[`should match snapshot for "verification-request" 1`] = `
                                                  target="_blank"
                                               >
                                                 <img alt="Instgram"
-                                                     height="auto"
                                                      src="https://img.icons8.com/material/24/555555/instagram-new.png"
                                                      style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;"
                                                      width="24"
+                                                     height="auto"
                                                 >
                                               </a>
                                             </td>
@@ -401,10 +401,10 @@ exports[`should match snapshot for "verification-request" 1`] = `
                                                  target="_blank"
                                               >
                                                 <img alt="e-mail"
-                                                     height="auto"
                                                      src="https://img.icons8.com/material/24/555555/important-mail.png"
                                                      style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;"
                                                      width="24"
+                                                     height="auto"
                                                 >
                                               </a>
                                             </td>
@@ -445,10 +445,10 @@ exports[`should match snapshot for "verification-request" 1`] = `
                                                  target="_blank"
                                               >
                                                 <img alt="iOS app"
-                                                     height="auto"
                                                      src="https://img.icons8.com/material/24/555555/mac-os.png"
                                                      style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;"
                                                      width="24"
+                                                     height="auto"
                                                 >
                                               </a>
                                             </td>
@@ -489,10 +489,10 @@ exports[`should match snapshot for "verification-request" 1`] = `
                                                  target="_blank"
                                               >
                                                 <img alt="Android app"
-                                                     height="auto"
                                                      src="https://img.icons8.com/material/24/555555/android-os.png"
                                                      style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;"
                                                      width="24"
+                                                     height="auto"
                                                 >
                                               </a>
                                             </td>

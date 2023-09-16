@@ -1,5 +1,6 @@
-import { MutationNotAllowedError, MutationResolvers } from '~/apollo';
-import { db } from '~/db';
+import type { MutationResolvers } from '../../../apollo/index';
+import { MutationNotAllowedError } from '../../../apollo/index';
+import { db } from '../../../db/index';
 
 const removeRiver: MutationResolvers['removeRiver'] = async (
   _,
@@ -16,7 +17,7 @@ const removeRiver: MutationResolvers['removeRiver'] = async (
     throw new MutationNotAllowedError('Delete all sections first!');
   }
   const result = await db().table('rivers').del().where({ id }).returning('id');
-  return result?.length ? result[0] : null;
+  return result?.[0].id ?? null;
 };
 
 export default removeRiver;

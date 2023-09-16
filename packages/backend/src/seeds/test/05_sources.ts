@@ -1,4 +1,4 @@
-import Knex from 'knex';
+import type { Knex } from 'knex';
 
 import { REGION_GALICIA, REGION_GEORGIA, REGION_NORWAY } from './04_regions';
 

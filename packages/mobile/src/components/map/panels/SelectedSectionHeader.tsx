@@ -1,4 +1,5 @@
-import { ListedSectionFragment, useRegion } from '@whitewater-guide/clients';
+import type { ListedSectionFragment } from '@whitewater-guide/clients';
+import { useRegion } from '@whitewater-guide/clients';
 import get from 'lodash/get';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';

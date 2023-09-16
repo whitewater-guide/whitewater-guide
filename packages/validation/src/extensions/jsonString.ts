@@ -1,10 +1,7 @@
 import isJSON from 'validator/lib/isJSON';
-import * as yup from 'yup';
+import type { StringSchema } from 'yup';
 
-export default function jsonString(
-  this: yup.StringSchema<any, any, any>,
-  errorMessage?: string,
-) {
+export default function jsonString(this: StringSchema, errorMessage?: string) {
   return this.test({
     name: 'is-json-string',
     exclusive: true,

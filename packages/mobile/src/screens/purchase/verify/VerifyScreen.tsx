@@ -8,7 +8,7 @@ import { Screen } from '~/components/Screen';
 import Spacer from '~/components/Spacer';
 import theme from '~/theme';
 
-import { PurchaseVerifyNavProps } from './types';
+import type { PurchaseVerifyNavProps } from './types';
 
 const styles = StyleSheet.create({
   container: {

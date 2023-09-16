@@ -1,4 +1,4 @@
-import { Region } from '@whitewater-guide/schema';
+import type { Region } from '@whitewater-guide/schema';
 import React, { memo } from 'react';
 import {
   ActivityIndicator,

@@ -1,18 +1,15 @@
 import { yupSchemas } from '@whitewater-guide/validation';
-import * as yup from 'yup';
+import type { ObjectSchema } from 'yup';
+import { array, object, string } from 'yup';
 
-import { RiverInput } from '../__generated__/types';
+import type { RiverInput } from '../__generated__/types';
 
-export const RiverInputSchema: yup.SchemaOf<RiverInput> = yup
-  .object({
-    id: yup.string().uuid().nullable(),
-    name: yup.string().nonEmpty(),
-    region: yupSchemas.refInput().defined(),
-    importId: yup.string().nullable(),
-    altNames: yup
-      .array()
-      .of(yup.string().required() as yup.StringSchema<string>)
-      .nullable(),
-  })
+export const RiverInputSchema: ObjectSchema<RiverInput> = object({
+  id: string().uuid().nullable(),
+  name: string().nonEmpty(),
+  region: yupSchemas.refInput().required(),
+  importId: string().nullable(),
+  altNames: array().of(string().required()).nullable(),
+})
   .strict(true)
   .noUnknown();

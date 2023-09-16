@@ -1,5 +1,6 @@
-import { RegionDetailsFragment } from '@whitewater-guide/clients';
-import React, { FC, PropsWithChildren, useContext } from 'react';
+import type { RegionDetailsFragment } from '@whitewater-guide/clients';
+import type { FC, PropsWithChildren } from 'react';
+import React, { useContext } from 'react';
 
 const AddSectionRegionContext = React.createContext<
   RegionDetailsFragment | null | undefined

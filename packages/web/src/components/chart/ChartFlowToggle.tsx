@@ -3,7 +3,8 @@ import Switch from '@material-ui/core/Switch';
 import { useChart } from '@whitewater-guide/clients';
 import { Unit } from '@whitewater-guide/schema';
 import capitalize from 'lodash/capitalize';
-import React, { ChangeEvent, useCallback } from 'react';
+import type { ChangeEvent } from 'react';
+import React, { useCallback } from 'react';
 
 const styles = {
   container: {

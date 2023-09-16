@@ -1,12 +1,7 @@
 import { useField } from 'formik';
 import React, { forwardRef, useCallback, useState } from 'react';
-import {
-  StyleProp,
-  StyleSheet,
-  TextStyle,
-  View,
-  ViewStyle,
-} from 'react-native';
+import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
 
 import HelperText from './HelperText';

@@ -1,25 +1,27 @@
-import {
+import type {
   MutationAddPurchaseArgs,
   PurchaseInput,
+} from '@whitewater-guide/schema';
+import {
   PurchaseInputSchema,
   PurchasePlatform,
 } from '@whitewater-guide/schema';
-import { AuthenticationError } from 'apollo-server-koa';
 import { isValidated, validate } from 'in-app-purchase';
-import { Transaction } from 'knex';
-import * as yup from 'yup';
+import type { Knex } from 'knex';
+import type { ObjectSchema } from 'yup';
+import { object } from 'yup';
 
+import type { ContextUser, MutationResolvers } from '../../../apollo/index';
 import {
-  ContextUser,
+  AuthenticationError,
   isInputValidResolver,
   MutationNotAllowedError,
-  MutationResolvers,
-} from '~/apollo';
-import { db, Sql } from '~/db';
-
+} from '../../../apollo/index';
+import type { Sql } from '../../../db/index';
+import { db } from '../../../db/index';
 import logger from '../logger';
 
-const Schema: yup.SchemaOf<MutationAddPurchaseArgs> = yup.object({
+const Schema: ObjectSchema<MutationAddPurchaseArgs> = object({
   purchase: PurchaseInputSchema.clone().required(),
 });
 
@@ -40,7 +42,7 @@ const processBoomstarterPurchase = async (
   if (promo.redeemed) {
     throw new MutationNotAllowedError('Promo code already redeemed');
   }
-  await db().transaction(async (trx: Transaction) => {
+  await db().transaction(async (trx: Knex.Transaction) => {
     const transaction: Partial<Sql.Transactions> = {
       user_id: user.id,
       platform: PurchasePlatform.boomstarter,

@@ -1,10 +1,11 @@
-import {
+import type {
   ChartDataPoint,
   ExtendedTooltipProps,
-  formatChartHoverLabel,
 } from '@whitewater-guide/clients';
-import React, { CSSProperties, FC } from 'react';
-import { VictoryTooltipProps } from 'victory';
+import { formatChartHoverLabel } from '@whitewater-guide/clients';
+import type { CSSProperties, FC } from 'react';
+import React from 'react';
+import type { VictoryTooltipProps } from 'victory';
 
 const TEXT_STYLE: CSSProperties = {
   fill: '#111',

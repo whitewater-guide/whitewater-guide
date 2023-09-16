@@ -1,4 +1,4 @@
-import { GroupInput } from '@whitewater-guide/schema';
+import type { GroupInput } from '@whitewater-guide/schema';
 import { useCallback } from 'react';
 
 import { useUpsertGroupMutation } from './upsertGroup.generated';

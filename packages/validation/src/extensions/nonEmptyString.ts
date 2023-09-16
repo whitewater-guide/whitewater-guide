@@ -1,7 +1,7 @@
-import * as yup from 'yup';
+import type { StringSchema } from 'yup';
 
 export default function nonEmptyString(
-  this: yup.StringSchema<any, any, any>,
+  this: StringSchema,
   errorMessage?: string,
 ) {
   return this.test({

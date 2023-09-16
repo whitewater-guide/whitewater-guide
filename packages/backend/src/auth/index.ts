@@ -1,4 +1,4 @@
 export * from './applyAuthMiddleware';
 export * from './constants';
-export { getAccessToken } from './jwt';
-export * from './local/utils';
+export { getAccessToken } from './jwt/index';
+export * from './local/utils/index';

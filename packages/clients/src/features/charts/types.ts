@@ -1,5 +1,5 @@
-import { ApolloError } from '@apollo/client';
-import {
+import type { ApolloError } from '@apollo/client';
+import type {
   GaugeForChartFragment,
   Measurement,
   MeasurementsFilter,
@@ -7,7 +7,7 @@ import {
   SectionFlowsFragment,
   Unit,
 } from '@whitewater-guide/schema';
-import { Overwrite } from 'utility-types';
+import type { Overwrite } from 'utility-types';
 
 export interface ChartProps {
   gauge: GaugeForChartFragment;

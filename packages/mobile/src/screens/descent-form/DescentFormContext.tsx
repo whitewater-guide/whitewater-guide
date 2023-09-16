@@ -4,13 +4,15 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import { useFormikContext } from 'formik';
+import type { FC, PropsWithChildren } from 'react';
 import React, { useCallback, useContext, useMemo, useRef } from 'react';
 
 import Loading from '~/components/Loading';
-import { Screen, ScreenProps } from '~/components/Screen';
-import { RootStackParamsList, Screens } from '~/core/navigation';
+import type { ScreenProps } from '~/components/Screen';
+import { Screen } from '~/components/Screen';
+import type { RootStackParamsList, Screens } from '~/core/navigation';
 
-import {
+import type {
   DescentFormData,
   DescentFormNavProp,
   DescentFormNavProps,
@@ -40,10 +42,9 @@ const DescentFormCtx = React.createContext<DescentFormContext>({
  *   - On mount, query for descent or use rehydrated form state and set formik form value (see useInitialDescent)
  *   - On screen focus lost, copy formik value to nav state (see useNavHydrateFormik)
  */
-export const DescentFormProvider: React.FC<DescentFormNavProps> = ({
-  route: { key: formScreenKey, params },
-  children,
-}) => {
+export const DescentFormProvider: FC<
+  PropsWithChildren<DescentFormNavProps>
+> = ({ route: { key: formScreenKey, params }, children }) => {
   const loading = useInitialDescent(params);
   const value = useMemo<DescentFormContext>(
     () => ({ formScreenKey, loading }),
@@ -76,7 +77,7 @@ function useNavHydrateFormik(formScreenKey: string) {
   useFocusEffect(onFocusLost);
 }
 
-export const DescentFormScreen: React.FC<ScreenProps> = ({
+export const DescentFormScreen: FC<PropsWithChildren<ScreenProps>> = ({
   children,
   ...props
 }) => {

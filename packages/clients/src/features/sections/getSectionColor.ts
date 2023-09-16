@@ -1,12 +1,12 @@
 /* eslint-disable no-bitwise */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { GaugeBinding } from '@whitewater-guide/schema';
+import type { GaugeBinding } from '@whitewater-guide/schema';
 import color from 'color';
 import isFunction from 'lodash/isFunction';
 import mapValues from 'lodash/mapValues';
 
 import { getBindingFormula } from './formulas';
-import { ColorizeableSectionFragment } from './sectionOnMap.generated';
+import type { ColorizeableSectionFragment } from './sectionOnMap.generated';
 
 interface DryBinding extends GaugeBinding {
   dry: number;

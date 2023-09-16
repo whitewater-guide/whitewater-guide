@@ -1,12 +1,17 @@
-import { ForbiddenError, UserInputError } from 'apollo-server-koa';
-import { compare, hash } from 'bcrypt';
-import isEmail from 'validator/lib/isEmail';
+import { compare, hash } from '@node-rs/bcrypt';
 
-import { AuthenticatedMutation, isAuthenticatedResolver } from '~/apollo';
-import { isPasswordWeak, SALT_ROUNDS } from '~/auth';
-import { db, Sql } from '~/db';
-import log from '~/log';
-import { MailType, sendMail } from '~/mail';
+import type { AuthenticatedMutation } from '../../../apollo/index';
+import {
+  ForbiddenError,
+  isAuthenticatedResolver,
+  UserInputError,
+} from '../../../apollo/index';
+import { isPasswordWeak, SALT_ROUNDS } from '../../../auth/index';
+import type { Sql } from '../../../db/index';
+import { db } from '../../../db/index';
+import log from '../../../log/index';
+import { MailType, sendMail } from '../../../mail/index';
+import { isEmail } from '../../../utils/index';
 
 const connectEmail: AuthenticatedMutation['connectEmail'] = async (
   _,

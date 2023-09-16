@@ -5,8 +5,8 @@ import { Screens } from '~/core/navigation';
 import { useOfflineContent } from '~/features/offline';
 import { useIap, usePremiumCallback } from '~/features/purchases';
 
-import { RegionsListNavProp } from '../types';
-import { ListedRegion } from '../useFavRegions';
+import type { RegionsListNavProp } from '../types';
+import type { ListedRegion } from '../useFavRegions';
 
 export default function useCommonCardProps(region: ListedRegion) {
   const { navigate } = useNavigation<RegionsListNavProp>();

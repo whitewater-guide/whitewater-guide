@@ -1,14 +1,15 @@
 import { fromError } from '@apollo/client';
-import {
-  ApolloLink,
+import type {
   FetchResult,
   NextLink,
   Operation,
 } from '@apollo/client/link/core';
+import { ApolloLink } from '@apollo/client/link/core';
 import { Observable } from 'zen-observable-ts';
 
 import { JWT_EXPIRED_CTX_KEY } from '../../apollo/errors';
-import { AuthService, createApolloServerError } from '../../auth';
+import type { AuthService } from '../../auth';
+import { createApolloServerError } from '../../auth';
 
 export class RefreshJwtLink extends ApolloLink {
   private _auth: AuthService;

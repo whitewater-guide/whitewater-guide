@@ -1,9 +1,11 @@
 import Box from '@material-ui/core/Box';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { MapProps, MapSelectionProvider } from '@whitewater-guide/clients';
+import type { MapProps } from '@whitewater-guide/clients';
+import { MapSelectionProvider } from '@whitewater-guide/clients';
 import React from 'react';
 
-import GoogleMap, { GoogleMapControlProps } from './GoogleMap';
+import type { GoogleMapControlProps } from './GoogleMap';
+import GoogleMap from './GoogleMap';
 import MapLoader from './MapLoader';
 import POIMarker from './POIMarker';
 import SectionLine from './SectionLine';

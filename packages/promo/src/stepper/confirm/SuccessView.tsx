@@ -1,10 +1,10 @@
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { BoomPromoInfo } from '@whitewater-guide/schema';
+import type { BoomPromoInfo } from '@whitewater-guide/schema';
 import React, { useCallback, useMemo } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 
-import { PromoRegionFragment } from '../promoRegion.generated';
+import type { PromoRegionFragment } from '../promoRegion.generated';
 import Footer from './Footer';
 
 export interface SuccessViewProps {

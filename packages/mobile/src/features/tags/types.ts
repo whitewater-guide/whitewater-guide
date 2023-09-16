@@ -1,4 +1,4 @@
-import { Tag } from '@whitewater-guide/schema';
+import type { Tag } from '@whitewater-guide/schema';
 
 export enum TagSelection {
   SELECTED = 'selected',

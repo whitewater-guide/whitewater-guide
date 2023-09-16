@@ -6,7 +6,7 @@ import Downshift from 'downshift';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { PromoRegionFragment } from '../promoRegion.generated';
+import type { PromoRegionFragment } from '../promoRegion.generated';
 import filterRegions from './filterRegions';
 import RegionItem from './RegionItem';
 

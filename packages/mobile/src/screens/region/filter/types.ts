@@ -1,10 +1,10 @@
-import { CompositeNavigationProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { SectionFilterOptions } from '@whitewater-guide/clients';
+import type { CompositeNavigationProp } from '@react-navigation/native';
+import type { StackNavigationProp } from '@react-navigation/stack';
+import type { SectionFilterOptions } from '@whitewater-guide/clients';
 
-import { Screens } from '~/core/navigation';
-import { SelectableTag } from '~/features/tags';
-import {
+import type { Screens } from '~/core/navigation';
+import type { SelectableTag } from '~/features/tags';
+import type {
   RegionScreenNavProp,
   RegionStackParamsList,
 } from '~/screens/region/types';

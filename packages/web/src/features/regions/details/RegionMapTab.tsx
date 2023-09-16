@@ -1,16 +1,14 @@
-import {
+import type {
   ListedSectionFragment,
   RegionDetailsFragment,
 } from '@whitewater-guide/clients';
-import { Point } from '@whitewater-guide/schema';
+import type { Point } from '@whitewater-guide/schema';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import { Map } from '../../../components/maps';
 import GaugesMapSwitch from './GaugesMapSwitch';
-import {
-  RegionGaugeFragment,
-  useRegionGaugesLazyQuery,
-} from './regionGauges.generated';
+import type { RegionGaugeFragment } from './regionGauges.generated';
+import { useRegionGaugesLazyQuery } from './regionGauges.generated';
 
 interface Props {
   region: RegionDetailsFragment;

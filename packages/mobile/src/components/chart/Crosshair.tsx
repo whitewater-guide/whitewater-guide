@@ -1,11 +1,12 @@
-import {
+import type {
   ChartDataPoint,
   ExtendedTooltipProps,
-  formatChartHoverLabel,
 } from '@whitewater-guide/clients';
-import React, { FC } from 'react';
+import { formatChartHoverLabel } from '@whitewater-guide/clients';
+import type { FC } from 'react';
+import React from 'react';
 import { G, Line, Text } from 'react-native-svg';
-import { VictoryTooltipProps } from 'victory';
+import type { VictoryTooltipProps } from 'victory';
 
 export const Crosshair: FC<VictoryTooltipProps & ExtendedTooltipProps> = (
   props,

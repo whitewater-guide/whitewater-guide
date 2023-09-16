@@ -1,7 +1,7 @@
-import sortBy from 'lodash/sortBy';
+import { sortBy } from 'lodash';
 
-import { RegionResolvers, timestampedResolvers } from '~/apollo';
-
+import type { RegionResolvers } from '../../../apollo/index';
+import { timestampedResolvers } from '../../../apollo/index';
 import banners from './banners';
 import bounds from './bounds';
 import editable from './editable';

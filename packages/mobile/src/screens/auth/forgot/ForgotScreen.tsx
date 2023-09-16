@@ -7,7 +7,7 @@ import theme from '~/theme';
 
 import { AuthScreenBase } from '../AuthScreenBase';
 import { ForgotForm } from './ForgotForm';
-import { AuthForgotNavProps } from './types';
+import type { AuthForgotNavProps } from './types';
 
 const styles = StyleSheet.create({
   container: {

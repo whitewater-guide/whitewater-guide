@@ -1,10 +1,10 @@
-import { GraphQLResolveInfo } from 'graphql';
+import type { GraphQLResolveInfo } from 'graphql';
 import gqf from 'graphql-fields';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
-
+import { Context } from '../../apollo/index';
+import { holdTransaction, rollbackTransaction } from '../../db/index';
 import { OffsetConnector } from './OffsetConnector';
-import { FieldsMap } from './types';
+import type { FieldsMap } from './types';
 
 const mockInfo: GraphQLResolveInfo = {} as any;
 
@@ -16,9 +16,10 @@ afterAll(rollbackTransaction);
 
 class TestConnector extends OffsetConnector<any, any> {
   constructor() {
-    super();
+    super(new Context());
     this._tableName = 'test_table';
     this._graphqlTypeName = 'TestType';
+    this._language = undefined;
   }
 
   public fieldsByType(fields: string[]): this {
@@ -107,7 +108,7 @@ describe('offset connection', () => {
     it('should build correct query', () => {
       const query = new TestConnector().getMany(mockInfo).toString();
       expect(query).toMatchInlineSnapshot(
-        `"select count(*) from \\"test_table\\""`,
+        `"select count(*) from "test_table""`,
       );
     });
 
@@ -144,7 +145,7 @@ describe('offset connection', () => {
         .getMany(mockInfo, { where: { age: 10 } })
         .toString();
       expect(query).toMatchInlineSnapshot(
-        `"select \\"id\\", \\"first_name\\", \\"last_name\\", count(*) OVER() from \\"test_table\\" where \\"age\\" = 10 order by \\"name\\" asc, \\"created_at\\" desc, \\"id\\" asc"`,
+        `"select "id", "first_name", "last_name", count(*) OVER() from "test_table" where "age" = 10 order by "name" asc, "created_at" desc, "id" asc"`,
       );
     });
   });
@@ -163,7 +164,7 @@ describe('offset connection', () => {
         .getMany(mockInfo, { where: { age: 10 } })
         .toString();
       expect(query).toMatchInlineSnapshot(
-        `"select \\"id\\", \\"first_name\\", \\"last_name\\" from \\"test_table\\" where \\"age\\" = 10 order by \\"name\\" asc, \\"created_at\\" desc, \\"id\\" asc"`,
+        `"select "id", "first_name", "last_name" from "test_table" where "age" = 10 order by "name" asc, "created_at" desc, "id" asc"`,
       );
     });
   });

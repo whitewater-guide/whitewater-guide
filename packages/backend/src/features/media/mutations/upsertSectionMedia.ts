@@ -1,13 +1,13 @@
-import {
-  MediaInputSchema,
-  MutationUpsertSectionMediaArgs,
-} from '@whitewater-guide/schema';
-import * as yup from 'yup';
+import type { MutationUpsertSectionMediaArgs } from '@whitewater-guide/schema';
+import { MediaInputSchema } from '@whitewater-guide/schema';
+import type { ObjectSchema } from 'yup';
+import { object, string } from 'yup';
 
-import { isInputValidResolver, MutationResolvers } from '~/apollo';
+import type { MutationResolvers } from '../../../apollo/index';
+import { isInputValidResolver } from '../../../apollo/index';
 
-const Schema: yup.SchemaOf<MutationUpsertSectionMediaArgs> = yup.object({
-  sectionId: yup.string().uuid().required(),
+const Schema: ObjectSchema<MutationUpsertSectionMediaArgs> = object({
+  sectionId: string().uuid().required(),
   media: MediaInputSchema.clone().required(),
 });
 

@@ -1,10 +1,6 @@
-import { TokenStorage } from '@whitewater-guide/clients';
-import {
-  deleteItem,
-  getItem,
-  RNSensitiveInfoOptions,
-  setItem,
-} from 'react-native-sensitive-info';
+import type { TokenStorage } from '@whitewater-guide/clients';
+import type { RNSensitiveInfoOptions } from 'react-native-sensitive-info';
+import { deleteItem, getItem, setItem } from 'react-native-sensitive-info';
 import Config from 'react-native-ultimate-config';
 
 const KEYCHAIN_SERVICE = `wwguide_${Config.ENV_NAME}`;

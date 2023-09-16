@@ -1,21 +1,23 @@
-import { anonContext, countRows, fakeContext, noUnstable } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { db, holdTransaction, rollbackTransaction } from '~/db';
-import { GorgeConnector } from '~/features/gorge';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
+import { GorgeConnector } from '../../../features/gorge/index';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
 import {
   SOURCE_EMPTY,
   SOURCE_GALICIA_1,
   SOURCE_RUSSIA,
-} from '~/seeds/test/05_sources';
-import { GAUGE_GAL_1_1 } from '~/seeds/test/06_gauges';
-
+} from '../../../seeds/test/05_sources';
+import { GAUGE_GAL_1_1 } from '../../../seeds/test/06_gauges';
 import {
-  AutofillSourceMutationResult,
-  testAutofillSource,
-} from './autofillSource.test.generated';
+  anonContext,
+  countRows,
+  fakeContext,
+  noUnstable,
+} from '../../../test/index';
+import type { AutofillSourceMutationResult } from './autofillSource.test.generated';
+import { testAutofillSource } from './autofillSource.test.generated';
 
 jest.mock('../../gorge/connector');
 

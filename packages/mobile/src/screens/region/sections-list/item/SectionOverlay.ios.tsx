@@ -1,8 +1,9 @@
-import {
+import type {
   ListedSectionFragment,
   SectionDerivedFields,
 } from '@whitewater-guide/clients';
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 
 import DifficultyThumb from '~/components/DifficultyThumb';

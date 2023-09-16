@@ -1,13 +1,13 @@
-import Knex from 'knex';
+import type { Knex } from 'knex';
 
-import { createViews, dropViews } from '~/db';
+import { createViews, dropViews } from '../db/index';
 
 const VIEWS = ['sections', 'rivers', 'regions'];
 
 /**
  * This patch adds estimated maps size column
  */
-export const up = async (db: Knex) => {
+export async function up(db: Knex): Promise<void> {
   // Need to drop views first
   await dropViews(db, ...VIEWS);
 
@@ -16,9 +16,9 @@ export const up = async (db: Knex) => {
   });
 
   await createViews(db, 20, ...VIEWS);
-};
+}
 
-export const down = async (db: Knex) => {
+export async function down(db: Knex): Promise<void> {
   await dropViews(db, ...VIEWS);
 
   await db.schema.table('regions', (table) => {
@@ -26,6 +26,4 @@ export const down = async (db: Knex) => {
   });
 
   await createViews(db, 19, ...VIEWS);
-};
-
-export const configuration = { transaction: true };
+}

@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should be invalid for bad category 1`] = `
-Object {
-  "category": Object {
+{
+  "category": {
     "key": "yup:mixed.oneOf",
-    "options": Object {
+    "options": {
       "values": "hazards, kayaking, misc, supply",
     },
   },
@@ -12,34 +12,34 @@ Object {
 `;
 
 exports[`should be invalid for bad id 1 1`] = `
-Object {
+{
   "id": "yup:string.slug",
 }
 `;
 
 exports[`should be invalid for bad id 2 1`] = `
-Object {
+{
   "id": "yup:string.slug",
 }
 `;
 
 exports[`should be invalid for bad id 3 1`] = `
-Object {
+{
   "id": "yup:string.slug",
 }
 `;
 
 exports[`should be invalid for empty name 1`] = `
-Object {
+{
   "name": "yup:string.nonEmpty",
 }
 `;
 
 exports[`should be invalid for extra fields 1`] = `
-Object {
-  "": Object {
+{
+  "": {
     "key": "yup:object.noUnknown",
-    "options": Object {
+    "options": {
       "path": "this",
     },
   },

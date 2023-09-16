@@ -9,7 +9,7 @@ import theme from '~/theme';
 import copyAndToast from '~/utils/copyAndToast';
 
 import DeleteDescentDialog from './DeleteDescentDialog';
-import { DescentDetailsFragment } from './descentDetails.generated';
+import type { DescentDetailsFragment } from './descentDetails.generated';
 import useNavigateToForm from './useNavigateToForm';
 
 interface Props {

@@ -1,12 +1,15 @@
-import {
+import type {
   CompositeNavigationProp,
   ParamListBase,
   RouteProp,
 } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { DescentInput, DescentSectionFragment } from '@whitewater-guide/schema';
+import type { StackNavigationProp } from '@react-navigation/stack';
+import type {
+  DescentInput,
+  DescentSectionFragment,
+} from '@whitewater-guide/schema';
 
-import {
+import type {
   RootDrawerParamsList,
   RootStackParamsList,
   Screens,

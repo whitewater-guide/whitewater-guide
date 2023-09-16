@@ -1,7 +1,7 @@
 import { Duration, MediaKind, TagCategory } from '@whitewater-guide/schema';
 import { createSafeValidator } from '@whitewater-guide/validation';
 
-import { SectionFormData } from './types';
+import type { SectionFormData } from './types';
 import { SectionFormSchema } from './validation';
 
 const validator = createSafeValidator(SectionFormSchema);

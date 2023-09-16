@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`seed data should match schema 1`] = `
-Object {
-  "sections": Object {
+{
+  "sections": {
     "__typename": "SectionsList",
     "count": 5,
-    "nodes": Array [
-      Object {
+    "nodes": [
+      {
         "__typename": "Section",
-        "altNames": Array [
+        "altNames": [
           "Section.altNames.1",
           "Section.altNames.2",
         ],
@@ -19,7 +19,7 @@ Object {
         "drop": 1.5,
         "duration": 1,
         "favorite": false,
-        "flows": Object {
+        "flows": {
           "__typename": "GaugeBinding",
           "approximate": true,
           "formula": "GaugeBinding.formula.2",
@@ -29,22 +29,22 @@ Object {
           "optimum": 2.5,
         },
         "flowsText": "Section.flowsText.1",
-        "gauge": Object {
+        "gauge": {
           "__typename": "Gauge",
           "flowUnit": "Gauge.flowUnit.1",
           "id": "Gauge.id.1",
-          "latestMeasurement": Object {
+          "latestMeasurement": {
             "__typename": "Measurement",
             "flow": 1.5,
             "level": 1.5,
-            "timestamp": 2017-02-01T21:00:00.000Z,
+            "timestamp": 2017-02-02T00:00:00.000Z,
           },
           "levelUnit": "Gauge.levelUnit.1",
         },
         "helpNeeded": "Section.helpNeeded.1",
         "hidden": false,
         "id": "Section.id.1",
-        "levels": Object {
+        "levels": {
           "__typename": "GaugeBinding",
           "approximate": false,
           "formula": "GaugeBinding.formula.1",
@@ -54,9 +54,9 @@ Object {
           "optimum": 1.5,
         },
         "name": "Section.name.1",
-        "putIn": Object {
+        "putIn": {
           "__typename": "Point",
-          "coordinates": Array [
+          "coordinates": [
             1,
             2,
             3,
@@ -65,13 +65,13 @@ Object {
           "kind": "Point.kind.1",
         },
         "rating": 1.5,
-        "region": Object {
+        "region": {
           "__typename": "Region",
           "id": "Region.id.1",
         },
-        "river": Object {
+        "river": {
           "__typename": "River",
-          "altNames": Array [
+          "altNames": [
             "River.altNames.1",
             "River.altNames.2",
           ],
@@ -79,27 +79,27 @@ Object {
           "name": "River.name.1",
         },
         "season": "Section.season.1",
-        "seasonNumeric": Array [
+        "seasonNumeric": [
           1,
           2,
         ],
-        "tags": Array [
-          Object {
+        "tags": [
+          {
             "__typename": "Tag",
             "category": "kayaking",
             "id": "Tag.id.1",
             "name": "Tag.name.1",
           },
-          Object {
+          {
             "__typename": "Tag",
             "category": "misc",
             "id": "Tag.id.2",
             "name": "Tag.name.2",
           },
         ],
-        "takeOut": Object {
+        "takeOut": {
           "__typename": "Point",
-          "coordinates": Array [
+          "coordinates": [
             2,
             3,
             4,
@@ -108,12 +108,12 @@ Object {
           "kind": "Point.kind.2",
         },
         "timezone": "Section.timezone.1",
-        "updatedAt": 2017-02-01T21:00:00.000Z,
+        "updatedAt": 2017-02-02T00:00:00.000Z,
         "verified": false,
       },
-      Object {
+      {
         "__typename": "Section",
-        "altNames": Array [
+        "altNames": [
           "Section.altNames.3",
           "Section.altNames.4",
         ],
@@ -124,7 +124,7 @@ Object {
         "drop": 2.5,
         "duration": 2,
         "favorite": true,
-        "flows": Object {
+        "flows": {
           "__typename": "GaugeBinding",
           "approximate": true,
           "formula": "GaugeBinding.formula.4",
@@ -134,22 +134,22 @@ Object {
           "optimum": 4.5,
         },
         "flowsText": "Section.flowsText.2",
-        "gauge": Object {
+        "gauge": {
           "__typename": "Gauge",
           "flowUnit": "Gauge.flowUnit.2",
           "id": "Gauge.id.2",
-          "latestMeasurement": Object {
+          "latestMeasurement": {
             "__typename": "Measurement",
             "flow": 2.5,
             "level": 2.5,
-            "timestamp": 2017-02-02T21:00:00.000Z,
+            "timestamp": 2017-02-03T00:00:00.000Z,
           },
           "levelUnit": "Gauge.levelUnit.2",
         },
         "helpNeeded": "Section.helpNeeded.2",
         "hidden": true,
         "id": "Section.id.2",
-        "levels": Object {
+        "levels": {
           "__typename": "GaugeBinding",
           "approximate": false,
           "formula": "GaugeBinding.formula.3",
@@ -159,9 +159,9 @@ Object {
           "optimum": 3.5,
         },
         "name": "Section.name.2",
-        "putIn": Object {
+        "putIn": {
           "__typename": "Point",
-          "coordinates": Array [
+          "coordinates": [
             3,
             4,
             5,
@@ -170,13 +170,13 @@ Object {
           "kind": "Point.kind.3",
         },
         "rating": 2.5,
-        "region": Object {
+        "region": {
           "__typename": "Region",
           "id": "Region.id.2",
         },
-        "river": Object {
+        "river": {
           "__typename": "River",
-          "altNames": Array [
+          "altNames": [
             "River.altNames.3",
             "River.altNames.4",
           ],
@@ -184,27 +184,27 @@ Object {
           "name": "River.name.2",
         },
         "season": "Section.season.2",
-        "seasonNumeric": Array [
+        "seasonNumeric": [
           3,
           4,
         ],
-        "tags": Array [
-          Object {
+        "tags": [
+          {
             "__typename": "Tag",
             "category": "supply",
             "id": "Tag.id.3",
             "name": "Tag.name.3",
           },
-          Object {
+          {
             "__typename": "Tag",
             "category": "hazards",
             "id": "Tag.id.4",
             "name": "Tag.name.4",
           },
         ],
-        "takeOut": Object {
+        "takeOut": {
           "__typename": "Point",
-          "coordinates": Array [
+          "coordinates": [
             4,
             5,
             6,
@@ -213,12 +213,12 @@ Object {
           "kind": "Point.kind.4",
         },
         "timezone": "Section.timezone.2",
-        "updatedAt": 2017-02-02T21:00:00.000Z,
+        "updatedAt": 2017-02-03T00:00:00.000Z,
         "verified": true,
       },
-      Object {
+      {
         "__typename": "Section",
-        "altNames": Array [
+        "altNames": [
           "Section.altNames.5",
           "Section.altNames.6",
         ],
@@ -229,7 +229,7 @@ Object {
         "drop": 3.5,
         "duration": 3,
         "favorite": false,
-        "flows": Object {
+        "flows": {
           "__typename": "GaugeBinding",
           "approximate": true,
           "formula": "GaugeBinding.formula.6",
@@ -239,22 +239,22 @@ Object {
           "optimum": 6.5,
         },
         "flowsText": "Section.flowsText.3",
-        "gauge": Object {
+        "gauge": {
           "__typename": "Gauge",
           "flowUnit": "Gauge.flowUnit.3",
           "id": "Gauge.id.3",
-          "latestMeasurement": Object {
+          "latestMeasurement": {
             "__typename": "Measurement",
             "flow": 3.5,
             "level": 3.5,
-            "timestamp": 2017-02-03T21:00:00.000Z,
+            "timestamp": 2017-02-04T00:00:00.000Z,
           },
           "levelUnit": "Gauge.levelUnit.3",
         },
         "helpNeeded": "Section.helpNeeded.3",
         "hidden": false,
         "id": "Section.id.3",
-        "levels": Object {
+        "levels": {
           "__typename": "GaugeBinding",
           "approximate": false,
           "formula": "GaugeBinding.formula.5",
@@ -264,9 +264,9 @@ Object {
           "optimum": 5.5,
         },
         "name": "Section.name.3",
-        "putIn": Object {
+        "putIn": {
           "__typename": "Point",
-          "coordinates": Array [
+          "coordinates": [
             5,
             6,
             7,
@@ -275,13 +275,13 @@ Object {
           "kind": "Point.kind.5",
         },
         "rating": 3.5,
-        "region": Object {
+        "region": {
           "__typename": "Region",
           "id": "Region.id.3",
         },
-        "river": Object {
+        "river": {
           "__typename": "River",
-          "altNames": Array [
+          "altNames": [
             "River.altNames.5",
             "River.altNames.6",
           ],
@@ -289,27 +289,27 @@ Object {
           "name": "River.name.3",
         },
         "season": "Section.season.3",
-        "seasonNumeric": Array [
+        "seasonNumeric": [
           5,
           6,
         ],
-        "tags": Array [
-          Object {
+        "tags": [
+          {
             "__typename": "Tag",
             "category": "kayaking",
             "id": "Tag.id.5",
             "name": "Tag.name.5",
           },
-          Object {
+          {
             "__typename": "Tag",
             "category": "misc",
             "id": "Tag.id.6",
             "name": "Tag.name.6",
           },
         ],
-        "takeOut": Object {
+        "takeOut": {
           "__typename": "Point",
-          "coordinates": Array [
+          "coordinates": [
             6,
             7,
             8,
@@ -318,12 +318,12 @@ Object {
           "kind": "Point.kind.6",
         },
         "timezone": "Section.timezone.3",
-        "updatedAt": 2017-02-03T21:00:00.000Z,
+        "updatedAt": 2017-02-04T00:00:00.000Z,
         "verified": false,
       },
-      Object {
+      {
         "__typename": "Section",
-        "altNames": Array [
+        "altNames": [
           "Section.altNames.7",
           "Section.altNames.8",
         ],
@@ -334,7 +334,7 @@ Object {
         "drop": 4.5,
         "duration": 4,
         "favorite": true,
-        "flows": Object {
+        "flows": {
           "__typename": "GaugeBinding",
           "approximate": true,
           "formula": "GaugeBinding.formula.8",
@@ -344,22 +344,22 @@ Object {
           "optimum": 8.5,
         },
         "flowsText": "Section.flowsText.4",
-        "gauge": Object {
+        "gauge": {
           "__typename": "Gauge",
           "flowUnit": "Gauge.flowUnit.4",
           "id": "Gauge.id.4",
-          "latestMeasurement": Object {
+          "latestMeasurement": {
             "__typename": "Measurement",
             "flow": 4.5,
             "level": 4.5,
-            "timestamp": 2017-02-04T21:00:00.000Z,
+            "timestamp": 2017-02-05T00:00:00.000Z,
           },
           "levelUnit": "Gauge.levelUnit.4",
         },
         "helpNeeded": "Section.helpNeeded.4",
         "hidden": true,
         "id": "Section.id.4",
-        "levels": Object {
+        "levels": {
           "__typename": "GaugeBinding",
           "approximate": false,
           "formula": "GaugeBinding.formula.7",
@@ -369,9 +369,9 @@ Object {
           "optimum": 7.5,
         },
         "name": "Section.name.4",
-        "putIn": Object {
+        "putIn": {
           "__typename": "Point",
-          "coordinates": Array [
+          "coordinates": [
             7,
             8,
             9,
@@ -380,13 +380,13 @@ Object {
           "kind": "Point.kind.7",
         },
         "rating": 4.5,
-        "region": Object {
+        "region": {
           "__typename": "Region",
           "id": "Region.id.4",
         },
-        "river": Object {
+        "river": {
           "__typename": "River",
-          "altNames": Array [
+          "altNames": [
             "River.altNames.7",
             "River.altNames.8",
           ],
@@ -394,27 +394,27 @@ Object {
           "name": "River.name.4",
         },
         "season": "Section.season.4",
-        "seasonNumeric": Array [
+        "seasonNumeric": [
           7,
           8,
         ],
-        "tags": Array [
-          Object {
+        "tags": [
+          {
             "__typename": "Tag",
             "category": "supply",
             "id": "Tag.id.7",
             "name": "Tag.name.7",
           },
-          Object {
+          {
             "__typename": "Tag",
             "category": "hazards",
             "id": "Tag.id.8",
             "name": "Tag.name.8",
           },
         ],
-        "takeOut": Object {
+        "takeOut": {
           "__typename": "Point",
-          "coordinates": Array [
+          "coordinates": [
             8,
             9,
             10,
@@ -423,12 +423,12 @@ Object {
           "kind": "Point.kind.8",
         },
         "timezone": "Section.timezone.4",
-        "updatedAt": 2017-02-04T21:00:00.000Z,
+        "updatedAt": 2017-02-05T00:00:00.000Z,
         "verified": true,
       },
-      Object {
+      {
         "__typename": "Section",
-        "altNames": Array [
+        "altNames": [
           "Section.altNames.9",
           "Section.altNames.10",
         ],
@@ -439,7 +439,7 @@ Object {
         "drop": 5.5,
         "duration": 5,
         "favorite": false,
-        "flows": Object {
+        "flows": {
           "__typename": "GaugeBinding",
           "approximate": true,
           "formula": "GaugeBinding.formula.10",
@@ -449,22 +449,22 @@ Object {
           "optimum": 10.5,
         },
         "flowsText": "Section.flowsText.5",
-        "gauge": Object {
+        "gauge": {
           "__typename": "Gauge",
           "flowUnit": "Gauge.flowUnit.5",
           "id": "Gauge.id.5",
-          "latestMeasurement": Object {
+          "latestMeasurement": {
             "__typename": "Measurement",
             "flow": 5.5,
             "level": 5.5,
-            "timestamp": 2017-02-05T21:00:00.000Z,
+            "timestamp": 2017-02-06T00:00:00.000Z,
           },
           "levelUnit": "Gauge.levelUnit.5",
         },
         "helpNeeded": "Section.helpNeeded.5",
         "hidden": false,
         "id": "Section.id.5",
-        "levels": Object {
+        "levels": {
           "__typename": "GaugeBinding",
           "approximate": false,
           "formula": "GaugeBinding.formula.9",
@@ -474,9 +474,9 @@ Object {
           "optimum": 9.5,
         },
         "name": "Section.name.5",
-        "putIn": Object {
+        "putIn": {
           "__typename": "Point",
-          "coordinates": Array [
+          "coordinates": [
             9,
             10,
             11,
@@ -485,13 +485,13 @@ Object {
           "kind": "Point.kind.9",
         },
         "rating": 5.5,
-        "region": Object {
+        "region": {
           "__typename": "Region",
           "id": "Region.id.5",
         },
-        "river": Object {
+        "river": {
           "__typename": "River",
-          "altNames": Array [
+          "altNames": [
             "River.altNames.9",
             "River.altNames.10",
           ],
@@ -499,27 +499,27 @@ Object {
           "name": "River.name.5",
         },
         "season": "Section.season.5",
-        "seasonNumeric": Array [
+        "seasonNumeric": [
           9,
           10,
         ],
-        "tags": Array [
-          Object {
+        "tags": [
+          {
             "__typename": "Tag",
             "category": "kayaking",
             "id": "Tag.id.9",
             "name": "Tag.name.9",
           },
-          Object {
+          {
             "__typename": "Tag",
             "category": "misc",
             "id": "Tag.id.10",
             "name": "Tag.name.10",
           },
         ],
-        "takeOut": Object {
+        "takeOut": {
           "__typename": "Point",
-          "coordinates": Array [
+          "coordinates": [
             10,
             11,
             12,
@@ -528,7 +528,7 @@ Object {
           "kind": "Point.kind.10",
         },
         "timezone": "Section.timezone.5",
-        "updatedAt": 2017-02-05T21:00:00.000Z,
+        "updatedAt": 2017-02-06T00:00:00.000Z,
         "verified": false,
       },
     ],

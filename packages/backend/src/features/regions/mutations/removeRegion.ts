@@ -1,5 +1,6 @@
-import { MutationNotAllowedError, MutationResolvers } from '~/apollo';
-import { db } from '~/db';
+import type { MutationResolvers } from '../../../apollo/index';
+import { MutationNotAllowedError } from '../../../apollo/index';
+import { db } from '../../../db/index';
 
 const removeRegion: MutationResolvers['removeRegion'] = async (_, { id }) => {
   const [{ count }] = await db()
@@ -14,7 +15,7 @@ const removeRegion: MutationResolvers['removeRegion'] = async (_, { id }) => {
     .del()
     .where({ id })
     .returning('id');
-  return result?.length ? result[0] : null;
+  return result?.[0]?.id ?? null;
 };
 
 export default removeRegion;

@@ -1,4 +1,5 @@
-import React, { FC, PropsWithChildren, useCallback, useEffect } from 'react';
+import type { FC, PropsWithChildren } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { LayoutAnimation, StyleSheet, View } from 'react-native';
 import useToggle from 'react-use/lib/useToggle';
 

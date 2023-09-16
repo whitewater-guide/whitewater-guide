@@ -1,14 +1,23 @@
-import { GraphQLSchema, parse } from 'graphql';
+import type {
+  ApolloServerPlugin,
+  GraphQLRequestContextDidResolveOperation,
+  GraphQLRequestListener,
+} from '@apollo/server';
+import type { GraphQLSchema } from 'graphql';
+import { parse } from 'graphql';
 
+import type { Context } from '../context';
 import { copyFieldsByType } from './copyFieldsByType';
 import { fieldsByType } from './fieldsByType';
-import { FieldsByType } from './types';
+import type { FieldsByType } from './types';
 
 /**
  * This plugin taps into query execution and sets fieldsByType on context
  * Uses cache internally
  */
-export class FieldsByTypePlugin {
+export class FieldsByTypePlugin
+  implements ApolloServerPlugin<Context>, GraphQLRequestListener<Context>
+{
   private _cache: Map<string, FieldsByType> = new Map();
   private readonly _schema: GraphQLSchema;
 
@@ -16,12 +25,14 @@ export class FieldsByTypePlugin {
     this._schema = schema;
   }
 
-  requestDidStart() {
-    return this as any;
+  requestDidStart?(): Promise<GraphQLRequestListener<Context>> {
+    return Promise.resolve(this);
   }
 
-  didResolveOperation = (requestContext: any) => {
-    const { document, request, context, queryHash, operationName } =
+  didResolveOperation = (
+    requestContext: GraphQLRequestContextDidResolveOperation<Context>,
+  ) => {
+    const { document, request, contextValue, queryHash, operationName } =
       requestContext;
     if (operationName === 'IntrospectionQuery') {
       return Promise.resolve();
@@ -29,14 +40,14 @@ export class FieldsByTypePlugin {
     if (queryHash) {
       const cached = this._cache.get(queryHash);
       if (cached) {
-        copyFieldsByType(cached, context.fieldsByType);
+        copyFieldsByType(cached, contextValue.fieldsByType);
         return Promise.resolve();
       }
     }
     if (!document && !request.query) {
       return Promise.resolve();
     }
-    const doc = requestContext.document || parse(request.query);
+    const doc = document ?? parse(request.query!);
     const acc = fieldsByType(doc, this._schema);
     if (queryHash) {
       this._cache.set(queryHash, acc);
@@ -44,7 +55,7 @@ export class FieldsByTypePlugin {
 
     // We copy here, because context.fieldsByType is passed
     // by reference to dataSources before this is called
-    copyFieldsByType(acc, context.fieldsByType);
+    copyFieldsByType(acc, contextValue.fieldsByType);
     return Promise.resolve();
   };
 }

@@ -1,21 +1,19 @@
 import Box from '@material-ui/core/Box';
-import { SectionAdminSettings } from '@whitewater-guide/schema';
+import type { SectionAdminSettings } from '@whitewater-guide/schema';
 import React from 'react';
 
 import { FormikCard, useApolloFormik } from '../../../formik';
 import { CheckboxField } from '../../../formik/fields';
-import {
-  AdministrateSectionDocument,
-  AdministrateSectionMutationVariables,
-} from './administrateSection.generated';
+import type { AdministrateSectionMutationVariables } from './administrateSection.generated';
+import { AdministrateSectionDocument } from './administrateSection.generated';
 import makeFormToMutation from './makeFormToMutation';
 import queryToForm from './queryToForm';
-import {
-  SectionAdminSettingsDocument,
+import type {
   SectionAdminSettingsQuery,
   SectionAdminSettingsQueryVariables,
 } from './sectionAdminSettings.generated';
-import { RouterParams } from './types';
+import { SectionAdminSettingsDocument } from './sectionAdminSettings.generated';
+import type { RouterParams } from './types';
 
 interface Props {
   match: {

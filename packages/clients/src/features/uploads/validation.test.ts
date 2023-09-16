@@ -1,8 +1,9 @@
 import { createSafeValidator } from '@whitewater-guide/validation';
 import deepmerge from 'deepmerge';
-import { DeepPartial } from 'utility-types';
+import type { DeepPartial } from 'utility-types';
 
-import { LocalPhoto, LocalPhotoStatus } from './types';
+import type { LocalPhoto } from './types';
+import { LocalPhotoStatus } from './types';
 import { getLocalPhotoSchema } from './validation';
 
 type Cases = Array<[string, DeepPartial<LocalPhoto>, any]>;
@@ -88,7 +89,7 @@ it('should be invalid for schema with resolution limit', () => {
 });
 
 it('should allow nulls', () => {
-  const MpxLimitSchema = getLocalPhotoSchema({ nullable: true });
+  const MpxLimitSchema = getLocalPhotoSchema();
   const validator = createSafeValidator(MpxLimitSchema);
   expect(validator(null)).toBeNull();
 });

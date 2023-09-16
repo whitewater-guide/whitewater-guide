@@ -2,8 +2,9 @@ import Grid from '@material-ui/core/Grid';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
-import { Tag, TagInput } from '@whitewater-guide/schema';
-import React, { FC, useState } from 'react';
+import type { Tag, TagInput } from '@whitewater-guide/schema';
+import type { FC } from 'react';
+import React, { useState } from 'react';
 import useShallowCompareEffect from 'react-use/lib/useShallowCompareEffect';
 
 import { DeleteButton } from '../../components';

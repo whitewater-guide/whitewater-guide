@@ -1,6 +1,6 @@
-import { ServerError } from '@apollo/client';
+import type { ServerError } from '@apollo/client';
 
-import { AuthResponse } from './types';
+import type { AuthResponse } from './types';
 
 export function createApolloServerError(resp: AuthResponse): ServerError {
   const errorString = resp.error

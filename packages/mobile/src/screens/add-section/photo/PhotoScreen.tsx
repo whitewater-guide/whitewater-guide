@@ -4,7 +4,7 @@ import { Screen } from '~/components/Screen';
 
 import BackButton from './BackButton';
 import SectionPhotoForm from './SectionPhotoForm';
-import { AddSectionPhotoNavProps } from './types';
+import type { AddSectionPhotoNavProps } from './types';
 
 const PhotoScreen: React.FC<AddSectionPhotoNavProps> = ({
   navigation,

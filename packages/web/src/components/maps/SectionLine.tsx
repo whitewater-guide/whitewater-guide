@@ -1,14 +1,13 @@
-import {
-  getSectionColor,
+import type {
   ListedSectionFragment,
   SectionOnMapDetailedFragment,
-  useMapSelection,
 } from '@whitewater-guide/clients';
-import { PointCoreFragment } from '@whitewater-guide/schema';
+import { getSectionColor, useMapSelection } from '@whitewater-guide/clients';
+import type { PointCoreFragment } from '@whitewater-guide/schema';
 import React, { useEffect, useRef } from 'react';
-import { Optional } from 'utility-types';
+import type { Optional } from 'utility-types';
 
-import { MapElementProps } from './types';
+import type { MapElementProps } from './types';
 
 type LineSection = Optional<SectionOnMapDetailedFragment, 'shape'>;
 

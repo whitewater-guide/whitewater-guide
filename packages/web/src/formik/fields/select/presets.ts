@@ -1,6 +1,6 @@
-import { NamedNode } from '@whitewater-guide/schema';
+import type { NamedNode } from '@whitewater-guide/schema';
 
-import { SelectFieldProps } from './SelectField';
+import type { SelectFieldProps } from './SelectField';
 
 export type SelectFieldPreset<O, V> = Pick<
   SelectFieldProps<O, V>,

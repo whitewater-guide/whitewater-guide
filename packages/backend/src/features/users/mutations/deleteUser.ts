@@ -1,8 +1,11 @@
-import { ForbiddenError, UserInputError } from 'apollo-server-koa';
-
-import { MutationResolvers } from '~/apollo';
-import { db, Sql } from '~/db';
-import { synapseClient } from '~/features/chats';
+import {
+  ForbiddenError,
+  type MutationResolvers,
+  UserInputError,
+} from '../../../apollo/index';
+import type { Sql } from '../../../db/index';
+import { db } from '../../../db/index';
+import { synapseClient } from '../../../features/chats/index';
 
 const deleteUser: MutationResolvers['deleteUser'] = async (
   _,

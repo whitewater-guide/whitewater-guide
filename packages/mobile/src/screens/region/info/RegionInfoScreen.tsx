@@ -10,7 +10,7 @@ import RegionTabsScreen from '../RegionTabsScreen';
 import RegionInfoMenu from './RegionInfoMenu';
 import RegionInfoView from './RegionInfoView';
 import RegionLicense from './RegionLicense';
-import { RegionInfoNavProps } from './types';
+import type { RegionInfoNavProps } from './types';
 
 const styles = StyleSheet.create({
   content: {

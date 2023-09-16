@@ -1,4 +1,4 @@
-import { MutationResolvers } from '~/apollo';
+import type { MutationResolvers } from '../../../apollo/index';
 
 const toggleSource: MutationResolvers['toggleSource'] = async (
   _,

@@ -1,6 +1,6 @@
 /* eslint-disable import/no-duplicates */
 import { ChartProvider } from '@whitewater-guide/clients';
-import {
+import type {
   DescentLevelInput,
   DescentSectionFragment,
 } from '@whitewater-guide/schema';

@@ -1,4 +1,4 @@
-import { TimeGridProps } from '@whitewater-guide/clients';
+import type { TimeGridProps } from '@whitewater-guide/clients';
 import isEqual from 'date-fns/isEqual';
 import React from 'react';
 import { Line } from 'victory-native';

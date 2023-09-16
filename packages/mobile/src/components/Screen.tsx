@@ -1,11 +1,7 @@
-import React, { memo, PropsWithChildren } from 'react';
-import {
-  LayoutChangeEvent,
-  StyleProp,
-  StyleSheet,
-  View,
-  ViewStyle,
-} from 'react-native';
+import type { PropsWithChildren } from 'react';
+import React, { memo } from 'react';
+import type { LayoutChangeEvent, StyleProp, ViewStyle } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import theme from '../theme';

@@ -1,13 +1,14 @@
 import { useApolloClient } from '@apollo/client';
 import Box from '@material-ui/core/Box';
+import type { RegionDetailsFragment } from '@whitewater-guide/clients';
 import {
-  RegionDetailsFragment,
   SectionsListProvider,
   useRegion,
   useSectionsFilterOptions,
   useSectionsList,
 } from '@whitewater-guide/clients';
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router';
 
 import { NavTab, NavTabs } from '../../../components/navtabs';

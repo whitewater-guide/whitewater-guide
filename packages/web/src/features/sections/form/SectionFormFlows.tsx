@@ -7,7 +7,7 @@ import {
   NumberField,
   TextField,
 } from '../../../formik/fields';
-import { SectionFormQuery } from './sectionForm.generated';
+import type { SectionFormQuery } from './sectionForm.generated';
 
 interface Props {
   gauges: SectionFormQuery['gauges'] | null;

@@ -13,13 +13,13 @@ import { Subheading } from 'react-native-paper';
 
 import Loading from '~/components/Loading';
 import MultiSlider from '~/components/multi-slider';
-import StarRating from '~/components/StarRating';
+import SwipeableStarRating from '~/components/SwipeableStarRating';
 import TernaryChips from '~/components/TernaryChips';
 import { getSeasonLocalizer } from '~/i18n';
 import theme from '~/theme';
 
 import { FindButton } from './FindButton';
-import { SearchState } from './types';
+import type { SearchState } from './types';
 import { getStateFactory } from './utils';
 
 const DIFFICULTY_RANGE: [number, number] = [0, 6];
@@ -38,6 +38,9 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     backgroundColor: theme.colors.primary,
+  },
+  rating: {
+    alignSelf: 'flex-start',
   },
 });
 
@@ -120,7 +123,11 @@ const FilterScreenView: React.FC = () => {
         />
 
         <Subheading>{t('filter:rating')}</Subheading>
-        <StarRating value={state.rating} onChange={onChange.rating} />
+        <SwipeableStarRating
+          value={state.rating}
+          onChange={onChange.rating}
+          style={styles.rating}
+        />
 
         <Subheading>{t('commons:kayakingTypes')}</Subheading>
         <TernaryChips tags={state.kayaking} onChange={onChange.kayaking} />

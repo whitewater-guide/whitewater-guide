@@ -1,5 +1,5 @@
 import { NetworkStatus } from '@apollo/client';
-import { Descent } from '@whitewater-guide/schema';
+import type { Descent } from '@whitewater-guide/schema';
 import React from 'react';
 import { FlatList } from 'react-native';
 

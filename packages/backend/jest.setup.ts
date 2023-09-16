@@ -1,4 +1,4 @@
-import customMatchers from './test/customMatchers';
+import customMatchers from './src/test/customMatchers';
 
 const jestExpect: jest.Expect = (global as any).expect;
 jest.mock('./src/s3/imgproxy');

@@ -7,12 +7,12 @@ import { Button, TextInput } from 'react-native-paper';
 import Spacer from '~/components/Spacer';
 import { Screens } from '~/core/navigation';
 import getSectionTimezone from '~/features/descents/getSectionTimezone';
-import { DescentFormData } from '~/screens/descent-form/types';
+import type { DescentFormData } from '~/screens/descent-form/types';
 import theme from '~/theme';
 
 import { DescentFormScreen } from '../DescentFormContext';
 import DatePicker from './DatePicker';
-import { DescentFormDateNavProps } from './types';
+import type { DescentFormDateNavProps } from './types';
 
 const styles = StyleSheet.create({
   content: {

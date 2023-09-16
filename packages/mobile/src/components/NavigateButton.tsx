@@ -1,11 +1,11 @@
-import { PointCoreFragment } from '@whitewater-guide/schema';
+import type { PointCoreFragment } from '@whitewater-guide/schema';
 import React, { memo } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
+import type { SharedValue } from 'react-native-reanimated';
 import Animated, {
   Extrapolate,
   interpolate,
-  SharedValue,
   useAnimatedStyle,
 } from 'react-native-reanimated';
 

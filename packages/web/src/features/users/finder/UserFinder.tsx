@@ -1,16 +1,14 @@
-import { NamedNode } from '@whitewater-guide/schema';
+import type { NamedNode } from '@whitewater-guide/schema';
 import get from 'lodash/get';
 import React from 'react';
 
-import {
-  AutocompleteProps,
-  QueryAutocomplete,
-} from '../../../components/autocomplete';
-import {
-  FindUsersDocument,
+import type { AutocompleteProps } from '../../../components/autocomplete';
+import { QueryAutocomplete } from '../../../components/autocomplete';
+import type {
   FindUsersQueryResult,
   FindUsersQueryVariables,
 } from './findUsers.generated';
+import { FindUsersDocument } from './findUsers.generated';
 
 interface Props extends Omit<AutocompleteProps, 'options'> {
   editorsOnly?: boolean;

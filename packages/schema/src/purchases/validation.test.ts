@@ -1,6 +1,6 @@
 import { createSafeValidator } from '@whitewater-guide/validation';
 
-import { PurchaseInput } from '../__generated__/types';
+import type { PurchaseInput } from '../__generated__/types';
 import { PurchasePlatform } from './types';
 import { PurchaseInputSchema } from './validation';
 

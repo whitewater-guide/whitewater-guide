@@ -1,15 +1,14 @@
-// eslint-disable-next-line import/default
-import Koa from 'koa';
+import type Koa from 'koa';
 import agent from 'supertest-koa-agent';
 
-import { createApolloServer } from '~/apollo/server';
-import { createApp } from '~/app';
-import { holdTransaction, rollbackTransaction } from '~/db';
-import { MailType, sendMail } from '~/mail';
+import { createApolloServer } from '../../../apollo/server/index';
+import { createApp } from '../../../app';
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
+import { MailType, sendMail } from '../../../mail/index';
 
 let app: Koa;
 
-jest.mock('~/mail');
+jest.mock('../../../mail');
 
 beforeEach(async () => {
   jest.resetAllMocks();

@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should return gauges 1`] = `
-Array [
-  Object {
+[
+  {
     "code": "gal1",
     "enabled": true,
     "flowUnit": "m3/s",
     "id": "aba8c106-aaa0-11e7-abc4-cec278b6b50a",
-    "latestMeasurement": Object {
+    "latestMeasurement": {
       "flow": null,
       "level": 1.2,
     },
     "levelUnit": "cm",
-    "location": Object {
-      "coordinates": Array [
+    "location": {
+      "coordinates": [
         1.1,
         2.2,
         3.3,
@@ -22,22 +22,22 @@ Array [
       "kind": "gauge",
     },
     "name": "Galicia gauge 1",
-    "requestParams": Object {
+    "requestParams": {
       "foo": "bar",
     },
-    "source": Object {
+    "source": {
       "id": "6d0d717e-aa9d-11e7-abc4-cec278b6b50a",
     },
     "status": null,
     "timezone": "Europe/Madrid",
     "url": "http://ya.ru",
   },
-  Object {
+  {
     "code": "gal2",
     "enabled": false,
     "flowUnit": null,
     "id": "b77ef1b2-aaa0-11e7-abc4-cec278b6b50a",
-    "latestMeasurement": Object {
+    "latestMeasurement": {
       "flow": 22,
       "level": 33,
     },
@@ -45,14 +45,14 @@ Array [
     "location": null,
     "name": "Galicia gauge 2",
     "requestParams": null,
-    "source": Object {
+    "source": {
       "id": "6d0d717e-aa9d-11e7-abc4-cec278b6b50a",
     },
     "status": null,
     "timezone": "Europe/Madrid",
     "url": null,
   },
-  Object {
+  {
     "code": "gal2_1",
     "enabled": false,
     "flowUnit": null,
@@ -62,14 +62,14 @@ Array [
     "location": null,
     "name": "Galicia gauge 2 1",
     "requestParams": null,
-    "source": Object {
+    "source": {
       "id": "9f962a34-bff9-11e7-abc4-cec278b6b50a",
     },
     "status": null,
     "timezone": "Europe/Madrid",
     "url": null,
   },
-  Object {
+  {
     "code": "gal2_2",
     "enabled": false,
     "flowUnit": null,
@@ -79,14 +79,14 @@ Array [
     "location": null,
     "name": "Galicia gauge 2 2",
     "requestParams": null,
-    "source": Object {
+    "source": {
       "id": "9f962a34-bff9-11e7-abc4-cec278b6b50a",
     },
     "status": null,
     "timezone": "Europe/Madrid",
     "url": null,
   },
-  Object {
+  {
     "code": "geo1",
     "enabled": true,
     "flowUnit": null,
@@ -96,14 +96,14 @@ Array [
     "location": null,
     "name": "Georgian gauge 1",
     "requestParams": null,
-    "source": Object {
+    "source": {
       "id": "53af1a54-19fe-11e8-accf-0ed5f89f718b",
     },
     "status": null,
     "timezone": "Asia/Tbilisi",
     "url": null,
   },
-  Object {
+  {
     "code": "geo2",
     "enabled": false,
     "flowUnit": null,
@@ -113,14 +113,14 @@ Array [
     "location": null,
     "name": "Georgian gauge 2",
     "requestParams": null,
-    "source": Object {
+    "source": {
       "id": "53af1a54-19fe-11e8-accf-0ed5f89f718b",
     },
     "status": null,
     "timezone": "Asia/Tbilisi",
     "url": null,
   },
-  Object {
+  {
     "code": "geo3",
     "enabled": false,
     "flowUnit": null,
@@ -130,14 +130,14 @@ Array [
     "location": null,
     "name": "Georgian gauge 3",
     "requestParams": null,
-    "source": Object {
+    "source": {
       "id": "53af1a54-19fe-11e8-accf-0ed5f89f718b",
     },
     "status": null,
     "timezone": "Asia/Tbilisi",
     "url": null,
   },
-  Object {
+  {
     "code": "geo4",
     "enabled": true,
     "flowUnit": null,
@@ -147,14 +147,14 @@ Array [
     "location": null,
     "name": "Georgian gauge 4",
     "requestParams": null,
-    "source": Object {
+    "source": {
       "id": "53af1a54-19fe-11e8-accf-0ed5f89f718b",
     },
     "status": null,
     "timezone": "Asia/Tbilisi",
     "url": null,
   },
-  Object {
+  {
     "code": "nor1",
     "enabled": false,
     "flowUnit": "m3/s",
@@ -163,17 +163,17 @@ Array [
     "levelUnit": "cm",
     "location": null,
     "name": "Norway gauge 1",
-    "requestParams": Object {
+    "requestParams": {
       "nor": "way",
     },
-    "source": Object {
+    "source": {
       "id": "786251d4-aa9d-11e7-abc4-cec278b6b50a",
     },
     "status": null,
     "timezone": "Europe/Oslo",
     "url": "http://yarr.ru",
   },
-  Object {
+  {
     "code": "nor2",
     "enabled": false,
     "flowUnit": null,
@@ -183,14 +183,14 @@ Array [
     "location": null,
     "name": "Norway gauge 2",
     "requestParams": null,
-    "source": Object {
+    "source": {
       "id": "786251d4-aa9d-11e7-abc4-cec278b6b50a",
     },
     "status": null,
     "timezone": "Europe/Oslo",
     "url": null,
   },
-  Object {
+  {
     "code": "nor3",
     "enabled": false,
     "flowUnit": null,
@@ -200,14 +200,14 @@ Array [
     "location": null,
     "name": "Norway gauge 3",
     "requestParams": null,
-    "source": Object {
+    "source": {
       "id": "786251d4-aa9d-11e7-abc4-cec278b6b50a",
     },
     "status": null,
     "timezone": "Europe/Oslo",
     "url": null,
   },
-  Object {
+  {
     "code": "nor4",
     "enabled": false,
     "flowUnit": null,
@@ -217,14 +217,14 @@ Array [
     "location": null,
     "name": "Norway gauge 4",
     "requestParams": null,
-    "source": Object {
+    "source": {
       "id": "786251d4-aa9d-11e7-abc4-cec278b6b50a",
     },
     "status": null,
     "timezone": "Europe/Oslo",
     "url": null,
   },
-  Object {
+  {
     "code": "ru1",
     "enabled": false,
     "flowUnit": null,
@@ -234,7 +234,7 @@ Array [
     "location": null,
     "name": "Российская линейка 1",
     "requestParams": null,
-    "source": Object {
+    "source": {
       "id": "8e37e9d2-1d7b-11e8-b467-0ed5f89f718b",
     },
     "status": null,

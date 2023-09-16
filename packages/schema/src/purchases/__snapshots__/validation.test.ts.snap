@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should be invalid for bad platform 1`] = `
-Object {
-  "platform": Object {
+{
+  "platform": {
     "key": "yup:mixed.oneOf",
-    "options": Object {
+    "options": {
       "values": "ios, android, boomstarter",
     },
   },
@@ -12,16 +12,16 @@ Object {
 `;
 
 exports[`should be invalid for bad product 1`] = `
-Object {
+{
   "productId": "yup:string.nonEmpty",
 }
 `;
 
 exports[`should be invalid for extra fields 1`] = `
-Object {
-  "": Object {
+{
+  "": {
     "key": "yup:object.noUnknown",
-    "options": Object {
+    "options": {
       "path": "this",
     },
   },

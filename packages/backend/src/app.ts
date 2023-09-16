@@ -2,14 +2,13 @@ import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import compress from 'koa-compress';
 
-import { applyAuthMiddleware } from '~/auth';
-import { db } from '~/db';
-import log from '~/log';
-import { addPingRoute } from '~/utils';
-
+import { applyAuthMiddleware } from './auth/index';
 import config from './config';
 import { corsMiddleware } from './cors';
+import { db } from './db/index';
 import { addGorgeWebhooks } from './features/gorge/webhooks';
+import log from './log/index';
+import { addPingRoute } from './utils/index';
 
 export type App = Koa & {
   shutdown: () => Promise<any>;

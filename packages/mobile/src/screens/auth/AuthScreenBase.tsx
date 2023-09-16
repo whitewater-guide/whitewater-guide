@@ -1,4 +1,5 @@
-import React, { FC, PropsWithChildren } from 'react';
+import type { FC, PropsWithChildren } from 'react';
+import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 import Logo from '~/components/Logo';

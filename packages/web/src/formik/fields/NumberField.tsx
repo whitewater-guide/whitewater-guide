@@ -1,4 +1,4 @@
-import { InputProps } from '@material-ui/core/Input';
+import type { InputProps } from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import { useField } from 'formik';
 import React from 'react';

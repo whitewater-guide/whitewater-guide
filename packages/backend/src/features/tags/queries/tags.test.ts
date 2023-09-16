@@ -1,8 +1,7 @@
-import { anonContext } from '@test';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
-
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
+import { anonContext } from '../../../test/index';
 import { testListTags } from './tags.test.generated';
 
 beforeEach(holdTransaction);

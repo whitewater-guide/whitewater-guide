@@ -1,16 +1,17 @@
-import { fakeContext, fileExistsInBucket, resetTestMinio } from '@test';
 import { PostPolicyVersion } from '@whitewater-guide/schema';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 import superagent from 'superagent';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
-import { CONTENT_BUCKET, TEMP } from '~/s3';
-import { TEST_USER, TEST_USER_ID } from '~/seeds/test/01_users';
-
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
+import { CONTENT_BUCKET, TEMP } from '../../../s3/index';
+import { TEST_USER, TEST_USER_ID } from '../../../seeds/test/01_users';
 import {
-  testUploadLink,
-  UploadLinkQueryVariables,
-} from './uploadLink.test.generated';
+  fakeContext,
+  fileExistsInBucket,
+  resetTestMinio,
+} from '../../../test/index';
+import type { UploadLinkQueryVariables } from './uploadLink.test.generated';
+import { testUploadLink } from './uploadLink.test.generated';
 
 const _query = gql`
   query uploadLink($version: PostPolicyVersion) {
@@ -113,6 +114,6 @@ describe('uploads', () => {
       `${__dirname}/__tests__/upload_me.jpg`,
       'upload_me.jpg',
     );
-    await expect(jpgReq).rejects.toThrowError('Forbidden');
+    await expect(jpgReq).rejects.toThrow('Forbidden');
   });
 });

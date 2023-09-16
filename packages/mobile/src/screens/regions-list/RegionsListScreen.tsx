@@ -10,7 +10,7 @@ import { getHeaderRenderer } from '~/components/header';
 import { Screen } from '~/components/Screen';
 
 import RegionsListView from './RegionsListView';
-import { RegionsListNavProps } from './types';
+import type { RegionsListNavProps } from './types';
 
 export const RegionsListScreen: React.FC<RegionsListNavProps> = ({
   navigation,

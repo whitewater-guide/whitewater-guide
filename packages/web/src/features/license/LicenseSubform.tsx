@@ -2,10 +2,11 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Collapse from '@material-ui/core/Collapse';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Grid from '@material-ui/core/Grid';
-import { License } from '@whitewater-guide/schema';
+import type { License } from '@whitewater-guide/schema';
 import { useFormikContext } from 'formik';
 import get from 'lodash/get';
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 
 import { TextField } from '../../formik/fields/TextField';
 import CommonLicenses from './CommonLicenses';

@@ -1,15 +1,16 @@
 import Dialog from '@material-ui/core/Dialog';
-import { MediaInput, MediaInputSchema } from '@whitewater-guide/schema';
+import type { MediaInput } from '@whitewater-guide/schema';
+import { MediaInputSchema } from '@whitewater-guide/schema';
 import { createSafeValidator } from '@whitewater-guide/validation';
 import { Formik } from 'formik';
 import React, { Suspense, useCallback, useMemo } from 'react';
 import { useHistory, useLocation } from 'react-router';
 
 import { Loading } from '../../../components';
-import { UseApolloFormik } from '../../../formik';
-import { LocalPhoto } from '../../../utils/files';
+import type { UseApolloFormik } from '../../../formik';
+import type { LocalPhoto } from '../../../utils/files';
 import { LazyMediaDialog } from '../components/form';
-import { MediaFormQuery } from './mediaForm.generated';
+import type { MediaFormQuery } from './mediaForm.generated';
 
 type Props = UseApolloFormik<MediaFormQuery, MediaInput>;
 

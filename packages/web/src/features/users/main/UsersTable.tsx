@@ -1,14 +1,11 @@
-import { createStyles, WithStyles, withStyles } from '@material-ui/core/styles';
+import type { WithStyles } from '@material-ui/core/styles';
+import { createStyles, withStyles } from '@material-ui/core/styles';
 import React from 'react';
-import { TableProps } from 'react-virtualized';
+import type { TableProps } from 'react-virtualized';
 
-import {
-  Column,
-  isEmptyRow,
-  Table,
-  TableCellRenderer,
-} from '../../../components';
-import { UsersTableUserFragment } from './usersTable.generated';
+import type { TableCellRenderer } from '../../../components';
+import { Column, isEmptyRow, Table } from '../../../components';
+import type { UsersTableUserFragment } from './usersTable.generated';
 import UserTableActions from './UserTableActions';
 
 const styles = createStyles({

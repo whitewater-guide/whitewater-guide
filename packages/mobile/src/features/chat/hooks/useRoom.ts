@@ -1,12 +1,13 @@
-import { Room as TRoom } from '@whitewater-guide/schema';
-import { ClientEvent, MatrixEvent, Room, RoomEvent } from 'matrix-js-sdk';
+import type { Room as TRoom } from '@whitewater-guide/schema';
+import type { MatrixEvent, Room } from 'matrix-js-sdk';
+import { ClientEvent, RoomEvent } from 'matrix-js-sdk';
 import { useEffect } from 'react';
 import useAsyncFn from 'react-use/lib/useAsyncFn';
 import useList from 'react-use/lib/useList';
 
 import { useChatClient } from '../ChatProvider';
 import { MESSAGES_IN_BATCH } from '../constants';
-import { IRoomTimelineData } from '../types';
+import type { IRoomTimelineData } from '../types';
 import { isEventRenderable } from '../utils';
 
 function getRenderableTimeline(room: Room): MatrixEvent[] {

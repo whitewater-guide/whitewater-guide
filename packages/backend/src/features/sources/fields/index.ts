@@ -1,5 +1,5 @@
-import { SourceResolvers, timestampedResolvers } from '~/apollo';
-
+import type { SourceResolvers } from '../../../apollo/index';
+import { timestampedResolvers } from '../../../apollo/index';
 import enabled from './enabled';
 import gauges from './gauges';
 import regions from './regions';

@@ -1,6 +1,7 @@
 import times from 'lodash/times';
 import React, { memo } from 'react';
-import { Platform, StyleProp, StyleSheet, Text, ViewStyle } from 'react-native';
+import type { StyleProp, TextStyle } from 'react-native';
+import { Platform, StyleSheet, Text } from 'react-native';
 
 import theme from '../theme';
 
@@ -39,8 +40,9 @@ const STAR_STRINGS: Map<number, string> = new Map(
 );
 
 interface Props {
+  // value in 0.5 increments from 0.0 to 5.0
   value?: number | null;
-  style?: StyleProp<ViewStyle>;
+  style?: StyleProp<TextStyle>;
 }
 
 const SimpleStarRating = memo<Props>((props) => {

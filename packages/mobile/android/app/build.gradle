@@ -2,9 +2,10 @@ apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
 
 project.ext.vectoricons = [
+    iconFontsDir: "../../../../node_modules/react-native-vector-icons/Fonts",
     iconFontNames: [ 'MaterialCommunityIcons.ttf', 'MaterialIcons.ttf' ]
 ]
-apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+apply from: "../../../../node_modules/react-native-vector-icons/fonts.gradle"
 apply plugin: 'com.getkeepsafe.dexcount'
 
 /**
@@ -15,13 +16,13 @@ apply plugin: 'com.getkeepsafe.dexcount'
 react {
     /* Folders */
     //   The root of your project, i.e. where "package.json" lives. Default is '..'
-    // root = file("../")
+    root = file("../")
     //   The folder where the react-native NPM package is. Default is ../node_modules/react-native
-    // reactNativeDir = file("../node_modules/react-native")
+    reactNativeDir = file("../../../../node_modules/react-native")
     //   The folder where the react-native Codegen package is. Default is ../node_modules/react-native-codegen
-    // codegenDir = file("../node_modules/@react-native/codegen")
+    codegenDir = file("../../../../node_modules/@react-native/codegen")
     //   The cli.js file which is the React Native CLI entrypoint. Default is ../node_modules/react-native/cli.js
-    // cliFile = file("../node_modules/react-native/cli.js")
+    cliFile = file("../../../../node_modules/react-native/cli.js")
     /* Variants */
     //   The list of variants to that are debuggable. For those we're going to
     //   skip the bundling of the JS bundle and the assets. By default is just 'debug'.
@@ -58,8 +59,8 @@ project.ext.sentryCli = [
     logLevel: "debug"
 ]
 
-apply from: "../../node_modules/react-native-ultimate-config/android/rnuc.gradle"
-apply from: "../../node_modules/@sentry/react-native/sentry.gradle"
+apply from: "../../../../node_modules/react-native-ultimate-config/android/rnuc.gradle"
+apply from: "../../../../node_modules/@sentry/react-native/sentry.gradle"
 
 /**
  * Set this to true to Run Proguard on Release builds to minify the Java bytecode.
@@ -154,5 +155,5 @@ dependencies {
     }
 }
 
-apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+apply from: file("../../../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
 apply plugin: 'com.google.gms.google-services'

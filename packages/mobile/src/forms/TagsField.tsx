@@ -1,11 +1,12 @@
-import { RefInput, Tag } from '@whitewater-guide/schema';
+import type { RefInput, Tag } from '@whitewater-guide/schema';
 import { useFormikContext } from 'formik';
 import React, { useCallback, useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Paragraph } from 'react-native-paper';
 
 import TernaryChip from '~/components/TernaryChip';
-import { SelectableTag, TagSelection } from '~/features/tags';
+import type { SelectableTag } from '~/features/tags';
+import { TagSelection } from '~/features/tags';
 
 import theme from '../theme';
 

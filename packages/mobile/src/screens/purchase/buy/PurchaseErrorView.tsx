@@ -12,7 +12,7 @@ import { Subheading } from 'react-native-paper';
 
 import copyAndToast from '~/utils/copyAndToast';
 
-import { IAPError } from '../../../features/purchases';
+import type { IAPError } from '../../../features/purchases';
 import theme from '../../../theme';
 
 const styles = StyleSheet.create({

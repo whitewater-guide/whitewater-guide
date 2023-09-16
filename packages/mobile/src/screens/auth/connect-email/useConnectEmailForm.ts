@@ -1,15 +1,13 @@
 import { useNavigation } from '@react-navigation/native';
-import { FormikHelpers } from 'formik';
+import type { FormikHelpers } from 'formik';
 import { useCallback } from 'react';
 
 import { Screens } from '~/core/navigation';
 import getFormErrors from '~/screens/auth/getFormErrors';
 
-import {
-  ConnectEmailMutationVariables,
-  useConnectEmailMutation,
-} from './connectEmail.generated';
-import { ConnectEmailNavProp } from './types';
+import type { ConnectEmailMutationVariables } from './connectEmail.generated';
+import { useConnectEmailMutation } from './connectEmail.generated';
+import type { ConnectEmailNavProp } from './types';
 
 export default function useConnectEmailForm() {
   const { replace } = useNavigation<ConnectEmailNavProp>();

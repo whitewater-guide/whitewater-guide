@@ -1,4 +1,12 @@
-FROM node:18.17.1 AS builder
+FROM node:18.17.1 AS pnpm
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
+
+RUN apt-get update \
+    && apt-get install --yes rsync
+
+FROM pnpm AS builder
 
 WORKDIR /opt/app
 
@@ -10,16 +18,16 @@ COPY packages/schema ./packages/schema
 COPY packages/validation ./packages/validation
 COPY patches ./patches
 COPY scripts ./scripts
-COPY package.json yarn.lock tsconfig.json codegen.yml lerna.json ./
+COPY package.json tsconfig.json codegen.yml .npmrc pnpm-lock.yaml pnpm-workspace.yaml ./
 
 # This runs prepare and postinstall scripts, which in turn run codegen and build libs
-RUN --mount=type=cache,target=/usr/local/share/.cache/yarn \
-    yarn install --frozen-lockfile --non-interactive
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
+    pnpm install --frozen-lockfile
 # Now backend can be built
-RUN yarn workspace @whitewater-guide/backend build
+RUN pnpm --filter "@whitewater-guide/backend" run build
 
 # Skip development modules
-FROM node:18.17.1 AS production
+FROM pnpm AS production
 
 WORKDIR /opt/app
 
@@ -38,15 +46,16 @@ COPY --from=builder /opt/app/packages/backend/package.json ./packages/backend/pa
 
 COPY patches ./patches
 COPY scripts ./scripts
-COPY package.json yarn.lock ./
-# tsconfig is needed for paths aliases (~)
-COPY packages/backend/tsconfig.prod.json packages/backend/tsconfig.json
+COPY .npmrc pnpm-lock.yaml pnpm-workspace.yaml ./
 
 # setting NODE_ENV=production will skip certain parts of 'prepare' and 'postinstall' scripts
-# that were run in 'builder' before
+# that were ran in 'builder' before
+#
+# Note --fix-lockfile instead of --frozen-lockfile
+# This is a workaround: pnpm overrides has some frontend-only overrides and will break when installing with frozen-lockfile
 ENV NODE_ENV=production
-RUN --mount=type=cache,target=/usr/local/share/.cache/yarn \
-    yarn install --production --frozen-lockfile --non-interactive
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
+    pnpm install --prod --fix-lockfile
 
 # Final image
 FROM gcr.io/distroless/nodejs:18
@@ -57,4 +66,4 @@ COPY --from=production /opt/app /opt/app
 
 WORKDIR /opt/app/packages/backend
 
-CMD ["-r", "tsconfig-paths/register", "dist/index.js"]
+CMD ["dist/index.js"]

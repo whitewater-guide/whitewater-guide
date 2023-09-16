@@ -1,25 +1,25 @@
-import { RelayConnection } from '@whitewater-guide/schema';
-import { DataSource } from 'apollo-datasource';
-import { QueryBuilder } from 'knex';
-import clamp from 'lodash/clamp';
+import type { RelayConnection } from '@whitewater-guide/schema';
+import type { Knex } from 'knex';
+import { clamp } from 'lodash';
 
-import { Context, Cursor } from '~/apollo';
-import { db } from '~/db';
-
+import type { Cursor } from '../../apollo/index';
+import { db } from '../../db/index';
 import { BaseConnector } from './BaseConnector';
-import { ManyBuilderOptions } from './types';
+import type { ManyBuilderOptions } from './types';
 
-export abstract class RelayConnector<TGraphql, TSql extends { id: string }>
-  extends BaseConnector<TGraphql, TSql>
-  implements DataSource<Context>
-{
+export abstract class RelayConnector<
+  TGraphql,
+  TSql extends { id: string },
+> extends BaseConnector<TGraphql, TSql> {
   protected _defaultPageSize = 25;
 
   protected _maxPageSize = 100;
 
   protected abstract getAfterClause(cursor: Cursor): string;
 
-  public getManyQuery(options: ManyBuilderOptions<TSql> = {}): QueryBuilder {
+  public getManyQuery(
+    options: ManyBuilderOptions<TSql> = {},
+  ): Knex.QueryBuilder {
     let query = this.buildGenericQuery().select(db().raw(`count(*) OVER()`));
 
     // Simple filtering

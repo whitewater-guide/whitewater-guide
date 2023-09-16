@@ -6,20 +6,18 @@ import { Loading } from '../../../../components';
 import { useApolloFormik } from '../../../../formik';
 import { UnsavedPrompt } from '../../../../formik/helpers';
 import { CardContent } from '../../../../layout';
-import {
-  AdministrateRegionDocument,
-  AdministrateRegionMutationVariables,
-} from './administrateRegion.generated';
+import type { AdministrateRegionMutationVariables } from './administrateRegion.generated';
+import { AdministrateRegionDocument } from './administrateRegion.generated';
 import formToMutation from './formToMutation';
 import queryToForm from './queryToForm';
-import {
-  RegionAdminDocument,
+import type {
   RegionAdminQuery,
   RegionAdminQueryVariables,
 } from './regionAdmin.generated';
+import { RegionAdminDocument } from './regionAdmin.generated';
 import RegionAdminSettingsFooter from './RegionAdminSettingsFooter';
 import RegionAdminSettingsMain from './RegionAdminSettingsMain';
-import { RegionAdminFormData } from './types';
+import type { RegionAdminFormData } from './types';
 import { RegionAdminFormSchema } from './validation';
 
 interface Props {

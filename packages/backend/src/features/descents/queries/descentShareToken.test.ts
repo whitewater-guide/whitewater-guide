@@ -1,10 +1,12 @@
-import { fakeContext } from '@test';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
-import { TEST_USER, TEST_USER2 } from '~/seeds/test/01_users';
-import { DESCENT_02, DESCENT_2_SHARE_TOKEN } from '~/seeds/test/18_descents';
-
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
+import { TEST_USER, TEST_USER2 } from '../../../seeds/test/01_users';
+import {
+  DESCENT_02,
+  DESCENT_2_SHARE_TOKEN,
+} from '../../../seeds/test/18_descents';
+import { fakeContext } from '../../../test/index';
 import { testGetShareToken } from './descentShareToken.test.generated';
 
 beforeEach(holdTransaction);

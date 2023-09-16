@@ -1,16 +1,16 @@
 import { useChunkedQuery } from '@whitewater-guide/clients';
-import { Node } from '@whitewater-guide/schema';
+import type { Node } from '@whitewater-guide/schema';
 import React from 'react';
 import { useHistory } from 'react-router';
 
 import { useDeleteMutation } from '../../../apollo';
 import { Loading } from '../../../components';
 import GaugesTable from './GaugesTable';
-import {
-  ListGaugesDocument,
+import type {
   ListGaugesQuery,
   ListGaugesQueryVariables,
 } from './listGauges.generated';
+import { ListGaugesDocument } from './listGauges.generated';
 import { RemoveGaugeDocument } from './removeGauge.generated';
 
 interface Props {

@@ -1,6 +1,7 @@
-import { MatrixEvent } from 'matrix-js-sdk';
-import { RefObject, useCallback, useEffect, useRef } from 'react';
-import {
+import type { MatrixEvent } from 'matrix-js-sdk';
+import type { RefObject } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
+import type {
   FlatList,
   FlatListProps,
   NativeScrollEvent,

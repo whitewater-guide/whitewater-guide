@@ -1,6 +1,7 @@
-import { QueryHookOptions, QueryResult, useQuery } from '@apollo/client';
-import { Maybe, Page } from '@whitewater-guide/schema';
-import { DocumentNode } from 'graphql';
+import type { QueryHookOptions, QueryResult } from '@apollo/client';
+import { useQuery } from '@apollo/client';
+import type { Maybe, Page } from '@whitewater-guide/schema';
+import type { DocumentNode } from 'graphql';
 import { useEffect, useRef } from 'react';
 
 function getConnectionField<QResult>(data?: QResult): null | keyof QResult {

@@ -1,20 +1,22 @@
-import {
+import type {
   ListedSectionFragment,
   SectionDerivedFields,
 } from '@whitewater-guide/clients';
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 import { StyleSheet } from 'react-native';
-import { SharedValue } from 'react-native-reanimated';
+import type { SharedValue } from 'react-native-reanimated';
 
 import { NAVIGATE_BUTTON_WIDTH } from '~/components/NavigateButton';
 import { Swipeable } from '~/components/swipeable';
 import theme from '~/theme';
 
 import { ITEM_HEIGHT } from './constants';
+// @ts-ignore
 // eslint-disable-next-line import/no-unresolved
 import SectionOverlay from './SectionOverlay';
 import SectionUnderlay from './SectionUnderlay';
-import { ItemProps } from './types';
+import type { ItemProps } from './types';
 
 const styles = StyleSheet.create({
   swipeable: {

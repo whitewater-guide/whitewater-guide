@@ -1,7 +1,6 @@
-import { UserInputError } from 'apollo-server-koa';
-
-import { QueryResolvers, UnknownError } from '~/apollo';
-import { db } from '~/db';
+import type { QueryResolvers } from '../../../apollo/index';
+import { UnknownError, UserInputError } from '../../../apollo/index';
+import { db } from '../../../db/index';
 
 const gaugeQuery = (gaugeId: string) =>
   db()
@@ -55,7 +54,7 @@ const measurementsResolver: QueryResolvers['measurements'] = async (
   const result = await dataSources.gorge.getMeasurements(
     script,
     code,
-    effectiveFilter,
+    effectiveFilter!,
   );
   return result;
 };

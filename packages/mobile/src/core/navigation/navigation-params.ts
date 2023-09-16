@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
-import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { RouteProp } from '@react-navigation/native';
-import { RegionDetailsFragment } from '@whitewater-guide/clients';
-import { License, Room } from '@whitewater-guide/schema';
+import type { DrawerNavigationProp } from '@react-navigation/drawer';
+import type { RouteProp } from '@react-navigation/native';
+import type { RegionDetailsFragment } from '@whitewater-guide/clients';
+import type { License, Room } from '@whitewater-guide/schema';
 
-import { PurchaseParams } from '~/features/purchases/types';
-import { DescentFormData } from '~/screens/descent-form';
+import type { PurchaseParams } from '~/features/purchases/types';
+import type { DescentFormData } from '~/screens/descent-form';
 
-import { Screens } from './screen-names';
+import type { Screens } from './screen-names';
 
 export type RootDrawerParamsList = {
   [Screens.ROOT_STACK]: undefined;

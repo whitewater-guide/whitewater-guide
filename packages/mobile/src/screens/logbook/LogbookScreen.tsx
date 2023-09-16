@@ -6,7 +6,7 @@ import { getHeaderRenderer } from '~/components/header';
 import { Screen } from '~/components/Screen';
 
 import LogbookView from './LogbookView';
-import { LogbookNavProps } from './types';
+import type { LogbookNavProps } from './types';
 
 const LogbookScreen: React.FC<LogbookNavProps> = (props) => {
   const { navigation } = props;

@@ -1,6 +1,7 @@
 **/.idea/
 **/*.iml
 **/.vscode/
+**/.git/
 
 **/node_modules/
 **/dist/

@@ -1,16 +1,15 @@
-import { anonContext, fakeContext, noTimestamps } from '@test';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { db, holdTransaction, rollbackTransaction } from '~/db';
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
 import {
   ADMIN,
   EDITOR_GA_EC,
   EDITOR_NO,
   EDITOR_NO_EC,
   TEST_USER,
-} from '~/seeds/test/01_users';
-import { REGION_NORWAY, REGION_RUSSIA } from '~/seeds/test/04_regions';
-import { RIVER_BZHUZHA, RIVER_GAL_BECA } from '~/seeds/test/07_rivers';
+} from '../../../seeds/test/01_users';
+import { REGION_NORWAY, REGION_RUSSIA } from '../../../seeds/test/04_regions';
+import { RIVER_BZHUZHA, RIVER_GAL_BECA } from '../../../seeds/test/07_rivers';
 import {
   GALICIA_BECA_LOWER,
   GALICIA_BECA_UPPER,
@@ -19,8 +18,8 @@ import {
   RUSSIA_MZYMTA_PASEKA,
   SECTIONS_TOTAL,
   SECTIONS_VISIBLE,
-} from '~/seeds/test/09_sections';
-
+} from '../../../seeds/test/09_sections';
+import { anonContext, fakeContext, noTimestamps } from '../../../test/index';
 import {
   testListSections,
   testListSectionsRegion,
@@ -183,13 +182,12 @@ it('should search full name (river + section)', async () => {
 
 it('should filter recently updated using deprecated filter.updatedAfter', async () => {
   const id = '21f2351e-d52a-11e7-9296-cec278b6b50a';
-  const update = await db()
+  const [{ updated_at }] = await db()
     .update({ rating: 1 })
     .from('sections')
     .where({ id })
     .returning('updated_at');
-  let u2: Date = update[0] as any;
-  u2 = new Date(u2.getTime() - 300);
+  const u2 = new Date(updated_at.getTime() - 300);
   const result = await testListSections({
     filter: { updatedAfter: u2.toISOString() as any },
   });
@@ -201,13 +199,12 @@ it('should filter recently updated using deprecated filter.updatedAfter', async 
 
 it('should filter recently updated', async () => {
   const id = '21f2351e-d52a-11e7-9296-cec278b6b50a';
-  const update = await db()
+  const [{ updated_at }] = await db()
     .update({ rating: 1 })
     .from('sections')
     .where({ id })
     .returning('updated_at');
-  let u2: Date = update[0] as any;
-  u2 = new Date(u2.getTime() - 300);
+  const u2 = new Date(updated_at.getTime() - 300);
   const result = await testListSections({
     updatedAfter: u2.toISOString() as any,
   });

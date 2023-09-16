@@ -1,7 +1,5 @@
-import {
-  createStackNavigator,
-  StackNavigationOptions,
-} from '@react-navigation/stack';
+import type { StackNavigationOptions } from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Config from 'react-native-ultimate-config';
@@ -13,7 +11,7 @@ import { DescentFormCommentScreen } from './comment';
 import { DescentFormDateScreen } from './date';
 import { DescentFormLevelScreen } from './level';
 import { DescentFormSectionScreen } from './section';
-import { DescentFormParamsList } from './types';
+import type { DescentFormParamsList } from './types';
 
 const Stack = createStackNavigator<DescentFormParamsList>();
 

@@ -7,8 +7,7 @@ export const RegionAdminFormSchema = RegionAdminSettingsSchema.clone()
   .shape({
     coverImage: getLocalPhotoSchema({
       mpxOrResolution: COVER_IMAGE_RESOLUTION,
-      nullable: true,
-    }),
+    }).nullable(),
   })
   .strict(true)
   .noUnknown(true);

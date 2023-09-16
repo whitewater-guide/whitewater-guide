@@ -1,7 +1,7 @@
-import { InputProps as StandardInputProps } from '@material-ui/core/Input';
-import { InputLabelProps } from '@material-ui/core/InputLabel';
-import { PopperPlacementType } from '@material-ui/core/Popper';
-import { NamedNode } from '@whitewater-guide/schema';
+import type { InputProps as StandardInputProps } from '@material-ui/core/Input';
+import type { InputLabelProps } from '@material-ui/core/InputLabel';
+import type { PopperPlacementType } from '@material-ui/core/Popper';
+import type { NamedNode } from '@whitewater-guide/schema';
 
 export interface PopperFwdProps {
   // Passed to popper, types match

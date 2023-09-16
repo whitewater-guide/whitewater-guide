@@ -1,4 +1,4 @@
-import { NamedNode, Script } from '@whitewater-guide/schema';
+import type { NamedNode, Script } from '@whitewater-guide/schema';
 import React from 'react';
 
 import {

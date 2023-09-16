@@ -9,7 +9,7 @@ import theme from '~/theme';
 import { AuthScreenBase } from '../AuthScreenBase';
 import AppleButton from './AppleButton';
 import { FacebookButton } from './FacebookButton';
-import { AuthMainNavProps } from './types';
+import type { AuthMainNavProps } from './types';
 
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center' },

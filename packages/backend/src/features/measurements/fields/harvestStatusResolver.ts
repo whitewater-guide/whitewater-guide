@@ -1,6 +1,6 @@
-import { Status } from '@whitewater-guide/gorge';
+import type { Status } from '@whitewater-guide/gorge';
 
-import { HarvestStatusResolvers } from '~/apollo';
+import type { HarvestStatusResolvers } from '../../../apollo/index';
 
 export const harvestStatusResolvers: HarvestStatusResolvers = {
   count: ({ count }: Status) => count || 0,

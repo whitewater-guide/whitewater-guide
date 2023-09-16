@@ -1,5 +1,5 @@
-import { sendCredentials } from '../../jwt';
-import { MiddlewareFactory } from '../../types';
+import { sendCredentials } from '../../jwt/index';
+import type { MiddlewareFactory } from '../../types';
 
 const signIn: MiddlewareFactory = (passport) => async (ctx, next) => {
   await passport.authenticate('local-signin', async (error, user, info) => {

@@ -1,5 +1,6 @@
 import { ROOT_LICENSE, useRegion } from '@whitewater-guide/clients';
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 
 import LicenseBadge from '~/components/LicenseBadge';
 

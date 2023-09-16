@@ -1,5 +1,5 @@
 declare module 'graphql-fields' {
-  import { GraphQLResolveInfo } from 'graphql';
+  import type { GraphQLResolveInfo } from 'graphql';
 
   interface Result {
     [field: string]: Result;

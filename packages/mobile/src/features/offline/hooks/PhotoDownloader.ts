@@ -1,10 +1,9 @@
 import { sleep } from '@whitewater-guide/clients';
-import FastImage, {
-  PreloadProgressHandler,
-} from '@whitewater-guide/react-native-fast-image';
+import type { PreloadProgressHandler } from '@whitewater-guide/react-native-fast-image';
+import FastImage from '@whitewater-guide/react-native-fast-image';
 
-import { OfflineProgress } from '../types';
-import { PhotoChannel } from '../utils';
+import type { OfflineProgress } from '../types';
+import type { PhotoChannel } from '../utils';
 
 const preload = (photos: string[], onProgress: PreloadProgressHandler) =>
   new Promise((resolve) => {

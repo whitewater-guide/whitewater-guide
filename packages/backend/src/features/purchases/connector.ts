@@ -1,9 +1,8 @@
-import { DataSource, DataSourceConfig } from 'apollo-datasource';
+import type { Context, ContextUser } from '../../apollo/index';
+import type { Sql } from '../../db/index';
+import { db } from '../../db/index';
 
-import { Context, ContextUser } from '~/apollo';
-import { db, Sql } from '~/db';
-
-export class PurchasesConnector implements DataSource<Context> {
+export class PurchasesConnector {
   private _user?: ContextUser;
 
   private _language!: string;
@@ -16,7 +15,7 @@ export class PurchasesConnector implements DataSource<Context> {
 
   private _purchasedRegionIds: string[] | null = null; // both single and parts of groups
 
-  initialize({ context }: DataSourceConfig<Context>) {
+  constructor(context: Context) {
     this._user = context.user;
     this._language = context.language;
   }

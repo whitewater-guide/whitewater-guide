@@ -1,4 +1,4 @@
-import { Sql } from '~/db';
+import type { Sql } from '../../db/index';
 
 /**
  * Region as returned by connector

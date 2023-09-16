@@ -1,12 +1,14 @@
-import Mapbox, { RegionChangeEvent } from '@rnmapbox/maps';
+import type { RegionChangeEvent } from '@rnmapbox/maps';
+import Mapbox from '@rnmapbox/maps';
 import { ColorStrings, useSectionsList } from '@whitewater-guide/clients';
-import React, { forwardRef, RefAttributes } from 'react';
+import type { RefAttributes } from 'react';
+import React, { forwardRef } from 'react';
 
 import { BaseMap } from '~/components/map';
 import { useMapboxData } from '~/components/map/hooks';
 
 import { PUT_IN_PIN, TAKE_OUT_PIN } from '../../../assets';
-import { PiToState } from './usePiToState';
+import type { PiToState } from './usePiToState';
 
 const MapComponent = BaseMap as React.ComponentType<
   {

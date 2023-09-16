@@ -63,6 +63,10 @@ services:
       - type: bind
         source: ./dev-mount/minio/log/
         target: /var/log
+    networks:
+      default:
+        aliases:
+          - minio.local
 
   # imageproxy to generate thumbnails
   imageproxy:
@@ -91,7 +95,8 @@ services:
   gorge:
     <<: *ww-commons
     container_name: ww-gorge
-    image: ghcr.io/whitewater-guide/gorge:3.0.2
+    image: ghcr.io/whitewater-guide/gorge:3.5.0-beta.21
+    platform: linux/amd64
     depends_on:
       - db
     command: [
@@ -175,3 +180,19 @@ services:
         target: /app/config.json
     ports:
       - '8007:80'
+
+  # To test full stack and docker image locally
+  # backend:
+  #   <<: *ww-commons
+  #   container_name: ww-backend
+  #   image: ghcr.io/whitewater-guide/backend:0.0.518
+  #   ports:
+  #     - '3333:3333'
+  #   env_file:
+  #     - ./packages/backend/.env
+  #     - ./packages/backend/.env.local
+  #   environment:
+  #     - POSTGRES_HOST=db.local
+  #     - MINIO_HOST=minio.local
+  #     - GORGE_HOST=gorge.local
+  #     - SYNAPSE_HOST=synapse.local:8008

@@ -1,7 +1,8 @@
 import { MockedProvider } from '@apollo/client/testing';
 import { act, renderHook } from '@testing-library/react-hooks';
 import { GraphQLError } from 'graphql';
-import React, { FC, PropsWithChildren } from 'react';
+import type { FC, PropsWithChildren } from 'react';
+import React from 'react';
 
 import { GetUploadLinkDocument } from './getUploadLink.generated';
 import { uploadFile } from './uploadFile';
@@ -113,5 +114,5 @@ it.each([
   expect(result.current.uploading).toBe(true);
   await waitForNextUpdate();
   expect(result.current.uploading).toBe(false);
-  expect(onRejected).toBeCalled();
+  expect(onRejected).toHaveBeenCalled();
 });

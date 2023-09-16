@@ -1,12 +1,14 @@
+import type { RenderRules } from '@ronradtke/react-native-markdown-display';
 import SimpleMarkdown, {
   MarkdownIt,
-  RenderRules,
 } from '@ronradtke/react-native-markdown-display';
 import { ColorStrings } from '@whitewater-guide/clients';
 import deepmerge from 'deepmerge';
 import Attributes from 'markdown-it-attrs';
-import React, { FC } from 'react';
-import { Platform, StyleProp, StyleSheet, Text } from 'react-native';
+import type { FC } from 'react';
+import React from 'react';
+import type { StyleProp } from 'react-native';
+import { Platform, StyleSheet, Text } from 'react-native';
 
 import theme from '../theme';
 

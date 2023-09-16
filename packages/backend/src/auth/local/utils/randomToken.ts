@@ -1,4 +1,4 @@
-import { hash } from 'bcrypt';
+import { hash } from '@node-rs/bcrypt';
 import { randomFill } from 'crypto';
 
 import {

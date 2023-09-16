@@ -1,8 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
-import {
-  RegionDetailsFragment,
-  useMapSelection,
-} from '@whitewater-guide/clients';
+import type { RegionDetailsFragment } from '@whitewater-guide/clients';
+import { useMapSelection } from '@whitewater-guide/clients';
 import React, { memo, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, StyleSheet } from 'react-native';

@@ -1,12 +1,13 @@
 import { useFormikContext } from 'formik';
 import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
+import type { LayoutChangeEvent } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { ActivityIndicator, Button } from 'react-native-paper';
 
 import theme from '~/theme';
 
-import { SectionFormInput } from './types';
+import type { SectionFormInput } from './types';
 
 const styles = StyleSheet.create({
   loading: {

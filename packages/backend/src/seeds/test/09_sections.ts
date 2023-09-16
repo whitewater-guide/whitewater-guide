@@ -1,9 +1,8 @@
 import { Duration } from '@whitewater-guide/schema';
-import Knex from 'knex';
+import type { Knex } from 'knex';
 import { LineString, Point } from 'wkx';
 
-import { Coordinates } from '~/apollo';
-
+import type { Coordinates } from '../../apollo/index';
 import { ADMIN_ID, TEST_USER2_ID } from './01_users';
 import {
   LOWER_BECA_PT_1,

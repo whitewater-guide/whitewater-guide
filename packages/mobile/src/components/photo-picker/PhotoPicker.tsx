@@ -1,10 +1,10 @@
-import { ImageStyle } from '@whitewater-guide/react-native-fast-image';
+import type { ImageStyle } from '@whitewater-guide/react-native-fast-image';
 import React from 'react';
-import { StyleProp, ViewStyle } from 'react-native';
+import type { StyleProp, ViewStyle } from 'react-native';
 
 import LocalPhotoView from '~/components/photo-picker/LocalPhotoView';
 
-import { LocalPhoto } from '../../features/uploads';
+import type { LocalPhoto } from '../../features/uploads';
 import Placeholder from './Placeholder';
 
 export interface PhotoPickerProps {

@@ -1,8 +1,7 @@
-import { listResolvers } from '~/apollo';
-
-import Media from './fields';
-import Mutation from './mutations';
-import Query from './queries';
+import { listResolvers } from '../../apollo/index';
+import Media from './fields/index';
+import Mutation from './mutations/index';
+import Query from './queries/index';
 
 export const mediaResolvers = {
   Media,

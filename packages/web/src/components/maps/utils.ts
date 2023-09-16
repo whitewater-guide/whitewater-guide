@@ -1,4 +1,4 @@
-import { Point, Section } from '@whitewater-guide/schema';
+import type { Point, Section } from '@whitewater-guide/schema';
 
 export function isPoint(p: unknown): p is Point {
   return (p as any)?.__typename === 'Point';

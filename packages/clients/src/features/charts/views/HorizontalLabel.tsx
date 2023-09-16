@@ -1,9 +1,9 @@
-import { GaugeBinding } from '@whitewater-guide/schema';
+import type { GaugeBinding } from '@whitewater-guide/schema';
 import React from 'react';
-import { TextAnchorType } from 'victory-core';
+import type { TextAnchorType } from 'victory-core';
 
 import { getColorForValue } from '../../sections';
-import { HorizontalLabelProps } from './types';
+import type { HorizontalLabelProps } from './types';
 
 interface Props {
   x?: number;

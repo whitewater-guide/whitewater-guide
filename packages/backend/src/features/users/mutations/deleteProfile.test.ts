@@ -1,9 +1,8 @@
-import { anonContext, countRows, fakeContext } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { db, holdTransaction, rollbackTransaction } from '~/db';
-import { synapseClient } from '~/features/chats';
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
+import { synapseClient } from '../../../features/chats/index';
 import {
   ADMIN,
   BOOM_USER_1500,
@@ -15,8 +14,8 @@ import {
   TEST_USER,
   TEST_USER_ID,
   TEST_USER2,
-} from '~/seeds/test/01_users';
-
+} from '../../../seeds/test/01_users';
+import { anonContext, countRows, fakeContext } from '../../../test/index';
 import { testDeleteProfile } from './deleteProfile.test.generated';
 
 jest.mock('../../chats/SynapseClient');

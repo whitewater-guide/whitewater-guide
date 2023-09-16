@@ -1,7 +1,5 @@
-import {
-  createStackNavigator,
-  StackNavigationOptions,
-} from '@react-navigation/stack';
+import type { StackNavigationOptions } from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Config from 'react-native-ultimate-config';
@@ -15,7 +13,7 @@ import { LazyPhotoScreen } from './photo';
 import { LazyRiverScreen } from './river';
 import { LazyShapeScreen } from './shape';
 import SubmitButton from './SubmitButton';
-import { AddSectionStackParamsList } from './types';
+import type { AddSectionStackParamsList } from './types';
 
 const Stack = createStackNavigator<AddSectionStackParamsList>();
 

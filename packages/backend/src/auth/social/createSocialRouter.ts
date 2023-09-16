@@ -1,11 +1,11 @@
-import { AuthBody } from '@whitewater-guide/commons';
-import { SocialMediaProvider } from '@whitewater-guide/schema';
+import type { AuthBody } from '@whitewater-guide/commons';
+import type { SocialMediaProvider } from '@whitewater-guide/schema';
 import Router from 'koa-router';
 
-import { sendCredentials } from '../jwt';
+import { sendCredentials } from '../jwt/index';
 import authLogger from '../logger';
-import { KoaPassport } from '../types';
-import { fcmMiddleware } from '../utils';
+import type { KoaPassport } from '../types';
+import { fcmMiddleware } from '../utils/index';
 
 export function createSocialRouter(
   passport: KoaPassport,

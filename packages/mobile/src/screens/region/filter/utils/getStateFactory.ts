@@ -1,13 +1,12 @@
-import {
-  DefaultSectionFilterOptions,
-  SectionFilterOptions,
-} from '@whitewater-guide/clients';
-import { Tag } from '@whitewater-guide/schema';
+import type { SectionFilterOptions } from '@whitewater-guide/clients';
+import { DefaultSectionFilterOptions } from '@whitewater-guide/clients';
+import type { Tag } from '@whitewater-guide/schema';
 import groupBy from 'lodash/groupBy';
 
-import { SelectableTag, TagSelection } from '~/features/tags';
+import type { SelectableTag } from '~/features/tags';
+import { TagSelection } from '~/features/tags';
 
-import { SearchState } from '../types';
+import type { SearchState } from '../types';
 
 export const getStateFactory =
   (tags: Tag[]) =>

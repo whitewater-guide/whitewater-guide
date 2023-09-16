@@ -6,7 +6,7 @@ import SectionFAB from '../SectionFAB';
 import SectionTabsScreen from '../SectionTabsScreen';
 import SectionInfoMenu from './SectionInfoMenu';
 import SectionInfoView from './SectionInfoView';
-import { SectionInfoNavProps } from './types';
+import type { SectionInfoNavProps } from './types';
 
 const SectionInfoScreen: React.FC<SectionInfoNavProps> = ({ navigation }) => {
   const section = useSection();

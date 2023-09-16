@@ -1,5 +1,5 @@
 import React from 'react';
-import { ColumnProps } from 'react-virtualized';
+import type { ColumnProps } from 'react-virtualized';
 
 interface BooleanColumnProps extends ColumnProps {
   adminOnly?: boolean;

@@ -1,6 +1,6 @@
-import Knex from 'knex';
+import type { Knex } from 'knex';
 
-import { createViews, dropViews } from '~/db';
+import { createViews, dropViews } from '../db/index';
 
 const VIEWS = ['gauges', 'sections', 'rivers', 'regions', 'points'];
 /**
@@ -10,15 +10,13 @@ const VIEWS = ['gauges', 'sections', 'rivers', 'regions', 'points'];
  * @param {Knex} db
  * @returns {Promise<void>}
  */
-export const up = async (db: Knex) => {
+export async function up(db: Knex): Promise<void> {
   // Change "shape" column
   await dropViews(db, ...VIEWS);
   await createViews(db, 2, ...VIEWS);
-};
+}
 
-export const down = async (db: Knex) => {
+export async function down(db: Knex): Promise<void> {
   await dropViews(db, ...VIEWS);
   await createViews(db, 1, ...VIEWS);
-};
-
-export const configuration = { transaction: true };
+}

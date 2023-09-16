@@ -1,6 +1,6 @@
 import { sectionName, SectionNameDocument } from '@whitewater-guide/clients';
 
-import { BreadcrumbsMap } from '../../components/breadcrumbs';
+import type { BreadcrumbsMap } from '../../components/breadcrumbs';
 
 export const sectionBreadcrumbs: BreadcrumbsMap = {
   '/sections': 'Sections',

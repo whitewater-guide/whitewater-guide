@@ -1,14 +1,12 @@
-import { LANGUAGES, SocialMediaProvider } from '@whitewater-guide/schema';
-import get from 'lodash/get';
-import { preferredLanguages } from 'negotiator/lib/language';
-import { Profile } from 'passport';
+import { SocialMediaProvider } from '@whitewater-guide/schema';
+import type { Profile } from 'passport';
 import FacebookTokenStrategy from 'passport-facebook-token';
 
-import config from '~/config';
-import { sendWelcome } from '~/mail';
-
+import config from '../../config';
+import { sendWelcome } from '../../mail/index';
 import logger from '../logger';
-import { negotiateLanguage, storeUser } from '../social';
+import { storeUser } from '../social/index';
+import { negotiateLanguage } from '../utils/index';
 
 async function getFBUser(profile: Profile, req: any) {
   // Use fake content-negotiation to determine best language for user based on facebook locale
@@ -16,11 +14,8 @@ async function getFBUser(profile: Profile, req: any) {
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language
   // https://developers.facebook.com/docs/internationalization/#locales
   // Make sure that it it is always defined
-  const fbLocale = get(profile, '_json.locale');
-  const fbLangs = fbLocale
-    ? preferredLanguages(`${fbLocale.replace('_', '-')};q=1.0`, LANGUAGES)
-    : [];
-  const language = negotiateLanguage(req, fbLangs);
+  const fbLocale = profile?._json?.locale;
+  const language = negotiateLanguage(req, fbLocale);
 
   const username = `${profile.name?.givenName} ${profile.name?.familyName}`;
   return storeUser(

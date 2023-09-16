@@ -1,6 +1,6 @@
-import { MediaKind } from '@whitewater-guide/schema';
+import type { MediaKind } from '@whitewater-guide/schema';
 
-import { LocalPhoto } from '../../../../utils/files';
+import type { LocalPhoto } from '../../../../utils/files';
 
 export interface MediaDialogProps {
   open: boolean;

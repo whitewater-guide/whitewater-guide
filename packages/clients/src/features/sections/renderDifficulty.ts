@@ -1,4 +1,4 @@
-import { Section } from '@whitewater-guide/schema';
+import type { Section } from '@whitewater-guide/schema';
 
 import { toRomanDifficulty } from './toRomanDifficulty';
 

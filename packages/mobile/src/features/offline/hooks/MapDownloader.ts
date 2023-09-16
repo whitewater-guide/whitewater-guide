@@ -1,17 +1,18 @@
 import { offlineManager } from '@rnmapbox/maps';
-import {
+import type {
   OfflinePackError,
   OfflineProgressStatus,
 } from '@rnmapbox/maps/lib/typescript/modules/offline/offlineManager';
-import OfflinePack from '@rnmapbox/maps/lib/typescript/modules/offline/OfflinePack';
+import type OfflinePack from '@rnmapbox/maps/lib/typescript/modules/offline/OfflinePack';
 import { getBBox } from '@whitewater-guide/clients';
-import { Region } from '@whitewater-guide/schema';
+import type { Region } from '@whitewater-guide/schema';
 
 import Layers from '~/components/map/layers';
 import { trackError } from '~/core/errors';
 
 import { MapboxOfflineError } from '../errors';
-import { MapboxOfflinePackState, OfflineProgress } from '../types';
+import type { OfflineProgress } from '../types';
+import { MapboxOfflinePackState } from '../types';
 
 export default class MapDownloader {
   private readonly _regionId: string;

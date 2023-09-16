@@ -1,4 +1,4 @@
-import { WithSpringConfig } from 'react-native-reanimated';
+import type { WithSpringConfig } from 'react-native-reanimated';
 
 export const SPRING_CONFIG: WithSpringConfig = {
   restSpeedThreshold: 1.7,

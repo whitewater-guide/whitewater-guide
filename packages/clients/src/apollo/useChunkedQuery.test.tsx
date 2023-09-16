@@ -1,6 +1,7 @@
-import { MockedProvider, MockedResponse } from '@apollo/client/testing';
+import type { MockedResponse } from '@apollo/client/testing';
+import { MockedProvider } from '@apollo/client/testing';
 import { renderHook } from '@testing-library/react-hooks';
-import { NamedNode, Page } from '@whitewater-guide/schema';
+import type { NamedNode, Page } from '@whitewater-guide/schema';
 import gql from 'graphql-tag';
 import React from 'react';
 

@@ -1,6 +1,6 @@
 import Router from 'koa-router';
 
-import { fcmMiddleware } from '../utils';
+import { fcmMiddleware } from '../utils/index';
 
 // this is not part of apollo-server because it's needed before apollo client initializes
 export const fcmRouter = new Router({ prefix: '/fcm' });

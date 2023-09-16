@@ -1,4 +1,4 @@
-import log from '~/log';
+import log from '../../log/index';
 
 const logger = log.child({ module: 'emails' });
 

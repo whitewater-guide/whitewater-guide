@@ -1,8 +1,7 @@
-import { SocialMediaAccount } from '@whitewater-guide/schema';
+import type { SocialMediaAccount } from '@whitewater-guide/schema';
 
-import { Context, UserResolvers } from '~/apollo';
-
-import { ResolvableUser } from '../types';
+import type { Context, UserResolvers } from '../../../apollo/index';
+import type { ResolvableUser } from '../types';
 
 const accounts: UserResolvers<Context, ResolvableUser>['accounts'] = (u) => {
   const accounts: SocialMediaAccount[] = u.accounts || [];

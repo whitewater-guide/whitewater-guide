@@ -1,8 +1,8 @@
 import { sleep } from '@whitewater-guide/clients';
 import { useMemo, useState } from 'react';
 
-import { OfflineProgress } from '../../types';
-import { PhotoChannel } from '../../utils';
+import type { OfflineProgress } from '../../types';
+import type { PhotoChannel } from '../../utils';
 
 interface Hook {
   loading: boolean;
@@ -20,23 +20,24 @@ export default (
 ): Hook => {
   const [state, setState] = useState({ loading: false });
   const download = useMemo(
-    () => async (
-      _regionId: string,
-      estimatedTotal: number,
-      _photoChannel: PhotoChannel,
-    ) => {
-      setState({ loading: true });
-      await sleep(1);
-      onProgress({ data: [0, estimatedTotal] });
-      await sleep(1);
-      onProgress({ data: [1, estimatedTotal] });
-      await sleep(1);
-      onProgress({ data: [2, estimatedTotal] });
-      await sleep(1);
-      onProgress({ data: [3, estimatedTotal] });
-      setState({ loading: false });
-      return null;
-    },
+    () =>
+      async (
+        _regionId: string,
+        estimatedTotal: number,
+        _photoChannel: PhotoChannel,
+      ) => {
+        setState({ loading: true });
+        await sleep(1);
+        onProgress({ data: [0, estimatedTotal] });
+        await sleep(1);
+        onProgress({ data: [1, estimatedTotal] });
+        await sleep(1);
+        onProgress({ data: [2, estimatedTotal] });
+        await sleep(1);
+        onProgress({ data: [3, estimatedTotal] });
+        setState({ loading: false });
+        return null;
+      },
     [setState, onProgress],
   );
 

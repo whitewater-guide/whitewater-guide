@@ -1,12 +1,11 @@
-import { RefreshTokenPayload } from '@whitewater-guide/commons';
-import { decode, verify } from 'jsonwebtoken';
-import { Middleware } from 'koa';
+import type { RefreshTokenPayload } from '@whitewater-guide/commons';
+import jwt from 'jsonwebtoken';
+import type { Middleware } from 'koa';
 
-import config from '~/config';
-import { db } from '~/db';
-
+import config from '../../config';
+import { db } from '../../db/index';
 import { REFRESH_TOKEN_COOKIE } from '../constants';
-import { clearCookies } from '../utils';
+import { clearCookies } from '../utils/index';
 import cookieJWTExtractor from './cookie-jwt-extractor';
 import { sendCredentials } from './sendCredentials';
 
@@ -21,11 +20,11 @@ export const refreshJWT: Middleware<any, any> = async (ctx, next) => {
 
   let payload: RefreshTokenPayload;
   try {
-    payload = verify(token, config.REFRESH_TOKEN_SECRET) as any;
+    payload = jwt.verify(token, config.REFRESH_TOKEN_SECRET) as any;
   } catch (err) {
     let id: string | undefined;
     try {
-      payload = decode(token) as any;
+      payload = jwt.decode(token) as any;
       id = payload.id;
     } catch {
       /* Ignore */

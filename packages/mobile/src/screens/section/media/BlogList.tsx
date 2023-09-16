@@ -1,4 +1,5 @@
-import { MediaKind, MediaWithThumbFragment } from '@whitewater-guide/schema';
+import type { MediaWithThumbFragment } from '@whitewater-guide/schema';
+import { MediaKind } from '@whitewater-guide/schema';
 import React from 'react';
 
 import BlogItem from './BlogItem';

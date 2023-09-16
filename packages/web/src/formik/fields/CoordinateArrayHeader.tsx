@@ -4,7 +4,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
 import { lineString } from '@turf/helpers';
 import length from '@turf/length';
-import { Coordinate2d } from '@whitewater-guide/clients';
+import type { Coordinate2d } from '@whitewater-guide/clients';
 import React from 'react';
 
 const useStyles = makeStyles(() =>

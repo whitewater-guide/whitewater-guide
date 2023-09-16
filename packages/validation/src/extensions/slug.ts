@@ -1,11 +1,8 @@
-import * as yup from 'yup';
+import type { StringSchema } from 'yup';
 
 const SLUG_REGEX = /^[0-9a-zA-Z_-]{3,64}$/;
 
-export default function slug(
-  this: yup.StringSchema<any, any, any>,
-  errorMessage?: string,
-) {
+export default function slug(this: StringSchema, errorMessage?: string) {
   return this.test({
     name: 'is-slug',
     exclusive: true,

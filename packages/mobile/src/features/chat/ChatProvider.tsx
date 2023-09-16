@@ -1,9 +1,9 @@
 import { useAuth } from '@whitewater-guide/clients';
-import { ClientEvent, createClient, Filter, MatrixClient } from 'matrix-js-sdk';
+import type { MatrixClient } from 'matrix-js-sdk';
+import { ClientEvent, createClient, Filter } from 'matrix-js-sdk';
+import type { FC, PropsWithChildren } from 'react';
 import React, {
   createContext,
-  FC,
-  PropsWithChildren,
   useContext,
   useEffect,
   useRef,

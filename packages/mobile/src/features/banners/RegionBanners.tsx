@@ -1,5 +1,5 @@
 import { useRegion } from '@whitewater-guide/clients';
-import { BannerPlacement } from '@whitewater-guide/schema';
+import type { BannerPlacement } from '@whitewater-guide/schema';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 

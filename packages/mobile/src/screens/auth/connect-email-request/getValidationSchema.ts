@@ -1,15 +1,15 @@
-import * as yup from 'yup';
+import type { ObjectSchema } from 'yup';
+import { object, string } from 'yup';
 
-import { RequestConnectEmailMutationVariables } from './requestConnectEmail.generated';
+import type { RequestConnectEmailMutationVariables } from './requestConnectEmail.generated';
 
-let _schema: yup.SchemaOf<RequestConnectEmailMutationVariables>;
+let _schema: ObjectSchema<RequestConnectEmailMutationVariables>;
 
 const getValidationSchema = () => {
   if (!_schema) {
-    _schema = yup
-      .object()
+    _schema = object()
       .shape({
-        email: yup.string().email().required(),
+        email: string().email().required(),
       })
       .defined();
   }

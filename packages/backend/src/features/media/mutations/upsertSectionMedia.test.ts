@@ -1,20 +1,12 @@
-import {
-  anonContext,
-  copyToTemp,
-  countRows,
-  fakeContext,
-  fileExistsInBucket,
-  resetTestMinio,
-  UUID_REGEX,
-} from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import { MediaInput, MediaKind } from '@whitewater-guide/schema';
-import gql from 'graphql-tag';
-import * as path from 'path';
+import type { MediaInput } from '@whitewater-guide/schema';
+import { MediaKind } from '@whitewater-guide/schema';
+import { gql } from 'graphql-tag';
 
-import config from '~/config';
-import { db, holdTransaction, rollbackTransaction, Sql } from '~/db';
-import { MEDIA, TEMP } from '~/s3';
+import config from '../../../config';
+import type { Sql } from '../../../db/index';
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
+import { MEDIA, TEMP } from '../../../s3/index';
 import {
   ADMIN,
   ADMIN_ID,
@@ -22,12 +14,23 @@ import {
   EDITOR_NO_EC,
   EDITOR_NO_EC_ID,
   TEST_USER,
-} from '~/seeds/test/01_users';
-import { REGION_NORWAY } from '~/seeds/test/04_regions';
-import { RIVER_SJOA } from '~/seeds/test/07_rivers';
-import { GALICIA_BECA_LOWER, NORWAY_SJOA_AMOT } from '~/seeds/test/09_sections';
-import { PHOTO_1, PHOTO_2 } from '~/seeds/test/11_media';
-
+} from '../../../seeds/test/01_users';
+import { REGION_NORWAY } from '../../../seeds/test/04_regions';
+import { RIVER_SJOA } from '../../../seeds/test/07_rivers';
+import {
+  GALICIA_BECA_LOWER,
+  NORWAY_SJOA_AMOT,
+} from '../../../seeds/test/09_sections';
+import { PHOTO_1, PHOTO_2 } from '../../../seeds/test/11_media';
+import {
+  anonContext,
+  copyToTemp,
+  countRows,
+  fakeContext,
+  fileExistsInBucket,
+  resetTestMinio,
+} from '../../../test/index';
+import { resolveRelative, UUID_REGEX } from '../../../utils/index';
 import { testUpsertSectionMedia } from './upsertSectionMedia.test.generated';
 
 let mBefore: number;
@@ -397,7 +400,7 @@ describe('files', () => {
   beforeEach(async () => {
     // Emulate file with the same key as existing avatar uploaded by user
     await copyToTemp(
-      path.resolve(__dirname, '__tests__/test.jpg'),
+      resolveRelative(__dirname, '__tests__/test.jpg'),
       NEW_MEDIA_ID,
     );
     result = await testUpsertSectionMedia(

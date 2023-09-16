@@ -1,5 +1,6 @@
-import { isAuthenticatedResolver, MutationResolvers } from '~/apollo';
-import { db } from '~/db';
+import type { MutationResolvers } from '../../../apollo/index';
+import { isAuthenticatedResolver } from '../../../apollo/index';
+import { db } from '../../../db/index';
 
 const toggleFavoriteRegion: MutationResolvers['toggleFavoriteRegion'] = async (
   _,

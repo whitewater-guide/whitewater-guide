@@ -1,10 +1,11 @@
-import { UserResolvers } from '~/apollo';
+import type { UserResolvers } from '../../../apollo/index';
 
-const avatar: UserResolvers['avatar'] = (user, _, { dataSources }) => {
+const avatar: UserResolvers['avatar'] = async (user, _, { dataSources }) => {
   if (!user) {
     return null;
   }
-  return dataSources.users.getAvatar(user);
+  const avatar = await dataSources.users.getAvatar(user as any);
+  return avatar!;
 };
 
 export default avatar;

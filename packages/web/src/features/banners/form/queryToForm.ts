@@ -1,10 +1,10 @@
 import { BannerResolutions, LocalPhotoStatus } from '@whitewater-guide/clients';
 import { BannerKind, BannerPlacement } from '@whitewater-guide/schema';
-import shortid from 'shortid';
+import { nanoid } from 'nanoid';
 
 import { fromJSON } from '../../../formik/utils';
-import { BannerFormQuery } from './bannerForm.generated';
-import { BannerFormData } from './types';
+import type { BannerFormQuery } from './bannerForm.generated';
+import type { BannerFormData } from './types';
 
 const NEW_BANNER: BannerFormData = {
   id: null,
@@ -35,7 +35,7 @@ export default (result?: BannerFormQuery): BannerFormData => {
       banner.source.kind === BannerKind.WebView
         ? banner.source.url
         : {
-            id: shortid(),
+            id: nanoid(),
             resolution: BannerResolutions[banner.placement],
             url: banner.source.url,
             status: LocalPhotoStatus.READY,

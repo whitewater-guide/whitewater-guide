@@ -1,4 +1,4 @@
-import { SectionResolvers } from '~/apollo';
+import type { SectionResolvers } from '../../../apollo/index';
 
 const mediaResolver: SectionResolvers['media'] = (
   { id },

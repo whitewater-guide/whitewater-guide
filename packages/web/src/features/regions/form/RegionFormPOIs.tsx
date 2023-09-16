@@ -2,7 +2,7 @@ import { useFormikContext } from 'formik';
 import React from 'react';
 
 import { POIArray } from '../../../formik/fields';
-import { RegionFormData } from './types';
+import type { RegionFormData } from './types';
 
 const RegionFormPOIs: React.FC = React.memo(() => {
   const { initialValues } = useFormikContext<RegionFormData>();

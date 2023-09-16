@@ -1,5 +1,5 @@
-import Mutation from './mutations';
-import Query from './queries';
+import Mutation from './mutations/index';
+import Query from './queries/index';
 
 export const tagsResolvers = {
   Query,

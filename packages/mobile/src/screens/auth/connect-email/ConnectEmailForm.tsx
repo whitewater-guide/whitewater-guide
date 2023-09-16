@@ -1,5 +1,6 @@
 import { Formik } from 'formik';
-import { FC, RefObject, useCallback, useMemo, useRef } from 'react';
+import type { FC, RefObject } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 import { Button } from 'react-native-paper';
@@ -9,7 +10,7 @@ import HelperText from '~/forms/HelperText';
 import PasswordField from '~/forms/password-field';
 import TextField from '~/forms/TextField';
 
-import { ConnectEmailMutationVariables } from './connectEmail.generated';
+import type { ConnectEmailMutationVariables } from './connectEmail.generated';
 import getValidationSchema from './getValidationSchema';
 import useConnectEmailForm from './useConnectEmailForm';
 
@@ -101,7 +102,7 @@ export const ConnectEmailForm: FC<Props> = (props) => {
             <Button
               mode="contained"
               loading={isSubmitting}
-              onPress={handleSubmit}
+              onPress={() => handleSubmit()}
             >
               {t('screens:connectEmail.submit')}
             </Button>

@@ -1,9 +1,10 @@
-import { QueryResult } from '@apollo/client';
-import { NamedNode } from '@whitewater-guide/schema';
+import type { QueryResult } from '@apollo/client';
+import type { NamedNode } from '@whitewater-guide/schema';
 import get from 'lodash/get';
 import React, { useCallback } from 'react';
 
-import { AutocompleteProps, QueryAutocomplete } from './autocomplete';
+import type { AutocompleteProps } from './autocomplete';
+import { QueryAutocomplete } from './autocomplete';
 import { FindRegionsDocument } from './findRegions.generated';
 
 type Props = Omit<AutocompleteProps, 'options'>;

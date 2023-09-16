@@ -1,16 +1,18 @@
-import * as yup from 'yup';
+import type { ObjectSchema } from 'yup';
+import { date, mixed, object, string } from 'yup';
 
-import { PurchaseInput } from '../__generated__/types';
+import type { PurchaseInput } from '../__generated__/types';
 import { PurchasePlatform } from './types';
 
-export const PurchaseInputSchema: yup.SchemaOf<PurchaseInput> = yup
-  .object({
-    platform: yup.mixed().defined().oneOf(Object.values(PurchasePlatform)),
-    transactionId: yup.string().nonEmpty(),
-    transactionDate: yup.date().optional().nullable(),
-    productId: yup.string().nonEmpty(),
-    receipt: yup.string().notRequired().nullable(),
-    extra: yup.object().notRequired().nullable(),
-  })
+export const PurchaseInputSchema: ObjectSchema<PurchaseInput> = object({
+  platform: mixed<PurchasePlatform>()
+    .defined()
+    .oneOf(Object.values(PurchasePlatform)),
+  transactionId: string().nonEmpty(),
+  transactionDate: date().optional().nullable(),
+  productId: string().nonEmpty(),
+  receipt: string().notRequired().nullable(),
+  extra: object().notRequired().nullable(),
+})
   .strict(true)
   .noUnknown();

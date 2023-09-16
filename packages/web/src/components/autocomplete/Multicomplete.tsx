@@ -1,4 +1,4 @@
-import { NamedNode } from '@whitewater-guide/schema';
+import type { NamedNode } from '@whitewater-guide/schema';
 import Downshift from 'downshift';
 import React from 'react';
 
@@ -8,7 +8,7 @@ import AutocompleteMenuItem from './AutocompleteMenuItem';
 import ChipsAdornment from './ChipsAdornment';
 import filterOptions from './filterOptions';
 import itemToString from './itemToString';
-import { MulticompleteProps } from './types';
+import type { MulticompleteProps } from './types';
 
 interface State {
   inputValue: string;

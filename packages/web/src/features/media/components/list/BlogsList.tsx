@@ -5,7 +5,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import React from 'react';
 
 import { IconButtonWithData } from '../../../../components';
-import { ListedMedia } from './types';
+import type { ListedMedia } from './types';
 
 interface Props {
   editable: boolean;

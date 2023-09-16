@@ -7,7 +7,7 @@ import MediaFormActions from './MediaFormActions';
 import MediaFormTitle from './MediaFormTitle';
 import NonPhotoForm from './NonPhotoForm';
 import PhotoForm from './PhotoForm';
-import { MediaDialogProps } from './types';
+import type { MediaDialogProps } from './types';
 
 const MediaDialog = React.memo<MediaDialogProps>((props) => {
   const { open, prefix, kind, localPhoto, onCancel, onSubmit } = props;

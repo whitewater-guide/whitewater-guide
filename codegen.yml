@@ -45,6 +45,7 @@ generates:
 
   # GRAPHQL resolvers
   ./packages/backend/src/apollo/resolvers.generated.ts:
+    emitLegacyCommonJSImports: false
     preset: import-types
     presetConfig:
       typesPath: '@whitewater-guide/schema'
@@ -54,31 +55,34 @@ generates:
             - '/* eslint-disable @typescript-eslint/no-explicit-any */'
       - typescript-resolvers
     config:
+      gqlImport: graphql-tag#gql
+      useTypeImports: true
       useIndexSignature: true
       noSchemaStitching: true
-      contextType: ./context#Context
+      contextType: ./context.js#Context
       resolverTypeWrapperSignature: 'T extends object ? Promise<Partial<T>> | Partial<T> : Promise<T> | T'
       defaultMapper: any
       mappers:
-        Banner: ~/db#Sql.Banners
-        BannerSource: ~/db#Sql.BannerSource
-        Descent: ~/db#Sql.Descents
-        Gauge: ~/db#Sql.GaugesView
-        GaugeBinding: ~/db#Sql.GaugeBinding
-        Group: ~/db#Sql.GroupsView
+        Banner: '../db/index.js#Sql.Banners'
+        BannerSource: '../db/index.js#Sql.BannerSource'
+        Descent: '../db/index.js#Sql.Descents'
+        Gauge: '../db/index.js#Sql.GaugesView'
+        GaugeBinding: '../db/index.js#Sql.GaugeBinding'
+        Group: '../db/index.js#Sql.GroupsView'
         License: '@whitewater-guide/schema#License'
-        Media: ~/db#Sql.MediaView
-        Point: ~/db#Sql.PointsView
-        Region: ~/db#Sql.RegionsView
-        RegionCoverImage: ~/db#Sql.RegionCoverImage
-        River: ~/db#Sql.RiversView
-        Section: ~/db#Sql.SectionsView
-        Source: ~/db#Sql.SourcesView
-        Suggestion: ~/db#Sql.Suggestions
-        User: ~/db#Sql.Users
+        Media: '../db/index.js#Sql.MediaView'
+        Point: '../db/index.js#Sql.PointsView'
+        Region: '../db/index.js#Sql.RegionsView'
+        RegionCoverImage: '../db/index.js#Sql.RegionCoverImage'
+        River: '../db/index.js#Sql.RiversView'
+        Section: '../db/index.js#Sql.SectionsView'
+        Source: '../db/index.js#Sql.SourcesView'
+        Suggestion: '../db/index.js#Sql.Suggestions'
+        User: '../db/index.js#Sql.Users'
 
   # Tests that run GRAPHQL queries and mutations against our API
   ./packages/backend/src/:
+    emitLegacyCommonJSImports: false
     documents:
       - ./packages/backend/src/**/__tests__/*.ts
       - ./packages/backend/src/**/*.test.ts
@@ -91,6 +95,9 @@ generates:
       - typescript-operations
       # This custom-made plugin generates strongly typed functions to execute graphql queries in tests
       - '@whitewater-guide/codegen-backend-tests'
+    config:
+      useTypeImports: true
+      gqlImport: graphql-tag#gql
 
   # Frontend queries and mutations
   ./:

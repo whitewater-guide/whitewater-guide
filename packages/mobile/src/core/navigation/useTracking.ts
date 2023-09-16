@@ -1,4 +1,4 @@
-import {
+import type {
   NavigationContainerRefWithCurrent,
   NavigationState,
 } from '@react-navigation/native';

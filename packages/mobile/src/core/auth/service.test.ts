@@ -1,11 +1,15 @@
 // eslint-disable-next-line import/default
 import messaging from '@react-native-firebase/messaging';
-import { AuthResponse, AuthService } from '@whitewater-guide/clients';
+import type { AuthResponse, AuthService } from '@whitewater-guide/clients';
 import {
   continuouslyAdvanceTimers,
   flushPromises,
 } from '@whitewater-guide/clients/dist/test';
-import { AuthBody, RefreshBody, SignInBody } from '@whitewater-guide/commons';
+import type {
+  AuthBody,
+  RefreshBody,
+  SignInBody,
+} from '@whitewater-guide/commons';
 import { AccessToken, LoginManager } from 'react-native-fbsdk-next';
 
 import { fetchMock } from '../../test';

@@ -1,11 +1,11 @@
-import {
+import type {
   CompositeNavigationProp,
   ParamListBase,
   RouteProp,
 } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import type { StackNavigationProp } from '@react-navigation/stack';
 
-import {
+import type {
   RootDrawerParamsList,
   RootStackParamsList,
   Screens,

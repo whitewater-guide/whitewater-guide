@@ -1,6 +1,6 @@
 import take from 'lodash/take';
 
-import { PromoRegionFragment } from '../promoRegion.generated';
+import type { PromoRegionFragment } from '../promoRegion.generated';
 
 export default function filterRegions(
   regions: PromoRegionFragment[],

@@ -1,4 +1,4 @@
-import { ListedSectionFragment } from '@whitewater-guide/clients';
+import type { ListedSectionFragment } from '@whitewater-guide/clients';
 import React from 'react';
 
 import { useMergeSource } from './MergeSectionsProvider';

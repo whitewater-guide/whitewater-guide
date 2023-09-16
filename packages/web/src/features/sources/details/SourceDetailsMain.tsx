@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Styles } from '../../../styles';
-import { SourceDetailsFragment } from './sourceDetails.generated';
+import type { Styles } from '../../../styles';
+import type { SourceDetailsFragment } from './sourceDetails.generated';
 
 const styles: Styles = {
   wrapper: {

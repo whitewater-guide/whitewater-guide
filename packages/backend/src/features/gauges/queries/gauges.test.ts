@@ -1,12 +1,11 @@
-import { anonContext, fakeContext, noTimestamps } from '@test';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { db, holdTransaction, rollbackTransaction } from '~/db';
-import { ADMIN, EDITOR_NO_EC, TEST_USER } from '~/seeds/test/01_users';
-import { REGION_GALICIA } from '~/seeds/test/04_regions';
-import { SOURCE_NORWAY } from '~/seeds/test/05_sources';
-import { TOTAL_GAUGES } from '~/seeds/test/06_gauges';
-
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
+import { ADMIN, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
+import { REGION_GALICIA } from '../../../seeds/test/04_regions';
+import { SOURCE_NORWAY } from '../../../seeds/test/05_sources';
+import { TOTAL_GAUGES } from '../../../seeds/test/06_gauges';
+import { anonContext, fakeContext, noTimestamps } from '../../../test/index';
 import { testListGauges } from './gauges.test.generated';
 
 jest.mock('../../gorge/connector.ts');

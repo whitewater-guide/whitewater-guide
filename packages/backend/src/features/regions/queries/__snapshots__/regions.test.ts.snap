@@ -1,20 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`results admin should get all regions 1`] = `
-Array [
-  Object {
-    "bounds": Array [
-      Array [
+[
+  {
+    "bounds": [
+      [
         1,
         0,
         0,
       ],
-      Array [
+      [
         0,
         1,
         0,
       ],
-      Array [
+      [
         1,
         1,
         0,
@@ -25,36 +25,36 @@ Array [
     "editable": true,
     "hidden": false,
     "id": "2caf75ca-7625-11e7-b5a5-be2e44b06b34",
-    "license": Object {
+    "license": {
       "name": "Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)",
       "slug": "CC_BY-SA",
       "url": "https://creativecommons.org/licenses/by-sa/4.0/",
     },
     "name": "Ecuador",
-    "pois": Array [],
+    "pois": [],
     "premium": true,
     "season": null,
-    "seasonNumeric": Array [],
+    "seasonNumeric": [],
     "sku": "region.ecuador",
   },
-  Object {
-    "bounds": Array [
-      Array [
+  {
+    "bounds": [
+      [
         -114,
         46,
         0,
       ],
-      Array [
+      [
         -115,
         46,
         0,
       ],
-      Array [
+      [
         -115,
         47,
         0,
       ],
-      Array [
+      [
         -114,
         47,
         0,
@@ -67,9 +67,9 @@ Array [
     "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
     "license": null,
     "name": "Galicia",
-    "pois": Array [
-      Object {
-        "coordinates": Array [
+    "pois": [
+      {
+        "coordinates": [
           20,
           30,
           40,
@@ -79,8 +79,8 @@ Array [
         "kind": "kayak-shop",
         "name": "Galicia Point 1",
       },
-      Object {
-        "coordinates": Array [
+      {
+        "coordinates": [
           11,
           22,
           33,
@@ -93,30 +93,30 @@ Array [
     ],
     "premium": false,
     "season": "Late autumn - early spring",
-    "seasonNumeric": Array [
+    "seasonNumeric": [
       20,
       21,
     ],
     "sku": null,
   },
-  Object {
-    "bounds": Array [
-      Array [
+  {
+    "bounds": [
+      [
         43.51,
         39.97,
         0,
       ],
-      Array [
+      [
         41.93,
         46.39,
         0,
       ],
-      Array [
+      [
         41.05,
         46.52,
         0,
       ],
-      Array [
+      [
         41.51,
         41.58,
         0,
@@ -129,33 +129,33 @@ Array [
     "id": "8e119768-37f3-11e8-b467-0ed5f89f718b",
     "license": null,
     "name": "Georgia",
-    "pois": Array [],
+    "pois": [],
     "premium": true,
     "season": "spring, summer, autumn",
-    "seasonNumeric": Array [
+    "seasonNumeric": [
       11,
       12,
     ],
     "sku": "region.georgia",
   },
-  Object {
-    "bounds": Array [
-      Array [
+  {
+    "bounds": [
+      [
         20.72,
         80.38,
         0,
       ],
-      Array [
+      [
         14.2,
         74.58,
         0,
       ],
-      Array [
+      [
         15.05,
         71.9,
         0,
       ],
-      Array [
+      [
         22.66,
         77.5,
         0,
@@ -168,9 +168,9 @@ Array [
     "id": "a84d7eda-37f3-11e8-b467-0ed5f89f718b",
     "license": null,
     "name": "Laos",
-    "pois": Array [
-      Object {
-        "coordinates": Array [
+    "pois": [
+      {
+        "coordinates": [
           4,
           3,
           343,
@@ -183,7 +183,7 @@ Array [
     ],
     "premium": false,
     "season": "laos season",
-    "seasonNumeric": Array [
+    "seasonNumeric": [
       3,
       4,
       5,
@@ -191,19 +191,19 @@ Array [
     ],
     "sku": null,
   },
-  Object {
-    "bounds": Array [
-      Array [
+  {
+    "bounds": [
+      [
         4,
         5,
         0,
       ],
-      Array [
+      [
         7,
         8,
         0,
       ],
-      Array [
+      [
         5,
         6,
         0,
@@ -214,36 +214,36 @@ Array [
     "editable": true,
     "hidden": true,
     "id": "b968e2b2-76c5-11e7-b5a5-be2e44b06b34",
-    "license": Object {
+    "license": {
       "name": "Proprietary license",
       "slug": null,
       "url": null,
     },
     "name": "Norway",
-    "pois": Array [],
+    "pois": [],
     "premium": true,
     "season": null,
-    "seasonNumeric": Array [],
+    "seasonNumeric": [],
     "sku": "region.norway",
   },
-  Object {
-    "bounds": Array [
-      Array [
+  {
+    "bounds": [
+      [
         -179,
         -89,
         0,
       ],
-      Array [
+      [
         -179,
         89,
         0,
       ],
-      Array [
+      [
         179,
         89,
         0,
       ],
-      Array [
+      [
         179,
         -89,
         0,
@@ -256,30 +256,30 @@ Array [
     "id": "7e535c02-8624-46a1-a865-d88fe4557361",
     "license": null,
     "name": "Others",
-    "pois": Array [],
+    "pois": [],
     "premium": false,
     "season": null,
-    "seasonNumeric": Array [],
+    "seasonNumeric": [],
     "sku": null,
   },
-  Object {
-    "bounds": Array [
-      Array [
+  {
+    "bounds": [
+      [
         -17,
         -89,
         0,
       ],
-      Array [
+      [
         -17,
         89,
         0,
       ],
-      Array [
+      [
         17,
         89,
         0,
       ],
-      Array [
+      [
         17,
         -89,
         0,
@@ -292,10 +292,10 @@ Array [
     "id": "a2056850-23ae-434d-b06c-7ea1900e5de2",
     "license": null,
     "name": "Россия",
-    "pois": Array [],
+    "pois": [],
     "premium": false,
     "season": null,
-    "seasonNumeric": Array [],
+    "seasonNumeric": [],
     "sku": null,
   },
 ]

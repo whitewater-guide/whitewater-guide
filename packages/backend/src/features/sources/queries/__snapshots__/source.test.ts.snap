@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`data should return source 1`] = `
-Object {
+{
   "cron": "0 * * * *",
   "enabled": true,
   "id": "6d0d717e-aa9d-11e7-abc4-cec278b6b50a",

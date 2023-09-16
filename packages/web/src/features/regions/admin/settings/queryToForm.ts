@@ -1,9 +1,9 @@
 import { LocalPhotoStatus } from '@whitewater-guide/clients';
-import shortid from 'shortid';
+import { nanoid } from 'nanoid';
 
 import { COVER_IMAGE_RESOLUTION } from './constants';
-import { RegionAdminQuery } from './regionAdmin.generated';
-import { RegionAdminFormData } from './types';
+import type { RegionAdminQuery } from './regionAdmin.generated';
+import type { RegionAdminFormData } from './types';
 
 export default (result: RegionAdminQuery): RegionAdminFormData => {
   if (!result || !result.settings) {
@@ -20,7 +20,7 @@ export default (result: RegionAdminQuery): RegionAdminFormData => {
           resolution: COVER_IMAGE_RESOLUTION,
           url: coverImage.mobile,
           status: LocalPhotoStatus.READY,
-          id: shortid(),
+          id: nanoid(),
         }
       : null,
   };

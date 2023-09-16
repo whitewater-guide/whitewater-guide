@@ -1,4 +1,5 @@
-import { EventType, MatrixEvent } from 'matrix-js-sdk';
+import type { MatrixEvent } from 'matrix-js-sdk';
+import { EventType } from 'matrix-js-sdk';
 
 export function isEventRenderable(event: MatrixEvent): boolean {
   const type = event.getType();

@@ -4,7 +4,7 @@ import React, { useCallback } from 'react';
 import { ClickBlocker, DeleteButton, IconLink } from '../../../components';
 import { paths } from '../../../utils';
 import AddSectionButton from './AddSectionButton';
-import { ListedRiverFragment } from './listRivers.generated';
+import type { ListedRiverFragment } from './listRivers.generated';
 
 interface Props {
   river: ListedRiverFragment;

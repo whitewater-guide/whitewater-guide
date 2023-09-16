@@ -7,7 +7,7 @@ import { SwipeableListProvider } from '~/components/swipeable';
 import theme from '~/theme';
 
 import NoSectionsPlaceholder from '../NoSectionsPlaceholder';
-import { ListProps } from './types';
+import type { ListProps } from './types';
 import useBiglist from './useBiglist';
 
 export const RefreshControl = createNativeWrapper(RNRefreshControl, {

@@ -1,8 +1,8 @@
-import Knex from 'knex';
-import path from 'path';
+import type { Knex } from 'knex';
 
-import { createViews, dropViews, runSqlFile } from '~/db';
-import { MEDIA, s3Client } from '~/s3';
+import { createViews, dropViews, runSqlFile } from '../db/index';
+import { MEDIA, s3Client } from '../s3/index';
+import { resolveRelative } from '../utils/index';
 
 const VIEWS = ['media'];
 
@@ -24,6 +24,9 @@ async function readFiles(): Promise<BucketFile[]> {
 async function setFileSizes(db: Knex) {
   await db.raw('CREATE TEMP TABLE media_files (name varchar, size integer)');
   const files = await readFiles();
+  if (!files.length) {
+    return;
+  }
   await db.table('media_files').insert(files);
   // Knex doesn't support UPDATE FROM: https://github.com/tgriesser/knex/issues/557
   await db.raw(`UPDATE "media"
@@ -37,7 +40,7 @@ async function setFileSizes(db: Knex) {
 /**
  * This patch adds cover file size column to media
  */
-export const up = async (db: Knex) => {
+export async function up(db: Knex): Promise<void> {
   // Need to drop views first
   await dropViews(db, ...VIEWS);
 
@@ -48,10 +51,13 @@ export const up = async (db: Knex) => {
   await setFileSizes(db);
 
   await createViews(db, 8, ...VIEWS);
-  await runSqlFile(db, path.resolve(__dirname, '008/upsert_section_media.sql'));
-};
+  await runSqlFile(
+    db,
+    resolveRelative(__dirname, '008/upsert_section_media.sql'),
+  );
+}
 
-export const down = async (db: Knex) => {
+export async function down(db: Knex): Promise<void> {
   await dropViews(db, ...VIEWS);
 
   await db.schema.table('media', (table) => {
@@ -59,7 +65,8 @@ export const down = async (db: Knex) => {
   });
 
   await createViews(db, 7, ...VIEWS);
-  await runSqlFile(db, path.resolve(__dirname, '001/upsert_section_media.sql'));
-};
-
-export const configuration = { transaction: true };
+  await runSqlFile(
+    db,
+    resolveRelative(__dirname, '001/upsert_section_media.sql'),
+  );
+}

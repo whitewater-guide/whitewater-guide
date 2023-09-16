@@ -10,7 +10,7 @@ import { View } from 'react-native';
 
 import Icon from '~/components/Icon';
 import { Screens } from '~/core/navigation';
-import {
+import type {
   RegionTabsNavProps,
   RegionTabsParamsList,
 } from '~/screens/region/types';

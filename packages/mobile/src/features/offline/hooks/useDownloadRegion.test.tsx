@@ -1,4 +1,5 @@
-import { MockedProvider, MockedResponse } from '@apollo/client/testing';
+import type { MockedResponse } from '@apollo/client/testing';
+import { MockedProvider } from '@apollo/client/testing';
 import { MockList } from '@graphql-tools/mock';
 import { act, renderHook } from '@testing-library/react-hooks';
 import { RegionDetailsDocument } from '@whitewater-guide/clients';
@@ -8,7 +9,7 @@ import React from 'react';
 
 import theme from '~/theme';
 
-import { OfflineProgress } from '../types';
+import type { OfflineProgress } from '../types';
 import { useDownloadRegion } from './useDownloadRegion';
 
 jest.mock('./useDownloadMap');

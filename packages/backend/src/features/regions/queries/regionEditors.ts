@@ -1,12 +1,12 @@
-import { QueryBuilder } from 'knex';
+import type { Knex } from 'knex';
 
-import { QueryResolvers } from '~/apollo';
-import { db } from '~/db';
+import type { QueryResolvers } from '../../../apollo/index';
+import { db } from '../../../db/index';
 
 const regionEditors: QueryResolvers['regionEditors'] = (_, { regionId }) =>
   db()
     .table('users')
-    .whereExists(function (this: QueryBuilder) {
+    .whereExists(function (this: Knex.QueryBuilder) {
       this.select('*')
         .from('regions_editors')
         .where({ region_id: regionId })

@@ -1,4 +1,4 @@
-import { Sql } from '~/db';
+import type { Sql } from '../../db/index';
 
 // [Sql.SectionsView, upsertedMediaIds, deletedMediaIds]
 export type RawSectionUpsertResult =

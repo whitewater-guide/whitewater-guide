@@ -9,7 +9,7 @@ import { Screens } from '~/core/navigation';
 
 import { AuthScreenBase } from '../AuthScreenBase';
 import { SignInForm } from './SignInForm';
-import { AuthSignInNavProps } from './types';
+import type { AuthSignInNavProps } from './types';
 
 const SignInScreen: React.FC<AuthSignInNavProps> = ({ navigation }) => {
   const { loading } = useAuth();

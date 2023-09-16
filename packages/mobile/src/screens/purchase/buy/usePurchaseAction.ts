@@ -1,9 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
 import { useCallback, useEffect, useState } from 'react';
+import { Platform } from 'react-native';
+import type { ProductPurchase, PurchaseError } from 'react-native-iap';
 import {
-  IAPErrorCode,
-  InAppPurchase,
-  PurchaseError,
+  ErrorCode,
   purchaseErrorListener,
   purchaseUpdatedListener,
   requestPurchase,
@@ -17,13 +17,13 @@ import { IAPError } from '~/features/purchases';
 
 import safeAcknowledgePurchase from './safeAcknowledgePurchase';
 import safeRestorePurchase from './safeRestorePurchase';
-import { PurchaseBuyNavProp } from './types';
+import type { PurchaseBuyNavProp } from './types';
 import useSavePurchase from './useSavePurchase';
 
 interface State {
   loading: boolean;
   error?: IAPError;
-  purchase?: InAppPurchase;
+  purchase?: ProductPurchase;
   saved: boolean;
   acknowledged: boolean;
 }
@@ -39,7 +39,7 @@ export default (sku: string | null, sectionId?: string) => {
   const save = useSavePurchase(sectionId);
 
   useEffect(() => {
-    const sub = purchaseUpdatedListener((purchase: InAppPurchase) => {
+    const sub = purchaseUpdatedListener((purchase: ProductPurchase) => {
       if (purchase.productId !== sku) {
         return;
       }
@@ -58,9 +58,9 @@ export default (sku: string | null, sectionId?: string) => {
       if (!sku) {
         return;
       }
-      if (e.code === IAPErrorCode.E_USER_CANCELLED) {
+      if (e.code === ErrorCode.E_USER_CANCELLED) {
         setState((current) => ({ ...current, loading: false }));
-      } else if (e.code === IAPErrorCode.E_ALREADY_OWNED) {
+      } else if (e.code === ErrorCode.E_ALREADY_OWNED) {
         // Android only
         safeRestorePurchase(sku).then((restored) => {
           setState((current) => ({ ...current, ...restored, loading: false }));
@@ -88,7 +88,9 @@ export default (sku: string | null, sectionId?: string) => {
           return;
         }
         setState((current) => ({ ...current, loading: true }));
-        requestPurchase(sku, false).catch((error) => {
+        requestPurchase(
+          Platform.OS === 'ios' ? { sku } : { skus: [sku] },
+        ).catch((error) => {
           showSnackbarError(error);
         });
         return;

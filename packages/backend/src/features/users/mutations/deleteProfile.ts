@@ -1,8 +1,7 @@
-import { ForbiddenError } from 'apollo-server-koa';
-
-import { AuthenticatedMutation, isAuthenticatedResolver } from '~/apollo';
-import { db } from '~/db';
-import { synapseClient } from '~/features/chats';
+import type { AuthenticatedMutation } from '../../../apollo/index';
+import { ForbiddenError, isAuthenticatedResolver } from '../../../apollo/index';
+import { db } from '../../../db/index';
+import { synapseClient } from '../../../features/chats/index';
 
 const deleteProfile: AuthenticatedMutation['deleteProfile'] = async (
   _,

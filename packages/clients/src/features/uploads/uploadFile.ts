@@ -1,7 +1,7 @@
-import { UploadLink } from '@whitewater-guide/schema';
+import type { UploadLink } from '@whitewater-guide/schema';
 
 import { getDotExt } from './getDotExt';
-import { FileLike } from './types';
+import type { FileLike } from './types';
 
 /*
 <?xml version="1.0" encoding="UTF-8"?>

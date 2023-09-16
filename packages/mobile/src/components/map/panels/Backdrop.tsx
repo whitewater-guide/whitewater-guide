@@ -1,4 +1,4 @@
-import { BottomSheetBackdropProps } from '@gorhom/bottom-sheet';
+import type { BottomSheetBackdropProps } from '@gorhom/bottom-sheet';
 import React, { memo } from 'react';
 import { StyleSheet } from 'react-native';
 import Animated, {

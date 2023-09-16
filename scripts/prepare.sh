@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "Running prepare"
+echo "Running root prepare"
 
 if [ "$NODE_ENV" == "production" ]; then
     # This block prevents prepare (~= building libs) from running
@@ -10,5 +10,18 @@ if [ "$NODE_ENV" == "production" ]; then
     exit 0
 fi
 
-yarn lerna run prepare --stream --no-bail
-yarn husky install
+pnpm husky install
+
+# pnpm runs lifecycle scripts in following order:
+#
+# - root pre-install / install / post-install
+# - root prepare
+# - package pre-install / install / post-install
+# - package prepare
+#
+# So, in order to run codegen, we need to build our codegen-plugins first:
+pnpm --filter "@whitewater-guide/codegen-*" --recursive --if-present --stream run build
+pnpm codegen
+
+# Now build all libraries that depend on codegen
+pnpm --recursive --if-present --stream run workspace:prepare

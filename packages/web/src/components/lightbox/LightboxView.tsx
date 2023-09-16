@@ -3,12 +3,10 @@ import React from 'react';
 
 import LightboxPhotoView from './LightboxPhotoView';
 import LightboxVideoView from './LightboxVideoView';
-import { LightboxItem } from './types';
+import type { LightboxItem } from './types';
 
 interface Props {
-  currentIndex: number;
   data: LightboxItem;
-  interactionIsIdle: boolean;
 }
 
 const views = {

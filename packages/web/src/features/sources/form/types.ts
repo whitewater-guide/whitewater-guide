@@ -1,6 +1,6 @@
-import { MdEditorValue } from '@whitewater-guide/md-editor';
-import { Script, SourceInput } from '@whitewater-guide/schema';
-import { Overwrite } from 'utility-types';
+import type { MdEditorValue } from '@whitewater-guide/md-editor';
+import type { Script, SourceInput } from '@whitewater-guide/schema';
+import type { Overwrite } from 'utility-types';
 
 export type SourceFormData = Overwrite<
   SourceInput,

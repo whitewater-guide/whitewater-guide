@@ -1,5 +1,5 @@
 import Typography from '@material-ui/core/Typography';
-import { Tag } from '@whitewater-guide/schema';
+import type { Tag } from '@whitewater-guide/schema';
 import { useField } from 'formik';
 import React from 'react';
 

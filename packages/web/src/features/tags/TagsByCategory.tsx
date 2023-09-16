@@ -1,6 +1,6 @@
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import { Tag, TagCategory, TagInput } from '@whitewater-guide/schema';
+import type { Tag, TagCategory, TagInput } from '@whitewater-guide/schema';
 import React from 'react';
 
 import TagForm from './TagForm';

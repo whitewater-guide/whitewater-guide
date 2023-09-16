@@ -1,7 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
-import { RequestResetPayload, useAuth } from '@whitewater-guide/clients';
+import type { RequestResetPayload } from '@whitewater-guide/clients';
+import { useAuth } from '@whitewater-guide/clients';
 import { Formik } from 'formik';
-import React, { FC, RefObject, useCallback } from 'react';
+import type { FC, RefObject } from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 import { Button } from 'react-native-paper';
@@ -14,7 +16,7 @@ import TextField from '~/forms/TextField';
 
 import { useAuthSubmit } from '../useAuthSubmit';
 import getValidationSchema from './getValidationSchema';
-import { AuthForgotNavProp } from './types';
+import type { AuthForgotNavProp } from './types';
 
 const initialValues: RequestResetPayload = {
   email: '',

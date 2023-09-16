@@ -1,10 +1,7 @@
 import { createSafeValidator } from '@whitewater-guide/validation';
 
-import {
-  BannerInput,
-  BannerKind,
-  BannerPlacement,
-} from '../__generated__/types';
+import type { BannerInput } from '../__generated__/types';
+import { BannerKind, BannerPlacement } from '../__generated__/types';
 import { BannerInputSchema } from './validation';
 
 type TestValue = [string, BannerInput];

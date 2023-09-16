@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RegionAdminSettings should be invalid for bad id 1`] = `
-Object {
-  "id": Object {
+{
+  "id": {
     "key": "yup:string.uuid",
-    "options": Object {
+    "options": {
       "path": "id",
     },
   },
@@ -12,23 +12,23 @@ Object {
 `;
 
 exports[`RegionAdminSettings should be invalid for bad sku 1 1`] = `
-Object {
+{
   "sku": "yup:string.sku",
 }
 `;
 
 exports[`RegionAdminSettings should be invalid for bad sku 2 1`] = `
-Object {
+{
   "sku": "yup:string.sku",
 }
 `;
 
 exports[`RegionAdminSettings should be invalid for empty cover image 1`] = `
-Object {
-  "coverImage": Object {
-    "mobile": Object {
+{
+  "coverImage": {
+    "mobile": {
       "key": "yup:string.min",
-      "options": Object {
+      "options": {
         "min": 1,
         "path": "coverImage.mobile",
       },
@@ -38,16 +38,16 @@ Object {
 `;
 
 exports[`RegionAdminSettings should be invalid for empty sku 1`] = `
-Object {
+{
   "sku": "yup:string.sku",
 }
 `;
 
 exports[`RegionAdminSettings should be invalid for extra fields 1`] = `
-Object {
-  "": Object {
+{
+  "": {
     "key": "yup:object.noUnknown",
-    "options": Object {
+    "options": {
       "path": "this",
     },
   },
@@ -55,10 +55,10 @@ Object {
 `;
 
 exports[`RegionAdminSettings should be invalid for float size 1`] = `
-Object {
-  "mapsSize": Object {
+{
+  "mapsSize": {
     "key": "yup:number.integer",
-    "options": Object {
+    "options": {
       "path": "mapsSize",
     },
   },
@@ -66,10 +66,10 @@ Object {
 `;
 
 exports[`RegionInput should be invalid for bad bounds 1`] = `
-Object {
-  "bounds": Object {
+{
+  "bounds": {
     "key": "yup:array.min",
-    "options": Object {
+    "options": {
       "min": 3,
       "path": "bounds",
     },
@@ -78,10 +78,10 @@ Object {
 `;
 
 exports[`RegionInput should be invalid for bad id 1`] = `
-Object {
-  "id": Object {
+{
+  "id": {
     "key": "yup:string.uuid",
-    "options": Object {
+    "options": {
       "path": "id",
     },
   },
@@ -89,13 +89,13 @@ Object {
 `;
 
 exports[`RegionInput should be invalid for bad pois 1`] = `
-Object {
-  "pois": Array [
+{
+  "pois": [
     ,
-    Object {
-      "id": Object {
+    {
+      "id": {
         "key": "yup:string.uuid",
-        "options": Object {
+        "options": {
           "path": "pois[1].id",
         },
       },
@@ -105,19 +105,19 @@ Object {
 `;
 
 exports[`RegionInput should be invalid for bad season numeric (bad half-month) 1`] = `
-Object {
-  "seasonNumeric": Array [
+{
+  "seasonNumeric": [
     ,
-    Object {
+    {
       "key": "yup:number.max",
-      "options": Object {
+      "options": {
         "max": 23,
         "path": "seasonNumeric[1]",
       },
     },
-    Object {
+    {
       "key": "yup:number.min",
-      "options": Object {
+      "options": {
         "min": 0,
         "path": "seasonNumeric[2]",
       },
@@ -127,10 +127,10 @@ Object {
 `;
 
 exports[`RegionInput should be invalid for bad season numeric (too many items) 1`] = `
-Object {
-  "seasonNumeric": Object {
+{
+  "seasonNumeric": {
     "key": "yup:array.max",
-    "options": Object {
+    "options": {
       "max": 24,
       "path": "seasonNumeric",
     },
@@ -139,16 +139,16 @@ Object {
 `;
 
 exports[`RegionInput should be invalid for empty name 1`] = `
-Object {
+{
   "name": "yup:string.nonEmpty",
 }
 `;
 
 exports[`RegionInput should be invalid for extra fields 1`] = `
-Object {
-  "": Object {
+{
+  "": {
     "key": "yup:object.noUnknown",
-    "options": Object {
+    "options": {
       "path": "this",
     },
   },
@@ -156,23 +156,13 @@ Object {
 `;
 
 exports[`RegionInput should be invalid for null bounds 1`] = `
-Object {
-  "bounds": Object {
-    "key": "yup:mixed.notType",
-    "options": Object {
-      "type": "array",
-    },
-  },
+{
+  "bounds": "yup:mixed.required",
 }
 `;
 
 exports[`RegionInput should be invalid for null name 1`] = `
-Object {
-  "name": Object {
-    "key": "yup:mixed.notType",
-    "options": Object {
-      "type": "string",
-    },
-  },
+{
+  "name": "yup:mixed.required",
 }
 `;

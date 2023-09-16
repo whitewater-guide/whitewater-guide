@@ -1,6 +1,5 @@
-import { Context, RegionResolvers } from '~/apollo';
-
-import { ResolvableRegion } from '../types';
+import type { Context, RegionResolvers } from '../../../apollo/index';
+import type { ResolvableRegion } from '../types';
 
 const hasPremiumAccessResolver: RegionResolvers<
   Context,

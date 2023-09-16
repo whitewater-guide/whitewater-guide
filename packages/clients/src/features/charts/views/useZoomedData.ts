@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
-import { ChartDataPoint } from '../types';
-import { DomainMeta } from './types';
+import type { ChartDataPoint } from '../types';
+import type { DomainMeta } from './types';
 
 function useZoomedData(
   data: ChartDataPoint[],

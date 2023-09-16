@@ -6,7 +6,7 @@ import { Map, SelectedPOISheet, SelectedSectionSheet } from '~/components/map';
 import FilterButton from '~/screens/region/FilterButton';
 
 import RegionTabsScreen from '../RegionTabsScreen';
-import { RegionMapNavProps } from './types';
+import type { RegionMapNavProps } from './types';
 
 const RegionMapScreen: React.FC<RegionMapNavProps> = ({ navigation }) => {
   const region = useRegion();

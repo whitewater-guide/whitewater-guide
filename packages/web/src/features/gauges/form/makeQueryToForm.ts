@@ -1,6 +1,6 @@
 import { fromJSON } from '../../../formik/utils';
-import { GaugeFormQuery } from './gaugeForm.generated';
-import { GaugeFormData, RouterParams } from './types';
+import type { GaugeFormQuery } from './gaugeForm.generated';
+import type { GaugeFormData, RouterParams } from './types';
 
 export default ({ sourceId }: RouterParams) =>
   (result: GaugeFormQuery): GaugeFormData => {

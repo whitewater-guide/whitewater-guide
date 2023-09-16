@@ -1,8 +1,9 @@
-import { MdEditorValue } from '@whitewater-guide/md-editor';
-import * as yup from 'yup';
+import type { MdEditorValue } from '@whitewater-guide/md-editor';
+import type { ObjectSchema } from 'yup';
+import { bool, object, string } from 'yup';
 
-export const MdEditorSchema: yup.SchemaOf<MdEditorValue> = yup.object({
-  isMarkdown: yup.bool().defined(),
-  prosemirror: yup.object(),
-  markdown: yup.string().nullable().defined(),
-});
+export const MdEditorSchema: ObjectSchema<MdEditorValue> = object({
+  isMarkdown: bool().required(),
+  prosemirror: object().required(),
+  markdown: string().nullable().defined(),
+}) as any;

@@ -1,5 +1,5 @@
-import { sendCredentials } from '../../jwt';
-import { MiddlewareFactory } from '../../types';
+import { sendCredentials } from '../../jwt/index';
+import type { MiddlewareFactory } from '../../types';
 
 const signUp: MiddlewareFactory = (passport) => async (ctx, next) => {
   await passport.authenticate(

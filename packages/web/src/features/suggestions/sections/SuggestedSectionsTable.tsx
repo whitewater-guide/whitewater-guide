@@ -2,17 +2,12 @@ import { formatDate } from '@whitewater-guide/clients';
 import parseISO from 'date-fns/parseISO';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { TableProps } from 'react-virtualized';
+import type { TableProps } from 'react-virtualized';
 
-import {
-  Column,
-  IconLink,
-  isEmptyRow,
-  Table,
-  TableCellRenderer,
-} from '../../../components';
+import type { TableCellRenderer } from '../../../components';
+import { Column, IconLink, isEmptyRow, Table } from '../../../components';
 import { paths } from '../../../utils';
-import { SuggestedSectionFragment } from './suggestedSections.generated';
+import type { SuggestedSectionFragment } from './suggestedSections.generated';
 
 const renderCreatedAt: TableCellRenderer<SuggestedSectionFragment> = ({
   rowData,

@@ -3,7 +3,7 @@ import analytics from '@react-native-firebase/analytics';
 import { useCallback, useEffect, useState } from 'react';
 import useAsyncFn from 'react-use/lib/useAsyncFn';
 
-import { OfflineCategorySelection, OfflineProgress } from '../types';
+import type { OfflineCategorySelection, OfflineProgress } from '../types';
 import { PhotoChannel } from '../utils';
 import useDownloadMap from './useDownloadMap';
 import useDownloadPhotos from './useDownloadPhotos';

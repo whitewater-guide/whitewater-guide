@@ -1,3 +1,17 @@
+import type { SuggestionInput } from '@whitewater-guide/schema';
+import { MediaKind, SuggestionStatus } from '@whitewater-guide/schema';
+import { gql } from 'graphql-tag';
+
+import config from '../../../config';
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
+import { MEDIA } from '../../../s3/index';
+import {
+  BOOM_USER_1500,
+  BOOM_USER_1500_ID,
+  EDITOR_GE,
+  EDITOR_GE_ID,
+} from '../../../seeds/test/01_users';
+import { GEORGIA_BZHUZHA_EXTREME } from '../../../seeds/test/09_sections';
 import {
   anonContext,
   copyToTemp,
@@ -5,27 +19,8 @@ import {
   fakeContext,
   fileExistsInBucket,
   resetTestMinio,
-  UUID_REGEX,
-} from '@test';
-import {
-  MediaKind,
-  SuggestionInput,
-  SuggestionStatus,
-} from '@whitewater-guide/schema';
-import gql from 'graphql-tag';
-import * as path from 'path';
-
-import config from '~/config';
-import { db, holdTransaction, rollbackTransaction } from '~/db';
-import { MEDIA } from '~/s3';
-import {
-  BOOM_USER_1500,
-  BOOM_USER_1500_ID,
-  EDITOR_GE,
-  EDITOR_GE_ID,
-} from '~/seeds/test/01_users';
-import { GEORGIA_BZHUZHA_EXTREME } from '~/seeds/test/09_sections';
-
+} from '../../../test/index';
+import { resolveRelative, UUID_REGEX } from '../../../utils/index';
 import { testAddSuggestion } from './addSuggestion.test.generated';
 
 let sBefore: number;
@@ -39,7 +34,7 @@ beforeEach(async () => {
   await holdTransaction();
   await resetTestMinio();
   await copyToTemp(
-    path.resolve(__dirname, '__tests__/test.jpg'),
+    resolveRelative(__dirname, '__tests__/test.jpg'),
     'suggested_media.jpg',
   );
 });

@@ -1,7 +1,8 @@
-import React, { FC, memo } from 'react';
+import type { FC } from 'react';
+import React, { memo } from 'react';
 import { StyleSheet } from 'react-native';
+import type { SharedValue } from 'react-native-reanimated';
 import Animated, {
-  SharedValue,
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';

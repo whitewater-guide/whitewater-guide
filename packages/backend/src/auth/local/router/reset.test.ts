@@ -1,20 +1,19 @@
-import { compare } from 'bcrypt';
-import Koa from 'koa';
-import superagent from 'superagent';
+import { compare } from '@node-rs/bcrypt';
+import type Koa from 'koa';
+import type superagent from 'superagent';
 import agent from 'supertest-koa-agent';
 
-import { db, holdTransaction, rollbackTransaction } from '~/db';
-import { MailType, sendMail } from '~/mail';
+import { createApp } from '../../../app';
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
+import { MailType, sendMail } from '../../../mail/index';
 import {
   ADMIN_ID,
   EDITOR_GA_EC_ID,
   EDITOR_NO_ID,
   TEST_USER_ID,
-} from '~/seeds/test/01_users';
+} from '../../../seeds/test/01_users';
 
-import { createApp } from '../../../app';
-
-jest.mock('~/mail');
+jest.mock('../../../mail');
 
 const ROUTE = '/auth/local/reset';
 const TOKEN = '_reset_token_';

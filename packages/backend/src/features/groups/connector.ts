@@ -1,25 +1,23 @@
-import { Group } from '@whitewater-guide/schema';
-import { GraphQLResolveInfo } from 'graphql';
-import { QueryBuilder } from 'knex';
+import type { Group } from '@whitewater-guide/schema';
+import type { GraphQLResolveInfo } from 'graphql';
+import type { Knex } from 'knex';
 
-import { Sql } from '~/db';
-import {
-  FieldsMap,
-  ManyBuilderOptions,
-  OffsetConnector,
-} from '~/db/connectors';
+import type { Context } from '../../apollo/index';
+import type { FieldsMap, ManyBuilderOptions } from '../../db/connectors/index';
+import { OffsetConnector } from '../../db/connectors/index';
+import type { Sql } from '../../db/index';
 
 const FIELDS_MAP: FieldsMap<Group, Sql.GroupsView> = {
   regions: null,
 };
 
 interface GetManyOptions extends ManyBuilderOptions<Sql.GroupsView> {
-  regionId?: string;
+  regionId?: string | null;
 }
 
 export class GroupsConnector extends OffsetConnector<Group, Sql.GroupsView> {
-  constructor() {
-    super();
+  constructor(context: Context) {
+    super(context);
     this._tableName = 'groups_view';
     this._graphqlTypeName = 'Group';
     this._fieldsMap = FIELDS_MAP;
@@ -32,7 +30,7 @@ export class GroupsConnector extends OffsetConnector<Group, Sql.GroupsView> {
   ) {
     const query = super.getMany(info, options);
     if (regionId) {
-      query.whereExists(function (this: QueryBuilder) {
+      query.whereExists(function (this: Knex.QueryBuilder) {
         this.select('*')
           .from('regions_groups')
           .where('regions_groups.region_id', regionId)

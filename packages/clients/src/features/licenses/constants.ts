@@ -1,4 +1,4 @@
-import { License } from '@whitewater-guide/schema';
+import type { License } from '@whitewater-guide/schema';
 
 export type LicenseWithLogo = Omit<License, 'slug'> & {
   slug: string;

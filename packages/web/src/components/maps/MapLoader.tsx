@@ -1,5 +1,6 @@
 import { Loader } from '@googlemaps/js-api-loader';
-import React, { FC, useEffect, useState } from 'react';
+import type { FC } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Loading } from '../Loading';
 

@@ -1,13 +1,13 @@
-import {
-  MutationUpsertTagArgs,
-  TagInputSchema,
-} from '@whitewater-guide/schema';
-import * as yup from 'yup';
+import type { MutationUpsertTagArgs } from '@whitewater-guide/schema';
+import { TagInputSchema } from '@whitewater-guide/schema';
+import type { ObjectSchema } from 'yup';
+import { object } from 'yup';
 
-import { isInputValidResolver, MutationResolvers } from '~/apollo';
-import { db, rawUpsert } from '~/db';
+import type { MutationResolvers } from '../../../apollo/index';
+import { isInputValidResolver } from '../../../apollo/index';
+import { db, rawUpsert } from '../../../db/index';
 
-const Struct: yup.SchemaOf<MutationUpsertTagArgs> = yup.object({
+const Struct: ObjectSchema<MutationUpsertTagArgs> = object({
   tag: TagInputSchema.clone(),
 });
 

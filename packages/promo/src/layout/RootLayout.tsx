@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import Typography from '@material-ui/core/Typography';
-import { AuthService } from '@whitewater-guide/clients';
+import type { AuthService } from '@whitewater-guide/clients';
 import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 

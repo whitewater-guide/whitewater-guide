@@ -1,7 +1,8 @@
-import { compare } from 'bcrypt';
+import { compare } from '@node-rs/bcrypt';
 import { Strategy } from 'passport-local';
 
-import { db, Sql } from '~/db';
+import type { Sql } from '../../db/index';
+import { db } from '../../db/index';
 
 export const localSignInStrategy = new Strategy(
   { usernameField: 'email', session: false },

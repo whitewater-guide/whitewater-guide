@@ -1,6 +1,6 @@
-import Knex, { ColumnBuilder } from 'knex';
+import type { Knex } from 'knex';
 
-import { createViews, dropViews } from '~/db';
+import { createViews, dropViews } from '../db/index';
 
 const VIEWS = [
   'gauges',
@@ -50,7 +50,7 @@ const alterMany = async (db: Knex, toText: boolean) => {
 
   for (const [table, columns] of toTextByTable) {
     await db.schema.alterTable(table, (tbl) => {
-      const typeFunc: (name: string) => ColumnBuilder = toText
+      const typeFunc: (name: string) => Knex.ColumnBuilder = toText
         ? tbl.text.bind(tbl)
         : tbl.string.bind(tbl);
       for (const column of columns) {
@@ -71,7 +71,7 @@ const alterMany = async (db: Knex, toText: boolean) => {
  * I.e. there is no reason to limit urls to 255 chars,
  * and limiting transaction fields to 255 is really bad idea
  */
-export const up = async (db: Knex) => {
+export async function up(db: Knex): Promise<void> {
   // Need to drop views first
   await dropViews(db, ...VIEWS);
   // Varchar to text
@@ -99,9 +99,9 @@ export const up = async (db: Knex) => {
     tbl.string('cron', 255).alter();
   });
   await createViews(db, 9, ...VIEWS);
-};
+}
 
-export const down = async (db: Knex) => {
+export async function down(db: Knex): Promise<void> {
   await dropViews(db, ...VIEWS);
   // Text back to varchar
   await alterMany(db, false);
@@ -128,6 +128,4 @@ export const down = async (db: Knex) => {
     tbl.string('cron', 50).alter();
   });
   await createViews(db, 8, ...VIEWS);
-};
-
-export const configuration = { transaction: true };
+}

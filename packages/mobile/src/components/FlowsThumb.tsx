@@ -1,4 +1,4 @@
-import {
+import type {
   ListedSectionFragment,
   SectionDerivedFields,
 } from '@whitewater-guide/clients';

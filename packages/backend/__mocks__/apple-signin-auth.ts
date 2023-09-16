@@ -1,4 +1,4 @@
-import { AppleIdTokenType } from 'apple-signin-auth';
+import type { AppleIdTokenType } from 'apple-signin-auth';
 
 export async function verifyIdToken(
   token: string,

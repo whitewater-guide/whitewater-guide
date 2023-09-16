@@ -1,4 +1,4 @@
-import Koa from 'koa';
+import type Koa from 'koa';
 import Router from 'koa-router';
 
 export const addPingRoute = (app: Koa, route = '/ping') => {

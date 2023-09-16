@@ -1,5 +1,5 @@
-import { MutationFunction } from '@apollo/client';
-import { MyProfileFragment } from '@whitewater-guide/schema';
+import type { MutationFunction } from '@apollo/client';
+import type { MyProfileFragment } from '@whitewater-guide/schema';
 import identity from 'lodash/identity';
 import memoize from 'lodash/memoize';
 import React from 'react';
@@ -8,11 +8,11 @@ import { useTranslation } from 'react-i18next';
 import RadioDialog from '~/components/radio-dialog';
 import { LANGUAGE_NAMES, SUPPORTED_LANGUAGES } from '~/i18n';
 
-import {
+import type {
   UpdateProfileMutation,
   UpdateProfileMutationVariables,
-  useUpdateProfileMutation,
 } from './updateProfile.generated';
+import { useUpdateProfileMutation } from './updateProfile.generated';
 
 const labelExtractor = (code: string) => LANGUAGE_NAMES[code];
 
@@ -22,12 +22,12 @@ interface Props {
 
 const getChangeHandler = memoize(
   (
-      mutate: MutationFunction<
-        UpdateProfileMutation,
-        UpdateProfileMutationVariables
-      >,
-      me: MyProfileFragment,
-    ) =>
+    mutate: MutationFunction<
+      UpdateProfileMutation,
+      UpdateProfileMutationVariables
+    >,
+    me: MyProfileFragment,
+  ) =>
     (language: string) => {
       mutate({
         variables: { user: { language } },

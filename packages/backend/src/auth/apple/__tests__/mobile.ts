@@ -1,19 +1,19 @@
-import { countRows, UUID_REGEX } from '@test';
-import { AuthBody, SignInBody } from '@whitewater-guide/commons';
-import Koa from 'koa';
-import superagent from 'superagent';
-import { SuperTest, Test } from 'supertest';
+import type { AuthBody, SignInBody } from '@whitewater-guide/commons';
+import type Koa from 'koa';
+import type superagent from 'superagent';
+import type { SuperTest, Test } from 'supertest';
 import agent from 'supertest-koa-agent';
-import { DeepPartial } from 'utility-types';
-
-import { db, holdTransaction, rollbackTransaction } from '~/db';
-import { sendWelcome } from '~/mail';
-import { ADMIN_ID } from '~/seeds/test/01_users';
+import type { DeepPartial } from 'utility-types';
 
 import { createApp } from '../../../app';
-import { AppleSignInPayload } from '../types';
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
+import { sendWelcome } from '../../../mail/index';
+import { ADMIN_ID } from '../../../seeds/test/01_users';
+import { countRows } from '../../../test/index';
+import { UUID_REGEX } from '../../../utils/index';
+import type { AppleSignInPayload } from '../types';
 
-jest.mock('~/mail');
+jest.mock('../../../mail');
 
 const ROUTE = '/auth/apple/signin';
 

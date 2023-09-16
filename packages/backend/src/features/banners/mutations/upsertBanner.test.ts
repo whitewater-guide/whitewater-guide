@@ -1,3 +1,18 @@
+import { ApolloErrorCodes } from '@whitewater-guide/commons';
+import type { BannerInput } from '@whitewater-guide/schema';
+import { BannerKind, BannerPlacement } from '@whitewater-guide/schema';
+import { gql } from 'graphql-tag';
+
+import config from '../../../config';
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
+import { BANNERS, TEMP } from '../../../s3/index';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
+import { GROUP_LATIN } from '../../../seeds/test/03_groups';
+import { REGION_GALICIA, REGION_NORWAY } from '../../../seeds/test/04_regions';
+import {
+  GALICIA_REGION_DESCR_BANNER,
+  GALICIA_REGION_DESCR_BANNER2,
+} from '../../../seeds/test/14_banners';
 import {
   anonContext,
   copyToTemp,
@@ -5,28 +20,8 @@ import {
   fakeContext,
   fileExistsInBucket,
   resetTestMinio,
-  UUID_REGEX,
-} from '@test';
-import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import {
-  BannerInput,
-  BannerKind,
-  BannerPlacement,
-} from '@whitewater-guide/schema';
-import gql from 'graphql-tag';
-import path from 'path';
-
-import config from '~/config';
-import { db, holdTransaction, rollbackTransaction } from '~/db';
-import { BANNERS, TEMP } from '~/s3';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
-import { GROUP_LATIN } from '~/seeds/test/03_groups';
-import { REGION_GALICIA, REGION_NORWAY } from '~/seeds/test/04_regions';
-import {
-  GALICIA_REGION_DESCR_BANNER,
-  GALICIA_REGION_DESCR_BANNER2,
-} from '~/seeds/test/14_banners';
-
+} from '../../../test/index';
+import { resolveRelative, UUID_REGEX } from '../../../utils/index';
 import { testUpsertBanner } from './upsertBanner.test.generated';
 
 let bBefore: number;
@@ -264,7 +259,7 @@ describe('files', () => {
   beforeEach(async () => {
     // Emulate file with the same key as existing avatar uploaded by user
     await copyToTemp(
-      path.resolve(__dirname, '__tests__/banner_5.jpg'),
+      resolveRelative(__dirname, '__tests__/banner_5.jpg'),
       NEW_FILE_ID,
     );
   });

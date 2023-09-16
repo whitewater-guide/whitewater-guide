@@ -12,7 +12,7 @@ import ErrorBoundary from '~/components/ErrorBoundary';
 import theme from '~/theme';
 
 import RegionStack from './RegionStack';
-import { RegionScreenNavProps } from './types';
+import type { RegionScreenNavProps } from './types';
 
 // Load smaller batch first to display asap
 const limitFn = (offset: number) => (offset ? 60 : 120);

@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should return gauge 1`] = `
-Object {
+{
   "code": "gal1",
   "flowUnit": "m3/s",
   "id": "aba8c106-aaa0-11e7-abc4-cec278b6b50a",
   "levelUnit": "cm",
-  "location": Object {
-    "coordinates": Array [
+  "location": {
+    "coordinates": [
       1.1,
       2.2,
       3.3,
@@ -16,10 +16,10 @@ Object {
     "kind": "gauge",
   },
   "name": "Galicia gauge 1",
-  "requestParams": Object {
+  "requestParams": {
     "foo": "bar",
   },
-  "source": Object {
+  "source": {
     "id": "6d0d717e-aa9d-11e7-abc4-cec278b6b50a",
     "name": "Galicia",
     "termsOfUse": "Terms of use for Galicia",

@@ -1,5 +1,4 @@
-import { fileExistsInBucket, resetTestMinio } from '@test';
-
+import { fileExistsInBucket, resetTestMinio } from '../test/index';
 import { S3Client } from './client';
 import { AVATARS, CONTENT_BUCKET, TEMP } from './paths';
 

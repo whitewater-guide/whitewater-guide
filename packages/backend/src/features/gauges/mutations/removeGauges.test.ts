@@ -1,18 +1,15 @@
-import { anonContext, countRows, fakeContext } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { db, holdTransaction, rollbackTransaction } from '~/db';
-import { GorgeConnector } from '~/features/gorge';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
-import { SOURCE_GALICIA_1 } from '~/seeds/test/05_sources';
-import { GAUGE_GAL_1_1, GAUGE_GAL_1_2 } from '~/seeds/test/06_gauges';
-import { GALICIA_BECA_LOWER } from '~/seeds/test/09_sections';
-
-import {
-  RemoveGaugesMutationResult,
-  testRemoveGauges,
-} from './removeGauges.test.generated';
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
+import { GorgeConnector } from '../../../features/gorge/index';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
+import { SOURCE_GALICIA_1 } from '../../../seeds/test/05_sources';
+import { GAUGE_GAL_1_1, GAUGE_GAL_1_2 } from '../../../seeds/test/06_gauges';
+import { GALICIA_BECA_LOWER } from '../../../seeds/test/09_sections';
+import { anonContext, countRows, fakeContext } from '../../../test/index';
+import type { RemoveGaugesMutationResult } from './removeGauges.test.generated';
+import { testRemoveGauges } from './removeGauges.test.generated';
 
 jest.mock('../../gorge/connector.ts');
 

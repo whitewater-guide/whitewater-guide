@@ -1,11 +1,13 @@
-import { anonContext, fakeContext } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
-import { SOURCE_GALICIA_1, SOURCE_NORWAY } from '~/seeds/test/05_sources';
-
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
+import {
+  SOURCE_GALICIA_1,
+  SOURCE_NORWAY,
+} from '../../../seeds/test/05_sources';
+import { anonContext, fakeContext } from '../../../test/index';
 import { testToggleSource } from './toggleSource.test.generated';
 
 jest.mock('../../gorge/connector');

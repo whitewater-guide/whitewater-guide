@@ -10,7 +10,7 @@ import theme from '~/theme';
 
 import SectionTabsScreen from '../SectionTabsScreen';
 import ChartLayout from './ChartLayout';
-import { SectionChartNavProps } from './types';
+import type { SectionChartNavProps } from './types';
 
 const SectionChartScreen: React.FC<SectionChartNavProps> = ({ navigation }) => {
   const section = useSection();

@@ -1,12 +1,12 @@
-import Knex from 'knex';
+import type { Knex } from 'knex';
 
-import { createViews, dropViews } from '~/db';
+import { createViews, dropViews } from '../db/index';
 
 const VIEWS = ['rivers', 'regions'];
 /**
  * This patch adds cover image column to region
  */
-export const up = async (db: Knex) => {
+export async function up(db: Knex): Promise<void> {
   // Need to drop views first
   await dropViews(db, ...VIEWS);
 
@@ -17,9 +17,9 @@ export const up = async (db: Knex) => {
   });
 
   await createViews(db, 6, ...VIEWS);
-};
+}
 
-export const down = async (db: Knex) => {
+export async function down(db: Knex): Promise<void> {
   await dropViews(db, ...VIEWS);
 
   await db.schema.table('regions', (table) => {
@@ -28,6 +28,4 @@ export const down = async (db: Knex) => {
   });
 
   await createViews(db, 5, ...VIEWS);
-};
-
-export const configuration = { transaction: true };
+}

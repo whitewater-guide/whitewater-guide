@@ -1,12 +1,12 @@
-import * as yup from 'yup';
+import type { ObjectSchema } from 'yup';
+import { object, string } from 'yup';
 
-import { Script } from '../__generated__/types';
+import type { Script } from '../__generated__/types';
 
-export const ScriptSchema: yup.SchemaOf<Script> = yup
-  .object({
-    __typename: yup.mixed().optional(),
-    id: yup.string().defined().nullable(false).min(1).max(20),
-    name: yup.string().defined().nullable(false).min(1).max(20),
-  })
+export const ScriptSchema: ObjectSchema<Script> = object({
+  __typename: string<'Script'>().nonNullable().optional(),
+  id: string().defined().nonNullable().min(1).max(20),
+  name: string().defined().nonNullable().min(1).max(20),
+})
   .strict(true)
   .noUnknown();

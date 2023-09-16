@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should call mailchimp api 1`] = `
-Array [
+[
   "/lists/__mailchimp_list_id__/members",
-  Object {
+  {
     "email_address": "test@test.com",
     "status": "subscribed",
   },

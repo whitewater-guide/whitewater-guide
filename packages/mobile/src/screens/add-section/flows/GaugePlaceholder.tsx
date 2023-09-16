@@ -1,4 +1,4 @@
-import { NamedNode } from '@whitewater-guide/schema';
+import type { NamedNode } from '@whitewater-guide/schema';
 import { useField } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -7,7 +7,7 @@ import { TextInput } from 'react-native-paper';
 
 import { Screens } from '~/core/navigation';
 import HelperText from '~/forms/HelperText';
-import { AddSectionFlowsNavProps } from '~/screens/add-section/flows/types';
+import type { AddSectionFlowsNavProps } from '~/screens/add-section/flows/types';
 
 const GaugePlaceholder: React.FC<Partial<AddSectionFlowsNavProps>> = React.memo(
   (props) => {

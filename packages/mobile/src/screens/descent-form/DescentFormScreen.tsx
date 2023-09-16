@@ -1,7 +1,7 @@
 import { Formik } from 'formik';
 import React from 'react';
 
-import {
+import type {
   DescentFormData,
   DescentFormNavProps,
 } from '~/screens/descent-form/types';

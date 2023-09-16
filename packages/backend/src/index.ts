@@ -1,14 +1,14 @@
+import http from 'node:http';
+
 import { init as initSentry } from '@sentry/node';
 
-import { db, waitForDb } from '~/db';
-import { initIAP } from '~/features/purchases';
-import log from '~/log';
-
-import { createApolloServer } from './apollo/server';
+import { createApolloServer } from './apollo/server/index';
 import { createApp } from './app';
 import config from './config';
-import { synapseClient } from './features/chats';
-import startServer from './server';
+import { db, waitForDb } from './db/index';
+import { synapseClient } from './features/chats/index';
+import { initIAP } from './features/purchases/index';
+import log from './log/index';
 
 async function startup() {
   log.info('starting');
@@ -36,10 +36,13 @@ async function startup() {
   dbVersion = await db(true).migrate.currentVersion();
   log.info(`Current DB version: ${dbVersion}`);
   const app = createApp();
-  await createApolloServer(app);
-  startServer(app);
+  const httpServer = http.createServer(app.callback());
+  await createApolloServer(app, httpServer);
   await initIAP();
   log.info('Startup complete');
+  await new Promise<void>((resolve) => {
+    httpServer.listen({ host: '0.0.0.0', port: 3333 }, resolve);
+  });
 }
 
 startup().catch((err) => {

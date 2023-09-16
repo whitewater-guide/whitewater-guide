@@ -7,19 +7,17 @@ import {
   paginateListObjectsV2,
   S3Client as AWSS3Client,
 } from '@aws-sdk/client-s3';
-import {
-  createPresignedPost,
-  PresignedPostOptions,
-} from '@aws-sdk/s3-presigned-post';
+import type { PresignedPostOptions } from '@aws-sdk/s3-presigned-post';
+import { createPresignedPost } from '@aws-sdk/s3-presigned-post';
 import { MAX_FILE_SIZE, MIN_FILE_SIZE } from '@whitewater-guide/commons';
-import { Readable } from 'stream';
-import { Required } from 'utility-types';
+import type { Readable } from 'stream';
+import type { Required } from 'utility-types';
 
-import config from '~/config';
-import log from '~/log';
-
+import config from '../config';
+import log from '../log/index';
 import { Imgproxy } from './imgproxy';
-import { CONTENT_BUCKET, S3Prefix, TEMP } from './paths';
+import type { S3Prefix } from './paths';
+import { CONTENT_BUCKET, TEMP } from './paths';
 
 const logger = log.child({ module: 's3' });
 

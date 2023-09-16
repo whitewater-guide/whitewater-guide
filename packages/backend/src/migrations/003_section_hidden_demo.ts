@@ -1,7 +1,7 @@
-import Knex from 'knex';
-import path from 'path';
+import type { Knex } from 'knex';
 
-import { createViews, dropViews, runSqlFile } from '~/db';
+import { createViews, dropViews, runSqlFile } from '../db/index';
+import { resolveRelative } from '../utils/index';
 
 /**
  * This patch adds 'demo' and 'hidden' columns to section table
@@ -9,7 +9,7 @@ import { createViews, dropViews, runSqlFile } from '~/db';
  * @param {Knex} db
  * @returns {Promise<void>}
  */
-export const up = async (db: Knex) => {
+export async function up(db: Knex): Promise<void> {
   await db.schema.table('sections', (table) => {
     // Demo section - free section in premium region
     table.boolean('demo').notNullable().defaultTo(false);
@@ -18,10 +18,10 @@ export const up = async (db: Knex) => {
   // Add these columns to views
   await dropViews(db, 'sections');
   await createViews(db, 3, 'sections');
-  await runSqlFile(db, path.resolve(__dirname, '003/upsert_section.sql'));
-};
+  await runSqlFile(db, resolveRelative(__dirname, '003/upsert_section.sql'));
+}
 
-export const down = async (db: Knex) => {
+export async function down(db: Knex): Promise<void> {
   await dropViews(db, 'sections');
   await db.schema.table('sections', (table) => {
     // Demo section - free section in premium region
@@ -29,7 +29,5 @@ export const down = async (db: Knex) => {
     table.dropColumn('hidden');
   });
   await createViews(db, 2, 'sections');
-  await runSqlFile(db, path.resolve(__dirname, '001/upsert_section.sql'));
-};
-
-export const configuration = { transaction: true };
+  await runSqlFile(db, resolveRelative(__dirname, '001/upsert_section.sql'));
+}

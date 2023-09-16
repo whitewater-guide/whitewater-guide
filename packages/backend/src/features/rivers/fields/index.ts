@@ -1,5 +1,5 @@
-import { RiverResolvers, timestampedResolvers } from '~/apollo';
-
+import type { RiverResolvers } from '../../../apollo/index';
+import { timestampedResolvers } from '../../../apollo/index';
 import region from './region';
 import sections from './sections';
 

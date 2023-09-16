@@ -1,6 +1,7 @@
-import { StackNavigationOptions } from '@react-navigation/stack';
+import type { StackNavigationOptions } from '@react-navigation/stack';
 import noop from 'lodash/noop';
-import { ReactNode, useMemo } from 'react';
+import type { ReactNode } from 'react';
+import { useMemo } from 'react';
 
 import theme from '~/theme';
 

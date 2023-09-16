@@ -1,6 +1,7 @@
 import { ApolloProvider } from '@apollo/client';
 import { AuthProvider, TagsProvider } from '@whitewater-guide/clients';
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
 import { useClient } from './apollo';

@@ -1,22 +1,23 @@
 import appleAuth from '@invertase/react-native-apple-authentication';
 import messaging from '@react-native-firebase/messaging';
-import {
+import type {
   AuthResponse,
   AuthType,
-  BaseAuthService,
   Credentials,
   RegisterPayload,
   RequestResetPayload,
   RequestVerificationPayload,
   ResetPayload,
 } from '@whitewater-guide/clients';
-import {
+import { BaseAuthService } from '@whitewater-guide/clients';
+import type {
   RefreshBody,
   RefreshPayload,
   ResetBody,
   SignInBody,
 } from '@whitewater-guide/commons';
-import { AppState, AppStateStatus, Platform } from 'react-native';
+import type { AppStateStatus } from 'react-native';
+import { AppState, Platform } from 'react-native';
 import {
   AccessToken,
   AuthenticationToken,

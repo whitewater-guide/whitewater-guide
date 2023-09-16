@@ -1,10 +1,11 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { BannerResolutions } from '@whitewater-guide/clients';
-import { BannerKind, BannerPlacement } from '@whitewater-guide/schema';
+import type { BannerPlacement } from '@whitewater-guide/schema';
+import { BannerKind } from '@whitewater-guide/schema';
 import React from 'react';
 import Iframe from 'react-iframe';
 
-import { ListedBannerFragment } from './listBanners.generated';
+import type { ListedBannerFragment } from './listBanners.generated';
 
 const useStyles = makeStyles(() =>
   createStyles({

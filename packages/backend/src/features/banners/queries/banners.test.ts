@@ -1,11 +1,10 @@
-import { anonContext, fakeContext } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
-import { BANNERS_COUNT } from '~/seeds/test/14_banners';
-
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
+import { BANNERS_COUNT } from '../../../seeds/test/14_banners';
+import { anonContext, fakeContext } from '../../../test/index';
 import { testListBanners } from './banners.test.generated';
 
 beforeEach(holdTransaction);

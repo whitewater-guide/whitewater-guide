@@ -1,10 +1,11 @@
 import { readFileSync } from 'fs';
-import Knex from 'knex';
-import path from 'path';
+import type { Knex } from 'knex';
+
+import { resolveRelative } from '../utils/index';
 
 export async function createView(db: Knex, view: string, version = 1) {
   for (let i = version; i >= 1; i -= 1) {
-    const file = path.resolve(
+    const file = resolveRelative(
       __dirname,
       '../migrations',
       `${i.toString(10).padStart(3, '0')}/${view}_view.sql`,

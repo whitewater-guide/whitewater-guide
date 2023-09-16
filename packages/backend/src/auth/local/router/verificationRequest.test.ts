@@ -1,18 +1,17 @@
-import Koa from 'koa';
+import type Koa from 'koa';
 import agent from 'supertest-koa-agent';
 
-import { db, holdTransaction, rollbackTransaction } from '~/db';
-import { sendMail } from '~/mail';
+import { createApp } from '../../../app';
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
+import { sendMail } from '../../../mail/index';
 import {
   ADMIN_ID,
   UNVERIFIED_USER_ID,
   UNVERIFIED_USER2_ID,
   UNVERIFIED_USER3_ID,
-} from '~/seeds/test/01_users';
+} from '../../../seeds/test/01_users';
 
-import { createApp } from '../../../app';
-
-jest.mock('~/mail');
+jest.mock('../../../mail');
 
 let app: Koa;
 

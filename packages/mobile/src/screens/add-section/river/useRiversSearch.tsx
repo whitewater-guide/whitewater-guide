@@ -1,7 +1,7 @@
 import { NEW_RIVER_ID } from '@whitewater-guide/commons';
-import { NamedNode } from '@whitewater-guide/schema';
+import type { NamedNode } from '@whitewater-guide/schema';
 import React, { useState } from 'react';
-import { SectionListData, SectionListProps } from 'react-native';
+import type { SectionListData, SectionListProps } from 'react-native';
 import { useDebounce } from 'use-debounce';
 
 import OfflineListHeader from '~/components/OfflineListHeader';
@@ -11,7 +11,7 @@ import { useFindRiversQuery } from './findRivers.generated';
 import RiversListItem from './RiversListItem';
 import RiversListSection from './RiversListSection';
 import RiversListSeparator from './RiversListSeparator';
-import { RiversListDataItem } from './types';
+import type { RiversListDataItem } from './types';
 
 type Result = SectionListProps<RiversListDataItem> & {
   search: string;

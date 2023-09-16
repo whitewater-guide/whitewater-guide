@@ -5,7 +5,8 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { BannerResolutions } from '@whitewater-guide/clients';
-import { BannerKind, BannerPlacement } from '@whitewater-guide/schema';
+import type { BannerPlacement } from '@whitewater-guide/schema';
+import { BannerKind } from '@whitewater-guide/schema';
 import React, { useCallback } from 'react';
 
 const useStyles = makeStyles(({ spacing, palette }) =>

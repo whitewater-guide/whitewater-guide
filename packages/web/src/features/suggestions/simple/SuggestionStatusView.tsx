@@ -3,7 +3,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { SuggestionStatus } from '@whitewater-guide/schema';
 import React from 'react';
 
-import { ListedSuggestionFragment } from './listSuggestions.generated';
+import type { ListedSuggestionFragment } from './listSuggestions.generated';
 import SuggestionResolveButton from './SuggestionResolveButton';
 
 const useStyles = makeStyles(() =>

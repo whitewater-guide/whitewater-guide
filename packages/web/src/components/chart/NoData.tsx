@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Styles } from '../../styles';
+import type { Styles } from '../../styles';
 
 const styles: Styles = {
   container: {

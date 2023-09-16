@@ -3,7 +3,7 @@ import React, { useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Paragraph } from 'react-native-paper';
 
-import StarRating from '~/components/StarRating';
+import SwipeableStarRating from '~/components/SwipeableStarRating';
 
 import theme from '../theme';
 
@@ -12,6 +12,9 @@ const styles = StyleSheet.create({
     color: theme.colors.componentBorder,
     marginLeft: 2,
     marginBottom: 0,
+  },
+  container: {
+    alignItems: 'flex-start',
   },
 });
 
@@ -32,9 +35,9 @@ const RatingField: React.FC<Props> = React.memo((props) => {
     [name, setFieldValue, setFieldTouched],
   );
   return (
-    <View>
+    <View style={styles.container}>
       <Paragraph style={styles.caption}>{label}</Paragraph>
-      <StarRating value={value} onChange={onChange} />
+      <SwipeableStarRating value={value} onChange={onChange} />
     </View>
   );
 });

@@ -1,17 +1,17 @@
-import { countRows, UUID_REGEX } from '@test';
 import { CookieAccessInfo } from 'cookiejar';
-import Koa from 'koa';
-import superagent from 'superagent';
-import { SuperTest, Test } from 'supertest';
+import type Koa from 'koa';
+import type superagent from 'superagent';
+import type { SuperTest, Test } from 'supertest';
 import agent from 'supertest-koa-agent';
 
-import { db, holdTransaction, rollbackTransaction } from '~/db';
-import { sendMail } from '~/mail';
-
 import { createApp } from '../../../app';
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
+import { sendMail } from '../../../mail/index';
+import { countRows } from '../../../test/index';
+import { UUID_REGEX } from '../../../utils/index';
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from '../../constants';
 
-jest.mock('~/mail');
+jest.mock('../../../mail');
 
 const ROUTE = '/auth/local/signup';
 

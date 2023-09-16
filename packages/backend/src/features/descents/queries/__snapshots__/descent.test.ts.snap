@@ -1,25 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should return descent 1`] = `
-Object {
+{
   "comment": "descent 1 comment",
   "createdAt": 2020-01-01T00:00:00.000Z,
   "duration": 3600,
   "id": "97998f67-74f2-43db-a4e4-198c2ca540a7",
-  "level": Object {
+  "level": {
     "unit": "m3/s",
     "value": 99.9,
   },
   "public": true,
-  "section": Object {
+  "section": {
     "difficulty": 3.5,
     "id": "2b01742c-d443-11e7-9296-cec278b6b50a",
     "name": "Lower",
-    "region": Object {
+    "region": {
       "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
       "name": "Galicia",
     },
-    "river": Object {
+    "river": {
       "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
       "name": "Beca",
     },

@@ -1,12 +1,12 @@
-import { NamedNode } from '@whitewater-guide/schema';
+import type { NamedNode } from '@whitewater-guide/schema';
 import noop from 'lodash/noop';
-import React from 'react';
+import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Dialog, Subheading } from 'react-native-paper';
 
 import theme from '../../../theme';
-import { OfflineProgress } from '../types';
+import type { OfflineProgress } from '../types';
 import { Categories } from './categories';
 import DialogActions from './DialogActions';
 import LoadingSummary from './LoadingSummary';
@@ -28,53 +28,55 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props {
+export interface OfflineContentDialogViewProps {
   region: NamedNode;
   inProgress?: boolean;
   progress: OfflineProgress;
   error?: Error;
 }
 
-const OfflineContentDialogView: React.FC<Props> = React.memo((props) => {
-  const { region, inProgress, progress, error } = props;
-  const { t } = useTranslation();
-  const [selection, toggleCategory] = useDialogSelection();
-  const summary = useMediaSummary(region.id);
-  return (
-    <Dialog dismissable={false} onDismiss={noop} visible>
-      <Dialog.Title testID="offline-dialog-title">
-        {t('offline:dialog.title', { region: region ? region.name : '' })}
-      </Dialog.Title>
-      <Subheading style={styles.subtitle}>
-        {t('offline:dialog.subtitle', { region: region ? region.name : '' })}
-      </Subheading>
-      {summary.summary ? (
-        <View style={styles.root}>
-          <Categories
-            regionId={region.id}
-            summary={summary.summary}
-            inProgress={inProgress}
-            progress={progress}
+const OfflineContentDialogView = memo<OfflineContentDialogViewProps>(
+  (props) => {
+    const { region, inProgress, progress, error } = props;
+    const { t } = useTranslation();
+    const [selection, toggleCategory] = useDialogSelection();
+    const summary = useMediaSummary(region.id);
+    return (
+      <Dialog dismissable={false} onDismiss={noop} visible>
+        <Dialog.Title testID="offline-dialog-title">
+          {t('offline:dialog.title', { region: region ? region.name : '' })}
+        </Dialog.Title>
+        <Subheading style={styles.subtitle}>
+          {t('offline:dialog.subtitle', { region: region ? region.name : '' })}
+        </Subheading>
+        {summary.summary ? (
+          <View style={styles.root}>
+            <Categories
+              regionId={region.id}
+              summary={summary.summary}
+              inProgress={inProgress}
+              progress={progress}
+              selection={selection}
+              onToggleCategory={toggleCategory}
+            />
+            <Warnings error={error} />
+          </View>
+        ) : (
+          <LoadingSummary error={summary.error} refetch={summary.refetch} />
+        )}
+        <Dialog.Actions>
+          <DialogActions
+            canDownload={!!summary.summary}
             selection={selection}
-            onToggleCategory={toggleCategory}
+            regionId={region.id}
+            inProgress={inProgress}
+            error={error}
           />
-          <Warnings error={error} />
-        </View>
-      ) : (
-        <LoadingSummary error={summary.error} refetch={summary.refetch} />
-      )}
-      <Dialog.Actions>
-        <DialogActions
-          canDownload={!!summary.summary}
-          selection={selection}
-          regionId={region.id}
-          inProgress={inProgress}
-          error={error}
-        />
-      </Dialog.Actions>
-    </Dialog>
-  );
-});
+        </Dialog.Actions>
+      </Dialog>
+    );
+  },
+);
 
 OfflineContentDialogView.displayName = 'OfflineContentDialogView';
 

@@ -1,8 +1,7 @@
 import { BannerKind, BannerPlacement } from '@whitewater-guide/schema';
-import Knex from 'knex';
+import type { Knex } from 'knex';
 
-import { Sql } from '~/db';
-
+import type { Sql } from '../../db/index';
 import { GROUP_ALL } from './03_groups';
 import { REGION_GALICIA, REGION_NORWAY } from './04_regions';
 

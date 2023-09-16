@@ -1,4 +1,4 @@
-import { HorizontalGridProps } from '@whitewater-guide/clients';
+import type { HorizontalGridProps } from '@whitewater-guide/clients';
 import React from 'react';
 import { G, Line, Text } from 'react-native-svg';
 

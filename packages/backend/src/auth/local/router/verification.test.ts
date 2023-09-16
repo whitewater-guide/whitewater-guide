@@ -1,17 +1,16 @@
-import Koa from 'koa';
-import superagent from 'superagent';
+import type Koa from 'koa';
+import type superagent from 'superagent';
 import agent from 'supertest-koa-agent';
 
-import { db, holdTransaction, rollbackTransaction } from '~/db';
+import { createApp } from '../../../app';
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
 import {
   ADMIN_ID,
   EXP_VER_USER_ID,
   UNVERIFIED_USER,
   UNVERIFIED_USER_ID,
   UNVERIFIED_USER2_ID,
-} from '~/seeds/test/01_users';
-
-import { createApp } from '../../../app';
+} from '../../../seeds/test/01_users';
 
 const ROUTE = '/auth/local/verification';
 const TOKEN = '_verification_token_';

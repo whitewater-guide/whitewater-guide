@@ -1,5 +1,6 @@
-import { QueryResolvers } from '~/apollo';
-import { db, Sql } from '~/db';
+import type { QueryResolvers } from '../../../apollo/index';
+import type { Sql } from '../../../db/index';
+import { db } from '../../../db/index';
 
 interface RawLog extends Sql.SectionsEditLog {
   count: number;

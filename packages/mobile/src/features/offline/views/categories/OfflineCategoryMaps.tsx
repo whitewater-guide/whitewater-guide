@@ -4,7 +4,8 @@ import { ActivityIndicator } from 'react-native';
 import theme from '~/theme';
 
 import DeleteMapsButton from './DeleteMapsButton';
-import OfflineCategory, { OfflineCategoryProps } from './OfflineCategory';
+import type { OfflineCategoryProps } from './OfflineCategory';
+import OfflineCategory from './OfflineCategory';
 import useOfflineMapsPack from './useOfflineMapsPack';
 
 const OfflineCategoryMaps: React.FC<OfflineCategoryProps> = (props) => {

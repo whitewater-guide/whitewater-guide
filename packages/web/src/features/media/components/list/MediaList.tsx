@@ -8,10 +8,10 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { ConfirmationDialog } from '../../../../components';
 import { Lightbox } from '../../../../components/lightbox';
 import { Row } from '../../../../layout/details';
-import { LocalPhoto } from '../../../../utils/files';
+import type { LocalPhoto } from '../../../../utils/files';
 import BlogsList from './BlogsList';
 import GridGallery from './GridGallery';
-import { ListedMedia } from './types';
+import type { ListedMedia } from './types';
 
 interface Props {
   editable: boolean;

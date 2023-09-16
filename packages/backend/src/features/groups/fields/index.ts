@@ -1,4 +1,4 @@
-import { GroupResolvers } from '~/apollo';
+import type { GroupResolvers } from '../../../apollo/index';
 
 const resolvers: GroupResolvers = {
   regions: ({ id }, _, { dataSources }, info) => {

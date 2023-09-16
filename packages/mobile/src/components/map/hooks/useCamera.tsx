@@ -1,12 +1,7 @@
-import Mapbox from '@rnmapbox/maps';
+import type Mapbox from '@rnmapbox/maps';
 import noop from 'lodash/noop';
-import React, {
-  FC,
-  MutableRefObject,
-  PropsWithChildren,
-  useContext,
-  useState,
-} from 'react';
+import type { FC, MutableRefObject, PropsWithChildren } from 'react';
+import React, { useContext, useState } from 'react';
 
 type CameraSetter = (value: Mapbox.Camera | null) => void;
 

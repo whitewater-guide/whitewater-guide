@@ -5,12 +5,12 @@ import FontIcon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import Popover from '@material-ui/core/Popover';
 import { formatDate } from '@whitewater-guide/clients';
-import { HarvestStatus } from '@whitewater-guide/schema';
+import type { HarvestStatus } from '@whitewater-guide/schema';
 import differenceInHours from 'date-fns/differenceInHours';
 import parseISO from 'date-fns/parseISO';
 import React from 'react';
 
-import { Styles } from '../styles';
+import type { Styles } from '../styles';
 
 const styles: Styles = {
   popover: {

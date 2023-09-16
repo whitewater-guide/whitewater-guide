@@ -1,4 +1,5 @@
-import FormControl, { FormControlProps } from '@material-ui/core/FormControl';
+import type { FormControlProps } from '@material-ui/core/FormControl';
+import FormControl from '@material-ui/core/FormControl';
 import { useFormikContext } from 'formik';
 import get from 'lodash/get';
 import React from 'react';

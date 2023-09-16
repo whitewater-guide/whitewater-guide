@@ -6,7 +6,7 @@ import { Screen } from '~/components/Screen';
 
 import { MyProfileMenu } from './menu';
 import MyProfileView from './MyProfileView';
-import { MyProfileNavProps } from './types';
+import type { MyProfileNavProps } from './types';
 
 const MyProfileScreen: React.FC<MyProfileNavProps> = ({ navigation }) => {
   const { t } = useTranslation();

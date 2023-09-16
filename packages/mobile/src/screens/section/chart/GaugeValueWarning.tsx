@@ -1,4 +1,5 @@
-import React, { FC, PropsWithChildren } from 'react';
+import type { FC, PropsWithChildren } from 'react';
+import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Popover, usePopover } from 'react-native-modal-popover';
 

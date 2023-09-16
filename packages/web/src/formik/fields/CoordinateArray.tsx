@@ -1,6 +1,7 @@
 import Divider from '@material-ui/core/Divider';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { FieldArray, FieldArrayRenderProps } from 'formik';
+import type { FieldArrayRenderProps } from 'formik';
+import { FieldArray } from 'formik';
 import React, { useCallback } from 'react';
 
 import { CoordinateInput } from '../../components';

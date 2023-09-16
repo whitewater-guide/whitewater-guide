@@ -1,7 +1,8 @@
 import Button from '@material-ui/core/Button';
 import CardActions from '@material-ui/core/CardActions';
 import { AdminOnly } from '@whitewater-guide/clients';
-import React, { FC, PropsWithChildren, useMemo } from 'react';
+import type { FC, PropsWithChildren } from 'react';
+import React, { useMemo } from 'react';
 import { useHistory, useRouteMatch } from 'react-router';
 
 import { EditorOnly } from '../components/EditorOnly';

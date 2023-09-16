@@ -1,6 +1,8 @@
-import { addBreadcrumb, Severity } from '@sentry/react';
-import React, { useEffect } from 'react';
-import { RouteComponentProps, withRouter } from 'react-router';
+import { addBreadcrumb } from '@sentry/react';
+import type React from 'react';
+import { useEffect } from 'react';
+import type { RouteComponentProps } from 'react-router';
+import { withRouter } from 'react-router';
 
 const HistoryWatcher = withRouter((props: RouteComponentProps) => {
   useEffect(() => {
@@ -9,7 +11,7 @@ const HistoryWatcher = withRouter((props: RouteComponentProps) => {
     addBreadcrumb({
       category: 'router',
       message: props.location.pathname,
-      level: Severity.Info,
+      level: 'info',
     });
     // }
   }, [props.location.pathname]);

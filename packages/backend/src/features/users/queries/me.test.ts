@@ -1,8 +1,7 @@
-import { anonContext, fakeContext } from '@test';
 import axios from 'axios';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
 import {
   ADMIN,
   BOOM_USER_3500,
@@ -11,10 +10,10 @@ import {
   EDITOR_NO,
   TEST_USER,
   TEST_USER_ID,
-} from '~/seeds/test/01_users';
-import { GROUP_ALL } from '~/seeds/test/03_groups';
-import { REGION_ECUADOR, REGION_GEORGIA } from '~/seeds/test/04_regions';
-
+} from '../../../seeds/test/01_users';
+import { GROUP_ALL } from '../../../seeds/test/03_groups';
+import { REGION_ECUADOR, REGION_GEORGIA } from '../../../seeds/test/04_regions';
+import { anonContext, fakeContext } from '../../../test/index';
 import {
   testMyProfile,
   testMyPurchasedGroups,

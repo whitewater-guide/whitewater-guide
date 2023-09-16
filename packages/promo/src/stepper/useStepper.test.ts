@@ -1,9 +1,10 @@
 import { act, renderHook } from '@testing-library/react-hooks';
-import { BoomPromoInfo } from '@whitewater-guide/schema';
+import type { BoomPromoInfo } from '@whitewater-guide/schema';
 
-import { PromoRegionFragment } from './promoRegion.generated';
+import type { PromoRegionFragment } from './promoRegion.generated';
 import { Steps } from './Steps';
-import { StepperActions, StepperState, useStepper } from './useStepper';
+import type { StepperActions, StepperState } from './useStepper';
+import { useStepper } from './useStepper';
 
 interface Result {
   current: StepperState & StepperActions;

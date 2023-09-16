@@ -1,12 +1,10 @@
-import { NamedNode } from '@whitewater-guide/schema';
+import type { NamedNode } from '@whitewater-guide/schema';
 import { useField } from 'formik';
 import reject from 'lodash/reject';
 import React, { useCallback } from 'react';
 
-import {
-  AutocompleteMenuProps,
-  Multicomplete,
-} from '../../components/autocomplete';
+import type { AutocompleteMenuProps } from '../../components/autocomplete';
+import { Multicomplete } from '../../components/autocomplete';
 import { FormikFormControl } from '../helpers';
 import { useFakeHandlers } from '../utils';
 

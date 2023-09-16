@@ -2,7 +2,8 @@ import { toRomanDifficulty } from '@whitewater-guide/clients';
 import times from 'lodash/times';
 import React from 'react';
 
-import { SelectField, SelectFieldPreset } from '../../../formik/fields/select';
+import type { SelectFieldPreset } from '../../../formik/fields/select';
+import { SelectField } from '../../../formik/fields/select';
 
 const VALUES = [0].concat(times(11).map((n) => n + 2)).map((value) => ({
   value: value * 0.5,

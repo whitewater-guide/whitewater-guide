@@ -1,31 +1,31 @@
-import {
-  anonContext,
-  countRows,
-  fakeContext,
-  isUUID,
-  noTimestamps,
-  noUnstable,
-} from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import { RegionInput } from '@whitewater-guide/schema';
-import gql from 'graphql-tag';
+import type { RegionInput } from '@whitewater-guide/schema';
+import { gql } from 'graphql-tag';
 import set from 'lodash/fp/set';
 
-import { db, holdTransaction, rollbackTransaction, Sql } from '~/db';
+import type { Sql } from '../../../db/index';
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
 import {
   ADMIN,
   EDITOR_GA_EC,
   EDITOR_NO_EC,
   TEST_USER,
-} from '~/seeds/test/01_users';
-import { GALICIA_PT_1, GALICIA_PT_2 } from '~/seeds/test/02_points';
-import { GROUP_ALL } from '~/seeds/test/03_groups';
+} from '../../../seeds/test/01_users';
+import { GALICIA_PT_1, GALICIA_PT_2 } from '../../../seeds/test/02_points';
+import { GROUP_ALL } from '../../../seeds/test/03_groups';
 import {
   NUM_REGIONS,
   REGION_ECUADOR,
   REGION_GALICIA,
-} from '~/seeds/test/04_regions';
-
+} from '../../../seeds/test/04_regions';
+import {
+  anonContext,
+  countRows,
+  fakeContext,
+  noTimestamps,
+  noUnstable,
+} from '../../../test/index';
+import { isUUID } from '../../../utils/index';
 import { testUpsertRegion } from './upsertRegion.test.generated';
 
 let rpBefore: number;

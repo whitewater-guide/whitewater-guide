@@ -1,7 +1,7 @@
 import { useLayout } from '@react-native-community/hooks';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { useChart } from '@whitewater-guide/clients';
-import { DescentLevelInput } from '@whitewater-guide/schema';
+import type { DescentLevelInput } from '@whitewater-guide/schema';
 import { utcToZonedTime } from 'date-fns-tz';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';

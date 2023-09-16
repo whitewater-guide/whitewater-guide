@@ -1,4 +1,4 @@
-import { Coordinate2d } from './types';
+import type { Coordinate2d } from './types';
 
 /**
  * Compares 2 arrays of [lng, lat] pairs and return patch in `immutability-helper` $splice format

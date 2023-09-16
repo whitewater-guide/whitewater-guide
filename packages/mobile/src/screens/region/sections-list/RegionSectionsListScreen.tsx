@@ -6,7 +6,7 @@ import FilterButton from '~/screens/region/FilterButton';
 
 import RegionTabsScreen from '../RegionTabsScreen';
 import { SectionsList } from './biglist';
-import { RegionSectionsNavProps } from './types';
+import type { RegionSectionsNavProps } from './types';
 
 const RegionSectionsListScreen: React.FC<RegionSectionsNavProps> = ({
   navigation,

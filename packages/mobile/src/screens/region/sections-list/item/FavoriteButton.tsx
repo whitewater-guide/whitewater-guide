@@ -1,9 +1,8 @@
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 import { StyleSheet } from 'react-native';
-import Animated, {
-  SharedValue,
-  useAnimatedStyle,
-} from 'react-native-reanimated';
+import type { SharedValue } from 'react-native-reanimated';
+import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 
 import { useSwipeableList } from '~/components/swipeable';
 import { SectionFavoriteButton } from '~/features/sections';

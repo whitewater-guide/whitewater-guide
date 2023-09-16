@@ -1,5 +1,6 @@
-import { CommonActions, NavigationState } from '@react-navigation/native';
-import { SectionNameShortFragment } from '@whitewater-guide/schema';
+import type { NavigationState } from '@react-navigation/native';
+import { CommonActions } from '@react-navigation/native';
+import type { SectionNameShortFragment } from '@whitewater-guide/schema';
 
 import { Screens } from '~/core/navigation';
 

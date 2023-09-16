@@ -1,8 +1,11 @@
-import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import type { DrawerNavigationProp } from '@react-navigation/drawer';
+import type {
+  CompositeNavigationProp,
+  RouteProp,
+} from '@react-navigation/native';
+import type { StackNavigationProp } from '@react-navigation/stack';
 
-import {
+import type {
   RootDrawerParamsList,
   RootStackParamsList,
   Screens,

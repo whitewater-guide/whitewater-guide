@@ -1,10 +1,10 @@
 import { NEW_RIVER_ID } from '@whitewater-guide/commons';
-import { RiverInput, SectionInput } from '@whitewater-guide/schema';
-import { UserInputError } from 'apollo-server-koa';
+import type { RiverInput, SectionInput } from '@whitewater-guide/schema';
 
-import { UnknownError } from '~/apollo';
-import { db, rawUpsert, Sql } from '~/db';
-import { OTHERS_REGION_ID } from '~/features/regions';
+import { UnknownError, UserInputError } from '../../../apollo/index';
+import type { Sql } from '../../../db/index';
+import { db, rawUpsert } from '../../../db/index';
+import { OTHERS_REGION_ID } from '../../../features/regions/index';
 
 export function isNewRiverId(id: string): boolean {
   // __NEW_ID__ is legacy input, required to support old mobile app versions

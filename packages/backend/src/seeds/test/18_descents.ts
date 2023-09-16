@@ -1,7 +1,6 @@
-import Knex from 'knex';
+import type { Knex } from 'knex';
 
-import { Sql } from '~/db';
-
+import type { Sql } from '../../db/index';
 import { BOOM_USER_1500_ID, TEST_USER_ID, TEST_USER2_ID } from './01_users';
 import {
   ECUADOR_QUIJOS_BRIDGE,

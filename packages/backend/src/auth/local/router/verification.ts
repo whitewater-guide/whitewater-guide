@@ -1,8 +1,9 @@
-import { compare } from 'bcrypt';
-import { Middleware } from 'koa';
+import { compare } from '@node-rs/bcrypt';
+import type { Middleware } from 'koa';
 
-import config from '~/config';
-import { db, Sql } from '~/db';
+import config from '../../../config';
+import type { Sql } from '../../../db/index';
+import { db } from '../../../db/index';
 
 const VERIFIED_URL = `${config.PROTOCOL}://${config.ROOT_DOMAIN}/verified.html`;
 

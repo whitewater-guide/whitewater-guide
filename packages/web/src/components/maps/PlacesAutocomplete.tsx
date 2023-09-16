@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/no-redeclare */
-import { NamedNode } from '@whitewater-guide/schema';
+import type { NamedNode } from '@whitewater-guide/schema';
 import debounce from 'lodash/debounce';
 import uniqBy from 'lodash/uniqBy';
 import React from 'react';
 import { findDOMNode } from 'react-dom';
-import { Required } from 'utility-types';
+import type { Required } from 'utility-types';
 
-import { Autocomplete, AutocompleteFilterOptions } from '../autocomplete';
-import { MapElementProps } from './types';
+import type { AutocompleteFilterOptions } from '../autocomplete';
+import { Autocomplete } from '../autocomplete';
+import type { MapElementProps } from './types';
 
 const MENU_PROPS = { disablePortal: true };
 const FILTER_OPTIONS: AutocompleteFilterOptions = { matchInput: true };

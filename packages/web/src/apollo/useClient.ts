@@ -1,5 +1,5 @@
-import { ApolloClient } from '@apollo/client';
-import { AuthService } from '@whitewater-guide/clients';
+import type { ApolloClient } from '@apollo/client';
+import type { AuthService } from '@whitewater-guide/clients';
 import { WebAuthService } from '@whitewater-guide/clients/dist/web';
 import { useEffect, useMemo } from 'react';
 

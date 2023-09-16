@@ -1,5 +1,4 @@
 import { GraphQLScalarType, Kind } from 'graphql';
-import isNil from 'lodash/isNil';
 
 const VERSION = 'v1';
 const SEPARATOR = ':';
@@ -8,7 +7,7 @@ export type Cursor = CodegenCursor;
 
 export const encodeCursor = ({ ordId, value }: Cursor) => {
   const parts = [VERSION, ordId];
-  if (!isNil(value)) {
+  if (value !== null && value !== undefined) {
     parts.push(value);
   }
   return Buffer.from(parts.join(SEPARATOR), 'utf8').toString('base64');

@@ -1,18 +1,18 @@
 import { yupSchemas } from '@whitewater-guide/validation';
-import * as yup from 'yup';
+import type { ObjectSchema } from 'yup';
+import { array, object, string } from 'yup';
 
-import { SourceInput } from '../__generated__/types';
+import type { SourceInput } from '../__generated__/types';
 
-export const SourceInputSchema: yup.SchemaOf<SourceInput> = yup
-  .object({
-    id: yup.string().uuid().nullable(),
-    name: yup.string().required().nullable(false),
-    termsOfUse: yup.string().nullable(),
-    script: yup.string().defined().min(1).max(20),
-    requestParams: yup.object().nullable(),
-    cron: yup.string().cron().nullable(),
-    url: yup.string().url().nullable(),
-    regions: yup.array().of(yupSchemas.refInput()).defined(),
-  })
+export const SourceInputSchema: ObjectSchema<SourceInput> = object({
+  id: string().uuid().nullable(),
+  name: string().required().nonNullable(),
+  termsOfUse: string().nullable(),
+  script: string().defined().min(1).max(20),
+  requestParams: object().nullable(),
+  cron: string().cron().nullable(),
+  url: string().url().nullable(),
+  regions: array().of(yupSchemas.refInput()).defined(),
+})
   .strict(true)
   .noUnknown();

@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`source with gauges should return gauges 1`] = `
-Array [
-  Object {
+[
+  {
     "code": "gal1",
     "flowUnit": null,
     "levelUnit": "m",
-    "location": Object {
-      "coordinates": Array [
+    "location": {
+      "coordinates": [
         22,
         11,
         33,
@@ -16,17 +16,17 @@ Array [
     },
     "name": "Galicia GAUGE 1",
     "requestParams": null,
-    "source": Object {
+    "source": {
       "name": "Galicia",
     },
     "url": "http://ww.guide/gal1",
   },
-  Object {
+  {
     "code": "gal3",
     "flowUnit": null,
     "levelUnit": "m",
-    "location": Object {
-      "coordinates": Array [
+    "location": {
+      "coordinates": [
         44,
         33,
         55,
@@ -35,7 +35,7 @@ Array [
     },
     "name": "Galicia gauge 3",
     "requestParams": null,
-    "source": Object {
+    "source": {
       "name": "Galicia",
     },
     "url": "http://ww.guide/gal3",
@@ -44,13 +44,13 @@ Array [
 `;
 
 exports[`source without gauges should return gauges 1`] = `
-Array [
-  Object {
+[
+  {
     "code": "em1",
     "flowUnit": null,
     "levelUnit": "m",
-    "location": Object {
-      "coordinates": Array [
+    "location": {
+      "coordinates": [
         22,
         11,
         33,
@@ -59,17 +59,17 @@ Array [
     },
     "name": "Empty gauge 1",
     "requestParams": null,
-    "source": Object {
+    "source": {
       "name": "Empty",
     },
     "url": "http://ww.guide/empty1",
   },
-  Object {
+  {
     "code": "em2",
     "flowUnit": "m3/s",
     "levelUnit": "m",
-    "location": Object {
-      "coordinates": Array [
+    "location": {
+      "coordinates": [
         55,
         44,
         66,
@@ -78,7 +78,7 @@ Array [
     },
     "name": "Empty gauge 2",
     "requestParams": null,
-    "source": Object {
+    "source": {
       "name": "Empty",
     },
     "url": "http://ww.guide/empty2",

@@ -1,12 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
-import { NamedNode } from '@whitewater-guide/schema';
+import type { NamedNode } from '@whitewater-guide/schema';
 import { useFormikContext } from 'formik';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import type { ListRenderItem } from 'react-native';
 import {
   FlatList,
   KeyboardAvoidingView,
-  ListRenderItem,
   Platform,
   StyleSheet,
 } from 'react-native';
@@ -16,7 +16,7 @@ import { Screen } from '~/components/Screen';
 import theme from '~/theme';
 
 import EmptyListPlaceholder from './EmptyListPlaceholder';
-import { ListedGaugeFragment } from './findGauges.generated';
+import type { ListedGaugeFragment } from './findGauges.generated';
 import GaugeListHeader from './GaugeListHeader';
 import GaugesListItem from './GaugesListItem';
 import GaugesListSeparator from './GaugesListSeparator';

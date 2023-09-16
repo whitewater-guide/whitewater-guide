@@ -1,4 +1,4 @@
-import { NamedNode, RegionFilterOptions } from '@whitewater-guide/schema';
+import type { NamedNode, RegionFilterOptions } from '@whitewater-guide/schema';
 import { useContext, useMemo } from 'react';
 
 import { createGenericFilter } from '../../utils';

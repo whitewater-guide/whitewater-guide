@@ -4,7 +4,7 @@ import React, { useMemo } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 
 import { AddSectionRegionProvider } from '~/screens/add-section/context';
-import {
+import type {
   AddSectionNavProps,
   SectionFormInput,
 } from '~/screens/add-section/types';

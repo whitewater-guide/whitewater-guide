@@ -1,4 +1,4 @@
-import { ListedSectionFragment } from '@whitewater-guide/clients';
+import type { ListedSectionFragment } from '@whitewater-guide/clients';
 
 export interface OuterProps {
   sections: ListedSectionFragment[];

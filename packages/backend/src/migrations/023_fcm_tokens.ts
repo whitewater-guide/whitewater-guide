@@ -1,11 +1,11 @@
-import Knex from 'knex';
+import type { Knex } from 'knex';
 
-import { createTable } from './utils';
+import { createTable } from './utils/index';
 
 /**
  * This patch adds table to store user's fcm tokens
  */
-export const up = async (db: Knex) => {
+export async function up(db: Knex): Promise<void> {
   await createTable(db, 'fcm_tokens', (table) => {
     table
       .uuid('user_id')
@@ -17,10 +17,8 @@ export const up = async (db: Knex) => {
 
     table.primary(['user_id', 'token']);
   });
-};
+}
 
-export const down = async (db: Knex) => {
+export async function down(db: Knex): Promise<void> {
   await db.schema.dropTableIfExists('fcm_tokens');
-};
-
-export const configuration = { transaction: true };
+}

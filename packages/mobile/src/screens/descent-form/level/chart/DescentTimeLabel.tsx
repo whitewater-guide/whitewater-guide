@@ -1,9 +1,10 @@
 /* eslint-disable import/no-duplicates */
-import { TimeLabelProps, useChart } from '@whitewater-guide/clients';
+import type { TimeLabelProps } from '@whitewater-guide/clients';
+import { useChart } from '@whitewater-guide/clients';
 import isEqual from 'date-fns/isEqual';
 import { format } from 'date-fns-tz';
 import React from 'react';
-import { VictoryLabelProps } from 'victory-core';
+import type { VictoryLabelProps } from 'victory-core';
 import { VictoryLabel } from 'victory-native';
 
 import getSectionTimezone from '~/features/descents/getSectionTimezone';

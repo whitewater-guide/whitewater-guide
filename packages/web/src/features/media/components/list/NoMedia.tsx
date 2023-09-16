@@ -1,8 +1,8 @@
 import Icon from '@material-ui/core/Icon';
-import { MediaKind } from '@whitewater-guide/schema';
+import type { MediaKind } from '@whitewater-guide/schema';
 import React from 'react';
 
-import { Styles } from '../../../../styles';
+import type { Styles } from '../../../../styles';
 import { THUMB_HEIGHT } from './constants';
 
 const styles: Styles = {

@@ -1,19 +1,19 @@
 import { PurchasePlatform } from '@whitewater-guide/schema';
 import { useCallback } from 'react';
 import { Platform } from 'react-native';
-import { InAppPurchase } from 'react-native-iap';
+import type { ProductPurchase } from 'react-native-iap';
 
 import { IAPError } from '../../../features/purchases';
 import { useAddPurchaseMutation } from './addPurchase.generated';
 
 type Hook = (
-  purchase: InAppPurchase,
+  purchase: ProductPurchase,
 ) => Promise<{ error?: IAPError; saved: boolean }>;
 
 export default function useSavePurchase(sectionId?: string): Hook {
   const [mutate] = useAddPurchaseMutation();
   return useCallback(
-    (purchase: InAppPurchase) =>
+    (purchase: ProductPurchase) =>
       mutate({
         variables: {
           purchase: {

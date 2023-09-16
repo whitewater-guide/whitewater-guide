@@ -1,7 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
 import { format, utcToZonedTime } from 'date-fns-tz';
 import React, { useCallback } from 'react';
-import { ListRenderItemInfo, Pressable, StyleSheet, View } from 'react-native';
+import type { ListRenderItemInfo } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { Caption, Subheading } from 'react-native-paper';
 
 import { Screens } from '~/core/navigation';
@@ -9,7 +10,7 @@ import descentLevelToString from '~/features/descents/descentLevelToString';
 import getSectionTimezone from '~/features/descents/getSectionTimezone';
 import theme from '~/theme';
 
-import { MyDescentFragment } from './myDescents.generated';
+import type { MyDescentFragment } from './myDescents.generated';
 
 const ITEM_HEIGHT = 64;
 

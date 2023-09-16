@@ -1,9 +1,8 @@
-import { anonContext, fakeContext, noTimestamps } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { db, holdTransaction, rollbackTransaction } from '~/db';
-import { matrixClient } from '~/features/chats';
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
+import { matrixClient } from '../../../features/chats/index';
 import {
   ADMIN,
   BOOM_USER_1500,
@@ -11,24 +10,24 @@ import {
   EDITOR_GE,
   EDITOR_NO_EC,
   TEST_USER,
-} from '~/seeds/test/01_users';
+} from '../../../seeds/test/01_users';
 import {
   REGION_GALICIA,
   REGION_GEORGIA,
   REGION_LAOS,
   REGION_NORWAY,
   REGION_RUSSIA,
-} from '~/seeds/test/04_regions';
-import { GAUGE_GAL_1_1 } from '~/seeds/test/06_gauges';
-import { GEORGIA_BZHUZHA_LONG } from '~/seeds/test/09_sections';
+} from '../../../seeds/test/04_regions';
+import { GAUGE_GAL_1_1 } from '../../../seeds/test/06_gauges';
+import { GEORGIA_BZHUZHA_LONG } from '../../../seeds/test/09_sections';
 import {
   ALL_SECTION_ROW_BANNER,
   ALL_SECTION_ROW_BANNER_DISABLED,
   GALICIA_REGION_DESCR_BANNER,
   GALICIA_REGION_DESCR_BANNER2,
   GALICIA_SECTION_ROW_BANNER,
-} from '~/seeds/test/14_banners';
-
+} from '../../../seeds/test/14_banners';
+import { anonContext, fakeContext, noTimestamps } from '../../../test/index';
 import {
   testPollRegionMeasurements,
   testPollRegionMeasurementsLegacy,
@@ -319,13 +318,12 @@ describe('connections', () => {
     });
 
     it('should filter recently updated sections', async () => {
-      const up = await db()
+      const [{ updated_at }] = await db()
         .update({ rating: 1 })
         .from('sections')
         .where({ id: GEORGIA_BZHUZHA_LONG })
         .returning('updated_at');
-      let u2: Date = up[0] as any;
-      u2 = new Date(u2.getTime() - 300);
+      const u2 = new Date(updated_at.getTime() - 300);
       const result = await testRegionSections(
         {
           id: REGION_GEORGIA,
@@ -339,13 +337,12 @@ describe('connections', () => {
     });
 
     it('should filter recently updated sections (legacy, in filter)', async () => {
-      const up = await db()
+      const [{ updated_at }] = await db()
         .update({ rating: 1 })
         .from('sections')
         .where({ id: GEORGIA_BZHUZHA_LONG })
         .returning('updated_at');
-      let u2: Date = up[0] as any;
-      u2 = new Date(u2.getTime() - 300);
+      const u2 = new Date(updated_at.getTime() - 300);
       const result = await testRegionSections(
         {
           id: REGION_GEORGIA,

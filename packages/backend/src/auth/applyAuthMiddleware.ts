@@ -1,12 +1,12 @@
 import { SocialMediaProvider } from '@whitewater-guide/schema';
-import Koa from 'koa';
+import type Koa from 'koa';
 
-import { fcmRouter } from './fcm';
+import { fcmRouter } from './fcm/index';
 import initPassport from './initPassport';
-import { authenticateWithJWT, initJwtRouter } from './jwt';
-import { initLocalRouter } from './local/router';
+import { authenticateWithJWT, initJwtRouter } from './jwt/index';
+import { initLocalRouter } from './local/router/index';
 import { logoutRouter } from './logout';
-import { createSocialRouter } from './social';
+import { createSocialRouter } from './social/index';
 
 export function applyAuthMiddleware(app: Koa): void {
   const passport = initPassport();

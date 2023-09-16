@@ -1,4 +1,4 @@
-import { SectionNameShortFragment } from '@whitewater-guide/schema';
+import type { SectionNameShortFragment } from '@whitewater-guide/schema';
 
 /**
  * This function returns human-readable section name that is made of river name and section name and dash

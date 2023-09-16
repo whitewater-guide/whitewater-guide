@@ -1,9 +1,8 @@
 import crypto from 'crypto';
-import castArray from 'lodash/castArray';
+import { castArray } from 'lodash';
 
-import config from '~/config';
-import { S3Prefix } from '~/s3';
-
+import config from '../config';
+import type { S3Prefix } from '../s3/index';
 import { CONTENT_BUCKET } from './paths';
 
 const urlSafeBase64Encode = (input: string | Buffer) => {

@@ -1,7 +1,7 @@
-import Knex from 'knex';
-import path from 'path';
+import type { Knex } from 'knex';
 
-import { createViews, dropViews, runSqlFile } from '~/db';
+import { createViews, dropViews, runSqlFile } from '../db/index';
+import { resolveRelative } from '../utils/index';
 
 const VIEWS = [
   'gauges',
@@ -19,7 +19,7 @@ const VIEWS = [
  * @param {Knex} db
  * @returns {Promise<void>}
  */
-export const up = async (db: Knex) => {
+export async function up(db: Knex): Promise<void> {
   await dropViews(db, ...VIEWS);
 
   // Sources
@@ -36,7 +36,7 @@ export const up = async (db: Knex) => {
   await db.schema.alterTable('sources', (table) => {
     table.specificType('default_lang', 'language_code').notNullable().alter();
   });
-  await runSqlFile(db, path.resolve(__dirname, '038/upsert_source.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '038/upsert_source.sql'));
 
   // Gauges
   await db.schema.table('gauges', (table) => {
@@ -52,7 +52,7 @@ export const up = async (db: Knex) => {
   await db.schema.alterTable('gauges', (table) => {
     table.specificType('default_lang', 'language_code').notNullable().alter();
   });
-  await runSqlFile(db, path.resolve(__dirname, '038/upsert_gauge.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '038/upsert_gauge.sql'));
 
   // Regions
   await db.schema.table('regions', (table) => {
@@ -74,7 +74,7 @@ export const up = async (db: Knex) => {
   await db.schema.alterTable('regions', (table) => {
     table.specificType('default_lang', 'language_code').notNullable().alter();
   });
-  await runSqlFile(db, path.resolve(__dirname, '038/upsert_region.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '038/upsert_region.sql'));
 
   // Rivers
   await db.schema.table('rivers', (table) => {
@@ -90,7 +90,7 @@ export const up = async (db: Knex) => {
   await db.schema.alterTable('rivers', (table) => {
     table.specificType('default_lang', 'language_code').notNullable().alter();
   });
-  await runSqlFile(db, path.resolve(__dirname, '038/upsert_river.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '038/upsert_river.sql'));
 
   // Sections
   await db.schema.table('sections', (table) => {
@@ -113,7 +113,7 @@ export const up = async (db: Knex) => {
   await db.schema.alterTable('sections', (table) => {
     table.specificType('default_lang', 'language_code').notNullable().alter();
   });
-  await runSqlFile(db, path.resolve(__dirname, '038/upsert_section.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '038/upsert_section.sql'));
 
   // Media
   await db.schema.table('media', (table) => {
@@ -135,7 +135,10 @@ export const up = async (db: Knex) => {
   await db.schema.alterTable('media', (table) => {
     table.specificType('default_lang', 'language_code').notNullable().alter();
   });
-  await runSqlFile(db, path.resolve(__dirname, '038/upsert_section_media.sql'));
+  await runSqlFile(
+    db,
+    resolveRelative(__dirname, '038/upsert_section_media.sql'),
+  );
 
   // Points
   // timestamps were missing
@@ -168,12 +171,12 @@ export const up = async (db: Knex) => {
   await db.schema.alterTable('points', (table) => {
     table.specificType('default_lang', 'language_code').notNullable().alter();
   });
-  await runSqlFile(db, path.resolve(__dirname, '038/upsert_points.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '038/upsert_points.sql'));
 
   await createViews(db, 38, ...VIEWS);
-};
+}
 
-export const down = async (db: Knex) => {
+export async function down(db: Knex): Promise<void> {
   await dropViews(db, ...VIEWS);
 
   await db.schema.table('sources', (table) => {
@@ -200,13 +203,14 @@ export const down = async (db: Knex) => {
 
   await createViews(db, 37, ...VIEWS);
 
-  await runSqlFile(db, path.resolve(__dirname, '031/upsert_source.sql'));
-  await runSqlFile(db, path.resolve(__dirname, '031/upsert_gauge.sql'));
-  await runSqlFile(db, path.resolve(__dirname, '001/upsert_region.sql'));
-  await runSqlFile(db, path.resolve(__dirname, '032/upsert_river.sql'));
-  await runSqlFile(db, path.resolve(__dirname, '037/upsert_section.sql'));
-  await runSqlFile(db, path.resolve(__dirname, '025/upsert_section_media.sql'));
-  await runSqlFile(db, path.resolve(__dirname, '001/upsert_points.sql'));
-};
-
-export const configuration = { transaction: true };
+  await runSqlFile(db, resolveRelative(__dirname, '031/upsert_source.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '031/upsert_gauge.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '001/upsert_region.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '032/upsert_river.sql'));
+  await runSqlFile(db, resolveRelative(__dirname, '037/upsert_section.sql'));
+  await runSqlFile(
+    db,
+    resolveRelative(__dirname, '025/upsert_section_media.sql'),
+  );
+  await runSqlFile(db, resolveRelative(__dirname, '001/upsert_points.sql'));
+}

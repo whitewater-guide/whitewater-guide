@@ -1,10 +1,10 @@
 import gqf from 'graphql-fields';
 
-import { SectionResolvers } from '~/apollo';
+import type { SectionResolvers } from '../../../apollo/index';
 
 const EMBEDDED_REGION_FIELDS = ['__typename', 'id', 'name'];
 
-const regionResolver: SectionResolvers['region'] = (
+const regionResolver: SectionResolvers['region'] = async (
   { region_id, region_name },
   _,
   { dataSources },
@@ -20,7 +20,8 @@ const regionResolver: SectionResolvers['region'] = (
       name: region_name,
     };
   }
-  return dataSources.regions.getById(region_id);
+  const region = await dataSources.regions.getById(region_id);
+  return region!;
 };
 
 export default regionResolver;

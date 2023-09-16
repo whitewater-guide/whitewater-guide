@@ -1,17 +1,18 @@
-import { Cursor } from '~/apollo/cursor';
-import { holdTransaction, rollbackTransaction } from '~/db';
-
+import type { Cursor } from '../../apollo/index';
+import { Context } from '../../apollo/index';
+import { holdTransaction, rollbackTransaction } from '../../db/index';
 import { RelayConnector } from './RelayConnector';
-import { FieldsMap } from './types';
+import type { FieldsMap } from './types';
 
 beforeAll(holdTransaction);
 afterAll(rollbackTransaction);
 
 class TestConnector extends RelayConnector<any, any> {
   constructor() {
-    super();
+    super(new Context());
     this._tableName = 'test_table';
     this._graphqlTypeName = 'TestType';
+    this._language = undefined;
   }
 
   protected getAfterClause(cursor: Cursor): string {
@@ -136,7 +137,7 @@ it('should produce relay-style connection for date values', () => {
       {
         cursor: {
           ordId: 1,
-          value: '1264971600000',
+          value: '1264982400000',
         },
         node: {
           created_at: new Date(2010, 1, 1),
@@ -147,7 +148,7 @@ it('should produce relay-style connection for date values', () => {
       {
         cursor: {
           ordId: 2,
-          value: '1328040000000',
+          value: '1328054400000',
         },
         node: {
           created_at: new Date(2012, 1, 1),
@@ -159,7 +160,7 @@ it('should produce relay-style connection for date values', () => {
     pageInfo: {
       endCursor: {
         ordId: 2,
-        value: '1328040000000',
+        value: '1328054400000',
       },
       hasMore: true,
     },

@@ -1,11 +1,14 @@
-import { anonContext, countRows, fakeContext } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
-import { EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '~/seeds/test/01_users';
-import { RIVER_GAL_BECA, RIVER_GAL_CABE } from '~/seeds/test/07_rivers';
-
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
+import {
+  EDITOR_GA_EC,
+  EDITOR_NO_EC,
+  TEST_USER,
+} from '../../../seeds/test/01_users';
+import { RIVER_GAL_BECA, RIVER_GAL_CABE } from '../../../seeds/test/07_rivers';
+import { anonContext, countRows, fakeContext } from '../../../test/index';
 import { testRemoveRiver } from './removeRiver.test.generated';
 
 let rBefore: number;

@@ -1,6 +1,6 @@
 import { createSafeValidator } from '@whitewater-guide/validation';
 
-import { SuggestionInput } from '../__generated__/types';
+import type { SuggestionInput } from '../__generated__/types';
 import {
   PhotoSuggestionInputSchema,
   SuggestionInputSchema,
@@ -35,6 +35,11 @@ describe('SuggestionInputSchema', () => {
         resolution: [100, 100],
       },
     ],
+  ];
+
+  const incorrectValues: IncorrectTestValue[] = [
+    ['all empty', { ...correct, description: null, copyright: null }],
+    ['bad uuid', { ...correct, section: { id: 'fooo' } }],
     [
       'just media',
       {
@@ -45,11 +50,6 @@ describe('SuggestionInputSchema', () => {
         resolution: [100, 100],
       },
     ],
-  ];
-
-  const incorrectValues: IncorrectTestValue[] = [
-    ['all empty', { ...correct, description: null, copyright: null }],
-    ['bad uuid', { ...correct, section: { id: 'fooo' } }],
     ['no description and no media', { ...correct, description: null }],
     ['filename without resolution', { ...correct, filename: 'foo.jpg' }],
     ['resolution without filename', { ...correct, resolution: [100, 100] }],

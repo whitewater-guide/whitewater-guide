@@ -1,20 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`loose coordinate schema error 1`] = `
-Object {
+{
   "0": "yup:number.longitude",
   "1": "yup:number.latitude",
 }
 `;
 
 exports[`loose coordinate schema error when some are string 1`] = `
-Object {
+{
   "1": "yup:number.latitude",
 }
 `;
 
 exports[`loose coordinate schema error when undefined 1`] = `
-Object {
+{
   "0": "yup:number.longitude",
   "1": "yup:number.latitude",
   "2": "yup:number.altitude",
@@ -22,10 +22,10 @@ Object {
 `;
 
 exports[`loose coordinate schema error when wrong array length 1`] = `
-Object {
-  "": Object {
+{
+  "": {
     "key": "yup:array.max",
-    "options": Object {
+    "options": {
       "max": 3,
       "path": "this",
     },
@@ -34,20 +34,20 @@ Object {
 `;
 
 exports[`point input schema should be invalid for all 1`] = `
-Object {
-  "coordinates": Array [
+{
+  "coordinates": [
     "yup:number.longitude",
     "yup:number.latitude",
   ],
-  "id": Object {
+  "id": {
     "key": "yup:string.uuid",
-    "options": Object {
+    "options": {
       "path": "id",
     },
   },
-  "kind": Object {
+  "kind": {
     "key": "yup:mixed.oneOf",
-    "options": Object {
+    "options": {
       "values": "put-in, put-in-alt, put-in-road, take-out, take-out-alt, take-out-road, waterfall, rapid, portage, playspot, hazard, river-campsite, wild-camping, paid-camping, gauge, hike-waypoint, bridge, dam, power-plant, kayak-shop, other",
     },
   },
@@ -55,17 +55,17 @@ Object {
 `;
 
 exports[`point input schema should be invalid for extra coordinate array item 1`] = `
-Object {
-  "coordinates": Object {
+{
+  "coordinates": {
     "key": "yup:array.max",
-    "options": Object {
+    "options": {
       "max": 3,
       "path": "coordinates",
     },
   },
-  "id": Object {
+  "id": {
     "key": "yup:string.uuid",
-    "options": Object {
+    "options": {
       "path": "id",
     },
   },
@@ -73,13 +73,13 @@ Object {
 `;
 
 exports[`point input schema should be invalid for lat only 1`] = `
-Object {
-  "coordinates": Array [
+{
+  "coordinates": [
     "yup:number.longitude",
   ],
-  "id": Object {
+  "id": {
     "key": "yup:string.uuid",
-    "options": Object {
+    "options": {
       "path": "id",
     },
   },
@@ -87,14 +87,14 @@ Object {
 `;
 
 exports[`point input schema should be invalid for lng only 1`] = `
-Object {
-  "coordinates": Array [
+{
+  "coordinates": [
     ,
     "yup:number.latitude",
   ],
-  "id": Object {
+  "id": {
     "key": "yup:string.uuid",
-    "options": Object {
+    "options": {
       "path": "id",
     },
   },

@@ -5,7 +5,7 @@ import MDCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { Screens } from '~/core/navigation';
 
-import { AuthMainNavProp } from './types';
+import type { AuthMainNavProp } from './types';
 
 interface Props {
   label: string;

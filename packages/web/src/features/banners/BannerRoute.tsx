@@ -1,5 +1,6 @@
 import React from 'react';
-import { RouteComponentProps, Switch } from 'react-router-dom';
+import type { RouteComponentProps } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 
 import { AdminRoute } from '../../layout';
 import { BannerForm } from './form';

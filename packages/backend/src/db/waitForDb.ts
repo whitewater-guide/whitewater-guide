@@ -1,14 +1,15 @@
 /* eslint-disable node/no-process-env */
-import { Client } from 'pg';
-import waitForExpect from 'wait-for-expect';
+import retry from 'p-retry';
+import pg from 'pg';
 
 import config from './knexfile';
 
-export const waitForDb = async () =>
-  waitForExpect(
+export async function waitForDb(): Promise<void> {
+  await retry(
     async () => {
-      const client = new Client({
-        ...(config[process.env.NODE_ENV || 'development'].connection as any),
+      const cfg = config[process.env.NODE_ENV ?? 'development']();
+      const client = new pg.Client({
+        ...(cfg.connection as any),
       });
       try {
         await client.connect();
@@ -17,6 +18,6 @@ export const waitForDb = async () =>
         await client.end();
       }
     },
-    30000,
-    1000,
+    { factor: 1, retries: 30 },
   );
+}

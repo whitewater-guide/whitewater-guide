@@ -1,27 +1,27 @@
-import {
+import type {
   ApolloClient,
   ApolloError,
   ApolloQueryResult,
-  NetworkStatus,
   ObservableQuery,
 } from '@apollo/client';
-import React, { PropsWithChildren, useContext } from 'react';
-import { Subscription } from 'zen-observable-ts';
+import { NetworkStatus } from '@apollo/client';
+import type { PropsWithChildren } from 'react';
+import React, { useContext } from 'react';
+import type { Subscription } from 'zen-observable-ts';
 
-import {
-  PollRegionMeasurementsDocument,
-  PollRegionMeasurementsQueryVariables,
-} from '../regions';
-import { SectionDerivedFields } from '.';
+import type { PollRegionMeasurementsQueryVariables } from '../regions';
+import { PollRegionMeasurementsDocument } from '../regions';
+import type { SectionDerivedFields } from '.';
 import { addDerivedFields } from './addDerivedFields';
 import { applySearch } from './applySearch';
-import {
+import type {
   ListedSectionFragment,
-  ListSectionsDocument,
   ListSectionsQuery,
   ListSectionsQueryVariables,
 } from './listSections.generated';
-import { SectionFilterOptions, SectionsStatus } from './types';
+import { ListSectionsDocument } from './listSections.generated';
+import type { SectionFilterOptions } from './types';
+import { SectionsStatus } from './types';
 
 export interface InnerState {
   sections: Array<ListedSectionFragment & SectionDerivedFields> | null;
@@ -205,6 +205,9 @@ export class SectionsListProvider extends React.PureComponent<
         updatedAfter: updatedAfter?.toISOString(),
       },
     });
+    // I don't know what's this doing, but it helps to trigger onUpdate after every load
+    // So be it, whole thing needs to be redesigned and rewritten
+    await this._query.reobserve().catch(() => {});
 
     if (error) {
       this.setState({ error });

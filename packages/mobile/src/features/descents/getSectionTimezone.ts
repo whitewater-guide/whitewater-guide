@@ -1,4 +1,4 @@
-import { Gauge, Section } from '@whitewater-guide/schema';
+import type { Gauge, Section } from '@whitewater-guide/schema';
 
 export default function getSectionTimezone(
   section?:

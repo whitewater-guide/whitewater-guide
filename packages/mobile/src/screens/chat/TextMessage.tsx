@@ -1,6 +1,7 @@
 import format from 'date-fns/format';
-import { MatrixEvent } from 'matrix-js-sdk';
-import React, { FC, useCallback } from 'react';
+import type { MatrixEvent } from 'matrix-js-sdk';
+import type { FC } from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';

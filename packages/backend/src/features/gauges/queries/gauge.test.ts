@@ -1,10 +1,9 @@
-import { anonContext, fakeContext, noTimestamps } from '@test';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
-import { GAUGE_GAL_1_1, GAUGE_RU_1 } from '~/seeds/test/06_gauges';
-
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
+import { GAUGE_GAL_1_1, GAUGE_RU_1 } from '../../../seeds/test/06_gauges';
+import { anonContext, fakeContext, noTimestamps } from '../../../test/index';
 import {
   testGaugeDetails,
   testGaugeMeasurements,

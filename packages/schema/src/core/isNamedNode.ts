@@ -1,4 +1,4 @@
-import { NamedNode } from '../__generated__/types';
+import type { NamedNode } from '../__generated__/types';
 import { isNode } from './isNode';
 
 export function isNamedNode(v: unknown): v is NamedNode {

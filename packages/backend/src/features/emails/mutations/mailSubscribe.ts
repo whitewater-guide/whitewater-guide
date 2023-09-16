@@ -1,8 +1,7 @@
 import MailChimp from 'mailchimp-api-v3';
 
-import { MutationResolvers } from '~/apollo';
-import config from '~/config';
-
+import type { MutationResolvers } from '../../../apollo/index';
+import config from '../../../config';
 import logger from '../logger';
 
 const mailSubscribe: MutationResolvers['mailSubscribe'] = async (

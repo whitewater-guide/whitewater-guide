@@ -1,4 +1,4 @@
-import {
+import type {
   GaugeBindingAllFragment,
   SectionFlowsFragment,
 } from '@whitewater-guide/schema';
@@ -8,7 +8,7 @@ import isNil from 'lodash/isNil';
 import memoize from 'lodash/memoize';
 import { useMemo } from 'react';
 
-import { FlowFormula, Formulas } from './types';
+import type { FlowFormula, Formulas } from './types';
 
 const getRawFormula = memoize((formula: string): FlowFormula => {
   try {

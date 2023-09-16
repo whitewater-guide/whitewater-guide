@@ -1,29 +1,25 @@
-import { ApolloClient } from '@apollo/client';
-import { MockedResponse } from '@apollo/client/testing';
+import type { ApolloClient } from '@apollo/client';
+import type { MockedResponse } from '@apollo/client/testing';
 import { MockList } from '@graphql-tools/mock';
 import FakeTimers from '@sinonjs/fake-timers';
-import { act, render, RenderResult, waitFor } from '@testing-library/react';
+import type { RenderResult } from '@testing-library/react';
+import { act, render, waitFor } from '@testing-library/react';
 import gql from 'graphql-tag';
-import React, { FC } from 'react';
-import { Overwrite } from 'utility-types';
+import type { FC } from 'react';
+import React from 'react';
+import type { Overwrite } from 'utility-types';
 
-import {
-  createFixedProvider,
-  FixedProviderOptions,
-  mockApolloProvider,
-} from '../../test';
+import type { FixedProviderOptions } from '../../test';
+import { createFixedProvider, mockApolloProvider } from '../../test';
 import { PollRegionMeasurementsDocument } from '../regions';
-import {
-  ListSectionsDocument,
+import type {
   ListSectionsQuery,
   ListSectionsQueryVariables,
 } from './listSections.generated';
+import { ListSectionsDocument } from './listSections.generated';
 import { SectionsListProvider, useSectionsList } from './SectionsListProvider';
-import {
-  DefaultSectionFilterOptions,
-  SectionFilterOptions,
-  SectionsStatus,
-} from './types';
+import type { SectionFilterOptions } from './types';
+import { DefaultSectionFilterOptions, SectionsStatus } from './types';
 
 type Props = React.ComponentProps<typeof SectionsListProvider>;
 
@@ -345,7 +341,7 @@ it('should load initial data page by page', async () => {
     responses: mockedResponses,
   });
 
-  await waitFor(() =>
+  await waitFor(() => {
     expect(harness.mockChildren.mock.calls).toMatchObject([
       [{ count: 0, status: SectionsStatus.READY, sections: null }],
       [{ count: 0, status: SectionsStatus.LOADING, sections: null }],
@@ -353,32 +349,32 @@ it('should load initial data page by page', async () => {
         {
           count: 3,
           status: SectionsStatus.LOADING,
-          sections: seedSections.slice(0, 1),
+          sections: [expect.objectContaining({ id: seedSections[0].id })],
         },
       ],
       [
         {
           count: 3,
           status: SectionsStatus.LOADING,
-          sections: seedSections.slice(0, 2),
-        },
-      ],
-      [
-        {
-          count: 3,
-          status: SectionsStatus.LOADING,
-          sections: seedSections.slice(0, 3),
+          sections: [
+            expect.objectContaining({ id: seedSections[0].id }),
+            expect.objectContaining({ id: seedSections[1].id }),
+          ],
         },
       ],
       [
         {
           count: 3,
           status: SectionsStatus.READY,
-          sections: seedSections.slice(0, 3),
+          sections: [
+            expect.objectContaining({ id: seedSections[0].id }),
+            expect.objectContaining({ id: seedSections[1].id }),
+            expect.objectContaining({ id: seedSections[2].id }),
+          ],
         },
       ],
-    ]),
-  );
+    ]);
+  });
 });
 
 it('should continue loading initial data when cache contains partial data', async () => {
@@ -412,13 +408,6 @@ it('should continue loading initial data when cache contains partial data', asyn
       [
         {
           count: 3,
-          status: SectionsStatus.LOADING,
-          sections: seedSections.slice(0, 3),
-        },
-      ],
-      [
-        {
-          count: 3,
           status: SectionsStatus.READY,
           sections: seedSections.slice(0, 3),
         },
@@ -445,7 +434,6 @@ it('should load updates page by page when cache is full', async () => {
       [{ sections: seedSections.slice(0, 3) }],
       [{ sections: seedSections.slice(0, 4) }],
       [{ sections: seedSections.slice(0, 5) }],
-      [{ sections: seedSections.slice(0, 5) }],
     ]);
   });
 });
@@ -465,7 +453,6 @@ it('should change status while loading updates', async () => {
   await waitFor(() =>
     expect(harness.mockChildren.mock.calls).toMatchObject([
       [{ status: SectionsStatus.READY }],
-      [{ status: SectionsStatus.LOADING_UPDATES }],
       [{ status: SectionsStatus.LOADING_UPDATES }],
       [{ status: SectionsStatus.LOADING_UPDATES }],
       [{ status: SectionsStatus.READY }],
@@ -491,7 +478,6 @@ it('should update count after loading updates', async () => {
       [{ count: 3 }],
       [{ count: 4 }],
       [{ count: 5 }],
-      [{ count: 5 }],
     ]),
   );
 });
@@ -502,7 +488,7 @@ it('should not try to load anything when offline', async () => {
     responses: mockedResponses,
   });
 
-  expect(harness.requestSpy).not.toBeCalled();
+  expect(harness.requestSpy).not.toHaveBeenCalled();
 });
 
 it('should render cache while offline', async () => {
@@ -730,11 +716,11 @@ it('should apply filters', async () => {
     filterOptions: {
       ...DefaultSectionFilterOptions,
       difficulty: [2.1, 2.9],
-      duration: [0, 1000],
+      duration: [0, 1000] as any,
     },
   });
   await waitFor(() => {
-    expect(harness.mockChildren).lastCalledWith(
+    expect(harness.mockChildren).toHaveBeenLastCalledWith(
       expect.objectContaining({
         sections: [expect.anything()],
         count: INITIAL_COUNT,

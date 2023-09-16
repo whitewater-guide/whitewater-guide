@@ -1,9 +1,10 @@
-import { MediaInput, MediaKind } from '@whitewater-guide/schema';
+import type { MediaInput } from '@whitewater-guide/schema';
+import { MediaKind } from '@whitewater-guide/schema';
 import qs from 'qs';
-import { RouteComponentProps } from 'react-router';
+import type { RouteComponentProps } from 'react-router';
 
-import { MediaFormQuery } from './mediaForm.generated';
-import { RouterParams } from './types';
+import type { MediaFormQuery } from './mediaForm.generated';
+import type { RouterParams } from './types';
 
 export default (route: RouteComponentProps<RouterParams>) =>
   (result: MediaFormQuery): MediaInput => {

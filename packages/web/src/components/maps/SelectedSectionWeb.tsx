@@ -16,7 +16,7 @@ import { useHistory, useRouteMatch } from 'react-router';
 import { Title } from '../../layout/details';
 import { paths } from '../../utils';
 import { InfoWindow } from './InfoWindow';
-import { MapElementProps } from './types';
+import type { MapElementProps } from './types';
 import { isSection } from './utils';
 
 const useStyles = makeStyles(() =>

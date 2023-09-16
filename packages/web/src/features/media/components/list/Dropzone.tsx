@@ -9,8 +9,9 @@ import { MediaKind } from '@whitewater-guide/schema';
 import React from 'react';
 import Dz from 'react-dropzone';
 
-import { Styles } from '../../../../styles';
-import { LocalPhoto, toLocalPhoto } from '../../../../utils/files';
+import type { Styles } from '../../../../styles';
+import type { LocalPhoto } from '../../../../utils/files';
+import { toLocalPhoto } from '../../../../utils/files';
 import { THUMB_HEIGHT } from './constants';
 
 const styles: Styles = {

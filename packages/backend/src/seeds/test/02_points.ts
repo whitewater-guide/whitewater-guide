@@ -1,7 +1,7 @@
-import Knex from 'knex';
+import type { Knex } from 'knex';
 import { Point as WKXPoint } from 'wkx';
 
-import { Coordinates } from '~/apollo';
+import type { Coordinates } from '../../apollo/index';
 
 function getCoordinates(coordinates: Coordinates): string {
   const wkxPoint = new WKXPoint(...coordinates);

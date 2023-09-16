@@ -1,7 +1,7 @@
 import deburr from 'lodash/deburr';
 
-import { ListedSectionFragment } from './listSections.generated';
-import { SectionFilterOptions } from './types';
+import type { ListedSectionFragment } from './listSections.generated';
+import type { SectionFilterOptions } from './types';
 
 export const getFilter =
   (terms: SectionFilterOptions | null) =>

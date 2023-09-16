@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should be invalid for bad kind 1`] = `
-Object {
-  "kind": Object {
+{
+  "kind": {
     "key": "yup:mixed.oneOf",
-    "options": Object {
+    "options": {
       "values": "blog, photo, video",
     },
   },
@@ -12,35 +12,35 @@ Object {
 `;
 
 exports[`should be invalid for bad resolution 1 1`] = `
-Object {
-  "resolution": Object {
-    "key": "yup:array.min",
-    "options": Object {
-      "min": 2,
+{
+  "resolution": {
+    "key": "yup:tuple.tooFew",
+    "options": {
       "path": "resolution",
+      "size": 2,
     },
   },
 }
 `;
 
 exports[`should be invalid for bad resolution 2 1`] = `
-Object {
-  "resolution": Object {
-    "key": "yup:array.min",
-    "options": Object {
-      "min": 2,
+{
+  "resolution": {
+    "key": "yup:tuple.tooFew",
+    "options": {
       "path": "resolution",
+      "size": 2,
     },
   },
 }
 `;
 
 exports[`should be invalid for bad resolution 3 1`] = `
-Object {
-  "resolution": Array [
-    Object {
+{
+  "resolution": [
+    {
       "key": "yup:number.positive",
-      "options": Object {
+      "options": {
         "path": "resolution[0]",
       },
     },
@@ -49,11 +49,11 @@ Object {
 `;
 
 exports[`should be invalid for bad resolution 4 1`] = `
-Object {
-  "resolution": Array [
-    Object {
+{
+  "resolution": [
+    {
       "key": "yup:number.integer",
-      "options": Object {
+      "options": {
         "path": "resolution[0]",
       },
     },
@@ -62,10 +62,10 @@ Object {
 `;
 
 exports[`should be invalid for bad uuid 1`] = `
-Object {
-  "id": Object {
+{
+  "id": {
     "key": "yup:string.uuid",
-    "options": Object {
+    "options": {
       "path": "id",
     },
   },
@@ -73,10 +73,10 @@ Object {
 `;
 
 exports[`should be invalid for bad weight 1`] = `
-Object {
-  "weight": Object {
+{
+  "weight": {
     "key": "yup:number.integer",
-    "options": Object {
+    "options": {
       "path": "weight",
     },
   },
@@ -84,16 +84,16 @@ Object {
 `;
 
 exports[`should be invalid for empty url 1`] = `
-Object {
+{
   "url": "yup:string.nonEmpty",
 }
 `;
 
 exports[`should be invalid for extra fields 1`] = `
-Object {
-  "": Object {
+{
+  "": {
     "key": "yup:object.noUnknown",
-    "options": Object {
+    "options": {
       "path": "this",
     },
   },
@@ -101,7 +101,7 @@ Object {
 `;
 
 exports[`should be invalid for undefined url 1`] = `
-Object {
+{
   "url": "yup:string.nonEmpty",
 }
 `;

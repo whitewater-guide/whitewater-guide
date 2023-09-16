@@ -1,3 +1,4 @@
+/* eslint-disable jest/expect-expect */
 import Koa from 'koa';
 import request from 'supertest';
 

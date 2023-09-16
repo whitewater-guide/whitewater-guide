@@ -1,11 +1,11 @@
-import { FetchPolicy, QueryResult } from '@apollo/client';
+import type { FetchPolicy, QueryResult } from '@apollo/client';
 import React, { useContext } from 'react';
 
-import {
+import type {
   RegionDetailsQuery,
   RegionDetailsQueryVariables,
-  useRegionDetailsQuery,
 } from './regionDetails.generated';
+import { useRegionDetailsQuery } from './regionDetails.generated';
 
 type RegionContext = QueryResult<
   RegionDetailsQuery,

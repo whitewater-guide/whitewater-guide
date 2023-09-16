@@ -1,4 +1,4 @@
-import { MockedResponse } from '@apollo/client/testing';
+import type { MockedResponse } from '@apollo/client/testing';
 import { GraphQLError } from 'graphql';
 import gql from 'graphql-tag';
 

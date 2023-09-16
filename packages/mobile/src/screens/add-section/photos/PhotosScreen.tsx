@@ -6,10 +6,10 @@ import { StyleSheet, View } from 'react-native';
 import { Screen } from '~/components/Screen';
 
 import theme from '../../../theme';
-import { SectionFormInput } from '../types';
+import type { SectionFormInput } from '../types';
 import AddPhotoButton from './AddPhotoButton';
 import PhotoThumb from './PhotoThumb';
-import { AddSectionPhotosNavProps } from './types';
+import type { AddSectionPhotosNavProps } from './types';
 import { useRemovePhoto } from './useRemovePhoto';
 
 const styles = StyleSheet.create({

@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 
-import { AppSettings, useAppSettings } from './AppSettingsProvider';
+import type { AppSettings } from './AppSettingsProvider';
+import { useAppSettings } from './AppSettingsProvider';
 
 export const useMapType = () => {
   const { settings, updateSettings } = useAppSettings();

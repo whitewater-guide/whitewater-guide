@@ -1,8 +1,15 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
-import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import type {
+  CompositeNavigationProp,
+  RouteProp,
+} from '@react-navigation/native';
+import type { StackNavigationProp } from '@react-navigation/stack';
 
-import { RootStackNav, RootStackParamsList, Screens } from '~/core/navigation';
+import type {
+  RootStackNav,
+  RootStackParamsList,
+  Screens,
+} from '~/core/navigation';
 
 export type RegionScreenNavProp = CompositeNavigationProp<
   StackNavigationProp<RootStackParamsList, Screens.REGION_STACK>,

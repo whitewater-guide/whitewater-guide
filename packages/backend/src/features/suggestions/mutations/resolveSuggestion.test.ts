@@ -1,9 +1,8 @@
-import { countRows, fakeContext, UUID_REGEX } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 import { MediaKind, SuggestionStatus } from '@whitewater-guide/schema';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { db, holdTransaction, rollbackTransaction } from '~/db';
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
 import {
   ADMIN,
   ADMIN_ID,
@@ -11,12 +10,13 @@ import {
   EDITOR_NO,
   TEST_USER,
   TEST_USER_ID,
-} from '~/seeds/test/01_users';
+} from '../../../seeds/test/01_users';
 import {
   MEDIA_SUGGESTION_ID1,
   MEDIA_SUGGESTION_ID2,
-} from '~/seeds/test/17_suggestions';
-
+} from '../../../seeds/test/17_suggestions';
+import { countRows, fakeContext } from '../../../test/index';
+import { UUID_REGEX } from '../../../utils/index';
 import { testResolveSuggestion } from './resolveSuggestion.test.generated';
 
 let mBefore: number;

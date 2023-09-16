@@ -1,5 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
-import TextField, { StandardTextFieldProps } from '@material-ui/core/TextField';
+import type { StandardTextFieldProps } from '@material-ui/core/TextField';
+import TextField from '@material-ui/core/TextField';
 import React, { forwardRef } from 'react';
 
 const useStyles = makeStyles(() => ({

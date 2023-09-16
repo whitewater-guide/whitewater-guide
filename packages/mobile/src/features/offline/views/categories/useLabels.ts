@@ -1,4 +1,4 @@
-import { RegionMediaSummary } from '@whitewater-guide/schema';
+import type { RegionMediaSummary } from '@whitewater-guide/schema';
 import prettyBytes from 'pretty-bytes';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';

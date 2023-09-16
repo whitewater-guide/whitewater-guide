@@ -1,4 +1,4 @@
-import { LicenseResolvers } from '~/apollo';
+import type { LicenseResolvers } from '../../../apollo/index';
 
 const licenseResolvers: LicenseResolvers = {
   slug: (license) => license.slug ?? null,

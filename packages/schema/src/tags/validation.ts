@@ -1,16 +1,16 @@
-import * as yup from 'yup';
+import type { ObjectSchema } from 'yup';
+import { mixed, object, string } from 'yup';
 
-import { TagCategory, TagInput } from '../__generated__/types';
+import type { TagInput } from '../__generated__/types';
+import { TagCategory } from '../__generated__/types';
 
-export const TagInputSchema: yup.SchemaOf<TagInput> = yup
-  .object({
-    id: yup.string().slug().defined().nullable(false),
-    name: yup.string().nonEmpty().defined().nullable(false),
-    category: yup
-      .mixed()
-      .defined()
-      .nullable(false)
-      .oneOf(Object.values(TagCategory)),
-  })
+export const TagInputSchema: ObjectSchema<TagInput> = object({
+  id: string().slug().defined().nonNullable(),
+  name: string().nonEmpty().defined().nonNullable(),
+  category: mixed<TagCategory>()
+    .defined()
+    .nonNullable()
+    .oneOf(Object.values(TagCategory)),
+})
   .strict(true)
   .noUnknown();

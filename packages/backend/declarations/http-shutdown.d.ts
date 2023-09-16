@@ -1,5 +1,5 @@
 declare module 'http-shutdown' {
-  import { Server } from 'http';
+  import type { Server } from 'http';
 
   interface Shutdownable {
     shutdown: (callback?: () => void) => void;

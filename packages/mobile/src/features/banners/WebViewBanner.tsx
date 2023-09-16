@@ -1,6 +1,7 @@
-import { BannerWithSourceFragment } from '@whitewater-guide/schema';
+import type { BannerWithSourceFragment } from '@whitewater-guide/schema';
 import React from 'react';
-import { Linking, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import type { StyleProp, ViewStyle } from 'react-native';
+import { Linking, StyleSheet, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 
 import theme from '../../theme';

@@ -7,7 +7,7 @@ import theme from '~/theme';
 import SectionFAB from '../SectionFAB';
 import SectionTabsScreen from '../SectionTabsScreen';
 import SectionMediaScreenContent from './SectionMediaScreenContent';
-import { SectionMediaNavProps } from './types';
+import type { SectionMediaNavProps } from './types';
 
 const styles = StyleSheet.create({
   content: {

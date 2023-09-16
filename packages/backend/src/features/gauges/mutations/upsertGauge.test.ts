@@ -1,14 +1,23 @@
-import { anonContext, countRows, fakeContext, isUUID, noUnstable } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import { GaugeInput } from '@whitewater-guide/schema';
-import gql from 'graphql-tag';
+import type { GaugeInput } from '@whitewater-guide/schema';
+import { gql } from 'graphql-tag';
 
-import { db, holdTransaction, rollbackTransaction, Sql } from '~/db';
-import { GorgeConnector } from '~/features/gorge';
-import { ADMIN, EDITOR_NO_EC, TEST_USER } from '~/seeds/test/01_users';
-import { SOURCE_GALICIA_1, SOURCE_NORWAY } from '~/seeds/test/05_sources';
-import { GAUGE_GAL_1_1, GAUGE_GAL_2_1 } from '~/seeds/test/06_gauges';
-
+import type { Sql } from '../../../db/index';
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
+import { GorgeConnector } from '../../../features/gorge/index';
+import { ADMIN, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
+import {
+  SOURCE_GALICIA_1,
+  SOURCE_NORWAY,
+} from '../../../seeds/test/05_sources';
+import { GAUGE_GAL_1_1, GAUGE_GAL_2_1 } from '../../../seeds/test/06_gauges';
+import {
+  anonContext,
+  countRows,
+  fakeContext,
+  noUnstable,
+} from '../../../test/index';
+import { isUUID } from '../../../utils/index';
 import { testUpsertGauge } from './upsertGauge.test.generated';
 
 jest.mock('../../gorge/connector');

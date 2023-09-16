@@ -1,7 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
-import { ResetPayload, useAuth } from '@whitewater-guide/clients';
+import type { ResetPayload } from '@whitewater-guide/clients';
+import { useAuth } from '@whitewater-guide/clients';
 import { Formik } from 'formik';
-import React, { FC, RefObject, useCallback, useMemo } from 'react';
+import type { FC, RefObject } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 import { Button } from 'react-native-paper';
@@ -14,7 +16,7 @@ import SuccessText from '~/forms/SuccessText';
 
 import { useAuthSubmit } from '../useAuthSubmit';
 import getValidationSchema from './getValidationSchema';
-import { AuthResetNavProp } from './types';
+import type { AuthResetNavProp } from './types';
 
 interface Props {
   id: string;

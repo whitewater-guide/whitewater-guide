@@ -1,7 +1,7 @@
-import { MyProfileFragment } from '@whitewater-guide/schema';
+import type { MyProfileFragment } from '@whitewater-guide/schema';
 import React from 'react';
 
-import { AuthService } from './service';
+import type { AuthService } from './service';
 
 export interface AuthState {
   me?: MyProfileFragment | null;

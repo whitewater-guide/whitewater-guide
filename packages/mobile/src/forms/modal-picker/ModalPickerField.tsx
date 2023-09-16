@@ -1,12 +1,7 @@
 import { useFormikContext } from 'formik';
 import React, { useCallback, useState } from 'react';
-import {
-  StyleProp,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  View,
-  ViewStyle,
-} from 'react-native';
+import type { StyleProp, ViewStyle } from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import { Modal, Portal, Surface, TextInput } from 'react-native-paper';
 
 import theme from '../../theme';

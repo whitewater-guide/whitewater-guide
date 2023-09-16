@@ -6,7 +6,7 @@ import ErrorBoundary from '~/components/ErrorBoundary';
 
 import FilterScreenView from './FilterScreenView';
 import ResetFilterButton from './ResetFilterButton';
-import { FilterNavProps } from './types';
+import type { FilterNavProps } from './types';
 
 const FilterScreen: React.FC<FilterNavProps> = ({ navigation }) => {
   const { t } = useTranslation();

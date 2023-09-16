@@ -1,28 +1,30 @@
-import {
+import type {
   MutationSavePurchaseArgs,
   PurchaseInput,
+} from '@whitewater-guide/schema';
+import {
   PurchaseInputSchema,
   PurchasePlatform,
 } from '@whitewater-guide/schema';
-import { AuthenticationError } from 'apollo-server-koa';
 import { isValidated, validate } from 'in-app-purchase';
-import { QueryBuilder, Transaction } from 'knex';
-import * as yup from 'yup';
+import type { Knex } from 'knex';
+import type { ObjectSchema } from 'yup';
+import { object, string } from 'yup';
 
+import type { ContextUser, MutationResolvers } from '../../../apollo/index';
 import {
-  ContextUser,
+  AuthenticationError,
   isInputValidResolver,
   MutationNotAllowedError,
-  MutationResolvers,
-} from '~/apollo';
-import { db, Sql } from '~/db';
-
+} from '../../../apollo/index';
+import type { Sql } from '../../../db/index';
+import { db } from '../../../db/index';
 import logger from '../logger';
-import { acknowledgeAndroid } from './utils';
+import { acknowledgeAndroid } from './utils/index';
 
-const Schema: yup.SchemaOf<MutationSavePurchaseArgs> = yup.object({
+const Schema: ObjectSchema<MutationSavePurchaseArgs> = object({
   purchase: PurchaseInputSchema.clone().required(),
-  sectionId: yup.string().uuid().notRequired().nullable(),
+  sectionId: string().uuid().notRequired(),
 });
 
 const processBoomstarterPurchase = async (
@@ -42,7 +44,7 @@ const processBoomstarterPurchase = async (
   if (promo.redeemed) {
     throw new MutationNotAllowedError('Promo code already redeemed');
   }
-  await db().transaction(async (trx: Transaction) => {
+  await db().transaction(async (trx: Knex.Transaction) => {
     const transaction: Partial<Sql.Transactions> = {
       user_id: user.id,
       platform: PurchasePlatform.boomstarter,
@@ -133,13 +135,13 @@ const savePurchase: MutationResolvers['savePurchase'] = async (
   const regionInfo = {
     fieldNodes: [info.fieldNodes[0].selectionSet?.selections[0]],
   };
-  let regionQuery = dataSources.regions.getMany(regionInfo, {
-    where: { premium: true },
+  let regionQuery = dataSources.regions.getMany(regionInfo as any, {
+    where: { premium: true } as any,
   });
   if (productId.startsWith('region')) {
     regionQuery = regionQuery.where({ sku: productId });
   } else {
-    regionQuery = regionQuery.whereExists((qb: QueryBuilder) => {
+    regionQuery = regionQuery.whereExists((qb: Knex.QueryBuilder) => {
       qb.select('*')
         .from('groups')
         .innerJoin('regions_groups', 'groups.id', 'regions_groups.group_id')

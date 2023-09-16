@@ -1,4 +1,4 @@
-import Knex from 'knex';
+import type { Knex } from 'knex';
 
 export async function addUpdatedAtFunction(db: Knex) {
   // Trigger for updated_at columns

@@ -1,6 +1,6 @@
 import { createSafeValidator } from '@whitewater-guide/validation';
 
-import { RegionAdminFormData } from './types';
+import type { RegionAdminFormData } from './types';
 import { RegionAdminFormSchema } from './validation';
 
 it('should support null cover', () => {

@@ -1,14 +1,9 @@
-/* eslint-disable prefer-spread */
-import {
-  captureEvent,
-  captureException,
-  Severity,
-  withScope,
-} from '@sentry/node';
-import pickBy from 'lodash/pickBy';
-import pino from 'pino';
+import type { SeverityLevel } from '@sentry/node';
+import { captureEvent, captureException, withScope } from '@sentry/node';
+import { pickBy } from 'lodash';
+import { pino } from 'pino';
 
-import config from '~/config';
+import config from '../config';
 
 interface Bindings {
   [key: string]: string | undefined;
@@ -61,7 +56,7 @@ class Logger {
 
   logSentry = (
     { error, extra, message, tags, userId }: Payload,
-    level: Severity,
+    level: SeverityLevel,
   ) => {
     if (!config.SENTRY_DSN) {
       return;
@@ -103,12 +98,12 @@ class Logger {
   };
 
   error = (payload: Payload) => {
-    this.logSentry(payload, Severity.Error);
+    this.logSentry(payload, 'error');
     this._logger.error.apply(this._logger, this.getPinoPayload(payload));
   };
 
   warn = (payload: Payload) => {
-    this.logSentry(payload, Severity.Warning);
+    this.logSentry(payload, 'warning');
     this._logger.warn.apply(this._logger, this.getPinoPayload(payload));
   };
 

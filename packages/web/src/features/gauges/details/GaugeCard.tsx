@@ -9,7 +9,7 @@ import { HarvestStatusIndicator } from '../../../components';
 import { Chart } from '../../../components/chart';
 import { Card, EditorFooter } from '../../../layout';
 import { Row, Title } from '../../../layout/details';
-import { GaugeDetailsQuery } from './gaugeDetails.generated';
+import type { GaugeDetailsQuery } from './gaugeDetails.generated';
 import GaugeFlow from './GaugeFlow';
 import GaugeLevel from './GaugeLevel';
 import GaugeName from './GaugeName';

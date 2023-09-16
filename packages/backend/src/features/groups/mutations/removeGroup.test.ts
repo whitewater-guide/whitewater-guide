@@ -1,11 +1,10 @@
-import { anonContext, countRows, fakeContext } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
-import { GROUP_ALL, GROUP_EU } from '~/seeds/test/03_groups';
-
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
+import { GROUP_ALL, GROUP_EU } from '../../../seeds/test/03_groups';
+import { anonContext, countRows, fakeContext } from '../../../test/index';
 import { testRemoveGroup } from './removeGroup.test.generated';
 
 const _mutation = gql`

@@ -1,4 +1,4 @@
-import { BreadcrumbsMap } from '../../components/breadcrumbs';
+import type { BreadcrumbsMap } from '../../components/breadcrumbs';
 
 export const suggestionsBreadcrumbs: BreadcrumbsMap = {
   '/suggestions': 'User suggestions',

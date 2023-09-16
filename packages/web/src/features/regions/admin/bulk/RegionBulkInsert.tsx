@@ -47,7 +47,11 @@ export const RegionBulkInsert: React.FC<Props> = ({ regionId }) => {
 
   return (
     <div className={classes.root}>
-      <Dropzone onDrop={onDrop} multiple={false} accept=".gz">
+      <Dropzone
+        onDrop={onDrop}
+        multiple={false}
+        accept={{ 'application/gzip': ['.gz'] }}
+      >
         {({ getRootProps, getInputProps }) => (
           <div {...getRootProps()}>
             <ButtonProgress loading={loading}>

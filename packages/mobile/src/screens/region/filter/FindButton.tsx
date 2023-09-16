@@ -1,10 +1,12 @@
 import { useQuery } from '@apollo/client';
 import { useNavigation } from '@react-navigation/native';
+import type {
+  ListSectionsQuery,
+  ListSectionsQueryVariables,
+} from '@whitewater-guide/clients';
 import {
   applySearch,
   ListSectionsDocument,
-  ListSectionsQuery,
-  ListSectionsQueryVariables,
   useSectionsFilterOptionsSetter,
 } from '@whitewater-guide/clients';
 import React, { useCallback, useMemo } from 'react';
@@ -12,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 
-import { SearchState } from './types';
+import type { SearchState } from './types';
 import { stateToFilterOptions } from './utils';
 
 const styles = StyleSheet.create({

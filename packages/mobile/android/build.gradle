@@ -4,6 +4,9 @@ localProperties.load(new FileInputStream(rootProject.file("local.properties")))
 
 buildscript {
     ext {
+        // for react-native-ultimate-config
+        REACT_NATIVE_NODE_MODULES_DIR = "../../../node_modules/react-native"
+
         buildToolsVersion = "33.0.0"
         minSdkVersion = 23
         compileSdkVersion = 33

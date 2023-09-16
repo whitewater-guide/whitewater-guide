@@ -1,20 +1,24 @@
 import { getLocalPhotoSchema } from '@whitewater-guide/clients';
 import { yupSchemas } from '@whitewater-guide/validation';
-import * as yup from 'yup';
+import type { ObjectSchema } from 'yup';
+import { object, string } from 'yup';
 
-import { MAX_PHOTO_MEGAPIXELS } from '../../features/uploads';
-import { PhotoSuggestion } from './types';
+import type { PhotoFile } from '~/features/uploads';
+import { MAX_PHOTO_MEGAPIXELS } from '~/features/uploads';
 
-const LocalPhotoSchema = getLocalPhotoSchema({
+import type { PhotoSuggestion } from './types';
+
+const LocalPhotoSchema = getLocalPhotoSchema<PhotoFile>({
   mpxOrResolution: MAX_PHOTO_MEGAPIXELS,
-});
+}).clone();
 
-export const PhotoSuggestionInputSchema: yup.SchemaOf<PhotoSuggestion> = yup
-  .object({
-    section: yupSchemas.node().defined() as any,
-    description: yup.string().defined().nullable(true),
-    copyright: yup.string().defined().nullable(true),
-    photo: LocalPhotoSchema.clone().defined().nullable(false) as any,
-  })
+export const PhotoSuggestionInputSchema: ObjectSchema<PhotoSuggestion> = object(
+  {
+    section: yupSchemas.node().required(),
+    description: string().notRequired(),
+    copyright: string().notRequired(),
+    photo: LocalPhotoSchema.clone().required(),
+  },
+)
   .strict(true)
   .noUnknown();

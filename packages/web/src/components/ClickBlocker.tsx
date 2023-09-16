@@ -1,4 +1,5 @@
-import React, { FC, memo, PropsWithChildren } from 'react';
+import type { FC, PropsWithChildren } from 'react';
+import React, { memo } from 'react';
 
 const blockEvent = (event: React.SyntheticEvent) => event.stopPropagation();
 

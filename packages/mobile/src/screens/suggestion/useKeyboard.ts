@@ -1,5 +1,5 @@
 import { useMemo, useRef } from 'react';
-import { ScrollView } from 'react-native';
+import type { ScrollView } from 'react-native';
 
 export default () => {
   const scroll = useRef<ScrollView | null>(null);

@@ -2,8 +2,9 @@ import { BannerPlacement } from '@whitewater-guide/schema';
 
 import { getBannersForPlacement } from '~/features/banners';
 
-import { ROWS_PER_SCREEN, SectionsListDataItem } from '../item';
-import { ListProps } from './types';
+import type { SectionsListDataItem } from '../item';
+import { ROWS_PER_SCREEN } from '../item';
+import type { ListProps } from './types';
 
 export default function getData(
   sections: ListProps['sections'],

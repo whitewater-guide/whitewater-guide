@@ -1,11 +1,13 @@
-import { anonContext, countRows, fakeContext } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
-import { TEST_USER } from '~/seeds/test/01_users';
-import { GALICIA_BECA_LOWER, NORWAY_SJOA_AMOT } from '~/seeds/test/09_sections';
-
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
+import { TEST_USER } from '../../../seeds/test/01_users';
+import {
+  GALICIA_BECA_LOWER,
+  NORWAY_SJOA_AMOT,
+} from '../../../seeds/test/09_sections';
+import { anonContext, countRows, fakeContext } from '../../../test/index';
 import { testToggleFavoriteSection } from './toggleFavoriteSection.test.generated';
 
 const _mutation = gql`

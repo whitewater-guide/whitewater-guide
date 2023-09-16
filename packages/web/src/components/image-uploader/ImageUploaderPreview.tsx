@@ -5,8 +5,9 @@ import { MediaKind } from '@whitewater-guide/schema';
 import clsx from 'clsx';
 import React, { useCallback, useMemo, useState } from 'react';
 
-import { LocalPhoto } from '../../utils/files';
-import { Lightbox, LightboxItem } from '../lightbox';
+import type { LocalPhoto } from '../../utils/files';
+import type { LightboxItem } from '../lightbox';
+import { Lightbox } from '../lightbox';
 
 const useStyles = makeStyles(({ spacing }) =>
   createStyles({

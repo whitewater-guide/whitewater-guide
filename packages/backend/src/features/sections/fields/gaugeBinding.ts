@@ -1,4 +1,4 @@
-import { GaugeBindingResolvers } from '~/apollo';
+import type { GaugeBindingResolvers } from '../../../apollo/index';
 
 export const gaugeBindingResolver: GaugeBindingResolvers = {
   minimum: ({ minimum }) => minimum || null,

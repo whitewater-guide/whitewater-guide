@@ -1,7 +1,6 @@
-import Knex from 'knex';
+import type { Knex } from 'knex';
 
-import { Sql } from '~/db';
-
+import type { Sql } from '../../db/index';
 import { ADMIN_ID, EDITOR_GE_ID } from './01_users';
 import { REGION_GEORGIA, REGION_NORWAY } from './04_regions';
 import { RIVER_BZHUZHA, RIVER_SJOA } from './07_rivers';

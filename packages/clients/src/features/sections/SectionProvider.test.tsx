@@ -1,5 +1,6 @@
 import { renderHook } from '@testing-library/react-hooks';
-import React, { FC, PropsWithChildren } from 'react';
+import type { FC, PropsWithChildren } from 'react';
+import React from 'react';
 
 import { mockApolloProvider } from '../../test';
 import { SectionProvider, useSectionQuery } from './SectionProvider';

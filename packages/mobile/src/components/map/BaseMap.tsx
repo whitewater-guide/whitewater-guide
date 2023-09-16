@@ -5,11 +5,12 @@ import {
   UserLocation,
   UserTrackingMode,
 } from '@rnmapbox/maps';
-import React, { ComponentProps, forwardRef, useCallback } from 'react';
+import type { ComponentProps } from 'react';
+import React, { forwardRef, useCallback } from 'react';
 import { Keyboard, StyleSheet } from 'react-native';
 
 import { useCameraSetter, useInRegionLocation, useMapboxBounds } from './hooks';
-import { MapViewProps } from './types';
+import type { MapViewProps } from './types';
 
 type MapboxViewProps = ComponentProps<typeof MapView>;
 type Props = MapViewProps & MapboxViewProps & { children?: any };

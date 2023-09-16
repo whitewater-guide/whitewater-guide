@@ -1,7 +1,8 @@
 import { useField } from 'formik';
 import React from 'react';
 
-import { DrawingMap, DrawingMode } from '../../components/maps';
+import type { DrawingMode } from '../../components/maps';
+import { DrawingMap } from '../../components/maps';
 import { useFakeHandlers } from '../utils';
 
 interface Props {

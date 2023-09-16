@@ -1,11 +1,11 @@
 import { useApolloClient } from '@apollo/client';
 import { useCallback } from 'react';
 
-import {
-  RegionMediaSummaryDocument,
+import type {
   RegionMediaSummaryQuery,
   RegionMediaSummaryQueryVariables,
 } from '../regionMediaSummary.generated';
+import { RegionMediaSummaryDocument } from '../regionMediaSummary.generated';
 
 export default () => {
   const apollo = useApolloClient();

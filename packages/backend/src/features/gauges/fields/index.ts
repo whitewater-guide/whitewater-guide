@@ -1,5 +1,5 @@
-import { GaugeResolvers, timestampedResolvers } from '~/apollo';
-
+import type { GaugeResolvers } from '../../../apollo/index';
+import { timestampedResolvers } from '../../../apollo/index';
 import latestMeasurement from './latestMeasurement';
 import status from './status';
 
@@ -10,8 +10,10 @@ const resolvers: GaugeResolvers = {
   lastMeasurement: latestMeasurement,
   status,
   requestParams: (gauge) => gauge.request_params,
-  source: ({ source_id }, _, { dataSources }) =>
-    dataSources.sources.getById(source_id),
+  source: async ({ source_id }, _, { dataSources }) => {
+    const src = await dataSources.sources.getById(source_id);
+    return src!;
+  },
   ...timestampedResolvers,
 };
 

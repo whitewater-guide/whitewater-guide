@@ -1,19 +1,18 @@
-import { anonContext, fakeContext } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 import { SuggestionStatus } from '@whitewater-guide/schema';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
 import {
   ADMIN,
   BOOM_USER_1500,
   EDITOR_NO,
   TEST_USER,
   TEST_USER_ID,
-} from '~/seeds/test/01_users';
-import { NORWAY_SJOA_AMOT } from '~/seeds/test/09_sections';
-import { EDIT_SUGGESTION_ID1 } from '~/seeds/test/17_suggestions';
-
+} from '../../../seeds/test/01_users';
+import { NORWAY_SJOA_AMOT } from '../../../seeds/test/09_sections';
+import { EDIT_SUGGESTION_ID1 } from '../../../seeds/test/17_suggestions';
+import { anonContext, fakeContext } from '../../../test/index';
 import { testSuggestions } from './suggestions.test.generated';
 
 beforeEach(holdTransaction);

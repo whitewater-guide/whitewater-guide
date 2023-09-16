@@ -1,12 +1,12 @@
-import { MediaInput, MediaKind } from '@whitewater-guide/schema';
+import type { MediaInput, MediaKind } from '@whitewater-guide/schema';
 import { useFormikContext } from 'formik';
 import React, { Suspense, useCallback, useState } from 'react';
 
 import { Loading } from '../../../components';
-import { LocalPhoto } from '../../../utils/files';
+import type { LocalPhoto } from '../../../utils/files';
 import { LazyMediaDialog } from '../../media/components/form';
 import { LazyMediaList } from '../../media/components/list';
-import { SectionFormData } from './types';
+import type { SectionFormData } from './types';
 
 const defaultValue: Omit<MediaInput, 'kind'> = {
   id: null,

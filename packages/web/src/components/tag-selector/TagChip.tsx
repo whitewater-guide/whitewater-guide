@@ -1,6 +1,6 @@
 import Chip from '@material-ui/core/Chip';
 import Icon from '@material-ui/core/Icon';
-import { Tag } from '@whitewater-guide/schema';
+import type { Tag } from '@whitewater-guide/schema';
 import xorBy from 'lodash/xorBy';
 import React, { useCallback } from 'react';
 

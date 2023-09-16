@@ -1,8 +1,8 @@
-import {
+import type {
   ListedSectionFragment,
   SectionDerivedFields,
 } from '@whitewater-guide/clients';
-import { BannerWithSourceFragment } from '@whitewater-guide/schema';
+import type { BannerWithSourceFragment } from '@whitewater-guide/schema';
 
 export interface ItemProps<T> {
   regionPremium?: boolean | null;

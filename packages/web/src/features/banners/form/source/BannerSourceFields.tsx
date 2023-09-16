@@ -4,8 +4,8 @@ import { BannerKind } from '@whitewater-guide/schema';
 import { useFormikContext } from 'formik';
 import React, { useCallback, useState } from 'react';
 
-import { ImageUploaderProps } from '../../../../components/image-uploader';
-import { BannerFormData } from '../types';
+import type { ImageUploaderProps } from '../../../../components/image-uploader';
+import type { BannerFormData } from '../types';
 import { BannerImagePicker } from './BannerImagePicker';
 import BannerKindField from './BannerKindField';
 import BannerSourceWebviewFields from './BannerSourceWebviewFields';

@@ -1,16 +1,18 @@
-import {
+import type {
   BannerInput,
-  BannerInputSchema,
-  BannerKind,
+  MutationUpsertBannerArgs,
 } from '@whitewater-guide/schema';
-import { UserInputError } from 'apollo-server-koa';
-import * as yup from 'yup';
+import { BannerInputSchema, BannerKind } from '@whitewater-guide/schema';
+import type { ObjectSchema } from 'yup';
+import { object } from 'yup';
 
-import { isInputValidResolver, MutationResolvers } from '~/apollo';
-import { db, rawUpsert, Sql } from '~/db';
-import { BANNERS, s3Client } from '~/s3';
+import type { MutationResolvers } from '../../../apollo/index';
+import { isInputValidResolver, UserInputError } from '../../../apollo/index';
+import type { Sql } from '../../../db/index';
+import { db, rawUpsert } from '../../../db/index';
+import { BANNERS, s3Client } from '../../../s3/index';
 
-const Schema = yup.object({
+const Schema: ObjectSchema<MutationUpsertBannerArgs> = object({
   banner: BannerInputSchema.clone().required(),
 });
 

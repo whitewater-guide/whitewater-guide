@@ -1,7 +1,7 @@
-import { RegionMediaSummary } from '@whitewater-guide/schema';
+import type { RegionMediaSummary } from '@whitewater-guide/schema';
 
-import { RegionResolvers } from '~/apollo';
-import { db } from '~/db';
+import type { RegionResolvers } from '../../../apollo/index';
+import { db } from '../../../db/index';
 
 const mediaSummaryResolver: RegionResolvers['mediaSummary'] = async ({
   id,

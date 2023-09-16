@@ -1,7 +1,7 @@
 import { MediaKind } from '@whitewater-guide/schema';
-import { DeepPartial, ValuesType } from 'utility-types';
+import type { DeepPartial, ValuesType } from 'utility-types';
 
-import { ListSectionsQuery } from '~/features/offline/offlineSections.generated';
+import type { ListSectionsQuery } from '~/features/offline/offlineSections.generated';
 
 import { extractPhotos } from './extractPhotos';
 

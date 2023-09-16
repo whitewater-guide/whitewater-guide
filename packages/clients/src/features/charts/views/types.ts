@@ -1,27 +1,27 @@
-import {
+import type {
   GaugeForChartFragment,
   MeasurementsFilter,
   Node,
   SectionFlowsFragment,
   Unit,
 } from '@whitewater-guide/schema';
-import React from 'react';
-import {
+import type React from 'react';
+import type {
   VictoryScatterProps,
   VictoryTooltipProps,
   VictoryVoronoiContainerProps,
   VictoryZoomContainerProps,
 } from 'victory';
-import { VictoryAxisProps } from 'victory-axis';
-import { VictoryChartProps } from 'victory-chart';
-import {
+import type { VictoryAxisProps } from 'victory-axis';
+import type { VictoryChartProps } from 'victory-chart';
+import type {
   TextAnchorType,
   VictoryClipContainerProps,
   VictoryLabelProps,
 } from 'victory-core';
-import { VictoryLineProps } from 'victory-line';
+import type { VictoryLineProps } from 'victory-line';
 
-import { ChartDataPoint } from '../types';
+import type { ChartDataPoint } from '../types';
 
 export interface DomainMeta {
   domain: {

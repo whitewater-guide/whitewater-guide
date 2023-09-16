@@ -1,11 +1,10 @@
-import { fakeContext, noTimestamps } from '@test';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
-import { EDITOR_NO_EC } from '~/seeds/test/01_users';
-import { REGION_GALICIA } from '~/seeds/test/04_regions';
-import { RIVERS_TOTAL } from '~/seeds/test/07_rivers';
-
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
+import { EDITOR_NO_EC } from '../../../seeds/test/01_users';
+import { REGION_GALICIA } from '../../../seeds/test/04_regions';
+import { RIVERS_TOTAL } from '../../../seeds/test/07_rivers';
+import { fakeContext, noTimestamps } from '../../../test/index';
 import { testListRivers } from './rivers.test.generated';
 
 beforeEach(holdTransaction);

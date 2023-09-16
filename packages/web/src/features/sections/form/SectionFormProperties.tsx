@@ -3,15 +3,15 @@ import { Durations } from '@whitewater-guide/schema';
 import groupBy from 'lodash/groupBy';
 import React from 'react';
 
+import type { SelectFieldPreset } from '../../../formik/fields';
 import {
   NumberField,
   SeasonPickerField,
   SelectField,
-  SelectFieldPreset,
   TagsField,
   TextField,
 } from '../../../formik/fields';
-import { SectionFormQuery } from './sectionForm.generated';
+import type { SectionFormQuery } from './sectionForm.generated';
 
 type DurationOption = [number, string] | null;
 const DURATIONS: DurationOption[] = Array.from(Durations.entries()).concat(

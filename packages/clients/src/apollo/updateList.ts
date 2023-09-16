@@ -1,4 +1,4 @@
-import { Reference } from '@apollo/client';
+import type { Reference } from '@apollo/client';
 
 /**
  * Given two arrays, A and B, updates all items in A with newer items in B, and adds items that are not present in A

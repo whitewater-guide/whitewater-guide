@@ -1,19 +1,18 @@
-import { anonContext, fakeContext, noTimestamps } from '@test';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '~/seeds/test/01_users';
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
 import {
   SOURCE_GALICIA_1,
   SOURCE_NORWAY,
   SOURCE_RUSSIA,
-} from '~/seeds/test/05_sources';
+} from '../../../seeds/test/05_sources';
 import {
   GAUGE_GAL_1_1,
   GAUGE_GAL_1_2,
   GAUGE_NOR_2,
-} from '~/seeds/test/06_gauges';
-
+} from '../../../seeds/test/06_gauges';
+import { anonContext, fakeContext, noTimestamps } from '../../../test/index';
 import {
   testSourceDetails,
   testSourceGauges,

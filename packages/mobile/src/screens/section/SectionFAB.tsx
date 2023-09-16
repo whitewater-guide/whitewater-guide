@@ -8,7 +8,7 @@ import Config from 'react-native-ultimate-config';
 import useFABAuth from '~/components/useFABAuth';
 import { Screens } from '~/core/navigation';
 import { useImagePicker, useLocalPhotos } from '~/features/uploads';
-import { SectionScreenNavProp } from '~/screens/section/types';
+import type { SectionScreenNavProp } from '~/screens/section/types';
 
 interface Props {
   testID?: string;

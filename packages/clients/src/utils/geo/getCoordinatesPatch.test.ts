@@ -1,5 +1,5 @@
 import { getCoordinatesPatch } from './getCoordinatesPatch';
-import { Coordinate2d } from './types';
+import type { Coordinate2d } from './types';
 
 it('should return null for equal arrays', () => {
   const prev: Coordinate2d[] = [

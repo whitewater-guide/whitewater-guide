@@ -1,8 +1,8 @@
+import type { ListedSectionFragment } from '@whitewater-guide/clients';
 import {
   ColorStrings,
   formatDistanceToNow,
   getSectionColor,
-  ListedSectionFragment,
   prettyNumber,
   useFormulas,
 } from '@whitewater-guide/clients';

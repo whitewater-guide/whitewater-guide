@@ -1,17 +1,16 @@
-import {
-  EditorSettingsSchema,
-  MutationUpdateEditorSettingsArgs,
-} from '@whitewater-guide/schema';
-import * as yup from 'yup';
+import type { MutationUpdateEditorSettingsArgs } from '@whitewater-guide/schema';
+import { EditorSettingsSchema } from '@whitewater-guide/schema';
+import type { ObjectSchema } from 'yup';
+import { object } from 'yup';
 
+import type { AuthenticatedMutation } from '../../../apollo/index';
 import {
-  AuthenticatedMutation,
   isAuthenticatedResolver,
   isInputValidResolver,
-} from '~/apollo';
-import { db } from '~/db';
+} from '../../../apollo/index';
+import { db } from '../../../db/index';
 
-const Struct: yup.SchemaOf<MutationUpdateEditorSettingsArgs> = yup.object({
+const Struct: ObjectSchema<MutationUpdateEditorSettingsArgs> = object({
   editorSettings: EditorSettingsSchema.clone(),
 });
 

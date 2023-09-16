@@ -1,7 +1,7 @@
-import { RegionCoverImageMobileArgs } from '@whitewater-guide/schema';
+import type { RegionCoverImageMobileArgs } from '@whitewater-guide/schema';
 
-import { RegionCoverImageResolvers } from '~/apollo';
-import { Imgproxy } from '~/s3';
+import type { RegionCoverImageResolvers } from '../../../apollo/index';
+import { Imgproxy } from '../../../s3/index';
 
 export const coverImageResolvers: RegionCoverImageResolvers = {
   mobile: (coverImageRaw, { width }: RegionCoverImageMobileArgs) => {

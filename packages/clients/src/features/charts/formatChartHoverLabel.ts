@@ -1,8 +1,9 @@
-import { Gauge, Unit } from '@whitewater-guide/schema';
+import type { Gauge } from '@whitewater-guide/schema';
+import { Unit } from '@whitewater-guide/schema';
 import utcFormat from 'date-fns/format';
 import { format } from 'date-fns-tz';
 
-import { ChartDataPoint } from './types';
+import type { ChartDataPoint } from './types';
 
 export function formatChartHoverLabel(
   datum: ChartDataPoint | null,

@@ -1,5 +1,5 @@
 import { sectionName } from '@whitewater-guide/clients';
-import { DescentSectionFragment } from '@whitewater-guide/schema';
+import type { DescentSectionFragment } from '@whitewater-guide/schema';
 import React, { useState } from 'react';
 import { Searchbar } from 'react-native-paper';
 import useDebounce from 'react-use/lib/useDebounce';

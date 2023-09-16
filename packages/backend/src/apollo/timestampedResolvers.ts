@@ -1,6 +1,5 @@
-import { Sql } from '~/db';
-
-import { TimestampedResolvers } from './resolvers.generated';
+import type { Sql } from '../db/index';
+import type { TimestampedResolvers } from './resolvers.generated';
 
 export const timestampedResolvers: Omit<TimestampedResolvers, '__resolveType'> =
   {

@@ -1,11 +1,6 @@
-import { Tag } from '@whitewater-guide/schema';
-import React, {
-  createContext,
-  FC,
-  PropsWithChildren,
-  useContext,
-  useMemo,
-} from 'react';
+import type { Tag } from '@whitewater-guide/schema';
+import type { FC, PropsWithChildren } from 'react';
+import React, { createContext, useContext, useMemo } from 'react';
 
 import { useListTagsQuery } from './listTags.generated';
 

@@ -1,4 +1,4 @@
-import { Coordinate2d } from './types';
+import type { Coordinate2d } from './types';
 
 interface LatLng {
   lat: number | (() => number);

@@ -1,8 +1,7 @@
-import { listResolvers } from '~/apollo';
-
-import Gauge from './fields';
-import Mutation from './mutations';
-import Query from './queries';
+import { listResolvers } from '../../apollo/index';
+import Gauge from './fields/index';
+import Mutation from './mutations/index';
+import Query from './queries/index';
 
 export const gaugesResolvers = {
   Gauge,

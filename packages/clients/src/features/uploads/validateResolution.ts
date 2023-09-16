@@ -1,7 +1,7 @@
-export const validateResolution = (
+export function validateResolution(
   [width, height]: [number, number],
   required?: number | [number, number],
-): { key: string; options?: any } | undefined => {
+): { key: string; options?: any } | undefined {
   if (!required) {
     return undefined;
   }
@@ -23,4 +23,4 @@ export const validateResolution = (
     }
   }
   return undefined;
-};
+}

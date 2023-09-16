@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should be invalid for bad date 1`] = `
-Object {
-  "startedAt": Object {
+{
+  "startedAt": {
     "key": "yup:mixed.notType",
-    "options": Object {
+    "options": {
       "type": "date",
     },
   },
@@ -12,10 +12,10 @@ Object {
 `;
 
 exports[`should be invalid for bad section id 1`] = `
-Object {
-  "sectionId": Object {
+{
+  "sectionId": {
     "key": "yup:string.uuid",
-    "options": Object {
+    "options": {
       "path": "sectionId",
     },
   },
@@ -23,10 +23,10 @@ Object {
 `;
 
 exports[`should be invalid for bad uuid 1`] = `
-Object {
-  "id": Object {
+{
+  "id": {
     "key": "yup:string.uuid",
-    "options": Object {
+    "options": {
       "path": "id",
     },
   },
@@ -34,10 +34,10 @@ Object {
 `;
 
 exports[`should be invalid for extra fields 1`] = `
-Object {
-  "": Object {
+{
+  "": {
     "key": "yup:object.noUnknown",
-    "options": Object {
+    "options": {
       "path": "this",
     },
   },

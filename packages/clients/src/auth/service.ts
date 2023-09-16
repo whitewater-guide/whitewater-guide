@@ -1,9 +1,13 @@
-import { RefreshBody, ResetBody, SignInBody } from '@whitewater-guide/commons';
+import type {
+  RefreshBody,
+  ResetBody,
+  SignInBody,
+} from '@whitewater-guide/commons';
 import { qs } from 'url-parse';
 
 import { fetchRetry } from '../utils';
 import { inflateError } from './inflateError';
-import {
+import type {
   AuthResponse,
   AuthType,
   Credentials,
@@ -21,10 +25,6 @@ export type AuthServiceEvent = 'loading' | 'sign-out' | 'sign-in';
 export interface AuthService {
   init(): Promise<void>;
   refreshAccessToken(): Promise<AuthResponse<RefreshBody>>;
-  signIn(
-    type: 'local',
-    credentials: Credentials,
-  ): Promise<AuthResponse<SignInBody>>;
   signIn(type: 'facebook' | 'apple'): Promise<AuthResponse<SignInBody>>;
   signIn(
     type: AuthType,
@@ -249,13 +249,6 @@ export abstract class BaseAuthService implements AuthService {
   }
 
   abstract refreshAccessToken(): Promise<AuthResponse<RefreshBody>>;
-
-  abstract signIn(
-    type: 'local',
-    credentials: Credentials,
-  ): Promise<AuthResponse<SignInBody>>;
-
-  abstract signIn(type: 'facebook'): Promise<AuthResponse<SignInBody>>;
 
   abstract signIn(
     type: AuthType,

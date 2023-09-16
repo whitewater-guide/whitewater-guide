@@ -6,7 +6,7 @@ import { Caption } from 'react-native-paper';
 import Icon from '~/components/Icon';
 import theme from '~/theme';
 
-import { OfflineCategoryType } from '../../types';
+import type { OfflineCategoryType } from '../../types';
 
 const styles = StyleSheet.create({
   deleteWrapper: {

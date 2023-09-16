@@ -1,8 +1,9 @@
-import { PointCoreFragment } from '@whitewater-guide/schema';
+import type { PointCoreFragment } from '@whitewater-guide/schema';
 import noop from 'lodash/noop';
-import React, { createContext, memo, PropsWithChildren, useState } from 'react';
+import type { PropsWithChildren } from 'react';
+import React, { createContext, memo, useState } from 'react';
 
-import { ListedSectionFragment } from '../sections';
+import type { ListedSectionFragment } from '../sections';
 
 export type MapSelection = [
   selection: ListedSectionFragment | PointCoreFragment | null,

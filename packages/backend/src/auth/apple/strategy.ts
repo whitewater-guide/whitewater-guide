@@ -2,10 +2,10 @@ import { SocialMediaProvider } from '@whitewater-guide/schema';
 import { verifyIdToken } from 'apple-signin-auth';
 import { Strategy } from 'passport-custom';
 
-import { sendWelcome } from '~/mail';
-
-import { negotiateLanguage, storeUser } from '../social';
-import { AppleSignInPayload } from './types';
+import { sendWelcome } from '../../mail/index';
+import { storeUser } from '../social/index';
+import { negotiateLanguage } from '../utils/index';
+import type { AppleSignInPayload } from './types';
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 export const apppleStrategy = new Strategy(async (req, done) => {
@@ -19,7 +19,7 @@ export const apppleStrategy = new Strategy(async (req, done) => {
       audience: 'guide.whitewater',
       ignoreExpiration: true,
     });
-    const language = negotiateLanguage(req, ['en']);
+    const language = negotiateLanguage(req);
 
     const username = fullName
       ? [fullName.givenName, fullName.familyName].filter((i) => !!i).join(' ')

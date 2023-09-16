@@ -1,8 +1,8 @@
 import { fetch as fetchNetinfo } from '@react-native-community/netinfo';
 import { useNavigation } from '@react-navigation/native';
 import { getValidationErrors } from '@whitewater-guide/clients';
-import { SuggestionInput } from '@whitewater-guide/schema';
-import { FormikHelpers } from 'formik';
+import type { SuggestionInput } from '@whitewater-guide/schema';
+import type { FormikHelpers } from 'formik';
 import { useCallback } from 'react';
 import { Keyboard } from 'react-native';
 
@@ -10,7 +10,7 @@ import showSnackbarError from '~/components/showSnackbarError';
 import showSnackbarMessage from '~/components/showSnackbarMessage';
 
 import { useAddSuggestionMutation } from './addSuggestion.generated';
-import { SuggestionNavProp } from './types';
+import type { SuggestionNavProp } from './types';
 
 export default () => {
   const [mutate] = useAddSuggestionMutation();

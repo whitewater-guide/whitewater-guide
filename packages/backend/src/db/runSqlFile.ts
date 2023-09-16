@@ -1,9 +1,11 @@
-import fs, { readFileSync } from 'fs';
-import Knex from 'knex';
-import path from 'path';
+import { readFileSync } from 'node:fs';
+
+import type { Knex } from 'knex';
+
+import { resolveRelative } from '../utils/index';
 
 export async function runSqlFile(db: Knex, path: string) {
-  const sql = fs.readFileSync(path).toString();
+  const sql = readFileSync(path).toString();
   await db.schema.raw(sql);
 }
 
@@ -13,7 +15,7 @@ export async function runSqlFileVersion(
   version = 1,
 ) {
   for (let i = version; i >= 1; i -= 1) {
-    const file = path.resolve(
+    const file = resolveRelative(
       __dirname,
       '../migrations',
       `${i.toString(10).padStart(3, '0')}/${filename}`,

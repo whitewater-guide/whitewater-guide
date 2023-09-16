@@ -1,5 +1,6 @@
-import { MutationHookOptions, useMutation } from '@apollo/client';
-import { DocumentNode } from 'graphql';
+import type { MutationHookOptions } from '@apollo/client';
+import { useMutation } from '@apollo/client';
+import type { DocumentNode } from 'graphql';
 import { useCallback } from 'react';
 
 export function useDeleteMutation(

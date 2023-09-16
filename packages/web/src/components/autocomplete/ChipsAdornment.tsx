@@ -1,6 +1,6 @@
 import Chip from '@material-ui/core/Chip';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { NamedNode } from '@whitewater-guide/schema';
+import type { NamedNode } from '@whitewater-guide/schema';
 import React, { useCallback } from 'react';
 
 const useStyles = makeStyles((theme) =>

@@ -1,7 +1,8 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
-import { ListedSectionFragment } from '@whitewater-guide/clients';
-import { PointCoreFragment } from '@whitewater-guide/schema';
-import { FC, PropsWithChildren, useCallback, useRef } from 'react';
+import type { ListedSectionFragment } from '@whitewater-guide/clients';
+import type { PointCoreFragment } from '@whitewater-guide/schema';
+import type { FC, PropsWithChildren } from 'react';
+import { useCallback, useRef } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import useUpdateEffect from 'react-use/lib/useUpdateEffect';

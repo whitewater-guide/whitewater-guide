@@ -1,18 +1,17 @@
-import { anonContext, fakeContext } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
 import {
   ADMIN,
   EDITOR_GE,
   EDITOR_NO,
   EDITOR_NO_EC,
   TEST_USER,
-} from '~/seeds/test/01_users';
-import { REGION_ECUADOR } from '~/seeds/test/04_regions';
-import { RIVER_SJOA } from '~/seeds/test/07_rivers';
-
+} from '../../../seeds/test/01_users';
+import { REGION_ECUADOR } from '../../../seeds/test/04_regions';
+import { RIVER_SJOA } from '../../../seeds/test/07_rivers';
+import { anonContext, fakeContext } from '../../../test/index';
 import { testChangeRiverRegion } from './changeRiverRegion.test.generated';
 
 const _mutation = gql`

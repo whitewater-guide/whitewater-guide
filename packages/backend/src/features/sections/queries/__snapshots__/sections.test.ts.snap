@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should return sections 1`] = `
-Object {
+{
   "count": 9,
-  "nodes": Array [
-    Object {
-      "altNames": Array [
+  "nodes": [
+    {
+      "altNames": [
         "Long one",
       ],
       "demo": false,
@@ -15,7 +15,7 @@ Object {
       "drop": 12.2,
       "duration": 20,
       "favorite": false,
-      "flows": Object {
+      "flows": {
         "approximate": false,
         "formula": null,
         "impossible": 40,
@@ -24,17 +24,17 @@ Object {
         "optimum": 20,
       },
       "flowsText": "Lower Beca flows text",
-      "gauge": Object {
+      "gauge": {
         "code": "gal1",
         "flowUnit": "m3/s",
         "id": "aba8c106-aaa0-11e7-abc4-cec278b6b50a",
-        "latestMeasurement": Object {
+        "latestMeasurement": {
           "flow": null,
           "level": 1.2,
         },
         "levelUnit": "cm",
-        "location": Object {
-          "coordinates": Array [
+        "location": {
+          "coordinates": [
             1.1,
             2.2,
             3.3,
@@ -43,7 +43,7 @@ Object {
           "kind": "gauge",
         },
         "name": "Galicia gauge 1",
-        "source": Object {
+        "source": {
           "id": "6d0d717e-aa9d-11e7-abc4-cec278b6b50a",
           "name": "Galicia",
           "termsOfUse": "Terms of use for Galicia",
@@ -54,7 +54,7 @@ Object {
       "helpNeeded": null,
       "hidden": false,
       "id": "2b01742c-d443-11e7-9296-cec278b6b50a",
-      "levels": Object {
+      "levels": {
         "approximate": false,
         "formula": null,
         "impossible": 40,
@@ -63,8 +63,8 @@ Object {
         "optimum": 20,
       },
       "name": "Lower",
-      "putIn": Object {
-        "coordinates": Array [
+      "putIn": {
+        "coordinates": [
           10,
           10,
           0,
@@ -73,36 +73,36 @@ Object {
         "kind": "put-in",
       },
       "rating": 4.5,
-      "region": Object {
+      "region": {
         "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
       },
-      "river": Object {
-        "altNames": Array [],
+      "river": {
+        "altNames": [],
         "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
         "name": "Beca",
       },
       "season": "Lower Beca season",
-      "seasonNumeric": Array [
+      "seasonNumeric": [
         0,
         1,
         2,
         3,
         4,
       ],
-      "tags": Array [
-        Object {
+      "tags": [
+        {
           "category": "kayaking",
           "id": "waterfalls",
           "name": "Waterfalls",
         },
-        Object {
+        {
           "category": "hazards",
           "id": "undercuts",
           "name": "Undercuts",
         },
       ],
-      "takeOut": Object {
-        "coordinates": Array [
+      "takeOut": {
+        "coordinates": [
           20,
           20,
           0,
@@ -113,8 +113,8 @@ Object {
       "timezone": "Europe/Madrid",
       "verified": false,
     },
-    Object {
-      "altNames": Array [],
+    {
+      "altNames": [],
       "demo": false,
       "difficulty": 4.5,
       "difficultyXtra": "VI",
@@ -122,7 +122,7 @@ Object {
       "drop": 22.2,
       "duration": 30,
       "favorite": false,
-      "flows": Object {
+      "flows": {
         "approximate": false,
         "formula": null,
         "impossible": 400,
@@ -131,17 +131,17 @@ Object {
         "optimum": 200,
       },
       "flowsText": "Upper Beca flows text",
-      "gauge": Object {
+      "gauge": {
         "code": "gal1",
         "flowUnit": "m3/s",
         "id": "aba8c106-aaa0-11e7-abc4-cec278b6b50a",
-        "latestMeasurement": Object {
+        "latestMeasurement": {
           "flow": null,
           "level": 1.2,
         },
         "levelUnit": "cm",
-        "location": Object {
-          "coordinates": Array [
+        "location": {
+          "coordinates": [
             1.1,
             2.2,
             3.3,
@@ -150,7 +150,7 @@ Object {
           "kind": "gauge",
         },
         "name": "Galicia gauge 1",
-        "source": Object {
+        "source": {
           "id": "6d0d717e-aa9d-11e7-abc4-cec278b6b50a",
           "name": "Galicia",
           "termsOfUse": "Terms of use for Galicia",
@@ -161,7 +161,7 @@ Object {
       "helpNeeded": null,
       "hidden": false,
       "id": "3a6e3210-d529-11e7-9296-cec278b6b50a",
-      "levels": Object {
+      "levels": {
         "approximate": false,
         "formula": null,
         "impossible": 400,
@@ -170,8 +170,8 @@ Object {
         "optimum": 200,
       },
       "name": "Upper",
-      "putIn": Object {
-        "coordinates": Array [
+      "putIn": {
+        "coordinates": [
           20,
           20,
           0,
@@ -180,25 +180,25 @@ Object {
         "kind": "put-in",
       },
       "rating": 2.5,
-      "region": Object {
+      "region": {
         "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
       },
-      "river": Object {
-        "altNames": Array [],
+      "river": {
+        "altNames": [],
         "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
         "name": "Beca",
       },
       "season": "Upper Beca season",
-      "seasonNumeric": Array [
+      "seasonNumeric": [
         0,
         1,
         2,
         3,
         4,
       ],
-      "tags": Array [],
-      "takeOut": Object {
-        "coordinates": Array [
+      "tags": [],
+      "takeOut": {
+        "coordinates": [
           21,
           21,
           0,
@@ -209,8 +209,8 @@ Object {
       "timezone": "Europe/Madrid",
       "verified": true,
     },
-    Object {
-      "altNames": Array [],
+    {
+      "altNames": [],
       "demo": false,
       "difficulty": 4.5,
       "difficultyXtra": null,
@@ -220,7 +220,7 @@ Object {
       "favorite": false,
       "flows": null,
       "flowsText": "Bzhuzha Extreme race flows text",
-      "gauge": Object {
+      "gauge": {
         "code": "geo4",
         "flowUnit": null,
         "id": "53af2e2c-19fe-11e8-accf-0ed5f89f718b",
@@ -228,7 +228,7 @@ Object {
         "levelUnit": null,
         "location": null,
         "name": "Georgian gauge 4",
-        "source": Object {
+        "source": {
           "id": "53af1a54-19fe-11e8-accf-0ed5f89f718b",
           "name": "Georgia",
           "termsOfUse": null,
@@ -241,8 +241,8 @@ Object {
       "id": "9e9c0366-84e2-11e8-adc0-fa7ae01bbebc",
       "levels": null,
       "name": "Extreme race",
-      "putIn": Object {
-        "coordinates": Array [
+      "putIn": {
+        "coordinates": [
           12.1,
           21,
           110,
@@ -251,16 +251,16 @@ Object {
         "kind": "put-in",
       },
       "rating": 5,
-      "region": Object {
+      "region": {
         "id": "8e119768-37f3-11e8-b467-0ed5f89f718b",
       },
-      "river": Object {
-        "altNames": Array [],
+      "river": {
+        "altNames": [],
         "id": "b80554ba-5db4-11e8-9c2d-fa7ae01bbebc",
         "name": "Bzhuzha",
       },
       "season": "Bzhuzha Extreme race season",
-      "seasonNumeric": Array [
+      "seasonNumeric": [
         8,
         9,
         10,
@@ -278,9 +278,9 @@ Object {
         22,
         23,
       ],
-      "tags": Array [],
-      "takeOut": Object {
-        "coordinates": Array [
+      "tags": [],
+      "takeOut": {
+        "coordinates": [
           34,
           43,
           10,
@@ -291,8 +291,8 @@ Object {
       "timezone": "Asia/Tbilisi",
       "verified": null,
     },
-    Object {
-      "altNames": Array [],
+    {
+      "altNames": [],
       "demo": false,
       "difficulty": 3.5,
       "difficultyXtra": "IV",
@@ -302,7 +302,7 @@ Object {
       "favorite": false,
       "flows": null,
       "flowsText": "Bzhuzha long race flows text",
-      "gauge": Object {
+      "gauge": {
         "code": "geo1",
         "flowUnit": null,
         "id": "53af2530-19fe-11e8-accf-0ed5f89f718b",
@@ -310,7 +310,7 @@ Object {
         "levelUnit": null,
         "location": null,
         "name": "Georgian gauge 1",
-        "source": Object {
+        "source": {
           "id": "53af1a54-19fe-11e8-accf-0ed5f89f718b",
           "name": "Georgia",
           "termsOfUse": null,
@@ -323,8 +323,8 @@ Object {
       "id": "e6e0e826-5db4-11e8-9c2d-fa7ae01bbebc",
       "levels": null,
       "name": "Long Race",
-      "putIn": Object {
-        "coordinates": Array [
+      "putIn": {
+        "coordinates": [
           12,
           21,
           110,
@@ -333,16 +333,16 @@ Object {
         "kind": "put-in",
       },
       "rating": 5,
-      "region": Object {
+      "region": {
         "id": "8e119768-37f3-11e8-b467-0ed5f89f718b",
       },
-      "river": Object {
-        "altNames": Array [],
+      "river": {
+        "altNames": [],
         "id": "b80554ba-5db4-11e8-9c2d-fa7ae01bbebc",
         "name": "Bzhuzha",
       },
       "season": "Bzhuzha long race season",
-      "seasonNumeric": Array [
+      "seasonNumeric": [
         8,
         9,
         10,
@@ -360,9 +360,9 @@ Object {
         22,
         23,
       ],
-      "tags": Array [],
-      "takeOut": Object {
-        "coordinates": Array [
+      "tags": [],
+      "takeOut": {
+        "coordinates": [
           34,
           43,
           10,
@@ -373,8 +373,8 @@ Object {
       "timezone": "Asia/Tbilisi",
       "verified": null,
     },
-    Object {
-      "altNames": Array [],
+    {
+      "altNames": [],
       "demo": true,
       "difficulty": 2.5,
       "difficultyXtra": null,
@@ -390,8 +390,8 @@ Object {
       "id": "f73b533c-5db4-11e8-9c2d-fa7ae01bbebc",
       "levels": null,
       "name": "Qualification",
-      "putIn": Object {
-        "coordinates": Array [
+      "putIn": {
+        "coordinates": [
           32,
           23,
           210,
@@ -400,16 +400,16 @@ Object {
         "kind": "put-in",
       },
       "rating": 5,
-      "region": Object {
+      "region": {
         "id": "8e119768-37f3-11e8-b467-0ed5f89f718b",
       },
-      "river": Object {
-        "altNames": Array [],
+      "river": {
+        "altNames": [],
         "id": "b80554ba-5db4-11e8-9c2d-fa7ae01bbebc",
         "name": "Bzhuzha",
       },
       "season": "Bzhuzha Qualification season",
-      "seasonNumeric": Array [
+      "seasonNumeric": [
         8,
         9,
         10,
@@ -427,9 +427,9 @@ Object {
         22,
         23,
       ],
-      "tags": Array [],
-      "takeOut": Object {
-        "coordinates": Array [
+      "tags": [],
+      "takeOut": {
+        "coordinates": [
           15,
           51,
           100,
@@ -440,8 +440,8 @@ Object {
       "timezone": "Asia/Tbilisi",
       "verified": null,
     },
-    Object {
-      "altNames": Array [],
+    {
+      "altNames": [],
       "demo": true,
       "difficulty": 4.5,
       "difficultyXtra": null,
@@ -457,8 +457,8 @@ Object {
       "id": "7104f00c-31ad-4375-992e-5efebef813dd",
       "levels": null,
       "name": "Bridge to bridge",
-      "putIn": Object {
-        "coordinates": Array [
+      "putIn": {
+        "coordinates": [
           -77.9205,
           -0.4607,
           0,
@@ -467,16 +467,16 @@ Object {
         "kind": "put-in",
       },
       "rating": 4,
-      "region": Object {
+      "region": {
         "id": "2caf75ca-7625-11e7-b5a5-be2e44b06b34",
       },
-      "river": Object {
-        "altNames": Array [],
+      "river": {
+        "altNames": [],
         "id": "5ece96ad-59a7-4cc1-a092-b5cd2f464131",
         "name": "Quijos",
       },
       "season": "Quijos Bridge to bridge season",
-      "seasonNumeric": Array [
+      "seasonNumeric": [
         0,
         1,
         2,
@@ -497,9 +497,9 @@ Object {
         22,
         23,
       ],
-      "tags": Array [],
-      "takeOut": Object {
-        "coordinates": Array [
+      "tags": [],
+      "takeOut": {
+        "coordinates": [
           -77.8961,
           -0.4594,
           0,
@@ -510,8 +510,8 @@ Object {
       "timezone": "America/Guayaquil",
       "verified": null,
     },
-    Object {
-      "altNames": Array [],
+    {
+      "altNames": [],
       "demo": true,
       "difficulty": 4.5,
       "difficultyXtra": null,
@@ -527,8 +527,8 @@ Object {
       "id": "2ffe67e5-6394-4341-9ae3-415271ce71fd",
       "levels": null,
       "name": "Cheese house",
-      "putIn": Object {
-        "coordinates": Array [
+      "putIn": {
+        "coordinates": [
           -77.967,
           -0.4376,
           0,
@@ -537,16 +537,16 @@ Object {
         "kind": "put-in",
       },
       "rating": 4.5,
-      "region": Object {
+      "region": {
         "id": "2caf75ca-7625-11e7-b5a5-be2e44b06b34",
       },
-      "river": Object {
-        "altNames": Array [],
+      "river": {
+        "altNames": [],
         "id": "5ece96ad-59a7-4cc1-a092-b5cd2f464131",
         "name": "Quijos",
       },
       "season": "Quijos Cheese House season",
-      "seasonNumeric": Array [
+      "seasonNumeric": [
         0,
         1,
         2,
@@ -572,9 +572,9 @@ Object {
         22,
         23,
       ],
-      "tags": Array [],
-      "takeOut": Object {
-        "coordinates": Array [
+      "tags": [],
+      "takeOut": {
+        "coordinates": [
           -77.9322,
           -0.4593,
           0,
@@ -585,8 +585,8 @@ Object {
       "timezone": "America/Guayaquil",
       "verified": null,
     },
-    Object {
-      "altNames": Array [],
+    {
+      "altNames": [],
       "demo": false,
       "difficulty": 4,
       "difficultyXtra": null,
@@ -602,8 +602,8 @@ Object {
       "id": "21f2351e-d52a-11e7-9296-cec278b6b50a",
       "levels": null,
       "name": "Amot",
-      "putIn": Object {
-        "coordinates": Array [
+      "putIn": {
+        "coordinates": [
           1,
           1,
           0,
@@ -612,11 +612,11 @@ Object {
         "kind": "put-in",
       },
       "rating": 5,
-      "region": Object {
+      "region": {
         "id": "b968e2b2-76c5-11e7-b5a5-be2e44b06b34",
       },
-      "river": Object {
-        "altNames": Array [
+      "river": {
+        "altNames": [
           "Shoa",
           "Sjøa",
         ],
@@ -624,7 +624,7 @@ Object {
         "name": "Sjoa",
       },
       "season": "Amot season",
-      "seasonNumeric": Array [
+      "seasonNumeric": [
         10,
         11,
         12,
@@ -633,9 +633,9 @@ Object {
         15,
         16,
       ],
-      "tags": Array [],
-      "takeOut": Object {
-        "coordinates": Array [
+      "tags": [],
+      "takeOut": {
+        "coordinates": [
           2,
           2,
           0,
@@ -646,8 +646,8 @@ Object {
       "timezone": "Europe/Oslo",
       "verified": null,
     },
-    Object {
-      "altNames": Array [],
+    {
+      "altNames": [],
       "demo": false,
       "difficulty": 4,
       "difficultyXtra": null,
@@ -663,8 +663,8 @@ Object {
       "id": "b06c0a6e-9975-4a46-8a77-580a4f453973",
       "levels": null,
       "name": "Пасека",
-      "putIn": Object {
-        "coordinates": Array [
+      "putIn": {
+        "coordinates": [
           43.6465,
           40.3454,
           0,
@@ -673,16 +673,16 @@ Object {
         "kind": "put-in",
       },
       "rating": 4,
-      "region": Object {
+      "region": {
         "id": "a2056850-23ae-434d-b06c-7ea1900e5de2",
       },
-      "river": Object {
-        "altNames": Array [],
+      "river": {
+        "altNames": [],
         "id": "72d18088-eebb-4f62-a359-186bc93ccb71",
         "name": "Мзымта",
       },
       "season": "Пасека сезонность",
-      "seasonNumeric": Array [
+      "seasonNumeric": [
         7,
         8,
         9,
@@ -700,9 +700,9 @@ Object {
         21,
         22,
       ],
-      "tags": Array [],
-      "takeOut": Object {
-        "coordinates": Array [
+      "tags": [],
+      "takeOut": {
+        "coordinates": [
           43.6613,
           40.3404,
           0,

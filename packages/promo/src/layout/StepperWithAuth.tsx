@@ -1,4 +1,5 @@
-import { AuthProvider, AuthService } from '@whitewater-guide/clients';
+import type { AuthService } from '@whitewater-guide/clients';
+import { AuthProvider } from '@whitewater-guide/clients';
 import React, { Suspense } from 'react';
 
 import Stepper from '../stepper';

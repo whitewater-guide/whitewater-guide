@@ -1,4 +1,4 @@
-import { NamedNode, Node } from '@whitewater-guide/schema';
+import type { NamedNode, Node } from '@whitewater-guide/schema';
 
 export const toNode = <T extends Node>({ id }: T): Node => ({ id });
 export const toNamedNode = <T extends NamedNode>({

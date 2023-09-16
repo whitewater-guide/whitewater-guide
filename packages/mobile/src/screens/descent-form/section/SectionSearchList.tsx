@@ -1,11 +1,7 @@
-import { Section } from '@whitewater-guide/schema';
+import type { Section } from '@whitewater-guide/schema';
 import React, { useCallback } from 'react';
-import {
-  SectionList,
-  SectionListData,
-  SectionListRenderItemInfo,
-  StyleSheet,
-} from 'react-native';
+import type { SectionListData, SectionListRenderItemInfo } from 'react-native';
+import { SectionList, StyleSheet } from 'react-native';
 
 import Loading from '~/components/Loading';
 import theme from '~/theme';
@@ -14,7 +10,7 @@ import AddNewHeader from './AddNewHeader';
 import { ITEM_HEIGHT } from './constants';
 import SearchListItem from './SearchListItem';
 import SectionHeader from './SectionHeader';
-import { SearchResults } from './useSearchSections';
+import type { SearchResults } from './useSearchSections';
 
 const styles = StyleSheet.create({
   list: {

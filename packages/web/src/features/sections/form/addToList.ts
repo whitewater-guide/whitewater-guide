@@ -1,11 +1,9 @@
-import { ApolloCache, MutationUpdaterFunction } from '@apollo/client';
-import {
-  ListSectionsDocument,
-  ListSectionsQuery,
-} from '@whitewater-guide/clients';
+import type { ApolloCache, MutationUpdaterFunction } from '@apollo/client';
+import type { ListSectionsQuery } from '@whitewater-guide/clients';
+import { ListSectionsDocument } from '@whitewater-guide/clients';
 
-import { RouterParams } from './types';
-import {
+import type { RouterParams } from './types';
+import type {
   UpsertSectionMutation,
   UpsertSectionMutationVariables,
 } from './upsertSection.generated';

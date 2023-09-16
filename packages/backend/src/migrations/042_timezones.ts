@@ -1,17 +1,18 @@
-import { Feature, Geometry } from '@turf/helpers';
-import { createReadStream, pathExists } from 'fs-extra';
+import { createReadStream } from 'node:fs';
+
+import { pathExists } from 'fs-extra';
+import type { Feature, Geometry } from 'geojson';
 import JSONStream from 'jsonstream2';
-import Knex from 'knex';
-import * as path from 'path';
+import type { Knex } from 'knex';
 
-import { createViews, dropViews, runSqlFileVersion } from '~/db';
-
-import { createTable } from './utils';
+import { createViews, dropViews, runSqlFileVersion } from '../db/index';
+import { resolveRelative } from '../utils/index';
+import { createTable } from './utils/index';
 
 const VIEWS = ['gauges', 'sections'];
 
 async function populateTzTable(db: Knex): Promise<void> {
-  const jsonPath = path.resolve(__dirname, '042/combined-with-oceans.json');
+  const jsonPath = resolveRelative(__dirname, '042/combined-with-oceans.json');
   const exists = await pathExists(jsonPath);
   if (!exists) {
     console.info('timzeones geojson not found');
@@ -35,7 +36,7 @@ async function populateTzTable(db: Knex): Promise<void> {
  * @param {Knex} db
  * @returns {Promise<void>}
  */
-export const up = async (db: Knex) => {
+export async function up(db: Knex): Promise<void> {
   await dropViews(db, ...VIEWS);
 
   await db.schema.table('sections', (table) => {
@@ -71,9 +72,9 @@ export const up = async (db: Knex) => {
     FROM points
     WHERE gauges.location_id = points.id
     `);
-};
+}
 
-export const down = async (db: Knex) => {
+export async function down(db: Knex): Promise<void> {
   await dropViews(db, ...VIEWS);
   await db.raw('DROP FUNCTION IF EXISTS tz_from_point(point JSON) CASCADE');
   await db.raw(
@@ -93,6 +94,4 @@ export const down = async (db: Knex) => {
 
   await runSqlFileVersion(db, 'upsert_section.sql', 41);
   await runSqlFileVersion(db, 'upsert_gauge.sql', 41);
-};
-
-export const configuration = { transaction: true };
+}

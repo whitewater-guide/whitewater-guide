@@ -1,5 +1,7 @@
-import TextField, { StandardTextFieldProps } from '@material-ui/core/TextField';
-import { Field, FieldProps } from 'formik';
+import type { StandardTextFieldProps } from '@material-ui/core/TextField';
+import TextField from '@material-ui/core/TextField';
+import type { FieldProps } from 'formik';
+import { Field } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 

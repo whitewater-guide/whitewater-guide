@@ -6,7 +6,7 @@ import MergeSectionsDialog from './MergeSectionsDialog';
 import { MergeSectionsProvider } from './MergeSectionsProvider';
 import { RemoveSectionDocument } from './removeSection.generated';
 import SectionsTable from './SectionsTable';
-import { OuterProps } from './types';
+import type { OuterProps } from './types';
 
 export const SectionsList = React.memo<OuterProps>((props) => {
   const removeSection = useDeleteMutation(RemoveSectionDocument, [

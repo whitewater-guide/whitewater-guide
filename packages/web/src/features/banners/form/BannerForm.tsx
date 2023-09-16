@@ -1,19 +1,17 @@
 import React from 'react';
 
 import { FormikCard, useApolloFormik } from '../../../formik';
-import {
-  BannerFormDocument,
+import type {
   BannerFormQuery,
   BannerFormQueryVariables,
 } from './bannerForm.generated';
+import { BannerFormDocument } from './bannerForm.generated';
 import { BannerFormMain } from './BannerFormMain';
 import formToMutation from './formToMutation';
 import queryToForm from './queryToForm';
-import { BannerFormData } from './types';
-import {
-  UpsertBannerDocument,
-  UpsertBannerMutationVariables,
-} from './upsertBanner.generated';
+import type { BannerFormData } from './types';
+import type { UpsertBannerMutationVariables } from './upsertBanner.generated';
+import { UpsertBannerDocument } from './upsertBanner.generated';
 import { BannerFormSchema } from './validation';
 
 const header = { resourceType: 'banner' };

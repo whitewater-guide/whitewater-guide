@@ -1,7 +1,6 @@
-import { Middleware } from 'koa';
-import get from 'lodash/get';
+import type { Middleware } from 'koa';
 
-import { db } from '~/db';
+import { db } from '../../db/index';
 
 /**
  * This middleware saves user's FCM token on sign in (if provided)
@@ -10,11 +9,10 @@ import { db } from '~/db';
  * @param next
  */
 export const fcmMiddleware: Middleware<any, any> = async (ctx, next) => {
-  const token =
-    get(ctx, 'request.body.fcm_token') || get(ctx, 'query.fcm_token');
+  const token = ctx?.request?.body?.fcm_token || ctx?.query?.fcm_token;
   const old_token =
-    get(ctx, 'request.body.old_fcm_token') || get(ctx, 'query.old_fcm_token');
-  const user_id = get(ctx, 'state.user.id');
+    ctx?.request?.body?.old_fcm_token || ctx?.query?.old_fcm_token;
+  const user_id = ctx?.state?.user?.id;
   if (token && user_id) {
     if (old_token) {
       try {

@@ -1,4 +1,5 @@
-import Box, { BoxProps } from '@material-ui/core/Box';
+import type { BoxProps } from '@material-ui/core/Box';
+import Box from '@material-ui/core/Box';
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 

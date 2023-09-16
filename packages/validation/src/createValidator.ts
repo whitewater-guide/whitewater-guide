@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import * as yup from 'yup';
+import type { ObjectSchema, Schema, ValidationError } from 'yup';
 
-import { Errors, yupToFormErrors } from './yupToFormErrors';
+import type { Errors } from './yupToFormErrors';
+import { yupToFormErrors } from './yupToFormErrors';
 
 interface ValidatorOptions {
   strict?: boolean;
@@ -16,21 +16,19 @@ interface YupValidationOpts {
   recursive?: boolean;
 }
 
-function isObjectSchema(
-  schema: yup.SchemaOf<unknown>,
-): schema is yup.ObjectSchema<any> {
+function isObjectSchema(schema: Schema<unknown>): schema is ObjectSchema<any> {
   return schema._type === 'object';
 }
 
 export function createValidator(
-  schema: yup.SchemaOf<any>,
+  schema: Schema<any>,
   options: ValidatorOptions = {},
 ) {
   const { strict = true, noUnknown = true } = options;
 
   const actualSchema =
     isObjectSchema(schema) && noUnknown
-      ? (schema.clone() as yup.ObjectSchema<any>).noUnknown()
+      ? (schema.clone() as ObjectSchema<any>).noUnknown()
       : schema;
 
   const opts: YupValidationOpts = {
@@ -46,7 +44,7 @@ export function createValidator(
 }
 
 export function createSafeValidator<T>(
-  schema: yup.SchemaOf<T>,
+  schema: Schema<T>,
   options: ValidatorOptions = {},
 ) {
   const throwingValidator = createValidator(schema, options);
@@ -55,7 +53,7 @@ export function createSafeValidator<T>(
       throwingValidator(value);
       return null;
     } catch (e) {
-      return yupToFormErrors(e as yup.ValidationError);
+      return yupToFormErrors(e as ValidationError);
     }
   };
 }

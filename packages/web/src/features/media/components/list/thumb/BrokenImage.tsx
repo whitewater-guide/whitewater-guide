@@ -1,9 +1,10 @@
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 
-import { ListedMedia } from '../types';
+import type { ListedMedia } from '../types';
 import { THUMB_HEIGHT } from './constants';
 
 const useStyles = makeStyles(() =>

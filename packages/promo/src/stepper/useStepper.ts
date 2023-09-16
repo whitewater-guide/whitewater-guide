@@ -1,7 +1,7 @@
-import { BoomPromoInfo } from '@whitewater-guide/schema';
+import type { BoomPromoInfo } from '@whitewater-guide/schema';
 import { useCallback, useReducer } from 'react';
 
-import { PromoRegionFragment } from './promoRegion.generated';
+import type { PromoRegionFragment } from './promoRegion.generated';
 import { Steps } from './Steps';
 
 export interface CompletedSteps {

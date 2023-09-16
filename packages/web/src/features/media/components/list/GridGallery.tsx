@@ -1,12 +1,12 @@
-import { MediaKind } from '@whitewater-guide/schema';
+import type { MediaKind } from '@whitewater-guide/schema';
 import React from 'react';
 
-import { Styles } from '../../../../styles';
-import { LocalPhoto } from '../../../../utils/files';
+import type { Styles } from '../../../../styles';
+import type { LocalPhoto } from '../../../../utils/files';
 import Dropzone from './Dropzone';
 import NoMedia from './NoMedia';
 import Thumb from './thumb';
-import { ListedMedia } from './types';
+import type { ListedMedia } from './types';
 
 const styles: Styles = {
   gallery: {

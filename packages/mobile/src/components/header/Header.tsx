@@ -1,10 +1,11 @@
-import { StackHeaderProps } from '@react-navigation/stack';
+import type { StackHeaderProps } from '@react-navigation/stack';
 import React from 'react';
-import { StyleProp, StyleSheet, ViewStyle } from 'react-native';
+import type { StyleProp, ViewStyle } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Appbar } from 'react-native-paper';
 
 import HeaderLeft from '~/components/header/HeaderLeft';
-import { SearchContexts } from '~/components/header/types';
+import type { SearchContexts } from '~/components/header/types';
 import { useHeaderSearch } from '~/components/header/useHeaderSearch';
 import theme from '~/theme';
 

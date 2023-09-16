@@ -1,5 +1,6 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import Tabs, { TabsProps } from '@material-ui/core/Tabs';
+import type { TabsProps } from '@material-ui/core/Tabs';
+import Tabs from '@material-ui/core/Tabs';
 import React from 'react';
 import { useLocation, useRouteMatch } from 'react-router';
 

@@ -1,19 +1,18 @@
-import { RegisterPayload } from '@whitewater-guide/clients';
+import type { RegisterPayload } from '@whitewater-guide/clients';
 import { PASSWORD_MIN_SCORE } from '@whitewater-guide/commons';
 import * as zxcvbn from 'react-native-zxcvbn';
-import * as yup from 'yup';
+import type { ObjectSchema } from 'yup';
+import { bool, object, string } from 'yup';
 
-let _schema: yup.SchemaOf<RegisterPayload>;
+let _schema: ObjectSchema<RegisterPayload>;
 
 const getValidationSchema = () => {
   if (!_schema) {
-    _schema = yup
-      .object()
+    _schema = object()
       .shape({
-        email: yup.string().email().required(),
-        name: yup.string().min(2).trim().required(),
-        password: yup
-          .string()
+        email: string().email().required(),
+        name: string().min(2).trim().required(),
+        password: string()
           .test(
             'is-password',
             'yup:yup:string.weak_password',
@@ -23,6 +22,8 @@ const getValidationSchema = () => {
             },
           )
           .required(),
+        imperial: bool().optional(),
+        language: string().optional(),
       })
       .defined();
   }

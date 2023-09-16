@@ -1,4 +1,4 @@
-import { TimeLabelProps } from '@whitewater-guide/clients';
+import type { TimeLabelProps } from '@whitewater-guide/clients';
 import isSunday from 'date-fns/isSunday';
 import React from 'react';
 import { VictoryLabel } from 'victory-native';

@@ -1,8 +1,10 @@
-import React, { FC, memo, PropsWithChildren, useEffect, useState } from 'react';
+import type { FC, PropsWithChildren } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 
-import { AuthContext, AuthState } from './context';
+import type { AuthState } from './context';
+import { AuthContext } from './context';
 import { useMyProfileQuery } from './myProfile.generated';
-import { AuthService } from './service';
+import type { AuthService } from './service';
 
 interface Props {
   service: AuthService;

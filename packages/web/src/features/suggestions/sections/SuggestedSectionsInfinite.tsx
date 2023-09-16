@@ -1,9 +1,9 @@
-import { ObservableQueryFields } from '@apollo/client';
+import type { ObservableQueryFields } from '@apollo/client';
 import React, { useCallback } from 'react';
-import { Index } from 'react-virtualized';
+import type { Index } from 'react-virtualized';
 
 import { InfiniteLoader } from '../../../components';
-import {
+import type {
   SuggestedSectionsQuery,
   SuggestedSectionsQueryVariables,
 } from './suggestedSections.generated';

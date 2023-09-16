@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should be invalid for bad cron 1`] = `
-Object {
+{
   "cron": "yup:string.cron",
 }
 `;
 
 exports[`should be invalid for bad region 1`] = `
-Object {
-  "regions": Array [
-    Object {
-      "id": Object {
+{
+  "regions": [
+    {
+      "id": {
         "key": "yup:string.uuid",
-        "options": Object {
+        "options": {
           "path": "regions[0].id",
         },
       },
@@ -22,10 +22,10 @@ Object {
 `;
 
 exports[`should be invalid for bad url 1`] = `
-Object {
-  "url": Object {
+{
+  "url": {
     "key": "yup:string.url",
-    "options": Object {
+    "options": {
       "path": "url",
     },
   },
@@ -33,10 +33,10 @@ Object {
 `;
 
 exports[`should be invalid for bad uuid 1`] = `
-Object {
-  "id": Object {
+{
+  "id": {
     "key": "yup:string.uuid",
-    "options": Object {
+    "options": {
       "path": "id",
     },
   },
@@ -44,16 +44,16 @@ Object {
 `;
 
 exports[`should be invalid for empty name 1`] = `
-Object {
+{
   "name": "yup:mixed.required",
 }
 `;
 
 exports[`should be invalid for empty script 1`] = `
-Object {
-  "script": Object {
+{
+  "script": {
     "key": "yup:string.min",
-    "options": Object {
+    "options": {
       "min": 1,
       "path": "script",
     },
@@ -62,10 +62,10 @@ Object {
 `;
 
 exports[`should be invalid for extra fields 1`] = `
-Object {
-  "": Object {
+{
+  "": {
     "key": "yup:object.noUnknown",
-    "options": Object {
+    "options": {
       "path": "this",
     },
   },
@@ -73,21 +73,21 @@ Object {
 `;
 
 exports[`should be invalid for some bad regions legacy snapshot 1`] = `
-Object {
-  "regions": Array [
-    Object {
-      "id": Object {
+{
+  "regions": [
+    {
+      "id": {
         "key": "yup:string.uuid",
-        "options": Object {
+        "options": {
           "path": "regions[0].id",
         },
       },
     },
     ,
-    Object {
-      "id": Object {
+    {
+      "id": {
         "key": "yup:string.uuid",
-        "options": Object {
+        "options": {
           "path": "regions[2].id",
         },
       },

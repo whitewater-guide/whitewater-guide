@@ -1,15 +1,10 @@
-import { NamedNode } from '@whitewater-guide/schema';
+import type { NamedNode } from '@whitewater-guide/schema';
 import noop from 'lodash/noop';
-import React, {
-  FC,
-  PropsWithChildren,
-  useCallback,
-  useContext,
-  useState,
-} from 'react';
+import type { FC, PropsWithChildren } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 
 import { useDownloadRegion } from './hooks';
-import { OfflineCategorySelection, OfflineProgress } from './types';
+import type { OfflineCategorySelection, OfflineProgress } from './types';
 
 interface OfflineContentCtx {
   download: (regionId: string, selection: OfflineCategorySelection) => void;

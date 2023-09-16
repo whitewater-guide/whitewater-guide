@@ -2,8 +2,8 @@ import { Formik } from 'formik';
 import React, { useCallback, useMemo } from 'react';
 import { Portal } from 'react-native-paper';
 
-import { Shape } from '../../types';
-import { PiToState } from '../usePiToState';
+import type { Shape } from '../../types';
+import type { PiToState } from '../usePiToState';
 import PiToDialogContent from './PiToDialogContent';
 import { schema } from './validation';
 

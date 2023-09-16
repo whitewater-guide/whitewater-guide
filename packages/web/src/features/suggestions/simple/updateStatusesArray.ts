@@ -1,4 +1,4 @@
-import { SuggestionStatus } from '@whitewater-guide/schema';
+import type { SuggestionStatus } from '@whitewater-guide/schema';
 
 export default (
   array: SuggestionStatus[],

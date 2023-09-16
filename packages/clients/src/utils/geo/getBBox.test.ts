@@ -1,5 +1,5 @@
 import { getBBox } from './getBBox';
-import { Coordinate2d } from './types';
+import type { Coordinate2d } from './types';
 
 it('should return bbox', () => {
   const box: Coordinate2d[] = [

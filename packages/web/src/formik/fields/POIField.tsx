@@ -2,7 +2,8 @@ import Grid from '@material-ui/core/Grid';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { NamedNode, POINames } from '@whitewater-guide/schema';
+import type { NamedNode } from '@whitewater-guide/schema';
+import { POINames } from '@whitewater-guide/schema';
 import map from 'lodash/map';
 import React, { useCallback, useState } from 'react';
 

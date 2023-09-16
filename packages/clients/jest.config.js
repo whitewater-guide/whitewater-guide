@@ -1,3 +1,4 @@
+process.env.TZ = 'Etc/UTC';
 module.exports = {
   displayName: require('./package.json').name,
   preset: 'ts-jest',

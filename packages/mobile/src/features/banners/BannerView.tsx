@@ -1,7 +1,9 @@
 import analytics from '@react-native-firebase/analytics';
-import { BannerKind, BannerWithSourceFragment } from '@whitewater-guide/schema';
+import type { BannerWithSourceFragment } from '@whitewater-guide/schema';
+import { BannerKind } from '@whitewater-guide/schema';
 import React, { useCallback } from 'react';
-import { StyleProp, View, ViewStyle } from 'react-native';
+import type { StyleProp, ViewStyle } from 'react-native';
+import { View } from 'react-native';
 
 import ImageBanner from './ImageBanner';
 import WebViewBanner from './WebViewBanner';

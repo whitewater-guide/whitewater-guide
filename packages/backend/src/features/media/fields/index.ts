@@ -1,7 +1,9 @@
-import { MediaImageArgs, MediaKind } from '@whitewater-guide/schema';
+import type { MediaImageArgs } from '@whitewater-guide/schema';
+import { MediaKind } from '@whitewater-guide/schema';
 
-import { MediaResolvers, timestampedResolvers } from '~/apollo';
-import { Imgproxy } from '~/s3';
+import type { MediaResolvers } from '../../../apollo/index';
+import { timestampedResolvers } from '../../../apollo/index';
+import { Imgproxy } from '../../../s3/index';
 
 const WHITELIST = [
   { height: 180 }, // web thumbs

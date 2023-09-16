@@ -1,7 +1,8 @@
 import { useField } from 'formik';
 import React from 'react';
 
-import { Autocomplete, AutocompleteProps } from '../../components/autocomplete';
+import type { AutocompleteProps } from '../../components/autocomplete';
+import { Autocomplete } from '../../components/autocomplete';
 import { useFakeHandlers } from '../utils';
 
 type Props = Omit<AutocompleteProps, 'value' | 'onChange'> & { name: string };

@@ -1,24 +1,23 @@
 import { SectionInputSchema, TagInputSchema } from '@whitewater-guide/schema';
-import * as yup from 'yup';
+import type { ObjectSchema } from 'yup';
+import { array, mixed, object, string } from 'yup';
 
 import { MdEditorSchema } from '../../../formik';
-import { SectionFormData } from './types';
+import type { SectionFormData } from './types';
 
-export const SectionFormSchema: yup.SchemaOf<SectionFormData> =
+export const SectionFormSchema: ObjectSchema<SectionFormData> =
   SectionInputSchema.clone()
     .shape({
-      tags: yup.mixed().oneOf([undefined]),
+      tags: mixed().oneOf([undefined]),
       description: MdEditorSchema.clone(),
-      kayakingTags: yup.array().of(TagInputSchema),
-      hazardsTags: yup.array().of(TagInputSchema),
-      supplyTags: yup.array().of(TagInputSchema),
-      miscTags: yup.array().of(TagInputSchema),
-      timezone: yup
-        .object({
-          id: yup.string().required() as yup.StringSchema<string>,
-          name: yup.string().required() as yup.StringSchema<string>,
-        })
-        .nullable(),
+      kayakingTags: array().of(TagInputSchema).required(),
+      hazardsTags: array().of(TagInputSchema).required(),
+      supplyTags: array().of(TagInputSchema).required(),
+      miscTags: array().of(TagInputSchema).required(),
+      timezone: object({
+        id: string().required(),
+        name: string().required(),
+      }).nullable(),
     })
     .strict(true)
     .noUnknown(true);

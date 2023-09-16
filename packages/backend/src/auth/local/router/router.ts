@@ -1,7 +1,7 @@
 import Router from 'koa-router';
 
-import { KoaPassport } from '../../types';
-import { errorBodyMiddleware, fcmMiddleware } from '../../utils';
+import type { KoaPassport } from '../../types';
+import { errorBodyMiddleware, fcmMiddleware } from '../../utils/index';
 import reset from './reset';
 import resetRequest from './resetRequest';
 import signIn from './signin';
@@ -9,7 +9,7 @@ import signUp from './signup';
 import verification from './verification';
 import verificationRequest from './verificationRequest';
 
-export const initLocalRouter = (passport: KoaPassport) => {
+export function initLocalRouter(passport: KoaPassport): Router {
   const router = new Router({
     prefix: '/auth/local',
   });
@@ -30,4 +30,4 @@ export const initLocalRouter = (passport: KoaPassport) => {
   router.get('/verification', verification);
 
   return router;
-};
+}

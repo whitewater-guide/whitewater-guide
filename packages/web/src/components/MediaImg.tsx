@@ -1,6 +1,7 @@
 import React from 'react';
-import { Img, ImgProps } from 'react-image';
-import { Overwrite } from 'utility-types';
+import type { ImgProps } from 'react-image';
+import { Img } from 'react-image';
+import type { Overwrite } from 'utility-types';
 
 import { S3_HOST } from '../environment';
 

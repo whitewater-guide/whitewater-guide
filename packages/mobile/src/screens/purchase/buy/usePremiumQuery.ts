@@ -1,4 +1,5 @@
-import { IAPError, PremiumRegion } from '../../../features/purchases';
+import type { PremiumRegion } from '../../../features/purchases';
+import { IAPError } from '../../../features/purchases';
 import { usePremiumDialogQuery } from './premiumDialog.generated';
 
 export default (region: PremiumRegion, sectionId?: string) => {

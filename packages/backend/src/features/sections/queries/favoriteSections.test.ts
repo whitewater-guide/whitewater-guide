@@ -1,15 +1,14 @@
-import { fakeContext } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
-import { TEST_USER } from '~/seeds/test/01_users';
-import { REGION_NORWAY } from '~/seeds/test/04_regions';
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
+import { TEST_USER } from '../../../seeds/test/01_users';
+import { REGION_NORWAY } from '../../../seeds/test/04_regions';
 import {
   NORWAY_SJOA_AMOT,
   RUSSIA_MZYMTA_PASEKA,
-} from '~/seeds/test/09_sections';
-
+} from '../../../seeds/test/09_sections';
+import { fakeContext } from '../../../test/index';
 import { testFavoriteSections } from './favoriteSections.test.generated';
 
 beforeEach(holdTransaction);

@@ -1,12 +1,13 @@
-import { QueryResult } from '@apollo/client';
-import React, { FC, memo, PropsWithChildren, useContext } from 'react';
-import { Overwrite, Required } from 'utility-types';
+import type { QueryResult } from '@apollo/client';
+import type { FC, PropsWithChildren } from 'react';
+import React, { memo, useContext } from 'react';
+import type { Overwrite, Required } from 'utility-types';
 
-import {
+import type {
   SectionDetailsQuery,
   SectionDetailsQueryVariables,
-  useSectionDetailsQuery,
 } from './sectionDetails.generated';
+import { useSectionDetailsQuery } from './sectionDetails.generated';
 
 export type SectionProviderSection = NonNullable<
   SectionDetailsQuery['section']

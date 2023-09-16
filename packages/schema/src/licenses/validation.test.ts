@@ -1,6 +1,6 @@
 import { createSafeValidator } from '@whitewater-guide/validation';
 
-import { LicenseInput } from '../__generated__/types';
+import type { LicenseInput } from '../__generated__/types';
 import { LicenseInputSchema } from './validation';
 
 const validator = createSafeValidator(LicenseInputSchema);

@@ -1,10 +1,11 @@
 import Box from '@material-ui/core/Box';
 import CardHeader from '@material-ui/core/CardHeader';
-import { MapSection, sectionName, useSection } from '@whitewater-guide/clients';
+import type { MapSection } from '@whitewater-guide/clients';
+import { sectionName, useSection } from '@whitewater-guide/clients';
 import ReactMarkdown from 'markdown-react-js';
 import React from 'react';
 import { Route, Switch } from 'react-router';
-import { RouteComponentProps } from 'react-router-dom';
+import type { RouteComponentProps } from 'react-router-dom';
 
 import { Chart } from '../../../components/chart';
 import { EditorLanguagePicker } from '../../../components/language';

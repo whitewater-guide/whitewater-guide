@@ -2,7 +2,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-import { StepProps } from '@material-ui/core/Step';
+import type { StepProps } from '@material-ui/core/Step';
 import StepContent from '@material-ui/core/StepContent';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import React from 'react';

@@ -1,5 +1,6 @@
-import { StepProps } from '@material-ui/core/Step';
-import { Credentials, useAuth } from '@whitewater-guide/clients';
+import type { StepProps } from '@material-ui/core/Step';
+import type { Credentials } from '@whitewater-guide/clients';
+import { useAuth } from '@whitewater-guide/clients';
 import { Formik } from 'formik';
 import React, { useCallback } from 'react';
 

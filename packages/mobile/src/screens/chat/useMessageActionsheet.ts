@@ -1,6 +1,6 @@
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import { useAuth } from '@whitewater-guide/clients';
-import { MatrixEvent } from 'matrix-js-sdk';
+import type { MatrixEvent } from 'matrix-js-sdk';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -24,7 +24,9 @@ export default function useMessageActionsheet() {
   return useCallback(
     (message: MatrixEvent) => {
       const roomId = message.getRoomId();
-      if (!roomId) {
+      const messageId = message.getId();
+      const sender = message.getSender();
+      if (!roomId || !messageId) {
         return;
       }
       const options: Option[] = [
@@ -38,7 +40,7 @@ export default function useMessageActionsheet() {
           title: t('screens:chat.message.actionsheet.report.title'),
           handler: () => {
             client
-              .reportEvent(roomId, message.getId(), -10, '')
+              .reportEvent(roomId, messageId, -10, '')
               .then(() => {
                 showSnackbarMessage(
                   'screens:chat.message.actionsheet.report.sent',
@@ -53,21 +55,26 @@ export default function useMessageActionsheet() {
         },
       ];
 
-      if (myId && message.getSender().includes(myId) && !message.isRedacted()) {
+      if (
+        myId &&
+        message.getSender()?.includes(myId) &&
+        !message.isRedacted() &&
+        message.getId()
+      ) {
         options.push({
           title: t('screens:chat.message.actionsheet.delete.title'),
           handler: () => {
-            client.redactEvent(roomId, message.getId());
+            client.redactEvent(roomId, messageId);
           },
           destructive: true,
         });
       }
-      if (!!myId && !message.getSender().includes(myId)) {
+      if (!!myId && sender?.includes(myId)) {
         options.push({
           title: t('screens:chat.message.actionsheet.blockUser.title'),
           handler: () => {
             const ignoredUsers = new Set(client.getIgnoredUsers());
-            ignoredUsers.add(message.getSender());
+            ignoredUsers.add(sender);
             client
               .setIgnoredUsers(Array.from(ignoredUsers))
               .then(() => {

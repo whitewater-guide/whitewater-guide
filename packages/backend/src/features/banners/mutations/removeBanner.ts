@@ -1,8 +1,8 @@
 import { BannerKind } from '@whitewater-guide/schema';
 
-import { MutationResolvers } from '~/apollo';
-import { db } from '~/db';
-import { BANNERS, s3Client } from '~/s3';
+import type { MutationResolvers } from '../../../apollo/index';
+import { db } from '../../../db/index';
+import { BANNERS, s3Client } from '../../../s3/index';
 
 const removeBanner: MutationResolvers['removeBanner'] = async (_, { id }) => {
   const result: any = await db()

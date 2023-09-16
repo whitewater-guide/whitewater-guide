@@ -1,6 +1,6 @@
-import { PointCoreFragment, Section } from '@whitewater-guide/schema';
+import type { PointCoreFragment, Section } from '@whitewater-guide/schema';
 
-import { ListedSectionFragment } from '../sections';
+import type { ListedSectionFragment } from '../sections';
 
 export type MapSection = ListedSectionFragment &
   Partial<Pick<Section, 'shape'>>;

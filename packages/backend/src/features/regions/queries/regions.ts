@@ -1,4 +1,4 @@
-import { QueryResolvers } from '~/apollo';
+import type { QueryResolvers } from '../../../apollo/index';
 
 const regions: QueryResolvers['regions'] = async (
   _,

@@ -1,13 +1,13 @@
-import { Section } from '@whitewater-guide/schema';
+import type { Section } from '@whitewater-guide/schema';
 import { useFormikContext } from 'formik';
 import React, { useCallback } from 'react';
 
 import { Screens } from '~/core/navigation';
 
 import { DescentFormScreen } from '../DescentFormContext';
-import { DescentFormData } from '../types';
+import type { DescentFormData } from '../types';
 import SectionSearch from './SectionSearch';
-import { DescentFormSectionNavProps } from './types';
+import type { DescentFormSectionNavProps } from './types';
 
 export const DescentFormSectionScreen: React.FC<DescentFormSectionNavProps> = ({
   navigation,

@@ -1,6 +1,6 @@
 import Grid from '@material-ui/core/Grid';
 import { formatDistanceToNow } from '@whitewater-guide/clients';
-import {
+import type {
   GaugeCoreFragment,
   GaugeLatestMeasurementFragment,
 } from '@whitewater-guide/schema';

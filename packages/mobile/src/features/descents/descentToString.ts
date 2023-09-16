@@ -1,7 +1,7 @@
 import format from 'date-fns/format';
-import { TFunction } from 'i18next';
+import type { TFunction } from 'i18next';
 
-import { DescentDetailsFragment } from '~/screens/descent/descentDetails.generated';
+import type { DescentDetailsFragment } from '~/screens/descent/descentDetails.generated';
 
 import descentLevelToString from './descentLevelToString';
 

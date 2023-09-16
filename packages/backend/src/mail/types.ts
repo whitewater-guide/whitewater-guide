@@ -1,4 +1,4 @@
-import type { RandomToken } from '~/auth';
+import type { RandomToken } from '../auth/index';
 
 export enum MailType {
   GORGE_UNHEALTHY = 'gorge-unhealthy',

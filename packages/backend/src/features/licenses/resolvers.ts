@@ -1,4 +1,4 @@
-import License from './fields';
+import License from './fields/index';
 
 export const licensesResolvers = {
   License,

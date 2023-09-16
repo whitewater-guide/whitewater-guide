@@ -1,4 +1,4 @@
-import { DescentLevel } from '@whitewater-guide/schema';
+import type { DescentLevel } from '@whitewater-guide/schema';
 
 export default function descentLevelToString(
   level?: DescentLevel | null,

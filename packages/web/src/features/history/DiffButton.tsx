@@ -2,7 +2,7 @@ import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import React from 'react';
 
-import { Diff } from './types';
+import type { Diff } from './types';
 
 interface Props {
   diff: Diff | null;

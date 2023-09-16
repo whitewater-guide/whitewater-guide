@@ -1,12 +1,11 @@
 import React from 'react';
-import {
-  Animated,
+import type {
   GestureResponderEvent,
   Insets,
-  PanResponder,
   PanResponderInstance,
   ViewProps,
 } from 'react-native';
+import { Animated, PanResponder } from 'react-native';
 
 export const THUMB_SCALE_RATIO = 1.3;
 

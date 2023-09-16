@@ -1,17 +1,21 @@
 import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
 import isUUID from 'validator/lib/isUUID';
-import * as yup from 'yup';
+import type { ObjectSchema } from 'yup';
+import { object, string } from 'yup';
 
 const NEW_RIVER_ID = '__NEW_RIVER_ID__';
 
-interface NewNode {
+export interface NewNode {
   id: string;
   name?: string | null;
 }
 
-const newNode = (): yup.SchemaOf<NewNode> =>
-  yup.mixed().test({
+const newNode = (): ObjectSchema<NewNode> =>
+  object({
+    id: string().required(),
+    name: string(),
+  }).test({
     name: 'is-new-node',
     message: 'yup:mixed.newNode',
     test(v: unknown) {
@@ -28,6 +32,6 @@ const newNode = (): yup.SchemaOf<NewNode> =>
       }
       return isUUID(id);
     },
-  }) as unknown as yup.SchemaOf<NewNode>;
+  });
 
 export default newNode;

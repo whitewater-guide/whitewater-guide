@@ -1,14 +1,14 @@
 import { SuggestionStatus } from '@whitewater-guide/schema';
-import Knex from 'knex';
+import type { Knex } from 'knex';
 
-import { createTable } from './utils';
+import { createTable } from './utils/index';
 
 /**
  * This patch adds user sections support
  * @param {Knex} db
  * @returns {Promise<void>}
  */
-export const up = async (db: Knex) => {
+export async function up(db: Knex): Promise<void> {
   await createTable(db, 'suggested_sections', (table) => {
     table
       .uuid('id')
@@ -25,10 +25,8 @@ export const up = async (db: Knex) => {
     table.timestamp('created_at').notNullable().defaultTo(db.fn.now());
     table.jsonb('section');
   });
-};
+}
 
-export const down = async (db: Knex) => {
+export async function down(db: Knex): Promise<void> {
   await db.schema.dropTableIfExists('suggested_sections');
-};
-
-export const configuration = { transaction: true };
+}

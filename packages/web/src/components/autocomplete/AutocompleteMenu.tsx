@@ -1,10 +1,12 @@
 import Paper from '@material-ui/core/Paper';
-import Popper, { PopperProps } from '@material-ui/core/Popper';
+import type { PopperProps } from '@material-ui/core/Popper';
+import Popper from '@material-ui/core/Popper';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import React, { FC, PropsWithChildren } from 'react';
+import type { FC, PropsWithChildren } from 'react';
+import React from 'react';
 
-import { AutocompleteMenuProps } from './types';
+import type { AutocompleteMenuProps } from './types';
 
 const useStyles = makeStyles((theme) =>
   createStyles({

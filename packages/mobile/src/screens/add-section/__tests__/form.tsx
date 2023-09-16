@@ -1,9 +1,9 @@
 import Clipboard from '@react-native-clipboard/clipboard';
 import { NavigationContainer } from '@react-navigation/native';
+import type { RenderAPI } from '@testing-library/react-native';
 import {
   fireEvent,
   render,
-  RenderAPI,
   waitFor,
   within,
 } from '@testing-library/react-native';
@@ -38,7 +38,7 @@ beforeEach(() => {
             [2, 2, 2],
           ],
         },
-      } as any),
+      }) as any,
   );
   test = render(
     <ApolloProvider>

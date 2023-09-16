@@ -1,8 +1,8 @@
-import { DescentResolvers } from '~/apollo';
+import type { DescentResolvers } from '../../../apollo/index';
 
 const EMBEDDED_SECTION_FIELDS = ['__typename', 'id'];
 
-const sectionResolver: DescentResolvers['section'] = (
+const sectionResolver: DescentResolvers['section'] = async (
   { section_id },
   _,
   { dataSources, fieldsByType },
@@ -19,7 +19,8 @@ const sectionResolver: DescentResolvers['section'] = (
       id: section_id,
     };
   }
-  return dataSources.sections.getById(section_id);
+  const section = await dataSources.sections.getById(section_id);
+  return section!;
 };
 
 export default sectionResolver;

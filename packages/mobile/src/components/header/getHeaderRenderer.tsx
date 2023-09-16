@@ -1,8 +1,8 @@
-import { StackHeaderProps } from '@react-navigation/stack';
+import type { StackHeaderProps } from '@react-navigation/stack';
 import React from 'react';
 
 import Header from './Header';
-import { SearchContexts } from './types';
+import type { SearchContexts } from './types';
 
 export const getHeaderRenderer =
   (
@@ -11,12 +11,11 @@ export const getHeaderRenderer =
     searchPlaceholderKey?: string,
     // eslint-disable-next-line react/display-name
   ) =>
-  (props: StackHeaderProps) =>
-    (
-      <Header
-        {...props}
-        topLevel={topLevel}
-        searchContexts={searchContexts}
-        searchPlaceholderKey={searchPlaceholderKey}
-      />
-    );
+  (props: StackHeaderProps) => (
+    <Header
+      {...props}
+      topLevel={topLevel}
+      searchContexts={searchContexts}
+      searchPlaceholderKey={searchPlaceholderKey}
+    />
+  );

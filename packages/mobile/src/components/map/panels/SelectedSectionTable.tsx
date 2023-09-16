@@ -1,7 +1,5 @@
-import {
-  ListedSectionFragment,
-  stringifySeason,
-} from '@whitewater-guide/clients';
+import type { ListedSectionFragment } from '@whitewater-guide/clients';
+import { stringifySeason } from '@whitewater-guide/clients';
 import trim from 'lodash/trim';
 import upperFirst from 'lodash/upperFirst';
 import React from 'react';

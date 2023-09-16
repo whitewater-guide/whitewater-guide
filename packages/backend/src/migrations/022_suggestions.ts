@@ -1,12 +1,12 @@
 import { SuggestionStatus } from '@whitewater-guide/schema';
-import Knex from 'knex';
+import type { Knex } from 'knex';
 
-import { createTable } from './utils';
+import { createTable } from './utils/index';
 
 /**
  * This patch adds suggestions (edits and media)
  */
-export const up = async (db: Knex) => {
+export async function up(db: Knex): Promise<void> {
   await createTable(db, 'suggestions', (table) => {
     table
       .uuid('id')
@@ -39,10 +39,8 @@ export const up = async (db: Knex) => {
     table.string('filename');
     table.specificType('resolution', 'integer[]');
   });
-};
+}
 
-export const down = async (db: Knex) => {
+export async function down(db: Knex): Promise<void> {
   await db.schema.dropTableIfExists('suggestions');
-};
-
-export const configuration = { transaction: true };
+}

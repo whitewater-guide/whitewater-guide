@@ -1,9 +1,6 @@
-import { Feature, LineString, Point } from '@turf/helpers';
-import {
-  MapProps,
-  poisToGeoJSON,
-  sectionsToGeoJSON,
-} from '@whitewater-guide/clients';
+import type { Feature, LineString, Point } from '@turf/helpers';
+import type { MapProps } from '@whitewater-guide/clients';
+import { poisToGeoJSON, sectionsToGeoJSON } from '@whitewater-guide/clients';
 import { useMemo } from 'react';
 
 interface MapboxData {

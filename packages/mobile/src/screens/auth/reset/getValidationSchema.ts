@@ -1,19 +1,17 @@
-import { ResetPayload } from '@whitewater-guide/clients';
+import type { ResetPayload } from '@whitewater-guide/clients';
 import { PASSWORD_MIN_SCORE } from '@whitewater-guide/commons';
 import * as zxcvbn from 'react-native-zxcvbn';
-import * as yup from 'yup';
+import { object, type ObjectSchema, string } from 'yup';
 
-let _schema: yup.SchemaOf<ResetPayload>;
+let _schema: ObjectSchema<ResetPayload>;
 
 const getValidationSchema = () => {
   if (!_schema) {
-    _schema = yup
-      .object()
+    _schema = object()
       .shape({
-        id: yup.string().required(),
-        token: yup.string().required(),
-        password: yup
-          .string()
+        id: string().required(),
+        token: string().required(),
+        password: string()
           .test(
             'is-password',
             'yup:yup:string.weak_password',

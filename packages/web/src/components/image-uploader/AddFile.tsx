@@ -2,9 +2,10 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import SvgIcon from '@material-ui/core/SvgIcon/SvgIcon';
 import React, { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { Required } from 'utility-types';
+import type { Required } from 'utility-types';
 
-import { LocalPhoto, toLocalPhoto } from '../../utils/files';
+import type { LocalPhoto } from '../../utils/files';
+import { toLocalPhoto } from '../../utils/files';
 
 const useStyles = makeStyles(() =>
   createStyles({

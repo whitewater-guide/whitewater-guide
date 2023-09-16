@@ -1,23 +1,24 @@
-import { createStyles, WithStyles, withStyles } from '@material-ui/core/styles';
+import type { WithStyles } from '@material-ui/core/styles';
+import { createStyles, withStyles } from '@material-ui/core/styles';
 import { formatDate, sectionName } from '@whitewater-guide/clients';
-import { NamedNode } from '@whitewater-guide/schema';
+import type { NamedNode } from '@whitewater-guide/schema';
 import parseISO from 'date-fns/parseISO';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { TableProps } from 'react-virtualized';
+import type { TableProps } from 'react-virtualized';
 
+import type { TableCellRenderer } from '../../components';
 import {
   Clipboard,
   Column,
   isEmptyRow,
   RegionFinder,
   Table,
-  TableCellRenderer,
 } from '../../components';
 import { UserFinder } from '../users';
 import { DiffButton } from './DiffButton';
-import { SectionEditLogEntryRowFragment } from './sectionsEditLog.generated';
-import { Diff } from './types';
+import type { SectionEditLogEntryRowFragment } from './sectionsEditLog.generated';
+import type { Diff } from './types';
 
 const styles = createStyles({
   input: {

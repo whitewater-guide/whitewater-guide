@@ -1,6 +1,6 @@
 import iap from 'in-app-purchase';
 
-import config from '~/config';
+import config from '../../config';
 
 export const initIAP = async () => {
   // Rest is read from env

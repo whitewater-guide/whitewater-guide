@@ -1,16 +1,15 @@
-import { anonContext, fakeContext } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import { EditorSettings } from '@whitewater-guide/schema';
-import gql from 'graphql-tag';
+import type { EditorSettings } from '@whitewater-guide/schema';
+import { gql } from 'graphql-tag';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
 import {
   ADMIN,
   ADMIN_ID,
   EDITOR_GA_EC,
   EDITOR_GA_EC_ID,
-} from '~/seeds/test/01_users';
-
+} from '../../../seeds/test/01_users';
+import { anonContext, fakeContext } from '../../../test/index';
 import { testUpdateEditorSettings } from './updateEditorSettings.test.generated';
 
 beforeEach(holdTransaction);

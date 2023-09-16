@@ -1,10 +1,11 @@
-import React, { memo, PropsWithChildren, useCallback } from 'react';
+import type { PropsWithChildren } from 'react';
+import React, { memo, useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Checkbox, Paragraph, TouchableRipple } from 'react-native-paper';
 
 import theme from '~/theme';
 
-import { OfflineCategoryType } from '../../types';
+import type { OfflineCategoryType } from '../../types';
 
 const styles = StyleSheet.create({
   label: {

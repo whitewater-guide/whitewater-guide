@@ -4,7 +4,7 @@ import { arrayToGmaps } from '@whitewater-guide/clients';
 import noop from 'lodash/noop';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 
-import { InitialPosition } from './GoogleMap';
+import type { InitialPosition } from './GoogleMap';
 
 interface UseInitialPositionHook {
   initialPosition: InitialPosition;

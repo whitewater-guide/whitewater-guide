@@ -1,7 +1,7 @@
 import { toMarkdown } from '@whitewater-guide/md-editor';
 
-import { RegionFormData } from './types';
-import { UpsertRegionMutationVariables } from './upsertRegion.generated';
+import type { RegionFormData } from './types';
+import type { UpsertRegionMutationVariables } from './upsertRegion.generated';
 
 export default (region: RegionFormData): UpsertRegionMutationVariables => ({
   region: {

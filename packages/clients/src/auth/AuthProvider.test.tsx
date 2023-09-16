@@ -1,13 +1,9 @@
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 
-import { MockedProvider, MockedResponse } from '@apollo/client/testing';
-import {
-  fireEvent,
-  render,
-  RenderResult,
-  waitFor,
-} from '@testing-library/react';
-import { MyProfileFragment } from '@whitewater-guide/schema';
+import type { MockedResponse } from '@apollo/client/testing';
+import { MockedProvider } from '@apollo/client/testing';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import type { MyProfileFragment } from '@whitewater-guide/schema';
 import React from 'react';
 
 import { configureApolloCache } from '../apollo/configureApolloCache';
@@ -64,7 +60,6 @@ const AuthConsumer: React.FC = () => (
 );
 
 let mocks: MockAuthService;
-let utils: RenderResult;
 
 function setup() {
   const mockService = new MockAuthService();
@@ -80,22 +75,18 @@ function setup() {
       </AuthProvider>
     </MockedProvider>
   );
-  utils = render(tree);
+  render(tree);
 }
 
 beforeEach(() => {
   jest.clearAllMocks();
 });
 
-afterEach(() => {
-  utils.unmount();
-});
-
 it('should start in initializing state', async () => {
   setup();
-  expect(utils.getByText(/initializing/i)).toBeInTheDocument();
-  expect(() => utils.getByText(/loading/i)).toThrow();
-  await expect(utils.findByText(/loading/i)).resolves.toBeInTheDocument();
+  expect(screen.getByText(/initializing/i)).toBeInTheDocument();
+  expect(() => screen.getByText(/loading/i)).toThrow();
+  await expect(screen.findByText(/loading/i)).resolves.toBeInTheDocument();
 });
 
 it('should initialize service', async () => {
@@ -114,16 +105,16 @@ it('should refresh token', async () => {
 
 it('should render profile after initial loading', async () => {
   setup();
-  await expect(utils.findByText(/Test User/)).resolves.toBeInTheDocument();
-  await expect(utils.findByText(/ready/i)).resolves.toBeInTheDocument();
+  await expect(screen.findByText(/Test User/)).resolves.toBeInTheDocument();
+  await expect(screen.findByText(/ready/i)).resolves.toBeInTheDocument();
 });
 
 it('should start loading on sign out', async () => {
   setup();
-  await utils.findByText(/ready/i);
-  fireEvent.click(utils.getByText('Sign out'));
+  await screen.findByText(/ready/i);
+  fireEvent.click(screen.getByText('Sign out'));
   expect(mocks.signOut).toHaveBeenCalled();
-  expect(utils.getByText('Test User')).toBeInTheDocument();
-  expect(utils.getByText('Loading')).toBeInTheDocument();
-  await expect(utils.findByText(/ready/i)).resolves.toBeInTheDocument();
+  expect(screen.getByText('Test User')).toBeInTheDocument();
+  expect(screen.getByText('Loading')).toBeInTheDocument();
+  await expect(screen.findByText(/ready/i)).resolves.toBeInTheDocument();
 });

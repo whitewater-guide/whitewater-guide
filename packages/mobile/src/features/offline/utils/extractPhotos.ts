@@ -1,7 +1,7 @@
 import flatMap from 'lodash/flatMap';
-import { DeepPartial, ValuesType } from 'utility-types';
+import type { DeepPartial, ValuesType } from 'utility-types';
 
-import { ListSectionsQuery } from '~/features/offline/offlineSections.generated';
+import type { ListSectionsQuery } from '~/features/offline/offlineSections.generated';
 
 type ListedSection = ValuesType<ListSectionsQuery['sections']['nodes']>;
 

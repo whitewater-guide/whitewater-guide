@@ -9,7 +9,7 @@ import filterFn from 'lodash/filter';
 import isFinite from 'lodash/isFinite';
 import { useMemo, useRef } from 'react';
 
-import { ChartMetaSettings, ChartViewProps, DomainMeta } from './types';
+import type { ChartMetaSettings, ChartViewProps, DomainMeta } from './types';
 
 function useChartMeta(
   props: ChartViewProps,

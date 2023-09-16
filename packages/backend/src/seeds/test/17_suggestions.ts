@@ -1,8 +1,7 @@
 import { SuggestionStatus } from '@whitewater-guide/schema';
-import Knex from 'knex';
+import type { Knex } from 'knex';
 
-import { Sql } from '~/db';
-
+import type { Sql } from '../../db/index';
 import { ADMIN_ID, EDITOR_NO_ID, TEST_USER_ID } from './01_users';
 import { GALICIA_BECA_LOWER, NORWAY_SJOA_AMOT } from './09_sections';
 

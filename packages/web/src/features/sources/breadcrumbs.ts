@@ -1,6 +1,6 @@
 import mapKeys from 'lodash/mapKeys';
 
-import { BreadcrumbsMap } from '../../components/breadcrumbs';
+import type { BreadcrumbsMap } from '../../components/breadcrumbs';
 import { gaugeBreadcrumbs } from '../gauges';
 import { SourceBreadcrumbDocument } from './sourceBreadcrumb.generated';
 

@@ -1,11 +1,10 @@
-import { anonContext, countRows, fakeContext } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
-import { TEST_USER } from '~/seeds/test/01_users';
-import { REGION_GALICIA, REGION_RUSSIA } from '~/seeds/test/04_regions';
-
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
+import { TEST_USER } from '../../../seeds/test/01_users';
+import { REGION_GALICIA, REGION_RUSSIA } from '../../../seeds/test/04_regions';
+import { anonContext, countRows, fakeContext } from '../../../test/index';
 import { testToggleFavoriteRegion } from './toggleFavoriteRegion.test.generated';
 
 const _mutation = gql`

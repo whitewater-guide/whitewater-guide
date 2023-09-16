@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`insert should match snapshot 1`] = `
-Object {
+{
   "code": "nor5",
   "flowUnit": "m3/s",
   "levelUnit": "cm",
-  "location": Object {
-    "coordinates": Array [
+  "location": {
+    "coordinates": [
       11.1,
       12.2,
       1.1,
@@ -14,10 +14,10 @@ Object {
     "kind": "gauge",
   },
   "name": "norway gauge 5",
-  "requestParams": Object {
+  "requestParams": {
     "foo": "bar",
   },
-  "source": Object {
+  "source": {
     "name": "Norway",
     "termsOfUse": null,
   },
@@ -28,12 +28,12 @@ Object {
 `;
 
 exports[`update should match snapshot 1`] = `
-Object {
+{
   "code": "gal1",
   "flowUnit": "cm3/s",
   "levelUnit": "m",
-  "location": Object {
-    "coordinates": Array [
+  "location": {
+    "coordinates": [
       11.1,
       12.2,
       1.1,
@@ -41,10 +41,10 @@ Object {
     "kind": "gauge",
   },
   "name": "GALICIA GAUGE 1",
-  "requestParams": Object {
+  "requestParams": {
     "lol": "fun",
   },
-  "source": Object {
+  "source": {
     "name": "Galicia",
     "termsOfUse": "Terms of use for Galicia",
   },

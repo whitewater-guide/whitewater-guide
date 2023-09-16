@@ -1,14 +1,15 @@
 import { useApolloClient } from '@apollo/client';
-import { StepProps } from '@material-ui/core/Step';
-import { BoomPromoInfo } from '@whitewater-guide/schema';
-import React, { FC, useState } from 'react';
+import type { StepProps } from '@material-ui/core/Step';
+import type { BoomPromoInfo } from '@whitewater-guide/schema';
+import type { FC } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import {
-  CheckBoomPromoDocument,
+import type {
   CheckBoomPromoQuery,
   CheckBoomPromoQueryVariables,
 } from './checkBoomPromo.generated';
+import { CheckBoomPromoDocument } from './checkBoomPromo.generated';
 import EnterCodeView from './EnterCodeView';
 
 type Props = Omit<StepProps, 'classes'> & {

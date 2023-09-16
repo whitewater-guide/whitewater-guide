@@ -1,4 +1,4 @@
-import { FieldInputProps } from 'formik';
+import type { FieldInputProps } from 'formik';
 import { useMemo } from 'react';
 
 const useReactNativeHandlers = <T = any>(

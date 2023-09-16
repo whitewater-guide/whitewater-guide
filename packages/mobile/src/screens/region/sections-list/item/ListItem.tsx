@@ -4,7 +4,7 @@ import React, { memo } from 'react';
 import SectionListBanner from './SectionListBanner';
 import SectionListItem from './SectionListItem';
 import SwipeableSectionTip from './SwipeableSectionTip';
-import { ItemProps, SectionsListDataItem } from './types';
+import type { ItemProps, SectionsListDataItem } from './types';
 
 type Props = ItemProps<SectionsListDataItem>;
 

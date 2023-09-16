@@ -1,11 +1,11 @@
-import { MdEditorValue } from '@whitewater-guide/md-editor';
-import {
+import type { MdEditorValue } from '@whitewater-guide/md-editor';
+import type {
   NamedNode,
   RefInput,
   SectionInput,
   TagInput,
 } from '@whitewater-guide/schema';
-import { Overwrite } from 'utility-types';
+import type { Overwrite } from 'utility-types';
 
 export type SectionFormData = Overwrite<
   Omit<SectionInput, 'tags'>,

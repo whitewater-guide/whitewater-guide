@@ -1,4 +1,4 @@
-import { RegionCoreFragment } from '@whitewater-guide/schema';
+import type { RegionCoreFragment } from '@whitewater-guide/schema';
 import React from 'react';
 import { Text } from 'react-native';
 

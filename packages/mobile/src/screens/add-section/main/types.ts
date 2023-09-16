@@ -1,9 +1,12 @@
-import { MaterialTopTabNavigationProp } from '@react-navigation/material-top-tabs';
-import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
+import type { MaterialTopTabNavigationProp } from '@react-navigation/material-top-tabs';
+import type {
+  CompositeNavigationProp,
+  RouteProp,
+} from '@react-navigation/native';
 
-import { Screens } from '~/core/navigation';
+import type { Screens } from '~/core/navigation';
 
-import { AddSectionTabsNavProp, AddSectionTabsParamsList } from '../types';
+import type { AddSectionTabsNavProp, AddSectionTabsParamsList } from '../types';
 
 export type AddSectionMainNavProp = CompositeNavigationProp<
   MaterialTopTabNavigationProp<

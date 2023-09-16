@@ -1,5 +1,5 @@
-import { SectionResolvers, timestampedResolvers } from '~/apollo';
-
+import type { SectionResolvers } from '../../../apollo/index';
+import { timestampedResolvers } from '../../../apollo/index';
 import createdBy from './createdBy';
 import description from './description';
 import favorite from './favorite';

@@ -1,11 +1,6 @@
 import React, { useCallback } from 'react';
-import {
-  FlatList,
-  ListRenderItemInfo,
-  StyleProp,
-  StyleSheet,
-  ViewStyle,
-} from 'react-native';
+import type { ListRenderItemInfo, StyleProp, ViewStyle } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 
 import theme from '../../theme';
 import ModalPickerItem from './ModalPickerItem';

@@ -1,8 +1,8 @@
 import { fromMarkdown } from '@whitewater-guide/md-editor';
 
 import { fromJSON } from '../../../formik/utils';
-import { SourceFormQuery } from './sourceForm.generated';
-import { SourceFormData } from './types';
+import type { SourceFormQuery } from './sourceForm.generated';
+import type { SourceFormData } from './types';
 
 export default (result?: SourceFormQuery): SourceFormData => {
   if (!result || !result.source) {

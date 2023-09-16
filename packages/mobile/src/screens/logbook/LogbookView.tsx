@@ -2,7 +2,7 @@ import React from 'react';
 
 import { AddDescentFAB } from './AddDescentFAB';
 import LogbookList from './LogbookList';
-import { LogbookNavProps } from './types';
+import type { LogbookNavProps } from './types';
 
 const LogbookView: React.FC<LogbookNavProps> = ({ navigation }) => (
   <>

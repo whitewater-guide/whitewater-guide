@@ -1,5 +1,5 @@
 import { ApolloClient } from '@apollo/client';
-import { AuthService } from '@whitewater-guide/clients';
+import type { AuthService } from '@whitewater-guide/clients';
 
 import { assertCachePersistorVersion, cache } from './cache';
 import { createLink } from './createLink';

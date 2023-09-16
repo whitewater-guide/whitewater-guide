@@ -8,8 +8,8 @@ import isEmpty from 'lodash/isEmpty';
 import round from 'lodash/round';
 import React from 'react';
 
-import { Coordinate3d } from '../../../clients/dist';
-import { Styles } from '../styles';
+import type { Coordinate3d } from '../../../clients/dist';
+import type { Styles } from '../styles';
 import { NumberInput } from './NumberInput';
 
 const styles: Styles = {

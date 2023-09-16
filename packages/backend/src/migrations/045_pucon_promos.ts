@@ -1,14 +1,12 @@
-import Knex from 'knex';
+import type { Knex } from 'knex';
 
 /**
  * This patch adds sequence to generate promocodes for Pucon Kayak Retreat
  */
-export const up = async (db: Knex) => {
+export async function up(db: Knex): Promise<void> {
   await db.raw(`CREATE SEQUENCE IF NOT EXISTS pucon_promo INCREMENT 1 START 1`);
-};
+}
 
-export const down = async (db: Knex) => {
+export async function down(db: Knex): Promise<void> {
   await db.raw(`DROP SEQUENCE IF EXISTS pucon_promo`);
-};
-
-export const configuration = { transaction: true };
+}

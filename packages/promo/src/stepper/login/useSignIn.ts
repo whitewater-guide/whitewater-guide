@@ -1,5 +1,5 @@
-import { AuthResponse } from '@whitewater-guide/clients';
-import { FormikConfig, FormikHelpers } from 'formik';
+import type { AuthResponse } from '@whitewater-guide/clients';
+import type { FormikConfig, FormikHelpers } from 'formik';
 import mapValues from 'lodash/mapValues';
 import { useCallback, useState } from 'react';
 

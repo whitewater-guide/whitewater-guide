@@ -1,4 +1,4 @@
-import { HorizontalLabelProps } from '@whitewater-guide/clients';
+import type { HorizontalLabelProps } from '@whitewater-guide/clients';
 import React from 'react';
 import { VictoryLabel } from 'victory';
 

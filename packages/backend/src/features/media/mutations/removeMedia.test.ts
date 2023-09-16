@@ -1,28 +1,28 @@
-import {
-  anonContext,
-  countRows,
-  fakeContext,
-  fileExistsInBucket,
-  resetTestMinio,
-  UUID_REGEX,
-} from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
-import { db, holdTransaction, rollbackTransaction, Sql } from '~/db';
-import { MEDIA } from '~/s3';
+import type { Sql } from '../../../db/index';
+import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
+import { MEDIA } from '../../../s3/index';
 import {
   ADMIN,
   EDITOR_GA_EC,
   EDITOR_NO_EC,
   EDITOR_NO_EC_ID,
   TEST_USER,
-} from '~/seeds/test/01_users';
-import { REGION_NORWAY } from '~/seeds/test/04_regions';
-import { RIVER_SJOA } from '~/seeds/test/07_rivers';
-import { NORWAY_SJOA_AMOT } from '~/seeds/test/09_sections';
-import { PHOTO_1 } from '~/seeds/test/11_media';
-
+} from '../../../seeds/test/01_users';
+import { REGION_NORWAY } from '../../../seeds/test/04_regions';
+import { RIVER_SJOA } from '../../../seeds/test/07_rivers';
+import { NORWAY_SJOA_AMOT } from '../../../seeds/test/09_sections';
+import { PHOTO_1 } from '../../../seeds/test/11_media';
+import {
+  anonContext,
+  countRows,
+  fakeContext,
+  fileExistsInBucket,
+  resetTestMinio,
+} from '../../../test/index';
+import { UUID_REGEX } from '../../../utils/index';
 import { testRemoveMedia } from './removeMedia.test.generated';
 
 let mBefore: number;

@@ -1,6 +1,6 @@
 export * from './context';
-export { Coordinates } from './coordinates';
-export { Cursor } from './cursor';
+export type { Coordinates } from './coordinates';
+export type { Cursor } from './cursor';
 export * from './errors';
 export * from './formatError';
 export * from './isAuthenticatedResolver';

@@ -2,12 +2,12 @@ import Divider from '@material-ui/core/Divider';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import { BoomPromoInfo } from '@whitewater-guide/schema';
+import type { BoomPromoInfo } from '@whitewater-guide/schema';
 import React, { useMemo } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 
 import { StepFooter } from '../../components';
-import { PromoRegionFragment } from '../promoRegion.generated';
+import type { PromoRegionFragment } from '../promoRegion.generated';
 
 const useStyles = makeStyles((theme) =>
   createStyles({

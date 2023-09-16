@@ -1,6 +1,8 @@
 import { useNetInfo } from '@react-native-community/netinfo';
-import { EventType, MatrixEvent } from 'matrix-js-sdk';
-import React, { FC } from 'react';
+import type { MatrixEvent } from 'matrix-js-sdk';
+import { EventType } from 'matrix-js-sdk';
+import type { FC } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { ActivityIndicator, Button, Caption } from 'react-native-paper';

@@ -1,18 +1,20 @@
 import { useApolloClient } from '@apollo/client';
-import {
-  RegionNameDocument,
+import type {
   RegionNameQuery,
   RegionNameQueryVariables,
-  sectionName,
-  SectionNameDocument,
   SectionNameQuery,
   SectionNameQueryVariables,
+} from '@whitewater-guide/clients';
+import {
+  RegionNameDocument,
+  sectionName,
+  SectionNameDocument,
 } from '@whitewater-guide/clients';
 import { useEffect } from 'react';
 
 import { useChatClient } from '~/features/chat';
 
-import { ChatNavProps } from './types';
+import type { ChatNavProps } from './types';
 
 export default function useChatHeaderTitle({
   navigation,

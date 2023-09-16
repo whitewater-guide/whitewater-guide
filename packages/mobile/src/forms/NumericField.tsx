@@ -2,7 +2,8 @@ import { strToFloat } from '@whitewater-guide/clients';
 import { useFormikContext } from 'formik';
 import get from 'lodash/get';
 import React, { forwardRef, useCallback, useEffect, useState } from 'react';
-import { StyleProp, TextStyle, View, ViewStyle } from 'react-native';
+import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
+import { View } from 'react-native';
 import { TextInput } from 'react-native-paper';
 
 import HelperText from './HelperText';

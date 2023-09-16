@@ -1,9 +1,11 @@
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import Select, { SelectProps } from '@material-ui/core/Select';
+import type { SelectProps } from '@material-ui/core/Select';
+import Select from '@material-ui/core/Select';
 import { useField, useFormikContext } from 'formik';
-import React, { ChangeEvent, useCallback, useMemo } from 'react';
+import type { ChangeEvent } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { FormikFormControl } from '../../helpers';
 

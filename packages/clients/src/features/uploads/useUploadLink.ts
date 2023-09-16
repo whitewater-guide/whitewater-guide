@@ -2,12 +2,12 @@ import { useApolloClient } from '@apollo/client';
 import { PostPolicyVersion } from '@whitewater-guide/schema';
 import { useCallback, useRef, useState } from 'react';
 
-import {
-  GetUploadLinkDocument,
+import type {
   GetUploadLinkQuery,
   GetUploadLinkQueryVariables,
 } from './getUploadLink.generated';
-import { FileLike } from './types';
+import { GetUploadLinkDocument } from './getUploadLink.generated';
+import type { FileLike } from './types';
 import { uploadFile } from './uploadFile';
 
 export interface UseUploadLink {

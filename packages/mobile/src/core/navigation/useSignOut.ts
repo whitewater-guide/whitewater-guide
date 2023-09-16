@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 import { apolloCachePersistor } from '~/core/apollo';
 
-import { RootStackNav } from './navigation-params';
+import type { RootStackNav } from './navigation-params';
 import { Screens } from './screen-names';
 
 export default function useSignOut({ reset }: RootStackNav) {

@@ -1,11 +1,10 @@
-import { ApolloClient, ApolloError } from '@apollo/client';
+import type { ApolloError } from '@apollo/client';
+import { ApolloClient } from '@apollo/client';
 import { ApolloLink } from '@apollo/client/link/core';
 import { createHttpLink } from '@apollo/client/link/http';
-import {
-  AuthService,
-  configureApolloCache,
-  errorLink,
-} from '@whitewater-guide/clients';
+import { removeTypenameFromVariables } from '@apollo/client/link/remove-typename';
+import type { AuthService } from '@whitewater-guide/clients';
+import { configureApolloCache, errorLink } from '@whitewater-guide/clients';
 import { RefreshJwtLink } from '@whitewater-guide/clients/dist/web';
 
 import { API_HOST } from '../environment';
@@ -36,6 +35,7 @@ export default function initApolloClient(
       errorLink(() => {
         auth.signOut(true);
       }, onApolloError),
+      removeTypenameFromVariables(),
       refreshJwtLink,
       httpLink,
     ]),

@@ -1,15 +1,14 @@
-import { License } from '@whitewater-guide/schema';
+import type { License } from '@whitewater-guide/schema';
 import React, { useCallback, useMemo } from 'react';
 import { Modal, StyleSheet } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
-import { hasPresentKey } from 'ts-is-present';
 
 import LoadableImage from './LoadableImage';
 import PhotoGalleryFooter from './PhotoGalleryFooter';
 import PhotoGalleryHeader from './PhotoGalleryHeader';
 import PhotoGalleryIndicator from './PhotoGalleryIndicator';
-import { PhotoGalleryItem } from './types';
+import type { PhotoGalleryItem } from './types';
 
 const styles = StyleSheet.create({
   footerContainer: {
@@ -43,12 +42,13 @@ export const PhotoGallery: React.FC<Props> = React.memo((props) => {
 
   const imageUrls = useMemo(
     () =>
-      photos.filter(hasPresentKey('image')).map(({ image, resolution }) => ({
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        url: image,
-        width: resolution ? resolution[0] : 0,
-        height: resolution ? resolution[1] : 0,
-      })),
+      photos
+        .filter((p) => p.image)
+        .map(({ image, resolution }) => ({
+          url: image!,
+          width: resolution ? resolution[0] : 0,
+          height: resolution ? resolution[1] : 0,
+        })),
     [photos],
   );
 

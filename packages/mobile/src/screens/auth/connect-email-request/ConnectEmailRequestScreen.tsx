@@ -1,9 +1,9 @@
 import React, { useRef } from 'react';
-import { View } from 'react-native';
+import type { View } from 'react-native';
 
 import { AuthScreenBase } from '../AuthScreenBase';
 import { ConnectEmailRequestForm } from './ConnectEmailRequestForm';
-import { ConnectEmailRequestNavProps } from './types';
+import type { ConnectEmailRequestNavProps } from './types';
 
 const ConnectEmailRequestScreen: React.FC<ConnectEmailRequestNavProps> = ({
   route: { params },

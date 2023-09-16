@@ -1,18 +1,19 @@
 import React from 'react';
-import {
+import type {
   EventSubscription,
-  Keyboard,
   KeyboardEvent,
-  LayoutAnimation,
   LayoutChangeEvent,
   LayoutRectangle,
-  Platform,
-  ScreenRect,
   StyleProp,
-  StyleSheet,
-  View,
   ViewProps,
   ViewStyle,
+} from 'react-native';
+import {
+  Keyboard,
+  LayoutAnimation,
+  Platform,
+  StyleSheet,
+  View,
 } from 'react-native';
 
 interface Props extends ViewProps {
@@ -41,6 +42,10 @@ interface Props extends ViewProps {
 
 interface State {
   bottom: number;
+}
+
+interface ScreenRect {
+  screenY: number;
 }
 
 /**

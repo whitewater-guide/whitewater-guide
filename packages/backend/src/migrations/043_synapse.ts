@@ -1,17 +1,18 @@
-import Knex from 'knex';
-import { Visibility } from 'matrix-js-sdk/lib/@types/partials';
+import type { Knex } from 'knex';
+import { Visibility } from 'matrix-js-sdk';
 
-import config from '~/config';
-import { createViews, dropViews, Sql } from '~/db';
-import { matrixClient, synapseClient } from '~/features/chats';
-import log from '~/log';
+import config from '../config';
+import type { Sql } from '../db/index';
+import { createViews, dropViews } from '../db/index';
+import { matrixClient, synapseClient } from '../features/chats/index';
+import log from '../log/index';
 
 const VIEWS = ['sections', 'rivers', 'regions'];
 
 /**
  * This migration adds initial support for synapse chats
  */
-export const up = async (db: Knex) => {
+export async function up(db: Knex): Promise<void> {
   await dropViews(db, ...VIEWS);
   await db.schema.table('sections', (table) => {
     table.text('room_id').nullable();
@@ -55,9 +56,9 @@ export const up = async (db: Knex) => {
   } catch (e) {
     log.error({ error: e as Error, message: 'lobby creation error' });
   }
-};
+}
 
-export const down = async (db: Knex) => {
+export async function down(db: Knex): Promise<void> {
   await dropViews(db, ...VIEWS);
   await db.schema.table('sections', (table) => {
     table.dropColumn('room_id');
@@ -66,6 +67,4 @@ export const down = async (db: Knex) => {
     table.dropColumn('room_id');
   });
   await createViews(db, 42, ...VIEWS);
-};
-
-export const configuration = { transaction: true };
+}

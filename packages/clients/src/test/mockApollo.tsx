@@ -9,9 +9,10 @@ import {
   TagCategory,
   typeDefs,
 } from '@whitewater-guide/schema';
-import { GraphQLFieldResolver, GraphQLResolveInfo } from 'graphql';
+import type { GraphQLFieldResolver, GraphQLResolveInfo } from 'graphql';
 import { JSONResolver } from 'graphql-scalars';
-import React, { FC, PropsWithChildren } from 'react';
+import type { FC, PropsWithChildren } from 'react';
+import React from 'react';
 
 import { configureApolloCache } from '../apollo';
 

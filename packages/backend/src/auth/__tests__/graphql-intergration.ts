@@ -1,19 +1,17 @@
-// eslint-disable-next-line import/default
-import { sign } from 'jsonwebtoken';
-import Koa from 'koa';
+import jwt from 'jsonwebtoken';
+import type Koa from 'koa';
 import FacebookTokenStrategy from 'passport-facebook-token';
-import { SuperTest, Test } from 'supertest';
+import type { SuperTest, Test } from 'supertest';
 import agent from 'supertest-koa-agent';
 
-import config from '~/config';
-import { holdTransaction, rollbackTransaction } from '~/db';
-import { ADMIN, ADMIN_FB_PROFILE, ADMIN_ID } from '~/seeds/test/01_users';
-import { REGION_GALICIA } from '~/seeds/test/04_regions';
-import { GALICIA_REGION_DESCR_BANNER2 } from '~/seeds/test/14_banners';
-
-import { createApolloServer } from '../../apollo/server';
+import { createApolloServer } from '../../apollo/server/index';
 import { createApp } from '../../app';
-import { getRefreshToken } from '../jwt';
+import config from '../../config';
+import { holdTransaction, rollbackTransaction } from '../../db/index';
+import { ADMIN, ADMIN_FB_PROFILE, ADMIN_ID } from '../../seeds/test/01_users';
+import { REGION_GALICIA } from '../../seeds/test/04_regions';
+import { GALICIA_REGION_DESCR_BANNER2 } from '../../seeds/test/14_banners';
+import { getRefreshToken } from '../jwt/index';
 
 const TEST_QUERY = {
   operationName: 'testQuery',
@@ -174,7 +172,7 @@ it('should not work when refresh token is used as access token', async () => {
 });
 
 it('should not work when access token expired', async () => {
-  const accessToken = sign(
+  const accessToken = jwt.sign(
     { id: ADMIN_ID, iat: Math.floor(Date.now() / 1000) - 60 * 20 },
     config.ACCESS_TOKEN_SECRET,
     { expiresIn: '10m' },

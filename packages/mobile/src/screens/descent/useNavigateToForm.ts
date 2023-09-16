@@ -1,11 +1,13 @@
-import { NavigationState, useNavigation } from '@react-navigation/native';
+import type { NavigationState } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { nanoid } from 'nanoid/non-secure';
 import { useCallback } from 'react';
 
-import { RootStackNav, Screens } from '~/core/navigation';
-import { RootStackParamsList } from '~/core/navigation/navigation-params';
+import type { RootStackNav } from '~/core/navigation';
+import { Screens } from '~/core/navigation';
+import type { RootStackParamsList } from '~/core/navigation/navigation-params';
 
-import { DescentDetailsFragment } from './descentDetails.generated';
+import type { DescentDetailsFragment } from './descentDetails.generated';
 
 const replaceDetailsWithForm = (
   state: NavigationState,

@@ -1,4 +1,4 @@
-import { FieldsByType } from './types';
+import type { FieldsByType } from './types';
 
 export const copyFieldsByType = (from: FieldsByType, to: FieldsByType) => {
   for (const [key, fields] of from.entries()) {

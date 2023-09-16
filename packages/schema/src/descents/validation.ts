@@ -1,27 +1,23 @@
-import * as yup from 'yup';
+import type { ObjectSchema } from 'yup';
+import { bool, date, number, object, string } from 'yup';
 
-import { DescentInput, DescentLevelInput } from '../__generated__/types';
+import type { DescentInput, DescentLevelInput } from '../__generated__/types';
 
-export const DescentLevelInputSchema: yup.SchemaOf<DescentLevelInput> = yup
-  .object({
-    unit: yup.string().max(20).optional().nullable(),
-    value: yup.number().required(),
-  })
+export const DescentLevelInputSchema: ObjectSchema<DescentLevelInput> = object({
+  unit: string().max(20).optional().nullable(),
+  value: number().required(),
+})
   .strict(true)
   .noUnknown();
 
-export const DescentInputSchema: yup.SchemaOf<DescentInput> = yup
-  .object({
-    id: yup.string().uuid().optional().nullable(),
-    sectionId: yup.string().uuid().required().nullable(false),
-    // Something is wrong with date type
-    // https://github.com/jquense/yup/issues/1243
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    startedAt: yup.date().required() as any,
-    duration: yup.number().integer().min(0).notRequired().nullable(),
-    level: DescentLevelInputSchema.clone().notRequired().nullable(),
-    comment: yup.string().notRequired().nullable(),
-    public: yup.bool().notRequired().nullable(),
-  })
+export const DescentInputSchema: ObjectSchema<DescentInput> = object({
+  id: string().uuid().optional().nullable(),
+  sectionId: string().uuid().required().nonNullable(),
+  startedAt: date().required(),
+  duration: number().integer().min(0).notRequired().nullable(),
+  level: DescentLevelInputSchema.clone().notRequired().nullable(),
+  comment: string().notRequired().nullable(),
+  public: bool().notRequired().nullable(),
+})
   .strict(true)
   .noUnknown();

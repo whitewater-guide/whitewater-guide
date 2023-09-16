@@ -1,4 +1,4 @@
-import { MediaKind } from '@whitewater-guide/schema';
+import type { MediaKind } from '@whitewater-guide/schema';
 
 export interface LightboxItem {
   id?: string | null;

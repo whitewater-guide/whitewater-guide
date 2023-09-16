@@ -1,11 +1,8 @@
-import { AccessTokenPayload } from '@whitewater-guide/commons';
-import { TokenExpiredError } from 'jsonwebtoken';
-import get from 'lodash/get';
-import shortid from 'shortid';
+import type { AccessTokenPayload } from '@whitewater-guide/commons';
+import { nanoid } from 'nanoid';
 
-import { db } from '~/db';
-
-import { MiddlewareFactory } from '../types';
+import { db } from '../../db/index';
+import type { MiddlewareFactory } from '../types';
 import logger from './logger';
 
 export const authenticateWithJWT: MiddlewareFactory =
@@ -19,15 +16,15 @@ export const authenticateWithJWT: MiddlewareFactory =
         'jwt',
         { session: false },
         async (err, payload: AccessTokenPayload, info) => {
-          if (info instanceof TokenExpiredError) {
+          if (info?.name === 'TokenExpiredError') {
             ctx.body = { success: false, error: 'jwt.expired' };
             ctx.status = 401;
             return;
           }
           if (err || (info && info.message !== 'No auth token')) {
-            const error_id = shortid.generate();
+            const error_id = nanoid();
             logger.error({
-              message: get(err, 'message') || get(info, 'message'),
+              message: err?.message || info?.message,
               tags: { strategy: 'jwt', error_id },
               extra: payload,
             });
@@ -41,7 +38,7 @@ export const authenticateWithJWT: MiddlewareFactory =
           }
 
           if (payload) {
-            const error_id = shortid.generate();
+            const error_id = nanoid();
             const user = await db()
               .select('id', 'admin', 'language', 'verified')
               .from('users')

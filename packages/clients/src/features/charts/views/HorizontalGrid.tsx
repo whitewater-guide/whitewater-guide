@@ -1,8 +1,8 @@
-import { GaugeBinding } from '@whitewater-guide/schema';
+import type { GaugeBinding } from '@whitewater-guide/schema';
 import React from 'react';
 
 import { getColorForValue } from '../../sections';
-import { HorizontalGridProps } from './types';
+import type { HorizontalGridProps } from './types';
 
 interface Props {
   x1?: number;

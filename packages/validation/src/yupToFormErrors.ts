@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import set from 'lodash/set';
-import * as yup from 'yup';
+import type { ValidationError } from 'yup';
 /**
  * Copied from Formik
  * https://github.com/formium/formik/blob/master/packages/formik/src/types.tsx
@@ -19,7 +17,7 @@ export type Errors<Values> = {
 };
 
 export function yupToFormErrors<Values>(
-  yupError: yup.ValidationError,
+  yupError: ValidationError,
 ): Errors<Values> {
   const errors: Errors<Values> = {};
   if (yupError.inner.length === 0) {
@@ -28,7 +26,6 @@ export function yupToFormErrors<Values>(
     }
     return errors;
   }
-  // eslint-disable-next-line no-restricted-syntax
   for (const err of yupError.inner) {
     if (err.path !== undefined && !(errors as any)[err.path]) {
       set(errors, err.path, err.message);

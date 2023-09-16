@@ -3,7 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Screens } from '~/core/navigation';
-import {
+import type {
   AddSectionTabsNavProps,
   AddSectionTabsParamsList,
 } from '~/screens/add-section/types';

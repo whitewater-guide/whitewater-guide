@@ -1,5 +1,6 @@
 import * as Sentry from '@sentry/react';
-import React, { FC, PropsWithChildren } from 'react';
+import type { FC, PropsWithChildren } from 'react';
+import React from 'react';
 
 import ErrorBoundaryFallback from './ErrorBoundaryFallback';
 

@@ -1,12 +1,12 @@
 import { fromError } from '@apollo/client';
-import {
-  ApolloLink,
+import type {
   FetchResult,
   NextLink,
   Operation,
 } from '@apollo/client/link/core';
+import { ApolloLink } from '@apollo/client/link/core';
+import type { AuthService } from '@whitewater-guide/clients';
 import {
-  AuthService,
   createApolloServerError,
   JWT_EXPIRED_CTX_KEY,
 } from '@whitewater-guide/clients';

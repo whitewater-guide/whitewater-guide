@@ -2,9 +2,9 @@ import React from 'react';
 import { createPortal, findDOMNode } from 'react-dom';
 import ReactResizeDetector from 'react-resize-detector';
 
-import { Styles } from '../../styles';
+import type { Styles } from '../../styles';
 import { Loading } from '../Loading';
-import { MapElementProps } from './types';
+import type { MapElementProps } from './types';
 import { addZoomToFit } from './ZoomToFitControl';
 
 const styles: Styles = {

@@ -1,4 +1,4 @@
-import { BreadcrumbsMap } from '../../components/breadcrumbs';
+import type { BreadcrumbsMap } from '../../components/breadcrumbs';
 
 export const groupsBreadcrumbs: BreadcrumbsMap = {
   '/groups': 'Groups',

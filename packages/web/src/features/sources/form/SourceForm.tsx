@@ -6,17 +6,15 @@ import { MarkdownField } from '../../../formik/fields';
 import { FormikTab } from '../../../formik/helpers';
 import formToMutation from './formToMutation';
 import queryToForm from './queryToForm';
-import {
-  SourceFormDocument,
+import type {
   SourceFormQuery,
   SourceFormQueryVariables,
 } from './sourceForm.generated';
+import { SourceFormDocument } from './sourceForm.generated';
 import SourceFormMain from './SourceFormMain';
-import { RouterParams, SourceFormData } from './types';
-import {
-  UpsertSourceDocument,
-  UpsertSourceMutationVariables,
-} from './upsertSource.generated';
+import type { RouterParams, SourceFormData } from './types';
+import type { UpsertSourceMutationVariables } from './upsertSource.generated';
+import { UpsertSourceDocument } from './upsertSource.generated';
 import SourceFormSchema from './validation';
 
 const header = { resourceType: 'source' };

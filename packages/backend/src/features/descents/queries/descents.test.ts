@@ -1,9 +1,12 @@
-import { fakeContext } from '@test';
-import { DescentsFilter } from '@whitewater-guide/schema';
-import gql from 'graphql-tag';
+import type { DescentsFilter } from '@whitewater-guide/schema';
+import { gql } from 'graphql-tag';
 
-import { holdTransaction, rollbackTransaction } from '~/db';
-import { TEST_USER, TEST_USER_ID, TEST_USER2 } from '~/seeds/test/01_users';
+import { holdTransaction, rollbackTransaction } from '../../../db/index';
+import {
+  TEST_USER,
+  TEST_USER_ID,
+  TEST_USER2,
+} from '../../../seeds/test/01_users';
 import {
   DESCENT_01,
   DESCENT_02,
@@ -13,8 +16,8 @@ import {
   DESCENT_07,
   DESCENT_10,
   SECTION_1,
-} from '~/seeds/test/18_descents';
-
+} from '../../../seeds/test/18_descents';
+import { fakeContext } from '../../../test/index';
 import { testListDescents } from './descents.test.generated';
 
 beforeEach(holdTransaction);
@@ -51,8 +54,8 @@ const getIds = (result: any): string[] =>
   result.descents?.edges.map(({ node }: any) => node.id) || [];
 
 it('should match snapshot', async () => {
-  const result: any = await testListDescents({}, fakeContext(TEST_USER));
-  expect(result).toMatchSnapshot();
+  const result = await testListDescents({}, fakeContext(TEST_USER));
+  expect(result.data).toMatchSnapshot();
 });
 
 it.each([

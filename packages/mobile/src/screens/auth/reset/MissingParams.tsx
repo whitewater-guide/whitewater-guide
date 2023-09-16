@@ -6,7 +6,7 @@ import { Button } from 'react-native-paper';
 import Spacer from '~/components/Spacer';
 import HelperText from '~/forms/HelperText';
 
-import { AuthResetNavProp } from './types';
+import type { AuthResetNavProp } from './types';
 
 const MissingParams: React.FC = () => {
   const { t } = useTranslation();

@@ -5,7 +5,7 @@ import React from 'react';
 import useEffectOnce from 'react-use/lib/useEffectOnce';
 
 import { NumberField, TextField } from '../../../../formik/fields';
-import { LocalPhoto } from '../../../../utils/files';
+import type { LocalPhoto } from '../../../../utils/files';
 import { LicenseSubform } from '../../../license';
 import PhotoFormPreview from './PhotoFormPreview';
 

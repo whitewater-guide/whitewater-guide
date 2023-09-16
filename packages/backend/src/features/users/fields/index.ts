@@ -1,5 +1,5 @@
-import { timestampedResolvers, UserResolvers } from '~/apollo';
-
+import type { UserResolvers } from '../../../apollo/index';
+import { timestampedResolvers } from '../../../apollo/index';
 import accounts from './accounts';
 import avatar from './avatar';
 

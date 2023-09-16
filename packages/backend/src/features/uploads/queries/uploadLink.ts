@@ -1,6 +1,6 @@
-import { QueryResolvers } from '~/apollo';
-import { db } from '~/db';
-import { s3Client, TEMP } from '~/s3';
+import type { QueryResolvers } from '../../../apollo/index';
+import { db } from '../../../db/index';
+import { s3Client, TEMP } from '../../../s3/index';
 
 const uploadLink: QueryResolvers['uploadLink'] = async (
   _,
