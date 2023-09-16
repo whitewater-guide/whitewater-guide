@@ -6,7 +6,6 @@ import {
   PurchaseInputSchema,
   PurchasePlatform,
 } from '@whitewater-guide/schema';
-import { isValidated, validate } from 'in-app-purchase';
 import type { Knex } from 'knex';
 import type { ObjectSchema } from 'yup';
 import { object, string } from 'yup';
@@ -20,7 +19,11 @@ import {
 import type { Sql } from '../../../db/index';
 import { db } from '../../../db/index';
 import logger from '../logger';
-import { acknowledgeAndroid } from './utils/index';
+import {
+  acknowledgeAndroid,
+  isAppleReceiptVerified,
+  verifyAppleReceipt,
+} from './utils/index';
 
 const Schema: ObjectSchema<MutationSavePurchaseArgs> = object({
   purchase: PurchaseInputSchema.clone().required(),
@@ -63,14 +66,14 @@ const processIAP = async (purchase: PurchaseInput, user: ContextUser) => {
   let validated = false;
   let response: any;
   if (purchase.platform === PurchasePlatform.android) {
-    response = await acknowledgeAndroid(purchase, user.id);
+    await acknowledgeAndroid(purchase, user.id);
     validated = true;
   } else {
     if (!purchase.receipt) {
       throw new Error('empty purchase receipt');
     }
-    response = await validate(purchase.receipt);
-    validated = isValidated(response);
+    response = await verifyAppleReceipt(purchase.receipt);
+    validated = isAppleReceiptVerified(response);
   }
   const transaction: Partial<Sql.Transactions> = {
     user_id: user.id,

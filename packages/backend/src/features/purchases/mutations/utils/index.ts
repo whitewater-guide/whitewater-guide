@@ -1,1 +1,2 @@
-export * from './acknowledgeAndroid';
+export * from './android';
+export * from './apple';

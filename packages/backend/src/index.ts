@@ -7,7 +7,6 @@ import { createApp } from './app';
 import config from './config';
 import { db, waitForDb } from './db/index';
 import { synapseClient } from './features/chats/index';
-import { initIAP } from './features/purchases/index';
 import log from './log/index';
 
 async function startup() {

@@ -39,8 +39,6 @@ type Query {
 }
 
 type Mutation {
-  "deprecated, used by old mobile client."
-  addPurchase(purchase: PurchaseInput!): Boolean @deprecated
   "Saves purchase. Section ID can be used to return premium section instantly"
   savePurchase(purchase: PurchaseInput!, sectionId: ID): SavedPurchase
   "Generates promocode for given promo campaign"

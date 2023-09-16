@@ -2,7 +2,6 @@ import { ApolloErrorCodes } from '@whitewater-guide/commons';
 import type { PurchaseInput } from '@whitewater-guide/schema';
 import { PurchasePlatform } from '@whitewater-guide/schema';
 import { gql } from 'graphql-tag';
-import { isValidated, validate } from 'in-app-purchase';
 
 import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
 import {
@@ -29,30 +28,23 @@ import {
   testSavePurchase,
   testSavePurchaseNoSection,
 } from './savePurchase.test.generated';
+import {
+  acknowledgeAndroid,
+  isAppleReceiptVerified,
+  verifyAppleReceipt,
+} from './utils';
 
-jest.mock('in-app-purchase', () => ({
-  isValidated: jest.fn(),
-  validate: jest.fn(),
-}));
-jest.mock(
-  'google-play-billing-validator',
-  () =>
-    function Verifier() {
-      return {
-        verifyINAPP: () =>
-          Promise.resolve({ isSuccessful: true, payload: { foo: 'bar' } }),
-      };
-    },
-);
+jest.mock('./utils');
 
 beforeEach(async () => {
   await holdTransaction();
   jest.resetAllMocks();
-  (validate as jest.Mock).mockResolvedValue({
-    service: 'google',
-    status: 1234,
+  (verifyAppleReceipt as jest.Mock).mockResolvedValue({
+    receipt: { foo: 'bar' },
+    status: 0,
   });
-  (isValidated as jest.Mock).mockReturnValue(true);
+  (isAppleReceiptVerified as jest.Mock).mockReturnValue(true);
+  (acknowledgeAndroid as jest.Mock).mockResolvedValue(undefined);
 });
 afterEach(rollbackTransaction);
 
