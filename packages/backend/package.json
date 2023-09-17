@@ -58,7 +58,6 @@
     "koa-passport": "^6.0.0",
     "koa-router": "^12.0.0",
     "lodash": "^4.17.21",
-    "mailchimp-api-v3": "^1.15.0",
     "matrix-js-sdk": "^28.1.0",
     "mjml": "^4.12.0",
     "nanoid": "^3.3.6",

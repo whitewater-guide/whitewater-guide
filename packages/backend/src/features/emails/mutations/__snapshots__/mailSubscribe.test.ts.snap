@@ -2,7 +2,7 @@
 
 exports[`should call mailchimp api 1`] = `
 [
-  "/lists/__mailchimp_list_id__/members",
+  "https://undefined.api.mailchimp.com/3.0/lists/__mailchimp_list_id__/members",
   {
     "email_address": "test@test.com",
     "status": "subscribed",

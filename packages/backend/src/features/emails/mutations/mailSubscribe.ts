@@ -1,4 +1,4 @@
-import MailChimp from 'mailchimp-api-v3';
+import axios from 'axios';
 
 import type { MutationResolvers } from '../../../apollo/index';
 import config from '../../../config';
@@ -8,19 +8,25 @@ const mailSubscribe: MutationResolvers['mailSubscribe'] = async (
   _,
   { mail },
 ) => {
-  const mailchimp = new MailChimp(config.MAILCHIMP_API_KEY);
   try {
-    const { email_address, status } = await mailchimp.post(
-      `/lists/${config.MAILCHIMP_LIST_ID}/members`,
+    // https://mailchimp.com/developer/marketing/api/list-members/add-member-to-list/
+    const dc = config.MAILCHIMP_API_KEY.split('-')[1];
+    const resp = await axios.post(
+      `https://${dc}.api.mailchimp.com/3.0/lists/${config.MAILCHIMP_LIST_ID}/members`,
       {
         email_address: mail,
         status: 'subscribed',
       },
     );
-    logger.info(
-      { emailAddress: email_address, status },
-      'mailchimp subscription',
-    );
+    logger.debug({ resp: resp.data }, 'mailchimp subscription');
+    if (resp.data?.status !== 'subscribed') {
+      logger.error({
+        message: 'mailchimp.failed',
+        extra: { mail },
+        error: new Error(resp?.data?.detail),
+      });
+      return false;
+    }
   } catch (err: any) {
     logger.error({ message: 'mailchimp.failed', extra: { mail }, error: err });
     return false;
