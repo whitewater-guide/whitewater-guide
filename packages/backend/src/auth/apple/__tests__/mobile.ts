@@ -2,14 +2,13 @@ import type { AuthBody, SignInBody } from '@whitewater-guide/commons';
 import type Koa from 'koa';
 import type superagent from 'superagent';
 import type { SuperTest, Test } from 'supertest';
-import agent from 'supertest-koa-agent';
 import type { DeepPartial } from 'utility-types';
 
 import { createApp } from '../../../app';
 import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
 import { sendWelcome } from '../../../mail/index';
 import { ADMIN_ID } from '../../../seeds/test/01_users';
-import { countRows } from '../../../test/index';
+import { countRows, koaTestAgent } from '../../../test/index';
 import { UUID_REGEX } from '../../../utils/index';
 import type { AppleSignInPayload } from '../types';
 
@@ -47,14 +46,14 @@ afterEach(async () => {
 });
 
 it('should fail when access token is not provided', async () => {
-  const resp = await agent(app).post(ROUTE).send({});
+  const resp = await koaTestAgent(app).post(ROUTE).send({});
   expect(resp).toMatchObject({
     status: 401,
   });
 });
 
 it('should fail for bad token', async () => {
-  const resp = await agent(app)
+  const resp = await koaTestAgent(app)
     .post(ROUTE)
     .send({ ...payload, identityToken: 'bad' });
   expect(resp).toMatchObject({
@@ -71,7 +70,7 @@ describe.each([
 
   beforeEach(async () => {
     response = null;
-    testAgent = agent(app);
+    testAgent = koaTestAgent(app);
     response = await testAgent.post(ROUTE).send({ ...payload, identityToken });
   });
 
@@ -117,7 +116,7 @@ describe.each([
     const aT = response!.body.accessToken;
     const spyMiddleware = jest.fn();
     app.use(spyMiddleware);
-    await agent(app).get('/').set('Authorization', `bearer ${aT}`);
+    await koaTestAgent(app).get('/').set('Authorization', `bearer ${aT}`);
     expect(spyMiddleware.mock.calls[0][0].state.user).toEqual({
       id: expect.stringMatching(UUID_REGEX),
       language: 'en',
@@ -143,7 +142,7 @@ describe('existing user', () => {
 
   beforeEach(async () => {
     response = null;
-    testAgent = agent(app);
+    testAgent = koaTestAgent(app);
     response = await testAgent
       .post(ROUTE)
       .send({ ...payload, identityToken: '__apple_token_admin__' });
@@ -177,7 +176,7 @@ describe('existing user', () => {
     const aT = response!.body.accessToken;
     const spyMiddleware = jest.fn();
     app.use(spyMiddleware);
-    await agent(app).get('/').set('Authorization', `bearer ${aT}`);
+    await koaTestAgent(app).get('/').set('Authorization', `bearer ${aT}`);
     expect(spyMiddleware.mock.calls[0][0].state.user).toEqual({
       id: ADMIN_ID,
       language: 'en',
@@ -193,7 +192,7 @@ describe('existing user', () => {
 
 describe('fcm tokens', () => {
   it('should create fcm token for new user', async () => {
-    const testAgent = agent(app);
+    const testAgent = koaTestAgent(app);
     const response = await testAgent.post(ROUTE).send({
       ...payload,
       identityToken: '__apple_token_w_email__',
@@ -205,7 +204,7 @@ describe('fcm tokens', () => {
   });
 
   it('should create fcm token for existing user', async () => {
-    const testAgent = agent(app);
+    const testAgent = koaTestAgent(app);
     const response = await testAgent.post(ROUTE).send({
       ...payload,
       identityToken: '__apple_token_admin__',
@@ -217,7 +216,7 @@ describe('fcm tokens', () => {
   });
 
   it('should not fail for existing fcm token', async () => {
-    const testAgent = agent(app);
+    const testAgent = koaTestAgent(app);
     const response = await testAgent.post(ROUTE).send({
       ...payload,
       identityToken: '__apple_token_admin__',

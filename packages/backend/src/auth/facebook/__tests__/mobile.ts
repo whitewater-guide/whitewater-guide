@@ -4,7 +4,6 @@ import type { Profile } from 'passport-facebook';
 import FacebookTokenStrategy from 'passport-facebook-token';
 import type superagent from 'superagent';
 import type { SuperTest, Test } from 'supertest';
-import agent from 'supertest-koa-agent';
 
 import { createApp } from '../../../app';
 import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
@@ -16,7 +15,7 @@ import {
   NEW_FB_PROFILE_NO_EMAIL,
   NEW_FB_PROFILE_W_LOCALE,
 } from '../../../seeds/test/01_users';
-import { countRows } from '../../../test/index';
+import { countRows, koaTestAgent } from '../../../test/index';
 import { UUID_REGEX } from '../../../utils/index';
 
 jest.mock('../../../mail');
@@ -49,7 +48,7 @@ afterEach(async () => {
 });
 
 it('should fail when access token is not provided', async () => {
-  const resp = await agent(app).get(ROUTE);
+  const resp = await koaTestAgent(app).get(ROUTE);
   expect(resp).toMatchObject({
     status: 401,
   });
@@ -61,7 +60,7 @@ it('should fail for bad token', async () => {
     .mockImplementationOnce((accessToken: string, done: any) => {
       done(new Error('Failed to fetch user profile'));
     });
-  const resp = await agent(app).get(
+  const resp = await koaTestAgent(app).get(
     `${ROUTE}?access_token=__bad_access_token__`,
   );
   expect(resp).toMatchObject({
@@ -83,7 +82,7 @@ describe.each([
         done(null, mockProfile);
       });
     response = null;
-    testAgent = agent(app);
+    testAgent = koaTestAgent(app);
     response = await testAgent.get(
       `${ROUTE}?access_token=__new_access_token__`,
     );
@@ -131,7 +130,7 @@ describe.each([
     const aT = response!.body.accessToken;
     const spyMiddleware = jest.fn();
     app.use(spyMiddleware);
-    await agent(app).get('/').set('Authorization', `bearer ${aT}`);
+    await koaTestAgent(app).get('/').set('Authorization', `bearer ${aT}`);
     expect(spyMiddleware.mock.calls[0][0].state.user).toEqual({
       id: expect.stringMatching(UUID_REGEX),
       language: 'en',
@@ -159,7 +158,7 @@ describe('language', () => {
       .mockImplementationOnce((accessToken: string, done: any) => {
         done(null, NEW_FB_PROFILE_W_LOCALE);
       });
-    const resp = await agent(app)
+    const resp = await koaTestAgent(app)
       .get(`${ROUTE}?access_token=__new_access_token__&language=it`)
       .set('Accept-Language', 'fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5');
     const { id } = resp.body;
@@ -180,7 +179,7 @@ describe('language', () => {
       .mockImplementationOnce((accessToken: string, done: any) => {
         done(null, NEW_FB_PROFILE_W_LOCALE);
       });
-    const resp = await agent(app)
+    const resp = await koaTestAgent(app)
       .get(`${ROUTE}?access_token=__new_access_token__`)
       .set('Accept-Language', 'fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5');
     const { id } = resp.body;
@@ -201,7 +200,7 @@ describe('language', () => {
       .mockImplementationOnce((accessToken: string, done: any) => {
         done(null, NEW_FB_PROFILE);
       });
-    const resp = await agent(app)
+    const resp = await koaTestAgent(app)
       .get(`${ROUTE}?access_token=__new_access_token__`)
       .set('Accept-Language', 'fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5');
     const { id } = resp.body;
@@ -228,7 +227,7 @@ describe('existing user', () => {
         done(null, ADMIN_FB_PROFILE);
       });
     response = null;
-    testAgent = agent(app);
+    testAgent = koaTestAgent(app);
     response = await testAgent.get(
       `${ROUTE}?access_token=__existing_access_token__`,
     );
@@ -262,7 +261,7 @@ describe('existing user', () => {
     const aT = response!.body.accessToken;
     const spyMiddleware = jest.fn();
     app.use(spyMiddleware);
-    await agent(app).get('/').set('Authorization', `bearer ${aT}`);
+    await koaTestAgent(app).get('/').set('Authorization', `bearer ${aT}`);
     expect(spyMiddleware.mock.calls[0][0].state.user).toEqual({
       id: ADMIN_ID,
       language: 'en',
@@ -283,7 +282,7 @@ describe('fcm tokens', () => {
       .mockImplementationOnce((accessToken: string, done: any) => {
         done(null, NEW_FB_PROFILE);
       });
-    const testAgent = agent(app);
+    const testAgent = koaTestAgent(app);
     const response = await testAgent.get(
       `${ROUTE}?access_token=__new_access_token__&fcm_token=__foo__`,
     );
@@ -298,7 +297,7 @@ describe('fcm tokens', () => {
       .mockImplementationOnce((accessToken: string, done: any) => {
         done(null, ADMIN_FB_PROFILE);
       });
-    const testAgent = agent(app);
+    const testAgent = koaTestAgent(app);
     const response = await testAgent.get(
       `${ROUTE}?access_token=__existing_access_token__&fcm_token=__foo__`,
     );
@@ -313,7 +312,7 @@ describe('fcm tokens', () => {
       .mockImplementationOnce((accessToken: string, done: any) => {
         done(null, ADMIN_FB_PROFILE);
       });
-    const testAgent = agent(app);
+    const testAgent = koaTestAgent(app);
     const response = await testAgent.get(
       `${ROUTE}?access_token=__existing_access_token__&fcm_token=__admin_fcm_token__`,
     );

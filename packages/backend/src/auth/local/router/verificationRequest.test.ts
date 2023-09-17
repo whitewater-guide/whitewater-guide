@@ -1,5 +1,4 @@
 import type Koa from 'koa';
-import agent from 'supertest-koa-agent';
 
 import { createApp } from '../../../app';
 import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
@@ -10,6 +9,7 @@ import {
   UNVERIFIED_USER2_ID,
   UNVERIFIED_USER3_ID,
 } from '../../../seeds/test/01_users';
+import { koaTestAgent } from '../../../test/index';
 
 jest.mock('../../../mail');
 
@@ -26,7 +26,7 @@ afterEach(async () => {
 });
 
 const request = (id: string) =>
-  agent(app).post('/auth/local/verification/request').send({ id });
+  koaTestAgent(app).post('/auth/local/verification/request').send({ id });
 
 describe('errors', () => {
   it('should fail on missing id', async () => {

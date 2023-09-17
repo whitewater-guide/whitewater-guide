@@ -1,7 +1,6 @@
 import { compare } from '@node-rs/bcrypt';
 import type Koa from 'koa';
 import type superagent from 'superagent';
-import agent from 'supertest-koa-agent';
 
 import { createApp } from '../../../app';
 import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
@@ -12,6 +11,7 @@ import {
   EDITOR_NO_ID,
   TEST_USER_ID,
 } from '../../../seeds/test/01_users';
+import { koaTestAgent } from '../../../test/index';
 
 jest.mock('../../../mail');
 
@@ -37,7 +37,8 @@ interface Payload {
   password?: string;
 }
 
-const request = (payload: Payload) => agent(app).post(ROUTE).send(payload);
+const request = (payload: Payload) =>
+  koaTestAgent(app).post(ROUTE).send(payload);
 
 describe('errors', () => {
   it('should fail when token is missing', async () => {
@@ -210,7 +211,7 @@ describe('success', () => {
 });
 
 it('should display temporary placeholder instead of password reset form', async () => {
-  const testAgent = agent(app);
+  const testAgent = koaTestAgent(app);
   const resp = await testAgent.get('/auth/local/reset/callback');
   expect(resp.status).toBe(200);
   expect(resp.header['content-type']).toBe('text/plain; charset=utf-8');

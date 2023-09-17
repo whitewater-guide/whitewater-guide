@@ -2,12 +2,11 @@ import { CookieAccessInfo } from 'cookiejar';
 import type Koa from 'koa';
 import type superagent from 'superagent';
 import type { SuperTest, Test } from 'supertest';
-import agent from 'supertest-koa-agent';
 
 import { createApp } from '../../../app';
 import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
 import { sendMail } from '../../../mail/index';
-import { countRows } from '../../../test/index';
+import { countRows, koaTestAgent } from '../../../test/index';
 import { UUID_REGEX } from '../../../utils/index';
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from '../../constants';
 
@@ -36,7 +35,7 @@ afterEach(async () => {
 
 describe('errors', () => {
   it('should fail if password is missing', async () => {
-    const resp = await agent(app).post(ROUTE).send({
+    const resp = await koaTestAgent(app).post(ROUTE).send({
       email: 'foo@bar.com',
       password: '',
       name: 'Foo Bar',
@@ -50,7 +49,7 @@ describe('errors', () => {
   });
 
   it('should fail if email is unavailable', async () => {
-    const resp = await agent(app).post(ROUTE).send({
+    const resp = await koaTestAgent(app).post(ROUTE).send({
       email: 'fish.munga@yandex.ru',
       password: 'qwErty__u1',
       name: 'Foo Bar',
@@ -64,7 +63,7 @@ describe('errors', () => {
   });
 
   it('should fail if email is invalid', async () => {
-    const resp = await agent(app).post(ROUTE).send({
+    const resp = await koaTestAgent(app).post(ROUTE).send({
       email: 'fish.munga@yandex',
       password: 'qwErty__u1',
       name: 'Foo Bar',
@@ -78,7 +77,7 @@ describe('errors', () => {
   });
 
   it('should fail if the password is too weak', async () => {
-    const resp = await agent(app).post(ROUTE).send({
+    const resp = await koaTestAgent(app).post(ROUTE).send({
       email: 'foo@bar.com',
       password: '123',
       name: 'Foo Bar',
@@ -98,7 +97,7 @@ describe('mobile', () => {
 
   beforeEach(async () => {
     response = null;
-    testAgent = agent(app);
+    testAgent = koaTestAgent(app);
     response = await testAgent.post(ROUTE).send({
       email: 'foo@bar.com',
       password: 'L0ng___p@ssW0rD',
@@ -174,7 +173,7 @@ describe('mobile', () => {
     const aT = response!.body.accessToken;
     const spyMiddleware = jest.fn();
     app.use(spyMiddleware);
-    await agent(app).get('/').set('Authorization', `bearer ${aT}`);
+    await koaTestAgent(app).get('/').set('Authorization', `bearer ${aT}`);
     expect(spyMiddleware.mock.calls[0][0].state.user).toEqual({
       id: expect.stringMatching(UUID_REGEX),
       language: 'en',
@@ -204,7 +203,7 @@ describe('web', () => {
 
   beforeEach(async () => {
     response = null;
-    testAgent = agent(app);
+    testAgent = koaTestAgent(app);
     response = await testAgent.post(ROUTE).send({
       email: 'FOO@bar.com',
       password: 'L0ng___p@ssW0rD',
@@ -268,7 +267,7 @@ describe('web', () => {
 
 describe('other fields', () => {
   it('should save optional fields', async () => {
-    const resp = await agent(app).post(ROUTE).send({
+    const resp = await koaTestAgent(app).post(ROUTE).send({
       email: 'foo@bar.com',
       password: 'L0ng___p@ssW0rD',
       imperial: true,
@@ -291,7 +290,7 @@ describe('other fields', () => {
   });
 
   it('should guess language from header', async () => {
-    const resp = await agent(app)
+    const resp = await koaTestAgent(app)
       .post(ROUTE)
       .set('Accept-Language', 'fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5')
       .send({
@@ -309,7 +308,7 @@ describe('other fields', () => {
   });
 
   it('should use en for not supported languages (explicit)', async () => {
-    const resp = await agent(app).post(ROUTE).send({
+    const resp = await koaTestAgent(app).post(ROUTE).send({
       email: 'foo@bar.com',
       password: 'L0ng___p@ssW0rD',
       name: 'Foo Bar',
@@ -325,7 +324,7 @@ describe('other fields', () => {
   });
 
   it('should save fcm token', async () => {
-    const resp = await agent(app).post(ROUTE).send({
+    const resp = await koaTestAgent(app).post(ROUTE).send({
       email: 'foo@bar.com',
       password: 'L0ng___p@ssW0rD',
       name: 'Foo Bar',

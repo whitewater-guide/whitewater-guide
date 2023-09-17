@@ -1,9 +1,9 @@
 import type Koa from 'koa';
-import agent from 'supertest-koa-agent';
 
 import { createApp } from '../../app';
 import { db, holdTransaction, rollbackTransaction } from '../../db/index';
 import { TEST_USER_ID } from '../../seeds/test/01_users';
+import { koaTestAgent } from '../../test/index';
 import { getAccessToken } from '../jwt/index';
 
 let app: Koa;
@@ -25,7 +25,7 @@ describe('set fcm token', () => {
     fcm_token?: string | null,
     old_fcm_token?: string | null,
   ) => {
-    const testAgent = agent(app);
+    const testAgent = koaTestAgent(app);
     const resp = await testAgent
       .post(ROUTE)
       .set('authorization', `bearer ${getAccessToken(TEST_USER_ID)}`)

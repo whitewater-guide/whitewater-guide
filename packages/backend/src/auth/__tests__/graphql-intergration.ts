@@ -2,7 +2,6 @@ import jwt from 'jsonwebtoken';
 import type Koa from 'koa';
 import FacebookTokenStrategy from 'passport-facebook-token';
 import type { SuperTest, Test } from 'supertest';
-import agent from 'supertest-koa-agent';
 
 import { createApolloServer } from '../../apollo/server/index';
 import { createApp } from '../../app';
@@ -11,6 +10,7 @@ import { holdTransaction, rollbackTransaction } from '../../db/index';
 import { ADMIN, ADMIN_FB_PROFILE, ADMIN_ID } from '../../seeds/test/01_users';
 import { REGION_GALICIA } from '../../seeds/test/04_regions';
 import { GALICIA_REGION_DESCR_BANNER2 } from '../../seeds/test/14_banners';
+import { koaTestAgent } from '../../test/index';
 import { getRefreshToken } from '../jwt/index';
 
 const TEST_QUERY = {
@@ -92,7 +92,7 @@ describe('facebook', () => {
     let accessToken: string;
 
     beforeEach(async () => {
-      const testAgent = agent(app);
+      const testAgent = koaTestAgent(app);
       const resp = await testAgent.get(
         '/auth/facebook/signin?access_token=__existing_access_token__',
       );
@@ -100,7 +100,7 @@ describe('facebook', () => {
     });
 
     it('should return my profile', async () => {
-      const testAgent = agent(app);
+      const testAgent = koaTestAgent(app);
       const response = await testAgent
         .post('/graphql')
         .set('authorization', `bearer ${accessToken}`)
@@ -111,7 +111,7 @@ describe('facebook', () => {
     });
 
     it('should mutate', async () => {
-      const testAgent = agent(app);
+      const testAgent = koaTestAgent(app);
       const response = await testAgent
         .post('/graphql')
         .set('authorization', `bearer ${accessToken}`)
@@ -126,7 +126,7 @@ describe('facebook', () => {
     let testAgent: SuperTest<Test>;
 
     beforeEach(async () => {
-      testAgent = agent(app);
+      testAgent = koaTestAgent(app);
       await testAgent.get(
         '/auth/facebook/signin?web=true&access_token=__existing_access_token__',
       );
@@ -149,7 +149,7 @@ describe('facebook', () => {
 });
 
 it('should work for anonymous', async () => {
-  const testAgent = agent(app);
+  const testAgent = koaTestAgent(app);
   const response = await testAgent.post('/graphql').send(TEST_QUERY);
 
   expect(response.status).toBe(200);
@@ -158,7 +158,7 @@ it('should work for anonymous', async () => {
 
 it('should not work when refresh token is used as access token', async () => {
   const refreshToken = getRefreshToken(ADMIN_ID);
-  const testAgent = agent(app);
+  const testAgent = koaTestAgent(app);
   const response = await testAgent
     .post('/graphql')
     .set('authorization', `bearer ${refreshToken}`)
@@ -177,7 +177,7 @@ it('should not work when access token expired', async () => {
     config.ACCESS_TOKEN_SECRET,
     { expiresIn: '10m' },
   );
-  const testAgent = agent(app);
+  const testAgent = koaTestAgent(app);
   const response = await testAgent
     .post('/graphql')
     .set('authorization', `bearer ${accessToken}`)

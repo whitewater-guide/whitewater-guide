@@ -2,12 +2,11 @@ import { CookieAccessInfo } from 'cookiejar';
 import type Koa from 'koa';
 import type superagent from 'superagent';
 import type { SuperTest, Test } from 'supertest';
-import agent from 'supertest-koa-agent';
 
 import { createApp } from '../../../app';
 import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
 import { EDITOR_GA_EC_ID } from '../../../seeds/test/01_users';
-import { countRows } from '../../../test/index';
+import { countRows, koaTestAgent } from '../../../test/index';
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from '../../constants';
 
 const ROUTE = '/auth/local/signin';
@@ -33,7 +32,7 @@ afterEach(async () => {
 
 describe('errors', () => {
   it('should fail if user does not exist', async () => {
-    const resp = await agent(app).post(ROUTE).send({
+    const resp = await koaTestAgent(app).post(ROUTE).send({
       email: 'foo@bar.com',
       password: 'qwertyui',
     });
@@ -46,7 +45,7 @@ describe('errors', () => {
   });
 
   it('should fail if password does not match', async () => {
-    const resp = await agent(app).post(ROUTE).send({
+    const resp = await koaTestAgent(app).post(ROUTE).send({
       email: 'fish.munga@yandex.ru',
       password: 'qwertyui',
     });
@@ -59,7 +58,7 @@ describe('errors', () => {
   });
 
   it('should fail if password does not exist', async () => {
-    const resp = await agent(app).post(ROUTE).send({
+    const resp = await koaTestAgent(app).post(ROUTE).send({
       email: 'kaospostage@gmail.com',
       password: 'qwertyui',
     });
@@ -78,7 +77,7 @@ describe('mobile', () => {
 
   beforeEach(async () => {
     response = null;
-    testAgent = agent(app);
+    testAgent = koaTestAgent(app);
     response = await testAgent.post(ROUTE).send({
       email: 'fish.munga@yandex.ru',
       password: 'G@l1c1a_pwd',
@@ -112,7 +111,7 @@ describe('mobile', () => {
     const aT = response!.body.accessToken;
     const spyMiddleware = jest.fn();
     app.use(spyMiddleware);
-    await agent(app).get('/').set('Authorization', `bearer ${aT}`);
+    await koaTestAgent(app).get('/').set('Authorization', `bearer ${aT}`);
     expect(spyMiddleware.mock.calls[0][0].state.user).toEqual({
       id: EDITOR_GA_EC_ID,
       language: 'en',
@@ -128,7 +127,7 @@ describe('web', () => {
 
   beforeEach(async () => {
     response = null;
-    testAgent = agent(app);
+    testAgent = koaTestAgent(app);
     response = await testAgent.post(ROUTE).send({
       email: 'fish.munga@yandex.ru',
       password: 'G@l1c1a_pwd',
@@ -176,7 +175,7 @@ describe('web', () => {
 });
 
 it('should be case-insensitive', async () => {
-  const resp = await agent(app).post(ROUTE).send({
+  const resp = await koaTestAgent(app).post(ROUTE).send({
     email: 'fish.MUNGA@yandex.ru',
     password: 'G@l1c1a_pwd',
   });
@@ -184,7 +183,7 @@ it('should be case-insensitive', async () => {
 });
 
 it('should insert new access token', async () => {
-  const testAgent = agent(app);
+  const testAgent = koaTestAgent(app);
   const resp = await testAgent.post(ROUTE).send({
     email: 'konstantin@gmail.com',
     password: 'ttttE_s_t1a',
@@ -203,7 +202,7 @@ it('should insert new access token', async () => {
 });
 
 it('should not fail on old access token', async () => {
-  const testAgent = agent(app);
+  const testAgent = koaTestAgent(app);
   const resp = await testAgent.post(ROUTE).send({
     email: 'konstantin@gmail.com',
     password: 'ttttE_s_t1a',

@@ -1,10 +1,10 @@
 import { CookieAccessInfo } from 'cookiejar';
 import type Koa from 'koa';
-import agent from 'supertest-koa-agent';
 
 import { createApp } from '../app';
 import { db, holdTransaction, rollbackTransaction } from '../db/index';
 import { TEST_USER_ID } from '../seeds/test/01_users';
+import { koaTestAgent } from '../test/index';
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from './constants';
 
 const LOGIN_ROUTE = '/auth/local/signin';
@@ -23,7 +23,7 @@ afterEach(async () => {
 });
 
 it('should sign out', async () => {
-  const testAgent = agent(app);
+  const testAgent = koaTestAgent(app);
   await testAgent.post(LOGIN_ROUTE).send({
     email: 'fish.munga@yandex.ru',
     password: 'G@l1c1a_pwd',
@@ -54,7 +54,7 @@ it('should sign out', async () => {
 });
 
 it('should delete fcm_token if provided', async () => {
-  const testAgent = agent(app);
+  const testAgent = koaTestAgent(app);
   const resp = await testAgent.post(LOGIN_ROUTE).send({
     email: 'konstantin@gmail.com',
     password: 'ttttE_s_t1a',

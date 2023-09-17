@@ -1,6 +1,5 @@
 import type Koa from 'koa';
 import type superagent from 'superagent';
-import agent from 'supertest-koa-agent';
 
 import { createApp } from '../../../app';
 import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
@@ -11,6 +10,7 @@ import {
   UNVERIFIED_USER_ID,
   UNVERIFIED_USER2_ID,
 } from '../../../seeds/test/01_users';
+import { koaTestAgent } from '../../../test/index';
 
 const ROUTE = '/auth/local/verification';
 const TOKEN = '_verification_token_';
@@ -40,7 +40,7 @@ const request = (params: FetchParams) => {
   if (qs) {
     route = `${ROUTE}?${qs}`;
   }
-  return agent(app).get(route);
+  return koaTestAgent(app).get(route);
 };
 
 describe('errors', () => {

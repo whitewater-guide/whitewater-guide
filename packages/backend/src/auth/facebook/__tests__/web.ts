@@ -4,7 +4,6 @@ import type Koa from 'koa';
 import FacebookTokenStrategy from 'passport-facebook-token';
 import type superagent from 'superagent';
 import type { SuperTest, Test } from 'supertest';
-import agent from 'supertest-koa-agent';
 
 import { createApp } from '../../../app';
 import { holdTransaction, rollbackTransaction } from '../../../db/index';
@@ -14,7 +13,7 @@ import {
   ADMIN_ID,
   NEW_FB_PROFILE,
 } from '../../../seeds/test/01_users';
-import { countRows } from '../../../test/index';
+import { countRows, koaTestAgent } from '../../../test/index';
 import { UUID_REGEX } from '../../../utils/index';
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from '../../constants';
 
@@ -51,7 +50,7 @@ describe('new user', () => {
         done(null, NEW_FB_PROFILE);
       });
     response = null;
-    testAgent = agent(app);
+    testAgent = koaTestAgent(app);
     response = await testAgent.get(`${ROUTE}access_token=__new_access_token__`);
   });
 
@@ -125,7 +124,7 @@ describe('existing user', () => {
         done(null, ADMIN_FB_PROFILE);
       });
     response = null;
-    testAgent = agent(app);
+    testAgent = koaTestAgent(app);
     response = await testAgent.get(
       `${ROUTE}access_token=__existing_access_token__`,
     );

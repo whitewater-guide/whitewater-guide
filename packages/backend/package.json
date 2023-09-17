@@ -120,7 +120,6 @@
     "pg-formatter": "^2.0.2",
     "superagent": "^8.1.2",
     "supertest": "^6.2.2",
-    "supertest-koa-agent": "^0.3.2",
     "ts-jest": "^29.1.1"
   }
 }

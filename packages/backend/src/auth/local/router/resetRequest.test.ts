@@ -1,10 +1,10 @@
 import type Koa from 'koa';
-import agent from 'supertest-koa-agent';
 
 import { createApp } from '../../../app';
 import { db, holdTransaction, rollbackTransaction } from '../../../db/index';
 import { MailType, sendMail } from '../../../mail/index';
 import { BOOM_USER_3500_ID } from '../../../seeds/test/01_users';
+import { koaTestAgent } from '../../../test/index';
 
 jest.mock('../../../mail');
 
@@ -21,7 +21,7 @@ afterEach(async () => {
 });
 
 const request = (email: string) =>
-  agent(app).post('/auth/local/reset/request').send({ email });
+  koaTestAgent(app).post('/auth/local/reset/request').send({ email });
 
 describe('errors', () => {
   it('should fail on invalid email', async () => {
