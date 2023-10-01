@@ -23,7 +23,10 @@ export const BannerView: React.FC<Props> = (props) => {
   } = banner;
 
   const onPress = useCallback(() => {
-    analytics().logEvent(`Banner_${slug}`, {});
+    const eventName = `Banner_${slug}`.replaceAll('-', '_');
+    try {
+      analytics().logEvent(eventName, {});
+    } catch {}
   }, [slug]);
 
   const BannerComponent =

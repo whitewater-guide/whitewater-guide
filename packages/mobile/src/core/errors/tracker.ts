@@ -44,7 +44,9 @@ class ErrorTracker {
         params,
       },
     });
-    analytics().logScreenView({ screen_name: to });
+    try {
+      analytics().logScreenView({ screen_name: to });
+    } catch {}
   };
 
   setUser = (user: any) => {

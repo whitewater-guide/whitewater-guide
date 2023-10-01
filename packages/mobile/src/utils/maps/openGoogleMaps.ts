@@ -12,10 +12,12 @@ export const openGoogleMaps = async (
     if (canOpenGoogleMaps) {
       directionsURL = `comgooglemaps://?q=${lat},${lng}`;
     }
-    analytics().setUserProperty(
-      'canOpenGoogleMaps',
-      canOpenGoogleMaps ? 'true' : 'false',
-    );
+    try {
+      analytics().setUserProperty(
+        'canOpenGoogleMaps',
+        canOpenGoogleMaps ? 'true' : 'false',
+      );
+    } catch {}
   } else {
     let geoURI = `geo:${lat},${lng}?q=${lat},${lng}`;
     if (label) {

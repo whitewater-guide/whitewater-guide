@@ -46,7 +46,9 @@ export function useDownloadRegion(
       if (!regionId) {
         return null;
       }
-      analytics().logEvent('offline_download_started', { region: regionId });
+      try {
+        analytics().logEvent('offline_download_started', { region: regionId });
+      } catch {}
       const { data } = await downloadRegionData();
       if (!data || !data.region) {
         throw new Error('failed to download region data');
@@ -72,7 +74,11 @@ export function useDownloadRegion(
       const errors = await Promise.all(promises);
       const err = errors.reduce((acc, e) => acc || e, null);
       if (!err) {
-        analytics().logEvent('offline_download_complete', { region: regionId });
+        try {
+          analytics().logEvent('offline_download_complete', {
+            region: regionId,
+          });
+        } catch {}
         updateOfflineDate(regionId);
         return null;
       }
