@@ -1,6 +1,6 @@
 PODS:
   - boost (1.76.0)
-  - BVLinearGradient (2.8.2):
+  - BVLinearGradient (2.8.3):
     - React-Core
   - CocoaAsyncSocket (7.6.5)
   - DoubleConversion (1.1.6)
@@ -171,12 +171,12 @@ PODS:
   - libwebp/sharpyuv (1.3.1)
   - libwebp/webp (1.3.1):
     - libwebp/sharpyuv
-  - MapboxCommon (23.7.0)
-  - MapboxCoreMaps (10.15.0):
-    - MapboxCommon (~> 23.7)
-  - MapboxMaps (10.15.0):
-    - MapboxCommon (= 23.7.0)
-    - MapboxCoreMaps (= 10.15.0)
+  - MapboxCommon (23.8.0)
+  - MapboxCoreMaps (10.16.0):
+    - MapboxCommon (~> 23.8)
+  - MapboxMaps (10.16.0):
+    - MapboxCommon (= 23.8.0)
+    - MapboxCoreMaps (= 10.16.0)
     - MapboxMobileEvents (= 1.0.10)
     - Turf (~> 2.0)
   - MapboxMobileEvents (1.0.10)
@@ -505,7 +505,7 @@ PODS:
     - FBSDKGamingServicesKit (~> 16.1.3)
     - FBSDKShareKit (~> 16.1.3)
     - React-Core
-  - react-native-image-picker (5.6.1):
+  - react-native-image-picker (7.0.0):
     - React-Core
   - react-native-mmkv-storage (0.9.1):
     - MMKV (= 1.2.13)
@@ -514,15 +514,15 @@ PODS:
     - React-Core
   - react-native-pager-view (6.2.1):
     - React-Core
-  - react-native-safe-area-context (4.7.1):
+  - react-native-safe-area-context (4.7.2):
     - React-Core
   - react-native-sensitive-info (5.5.8):
     - React
-  - react-native-startup-time (2.0.1):
+  - react-native-startup-time (2.1.0):
     - React-Core
-  - react-native-ultimate-config (6.0.0):
+  - react-native-ultimate-config (6.0.1):
     - React-Core
-  - react-native-webview (13.5.1):
+  - react-native-webview (13.6.0):
     - React-Core
   - react-native-zxcvbn (1.0.1):
     - React
@@ -670,22 +670,22 @@ PODS:
     - RNFBApp
   - RNGestureHandler (2.12.1):
     - React-Core
-  - RNIap (12.10.7):
+  - RNIap (12.10.8):
     - React-Core
   - RNLocalize (3.0.2):
     - React-Core
-  - rnmapbox-maps (10.0.12):
-    - MapboxMaps (~> 10.15.0)
+  - rnmapbox-maps (10.0.15):
+    - MapboxMaps (~> 10.16.0)
     - React
     - React-Core
-    - rnmapbox-maps/DynamicLibrary (= 10.0.12)
+    - rnmapbox-maps/DynamicLibrary (= 10.0.15)
     - Turf
-  - rnmapbox-maps/DynamicLibrary (10.0.12):
-    - MapboxMaps (~> 10.15.0)
+  - rnmapbox-maps/DynamicLibrary (10.0.15):
+    - MapboxMaps (~> 10.16.0)
     - React
     - React-Core
     - Turf
-  - RNReanimated (3.4.2):
+  - RNReanimated (3.3.0):
     - DoubleConversion
     - FBLazyVector
     - glog
@@ -714,7 +714,7 @@ PODS:
     - React-RCTText
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNScreens (3.24.0):
+  - RNScreens (3.25.0):
     - React-Core
     - React-RCTImage
   - RNSentry (5.9.1):
@@ -1044,7 +1044,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost: 57d2868c099736d80fcd648bf211b4431e51a558
-  BVLinearGradient: 916632041121a658c704df89d99f04acb038de0f
+  BVLinearGradient: 880f91a7854faff2df62518f0281afb1c60d49a3
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBAEMKit: af2972f39bb0f3f7c45998f435b007833c32ffb2
@@ -1077,9 +1077,9 @@ SPEC CHECKSUMS:
   hermes-engine: 81191603c4eaa01f5e4ae5737a9efcf64756c7b2
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   libwebp: 33dc822fbbf4503668d09f7885bbfedc76c45e96
-  MapboxCommon: dcbdb86acbcfc1a23efd341ed097c6c63ab532a9
-  MapboxCoreMaps: bcbaac14467616940187f79bba49ca491cd37906
-  MapboxMaps: 1fd9d97d0e8eceb7a45b9ac8bf87a8922da881a8
+  MapboxCommon: 8592a003eae487508461d452d62cfc5906a9682a
+  MapboxCoreMaps: faa14a797417dc32088c98019a3ce72e46cda5cd
+  MapboxMaps: f10aecadbfb7cf96368852ca313101eb4171da53
   MapboxMobileEvents: de50b3a4de180dd129c326e09cd12c8adaaa46d6
   MMKV: aac95d817a100479445633f2b3ed8961b4ac5043
   MMKVCore: 9cfef4c48c6c46f66226fc2e4634d78490206a48
@@ -1102,15 +1102,15 @@ SPEC CHECKSUMS:
   React-jsinspector: aaed4cf551c4a1c98092436518c2d267b13a673f
   React-logger: da1ebe05ae06eb6db4b162202faeafac4b435e77
   react-native-fbsdk-next: 776f49479d36a1e72a1a367baadcc8391cd24374
-  react-native-image-picker: 5fcac5a5ffcb3737837f0617d43fd767249290de
+  react-native-image-picker: ddbbe4d226d9c82a82360f5de66bf71a657a42e6
   react-native-mmkv-storage: cfb6854594cfdc5f7383a9e464bb025417d1721c
   react-native-netinfo: fefd4e98d75cbdd6e85fc530f7111a8afdf2b0c5
   react-native-pager-view: d211379f61895b6349bd7e571b44a26d005c2975
-  react-native-safe-area-context: 9697629f7b2cda43cf52169bb7e0767d330648c2
+  react-native-safe-area-context: 7aa8e6d9d0f3100a820efb1a98af68aa747f9284
   react-native-sensitive-info: 400c6e3d27945e15c8cddb5b4b92233c85ee06f8
-  react-native-startup-time: 90dc8ded4242ba45523e7d974d5fdef883a23160
-  react-native-ultimate-config: 26275a1a4f2e7af5914942ebebbd8df52b5a375e
-  react-native-webview: 8baa0f5c6d336d6ba488e942bcadea5bf51f050a
+  react-native-startup-time: 8ceecdaaae6bc912f4ea668d91ecbacb04981817
+  react-native-ultimate-config: bc816775e31bb2056ccfe18b49e76a5ba2d39b6c
+  react-native-webview: 669ae162965f629a8d6a4bdd3b99a304d36ef1f2
   react-native-zxcvbn: ba72ee34accf0531cdd60778d98b3fe491c562bf
   React-NativeModulesApple: edb5ace14f73f4969df6e7b1f3e41bef0012740f
   React-perflogger: 496a1a3dc6737f964107cb3ddae7f9e265ddda58
@@ -1142,11 +1142,11 @@ SPEC CHECKSUMS:
   RNFBApp: e4439717c23252458da2b41b81b4b475c86f90c4
   RNFBMessaging: 40dac204b4197a2661dec5be964780c6ec39bf65
   RNGestureHandler: c0d04458598fcb26052494ae23dda8f8f5162b13
-  RNIap: 1f683cf864a8662851d5d7079beefd441d95f85b
+  RNIap: 99a559a3642155b47aa0622f9693632010a0b4f7
   RNLocalize: dbea38dcb344bf80ff18a1757b1becf11f70cae4
-  rnmapbox-maps: 3afcd9081d3cc5a53af23bbbf908d087b951023b
-  RNReanimated: 79025fdede9665be5b1eec93abcd95ce19bf5ad4
-  RNScreens: b21dc57dfa2b710c30ec600786a3fc223b1b92e7
+  rnmapbox-maps: b6219b7432508ae2cea169365116a811f822612e
+  RNReanimated: 11ef210bd11e80668ed3708f7a9dd846ae29e99c
+  RNScreens: 85d3880b52d34db7b8eeebe2f1a0e807c05e69fa
   RNSentry: 0a1daa8ee81e2776f977ae8c66e67c8d85587828
   RNSnackbar: 3727b42bf6c4314a53c18185b5203e915a4ab020
   RNSVG: ed492aaf3af9ca01bc945f7a149d76d62e73ec82
