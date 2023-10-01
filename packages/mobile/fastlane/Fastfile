@@ -28,7 +28,7 @@ private_lane :parse_package_json do
 end
 
 before_all do |lane, options|
-  sh("pnpm", "rnuc", ".env.#{ENV['ENV']}.yml")
+  sh("pnpm", "rnuc", "--project-root", ".", "--lib-root", "../../node_modules/react-native-ultimate-config", ".env.#{ENV['ENV']}.yml")
   parse_package_json
 end
 
