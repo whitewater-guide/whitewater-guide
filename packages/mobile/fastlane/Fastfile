@@ -207,6 +207,7 @@ platform :android do
   end
 
   lane :staging do |options|
+    bump
     unless options[:skipBuild]
       build
     end
