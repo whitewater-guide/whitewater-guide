@@ -113,8 +113,8 @@ const SectionInfoView: React.FC = () => {
       <View style={styles.descriptionBlock}>
         <SectionInfoDescription section={section} loading={loading} />
         <RegionBanners
-          placement={BannerPlacement.MobileRegionDescription}
-          count={10}
+          placement={BannerPlacement.MobileSectionDescription}
+          count={1}
         />
       </View>
     </ScrollView>
