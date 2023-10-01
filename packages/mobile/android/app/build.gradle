@@ -56,7 +56,8 @@ react {
 }
 
 project.ext.sentryCli = [
-    logLevel: "debug"
+    logLevel: "debug",
+    sentryProperties: "../sentry.properties"
 ]
 
 apply from: "../../../../node_modules/react-native-ultimate-config/android/rnuc.gradle"
