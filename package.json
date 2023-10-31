@@ -27,47 +27,45 @@
     "deps:versions": "pnpm dlx syncpack list-mismatches"
   },
   "devDependencies": {
-    "@commitlint/config-conventional": "^17.7.0",
+    "@commitlint/config-conventional": "^18.1.0",
     "@graphql-codegen/add": "^5.0.0",
     "@graphql-codegen/cli": "^5.0.0",
     "@graphql-codegen/fragment-matcher": "^5.0.0",
-    "@graphql-codegen/import-types-preset": "^2.2.6",
-    "@graphql-codegen/near-operation-file-preset": "^2.5.0",
+    "@graphql-codegen/import-types-preset": "^3.0.0",
+    "@graphql-codegen/near-operation-file-preset": "^3.0.0",
     "@graphql-codegen/typescript": "^4.0.1",
-    "@graphql-codegen/typescript-apollo-client-helpers": "^2.2.6",
+    "@graphql-codegen/typescript-apollo-client-helpers": "^3.0.0",
     "@graphql-codegen/typescript-document-nodes": "^4.0.1",
     "@graphql-codegen/typescript-operations": "^4.0.1",
-    "@graphql-codegen/typescript-react-apollo": "^3.3.7",
+    "@graphql-codegen/typescript-react-apollo": "^4.1.0",
     "@graphql-codegen/typescript-resolvers": "^4.0.1",
     "@whitewater-guide/codegen-backend-tests": "workspace:*",
     "@whitewater-guide/codegen-typedefs": "workspace:*",
     "@whitewater-guide/eslint-config": "workspace:*",
-    "commitlint": "^17.7.1",
+    "commitlint": "^18.2.0",
     "conventional-changelog-cli": "^4.1.0",
     "dotenv": "^16.3.1",
-    "dotenv-flow": "^3.3.0",
+    "dotenv-flow": "^4.0.0",
     "husky": "^8.0.3",
-    "lint-staged": "^14.0.1",
+    "lint-staged": "^15.0.2",
     "prettier": "^3.0.2",
-    "rimraf": "^5.0.1"
+    "rimraf": "^5.0.5"
   },
   "pnpm": {
     "overrides": {
       "@graphql-codegen/add": "^5.0.0",
       "@graphql-codegen/plugin-helpers": "^5.0.1",
-      "graphql": "^16.8.0",
-      "micromatch": "^4.0.5",
+      "graphql": "^16.8.1",
       "react": "^18.2.0",
       "react-dom": "^18.2.0",
       "react-test-renderer": "^18.2.0",
       "typescript": "^5.2.2"
     },
     "patchedDependencies": {
-      "formik@2.4.4": "patches/formik@2.4.4.patch",
-      "yup@1.2.0": "patches/yup@1.2.0.patch",
-      "react-native-image-picker@7.0.0": "patches/react-native-image-picker@7.0.0.patch",
-      "react-native-paper@5.10.4": "patches/react-native-paper@5.10.4.patch",
-      "victory-native@36.6.11": "patches/victory-native@36.6.11.patch"
+      "formik@2.4.5": "patches/formik@2.4.5.patch",
+      "react-native-image-picker@7.0.2": "patches/react-native-image-picker@7.0.2.patch",
+      "victory-native@36.6.11": "patches/victory-native@36.6.11.patch",
+      "react-native-paper@5.11.1": "patches/react-native-paper@5.11.1.patch"
     }
   }
 }

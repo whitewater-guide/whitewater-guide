@@ -1,16 +1,15 @@
 diff --git a/src/components/TextInput/TextInputOutlined.tsx b/src/components/TextInput/TextInputOutlined.tsx
-index 80d8adcae7e95bcf2a0c49e88cb8af6421ab03a5..a523a6ff2616c7f634071f00bb54d0c6af578689 100644
+index 000736b7282bddac6cc1740e168bbad07fa7f07e..3084dae9310f095443b6f6fa3aab9ea8666888d5 100644
 --- a/src/components/TextInput/TextInputOutlined.tsx
 +++ b/src/components/TextInput/TextInputOutlined.tsx
-@@ -169,8 +169,9 @@ const TextInputOutlined = ({
-   };
+@@ -177,7 +177,9 @@ const TextInputOutlined = ({
  
    const pad = calculatePadding(paddingSettings);
--
+ 
 -  const paddingOut = adjustPaddingOut({ ...paddingSettings, pad });
 +  // Patch for multiline fields
 +  const paddingOut = { paddingTop: pad, paddingBottom: pad };
 +  // const paddingOut = adjustPaddingOut({ ...paddingSettings, pad });
  
-   const baseLabelTranslateY =
-     -labelHalfHeight - (topPosition + OUTLINE_MINIMIZED_LABEL_Y_OFFSET);
+   const baseLabelTranslateY = -labelHalfHeight - (topPosition + yOffset);
+ 
