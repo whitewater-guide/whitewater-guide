@@ -1,6 +1,6 @@
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import { LocalPhotoStatus } from '@whitewater-guide/clients';
-import { nanoid } from 'nanoid';
+import { nanoid } from 'nanoid/non-secure';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { Callback, ImageLibraryOptions } from 'react-native-image-picker';
