@@ -11,7 +11,7 @@ import {
   JWT_EXPIRED_CTX_KEY,
 } from '@whitewater-guide/clients';
 import { OperationQueuing } from 'apollo-link-token-refresh';
-import decode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import Observable from 'zen-observable';
 
 import { ACCESS_TOKEN_CTX_KEY, getAccessTokenContext } from './acessTokenLink';
@@ -39,10 +39,9 @@ export class TokenRefreshLink extends ApolloLink {
     const accessToken = operation.getContext()[ACCESS_TOKEN_CTX_KEY];
     let accessTokenExpired = false;
     if (accessToken) {
-      const payload: any = decode(accessToken);
+      const payload = jwtDecode(accessToken);
       const now = Math.floor(Date.now() / 1000);
-      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-      accessTokenExpired = now > payload.exp + CLOCK_TOLERANCE;
+      accessTokenExpired = !!payload.exp && now > payload.exp + CLOCK_TOLERANCE;
     }
     return accessTokenExpired;
   };
