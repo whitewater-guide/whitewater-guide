@@ -23,7 +23,7 @@
     "@material-ui/icons": "^4.11.3",
     "@material-ui/lab": "^4.0.0-alpha.61",
     "@material-ui/pickers": "^3.3.11",
-    "@sentry/react": "^7.76.0",
+    "@sentry/react": "^7.77.0",
     "@turf/helpers": "^6.5.0",
     "@turf/length": "^6.5.0",
     "@whitewater-guide/clients": "workspace:*",
