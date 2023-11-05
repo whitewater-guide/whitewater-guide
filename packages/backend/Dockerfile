@@ -23,8 +23,8 @@ COPY package.json tsconfig.json codegen.yml .npmrc pnpm-lock.yaml pnpm-workspace
 # This runs prepare and postinstall scripts, which in turn run codegen and build libs
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
     pnpm install --frozen-lockfile
-# Now backend can be built
-RUN pnpm --filter "@whitewater-guide/backend" run build
+# Now backend can be built. Note '...' for transitive dependencies
+RUN pnpm --filter "@whitewater-guide/backend"... run build
 
 # Skip development modules
 FROM pnpm AS production
