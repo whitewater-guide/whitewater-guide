@@ -14,7 +14,9 @@
   "types": "dist/cjs/index.d.ts",
   "scripts": {
     "clean": "rimraf dist src/__generated__ && find src -name \"*.generated.ts\" -delete",
-    "build": "tsc --project tsconfig.build.json",
+    "build": "pnpm cjs && pnpm esm",
+    "cjs": "tsc --project tsconfig.cjs.json",
+    "esm": "tsc --project tsconfig.esm.json",
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "workspace:prepare": "pnpm build"
