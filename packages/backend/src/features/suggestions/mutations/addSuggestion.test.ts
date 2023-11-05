@@ -77,6 +77,14 @@ const withMedia: SuggestionInput = {
   resolution: [100, 100],
 };
 
+const withMediaWithoutDescription: SuggestionInput = {
+  section: { id: GEORGIA_BZHUZHA_EXTREME },
+  description: null,
+  copyright: null,
+  filename: `${config.contentPublicURL}/suggested_media.jpg`,
+  resolution: [100, 100],
+};
+
 const withoutMedia: SuggestionInput = {
   section: { id: GEORGIA_BZHUZHA_EXTREME },
   description: 'foobar',
@@ -113,6 +121,14 @@ describe('regular user', () => {
   it('should not fail with media', async () => {
     const result = await testAddSuggestion(
       { suggestion: withMedia },
+      fakeContext(BOOM_USER_1500),
+    );
+    expect(result.errors).toBeUndefined();
+  });
+
+  it('should not fail with media but without description', async () => {
+    const result = await testAddSuggestion(
+      { suggestion: withMediaWithoutDescription },
       fakeContext(BOOM_USER_1500),
     );
     expect(result.errors).toBeUndefined();
