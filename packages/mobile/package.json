@@ -80,7 +80,6 @@
     "markdown-it-attrs": "^4.1.6",
     "matrix-js-sdk": "^29.1.0",
     "nanoid": "^3.3.6",
-    "postinstall-postinstall": "^2.1.0",
     "pretty-bytes": "^6.1.1",
     "react": "^18.2.0",
     "react-i18next": "^13.3.1",
