@@ -37,7 +37,6 @@ async function startup() {
   const app = createApp();
   const httpServer = http.createServer(app.callback());
   await createApolloServer(app, httpServer);
-  await initIAP();
   log.info('Startup complete');
   await new Promise<void>((resolve) => {
     httpServer.listen({ host: '0.0.0.0', port: 3333 }, resolve);
