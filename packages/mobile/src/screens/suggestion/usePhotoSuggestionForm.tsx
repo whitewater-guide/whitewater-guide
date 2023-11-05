@@ -18,7 +18,7 @@ export default (sectionId: string, localPhotoId: string) => {
         id: sectionId,
       },
       photo: localPhotos[localPhotoId],
-      description: '',
+      description: null,
       copyright: null,
     }),
     [localPhotos, localPhotoId, sectionId],
