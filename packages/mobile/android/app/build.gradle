@@ -93,7 +93,7 @@ android {
         resValue "string", "build_config_package", "guide.whitewater"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1817096200
+        versionCode 1817096201
         versionName "1.21.1"
         // react-native-iap: we only use the Google Play flavor
         missingDimensionStrategy 'store', 'play'
