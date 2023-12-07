@@ -721,8 +721,8 @@ importers:
   packages/landing:
     devDependencies:
       '@whitewater-guide/translations':
-        specifier: ^2.6.8
-        version: 2.6.8
+        specifier: ^2.6.9
+        version: 2.6.9
       browser-sync:
         specifier: ^2.27.7
         version: 2.29.3
@@ -11344,6 +11344,14 @@ packages:
       {
         integrity: sha512-FCACSeqCEIXlXRVqHrz4kWTnZCwc9TFTttyH2lXerTQRvycIuKwNG4UYtj89e8Lp+GkMliDKBijnjb4mZ47WwQ==,
       }
+    dev: false
+
+  /@whitewater-guide/translations@2.6.9:
+    resolution:
+      {
+        integrity: sha512-HgtO7bnqHilCVY/adzKzVcIkT5HYkSsfYixeQ1ji/cgF4ox4hlP2Yt91vaZk19EZq0hvMHyU/5DhSKGkVZLtvg==,
+      }
+    dev: true
 
   /@wry/context@0.7.4:
     resolution:
