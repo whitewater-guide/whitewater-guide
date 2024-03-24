@@ -9,6 +9,10 @@
       "path": "../packages/backend"
     },
     {
+      "name": "charts",
+      "path": "../packages/charts"
+    },
+    {
       "name": "clients",
       "path": "../packages/clients"
     },
