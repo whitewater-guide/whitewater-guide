@@ -1,11 +1,13 @@
 import { Canvas } from '@shopify/react-native-skia';
 import { Unit } from '@whitewater-guide/schema';
 import React, { FC } from 'react';
+import { GestureDetector } from 'react-native-gesture-handler';
 
 import data from './data';
 import Grid from './Grid';
 import Line from './Line';
 import useChartMeta from './useChartMeta';
+import usePanGesture from './usePanGesture';
 
 interface ChartProps {
   width: number;
@@ -31,17 +33,24 @@ const Chart: FC<ChartProps> = ({ width, height }) => {
     },
   });
 
+  const { gesture, isActive, x } = usePanGesture({
+    enabled: true,
+    holdDuration: 300,
+  });
+
   return (
     <div>
-      <Canvas
-        style={{
-          width,
-          height,
-        }}
-      >
-        <Grid {...meta} width={width} height={height - 20} />
-        <Line {...meta} data={data} unit={Unit.FLOW} />
-      </Canvas>
+      <GestureDetector gesture={gesture}>
+        <Canvas
+          style={{
+            width,
+            height,
+          }}
+        >
+          <Grid {...meta} width={width} height={height - 20} />
+          <Line {...meta} data={data} unit={Unit.FLOW} />
+        </Canvas>
+      </GestureDetector>
     </div>
   );
 };
