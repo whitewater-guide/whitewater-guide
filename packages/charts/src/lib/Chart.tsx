@@ -1,6 +1,7 @@
 import { Canvas } from '@shopify/react-native-skia';
 import { Unit } from '@whitewater-guide/schema';
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 import { GestureDetector } from 'react-native-gesture-handler';
 
 import data from './data';
@@ -12,14 +13,15 @@ import usePanGesture from './usePanGesture';
 interface ChartProps {
   width: number;
   height: number;
+  backgroundColor?: string;
 }
 
-const Chart: FC<ChartProps> = ({ width, height }) => {
+const Chart: FC<ChartProps> = ({ width, height, backgroundColor = '#fff' }) => {
   const meta = useChartMeta({
     data,
     width,
     height,
-    padding: { left: 200, right: 20, top: 20, bottom: 50 },
+    padding: { left: 50, right: 20, top: 20, bottom: 50 },
     unit: Unit.FLOW,
     filter: {
       from: data[0].timestamp,
@@ -45,6 +47,7 @@ const Chart: FC<ChartProps> = ({ width, height }) => {
           style={{
             width,
             height,
+            backgroundColor,
           }}
         >
           <Grid {...meta} width={width} height={height - 20} />

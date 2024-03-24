@@ -1,10 +1,11 @@
 import { Path, Skia } from '@shopify/react-native-skia';
-import { Unit } from '@whitewater-guide/schema';
+import type { Unit } from '@whitewater-guide/schema';
 import { curveBasis, line } from 'd3';
-import React, { FC, useMemo } from 'react';
+import type { FC } from 'react';
+import React, { useMemo } from 'react';
 
-import { ChartDataPoint } from './types';
-import { ChartMeta } from './useChartMeta';
+import type { ChartDataPoint } from './types';
+import type { ChartMeta } from './useChartMeta';
 
 interface LineProps extends ChartMeta {
   data: ChartDataPoint[];

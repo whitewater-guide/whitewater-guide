@@ -1,4 +1,4 @@
-import { ChartDataPoint } from './types';
+import type { ChartDataPoint } from './types';
 
 // galicia-arnego-classic
 export default [

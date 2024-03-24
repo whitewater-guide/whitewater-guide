@@ -1,13 +1,6 @@
 import { Unit } from '@whitewater-guide/schema';
-import {
-  interpolateRound,
-  ScaleLinear,
-  scaleLinear,
-  ScaleTime,
-  scaleTime,
-} from 'd3';
-// eslint-disable-next-line import/no-duplicates
-// eslint-disable-next-line import/no-duplicates
+import type { ScaleLinear, ScaleTime } from 'd3';
+import { interpolateRound, scaleLinear, scaleTime } from 'd3';
 import subDays from 'date-fns/subDays';
 import { utcToZonedTime } from 'date-fns-tz';
 import compact from 'lodash/compact';
@@ -15,7 +8,7 @@ import filterFn from 'lodash/filter';
 import isFinite from 'lodash/isFinite';
 import { useMemo, useRef } from 'react';
 
-import { ChartMetaSettings, ChartViewProps } from './types';
+import type { ChartMetaSettings, ChartViewProps } from './types';
 
 export interface ChartMeta {
   domain: {
