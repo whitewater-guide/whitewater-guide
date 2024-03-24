@@ -1,7 +1,6 @@
 import type { CanvasKit as CanvasKitType } from 'canvaskit-wasm';
 // @ts-ignore
 import CanvasKitInit from 'canvaskit-wasm/bin/canvaskit.js';
-import CanvasKitWasm from 'canvaskit-wasm/bin/canvaskit.wasm?url';
 import type { ComponentProps, ComponentType } from 'react';
 import React, { lazy, Suspense, useMemo } from 'react';
 
@@ -14,7 +13,9 @@ async function loadSkiaWeb() {
   if (global.CanvasKit !== undefined) {
     return;
   }
-  const CanvasKit = await CanvasKitInit({ locateFile: () => CanvasKitWasm });
+  const CanvasKit = await CanvasKitInit({
+    locateFile: () => './canvaskit.wasm',
+  });
   // The CanvasKit API is stored on the global object and used
   // to create the JsiSKApi in the Skia.web.ts file.
   global.CanvasKit = CanvasKit;
