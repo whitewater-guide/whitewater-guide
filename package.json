@@ -58,14 +58,12 @@
       "graphql": "^16.8.1",
       "react": "^18.2.0",
       "react-dom": "^18.2.0",
+      "react-refresh": "0.11.0",
       "react-test-renderer": "^18.2.0",
       "typescript": "^5.2.2"
     },
     "patchedDependencies": {
-      "formik@2.4.5": "patches/formik@2.4.5.patch",
-      "react-native-image-picker@7.0.2": "patches/react-native-image-picker@7.0.2.patch",
-      "victory-native@36.6.11": "patches/victory-native@36.6.11.patch",
-      "react-native-paper@5.11.1": "patches/react-native-paper@5.11.1.patch"
+      "formik@2.4.5": "patches/formik@2.4.5.patch"
     }
   }
 }
