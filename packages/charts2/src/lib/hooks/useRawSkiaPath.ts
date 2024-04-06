@@ -1,23 +1,17 @@
 import type { SkPath } from '@shopify/react-native-skia';
 import { Skia } from '@shopify/react-native-skia';
-import type { Unit } from '@whitewater-guide/schema';
 import { useMemo } from 'react';
 
-import { dataToCanvas } from '../math';
-import type { CanvasDimensions, ChartDataPoint } from '../types';
+import type { ChartData } from '../math';
 
-export function useRawSkiaPath(
-  data: ChartDataPoint[],
-  unit: Unit,
-  canvasParams: CanvasDimensions,
-): SkPath {
+export function useRawSkiaPath(canvas: ChartData): SkPath {
   return useMemo(() => {
     let path = Skia.Path.Make();
-    const { points } = dataToCanvas(data, unit, canvasParams);
+    const { points } = canvas;
     for (let i = 0; i < points.length; i++) {
       const [x, y] = points[i];
       path = i ? path.lineTo(x, y) : path.moveTo(x, y);
     }
     return path;
-  }, [data, unit, canvasParams]);
+  }, [canvas]);
 }

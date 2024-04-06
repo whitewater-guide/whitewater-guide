@@ -2,7 +2,10 @@ import type { Unit } from '@whitewater-guide/schema';
 
 import type { CanvasDimensions, ChartDataPoint } from '../types';
 
-export interface CanvasPoints {
+export interface ChartData {
+  data: ChartDataPoint[];
+  scaleX: (timestamp: number) => number;
+  scaleY: (value: number) => number;
   points: Array<[x: number, y: number]>;
   minVal: number;
   maxVal: number;
@@ -14,7 +17,7 @@ export function dataToCanvas(
   data: ChartDataPoint[],
   unit: Unit,
   canvasParams: CanvasDimensions,
-): CanvasPoints {
+): ChartData {
   // assume that data is sorted by time
   const { width, height, padding } = canvasParams;
   const paddedWidth = width - (padding?.left ?? 0) - (padding?.right ?? 0);
@@ -50,6 +53,9 @@ export function dataToCanvas(
   ]);
 
   return {
+    data,
+    scaleX,
+    scaleY,
     points,
     minVal,
     maxVal,

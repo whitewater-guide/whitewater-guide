@@ -9,22 +9,20 @@ const ChartWebBox: FC = () => {
   const { height, ref, width } = useResizeObserver();
   return (
     <div
+      id="chart_container"
       ref={ref}
       style={{
-        flex: 1,
+        width: '100%',
+        height: '100%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#ffd',
+        position: 'relative',
       }}
     >
       {!!width && !!height && (
-        <Chart
-          data={data}
-          unit={Unit.FLOW}
-          width={Math.max(width, 800)}
-          height={Math.max(height, 500)}
-        />
+        <Chart data={data} unit={Unit.FLOW} width={width} height={height} />
       )}
     </div>
   );

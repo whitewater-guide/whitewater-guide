@@ -12,5 +12,7 @@ body {
 #root {
   display: flex;
   height: 100%;
-  /* touch-action: none; */
+  touch-action: 'none';
+  pointer-events: 'none';
+  user-select: 'none';
 }
