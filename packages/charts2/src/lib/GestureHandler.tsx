@@ -4,18 +4,20 @@ import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import type { SharedValue } from 'react-native-reanimated';
 import { useSharedValue } from 'react-native-reanimated';
 
+import type { Padding } from './math';
 import { scale, translate } from './math';
 
 interface GestureHandlerProps {
   matrix: SharedValue<SkMatrix>;
   width: number;
   height: number;
+  padding: Padding;
 }
 
 export const GestureHandler: FC<PropsWithChildren<GestureHandlerProps>> = (
   props,
 ) => {
-  const { matrix, width, height, children } = props;
+  const { matrix, width, height, padding, children } = props;
   const pivot = useSharedValue(Skia.Point(0, 0));
   const offset = useSharedValue(Skia.Matrix());
 
@@ -30,12 +32,15 @@ export const GestureHandler: FC<PropsWithChildren<GestureHandlerProps>> = (
     const currentTy = currentMatrix[5];
     // console.log({ currentMatrix });
 
-    const dataW = width * currentS;
-    const dataH = height * currentS;
+    const graphW = width - padding.left - padding.right;
+    const graphH = height - padding.top - padding.bottom;
+
+    const dataW = graphW * currentS;
+    const dataH = graphH * currentS;
 
     // Calculate the maximum allowed translation to keep the chart within the screen
-    const maxTx = Math.max(0, dataW - width);
-    const maxTy = Math.max(0, dataH - height);
+    const maxTx = Math.max(0, dataW - graphW);
+    const maxTy = Math.max(0, dataH - graphH);
 
     // Calculate the new translation values, applying constraints
     let newTx = currentTx + event.changeX;

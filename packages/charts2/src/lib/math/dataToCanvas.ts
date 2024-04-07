@@ -2,6 +2,13 @@ import type { Unit } from '@whitewater-guide/schema';
 
 import type { CanvasDimensions, ChartDataPoint } from '../types';
 
+export interface Padding {
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
+}
+
 export interface ChartData {
   data: ChartDataPoint[];
   scaleX: (timestamp: number) => number;
@@ -11,6 +18,20 @@ export interface ChartData {
   maxVal: number;
   minTs: number;
   maxTs: number;
+  /**
+   * Padding of actual chart area inside canvas
+   * Axes and ticks and labels are painted outside of this padding, but inside the canvas
+   */
+  padding: Padding;
+}
+
+function getPadding(maxVal: number): Padding {
+  return {
+    left: 30, // TODO: measure maxVal text
+    right: 30,
+    top: 30,
+    bottom: 30,
+  };
 }
 
 export function dataToCanvas(
@@ -18,10 +39,7 @@ export function dataToCanvas(
   unit: Unit,
   canvasParams: CanvasDimensions,
 ): ChartData {
-  // assume that data is sorted by time
-  const { width, height, padding } = canvasParams;
-  const paddedWidth = width - (padding?.left ?? 0) - (padding?.right ?? 0);
-  const paddedHeight = height - (padding?.top ?? 0) - (padding?.bottom ?? 0);
+  const { width, height } = canvasParams;
 
   let minTs = Number.POSITIVE_INFINITY;
   let maxTs = Number.NEGATIVE_INFINITY;
@@ -38,14 +56,17 @@ export function dataToCanvas(
       maxTs = Math.max(maxTs, ts);
     }
   }
+  const padding = getPadding(maxVal);
+
+  const paddedWidth = width - (padding.left ?? 0) - (padding.right ?? 0);
+  const paddedHeight = height - (padding.top ?? 0) - (padding.bottom ?? 0);
 
   const scaleX = (timestamp: number) =>
-    ((timestamp - minTs) / (maxTs - minTs)) * paddedWidth +
-    (padding?.left ?? 0);
+    ((timestamp - minTs) / (maxTs - minTs)) * paddedWidth + (padding.left ?? 0);
   const scaleY = (value: number) =>
     height -
     (((value - minVal) / (maxVal - minVal)) * paddedHeight +
-      (padding?.bottom ?? 0));
+      (padding.bottom ?? 0));
 
   const points: Array<[number, number]> = data.map((d) => [
     scaleX(d.timestamp.getTime()),
@@ -61,5 +82,6 @@ export function dataToCanvas(
     maxVal,
     minTs,
     maxTs,
+    padding,
   };
 }

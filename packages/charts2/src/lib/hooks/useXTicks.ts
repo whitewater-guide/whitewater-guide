@@ -14,7 +14,9 @@ export function useXTicks(data: ChartData) {
     return xTicks.map(({ minZoom, maxZoom, ticks }) => {
       let xGrid = Skia.Path.Make();
       ticks.forEach(({ x }) => {
-        xGrid.moveTo(x, minY).lineTo(x, maxY);
+        xGrid
+          .moveTo(x, minY + data.padding.top)
+          .lineTo(x, maxY - data.padding.bottom);
       });
       return { minZoom, maxZoom, xGrid };
     });

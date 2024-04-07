@@ -6,7 +6,6 @@ export type ChartDataPoint = Overwrite<Measurement, { timestamp: Date }>;
 export interface CanvasDimensions {
   height: number;
   width: number;
-  padding?: { top?: number; bottom?: number; left?: number; right?: number };
 }
 
 export interface ChartViewProps extends CanvasDimensions {

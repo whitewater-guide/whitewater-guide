@@ -17,9 +17,9 @@ import type { ChartViewProps } from './types';
 const Chart: FC<ChartViewProps> = (props) => {
   const { data, unit, ...canvasParams } = props;
   const { width, height } = canvasParams;
-  const canvasPoints = useCanvasData(data, unit, canvasParams);
-  const rawPath = useRawSkiaPath(canvasPoints);
-  const rawXGrid = useXTicks(canvasPoints);
+  const canvasData = useCanvasData(data, unit, canvasParams);
+  const rawPath = useRawSkiaPath(canvasData);
+  const rawXGrid = useXTicks(canvasData);
   const matrix = useSharedValue(Skia.Matrix());
 
   const path = useDerivedValue(() => {
@@ -27,13 +27,18 @@ const Chart: FC<ChartViewProps> = (props) => {
   }, [matrix, rawPath]);
 
   const xGrid = useDerivedValue(() => {
-    // const zoom = matrix.value.get()[0];
+    const zoom = matrix.value.get()[0];
     const { xGrid } = rawXGrid[0];
     return xGrid.copy().transform(matrix.value);
   }, [matrix, rawXGrid]);
 
   return (
-    <GestureHandler matrix={matrix} width={width} height={height}>
+    <GestureHandler
+      matrix={matrix}
+      width={width}
+      height={height}
+      padding={canvasData.padding}
+    >
       <Canvas style={{ width, height }}>
         <Group>
           <Path style="stroke" path={xGrid} strokeWidth={1} color="#999" />
