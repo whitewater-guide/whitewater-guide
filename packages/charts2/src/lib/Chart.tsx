@@ -1,55 +1,55 @@
 /* eslint-disable react/style-prop-object */
-import {
-  Canvas,
-  Group,
-  LinearGradient,
-  Path,
-  Skia,
-  vec,
-} from '@shopify/react-native-skia';
-import type { FC } from 'react';
-import { useDerivedValue, useSharedValue } from 'react-native-reanimated';
+import { Canvas, Group, Skia } from '@shopify/react-native-skia';
+import { type FC, useMemo } from 'react';
+import { useSharedValue } from 'react-native-reanimated';
 
 import { GestureHandler } from './GestureHandler';
-import { useCanvasData, useRawSkiaPath, useXTicks } from './hooks';
+import LineChart from './LineChart';
+import { getChartData } from './math';
 import type { ChartViewProps } from './types';
+import XAxis from './XAxis';
+import XGrid from './XGrid';
+import YAxis from './YAxis';
 
 const Chart: FC<ChartViewProps> = (props) => {
   const { data, unit, ...canvasParams } = props;
   const { width, height } = canvasParams;
-  const canvasData = useCanvasData(data, unit, canvasParams);
-  const rawPath = useRawSkiaPath(canvasData);
-  const rawXGrid = useXTicks(canvasData);
   const matrix = useSharedValue(Skia.Matrix());
 
-  const path = useDerivedValue(() => {
-    return rawPath.copy().transform(matrix.value);
-  }, [matrix, rawPath]);
-
-  const xGrid = useDerivedValue(() => {
-    const zoom = matrix.value.get()[0];
-    const { xGrid } = rawXGrid[0];
-    return xGrid.copy().transform(matrix.value);
-  }, [matrix, rawXGrid]);
+  const chartData = useMemo(
+    () => getChartData(data, unit, canvasParams),
+    [data, unit, canvasParams],
+  );
 
   return (
     <GestureHandler
       matrix={matrix}
       width={width}
       height={height}
-      padding={canvasData.padding}
+      padding={chartData.padding}
     >
       <Canvas style={{ width, height }}>
-        <Group>
-          <Path style="stroke" path={xGrid} strokeWidth={1} color="#999" />
-          <Path style="stroke" path={path} strokeWidth={2}>
-            <LinearGradient
-              start={vec(0, 0)}
-              end={vec(width, height)}
-              colors={['blue', 'yellow']}
-            />
-          </Path>
+        <Group
+          clip={{
+            x: chartData.padding.left,
+            y: chartData.padding.top / 2,
+            width: width - chartData.padding.left - chartData.padding.right / 2,
+            height:
+              height - chartData.padding.top / 2 - chartData.padding.bottom,
+          }}
+        >
+          <XGrid matrix={matrix} data={chartData} />
+
+          <LineChart
+            data={chartData}
+            width={width}
+            height={height}
+            matrix={matrix}
+          />
         </Group>
+
+        <XAxis width={width} height={height} padding={chartData.padding} />
+        <YAxis width={width} height={height} padding={chartData.padding} />
       </Canvas>
     </GestureHandler>
   );

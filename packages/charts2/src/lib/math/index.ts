@@ -1,3 +1,3 @@
-export * from './dataToCanvas';
-export * from './getXTicks';
+export * from './getChartData';
 export * from './matrix';
+export type * from './types';

@@ -1,29 +1,8 @@
+import { Skia } from '@shopify/react-native-skia';
 import type { Unit } from '@whitewater-guide/schema';
 
 import type { CanvasDimensions, ChartDataPoint } from '../types';
-
-export interface Padding {
-  top: number;
-  bottom: number;
-  left: number;
-  right: number;
-}
-
-export interface ChartData {
-  data: ChartDataPoint[];
-  scaleX: (timestamp: number) => number;
-  scaleY: (value: number) => number;
-  points: Array<[x: number, y: number]>;
-  minVal: number;
-  maxVal: number;
-  minTs: number;
-  maxTs: number;
-  /**
-   * Padding of actual chart area inside canvas
-   * Axes and ticks and labels are painted outside of this padding, but inside the canvas
-   */
-  padding: Padding;
-}
+import type { ChartDataDimensions, Padding } from './types';
 
 function getPadding(maxVal: number): Padding {
   return {
@@ -34,11 +13,11 @@ function getPadding(maxVal: number): Padding {
   };
 }
 
-export function dataToCanvas(
+export function getChartDataDimensions(
   data: ChartDataPoint[],
   unit: Unit,
   canvasParams: CanvasDimensions,
-): ChartData {
+): ChartDataDimensions {
   const { width, height } = canvasParams;
 
   let minTs = Number.POSITIVE_INFINITY;
@@ -68,10 +47,21 @@ export function dataToCanvas(
     (((value - minVal) / (maxVal - minVal)) * paddedHeight +
       (padding.bottom ?? 0));
 
-  const points: Array<[number, number]> = data.map((d) => [
-    scaleX(d.timestamp.getTime()),
-    scaleY(d[unit] ?? 0),
-  ]);
+  const points: Array<[number, number]> = [];
+  const path = Skia.Path.Make();
+
+  for (let i = 0; i < data.length; i++) {
+    const d = data[i];
+    const x = scaleX(d.timestamp.getTime());
+    const y = scaleY(d[unit] ?? 0);
+    points.push([x, y]);
+
+    if (i === 0) {
+      path.moveTo(x, y);
+    } else {
+      path.lineTo(x, y);
+    }
+  }
 
   return {
     data,
@@ -83,5 +73,6 @@ export function dataToCanvas(
     minTs,
     maxTs,
     padding,
+    path,
   };
 }
