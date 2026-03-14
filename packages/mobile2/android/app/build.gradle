@@ -2,6 +2,13 @@ apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
 
+project.ext.envConfigFiles = [
+    debug: ".env",
+    release: ".env.production",
+    releaseStaging: ".env.staging",
+]
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
+
 /**
  * This is the configuration block to customize your React Native Android app.
  * By default you don't need to apply any configuration, just uncomment the lines you need.
@@ -82,10 +89,11 @@ android {
         applicationId "guide.whitewater"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 1817096203
+        versionName "1.22.0"
         testBuildType System.getProperty('testBuildType', 'debug')
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        resValue "string", "build_config_package", "guide.whitewater"
     }
     signingConfigs {
         debug {
@@ -94,18 +102,31 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        release {
+            storeFile file(String.valueOf(System.getenv("GRADLE_KEYSTORE") ?: "debug.keystore"))
+            storePassword System.getenv("GRADLE_KEYSTORE_PASSWORD") ?: "android"
+            keyAlias System.getenv("GRADLE_KEYSTORE_ALIAS") ?: "androiddebugkey"
+            keyPassword System.getenv("GRADLE_KEYSTORE_ALIAS_PASSWORD") ?: "android"
+        }
     }
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+            resValue "string", "app_name", "WW DEBUG"
+            applicationIdSuffix ".staging"
         }
         release {
-            // Caution! In production, you need to generate your own keystore file.
-            // see https://reactnative.dev/docs/signed-apk-android.
             signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             proguardFile "${rootProject.projectDir}/../../../node_modules/detox/android/detox/proguard-rules-app.pro"
+            resValue "string", "app_name", "whitewater.guide"
+        }
+        releaseStaging {
+            initWith release
+            applicationIdSuffix ".staging"
+            resValue "string", "app_name", "WW STAGING"
+            matchingFallbacks = ['release']
         }
     }
 }

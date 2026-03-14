@@ -8,6 +8,7 @@ import {
   View,
 } from 'react-native';
 import BootSplash from 'react-native-bootsplash';
+import Config from 'react-native-config';
 import {
   SafeAreaProvider,
   useSafeAreaInsets,
@@ -33,7 +34,8 @@ function AppContent() {
 
   return (
     <View style={styles.container}>
-      <Text>${NEW_RIVER_ID}</Text>
+      <Text>{NEW_RIVER_ID}</Text>
+      <Text>{Config.BACKEND_HOST}</Text>
     </View>
   );
 }
@@ -41,6 +43,8 @@ function AppContent() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

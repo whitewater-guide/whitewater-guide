@@ -1,6 +1,6 @@
 {
-  "name": "guide.whitewater",
-  "version": "0.0.1",
+  "name": "@whitewater-guide/mobile",
+  "version": "1.22.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -19,6 +19,7 @@
     "react": "19.2.4",
     "react-native": "0.84.1",
     "react-native-bootsplash": "^7.1.0",
+    "react-native-config": "^1.6.1",
     "react-native-safe-area-context": "^5.5.2"
   },
   "devDependencies": {
