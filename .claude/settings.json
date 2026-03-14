@@ -1,0 +1,9 @@
+{
+  "enabledPlugins": {
+    "react-native-best-practices@callstack-agent-skills": true,
+    "upgrading-react-native@callstack-agent-skills": true
+  },
+  "permissions": {
+    "allow": ["WebFetch", "WebSearch", "Bash(npm view*)", "Bash(gh *)"]
+  }
+}

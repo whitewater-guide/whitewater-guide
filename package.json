@@ -56,16 +56,11 @@
       "@graphql-codegen/add": "^5.0.0",
       "@graphql-codegen/plugin-helpers": "^5.0.1",
       "graphql": "^16.8.1",
-      "react": "^18.2.0",
-      "react-dom": "^18.2.0",
-      "react-test-renderer": "^18.2.0",
-      "typescript": "^5.2.2"
-    },
-    "patchedDependencies": {
-      "formik@2.4.5": "patches/formik@2.4.5.patch",
-      "react-native-image-picker@7.0.2": "patches/react-native-image-picker@7.0.2.patch",
-      "victory-native@36.6.11": "patches/victory-native@36.6.11.patch",
-      "react-native-paper@5.11.1": "patches/react-native-paper@5.11.1.patch"
+      "react": "19.2.4",
+      "react-dom": "19.2.4",
+      "react-test-renderer": "^19.2.4",
+      "typescript": "^5.9.3"
     }
-  }
+  },
+  "packageManager": "pnpm@10.32.1"
 }
