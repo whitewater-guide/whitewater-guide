@@ -1,4 +1,5 @@
 import { NEW_RIVER_ID } from '@whitewater-guide/commons';
+import { useEffect } from 'react';
 import {
   StatusBar,
   StyleSheet,
@@ -6,6 +7,7 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import BootSplash from 'react-native-bootsplash';
 import {
   SafeAreaProvider,
   useSafeAreaInsets,
@@ -13,6 +15,10 @@ import {
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
+
+  useEffect(() => {
+    BootSplash.hide({ fade: true });
+  }, []);
 
   return (
     <SafeAreaProvider>
