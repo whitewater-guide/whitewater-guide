@@ -718,6 +718,21 @@ importers:
       '@react-native/new-app-screen':
         specifier: 0.84.1
         version: 0.84.1(@types/react@19.2.14)(react-native@0.84.1(@babel/core@7.29.0)(@react-native-community/cli@20.1.0(typescript@5.9.3))(@react-native/metro-config@0.84.1(@babel/core@7.29.0))(@types/react@19.2.14)(react@19.2.4))(react@19.2.4)
+      '@whitewater-guide/clients':
+        specifier: workspace:*
+        version: link:../clients
+      '@whitewater-guide/commons':
+        specifier: workspace:*
+        version: link:../commons
+      '@whitewater-guide/schema':
+        specifier: workspace:*
+        version: link:../schema
+      '@whitewater-guide/translations':
+        specifier: ^2.6.8
+        version: 2.6.9
+      '@whitewater-guide/validation':
+        specifier: workspace:*
+        version: link:../validation
       react:
         specifier: 19.2.4
         version: 19.2.4
@@ -13690,6 +13705,7 @@ packages:
       }
     engines: { node: '>=8.17.0' }
     hasBin: true
+    bundledDependencies: []
 
   jsonfile@3.0.1:
     resolution:
