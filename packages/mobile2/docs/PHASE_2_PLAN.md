@@ -1,5 +1,7 @@
 # Phase 2: Port Native Assets & Platform Configuration to mobile2
 
+> Part of the [Mobile2 Migration Plan](MIGRATION_PLAN.md). Follows [Phase 1](PHASE_1_ENVIRONMENT.md) (environment & tooling setup).
+
 ## Context
 
 Phase 1 is complete — mobile2 is a fresh RN 0.84.1 app building on both platforms with Detox.
@@ -9,7 +11,7 @@ the app launches with the correct icon, splash screen, app name, permissions, an
 **Scope decisions:**
 
 - **Skip**: Facebook SDK (social auth dropped), SectionItemViewManager (will be JS in later phase), Firebase/Sentry (Phase 3), notification icons (later)
-- **Include**: App icons, splash screen (BootSplash), fonts (react-native-vector-icons), permissions, deep linking, localization, build variants, entitlements, ProGuard seed rules
+- **Include**: App icons, splash screen (BootSplash), fonts (react-native-vector-icons), permissions, deep linking, localization, build variants, entitlements, ProGuard seed rules, environment config
 
 ---
 
@@ -226,7 +228,7 @@ function App() {
 
 RN 0.84 template uses Xcode build settings variables (`$(MARKETING_VERSION)`, `$(PRODUCT_NAME)`) in Info.plist instead of hardcoded values. This is the modern Xcode approach and should be preserved. On Android, the Gradle plugin structure changed significantly (see Phase 1), but build types/variants work the same way.
 
-### 3a. iOS — Info.plist display name
+### 3a. iOS — Info.plist display name & project settings
 
 **File:** `packages/mobile2/ios/whitewater/Info.plist`
 
@@ -234,10 +236,18 @@ RN 0.84 template uses Xcode build settings variables (`$(MARKETING_VERSION)`, `$
 
 - Set `CFBundleDisplayName` to `whitewater.guide`
 - Add `<key>ITSAppUsesNonExemptEncryption</key><false/>` (avoids App Store compliance question on every upload)
+- Remove `UISupportedInterfaceOrientations~ipad` key and its array (dead config — app is iPhone-only)
+
+**File:** `packages/mobile2/ios/whitewater.xcodeproj/project.pbxproj`
+
+**Changes:**
+
+- Change `TARGETED_DEVICE_FAMILY = "1,2"` → `TARGETED_DEVICE_FAMILY = "1"` (iPhone only, matching old app) — in both Debug and Release build configs
 
 **Verification:**
 
 - Build iOS — home screen label should say "whitewater.guide"
+- Xcode target → General → Deployment Info shows iPhone only
 
 ### 3b. Android — Build variant app names and signing
 
@@ -288,6 +298,149 @@ Remove the static `app_name` from `res/values/strings.xml` (replaced by `resValu
 
 - Build debug on Android — app label shows "WW DEBUG"
 - `adb shell pm list packages | grep whitewater` shows `guide.whitewater.staging`
+
+### 3c. Version Continuity
+
+The old app is at version 1.21.1 (build 355 on iOS, versionCode 1817096202 on Android). The new app must use higher version numbers to be accepted as an update by the App Store and Play Store.
+
+**File:** `packages/mobile2/package.json`
+
+- Change `"version": "0.0.1"` → `"version": "1.22.0"`
+
+**File:** `packages/mobile2/ios/whitewater.xcodeproj/project.pbxproj`
+
+In both Debug and Release target build configs (4 changes total):
+
+- Change `MARKETING_VERSION = 1.0` → `MARKETING_VERSION = 1.22.0`
+- Change `CURRENT_PROJECT_VERSION = 1` → `CURRENT_PROJECT_VERSION = 356`
+
+**File:** `packages/mobile2/android/app/build.gradle`
+
+In `defaultConfig`:
+
+- Change `versionCode 1` → `versionCode 1817096203` (old app's 1817096202 + 1)
+- Change `versionName "1.0"` → `versionName "1.22.0"`
+
+**Note:** When the Staging Xcode build configuration is created in Step 10, it must also get `MARKETING_VERSION = 1.22.0` and `CURRENT_PROJECT_VERSION = 356`.
+
+**Verification:**
+
+- Xcode → target → General shows Version 1.22.0, Build 356
+- `./gradlew assembleDebug` produces APK with versionName 1.22.0
+
+### 3d. Environment Configuration (react-native-config)
+
+The old app used `react-native-ultimate-config` (abandoned) to inject environment-specific values at build time. The replacement is `react-native-config`.
+
+**Docs:**
+
+- https://github.com/lugg/react-native-config
+
+#### Install
+
+```bash
+cd packages/mobile2
+pnpm add react-native-config
+cd ios && pod install && cd ..
+```
+
+#### Create environment files
+
+Port from old app's `.env.*.yml` (YAML) to `.env.*` (dotenv) format, dropping Facebook keys (auth dropped).
+
+**Files to create:** `.env` (development), `.env.staging`, `.env.production`, `.env.test`
+
+**Keys** (all files use the same keys, values differ per environment):
+
+```
+ENV_NAME=
+E2E_MODE=
+BACKEND_PROTOCOL=
+BACKEND_HOST=
+DEEP_LINKING_DOMAIN=
+STATIC_CONTENT_URL_BASE=
+CHAT_HOST=
+MAPBOX_ACCESS_TOKEN=
+SENTRY_DSN=
+```
+
+Copy values from the corresponding old app files (`packages/mobile/.env.development.yml`, etc.), converting from YAML to dotenv format.
+
+**Dropped keys** (vs old app):
+
+| Key                          | Reason                                                                               |
+| ---------------------------- | ------------------------------------------------------------------------------------ |
+| `FACEBOOK_APP_ID`            | Facebook auth dropped                                                                |
+| `FACEBOOK_CUSTOM_URL_SCHEME` | Facebook auth dropped                                                                |
+| `FACEBOOK_CLIENT_TOKEN`      | Facebook auth dropped                                                                |
+| `MAPBOX_DOWNLOADS_TOKEN`     | Build-time only (goes in `android/local.properties` and env vars, not in app config) |
+
+**Important:** Add `.env*` to `.gitignore` (these contain tokens).
+
+#### TypeScript type declarations
+
+**Create:** `packages/mobile2/src/types/react-native-config.d.ts`
+
+```typescript
+declare module 'react-native-config' {
+  export interface NativeConfig {
+    ENV_NAME: string;
+    E2E_MODE: string;
+    BACKEND_PROTOCOL: string;
+    BACKEND_HOST: string;
+    DEEP_LINKING_DOMAIN: string;
+    STATIC_CONTENT_URL_BASE: string;
+    CHAT_HOST: string;
+    MAPBOX_ACCESS_TOKEN: string;
+    SENTRY_DSN: string;
+  }
+
+  export const Config: NativeConfig;
+  export default Config;
+}
+```
+
+#### Android — Wire build variants to env files
+
+**File:** `packages/mobile2/android/app/build.gradle`
+
+Add to the top (after existing `apply` lines):
+
+```groovy
+project.ext.envConfigFiles = [
+    debug: ".env",
+    release: ".env.production",
+    releaseStaging: ".env.staging",
+]
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
+```
+
+This automatically loads the correct `.env` file for each build type.
+
+#### iOS — Wire schemes to env files
+
+In Xcode, set the `ENVFILE` build setting per configuration:
+
+- Debug: `.env`
+- Staging: `.env.staging`
+- Release: `.env.production`
+
+Or use the `react-native-config` Podfile hook (see library docs).
+
+#### JS usage
+
+```typescript
+import Config from 'react-native-config';
+
+const apiUrl = `${Config.BACKEND_PROTOCOL}://${Config.BACKEND_HOST}`;
+const deepLinkDomain = Config.DEEP_LINKING_DOMAIN;
+```
+
+**Verification:**
+
+- `console.log(Config.ENV_NAME)` shows `development` in debug build
+- `console.log(Config.BACKEND_HOST)` shows expected API host
+- TypeScript autocomplete works for Config keys
 
 ---
 
@@ -345,9 +498,21 @@ iOS permission model is unchanged. Android 13+ (API 33) introduced granular medi
 <string>This permission is required to upload your photos</string>
 ```
 
+**Also add** `LSApplicationQueriesSchemes` — required for `Linking.canOpenURL('comgooglemaps://')` to work (used in `openGoogleMaps.ts`). Without this, iOS silently returns `false` and the app can't detect the Google Maps native app.
+
+```xml
+<key>LSApplicationQueriesSchemes</key>
+<array>
+    <string>comgooglemaps</string>
+</array>
+```
+
+**Note:** Old app also had Facebook URL schemes (`fbapi`, `fbauth`, etc.) and `googlechromes` — skip both (Facebook dropped, `googlechromes` was unused in code).
+
 **Verification:**
 
 - Open Info.plist in Xcode — verify all 6 permission keys with non-empty text
+- Verify `LSApplicationQueriesSchemes` contains `comgooglemaps`
 
 ### 5b. Android — Manifest permissions
 
@@ -363,17 +528,17 @@ iOS permission model is unchanged. Android 13+ (API 33) introduced granular medi
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="com.android.vending.BILLING" />
-    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" tools:node="remove"/>
     <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove"/>
 ```
 
+**Note:** Old app had `BILLING` (IAP dropped in mobile2) and `VIBRATE` (declared but never used in code) — both intentionally omitted.
+
 **Verification:**
 
 - Build Android: `adb shell dumpsys package guide.whitewater.staging | grep permission`
-- Should include INTERNET, ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION, BILLING, VIBRATE, ACCESS_NETWORK_STATE
-- Should NOT include READ_PHONE_STATE or AD_ID
+- Should include INTERNET, ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION, ACCESS_NETWORK_STATE
+- Should NOT include READ_PHONE_STATE, AD_ID, BILLING, or VIBRATE
 
 ---
 
@@ -451,19 +616,18 @@ func application(
 
 **File:** `packages/mobile2/android/app/src/main/AndroidManifest.xml`
 
-**Add** second intent filter inside `<activity>`:
+**Add** second intent filter inside `<activity>`, using `react-native-config` build variables (set up in Step 3d):
 
 ```xml
 <intent-filter android:autoVerify="true">
     <action android:name="android.intent.action.VIEW" />
     <category android:name="android.intent.category.DEFAULT" />
     <category android:name="android.intent.category.BROWSABLE" />
-    <data android:scheme="https" android:host="whitewater.guide" />
-    <data android:scheme="https" android:host="app.whitewater.guide" />
+    <data android:scheme="@string/BACKEND_PROTOCOL" android:host="@string/DEEP_LINKING_DOMAIN" />
 </intent-filter>
 ```
 
-**Note:** Old app used string resources from react-native-ultimate-config for scheme/host. We hardcode production domains for now — dev domain handling will come with react-native-config setup.
+`react-native-config`'s `dotenv.gradle` plugin automatically generates Android string resources from `.env` values, so `@string/BACKEND_PROTOCOL` and `@string/DEEP_LINKING_DOMAIN` resolve per build variant from the active env file.
 
 ### Verification (all of Step 6):
 
@@ -629,13 +793,13 @@ Other rules (react-native-svg, react-native-iap, etc.) will be added when those 
 
 ---
 
-## Step 10: iOS Build Configurations (Staging)
+## Step 10: Staging Build Configurations (iOS + Android)
 
 ### What changed since RN 0.72
 
-No changes in how Xcode build configurations work. The Podfile format is simpler in RN 0.84 (no Flipper, no Fabric flags), but the `project` declaration for custom configs is the same.
+No changes in how Xcode build configurations or Android build types work. The Podfile format is simpler in RN 0.84 (no Flipper, no Fabric flags), but the `project` declaration for custom configs is the same.
 
-### 10a. Podfile — Add Staging configuration
+### 10a. iOS Podfile — Add Staging configuration
 
 **File:** `packages/mobile2/ios/Podfile`
 
@@ -648,16 +812,45 @@ project 'whitewater',
   'Release' => :release
 ```
 
-### 10b. Xcode — Create Staging build configuration
+### 10b. iOS Xcode — Create Staging build configuration
 
 In Xcode: Project (not target) → Info → Configurations → tap "+" → Duplicate "Release" → name it "Staging".
 
 Or edit the `project.pbxproj` to add the Staging configuration to all configuration lists.
 
+**Important:** The Staging config must inherit the version values set in Step 3c: `MARKETING_VERSION = 1.22.0` and `CURRENT_PROJECT_VERSION = 356`.
+
+### 10c. Android — Add releaseStaging build type
+
+**File:** `packages/mobile2/android/app/build.gradle`
+
+The `releaseStaging` build type with `resValue` for app name is already defined in Step 3b's `buildTypes` block. This step calls it out explicitly as the Android parallel to the iOS Staging configuration.
+
+Key properties of `releaseStaging`:
+
+- `initWith release` — inherits minification, ProGuard, signing from release
+- `applicationIdSuffix ".staging"` — installs as `guide.whitewater.staging` alongside production
+- `resValue "string", "app_name", "WW STAGING"` — distinguishable in app drawer
+- `matchingFallbacks = ['release']` — uses release variants for dependencies that don't define releaseStaging
+
+The `react {}` block does NOT need `debuggableVariants` modification — default debuggable variants are `["debug", "debugOptimized"]`, so `releaseStaging` will be bundled (not debuggable) as intended.
+
+**Optional:** Add Detox config for staging in `.detoxrc.js`:
+
+```js
+'android.releaseStaging': {
+    type: 'android.apk',
+    binaryPath: 'android/app/build/outputs/apk/releaseStaging/app-releaseStaging.apk',
+    build: 'cd android && ./gradlew assembleReleaseStaging assembleAndroidTest -DtestBuildType=releaseStaging',
+}
+```
+
 ### Verification:
 
 - `xcodebuild -project ios/whitewater.xcodeproj -list` — shows Debug, Staging, Release
 - `cd ios && pod install` — succeeds with no warnings about unknown configurations
+- `cd android && ./gradlew assembleReleaseStaging` — builds successfully
+- Staging APK has applicationId `guide.whitewater.staging` and app name "WW STAGING"
 
 ---
 
@@ -665,14 +858,14 @@ Or edit the `project.pbxproj` to add the Staging configuration to all configurat
 
 1. **Step 1** — App icons (pure file/asset work)
 2. **Step 2** — BootSplash (install, generate, configure native, JS hide)
-3. **Step 3** — App naming and build variants
+3. **Step 3** — App naming, build variants, versions, environment config
 4. **Step 4** — Orientation lock
 5. **Step 5** — Permissions
-6. **Step 6** — Deep linking + entitlements
+6. **Step 6** — Deep linking + entitlements (uses config from Step 3d)
 7. **Step 7** — Localization
 8. **Step 8** — react-native-vector-icons (install, configure, test)
 9. **Step 9** — ProGuard rules + enable for release
-10. **Step 10** — iOS Staging build configuration
+10. **Step 10** — Staging build configurations (iOS + Android)
 
 ## Final Verification Checklist
 
@@ -684,12 +877,21 @@ Or edit the `project.pbxproj` to add the Staging configuration to all configurat
 - [ ] Android debug build shows "WW DEBUG" as app name
 - [ ] Android stays in portrait when device rotated
 - [ ] iOS Info.plist has all 6 permission keys with text
-- [ ] Android manifest has location, billing, vibrate, network state permissions
+- [ ] `LSApplicationQueriesSchemes` includes `comgooglemaps`
+- [ ] Android manifest has location and network state permissions (no BILLING or VIBRATE)
+- [ ] `react-native-config` loads correct env values per build variant
 - [ ] iOS entitlements file has associated domains and push notifications
 - [ ] Deep links open the app on both platforms
 - [ ] iOS: Russian permission descriptions appear when device in Russian
 - [ ] MaterialIcons and MaterialCommunityIcons render on both platforms
 - [ ] Release build with ProGuard succeeds on Android
 - [ ] Xcode shows Debug, Staging, Release configurations
+- [ ] Android `releaseStaging` builds: `./gradlew assembleReleaseStaging`
+- [ ] Staging APK has applicationId `guide.whitewater.staging` and app name "WW STAGING"
+- [ ] `MARKETING_VERSION` in Xcode shows 1.22.0, build number 356
+- [ ] Android versionName is 1.22.0, versionCode is 1817096203
+- [ ] package.json version is 1.22.0
+- [ ] `TARGETED_DEVICE_FAMILY` is "1" (iPhone only)
+- [ ] No `UISupportedInterfaceOrientations~ipad` key in Info.plist
 - [ ] `pnpm typecheck` passes for mobile2
 - [ ] Detox basic test still passes
