@@ -1,3 +1,4 @@
+import MaterialIcons from '@react-native-vector-icons/material-design-icons';
 import { NEW_RIVER_ID } from '@whitewater-guide/commons';
 import { useEffect } from 'react';
 import {
@@ -36,6 +37,7 @@ function AppContent() {
     <View style={styles.container}>
       <Text>{NEW_RIVER_ID}</Text>
       <Text>{Config.BACKEND_HOST}</Text>
+      <MaterialIcons name="facebook-gaming" size={30} />
     </View>
   );
 }

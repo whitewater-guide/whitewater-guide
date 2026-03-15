@@ -35,8 +35,22 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>comgooglemaps</string>
+	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>This permission is required to upload your photos</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>It needs this permission to show you how close you are to this or that river</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>It needs this permission to show you how close you are to this or that river</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>It needs this permission to show you how close you are to this or that river</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>This permission is required to upload your photos</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This permission is required to upload your photos</string>
 	<key>RCTNewArchEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -48,6 +62,10 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>MaterialDesignIcons.ttf</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>

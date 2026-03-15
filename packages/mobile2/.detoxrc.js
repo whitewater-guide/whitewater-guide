@@ -24,6 +24,13 @@ module.exports = {
         'cd android && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug',
       reversePorts: [8081],
     },
+    'android.releaseStaging': {
+      type: 'android.apk',
+      binaryPath:
+        'android/app/build/outputs/apk/releaseStaging/app-releaseStaging.apk',
+      build:
+        'cd android && ./gradlew assembleReleaseStaging assembleAndroidTest -DtestBuildType=releaseStaging',
+    },
   },
   devices: {
     simulator: {
