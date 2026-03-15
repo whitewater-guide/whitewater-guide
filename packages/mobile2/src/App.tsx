@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import BootSplash from 'react-native-bootsplash';
 import Config from 'react-native-config';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
   SafeAreaProvider,
   useSafeAreaInsets,
@@ -23,10 +24,12 @@ function App() {
   }, []);
 
   return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
-    </SafeAreaProvider>
+    <GestureHandlerRootView style={styles.flex}>
+      <SafeAreaProvider>
+        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+        <AppContent />
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }
 
@@ -37,12 +40,16 @@ function AppContent() {
     <View style={styles.container}>
       <Text>{NEW_RIVER_ID}</Text>
       <Text>{Config.BACKEND_HOST}</Text>
+      <Text>{`Storybook: ${process.env.STORYBOOK_ENABLED === 'true'}`}</Text>
       <MaterialIcons name="facebook-gaming" size={30} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  flex: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     alignItems: 'center',

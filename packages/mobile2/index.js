@@ -5,6 +5,13 @@
 import { AppRegistry } from 'react-native';
 
 import { name as appName } from './app.json';
-import App from './src/App';
 
-AppRegistry.registerComponent(appName, () => App);
+let RootComponent;
+
+if (process.env.STORYBOOK_ENABLED === 'true') {
+  RootComponent = require('./.rnstorybook').default;
+} else {
+  RootComponent = require('./src/App').default;
+}
+
+AppRegistry.registerComponent(appName, () => RootComponent);

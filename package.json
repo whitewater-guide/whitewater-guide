@@ -56,9 +56,9 @@
       "@graphql-codegen/add": "^5.0.0",
       "@graphql-codegen/plugin-helpers": "^5.0.1",
       "graphql": "^16.8.1",
-      "react": "19.2.4",
-      "react-dom": "19.2.4",
-      "react-test-renderer": "^19.2.4",
+      "react": "19.2.3",
+      "react-dom": "19.2.3",
+      "react-test-renderer": "19.2.3",
       "typescript": "^5.9.3"
     }
   },

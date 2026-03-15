@@ -1,5 +1,8 @@
 const path = require('path');
 const { getDefaultConfig } = require('@react-native/metro-config');
+const {
+  withStorybook,
+} = require('@storybook/react-native/metro/withStorybook');
 
 const projectRoot = __dirname;
 const workspaceRoot = path.resolve(projectRoot, '../..');
@@ -14,4 +17,7 @@ config.resolver.nodeModulesPaths = [
 ];
 config.resolver.disableHierarchicalLookup = true;
 
-module.exports = config;
+module.exports = withStorybook(config, {
+  enabled: process.env.STORYBOOK_ENABLED === 'true',
+  configPath: path.resolve(projectRoot, '.rnstorybook'),
+});
