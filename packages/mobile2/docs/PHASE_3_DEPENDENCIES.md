@@ -56,23 +56,20 @@ Minimal two-screen navigation demo (Home → Details with push/pop) is implement
 
 ---
 
-## 3.3 — Install UI framework deps
+## 3.3 — Install UI framework deps ✅ DONE
 
-```bash
-pnpm add react-native-paper react-native-linear-gradient
-```
+Installed packages:
 
-`react-native-svg@^15.15.3` and `@react-native-vector-icons/material-design-icons@^12.4.2` are **already installed and working** ✅.
+- `react-native-paper@^5.15.0` ✅
+- `react-native-linear-gradient@^2.8.3` ✅
+- `react-native-svg@^15.15.3` (already installed) ✅
+- `@react-native-vector-icons/material-design-icons@^12.4.2` (already installed) ✅
 
 Note: the project uses `@react-native-vector-icons/material-design-icons` (the new scoped package) instead of the old `react-native-vector-icons`. No separate font setup needed — the new package auto-links.
 
-Target versions:
-
-- `react-native-paper` v5.15
-
 ### Paper theme
 
-Configure a minimal Paper `MD3LightTheme` with default colors. The full theme port happens in Phase 4 (Navigation) alongside the header and drawer.
+`PaperProvider` with default `MD3LightTheme` is configured in `src/App.tsx` and as a Storybook decorator in `.rnstorybook/preview.tsx`. The full theme port happens in Phase 4 (Navigation) alongside the header and drawer.
 
 ### Notes
 
@@ -83,12 +80,12 @@ Paper covers these old deps (no separate install needed):
 
 ### Smoke test
 
-- Storybook story: render a `Paper.Button`, a `Paper.Card`, and a vector icon
+- Storybook story (`PaperUI.stories.tsx`): renders a `Paper.Card`, `Paper.Button`, and vector icons
 
-### Verify
+### Verified
 
-- [ ] iOS builds with UI deps
-- [ ] Android builds with UI deps
+- [x] iOS builds with UI deps
+- [x] Android builds with UI deps
 - [ ] Paper Button renders in Storybook
 - [ ] Vector icon renders in Storybook
 
