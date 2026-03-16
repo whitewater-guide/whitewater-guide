@@ -24,6 +24,16 @@ buildscript {
             maven {
                 url("$rootDir/../../../node_modules/detox/Detox-android")
             }
+            maven {
+                url 'https://api.mapbox.com/downloads/v2/releases/maven'
+                authentication {
+                    basic(BasicAuthentication)
+                }
+                credentials {
+                    username = 'mapbox'
+                    password = project.properties['MAPBOX_DOWNLOADS_TOKEN'] ?: ""
+                }
+            }
         }
         project.pluginManager.withPlugin("com.facebook.react") {
                 react {

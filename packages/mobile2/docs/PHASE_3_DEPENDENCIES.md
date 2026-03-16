@@ -86,28 +86,23 @@ Paper covers these old deps (no separate install needed):
 
 - [x] iOS builds with UI deps
 - [x] Android builds with UI deps
-- [ ] Paper Button renders in Storybook
-- [ ] Vector icon renders in Storybook
+- [x] Paper Button renders in Storybook
+- [x] Vector icon renders in Storybook
 
 ---
 
-## 3.4 — Install layout & list deps
+## 3.4 — Install layout & list deps ✅ DONE
 
-`@gorhom/bottom-sheet@^5.2.8` is **already installed and working** ✅.
+Installed packages:
 
-```bash
-pnpm add @shopify/flash-list \
-  @expo/react-native-action-sheet
-```
-
-### @expo/react-native-action-sheet
-
-This is a pure JS package (no native linking), so it should just work. It may pull in `expo` as a peer dep — if so, this aligns with the expo-image decision from Phase 0.
+- `@shopify/flash-list@^2.3.0` ✅
+- `@expo/react-native-action-sheet@^4.1.1` ✅ (pure JS, no native linking)
+- `@gorhom/bottom-sheet@^5.2.8` (already installed) ✅
 
 ### Smoke test
 
-- Storybook story: `FlashList` with 20 sample items
-- Storybook story: `BottomSheet` with a handle and content
+- Storybook story: `FlashList.stories.tsx` — FlashList with 20 sample items
+- Storybook story: `BottomSheet.stories.tsx` — BottomSheet with open/close and snap points
 
 ### Verify
 
@@ -118,82 +113,24 @@ This is a pure JS package (no native linking), so it should just work. It may pu
 
 ---
 
-## 3.5 — Install maps
+## 3.5 — Install storage & data deps ✅ DONE
 
-```bash
-pnpm add @rnmapbox/maps@10.3.0-rc.0
-```
+Installed packages:
 
-**This is the highest-risk dependency.** It has native SDKs for both platforms with non-trivial build configuration.
-
-### Android setup
-
-1. Add Mapbox Maven repository to `android/build.gradle`:
-   ```gradle
-   allprojects {
-       repositories {
-           maven {
-               url 'https://api.mapbox.com/downloads/v2/releases/maven'
-               authentication { basic(BasicAuthentication) }
-               credentials {
-                   username = "mapbox"
-                   password = project.properties['MAPBOX_DOWNLOADS_TOKEN'] ?: ""
-               }
-           }
-       }
-   }
-   ```
-2. Add download token to `android/local.properties` (gitignored)
-
-### iOS setup
-
-1. Add Mapbox pod source in `ios/Podfile`
-2. Configure `~/.netrc` with Mapbox download credentials
-3. `cd ios && pod install`
-
-### Smoke test
-
-- Render a basic `MapView` — this may only work on a device/emulator, not in Storybook on its own
-- Verify Mapbox access token loads from `react-native-config`
-
-### Verify
-
-- [ ] iOS builds with Mapbox
-- [ ] Android builds with Mapbox
-- [ ] Map tiles load on iOS simulator
-- [ ] Map tiles load on Android emulator
-- [ ] No Mapbox token errors in Metro logs
-
----
-
-## 3.6 — Install storage & data deps
-
-`@react-native-async-storage/async-storage@^3.0.1` is **already installed and working** ✅.
-
-```bash
-pnpm add react-native-mmkv react-native-sensitive-info \
-  @react-native-clipboard/clipboard
-```
-
-Target versions:
-
-- `react-native-mmkv` v4 (JSI-based, replaces `react-native-mmkv-storage`)
+- `react-native-mmkv@^4.2.0` ✅ (JSI-based via NitroModules, replaces `react-native-mmkv-storage`)
+- `react-native-nitro-modules@^0.35.2` ✅ (required peer dep for MMKV v4)
+- `react-native-sensitive-info@^5.6.2` ✅
+- `@react-native-clipboard/clipboard@^1.16.3` ✅
+- `@react-native-async-storage/async-storage@^3.0.1` (already installed) ✅
 
 ### Storybook stories
 
-Create an interactive story for each storage/data dependency. Each story should use Paper components and contain:
+Interactive write/read stories using Paper components:
 
-- A `TextInput` for entering a value
-- A `Button` that writes the value to storage
-- A `Button` that reads the value from storage
-- A `Text` that displays the read value
-
-Stories to create:
-
-1. **MMKV.stories.tsx** — write/read a key-value pair using `react-native-mmkv`
-2. **AsyncStorage.stories.tsx** — write/read using `@react-native-async-storage/async-storage`
-3. **SensitiveInfo.stories.tsx** — write/read using `react-native-sensitive-info` (secure storage)
-4. **Clipboard.stories.tsx** — copy text to clipboard and read it back using `@react-native-clipboard/clipboard`
+1. **MMKV.stories.tsx** — write/read using `createMMKV()` (v4 API)
+2. **AsyncStorage.stories.tsx** — write/read using AsyncStorage
+3. **SensitiveInfo.stories.tsx** — write/read using Keychain (iOS) / SharedPreferences (Android)
+4. **Clipboard.stories.tsx** — copy/paste using Clipboard
 
 ### Verify
 
@@ -206,18 +143,13 @@ Stories to create:
 
 ---
 
-## 3.7 — Install media & content deps
+## 3.6 — Install media & content deps ✅ DONE
 
-```bash
-pnpm add react-native-image-picker \
-  react-native-webview @ronradtke/react-native-markdown-display
-```
+Installed packages:
 
-Target versions:
-
-- `react-native-image-picker` v8
-- `react-native-webview` v13
-- `@ronradtke/react-native-markdown-display` v8 (fork of `react-native-markdown-renderer`, actively maintained)
+- `react-native-image-picker@^8.2.1` ✅
+- `react-native-webview@^13.16.1` ✅
+- `@ronradtke/react-native-markdown-display@^8.1.0` ✅
 
 ### Image gallery (react-native-awesome-gallery) — SKIPPED
 
@@ -225,8 +157,8 @@ Target versions:
 
 ### Smoke test
 
-- Storybook story: render `Markdown` with sample content (headings, bold, links, code blocks)
-- Storybook story: render a `WebView` loading a simple URL
+- Storybook story: `Markdown.stories.tsx` — renders headings, bold, italic, lists, links, code blocks
+- Storybook story: `WebView.stories.tsx` — loads reactnative.dev
 
 ### Verify
 
@@ -237,30 +169,23 @@ Target versions:
 
 ---
 
-## 3.8 — Install platform utility deps
+## 3.7 — Install platform utility deps ✅ DONE
 
-```bash
-pnpm add react-native-device-info react-native-localize \
-  @react-native-community/netinfo @react-native-community/datetimepicker \
-  react-native-keyboard-controller
-```
+Installed packages:
 
-Target versions:
-
-- `react-native-device-info` v15
-- `@react-native-community/netinfo` v12
-- `@react-native-community/datetimepicker` v8
-- `react-native-keyboard-controller` v1 (replaces `react-native-avoid-softinput`)
+- `react-native-device-info@^15.0.2` ✅
+- `react-native-localize@^3.7.0` ✅
+- `@react-native-community/netinfo@^12.0.1` ✅
+- `@react-native-community/datetimepicker@^9.0.0` ✅
+- `react-native-keyboard-controller@^1.21.0` ✅ (replaces `react-native-avoid-softinput`)
 
 ### Storybook stories
 
-Create a story for each dependency to verify it works:
-
-1. **DeviceInfo.stories.tsx** — display device info (brand, model, OS version, app version, unique ID)
-2. **Localize.stories.tsx** — display detected locale, country, currency, temperature unit, calendar
-3. **NetInfo.stories.tsx** — display current connection type, whether connected, whether internet reachable; update on change
-4. **DateTimePicker.stories.tsx** — render a date picker and a time picker, display selected value
-5. **KeyboardController.stories.tsx** — render a `TextInput` inside `KeyboardAvoidingView` from `react-native-keyboard-controller`, verify keyboard avoidance works
+1. **DeviceInfo.stories.tsx** — displays brand, model, OS version, app version, unique ID using Paper DataTable
+2. **Localize.stories.tsx** — displays locale, country, currency, temperature unit, calendar, timezone, 24h clock
+3. **NetInfo.stories.tsx** — live connection type, connected status, internet reachable; fetch button for manual check
+4. **DateTimePicker.stories.tsx** — date picker and time picker with selected value display
+5. **KeyboardController.stories.tsx** — multiple TextInputs inside KeyboardAvoidingView from keyboard-controller
 
 ### Verify
 
@@ -273,7 +198,7 @@ Create a story for each dependency to verify it works:
 
 ---
 
-## 3.9 — Verify workspace package imports ✅ DONE
+## 3.8 — Verify workspace package imports ✅ DONE
 
 Workspace packages are verified and working. Metro resolves them correctly via `watchFolders` and `nodeModulesPaths` in `metro.config.js`. Tested on the app screen.
 
@@ -284,6 +209,41 @@ Verified packages:
 - `@whitewater-guide/schema` (workspace:\*)
 - `@whitewater-guide/validation` (workspace:\*)
 - `@whitewater-guide/translations` (^2.6.8)
+
+---
+
+## 3.9 — Install maps ✅ DONE
+
+Installed packages:
+
+- `@rnmapbox/maps@^10.3.0-rc.0` ✅
+
+**This is the highest-risk dependency.** It has native SDKs for both platforms with non-trivial build configuration.
+
+### Android setup
+
+1. Added Mapbox Maven repository to `android/build.gradle` with basic authentication
+2. Added `RNMapboxMapsImpl=mapbox` to `android/gradle.properties`
+3. Added `MAPBOX_DOWNLOADS_TOKEN` to `android/local.properties` (gitignored)
+
+### iOS setup
+
+1. Added `$RNMapboxMapsImpl = 'mapbox'` to `ios/Podfile`
+2. Added `pre_install` and `post_install` hooks for `$RNMapboxMaps`
+3. `~/.netrc` already configured with Mapbox download credentials
+4. `pod install` succeeded — installed MapboxMaps 11.18.2, MapboxCommon 24.18.2, MapboxCoreMaps 11.18.2, Turf 4.0.0
+
+### Smoke test
+
+- Storybook story: `MapView.stories.tsx` — renders Mapbox MapView with Camera centered on New York
+
+### Verify
+
+- [x] iOS builds with Mapbox
+- [x] Android builds with Mapbox
+- [ ] Map tiles load on iOS simulator
+- [ ] Map tiles load on Android emulator
+- [ ] No Mapbox token errors in Metro logs
 
 ---
 
