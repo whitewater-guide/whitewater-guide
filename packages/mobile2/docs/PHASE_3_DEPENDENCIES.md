@@ -2,110 +2,77 @@
 
 **Goal:** Install all major native dependencies one by one, verifying the app builds and launches after each. Catch build/linking issues early before adding feature code. Set up Storybook for smoke-testing components. End with i18n as foundational infrastructure.
 
-**Strategy:** After each dependency group, run `pnpm ios` and `pnpm android` (or equivalent build commands). If a build breaks, fix it before moving on. This front-loads build issues that would otherwise block feature work.
+**Strategy:** After each dependency group, run `pnpm react-native build-ios` and `pnpm react-native build-android`. If a build breaks, fix it before moving on. This front-loads build issues that would otherwise block feature work.
 
 ---
 
-## 3.1 — Storybook setup
+## 3.1 — Storybook setup ✅ DONE
 
-Install Storybook for React Native v10.2.3. This version runs inside the app (on-device).
+Storybook for React Native v10.2.3 is installed and working (on-device).
 
-```bash
-pnpm add -D @storybook/react-native@10.2.3 \
-  @storybook/addon-ondevice-controls \
-  @storybook/addon-ondevice-actions \
-  @storybook/react-native-theming
-```
+Installed packages:
 
-Setup:
+- `@storybook/react-native@^10.2.3` (devDependency)
+- `storybook@^10.2.19` (devDependency)
 
-1. Create `.storybook/index.ts` as the Storybook entry point
-2. Create `.storybook/main.ts` with stories glob pattern: `../src/**/*.stories.tsx`
-3. Add `storybook` script to `package.json` that sets `STORYBOOK_ENABLED=true` env var
-4. In the app entry point, conditionally render `StorybookUIRoot` or the real `App` based on env var
-5. Stories live next to components as `ComponentName.stories.tsx`
-6. Create a simple `HelloWorld.stories.tsx` to verify setup
+Setup completed:
 
-### Verify
+- `.storybook/` entry point and config
+- `storybook:generate`, `storybook:start`, `storybook:ios`, `storybook:android` scripts in `package.json`
+- Conditional rendering of Storybook vs App based on `STORYBOOK_ENABLED` env var
+- `babel-plugin-transform-inline-environment-variables` for env var access
 
-- [ ] `pnpm storybook` launches app in Storybook mode
-- [ ] HelloWorld story renders on both platforms
+---
 
-## 3.2 — Install navigation & animation stack
+## 3.2 — Install navigation & animation stack ✅ DONE
 
-Install and verify build after each group:
+All navigation and animation dependencies are installed and working.
 
-```bash
-# Core navigation
-pnpm add @react-navigation/native @react-navigation/native-stack \
-  @react-navigation/drawer @react-navigation/bottom-tabs \
-  @react-navigation/material-top-tabs
+Installed packages:
 
-# Required native deps
-pnpm add react-native-screens react-native-gesture-handler \
-  react-native-reanimated react-native-safe-area-context \
-  @react-native-masked-view/masked-view
-```
+- `react-native-gesture-handler@^2.30.0` ✅
+- `react-native-reanimated@^4.2.2` ✅
+- `react-native-safe-area-context@^5.5.2` ✅
+- `react-native-worklets@^0.7.4` ✅ (required by reanimated v4)
+- `@react-navigation/native@^7.1.33` ✅
+- `@react-navigation/native-stack@^7.14.5` ✅
+- `@react-navigation/drawer@^7.9.4` ✅
+- `@react-navigation/bottom-tabs@^7.15.5` ✅
+- `@react-navigation/material-top-tabs@^7.4.19` ✅
+- `react-native-screens@^4.24.0` ✅
+- `@react-native-masked-view/masked-view@^0.3.2` ✅
+- `react-native-pager-view@^8.0.0` ✅
+- `react-native-tab-view@^4.3.0` ✅
 
-All `@react-navigation/*` packages should be v7. Check that:
+Reanimated Babel plugin is configured. Gesture handler import is in the entry point.
 
-- `react-native-screens` is v4
-- `react-native-gesture-handler` is latest v2
-- `react-native-reanimated` is v4
-- `react-native-safe-area-context` is v5
+Minimal two-screen navigation demo (Home → Details with push/pop) is implemented in `src/App.tsx`.
 
-### Reanimated Babel plugin
+### Verified
 
-Add to `babel.config.js`:
+- [x] iOS builds and launches with navigation deps
+- [x] Android builds and launches with navigation deps
+- [x] Minimal two-screen nav works (push/pop)
 
-```js
-plugins: ['react-native-reanimated/plugin'];
-```
-
-This must be the **last** plugin in the list.
-
-### Gesture handler setup
-
-Add to the app entry point (before any navigation code):
-
-```typescript
-import 'react-native-gesture-handler';
-```
-
-### Smoke test
-
-- Create a minimal two-screen stack navigator to verify navigation works
-- Storybook story: wrap a component in `NavigationContainer` to verify no crashes
-
-### Verify
-
-- [ ] iOS builds and launches with navigation deps
-- [ ] Android builds and launches with navigation deps
-- [ ] Minimal two-screen nav works (push/pop)
+---
 
 ## 3.3 — Install UI framework deps
 
 ```bash
-pnpm add react-native-paper react-native-vector-icons \
-  react-native-svg react-native-linear-gradient
+pnpm add react-native-paper react-native-linear-gradient
 ```
+
+`react-native-svg@^15.15.3` and `@react-native-vector-icons/material-design-icons@^12.4.2` are **already installed and working** ✅.
+
+Note: the project uses `@react-native-vector-icons/material-design-icons` (the new scoped package) instead of the old `react-native-vector-icons`. No separate font setup needed — the new package auto-links.
 
 Target versions:
 
 - `react-native-paper` v5.15
-- `react-native-svg` v15
-
-### react-native-vector-icons setup
-
-- iOS: Add fonts to Xcode project (or use `react-native.config.js` auto-linking)
-- Android: Add to `android/app/build.gradle`:
-  ```gradle
-  apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle")
-  ```
 
 ### Paper theme
 
-At this point, configure a minimal Paper `MD3LightTheme` with default colors. The full theme port happens in Phase 4 (Navigation) alongside the header and drawer.
+Configure a minimal Paper `MD3LightTheme` with default colors. The full theme port happens in Phase 4 (Navigation) alongside the header and drawer.
 
 ### Notes
 
@@ -116,7 +83,7 @@ Paper covers these old deps (no separate install needed):
 
 ### Smoke test
 
-- Storybook story: render a `Paper.Button`, a `Paper.Card`, and an SVG icon (`react-native-svg` or vector icon)
+- Storybook story: render a `Paper.Button`, a `Paper.Card`, and a vector icon
 
 ### Verify
 
@@ -124,21 +91,17 @@ Paper covers these old deps (no separate install needed):
 - [ ] Android builds with UI deps
 - [ ] Paper Button renders in Storybook
 - [ ] Vector icon renders in Storybook
-- [ ] SVG renders in Storybook
+
+---
 
 ## 3.4 — Install layout & list deps
 
+`@gorhom/bottom-sheet@^5.2.8` is **already installed and working** ✅.
+
 ```bash
-pnpm add @gorhom/bottom-sheet @shopify/flash-list \
-  react-native-pager-view react-native-tab-view \
+pnpm add @shopify/flash-list \
   @expo/react-native-action-sheet
 ```
-
-Target versions:
-
-- `@gorhom/bottom-sheet` v5 (requires reanimated v4 + gesture-handler, already installed)
-- `react-native-pager-view` v8
-- `react-native-tab-view` v4
 
 ### @expo/react-native-action-sheet
 
@@ -148,7 +111,6 @@ This is a pure JS package (no native linking), so it should just work. It may pu
 
 - Storybook story: `FlashList` with 20 sample items
 - Storybook story: `BottomSheet` with a handle and content
-- Storybook story: `PagerView` with 3 pages
 
 ### Verify
 
@@ -156,6 +118,8 @@ This is a pure JS package (no native linking), so it should just work. It may pu
 - [ ] Android builds with layout deps
 - [ ] FlashList renders and scrolls in Storybook
 - [ ] BottomSheet opens/closes in Storybook
+
+---
 
 ## 3.5 — Install maps
 
@@ -203,33 +167,52 @@ pnpm add @rnmapbox/maps@10.3.0-rc.0
 - [ ] Map tiles load on Android emulator
 - [ ] No Mapbox token errors in Metro logs
 
+---
+
 ## 3.6 — Install storage & data deps
 
+`@react-native-async-storage/async-storage@^3.0.1` is **already installed and working** ✅.
+
 ```bash
-pnpm add react-native-mmkv @react-native-async-storage/async-storage \
-  react-native-sensitive-info @react-native-clipboard/clipboard
+pnpm add react-native-mmkv react-native-sensitive-info \
+  @react-native-clipboard/clipboard
 ```
 
 Target versions:
 
 - `react-native-mmkv` v4 (JSI-based, replaces `react-native-mmkv-storage`)
-- `@react-native-async-storage/async-storage` v3
 
-### Smoke test
+### Storybook stories
 
-- Storybook story (or simple test): write a value to MMKV, read it back, display it
-- Verify AsyncStorage basic set/get
+Create an interactive story for each storage/data dependency. Each story should use Paper components and contain:
+
+- A `TextInput` for entering a value
+- A `Button` that writes the value to storage
+- A `Button` that reads the value from storage
+- A `Text` that displays the read value
+
+Stories to create:
+
+1. **MMKV.stories.tsx** — write/read a key-value pair using `react-native-mmkv`
+2. **AsyncStorage.stories.tsx** — write/read using `@react-native-async-storage/async-storage`
+3. **SensitiveInfo.stories.tsx** — write/read using `react-native-sensitive-info` (secure storage)
+4. **Clipboard.stories.tsx** — copy text to clipboard and read it back using `@react-native-clipboard/clipboard`
 
 ### Verify
 
 - [ ] iOS builds with storage deps
 - [ ] Android builds with storage deps
-- [ ] MMKV write/read works
+- [ ] MMKV write/read works in Storybook
+- [ ] AsyncStorage write/read works in Storybook
+- [ ] SensitiveInfo write/read works in Storybook
+- [ ] Clipboard copy/paste works in Storybook
+
+---
 
 ## 3.7 — Install media & content deps
 
 ```bash
-pnpm add react-native-image-picker react-native-awesome-gallery \
+pnpm add react-native-image-picker \
   react-native-webview @ronradtke/react-native-markdown-display
 ```
 
@@ -237,7 +220,11 @@ Target versions:
 
 - `react-native-image-picker` v8
 - `react-native-webview` v13
-- `react-native-awesome-gallery` replaces `react-native-image-zoom-viewer`
+- `@ronradtke/react-native-markdown-display` v8 (fork of `react-native-markdown-renderer`, actively maintained)
+
+### Image gallery (react-native-awesome-gallery) — SKIPPED
+
+`react-native-awesome-gallery` requires `react-native-reanimated ^3.2.0` and is incompatible with reanimated v4. No suitable alternative found. The image gallery/zoom viewer will be reimplemented from scratch using `react-native-gesture-handler` + `react-native-reanimated` v4 directly (deferred to feature phase).
 
 ### Smoke test
 
@@ -250,6 +237,8 @@ Target versions:
 - [ ] Android builds with media deps
 - [ ] Markdown renders in Storybook
 - [ ] WebView loads a page in Storybook
+
+---
 
 ## 3.8 — Install platform utility deps
 
@@ -266,59 +255,40 @@ Target versions:
 - `@react-native-community/datetimepicker` v8
 - `react-native-keyboard-controller` v1 (replaces `react-native-avoid-softinput`)
 
+### Storybook stories
+
+Create a story for each dependency to verify it works:
+
+1. **DeviceInfo.stories.tsx** — display device info (brand, model, OS version, app version, unique ID)
+2. **Localize.stories.tsx** — display detected locale, country, currency, temperature unit, calendar
+3. **NetInfo.stories.tsx** — display current connection type, whether connected, whether internet reachable; update on change
+4. **DateTimePicker.stories.tsx** — render a date picker and a time picker, display selected value
+5. **KeyboardController.stories.tsx** — render a `TextInput` inside `KeyboardAvoidingView` from `react-native-keyboard-controller`, verify keyboard avoidance works
+
 ### Verify
 
 - [ ] iOS builds with platform utility deps
 - [ ] Android builds with platform utility deps
+- [ ] DeviceInfo story displays device data
+- [ ] NetInfo story shows connection status
+- [ ] DateTimePicker story allows date selection
+- [ ] KeyboardController story avoids keyboard
 
-## 3.9 — Verify workspace package imports
+---
 
-The monorepo has shared packages that mobile2 must consume. Verify Metro bundler resolves them correctly.
+## 3.9 — Verify workspace package imports ✅ DONE
 
-### Test each package
+Workspace packages are verified and working. Metro resolves them correctly via `watchFolders` and `nodeModulesPaths` in `metro.config.js`. Tested on the app screen.
 
-Create a temporary test file (or Storybook story) that imports from each:
+Verified packages:
 
-```typescript
-// Verify @whitewater-guide/clients
-import { configureApolloCache } from '@whitewater-guide/clients';
+- `@whitewater-guide/clients` (workspace:\*)
+- `@whitewater-guide/commons` (workspace:\*)
+- `@whitewater-guide/schema` (workspace:\*)
+- `@whitewater-guide/validation` (workspace:\*)
+- `@whitewater-guide/translations` (^2.6.8)
 
-// Verify @whitewater-guide/schema
-import type { Section } from '@whitewater-guide/schema';
-
-// Verify @whitewater-guide/commons
-import { formatDate } from '@whitewater-guide/commons';
-
-// Verify @whitewater-guide/validation
-import { SectionFormSchema } from '@whitewater-guide/validation';
-```
-
-### Potential issues
-
-- **React version mismatch:** Shared packages may have `react: ^18` peer dep while mobile2 uses React 19. Widen peer deps as decided in Phase 0 (`^18.2.0 || ^19.0.0`).
-- **Metro resolution:** Symlinked workspace packages need proper `watchFolders` and `nodeModulesPaths` in `metro.config.js` (configured in Phase 1).
-- **ESM/CJS:** `commons`, `schema`, and `validation` have dual builds. Metro should pick the CJS build via `main` field. Verify no ESM-only imports break the bundler.
-
-### Storybook smoke story
-
-Create a story that renders output from each workspace package to confirm the bundler resolves them at runtime:
-
-```tsx
-// WorkspacePackages.stories.tsx
-export const ImportsWork = () => (
-  <View>
-    <Text>commons: {typeof formatDate}</Text>
-    <Text>schema: {typeof SectionFormSchema}</Text>
-  </View>
-);
-```
-
-### Verify
-
-- [ ] `pnpm typecheck` passes with workspace imports
-- [ ] Metro bundles successfully with workspace imports
-- [ ] Storybook story renders workspace package outputs
-- [ ] No "unable to resolve module" errors
+---
 
 ## 3.10 — Set up smoke tests & integration tests
 
@@ -335,21 +305,6 @@ import App from '../App';
 it('renders without crashing', () => {
   expect(() => render(<App />)).not.toThrow();
 });
-```
-
-### Storybook interaction tests
-
-For key dependencies, add interaction tests that verify they load without native crashes:
-
-```typescript
-// Example: BottomSheet.stories.tsx
-export const Opens: Story = {
-  play: async ({ canvas }) => {
-    // Verify the bottom sheet can be expanded
-    const handle = canvas.getByTestId('bottom-sheet-handle');
-    await userEvent.press(handle);
-  },
-};
 ```
 
 ### Build verification script
@@ -376,8 +331,9 @@ echo "Both platforms build successfully!"
 ### Verify
 
 - [ ] `pnpm test` passes with smoke test
-- [ ] Storybook interaction tests pass
 - [ ] Build verification script succeeds for both platforms
+
+---
 
 ## 3.11 — Set up i18n
 
@@ -434,22 +390,26 @@ export const LanguageSwitch = () => {
 - [ ] Date formatters work (`date-fns` locale integration)
 - [ ] Custom formatters (brackets, byteSize, month) produce correct output
 
+---
+
 ## 3.12 — Deps not installed (handled by replacements or dropped)
 
 The following old deps do **not** need new packages — tracked here for completeness:
 
-| Old dep                          | Resolution                                                                         |
-| -------------------------------- | ---------------------------------------------------------------------------------- |
-| `react-native-bundle-splitter`   | Use `React.lazy` + `Suspense` (built into React 18+)                               |
-| `react-native-text-size`         | Use `Text.onTextLayout` callback                                                   |
-| `react-native-modal-popover`     | Use Paper `Menu` component (installed in 3.3)                                      |
-| `react-native-snackbar`          | Use Paper `Snackbar` component (installed in 3.3)                                  |
-| `react-native-avoid-softinput`   | Replaced by `react-native-keyboard-controller` (installed in 3.8)                  |
-| `react-native-big-list`          | Replaced by `@shopify/flash-list` (installed in 3.4)                               |
-| `react-native-image-zoom-viewer` | Replaced by `react-native-awesome-gallery` (installed in 3.7)                      |
-| `react-native-mmkv-storage`      | Replaced by `react-native-mmkv` (installed in 3.6)                                 |
-| `react-native-iphone-x-helper`   | Use `useSafeAreaInsets()` from `react-native-safe-area-context` (installed in 3.2) |
-| `react-native-redash`            | Inline utilities or use `react-native-reanimated` v4 built-ins (installed in 3.2)  |
+| Old dep                          | Resolution                                                                              |
+| -------------------------------- | --------------------------------------------------------------------------------------- |
+| `react-native-bundle-splitter`   | Use `React.lazy` + `Suspense` (built into React 18+)                                    |
+| `react-native-text-size`         | Use `Text.onTextLayout` callback                                                        |
+| `react-native-modal-popover`     | Use Paper `Menu` component (installed in 3.3)                                           |
+| `react-native-snackbar`          | Use Paper `Snackbar` component (installed in 3.3)                                       |
+| `react-native-avoid-softinput`   | Replaced by `react-native-keyboard-controller` (installed in 3.8)                       |
+| `react-native-big-list`          | Replaced by `@shopify/flash-list` (installed in 3.4)                                    |
+| `react-native-image-zoom-viewer` | Custom implementation using gesture-handler + reanimated v4 (deferred to feature phase) |
+| `react-native-mmkv-storage`      | Replaced by `react-native-mmkv` (installed in 3.6)                                      |
+| `react-native-iphone-x-helper`   | Use `useSafeAreaInsets()` from `react-native-safe-area-context` (installed in 3.2)      |
+| `react-native-redash`            | Inline utilities or use `react-native-reanimated` v4 built-ins (installed in 3.2)       |
+
+---
 
 ## 3.13 — Final validation
 
@@ -457,8 +417,8 @@ The following old deps do **not** need new packages — tracked here for complet
 - [ ] App builds and launches on Android after **all** deps installed
 - [ ] Storybook launches and all smoke stories render on iOS
 - [ ] Storybook launches and all smoke stories render on Android
-- [ ] Workspace packages (`clients`, `schema`, `commons`, `validation`) import correctly
-- [ ] TypeScript types resolve for all workspace packages
+- [ ] Workspace packages (`clients`, `schema`, `commons`, `validation`) import correctly ✅
+- [ ] TypeScript types resolve for all workspace packages ✅
 - [ ] Jest smoke test passes
 - [ ] i18n: language detection works on app launch
 - [ ] i18n: strings display correctly in English and Russian
