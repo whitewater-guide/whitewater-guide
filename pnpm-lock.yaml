@@ -782,12 +782,30 @@ importers:
       '@whitewater-guide/validation':
         specifier: workspace:*
         version: link:../validation
+      date-fns:
+        specifier: ^2.30.0
+        version: 2.30.0
+      date-fns-tz:
+        specifier: ^2.0.1
+        version: 2.0.1(date-fns@2.30.0)
+      i18next:
+        specifier: ^23.16.8
+        version: 23.16.8
+      intl-pluralrules:
+        specifier: ^2.0.1
+        version: 2.0.1
+      pretty-bytes:
+        specifier: ^7.1.0
+        version: 7.1.0
       react:
         specifier: 19.2.3
         version: 19.2.3
       react-dom:
         specifier: 19.2.3
         version: 19.2.3(react@19.2.3)
+      react-i18next:
+        specifier: ^13.5.0
+        version: 13.5.0(i18next@23.16.8)(react-dom@19.2.3(react@19.2.3))(react-native@0.84.1(@babel/core@7.29.0)(@react-native-community/cli@20.1.0(typescript@5.9.3))(@react-native/metro-config@0.84.1(@babel/core@7.29.0))(@types/react@19.2.14)(react@19.2.3))(react@19.2.3)
       react-native:
         specifier: 0.84.1
         version: 0.84.1(@babel/core@7.29.0)(@react-native-community/cli@20.1.0(typescript@5.9.3))(@react-native/metro-config@0.84.1(@babel/core@7.29.0))(@types/react@19.2.14)(react@19.2.3)
@@ -965,7 +983,7 @@ importers:
         version: 19.2.3(react@19.2.3)
       react-i18next:
         specifier: ^13.3.1
-        version: 13.5.0(i18next@23.16.8)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+        version: 13.5.0(i18next@23.16.8)(react-dom@19.2.3(react@19.2.3))(react-native@0.84.1(@babel/core@7.29.0)(@react-native-community/cli@20.1.0(typescript@5.9.3))(@react-native/metro-config@0.84.1(@babel/core@7.29.0))(@types/react@19.2.14)(react@19.2.3))(react@19.2.3)
       react-scripts:
         specifier: ^5.0.1
         version: 5.0.1(@babel/plugin-syntax-flow@7.28.6(@babel/core@7.29.0))(@babel/plugin-transform-react-jsx@7.28.6(@babel/core@7.29.0))(@types/babel__core@7.20.5)(eslint@8.57.1)(react@19.2.3)(type-fest@4.41.0)(typescript@5.9.3)(yaml@2.8.2)
@@ -1196,7 +1214,7 @@ importers:
         version: 14.4.1(react@19.2.3)
       react-i18next:
         specifier: ^13.3.1
-        version: 13.5.0(i18next@23.16.8)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+        version: 13.5.0(i18next@23.16.8)(react-dom@19.2.3(react@19.2.3))(react-native@0.84.1(@babel/core@7.29.0)(@react-native-community/cli@20.1.0(typescript@5.9.3))(@react-native/metro-config@0.84.1(@babel/core@7.29.0))(@types/react@19.2.14)(react@19.2.3))(react@19.2.3)
       react-iframe:
         specifier: ^1.8.5
         version: 1.8.5(react@19.2.3)
@@ -14002,6 +14020,12 @@ packages:
       }
     engines: { node: '>= 0.10' }
 
+  intl-pluralrules@2.0.1:
+    resolution:
+      {
+        integrity: sha512-astxTLzIdXPeN0K9Rumi6LfMpm3rvNO0iJE+h/k8Kr/is+wPbRe4ikyDjlLr6VTh/mEfNv8RjN+gu3KwDiuhqg==,
+      }
+
   invariant@2.2.4:
     resolution:
       {
@@ -18702,6 +18726,13 @@ packages:
         integrity: sha512-FFw039TmrBqFK8ma/7OL3sDz/VytdtJr044/QUJtH0wK9lb9jLq9tJyIxUwtQJHwar2BqtiA4iCWSwo9JLkzFg==,
       }
     engines: { node: '>=6' }
+
+  pretty-bytes@7.1.0:
+    resolution:
+      {
+        integrity: sha512-nODzvTiYVRGRqAOvE84Vk5JDPyyxsVk0/fbA/bq7RqlnhksGpset09XTxbpvLTIjoaF7K8Z8DG8yHtKGTPSYRw==,
+      }
+    engines: { node: '>=20' }
 
   pretty-error@4.0.0:
     resolution:
@@ -33111,6 +33142,8 @@ snapshots:
 
   interpret@2.2.0: {}
 
+  intl-pluralrules@2.0.1: {}
+
   invariant@2.2.4:
     dependencies:
       loose-envify: 1.4.0
@@ -36697,6 +36730,8 @@ snapshots:
 
   pretty-bytes@5.6.0: {}
 
+  pretty-bytes@7.1.0: {}
+
   pretty-error@4.0.0:
     dependencies:
       lodash: 4.17.23
@@ -36983,7 +37018,7 @@ snapshots:
     dependencies:
       react: 19.2.3
 
-  react-i18next@13.5.0(i18next@23.16.8)(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
+  react-i18next@13.5.0(i18next@23.16.8)(react-dom@19.2.3(react@19.2.3))(react-native@0.84.1(@babel/core@7.29.0)(@react-native-community/cli@20.1.0(typescript@5.9.3))(@react-native/metro-config@0.84.1(@babel/core@7.29.0))(@types/react@19.2.14)(react@19.2.3))(react@19.2.3):
     dependencies:
       '@babel/runtime': 7.29.2
       html-parse-stringify: 3.0.1
@@ -36991,6 +37026,7 @@ snapshots:
       react: 19.2.3
     optionalDependencies:
       react-dom: 19.2.3(react@19.2.3)
+      react-native: 0.84.1(@babel/core@7.29.0)(@react-native-community/cli@20.1.0(typescript@5.9.3))(@react-native/metro-config@0.84.1(@babel/core@7.29.0))(@types/react@19.2.14)(react@19.2.3)
 
   react-iframe@1.8.5(react@19.2.3):
     dependencies:

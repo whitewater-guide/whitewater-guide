@@ -18,6 +18,8 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { I18nProvider } from './i18n';
+
 interface RootStackParamList {
   Home: undefined;
   Details: { itemId: number };
@@ -65,15 +67,17 @@ function App() {
     <GestureHandlerRootView style={styles.flex}>
       <PaperProvider>
         <SafeAreaProvider>
-          <NavigationContainer>
-            <StatusBar
-              barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-            />
-            <Stack.Navigator>
-              <Stack.Screen name="Home" component={HomeScreen} />
-              <Stack.Screen name="Details" component={DetailsScreen} />
-            </Stack.Navigator>
-          </NavigationContainer>
+          <I18nProvider>
+            <NavigationContainer>
+              <StatusBar
+                barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+              />
+              <Stack.Navigator>
+                <Stack.Screen name="Home" component={HomeScreen} />
+                <Stack.Screen name="Details" component={DetailsScreen} />
+              </Stack.Navigator>
+            </NavigationContainer>
+          </I18nProvider>
         </SafeAreaProvider>
       </PaperProvider>
     </GestureHandlerRootView>

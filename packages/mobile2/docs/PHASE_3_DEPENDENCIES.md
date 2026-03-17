@@ -292,51 +292,42 @@ echo "Both platforms build successfully!"
 
 ---
 
-## 3.11 — Set up i18n
+## 3.11 — Set up i18n ✅ DONE
 
-### Install dependencies
+Installed packages:
 
-```bash
-pnpm add i18next react-i18next date-fns date-fns-tz
-```
+- `i18next@^23.16.8` ✅
+- `react-i18next@^13.5.0` ✅
+- `date-fns@^2.30.0` ✅
+- `date-fns-tz@^2.0.1` ✅
+- `pretty-bytes@^7.1.0` ✅ (for byteSize formatter)
+- `react-native-localize@^3.7.0` (already installed in 3.7) ✅
+- `@whitewater-guide/translations@^2.6.8` (already installed in 3.8) ✅
 
-- `react-native-localize` is already installed (3.8)
-- `@whitewater-guide/translations` is a workspace package (already verified in 3.9)
-- `date-fns` v2.x and `date-fns-tz` v2.x (stay on v2 — shared packages require it)
+### Implementation
 
-### Port I18nProvider
+Ported from `packages/mobile/src/i18n/`:
 
-Port from `packages/mobile/src/i18n/`:
+1. **`src/i18n/I18nProvider.tsx`** — i18next initialization with `compatibilityJSON: 'v4'`, device locale detection via `react-native-localize`, `configDateFNS` integration
+2. **`src/i18n/resources.ts`** — Translation resources aggregated from `@whitewater-guide/translations/mobile/{de,en,es,fr,ru}`
+3. **`src/i18n/languages.ts`** — `SUPPORTED_LANGUAGES` and `LANGUAGE_NAMES` constants
+4. **`src/i18n/formatters/`** — Custom i18next formatters: `brackets`, `byteSize`, `month`
+5. **`src/i18n/getSeasonLocalizer.ts`** — Season/month localization helper
+6. **`src/i18n/index.ts`** — Barrel exports
 
-1. **Language detection:** user profile language → `react-native-localize` device locale → fallback `'en'`
-2. **i18next configuration:**
-   ```typescript
-   i18n.use(initReactI18next).init({
-     compatibilityJSON: 'v4',
-     fallbackLng: 'en',
-     interpolation: { escapeValue: false },
-     resources: aggregatedResources,
-   });
-   ```
-3. **Translation resources:** Aggregate from `@whitewater-guide/translations` package
-4. **Custom formatters:** Port bracket formatter, byteSize formatter, month formatter from old app
-5. **Language switch handler:** When language changes, update i18next locale and (later in Phase 7) trigger Apollo cache purge
+### Integration
 
-### Storybook smoke story
+- `I18nProvider` wraps app content in `src/App.tsx`
+- `I18nProvider` added as Storybook decorator in `.rnstorybook/preview.tsx`
+- Storybook story: `I18n.stories.tsx` — language switch with translation key display
 
-```tsx
-// I18n.stories.tsx
-export const LanguageSwitch = () => {
-  const { t, i18n } = useTranslation();
-  return (
-    <View>
-      <Text>{t('commons:ok')}</Text>
-      <Button onPress={() => i18n.changeLanguage('ru')} title="Switch to RU" />
-      <Button onPress={() => i18n.changeLanguage('en')} title="Switch to EN" />
-    </View>
-  );
-};
-```
+### Notes
+
+- Auth-driven language switching (user profile → language) is deferred to Phase 7 when auth is ported. Currently detects device locale only.
+- Dropped `compatibilityJSON: 'v3'` in favor of `'v4'` (i18next v23 default)
+- Dropped dev-mode `remapResources` / `extra.json` / `deepmerge` — not needed in new app
+- Replaced `lodash/toNumber` with `Number()` in byteSize formatter
+- Replaced `lodash/memoize` with simple closure cache in getSeasonLocalizer
 
 ### Verify
 
