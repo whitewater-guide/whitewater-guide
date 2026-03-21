@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 import { Appbar } from 'react-native-paper';
 
 interface HeaderLeftProps {
@@ -8,8 +8,8 @@ interface HeaderLeftProps {
   onMenu: () => void;
 }
 
-const HeaderLeft: React.FC<HeaderLeftProps> = React.memo(
-  ({ topLevel, canGoBack, onBack, onMenu }) => {
+const HeaderLeft = memo(
+  ({ topLevel, canGoBack, onBack, onMenu }: HeaderLeftProps) => {
     if (canGoBack && !topLevel) {
       return <Appbar.BackAction onPress={onBack} testID="header:back" />;
     }
@@ -23,7 +23,5 @@ const HeaderLeft: React.FC<HeaderLeftProps> = React.memo(
     );
   },
 );
-
-HeaderLeft.displayName = 'HeaderLeft';
 
 export default HeaderLeft;

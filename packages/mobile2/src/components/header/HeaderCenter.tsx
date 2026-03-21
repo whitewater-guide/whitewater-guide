@@ -1,12 +1,13 @@
-import React from 'react';
+import type { ReactNode } from 'react';
+import { memo } from 'react';
 import { Keyboard } from 'react-native';
 import { Appbar } from 'react-native-paper';
 
 interface HeaderCenterProps {
-  title?: React.ReactNode;
+  title?: ReactNode;
 }
 
-const HeaderCenter: React.FC<HeaderCenterProps> = React.memo(({ title }) => {
+const HeaderCenter = memo(({ title }: HeaderCenterProps) => {
   return (
     <Appbar.Content
       title={typeof title === 'string' ? title : (title ?? '')}
@@ -14,7 +15,5 @@ const HeaderCenter: React.FC<HeaderCenterProps> = React.memo(({ title }) => {
     />
   );
 });
-
-HeaderCenter.displayName = 'HeaderCenter';
 
 export default HeaderCenter;

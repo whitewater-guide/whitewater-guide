@@ -13,9 +13,10 @@ import PlaceholderScreen from './components/PlaceholderScreen';
 import type { RootStackParamsList } from './core/navigation';
 import { Screens } from './core/navigation';
 import { I18nProvider } from './i18n';
+import AddSectionStack from './screens/add-section/AddSectionStack';
+import AuthStack from './screens/auth/AuthStack';
+import DescentFormStack from './screens/descent-form/DescentFormStack';
 import {
-  MockAuthMainScreen,
-  MockDescentFormSectionScreen,
   MockDescentScreen,
   MockLogbookScreen,
   MockRegionsListScreen,
@@ -76,8 +77,8 @@ function App() {
                 />
                 <Stack.Screen
                   name={Screens.AUTH_STACK}
-                  component={MockAuthMainScreen}
-                  options={{ ...innerScreenOptions, headerTitle: 'Auth' }}
+                  component={AuthStack}
+                  options={{ headerShown: false }}
                 />
                 <Stack.Screen
                   name={Screens.LOGBOOK}
@@ -91,19 +92,13 @@ function App() {
                 />
                 <Stack.Screen
                   name={Screens.DESCENT_FORM}
-                  component={MockDescentFormSectionScreen}
-                  options={{
-                    ...innerScreenOptions,
-                    headerTitle: 'Descent Form',
-                  }}
+                  component={DescentFormStack}
+                  options={{ headerShown: false }}
                 />
                 <Stack.Screen
                   name={Screens.ADD_SECTION_SCREEN}
-                  component={PlaceholderScreen}
-                  options={{
-                    ...innerScreenOptions,
-                    headerTitle: 'Add Section',
-                  }}
+                  component={AddSectionStack}
+                  options={{ headerShown: false }}
                 />
                 <Stack.Screen
                   name={Screens.MY_PROFILE}

@@ -1,13 +1,12 @@
-import React from 'react';
+import type { ReactNode } from 'react';
+import { memo } from 'react';
 
 interface HeaderRightProps {
-  element?: React.ReactNode;
+  element?: ReactNode;
 }
 
-const HeaderRight: React.FC<HeaderRightProps> = React.memo(({ element }) => {
+const HeaderRight = memo(({ element }: HeaderRightProps) => {
   return element || null;
 });
-
-HeaderRight.displayName = 'HeaderRight';
 
 export default HeaderRight;

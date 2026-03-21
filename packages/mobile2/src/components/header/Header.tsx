@@ -1,7 +1,7 @@
 import type { DrawerNavigationProp } from '@react-navigation/drawer';
 import type { NavigationProp, ParamListBase } from '@react-navigation/native';
 import type { NativeStackHeaderProps } from '@react-navigation/native-stack';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import type { StyleProp, ViewStyle } from 'react-native';
 import { Appbar } from 'react-native-paper';
 
@@ -12,12 +12,7 @@ interface HeaderProps extends NativeStackHeaderProps {
   topLevel: boolean;
 }
 
-const Header: React.FC<HeaderProps> = ({
-  topLevel,
-  navigation,
-  options,
-  back,
-}) => {
+function Header({ topLevel, navigation, options, back }: HeaderProps) {
   const { headerStyle, headerTitle, headerRight } = options;
 
   const title =
@@ -34,7 +29,6 @@ const Header: React.FC<HeaderProps> = ({
   }, [navigation]);
 
   const handleMenu = useCallback(() => {
-    // NativeStackHeaderProps types NavigatorID as undefined, so getParent(id) needs a cast
     const parent = (navigation as NavigationProp<ParamListBase>).getParent<
       DrawerNavigationProp<any> | undefined
     >('Drawer');
@@ -56,6 +50,6 @@ const Header: React.FC<HeaderProps> = ({
       {rightElement}
     </Appbar.Header>
   );
-};
+}
 
 export default Header;
