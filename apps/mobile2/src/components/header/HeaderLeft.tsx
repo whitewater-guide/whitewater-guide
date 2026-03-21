@@ -11,7 +11,15 @@ interface HeaderLeftProps {
 const HeaderLeft = memo(
   ({ topLevel, canGoBack, onBack, onMenu }: HeaderLeftProps) => {
     if (canGoBack && !topLevel) {
-      return <Appbar.BackAction onPress={onBack} testID="header:back" />;
+      return (
+        <Appbar.Action
+          icon="chevron-left"
+          size={36}
+          onPress={onBack}
+          isLeading
+          testID="header:back"
+        />
+      );
     }
     return (
       <Appbar.Action

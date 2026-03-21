@@ -29,9 +29,7 @@ const shadow = {
 
 const navigationStyles = StyleSheet.create({
   headerStyle: {
-    backgroundColor: colors.primaryBackground,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.border,
+    backgroundColor: colors.primary,
   },
   tabBarStyle: {
     backgroundColor: colors.primaryBackground,
@@ -72,6 +70,8 @@ export const paperTheme = {
   colors: {
     ...MD3LightTheme.colors,
     primary: colors.primary,
+    primaryContainer: colors.accent,
+    onPrimaryContainer: colors.textMain,
     secondary: colors.accent,
     background: colors.primaryBackground,
     surface: colors.lightBackground,

@@ -42,7 +42,7 @@ function Header({ topLevel, navigation, options, back }: HeaderProps) {
     >
       <HeaderLeft
         topLevel={topLevel}
-        canGoBack={!!back}
+        canGoBack={navigation.canGoBack()}
         onBack={handleBack}
         onMenu={handleMenu}
       />
