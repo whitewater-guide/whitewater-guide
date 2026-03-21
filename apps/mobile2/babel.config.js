@@ -3,7 +3,7 @@ module.exports = {
   plugins: [
     [
       'transform-inline-environment-variables',
-      { include: ['STORYBOOK_ENABLED'] },
+      { include: ['STORYBOOK_ENABLED', 'E2E_MODE'] },
     ],
     'react-native-worklets/plugin',
   ],

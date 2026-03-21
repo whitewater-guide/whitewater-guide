@@ -441,11 +441,11 @@ These render region/section names with custom styling rather than plain text tit
 All stack navigators globally set:
 
 - `gestureEnabled: false` — disables iOS back swipe everywhere (drawer swipe is selectively re-enabled per screen)
-- `animationEnabled: Config.E2E_MODE !== 'true'` — disables transition animations during E2E tests for deterministic behavior
+- `animationEnabled: process.env.E2E_MODE !== 'true'` — disables transition animations during E2E tests for deterministic behavior
 
 **V7 migration**:
 
-- **`animationEnabled` is removed** in v7's stack navigator. Use `animation: 'none'` instead. The E2E conditional becomes: `animation: Config.E2E_MODE === 'true' ? 'none' : 'default'`.
+- **`animationEnabled` is removed** in v7's stack navigator. Use `animation: 'none'` instead. The E2E conditional becomes: `animation: process.env.E2E_MODE === 'true' ? 'none' : 'default'`.
 - **`gestureEnabled`** is still available in `@react-navigation/native-stack` (unchanged). In `@react-navigation/stack` (JS-based), it also remains available.
 - If migrating to native stack: `gestureEnabled` defaults to `true` and works identically. The option name is the same.
 
@@ -472,7 +472,7 @@ Navigation state is persisted to `AsyncStorage` under the key `'wwguide2'`.
 3. Once ready, the stored state is passed as `initialState` to `NavigationContainer`
 4. The app resumes exactly where the user left off (same screen, same tab, same scroll position context)
 
-**E2E mode**: When `Config.E2E_MODE === 'true'`, persistence is skipped entirely — `isReady` starts as `true` and no state is restored. This ensures E2E tests always start from a clean state.
+**E2E mode**: When `process.env.E2E_MODE === 'true'`, persistence is skipped entirely — `isReady` starts as `true` and no state is restored. This ensures E2E tests always start from a clean state.
 
 ### State clearing
 

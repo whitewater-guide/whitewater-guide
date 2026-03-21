@@ -7,6 +7,7 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
+    "detox:start": "E2E_MODE=true react-native start --reset-cache",
     "storybook:generate": "sb-rn-get-stories",
     "storybook:start": "STORYBOOK_ENABLED=true react-native start --reset-cache",
     "storybook:ios": "STORYBOOK_ENABLED=true react-native run-ios",

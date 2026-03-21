@@ -1,6 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
-import Config from 'react-native-config';
 
 import { getHeaderRenderer } from '../../components/header';
 import PlaceholderScreen from '../../components/PlaceholderScreen';
@@ -24,7 +23,7 @@ const topLevelScreenOptions = {
   header: getHeaderRenderer(true),
   gestureEnabled: false,
   animation:
-    Config.E2E_MODE === 'true' ? ('none' as const) : ('default' as const),
+    process.env.E2E_MODE === 'true' ? ('none' as const) : ('default' as const),
   headerStyle: theme.navigationStyles.headerStyle,
   headerTintColor: theme.colors.textLight,
 };
@@ -33,7 +32,7 @@ const innerScreenOptions = {
   header: getHeaderRenderer(false),
   gestureEnabled: false,
   animation:
-    Config.E2E_MODE === 'true' ? ('none' as const) : ('default' as const),
+    process.env.E2E_MODE === 'true' ? ('none' as const) : ('default' as const),
   headerStyle: theme.navigationStyles.headerStyle,
   headerTintColor: theme.colors.textLight,
 };

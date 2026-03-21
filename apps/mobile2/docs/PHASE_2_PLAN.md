@@ -354,7 +354,6 @@ Port from old app's `.env.*.yml` (YAML) to `.env.*` (dotenv) format, dropping Fa
 
 ```
 ENV_NAME=
-E2E_MODE=
 BACKEND_PROTOCOL=
 BACKEND_HOST=
 DEEP_LINKING_DOMAIN=
@@ -385,7 +384,6 @@ Copy values from the corresponding old app files (`apps/mobile/.env.development.
 declare module 'react-native-config' {
   export interface NativeConfig {
     ENV_NAME: string;
-    E2E_MODE: string;
     BACKEND_PROTOCOL: string;
     BACKEND_HOST: string;
     DEEP_LINKING_DOMAIN: string;

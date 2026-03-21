@@ -313,7 +313,7 @@ RootDrawer (id: "Drawer")
 
 - Use **dynamic API** (not static) — required for conditional tab visibility (SECTION_CHART)
 - Assign `id` props to navigators: `"Drawer"`, `"RootStack"`, `"RegionStack"`, `"SectionStack"` — enables typed `getParent('id')` calls
-- Replace `animationEnabled` with `animation: Config.E2E_MODE === 'true' ? 'none' : 'default'`
+- Replace `animationEnabled` with `animation: process.env.E2E_MODE === 'true' ? 'none' : 'default'`
 - `gestureEnabled: false` globally on all stacks (unchanged from v6)
 - `navigate` in v7 always pushes — use `popTo` where the old app relied on `navigate` going back to an existing screen
 - Material bottom tabs: `createMaterialBottomTabNavigator` from `react-native-paper/react-navigation`
@@ -446,7 +446,7 @@ Port `usePersistence` hook:
 
 - Save navigation state to MMKV on every `onStateChange`
 - Restore on app launch, show splash screen while loading
-- **E2E mode**: when `Config.E2E_MODE === 'true'`, skip persistence entirely — always start fresh
+- **E2E mode**: when `process.env.E2E_MODE === 'true'`, skip persistence entirely — always start fresh
 - Key: `'wwguide2_nav_state'`
 
 ---

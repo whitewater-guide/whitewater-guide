@@ -1,13 +1,12 @@
 import type { NavigationState } from '@react-navigation/native';
 import { useCallback, useEffect, useState } from 'react';
-import Config from 'react-native-config';
 import { createMMKV } from 'react-native-mmkv';
 
 const storage = createMMKV();
 const PERSISTENCE_KEY = 'wwguide2_nav_state';
 
 export default function usePersistence() {
-  const isE2E = Config.E2E_MODE === 'true';
+  const isE2E = process.env.E2E_MODE === 'true';
   const [isReady, setIsReady] = useState(isE2E);
   const [initialState, setInitialState] = useState<
     NavigationState | undefined
