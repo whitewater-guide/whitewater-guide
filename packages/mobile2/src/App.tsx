@@ -1,60 +1,46 @@
-import MaterialIcons from '@react-native-vector-icons/material-design-icons';
 import { NavigationContainer } from '@react-navigation/native';
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NEW_RIVER_ID } from '@whitewater-guide/commons';
 import { useEffect } from 'react';
-import {
-  Button,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import { StatusBar, StyleSheet, useColorScheme } from 'react-native';
 import BootSplash from 'react-native-bootsplash';
 import Config from 'react-native-config';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { getHeaderRenderer } from './components/header';
+import PlaceholderScreen from './components/PlaceholderScreen';
+import type { RootStackParamsList } from './core/navigation';
+import { Screens } from './core/navigation';
 import { I18nProvider } from './i18n';
+import {
+  MockAuthMainScreen,
+  MockDescentFormSectionScreen,
+  MockDescentScreen,
+  MockLogbookScreen,
+  MockRegionsListScreen,
+} from './screens/mock';
+import theme, { paperTheme } from './theme';
 
-interface RootStackParamList {
-  Home: undefined;
-  Details: { itemId: number };
-}
+const Stack = createNativeStackNavigator<RootStackParamsList>();
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const screenOptions = {
+  header: getHeaderRenderer(true),
+  gestureEnabled: false,
+  animation:
+    Config.E2E_MODE === 'true' ? ('none' as const) : ('default' as const),
+  headerStyle: theme.navigationStyles.headerStyle,
+  headerTintColor: theme.colors.textLight,
+};
 
-function HomeScreen({
-  navigation,
-}: NativeStackScreenProps<RootStackParamList, 'Home'>) {
-  return (
-    <View style={styles.container}>
-      <Text>{NEW_RIVER_ID}</Text>
-      <Text>{Config.BACKEND_HOST}</Text>
-      <MaterialIcons name="facebook-gaming" size={30} />
-      <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate('Details', { itemId: 42 })}
-      />
-    </View>
-  );
-}
-
-function DetailsScreen({
-  route,
-  navigation,
-}: NativeStackScreenProps<RootStackParamList, 'Details'>) {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Details Screen</Text>
-      <Text>Item ID: {route.params.itemId}</Text>
-      <Button title="Go back" onPress={() => navigation.goBack()} />
-    </View>
-  );
-}
+const innerScreenOptions = {
+  header: getHeaderRenderer(false),
+  gestureEnabled: false,
+  animation:
+    Config.E2E_MODE === 'true' ? ('none' as const) : ('default' as const),
+  headerStyle: theme.navigationStyles.headerStyle,
+  headerTintColor: theme.colors.textLight,
+};
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -65,16 +51,100 @@ function App() {
 
   return (
     <GestureHandlerRootView style={styles.flex}>
-      <PaperProvider>
+      <PaperProvider theme={paperTheme}>
         <SafeAreaProvider>
           <I18nProvider>
             <NavigationContainer>
               <StatusBar
                 barStyle={isDarkMode ? 'light-content' : 'dark-content'}
               />
-              <Stack.Navigator>
-                <Stack.Screen name="Home" component={HomeScreen} />
-                <Stack.Screen name="Details" component={DetailsScreen} />
+              <Stack.Navigator screenOptions={screenOptions}>
+                <Stack.Screen
+                  name={Screens.REGIONS_LIST}
+                  component={MockRegionsListScreen}
+                  options={{ headerTitle: 'Regions' }}
+                />
+                <Stack.Screen
+                  name={Screens.REGION_STACK}
+                  component={PlaceholderScreen}
+                  options={innerScreenOptions}
+                />
+                <Stack.Screen
+                  name={Screens.SECTION_SCREEN}
+                  component={PlaceholderScreen}
+                  options={innerScreenOptions}
+                />
+                <Stack.Screen
+                  name={Screens.AUTH_STACK}
+                  component={MockAuthMainScreen}
+                  options={{ ...innerScreenOptions, headerTitle: 'Auth' }}
+                />
+                <Stack.Screen
+                  name={Screens.LOGBOOK}
+                  component={MockLogbookScreen}
+                  options={{ ...innerScreenOptions, headerTitle: 'Logbook' }}
+                />
+                <Stack.Screen
+                  name={Screens.DESCENT}
+                  component={MockDescentScreen}
+                  options={{ ...innerScreenOptions, headerTitle: 'Descent' }}
+                />
+                <Stack.Screen
+                  name={Screens.DESCENT_FORM}
+                  component={MockDescentFormSectionScreen}
+                  options={{
+                    ...innerScreenOptions,
+                    headerTitle: 'Descent Form',
+                  }}
+                />
+                <Stack.Screen
+                  name={Screens.ADD_SECTION_SCREEN}
+                  component={PlaceholderScreen}
+                  options={{
+                    ...innerScreenOptions,
+                    headerTitle: 'Add Section',
+                  }}
+                />
+                <Stack.Screen
+                  name={Screens.MY_PROFILE}
+                  component={PlaceholderScreen}
+                  options={{ ...innerScreenOptions, headerTitle: 'My Profile' }}
+                />
+                <Stack.Screen
+                  name={Screens.CONNECT_EMAIL_REQUEST}
+                  component={PlaceholderScreen}
+                  options={innerScreenOptions}
+                />
+                <Stack.Screen
+                  name={Screens.CONNECT_EMAIL}
+                  component={PlaceholderScreen}
+                  options={innerScreenOptions}
+                />
+                <Stack.Screen
+                  name={Screens.CONNECT_EMAIL_SUCCESS}
+                  component={PlaceholderScreen}
+                  options={innerScreenOptions}
+                />
+                <Stack.Screen
+                  name={Screens.PLAIN}
+                  component={PlaceholderScreen}
+                  options={innerScreenOptions}
+                />
+                <Stack.Screen
+                  name={Screens.WEB_VIEW}
+                  component={PlaceholderScreen}
+                  options={innerScreenOptions}
+                />
+                <Stack.Screen
+                  name={Screens.LICENSE}
+                  component={PlaceholderScreen}
+                  options={innerScreenOptions}
+                />
+                <Stack.Screen
+                  name={Screens.SUGGESTION}
+                  component={PlaceholderScreen}
+                  options={innerScreenOptions}
+                />
               </Stack.Navigator>
             </NavigationContainer>
           </I18nProvider>
@@ -87,16 +157,6 @@ function App() {
 const styles = StyleSheet.create({
   flex: {
     flex: 1,
-  },
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 12,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
   },
 });
 

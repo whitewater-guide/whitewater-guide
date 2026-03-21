@@ -9,7 +9,6 @@ declare module 'react-native-config' {
     CHAT_HOST: string;
     MAPBOX_ACCESS_TOKEN: string;
     SENTRY_DSN: string;
-    STORYBOOK_ENABLED: string;
   }
 
   export const Config: NativeConfig;

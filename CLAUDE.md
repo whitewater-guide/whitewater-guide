@@ -101,6 +101,10 @@ pnpm dev:cleanup    # Delete all dev docker images/volumes/containers
 - Mobile uses `react-native` jest preset with custom setup for mapbox and gesture handler
 - Backend tests need running Docker services (postgres, minio)
 
+## Conventions by package type
+
+- React packages (web, mobile, mobile2, clients): [React Conventions](.claude/react-conventions.md)
+
 ## Conventions
 
 - **Commits**: Conventional commits enforced via commitlint (`@commitlint/config-conventional`)
