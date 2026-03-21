@@ -189,8 +189,8 @@ services:
   #   ports:
   #     - '3333:3333'
   #   env_file:
-  #     - ./packages/backend/.env
-  #     - ./packages/backend/.env.local
+  #     - ./apps/backend/.env
+  #     - ./apps/backend/.env.local
   #   environment:
   #     - POSTGRES_HOST=db.local
   #     - MINIO_HOST=minio.local

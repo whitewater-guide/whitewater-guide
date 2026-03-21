@@ -306,7 +306,7 @@ Installed packages:
 
 ### Implementation
 
-Ported from `packages/mobile/src/i18n/`:
+Ported from `apps/mobile/src/i18n/`:
 
 1. **`src/i18n/I18nProvider.tsx`** — i18next initialization with `compatibilityJSON: 'v4'`, device locale detection via `react-native-localize`, `configDateFNS` integration
 2. **`src/i18n/resources.ts`** — Translation resources aggregated from `@whitewater-guide/translations/mobile/{de,en,es,fr,ru}`

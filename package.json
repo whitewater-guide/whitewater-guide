@@ -7,6 +7,7 @@
   "repository": "https://github.com/doomsower/whitewater.git",
   "author": "doomsower <K.Kuznetcov@gmail.com>",
   "workspaces": [
+    "apps/*",
     "packages/*"
   ],
   "scripts": {
@@ -15,7 +16,7 @@
     "prettier": "prettier --write .",
     "nibble": "pnpm dlx eslint-nibble \"**/*.{ts,tsx}\" --cache",
     "clean": "pnpm --recursive --if-present --parallel --stream run clean",
-    "npkill": "rm -rf node_modules packages/*/node_modules",
+    "npkill": "rm -rf node_modules packages/*/node_modules apps/*/node_modules",
     "build": "pnpm --recursive --if-present --stream run build",
     "prepare": "./scripts/prepare.sh",
     "typecheck": "pnpm --recursive --if-present --no-bail --stream run typecheck",

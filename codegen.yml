@@ -44,7 +44,7 @@ generates:
       - typescript-apollo-client-helpers
 
   # GRAPHQL resolvers
-  ./packages/backend/src/apollo/resolvers.generated.ts:
+  ./apps/backend/src/apollo/resolvers.generated.ts:
     emitLegacyCommonJSImports: false
     preset: import-types
     presetConfig:
@@ -81,11 +81,11 @@ generates:
         User: '../db/index.js#Sql.Users'
 
   # Tests that run GRAPHQL queries and mutations against our API
-  ./packages/backend/src/:
+  ./apps/backend/src/:
     emitLegacyCommonJSImports: false
     documents:
-      - ./packages/backend/src/**/__tests__/*.ts
-      - ./packages/backend/src/**/*.test.ts
+      - ./apps/backend/src/**/__tests__/*.ts
+      - ./apps/backend/src/**/*.test.ts
     preset: near-operation-file
     presetConfig:
       extension: .generated.ts
@@ -104,7 +104,7 @@ generates:
     documents:
       - ./packages/clients/src/**/*.gql
       - ./packages/promo/src/**/*.gql
-      - ./packages/web/src/**/*.gql
+      - ./apps/web/src/**/*.gql
     preset: near-operation-file
     presetConfig:
       extension: .generated.ts
@@ -116,10 +116,10 @@ generates:
       - typescript-operations
       - typescript-react-apollo
 
-  ./packages/mobile/src/:
-    schema: ./packages/mobile/schema/mobile-local-schema.graphql
+  ./apps/mobile/src/:
+    schema: ./apps/mobile/schema/mobile-local-schema.graphql
     documents:
-      - ./packages/mobile/src/**/*.gql
+      - ./apps/mobile/src/**/*.gql
     preset: near-operation-file
     presetConfig:
       extension: .generated.ts

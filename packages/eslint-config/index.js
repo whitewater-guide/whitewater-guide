@@ -42,7 +42,7 @@ module.exports = {
     'import/ignore': ['victory.*'],
     'import/resolver': {
       typescript: {
-        project: ['packages/*/tsconfig.json'],
+        project: ['packages/*/tsconfig.json', 'apps/*/tsconfig.json'],
       },
     },
   },

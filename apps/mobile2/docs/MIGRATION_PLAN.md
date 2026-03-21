@@ -1,6 +1,6 @@
 # Mobile2 Migration Plan
 
-**Goal:** Rebuild `packages/mobile` as `packages/mobile2` on React Native 0.84.1 with New Architecture, modern tooling, and improved testing.
+**Goal:** Rebuild `apps/mobile` as `apps/mobile2` on React Native 0.84.1 with New Architecture, modern tooling, and improved testing.
 
 **Dropped features:** In-app purchases (IAP), social authentication (Apple, Google, Facebook).
 

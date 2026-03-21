@@ -5,7 +5,7 @@
 ## Context
 
 Phase 1 is complete — mobile2 is a fresh RN 0.84.1 app building on both platforms with Detox.
-Now we need to port native assets and platform config from the old app (`packages/mobile`) so
+Now we need to port native assets and platform config from the old app (`apps/mobile`) so
 the app launches with the correct icon, splash screen, app name, permissions, and deep linking.
 
 **Scope decisions:**
@@ -32,7 +32,7 @@ On Android, nothing has changed for launcher icons. Adaptive icons (introduced i
 
 **Assuming you have the original 1024x1024 app icon PNG:**
 
-1. Place it at `packages/mobile2/assets/app-icon.png`
+1. Place it at `apps/mobile2/assets/app-icon.png`
 2. In Xcode, open `Images.xcassets` → `AppIcon`
 3. Xcode 15+ uses a "Single Size" mode by default — just drag the 1024x1024 into the single slot
 4. Update `Contents.json` to use single-size format:
@@ -54,7 +54,7 @@ On Android, nothing has changed for launcher icons. Adaptive icons (introduced i
 }
 ```
 
-**If you don't have the original artwork**, extract from old app: copy `packages/mobile/ios/whitewater/Images.xcassets/AppIcon.appiconset/Icon.png` (1024x1024) as the source.
+**If you don't have the original artwork**, extract from old app: copy `apps/mobile/ios/whitewater/Images.xcassets/AppIcon.appiconset/Icon.png` (1024x1024) as the source.
 
 **Verification:**
 
@@ -73,11 +73,11 @@ On Android, nothing has changed for launcher icons. Adaptive icons (introduced i
 **Alternatively**, copy the existing icons from the old app:
 
 ```
-packages/mobile/android/app/src/main/res/mipmap-*/ic_launcher.png
-packages/mobile/android/app/src/main/res/mipmap-*/ic_launcher_round.png
+apps/mobile/android/app/src/main/res/mipmap-*/ic_launcher.png
+apps/mobile/android/app/src/main/res/mipmap-*/ic_launcher_round.png
 ```
 
-→ into `packages/mobile2/android/app/src/main/res/mipmap-*/` (overwriting defaults).
+→ into `apps/mobile2/android/app/src/main/res/mipmap-*/` (overwriting defaults).
 
 Also copy `mipmap-ldpi/ic_launcher.png` if present.
 
@@ -107,21 +107,21 @@ Also copy `mipmap-ldpi/ic_launcher.png` if present.
 
 **Assuming you have the original logo as a high-res PNG (or SVG):**
 
-1. Create `packages/mobile2/assets/` directory
+1. Create `apps/mobile2/assets/` directory
 2. Place your logo file there (e.g., `assets/bootsplash_logo.png` or `assets/bootsplash_logo.svg`)
 3. SVG is preferred if available — the generator handles it better
 
 **If you only have the old app's assets:** Extract the highest-res version:
 
 ```bash
-cp packages/mobile/ios/whitewater/Images.xcassets/BootSplashLogo.imageset/bootsplash_logo@3x.png \
-   packages/mobile2/assets/bootsplash_logo.png
+cp apps/mobile/ios/whitewater/Images.xcassets/BootSplashLogo.imageset/bootsplash_logo@3x.png \
+   apps/mobile2/assets/bootsplash_logo.png
 ```
 
 ### 2b. Install react-native-bootsplash
 
 ```bash
-cd packages/mobile2
+cd apps/mobile2
 pnpm add react-native-bootsplash
 cd ios && pod install && cd ..
 ```
@@ -129,7 +129,7 @@ cd ios && pod install && cd ..
 ### 2c. Generate splash assets
 
 ```bash
-cd packages/mobile2
+cd apps/mobile2
 npx react-native-bootsplash generate assets/bootsplash_logo.png \
   --platforms=android,ios \
   --background=0078B4 \
@@ -147,13 +147,13 @@ Review the generated files and verify the logo looks correct at the specified wi
 
 ### 2d. iOS — Update Info.plist launch storyboard
 
-**File:** `packages/mobile2/ios/whitewater/Info.plist`
+**File:** `apps/mobile2/ios/whitewater/Info.plist`
 
 **Change:** `UILaunchStoryboardName` from `LaunchScreen` → `BootSplash`
 
 ### 2e. iOS — Initialize BootSplash in AppDelegate.swift
 
-**File:** `packages/mobile2/ios/whitewater/AppDelegate.swift`
+**File:** `apps/mobile2/ios/whitewater/AppDelegate.swift`
 
 Add BootSplash initialization using the RN 0.79+ pattern:
 
@@ -171,7 +171,7 @@ class ReactNativeDelegate: RCTDefaultReactNativeFactoryDelegate {
 
 ### 2f. Android — Initialize BootSplash in MainActivity.kt
 
-**File:** `packages/mobile2/android/app/src/main/java/guide/whitewater/MainActivity.kt`
+**File:** `apps/mobile2/android/app/src/main/java/guide/whitewater/MainActivity.kt`
 
 ```kotlin
 import android.os.Bundle
@@ -189,7 +189,7 @@ class MainActivity : ReactActivity() {
 
 ### 2g. Android — Update theme in AndroidManifest.xml
 
-**File:** `packages/mobile2/android/app/src/main/AndroidManifest.xml`
+**File:** `apps/mobile2/android/app/src/main/AndroidManifest.xml`
 
 **Change:** `android:theme` from `@style/AppTheme` → `@style/BootTheme`
 
@@ -197,7 +197,7 @@ The generator should have created `BootTheme` in `values/styles.xml` inheriting 
 
 ### 2h. JS — Hide splash screen
 
-**File:** `packages/mobile2/src/App.tsx`
+**File:** `apps/mobile2/src/App.tsx`
 
 Add `BootSplash.hide({ fade: true })` in a `useEffect`:
 
@@ -230,7 +230,7 @@ RN 0.84 template uses Xcode build settings variables (`$(MARKETING_VERSION)`, `$
 
 ### 3a. iOS — Info.plist display name & project settings
 
-**File:** `packages/mobile2/ios/whitewater/Info.plist`
+**File:** `apps/mobile2/ios/whitewater/Info.plist`
 
 **Changes:**
 
@@ -238,7 +238,7 @@ RN 0.84 template uses Xcode build settings variables (`$(MARKETING_VERSION)`, `$
 - Add `<key>ITSAppUsesNonExemptEncryption</key><false/>` (avoids App Store compliance question on every upload)
 - Remove `UISupportedInterfaceOrientations~ipad` key and its array (dead config — app is iPhone-only)
 
-**File:** `packages/mobile2/ios/whitewater.xcodeproj/project.pbxproj`
+**File:** `apps/mobile2/ios/whitewater.xcodeproj/project.pbxproj`
 
 **Changes:**
 
@@ -251,7 +251,7 @@ RN 0.84 template uses Xcode build settings variables (`$(MARKETING_VERSION)`, `$
 
 ### 3b. Android — Build variant app names and signing
 
-**File:** `packages/mobile2/android/app/build.gradle`
+**File:** `apps/mobile2/android/app/build.gradle`
 
 **Changes to `buildTypes`:**
 
@@ -303,18 +303,18 @@ Remove the static `app_name` from `res/values/strings.xml` (replaced by `resValu
 
 The old app is at version 1.21.1 (build 355 on iOS, versionCode 1817096202 on Android). The new app must use higher version numbers to be accepted as an update by the App Store and Play Store.
 
-**File:** `packages/mobile2/package.json`
+**File:** `apps/mobile2/package.json`
 
 - Change `"version": "0.0.1"` → `"version": "1.22.0"`
 
-**File:** `packages/mobile2/ios/whitewater.xcodeproj/project.pbxproj`
+**File:** `apps/mobile2/ios/whitewater.xcodeproj/project.pbxproj`
 
 In both Debug and Release target build configs (4 changes total):
 
 - Change `MARKETING_VERSION = 1.0` → `MARKETING_VERSION = 1.22.0`
 - Change `CURRENT_PROJECT_VERSION = 1` → `CURRENT_PROJECT_VERSION = 356`
 
-**File:** `packages/mobile2/android/app/build.gradle`
+**File:** `apps/mobile2/android/app/build.gradle`
 
 In `defaultConfig`:
 
@@ -339,7 +339,7 @@ The old app used `react-native-ultimate-config` (abandoned) to inject environmen
 #### Install
 
 ```bash
-cd packages/mobile2
+cd apps/mobile2
 pnpm add react-native-config
 cd ios && pod install && cd ..
 ```
@@ -364,7 +364,7 @@ MAPBOX_ACCESS_TOKEN=
 SENTRY_DSN=
 ```
 
-Copy values from the corresponding old app files (`packages/mobile/.env.development.yml`, etc.), converting from YAML to dotenv format.
+Copy values from the corresponding old app files (`apps/mobile/.env.development.yml`, etc.), converting from YAML to dotenv format.
 
 **Dropped keys** (vs old app):
 
@@ -379,7 +379,7 @@ Copy values from the corresponding old app files (`packages/mobile/.env.developm
 
 #### TypeScript type declarations
 
-**Create:** `packages/mobile2/src/types/react-native-config.d.ts`
+**Create:** `apps/mobile2/src/types/react-native-config.d.ts`
 
 ```typescript
 declare module 'react-native-config' {
@@ -402,7 +402,7 @@ declare module 'react-native-config' {
 
 #### Android — Wire build variants to env files
 
-**File:** `packages/mobile2/android/app/build.gradle`
+**File:** `apps/mobile2/android/app/build.gradle`
 
 Add to the top (after existing `apply` lines):
 
@@ -456,7 +456,7 @@ Mobile2's Info.plist already has portrait-only for iPhone. No change needed.
 
 ### Android — Lock to portrait
 
-**File:** `packages/mobile2/android/app/src/main/AndroidManifest.xml`
+**File:** `apps/mobile2/android/app/src/main/AndroidManifest.xml`
 
 **Change:** Add `android:screenOrientation="portrait"` to the `<activity>` element.
 
@@ -479,7 +479,7 @@ iOS permission model is unchanged. Android 13+ (API 33) introduced granular medi
 
 ### 5a. iOS — Permission descriptions in Info.plist
 
-**File:** `packages/mobile2/ios/whitewater/Info.plist`
+**File:** `apps/mobile2/ios/whitewater/Info.plist`
 
 **Replace** the existing empty `NSLocationWhenInUseUsageDescription` and **add** new keys:
 
@@ -516,7 +516,7 @@ iOS permission model is unchanged. Android 13+ (API 33) introduced granular medi
 
 ### 5b. Android — Manifest permissions
 
-**File:** `packages/mobile2/android/app/src/main/AndroidManifest.xml`
+**File:** `apps/mobile2/android/app/src/main/AndroidManifest.xml`
 
 **Add** `xmlns:tools` namespace and permissions:
 
@@ -558,7 +558,7 @@ iOS permission model is unchanged. Android 13+ (API 33) introduced granular medi
 
 ### 6a. iOS — Entitlements file
 
-**Create:** `packages/mobile2/ios/whitewater/whitewater.entitlements`
+**Create:** `apps/mobile2/ios/whitewater/whitewater.entitlements`
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -586,7 +586,7 @@ iOS permission model is unchanged. Android 13+ (API 33) introduced granular medi
 
 ### 6b. iOS — Deep linking in AppDelegate.swift
 
-**File:** `packages/mobile2/ios/whitewater/AppDelegate.swift`
+**File:** `apps/mobile2/ios/whitewater/AppDelegate.swift`
 
 **Add** to the `AppDelegate` class:
 
@@ -614,7 +614,7 @@ func application(
 
 ### 6c. Android — Deep link intent filter
 
-**File:** `packages/mobile2/android/app/src/main/AndroidManifest.xml`
+**File:** `apps/mobile2/android/app/src/main/AndroidManifest.xml`
 
 **Add** second intent filter inside `<activity>`, using `react-native-config` build variables (set up in Step 3d):
 
@@ -647,28 +647,28 @@ No changes in how native localization works on either platform. `.lproj` directo
 
 **Create** these 4 files:
 
-`packages/mobile2/ios/whitewater/en.lproj/InfoPlist.strings`:
+`apps/mobile2/ios/whitewater/en.lproj/InfoPlist.strings`:
 
 ```
 "NSLocationAlwaysAndWhenInUseUsageDescription" = "It needs this permission to show you how close you are to this or that river";
 "NSLocationWhenInUseUsageDescription" = "It needs this permission to show you how close you are to this or that river";
 ```
 
-`packages/mobile2/ios/whitewater/ru.lproj/InfoPlist.strings`:
+`apps/mobile2/ios/whitewater/ru.lproj/InfoPlist.strings`:
 
 ```
 "NSLocationAlwaysAndWhenInUseUsageDescription" = "Это нужно чтобы вы могли понять как близко к той или иной реке вы находитесь";
 "NSLocationWhenInUseUsageDescription" = "Это нужно чтобы вы могли понять как близко к той или иной реке вы находитесь";
 ```
 
-`packages/mobile2/ios/en.lproj/InfoPlist.strings` (root-level duplicate):
+`apps/mobile2/ios/en.lproj/InfoPlist.strings` (root-level duplicate):
 
 ```
 "NSLocationAlwaysAndWhenInUseUsageDescription" = "It needs this permission to show you how close you are to this or that river";
 "NSLocationWhenInUseUsageDescription" = "It needs this permission to show you how close you are to this or that river";
 ```
 
-`packages/mobile2/ios/ru.lproj/InfoPlist.strings` (root-level duplicate):
+`apps/mobile2/ios/ru.lproj/InfoPlist.strings` (root-level duplicate):
 
 ```
 "NSLocationAlwaysAndWhenInUseUsageDescription" = "Это нужно чтобы вы могли понять как близко к той или иной реке вы находитесь";
@@ -707,7 +707,7 @@ Key differences:
 ### 8a. Install packages
 
 ```bash
-cd packages/mobile2
+cd apps/mobile2
 pnpm add @react-native-vector-icons/material-icons @react-native-vector-icons/material-community-icons
 cd ios && pod install && cd ..
 ```
@@ -715,7 +715,7 @@ cd ios && pod install && cd ..
 ### 8b. iOS — Update Info.plist fonts
 
 ```bash
-cd packages/mobile2
+cd apps/mobile2
 npx rnvi-update-plist package.json ios/whitewater/Info.plist
 ```
 
@@ -735,7 +735,7 @@ Note: font filenames may differ in v12 (e.g., `MaterialDesignIcons.ttf`). Check 
 
 ### 8c. Verify with a test component
 
-**File:** `packages/mobile2/src/App.tsx`
+**File:** `apps/mobile2/src/App.tsx`
 
 Temporarily add an icon to verify fonts load:
 
@@ -764,7 +764,7 @@ RN 0.84 with New Architecture uses TurboModules and Fabric, which changes some P
 
 ### Action
 
-**File:** `packages/mobile2/android/app/proguard-rules.pro`
+**File:** `apps/mobile2/android/app/proguard-rules.pro`
 
 Add only the seed rules for deps we'll definitely use:
 
@@ -782,13 +782,13 @@ Other rules (react-native-svg, react-native-iap, etc.) will be added when those 
 
 ### Also: Enable ProGuard for release
 
-**File:** `packages/mobile2/android/app/build.gradle`
+**File:** `apps/mobile2/android/app/build.gradle`
 
 **Change:** `def enableProguardInReleaseBuilds = false` → `true`
 
 ### Verification:
 
-- `cd packages/mobile2/android && ./gradlew assembleRelease` — builds without ProGuard errors
+- `cd apps/mobile2/android && ./gradlew assembleRelease` — builds without ProGuard errors
 - App starts correctly from release build
 
 ---
@@ -801,7 +801,7 @@ No changes in how Xcode build configurations or Android build types work. The Po
 
 ### 10a. iOS Podfile — Add Staging configuration
 
-**File:** `packages/mobile2/ios/Podfile`
+**File:** `apps/mobile2/ios/Podfile`
 
 **Add** before `target 'whitewater'`:
 
@@ -822,7 +822,7 @@ Or edit the `project.pbxproj` to add the Staging configuration to all configurat
 
 ### 10c. Android — Add releaseStaging build type
 
-**File:** `packages/mobile2/android/app/build.gradle`
+**File:** `apps/mobile2/android/app/build.gradle`
 
 The `releaseStaging` build type with `resValue` for app name is already defined in Step 3b's `buildTypes` block. This step calls it out explicitly as the Android parallel to the iOS Staging configuration.
 

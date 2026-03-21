@@ -2,5 +2,5 @@ schema: packages/schema/schema/*.graphql
 documents:
   - 'packages/schema/schema/*.graphql'
   - 'packages/schema/fragments/*.gql'
-  - 'packages/backend/src/**/__tests__/*.ts'
-  - 'packages/backend/src/**/*.test.ts'
+  - 'apps/backend/src/**/__tests__/*.ts'
+  - 'apps/backend/src/**/*.test.ts'

@@ -5,6 +5,6 @@ build/
 public/
 esm/
 cjs/
-packages/landing/
+apps/landing/
 __generated__/
 *.generated.ts

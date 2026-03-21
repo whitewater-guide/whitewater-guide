@@ -2,7 +2,7 @@
 
 **Goal:** Identify core dependencies for RN 0.84.1 and highlight potential major incompatibilities. No exact version pinning needed — dependencies will not be installed all at once.
 
-**Reference:** See `packages/mobile/DEPENDENCY_REVIEW.md` for the full dependency audit of the current mobile app.
+**Reference:** See `apps/mobile/DEPENDENCY_REVIEW.md` for the full dependency audit of the current mobile app.
 
 ---
 

@@ -30,7 +30,7 @@
 ## 1.2 — Initialize RN 0.84.1 project
 
 ```bash
-cd packages/
+cd apps/
 npx @react-native-community/cli@latest init mobile2 --version 0.84.1 --pm pnpm --skip-install
 ```
 

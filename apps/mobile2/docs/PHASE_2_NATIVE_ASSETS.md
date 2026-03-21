@@ -8,19 +8,19 @@
 
 ### iOS
 
-- Copy `AppIcon.appiconset` from `packages/mobile/ios/WhitewaterGuide/Images.xcassets/` to the mobile2 Xcode project
+- Copy `AppIcon.appiconset` from `apps/mobile/ios/WhitewaterGuide/Images.xcassets/` to the mobile2 Xcode project
 - Verify all required sizes are present (1024×1024 App Store icon, plus device sizes)
 
 ### Android
 
-- Copy adaptive icon resources from `packages/mobile/android/app/src/main/res/`:
+- Copy adaptive icon resources from `apps/mobile/android/app/src/main/res/`:
   - `mipmap-hdpi/`, `mipmap-mdpi/`, `mipmap-xhdpi/`, `mipmap-xxhdpi/`, `mipmap-xxxhdpi/`
   - `ic_launcher.xml`, `ic_launcher_round.xml` (adaptive icon definitions)
 - Copy `ic_launcher_background.xml` and foreground drawable if using vector adaptive icons
 
 ## 2.2 — Fonts
 
-- Copy custom font files from `packages/mobile/android/app/src/main/assets/fonts/` (or wherever they reside)
+- Copy custom font files from `apps/mobile/android/app/src/main/assets/fonts/` (or wherever they reside)
 - iOS: Add font files to the Xcode project and register in `Info.plist` under `UIAppFonts`
 - Android: Font files in `assets/fonts/` are auto-discovered by RN
 - Verify fonts match what's used in the Paper theme and custom components
@@ -128,7 +128,7 @@ Install and configure `react-native-bootsplash` v7:
 
 ### ProGuard / R8
 
-- Copy ProGuard rules from `packages/mobile/android/app/proguard-rules.pro`
+- Copy ProGuard rules from `apps/mobile/android/app/proguard-rules.pro`
 - These are seed rules — will be updated as new deps are added in Phase 3+
 - Basic rules to keep: React Native, Hermes, OkHttp, Gson
 

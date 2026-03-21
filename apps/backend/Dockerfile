@@ -13,7 +13,7 @@ WORKDIR /opt/app
 COPY packages/commons ./packages/commons
 COPY packages/codegen-backend-tests ./packages/codegen-backend-tests
 COPY packages/codegen-typedefs ./packages/codegen-typedefs
-COPY packages/backend ./packages/backend
+COPY apps/backend ./apps/backend
 COPY packages/schema ./packages/schema
 COPY packages/validation ./packages/validation
 COPY patches ./patches
@@ -40,9 +40,9 @@ COPY --from=builder /opt/app/packages/commons/package.json ./packages/commons/pa
 COPY --from=builder /opt/app/packages/validation/dist ./packages/validation/dist
 COPY --from=builder /opt/app/packages/validation/package.json ./packages/validation/package.json
 
-COPY --from=builder /opt/app/packages/backend/dist ./packages/backend/dist
-COPY --from=builder /opt/app/packages/backend/scripts ./packages/backend/scripts
-COPY --from=builder /opt/app/packages/backend/package.json ./packages/backend/package.json
+COPY --from=builder /opt/app/apps/backend/dist ./apps/backend/dist
+COPY --from=builder /opt/app/apps/backend/scripts ./apps/backend/scripts
+COPY --from=builder /opt/app/apps/backend/package.json ./apps/backend/package.json
 
 COPY patches ./patches
 COPY scripts ./scripts
@@ -64,6 +64,6 @@ ENV NODE_ENV=production
 
 COPY --from=production /opt/app /opt/app
 
-WORKDIR /opt/app/packages/backend
+WORKDIR /opt/app/apps/backend
 
 CMD ["dist/index.js"]
