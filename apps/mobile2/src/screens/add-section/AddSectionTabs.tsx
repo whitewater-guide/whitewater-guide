@@ -1,3 +1,4 @@
+import type { MaterialTopTabNavigationOptions } from '@react-navigation/material-top-tabs';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useTranslation } from 'react-i18next';
 
@@ -6,29 +7,28 @@ import { Screens } from '../../core/navigation';
 import theme from '../../theme';
 import { MockAddSectionTabScreen } from '../mock';
 
+const screenOptions: MaterialTopTabNavigationOptions = {
+  swipeEnabled: false,
+  lazy: true,
+  tabBarScrollEnabled: true,
+  tabBarIndicatorStyle: {
+    top: 0,
+    bottom: undefined,
+    backgroundColor: theme.colors.accent,
+  },
+  tabBarStyle: {
+    backgroundColor: theme.colors.primary,
+  },
+  tabBarAllowFontScaling: true,
+};
+
 const Tab = createMaterialTopTabNavigator<AddSectionTabsParamsList>();
 
 function AddSectionTabs() {
   const { t } = useTranslation();
 
   return (
-    <Tab.Navigator
-      tabBarPosition="bottom"
-      screenOptions={{
-        swipeEnabled: false,
-        lazy: true,
-        tabBarScrollEnabled: true,
-        tabBarIndicatorStyle: {
-          top: 0,
-          bottom: undefined,
-          backgroundColor: theme.colors.accent,
-        },
-        tabBarStyle: {
-          backgroundColor: theme.colors.primary,
-        },
-        tabBarAllowFontScaling: true,
-      }}
-    >
+    <Tab.Navigator tabBarPosition="bottom" screenOptions={screenOptions}>
       <Tab.Screen
         name={Screens.ADD_SECTION_MAIN}
         component={MockAddSectionTabScreen}

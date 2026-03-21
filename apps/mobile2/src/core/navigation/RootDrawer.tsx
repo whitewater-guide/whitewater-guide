@@ -1,10 +1,18 @@
-import type { DrawerContentComponentProps } from '@react-navigation/drawer';
+import type {
+  DrawerContentComponentProps,
+  DrawerNavigationOptions,
+} from '@react-navigation/drawer';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import DrawerSidebar from './DrawerSidebar';
 import type { RootDrawerParamsList } from './navigation-params';
 import RootStack from './RootStack';
 import { Screens } from './screen-names';
+
+const screenOptions: DrawerNavigationOptions = {
+  swipeEnabled: false,
+  headerShown: false,
+};
 
 const Drawer = createDrawerNavigator<RootDrawerParamsList>();
 
@@ -18,7 +26,7 @@ function RootDrawer() {
       id="Drawer"
       drawerContent={drawerContent}
       initialRouteName={Screens.ROOT_STACK}
-      screenOptions={{ swipeEnabled: false, headerShown: false }}
+      screenOptions={screenOptions}
     >
       <Drawer.Screen name={Screens.ROOT_STACK} component={RootStack} />
     </Drawer.Navigator>

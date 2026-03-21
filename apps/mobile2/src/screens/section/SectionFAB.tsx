@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Platform, StyleSheet } from 'react-native';
 import { FAB } from 'react-native-paper';
 
+import { useAuth } from '../../core/auth';
 import type { RootStackParamsList } from '../../core/navigation';
 import { Screens } from '../../core/navigation';
 import theme from '../../theme';
@@ -23,6 +24,7 @@ const styles = StyleSheet.create({
 
 function SectionFAB() {
   const { t } = useTranslation();
+  const { me } = useAuth();
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
   const [open, setOpen] = useState(false);
@@ -32,23 +34,35 @@ function SectionFAB() {
     [],
   );
 
+  const gated = useCallback(
+    (action: () => void) => () => {
+      if (me) {
+        action();
+      } else {
+        navigation.navigate(Screens.AUTH_STACK);
+      }
+    },
+    [me, navigation],
+  );
+
   const actions = useMemo(
     () => [
       {
         icon: 'pencil-plus',
         label: t('screens:section.fab.addSuggestion'),
-        onPress: () =>
+        onPress: gated(() =>
           navigation.navigate(Screens.SUGGESTION, { sectionId: 'yyy' }),
+        ),
         testID: 'fab:add-suggestion',
       },
       {
         icon: 'calendar-plus',
         label: t('screens:section.fab.addDescent'),
-        onPress: () => navigation.navigate(Screens.DESCENT_FORM, {}),
+        onPress: gated(() => navigation.navigate(Screens.DESCENT_FORM, {})),
         testID: 'fab:add-descent',
       },
     ],
-    [navigation, t],
+    [navigation, t, gated],
   );
 
   return (

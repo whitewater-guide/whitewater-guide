@@ -1,3 +1,4 @@
+import type { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
@@ -13,6 +14,8 @@ import {
 } from '../mock';
 import RegionFAB from './RegionFAB';
 
+const screenOptions: BottomTabNavigationOptions = { headerShown: false };
+
 const Tab = createBottomTabNavigator<RegionTabsParamsList>();
 
 function RegionTabs() {
@@ -21,7 +24,7 @@ function RegionTabs() {
   return (
     <View style={{ flex: 1 }}>
       <Tab.Navigator
-        screenOptions={{ headerShown: false }}
+        screenOptions={screenOptions}
         backBehavior="none"
         tabBar={(props) => <PaperTabBar {...props} />}
       >

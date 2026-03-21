@@ -19,8 +19,8 @@
 9. **NavigationRoot** (§4.5) — container with persistence + linking
 10. **Deep linking** (§4.7) — JS-side linking config
 11. **State persistence** (§4.8) — dev-mode nav state caching
-12. **E2E tests: navigation without auth** (§4.9) — all non-auth-gated transitions
-13. **Mock auth context + E2E tests: auth-gated flows** (§4.10) — implement mock auth toggle, then test auth-gated navigation
+12. **E2E tests: navigation without auth** (§4.9) — drawer, region/section tabs, auth stack, deep linking (back navigation tested inline)
+13. **Mock auth context + E2E tests: auth-gated flows** (§4.10) — implement mock auth toggle, then test auth-gated navigation + descent form + add section
 
 ---
 
@@ -313,7 +313,6 @@ RootDrawer (id: "Drawer")
 
 - Use **dynamic API** (not static) — required for conditional tab visibility (SECTION_CHART)
 - Assign `id` props to navigators: `"Drawer"`, `"RootStack"`, `"RegionStack"`, `"SectionStack"` — enables typed `getParent('id')` calls
-- Replace `animationEnabled` with `animation: process.env.E2E_MODE === 'true' ? 'none' : 'default'`
 - `gestureEnabled: false` globally on all stacks (unchanged from v6)
 - `navigate` in v7 always pushes — use `popTo` where the old app relied on `navigate` going back to an existing screen
 - Material bottom tabs: `createMaterialBottomTabNavigator` from `react-native-paper/react-navigation`
@@ -455,22 +454,20 @@ Port `usePersistence` hook:
 
 Detox E2E coverage of click-based navigation transitions that do **not** require mock auth state. **No gesture-based transitions** (swipe to open drawer, back swipe, tab swipe).
 
+> **Approach:** Tests emulate real user flows — each `it()` block is a complete user journey navigating through multiple screens sequentially, without resetting to a base state between assertions. Deep links are tested alongside normal navigation rather than in separate files. See [E2E Navigation Test Guidelines](../e2e/navigation/GUIDELINES.md) for full rationale.
+
 ### Test structure
 
 ```
 e2e/
 ├── navigation/
-│   ├── drawer.test.ts          — Drawer menu navigation (non-auth items)
-│   ├── regionTabs.test.ts      — Region tab switching + outgoing (no FAB)
-│   ├── sectionTabs.test.ts     — Section tab switching + outgoing (no FAB)
-│   ├── authStack.test.ts       — Auth flow navigation
-│   ├── descentForm.test.ts     — Descent form wizard navigation
-│   ├── addSection.test.ts      — Add section tabs + sub-screens
-│   ├── deepLinking.test.ts     — Deep link URL handling
-│   └── backNavigation.test.ts  — Header back button throughout
+│   ├── GUIDELINES.md              — E2E test writing guidelines
+│   ├── drawer.test.ts             — Drawer menu flow (1 test)
+│   ├── regionAndSection.test.ts   — Region/section flows (3 tests)
+│   └── auth.test.ts               — Auth stack flow + deep link (2 tests)
 ├── helpers/
-│   └── navigation.ts           — Helpers: expectScreen, tapDrawerItem, etc.
-└── setup.ts                    — Global Detox setup
+│   └── navigation.ts              — Helpers: expectScreen, tapDrawerItem, etc.
+└── tsconfig.json                  — TypeScript config for e2e tests
 ```
 
 ### Test helper conventions
@@ -488,105 +485,68 @@ async function tapDrawerItem(item: string) {
 }
 ```
 
-### Transitions to cover
+### Test scenarios
 
-#### Drawer navigation (`drawer.test.ts`)
+#### Drawer flow (`drawer.test.ts` — 1 test)
 
-| #   | Action                             | Expected screen                            |
-| --- | ---------------------------------- | ------------------------------------------ |
-| 1   | Open drawer via header menu button | Drawer visible                             |
-| 2   | Drawer → "Regions"                 | `REGIONS_LIST` (reset)                     |
-| 3   | Drawer → "FAQ"                     | `WEB_VIEW` (fixture: faq)                  |
-| 4   | Drawer → "Backers"                 | `WEB_VIEW` (fixture: backers)              |
-| 5   | Drawer → "Terms of Service"        | `WEB_VIEW` (fixture: terms_and_conditions) |
-| 6   | Drawer → "Privacy Policy"          | `WEB_VIEW` (fixture: privacy_policy)       |
+Single user journey through all non-auth drawer items:
 
-#### Region tabs (`regionTabs.test.ts`)
+1. Open drawer via header menu button → drawer visible
+2. Drawer → Regions → `REGIONS_LIST`
+3. Drawer → FAQ → `WEB_VIEW`
+4. Back → `REGIONS_LIST` (verify back button once)
+5. Drawer → Backers → `WEB_VIEW`
+6. Drawer → Terms of Service → `WEB_VIEW`
+7. Drawer → Privacy Policy → `WEB_VIEW`
 
-| #   | Precondition            | Action                  | Expected                              |
-| --- | ----------------------- | ----------------------- | ------------------------------------- |
-| 1   | At REGIONS_LIST         | Tap "Region XXX" button | `REGION_TABS` visible, map tab active |
-| 2   | At REGION_TABS          | Tap sections tab        | `REGION_SECTIONS_LIST` visible        |
-| 3   | At REGION_TABS          | Tap info tab            | `REGION_INFO` visible                 |
-| 4   | At REGION_TABS          | Tap map tab             | `REGION_MAP` visible                  |
-| 5   | At REGION_MAP           | Tap "Section YYY"       | `SECTION_SCREEN`                      |
-| 6   | At REGION_SECTIONS_LIST | Tap "Section YYY"       | `SECTION_SCREEN`                      |
-| 7   | At REGION_SECTIONS_LIST | Tap "Filter"            | `FILTER` screen                       |
-| 8   | At REGION_INFO          | Tap "Web View"          | `WEB_VIEW`                            |
-| 9   | At REGION_INFO          | Tap "License"           | `LICENSE`                             |
-| 10  | At REGION_INFO          | Tap "Plain"             | `PLAIN`                               |
+#### Region & section via taps (`regionAndSection.test.ts` — test 1)
 
-#### Section tabs (`sectionTabs.test.ts`)
+Complete user journey from regions list through region tabs, sub-screens, and into section:
 
-| #   | Precondition      | Action                     | Expected                |
-| --- | ----------------- | -------------------------- | ----------------------- |
-| 1   | At SECTION_SCREEN | Verify info tab is initial | `SECTION_INFO` visible  |
-| 2   | At SECTION_TABS   | Tap map tab                | `SECTION_MAP` visible   |
-| 3   | At SECTION_TABS   | Tap chart tab              | `SECTION_CHART` visible |
-| 4   | At SECTION_TABS   | Tap media tab              | `SECTION_MEDIA` visible |
-| 5   | At SECTION_INFO   | Tap "Web View"             | `WEB_VIEW`              |
-| 6   | At SECTION_INFO   | Tap "License"              | `LICENSE`               |
-| 7   | At SECTION_INFO   | Tap "Plain"                | `PLAIN`                 |
-| 8   | At SECTION_INFO   | Tap "Region"               | `REGION_STACK`          |
+1. REGIONS_LIST → tap region → `REGION_MAP`
+2. Tap sections tab → `REGION_SECTIONS_LIST`
+3. Tap filter → `FILTER`, back → `REGION_SECTIONS_LIST`
+4. Tap section from list → `SECTION_INFO`, back → `REGION_SECTIONS_LIST`
+5. Tap info tab → `REGION_INFO`
+6. Tap Web View → `WEB_VIEW`, back → `REGION_INFO`
+7. Tap License → `LICENSE`, back → `REGION_INFO`
+8. Tap Plain → `PLAIN`, back → `REGION_INFO`
+9. Tap map tab → `REGION_MAP`
+10. Tap section from map → `SECTION_INFO`
+11. Cycle section tabs: `SECTION_MAP` → `SECTION_CHART` → `SECTION_MEDIA` → `SECTION_INFO`
+12. Tap Web View → `WEB_VIEW`, back → `SECTION_INFO`
+13. Tap License → `LICENSE`, back → `SECTION_INFO`
+14. Tap Plain → `PLAIN`, back → `SECTION_INFO`
+15. Tap Region → `REGION_MAP`
+16. Back → `REGIONS_LIST`
 
-#### Auth stack (`authStack.test.ts`)
+#### Deep link to region (`regionAndSection.test.ts` — test 2)
 
-| #   | Action                                 | Expected                |
-| --- | -------------------------------------- | ----------------------- |
-| 1   | Navigate to AUTH_STACK                 | `AUTH_MAIN` visible     |
-| 2   | Tap "Sign In"                          | `AUTH_SIGN_IN` visible  |
-| 3   | Back                                   | `AUTH_MAIN`             |
-| 4   | Tap "Register"                         | `AUTH_REGISTER` visible |
-| 5   | Back                                   | `AUTH_MAIN`             |
-| 6   | At AUTH_SIGN_IN, tap "Forgot Password" | `AUTH_FORGOT` visible   |
-| 7   | Back                                   | `AUTH_SIGN_IN`          |
-| 8   | Auth close (parent goBack)             | Previous screen         |
+1. Deep link `/region/xxx` → `REGION_MAP`
+2. Cycle region tabs: `REGION_SECTIONS_LIST` → `REGION_INFO` → `REGION_MAP`
 
-#### Descent form wizard (`descentForm.test.ts`)
+#### Deep link to section (`regionAndSection.test.ts` — test 3)
 
-| #   | Action                                         | Expected                            |
-| --- | ---------------------------------------------- | ----------------------------------- |
-| 1   | Navigate to DESCENT_FORM                       | `DESCENT_FORM_SECTION` (first step) |
-| 2   | Tap "Next"                                     | `DESCENT_FORM_DATE`                 |
-| 3   | Tap "Next"                                     | `DESCENT_FORM_LEVEL`                |
-| 4   | Tap "Next"                                     | `DESCENT_FORM_COMMENT`              |
-| 5   | Tap "Submit"                                   | Returns to previous screen          |
-| 6   | At DESCENT_FORM_SECTION, tap "Add New Section" | `ADD_SECTION_SCREEN`                |
-| 7   | Back from ADD_SECTION_SCREEN                   | `DESCENT_FORM_SECTION`              |
+1. Deep link `/section/yyy` → `SECTION_INFO`
+2. Cycle section tabs: `SECTION_MAP` → `SECTION_CHART` → `SECTION_MEDIA` → `SECTION_INFO`
+3. Tap License → `LICENSE`, back → `SECTION_INFO`
 
-#### Add section (`addSection.test.ts`)
+#### Auth flow (`auth.test.ts` — test 1)
 
-| #   | Action                         | Expected                                 |
-| --- | ------------------------------ | ---------------------------------------- |
-| 1   | Navigate to ADD_SECTION_SCREEN | `ADD_SECTION_TABS` with main tab visible |
-| 2   | Tap attributes tab             | `ADD_SECTION_ATTRIBUTES` visible         |
-| 3   | Tap description tab            | `ADD_SECTION_DESCRIPTION` visible        |
-| 4   | Tap flows tab                  | `ADD_SECTION_FLOWS` visible              |
-| 5   | Tap photos tab                 | `ADD_SECTION_PHOTOS` visible             |
-| 6   | Tap main tab (back)            | `ADD_SECTION_MAIN` visible               |
-| 7   | Navigate to ADD_SECTION_RIVER  | `ADD_SECTION_RIVER` visible              |
-| 8   | Back                           | `ADD_SECTION_TABS`                       |
-| 9   | Navigate to ADD_SECTION_GAUGE  | `ADD_SECTION_GAUGE` visible              |
-| 10  | Navigate to ADD_SECTION_SHAPE  | `ADD_SECTION_SHAPE` visible              |
-| 11  | Navigate to ADD_SECTION_PHOTO  | `ADD_SECTION_PHOTO` visible              |
+Complete auth navigation journey:
 
-#### Deep linking (`deepLinking.test.ts`)
+1. Drawer → Sign In → `AUTH_MAIN`
+2. Tap Sign In → `AUTH_SIGN_IN`
+3. Tap Forgot Password → `AUTH_FORGOT`
+4. Back → `AUTH_SIGN_IN`
+5. Back → `AUTH_MAIN`
+6. Tap Register → `AUTH_REGISTER`
+7. Back → `AUTH_MAIN`
+8. Back (close auth) → `REGIONS_LIST`
 
-| #   | URL                    | Expected                              |
-| --- | ---------------------- | ------------------------------------- |
-| 1   | `/region/xxx`          | `REGION_STACK` with regionId "xxx"    |
-| 2   | `/section/yyy`         | `SECTION_SCREEN` with sectionId "yyy" |
-| 3   | `/auth/reset/token123` | `AUTH_RESET` screen                   |
+#### Deep link to auth reset (`auth.test.ts` — test 2)
 
-#### Back navigation (`backNavigation.test.ts`)
-
-| #   | Scenario                  | Action      | Expected                      |
-| --- | ------------------------- | ----------- | ----------------------------- |
-| 1   | At REGION_STACK           | Header back | `REGIONS_LIST`                |
-| 2   | At SECTION_SCREEN         | Header back | Previous screen (REGION_TABS) |
-| 3   | At WEB_VIEW (from drawer) | Header back | Previous screen               |
-| 4   | At FILTER                 | Header back | `REGION_TABS`                 |
-| 5   | At nested form step       | Header back | Previous step                 |
+1. Deep link `/auth/reset/token123` → `AUTH_RESET`
 
 ---
 
@@ -601,6 +561,10 @@ Implement a simple boolean toggle (React context + MMKV flag) to simulate logged
 
 A dev-only toggle button (or a special testID element) lets E2E tests switch auth state.
 
+### Auth-gated E2E tests (deferred from §4.9)
+
+These tests require mock auth context and are implemented in this step. Following the same flow-based approach from §4.9, each `it()` block is a complete user journey.
+
 #### Files to create
 
 | File                            | Purpose                                   | Permanent? |
@@ -612,42 +576,51 @@ A dev-only toggle button (or a special testID element) lets E2E tests switch aut
 ```
 e2e/
 ├── navigation/
-│   ├── drawerAuth.test.ts       — Auth-gated drawer items
-│   ├── fab.test.ts              — FAB actions (auth-gated)
-│   └── logbookDescent.test.ts   — Logbook → Descent → Form flows
+│   └── authGated.test.ts        — Auth-gated drawer, FAB, logbook/descent/add-section
 ├── helpers/
 │   └── auth.ts                  — Toggle mock auth state
 ```
 
-### Transitions to cover
+### Test scenarios
 
-#### Auth-gated drawer navigation (`drawerAuth.test.ts`)
+#### Auth-gated drawer & profile (`authGated.test.ts` — test 1)
 
-| #   | Auth state | Action                | Expected screen |
-| --- | ---------- | --------------------- | --------------- |
-| 1   | Logged out | Drawer → "Sign In"    | `AUTH_MAIN`     |
-| 2   | Logged out | Drawer → "Logbook"    | `AUTH_MAIN`     |
-| 3   | Logged in  | Drawer → "My Profile" | `MY_PROFILE`    |
-| 4   | Logged in  | Drawer → "Logbook"    | `LOGBOOK`       |
+1. Set mock auth = logged out
+2. Drawer → Logbook → `AUTH_MAIN` (redirected)
+3. Close auth → `REGIONS_LIST`
+4. Drawer → Sign In → `AUTH_MAIN`
+5. Close auth → `REGIONS_LIST`
+6. Set mock auth = logged in
+7. Drawer → My Profile → `MY_PROFILE`
+8. Back → `REGIONS_LIST`
+9. Drawer → Logbook → `LOGBOOK`
 
-#### FAB actions (`fab.test.ts`)
+#### Logbook, descent & descent form (`authGated.test.ts` — test 2)
 
-| #   | Precondition    | Action                 | Expected             |
-| --- | --------------- | ---------------------- | -------------------- |
-| 1   | At REGION_TABS  | FAB → "Add Section"    | `ADD_SECTION_SCREEN` |
-| 2   | At REGION_TABS  | FAB → "Add Descent"    | `DESCENT_FORM`       |
-| 3   | At SECTION_TABS | FAB → "Add Suggestion" | `SUGGESTION`         |
-| 4   | At SECTION_TABS | FAB → "Add Descent"    | `DESCENT_FORM`       |
+1. Set mock auth = logged in
+2. Drawer → Logbook → `LOGBOOK`
+3. Tap Descent ZZZ → `DESCENT`
+4. Tap Edit → `DESCENT_FORM_SECTION`
+5. Next → `DESCENT_FORM_DATE` → Next → `DESCENT_FORM_LEVEL` → Next → `DESCENT_FORM_COMMENT`
+6. Submit → returns to previous screen
+7. Navigate back to `DESCENT`
+8. Tap Duplicate → `DESCENT_FORM_SECTION`
+9. At DESCENT_FORM_SECTION, tap Add New Section → `ADD_SECTION_SCREEN`
+10. Back → `DESCENT_FORM_SECTION`
 
-#### Logbook → Descent flows (`logbookDescent.test.ts`)
+#### FAB actions & add section (`authGated.test.ts` — test 3)
 
-| #   | Action                       | Expected                      |
-| --- | ---------------------------- | ----------------------------- |
-| 1   | Drawer → Logbook (logged in) | `LOGBOOK` visible             |
-| 2   | Tap "Descent ZZZ"            | `DESCENT` visible             |
-| 3   | Tap "Edit"                   | `DESCENT_FORM` with form data |
-| 4   | Back to DESCENT              | `DESCENT` visible             |
-| 5   | Tap "Duplicate"              | `DESCENT_FORM` with form data |
+1. Set mock auth = logged in
+2. Navigate to region → `REGION_MAP`
+3. FAB → Add Section → `ADD_SECTION_SCREEN` (ADD_SECTION_TABS with main tab)
+4. Cycle add section tabs: `ADD_SECTION_ATTRIBUTES` → `ADD_SECTION_DESCRIPTION` → `ADD_SECTION_FLOWS` → `ADD_SECTION_PHOTOS` → `ADD_SECTION_MAIN`
+5. Navigate to sub-screens: River (back), Gauge (back), Shape (back), Photo (back)
+6. Back to region → `REGION_MAP`
+7. FAB → Add Descent → `DESCENT_FORM_SECTION`
+8. Back to region, navigate to section → `SECTION_INFO`
+9. FAB → Add Suggestion → `SUGGESTION`
+10. Back to section → `SECTION_INFO`
+11. FAB → Add Descent → `DESCENT_FORM_SECTION`
 
 ---
 
@@ -667,4 +640,4 @@ e2e/
 - [ ] E2E mode: animations disabled, persistence skipped, fresh start
 - [ ] Both iOS simulator and Android emulator show identical behavior
 - [ ] **Storybook:** PlaceholderScreen story, Header story, DrawerSidebar story
-- [ ] **Detox E2E:** All transitions from §4.9 and §4.10 pass on both platforms
+- [ ] **Detox E2E:** All flow-based test scenarios from §4.9 and §4.10 pass on both platforms

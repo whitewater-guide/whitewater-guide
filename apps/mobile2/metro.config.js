@@ -17,6 +17,14 @@ config.resolver.nodeModulesPaths = [
 ];
 config.resolver.disableHierarchicalLookup = true;
 
+if (process.env.E2E_MODE === 'true') {
+  config.resolver.sourceExts = [
+    'mock.tsx',
+    'mock.ts',
+    ...config.resolver.sourceExts,
+  ];
+}
+
 module.exports = withStorybook(config, {
   enabled: process.env.STORYBOOK_ENABLED === 'true',
   configPath: path.resolve(projectRoot, '.rnstorybook'),

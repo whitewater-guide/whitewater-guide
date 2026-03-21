@@ -13,6 +13,11 @@ export default function usePersistence() {
   >();
 
   useEffect(() => {
+    if (isE2E) {
+      storage.remove(PERSISTENCE_KEY);
+      return;
+    }
+
     if (isReady) {
       return;
     }
@@ -25,7 +30,7 @@ export default function usePersistence() {
     } finally {
       setIsReady(true);
     }
-  }, [isReady]);
+  }, [isE2E, isReady]);
 
   const onStateChange = useCallback(
     (state: NavigationState | undefined) => {

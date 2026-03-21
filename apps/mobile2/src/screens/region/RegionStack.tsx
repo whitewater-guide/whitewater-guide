@@ -1,3 +1,4 @@
+import type { NativeStackNavigationOptions } from '@react-navigation/native-stack';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { getHeaderRenderer } from '../../components/header';
@@ -9,11 +10,9 @@ import RegionTabs from './RegionTabs';
 
 const Stack = createNativeStackNavigator<RegionStackParamsList>();
 
-const screenOptions = {
+const screenOptions: NativeStackNavigationOptions = {
   header: getHeaderRenderer(false),
   gestureEnabled: false,
-  animation:
-    process.env.E2E_MODE === 'true' ? ('none' as const) : ('default' as const),
   headerStyle: theme.navigationStyles.headerStyle,
 };
 

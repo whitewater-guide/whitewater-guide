@@ -1,7 +1,6 @@
 declare module 'react-native-config' {
   export interface NativeConfig {
     ENV_NAME: string;
-    E2E_MODE: string;
     BACKEND_PROTOCOL: string;
     BACKEND_HOST: string;
     DEEP_LINKING_DOMAIN: string;

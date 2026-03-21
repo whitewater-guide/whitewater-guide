@@ -1,3 +1,4 @@
+import type { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
@@ -10,6 +11,8 @@ import { Screens } from '../../core/navigation';
 import { MockSectionInfoScreen } from '../mock';
 import SectionFAB from './SectionFAB';
 
+const screenOptions: BottomTabNavigationOptions = { headerShown: false };
+
 const Tab = createBottomTabNavigator<SectionTabsParamsList>();
 
 function SectionTabs() {
@@ -18,7 +21,7 @@ function SectionTabs() {
   return (
     <View style={{ flex: 1 }}>
       <Tab.Navigator
-        screenOptions={{ headerShown: false }}
+        screenOptions={screenOptions}
         backBehavior="none"
         initialRouteName={Screens.SECTION_INFO}
         tabBar={(props) => <PaperTabBar {...props} />}

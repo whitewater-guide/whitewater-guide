@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Platform, StyleSheet } from 'react-native';
 import { FAB } from 'react-native-paper';
 
+import { useAuth } from '../../core/auth';
 import type { RootStackParamsList } from '../../core/navigation';
 import { Screens } from '../../core/navigation';
 import theme from '../../theme';
@@ -23,6 +24,7 @@ const styles = StyleSheet.create({
 
 function RegionFAB() {
   const { t } = useTranslation();
+  const { me } = useAuth();
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
   const [open, setOpen] = useState(false);
@@ -32,23 +34,37 @@ function RegionFAB() {
     [],
   );
 
+  const gated = useCallback(
+    (action: () => void) => () => {
+      if (me) {
+        action();
+      } else {
+        navigation.navigate(Screens.AUTH_STACK);
+      }
+    },
+    [me, navigation],
+  );
+
   const actions = useMemo(
     () => [
       {
         icon: 'map-plus',
         label: t('screens:region.fab.addSection'),
-        onPress: () => navigation.navigate(Screens.ADD_SECTION_SCREEN, {}),
+        onPress: gated(() =>
+          navigation.navigate(Screens.ADD_SECTION_SCREEN, {}),
+        ),
         testID: 'fab:add-section',
       },
       {
         icon: 'calendar-plus',
         label: t('screens:region.fab.addDescent'),
-        onPress: () =>
+        onPress: gated(() =>
           navigation.navigate(Screens.DESCENT_FORM, { regionId: 'xxx' }),
+        ),
         testID: 'fab:add-descent',
       },
     ],
-    [navigation, t],
+    [navigation, t, gated],
   );
 
   return (

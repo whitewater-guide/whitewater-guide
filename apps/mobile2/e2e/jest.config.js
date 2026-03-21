@@ -1,7 +1,7 @@
 /** @type {import('@jest/types').Config.InitialOptions} */
 module.exports = {
   rootDir: '..',
-  testMatch: ['<rootDir>/e2e/**/*.test.js'],
+  testMatch: ['<rootDir>/e2e/**/*.test.ts'],
   testTimeout: 120000,
   maxWorkers: 1,
   globalSetup: 'detox/runners/jest/globalSetup',
@@ -9,4 +9,8 @@ module.exports = {
   reporters: ['detox/runners/jest/reporter'],
   testEnvironment: 'detox/runners/jest/testEnvironment',
   verbose: true,
+  transform: {
+    '\\.ts$': ['ts-jest', { tsconfig: 'e2e/tsconfig.json' }],
+  },
+  moduleFileExtensions: ['ts', 'js', 'json'],
 };

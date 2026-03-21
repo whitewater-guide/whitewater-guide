@@ -1,3 +1,4 @@
+import type { NativeStackNavigationOptions } from '@react-navigation/native-stack';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
 
@@ -9,6 +10,7 @@ import DescentFormStack from '../../screens/descent-form/DescentFormStack';
 import {
   MockDescentScreen,
   MockLogbookScreen,
+  MockMyProfileScreen,
   MockRegionsListScreen,
 } from '../../screens/mock';
 import RegionStack from '../../screens/region/RegionStack';
@@ -19,20 +21,16 @@ import { Screens } from './screen-names';
 
 const Stack = createNativeStackNavigator<RootStackParamsList>();
 
-const topLevelScreenOptions = {
+const topLevelScreenOptions: NativeStackNavigationOptions = {
   header: getHeaderRenderer(true),
   gestureEnabled: false,
-  animation:
-    process.env.E2E_MODE === 'true' ? ('none' as const) : ('default' as const),
   headerStyle: theme.navigationStyles.headerStyle,
   headerTintColor: theme.colors.textLight,
 };
 
-const innerScreenOptions = {
+const innerScreenOptions: NativeStackNavigationOptions = {
   header: getHeaderRenderer(false),
   gestureEnabled: false,
-  animation:
-    process.env.E2E_MODE === 'true' ? ('none' as const) : ('default' as const),
   headerStyle: theme.navigationStyles.headerStyle,
   headerTintColor: theme.colors.textLight,
 };
@@ -84,7 +82,7 @@ function RootStack() {
       />
       <Stack.Screen
         name={Screens.MY_PROFILE}
-        component={PlaceholderScreen}
+        component={MockMyProfileScreen}
         options={{ ...innerScreenOptions, headerTitle: t('drawer:myProfile') }}
       />
       <Stack.Screen

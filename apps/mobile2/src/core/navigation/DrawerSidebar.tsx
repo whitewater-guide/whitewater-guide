@@ -6,6 +6,7 @@ import { Divider } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import theme from '../../theme';
+import { useAuth } from '../auth';
 import DrawerItem from './DrawerItem';
 import { Screens } from './screen-names';
 
@@ -50,13 +51,12 @@ function DrawerSidebar({ navigation }: DrawerContentComponentProps) {
     [navigation],
   );
 
-  // TODO: replace with real auth context in step 10
-  const isLoggedIn = false;
+  const { me } = useAuth();
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
       <Divider />
-      {isLoggedIn ? (
+      {me ? (
         <DrawerItem
           label={t('drawer:myProfile')}
           icon="account-circle"
@@ -83,8 +83,8 @@ function DrawerSidebar({ navigation }: DrawerContentComponentProps) {
       <DrawerItem
         label={t('drawer:logbook')}
         icon="notebook"
-        routeName={isLoggedIn ? Screens.LOGBOOK : Screens.AUTH_STACK}
-        onPress={isLoggedIn ? reset : navigate}
+        routeName={me ? Screens.LOGBOOK : Screens.AUTH_STACK}
+        onPress={me ? reset : navigate}
         testID="drawer:logbook"
       />
       <DrawerItem

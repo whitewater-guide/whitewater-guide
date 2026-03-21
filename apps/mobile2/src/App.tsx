@@ -3,6 +3,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { AuthProvider } from './core/auth';
 import NavigationRoot from './core/navigation/NavigationRoot';
 import { I18nProvider } from './i18n';
 import { paperTheme } from './theme';
@@ -19,7 +20,9 @@ function App() {
       <PaperProvider theme={paperTheme}>
         <SafeAreaProvider>
           <I18nProvider>
-            <NavigationRoot />
+            <AuthProvider>
+              <NavigationRoot />
+            </AuthProvider>
           </I18nProvider>
         </SafeAreaProvider>
       </PaperProvider>

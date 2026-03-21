@@ -7,11 +7,15 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "detox:start": "E2E_MODE=true react-native start --reset-cache",
+    "detox:start": "export E2E_MODE=true && detox clean-framework-cache && detox build-framework-cache && react-native start --reset-cache",
+    "detox:ios": "export E2E_MODE=true && detox test --configuration ios.sim.debug",
+    "detox:build-ios": "export E2E_MODE=true && detox build --configuration ios.sim.debug",
+    "detox:android": "export E2E_MODE=true && detox test --configuration android.emu.debug",
+    "detox:build-android": "export E2E_MODE=true && detox build --configuration android.emu.debug",
     "storybook:generate": "sb-rn-get-stories",
-    "storybook:start": "STORYBOOK_ENABLED=true react-native start --reset-cache",
-    "storybook:ios": "STORYBOOK_ENABLED=true react-native run-ios",
-    "storybook:android": "STORYBOOK_ENABLED=true react-native run-android",
+    "storybook:start": "export STORYBOOK_ENABLED=true && react-native start --reset-cache",
+    "storybook:ios": "export STORYBOOK_ENABLED=true && react-native run-ios",
+    "storybook:android": "export STORYBOOK_ENABLED=true && react-native run-android",
     "test": "jest"
   },
   "dependencies": {
@@ -87,6 +91,7 @@
     "jest": "^29.6.3",
     "react-test-renderer": "19.2.3",
     "storybook": "^10.2.19",
+    "ts-jest": "^29.4.6",
     "typescript": "^5.9.3"
   },
   "engines": {
