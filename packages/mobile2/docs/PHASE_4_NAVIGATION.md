@@ -6,6 +6,24 @@
 
 ---
 
+## Implementation order
+
+1. **Screen names & param types** (§4.3) — foundation for everything
+2. **Paper theme** (§4.2) — needed before any UI
+3. **PlaceholderScreen + mock screens** (§4.4) — components used by navigators
+4. **Header component** (§4.6) — used by all stacks
+5. **Nested navigators**: AuthStack, DescentFormStack, AddSectionStack (§4.5) — leaf navigators with no children to wire
+6. **RegionStack + RegionTabs, SectionTabs** (§4.5) — tab navigators with FABs
+7. **RootStack** (§4.5) — registers all screens
+8. **DrawerSidebar + RootDrawer** (§4.5) — wraps RootStack
+9. **NavigationRoot** (§4.5) — container with persistence + linking
+10. **Deep linking** (§4.7) — JS-side linking config
+11. **State persistence** (§4.8) — dev-mode nav state caching
+12. **E2E tests: navigation without auth** (§4.9) — all non-auth-gated transitions
+13. **Mock auth context + E2E tests: auth-gated flows** (§4.10) — implement mock auth toggle, then test auth-gated navigation
+
+---
+
 ## 4.1 — Dependency review
 
 All deps below are already installed from Phase 3. This section clarifies which are **actively used** in Phase 4 vs carried forward for later phases.
@@ -291,15 +309,6 @@ RootDrawer (id: "Drawer")
     └── SUGGESTION → PlaceholderScreen
 ```
 
-### Auth gating in mock phase
-
-Since there's no real auth in this phase, use a simple boolean toggle (e.g. React context or MMKV flag) to simulate logged-in / logged-out state. The drawer items and FAB actions respect this flag, enabling E2E tests for both auth states:
-
-- **Logged out**: drawer shows "Sign In", "Logbook" goes to AUTH_STACK
-- **Logged in**: drawer shows "My Profile", "Logbook" goes to LOGBOOK
-
-A dev-only toggle button (or a special testID element) lets E2E tests switch auth state.
-
 ### Key react-navigation v7 implementation notes
 
 - Use **dynamic API** (not static) — required for conditional tab visibility (SECTION_CHART)
@@ -338,7 +347,6 @@ Implement as Paper `FAB.Group` components overlaid on tab screens. They are semi
 | `src/core/navigation/useLinking.ts`             | Deep linking configuration                             | Yes        |
 | `src/core/navigation/usePersistence.ts`         | Navigation state persistence (dev only)                | Yes        |
 | `src/core/navigation/useSignOut.ts`             | Navigation reset + cache cleanup on sign-out           | Yes        |
-| `src/core/auth/AuthContext.tsx`                 | Mock auth context (simple boolean toggle)              | Evolves    |
 | `src/components/PlaceholderScreen.tsx`          | Reusable placeholder showing screen name + params      | Temporary  |
 | `src/components/header/Header.tsx`              | Custom header component                                | Yes        |
 | `src/components/header/HeaderLeft.tsx`          | Back/menu button                                       | Yes        |
@@ -358,7 +366,20 @@ Implement as Paper `FAB.Group` components overlaid on tab screens. They are semi
 
 ---
 
-## 4.6 — Set up deep linking
+## 4.6 — Build header component
+
+Port the custom header from old app:
+
+- `getHeaderRenderer(isTopLevel: boolean)` factory — returns `header` option for navigators
+- **HeaderLeft**: shows menu button (opens drawer) for top-level screens, back button for others
+- **HeaderCenter**: title text or custom title component (RegionTitle, SectionTitle — placeholder versions)
+- **HeaderRight**: slot for action buttons (populated by tab screens via `useFocusEffect`)
+- **Search mode**: placeholder for now — the header supports toggling between normal and search mode, but search functionality is deferred. Wire up the mode toggle so the UI transition can be tested.
+- **Drawer access**: use `navigation.getParent<DrawerNavigationProp>('Drawer').openDrawer()` (typed, no `as any` hack)
+
+---
+
+## 4.7 — Set up deep linking
 
 ### Phase 4 scope
 
@@ -373,25 +394,49 @@ Configure the declarative `linking` prop on `NavigationContainer` (v7 improved A
 | `/region/:regionId`         | `REGION_STACK`            | `{ regionId }`  |
 | `/section/:sectionId`       | `SECTION_SCREEN`          | `{ sectionId }` |
 
-### Platform config (defer native setup to later)
+### Native configuration (already in place)
 
-- Domains: `whitewater.guide`, `app.whitewater.guide`
-- Android: App Links with `autoVerify` in `AndroidManifest.xml` — defer to integration phase
-- iOS: Associated Domains entitlement — defer to integration phase
-- For now: configure the JS-side linking config so navigation resolves correctly. Test with `npx uri-scheme open` or Detox deep link APIs.
+Native deep linking is fully configured on both platforms:
 
----
+**iOS:**
 
-## 4.7 — Build header component
+- `AppDelegate.swift` handles incoming URLs via `RCTLinkingManager.application(_:open:options:)` and universal links via `RCTLinkingManager.application(_:continue:restorationHandler:)`
+- `whitewater.entitlements` has Associated Domains configured: `applinks:whitewater.guide`, `applinks:app.whitewater.guide`, `applinks:whitewater-dev.com`, `applinks:app.whitewater-dev.com`
 
-Port the custom header from old app:
+**Android:**
 
-- `getHeaderRenderer(isTopLevel: boolean)` factory — returns `header` option for navigators
-- **HeaderLeft**: shows menu button (opens drawer) for top-level screens, back button for others
-- **HeaderCenter**: title text or custom title component (RegionTitle, SectionTitle — placeholder versions)
-- **HeaderRight**: slot for action buttons (populated by tab screens via `useFocusEffect`)
-- **Search mode**: placeholder for now — the header supports toggling between normal and search mode, but search functionality is deferred. Wire up the mode toggle so the UI transition can be tested.
-- **Drawer access**: use `navigation.getParent<DrawerNavigationProp>('Drawer').openDrawer()` (typed, no `as any` hack)
+- `AndroidManifest.xml` has an intent-filter on `MainActivity` with `android:autoVerify="true"`, scheme and host sourced from `react-native-config` (`BACKEND_PROTOCOL` / `DEEP_LINKING_DOMAIN`)
+
+**Environment config:**
+
+- `.env`, `.env.staging`, `.env.production` all define `BACKEND_PROTOCOL=https` and `DEEP_LINKING_DOMAIN=app.whitewater.guide`
+
+### JS-side linking config
+
+What remains is wiring the `linking` prop on `NavigationContainer` to map incoming URLs to screens. Use the react-navigation v7 declarative linking config:
+
+```typescript
+const linking = {
+  prefixes: [
+    `${Config.BACKEND_PROTOCOL}://${Config.DEEP_LINKING_DOMAIN}`,
+    `${Config.BACKEND_PROTOCOL}://whitewater.guide`,
+  ],
+  config: {
+    screens: {
+      [Screens.AUTH_STACK]: {
+        screens: {
+          [Screens.AUTH_RESET]: 'auth/reset/:token',
+        },
+      },
+      [Screens.CONNECT_EMAIL]: 'auth/verify-email/:token',
+      [Screens.REGION_STACK]: 'region/:regionId',
+      [Screens.SECTION_SCREEN]: 'section/:sectionId',
+    },
+  },
+};
+```
+
+Test with `npx uri-scheme open` or Detox deep link APIs.
 
 ---
 
@@ -406,27 +451,25 @@ Port `usePersistence` hook:
 
 ---
 
-## 4.9 — E2E test plan
+## 4.9 — E2E tests: navigation without auth
 
-Comprehensive Detox E2E coverage of all click-based navigation transitions. **No gesture-based transitions** (swipe to open drawer, back swipe, tab swipe).
+Detox E2E coverage of click-based navigation transitions that do **not** require mock auth state. **No gesture-based transitions** (swipe to open drawer, back swipe, tab swipe).
 
 ### Test structure
 
 ```
 e2e/
 ├── navigation/
-│   ├── drawer.test.ts          — Drawer menu navigation
-│   ├── regionTabs.test.ts      — Region tab switching + outgoing
-│   ├── sectionTabs.test.ts     — Section tab switching + outgoing
+│   ├── drawer.test.ts          — Drawer menu navigation (non-auth items)
+│   ├── regionTabs.test.ts      — Region tab switching + outgoing (no FAB)
+│   ├── sectionTabs.test.ts     — Section tab switching + outgoing (no FAB)
 │   ├── authStack.test.ts       — Auth flow navigation
 │   ├── descentForm.test.ts     — Descent form wizard navigation
 │   ├── addSection.test.ts      — Add section tabs + sub-screens
-│   ├── logbookDescent.test.ts  — Logbook → Descent → Form flows
 │   ├── deepLinking.test.ts     — Deep link URL handling
 │   └── backNavigation.test.ts  — Header back button throughout
 ├── helpers/
-│   ├── navigation.ts           — Helpers: expectScreen, tapDrawerItem, etc.
-│   └── auth.ts                 — Toggle mock auth state
+│   └── navigation.ts           — Helpers: expectScreen, tapDrawerItem, etc.
 └── setup.ts                    — Global Detox setup
 ```
 
@@ -457,10 +500,6 @@ async function tapDrawerItem(item: string) {
 | 4   | Drawer → "Backers"                 | `WEB_VIEW` (fixture: backers)              |
 | 5   | Drawer → "Terms of Service"        | `WEB_VIEW` (fixture: terms_and_conditions) |
 | 6   | Drawer → "Privacy Policy"          | `WEB_VIEW` (fixture: privacy_policy)       |
-| 7   | (logged out) Drawer → "Sign In"    | `AUTH_MAIN`                                |
-| 8   | (logged out) Drawer → "Logbook"    | `AUTH_MAIN`                                |
-| 9   | (logged in) Drawer → "My Profile"  | `MY_PROFILE`                               |
-| 10  | (logged in) Drawer → "Logbook"     | `LOGBOOK`                                  |
 
 #### Region tabs (`regionTabs.test.ts`)
 
@@ -476,8 +515,6 @@ async function tapDrawerItem(item: string) {
 | 8   | At REGION_INFO          | Tap "Web View"          | `WEB_VIEW`                            |
 | 9   | At REGION_INFO          | Tap "License"           | `LICENSE`                             |
 | 10  | At REGION_INFO          | Tap "Plain"             | `PLAIN`                               |
-| 11  | At REGION_TABS          | FAB → "Add Section"     | `ADD_SECTION_SCREEN`                  |
-| 12  | At REGION_TABS          | FAB → "Add Descent"     | `DESCENT_FORM`                        |
 
 #### Section tabs (`sectionTabs.test.ts`)
 
@@ -491,8 +528,6 @@ async function tapDrawerItem(item: string) {
 | 6   | At SECTION_INFO   | Tap "License"              | `LICENSE`               |
 | 7   | At SECTION_INFO   | Tap "Plain"                | `PLAIN`                 |
 | 8   | At SECTION_INFO   | Tap "Region"               | `REGION_STACK`          |
-| 9   | At SECTION_TABS   | FAB → "Add Suggestion"     | `SUGGESTION`            |
-| 10  | At SECTION_TABS   | FAB → "Add Descent"        | `DESCENT_FORM`          |
 
 #### Auth stack (`authStack.test.ts`)
 
@@ -535,16 +570,6 @@ async function tapDrawerItem(item: string) {
 | 10  | Navigate to ADD_SECTION_SHAPE  | `ADD_SECTION_SHAPE` visible              |
 | 11  | Navigate to ADD_SECTION_PHOTO  | `ADD_SECTION_PHOTO` visible              |
 
-#### Logbook → Descent flows (`logbookDescent.test.ts`)
-
-| #   | Action                       | Expected                      |
-| --- | ---------------------------- | ----------------------------- |
-| 1   | Drawer → Logbook (logged in) | `LOGBOOK` visible             |
-| 2   | Tap "Descent ZZZ"            | `DESCENT` visible             |
-| 3   | Tap "Edit"                   | `DESCENT_FORM` with form data |
-| 4   | Back to DESCENT              | `DESCENT` visible             |
-| 5   | Tap "Duplicate"              | `DESCENT_FORM` with form data |
-
 #### Deep linking (`deepLinking.test.ts`)
 
 | #   | URL                    | Expected                              |
@@ -565,21 +590,64 @@ async function tapDrawerItem(item: string) {
 
 ---
 
-## 4.10 — Implementation order
+## 4.10 — E2E tests: mock auth and auth-gated flows
 
-1. **Screen names & param types** (4.3) — foundation for everything
-2. **Paper theme** (4.2) — needed before any UI
-3. **PlaceholderScreen + mock screens** (4.4) — components used by navigators
-4. **Header component** (4.7) — used by all stacks
-5. **Auth context mock** — enables auth-gated testing
-6. **Nested navigators first**: AuthStack, DescentFormStack, AddSectionStack — these are leaf navigators with no children to wire
-7. **RegionStack + RegionTabs, SectionTabs** — tab navigators with FABs
-8. **RootStack** — registers all screens
-9. **DrawerSidebar + RootDrawer** — wraps RootStack
-10. **NavigationRoot** — container with persistence + linking
-11. **Deep linking** (4.6)
-12. **State persistence** (4.8)
-13. **E2E tests** (4.9) — write after full skeleton is navigable
+### Mock auth context
+
+Implement a simple boolean toggle (React context + MMKV flag) to simulate logged-in / logged-out state. The drawer items and FAB actions respect this flag:
+
+- **Logged out**: drawer shows "Sign In", "Logbook" goes to AUTH_STACK
+- **Logged in**: drawer shows "My Profile", "Logbook" goes to LOGBOOK
+
+A dev-only toggle button (or a special testID element) lets E2E tests switch auth state.
+
+#### Files to create
+
+| File                            | Purpose                                   | Permanent? |
+| ------------------------------- | ----------------------------------------- | ---------- |
+| `src/core/auth/AuthContext.tsx` | Mock auth context (simple boolean toggle) | Evolves    |
+
+### Test structure
+
+```
+e2e/
+├── navigation/
+│   ├── drawerAuth.test.ts       — Auth-gated drawer items
+│   ├── fab.test.ts              — FAB actions (auth-gated)
+│   └── logbookDescent.test.ts   — Logbook → Descent → Form flows
+├── helpers/
+│   └── auth.ts                  — Toggle mock auth state
+```
+
+### Transitions to cover
+
+#### Auth-gated drawer navigation (`drawerAuth.test.ts`)
+
+| #   | Auth state | Action                | Expected screen |
+| --- | ---------- | --------------------- | --------------- |
+| 1   | Logged out | Drawer → "Sign In"    | `AUTH_MAIN`     |
+| 2   | Logged out | Drawer → "Logbook"    | `AUTH_MAIN`     |
+| 3   | Logged in  | Drawer → "My Profile" | `MY_PROFILE`    |
+| 4   | Logged in  | Drawer → "Logbook"    | `LOGBOOK`       |
+
+#### FAB actions (`fab.test.ts`)
+
+| #   | Precondition    | Action                 | Expected             |
+| --- | --------------- | ---------------------- | -------------------- |
+| 1   | At REGION_TABS  | FAB → "Add Section"    | `ADD_SECTION_SCREEN` |
+| 2   | At REGION_TABS  | FAB → "Add Descent"    | `DESCENT_FORM`       |
+| 3   | At SECTION_TABS | FAB → "Add Suggestion" | `SUGGESTION`         |
+| 4   | At SECTION_TABS | FAB → "Add Descent"    | `DESCENT_FORM`       |
+
+#### Logbook → Descent flows (`logbookDescent.test.ts`)
+
+| #   | Action                       | Expected                      |
+| --- | ---------------------------- | ----------------------------- |
+| 1   | Drawer → Logbook (logged in) | `LOGBOOK` visible             |
+| 2   | Tap "Descent ZZZ"            | `DESCENT` visible             |
+| 3   | Tap "Edit"                   | `DESCENT_FORM` with form data |
+| 4   | Back to DESCENT              | `DESCENT` visible             |
+| 5   | Tap "Duplicate"              | `DESCENT_FORM` with form data |
 
 ---
 
@@ -598,6 +666,5 @@ async function tapDrawerItem(item: string) {
 - [ ] Navigation state persists across reloads (dev mode only)
 - [ ] E2E mode: animations disabled, persistence skipped, fresh start
 - [ ] Both iOS simulator and Android emulator show identical behavior
-- [ ] **Unit tests:** Navigation structure renders without crashing
 - [ ] **Storybook:** PlaceholderScreen story, Header story, DrawerSidebar story
-- [ ] **Detox E2E:** All transitions from §4.9 pass on both platforms
+- [ ] **Detox E2E:** All transitions from §4.9 and §4.10 pass on both platforms

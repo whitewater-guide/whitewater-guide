@@ -55,6 +55,8 @@
     "overrides": {
       "@graphql-codegen/add": "^5.0.0",
       "@graphql-codegen/plugin-helpers": "^5.0.1",
+      "@types/react": "^19.2.14",
+      "@types/react-dom": "^19.2.3",
       "graphql": "^16.8.1",
       "markdown-it": "^14.1.1",
       "react": "19.2.3",
