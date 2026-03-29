@@ -1,5 +1,6 @@
 import type { NativeStackNavigationOptions } from '@react-navigation/native-stack';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Platform } from 'react-native';
 
 import { getHeaderRenderer } from '../../components/header';
 import PlaceholderScreen from '../../components/PlaceholderScreen';
@@ -14,6 +15,7 @@ const screenOptions: NativeStackNavigationOptions = {
   header: getHeaderRenderer(false),
   gestureEnabled: false,
   headerStyle: theme.navigationStyles.headerStyle,
+  statusBarStyle: Platform.OS === 'android' ? 'light' : undefined,
 };
 
 function RegionStack() {

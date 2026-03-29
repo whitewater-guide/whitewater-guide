@@ -16,11 +16,7 @@ export default function useLinking(): LinkingOptions<RootDrawerParamsList> {
         screens: {
           [Screens.ROOT_STACK]: {
             screens: {
-              [Screens.AUTH_STACK]: {
-                screens: {
-                  [Screens.AUTH_RESET]: 'auth/reset/:token',
-                },
-              },
+              [Screens.AUTH_RESET]: 'auth/reset/:token',
               [Screens.CONNECT_EMAIL]: 'auth/verify-email/:token',
               [Screens.REGION_STACK]: 'region/:regionId',
               [Screens.SECTION_SCREEN]: 'section/:sectionId',

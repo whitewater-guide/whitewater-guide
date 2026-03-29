@@ -2,8 +2,10 @@
  * Shared Detox helpers for navigation E2E tests.
  */
 
+import { Screens } from '../../src/core/navigation';
+
 /** Assert that a screen with the given name is currently visible. */
-export async function expectScreen(screenName: string): Promise<void> {
+export async function expectScreen(screenName: Screens): Promise<void> {
   await expect(element(by.id(`screen:${screenName}`))).toBeVisible();
 }
 
@@ -26,7 +28,7 @@ export async function tapHeaderBack(): Promise<void> {
 /** From REGIONS_LIST, navigate into a region. Ends at REGION_MAP. */
 export async function navigateToRegion(): Promise<void> {
   await element(by.id('mock:navigate:REGION_STACK')).tap();
-  await expectScreen('REGION_MAP');
+  await expectScreen(Screens.REGION_MAP);
 }
 
 /**
@@ -36,5 +38,5 @@ export async function navigateToRegion(): Promise<void> {
 export async function navigateToSection(): Promise<void> {
   await navigateToRegion();
   await element(by.id('mock:navigate:SECTION_SCREEN')).tap();
-  await expectScreen('SECTION_INFO');
+  await expectScreen(Screens.SECTION_INFO);
 }

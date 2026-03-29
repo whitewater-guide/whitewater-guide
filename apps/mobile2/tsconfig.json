@@ -6,6 +6,6 @@
     "moduleResolution": "bundler",
     "customConditions": ["react-native"]
   },
-  "include": ["src/**/*", "e2e/**/*", "typings/**/*", ".rnstorybook/**/*"],
+  "include": ["src/**/*", "typings/**/*", ".rnstorybook/**/*"],
   "exclude": ["**/node_modules", "**/Pods"]
 }

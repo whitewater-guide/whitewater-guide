@@ -1,3 +1,4 @@
+import { Screens } from '../../src/core/navigation';
 import {
   expectScreen,
   tapDrawerItem,
@@ -12,26 +13,26 @@ describe('Drawer navigation', () => {
   it('should navigate through all drawer items', async () => {
     // Navigate to Regions
     await tapDrawerItem('regions');
-    await expectScreen('REGIONS_LIST');
+    await expectScreen(Screens.REGIONS_LIST);
 
     // Navigate to FAQ
     await tapDrawerItem('faq');
-    await expectScreen('WEB_VIEW');
+    await expectScreen(Screens.WEB_VIEW);
 
     // Verify back button returns to Regions
     await tapHeaderBack();
-    await expectScreen('REGIONS_LIST');
+    await expectScreen(Screens.REGIONS_LIST);
 
     // Navigate through remaining drawer items
     await tapDrawerItem('backers');
-    await expectScreen('WEB_VIEW');
+    await expectScreen(Screens.WEB_VIEW);
 
     await tapHeaderBack();
     await tapDrawerItem('terms');
-    await expectScreen('WEB_VIEW');
+    await expectScreen(Screens.WEB_VIEW);
 
     await tapHeaderBack();
     await tapDrawerItem('privacy');
-    await expectScreen('WEB_VIEW');
+    await expectScreen(Screens.WEB_VIEW);
   });
 });

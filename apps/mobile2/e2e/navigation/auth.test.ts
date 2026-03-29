@@ -1,3 +1,4 @@
+import { Screens } from '../../src/core/navigation';
 import {
   expectScreen,
   tapDrawerItem,
@@ -23,11 +24,11 @@ describe('Auth navigation', () => {
 
     // Tap My Profile
     await element(by.id('drawer:my-profile')).tap();
-    await expectScreen('MY_PROFILE');
+    await expectScreen(Screens.MY_PROFILE);
 
     // Sign out — resets to REGIONS_LIST
     await element(by.id('my-profile:sign-out')).tap();
-    await expectScreen('REGIONS_LIST');
+    await expectScreen(Screens.REGIONS_LIST);
 
     // Open drawer — verify Sign In is visible, My Profile is gone
     await element(by.id('header:menu')).tap();
@@ -35,41 +36,41 @@ describe('Auth navigation', () => {
 
     // Logbook should redirect to auth when logged out
     await element(by.id('drawer:logbook')).tap();
-    await expectScreen('AUTH_MAIN');
+    await expectScreen(Screens.AUTH_MAIN);
 
     // Back to regions
     await tapHeaderBack();
-    await expectScreen('REGIONS_LIST');
+    await expectScreen(Screens.REGIONS_LIST);
 
     // Tap Sign In drawer item
     await tapDrawerItem('sign-in');
-    await expectScreen('AUTH_MAIN');
+    await expectScreen(Screens.AUTH_MAIN);
 
     // Navigate to sign-in screen
     await element(by.id('auth:sign-in')).tap();
-    await expectScreen('AUTH_SIGN_IN');
+    await expectScreen(Screens.AUTH_SIGN_IN);
 
     // Navigate to forgot password and back
     await element(by.id('auth:forgot')).tap();
-    await expectScreen('AUTH_FORGOT');
+    await expectScreen(Screens.AUTH_FORGOT);
     await tapHeaderBack();
-    await expectScreen('AUTH_SIGN_IN');
+    await expectScreen(Screens.AUTH_SIGN_IN);
 
     // Back to auth main
     await tapHeaderBack();
-    await expectScreen('AUTH_MAIN');
+    await expectScreen(Screens.AUTH_MAIN);
 
     // Navigate to register and back
     await element(by.id('auth:register')).tap();
-    await expectScreen('AUTH_REGISTER');
+    await expectScreen(Screens.AUTH_REGISTER);
     await tapHeaderBack();
-    await expectScreen('AUTH_MAIN');
+    await expectScreen(Screens.AUTH_MAIN);
 
     // Sign in: go to sign-in screen and submit
     await element(by.id('auth:sign-in')).tap();
-    await expectScreen('AUTH_SIGN_IN');
+    await expectScreen(Screens.AUTH_SIGN_IN);
     await element(by.id('auth:submit-sign-in')).tap();
-    await expectScreen('REGIONS_LIST');
+    await expectScreen(Screens.REGIONS_LIST);
 
     // Verify authenticated: My Profile should be visible
     await element(by.id('header:menu')).tap();
@@ -77,19 +78,23 @@ describe('Auth navigation', () => {
 
     // Tap My Profile
     await element(by.id('drawer:my-profile')).tap();
-    await expectScreen('MY_PROFILE');
+    await expectScreen(Screens.MY_PROFILE);
 
     // Back to regions
     await tapHeaderBack();
-    await expectScreen('REGIONS_LIST');
+    await expectScreen(Screens.REGIONS_LIST);
 
     // Logbook should now go to logbook
     await tapDrawerItem('logbook');
-    await expectScreen('LOGBOOK');
+    await expectScreen(Screens.LOGBOOK);
   });
 
   it('should deep link to auth reset', async () => {
-    await device.openURL({ url: `${DEEP_LINK_PREFIX}/auth/reset/token123` });
-    await expectScreen('AUTH_RESET');
+    await device.launchApp({
+      newInstance: true,
+      url: `${DEEP_LINK_PREFIX}/auth/reset/token123`,
+    });
+    await expectScreen(Screens.AUTH_RESET);
+    await expect(element(by.id('reset:form:token123'))).toBeVisible();
   });
 });

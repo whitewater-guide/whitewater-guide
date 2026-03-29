@@ -18,6 +18,7 @@
     "**/dist": true,
     "**/node_modules": true,
     "**/Pods/**": true,
+    "**/vendor/**": true,
     "**/*.log": true,
     "**/yarn.lock": true,
     "**/pnpm-lock.yaml": true,

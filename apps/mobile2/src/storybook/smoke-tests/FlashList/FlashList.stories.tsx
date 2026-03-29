@@ -17,7 +17,6 @@ function FlashListDemo() {
       </Text>
       <FlashList
         data={DATA}
-        estimatedItemSize={50}
         renderItem={({ item }) => (
           <View style={styles.item}>
             <Text variant="bodyLarge">{item.title}</Text>

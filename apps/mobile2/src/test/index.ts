@@ -1,0 +1,1 @@
+export { fetchMock } from './fetchMock';

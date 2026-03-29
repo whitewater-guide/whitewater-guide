@@ -36,7 +36,7 @@ export function createFixedProvider<TResult = any, TVars = any>(
   );
 
   if (cache) {
-    client.writeQuery(cache);
+    client.writeQuery(cache as any);
   }
 
   const result: FixedProviderStatic = Object.assign(FixedProvider, { client });

@@ -32,4 +32,6 @@ const HeaderLeft = memo(
   },
 );
 
+HeaderLeft.displayName = 'HeaderLeft';
+
 export default HeaderLeft;

@@ -7,16 +7,6 @@ export type RootDrawerParamsList = {
   [Screens.ROOT_STACK]: NavigatorScreenParams<RootStackParamsList>;
 };
 
-export type AuthStackParamsList = {
-  [Screens.AUTH_MAIN]: undefined;
-  [Screens.AUTH_SIGN_IN]: undefined;
-  [Screens.AUTH_REGISTER]: undefined;
-  [Screens.AUTH_FORGOT]: undefined;
-  [Screens.AUTH_RESET]: { token?: string };
-  [Screens.AUTH_SOCIAL]: undefined;
-  [Screens.AUTH_WELCOME]: undefined;
-};
-
 export type DescentFormParamsList = {
   [Screens.DESCENT_FORM_SECTION]: { regionId?: string } | undefined;
   [Screens.DESCENT_FORM_DATE]: undefined;
@@ -78,7 +68,6 @@ export type RootStackParamsList = {
   [Screens.SUGGESTION]: {
     sectionId: string;
   };
-  [Screens.AUTH_STACK]: NavigatorScreenParams<AuthStackParamsList> | undefined;
   [Screens.MY_PROFILE]: undefined;
   [Screens.CONNECT_EMAIL_REQUEST]: { email?: string };
   [Screens.CONNECT_EMAIL]: {
@@ -101,10 +90,18 @@ export type RootStackParamsList = {
   [Screens.ADD_SECTION_SCREEN]: {
     fromDescentFormKey?: string;
   };
+  [Screens.AUTH_MAIN]: undefined;
+  [Screens.AUTH_SIGN_IN]: undefined;
+  [Screens.AUTH_REGISTER]: undefined;
+  [Screens.AUTH_FORGOT]: undefined;
+  [Screens.AUTH_RESET]: { token?: string };
+  [Screens.AUTH_SOCIAL]: undefined;
+  [Screens.AUTH_WELCOME]: undefined;
 };
 
 declare global {
   namespace ReactNavigation {
-    type RootParamList = RootStackParamsList
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    interface RootParamList extends RootStackParamsList {}
   }
 }

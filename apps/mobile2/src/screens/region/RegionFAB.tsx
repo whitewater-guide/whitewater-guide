@@ -39,7 +39,7 @@ function RegionFAB() {
       if (me) {
         action();
       } else {
-        navigation.navigate(Screens.AUTH_STACK);
+        navigation.navigate(Screens.AUTH_MAIN);
       }
     },
     [me, navigation],

@@ -5,7 +5,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { MOCK_USER, MockAuthService } from './MockAuthService';
 
-export function AuthProvider({ children }: PropsWithChildren) {
+export function AuthProvider({ children }: PropsWithChildren<{ service?: unknown }>) {
   const [me, setMe] = useState<MyProfileFragment | null>(MOCK_USER);
   const [loading, setLoading] = useState(false);
   const serviceRef = useRef(new MockAuthService());

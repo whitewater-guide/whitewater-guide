@@ -1,11 +1,19 @@
 import type { NativeStackNavigationOptions } from '@react-navigation/native-stack';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
+import { Platform } from 'react-native';
 
 import { getHeaderRenderer } from '../../components/header';
 import PlaceholderScreen from '../../components/PlaceholderScreen';
 import AddSectionStack from '../../screens/add-section/AddSectionStack';
-import AuthStack from '../../screens/auth/AuthStack';
+import {
+  AuthMainScreen,
+  ForgotScreen,
+  RegisterScreen,
+  ResetScreen,
+  SignInScreen,
+  WelcomeScreen,
+} from '../../screens/auth';
 import DescentFormStack from '../../screens/descent-form/DescentFormStack';
 import {
   MockDescentScreen,
@@ -16,6 +24,7 @@ import {
 import RegionStack from '../../screens/region/RegionStack';
 import SectionTabs from '../../screens/section/SectionTabs';
 import theme from '../../theme';
+import { useAuth } from '../auth';
 import type { RootStackParamsList } from './navigation-params';
 import { Screens } from './screen-names';
 
@@ -26,6 +35,7 @@ const topLevelScreenOptions: NativeStackNavigationOptions = {
   gestureEnabled: false,
   headerStyle: theme.navigationStyles.headerStyle,
   headerTintColor: theme.colors.textLight,
+  statusBarStyle: Platform.OS === 'android' ? 'light' : undefined,
 };
 
 const innerScreenOptions: NativeStackNavigationOptions = {
@@ -33,10 +43,21 @@ const innerScreenOptions: NativeStackNavigationOptions = {
   gestureEnabled: false,
   headerStyle: theme.navigationStyles.headerStyle,
   headerTintColor: theme.colors.textLight,
+  statusBarStyle: Platform.OS === 'android' ? 'light' : undefined,
+};
+
+const authScreenOptions: NativeStackNavigationOptions = {
+  header: getHeaderRenderer(false),
+  gestureEnabled: false,
+  headerStyle: { backgroundColor: theme.colors.primaryBackground },
+  headerTintColor: theme.colors.primary,
+  headerTitle: '',
+  statusBarStyle: Platform.OS === 'android' ? 'dark' : undefined,
 };
 
 function RootStack() {
   const { t } = useTranslation();
+  const { me } = useAuth();
 
   return (
     <Stack.Navigator id="RootStack" screenOptions={topLevelScreenOptions}>
@@ -55,36 +76,13 @@ function RootStack() {
         component={SectionTabs}
         options={{ ...innerScreenOptions, headerTitle: 'Section' }}
       />
-      <Stack.Screen
-        name={Screens.AUTH_STACK}
-        component={AuthStack}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name={Screens.LOGBOOK}
-        component={MockLogbookScreen}
-        options={{ ...innerScreenOptions, headerTitle: t('drawer:logbook') }}
-      />
-      <Stack.Screen
-        name={Screens.DESCENT}
-        component={MockDescentScreen}
-        options={{ ...innerScreenOptions, headerTitle: 'Descent' }}
-      />
-      <Stack.Screen
-        name={Screens.DESCENT_FORM}
-        component={DescentFormStack}
-        options={{ headerShown: false }}
-      />
+
       <Stack.Screen
         name={Screens.ADD_SECTION_SCREEN}
         component={AddSectionStack}
         options={{ headerShown: false }}
       />
-      <Stack.Screen
-        name={Screens.MY_PROFILE}
-        component={MockMyProfileScreen}
-        options={{ ...innerScreenOptions, headerTitle: t('drawer:myProfile') }}
-      />
+
       <Stack.Screen
         name={Screens.CONNECT_EMAIL_REQUEST}
         component={PlaceholderScreen}
@@ -120,6 +118,53 @@ function RootStack() {
         component={PlaceholderScreen}
         options={innerScreenOptions}
       />
+      <Stack.Screen
+        name={Screens.AUTH_RESET}
+        component={ResetScreen}
+        options={authScreenOptions}
+      />
+      {!!me && (
+        <>
+          <Stack.Screen
+            name={Screens.MY_PROFILE}
+            component={MockMyProfileScreen}
+            options={{
+              ...innerScreenOptions,
+              headerTitle: t('drawer:myProfile'),
+            }}
+          />
+          <Stack.Screen
+            name={Screens.LOGBOOK}
+            component={MockLogbookScreen}
+            options={{
+              ...innerScreenOptions,
+              headerTitle: t('drawer:logbook'),
+            }}
+          />
+          <Stack.Screen
+            name={Screens.DESCENT}
+            component={MockDescentScreen}
+            options={{ ...innerScreenOptions, headerTitle: 'Descent' }}
+          />
+          <Stack.Screen
+            name={Screens.DESCENT_FORM}
+            component={DescentFormStack}
+            options={{ headerShown: false }}
+          />
+        </>
+      )}
+      {!me && (
+        <Stack.Group screenOptions={authScreenOptions}>
+          <Stack.Screen name={Screens.AUTH_MAIN} component={AuthMainScreen} />
+          <Stack.Screen name={Screens.AUTH_SIGN_IN} component={SignInScreen} />
+          <Stack.Screen
+            name={Screens.AUTH_REGISTER}
+            component={RegisterScreen}
+          />
+          <Stack.Screen name={Screens.AUTH_FORGOT} component={ForgotScreen} />
+          <Stack.Screen name={Screens.AUTH_WELCOME} component={WelcomeScreen} />
+        </Stack.Group>
+      )}
     </Stack.Navigator>
   );
 }

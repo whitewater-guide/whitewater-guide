@@ -1,7 +1,6 @@
 export type {
   AddSectionStackParamsList,
   AddSectionTabsParamsList,
-  AuthStackParamsList,
   DescentFormParamsList,
   RegionStackParamsList,
   RegionTabsParamsList,

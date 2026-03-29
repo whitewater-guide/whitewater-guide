@@ -1,8 +1,4 @@
 export { default as MockAddSectionTabScreen } from './MockAddSectionTabScreen';
-export { default as MockAuthForgotScreen } from './MockAuthForgotScreen';
-export { default as MockAuthMainScreen } from './MockAuthMainScreen';
-export { default as MockAuthRegisterScreen } from './MockAuthRegisterScreen';
-export { default as MockAuthSignInScreen } from './MockAuthSignInScreen';
 export { default as MockDescentFormCommentScreen } from './MockDescentFormCommentScreen';
 export { default as MockDescentFormDateScreen } from './MockDescentFormDateScreen';
 export { default as MockDescentFormLevelScreen } from './MockDescentFormLevelScreen';

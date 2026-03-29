@@ -56,7 +56,7 @@ export function useSectionQuery(): QueryResult<
   Overwrite<SectionDetailsQuery, { section?: SafeSectionDetails | null }>,
   SectionDetailsQueryVariables
 > {
-  return useContext(SectionContext);
+  return useContext(SectionContext) as any;
 }
 
 export function useSection(): SafeSectionDetails | null | undefined {

@@ -68,7 +68,7 @@ function DrawerSidebar({ navigation }: DrawerContentComponentProps) {
         <DrawerItem
           label={t('drawer:signIn')}
           icon="exit-to-app"
-          routeName={Screens.AUTH_STACK}
+          routeName={Screens.AUTH_MAIN}
           onPress={navigate}
           testID="drawer:sign-in"
         />
@@ -83,7 +83,7 @@ function DrawerSidebar({ navigation }: DrawerContentComponentProps) {
       <DrawerItem
         label={t('drawer:logbook')}
         icon="notebook"
-        routeName={me ? Screens.LOGBOOK : Screens.AUTH_STACK}
+        routeName={me ? Screens.LOGBOOK : Screens.AUTH_MAIN}
         onPress={me ? reset : navigate}
         testID="drawer:logbook"
       />

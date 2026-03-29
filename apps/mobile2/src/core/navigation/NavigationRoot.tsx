@@ -2,18 +2,28 @@ import {
   NavigationContainer,
   useNavigationContainerRef,
 } from '@react-navigation/native';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import BootSplash from 'react-native-bootsplash';
 
 import type { RootDrawerParamsList } from './navigation-params';
 import RootDrawer from './RootDrawer';
 import useLinking from './useLinking';
 import usePersistence from './usePersistence';
+import useSignOut from './useSignOut';
 
 function NavigationRoot() {
   const navigationRef = useNavigationContainerRef<RootDrawerParamsList>();
   const linking = useLinking();
   const { ready, state, onStateChange } = usePersistence();
+
+  const reset = useCallback(
+    (resetState: any) => {
+      navigationRef.current?.reset(resetState);
+    },
+    [navigationRef],
+  );
+
+  useSignOut(reset);
 
   useEffect(() => {
     if (ready) {
