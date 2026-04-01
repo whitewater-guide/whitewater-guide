@@ -8,6 +8,7 @@ import { KeyboardProvider } from 'react-native-keyboard-controller';
 import { PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import SnackbarProvider from './components/SnackbarProvider';
 import { apolloCachePersistor, initApolloClient } from './core/apollo';
 import { AuthProvider, MobileAuthService } from './core/auth';
 import NavigationRoot from './core/navigation/NavigationRoot';
@@ -57,7 +58,9 @@ function App() {
             <ApolloProvider client={apolloClient}>
               <AuthProvider service={authServiceRef.current}>
                 <I18nProvider>
-                  <NavigationRoot />
+                  <SnackbarProvider>
+                    <NavigationRoot />
+                  </SnackbarProvider>
                 </I18nProvider>
               </AuthProvider>
             </ApolloProvider>

@@ -50,6 +50,8 @@ Build the full navigation skeleton with placeholder screens, drawer sidebar, dee
 
 **Goal:** App displays the main regions list from the backend (i18n already set up in Phase 3).
 
+**Scope:** Premium features (IAP lock, `PremiumBadge`) are dropped. Offline download button is **stubbed** (visible, non-functional) — full offline implementation is in Phase 11.
+
 > **Detailed plan:** [PHASE_6_REGIONS_LIST.md](PHASE_6_REGIONS_LIST.md)
 
 ---
@@ -289,7 +291,7 @@ GestureHandlerRootView
 
 ### Phase 11: Offline Support
 
-**Goal:** Users can download regions for offline use.
+**Goal:** Users can download regions for offline use. The download button on `RegionCard` was stubbed in Phase 6 (shows "coming soon" on tap) — replace the stub with real implementation here.
 
 #### 11.1 — Port offline infrastructure
 
@@ -304,9 +306,10 @@ GestureHandlerRootView
 
 ```
 react-native-fs (or expo-file-system if no Expo dep)
+expo-image
 ```
 
-Note: `@react-native-community/netinfo` already installed in Phase 3.
+Note: `@react-native-community/netinfo` already installed in Phase 3. `expo-image` replaces the RN built-in `Image` used on `RegionCard` since Phase 6 — swap is a one-line import change (`resizeMode` → `contentFit`).
 
 #### 11.3 — Build offline UI
 
@@ -438,25 +441,25 @@ matrix-js-sdk (latest v41)
 
 ### Replace with modern alternatives
 
-| Old                                       | New                                           | Reason                                   |
-| ----------------------------------------- | --------------------------------------------- | ---------------------------------------- |
-| react-native-big-list                     | @shopify/flash-list                           | Industry standard, better perf           |
-| react-native-image-zoom-viewer            | Custom (gesture-handler + reanimated v4)      | Old one abandoned, awesome-gallery incompatible with reanimated v4 |
-| react-native-iphone-x-helper              | react-native-safe-area-context                | Already a dep, use `useSafeAreaInsets()` |
-| react-native-keyboard-aware-scroll-view   | react-native-keyboard-controller              | Old one abandoned                        |
-| react-native-avoid-softinput              | react-native-keyboard-controller              | Consolidate keyboard handling            |
-| react-native-zxcvbn                       | @zxcvbn-ts/core                               | Pure TS, no native wrapper               |
-| react-native-text-size                    | Text.onTextLayout                             | Remove git dep                           |
-| react-native-modal-popover                | Paper Menu component                          | Consolidate on Paper                     |
-| react-native-mmkv-storage                 | react-native-mmkv                             | Better New Arch / JSI support            |
-| react-native-ultimate-config              | react-native-config                           | ultimate-config abandoned                |
-| react-native-snackbar                     | Paper Snackbar                                | Consolidate on Paper                     |
-| @react-navigation/material-bottom-tabs    | Paper BottomNavigation                        | Dropped in nav v7                        |
-| react-native-redash                       | Inline / reanimated builtins                  | Most utils now in reanimated 4           |
-| @whitewater-guide/react-native-fast-image | expo-image (if no Expo dep) or community fork | Original archived                        |
-| @testing-library/react-hooks              | @testing-library/react-native renderHook      | Deprecated                               |
-| Flipper                                   | React Native DevTools                         | Flipper deprecated in RN 0.73+           |
-| react-native-bundle-splitter              | React.lazy + Suspense                         | Built into React 18, no extra dep needed |
+| Old                                       | New                                                                                                                | Reason                                                             |
+| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------ |
+| react-native-big-list                     | @shopify/flash-list                                                                                                | Industry standard, better perf                                     |
+| react-native-image-zoom-viewer            | Custom (gesture-handler + reanimated v4)                                                                           | Old one abandoned, awesome-gallery incompatible with reanimated v4 |
+| react-native-iphone-x-helper              | react-native-safe-area-context                                                                                     | Already a dep, use `useSafeAreaInsets()`                           |
+| react-native-keyboard-aware-scroll-view   | react-native-keyboard-controller                                                                                   | Old one abandoned                                                  |
+| react-native-avoid-softinput              | react-native-keyboard-controller                                                                                   | Consolidate keyboard handling                                      |
+| react-native-zxcvbn                       | @zxcvbn-ts/core                                                                                                    | Pure TS, no native wrapper                                         |
+| react-native-text-size                    | Text.onTextLayout                                                                                                  | Remove git dep                                                     |
+| react-native-modal-popover                | Paper Menu component                                                                                               | Consolidate on Paper                                               |
+| react-native-mmkv-storage                 | react-native-mmkv                                                                                                  | Better New Arch / JSI support                                      |
+| react-native-ultimate-config              | react-native-config                                                                                                | ultimate-config abandoned                                          |
+| react-native-snackbar                     | Paper Snackbar                                                                                                     | Consolidate on Paper                                               |
+| @react-navigation/material-bottom-tabs    | Paper BottomNavigation                                                                                             | Dropped in nav v7                                                  |
+| react-native-redash                       | Inline / reanimated builtins                                                                                       | Most utils now in reanimated 4                                     |
+| @whitewater-guide/react-native-fast-image | `expo-image` **deferred to Phase 11** — expo-sdk not yet compatible with RN 0.84; Phase 6 uses RN built-in `Image` | Original archived                                                  |
+| @testing-library/react-hooks              | @testing-library/react-native renderHook                                                                           | Deprecated                                                         |
+| Flipper                                   | React Native DevTools                                                                                              | Flipper deprecated in RN 0.73+                                     |
+| react-native-bundle-splitter              | React.lazy + Suspense                                                                                              | Built into React 18, no extra dep needed                           |
 
 ### Drop entirely
 

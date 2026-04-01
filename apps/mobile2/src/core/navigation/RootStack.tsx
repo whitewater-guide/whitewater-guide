@@ -19,9 +19,9 @@ import {
   MockDescentScreen,
   MockLogbookScreen,
   MockMyProfileScreen,
-  MockRegionsListScreen,
 } from '../../screens/mock';
 import RegionStack from '../../screens/region/RegionStack';
+import RegionsListScreen from '../../screens/regions-list';
 import SectionTabs from '../../screens/section/SectionTabs';
 import theme from '../../theme';
 import { useAuth } from '../auth';
@@ -63,7 +63,7 @@ function RootStack() {
     <Stack.Navigator id="RootStack" screenOptions={topLevelScreenOptions}>
       <Stack.Screen
         name={Screens.REGIONS_LIST}
-        component={MockRegionsListScreen}
+        component={RegionsListScreen}
         options={{ headerTitle: t('drawer:regions') }}
       />
       <Stack.Screen

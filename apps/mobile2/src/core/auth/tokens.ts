@@ -1,7 +1,12 @@
 import type { TokenStorage } from '@whitewater-guide/clients';
 import Config from 'react-native-config';
 import type { StorageOptions } from 'react-native-sensitive-info';
-import { deleteItem, getItem, setItem } from 'react-native-sensitive-info';
+import {
+  deleteItem,
+  ErrorCode,
+  getItem,
+  setItem,
+} from 'react-native-sensitive-info';
 
 const KEYCHAIN_SERVICE = `wwguide_${Config.ENV_NAME}_auth`;
 const ACCESS_TOKEN_KEY = '@accessToken';
@@ -14,8 +19,16 @@ const OPTIONS: StorageOptions = {
 
 class SecureTokenStorage implements TokenStorage {
   async getAccessToken() {
-    const item = await getItem(ACCESS_TOKEN_KEY, OPTIONS);
-    return item || null;
+    try {
+      const item = await getItem(ACCESS_TOKEN_KEY, OPTIONS);
+      return item || null;
+    } catch (e: any) {
+      if (e?.code !== ErrorCode.NOT_FOUND) {
+        // TODO: send to sentry
+        console.error(e);
+      }
+      return null;
+    }
   }
 
   async setAccessToken(value: string | null) {
@@ -27,8 +40,16 @@ class SecureTokenStorage implements TokenStorage {
   }
 
   async getRefreshToken() {
-    const item = await getItem(REFRESH_TOKEN_KEY, OPTIONS);
-    return item || null;
+    try {
+      const item = await getItem(REFRESH_TOKEN_KEY, OPTIONS);
+      return item || null;
+    } catch (e: any) {
+      if (e?.code !== ErrorCode.NOT_FOUND) {
+        // TODO: send to sentry
+        console.error(e);
+      }
+      return null;
+    }
   }
 
   async setRefreshToken(value: string | null) {

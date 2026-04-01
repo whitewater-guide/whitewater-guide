@@ -58,7 +58,7 @@ const theme = {
   rowHeight: 48,
   navigationStyles,
   border: 1,
-  elevation: 2,
+  elevation: 2 as const,
   appbarHeight: 56,
   materialBottomBarHeight: 56,
 };

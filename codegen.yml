@@ -131,6 +131,20 @@ generates:
       - typescript-operations
       - typescript-react-apollo
 
+  ./apps/mobile2/src/:
+    documents:
+      - ./apps/mobile2/src/**/*.gql
+    preset: near-operation-file
+    presetConfig:
+      extension: .generated.ts
+      baseTypesPath: '~@whitewater-guide/schema'
+      importAllFragmentsFrom: '~@whitewater-guide/schema'
+    plugins:
+      - add:
+          content: '/* eslint-disable @typescript-eslint/no-explicit-any */'
+      - typescript-operations
+      - typescript-react-apollo
+
 config:
   # Due to serialization/deserialization scalars have different type on backend and frontend
   # I.e. it's 'Date' on backend and 'string' on frontend

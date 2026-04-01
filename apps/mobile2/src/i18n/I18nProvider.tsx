@@ -1,5 +1,6 @@
 import 'intl-pluralrules';
 
+import { useApolloClient } from '@apollo/client';
 import { configDateFNS } from '@whitewater-guide/clients';
 import i18next from 'i18next';
 import type { FC, PropsWithChildren } from 'react';
@@ -15,6 +16,7 @@ export const i18n = i18next.use(initReactI18next);
 
 export const I18nProvider: FC<PropsWithChildren> = ({ children }) => {
   const [ready, setReady] = useState(false);
+  const apolloClient = useApolloClient();
 
   useEffect(() => {
     const onMount = async () => {
@@ -43,6 +45,18 @@ export const I18nProvider: FC<PropsWithChildren> = ({ children }) => {
 
     onMount();
   }, []);
+
+  useEffect(() => {
+    const handleLanguageChanged = () => {
+      apolloClient.resetStore().catch(() => {
+        // ignore reset errors — app will retry on next network request
+      });
+    };
+    i18n.on('languageChanged', handleLanguageChanged);
+    return () => {
+      i18n.off('languageChanged', handleLanguageChanged);
+    };
+  }, [apolloClient]);
 
   return (ready ? children : null) as any;
 };
