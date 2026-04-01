@@ -11,12 +11,12 @@ import RegionsListSubtitle from './RegionsListSubtitle';
 import type { ListedRegion, RegionSubtitleData } from './useFavRegions';
 import useFavRegions from './useFavRegions';
 
-type ListItem = (ListedRegion & { key?: string }) | RegionSubtitleData;
+type ListItem = ListedRegion | RegionSubtitleData;
 
 const { width: screenWidth } = Dimensions.get('window');
 const screenWidthPx = Math.round(screenWidth * PixelRatio.get());
 
-const keyExtractor = (item: ListItem) => item.key ?? item.id;
+const keyExtractor = (item: ListItem) => item.id;
 
 const getItemType = (item: ListItem) =>
   item.__typename === 'Subtitle' ? 'subtitle' : 'card';
@@ -69,4 +69,7 @@ function RegionsListView() {
   );
 }
 
-export default memo(RegionsListView);
+const RegionsListViewComp = memo(RegionsListView);
+RegionsListViewComp.displayName = 'RegionsListView';
+
+export default RegionsListViewComp;

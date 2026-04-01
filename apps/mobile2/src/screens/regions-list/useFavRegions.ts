@@ -12,23 +12,34 @@ export interface RegionSubtitleData {
 }
 
 /**
- * If regions contain some favorites, creates array of favorite regions and all regions with subtitle rows in between.
- * Also adds keys so favorite region duplicates don't collide with regular region list keys.
+ * If regions contain some favorites, creates array of favorite regions and rest regions with subtitle rows in between.
  */
 export default function useFavRegions(
-  regions?: ListedRegion[],
-): Array<(ListedRegion & { key?: string }) | RegionSubtitleData> {
+  regions: ListedRegion[] = [],
+): Array<ListedRegion | RegionSubtitleData> {
   return useMemo(() => {
-    const regs = regions ?? [];
-    const favs = regs.filter((r) => r.favorite);
-    if (favs.length === 0) {
-      return regs;
+    const favs: ListedRegion[] = [];
+    const rest: ListedRegion[] = [];
+    for (const r of regions) {
+      if (r.favorite) {
+        favs.push(r);
+      } else {
+        rest.push(r);
+      }
     }
+    if (favs.length === 0) {
+      return rest;
+    }
+    // if all regions are favorites, just return all regions
+    if (rest.length === 0) {
+      return favs;
+    }
+
     return [
       { __typename: 'Subtitle', id: 'screens:regionsList.favorites' },
-      ...favs.map((f) => ({ ...f, key: `fav_${f.id}` })),
+      ...favs,
       { __typename: 'Subtitle', id: 'screens:regionsList.all' },
-      ...regs,
+      ...rest,
     ];
   }, [regions]);
 }
