@@ -17,7 +17,10 @@ if (process.env.STORYBOOK_ENABLED === 'true') {
   RootComponent = require('./src/App').default;
 }
 
-if (process.env.E2E_MODE === 'true') {
+if (
+  process.env.E2E_MODE === 'true' ||
+  process.env.STORYBOOK_ENABLED === 'true'
+) {
   LogBox.ignoreAllLogs();
 }
 

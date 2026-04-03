@@ -27,6 +27,7 @@ PODS:
   - hermes-engine (250829098.0.9):
     - hermes-engine/Pre-built (= 250829098.0.9)
   - hermes-engine/Pre-built (250829098.0.9)
+  - iosMath (0.9.4)
   - MapboxCommon (24.18.3):
     - Turf (= 4.0.0)
   - MapboxCoreMaps (11.18.3):
@@ -61,7 +62,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
-  - NitroModules (0.35.2):
+  - NitroModules (0.35.3):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -2094,6 +2095,29 @@ PODS:
     - React-utils (= 0.84.1)
     - ReactNativeDependencies
   - ReactNativeDependencies (0.84.1)
+  - ReactNativeEnrichedMarkdown (0.4.1):
+    - hermes-engine
+    - iosMath (~> 0.9)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-Core-prebuilt
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - ReactNativeDependencies
+    - Yoga
   - RNBootSplash (7.2.0):
     - hermes-engine
     - RCTRequired
@@ -2184,7 +2208,7 @@ PODS:
     - Yoga
   - RNDeviceInfo (15.0.2):
     - React-Core
-  - RNGestureHandler (2.30.1):
+  - RNGestureHandler (2.31.0):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -2604,6 +2628,7 @@ DEPENDENCIES:
   - ReactCodegen (from `build/generated/ios/ReactCodegen`)
   - ReactCommon/turbomodule/core (from `../../../node_modules/react-native/ReactCommon`)
   - ReactNativeDependencies (from `../../../node_modules/react-native/third-party-podspecs/ReactNativeDependencies.podspec`)
+  - ReactNativeEnrichedMarkdown (from `../../../node_modules/react-native-enriched-markdown`)
   - RNBootSplash (from `../../../node_modules/react-native-bootsplash`)
   - "RNCClipboard (from `../../../node_modules/@react-native-clipboard/clipboard`)"
   - "RNCMaskedView (from `../../../node_modules/@react-native-masked-view/masked-view`)"
@@ -2621,6 +2646,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - iosMath
     - MapboxCommon
     - MapboxCoreMaps
     - MapboxMaps
@@ -2798,6 +2824,8 @@ EXTERNAL SOURCES:
     :path: "../../../node_modules/react-native/ReactCommon"
   ReactNativeDependencies:
     :podspec: "../../../node_modules/react-native/third-party-podspecs/ReactNativeDependencies.podspec"
+  ReactNativeEnrichedMarkdown:
+    :path: "../../../node_modules/react-native-enriched-markdown"
   RNBootSplash:
     :path: "../../../node_modules/react-native-bootsplash"
   RNCClipboard:
@@ -2832,12 +2860,13 @@ SPEC CHECKSUMS:
   BVLinearGradient: cb006ba232a1f3e4f341bb62c42d1098c284da70
   FBLazyVector: e97c19a5a442429d1988f182a1940fb08df514da
   hermes-engine: 043ee86e0bf76d7a6bf0e72917e0254e2e98abd4
+  iosMath: f7a6cbadf9d836d2149c2a84c435b1effc244cba
   MapboxCommon: 371fd6db596531464b6fd751ae7daa382fe2da2b
   MapboxCoreMaps: 811c4196843f5554b10a807d1231270d372ff148
   MapboxMaps: 0e8fdc25eb3b1c2ff5cf9317266fe984eeb0e18f
   MMKVCore: 3d16ce9f7d411e135020915fde98a056859a1efa
   NitroMmkv: 880dee1e4b343bf2f2bf010fb8c2c68490632cfd
-  NitroModules: 76063cb7bc1a21cf46d11b25abfcf1759bf0be47
+  NitroModules: 00c15fcce98b504f21bd5b0c99276db161efcb39
   RCTDeprecation: af44b104091a34482596cd9bd7e8d90c4e9b4bd7
   RCTRequired: bb77b070f75f53398ce43c0aaaa58337cebe2bf6
   RCTSwiftUI: afc0a0a635860da1040a0b894bfd529da06d7810
@@ -2916,12 +2945,13 @@ SPEC CHECKSUMS:
   ReactCodegen: f66521b131699d6af0790f10653933b3f1f79a6f
   ReactCommon: 07572bf9e687c8a52fbe4a3641e9e3a1a477c78e
   ReactNativeDependencies: 9ea8aaf4d9fc713f1ea1545e7e3e792f3b1b0ae8
+  ReactNativeEnrichedMarkdown: 27a73f8df1bc304c35b7bd922c9885a4dfec3dc5
   RNBootSplash: c1c4bcc9d7b816e0c72f89179a47c149a62f6daf
   RNCClipboard: 88d7eeb555d1183915f0885bdbc5c97eb6f7f3ba
   RNCMaskedView: d2578d41c59b936db122b2798ba37e4722d21035
   RNDateTimePicker: 9025ccd219b382f246e9ceb85cd4095279b9bad1
   RNDeviceInfo: 4c852998208b60dc192ae3529e5867817719ad1e
-  RNGestureHandler: 695faf9c1f0aa1a6d52ab778e459a1bcbae3153b
+  RNGestureHandler: 5e7f23adbdc5b74c1333fdcba3455e93e84e52e6
   RNLocalize: 1e6eb4290e89502c3d2193d82dfb7de14a9e672b
   rnmapbox-maps: 30c5b33f811509feea581214d9973ffe3795c0c0
   RNReanimated: c05b534f68caa202da4dcc3fd619eab48f67f7bd

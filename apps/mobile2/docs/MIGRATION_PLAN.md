@@ -60,55 +60,7 @@ Build the full navigation skeleton with placeholder screens, drawer sidebar, dee
 
 **Goal:** Full region browsing experience with map, sections list, and info tabs.
 
-#### 7.1 — Install additional dependencies
-
-```
-@turf/* (geospatial calculations)
-```
-
-Note: `@shopify/flash-list`, `react-native-pager-view`, `react-native-tab-view` already installed in Phase 3.
-
-#### 7.2 — Build Region Tabs screen
-
-- Map tab: Region map with section overlays (GeoJSON from `sectionsToGeoJSON()`)
-- Sections list tab: Scrollable list of river sections with difficulty badges, flow data
-- Info tab: Region description, season info, license
-- Port `RegionProvider` context usage
-
-#### 7.3 — Build map components
-
-- Port `BaseMap`, `FeaturesMap`, `CameraControls`, `LayersSelector`
-- Port map selection panels: `SelectedSectionSheet`, `SelectedPOISheet`
-- Use `@gorhom/bottom-sheet` v5 for panels
-- Port `useCamera` hook
-
-#### 7.4 — Build sections list components
-
-- Section list items with difficulty, flow, rating, premium lock
-- Section filter modal
-- `RegionsFilterProvider` integration
-- Replace `react-native-iphone-x-helper` with `useSafeAreaInsets()`
-
-#### 7.5 — Build shared components
-
-- `DifficultyThumb`, `FlowsThumb`
-- `SimpleStarRating`
-- `Chips`, `TernaryChips`
-- `NavigateButton`
-- `LicenseBadge`, `LicenseLogo`
-- `Markdown` (using `@ronradtke/react-native-markdown-display`)
-- `Collapsible`
-
-#### 7.6 — Validation
-
-- [ ] Region tabs display correctly with all three tabs
-- [ ] Map shows section lines and POIs
-- [ ] Tapping a section on map shows bottom sheet with details
-- [ ] Sections list loads and scrolls smoothly
-- [ ] Section filter works
-- [ ] **Unit tests:** Map GeoJSON conversion, section filtering, region provider
-- [ ] **Storybook:** DifficultyThumb, FlowsThumb, StarRating, Chips, SectionListItem
-- [ ] **Detox E2E:** Navigate to region → switch tabs → select section on map → filter sections
+> **Detailed plan:** [PHASE_7_REGION_DETAIL.md](PHASE_7_REGION_DETAIL.md)
 
 ---
 

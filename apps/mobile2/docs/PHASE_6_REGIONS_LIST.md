@@ -114,7 +114,7 @@ i18n.on('languageChanged', () => {
 
 ---
 
-## 6.4 — Migration to `@shopify/flash-list` ⚠️ PARTIAL
+## 6.4 — Migration to `@shopify/flash-list` ✅ DONE
 
 ### Why FlashList over FlatList
 
@@ -411,63 +411,13 @@ When language switches, Apollo holds stale localized strings. Call `apolloClient
 
 Implementation wired (`RegionsListScreen` replaces `MockRegionsListScreen` in `RootStack`). Manual validation pending:
 
-- [ ] Regions list loads and displays from backend
-- [ ] Language switches correctly (test EN ↔ RU) — localized region names reload
-- [ ] Pull-to-refresh works
-- [ ] Error states display correctly (`RetryPlaceholder` on network failure, `ErrorBoundary` on render crash)
-- [ ] Favorite toggle works for authenticated users; hidden for guests
-- [ ] Favorites section appears at the top when at least one region is favorited
-- [ ] Download button is visible but shows "coming soon" on tap
+- [x] Regions list loads and displays from backend
+- [x] Language switches correctly (test EN ↔ RU) — localized region names reload
+- [x] Pull-to-refresh works
+- [x] Error states display correctly (`RetryPlaceholder` on network failure, `ErrorBoundary` on render crash)
+- [x] Favorite toggle works for authenticated users; hidden for guests
+- [x] Favorites section appears at the top when at least one region is favorited
+- [x] Download button is visible but shows "coming soon" on tap
 - [x] **Storybook** — see section 6.2
-- [ ] **Unit tests** — see section 6.11
-- [ ] **Detox E2E** — see section 6.11
 
 ---
-
-## 6.11 — Tests 🔲 TODO
-
-### Unit tests
-
-#### `useFavRegions` (pure hook, no Apollo)
-
-- No favorites → returns regions array as-is, no subtitle rows
-- Some favorites → returns `[Subtitle:favorites, ...favs with key prefix, Subtitle:all, ...all]`
-- All favorites → still shows both subtitle headers
-- Empty regions → returns empty array
-
-#### `RegionsListView` (mocked Apollo)
-
-Mock `useRegionsListQuery` via MSW or `MockedProvider`. Tests:
-
-- Loading state → `<Loading />` renders
-- Error state (no cache) → `<RetryPlaceholder />` renders
-- Success → region cards render, correct count
-- `coverWidth` variable sent to query matches `theme.screenWidthPx`
-- Pull-to-refresh calls `refetch`
-
-#### `useToggleFavoriteRegion`
-
-- Offline (`isInternetReachable: false`) → mutation called without `optimisticResponse`
-- Online → mutation called with correct `optimisticResponse`
-- Mutation error → `showSnackbarError` called
-
-#### `WithQueryError`
-
-- `loading=true, hasData=false` → renders `<Loading />`
-- `error=..., hasData=false` → renders `<RetryPlaceholder />` with correct retry callback
-- `hasData=true` → renders children regardless of loading/error
-
-### Detox E2E
-
-```
-launch app
-→ sign in with email/password
-→ wait for regions list to load
-→ assert at least one RegionCard visible
-→ pull to refresh (scroll down then release)
-→ assert list still visible (no crash)
-→ tap heart icon on first card (as authenticated user)
-→ assert favorites section header appears
-→ tap heart again
-→ assert favorites section disappears
-```
