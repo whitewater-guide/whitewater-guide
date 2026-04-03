@@ -1,0 +1,6 @@
+mutation toggleFavoriteSection($id: ID!, $favorite: Boolean!) {
+  toggleFavoriteSection(id: $id, favorite: $favorite) {
+    id
+    favorite
+  }
+}

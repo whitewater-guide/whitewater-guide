@@ -1,12 +1,11 @@
+import { useRegion } from '@whitewater-guide/clients';
 import { Text } from 'react-native';
 
 import theme from '../../theme';
 
-interface Props {
-  name?: string | null;
-}
-
-function RegionTitle({ name }: Props) {
+function RegionTitle() {
+  const region = useRegion();
+  const name = region?.name;
   if (!name) {
     return null;
   }

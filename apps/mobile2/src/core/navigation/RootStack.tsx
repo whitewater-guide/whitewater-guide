@@ -20,7 +20,7 @@ import {
   MockLogbookScreen,
   MockMyProfileScreen,
 } from '../../screens/mock';
-import RegionStack from '../../screens/region/RegionStack';
+import RegionScreen from '../../screens/region/RegionScreen';
 import RegionsListScreen from '../../screens/regions-list';
 import SectionTabs from '../../screens/section/SectionTabs';
 import theme from '../../theme';
@@ -68,7 +68,7 @@ function RootStack() {
       />
       <Stack.Screen
         name={Screens.REGION_STACK}
-        component={RegionStack}
+        component={RegionScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
