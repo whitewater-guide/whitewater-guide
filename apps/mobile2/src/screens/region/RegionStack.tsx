@@ -8,6 +8,7 @@ import type { RegionStackParamsList } from '../../core/navigation';
 import { Screens } from '../../core/navigation';
 import theme from '../../theme';
 import RegionTabs from './RegionTabs';
+import RegionTitle from './RegionTitle';
 
 const Stack = createNativeStackNavigator<RegionStackParamsList>();
 
@@ -24,7 +25,7 @@ function RegionStack() {
       <Stack.Screen
         name={Screens.REGION_TABS}
         component={RegionTabs}
-        options={{ headerTitle: 'Region' }}
+        options={{ headerTitle: () => <RegionTitle /> }}
       />
       <Stack.Screen
         name={Screens.FILTER}
