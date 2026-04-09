@@ -1,5 +1,6 @@
 import type { ApolloClient } from '@apollo/client';
 import { ApolloProvider } from '@apollo/client';
+import { TagsProvider } from '@whitewater-guide/clients';
 import { useEffect, useRef, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import BootSplash from 'react-native-bootsplash';
@@ -56,13 +57,15 @@ function App() {
         <KeyboardProvider>
           <SafeAreaProvider>
             <ApolloProvider client={apolloClient}>
-              <AuthProvider service={authServiceRef.current}>
-                <I18nProvider>
-                  <SnackbarProvider>
-                    <NavigationRoot />
-                  </SnackbarProvider>
-                </I18nProvider>
-              </AuthProvider>
+              <TagsProvider>
+                <AuthProvider service={authServiceRef.current}>
+                  <I18nProvider>
+                    <SnackbarProvider>
+                      <NavigationRoot />
+                    </SnackbarProvider>
+                  </I18nProvider>
+                </AuthProvider>
+              </TagsProvider>
             </ApolloProvider>
           </SafeAreaProvider>
         </KeyboardProvider>

@@ -1,4 +1,5 @@
 import { useApolloClient } from '@apollo/client';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { useNetInfo } from '@react-native-community/netinfo';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import {
@@ -9,8 +10,7 @@ import {
 } from '@whitewater-guide/clients';
 import { Dimensions, PixelRatio } from 'react-native';
 
-import type { RootStackParamsList } from '../../core/navigation';
-import { Screens } from '../../core/navigation';
+import type { RootStackParamsList , Screens } from '../../core/navigation';
 import RegionStack from './RegionStack';
 
 const { width: screenWidth } = Dimensions.get('window');
@@ -31,12 +31,17 @@ function InnerRegionScreen({ regionId }: { regionId: string }) {
       client={client}
       limit={limitFn}
     >
-      <RegionStack />
+      <BottomSheetModalProvider>
+        <RegionStack />
+      </BottomSheetModalProvider>
     </SectionsListProvider>
   );
 }
 
-type Props = NativeStackScreenProps<RootStackParamsList, typeof Screens.REGION_STACK>;
+type Props = NativeStackScreenProps<
+  RootStackParamsList,
+  typeof Screens.REGION_STACK
+>;
 
 function RegionScreen({ route }: Props) {
   const { regionId } = route.params;
