@@ -12,7 +12,7 @@ import PaperTabBar from '../../components/PaperTabBar';
 import { SwipeableListProvider } from '../../components/SwipeableListProvider';
 import type { RegionTabsParamsList } from '../../core/navigation';
 import { Screens } from '../../core/navigation';
-import { MockRegionInfoScreen } from '../mock';
+import RegionInfoScreen from './info/RegionInfoScreen';
 import RegionFAB from './RegionFAB';
 import RegionMapScreen from './RegionMapScreen';
 import RegionSectionsListScreen from './sections-list/RegionSectionsListScreen';
@@ -60,7 +60,7 @@ function RegionTabs() {
             />
             <Tab.Screen
               name={Screens.REGION_INFO}
-              component={MockRegionInfoScreen}
+              component={RegionInfoScreen}
               options={{
                 tabBarLabel: t('region:info.title'),
                 tabBarIcon: ({ color }) => (
