@@ -1,8 +1,8 @@
 import MaterialIcons from '@react-native-vector-icons/material-design-icons';
 import type { ComponentProps, Ref } from 'react';
 import React from 'react';
-import type { StyleProp, TextStyle, View, ViewStyle } from 'react-native';
-import { Pressable, StyleSheet } from 'react-native';
+import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 
 import theme from '../theme';
 
@@ -70,22 +70,35 @@ function Icon({
   const sz = large ? theme.icons.large : size;
   const sizeStyle = narrow ? styles.narrow : wide ? styles.wide : undefined;
 
+  if (onPress || onLongPress) {
+    return (
+      <Pressable
+        onPress={onPress}
+        onLongPress={onLongPress}
+        style={[styles.icon, sizeStyle, style]}
+        ref={ref}
+        role="button"
+        aria-label={accessibilityLabel}
+        aria-hint={accessibilityHint}
+        aria-disabled={disabled}
+        testID={testID}
+        disabled={disabled}
+        hitSlop={hitSlop}
+      >
+        <MaterialIcons name={icon} size={sz} color={clr} style={iconStyle} />
+      </Pressable>
+    );
+  }
+
   return (
-    <Pressable
-      onPress={onPress}
-      onLongPress={onLongPress}
+    <View
       style={[styles.icon, sizeStyle, style]}
       ref={ref}
-      role={onPress || onLongPress ? 'button' : undefined}
       aria-label={accessibilityLabel}
-      aria-hint={accessibilityHint}
-      aria-disabled={disabled}
       testID={testID}
-      disabled={disabled}
-      hitSlop={hitSlop}
     >
       <MaterialIcons name={icon} size={sz} color={clr} style={iconStyle} />
-    </Pressable>
+    </View>
   );
 }
 

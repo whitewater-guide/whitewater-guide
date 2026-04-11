@@ -5,9 +5,14 @@
 import '@whitewater-guide/validation';
 import 'react-native-gesture-handler';
 
+import Mapbox from '@rnmapbox/maps';
 import { AppRegistry, LogBox } from 'react-native';
+import Config from 'react-native-config';
 
 import { name as appName } from './app.json';
+
+Mapbox.setAccessToken(Config.MAPBOX_ACCESS_TOKEN ?? '');
+Mapbox.setTelemetryEnabled(false);
 
 let RootComponent;
 

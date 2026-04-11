@@ -1,5 +1,6 @@
 import type { ApolloClient } from '@apollo/client';
 import { ApolloProvider } from '@apollo/client';
+import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 import { TagsProvider } from '@whitewater-guide/clients';
 import { useEffect, useRef, useState } from 'react';
 import { StyleSheet } from 'react-native';
@@ -13,6 +14,7 @@ import SnackbarProvider from './components/SnackbarProvider';
 import { apolloCachePersistor, initApolloClient } from './core/apollo';
 import { AuthProvider, MobileAuthService } from './core/auth';
 import NavigationRoot from './core/navigation/NavigationRoot';
+import { AppSettingsProvider } from './features/settings';
 import { I18nProvider } from './i18n';
 import { paperTheme } from './theme';
 
@@ -53,23 +55,27 @@ function App() {
 
   return (
     <GestureHandlerRootView style={styles.flex}>
-      <PaperProvider theme={paperTheme}>
-        <KeyboardProvider>
-          <SafeAreaProvider>
-            <ApolloProvider client={apolloClient}>
-              <TagsProvider>
-                <AuthProvider service={authServiceRef.current}>
-                  <I18nProvider>
-                    <SnackbarProvider>
-                      <NavigationRoot />
-                    </SnackbarProvider>
-                  </I18nProvider>
-                </AuthProvider>
-              </TagsProvider>
-            </ApolloProvider>
-          </SafeAreaProvider>
-        </KeyboardProvider>
-      </PaperProvider>
+      <AppSettingsProvider>
+        <ActionSheetProvider>
+          <PaperProvider theme={paperTheme}>
+            <KeyboardProvider>
+              <SafeAreaProvider>
+                <ApolloProvider client={apolloClient}>
+                  <TagsProvider>
+                    <AuthProvider service={authServiceRef.current}>
+                      <I18nProvider>
+                        <SnackbarProvider>
+                          <NavigationRoot />
+                        </SnackbarProvider>
+                      </I18nProvider>
+                    </AuthProvider>
+                  </TagsProvider>
+                </ApolloProvider>
+              </SafeAreaProvider>
+            </KeyboardProvider>
+          </PaperProvider>
+        </ActionSheetProvider>
+      </AppSettingsProvider>
     </GestureHandlerRootView>
   );
 }
