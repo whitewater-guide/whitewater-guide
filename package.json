@@ -67,6 +67,7 @@
     },
     "onlyBuiltDependencies": [
       "@apollo/protobufjs",
+      "@shopify/react-native-skia",
       "core-js",
       "core-js-pure",
       "detox",

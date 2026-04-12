@@ -1,3 +1,4 @@
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import {
   NavigationContainer,
   useNavigationContainerRef,
@@ -42,7 +43,9 @@ function NavigationRoot() {
       initialState={state}
       onStateChange={onStateChange}
     >
-      <RootDrawer />
+      <BottomSheetModalProvider>
+        <RootDrawer />
+      </BottomSheetModalProvider>
     </NavigationContainer>
   );
 }

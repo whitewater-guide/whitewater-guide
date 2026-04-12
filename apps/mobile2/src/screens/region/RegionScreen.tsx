@@ -1,5 +1,4 @@
 import { useApolloClient } from '@apollo/client';
-import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { useNetInfo } from '@react-native-community/netinfo';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import {
@@ -31,9 +30,7 @@ function InnerRegionScreen({ regionId }: { regionId: string }) {
       client={client}
       limit={limitFn}
     >
-      <BottomSheetModalProvider>
-        <RegionStack />
-      </BottomSheetModalProvider>
+      <RegionStack />
     </SectionsListProvider>
   );
 }

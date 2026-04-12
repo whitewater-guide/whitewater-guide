@@ -22,7 +22,7 @@ import {
 } from '../../screens/mock';
 import RegionScreen from '../../screens/region/RegionScreen';
 import RegionsListScreen from '../../screens/regions-list';
-import SectionTabs from '../../screens/section/SectionTabs';
+import SectionScreen from '../../screens/section/SectionScreen';
 import theme from '../../theme';
 import { useAuth } from '../auth';
 import type { RootStackParamsList } from './navigation-params';
@@ -73,8 +73,8 @@ function RootStack() {
       />
       <Stack.Screen
         name={Screens.SECTION_SCREEN}
-        component={SectionTabs}
-        options={{ ...innerScreenOptions, headerTitle: 'Section' }}
+        component={SectionScreen}
+        options={{ ...innerScreenOptions }}
       />
 
       <Stack.Screen

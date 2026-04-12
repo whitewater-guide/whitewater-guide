@@ -1,5 +1,8 @@
 import type { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useNavigation } from '@react-navigation/native';
+import { useSection } from '@whitewater-guide/clients';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
@@ -10,6 +13,8 @@ import type { SectionTabsParamsList } from '../../core/navigation';
 import { Screens } from '../../core/navigation';
 import { MockSectionInfoScreen } from '../mock';
 import SectionFAB from './SectionFAB';
+import SectionMapScreen from './map/SectionMapScreen';
+import SectionTitle from './SectionTitle';
 
 const screenOptions: BottomTabNavigationOptions = { headerShown: false };
 
@@ -17,6 +22,16 @@ const Tab = createBottomTabNavigator<SectionTabsParamsList>();
 
 function SectionTabs() {
   const { t } = useTranslation();
+  const section = useSection();
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    if (section) {
+      navigation.setOptions({
+        headerTitle: () => <SectionTitle section={section} />,
+      });
+    }
+  }, [navigation, section]);
 
   return (
     <View style={{ flex: 1 }}>
@@ -28,24 +43,26 @@ function SectionTabs() {
       >
         <Tab.Screen
           name={Screens.SECTION_MAP}
-          component={PlaceholderScreen}
+          component={SectionMapScreen}
           options={{
             tabBarLabel: t('screens:section.map.title'),
             tabBarIcon: ({ color }) => <Icon icon="map" color={color} narrow />,
             tabBarButtonTestID: `tab:${Screens.SECTION_MAP}`,
           }}
         />
-        <Tab.Screen
-          name={Screens.SECTION_CHART}
-          component={PlaceholderScreen}
-          options={{
-            tabBarLabel: t('screens:section.chart.title'),
-            tabBarIcon: ({ color }) => (
-              <Icon icon="chart-line" color={color} narrow />
-            ),
-            tabBarButtonTestID: `tab:${Screens.SECTION_CHART}`,
-          }}
-        />
+        {!!section?.gauge && (
+          <Tab.Screen
+            name={Screens.SECTION_CHART}
+            component={PlaceholderScreen}
+            options={{
+              tabBarLabel: t('screens:section.chart.title'),
+              tabBarIcon: ({ color }) => (
+                <Icon icon="chart-line" color={color} narrow />
+              ),
+              tabBarButtonTestID: `tab:${Screens.SECTION_CHART}`,
+            }}
+          />
+        )}
         <Tab.Screen
           name={Screens.SECTION_INFO}
           component={MockSectionInfoScreen}

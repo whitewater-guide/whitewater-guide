@@ -16,3 +16,6 @@
 # hermes
 -keep class com.facebook.hermes.unicode.** { *; }
 -keep class com.facebook.jni.** { *; }
+
+# @shopify/react-native-skia
+-keep class com.shopify.reactnative.skia.** { *; }

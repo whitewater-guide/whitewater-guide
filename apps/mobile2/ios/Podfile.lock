@@ -37,7 +37,7 @@ PODS:
     - MapboxCoreMaps (= 11.18.3)
     - Turf (= 4.0.0)
   - MMKVCore (2.4.0)
-  - NitroMmkv (4.3.0):
+  - NitroMmkv (4.3.1):
     - hermes-engine
     - MMKVCore (= 2.4.0)
     - NitroModules
@@ -62,7 +62,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
-  - NitroModules (0.35.3):
+  - NitroModules (0.35.4):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -1528,7 +1528,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
-  - react-native-keyboard-controller (1.21.3):
+  - react-native-keyboard-controller (1.21.5):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -1540,7 +1540,7 @@ PODS:
     - React-graphics
     - React-ImageManager
     - React-jsi
-    - react-native-keyboard-controller/common (= 1.21.3)
+    - react-native-keyboard-controller/common (= 1.21.5)
     - React-NativeModulesApple
     - React-RCTFabric
     - React-renderercss
@@ -1551,7 +1551,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
-  - react-native-keyboard-controller/common (1.21.3):
+  - react-native-keyboard-controller/common (1.21.5):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -1677,6 +1677,30 @@ PODS:
     - React-ImageManager
     - React-jsi
     - react-native-safe-area-context/common
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - ReactNativeDependencies
+    - Yoga
+  - react-native-skia (2.6.2):
+    - hermes-engine
+    - RCTRequired
+    - RCTTypeSafety
+    - React
+    - React-callinvoker
+    - React-Core
+    - React-Core-prebuilt
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
     - React-NativeModulesApple
     - React-RCTFabric
     - React-renderercss
@@ -2118,7 +2142,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
-  - RNBootSplash (7.2.0):
+  - RNBootSplash (7.3.1):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -2208,7 +2232,7 @@ PODS:
     - Yoga
   - RNDeviceInfo (15.0.2):
     - React-Core
-  - RNGestureHandler (2.31.0):
+  - RNGestureHandler (2.31.1):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -2592,6 +2616,7 @@ DEPENDENCIES:
   - "react-native-netinfo (from `../../../node_modules/@react-native-community/netinfo`)"
   - react-native-pager-view (from `../../../node_modules/react-native-pager-view`)
   - react-native-safe-area-context (from `../../../node_modules/react-native-safe-area-context`)
+  - "react-native-skia (from `../../../node_modules/@shopify/react-native-skia`)"
   - "react-native-vector-icons-material-design-icons (from `../../../node_modules/@react-native-vector-icons/material-design-icons`)"
   - react-native-webview (from `../../../node_modules/react-native-webview`)
   - React-NativeModulesApple (from `../../../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
@@ -2752,6 +2777,8 @@ EXTERNAL SOURCES:
     :path: "../../../node_modules/react-native-pager-view"
   react-native-safe-area-context:
     :path: "../../../node_modules/react-native-safe-area-context"
+  react-native-skia:
+    :path: "../../../node_modules/@shopify/react-native-skia"
   react-native-vector-icons-material-design-icons:
     :path: "../../../node_modules/@react-native-vector-icons/material-design-icons"
   react-native-webview:
@@ -2865,8 +2892,8 @@ SPEC CHECKSUMS:
   MapboxCoreMaps: 811c4196843f5554b10a807d1231270d372ff148
   MapboxMaps: 0e8fdc25eb3b1c2ff5cf9317266fe984eeb0e18f
   MMKVCore: 3d16ce9f7d411e135020915fde98a056859a1efa
-  NitroMmkv: 880dee1e4b343bf2f2bf010fb8c2c68490632cfd
-  NitroModules: 00c15fcce98b504f21bd5b0c99276db161efcb39
+  NitroMmkv: 7a7572934538ba6748e05dffc6ee8b06caad91cc
+  NitroModules: f45159491c5a0e7161685a301b1c6c11440b3ab1
   RCTDeprecation: af44b104091a34482596cd9bd7e8d90c4e9b4bd7
   RCTRequired: bb77b070f75f53398ce43c0aaaa58337cebe2bf6
   RCTSwiftUI: afc0a0a635860da1040a0b894bfd529da06d7810
@@ -2905,10 +2932,11 @@ SPEC CHECKSUMS:
   React-microtasksnativemodule: d1956f0eec54c619b63a379520fb4c618a55ccb9
   react-native-config: 530d1344e93c66f9819d0e5b54bd19d0d88e398c
   react-native-image-picker: 48d850454b4a389753053e1d7378b624d3b47d77
-  react-native-keyboard-controller: 6be69ebb8d769a97cd034b94feaa909ff1e463a2
+  react-native-keyboard-controller: d30840170665c08c8b2b3cba0aaf86c77745667f
   react-native-netinfo: 7e0b1936e928fa8ddb60da9e572a33767db7805f
   react-native-pager-view: adc7d78123fb395e03a70d19e8d75805b49838b5
   react-native-safe-area-context: ae7587b95fb580d1800c5b0b2a7bd48c2868e67a
+  react-native-skia: e8b9354dc16c4099537ba0659cd70ea4adf8efc4
   react-native-vector-icons-material-design-icons: 1955bd08457a8310e6a2d3c87c7f1ebaca159098
   react-native-webview: 0ed52ddb2eafc64a502871218440b8b4d37961c3
   React-NativeModulesApple: 5ba0903927f6b8d335a091700e9fda143980f819
@@ -2946,12 +2974,12 @@ SPEC CHECKSUMS:
   ReactCommon: 07572bf9e687c8a52fbe4a3641e9e3a1a477c78e
   ReactNativeDependencies: 9ea8aaf4d9fc713f1ea1545e7e3e792f3b1b0ae8
   ReactNativeEnrichedMarkdown: 27a73f8df1bc304c35b7bd922c9885a4dfec3dc5
-  RNBootSplash: c1c4bcc9d7b816e0c72f89179a47c149a62f6daf
+  RNBootSplash: c0d86dded541a26441dd35d927fae3f0855af499
   RNCClipboard: 88d7eeb555d1183915f0885bdbc5c97eb6f7f3ba
   RNCMaskedView: d2578d41c59b936db122b2798ba37e4722d21035
   RNDateTimePicker: 9025ccd219b382f246e9ceb85cd4095279b9bad1
   RNDeviceInfo: 4c852998208b60dc192ae3529e5867817719ad1e
-  RNGestureHandler: 5e7f23adbdc5b74c1333fdcba3455e93e84e52e6
+  RNGestureHandler: b633cb9b819ffb23661496af13bd6943d66f093c
   RNLocalize: 1e6eb4290e89502c3d2193d82dfb7de14a9e672b
   rnmapbox-maps: 30c5b33f811509feea581214d9973ffe3795c0c0
   RNReanimated: c05b534f68caa202da4dcc3fd619eab48f67f7bd

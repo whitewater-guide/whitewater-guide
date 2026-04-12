@@ -66,46 +66,11 @@ Build the full navigation skeleton with placeholder screens, drawer sidebar, dee
 
 ### Phase 8: Section Detail (map + chart + info + media)
 
-**Goal:** Complete section viewing experience.
+**Goal:** Complete section viewing experience — four-tab screen (Map, Chart, Info, Media) with section map, interactive flow/gauge chart, section info with collapsible table, and photo/video/blog gallery with pinch-to-zoom.
 
-#### 8.1 — Install additional dependencies
+All required dependencies (`victory-native`, `@shopify/react-native-skia`, `react-native-worklets`, `react-native-gesture-handler`, `react-native-reanimated`) are already installed. `react-native-awesome-gallery` was skipped (incompatible with reanimated v4) — photo gallery is implemented with gesture-handler + reanimated v4 directly. `PaperTabBar` is already in place.
 
-```
-victory-native (latest v41)
-```
-
-Note: `react-native-webview`, `@react-native-clipboard/clipboard` already installed in Phase 3. `react-native-awesome-gallery` was **skipped** (incompatible with reanimated v4) — image gallery/zoom will be reimplemented using gesture-handler + reanimated v4 directly.
-
-#### 8.2 — Build Section Tabs
-
-- Map tab: Section map with put-in/take-out markers, POIs
-- Chart tab: Flow/gauge chart using victory-native
-  - Port `ChartProvider` usage from clients
-  - Port chart components: `TimeGrid`, `HorizontalGrid`, `Crosshair`, labels
-- Info tab: Section details, difficulty, season, description
-- Media tab: Photo/video gallery
-  - Custom implementation using gesture-handler + reanimated v4 (replaces `react-native-image-zoom-viewer`)
-
-#### 8.3 — Build section-specific components
-
-- `SectionFAB` (floating action button)
-- `TextWithLinks`
-- Photo gallery with zoom
-- Flow data display
-
-#### 8.4 — Replace Paper BottomNavigation for section tabs
-
-Old app used `@react-navigation/material-bottom-tabs` (dropped in nav v7). Replace with react-native-paper's `BottomNavigation` integrated with react-navigation.
-
-#### 8.5 — Validation
-
-- [ ] All four section tabs render correctly
-- [ ] Chart displays gauge data with interactive crosshair
-- [ ] Media gallery shows photos, zoom works
-- [ ] Section info displays all fields
-- [ ] **Unit tests:** Chart data formatting, section details rendering
-- [ ] **Storybook:** Chart components, MediaGallery, SectionInfo
-- [ ] **Detox E2E:** Navigate to section → view chart → zoom photo → copy coordinates
+> **Detailed plan:** [PHASE_8_SECTION_DETAIL.md](PHASE_8_SECTION_DETAIL.md)
 
 ---
 

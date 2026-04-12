@@ -65,7 +65,7 @@ export const BaseMap = React.memo(
       >
         <Camera
           ref={setCamera}
-          {...bounds.defaultSettings}
+          defaultSettings={bounds.defaultSettings}
           animationDuration={0}
           animationMode="moveTo"
           allowUpdates={appState === 'active'}

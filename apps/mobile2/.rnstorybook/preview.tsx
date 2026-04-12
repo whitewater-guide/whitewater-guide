@@ -1,4 +1,5 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 import type { Preview } from '@storybook/react';
 import React from 'react';
 import { PaperProvider } from 'react-native-paper';
@@ -12,11 +13,13 @@ const preview: Preview = {
   decorators: [
     (Story) => (
       <ApolloProvider client={mockApolloClient}>
-        <PaperProvider>
-          <I18nProvider>
-            <Story />
-          </I18nProvider>
-        </PaperProvider>
+        <ActionSheetProvider>
+          <PaperProvider>
+            <I18nProvider>
+              <Story />
+            </I18nProvider>
+          </PaperProvider>
+        </ActionSheetProvider>
       </ApolloProvider>
     ),
   ],
