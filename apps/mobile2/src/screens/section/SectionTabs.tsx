@@ -11,9 +11,9 @@ import PaperTabBar from '../../components/PaperTabBar';
 import PlaceholderScreen from '../../components/PlaceholderScreen';
 import type { SectionTabsParamsList } from '../../core/navigation';
 import { Screens } from '../../core/navigation';
-import { MockSectionInfoScreen } from '../mock';
-import SectionFAB from './SectionFAB';
+import SectionInfoScreen from './info/SectionInfoScreen';
 import SectionMapScreen from './map/SectionMapScreen';
+import SectionFAB from './SectionFAB';
 import SectionTitle from './SectionTitle';
 
 const screenOptions: BottomTabNavigationOptions = { headerShown: false };
@@ -65,7 +65,7 @@ function SectionTabs() {
         )}
         <Tab.Screen
           name={Screens.SECTION_INFO}
-          component={MockSectionInfoScreen}
+          component={SectionInfoScreen}
           options={{
             tabBarLabel: t('screens:section.info.title'),
             tabBarIcon: ({ color }) => (
