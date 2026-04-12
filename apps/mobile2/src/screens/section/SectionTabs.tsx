@@ -11,6 +11,7 @@ import PaperTabBar from '../../components/PaperTabBar';
 import PlaceholderScreen from '../../components/PlaceholderScreen';
 import type { SectionTabsParamsList } from '../../core/navigation';
 import { Screens } from '../../core/navigation';
+import SectionChartScreen from './chart/SectionChartScreen';
 import SectionInfoScreen from './info/SectionInfoScreen';
 import SectionMapScreen from './map/SectionMapScreen';
 import SectionFAB from './SectionFAB';
@@ -53,7 +54,7 @@ function SectionTabs() {
         {!!section?.gauge && (
           <Tab.Screen
             name={Screens.SECTION_CHART}
-            component={PlaceholderScreen}
+            component={SectionChartScreen}
             options={{
               tabBarLabel: t('screens:section.chart.title'),
               tabBarIcon: ({ color }) => (

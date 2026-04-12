@@ -27,13 +27,14 @@ export function TimeGrid({ separators, chartBounds, days }: TimeGridProps) {
           return null;
         }
         return (
-          <SkLine
-            key={xPixel}
-            p1={{ x: xPixel, y: chartBounds.top }}
-            p2={{ x: xPixel, y: chartBounds.bottom }}
-            color={CHART_COLORS.daySeparator}
-            strokeWidth={StyleSheet.hairlineWidth}
-          />
+          <React.Fragment key={xPixel}>
+            <SkLine
+              p1={{ x: xPixel, y: chartBounds.top }}
+              p2={{ x: xPixel, y: chartBounds.bottom }}
+              color={CHART_COLORS.daySeparator}
+              strokeWidth={StyleSheet.hairlineWidth}
+            />
+          </React.Fragment>
         );
       })}
     </>

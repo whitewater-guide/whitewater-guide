@@ -30,9 +30,10 @@ export function HorizontalLabel({
     return null;
   }
   const text = String(parseFloat(value.toFixed(2)));
+  const textWidth = font.measureText(text).width;
   return (
     <SkText
-      x={chartBounds.left - 6}
+      x={chartBounds.left - 6 - textWidth}
       y={y + 3}
       text={text}
       font={font}

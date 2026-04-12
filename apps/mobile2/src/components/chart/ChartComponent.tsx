@@ -1,26 +1,21 @@
-import { matchFont } from '@shopify/react-native-skia';
+import { Line as SkLine, matchFont } from '@shopify/react-native-skia';
 import type { ChartViewProps } from '@whitewater-guide/clients';
 import { getColorForValue } from '@whitewater-guide/clients';
-import type {
-  GaugeBinding,
-  MeasurementsFilter,
-} from '@whitewater-guide/schema';
-import { Unit } from '@whitewater-guide/schema';
-import addDays from 'date-fns/addDays';
-import differenceInDays from 'date-fns/differenceInDays';
-import startOfDay from 'date-fns/startOfDay';
-import subDays from 'date-fns/subDays';
-import compact from 'lodash/compact';
-import React, { useCallback, useMemo } from 'react';
-import { Platform, View } from 'react-native';
-import { CartesianChart, Line, useChartPressState } from 'victory-native';
+import React, { useMemo } from 'react';
+import { Platform, Text, View } from 'react-native';
+import {
+  CartesianChart,
+  Line,
+  Scatter,
+  useChartPressState,
+} from 'victory-native';
 
 import { Crosshair } from './Crosshair';
 import { HorizontalGrid } from './HorizontalGrid';
-import { HorizontalLabel } from './HorizontalLabel';
 import { HorizontalTick } from './HorizontalTick';
+import { makeLinearScale, type VChartPoint } from './math';
 import { TimeGrid } from './TimeGrid';
-import { formatTimeLabel } from './TimeLabel';
+import { useChartComputations } from './useChartComputations';
 import { CHART_COLORS } from './VictoryTheme';
 
 // ─── Font ────────────────────────────────────────────────────────────────────
@@ -35,99 +30,12 @@ const FONT_FAMILY =
 // RNFontStyle in Skia v2 uses 'fontFamily', not 'familyName'
 const SKIA_FONT_STYLE = { fontFamily: FONT_FAMILY, fontSize: 10 } as const;
 
-// ─── Domain helpers ──────────────────────────────────────────────────────────
+// ─── Layout ──────────────────────────────────────────────────────────────────
 
-const Y_TICKS = 5;
-const Y_DELTA_RATIO = 0.08; // 8% padding above/below data range
-
-function computeYDomain(
-  data: ChartViewProps['data'],
-  unit: Unit,
-  binding: GaugeBinding | null | undefined,
-): { yDomain: [number, number]; yTickValues: number[] } {
-  const unitKey = unit as 'flow' | 'level';
-  const values = data
-    .map((d) => d[unitKey])
-    .filter((v): v is number => v != null);
-
-  let yMin = values.length ? Math.min(...values) : 0;
-  let yMax = values.length ? Math.max(...values) : 10;
-
-  const bindingTicks: number[] = [];
-  if (binding) {
-    const { minimum, maximum, optimum, impossible } = binding;
-    const bv = compact([minimum, maximum, optimum, impossible]);
-    if (bv.length) {
-      yMin = Math.min(yMin, ...bv);
-      yMax = Math.max(yMax, ...bv);
-      bindingTicks.push(...bv);
-    }
-  }
-
-  const delta = (yMax - yMin) * Y_DELTA_RATIO;
-  const paddedMin = yMin - delta;
-  const paddedMax = yMax === yMin ? yMin + 10 : yMax + delta;
-
-  // Linear ticks
-  const step = (paddedMax - paddedMin) / Y_TICKS;
-  const linearTicks = Array.from(
-    { length: Y_TICKS + 1 },
-    (_, i) => paddedMin + i * step,
-  );
-
-  // Merge binding ticks + linear ticks, deduplicate, sort
-  const allTicks = [...new Set([...bindingTicks, ...linearTicks])].sort(
-    (a, b) => a - b,
-  );
-
-  return { yDomain: [paddedMin, paddedMax], yTickValues: allTicks };
-}
-
-function computeXDomain(filter: MeasurementsFilter): {
-  xDomain: [number, number];
-  days: number;
-} {
-  const now = new Date();
-  const toDate = filter.to ? new Date(filter.to) : now;
-  const fromDate = filter.from ? new Date(filter.from) : subDays(toDate, 1);
-  const days = Math.max(1, differenceInDays(toDate, fromDate));
-  return { xDomain: [fromDate.getTime(), toDate.getTime()], days };
-}
-
-function computeDaySeparators(
-  xDomain: [number, number],
-): Array<{ date: Date; ts: number }> {
-  const [fromMs, toMs] = xDomain;
-  const result: Array<{ date: Date; ts: number }> = [];
-  // Start at beginning of the first full day after fromMs
-  let current = startOfDay(addDays(new Date(fromMs), 1));
-  while (current.getTime() < toMs) {
-    result.push({ date: new Date(current), ts: current.getTime() });
-    current = addDays(current, 1);
-  }
-  return result;
-}
-
-// ─── Pixel-space helpers ─────────────────────────────────────────────────────
-
-function makeLinearScale(
-  dataDomain: [number, number],
-  pixelRange: [number, number],
-) {
-  const [d0, d1] = dataDomain;
-  const [p0, p1] = pixelRange;
-  return (value: number) =>
-    d1 === d0 ? p0 : p0 + ((value - d0) / (d1 - d0)) * (p1 - p0);
-}
-
-// ─── Chart data point type ───────────────────────────────────────────────────
-
-// Must satisfy Record<string, unknown> for CartesianChart generics
-type VChartPoint = { ts: number; value: number } & Record<string, unknown>;
-
-// ─── Props ───────────────────────────────────────────────────────────────────
-
-type Props = ChartViewProps;
+// CartesianChart clips its children render prop to chartBounds via a Skia
+// Group clip. Labels in the padding area must therefore be rendered as React
+// Native Text views positioned absolutely over the chart.
+const CHART_PADDING = { top: 20, bottom: 50, left: 48, right: 32 } as const;
 
 // ─── Component ───────────────────────────────────────────────────────────────
 
@@ -135,9 +43,10 @@ type Props = ChartViewProps;
  * Core chart component for the v41 (Skia-based) victory-native API.
  *
  * Renders a `CartesianChart` with:
- * - Time x-axis with day-separator lines and adaptive labels (TimeGrid/TimeLabel)
- * - Y-axis with binding-coloured grid lines and labels (HorizontalGrid/Tick/Label)
- * - Measurement data as a `Line` series
+ * - Time x-axis with day-separator lines and adaptive labels (TimeGrid)
+ * - Y-axis with binding-coloured grid lines (HorizontalGrid/Tick)
+ * - Y-axis numeric labels and binding labels rendered as RN Views (outside clip)
+ * - Measurement data as a `Line` + `Scatter` series
  * - Interactive crosshair on touch (Crosshair + useChartPressState)
  */
 function ChartComponent({
@@ -148,38 +57,71 @@ function ChartComponent({
   filter,
   width,
   height,
-}: Props) {
+}: ChartViewProps) {
   const font = useMemo(() => matchFont(SKIA_FONT_STYLE), []);
 
-  const binding =
-    section && (unit === Unit.LEVEL ? section.levels : section.flows);
-
-  const { yDomain, yTickValues } = useMemo(
-    () => computeYDomain(data, unit, binding),
-    [data, unit, binding],
-  );
-
-  const { xDomain, days } = useMemo(() => computeXDomain(filter), [filter]);
-
-  const rawSeparators = useMemo(() => computeDaySeparators(xDomain), [xDomain]);
-
-  // Transform ChartDataPoint[] → CartesianChart-compatible numeric records
-  const chartData = useMemo<VChartPoint[]>(() => {
-    const unitKey = unit as 'flow' | 'level';
-    return data
-      .filter((d) => d[unitKey] != null)
-      .map((d) => ({ ts: d.timestamp.getTime(), value: d[unitKey] as number }));
-  }, [data, unit]);
+  const {
+    binding,
+    yDomain,
+    yTickValues,
+    xDomain,
+    days,
+    rawSeparators,
+    chartData,
+    formatX,
+  } = useChartComputations({ data, unit, section, filter });
 
   const { state: pressState, isActive } = useChartPressState({
     x: 0,
     y: { value: 0 },
   });
 
-  const formatX = useCallback(
-    (ts: number) => formatTimeLabel(ts, days),
-    [days],
+  // ─── Pre-compute geometry ──────────────────────────────────────────────────
+  // These mirror CartesianChart's internal chartBounds exactly, allowing label
+  // positions to be computed outside CartesianChart's clip group.
+
+  const boundsLeft = CHART_PADDING.left;
+  const boundsRight = width - CHART_PADDING.right;
+  const boundsTop = CHART_PADDING.top;
+  const boundsBottom = height - CHART_PADDING.bottom;
+
+  const valueToY = useMemo(
+    () =>
+      makeLinearScale(
+        [yDomain[1], yDomain[0]], // inverted: larger value → smaller y pixel
+        [boundsTop, boundsBottom],
+      ),
+    [yDomain, boundsTop, boundsBottom],
   );
+
+  const tsToX = useMemo(
+    () => makeLinearScale(xDomain, [boundsLeft, boundsRight]),
+    [xDomain, boundsLeft, boundsRight],
+  );
+
+  const separators = useMemo(
+    () => rawSeparators.map(({ date, ts }) => ({ date, xPixel: tsToX(ts) })),
+    [rawSeparators, tsToX],
+  );
+
+  // X-axis tick values rounded to clean hour intervals so labels show e.g.
+  // 15:00 / 18:00 / 21:00 rather than arbitrary fractions of the domain.
+  const xTickValues = useMemo(() => {
+    const intervalMs =
+      days <= 1
+        ? 3 * 3_600_000 // 3 h  → ~8 ticks, "HH:mm"
+        : days <= 3
+          ? 12 * 3_600_000 // 12 h → ~6 ticks, "d MMM"/"HH:mm" mixed
+          : days <= 7
+            ? 86_400_000 // 24 h  → ~7 ticks, "d MMM"
+            : 7 * 86_400_000; // 7 days → ~4 ticks, "d MMM"
+    const first = Math.ceil(xDomain[0] / intervalMs) * intervalMs;
+    const ticks: number[] = [];
+    for (let ts = first; ts <= xDomain[1]; ts += intervalMs) {
+      ticks.push(ts);
+    }
+    return ticks;
+  }, [xDomain, days]);
 
   return (
     <View style={{ width, height }}>
@@ -192,124 +134,185 @@ function ChartComponent({
           font,
           formatXLabel: formatX,
           labelColor: CHART_COLORS.label,
-          lineColor: CHART_COLORS.axisLine,
-          lineWidth: 1,
-          tickCount: Math.min(days <= 1 ? 4 : days <= 3 ? 6 : 7, 10),
+          // lineWidth: 0 disables the full-height vertical lines CartesianChart
+          // draws at every tick position; axis labels still render.
+          lineWidth: 0,
+          tickValues: xTickValues,
+          // Disable downsampling — we generate exactly the right tick count above
+          tickCount: xTickValues.length,
+          labelRotate: 45,
         }}
         yAxis={[
           {
             yKeys: ['value'],
-            // Custom labels are drawn manually; disable built-in to avoid overlap
+            // Custom labels are drawn as RN Text views below; disable built-in
             font: null,
             tickValues: yTickValues,
             lineWidth: 0,
           },
         ]}
         chartPressState={pressState}
-        padding={{ top: 20, bottom: 30, left: 52, right: 10 }}
+        padding={CHART_PADDING}
       >
-        {({ points, chartBounds }) => {
-          // Pixel-space scale functions derived from domain + chartBounds
-          const tsToX = makeLinearScale(xDomain, [
-            chartBounds.left,
-            chartBounds.right,
-          ]);
-          const valueToY = makeLinearScale(
-            [yDomain[1], yDomain[0]], // inverted: larger value → smaller y pixel
-            [chartBounds.top, chartBounds.bottom],
-          );
+        {({ points, chartBounds }) => (
+          <>
+            {/* Day-separator vertical lines + day boundary label */}
+            {/* Axis border lines */}
+            <SkLine
+              p1={{ x: chartBounds.left, y: chartBounds.top }}
+              p2={{ x: chartBounds.left, y: chartBounds.bottom }}
+              color={CHART_COLORS.axisLine}
+              strokeWidth={1}
+            />
+            <SkLine
+              p1={{ x: chartBounds.left, y: chartBounds.bottom }}
+              p2={{ x: chartBounds.right, y: chartBounds.bottom }}
+              color={CHART_COLORS.axisLine}
+              strokeWidth={1}
+            />
 
-          // Day-separator x pixel positions
-          const separators = rawSeparators.map(({ date, ts }) => ({
-            date,
-            xPixel: tsToX(ts),
-          }));
+            <TimeGrid
+              separators={separators}
+              chartBounds={chartBounds}
+              days={days}
+            />
+
+            {/* Binding-coloured horizontal grid lines and axis ticks */}
+            {yTickValues.map((tickValue) => {
+              const yPx = valueToY(tickValue);
+              const color = getColorForValue(
+                tickValue,
+                binding,
+                CHART_COLORS.gridLine,
+              );
+              const isBinding =
+                tickValue === binding?.minimum ||
+                tickValue === binding?.optimum ||
+                tickValue === binding?.maximum ||
+                tickValue === binding?.impossible;
+
+              return (
+                <React.Fragment key={tickValue}>
+                  <HorizontalGrid
+                    y={yPx}
+                    color={
+                      color === CHART_COLORS.gridLine
+                        ? CHART_COLORS.axisLine
+                        : color
+                    }
+                    chartBounds={chartBounds}
+                    isBinding={isBinding}
+                  />
+                  <HorizontalTick
+                    y={yPx}
+                    color={
+                      color === CHART_COLORS.gridLine
+                        ? CHART_COLORS.axisLine
+                        : color
+                    }
+                    chartBounds={chartBounds}
+                  />
+                </React.Fragment>
+              );
+            })}
+
+            {/* Measurement data line */}
+            <Line
+              points={points.value}
+              color={CHART_COLORS.line}
+              strokeWidth={2}
+            />
+
+            {/* Dots at each measurement point */}
+            <Scatter
+              points={points.value}
+              color={CHART_COLORS.line}
+              radius={3}
+            />
+
+            {/* Interactive crosshair */}
+            {isActive && (
+              <Crosshair
+                x={pressState.x.position}
+                y={pressState.y.value.position}
+                xValue={pressState.x.value}
+                yValue={pressState.y.value.value}
+                chartBounds={chartBounds}
+                unit={unit}
+                gauge={gauge}
+                font={font}
+              />
+            )}
+          </>
+        )}
+      </CartesianChart>
+
+      {/* Y-axis labels and binding labels
+          CartesianChart clips its Skia children to chartBounds, so labels that
+          must appear in the left/right padding areas are rendered here as React
+          Native Text views positioned absolutely over the canvas. */}
+      <View
+        pointerEvents="none"
+        style={{ position: 'absolute', top: 0, left: 0, width, height }}
+      >
+        {yTickValues.map((tickValue) => {
+          const yPx = valueToY(tickValue);
+          const color = getColorForValue(
+            tickValue,
+            binding,
+            CHART_COLORS.gridLine,
+          );
+          const labelColor =
+            color === CHART_COLORS.gridLine ? CHART_COLORS.label : color;
+          const text = String(parseFloat(tickValue.toFixed(2)));
+          const bindingLabel =
+            tickValue === binding?.minimum
+              ? 'min'
+              : tickValue === binding?.optimum
+                ? 'opt'
+                : tickValue === binding?.maximum
+                  ? 'max'
+                  : tickValue === binding?.impossible
+                    ? 'imp'
+                    : undefined;
 
           return (
-            <>
-              {/* Day-separator vertical lines */}
-              <TimeGrid
-                separators={separators}
-                chartBounds={chartBounds}
-                days={days}
-              />
+            <React.Fragment key={tickValue}>
+              {/* Numeric label — right-aligned within the left padding area */}
+              <Text
+                style={{
+                  position: 'absolute',
+                  top: yPx - 6,
+                  left: 0,
+                  width: CHART_PADDING.left - 4,
+                  textAlign: 'right',
+                  fontSize: 10,
+                  color: labelColor,
+                  lineHeight: 12,
+                }}
+              >
+                {text}
+              </Text>
 
-              {/* Binding-coloured horizontal grid lines, ticks, and labels */}
-              {yTickValues.map((tickValue) => {
-                const yPx = valueToY(tickValue);
-                const color = getColorForValue(
-                  tickValue,
-                  binding,
-                  CHART_COLORS.gridLine,
-                );
-                const label =
-                  tickValue === binding?.minimum
-                    ? 'min'
-                    : tickValue === binding?.optimum
-                      ? 'opt'
-                      : tickValue === binding?.maximum
-                        ? 'max'
-                        : tickValue === binding?.impossible
-                          ? 'imp'
-                          : undefined;
-
-                return (
-                  <React.Fragment key={tickValue}>
-                    <HorizontalGrid
-                      y={yPx}
-                      color={color}
-                      label={label}
-                      chartBounds={chartBounds}
-                      font={font}
-                    />
-                    <HorizontalTick
-                      y={yPx}
-                      color={
-                        color === CHART_COLORS.gridLine
-                          ? CHART_COLORS.axisLine
-                          : color
-                      }
-                      chartBounds={chartBounds}
-                    />
-                    <HorizontalLabel
-                      y={yPx}
-                      value={tickValue}
-                      color={
-                        color === CHART_COLORS.gridLine
-                          ? CHART_COLORS.label
-                          : color
-                      }
-                      chartBounds={chartBounds}
-                      font={font}
-                    />
-                  </React.Fragment>
-                );
-              })}
-
-              {/* Measurement data line */}
-              <Line
-                points={points.value}
-                color={CHART_COLORS.line}
-                strokeWidth={2}
-              />
-
-              {/* Interactive crosshair */}
-              {isActive && (
-                <Crosshair
-                  x={pressState.x.position}
-                  y={pressState.y.value.position}
-                  xValue={pressState.x.value}
-                  yValue={pressState.y.value.value}
-                  chartBounds={chartBounds}
-                  unit={unit}
-                  gauge={gauge}
-                  font={font}
-                />
+              {/* Binding label — left-aligned in the right padding area */}
+              {bindingLabel != null && (
+                <Text
+                  style={{
+                    position: 'absolute',
+                    top: yPx - 6,
+                    left: boundsRight + 4,
+                    fontSize: 10,
+                    color,
+                    lineHeight: 12,
+                  }}
+                >
+                  {bindingLabel}
+                </Text>
               )}
-            </>
+            </React.Fragment>
           );
-        }}
-      </CartesianChart>
+        })}
+      </View>
     </View>
   );
 }

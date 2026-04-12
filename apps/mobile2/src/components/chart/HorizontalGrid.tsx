@@ -1,6 +1,4 @@
-import { Line as SkLine } from '@shopify/react-native-skia';
-import type { SkFont } from '@shopify/react-native-skia';
-import { Text as SkText } from '@shopify/react-native-skia';
+import { DashPathEffect, Line as SkLine } from '@shopify/react-native-skia';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 
@@ -9,44 +7,34 @@ interface HorizontalGridProps {
   y: number;
   /** Color for this line (binding-derived or default grid color). */
   color: string;
-  /** Optional binding label: 'min', 'opt', 'max', 'imp'. */
-  label?: string;
   /** Left/right bounds of the chart plot area. */
   chartBounds: { left: number; right: number };
-  /** Skia font for the label — if null the label is not rendered. */
-  font: SkFont | null;
+  /**
+   * Whether it's binding (min/opt/max) or calculated tick value
+   */
+  isBinding?: boolean;
 }
 
 /**
- * Renders a single horizontal grid line at a given y pixel position,
- * optionally with a binding-level label (min/opt/max) just above the line
- * on the right edge of the chart.
- * Used inside CartesianChart's children render prop.
+ * Renders a single horizontal grid line at a given y pixel position.
+ * Binding-level lines (min/opt/max/imp) are drawn dashed; others solid.
+ * Labels are rendered outside CartesianChart's clip region as RN Text views
+ * in ChartComponent, so this component handles lines only.
  */
 export function HorizontalGrid({
   y,
   color,
-  label,
   chartBounds,
-  font,
+  isBinding,
 }: HorizontalGridProps) {
   return (
-    <>
-      <SkLine
-        p1={{ x: chartBounds.left, y }}
-        p2={{ x: chartBounds.right, y }}
-        color={color}
-        strokeWidth={StyleSheet.hairlineWidth}
-      />
-      {label && font && (
-        <SkText
-          x={chartBounds.right - 2}
-          y={y - 2}
-          text={label}
-          font={font}
-          color={color}
-        />
-      )}
-    </>
+    <SkLine
+      p1={{ x: chartBounds.left, y }}
+      p2={{ x: chartBounds.right, y }}
+      color={color}
+      strokeWidth={isBinding ? 1 : StyleSheet.hairlineWidth}
+    >
+      <DashPathEffect intervals={isBinding ? [10, 5] : [6, 6]} />
+    </SkLine>
   );
 }

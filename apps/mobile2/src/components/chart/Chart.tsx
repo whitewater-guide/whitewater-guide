@@ -1,15 +1,20 @@
+import { useNetInfo } from '@react-native-community/netinfo';
 import { useChart } from '@whitewater-guide/clients';
-import React, { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
-import { useEffect } from 'react';
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react';
+import type { LayoutChangeEvent, LayoutRectangle } from 'react-native';
 import { StyleSheet, View } from 'react-native';
 
 import { useAppState } from '../../hooks/useAppState';
+import Loading from '../Loading';
 import ChartComponent from './ChartComponent';
 import NoChart from './NoChart';
-import Loading from '../Loading';
-import { useNetInfo } from '@react-native-community/netinfo';
-import type { LayoutChangeEvent, LayoutRectangle } from 'react-native';
-import { useState } from 'react';
 
 export interface ChartStatic {
   refresh: () => Promise<void>;

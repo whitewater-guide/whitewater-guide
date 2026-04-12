@@ -9,19 +9,20 @@ interface HorizontalTickProps {
   y: number;
   /** Color for this tick (binding-derived or default axis color). */
   color: string;
-  /** Left edge of the chart plot area — tick is drawn just to the left of it. */
+  /** Left edge of the chart plot area — tick is drawn just inside it. */
   chartBounds: { left: number };
 }
 
 /**
  * Renders a short horizontal tick mark at the left edge of the chart plot area.
- * Used inside CartesianChart's children render prop alongside HorizontalLabel.
+ * Drawn inside chartBounds (left → left + TICK_LENGTH) so it is not clipped by
+ * CartesianChart's Skia Group clip rect.
  */
 export function HorizontalTick({ y, color, chartBounds }: HorizontalTickProps) {
   return (
     <SkLine
-      p1={{ x: chartBounds.left - TICK_LENGTH, y }}
-      p2={{ x: chartBounds.left, y }}
+      p1={{ x: chartBounds.left, y }}
+      p2={{ x: chartBounds.left + TICK_LENGTH, y }}
       color={color}
       strokeWidth={StyleSheet.hairlineWidth}
     />
