@@ -152,6 +152,7 @@ function ChartComponent({
           },
         ]}
         chartPressState={pressState}
+        chartPressConfig={{ pan: { activateAfterLongPress: 500, failOffsetY: [-25, 25] } }}
         padding={CHART_PADDING}
       >
         {({ points, chartBounds }) => (
