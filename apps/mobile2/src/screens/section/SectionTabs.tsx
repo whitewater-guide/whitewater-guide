@@ -8,12 +8,12 @@ import { View } from 'react-native';
 
 import Icon from '../../components/Icon';
 import PaperTabBar from '../../components/PaperTabBar';
-import PlaceholderScreen from '../../components/PlaceholderScreen';
 import type { SectionTabsParamsList } from '../../core/navigation';
 import { Screens } from '../../core/navigation';
 import SectionChartScreen from './chart/SectionChartScreen';
 import SectionInfoScreen from './info/SectionInfoScreen';
 import SectionMapScreen from './map/SectionMapScreen';
+import SectionMediaScreen from './media/SectionMediaScreen';
 import SectionFAB from './SectionFAB';
 import SectionTitle from './SectionTitle';
 
@@ -77,7 +77,7 @@ function SectionTabs() {
         />
         <Tab.Screen
           name={Screens.SECTION_MEDIA}
-          component={PlaceholderScreen}
+          component={SectionMediaScreen}
           options={{
             tabBarLabel: t('screens:section.media.title'),
             tabBarIcon: ({ color }) => (
