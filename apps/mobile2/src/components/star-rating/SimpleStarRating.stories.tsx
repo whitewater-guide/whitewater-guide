@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import SimpleStarRating from './SimpleStarRating';
+import { SimpleStarRating } from './SimpleStarRating';
 
 const meta: Meta<typeof SimpleStarRating> = {
   title: 'Components/SimpleStarRating',

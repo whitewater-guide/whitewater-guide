@@ -7,7 +7,7 @@ import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import DifficultyThumb from '../../../../components/DifficultyThumb';
 import FlowsThumb from '../../../../components/FlowsThumb';
-import SimpleStarRating from '../../../../components/SimpleStarRating';
+import { SimpleStarRating } from '../../../../components/star-rating';
 import UnverifiedBadge from '../../../../components/UnverifiedBadge';
 import theme from '../../../../theme';
 import { ITEM_HEIGHT } from './constants';

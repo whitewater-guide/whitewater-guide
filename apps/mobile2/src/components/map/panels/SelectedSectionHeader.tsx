@@ -9,7 +9,7 @@ import theme from '../../../theme';
 import DifficultyThumb from '../../DifficultyThumb';
 import Icon from '../../Icon';
 import { NAVIGATE_BUTTON_HEIGHT } from '../../NavigateButton';
-import SimpleStarRating from '../../SimpleStarRating';
+import { SimpleStarRating } from '../../star-rating';
 import UnverifiedBadge from '../../UnverifiedBadge';
 
 const styles = StyleSheet.create({

@@ -14,7 +14,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { TernaryChips } from '../../../components/Chips';
 import Loading from '../../../components/Loading';
 import MultiSlider from '../../../components/multi-slider';
-import SwipeableStarRating from '../../../components/SwipeableStarRating';
+import { SwipeableStarRating } from '../../../components/star-rating';
 import { getSeasonLocalizer } from '../../../i18n';
 import theme from '../../../theme';
 import { FindButton } from './FindButton';

@@ -74,66 +74,11 @@ All required dependencies (`victory-native`, `@shopify/react-native-skia`, `reac
 
 ---
 
-### Phase 9: User Features (Profile, Logbook, Descents)
+### Phase 9: User Features (Profile, Logbook, Descents, Add Section)
 
-**Goal:** Authenticated user features complete.
+**Goal:** Authenticated user features complete — reusable form fields first, then My Profile, Logbook + Descent detail, Descent Form wizard, and Add Section wizard. Descent-form and add-section wizards flatten to `RootStack` level with cross-step state hosted by root-level draft providers (removes the nested stack wrappers used in the legacy app).
 
-#### 9.1 — Install additional dependencies
-
-```
-formik (v2.4)
-@zxcvbn-ts/core (replaces react-native-zxcvbn)
-```
-
-Note: `@react-native-community/datetimepicker`, `react-native-image-picker` already installed in Phase 3.
-
-#### 9.2 — Build My Profile screen
-
-- Profile display and edit
-- Language selector
-- Verification status
-- Sign-out button
-- Remove purchase history section (IAP dropped)
-
-#### 9.3 — Build Logbook screens
-
-- Logbook list (user's descents)
-- Descent detail view
-- Delete descent dialog
-
-#### 9.4 — Build Descent Form
-
-- Multi-screen form: section selection → date → level → comment
-- Port `DescentFormContext` and `useNavHydrateFormik()` pattern
-- Formik + Yup validation from `@whitewater-guide/validation`
-
-#### 9.5 — Build form components
-
-Port reusable form fields:
-
-- `TextField`, `NumericField`, `CheckboxField`, `RatingField`
-- `PasswordField` with `@zxcvbn-ts/core` strength indicator
-- `ModalPickerField`
-- `PhotoUploadField`
-- `HelperText`, `SuccessText`
-- Use `react-native-keyboard-controller` (already installed in Phase 3)
-
-#### 9.6 — Build Add Section wizard
-
-- Multi-tab form: main, attributes, description, flows, photos, river, gauge, shape
-- Photo upload integration
-
-#### 9.7 — Validation
-
-- [ ] Profile loads and edits save to backend
-- [ ] Logbook displays descents correctly
-- [ ] Can create, view, and delete a descent
-- [ ] Descent form navigates through all steps
-- [ ] Add Section wizard works end-to-end
-- [ ] Keyboard handling works correctly on all form screens
-- [ ] **Unit tests:** Form validation, descent CRUD operations
-- [ ] **Storybook:** All form field components, PasswordStrengthIndicator
-- [ ] **Detox E2E:** Edit profile → create descent → view in logbook → delete
+> **Detailed plan:** [PHASE_9_USER_FEATURES.md](PHASE_9_USER_FEATURES.md)
 
 ---
 

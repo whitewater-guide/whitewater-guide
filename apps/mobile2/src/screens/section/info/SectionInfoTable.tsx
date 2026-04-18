@@ -15,7 +15,7 @@ import { Text } from 'react-native-paper';
 
 import Chips from '../../../components/Chips';
 import { Row } from '../../../components/Row';
-import SimpleStarRating from '../../../components/SimpleStarRating';
+import { SimpleStarRating } from '../../../components/star-rating';
 import { getSeasonLocalizer } from '../../../i18n';
 
 interface Props {
