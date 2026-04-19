@@ -1,0 +1,13 @@
+fragment DescentForm on Descent {
+  ...DescentCore
+
+  section {
+    ...DescentSection
+  }
+}
+
+query getDescent($descentId: ID, $shareToken: String) {
+  descent(id: $descentId, shareToken: $shareToken) {
+    ...DescentForm
+  }
+}

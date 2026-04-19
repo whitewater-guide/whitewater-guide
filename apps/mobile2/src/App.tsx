@@ -16,6 +16,7 @@ import { AuthProvider, MobileAuthService } from './core/auth';
 import NavigationRoot from './core/navigation/NavigationRoot';
 import { AppSettingsProvider } from './features/settings';
 import { I18nProvider } from './i18n';
+import { DescentFormDraftProvider } from './screens/descent-form/DescentFormDraftContext';
 import { paperTheme } from './theme';
 
 const styles = StyleSheet.create({
@@ -63,11 +64,13 @@ function App() {
                 <ApolloProvider client={apolloClient}>
                   <TagsProvider>
                     <AuthProvider service={authServiceRef.current}>
-                      <I18nProvider>
-                        <SnackbarProvider>
-                          <NavigationRoot />
-                        </SnackbarProvider>
-                      </I18nProvider>
+                      <DescentFormDraftProvider>
+                        <I18nProvider>
+                          <SnackbarProvider>
+                            <NavigationRoot />
+                          </SnackbarProvider>
+                        </I18nProvider>
+                      </DescentFormDraftProvider>
                     </AuthProvider>
                   </TagsProvider>
                 </ApolloProvider>

@@ -59,7 +59,7 @@ function RegionFAB() {
         icon: 'calendar-plus',
         label: t('screens:region.fab.addDescent'),
         onPress: gated(() =>
-          navigation.navigate(Screens.DESCENT_FORM, { regionId: 'xxx' }),
+          navigation.navigate(Screens.DESCENT_FORM_SECTION, { regionId: 'xxx' }),
         ),
         testID: 'fab:add-descent',
       },

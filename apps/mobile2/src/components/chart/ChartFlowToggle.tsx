@@ -42,8 +42,8 @@ export function ChartFlowToggle() {
         options: [t('commons:flow'), t('commons:level'), t('commons:cancel')],
         cancelButtonIndex: 2,
       },
-      (index?: number) => {
-        if (index != null && index < 2) {
+      (index: number) => {
+        if (index < 2) {
           onChangeUnit(index === 0 ? Unit.FLOW : Unit.LEVEL);
         }
       },

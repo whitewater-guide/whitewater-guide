@@ -13,7 +13,7 @@ export default function useNavigateToForm() {
   return useCallback(
     (descent: DescentDetailsFragment, duplicate = false) => {
       if (duplicate) {
-        navigation.navigate(Screens.DESCENT_FORM, {
+        navigation.navigate(Screens.DESCENT_FORM_SECTION, {
           formData: {
             section: descent.section,
             startedAt: new Date().toISOString(),
@@ -21,7 +21,7 @@ export default function useNavigateToForm() {
           },
         });
       } else {
-        navigation.navigate(Screens.DESCENT_FORM, {
+        navigation.navigate(Screens.DESCENT_FORM_SECTION, {
           descentId: descent.id,
         });
       }

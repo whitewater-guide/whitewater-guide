@@ -21,7 +21,7 @@ function AddDescentFAB() {
     useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
 
   const onPress = useCallback(
-    () => navigation.navigate(Screens.DESCENT_FORM, {}),
+    () => navigation.navigate(Screens.DESCENT_FORM_SECTION),
     [navigation],
   );
 

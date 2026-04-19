@@ -1,7 +1,6 @@
 export type {
   AddSectionStackParamsList,
   AddSectionTabsParamsList,
-  DescentFormParamsList,
   RegionStackParamsList,
   RegionTabsParamsList,
   RootDrawerParamsList,

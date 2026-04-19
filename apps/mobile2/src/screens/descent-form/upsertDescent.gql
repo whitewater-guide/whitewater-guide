@@ -1,0 +1,14 @@
+mutation upsertDescent($descent: DescentInput!, $shareToken: String) {
+  upsertDescent(descent: $descent, shareToken: $shareToken) {
+    ...DescentCore
+    ...TimestampedMeta
+
+    section {
+      ...SectionNameShort
+      region {
+        id
+        name
+      }
+    }
+  }
+}

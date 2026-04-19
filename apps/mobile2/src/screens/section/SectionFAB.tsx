@@ -58,7 +58,7 @@ function SectionFAB() {
       {
         icon: 'calendar-plus',
         label: t('screens:section.fab.addDescent'),
-        onPress: gated(() => navigation.navigate(Screens.DESCENT_FORM, {})),
+        onPress: gated(() => navigation.navigate(Screens.DESCENT_FORM_SECTION)),
         testID: 'fab:add-descent',
       },
     ],

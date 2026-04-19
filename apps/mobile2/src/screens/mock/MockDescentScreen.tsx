@@ -17,14 +17,14 @@ const MockDescentScreen: React.FC = () => {
         label="Edit"
         testID="mock:navigate:DESCENT_FORM_EDIT"
         onPress={() =>
-          navigation.navigate(Screens.DESCENT_FORM, { descentId: 'zzz' })
+          navigation.navigate(Screens.DESCENT_FORM_SECTION, { descentId: 'zzz' })
         }
       />
       <MockButton
         label="Duplicate"
         testID="mock:navigate:DESCENT_FORM_DUPLICATE"
         onPress={() =>
-          navigation.navigate(Screens.DESCENT_FORM, {
+          navigation.navigate(Screens.DESCENT_FORM_SECTION, {
             formData: { comment: 'Duplicated descent' },
           })
         }

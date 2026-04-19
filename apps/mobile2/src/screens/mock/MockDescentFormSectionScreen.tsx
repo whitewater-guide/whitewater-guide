@@ -4,13 +4,10 @@ import React from 'react';
 
 import type { RootStackParamsList } from '../../core/navigation';
 import { Screens } from '../../core/navigation';
-import type { DescentFormParamsList } from '../../core/navigation/navigation-params';
 import MockButton from './MockButton';
 import MockScreenWrapper from './MockScreenWrapper';
 
 const MockDescentFormSectionScreen: React.FC = () => {
-  const formNavigation =
-    useNavigation<NativeStackNavigationProp<DescentFormParamsList>>();
   const rootNavigation =
     useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
 
@@ -28,7 +25,7 @@ const MockDescentFormSectionScreen: React.FC = () => {
       <MockButton
         label="Next"
         testID="mock:navigate:DESCENT_FORM_DATE"
-        onPress={() => formNavigation.navigate(Screens.DESCENT_FORM_DATE)}
+        onPress={() => rootNavigation.navigate(Screens.DESCENT_FORM_DATE)}
       />
     </MockScreenWrapper>
   );

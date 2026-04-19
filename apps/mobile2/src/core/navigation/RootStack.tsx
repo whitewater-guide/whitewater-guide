@@ -15,7 +15,10 @@ import {
   WelcomeScreen,
 } from '../../screens/auth';
 import { DescentScreen } from '../../screens/descent';
-import DescentFormStack from '../../screens/descent-form/DescentFormStack';
+import DescentFormSectionScreen from '../../screens/descent-form/section/DescentFormSectionScreen';
+import DescentFormDateScreen from '../../screens/descent-form/date/DescentFormDateScreen';
+import DescentFormLevelScreen from '../../screens/descent-form/level/DescentFormLevelScreen';
+import DescentFormCommentScreen from '../../screens/descent-form/comment/DescentFormCommentScreen';
 import { LogbookScreen } from '../../screens/logbook';
 import { MyProfileScreen } from '../../screens/my-profile';
 import RegionScreen from '../../screens/region/RegionScreen';
@@ -145,9 +148,36 @@ function RootStack() {
             options={{ ...innerScreenOptions }}
           />
           <Stack.Screen
-            name={Screens.DESCENT_FORM}
-            component={DescentFormStack}
-            options={{ headerShown: false }}
+            name={Screens.DESCENT_FORM_SECTION}
+            component={DescentFormSectionScreen}
+            options={{
+              ...innerScreenOptions,
+              headerTitle: t('screens:descentForm.section.headerTitle'),
+            }}
+          />
+          <Stack.Screen
+            name={Screens.DESCENT_FORM_DATE}
+            component={DescentFormDateScreen}
+            options={{
+              ...innerScreenOptions,
+              headerTitle: t('screens:descentForm.date.headerTitle'),
+            }}
+          />
+          <Stack.Screen
+            name={Screens.DESCENT_FORM_LEVEL}
+            component={DescentFormLevelScreen}
+            options={{
+              ...innerScreenOptions,
+              headerTitle: t('screens:descentForm.level.headerTitle'),
+            }}
+          />
+          <Stack.Screen
+            name={Screens.DESCENT_FORM_COMMENT}
+            component={DescentFormCommentScreen}
+            options={{
+              ...innerScreenOptions,
+              headerTitle: t('screens:descentForm.comment.headerTitle'),
+            }}
           />
         </>
       )}

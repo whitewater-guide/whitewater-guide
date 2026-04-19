@@ -7,12 +7,6 @@ export type RootDrawerParamsList = {
   [Screens.ROOT_STACK]: NavigatorScreenParams<RootStackParamsList>;
 };
 
-export type DescentFormParamsList = {
-  [Screens.DESCENT_FORM_SECTION]: { regionId?: string } | undefined;
-  [Screens.DESCENT_FORM_DATE]: undefined;
-  [Screens.DESCENT_FORM_LEVEL]: undefined;
-  [Screens.DESCENT_FORM_COMMENT]: undefined;
-};
 
 export type RegionTabsParamsList = {
   [Screens.REGION_MAP]: undefined;
@@ -77,13 +71,16 @@ export type RootStackParamsList = {
   };
   [Screens.CONNECT_EMAIL_SUCCESS]: undefined;
   [Screens.LOGBOOK]: undefined;
-  [Screens.DESCENT_FORM]:
+  [Screens.DESCENT_FORM_SECTION]:
     | {
         regionId?: string;
         descentId?: string;
         formData?: Record<string, unknown>;
       }
     | undefined;
+  [Screens.DESCENT_FORM_DATE]: undefined;
+  [Screens.DESCENT_FORM_LEVEL]: undefined;
+  [Screens.DESCENT_FORM_COMMENT]: undefined;
   [Screens.DESCENT]: {
     descentId: string;
   };

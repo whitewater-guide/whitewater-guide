@@ -467,18 +467,6 @@ Validation schemas come from [packages/validation/](packages/validation/). The f
 | `I18nProvider`                   | `useTranslation`                                  |
 | `SnackbarProvider`               | Success/error toasts on submit                    |
 
-### Stories
-
-```
-src/screens/descent-form/section/SectionSearch.stories.tsx         # variants: empty, results, loading
-src/screens/descent-form/date/DatePicker.stories.tsx               # variants: default, with-timezone
-src/screens/descent-form/date/DatePickerDialog.stories.tsx
-src/screens/descent-form/level/DescentFormLevelScreen.stories.tsx  # variants: with-gauge, without-gauge
-src/screens/descent-form/comment/DescentFormCommentScreen.stories.tsx
-```
-
-Story decorators: `FormikDecorator` seeded with partial draft + `NavigationContainer` + `MockedProvider` + `DescentFormDraftProvider` (real, but initialized with a fixture). Section search additionally needs Apollo mocks for `findSections`.
-
 ### Validation
 
 - [ ] Wizard launches from logbook FAB → lands on section step.
@@ -488,8 +476,6 @@ Story decorators: `FormikDecorator` seeded with partial draft + `NavigationConta
 - [ ] Comment step submits; new descent appears in logbook.
 - [ ] Editing an existing descent pre-fills all four steps.
 - [ ] Backgrounding mid-wizard and returning preserves both nav position and draft data.
-- [ ] **Unit tests:** `DescentFormDraftProvider` setDraft/resetDraft, `useUpsertDescent` success + error paths.
-- [ ] **Detox E2E:** logbook FAB → section → date → level → comment → submit → verify descent in list.
 
 ---
 
