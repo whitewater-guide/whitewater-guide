@@ -14,8 +14,9 @@ import {
   SignInScreen,
   WelcomeScreen,
 } from '../../screens/auth';
+import { DescentScreen } from '../../screens/descent';
 import DescentFormStack from '../../screens/descent-form/DescentFormStack';
-import { MockDescentScreen, MockLogbookScreen } from '../../screens/mock';
+import { LogbookScreen } from '../../screens/logbook';
 import { MyProfileScreen } from '../../screens/my-profile';
 import RegionScreen from '../../screens/region/RegionScreen';
 import RegionsListScreen from '../../screens/regions-list';
@@ -132,7 +133,7 @@ function RootStack() {
           />
           <Stack.Screen
             name={Screens.LOGBOOK}
-            component={MockLogbookScreen}
+            component={LogbookScreen}
             options={{
               ...innerScreenOptions,
               headerTitle: t('drawer:logbook'),
@@ -140,8 +141,8 @@ function RootStack() {
           />
           <Stack.Screen
             name={Screens.DESCENT}
-            component={MockDescentScreen}
-            options={{ ...innerScreenOptions, headerTitle: 'Descent' }}
+            component={DescentScreen}
+            options={{ ...innerScreenOptions }}
           />
           <Stack.Screen
             name={Screens.DESCENT_FORM}

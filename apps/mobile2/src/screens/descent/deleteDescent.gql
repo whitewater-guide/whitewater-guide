@@ -1,0 +1,3 @@
+mutation deleteDescent($id: ID!) {
+  deleteDescent(id: $id)
+}

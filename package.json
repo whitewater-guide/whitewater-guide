@@ -38,7 +38,7 @@
     "@graphql-codegen/typescript-apollo-client-helpers": "^3.0.0",
     "@graphql-codegen/typescript-document-nodes": "^4.0.1",
     "@graphql-codegen/typescript-operations": "^4.0.1",
-    "@graphql-codegen/typescript-react-apollo": "^4.1.0",
+    "@graphql-codegen/typescript-react-apollo": "4.3.0",
     "@graphql-codegen/typescript-resolvers": "^4.0.1",
     "@whitewater-guide/codegen-backend-tests": "workspace:*",
     "@whitewater-guide/codegen-typedefs": "workspace:*",

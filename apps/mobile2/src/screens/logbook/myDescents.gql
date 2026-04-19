@@ -1,0 +1,27 @@
+fragment MyDescent on Descent {
+  ...DescentCore
+
+  section {
+    ...SectionNameShort
+    timezone
+    gauge {
+      id
+      timezone
+    }
+  }
+}
+
+query listMyDescents($filter: DescentsFilter, $page: Page) {
+  myDescents(filter: $filter, page: $page) {
+    edges {
+      node {
+        ...MyDescent
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasMore
+    }
+  }
+}

@@ -325,27 +325,14 @@ Port from [apps/mobile/src/screens/descent/](apps/mobile/src/screens/descent/):
 
 Both already in root stack.
 
-### Stories
-
-```
-src/screens/logbook/LogbookListItem.stories.tsx     # variants: normal, no-section, long-comment
-src/screens/logbook/LogbookEmpty.stories.tsx        # variant: default
-src/screens/descent/DescentInfo.stories.tsx         # variants: full, public, private, with-level, no-level
-src/screens/descent/DeleteDescentDialog.stories.tsx # variant: open
-```
-
-Wrap screen-level stories in `MockedProvider` + `AuthContext.Provider` + a `NavigationContainer` decorator (same pattern as `RegionCard.stories.tsx`).
-
 ### Validation
 
-- [ ] Logbook list renders user's descents in reverse-chronological order.
-- [ ] Pull-to-refresh works; pagination (`loadMore`) works.
-- [ ] Empty state shows on new users.
-- [ ] Descent detail loads via route param; shows section, date, level, comment.
-- [ ] Menu → Delete opens dialog → confirm → descent removed from list; back navigation returns to list.
-- [ ] Menu → Edit navigates to `DESCENT_FORM` with `descentId`.
-- [ ] **Unit tests:** `useDeleteDescent` removes item from cache; `useMyDescents` pagination.
-- [ ] **Detox E2E:** create stub descent (via MSW/mock) → open logbook → tap item → verify detail → back.
+- [x] Logbook list renders user's descents in reverse-chronological order.
+- [x] Pull-to-refresh works; pagination (`loadMore`) works.
+- [x] Empty state shows on new users.
+- [x] Descent detail loads via route param; shows section, date, level, comment.
+- [x] Menu → Delete opens dialog → confirm → descent removed from list; back navigation returns to list.
+- [x] Menu → Edit navigates to `DESCENT_FORM` with `descentId`.
 
 ---
 

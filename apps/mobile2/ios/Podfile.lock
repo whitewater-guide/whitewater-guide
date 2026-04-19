@@ -1595,7 +1595,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
-  - react-native-pager-view (8.0.0):
+  - react-native-pager-view (8.0.1):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -1711,7 +1711,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
-  - react-native-vector-icons-material-design-icons (13.0.0)
+  - react-native-vector-icons-material-design-icons (13.1.0)
   - react-native-webview (13.16.1):
     - hermes-engine
     - RCTRequired
@@ -2934,10 +2934,10 @@ SPEC CHECKSUMS:
   react-native-image-picker: 48d850454b4a389753053e1d7378b624d3b47d77
   react-native-keyboard-controller: d30840170665c08c8b2b3cba0aaf86c77745667f
   react-native-netinfo: 7e0b1936e928fa8ddb60da9e572a33767db7805f
-  react-native-pager-view: adc7d78123fb395e03a70d19e8d75805b49838b5
+  react-native-pager-view: 10d0f13689f8ba17233e6d8d7286baf8771e36ce
   react-native-safe-area-context: ae7587b95fb580d1800c5b0b2a7bd48c2868e67a
   react-native-skia: e8b9354dc16c4099537ba0659cd70ea4adf8efc4
-  react-native-vector-icons-material-design-icons: 1955bd08457a8310e6a2d3c87c7f1ebaca159098
+  react-native-vector-icons-material-design-icons: d281715d786e8668a211c021ba2f3b9368af2f4f
   react-native-webview: 0ed52ddb2eafc64a502871218440b8b4d37961c3
   React-NativeModulesApple: 5ba0903927f6b8d335a091700e9fda143980f819
   React-networking: 3a4b7f9ed2b2d1c0441beacb79674323a24bcca6
