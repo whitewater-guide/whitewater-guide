@@ -1,0 +1,6 @@
+mutation updateProfile($user: UserInput!) {
+  updateProfile(user: $user) {
+    id
+    language
+  }
+}

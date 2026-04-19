@@ -15,11 +15,8 @@ import {
   WelcomeScreen,
 } from '../../screens/auth';
 import DescentFormStack from '../../screens/descent-form/DescentFormStack';
-import {
-  MockDescentScreen,
-  MockLogbookScreen,
-  MockMyProfileScreen,
-} from '../../screens/mock';
+import { MockDescentScreen, MockLogbookScreen } from '../../screens/mock';
+import { MyProfileScreen } from '../../screens/my-profile';
 import RegionScreen from '../../screens/region/RegionScreen';
 import RegionsListScreen from '../../screens/regions-list';
 import SectionScreen from '../../screens/section/SectionScreen';
@@ -127,7 +124,7 @@ function RootStack() {
         <>
           <Stack.Screen
             name={Screens.MY_PROFILE}
-            component={MockMyProfileScreen}
+            component={MyProfileScreen}
             options={{
               ...innerScreenOptions,
               headerTitle: t('drawer:myProfile'),

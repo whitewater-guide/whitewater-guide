@@ -5,7 +5,6 @@ export { default as MockDescentFormLevelScreen } from './MockDescentFormLevelScr
 export { default as MockDescentFormSectionScreen } from './MockDescentFormSectionScreen';
 export { default as MockDescentScreen } from './MockDescentScreen';
 export { default as MockLogbookScreen } from './MockLogbookScreen';
-export { default as MockMyProfileScreen } from './MockMyProfileScreen';
 export { default as MockRegionInfoScreen } from './MockRegionInfoScreen';
 export { default as MockRegionMapScreen } from './MockRegionMapScreen';
 export { default as MockRegionSectionsListScreen } from './MockRegionSectionsListScreen';

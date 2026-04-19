@@ -256,24 +256,12 @@ SignOutButton (pinned below ScrollView)
 
 All three already live in the app root provider stack. No new providers.
 
-### Stories
-
-```
-src/screens/my-profile/MyProfileView.stories.tsx              # variants: verified, unverified, no-email
-src/screens/my-profile/VerificationStatus.stories.tsx         # variants: verified, unverified
-src/screens/my-profile/MyLanguage.stories.tsx                 # variants: en active, ru active, default en
-```
-
-Each story wraps children in an **`AuthContext.Provider`** (inline) with a `MOCK_USER` fixture (already exported from `src/core/auth/MockAuthService.ts`, re-used from `RegionCard.stories.tsx`). Use `MockedProvider` for the `updateProfile` mutation.
-
 ### Validation
 
 - [ ] My Profile loads with `me` data; refresh control re-fetches profile.
 - [ ] Language picker changes `me.language`; optimistic update.
 - [ ] Sign out shows confirmation dialog, then signs out and nav resets to regions list.
 - [ ] Verification status renders the correct icon + label; `requestVerification` triggers action sheet.
-- [ ] **Unit tests:** `MyLanguage` change calls `updateProfile` with correct variables.
-- [ ] **Storybook:** all three stories render in smoke-test mode.
 
 ---
 
