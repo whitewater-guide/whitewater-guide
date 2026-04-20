@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { FAB } from 'react-native-paper';
 
 import { useAuth } from '../../core/auth';
@@ -13,12 +13,15 @@ import theme from '../../theme';
 
 const styles = StyleSheet.create({
   fab: {
-    position: 'absolute',
-    right: theme.margin.double,
-    bottom:
-      theme.margin.double +
-      theme.materialBottomBarHeight +
-      (Platform.OS === 'ios' ? 16 : 0),
+    // position: 'absolute',
+    // right: theme.margin.double,
+    // bottom: 0,
+    paddingBottom: theme.margin.single,
+    paddingRight: theme.margin.single,
+    // marginBottom: 0,
+    // bottom: theme.margin.double,
+    // theme.materialBottomBarHeight +
+    // (Platform.OS === 'ios' ? 16 : 0),
   },
 });
 

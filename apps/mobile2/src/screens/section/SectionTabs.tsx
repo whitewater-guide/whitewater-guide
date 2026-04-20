@@ -14,7 +14,6 @@ import SectionChartScreen from './chart/SectionChartScreen';
 import SectionInfoScreen from './info/SectionInfoScreen';
 import SectionMapScreen from './map/SectionMapScreen';
 import SectionMediaScreen from './media/SectionMediaScreen';
-import SectionFAB from './SectionFAB';
 import SectionTitle from './SectionTitle';
 
 const screenOptions: BottomTabNavigationOptions = { headerShown: false };
@@ -87,7 +86,6 @@ function SectionTabs() {
           }}
         />
       </Tab.Navigator>
-      <SectionFAB />
     </View>
   );
 }

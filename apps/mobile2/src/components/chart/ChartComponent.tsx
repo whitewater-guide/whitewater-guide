@@ -1,7 +1,7 @@
 import { Line as SkLine, matchFont } from '@shopify/react-native-skia';
 import type { ChartViewProps } from '@whitewater-guide/clients';
 import { getColorForValue } from '@whitewater-guide/clients';
-import React, { useMemo } from 'react';
+import React, { Children, useMemo } from 'react';
 import { Platform, Text, View } from 'react-native';
 import {
   CartesianChart,
@@ -10,6 +10,12 @@ import {
   useChartPressState,
 } from 'victory-native';
 
+import {
+  type ChartGeometry,
+  ChartGeometryProvider,
+  ChartOverlay,
+  ChartSkiaLayer,
+} from './ChartGeometryContext';
 import { Crosshair } from './Crosshair';
 import { HorizontalGrid } from './HorizontalGrid';
 import { HorizontalTick } from './HorizontalTick';
@@ -39,6 +45,14 @@ const CHART_PADDING = { top: 20, bottom: 50, left: 48, right: 32 } as const;
 
 // ─── Component ───────────────────────────────────────────────────────────────
 
+export interface ChartComponentConfig {
+  labelRotate?: number;
+  xTickIntervalMs?: number;
+  formatXLabel?: (ts: number, days: number) => string;
+  longPressDelay?: number;
+  children?: React.ReactNode;
+}
+
 /**
  * Core chart component for the v41 (Skia-based) victory-native API.
  *
@@ -48,6 +62,11 @@ const CHART_PADDING = { top: 20, bottom: 50, left: 48, right: 32 } as const;
  * - Y-axis numeric labels and binding labels rendered as RN Views (outside clip)
  * - Measurement data as a `Line` + `Scatter` series
  * - Interactive crosshair on touch (Crosshair + useChartPressState)
+ *
+ * Callers can extend the visuals via two slot components:
+ * - <ChartSkiaLayer> — Skia primitives drawn inside the clipped plot area
+ * - <ChartOverlay>   — RN views drawn in the absolute overlay (not clipped)
+ * Both have access to `useChartGeometry()` for chart bounds and scale helpers.
  */
 function ChartComponent({
   data,
@@ -57,7 +76,12 @@ function ChartComponent({
   filter,
   width,
   height,
-}: ChartViewProps) {
+  labelRotate = 45,
+  xTickIntervalMs,
+  formatXLabel,
+  longPressDelay = 500,
+  children,
+}: ChartViewProps & ChartComponentConfig) {
   const font = useMemo(() => matchFont(SKIA_FONT_STYLE), []);
 
   const {
@@ -108,20 +132,72 @@ function ChartComponent({
   // 15:00 / 18:00 / 21:00 rather than arbitrary fractions of the domain.
   const xTickValues = useMemo(() => {
     const intervalMs =
-      days <= 1
+      xTickIntervalMs ??
+      (days <= 1
         ? 3 * 3_600_000 // 3 h  → ~8 ticks, "HH:mm"
         : days <= 3
           ? 12 * 3_600_000 // 12 h → ~6 ticks, "d MMM"/"HH:mm" mixed
           : days <= 7
             ? 86_400_000 // 24 h  → ~7 ticks, "d MMM"
-            : 7 * 86_400_000; // 7 days → ~4 ticks, "d MMM"
+            : 7 * 86_400_000); // 7 days → ~4 ticks, "d MMM"
     const first = Math.ceil(xDomain[0] / intervalMs) * intervalMs;
     const ticks: number[] = [];
     for (let ts = first; ts <= xDomain[1]; ts += intervalMs) {
       ticks.push(ts);
     }
     return ticks;
-  }, [xDomain, days]);
+  }, [xDomain, days, xTickIntervalMs]);
+
+  const formatXOverride = useMemo(
+    () => (formatXLabel ? (ts: number) => formatXLabel(ts, days) : formatX),
+    [formatXLabel, formatX, days],
+  );
+
+  // Partition slot children: extract inner children of <ChartSkiaLayer> and
+  // <ChartOverlay> so they can be rendered in the correct layer.
+  const { skiaSlotChildren, overlaySlotChildren } = useMemo(() => {
+    const skia: React.ReactNode[] = [];
+    const overlay: React.ReactNode[] = [];
+    Children.forEach(children, (child) => {
+      if (!React.isValidElement(child)) return;
+      if (child.type === ChartSkiaLayer) {
+        skia.push((child.props as { children?: React.ReactNode }).children);
+      } else if (child.type === ChartOverlay) {
+        overlay.push((child.props as { children?: React.ReactNode }).children);
+      }
+    });
+    return { skiaSlotChildren: skia, overlaySlotChildren: overlay };
+  }, [children]);
+
+  const overlayGeometry: ChartGeometry | null = useMemo(() => {
+    if (overlaySlotChildren.length === 0) return null;
+    return {
+      chartBounds: {
+        left: boundsLeft,
+        right: boundsRight,
+        top: boundsTop,
+        bottom: boundsBottom,
+      },
+      tsToX,
+      valueToY,
+      boundsLeft,
+      boundsRight,
+      boundsTop,
+      boundsBottom,
+      width,
+      height,
+    };
+  }, [
+    overlaySlotChildren.length,
+    boundsLeft,
+    boundsRight,
+    boundsTop,
+    boundsBottom,
+    tsToX,
+    valueToY,
+    width,
+    height,
+  ]);
 
   return (
     <View style={{ width, height }}>
@@ -132,7 +208,7 @@ function ChartComponent({
         domain={{ x: xDomain, y: yDomain }}
         xAxis={{
           font,
-          formatXLabel: formatX,
+          formatXLabel: formatXOverride,
           labelColor: CHART_COLORS.label,
           // lineWidth: 0 disables the full-height vertical lines CartesianChart
           // draws at every tick position; axis labels still render.
@@ -140,7 +216,7 @@ function ChartComponent({
           tickValues: xTickValues,
           // Disable downsampling — we generate exactly the right tick count above
           tickCount: xTickValues.length,
-          labelRotate: 45,
+          labelRotate,
         }}
         yAxis={[
           {
@@ -152,7 +228,12 @@ function ChartComponent({
           },
         ]}
         chartPressState={pressState}
-        chartPressConfig={{ pan: { activateAfterLongPress: 500, failOffsetY: [-25, 25] } }}
+        chartPressConfig={{
+          pan: {
+            activateAfterLongPress: longPressDelay,
+            failOffsetY: [-25, 25],
+          },
+        }}
         padding={CHART_PADDING}
       >
         {({ points, chartBounds }) => (
@@ -177,6 +258,24 @@ function ChartComponent({
               chartBounds={chartBounds}
               days={days}
             />
+
+            {skiaSlotChildren.length > 0 && (
+              <ChartGeometryProvider
+                value={{
+                  chartBounds,
+                  tsToX,
+                  valueToY,
+                  boundsLeft,
+                  boundsRight,
+                  boundsTop,
+                  boundsBottom,
+                  width,
+                  height,
+                }}
+              >
+                {skiaSlotChildren}
+              </ChartGeometryProvider>
+            )}
 
             {/* Binding-coloured horizontal grid lines and axis ticks */}
             {yTickValues.map((tickValue) => {
@@ -296,7 +395,7 @@ function ChartComponent({
               </Text>
 
               {/* Binding label — left-aligned in the right padding area */}
-              {bindingLabel != null && (
+              {!!bindingLabel && (
                 <Text
                   style={{
                     position: 'absolute',
@@ -313,6 +412,12 @@ function ChartComponent({
             </React.Fragment>
           );
         })}
+
+        {overlayGeometry && (
+          <ChartGeometryProvider value={overlayGeometry}>
+            {overlaySlotChildren}
+          </ChartGeometryProvider>
+        )}
       </View>
     </View>
   );

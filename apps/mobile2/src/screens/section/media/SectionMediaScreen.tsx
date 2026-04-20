@@ -3,6 +3,7 @@ import { useCallback } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 import theme from '../../../theme';
+import SectionFAB from '../SectionFAB';
 import SectionTabsScreen from '../SectionTabsScreen';
 import SectionMediaScreenContent from './SectionMediaScreenContent';
 
@@ -21,6 +22,7 @@ function SectionMediaScreen() {
         <SectionMediaScreenContent />
         <View style={styles.fabSpacer} />
       </ScrollView>
+      <SectionFAB />
     </SectionTabsScreen>
   );
 }
