@@ -3,15 +3,11 @@ import { Formik } from 'formik';
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
-import {
-  KeyboardAvoidingView,
-  KeyboardToolbar,
-} from 'react-native-keyboard-controller';
+import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 import { Button } from 'react-native-paper';
 
 import Screen from '../../../components/Screen';
-import type { RootStackParamsList } from '../../../core/navigation';
-import { Screens } from '../../../core/navigation';
+import type { RootStackParamsList, Screens } from '../../../core/navigation';
 import CheckboxField from '../../../forms/CheckboxField';
 import TextField from '../../../forms/TextField';
 import theme from '../../../theme';
@@ -29,6 +25,16 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: theme.margin.single,
   },
+  avoider: {
+    flex: 1,
+  },
+  commentWrapper: {
+    flex: 1,
+  },
+  commentInput: {
+    flex: 1,
+    textAlignVertical: 'top',
+  },
   submit: {
     marginTop: theme.margin.single,
   },
@@ -38,7 +44,7 @@ type CommentValues = Pick<DescentFormData, 'comment' | 'public'>;
 
 function DescentFormCommentScreen(_props: Props) {
   const { t } = useTranslation();
-  const { draft, setDraft } = useDescentFormDraft();
+  const { draft } = useDescentFormDraft();
   const upsert = useUpsertDescent();
 
   const initialValues = useMemo<CommentValues>(
@@ -64,12 +70,15 @@ function DescentFormCommentScreen(_props: Props) {
   return (
     <Formik initialValues={initialValues} onSubmit={onSubmit}>
       {({ isSubmitting, submitForm }) => (
-        <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+        <KeyboardAvoidingView style={styles.avoider} behavior="padding">
           <Screen safeBottom style={styles.container}>
             <TextField
               name="comment"
               multiline
+              displayError={false}
               label={t('screens:descentForm.comment.commentLabel')}
+              wrapperStyle={styles.commentWrapper}
+              style={styles.commentInput}
             />
             <CheckboxField
               name="public"
@@ -88,7 +97,6 @@ function DescentFormCommentScreen(_props: Props) {
               )}
             </Button>
           </Screen>
-          <KeyboardToolbar />
         </KeyboardAvoidingView>
       )}
     </Formik>
