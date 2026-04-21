@@ -107,25 +107,10 @@ function ChartComponent({
   const boundsLeft = CHART_PADDING.left;
   const boundsRight = width - CHART_PADDING.right;
   const boundsTop = CHART_PADDING.top;
-  const boundsBottom = height - CHART_PADDING.bottom;
-
-  const valueToY = useMemo(
-    () =>
-      makeLinearScale(
-        [yDomain[1], yDomain[0]], // inverted: larger value → smaller y pixel
-        [boundsTop, boundsBottom],
-      ),
-    [yDomain, boundsTop, boundsBottom],
-  );
 
   const tsToX = useMemo(
     () => makeLinearScale(xDomain, [boundsLeft, boundsRight]),
     [xDomain, boundsLeft, boundsRight],
-  );
-
-  const separators = useMemo(
-    () => rawSeparators.map(({ date, ts }) => ({ date, xPixel: tsToX(ts) })),
-    [rawSeparators, tsToX],
   );
 
   // X-axis tick values rounded to clean hour intervals so labels show e.g.
@@ -151,6 +136,40 @@ function ChartComponent({
   const formatXOverride = useMemo(
     () => (formatXLabel ? (ts: number) => formatXLabel(ts, days) : formatX),
     [formatXLabel, formatX, days],
+  );
+
+  // victory-native shrinks the y-scale's pixel range by
+  // `maxXLabelWidth * |sin(labelRotate)|` to reserve space for rotated x-axis
+  // labels (transformInputData.ts:148). We must mirror the same shrink on our
+  // valueToY, otherwise its data scale and our valueToY diverge vertically.
+  const xLabelRotateOffset = useMemo(() => {
+    if (!labelRotate || !font) return 0;
+    let max = 0;
+    for (const ts of xTickValues) {
+      const label = String(formatXOverride(ts));
+      const glyphIds = font.getGlyphIDs(label);
+      const widths = font.getGlyphWidths?.(glyphIds) ?? [];
+      const total = widths.reduce((s, w) => s + w, 0);
+      if (total > max) max = total;
+    }
+    return Math.abs(max * Math.sin((Math.PI / 180) * labelRotate));
+  }, [labelRotate, font, xTickValues, formatXOverride]);
+
+  const boundsBottom =
+    height - CHART_PADDING.bottom - xLabelRotateOffset;
+
+  const valueToY = useMemo(
+    () =>
+      makeLinearScale(
+        [yDomain[1], yDomain[0]], // inverted: larger value → smaller y pixel
+        [boundsTop, boundsBottom],
+      ),
+    [yDomain, boundsTop, boundsBottom],
+  );
+
+  const separators = useMemo(
+    () => rawSeparators.map(({ date, ts }) => ({ date, xPixel: tsToX(ts) })),
+    [rawSeparators, tsToX],
   );
 
   // Partition slot children: extract inner children of <ChartSkiaLayer> and

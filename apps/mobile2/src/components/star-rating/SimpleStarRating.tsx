@@ -8,8 +8,8 @@ import { STAR_STRINGS } from './common';
 const styles = StyleSheet.create({
   stars: {
     alignSelf: 'flex-start',
-    height: 30,
-    fontSize: 30,
+    height: 14,
+    fontSize: 14,
     fontFamily: 'MaterialDesignIcons',
     color: theme.colors.componentBorder,
   },

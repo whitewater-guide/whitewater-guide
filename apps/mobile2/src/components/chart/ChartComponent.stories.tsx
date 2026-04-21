@@ -65,6 +65,18 @@ const FLOW_DATA = Array.from({ length: 24 }, (_, i) => ({
   level: 1.2 + 0.8 * Math.sin((i / 23) * Math.PI),
 }));
 
+// 24 hours where the right tail dips well below the binding minimum
+// (binding.flows.minimum = 20). Regression fixture for the case where the
+// chart line previously rendered at/above the dashed min line because
+// CartesianChart's internal scale (extended by d3's `.nice()`) diverged
+// from our `valueToY` scale.
+const FLOW_DATA_BELOW_MIN = Array.from({ length: 24 }, (_, i) => ({
+  timestamp: subHours(NOW, 23 - i),
+  // Start near optimum, drop linearly to ~5 (well below minimum=20).
+  flow: 40 - (i / 23) * 35,
+  level: 1.5 - (i / 23) * 1.3,
+}));
+
 const FILTER_1D = {
   from: subHours(NOW, 24).toISOString(),
   to: NOW.toISOString(),
@@ -75,13 +87,19 @@ const FILTER_1D = {
 interface WrapperProps {
   unit?: Unit;
   empty?: boolean;
+  belowMin?: boolean;
 }
 
-function ChartWrapper({ unit = Unit.FLOW, empty = false }: WrapperProps) {
+function ChartWrapper({
+  unit = Unit.FLOW,
+  empty = false,
+  belowMin = false,
+}: WrapperProps) {
+  const data = empty ? [] : belowMin ? FLOW_DATA_BELOW_MIN : FLOW_DATA;
   return (
     <View style={{ width: 360, height: 300 }}>
       <ChartComponent
-        data={empty ? [] : FLOW_DATA}
+        data={data}
         unit={unit}
         gauge={MOCK_GAUGE}
         section={MOCK_SECTION}
@@ -114,4 +132,8 @@ export const LevelUnit: Story = {
 
 export const NoData: Story = {
   args: { unit: Unit.FLOW, empty: true },
+};
+
+export const BelowMinimum: Story = {
+  args: { unit: Unit.FLOW, belowMin: true },
 };
