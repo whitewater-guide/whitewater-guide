@@ -1,0 +1,40 @@
+import type { NavigationState } from '@react-navigation/native';
+import { CommonActions } from '@react-navigation/native';
+import type { SectionNameShortFragment } from '@whitewater-guide/schema';
+
+import { Screens } from '../../core/navigation';
+
+export function resetToDescentForm(
+  { index: _index, routes, ...rest }: NavigationState,
+  section?: SectionNameShortFragment | null,
+) {
+  const descentFormIndex = routes.findIndex(
+    (r) => r.name === Screens.DESCENT_FORM_SECTION,
+  );
+  if (descentFormIndex === -1 || !section) {
+    return CommonActions.goBack();
+  }
+
+  const newState = {
+    ...rest,
+    index: descentFormIndex + 1,
+    routes: [
+      ...routes.slice(0, descentFormIndex),
+      {
+        name: Screens.DESCENT_FORM_SECTION,
+        params: {
+          formData: {
+            section,
+            startedAt: new Date().toISOString(),
+            public: true,
+          },
+        },
+      },
+      {
+        name: Screens.DESCENT_FORM_DATE,
+      },
+    ],
+  };
+
+  return CommonActions.reset(newState);
+}

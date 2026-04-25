@@ -16,6 +16,11 @@ overrides:
   react-test-renderer: 19.2.3
   typescript: ^5.9.3
 
+patchedDependencies:
+  '@rnmapbox/maps@10.3.0':
+    hash: 63929da9e299ccdcfd348c5d18068d52c87ca0037aae9d632095bf9909d8b487
+    path: patches/@rnmapbox__maps@10.3.0.patch
+
 importers:
 
   .:
@@ -471,7 +476,7 @@ importers:
         version: 7.14.11(2090a895be6979fc2b5eb3454596d1f4)
       '@rnmapbox/maps':
         specifier: ^10.3.0
-        version: 10.3.0(react-dom@19.2.3(react@19.2.3))(react-native@0.84.1(@babel/core@7.29.0)(@react-native-community/cli@20.1.0(typescript@5.9.3))(@react-native/metro-config@0.84.1(@babel/core@7.29.0))(@types/react@19.2.14)(react@19.2.3))(react@19.2.3)
+        version: 10.3.0(patch_hash=63929da9e299ccdcfd348c5d18068d52c87ca0037aae9d632095bf9909d8b487)(react-dom@19.2.3(react@19.2.3))(react-native@0.84.1(@babel/core@7.29.0)(@react-native-community/cli@20.1.0(typescript@5.9.3))(@react-native/metro-config@0.84.1(@babel/core@7.29.0))(@types/react@19.2.14)(react@19.2.3))(react@19.2.3)
       '@shopify/flash-list':
         specifier: ^2.3.1
         version: 2.3.1(@babel/runtime@7.29.2)(react-native@0.84.1(@babel/core@7.29.0)(@react-native-community/cli@20.1.0(typescript@5.9.3))(@react-native/metro-config@0.84.1(@babel/core@7.29.0))(@types/react@19.2.14)(react@19.2.3))(react@19.2.3)
@@ -517,6 +522,9 @@ importers:
       apollo3-cache-persist:
         specifier: ^0.15.0
         version: 0.15.0(@apollo/client@3.14.1(@types/react@19.2.14)(graphql-ws@6.0.8(graphql@16.13.2)(ws@8.20.0))(graphql@16.13.2)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))
+      coordinate-parser:
+        specifier: ^1.0.7
+        version: 1.0.7
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
@@ -18714,7 +18722,7 @@ snapshots:
 
   '@repeaterjs/repeater@3.0.6': {}
 
-  '@rnmapbox/maps@10.3.0(react-dom@19.2.3(react@19.2.3))(react-native@0.84.1(@babel/core@7.29.0)(@react-native-community/cli@20.1.0(typescript@5.9.3))(@react-native/metro-config@0.84.1(@babel/core@7.29.0))(@types/react@19.2.14)(react@19.2.3))(react@19.2.3)':
+  '@rnmapbox/maps@10.3.0(patch_hash=63929da9e299ccdcfd348c5d18068d52c87ca0037aae9d632095bf9909d8b487)(react-dom@19.2.3(react@19.2.3))(react-native@0.84.1(@babel/core@7.29.0)(@react-native-community/cli@20.1.0(typescript@5.9.3))(@react-native/metro-config@0.84.1(@babel/core@7.29.0))(@types/react@19.2.14)(react@19.2.3))(react@19.2.3)':
     dependencies:
       '@turf/along': 6.5.0
       '@turf/distance': 6.5.0

@@ -76,7 +76,10 @@
       "pg-formatter",
       "sharp",
       "unrs-resolver"
-    ]
+    ],
+    "patchedDependencies": {
+      "@rnmapbox/maps@10.3.0": "patches/@rnmapbox__maps@10.3.0.patch"
+    }
   },
   "packageManager": "pnpm@10.32.1"
 }

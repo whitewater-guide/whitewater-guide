@@ -1,0 +1,12 @@
+fragment ListedGauge on Gauge {
+  ...GaugeCore
+  ...GaugeLatestMeasurement
+}
+
+query findGauges($filter: GaugesFilter, $page: Page) {
+  gauges(filter: $filter, page: $page) {
+    nodes {
+      ...ListedGauge
+    }
+  }
+}

@@ -51,7 +51,7 @@ function RegionFAB() {
         icon: 'map-plus',
         label: t('screens:region.fab.addSection'),
         onPress: gated(() =>
-          navigation.navigate(Screens.ADD_SECTION_SCREEN, {}),
+          navigation.navigate(Screens.ADD_SECTION_TABS, {}),
         ),
         testID: 'fab:add-section',
       },

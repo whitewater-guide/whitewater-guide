@@ -1,5 +1,4 @@
 export type {
-  AddSectionStackParamsList,
   AddSectionTabsParamsList,
   RegionStackParamsList,
   RegionTabsParamsList,

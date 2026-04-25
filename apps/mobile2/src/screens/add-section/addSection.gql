@@ -1,0 +1,5 @@
+mutation addSection($section: SectionInput!) {
+  upsertSection(section: $section) {
+    ...SectionNameShort
+  }
+}

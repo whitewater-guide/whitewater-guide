@@ -15,7 +15,9 @@ import { apolloCachePersistor, initApolloClient } from './core/apollo';
 import { AuthProvider, MobileAuthService } from './core/auth';
 import NavigationRoot from './core/navigation/NavigationRoot';
 import { AppSettingsProvider } from './features/settings';
+import { UploadsProvider } from './features/uploads';
 import { I18nProvider } from './i18n';
+import { AddSectionDraftProvider } from './screens/add-section/AddSectionDraftContext';
 import { DescentFormDraftProvider } from './screens/descent-form/DescentFormDraftContext';
 import { paperTheme } from './theme';
 
@@ -62,17 +64,21 @@ function App() {
             <KeyboardProvider>
               <SafeAreaProvider>
                 <ApolloProvider client={apolloClient}>
-                  <TagsProvider>
-                    <AuthProvider service={authServiceRef.current}>
-                      <DescentFormDraftProvider>
-                        <I18nProvider>
-                          <SnackbarProvider>
-                            <NavigationRoot />
-                          </SnackbarProvider>
-                        </I18nProvider>
-                      </DescentFormDraftProvider>
-                    </AuthProvider>
-                  </TagsProvider>
+                  <UploadsProvider>
+                    <TagsProvider>
+                      <AuthProvider service={authServiceRef.current}>
+                        <DescentFormDraftProvider>
+                          <AddSectionDraftProvider>
+                            <I18nProvider>
+                              <SnackbarProvider>
+                                <NavigationRoot />
+                              </SnackbarProvider>
+                            </I18nProvider>
+                          </AddSectionDraftProvider>
+                        </DescentFormDraftProvider>
+                      </AuthProvider>
+                    </TagsProvider>
+                  </UploadsProvider>
                 </ApolloProvider>
               </SafeAreaProvider>
             </KeyboardProvider>

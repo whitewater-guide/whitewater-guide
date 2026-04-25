@@ -481,7 +481,7 @@ Validation schemas come from [packages/validation/](packages/validation/). The f
 
 ## 9.6 — Add Section wizard
 
-### Navigation investigation — flatten, keep the tabs
+### Architectural overview
 
 Legacy: `ADD_SECTION_SCREEN` is a RootStack screen whose component wraps `Formik` + `AddSectionRegionProvider` + a nested `StackNavigator` (`AddSectionStack`) with:
 
@@ -491,9 +491,7 @@ Legacy: `ADD_SECTION_SCREEN` is a RootStack screen whose component wraps `Formik
 - `ADD_SECTION_SHAPE`
 - `ADD_SECTION_PHOTO` (edit individual photo metadata)
 
-Current mobile2: [AddSectionStack.tsx](apps/mobile2/src/screens/add-section/AddSectionStack.tsx) mirrors this.
-
-**Plan:** remove `ADD_SECTION_SCREEN` wrapper + `AddSectionStack`. Lift all RootStack inner screens directly. The tabs navigator stays — it must stay nested because tabs cannot be flattened (swipe-between-tabs is a single screen at the parent level).
+**Plan:** remove `ADD_SECTION_SCREEN` wrapper + `AddSectionStack`. Lift all screens directly into `RootStack`. The tabs navigator stays nested (swipe-between-tabs is a single parent-level screen).
 
 ```diff
  RootStack (NativeStack)
@@ -506,7 +504,7 @@ Current mobile2: [AddSectionStack.tsx](apps/mobile2/src/screens/add-section/AddS
 +├─ ADD_SECTION_PHOTO  → PhotoScreen
 ```
 
-Remove `ADD_SECTION_SCREEN` from `Screens` enum, `AddSectionStackParamsList` type, and add `ADD_SECTION_PHOTO` params (`{ index, localPhotoId }`) to `RootStackParamsList`.
+Remove `ADD_SECTION_SCREEN` from `Screens` enum and `RootStackParamsList`. Remove `AddSectionStackParamsList`. Add `ADD_SECTION_PHOTO` params (`{ index: number; localPhotoId: string }`) to `RootStackParamsList`.
 
 ### Headers
 
@@ -518,144 +516,230 @@ All five screens use `innerScreenOptions` from `RootStack.tsx`. Titles:
 | `ADD_SECTION_RIVER` | `t('screens:addSection.river.title')` | default back                                                                                                 |
 | `ADD_SECTION_GAUGE` | `t('screens:addSection.gauge.title')` | default back                                                                                                 |
 | `ADD_SECTION_SHAPE` | `t('screens:addSection.shape.title')` | default back; `SHAPE` screen sets its own `headerRight: <DoneButton />` via `setOptions` when state is valid |
-| `ADD_SECTION_PHOTO` | `t('screens:addSection.photo.title')` | set its own `headerLeft: null` and `headerRight: <BackButton />` (legacy behavior)                           |
+| `ADD_SECTION_PHOTO` | `t('screens:addSection.photo.title')` | sets its own `headerLeft: null` and `headerRight: <BackButton />` (legacy behavior)                          |
 
 ### State — `AddSectionDraftProvider` + region context
 
-Mount in [App.tsx](apps/mobile2/src/App.tsx) inside `AuthProvider`. Two responsibilities:
+Mount in [App.tsx](apps/mobile2/src/App.tsx) inside `AuthProvider` (alongside `DescentFormDraftProvider`). Also add `UploadsProvider` inside `ApolloProvider`. Two responsibilities:
 
-1. **Full section form draft** (`Partial<SectionFormInput>`) — survives step navigation, survives app restarts (MMKV-persisted).
-2. **Source region** (`{ id, name }` | null) — set once when user enters the wizard, exposed via `useAddSectionRegion()`. This replaces the legacy `AddSectionRegionProvider`.
+1. **Full section form draft** (`Partial<SectionFormInput>`) — survives step navigation.
+2. **Source region** (`{ id: string; name: string } | null`) — set once when user enters the wizard. Replaces the legacy `AddSectionRegionProvider`.
 
-```tsx
-// src/screens/add-section/AddSectionDraftContext.tsx
-interface AddSectionDraft {
-  draft: Partial<SectionFormInput>;
-  setDraft: (
-    u: (prev: Partial<SectionFormInput>) => Partial<SectionFormInput>,
-  ) => void;
-  resetDraft: () => void;
+### Form instance — single Formik wrapping tabs
 
-  region: { id: string; name: string } | null;
-  setRegion: (r: { id: string; name: string } | null) => void;
-}
-```
+A single `Formik` instance mounts inside `AddSectionTabsScreen`, seeded from draft. A `FormikToDraftSync` sibling component (rendered inside Formik, next to `<AddSectionTabs />`) subscribes to `values` and writes back to the draft provider on change (debounced). This keeps the draft in sync so that the inner screens (RIVER/GAUGE/SHAPE/PHOTO) — which are separate RootStack screens outside Formik — can read/write slices of the draft directly. When they return via `goBack()`, the `AddSectionTabsScreen` uses `useFocusEffect` to re-read updated draft slices and call `setFieldValue` for the changed fields (`river`, `gauge`, `shape`, `media`).
 
-### Form instance — single Formik, wraps tabs
-
-Because all 5 tabs share form state AND users interact with multiple tabs before submitting, a single `Formik` instance must wrap the entire tabs screen. Mount Formik inside `AddSectionTabsScreen`, seeded from `draft`:
-
-```tsx
-// src/screens/add-section/AddSectionTabsScreen.tsx
-function AddSectionTabsScreen() {
-  const { draft, setDraft } = useAddSectionDraft();
-  const initialValues = useMemo(() => buildInitialValues(draft), [draft.id]); // stable unless descentId changes
-  return (
-    <Formik<SectionFormInput>
-      initialValues={initialValues}
-      validate={validator}
-      validateOnMount
-      onSubmit={useAddSection()} // in-flight draft → mutation, resets draft on success
-    >
-      <FormikToDraftSync />{' '}
-      {/* subscribes to values, writes back to draft on change (debounced) */}
-      <AddSectionTabs />
-    </Formik>
-  );
-}
-```
-
-The four sibling screens (RIVER, GAUGE, SHAPE, PHOTO) are **not** inside this Formik. When the user navigates from the Main tab to River, RIVER is a separate RootStack screen: it reads from and writes to `draft.river` (via `useAddSectionDraft`) directly, then `navigation.goBack()` returns to the tabs, where `buildInitialValues(draft)` re-seeds Formik if needed.
-
-Alternatively (simpler): RIVER/GAUGE/SHAPE/PHOTO modify Formik state by calling back up through the draft. Since Formik re-seeds from `draft` only if `initialValues` reference changes, updating a slice of `draft` and then returning to the tabs requires a controlled re-seed — use `enableReinitialize` on Formik with a ref-stable `initialValues` tied to a `draft.version` counter bumped by inner screens.
-
-**Final design:** only the Main/Attributes/Description/Flows/Photos tabs are inside Formik. Inner screens write to the draft provider; when an inner screen returns via `goBack()`, the `FormikToDraftSync` sibling component (mounted next to tabs) reads the latest draft and applies any changes via `setFieldValue`. This avoids re-seeding the entire form.
-
-### Files
-
-From [apps/mobile/src/screens/add-section/](apps/mobile/src/screens/add-section/):
-
-| Legacy path             | Target                                             | Notes                                                     |
-| ----------------------- | -------------------------------------------------- | --------------------------------------------------------- |
-| `context.tsx`           | fold into `AddSectionDraftProvider`                | Region state now in draft provider                        |
-| `AddSectionScreen.tsx`  | `src/screens/add-section/AddSectionTabsScreen.tsx` | Remove SafeAreaView wrapping; provider is app-root        |
-| `AddSectionTabs.tsx`    | `src/screens/add-section/AddSectionTabs.tsx`       | Already exists (mock); swap to real tab screens           |
-| `AddSectionStack.tsx`   | **drop**                                           |                                                           |
-| `useAddSection.ts`      | `src/screens/add-section/useAddSection.ts`         | Port; resets draft on success                             |
-| `formToInput.ts`        | `src/screens/add-section/formToInput.ts`           | Port as-is                                                |
-| `validation.ts`         | `src/screens/add-section/validation.ts`            | Port as-is                                                |
-| `resetToDescentForm.ts` | `src/screens/add-section/resetToDescentForm.ts`    | Port — updates nav to return to descent form with section |
-| `SubmitButton.tsx`      | `src/screens/add-section/SubmitButton.tsx`         | `Appbar.Action` inside Formik context                     |
-| `addSection.gql`        | `src/screens/add-section/addSection.gql`           | Port as-is                                                |
-| `main/`                 | `src/screens/add-section/main/`                    | Port `MainScreen`, `PiToPlaceholder`, `RiverPlaceholder`  |
-| `attributes/`           | `src/screens/add-section/attributes/`              | Port `AttributesScreen` + `season/` subdirectory          |
-| `description/`          | `src/screens/add-section/description/`             | Port `DescriptionScreen`                                  |
-| `flows/`                | `src/screens/add-section/flows/`                   | Port `FlowsScreen` + `GaugePlaceholder`                   |
-| `photos/`               | `src/screens/add-section/photos/`                  | Port `PhotosScreen` + `AddPhotoButton` + `PhotoThumb`     |
-| `river/`                | `src/screens/add-section/river/`                   | Port `RiverScreen` + rivers search                        |
-| `gauge/`                | `src/screens/add-section/gauge/`                   | Port `GaugeScreen` + rivers search + create-gauge dialog  |
-| `shape/`                | `src/screens/add-section/shape/`                   | Port `ShapeScreen` + `PiToMap` + `PiToControl` + state    |
-| `photo/`                | `src/screens/add-section/photo/`                   | Port `PhotoScreen` + `SectionPhotoForm` + `BackButton`    |
-| `utils/`                | `src/screens/add-section/utils/`                   | Port helpers                                              |
-
-Replace `KeyboardAwareScrollView` (from `react-native-keyboard-aware-scroll-view`) and the `listenToKeyboardEvents(ScrollView)` hack in `FlowsScreen` with `KeyboardAwareScrollView` from `react-native-keyboard-controller`. Remove the awkward `displayName` re-assignment.
-
-### Keyboard handling per tab
-
-| Tab / screen    | Input layout                                                 | Handling                                                                  |
-| --------------- | ------------------------------------------------------------ | ------------------------------------------------------------------------- |
-| **Main**        | name, difficulty (modal), difficultyXtra, Pi-To placeholders | `KeyboardAwareScrollView` + `KeyboardToolbar` (2 inputs)                  |
-| **Attributes**  | rating, tags, season (numeric range), hidden, helpNeeded     | `KeyboardAwareScrollView`; `TagsField` opens modal, no keyboard overlap   |
-| **Description** | single `multiline` `TextField` fullHeight                    | `KeyboardAvoidingView` `behavior="padding"` + `KeyboardToolbar` with Done |
-| **Flows**       | ~12 NumericFields + 2 TextFields                             | `KeyboardAwareScrollView` + `KeyboardToolbar` (essential; many inputs)    |
-| **Photos**      | grid, no text input                                          | n/a                                                                       |
-| **River**       | search input + list                                          | `KeyboardAvoidingView` around search bar; list scrolls freely             |
-| **Gauge**       | search input + list + create dialog                          | `KeyboardAvoidingView`; dialog uses Paper `Dialog` (built-in avoidance)   |
-| **Shape**       | map with PiTo controls                                       | n/a                                                                       |
-| **Photo**       | caption `TextField` + copyright/license + photo              | `KeyboardAwareScrollView` + `KeyboardToolbar`                             |
-
-### Providers used
-
-| Provider                        | Usage                                                  |
-| ------------------------------- | ------------------------------------------------------ |
-| `AddSectionDraftProvider` (NEW) | Cross-screen draft + region state                      |
-| `UploadsProvider` (NEW)         | `PhotoUploadField` / `PhotosScreen` photo upload queue |
-| `AuthProvider`                  | Access gate + `me.id`                                  |
-| `ApolloProvider`                | Rivers search, gauges search, `addSection` mutation    |
-| `TagsProvider`                  | Tag picker options                                     |
-| `SnackbarProvider`              | Success / error toasts                                 |
-
-### Stories
+Provider stack after 9.6:
 
 ```
-src/screens/add-section/main/MainScreen.stories.tsx                  # empty, prefilled, error
-src/screens/add-section/attributes/AttributesScreen.stories.tsx
-src/screens/add-section/description/DescriptionScreen.stories.tsx
-src/screens/add-section/flows/FlowsScreen.stories.tsx                # critical — many NumericFields
-src/screens/add-section/photos/PhotosScreen.stories.tsx
-src/screens/add-section/photos/PhotoThumb.stories.tsx                # states: uploading, ready, error
-src/screens/add-section/river/RiversListItem.stories.tsx
-src/screens/add-section/gauge/GaugesListItem.stories.tsx
-src/screens/add-section/shape/PiToControl.stories.tsx
-src/screens/add-section/photo/SectionPhotoForm.stories.tsx
+ApolloProvider
+└─ UploadsProvider        ← NEW (9.6.1)
+   └─ TagsProvider
+      └─ AuthProvider
+         └─ DescentFormDraftProvider
+            └─ AddSectionDraftProvider  ← NEW (9.6.1)
+               └─ ...
 ```
 
-Story decorators: `FormikDecorator` (seeded with a rich fixture covering every field) + `AddSectionDraftProvider` + `TagsProvider` (mocked) + `UploadsProvider` (mocked upload link) + `MockedProvider` (for river/gauge search queries) + `NavigationContainer`.
+---
 
-Write **one combined decorator** `AddSectionStoryDecorator` that stacks all of these, then each story just imports and applies it.
+## 9.6.1 — Scaffold: nav flatten, providers, types, Formik shell
+
+**Goal:** navigation compiles, wizard is navigable end-to-end with real tabs but placeholder tab bodies. No real tab content yet.
+
+### Files to create / modify
+
+| Action   | File                                                                  | Notes                                                                    |
+| -------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| Create   | `src/screens/add-section/AddSectionDraftContext.tsx`                  | Provider + `useAddSectionDraft()` hook; region state folded in           |
+| Create   | `src/screens/add-section/types.ts`                                    | `SectionFormInput`, `MediaFormInput`, param types (no `AddSectionStack`) |
+| Create   | `src/screens/add-section/validation.ts`                               | Port `SectionFormSchema` as-is                                           |
+| Create   | `src/screens/add-section/formToInput.ts`                              | Port as-is                                                               |
+| Create   | `src/screens/add-section/addSection.gql`                              | Port as-is; run codegen                                                  |
+| Create   | `src/screens/add-section/useAddSection.ts`                            | Port; calls `resetDraft` on success                                      |
+| Create   | `src/screens/add-section/resetToDescentForm.ts`                       | Port; references flattened `DESCENT_FORM_SECTION` (not `DESCENT_FORM`)  |
+| Create   | `src/screens/add-section/SubmitButton.tsx`                            | Port; uses `useFormikContext`; renders as `Appbar.Action`-style button   |
+| Create   | `src/screens/add-section/AddSectionTabsScreen.tsx`                    | Formik shell + `FormikToDraftSync` + `<AddSectionTabs />`                |
+| Modify   | `src/screens/add-section/AddSectionTabs.tsx`                          | Wire real tab screens (replaced from mock)                               |
+| Delete   | `src/screens/add-section/AddSectionStack.tsx`                         | Replaced by flattened RootStack entries                                  |
+| Modify   | `src/core/navigation/screen-names.ts`                                 | Remove `ADD_SECTION_SCREEN`                                              |
+| Modify   | `src/core/navigation/navigation-params.ts`                            | Remove `ADD_SECTION_SCREEN` + `AddSectionStackParamsList`; add photo params |
+| Modify   | `src/core/navigation/RootStack.tsx`                                   | Replace `ADD_SECTION_SCREEN` with 5 flat entries; add `UploadsProvider` import |
+| Modify   | `src/App.tsx`                                                         | Add `UploadsProvider` inside `ApolloProvider`; add `AddSectionDraftProvider` inside `AuthProvider` |
 
 ### Validation
 
-- [ ] Wizard launches from descent form "Add section" link with source region pre-populated.
-- [ ] Main tab edit round-trips to draft; switching tabs preserves edits.
-- [ ] Flows tab: all numeric fields + formula fields validate; errors show inline.
-- [ ] Photos tab: can add photo via picker, see thumbnail, upload progress, open individual photo screen to edit caption, mark for delete.
-- [ ] River / Gauge / Shape modal screens return to correct tab and apply changes.
-- [ ] Submit button calls `addSection` mutation; success toast + nav return; error surfaces in correct field(s).
-- [ ] Backgrounding mid-wizard preserves draft.
-- [ ] Sign-out clears draft.
-- [ ] **Unit tests:** `formToInput` mapping, `SectionFormSchema` validation rules, `AddSectionDraftProvider` persistence + reset on sign-out.
-- [ ] **Detox E2E:** open descent-form → "add section" → fill required fields across tabs → submit → return to descent-form with new section selected.
+- [ ] `pnpm tsc --noEmit` clean from `apps/mobile2/`
+- [ ] App launches; drawer → Add Section navigates to tabs (placeholder tab bodies shown)
+- [ ] Draft provider mounts; `useAddSectionDraft()` returns non-null context in tab screens
+
+---
+
+## 9.6.2 — Main, Attributes, Description, Flows tabs
+
+**Goal:** the four primary-data tabs are real and functional. Navigation to RIVER/GAUGE/SHAPE from inside tabs works (lands on placeholder screens). Season numeric picker works. Keyboard avoidance works on all four tabs.
+
+### Files to create
+
+| File                                                                    | Notes                                                                                                       |
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `src/screens/add-section/utils/index.ts`                                | Port `getShapeError` + other helpers from `utils/shapeUtils.ts`                                             |
+| `src/screens/add-section/main/MainScreen.tsx`                           | Replace `KeyboardAwareScrollView` from `keyboard-aware-scroll-view` with one from `keyboard-controller`     |
+| `src/screens/add-section/main/RiverPlaceholder.tsx`                     | Port as-is                                                                                                  |
+| `src/screens/add-section/main/PiToPlaceholder.tsx`                      | Port as-is                                                                                                  |
+| `src/screens/add-section/main/index.ts`                                 | Re-export                                                                                                   |
+| `src/screens/add-section/attributes/AttributesScreen.tsx`               | Replace `KeyboardAwareScrollView`; add `CheckboxField` for `hidden` / `helpNeeded`                          |
+| `src/screens/add-section/attributes/index.ts`                           | Re-export                                                                                                   |
+| `src/screens/add-section/description/DescriptionScreen.tsx`             | Replace `FullScreenKAV` with `KeyboardAvoidingView` from `keyboard-controller`; add `KeyboardToolbar`       |
+| `src/screens/add-section/description/index.ts`                          | Re-export                                                                                                   |
+| `src/screens/add-section/flows/FlowsScreen.tsx`                         | Replace `listenToKeyboardEvents` hack with `KeyboardAwareScrollView` from `keyboard-controller`             |
+| `src/screens/add-section/flows/GaugePlaceholder.tsx`                    | Port as-is; navigate to `ADD_SECTION_GAUGE` using tab navigator's parent navigation                         |
+| `src/screens/add-section/flows/season/SeasonNumeric.tsx`                | Port as-is                                                                                                  |
+| `src/screens/add-section/flows/season/SeasonNumericField.tsx`           | Port as-is                                                                                                  |
+| `src/screens/add-section/flows/season/Month.tsx`                        | Port as-is                                                                                                  |
+| `src/screens/add-section/flows/season/HalfMonth.tsx`                    | Port as-is                                                                                                  |
+| `src/screens/add-section/flows/season/useGestures.ts`                   | Port as-is                                                                                                  |
+| `src/screens/add-section/flows/season/index.ts`                         | Re-export                                                                                                   |
+| `src/screens/add-section/flows/index.ts`                                | Re-export                                                                                                   |
+
+Also update `AddSectionTabs.tsx` to use the real screen components.
+
+### Keyboard handling
+
+| Tab             | Handling                                                                                |
+| --------------- | --------------------------------------------------------------------------------------- |
+| **Main**        | `KeyboardAwareScrollView` (bottomOffset 35) + `KeyboardToolbar`                         |
+| **Attributes**  | `KeyboardAwareScrollView`; TagsField modal has no keyboard overlap                      |
+| **Description** | `KeyboardAvoidingView behavior="padding"` from `keyboard-controller` + `KeyboardToolbar` with Done |
+| **Flows**       | `KeyboardAwareScrollView` (bottomOffset 35) + `KeyboardToolbar`                         |
+
+### Validation
+
+- [ ] All four tabs render without errors
+- [ ] `pnpm tsc --noEmit` clean
+- [ ] Main tab: river placeholder navigates to (placeholder) River screen; Pi-To placeholders navigate to (placeholder) Shape screen
+- [ ] Flows tab: season numeric picker renders and responds to gestures; gauge placeholder navigates to (placeholder) Gauge screen
+- [ ] Description tab: multiline field expands, keyboard pushes content up
+
+---
+
+## 9.6.3 — Photos tab + Photo edit screen
+
+**Goal:** users can add photos via image picker, see upload progress thumbnails, navigate to an individual photo-edit screen to set caption / copyright / license, and mark photos for deletion.
+
+### Files to create
+
+| File                                                           | Notes                                                                              |
+| -------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `src/screens/add-section/photos/PhotosScreen.tsx`             | Port; uses `useImagePicker` + `PhotoUploadField` from `forms/photo-upload`         |
+| `src/screens/add-section/photos/AddPhotoButton.tsx`           | Port as-is                                                                         |
+| `src/screens/add-section/photos/PhotoThumb.tsx`               | Port; wraps `LocalPhotoView` from `components/photo-picker`                        |
+| `src/screens/add-section/photos/useRemovePhoto.ts`            | Port as-is                                                                         |
+| `src/screens/add-section/photos/index.ts`                     | Re-export                                                                          |
+| `src/screens/add-section/photo/PhotoScreen.tsx`               | Port; receives `{ index, localPhotoId }` from RootStack params                     |
+| `src/screens/add-section/photo/SectionPhotoForm.tsx`          | Port; uses `TextField` + `ModalPickerField` for copyright/license                  |
+| `src/screens/add-section/photo/BackButton.tsx`                | Port as-is; renders as `headerRight` via `setOptions`; sets `headerLeft: null`     |
+| `src/screens/add-section/photo/useKeyboard.ts`                | Port as-is                                                                         |
+| `src/screens/add-section/photo/index.ts`                      | Re-export                                                                          |
+
+Update `AddSectionTabs.tsx` to use `PhotosScreen`.
+
+### Keyboard handling
+
+| Screen  | Handling                                                      |
+| ------- | ------------------------------------------------------------- |
+| Photos  | No text input — n/a                                           |
+| Photo   | `KeyboardAwareScrollView` (bottomOffset 35) + `KeyboardToolbar` |
+
+### Validation
+
+- [ ] Photos tab: add button opens image picker; selected photo shows as thumbnail with upload progress indicator
+- [ ] Tapping thumbnail navigates to Photo edit screen
+- [ ] Photo edit screen: caption + copyright + license fields editable; back button returns to Photos tab with changes reflected
+- [ ] `pnpm tsc --noEmit` clean
+
+---
+
+## 9.6.4 — River + Gauge modal screens
+
+**Goal:** users can search for and select a river (or create new); users can search for and select a gauge (or create new via dialog). Both screens write to the draft on selection and `goBack()`.
+
+### Files to create
+
+| File                                                         | Notes                                                                              |
+| ------------------------------------------------------------ | ---------------------------------------------------------------------------------- |
+| `src/screens/add-section/river/RiverScreen.tsx`             | Port; search input + `FlashList` of results; selection writes `draft.river`        |
+| `src/screens/add-section/river/RiversListItem.tsx`          | Port as-is                                                                         |
+| `src/screens/add-section/river/RiversListItemBody.tsx`      | Port as-is                                                                         |
+| `src/screens/add-section/river/RiversListRiverItem.tsx`     | Port as-is                                                                         |
+| `src/screens/add-section/river/RiversListSection.tsx`       | Port as-is                                                                         |
+| `src/screens/add-section/river/RiversListSeparator.tsx`     | Port as-is                                                                         |
+| `src/screens/add-section/river/useRiversSearch.tsx`         | Port; use `useAddSectionRegion()` from draft context                               |
+| `src/screens/add-section/river/findRivers.gql`              | Port as-is; run codegen                                                            |
+| `src/screens/add-section/river/index.ts`                    | Re-export                                                                          |
+| `src/screens/add-section/gauge/GaugeScreen.tsx`             | Port; search input + `FlashList` + create-gauge dialog                             |
+| `src/screens/add-section/gauge/GaugeListHeader.tsx`         | Port as-is                                                                         |
+| `src/screens/add-section/gauge/GaugesListItem.tsx`          | Port as-is                                                                         |
+| `src/screens/add-section/gauge/GaugesListSeparator.tsx`     | Port as-is                                                                         |
+| `src/screens/add-section/gauge/EmptyListPlaceholder.tsx`    | Port as-is                                                                         |
+| `src/screens/add-section/gauge/useGaugesQuery.ts`           | Port; use `useAddSectionRegion()`                                                  |
+| `src/screens/add-section/gauge/findGauges.gql`              | Port as-is; run codegen                                                            |
+| `src/screens/add-section/gauge/index.ts`                    | Re-export                                                                          |
+
+**Draft↔Formik sync for river/gauge:** each screen calls `setDraft` before `goBack()`. The tabs screen's `useFocusEffect` calls `setFieldValue('river', draft.river)` / `setFieldValue('gauge', draft.gauge)` when it regains focus and the draft value differs from Formik's current value.
+
+Replace `FlatList` with `FlashList` (consistent with Phase 6).
+
+### Keyboard handling
+
+| Screen | Handling                                                            |
+| ------ | ------------------------------------------------------------------- |
+| River  | `KeyboardAvoidingView` wrapping search bar; list scrolls freely     |
+| Gauge  | `KeyboardAvoidingView`; create dialog uses Paper `Dialog`           |
+
+### Validation
+
+- [ ] River screen: typing filters list; selecting a river writes it to draft and returns to Main tab showing the river name
+- [ ] Gauge screen: typing filters list; selecting a gauge writes it to draft and returns to Flows tab showing the gauge name; create-new dialog creates gauge via mutation and selects it
+- [ ] `pnpm tsc --noEmit` clean
+
+---
+
+## 9.6.5 — Shape screen (PiToMap + PiToControl + dialog)
+
+**Goal:** users can place Put-In and Take-Out coordinates on a map, enter them manually via dialog (with clipboard support), and commit the shape to the draft.
+
+### Files to create
+
+| File                                                          | Notes                                                                              |
+| ------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `src/screens/add-section/shape/ShapeScreen.tsx`              | Port; sets `headerRight: <DoneButton />` via `setOptions`; writes shape to draft on Done |
+| `src/screens/add-section/shape/PiToMap.tsx`                  | Port; wraps `MapboxGL.MapView` + markers for put-in / take-out                     |
+| `src/screens/add-section/shape/PiToOverlay.tsx`              | Port as-is; HUD showing current coords above the map                               |
+| `src/screens/add-section/shape/PiToControl.tsx`              | Port as-is; bottom sheet with Put-In / Take-Out toggle buttons                     |
+| `src/screens/add-section/shape/PiToField.tsx`                | Port as-is; renders one coordinate row                                             |
+| `src/screens/add-section/shape/DoneButton.tsx`               | Port as-is; `Appbar.Action`; disabled until both coords set                        |
+| `src/screens/add-section/shape/usePiToState.ts`              | Port as-is; local state machine for Put-In / Take-Out selection                    |
+| `src/screens/add-section/shape/notifier.ts`                  | Port as-is                                                                         |
+| `src/screens/add-section/shape/dialog/PiToDialog.tsx`        | Port; Paper `Dialog` with coordinate text fields + clipboard support               |
+| `src/screens/add-section/shape/dialog/PiToDialogContent.tsx` | Port as-is                                                                         |
+| `src/screens/add-section/shape/dialog/PiToPointHeader.tsx`   | Port as-is                                                                         |
+| `src/screens/add-section/shape/dialog/useClipboardCoordinate.tsx` | Port as-is                                                                    |
+| `src/screens/add-section/shape/dialog/validation.ts`         | Port as-is                                                                         |
+| `src/screens/add-section/shape/dialog/index.ts`              | Re-export                                                                          |
+| `src/screens/add-section/shape/index.ts`                     | Re-export                                                                          |
+
+**Draft↔Formik sync for shape:** `ShapeScreen` calls `setDraft((d) => ({ ...d, shape: piToState.shape }))` before navigating back. The tabs screen's `useFocusEffect` calls `setFieldValue('shape', draft.shape)`.
+
+**Note:** Shape screen has no keyboard input — no keyboard handling needed.
+
+### Validation
+
+- [ ] Shape screen opens with existing put-in / take-out markers if already set in draft
+- [ ] Tapping map sets the active point; DoneButton enables when both points are set
+- [ ] Manual entry dialog accepts lat/lng text or paste from clipboard
+- [ ] Done → returns to Main tab with Pi-To placeholder fields showing the coordinates
+- [ ] `pnpm tsc --noEmit` clean
 
 ---
 

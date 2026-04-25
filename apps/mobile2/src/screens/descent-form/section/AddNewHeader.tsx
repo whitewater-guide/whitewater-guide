@@ -30,7 +30,7 @@ function AddNewHeader() {
   const onPress = useCallback(() => {
     navigation.dispatch((state) =>
       CommonActions.navigate({
-        name: Screens.ADD_SECTION_SCREEN,
+        name: Screens.ADD_SECTION_TABS,
         params: { fromDescentFormKey: state.key },
       }),
     );

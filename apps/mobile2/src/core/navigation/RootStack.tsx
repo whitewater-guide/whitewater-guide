@@ -5,7 +5,12 @@ import { Platform } from 'react-native';
 
 import { getHeaderRenderer } from '../../components/header';
 import PlaceholderScreen from '../../components/PlaceholderScreen';
-import AddSectionStack from '../../screens/add-section/AddSectionStack';
+import AddSectionTabsScreen from '../../screens/add-section/AddSectionTabsScreen';
+import { GaugeScreen } from '../../screens/add-section/gauge';
+import { PhotoScreen } from '../../screens/add-section/photo';
+import { RiverScreen } from '../../screens/add-section/river';
+import { ShapeScreen } from '../../screens/add-section/shape';
+import SubmitButton from '../../screens/add-section/SubmitButton';
 import {
   AuthMainScreen,
   ForgotScreen,
@@ -79,9 +84,45 @@ function RootStack() {
       />
 
       <Stack.Screen
-        name={Screens.ADD_SECTION_SCREEN}
-        component={AddSectionStack}
-        options={{ headerShown: false }}
+        name={Screens.ADD_SECTION_TABS}
+        component={AddSectionTabsScreen}
+        options={{
+          ...innerScreenOptions,
+          headerTitle: t('screens:addSection.headerTitle'),
+          headerRight: () => <SubmitButton />,
+        }}
+      />
+      <Stack.Screen
+        name={Screens.ADD_SECTION_RIVER}
+        component={RiverScreen}
+        options={{
+          ...innerScreenOptions,
+          headerTitle: t('screens:addSection.river.title'),
+        }}
+      />
+      <Stack.Screen
+        name={Screens.ADD_SECTION_GAUGE}
+        component={GaugeScreen}
+        options={{
+          ...innerScreenOptions,
+          headerTitle: t('screens:addSection.gauge.title'),
+        }}
+      />
+      <Stack.Screen
+        name={Screens.ADD_SECTION_SHAPE}
+        component={ShapeScreen}
+        options={{
+          ...innerScreenOptions,
+          headerTitle: t('screens:addSection.shape.title'),
+        }}
+      />
+      <Stack.Screen
+        name={Screens.ADD_SECTION_PHOTO}
+        component={PhotoScreen}
+        options={{
+          ...innerScreenOptions,
+          headerTitle: t('screens:addSection.photo.title'),
+        }}
       />
 
       <Stack.Screen

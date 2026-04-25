@@ -5,7 +5,11 @@ import { useTranslation } from 'react-i18next';
 import type { AddSectionTabsParamsList } from '../../core/navigation';
 import { Screens } from '../../core/navigation';
 import theme from '../../theme';
-import { MockAddSectionTabScreen } from '../mock';
+import AttributesScreen from './attributes';
+import DescriptionScreen from './description';
+import FlowsScreen from './flows';
+import MainScreen from './main';
+import { PhotosScreen } from './photos';
 
 const screenOptions: MaterialTopTabNavigationOptions = {
   swipeEnabled: false,
@@ -31,7 +35,7 @@ function AddSectionTabs() {
     <Tab.Navigator tabBarPosition="bottom" screenOptions={screenOptions}>
       <Tab.Screen
         name={Screens.ADD_SECTION_MAIN}
-        component={MockAddSectionTabScreen}
+        component={MainScreen}
         options={{
           tabBarLabel: t('screens:addSection.tabs.main'),
           tabBarButtonTestID: `tab:${Screens.ADD_SECTION_MAIN}`,
@@ -39,7 +43,7 @@ function AddSectionTabs() {
       />
       <Tab.Screen
         name={Screens.ADD_SECTION_ATTRIBUTES}
-        component={MockAddSectionTabScreen}
+        component={AttributesScreen}
         options={{
           tabBarLabel: t('screens:addSection.tabs.attributes'),
           tabBarButtonTestID: `tab:${Screens.ADD_SECTION_ATTRIBUTES}`,
@@ -47,7 +51,7 @@ function AddSectionTabs() {
       />
       <Tab.Screen
         name={Screens.ADD_SECTION_DESCRIPTION}
-        component={MockAddSectionTabScreen}
+        component={DescriptionScreen}
         options={{
           tabBarLabel: t('screens:addSection.tabs.description'),
           tabBarButtonTestID: `tab:${Screens.ADD_SECTION_DESCRIPTION}`,
@@ -55,7 +59,7 @@ function AddSectionTabs() {
       />
       <Tab.Screen
         name={Screens.ADD_SECTION_FLOWS}
-        component={MockAddSectionTabScreen}
+        component={FlowsScreen}
         options={{
           tabBarLabel: t('screens:addSection.tabs.flows'),
           tabBarButtonTestID: `tab:${Screens.ADD_SECTION_FLOWS}`,
@@ -63,7 +67,7 @@ function AddSectionTabs() {
       />
       <Tab.Screen
         name={Screens.ADD_SECTION_PHOTOS}
-        component={MockAddSectionTabScreen}
+        component={PhotosScreen}
         options={{
           tabBarLabel: t('screens:addSection.tabs.photos'),
           tabBarButtonTestID: `tab:${Screens.ADD_SECTION_PHOTOS}`,

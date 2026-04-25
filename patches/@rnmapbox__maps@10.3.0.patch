@@ -1,0 +1,176 @@
+diff --git a/ios/RNMBX/RNMBXImages.swift b/ios/RNMBX/RNMBXImages.swift
+index b89393de28db72f0eb2c10a3ca6f936ad58dcf5e..531c94e9c215c6dd91a9ac6da10fb9cdc02cc987 100644
+--- a/ios/RNMBX/RNMBXImages.swift
++++ b/ios/RNMBX/RNMBXImages.swift
+@@ -130,6 +130,10 @@ open class RNMBXImages : UIView, RNMBXMapComponent {
+     }
+     
+     if missingImages.count > 0 {
++      guard let bridge = bridge else {
++        Logger.log(level: .warn, message: "RNMBXImages: skipping image fetch, RCTBridge unavailable (bridgeless)")
++        return
++      }
+       RNMBXUtils.fetchImages(bridge, style: style, objects: missingImages, forceUpdate: true) { name, image in
+         self.loadedImages.insert(name)
+         self.imageManager?.resolve(name: name, image: image)
+diff --git a/ios/RNMBX/RNMBXStyle.swift b/ios/RNMBX/RNMBXStyle.swift
+index 20e362048a23b53d0ce119019949071a521e5e36..fc6c75489b3d8b9b5e26c3362aea6e566cde4b16 100644
+--- a/ios/RNMBX/RNMBXStyle.swift
++++ b/ios/RNMBX/RNMBXStyle.swift
+@@ -53,7 +53,7 @@ func fillLayer(layer: inout FillLayer, reactStyle:Dictionary<String, Any>, oldRe
+       self.setFillTranslateAnchor(&layer, styleValue:styleValue);
+     } else if (prop == "fillPattern") {
+       styleValue.setImage(
+-        bridge: bridge!,
++        bridge: bridge,
+         style: style,
+         oldValue: oldReactStyle?[prop],
+         setImageOnLayer: { (_) in self.setFillPattern(&layer, styleValue:styleValue) },
+@@ -63,7 +63,7 @@ func fillLayer(layer: inout FillLayer, reactStyle:Dictionary<String, Any>, oldRe
+       )
+     } else if (prop == "fillPatternCrossFade") {
+       styleValue.setImage(
+-        bridge: bridge!,
++        bridge: bridge,
+         style: style,
+         oldValue: oldReactStyle?[prop],
+         setImageOnLayer: { (_) in self.setFillPatternCrossFade(&layer, styleValue:styleValue) },
+@@ -142,7 +142,7 @@ func lineLayer(layer: inout LineLayer, reactStyle:Dictionary<String, Any>, oldRe
+       self.setLineDasharray(&layer, styleValue:styleValue);
+     } else if (prop == "linePattern") {
+       styleValue.setImage(
+-        bridge: bridge!,
++        bridge: bridge,
+         style: style,
+         oldValue: oldReactStyle?[prop],
+         setImageOnLayer: { (_) in self.setLinePattern(&layer, styleValue:styleValue) },
+@@ -170,7 +170,7 @@ func lineLayer(layer: inout LineLayer, reactStyle:Dictionary<String, Any>, oldRe
+       self.setLineCrossSlope(&layer, styleValue:styleValue);
+     } else if (prop == "linePatternCrossFade") {
+       styleValue.setImage(
+-        bridge: bridge!,
++        bridge: bridge,
+         style: style,
+         oldValue: oldReactStyle?[prop],
+         setImageOnLayer: { (_) in self.setLinePatternCrossFade(&layer, styleValue:styleValue) },
+@@ -239,7 +239,7 @@ func symbolLayer(layer: inout SymbolLayer, reactStyle:Dictionary<String, Any>, o
+       self.setIconTextFitPadding(&layer, styleValue:styleValue);
+     } else if (prop == "iconImage") {
+       styleValue.setImage(
+-        bridge: bridge!,
++        bridge: bridge,
+         style: style,
+         oldValue: oldReactStyle?[prop],
+         setImageOnLayer: { (_) in self.setIconImage(&layer, styleValue:styleValue) },
+@@ -375,7 +375,7 @@ func symbolLayer(layer: inout SymbolLayer, reactStyle:Dictionary<String, Any>, o
+       self.setTextEmissiveStrengthTransition(&layer, styleValue:styleValue);
+     } else if (prop == "iconImageCrossFade") {
+       styleValue.setImage(
+-        bridge: bridge!,
++        bridge: bridge,
+         style: style,
+         oldValue: oldReactStyle?[prop],
+         setImageOnLayer: { (_) in self.setIconImageCrossFade(&layer, styleValue:styleValue) },
+@@ -542,7 +542,7 @@ func fillExtrusionLayer(layer: inout FillExtrusionLayer, reactStyle:Dictionary<S
+       self.setFillExtrusionTranslateAnchor(&layer, styleValue:styleValue);
+     } else if (prop == "fillExtrusionPattern") {
+       styleValue.setImage(
+-        bridge: bridge!,
++        bridge: bridge,
+         style: style,
+         oldValue: oldReactStyle?[prop],
+         setImageOnLayer: { (_) in self.setFillExtrusionPattern(&layer, styleValue:styleValue) },
+@@ -572,7 +572,7 @@ func fillExtrusionLayer(layer: inout FillExtrusionLayer, reactStyle:Dictionary<S
+       self.setFillExtrusionRoundedRoof(&layer, styleValue:styleValue);
+     } else if (prop == "fillExtrusionPatternCrossFade") {
+       styleValue.setImage(
+-        bridge: bridge!,
++        bridge: bridge,
+         style: style,
+         oldValue: oldReactStyle?[prop],
+         setImageOnLayer: { (_) in self.setFillExtrusionPatternCrossFade(&layer, styleValue:styleValue) },
+@@ -891,7 +891,7 @@ func backgroundLayer(layer: inout BackgroundLayer, reactStyle:Dictionary<String,
+       self.setBackgroundColorTransition(&layer, styleValue:styleValue);
+     } else if (prop == "backgroundPattern") {
+       styleValue.setImage(
+-        bridge: bridge!,
++        bridge: bridge,
+         style: style,
+         oldValue: oldReactStyle?[prop],
+         setImageOnLayer: { (_) in self.setBackgroundPattern(&layer, styleValue:styleValue) },
+diff --git a/ios/RNMBX/RNMBXStyleValue.swift b/ios/RNMBX/RNMBXStyleValue.swift
+index b5400933cbd3f37947fe3404ec80c23c83287b0d..826834c46513acf717ce0f254f100068822d6e58 100644
+--- a/ios/RNMBX/RNMBXStyleValue.swift
++++ b/ios/RNMBX/RNMBXStyleValue.swift
+@@ -450,7 +450,7 @@ class RNMBXStyleValue {
+   }
+ 
+   func setImage(
+-    bridge: RCTBridge,
++    bridge: RCTBridge?,
+     style: Style,
+     oldValue: Any?,
+     setImageOnLayer: (_: RNMBXStyleValue) -> Void,
+@@ -460,35 +460,40 @@ class RNMBXStyleValue {
+   ) {
+     if (!shouldAddImage()) {
+       setImageOnLayer(self)
+-    } else {
+-      let imageURI = getImageURI()
+-
+-      if let oldRawValue = oldValue as? [String:Any] {
+-        if let oldRawValue = oldRawValue["stylevalue"] as? [String:Any] {
+-          if let oldValue = parse(rawStyleValue: oldRawValue) as? [String:Any] {
+-            if getImageURI(oldValue) == imageURI {
+-              setImageOnLayer(self)
+-              return
+-            }
++      return
++    }
++    let imageURI = getImageURI()
++
++    if let oldRawValue = oldValue as? [String:Any] {
++      if let oldRawValue = oldRawValue["stylevalue"] as? [String:Any] {
++        if let oldValue = parse(rawStyleValue: oldRawValue) as? [String:Any] {
++          if getImageURI(oldValue) == imageURI {
++            setImageOnLayer(self)
++            return
+           }
+         }
+       }
++    }
+ 
+-      RNMBXUtils.fetchImage(bridge, url:imageURI, scale:getImageScale(), callback:{ (error, image) in
+-        if let image = image {
+-          DispatchQueue.main.sync {
+-            if (isLayerStillValid()) {
+-              logged("\(name).addImage") {
+-                try style.addImage(image, id:imageURI!, stretchX: [], stretchY: []);
+-                setImageOnLayerLater(self)
+-              }
++    guard let bridge = bridge else {
++      Logger.log(level: .warn, message: "\(name): skipping image fetch, RCTBridge unavailable (bridgeless)")
++      return
++    }
++
++    RNMBXUtils.fetchImage(bridge, url:imageURI, scale:getImageScale(), callback:{ (error, image) in
++      if let image = image {
++        DispatchQueue.main.sync {
++          if (isLayerStillValid()) {
++            logged("\(name).addImage") {
++              try style.addImage(image, id:imageURI!, stretchX: [], stretchY: []);
++              setImageOnLayerLater(self)
+             }
+           }
+-        } else {
+-          Logger.log(level: .error, message: "Error during fetchImage: \(optional: error)")
+         }
+-      });
+-    }
++      } else {
++        Logger.log(level: .error, message: "Error during fetchImage: \(optional: error)")
++      }
++    });
+   }
+ 
+   func getImageURI(_ dict: [String:Any]) -> String? {

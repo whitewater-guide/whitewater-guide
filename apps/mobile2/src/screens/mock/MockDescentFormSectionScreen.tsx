@@ -15,9 +15,9 @@ const MockDescentFormSectionScreen: React.FC = () => {
     <MockScreenWrapper>
       <MockButton
         label="Add New Section"
-        testID="mock:navigate:ADD_SECTION_SCREEN"
+        testID="mock:navigate:ADD_SECTION_TABS"
         onPress={() =>
-          rootNavigation.navigate(Screens.ADD_SECTION_SCREEN, {
+          rootNavigation.navigate(Screens.ADD_SECTION_TABS, {
             fromDescentFormKey: 'mock-key',
           })
         }

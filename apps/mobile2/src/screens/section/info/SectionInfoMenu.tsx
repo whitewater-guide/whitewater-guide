@@ -43,7 +43,7 @@ function SectionInfoMenu({ section }: Props) {
   }, [closeMenu, section.name]);
 
   const onEdit = gated(() =>
-    navigation.navigate(Screens.ADD_SECTION_SCREEN, {}),
+    navigation.navigate(Screens.ADD_SECTION_TABS, {}),
   );
 
   const onSuggest = gated(() =>

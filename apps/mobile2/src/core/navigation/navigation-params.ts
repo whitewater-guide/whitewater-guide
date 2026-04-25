@@ -34,14 +34,6 @@ export type AddSectionTabsParamsList = {
   [Screens.ADD_SECTION_PHOTOS]: undefined;
 };
 
-export type AddSectionStackParamsList = {
-  [Screens.ADD_SECTION_TABS]: undefined;
-  [Screens.ADD_SECTION_RIVER]: undefined;
-  [Screens.ADD_SECTION_GAUGE]: undefined;
-  [Screens.ADD_SECTION_SHAPE]: undefined;
-  [Screens.ADD_SECTION_PHOTO]: undefined;
-};
-
 export type RootStackParamsList = {
   [Screens.REGIONS_LIST]: undefined;
   [Screens.REGION_STACK]: { regionId: string };
@@ -84,8 +76,15 @@ export type RootStackParamsList = {
   [Screens.DESCENT]: {
     descentId: string;
   };
-  [Screens.ADD_SECTION_SCREEN]: {
+  [Screens.ADD_SECTION_TABS]: {
     fromDescentFormKey?: string;
+  };
+  [Screens.ADD_SECTION_RIVER]: undefined;
+  [Screens.ADD_SECTION_GAUGE]: undefined;
+  [Screens.ADD_SECTION_SHAPE]: undefined;
+  [Screens.ADD_SECTION_PHOTO]: {
+    index: number;
+    localPhotoId: string;
   };
   [Screens.AUTH_MAIN]: undefined;
   [Screens.AUTH_SIGN_IN]: undefined;
