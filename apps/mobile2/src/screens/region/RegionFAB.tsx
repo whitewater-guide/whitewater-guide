@@ -4,7 +4,7 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, StyleSheet } from 'react-native';
-import { FAB } from 'react-native-paper';
+import { FAB, Portal } from 'react-native-paper';
 
 import { useAuth } from '../../core/auth';
 import type { RootStackParamsList } from '../../core/navigation';
@@ -13,8 +13,6 @@ import theme from '../../theme';
 
 const styles = StyleSheet.create({
   fab: {
-    position: 'absolute',
-    right: theme.margin.double,
     bottom:
       theme.margin.double +
       theme.materialBottomBarHeight +
@@ -50,33 +48,42 @@ function RegionFAB() {
       {
         icon: 'map-plus',
         label: t('screens:region.fab.addSection'),
-        onPress: gated(() =>
-          navigation.navigate(Screens.ADD_SECTION_TABS, {}),
-        ),
+        onPress: gated(() => navigation.navigate(Screens.ADD_SECTION_TABS, {})),
         testID: 'fab:add-section',
+        // wrapperStyle: { paddingBottom: 32 },
       },
       {
         icon: 'calendar-plus',
         label: t('screens:region.fab.addDescent'),
         onPress: gated(() =>
-          navigation.navigate(Screens.DESCENT_FORM_SECTION, { regionId: 'xxx' }),
+          navigation.navigate(Screens.DESCENT_FORM_SECTION, {
+            regionId: 'xxx',
+          }),
         ),
         testID: 'fab:add-descent',
+        wrapperStyle: {
+          paddingBottom:
+            theme.margin.double +
+            theme.materialBottomBarHeight +
+            (Platform.OS === 'ios' ? 16 : 0),
+        },
       },
     ],
     [navigation, t, gated],
   );
 
   return (
-    <FAB.Group
-      testID="fab:main"
-      open={open}
-      visible
-      icon="plus"
-      actions={actions}
-      onStateChange={onStateChange}
-      style={styles.fab}
-    />
+    <Portal>
+      <FAB.Group
+        testID="fab:main"
+        open={open}
+        visible
+        icon="plus"
+        actions={actions}
+        onStateChange={onStateChange}
+        fabStyle={styles.fab}
+      />
+    </Portal>
   );
 }
 
