@@ -1,23 +1,16 @@
-import { LocalPhotoStatus } from '@whitewater-guide/clients';
-import { getIn, useFormikContext } from 'formik';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'react-native-paper';
 
-import type { LocalPhoto } from '../../../features/uploads';
 import theme from '../../../theme';
-import type { MediaFormInput } from '../types';
 
 interface Props {
-  index: number;
+  isBusy: boolean;
   onPress: () => void;
 }
 
-function BackButton({ index, onPress }: Props) {
+function BackButton({ isBusy, onPress }: Props) {
   const { t } = useTranslation();
-  const { values } = useFormikContext<{ media: MediaFormInput[] }>();
-  const value: LocalPhoto | undefined = getIn(values, `media.${index}.photo`);
-  const isBusy = value && value.status !== LocalPhotoStatus.READY;
 
   return (
     <Button

@@ -1,10 +1,11 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Formik, useFormikContext } from 'formik';
+import { LocalPhotoStatus } from '@whitewater-guide/clients';
+import { Formik, getIn, useFormikContext } from 'formik';
 import { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
 
 import Screen from '../../../components/Screen';
-import type { RootStackParamsList } from '../../../core/navigation';
-import { Screens } from '../../../core/navigation';
+import type { RootStackParamsList , Screens } from '../../../core/navigation';
+import type { LocalPhoto } from '../../../features/uploads';
 import { useAddSectionDraft } from '../AddSectionDraftContext';
 import type { MediaFormInput } from '../types';
 import BackButton from './BackButton';
@@ -31,6 +32,9 @@ function PhotoScreenBody({ index, localPhotoId, navigation }: BodyProps) {
   const valuesRef = useRef(values);
   valuesRef.current = values;
 
+  const photo: LocalPhoto | undefined = getIn(values, `media.${index}.photo`);
+  const isBusy = !!photo && photo.status !== LocalPhotoStatus.READY;
+
   const onDone = useCallback(() => {
     setDraft((prev) => {
       const nextMedia = (prev.media ?? []).slice();
@@ -43,9 +47,9 @@ function PhotoScreenBody({ index, localPhotoId, navigation }: BodyProps) {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => null,
-      headerRight: () => <BackButton index={index} onPress={onDone} />,
+      headerRight: () => <BackButton isBusy={isBusy} onPress={onDone} />,
     });
-  }, [navigation, index, onDone]);
+  }, [navigation, isBusy, onDone]);
 
   return <SectionPhotoForm index={index} localPhotoId={localPhotoId} />;
 }
@@ -63,7 +67,10 @@ function PhotoScreen({ navigation, route }: Props) {
 
   return (
     <Screen>
-      <Formik<PhotoFormValues> initialValues={initialValues} onSubmit={() => {}}>
+      <Formik<PhotoFormValues>
+        initialValues={initialValues}
+        onSubmit={() => {}}
+      >
         <PhotoScreenBody
           index={index}
           localPhotoId={localPhotoId}

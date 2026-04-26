@@ -24,17 +24,20 @@ function PhotosScreen() {
   const ctxRef = useRef(ctx);
   ctxRef.current = ctx;
 
-  const cleanup = useCallback(() => {
-    const { setFieldValue, values } = ctxRef.current;
-    setFieldValue(
-      'media',
-      values.media.filter((item) => item?.photo?.url),
-    );
-  }, []);
+  useFocusEffect(
+    useCallback(
+      () => () => {
+        const { setFieldValue, values } = ctxRef.current;
+        const filtered = values.media.filter((item) => item?.photo?.url);
+        if (filtered.length !== values.media.length) {
+          setFieldValue('media', filtered);
+        }
+      },
+      [],
+    ),
+  );
 
   const removePhoto = useRemovePhoto();
-
-  useFocusEffect(cleanup);
 
   return (
     <Screen>

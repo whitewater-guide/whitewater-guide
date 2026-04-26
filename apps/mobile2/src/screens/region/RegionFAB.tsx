@@ -4,7 +4,7 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, StyleSheet } from 'react-native';
-import { FAB, Portal } from 'react-native-paper';
+import { FAB } from 'react-native-paper';
 
 import { useAuth } from '../../core/auth';
 import type { RootStackParamsList } from '../../core/navigation';
@@ -73,17 +73,15 @@ function RegionFAB() {
   );
 
   return (
-    <Portal>
-      <FAB.Group
-        testID="fab:main"
-        open={open}
-        visible
-        icon="plus"
-        actions={actions}
-        onStateChange={onStateChange}
-        fabStyle={styles.fab}
-      />
-    </Portal>
+    <FAB.Group
+      testID="fab:main"
+      open={open}
+      visible
+      icon="plus"
+      actions={actions}
+      onStateChange={onStateChange}
+      fabStyle={styles.fab}
+    />
   );
 }
 

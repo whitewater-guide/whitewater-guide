@@ -2,12 +2,11 @@ import { useFocusEffect } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { createSafeValidator } from '@whitewater-guide/validation';
 import { Formik, useFormikContext } from 'formik';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 
-import type { RootStackParamsList } from '../../core/navigation';
-import { Screens } from '../../core/navigation';
-import AddSectionTabs from './AddSectionTabs';
+import type { RootStackParamsList , Screens } from '../../core/navigation';
 import { useAddSectionDraft } from './AddSectionDraftContext';
+import AddSectionTabs from './AddSectionTabs';
 import type { SectionFormInput } from './types';
 import useAddSection from './useAddSection';
 import { SectionFormSchema } from './validation';
@@ -20,34 +19,28 @@ type Props = NativeStackScreenProps<
 const validator = createSafeValidator(SectionFormSchema);
 
 function DraftToFormikSync() {
-  const { values, setFieldValue } = useFormikContext<SectionFormInput>();
+  const ctx = useFormikContext<SectionFormInput>();
   const { draft } = useAddSectionDraft();
+  const stateRef = useRef({ ctx, draft });
+  stateRef.current = { ctx, draft };
 
   useFocusEffect(
     useCallback(() => {
-      if (draft.media && draft.media !== values.media) {
-        setFieldValue('media', draft.media);
+      const { ctx: c, draft: d } = stateRef.current;
+      const { values, setFieldValue } = c;
+      if (d.media && d.media !== values.media) {
+        setFieldValue('media', d.media);
       }
-      if (draft.river && draft.river !== values.river) {
-        setFieldValue('river', draft.river);
+      if (d.river && d.river !== values.river) {
+        setFieldValue('river', d.river);
       }
-      if (draft.gauge !== undefined && draft.gauge !== values.gauge) {
-        setFieldValue('gauge', draft.gauge);
+      if (d.gauge !== undefined && d.gauge !== values.gauge) {
+        setFieldValue('gauge', d.gauge);
       }
-      if (draft.shape && draft.shape !== values.shape) {
-        setFieldValue('shape', draft.shape);
+      if (d.shape && d.shape !== values.shape) {
+        setFieldValue('shape', d.shape);
       }
-    }, [
-      draft.media,
-      draft.river,
-      draft.gauge,
-      draft.shape,
-      values.media,
-      values.river,
-      values.gauge,
-      values.shape,
-      setFieldValue,
-    ]),
+    }, []),
   );
 
   return null;
