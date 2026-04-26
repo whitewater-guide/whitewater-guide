@@ -4,9 +4,7 @@ import { ensureAltitude } from '@whitewater-guide/clients';
 import type { SectionInput } from '@whitewater-guide/schema';
 import round from 'lodash/round';
 import type { MutableRefObject } from 'react';
-import { useEffect, useMemo, useReducer, useRef } from 'react';
-
-import notifier from './notifier';
+import { useMemo, useReducer, useRef } from 'react';
 
 export interface PiToState {
   shape: [CodegenCoordinates | undefined, CodegenCoordinates | undefined];
@@ -16,7 +14,11 @@ export interface PiToState {
 type Action =
   | { type: 'select'; selected: PiToState['selected'] }
   | { type: 'move'; coordinate: CodegenCoordinates }
+  | { type: 'setOne'; index: 0 | 1; coordinate: CodegenCoordinates }
   | { type: 'set'; shape: [CodegenCoordinates, CodegenCoordinates] };
+
+const roundCoord = (coordinate: CodegenCoordinates): CodegenCoordinates =>
+  ensureAltitude(coordinate).map((n) => round(n, 4)) as CodegenCoordinates;
 
 const reducer = (state: PiToState, action: Action): PiToState => {
   if (action.type === 'select') {
@@ -27,9 +29,12 @@ const reducer = (state: PiToState, action: Action): PiToState => {
       return state;
     }
     const shape: PiToState['shape'] = [...state.shape] as PiToState['shape'];
-    shape[state.selected] = ensureAltitude(action.coordinate).map((n) =>
-      round(n, 4),
-    ) as CodegenCoordinates;
+    shape[state.selected] = roundCoord(action.coordinate);
+    return { ...state, shape };
+  }
+  if (action.type === 'setOne') {
+    const shape: PiToState['shape'] = [...state.shape] as PiToState['shape'];
+    shape[action.index] = roundCoord(action.coordinate);
     return { ...state, shape };
   }
   if (action.type === 'set') {
@@ -57,13 +62,21 @@ interface Hook {
 export const usePiToState = (initialShape: SectionInput['shape']): Hook => {
   const mapRef = useRef<Mapbox.MapView | null>(null);
   const [state, dispatch] = useReducer(reducer, initialShape, initState);
+  const stateRef = useRef(state);
+  stateRef.current = state;
+
   const actions = useMemo(
     () => ({
       select: (selected: PiToState['selected']) => {
         if (mapRef.current && selected === -1) {
-          mapRef.current.getCenter().then((coordinate: Coordinate2d) => {
-            dispatch({ type: 'move', coordinate });
-          });
+          // Capture the slot before deselect — the async getCenter must not
+          // race the synchronous select dispatch (state.selected becomes -1).
+          const prev = stateRef.current.selected;
+          if (prev !== -1) {
+            mapRef.current.getCenter().then((coordinate: Coordinate2d) => {
+              dispatch({ type: 'setOne', index: prev, coordinate });
+            });
+          }
         }
         dispatch({ type: 'select', selected });
       },
@@ -74,10 +87,6 @@ export const usePiToState = (initialShape: SectionInput['shape']): Hook => {
     }),
     [],
   );
-
-  useEffect(() => {
-    notifier.notify(state.shape);
-  }, [state.shape]);
 
   return {
     state,

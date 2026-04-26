@@ -78,11 +78,13 @@ function ShapeScreen({ navigation }: Props) {
   const [moving, setMoving] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
 
+  const doneDisabled = !state.shape[0] || !state.shape[1];
+
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: () => <DoneButton />,
+      headerRight: () => <DoneButton disabled={doneDisabled} />,
     });
-  }, [navigation]);
+  }, [navigation, doneDisabled]);
 
   useLayoutEffect(() => {
     return () => {

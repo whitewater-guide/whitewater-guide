@@ -10,6 +10,7 @@ import { Screens } from '../../../core/navigation';
 import type { LocalPhoto } from '../../../features/uploads';
 import { useImagePicker, useLocalPhotos } from '../../../features/uploads';
 import theme from '../../../theme';
+import { useAddSectionDraft } from '../AddSectionDraftContext';
 import type { MediaFormInput, SectionFormInput } from '../types';
 
 const screenWidth = Dimensions.get('window').width;
@@ -34,20 +35,14 @@ function AddPhotoButton({ index }: Props) {
   const navigation = useNavigation();
   const { values, setFieldValue, setFieldTouched } =
     useFormikContext<SectionFormInput>();
-
-  const push = useCallback(
-    (input: MediaFormInput) => {
-      setFieldValue('media', [...values.media, input]);
-    },
-    [values, setFieldValue],
-  );
+  const { setDraft } = useAddSectionDraft();
 
   const { upload } = useLocalPhotos();
   const { me } = useAuth();
 
   const onPick = useCallback(
     (photo: LocalPhoto) => {
-      push({
+      const input: MediaFormInput = {
         id: null,
         description: null,
         copyright: me ? me.name : null,
@@ -55,7 +50,12 @@ function AddPhotoButton({ index }: Props) {
         weight: null,
         photo,
         license: null,
-      });
+      };
+      setFieldValue('media', [...values.media, input]);
+      setDraft((prev) => ({
+        ...prev,
+        media: [...(prev.media ?? []), input],
+      }));
       navigation.navigate(Screens.ADD_SECTION_PHOTO, {
         localPhotoId: photo.id,
         index,
@@ -64,7 +64,16 @@ function AddPhotoButton({ index }: Props) {
         setFieldTouched(`media.${index}.photo`, true);
       });
     },
-    [push, navigation, me, upload, setFieldTouched, index],
+    [
+      values,
+      setFieldValue,
+      setDraft,
+      navigation,
+      me,
+      upload,
+      setFieldTouched,
+      index,
+    ],
   );
 
   const pickImage = useImagePicker(onPick);
