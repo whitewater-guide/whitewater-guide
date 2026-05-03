@@ -1,13 +1,19 @@
 import Mapbox, { type MapState } from '@rnmapbox/maps';
 import { ColorStrings, useSectionsList } from '@whitewater-guide/clients';
 import { forwardRef, memo } from 'react';
-import { Image } from 'react-native';
+import { Image, Platform } from 'react-native';
 
+import { PUT_IN_PIN, TAKE_OUT_PIN } from '../../../assets';
 import { BaseMap } from '../../../components/map/BaseMap';
 import { useMapboxData } from '../../../components/map/hooks';
 import type { PiToState } from './usePiToState';
 
 type RegionChangeEvent = GeoJSON.Feature<GeoJSON.Point>;
+
+const IMAGES = {
+  putIn: PUT_IN_PIN,
+  takeOut: TAKE_OUT_PIN,
+};
 
 const NO_POINT: GeoJSON.Point = {
   type: 'Point',
@@ -90,14 +96,18 @@ const PiToMap = memo(
     const showTakeOut = !!shape[1] && selected !== 1;
     return (
       <BaseMap ref={ref} {...mapProps} testID="add-section-map">
-        <Mapbox.Images>
-          <Mapbox.Image name="putIn">
-            <Image source={require('../../../assets/putInPin.png')} />
-          </Mapbox.Image>
-          <Mapbox.Image name="takeOut">
-            <Image source={require('../../../assets/takeOutPin.png')} />
-          </Mapbox.Image>
-        </Mapbox.Images>
+        {Platform.OS === 'ios' ? (
+          <Mapbox.Images>
+            <Mapbox.Image name="putIn">
+              <Image source={require('../../../assets/putInPin.png')} />
+            </Mapbox.Image>
+            <Mapbox.Image name="takeOut">
+              <Image source={require('../../../assets/takeOutPin.png')} />
+            </Mapbox.Image>
+          </Mapbox.Images>
+        ) : (
+          <Mapbox.Images images={IMAGES} />
+        )}
 
         <Mapbox.ShapeSource id="sections" shape={sections}>
           <Mapbox.LineLayer id="sections" style={layerStyles.sections} />
