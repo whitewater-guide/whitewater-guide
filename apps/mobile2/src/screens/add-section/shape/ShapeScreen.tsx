@@ -1,7 +1,7 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type Mapbox from '@rnmapbox/maps';
 import type { MapState } from '@rnmapbox/maps';
-import { useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
 import { FAB as FAButton } from 'react-native-paper';
 
@@ -86,15 +86,12 @@ function ShapeScreen({ navigation }: Props) {
     });
   }, [navigation, doneDisabled]);
 
-  useLayoutEffect(() => {
-    return () => {
-      setDraft((prev) => ({
-        ...prev,
-        shape: shapeRef.current as unknown as CodegenCoordinates[],
-      }));
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  useEffect(() => {
+    setDraft((prev) => ({
+      ...prev,
+      shape: state.shape as unknown as CodegenCoordinates[],
+    }));
+  }, [state.shape, setDraft]);
 
   useLayoutEffect(() => {
     if (state.selected === -1 || !cameraRef.current) {
