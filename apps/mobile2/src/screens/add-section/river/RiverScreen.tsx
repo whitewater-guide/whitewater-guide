@@ -54,6 +54,7 @@ function RiverScreen() {
           autoComplete="off"
           autoFocus
           testID="river-searchbar"
+          mode="view"
         />
         <SectionList<RiversListDataItem>
           {...listProps}

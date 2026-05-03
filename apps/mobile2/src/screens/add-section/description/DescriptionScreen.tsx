@@ -1,9 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
-import {
-  KeyboardAvoidingView,
-  KeyboardToolbar,
-} from 'react-native-keyboard-controller';
+import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 
 import Screen from '../../../components/Screen';
 import TextField from '../../../forms/TextField';
@@ -36,7 +33,6 @@ function DescriptionScreen() {
           style={styles.input}
         />
       </KeyboardAvoidingView>
-      <KeyboardToolbar />
     </Screen>
   );
 }

@@ -3,8 +3,9 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { createSafeValidator } from '@whitewater-guide/validation';
 import { Formik, useFormikContext } from 'formik';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { KeyboardToolbar } from 'react-native-keyboard-controller';
 
-import type { RootStackParamsList , Screens } from '../../core/navigation';
+import type { RootStackParamsList, Screens } from '../../core/navigation';
 import { useAddSectionDraft } from './AddSectionDraftContext';
 import AddSectionTabs from './AddSectionTabs';
 import type { SectionFormInput } from './types';
@@ -142,6 +143,7 @@ function AddSectionTabsScreen({ route }: Props) {
         <FormikToDraftSync />
         <DraftToFormikSync />
         <AddSectionTabs />
+        <KeyboardToolbar />
       </>
     </Formik>
   );

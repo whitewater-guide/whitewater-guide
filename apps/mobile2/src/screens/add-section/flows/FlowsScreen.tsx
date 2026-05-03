@@ -1,9 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
-import {
-  KeyboardAwareScrollView,
-  KeyboardToolbar,
-} from 'react-native-keyboard-controller';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import { Title } from 'react-native-paper';
 
 import Screen from '../../../components/Screen';
@@ -96,7 +93,6 @@ function FlowsScreen() {
           helperText={t('screens:addSection.flows.flows.formulaHelper')}
         />
       </KeyboardAwareScrollView>
-      <KeyboardToolbar />
     </Screen>
   );
 }

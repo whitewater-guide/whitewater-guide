@@ -4,10 +4,7 @@ import times from 'lodash/times';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
-import {
-  KeyboardAwareScrollView,
-  KeyboardToolbar,
-} from 'react-native-keyboard-controller';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 
 import CCNote from '../../../components/CCNote';
 import Screen from '../../../components/Screen';
@@ -100,7 +97,6 @@ function MainScreen() {
         <PiToPlaceholder index={1} onPress={onPitoPress} />
         <CCNote style={styles.ccNote} />
       </KeyboardAwareScrollView>
-      <KeyboardToolbar />
     </Screen>
   );
 }

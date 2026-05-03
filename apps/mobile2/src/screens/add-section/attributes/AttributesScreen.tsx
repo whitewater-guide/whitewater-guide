@@ -5,10 +5,7 @@ import groupBy from 'lodash/groupBy';
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Dimensions, StyleSheet } from 'react-native';
-import {
-  KeyboardAwareScrollView,
-  KeyboardToolbar,
-} from 'react-native-keyboard-controller';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 
 import Loading from '../../../components/Loading';
 import Screen from '../../../components/Screen';
@@ -21,7 +18,10 @@ import theme from '../../../theme';
 
 const { width: screenWidth } = Dimensions.get('window');
 
-const DURATIONS: Array<Duration | null> = [null, ...Array.from(Durations.keys())];
+const DURATIONS: Array<Duration | null> = [
+  null,
+  ...Array.from(Durations.keys()),
+];
 const keyExtractor = (v: Duration | null) => (v ? v.toString() : 'null');
 
 const styles = StyleSheet.create({
@@ -99,7 +99,6 @@ function AttributesScreen() {
           label={t('screens:addSection.attributes.hidden')}
         />
       </KeyboardAwareScrollView>
-      <KeyboardToolbar />
     </Screen>
   );
 }
