@@ -10,11 +10,11 @@ import { View } from 'react-native';
 import Icon from '../../components/Icon';
 import PaperTabBar from '../../components/PaperTabBar';
 import { SwipeableListProvider } from '../../components/SwipeableListProvider';
-import type { RegionTabsParamsList } from '../../core/navigation';
 import { Screens } from '../../core/navigation';
 import RegionInfoScreen from './info/RegionInfoScreen';
+import { RegionMapScreen } from './map';
+import type { RegionTabsParamsList } from './navigation-types';
 import RegionFAB from './RegionFAB';
-import RegionMapScreen from './RegionMapScreen';
 import RegionSectionsListScreen from './sections-list/RegionSectionsListScreen';
 import SectionsProgress from './SectionsProgress';
 

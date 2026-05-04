@@ -1,4 +1,3 @@
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Formik } from 'formik';
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -6,17 +5,12 @@ import { StyleSheet, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 
 import Screen from '../../../components/Screen';
-import type { RootStackParamsList } from '../../../core/navigation';
 import { Screens } from '../../../core/navigation';
 import getSectionTimezone from '../../../features/descents/getSectionTimezone';
 import theme from '../../../theme';
 import { useDescentFormDraft } from '../DescentFormDraftContext';
 import DatePicker from './DatePicker';
-
-type Props = NativeStackScreenProps<
-  RootStackParamsList,
-  typeof Screens.DESCENT_FORM_DATE
->;
+import type { DescentFormDateScreenProps } from './navigation-types';
 
 const styles = StyleSheet.create({
   content: {
@@ -26,7 +20,7 @@ const styles = StyleSheet.create({
   spacer: { flex: 1 },
 });
 
-function DescentFormDateScreen({ navigation }: Props) {
+function DescentFormDateScreen({ navigation }: DescentFormDateScreenProps) {
   const { t } = useTranslation();
   const { draft, setDraft } = useDescentFormDraft();
   const timezone = getSectionTimezone(draft.section);

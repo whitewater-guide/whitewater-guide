@@ -1,15 +1,14 @@
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import { useCallback } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 import theme from '../../../theme';
 import SectionFAB from '../SectionFAB';
 import SectionTabsScreen from '../SectionTabsScreen';
+import type { SectionMediaScreenProps } from './navigation-types';
 import SectionMediaScreenContent from './SectionMediaScreenContent';
 
-function SectionMediaScreen() {
-  const navigation = useNavigation();
-
+function SectionMediaScreen({ navigation }: SectionMediaScreenProps) {
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({ headerRight: () => null });

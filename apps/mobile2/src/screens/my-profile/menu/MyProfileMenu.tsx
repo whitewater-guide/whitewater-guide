@@ -1,15 +1,14 @@
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useAuth } from '@whitewater-guide/clients';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform } from 'react-native';
 import { IconButton } from 'react-native-paper';
 
-import type { RootStackParamsList } from '../../../core/navigation';
 import { Screens } from '../../../core/navigation/screen-names';
 import theme from '../../../theme';
+import type { MyProfileScreenProps } from '../navigation-types';
 import useDeleteProfile from './useDeleteProfile';
 
 export function MyProfileMenu() {
@@ -17,8 +16,7 @@ export function MyProfileMenu() {
   const { me } = useAuth();
   const { showActionSheetWithOptions } = useActionSheet();
   const deleteProfile = useDeleteProfile();
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
+  const navigation = useNavigation<MyProfileScreenProps['navigation']>();
 
   const showMenu = useCallback(() => {
     const options = [t('screens:myprofile.menu.deleteProfile')];

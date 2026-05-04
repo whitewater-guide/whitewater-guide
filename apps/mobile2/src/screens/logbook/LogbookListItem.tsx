@@ -1,16 +1,15 @@
 import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { format, utcToZonedTime } from 'date-fns-tz';
 import { useCallback } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
 
-import type { RootStackParamsList } from '../../core/navigation';
 import { Screens } from '../../core/navigation';
 import descentLevelToString from '../../features/descents/descentLevelToString';
 import getSectionTimezone from '../../features/descents/getSectionTimezone';
 import theme from '../../theme';
 import type { MyDescentFragment } from './myDescents.generated';
+import type { LogbookScreenProps } from './navigation-types';
 
 export const ITEM_HEIGHT = 64;
 
@@ -37,8 +36,7 @@ interface Props {
 }
 
 function LogbookListItem({ descent }: Props) {
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
+  const navigation = useNavigation<LogbookScreenProps['navigation']>();
 
   const onPress = useCallback(() => {
     navigation.navigate(Screens.DESCENT, { descentId: descent.id });

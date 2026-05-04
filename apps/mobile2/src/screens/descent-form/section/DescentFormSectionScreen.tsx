@@ -1,20 +1,17 @@
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { DescentSectionFragment } from '@whitewater-guide/schema';
 import { useCallback, useEffect, useRef } from 'react';
 
 import Screen from '../../../components/Screen';
-import type { RootStackParamsList } from '../../../core/navigation';
 import { Screens } from '../../../core/navigation';
 import { useDescentFormDraft } from '../DescentFormDraftContext';
 import type { DescentFormData } from '../types';
+import type { DescentFormSectionScreenProps } from './navigation-types';
 import SectionSearch from './SectionSearch';
 
-type Props = NativeStackScreenProps<
-  RootStackParamsList,
-  typeof Screens.DESCENT_FORM_SECTION
->;
-
-function DescentFormSectionScreen({ route, navigation }: Props) {
+function DescentFormSectionScreen({
+  route,
+  navigation,
+}: DescentFormSectionScreenProps) {
   const { descentId, regionId, formData } = route.params ?? {};
   const { draft, setDraft, prefillFromDescent } = useDescentFormDraft();
   const prefillDoneRef = useRef(false);

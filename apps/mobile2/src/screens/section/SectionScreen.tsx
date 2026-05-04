@@ -1,4 +1,3 @@
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import {
   MapSelectionProvider,
   RegionProvider,
@@ -7,8 +6,7 @@ import {
 } from '@whitewater-guide/clients';
 import { Dimensions, PixelRatio } from 'react-native';
 
-import type { RootStackParamsList } from '../../core/navigation';
-import { Screens } from '../../core/navigation';
+import type { SectionScreenProps } from './navigation-types';
 import SectionTabs from './SectionTabs';
 
 // Thumbnail size for media nodes fetched by sectionDetails (withMedia: true)
@@ -33,12 +31,7 @@ function SectionScreenInternal() {
   );
 }
 
-type Props = NativeStackScreenProps<
-  RootStackParamsList,
-  typeof Screens.SECTION_SCREEN
->;
-
-function SectionScreen({ route }: Props) {
+function SectionScreen({ route }: SectionScreenProps) {
   const { sectionId } = route.params;
   return (
     <SectionProvider sectionId={sectionId} thumbSize={PHOTO_SIZE_PX}>

@@ -8,12 +8,15 @@ import { View } from 'react-native';
 
 import Icon from '../../components/Icon';
 import PaperTabBar from '../../components/PaperTabBar';
-import type { SectionTabsParamsList } from '../../core/navigation';
 import { Screens } from '../../core/navigation';
 import SectionChartScreen from './chart/SectionChartScreen';
 import SectionInfoScreen from './info/SectionInfoScreen';
 import SectionMapScreen from './map/SectionMapScreen';
 import SectionMediaScreen from './media/SectionMediaScreen';
+import type {
+  SectionScreenProps,
+  SectionTabsParamsList,
+} from './navigation-types';
 import SectionTitle from './SectionTitle';
 
 const screenOptions: BottomTabNavigationOptions = { headerShown: false };
@@ -23,7 +26,7 @@ const Tab = createBottomTabNavigator<SectionTabsParamsList>();
 function SectionTabs() {
   const { t } = useTranslation();
   const section = useSection();
-  const navigation = useNavigation();
+  const navigation = useNavigation<SectionScreenProps['navigation']>();
 
   useEffect(() => {
     if (section) {

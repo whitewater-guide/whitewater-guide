@@ -1,4 +1,3 @@
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useAuth } from '@whitewater-guide/clients';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -6,15 +5,10 @@ import { StyleSheet, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 
 import Divider from '../../../components/Divider';
-import type { RootStackParamsList } from '../../../core/navigation';
 import { Screens } from '../../../core/navigation';
 import theme from '../../../theme';
 import AuthScreenBase from '../AuthScreenBase';
-
-type Props = NativeStackScreenProps<
-  RootStackParamsList,
-  typeof Screens.AUTH_MAIN
->;
+import type { AuthMainScreenProps } from './navigation-types';
 
 const styles = StyleSheet.create({
   caption: {
@@ -25,7 +19,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export function AuthMainScreen({ navigation }: Props) {
+export function AuthMainScreen({ navigation }: AuthMainScreenProps) {
   const { loading } = useAuth();
   const { t } = useTranslation();
   const { navigate } = navigation;

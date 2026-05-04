@@ -1,15 +1,14 @@
 import { CommonActions, useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Paragraph } from 'react-native-paper';
 
 import Icon from '../../../components/Icon';
-import type { RootStackParamsList } from '../../../core/navigation';
 import { Screens } from '../../../core/navigation';
 import theme from '../../../theme';
 import { ITEM_HEIGHT } from './constants';
+import type { DescentFormSectionScreenProps } from './navigation-types';
 import SectionHeader from './SectionHeader';
 
 const styles = StyleSheet.create({
@@ -25,7 +24,7 @@ const styles = StyleSheet.create({
 function AddNewHeader() {
   const { t } = useTranslation();
   const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
+    useNavigation<DescentFormSectionScreenProps['navigation']>();
 
   const onPress = useCallback(() => {
     navigation.dispatch((state) =>

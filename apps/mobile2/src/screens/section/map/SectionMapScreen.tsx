@@ -1,4 +1,4 @@
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import type { MapSection } from '@whitewater-guide/clients';
 import { getSectionContentBounds, useSection } from '@whitewater-guide/clients';
 import { useCallback, useMemo } from 'react';
@@ -12,14 +12,14 @@ import {
 import { SelectedPOISheet } from '../../../components/map/panels/SelectedPOISheet';
 import { useMapType } from '../../../features/settings';
 import SectionTabsScreen from '../SectionTabsScreen';
+import type { SectionMapScreenProps } from './navigation-types';
 
-function SectionMapScreen() {
+function SectionMapScreen({ navigation }: SectionMapScreenProps) {
   const section = useSection();
   const { mapType } = useMapType();
   const locationPermission = useLocationPermission();
   const locationPermissionGranted =
     locationPermission === LocationPermission.GRANTED;
-  const navigation = useNavigation();
 
   useFocusEffect(
     useCallback(() => {

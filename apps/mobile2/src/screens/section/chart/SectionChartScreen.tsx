@@ -1,4 +1,4 @@
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import { useSection } from '@whitewater-guide/clients';
 import { useCallback, useState } from 'react';
 import { LayoutAnimation, Pressable } from 'react-native';
@@ -7,10 +7,10 @@ import { ChartLayout, NoChart } from '../../../components/chart';
 import Icon from '../../../components/Icon';
 import theme from '../../../theme';
 import SectionTabsScreen from '../SectionTabsScreen';
+import type { SectionChartScreenProps } from './navigation-types';
 
-function SectionChartScreen() {
+function SectionChartScreen({ navigation }: SectionChartScreenProps) {
   const section = useSection();
-  const navigation = useNavigation();
   const [collapsed, setCollapsed] = useState(false);
 
   const gauge = section?.gauge;

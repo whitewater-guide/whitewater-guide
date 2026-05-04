@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native';
 import type { NamedNode } from '@whitewater-guide/schema';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -9,6 +8,7 @@ import { Searchbar } from 'react-native-paper';
 import Screen from '../../../components/Screen';
 import theme from '../../../theme';
 import { useAddSectionDraft } from '../AddSectionDraftContext';
+import type { RiverScreenProps } from './navigation-types';
 import type { RiversListDataItem } from './types';
 import useRiversSearch from './useRiversSearch';
 
@@ -24,9 +24,10 @@ const styles = StyleSheet.create({
   },
 });
 
-function RiverScreen() {
+function RiverScreen({ route, navigation }: RiverScreenProps) {
+  const { region } = route.params;
   const { t } = useTranslation();
-  const { goBack } = useNavigation();
+  const { goBack } = navigation;
   const { draft, setDraft } = useAddSectionDraft();
 
   const onChange = useCallback(
@@ -38,6 +39,7 @@ function RiverScreen() {
   );
 
   const { search, onSearch, ...listProps } = useRiversSearch(
+    region ?? null,
     draft.river?.name ?? '',
     onChange,
   );

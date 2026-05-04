@@ -1,10 +1,10 @@
+import type { RegionDetailsFragment } from '@whitewater-guide/clients';
 import { NEW_RIVER_ID } from '@whitewater-guide/commons';
 import type { NamedNode } from '@whitewater-guide/schema';
 import { useState } from 'react';
 import type { SectionListData, SectionListProps } from 'react-native';
 import useDebounce from 'react-use/lib/useDebounce';
 
-import { useAddSectionRegion } from '../AddSectionDraftContext';
 import { useFindRiversQuery } from './findRivers.generated';
 import RiversListItem from './RiversListItem';
 import RiversListSection from './RiversListSection';
@@ -17,10 +17,10 @@ type Result = SectionListProps<RiversListDataItem> & {
 };
 
 export default function useRiversSearch(
+  region: RegionDetailsFragment | null,
   initialInput = '',
   onSelect?: (river: NamedNode) => void,
 ): Result {
-  const region = useAddSectionRegion();
   const [input, setInput] = useState(initialInput);
   const [search, setSearch] = useState(initialInput);
 

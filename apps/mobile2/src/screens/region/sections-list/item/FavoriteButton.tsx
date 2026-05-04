@@ -12,6 +12,7 @@ import {
 } from '../../../../components/NavigateButton';
 import { Screens } from '../../../../core/navigation';
 import theme from '../../../../theme';
+import type { RegionSectionsListScreenProps } from '../navigation-types';
 import { useToggleFavoriteSection } from './useToggleFavoriteSection';
 
 const styles = StyleSheet.create({
@@ -36,7 +37,8 @@ interface Props {
 
 function FavoriteButton({ sectionId, favorite, scale, onToggle }: Props) {
   const { me } = useAuth();
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<RegionSectionsListScreenProps['navigation']>();
   const [toggleFavorite, toggling] = useToggleFavoriteSection(
     sectionId,
     favorite,

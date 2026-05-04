@@ -1,5 +1,5 @@
-import Clipboard from '@react-native-clipboard/clipboard';
 import { useActionSheet } from '@expo/react-native-action-sheet';
+import Clipboard from '@react-native-clipboard/clipboard';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform } from 'react-native';
@@ -8,8 +8,8 @@ import { IconButton } from 'react-native-paper';
 import { showSnackbar } from '../../components/snackbar';
 import descentToString from '../../features/descents/descentToString';
 import theme from '../../theme';
-import type { DescentDetailsFragment } from './descentDetails.generated';
 import DeleteDescentDialog from './DeleteDescentDialog';
+import type { DescentDetailsFragment } from './descentDetails.generated';
 import useNavigateToForm from './useNavigateToForm';
 
 interface Props {

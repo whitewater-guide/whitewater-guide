@@ -3,6 +3,7 @@ import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 
 import theme from '../../../theme';
+import type { RegionInfoScreenProps } from './navigation-types';
 import RegionInfoView from './RegionInfoView';
 import RegionLicense from './RegionLicense';
 
@@ -12,7 +13,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function RegionInfoScreen() {
+function RegionInfoScreen(_: RegionInfoScreenProps) {
   const tabBarHeight = useBottomTabBarHeight();
 
   return (

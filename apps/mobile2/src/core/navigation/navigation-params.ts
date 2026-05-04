@@ -1,37 +1,11 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
 import type { NavigatorScreenParams } from '@react-navigation/native';
+import type { RegionDetailsFragment } from '@whitewater-guide/clients';
 
 import type { Screens } from './screen-names';
 
 export type RootDrawerParamsList = {
   [Screens.ROOT_STACK]: NavigatorScreenParams<RootStackParamsList>;
-};
-
-
-export type RegionTabsParamsList = {
-  [Screens.REGION_MAP]: undefined;
-  [Screens.REGION_SECTIONS_LIST]: undefined;
-  [Screens.REGION_INFO]: undefined;
-};
-
-export type RegionStackParamsList = {
-  [Screens.REGION_TABS]: undefined;
-  [Screens.FILTER]: undefined;
-};
-
-export type SectionTabsParamsList = {
-  [Screens.SECTION_MAP]: undefined;
-  [Screens.SECTION_CHART]: undefined;
-  [Screens.SECTION_INFO]: undefined;
-  [Screens.SECTION_MEDIA]: undefined;
-};
-
-export type AddSectionTabsParamsList = {
-  [Screens.ADD_SECTION_MAIN]: undefined;
-  [Screens.ADD_SECTION_ATTRIBUTES]: undefined;
-  [Screens.ADD_SECTION_DESCRIPTION]: undefined;
-  [Screens.ADD_SECTION_FLOWS]: undefined;
-  [Screens.ADD_SECTION_PHOTOS]: undefined;
 };
 
 export type RootStackParamsList = {
@@ -78,10 +52,17 @@ export type RootStackParamsList = {
   };
   [Screens.ADD_SECTION_TABS]: {
     fromDescentFormKey?: string;
+    region?: RegionDetailsFragment | null;
   };
-  [Screens.ADD_SECTION_RIVER]: undefined;
-  [Screens.ADD_SECTION_GAUGE]: undefined;
-  [Screens.ADD_SECTION_SHAPE]: undefined;
+  [Screens.ADD_SECTION_RIVER]: {
+    region?: RegionDetailsFragment | null;
+  };
+  [Screens.ADD_SECTION_GAUGE]: {
+    region?: RegionDetailsFragment | null;
+  };
+  [Screens.ADD_SECTION_SHAPE]: {
+    region?: RegionDetailsFragment | null;
+  };
   [Screens.ADD_SECTION_PHOTO]: {
     index: number;
     localPhotoId: string;
@@ -91,7 +72,6 @@ export type RootStackParamsList = {
   [Screens.AUTH_REGISTER]: undefined;
   [Screens.AUTH_FORGOT]: undefined;
   [Screens.AUTH_RESET]: { token?: string };
-  [Screens.AUTH_SOCIAL]: undefined;
   [Screens.AUTH_WELCOME]: undefined;
 };
 

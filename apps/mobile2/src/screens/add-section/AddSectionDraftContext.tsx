@@ -1,7 +1,13 @@
 import type { PropsWithChildren } from 'react';
-import { createContext, useCallback, useContext, useMemo, useState } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from 'react';
 
-import type { AddSectionRegion, SectionFormInput } from './types';
+import type { SectionFormInput } from './types';
 
 interface SubmitApi {
   submit: () => void;
@@ -15,8 +21,6 @@ interface AddSectionDraftContextValue {
     updater: (prev: Partial<SectionFormInput>) => Partial<SectionFormInput>,
   ) => void;
   resetDraft: () => void;
-  region: AddSectionRegion | null;
-  setRegion: (region: AddSectionRegion | null) => void;
   submitApi: SubmitApi | null;
   setSubmitApi: (api: SubmitApi | null) => void;
 }
@@ -25,19 +29,18 @@ const AddSectionDraftContext = createContext<AddSectionDraftContextValue>({
   draft: {},
   setDraft: () => {},
   resetDraft: () => {},
-  region: null,
-  setRegion: () => {},
   submitApi: null,
   setSubmitApi: () => {},
 });
 
 export function AddSectionDraftProvider({ children }: PropsWithChildren) {
   const [draft, setDraftState] = useState<Partial<SectionFormInput>>({});
-  const [region, setRegion] = useState<AddSectionRegion | null>(null);
   const [submitApi, setSubmitApi] = useState<SubmitApi | null>(null);
 
   const setDraft = useCallback(
-    (updater: (prev: Partial<SectionFormInput>) => Partial<SectionFormInput>) => {
+    (
+      updater: (prev: Partial<SectionFormInput>) => Partial<SectionFormInput>,
+    ) => {
       setDraftState(updater);
     },
     [],
@@ -45,7 +48,6 @@ export function AddSectionDraftProvider({ children }: PropsWithChildren) {
 
   const resetDraft = useCallback(() => {
     setDraftState({});
-    setRegion(null);
   }, []);
 
   const value = useMemo<AddSectionDraftContextValue>(
@@ -53,12 +55,10 @@ export function AddSectionDraftProvider({ children }: PropsWithChildren) {
       draft,
       setDraft,
       resetDraft,
-      region,
-      setRegion,
       submitApi,
       setSubmitApi,
     }),
-    [draft, setDraft, resetDraft, region, submitApi],
+    [draft, setDraft, resetDraft, submitApi],
   );
 
   return (
@@ -70,8 +70,4 @@ export function AddSectionDraftProvider({ children }: PropsWithChildren) {
 
 export function useAddSectionDraft(): AddSectionDraftContextValue {
   return useContext(AddSectionDraftContext);
-}
-
-export function useAddSectionRegion(): AddSectionRegion | null {
-  return useContext(AddSectionDraftContext).region;
 }

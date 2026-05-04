@@ -8,12 +8,13 @@ import { showSnackbar, showSnackbarError } from '../../components/snackbar';
 import { useAddSectionMutation } from './addSection.generated';
 import { useAddSectionDraft } from './AddSectionDraftContext';
 import formToInput from './formToInput';
+import type { AddSectionTabsScreenProps } from './navigation-types';
 import { resetToDescentForm } from './resetToDescentForm';
 import type { SectionFormInput } from './types';
 
 export default function useAddSection(fromDescentFormKey?: string) {
   const [mutate] = useAddSectionMutation();
-  const navigation = useNavigation();
+  const navigation = useNavigation<AddSectionTabsScreenProps['navigation']>();
   const { resetDraft } = useAddSectionDraft();
 
   return useCallback(

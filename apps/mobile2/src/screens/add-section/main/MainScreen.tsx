@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native';
 import { toRomanDifficulty } from '@whitewater-guide/clients';
 import times from 'lodash/times';
 import { useCallback } from 'react';
@@ -12,6 +11,7 @@ import { Screens } from '../../../core/navigation';
 import ModalPickerField from '../../../forms/modal-picker';
 import TextField from '../../../forms/TextField';
 import theme from '../../../theme';
+import type { AddSectionMainScreenProps } from './navigation-types';
 import PiToPlaceholder from './PiToPlaceholder';
 import RiverPlaceholder from './RiverPlaceholder';
 
@@ -44,17 +44,17 @@ const styles = StyleSheet.create({
   },
 });
 
-function MainScreen() {
+function MainScreen({ navigation, route }: AddSectionMainScreenProps) {
+  const { region = null } = route.params;
   const { t } = useTranslation();
-  const navigation = useNavigation();
 
   const onPitoPress = useCallback(() => {
-    navigation.navigate(Screens.ADD_SECTION_SHAPE);
-  }, [navigation]);
+    navigation.navigate(Screens.ADD_SECTION_SHAPE, { region });
+  }, [navigation, region]);
 
   const onRiverPress = useCallback(() => {
-    navigation.navigate(Screens.ADD_SECTION_RIVER);
-  }, [navigation]);
+    navigation.navigate(Screens.ADD_SECTION_RIVER, { region });
+  }, [navigation, region]);
 
   return (
     <Screen>

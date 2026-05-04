@@ -1,19 +1,13 @@
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
 
-import type { RootStackParamsList } from '../../../core/navigation';
 import { Screens } from '../../../core/navigation';
 import theme from '../../../theme';
 import AuthScreenBase from '../AuthScreenBase';
 import MissingParams from './MissingParams';
+import type { ResetScreenProps } from './navigation-types';
 import ResetForm from './ResetForm';
-
-type Props = NativeStackScreenProps<
-  RootStackParamsList,
-  typeof Screens.AUTH_RESET
->;
 
 const styles = StyleSheet.create({
   container: {
@@ -22,7 +16,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export function ResetScreen({ route }: Props) {
+export function ResetScreen({ route }: ResetScreenProps) {
   const { token } = route.params ?? {};
   const { t } = useTranslation();
 

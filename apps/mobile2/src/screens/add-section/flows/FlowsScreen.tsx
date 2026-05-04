@@ -8,6 +8,7 @@ import NumericField from '../../../forms/NumericField';
 import TextField from '../../../forms/TextField';
 import theme from '../../../theme';
 import GaugePlaceholder from './GaugePlaceholder';
+import type { FlowsScreenProps } from './navigation-types';
 import { SeasonNumericField } from './season';
 
 const styles = StyleSheet.create({
@@ -16,7 +17,8 @@ const styles = StyleSheet.create({
   },
 });
 
-function FlowsScreen() {
+function FlowsScreen({ route }: FlowsScreenProps) {
+  const { region } = route.params;
   const { t } = useTranslation();
   return (
     <Screen>
@@ -41,7 +43,7 @@ function FlowsScreen() {
           helperText={t('screens:addSection.flows.flowsTextHelper')}
         />
 
-        <GaugePlaceholder />
+        <GaugePlaceholder region={region} />
 
         <Title>{t('screens:addSection.flows.flows.title')}</Title>
         <NumericField

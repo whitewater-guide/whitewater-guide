@@ -5,11 +5,11 @@ import { Dimensions, Platform, StyleSheet, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import { Button, Modal, Surface } from 'react-native-paper';
 
+import HelperText from '../../../../forms/HelperText';
+import NumericField from '../../../../forms/NumericField';
 import theme from '../../../../theme';
 import { getShapeError, isShapeTouched } from '../../utils';
-import NumericField from '../../../../forms/NumericField';
-import HelperText from '../../../../forms/HelperText';
-import type { Shape } from '../types';
+import type { Shape } from '../usePiToState';
 import PiToPointHeader from './PiToPointHeader';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');

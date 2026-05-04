@@ -1,15 +1,15 @@
 /* eslint-disable react/jsx-pascal-case */
 import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useRegion } from '@whitewater-guide/clients';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, StyleSheet } from 'react-native';
 import { FAB } from 'react-native-paper';
 
 import { useAuth } from '../../core/auth';
-import type { RootStackParamsList } from '../../core/navigation';
 import { Screens } from '../../core/navigation';
 import theme from '../../theme';
+import type { RegionScreenProps } from './navigation-types';
 
 const styles = StyleSheet.create({
   fab: {
@@ -23,8 +23,8 @@ const styles = StyleSheet.create({
 function RegionFAB() {
   const { t } = useTranslation();
   const { me } = useAuth();
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
+  const region = useRegion();
+  const navigation = useNavigation<RegionScreenProps['navigation']>();
   const [open, setOpen] = useState(false);
 
   const onStateChange = useCallback(
@@ -48,7 +48,9 @@ function RegionFAB() {
       {
         icon: 'map-plus',
         label: t('screens:region.fab.addSection'),
-        onPress: gated(() => navigation.navigate(Screens.ADD_SECTION_TABS, {})),
+        onPress: gated(() =>
+          navigation.navigate(Screens.ADD_SECTION_TABS, { region }),
+        ),
         testID: 'fab:add-section',
         // wrapperStyle: { paddingBottom: 32 },
       },
@@ -69,7 +71,7 @@ function RegionFAB() {
         },
       },
     ],
-    [navigation, t, gated],
+    [navigation, t, gated, region],
   );
 
   return (

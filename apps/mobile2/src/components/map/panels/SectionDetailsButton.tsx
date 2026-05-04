@@ -6,8 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Dimensions, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 
-import type { RootStackParamsList } from '../../../core/navigation';
-import { Screens } from '../../../core/navigation';
+import { type RootStackParamsList, Screens } from '../../../core/navigation';
 
 const { width: screenWidth } = Dimensions.get('window');
 

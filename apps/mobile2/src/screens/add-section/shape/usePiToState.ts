@@ -11,6 +11,8 @@ export interface PiToState {
   selected: -1 | 0 | 1;
 }
 
+export type Shape = Pick<PiToState, 'shape'>;
+
 type Action =
   | { type: 'select'; selected: PiToState['selected'] }
   | { type: 'move'; coordinate: CodegenCoordinates }

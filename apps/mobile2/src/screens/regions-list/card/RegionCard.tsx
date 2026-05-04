@@ -1,14 +1,13 @@
 import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Dimensions, Image, StyleSheet, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { Surface, Text, TouchableRipple } from 'react-native-paper';
 
-import type { RootStackParamsList } from '../../../core/navigation/navigation-params';
 import { Screens } from '../../../core/navigation/screen-names';
 import theme from '../../../theme';
+import type { RegionsListScreenProps } from '../navigation-types';
 import type { ListedRegion } from '../useFavRegions';
 import DownloadButton from './DownloadButton';
 import FavoriteButton from './FavoriteButton';
@@ -71,8 +70,7 @@ interface Props {
 
 function RegionCardComponent({ region, index }: Props) {
   const { t } = useTranslation();
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
+  const navigation = useNavigation<RegionsListScreenProps['navigation']>();
 
   const openRegion = useCallback(() => {
     navigation.navigate(Screens.REGION_STACK, { regionId: region.id });

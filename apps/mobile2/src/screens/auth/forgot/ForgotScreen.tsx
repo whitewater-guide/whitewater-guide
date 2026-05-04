@@ -6,6 +6,7 @@ import { Screens } from '../../../core/navigation';
 import theme from '../../../theme';
 import AuthScreenBase from '../AuthScreenBase';
 import ForgotForm from './ForgotForm';
+import type { ForgotScreenProps } from './navigation-types';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,7 +15,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export function ForgotScreen() {
+export function ForgotScreen(_: ForgotScreenProps) {
   const { t } = useTranslation();
 
   return (

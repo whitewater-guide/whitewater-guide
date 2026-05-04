@@ -1,4 +1,3 @@
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type Mapbox from '@rnmapbox/maps';
 import type { MapState } from '@rnmapbox/maps';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
@@ -12,12 +11,12 @@ import {
   useLocationPermission,
 } from '../../../components/map/hooks';
 import LayersSelector from '../../../components/map/LayersSelector';
-import type { RootStackParamsList, Screens } from '../../../core/navigation';
 import { useMapType } from '../../../features/settings';
 import theme from '../../../theme';
 import { useAddSectionDraft } from '../AddSectionDraftContext';
 import { PiToDialog } from './dialog';
 import DoneButton from './DoneButton';
+import type { ShapeScreenProps } from './navigation-types';
 import PiToControl from './PiToControl';
 import PiToMap from './PiToMap';
 import PiToOverlay from './PiToOverlay';
@@ -52,12 +51,8 @@ const WORLD_BOUNDS: CodegenCoordinates[] = [
   [179, -89, 0],
 ];
 
-type Props = NativeStackScreenProps<
-  RootStackParamsList,
-  typeof Screens.ADD_SECTION_SHAPE
->;
-
-function ShapeScreen({ navigation }: Props) {
+function ShapeScreen({ navigation, route }: ShapeScreenProps) {
+  const { region = null } = route.params;
   const { draft, setDraft } = useAddSectionDraft();
   const { mapType } = useMapType();
   const locationPermission = useLocationPermission();
@@ -127,14 +122,14 @@ function ShapeScreen({ navigation }: Props) {
             {...state}
             mapType={mapType}
             locationPermissionGranted={locationPermissionGranted}
-            initialBounds={WORLD_BOUNDS}
+            initialBounds={region?.bounds ?? WORLD_BOUNDS}
             {...handlers}
           />
           <PiToOverlay selected={state.selected} moving={moving} />
           <LayersSelector />
           <CameraControls
             locationPermissionGranted={locationPermissionGranted}
-            initialBounds={WORLD_BOUNDS}
+            initialBounds={region?.bounds ?? WORLD_BOUNDS}
           />
         </CameraProvider>
       </View>

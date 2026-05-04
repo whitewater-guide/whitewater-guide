@@ -1,18 +1,12 @@
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import ErrorBoundary from '../../../components/ErrorBoundary';
-import type { RegionStackParamsList , Screens } from '../../../core/navigation';
 import FilterScreenView from './FilterScreenView';
+import type { FilterScreenProps } from './navigation-types';
 import ResetFilterButton from './ResetFilterButton';
 
-type Props = NativeStackScreenProps<
-  RegionStackParamsList,
-  typeof Screens.FILTER
->;
-
-function FilterScreen({ navigation }: Props) {
+function FilterScreen({ navigation }: FilterScreenProps) {
   const { t } = useTranslation();
 
   useEffect(() => {

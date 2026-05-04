@@ -1,10 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { StyleProp, TextStyle } from 'react-native';
 import { Caption } from 'react-native-paper';
 
-import { Screens } from '../core/navigation';
+import { type RootStackParamsList, Screens } from '../core/navigation';
 import TextWithLinks from './TextWithLinks';
 
 interface Props {
@@ -12,7 +13,8 @@ interface Props {
 }
 
 function CCNote({ style }: Props) {
-  const { navigate } = useNavigation();
+  const { navigate } =
+    useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
   const { t } = useTranslation();
 
   const onPress = useCallback(() => {

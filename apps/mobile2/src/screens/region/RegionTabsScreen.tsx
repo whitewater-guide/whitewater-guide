@@ -7,17 +7,18 @@ import { useCallback } from 'react';
 
 import Screen from '../../components/Screen';
 import WithQueryError from '../../components/WithQueryError';
+import type { RegionTabsScreenProps } from './navigation-types';
 import RegionTabs from './RegionTabs';
 
-function RegionTabsScreen() {
+function RegionTabsScreen(_: RegionTabsScreenProps) {
   const regionQuery = useRegionQuery();
   const sectionsList = useSectionsList();
 
   const refetchRegion = regionQuery.refetch;
   const refetchSections = sectionsList.refresh;
   const refetchBoth = useCallback(() => {
-    void refetchRegion();
-    void refetchSections();
+    refetchRegion();
+    refetchSections();
   }, [refetchRegion, refetchSections]);
 
   return (

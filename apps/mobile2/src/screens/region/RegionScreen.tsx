@@ -1,6 +1,5 @@
 import { useApolloClient } from '@apollo/client';
 import { useNetInfo } from '@react-native-community/netinfo';
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import {
   RegionProvider,
   SectionsFilterProvider,
@@ -9,7 +8,7 @@ import {
 } from '@whitewater-guide/clients';
 import { Dimensions, PixelRatio } from 'react-native';
 
-import type { RootStackParamsList , Screens } from '../../core/navigation';
+import type { RegionScreenProps } from './navigation-types';
 import RegionStack from './RegionStack';
 
 const { width: screenWidth } = Dimensions.get('window');
@@ -35,12 +34,7 @@ function InnerRegionScreen({ regionId }: { regionId: string }) {
   );
 }
 
-type Props = NativeStackScreenProps<
-  RootStackParamsList,
-  typeof Screens.REGION_STACK
->;
-
-function RegionScreen({ route }: Props) {
+function RegionScreen({ route }: RegionScreenProps) {
   const { regionId } = route.params;
   return (
     <SectionsFilterProvider>

@@ -15,6 +15,7 @@ import NumericField from '../../../forms/NumericField';
 import RatingField from '../../../forms/RatingField';
 import TagsField from '../../../forms/TagsField';
 import theme from '../../../theme';
+import type { AttributesScreenProps } from './navigation-types';
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -33,7 +34,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function AttributesScreen() {
+function AttributesScreen(_: AttributesScreenProps) {
   const { t } = useTranslation();
   const durationToString = useCallback(
     (v: Duration | null) => (v ? t(`durations:${v}`) : '-'),

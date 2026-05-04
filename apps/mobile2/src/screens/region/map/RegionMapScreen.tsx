@@ -1,19 +1,20 @@
 import { useRegion, useSectionsList } from '@whitewater-guide/clients';
 import React from 'react';
 
-import CameraControls from '../../components/map/CameraControls';
-import FeaturesMap from '../../components/map/FeaturesMap';
-import { CameraProvider } from '../../components/map/hooks/useCamera';
+import CameraControls from '../../../components/map/CameraControls';
+import FeaturesMap from '../../../components/map/FeaturesMap';
+import { CameraProvider } from '../../../components/map/hooks/useCamera';
 import {
   LocationPermission,
   useLocationPermission,
-} from '../../components/map/hooks/useLocationPermission';
-import LayersSelector from '../../components/map/LayersSelector';
-import { SelectedPOISheet } from '../../components/map/panels/SelectedPOISheet';
-import { SelectedSectionSheet } from '../../components/map/panels/SelectedSectionSheet';
-import { useMapType } from '../../features/settings';
+} from '../../../components/map/hooks/useLocationPermission';
+import LayersSelector from '../../../components/map/LayersSelector';
+import { SelectedPOISheet } from '../../../components/map/panels/SelectedPOISheet';
+import { SelectedSectionSheet } from '../../../components/map/panels/SelectedSectionSheet';
+import { useMapType } from '../../../features/settings';
+import type { RegionMapScreenProps } from './navigation-types';
 
-function RegionMapScreen() {
+export function RegionMapScreen(_: RegionMapScreenProps) {
   const region = useRegion();
   const { sections } = useSectionsList();
   const locationPermission = useLocationPermission();
@@ -45,5 +46,3 @@ function RegionMapScreen() {
     </CameraProvider>
   );
 }
-
-export default RegionMapScreen;

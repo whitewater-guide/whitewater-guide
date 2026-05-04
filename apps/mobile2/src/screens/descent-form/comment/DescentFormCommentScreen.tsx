@@ -1,4 +1,3 @@
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Formik } from 'formik';
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -7,18 +6,13 @@ import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 import { Button } from 'react-native-paper';
 
 import Screen from '../../../components/Screen';
-import type { RootStackParamsList, Screens } from '../../../core/navigation';
 import CheckboxField from '../../../forms/CheckboxField';
 import TextField from '../../../forms/TextField';
 import theme from '../../../theme';
 import { useDescentFormDraft } from '../DescentFormDraftContext';
 import type { DescentFormData } from '../types';
 import useUpsertDescent from '../useUpsertDescent';
-
-type Props = NativeStackScreenProps<
-  RootStackParamsList,
-  typeof Screens.DESCENT_FORM_COMMENT
->;
+import type { DescentFormCommentScreenProps } from './navigation-types';
 
 const styles = StyleSheet.create({
   container: {
@@ -42,7 +36,7 @@ const styles = StyleSheet.create({
 
 type CommentValues = Pick<DescentFormData, 'comment' | 'public'>;
 
-function DescentFormCommentScreen(_props: Props) {
+function DescentFormCommentScreen(_: DescentFormCommentScreenProps) {
   const { t } = useTranslation();
   const { draft } = useDescentFormDraft();
   const upsert = useUpsertDescent();

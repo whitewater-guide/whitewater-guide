@@ -4,6 +4,7 @@ import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 
 import Screen from '../../../components/Screen';
 import TextField from '../../../forms/TextField';
+import type { DescriptionScreenProps } from './navigation-types';
 
 const styles = StyleSheet.create({
   avoider: {
@@ -18,7 +19,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function DescriptionScreen() {
+function DescriptionScreen(_: DescriptionScreenProps) {
   const { t } = useTranslation();
   return (
     <Screen padding>

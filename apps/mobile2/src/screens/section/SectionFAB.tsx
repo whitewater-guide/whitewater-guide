@@ -1,15 +1,14 @@
 /* eslint-disable react/jsx-pascal-case */
 import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import { FAB } from 'react-native-paper';
 
 import { useAuth } from '../../core/auth';
-import type { RootStackParamsList } from '../../core/navigation';
 import { Screens } from '../../core/navigation';
 import theme from '../../theme';
+import type { SectionScreenProps } from './navigation-types';
 
 const styles = StyleSheet.create({
   fab: {
@@ -28,8 +27,7 @@ const styles = StyleSheet.create({
 function SectionFAB() {
   const { t } = useTranslation();
   const { me } = useAuth();
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
+  const navigation = useNavigation<SectionScreenProps['navigation']>();
   const [open, setOpen] = useState(false);
 
   const onStateChange = useCallback(

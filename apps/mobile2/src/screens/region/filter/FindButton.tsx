@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 
+import type { FilterScreenProps } from './navigation-types';
 import type { SearchState } from './types';
 import { stateToFilterOptions } from './utils';
 
@@ -31,7 +32,7 @@ interface Props {
 export function FindButton({ searchState }: Props) {
   const terms = useMemo(() => stateToFilterOptions(searchState), [searchState]);
   const { t } = useTranslation();
-  const { goBack } = useNavigation();
+  const { goBack } = useNavigation<FilterScreenProps['navigation']>();
   const setSearchState = useSectionsFilterOptionsSetter();
   const region = useRegion();
 

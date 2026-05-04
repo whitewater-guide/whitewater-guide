@@ -1,5 +1,4 @@
 import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { Credentials } from '@whitewater-guide/clients';
 import { useAuth } from '@whitewater-guide/clients';
 import { Formik } from 'formik';
@@ -8,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 
-import type { RootStackParamsList } from '../../../core/navigation';
 import { Screens } from '../../../core/navigation/screen-names';
 import HelperText from '../../../forms/HelperText';
 import PasswordField from '../../../forms/password-field';
@@ -16,6 +14,7 @@ import TextField from '../../../forms/TextField';
 import theme from '../../../theme';
 import { useAuthSubmit } from '../useAuthSubmit';
 import getValidationSchema from './getValidationSchema';
+import type { SignInScreenProps } from './navigation-types';
 
 const styles = StyleSheet.create({
   forgot: {
@@ -32,8 +31,7 @@ const initialValues: Credentials = {
 function SignInForm() {
   const { loading } = useAuth();
   const { t } = useTranslation();
-  const { navigate } =
-    useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
+  const { navigate } = useNavigation<SignInScreenProps['navigation']>();
   const forgot = useCallback(() => navigate(Screens.AUTH_FORGOT), [navigate]);
   const { service } = useAuth();
   const localSignIn = useCallback(

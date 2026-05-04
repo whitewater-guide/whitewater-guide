@@ -1,21 +1,15 @@
 import { useFocusEffect } from '@react-navigation/native';
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { createSafeValidator } from '@whitewater-guide/validation';
 import { Formik, useFormikContext } from 'formik';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { KeyboardToolbar } from 'react-native-keyboard-controller';
 
-import type { RootStackParamsList, Screens } from '../../core/navigation';
 import { useAddSectionDraft } from './AddSectionDraftContext';
 import AddSectionTabs from './AddSectionTabs';
+import type { AddSectionTabsScreenProps } from './navigation-types';
 import type { SectionFormInput } from './types';
 import useAddSection from './useAddSection';
 import { SectionFormSchema } from './validation';
-
-type Props = NativeStackScreenProps<
-  RootStackParamsList,
-  typeof Screens.ADD_SECTION_TABS
->;
 
 const validator = createSafeValidator(SectionFormSchema);
 
@@ -84,9 +78,9 @@ function FormikToDraftSync() {
   return null;
 }
 
-function AddSectionTabsScreen({ route }: Props) {
-  const { draft, region } = useAddSectionDraft();
-  const fromDescentFormKey = route.params?.fromDescentFormKey;
+function AddSectionTabsScreen({ route }: AddSectionTabsScreenProps) {
+  const { draft } = useAddSectionDraft();
+  const { fromDescentFormKey, region } = route.params;
   const addSection = useAddSection(fromDescentFormKey);
 
   const initialValues = useMemo<SectionFormInput>(
@@ -126,9 +120,7 @@ function AddSectionTabsScreen({ route }: Props) {
 
       ...draft,
     }),
-    // Only seed from draft/region on mount; subsequent changes flow through Formik
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
+    [region],
   );
 
   return (
@@ -142,7 +134,7 @@ function AddSectionTabsScreen({ route }: Props) {
       <>
         <FormikToDraftSync />
         <DraftToFormikSync />
-        <AddSectionTabs />
+        <AddSectionTabs region={region} />
         <KeyboardToolbar />
       </>
     </Formik>

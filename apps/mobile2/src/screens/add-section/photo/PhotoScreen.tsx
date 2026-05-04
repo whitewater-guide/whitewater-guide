@@ -1,20 +1,14 @@
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { LocalPhotoStatus } from '@whitewater-guide/clients';
 import { Formik, getIn, useFormikContext } from 'formik';
 import { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
 
 import Screen from '../../../components/Screen';
-import type { RootStackParamsList , Screens } from '../../../core/navigation';
 import type { LocalPhoto } from '../../../features/uploads';
 import { useAddSectionDraft } from '../AddSectionDraftContext';
 import type { MediaFormInput } from '../types';
 import BackButton from './BackButton';
+import type { PhotoScreenProps } from './navigation-types';
 import SectionPhotoForm from './SectionPhotoForm';
-
-type Props = NativeStackScreenProps<
-  RootStackParamsList,
-  typeof Screens.ADD_SECTION_PHOTO
->;
 
 interface PhotoFormValues {
   media: MediaFormInput[];
@@ -23,7 +17,7 @@ interface PhotoFormValues {
 interface BodyProps {
   index: number;
   localPhotoId: string;
-  navigation: Props['navigation'];
+  navigation: PhotoScreenProps['navigation'];
 }
 
 function PhotoScreenBody({ index, localPhotoId, navigation }: BodyProps) {
@@ -54,7 +48,7 @@ function PhotoScreenBody({ index, localPhotoId, navigation }: BodyProps) {
   return <SectionPhotoForm index={index} localPhotoId={localPhotoId} />;
 }
 
-function PhotoScreen({ navigation, route }: Props) {
+function PhotoScreen({ navigation, route }: PhotoScreenProps) {
   const { index, localPhotoId } = route.params;
   const { draft } = useAddSectionDraft();
 

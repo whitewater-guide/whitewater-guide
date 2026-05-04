@@ -12,6 +12,7 @@ import { useImagePicker, useLocalPhotos } from '../../../features/uploads';
 import theme from '../../../theme';
 import { useAddSectionDraft } from '../AddSectionDraftContext';
 import type { MediaFormInput, SectionFormInput } from '../types';
+import type { AddSectionPhotosScreenProps } from './navigation-types';
 
 const screenWidth = Dimensions.get('window').width;
 const TILE_SIZE = (screenWidth - 4 * theme.margin.single) / 3;
@@ -32,7 +33,7 @@ interface Props {
 }
 
 function AddPhotoButton({ index }: Props) {
-  const navigation = useNavigation();
+  const navigation = useNavigation<AddSectionPhotosScreenProps['navigation']>();
   const { values, setFieldValue, setFieldTouched } =
     useFormikContext<SectionFormInput>();
   const { setDraft } = useAddSectionDraft();

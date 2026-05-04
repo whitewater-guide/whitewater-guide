@@ -1,5 +1,4 @@
 import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { ResetPayload } from '@whitewater-guide/clients';
 import { useAuth } from '@whitewater-guide/clients';
 import { Formik } from 'formik';
@@ -8,13 +7,13 @@ import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 import { Button } from 'react-native-paper';
 
-import type { RootStackParamsList } from '../../../core/navigation';
 import { Screens } from '../../../core/navigation';
 import HelperText from '../../../forms/HelperText';
 import PasswordField from '../../../forms/password-field';
 import SuccessText from '../../../forms/SuccessText';
 import { useAuthSubmit } from '../useAuthSubmit';
 import getValidationSchema from './getValidationSchema';
+import type { ResetScreenProps } from './navigation-types';
 
 interface Props {
   id: string;
@@ -31,8 +30,7 @@ function ResetForm({ id, token }: Props) {
     [id, token],
   );
   const { t } = useTranslation();
-  const { navigate } =
-    useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
+  const { navigate } = useNavigation<ResetScreenProps['navigation']>();
   const back = useCallback(() => navigate(Screens.AUTH_SIGN_IN), [navigate]);
   const { service } = useAuth();
   const [submit, isSuccessful] = useAuthSubmit(

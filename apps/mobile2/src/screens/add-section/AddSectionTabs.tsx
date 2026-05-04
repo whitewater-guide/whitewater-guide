@@ -1,14 +1,15 @@
 import type { MaterialTopTabNavigationOptions } from '@react-navigation/material-top-tabs';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import type { RegionDetailsFragment } from '@whitewater-guide/clients';
 import { useTranslation } from 'react-i18next';
 
-import type { AddSectionTabsParamsList } from '../../core/navigation';
 import { Screens } from '../../core/navigation';
 import theme from '../../theme';
 import AttributesScreen from './attributes';
 import DescriptionScreen from './description';
 import FlowsScreen from './flows';
 import MainScreen from './main';
+import type { AddSectionTabsParamsList } from './navigation-types';
 import { PhotosScreen } from './photos';
 
 const screenOptions: MaterialTopTabNavigationOptions = {
@@ -28,7 +29,11 @@ const screenOptions: MaterialTopTabNavigationOptions = {
 
 const Tab = createMaterialTopTabNavigator<AddSectionTabsParamsList>();
 
-function AddSectionTabs() {
+interface Props {
+  region?: RegionDetailsFragment | null;
+}
+
+function AddSectionTabs({ region }: Props) {
   const { t } = useTranslation();
 
   return (
@@ -40,6 +45,7 @@ function AddSectionTabs() {
           tabBarLabel: t('screens:addSection.tabs.main'),
           tabBarButtonTestID: `tab:${Screens.ADD_SECTION_MAIN}`,
         }}
+        initialParams={{ region }}
       />
       <Tab.Screen
         name={Screens.ADD_SECTION_ATTRIBUTES}
@@ -48,6 +54,7 @@ function AddSectionTabs() {
           tabBarLabel: t('screens:addSection.tabs.attributes'),
           tabBarButtonTestID: `tab:${Screens.ADD_SECTION_ATTRIBUTES}`,
         }}
+        initialParams={{ region }}
       />
       <Tab.Screen
         name={Screens.ADD_SECTION_DESCRIPTION}
@@ -56,6 +63,7 @@ function AddSectionTabs() {
           tabBarLabel: t('screens:addSection.tabs.description'),
           tabBarButtonTestID: `tab:${Screens.ADD_SECTION_DESCRIPTION}`,
         }}
+        initialParams={{ region }}
       />
       <Tab.Screen
         name={Screens.ADD_SECTION_FLOWS}
@@ -64,6 +72,7 @@ function AddSectionTabs() {
           tabBarLabel: t('screens:addSection.tabs.flows'),
           tabBarButtonTestID: `tab:${Screens.ADD_SECTION_FLOWS}`,
         }}
+        initialParams={{ region }}
       />
       <Tab.Screen
         name={Screens.ADD_SECTION_PHOTOS}
@@ -72,6 +81,7 @@ function AddSectionTabs() {
           tabBarLabel: t('screens:addSection.tabs.photos'),
           tabBarButtonTestID: `tab:${Screens.ADD_SECTION_PHOTOS}`,
         }}
+        initialParams={{ region }}
       />
     </Tab.Navigator>
   );

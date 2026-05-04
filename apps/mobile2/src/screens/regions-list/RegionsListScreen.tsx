@@ -1,21 +1,12 @@
 import { useFocusEffect } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Screen from '../../components/Screen';
-import type { RootStackParamsList } from '../../core/navigation/navigation-params';
-import type { Screens } from '../../core/navigation/screen-names';
+import type { RegionsListScreenProps } from './navigation-types';
 import RegionsListView from './RegionsListView';
 
-interface Props {
-  navigation: NativeStackNavigationProp<
-    RootStackParamsList,
-    typeof Screens.REGIONS_LIST
-  >;
-}
-
-function RegionsListScreen({ navigation }: Props) {
+function RegionsListScreen({ navigation }: RegionsListScreenProps) {
   const { t } = useTranslation();
 
   useFocusEffect(

@@ -4,10 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { Button } from 'react-native-paper';
 
 import HelperText from '../../../forms/HelperText';
+import type { ResetScreenProps } from './navigation-types';
 
 function MissingParams() {
   const { t } = useTranslation();
-  const { goBack } = useNavigation();
+  const { goBack } = useNavigation<ResetScreenProps['navigation']>();
   const back = useCallback(() => goBack(), [goBack]);
   return (
     <>

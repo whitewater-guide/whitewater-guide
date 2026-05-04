@@ -8,10 +8,11 @@ import { useTranslation } from 'react-i18next';
 import { Button } from 'react-native-paper';
 
 import theme from '../../../theme';
+import type { FilterScreenProps } from './navigation-types';
 
 function ResetFilterButton() {
   const { t } = useTranslation();
-  const { goBack } = useNavigation();
+  const { goBack } = useNavigation<FilterScreenProps['navigation']>();
   const setFilterOptions = useSectionsFilterOptionsSetter();
   const onPress = useCallback(() => {
     setFilterOptions(DefaultSectionFilterOptions);

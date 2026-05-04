@@ -1,6 +1,4 @@
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
-import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { ListRenderItemInfo } from '@shopify/flash-list';
 import { FlashList } from '@shopify/flash-list';
 import type {
@@ -11,10 +9,10 @@ import { useSectionsList } from '@whitewater-guide/clients';
 import React, { memo, useCallback } from 'react';
 import { StyleSheet } from 'react-native';
 
-import type { RootStackParamsList } from '../../../core/navigation';
 import { Screens } from '../../../core/navigation';
 import theme from '../../../theme';
 import SectionListItem from './item/SectionListItem';
+import type { RegionSectionsListScreenProps } from './navigation-types';
 import NoSectionsPlaceholder from './NoSectionsPlaceholder';
 
 type Section = ListedSectionFragment & SectionDerivedFields;
@@ -27,11 +25,11 @@ const styles = StyleSheet.create({
 
 const keyExtractor = (item: Section) => item.id;
 
-function RegionSectionsListScreen() {
+function RegionSectionsListScreen({
+  navigation,
+}: RegionSectionsListScreenProps) {
   const { sections } = useSectionsList();
   const tabBarHeight = useBottomTabBarHeight();
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
 
   const handlePress = useCallback(
     (section: Section) => {

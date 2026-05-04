@@ -1,13 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import isNil from 'lodash/isNil';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { showSnackbar, showSnackbarError } from '../../components/snackbar';
-import type { RootStackParamsList } from '../../core/navigation';
 import { Screens } from '../../core/navigation';
 import { useDescentFormDraft } from './DescentFormDraftContext';
+import type { DescentFormSectionScreenProps } from './section/navigation-types';
 import type { DescentFormData } from './types';
 import { useUpsertDescentMutation } from './upsertDescent.generated';
 
@@ -15,7 +14,7 @@ export default function useUpsertDescent() {
   const [mutate] = useUpsertDescentMutation();
   const { t } = useTranslation();
   const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
+    useNavigation<DescentFormSectionScreenProps['navigation']>();
   const { resetDraft } = useDescentFormDraft();
 
   return useCallback(

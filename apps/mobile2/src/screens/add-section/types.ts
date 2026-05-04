@@ -11,8 +11,3 @@ export type SectionFormInput = Overwrite<
   SectionInput,
   { media: MediaFormInput[] }
 >;
-
-export interface AddSectionRegion {
-  id: string;
-  name: string;
-}

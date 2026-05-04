@@ -1,6 +1,5 @@
 import { useBottomSheetModal } from '@gorhom/bottom-sheet';
 import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import {
   DefaultSectionFilterOptions,
   useSectionsFilterOptions,
@@ -9,14 +8,13 @@ import isEqual from 'lodash/isEqual';
 import React, { useCallback } from 'react';
 import { Appbar } from 'react-native-paper';
 
-import type { RegionStackParamsList } from '../../core/navigation';
 import { Screens } from '../../core/navigation';
 import theme from '../../theme';
+import type { RegionTabsScreenProps } from './navigation-types';
 
 function FilterButton() {
   const filterOptions = useSectionsFilterOptions();
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RegionStackParamsList>>();
+  const navigation = useNavigation<RegionTabsScreenProps['navigation']>();
   const { dismissAll } = useBottomSheetModal();
 
   const onPress = useCallback(() => {

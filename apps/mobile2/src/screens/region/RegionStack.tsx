@@ -8,11 +8,11 @@ import { Platform } from 'react-native';
 
 import type { SearchContexts } from '../../components/header';
 import { getHeaderRenderer } from '../../components/header';
-import type { RegionStackParamsList } from '../../core/navigation';
 import { Screens } from '../../core/navigation';
 import theme from '../../theme';
 import FilterScreen from './filter/FilterScreen';
 import FilterButton from './FilterButton';
+import type { RegionStackParamsList } from './navigation-types';
 import RegionTabsScreen from './RegionTabsScreen';
 import RegionTitle from './RegionTitle';
 

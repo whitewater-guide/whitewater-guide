@@ -1,4 +1,3 @@
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { DescentLevelInput } from '@whitewater-guide/schema';
 import { Formik, useFormikContext } from 'formik';
 import { useCallback, useMemo, useState } from 'react';
@@ -9,7 +8,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import { Button } from 'react-native-paper';
 
 import Screen from '../../../components/Screen';
-import type { RootStackParamsList } from '../../../core/navigation';
 import { Screens } from '../../../core/navigation';
 import NumericField from '../../../forms/NumericField';
 import TextField from '../../../forms/TextField';
@@ -17,11 +15,7 @@ import theme from '../../../theme';
 import { useDescentFormDraft } from '../DescentFormDraftContext';
 import type { DescentFormData } from '../types';
 import DescentChartLayout from './DescentChartLayout';
-
-type Props = NativeStackScreenProps<
-  RootStackParamsList,
-  typeof Screens.DESCENT_FORM_LEVEL
->;
+import type { DescentFormLevelScreenProps } from './navigation-types';
 
 const styles = StyleSheet.create({
   container: {
@@ -98,7 +92,7 @@ function LevelFormContent({ onSubmit }: ContentProps) {
   );
 }
 
-function DescentFormLevelScreen({ navigation }: Props) {
+function DescentFormLevelScreen({ navigation }: DescentFormLevelScreenProps) {
   const { draft, setDraft } = useDescentFormDraft();
 
   const initialValues = useMemo<LevelValues>(

@@ -1,16 +1,12 @@
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useFocusEffect } from '@react-navigation/native';
 import { useCallback } from 'react';
 
 import Screen from '../../components/Screen';
-import type { RootStackParamsList } from '../../core/navigation';
 import AddDescentFAB from './AddDescentFAB';
 import LogbookList from './LogbookList';
+import type { LogbookScreenProps } from './navigation-types';
 
-function LogbookScreen() {
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
-
+function LogbookScreen({ navigation }: LogbookScreenProps) {
   // Enable drawer swipe only while this screen is focused
   useFocusEffect(
     useCallback(() => {

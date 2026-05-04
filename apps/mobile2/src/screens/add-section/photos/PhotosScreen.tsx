@@ -7,6 +7,7 @@ import Screen from '../../../components/Screen';
 import theme from '../../../theme';
 import type { SectionFormInput } from '../types';
 import AddPhotoButton from './AddPhotoButton';
+import type { AddSectionPhotosScreenProps } from './navigation-types';
 import PhotoThumb from './PhotoThumb';
 import { useRemovePhoto } from './useRemovePhoto';
 
@@ -19,7 +20,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function PhotosScreen() {
+function PhotosScreen(_: AddSectionPhotosScreenProps) {
   const ctx = useFormikContext<SectionFormInput>();
   const ctxRef = useRef(ctx);
   ctxRef.current = ctx;

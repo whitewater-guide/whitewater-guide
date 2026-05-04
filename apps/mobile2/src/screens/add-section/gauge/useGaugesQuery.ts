@@ -1,14 +1,16 @@
+import type { RegionDetailsFragment } from '@whitewater-guide/clients';
 import { useState } from 'react';
 import useDebounce from 'react-use/lib/useDebounce';
 
-import { useAddSectionRegion } from '../AddSectionDraftContext';
 import type { ListedGaugeFragment } from './findGauges.generated';
 import { useFindGaugesQuery } from './findGauges.generated';
 
 type Result = [string, (txt: string) => void, boolean, ListedGaugeFragment[]];
 
-export default function useGaugesQuery(initialInput = ''): Result {
-  const region = useAddSectionRegion();
+export default function useGaugesQuery(
+  region: RegionDetailsFragment | null | undefined,
+  initialInput = '',
+): Result {
   const [input, setInput] = useState(initialInput);
   const [search, setSearch] = useState(initialInput);
 

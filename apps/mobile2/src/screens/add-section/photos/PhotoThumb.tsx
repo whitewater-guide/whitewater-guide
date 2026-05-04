@@ -12,6 +12,7 @@ import Icon from '../../../components/Icon';
 import { Screens } from '../../../core/navigation';
 import type { LocalPhoto } from '../../../features/uploads';
 import theme from '../../../theme';
+import type { AddSectionPhotosScreenProps } from './navigation-types';
 
 const screenWidth = Dimensions.get('window').width;
 const TILE_SIZE = (screenWidth - 4 * theme.margin.single) / 3;
@@ -39,7 +40,7 @@ interface Props {
 }
 
 function PhotoThumb({ index, photo, onClear }: Props) {
-  const navigation = useNavigation();
+  const navigation = useNavigation<AddSectionPhotosScreenProps['navigation']>();
   const uri = photo ? (photo.file ? photo.file.uri : photo.url) : undefined;
 
   const onPress = useCallback(() => {

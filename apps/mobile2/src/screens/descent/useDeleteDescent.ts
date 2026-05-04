@@ -1,14 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { showSnackbar, showSnackbarError } from '../../components/snackbar';
-import type { RootStackParamsList } from '../../core/navigation';
 import { i18n } from '../../i18n';
 import { useDeleteDescentMutation } from './deleteDescent.generated';
+import type { DescentScreenProps } from './navigation-types';
 
 export default function useDeleteDescent(descentId: string) {
-  const { goBack } =
-    useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
+  const { goBack } = useNavigation<DescentScreenProps['navigation']>();
   const [mutate, { loading }] = useDeleteDescentMutation({
     variables: { id: descentId },
     refetchQueries: ['listMyDescents'],

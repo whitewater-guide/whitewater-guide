@@ -1,12 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback } from 'react';
 import { StyleSheet } from 'react-native';
 import { FAB } from 'react-native-paper';
 
-import type { RootStackParamsList } from '../../core/navigation';
 import { Screens } from '../../core/navigation';
 import theme from '../../theme';
+import type { LogbookScreenProps } from './navigation-types';
 
 const styles = StyleSheet.create({
   fab: {
@@ -17,8 +16,7 @@ const styles = StyleSheet.create({
 });
 
 function AddDescentFAB() {
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
+  const navigation = useNavigation<LogbookScreenProps['navigation']>();
 
   const onPress = useCallback(
     () => navigation.navigate(Screens.DESCENT_FORM_SECTION),
@@ -26,6 +24,7 @@ function AddDescentFAB() {
   );
 
   return (
+    // eslint-disable-next-line react/jsx-pascal-case
     <FAB
       style={styles.fab}
       icon="plus"

@@ -1,14 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback } from 'react';
 
-import type { RootStackParamsList } from '../../core/navigation';
 import { Screens } from '../../core/navigation';
 import type { DescentDetailsFragment } from './descentDetails.generated';
+import type { DescentScreenProps } from './navigation-types';
 
 export default function useNavigateToForm() {
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
+  const navigation = useNavigation<DescentScreenProps['navigation']>();
 
   return useCallback(
     (descent: DescentDetailsFragment, duplicate = false) => {

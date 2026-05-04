@@ -1,5 +1,4 @@
 import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { SafeSectionDetails } from '@whitewater-guide/clients';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -7,9 +6,9 @@ import { Platform, Share } from 'react-native';
 import { IconButton, Menu } from 'react-native-paper';
 
 import { useAuth } from '../../../core/auth';
-import type { RootStackParamsList } from '../../../core/navigation';
 import { Screens } from '../../../core/navigation';
 import theme from '../../../theme';
+import type { SectionInfoScreenProps } from './navigation-types';
 
 interface Props {
   section: SafeSectionDetails;
@@ -18,8 +17,7 @@ interface Props {
 function SectionInfoMenu({ section }: Props) {
   const { t } = useTranslation();
   const { me } = useAuth();
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
+  const navigation = useNavigation<SectionInfoScreenProps['navigation']>();
   const [visible, setVisible] = useState(false);
 
   const openMenu = useCallback(() => setVisible(true), []);
@@ -42,9 +40,7 @@ function SectionInfoMenu({ section }: Props) {
     await Share.share({ message: section.name ?? '' });
   }, [closeMenu, section.name]);
 
-  const onEdit = gated(() =>
-    navigation.navigate(Screens.ADD_SECTION_TABS, {}),
-  );
+  const onEdit = gated(() => navigation.navigate(Screens.ADD_SECTION_TABS, {}));
 
   const onSuggest = gated(() =>
     navigation.navigate(Screens.SUGGESTION, { sectionId: section.id }),

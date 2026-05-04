@@ -1,5 +1,4 @@
 import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RegisterPayload } from '@whitewater-guide/clients';
 import { useAuth } from '@whitewater-guide/clients';
 import { Formik } from 'formik';
@@ -8,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 
-import type { RootStackParamsList } from '../../../core/navigation';
 import { Screens } from '../../../core/navigation';
 import HelperText from '../../../forms/HelperText';
 import PasswordField from '../../../forms/password-field';
@@ -16,6 +14,7 @@ import TextField from '../../../forms/TextField';
 import theme from '../../../theme';
 import { useAuthSubmit } from '../useAuthSubmit';
 import getValidationSchema from './getValidationSchema';
+import type { RegisterScreenProps } from './navigation-types';
 
 const styles = StyleSheet.create({
   submitButton: {
@@ -36,8 +35,7 @@ function RegisterForm() {
     [i18n],
   );
   const { service } = useAuth();
-  const { navigate } =
-    useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
+  const { navigate } = useNavigation<RegisterScreenProps['navigation']>();
   const onSuccess = useCallback(
     () => navigate(Screens.AUTH_WELCOME),
     [navigate],

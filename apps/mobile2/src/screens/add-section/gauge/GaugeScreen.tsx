@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native';
 import type { ListRenderItemInfo } from '@shopify/flash-list';
 import { FlashList } from '@shopify/flash-list';
 import type { NamedNode, RefInput } from '@whitewater-guide/schema';
@@ -16,6 +15,7 @@ import type { ListedGaugeFragment } from './findGauges.generated';
 import GaugeListHeader from './GaugeListHeader';
 import GaugesListItem from './GaugesListItem';
 import GaugesListSeparator from './GaugesListSeparator';
+import type { GaugeScreenProps } from './navigation-types';
 import useGaugesQuery from './useGaugesQuery';
 
 const styles = StyleSheet.create({
@@ -33,9 +33,10 @@ const styles = StyleSheet.create({
 
 const keyExtractor = ({ id }: NamedNode) => id;
 
-function GaugeScreen() {
+function GaugeScreen({ route, navigation }: GaugeScreenProps) {
+  const { region } = route.params;
   const { t } = useTranslation();
-  const { goBack } = useNavigation();
+  const { goBack } = navigation;
   const { draft, setDraft } = useAddSectionDraft();
   const value = draft.gauge;
 
@@ -48,6 +49,7 @@ function GaugeScreen() {
   );
 
   const [search, onChangeInput, loading, gauges] = useGaugesQuery(
+    region,
     value?.name ?? '',
   );
 
