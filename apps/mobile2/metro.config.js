@@ -1,5 +1,6 @@
 const path = require('path');
 const { getDefaultConfig } = require('@react-native/metro-config');
+const { withSentryConfig } = require('@sentry/react-native/metro');
 const {
   withStorybook,
 } = require('@storybook/react-native/metro/withStorybook');
@@ -25,7 +26,9 @@ if (process.env.E2E_MODE === 'true') {
   ];
 }
 
-module.exports = withStorybook(config, {
-  enabled: process.env.STORYBOOK_ENABLED === 'true',
-  configPath: path.resolve(projectRoot, '.rnstorybook'),
-});
+module.exports = withSentryConfig(
+  withStorybook(config, {
+    enabled: process.env.STORYBOOK_ENABLED === 'true',
+    configPath: path.resolve(projectRoot, '.rnstorybook'),
+  }),
+);

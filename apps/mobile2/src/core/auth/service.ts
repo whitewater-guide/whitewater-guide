@@ -1,3 +1,8 @@
+import {
+  getMessaging,
+  getToken,
+  onTokenRefresh,
+} from '@react-native-firebase/messaging';
 import type {
   AuthResponse,
   AuthType,
@@ -17,16 +22,27 @@ import type {
 import type { AppStateStatus } from 'react-native';
 import { AppState } from 'react-native';
 
+import { tracker } from '../errors/tracker';
 import { BACKEND_URL } from '../urls';
 import { tokenStorage } from './tokens';
 
 export class MobileAuthService extends BaseAuthService {
+  private _fcmToken: string | null = null;
+  private _fcmTokenSent = false;
+
   constructor() {
     super(BACKEND_URL);
   }
 
   async init() {
     await super.init();
+    const messaging = getMessaging();
+    getToken(messaging)
+      .then((token) => {
+        this._fcmToken = token;
+      })
+      .catch(() => {});
+    onTokenRefresh(messaging, this._sendFcmToken);
     AppState.addEventListener('change', this.onAppStateChange);
   }
 
@@ -56,6 +72,15 @@ export class MobileAuthService extends BaseAuthService {
     } else if (status === 400) {
       await this.signOut(true);
     }
+    if (!this._fcmTokenSent && this._fcmToken) {
+      getToken(getMessaging())
+        .then((token) => {
+          this._sendFcmToken(token).catch(() => {});
+          this._fcmTokenSent = true;
+        })
+        .catch(() => {});
+    }
+    tracker.setUser({ id: (resp as any).id ?? null });
     return resp;
   }
 
@@ -65,14 +90,15 @@ export class MobileAuthService extends BaseAuthService {
   ): Promise<AuthResponse<SignInBody>>;
   signIn(type: 'facebook' | 'apple'): Promise<AuthResponse<SignInBody>>;
   async signIn(
-    type: AuthType,
+    _type: AuthType,
     credentials?: Credentials,
   ): Promise<AuthResponse<SignInBody>> {
     const resp: AuthResponse<SignInBody> = await this._post(
       '/auth/local/signin',
-      credentials,
+      { ...credentials, fcm_token: this._fcmToken },
     );
     await this.postSignIn(resp);
+    this._fcmTokenSent = true;
     return resp;
   }
 
@@ -91,20 +117,38 @@ export class MobileAuthService extends BaseAuthService {
   }
 
   async signUp(payload: RegisterPayload): Promise<AuthResponse<SignInBody>> {
-    const resp = await this._post('/auth/local/signup', payload);
+    const resp = await this._post('/auth/local/signup', {
+      ...payload,
+      fcm_token: this._fcmToken,
+    });
     await this.postSignIn(resp);
+    this._fcmTokenSent = true;
     return resp;
   }
 
   async signOut(_force = false) {
     const opts = await this._getBearerHeader();
-    this._get('/auth/logout', {}, opts).catch(() => {});
+    this._get('/auth/logout', { fcm_token: this._fcmToken }, opts).catch(
+      () => {},
+    );
 
     await tokenStorage.setAccessToken(null);
     await tokenStorage.setRefreshToken(null);
+    tracker.setUser(null);
     await this.emit('sign-out', _force);
     return { success: true as const, status: 200 };
   }
+
+  private _sendFcmToken = async (fcm_token: string) => {
+    const old_fcm_token = fcm_token === this._fcmToken ? null : this._fcmToken;
+    this._fcmToken = fcm_token;
+    const opts = await this._getBearerHeader();
+    if (fcm_token && opts) {
+      this._post('/fcm/set', { fcm_token, old_fcm_token }, opts).catch(
+        () => {},
+      );
+    }
+  };
 
   async requestReset(payload: RequestResetPayload): Promise<AuthResponse> {
     return this._post('/auth/local/reset/request', payload);

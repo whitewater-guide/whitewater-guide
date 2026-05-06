@@ -1,6 +1,7 @@
 import type { ApolloClient } from '@apollo/client';
 import { ApolloProvider } from '@apollo/client';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
+import * as Sentry from '@sentry/react-native';
 import { TagsProvider } from '@whitewater-guide/clients';
 import { useEffect, useRef, useState } from 'react';
 import { StyleSheet } from 'react-native';
@@ -13,6 +14,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import SnackbarProvider from './components/SnackbarProvider';
 import { apolloCachePersistor, initApolloClient } from './core/apollo';
 import { AuthProvider, MobileAuthService } from './core/auth';
+import { configErrors } from './core/errors';
 import NavigationRoot from './core/navigation/NavigationRoot';
 import { AppSettingsProvider } from './features/settings';
 import { UploadsProvider } from './features/uploads';
@@ -20,6 +22,8 @@ import { I18nProvider } from './i18n';
 import { AddSectionDraftProvider } from './screens/add-section/AddSectionDraftContext';
 import { DescentFormDraftProvider } from './screens/descent-form/DescentFormDraftContext';
 import { paperTheme } from './theme';
+
+configErrors();
 
 const styles = StyleSheet.create({
   flex: {
@@ -89,4 +93,4 @@ function App() {
   );
 }
 
-export default App;
+export default Sentry.wrap(App);
