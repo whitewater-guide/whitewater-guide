@@ -8,18 +8,16 @@ require Pod::Executable.execute_command('node', ['-p',
 platform :ios, min_ios_version_supported
 prepare_react_native_project!
 
-linkage = ENV['USE_FRAMEWORKS']
-if linkage != nil
-  Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
-  use_frameworks! :linkage => linkage.to_sym
-end
-
 project 'whitewater',
-  'Debug' => :debug,
-  'Staging' => :release,
-  'Release' => :release
+'Debug' => :debug,
+'Staging' => :release,
+'Release' => :release
 
 target 'whitewater' do
+  use_frameworks! :linkage => :static
+  $RNFirebaseAsStaticFramework = true
+  $RNFirebaseAnalyticsWithoutAdIdSupport = true
+
   config = use_native_modules!
 
   use_react_native!(
@@ -30,6 +28,18 @@ target 'whitewater' do
 
   pre_install do |installer|
     $RNMapboxMaps.pre_install(installer)
+
+    # Force RNFB pods to link as static libraries to avoid
+    # "non-modular header inside framework module" errors when
+    # use_frameworks! :linkage => :static is enabled.
+    static_pods = %w[RNFBApp RNFBMessaging RNFBAnalytics]
+    installer.pod_targets.each do |pod|
+      if static_pods.include?(pod.name)
+        def pod.build_type
+          Pod::BuildType.static_library
+        end
+      end
+    end
   end
 
   post_install do |installer|
@@ -40,5 +50,12 @@ target 'whitewater' do
       # :ccache_enabled => true
     )
     $RNMapboxMaps.post_install(installer)
+
+    # Needed for Firebase
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES'] = 'YES'
+      end
+    end
   end
 end

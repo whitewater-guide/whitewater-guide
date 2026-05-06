@@ -79,3 +79,7 @@ yarn-error.log
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+
+/ios/whitewater/GoogleService-Info.plist
+/android/app/google-services.json

@@ -84,70 +84,9 @@ All required dependencies (`victory-native`, `@shopify/react-native-skia`, `reac
 
 ### Phase 10: Firebase, Sentry & Polish
 
-**Goal:** Production infrastructure — push notifications, error tracking.
+**Goal:** Production infrastructure — push notifications, error tracking, app settings, uploads, and remaining utility screens.
 
-#### 10.1 — Install dependencies
-
-```
-@react-native-firebase/app (v23)
-@react-native-firebase/messaging (v23)
-@react-native-firebase/analytics (v23)
-@sentry/react-native (v8)
-```
-
-Note: `react-native-bootsplash` and `react-native-device-info` already installed in Phases 2–3.
-
-#### 10.2 — Firebase setup
-
-- Configure Firebase for both platforms (GoogleService-Info.plist, google-services.json)
-- Push notification registration and handling
-- FCM token sent to backend after sign-in
-- Analytics events
-
-#### 10.3 — Sentry setup
-
-- Configure `@sentry/react-native` v8
-- Wrap app with `Sentry.wrap()`
-- Port `trackError()` utility
-- Screen tracking via navigation state changes
-
-#### 10.4 — Remaining features
-
-- Port `AppSettingsProvider` (map type preference, UI tips)
-- Port `UploadsProvider` (photo upload queue)
-- Port `BannersProvider`
-- Suggestion screen
-- WebView screen (FAQ, terms, privacy, backers)
-- License screen
-- Plain text screen
-
-#### 10.5 — Build remaining provider stack
-
-```
-GestureHandlerRootView
-└─ PaperProvider
-   └─ ApolloProvider
-      └─ TagsProvider
-         └─ AuthProvider
-            └─ I18nProvider
-               └─ UploadsProvider
-                  └─ RegionsFilterProvider
-                     └─ AppSettingsProvider
-                        └─ OfflineContentProvider
-                           └─ ActionSheetProvider
-                              └─ NavigationRoot
-```
-
-(Note: `ChatClientStateProvider` and `IapProvider` removed)
-
-#### 10.6 — Validation
-
-- [ ] Push notifications received on both platforms
-- [ ] Sentry captures errors and shows in dashboard
-- [ ] App settings persist across restarts
-- [ ] Photo uploads work end-to-end
-- [ ] **Unit tests:** Firebase messaging mock, upload provider
-- [ ] **Detox E2E:** Full app flow — launch → splash → sign in → browse → receive notification
+> **Detailed plan:** [PHASE_10_FIREBASE_SENTRY.md](PHASE_10_FIREBASE_SENTRY.md)
 
 ---
 
