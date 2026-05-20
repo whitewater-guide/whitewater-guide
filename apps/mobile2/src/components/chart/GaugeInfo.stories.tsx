@@ -1,7 +1,8 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { MockLink } from '@apollo/client/testing';
-import { ChartProvider, MeasurementsDocument } from '@whitewater-guide/clients';
+import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 import type { Meta, StoryObj } from '@storybook/react';
+import { ChartProvider, MeasurementsDocument } from '@whitewater-guide/clients';
 import subDays from 'date-fns/subDays';
 import subHours from 'date-fns/subHours';
 import React from 'react';
@@ -108,19 +109,21 @@ function makeMockClient() {
 function Wrapper({ gauge }: { gauge: typeof GAUGE_BOTH }) {
   const client = React.useMemo(makeMockClient, []);
   return (
-    <ApolloProvider client={client}>
-      <ChartProvider
-        gauge={gauge}
-        initialFilter={{
-          from: subHours(NOW, 24).toISOString(),
-          to: NOW.toISOString(),
-        }}
-      >
-        <View>
-          <GaugeInfo />
-        </View>
-      </ChartProvider>
-    </ApolloProvider>
+    <ActionSheetProvider>
+      <ApolloProvider client={client}>
+        <ChartProvider
+          gauge={gauge}
+          initialFilter={{
+            from: subHours(NOW, 24).toISOString(),
+            to: NOW.toISOString(),
+          }}
+        >
+          <View>
+            <GaugeInfo />
+          </View>
+        </ChartProvider>
+      </ApolloProvider>
+    </ActionSheetProvider>
   );
 }
 

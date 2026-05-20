@@ -1,0 +1,5 @@
+mutation addSuggestion($suggestion: SuggestionInput!) {
+  addSuggestion(suggestion: $suggestion) {
+    id
+  }
+}

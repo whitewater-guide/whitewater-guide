@@ -8,8 +8,9 @@ import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
 
-import { Row } from '../Row';
 import theme from '../../theme';
+import { Row } from '../Row';
+import { useGaugeActionSheet } from './useGaugeActionSheet';
 
 const styles = StyleSheet.create({
   right: {
@@ -42,6 +43,7 @@ export function GaugeInfo() {
   const { t } = useTranslation();
   const { unit, gauge } = useChart();
   const { name, latestMeasurement } = gauge;
+  const showMenu = useGaugeActionSheet(gauge);
 
   const isOutdated = latestMeasurement
     ? differenceInDays(new Date(), parseISO(latestMeasurement.timestamp)) > 1
@@ -53,10 +55,7 @@ export function GaugeInfo() {
       })
     : '';
 
-  const label =
-    unit === Unit.FLOW
-      ? t('commons:gauge')
-      : t('commons:gauge');
+  const label = unit === Unit.FLOW ? t('commons:gauge') : t('commons:gauge');
 
   return (
     <>
@@ -64,11 +63,11 @@ export function GaugeInfo() {
         <View style={{ flex: 1 }}>
           <Text variant="titleMedium">{label}</Text>
         </View>
-        <View style={styles.right}>
+        <Pressable onPress={showMenu} style={styles.right} hitSlop={8}>
           <Text variant="bodyMedium" style={styles.link} numberOfLines={1}>
             {upperFirst(name)}
           </Text>
-        </View>
+        </Pressable>
       </Row>
 
       <Row>

@@ -20,15 +20,19 @@ import {
   WelcomeScreen,
 } from '../../screens/auth';
 import { DescentScreen } from '../../screens/descent';
-import DescentFormSectionScreen from '../../screens/descent-form/section/DescentFormSectionScreen';
+import DescentFormCommentScreen from '../../screens/descent-form/comment/DescentFormCommentScreen';
 import DescentFormDateScreen from '../../screens/descent-form/date/DescentFormDateScreen';
 import DescentFormLevelScreen from '../../screens/descent-form/level/DescentFormLevelScreen';
-import DescentFormCommentScreen from '../../screens/descent-form/comment/DescentFormCommentScreen';
+import DescentFormSectionScreen from '../../screens/descent-form/section/DescentFormSectionScreen';
+import LicenseScreen from '../../screens/license/LicenseScreen';
 import { LogbookScreen } from '../../screens/logbook';
 import { MyProfileScreen } from '../../screens/my-profile';
+import PlainTextScreen from '../../screens/plain/PlainTextScreen';
 import RegionScreen from '../../screens/region/RegionScreen';
 import RegionsListScreen from '../../screens/regions-list';
 import SectionScreen from '../../screens/section/SectionScreen';
+import SuggestionScreen from '../../screens/suggestion/SuggestionScreen';
+import WebViewScreen from '../../screens/webview/WebViewScreen';
 import theme from '../../theme';
 import { useAuth } from '../auth';
 import type { RootStackParamsList } from './navigation-params';
@@ -142,22 +146,22 @@ function RootStack() {
       />
       <Stack.Screen
         name={Screens.PLAIN}
-        component={PlaceholderScreen}
+        component={PlainTextScreen}
         options={innerScreenOptions}
       />
       <Stack.Screen
         name={Screens.WEB_VIEW}
-        component={PlaceholderScreen}
+        component={WebViewScreen}
         options={innerScreenOptions}
       />
       <Stack.Screen
         name={Screens.LICENSE}
-        component={PlaceholderScreen}
+        component={LicenseScreen}
         options={innerScreenOptions}
       />
       <Stack.Screen
         name={Screens.SUGGESTION}
-        component={PlaceholderScreen}
+        component={SuggestionScreen}
         options={innerScreenOptions}
       />
       <Stack.Screen

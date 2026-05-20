@@ -1,13 +1,14 @@
 import { useNavigation } from '@react-navigation/native';
 import type { SafeSectionDetails } from '@whitewater-guide/clients';
+import { ROOT_LICENSE } from '@whitewater-guide/clients';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Platform, Share } from 'react-native';
+import { Platform } from 'react-native';
 import { IconButton, Menu } from 'react-native-paper';
 
-import { useAuth } from '../../../core/auth';
 import { Screens } from '../../../core/navigation';
 import theme from '../../../theme';
+import { useToggleFavoriteSection } from '../../region/sections-list/item/useToggleFavoriteSection';
 import type { SectionInfoScreenProps } from './navigation-types';
 
 interface Props {
@@ -16,35 +17,31 @@ interface Props {
 
 function SectionInfoMenu({ section }: Props) {
   const { t } = useTranslation();
-  const { me } = useAuth();
   const navigation = useNavigation<SectionInfoScreenProps['navigation']>();
   const [visible, setVisible] = useState(false);
+  const [toggleFavorite, toggling] = useToggleFavoriteSection(
+    section.id,
+    section.favorite,
+  );
 
   const openMenu = useCallback(() => setVisible(true), []);
   const closeMenu = useCallback(() => setVisible(false), []);
 
-  const gated = useCallback(
-    (action: () => void) => () => {
-      closeMenu();
-      if (me) {
-        action();
-      } else {
-        navigation.navigate(Screens.AUTH_MAIN);
-      }
-    },
-    [closeMenu, me, navigation],
-  );
-
-  const onShare = useCallback(async () => {
+  const onFavorite = useCallback(() => {
     closeMenu();
-    await Share.share({ message: section.name ?? '' });
-  }, [closeMenu, section.name]);
+    if (!toggling) {
+      toggleFavorite();
+    }
+  }, [closeMenu, toggleFavorite, toggling]);
 
-  const onEdit = gated(() => navigation.navigate(Screens.ADD_SECTION_TABS, {}));
-
-  const onSuggest = gated(() =>
-    navigation.navigate(Screens.SUGGESTION, { sectionId: section.id }),
-  );
+  const onLicense = useCallback(() => {
+    closeMenu();
+    navigation.navigate(Screens.LICENSE, {
+      placement: 'section',
+      copyright: section.copyright,
+      license: section.license ?? section.region?.license ?? ROOT_LICENSE,
+    });
+  }, [closeMenu, navigation, section]);
 
   return (
     <Menu
@@ -60,19 +57,17 @@ function SectionInfoMenu({ section }: Props) {
       }
     >
       <Menu.Item
-        onPress={onShare}
-        title={t('commons:copy')}
-        leadingIcon="share-variant"
+        onPress={onFavorite}
+        title={t(
+          'screens:section.info.menu.favorite.' +
+            (section.favorite ? 'remove' : 'add'),
+        )}
+        leadingIcon={section.favorite ? 'heart' : 'heart-outline'}
       />
       <Menu.Item
-        onPress={onEdit}
-        title={t('screens:descent.menu.edit')}
-        leadingIcon="pencil"
-      />
-      <Menu.Item
-        onPress={onSuggest}
-        title={t('screens:section.fab.addSuggestion')}
-        leadingIcon="pencil-plus"
+        onPress={onLicense}
+        title={t('screens:section.info.menu.license')}
+        leadingIcon="license"
       />
     </Menu>
   );

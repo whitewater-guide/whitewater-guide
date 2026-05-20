@@ -27,6 +27,7 @@ export type RootStackParamsList = {
   };
   [Screens.SUGGESTION]: {
     sectionId: string;
+    localPhotoId?: string;
   };
   [Screens.MY_PROFILE]: undefined;
   [Screens.CONNECT_EMAIL_REQUEST]: { email?: string };
