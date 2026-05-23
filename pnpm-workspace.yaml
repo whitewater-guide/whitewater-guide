@@ -1,4 +1,33 @@
 packages:
   - 'apps/*'
   - 'packages/*'
+overrides:
+  '@graphql-codegen/add': ^5.0.0
+  '@graphql-codegen/plugin-helpers': ^5.0.1
+  '@types/react': ^19.2.15
+  '@types/react-dom': ^19.2.3
+  graphql: ^16.8.1
+  markdown-it: ^14.1.1
+  react: 19.2.3
+  react-dom: 19.2.3
+  react-test-renderer: 19.2.3
+  typescript: ^5.9.3
+nodeLinker: hoisted
+allowBuilds:
+  '@apollo/protobufjs': true
+  '@firebase/util': true
+  '@sentry/cli': true
+  '@shopify/react-native-skia': true
+  core-js: true
+  core-js-pure: true
+  detox: true
+  dtrace-provider: true
+  esbuild: true
+  msgpackr-extract: true
+  pg-formatter: true
+  protobufjs: true
+  sharp: true
+  unrs-resolver: true
+
 minimumReleaseAge: 1440
+verifyDepsBeforeRun: false

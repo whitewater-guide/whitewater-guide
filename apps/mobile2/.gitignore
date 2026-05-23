@@ -83,3 +83,8 @@ yarn-error.log
 
 /ios/whitewater/GoogleService-Info.plist
 /android/app/google-services.json
+
+# Expo
+.expo
+dist/
+web-build/

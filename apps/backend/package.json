@@ -30,7 +30,7 @@
     "@graphql-tools/wrap": "^10.0.0",
     "@koa/cors": "^4.0.0",
     "@node-rs/bcrypt": "^1.7.3",
-    "@sentry/node": "^7.77.0",
+    "@sentry/node": "^10.53.1",
     "@whitewater-guide/commons": "workspace:*",
     "@whitewater-guide/gorge": "^3.8.0",
     "@whitewater-guide/schema": "workspace:*",
