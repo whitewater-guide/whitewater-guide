@@ -1,8 +1,8 @@
 import type { BannerWithSourceFragment } from '@whitewater-guide/schema';
-import { Image } from 'expo-image';
 import { useCallback } from 'react';
 import type { StyleProp, ViewStyle } from 'react-native';
 import {
+  Image,
   Linking,
   StyleSheet,
   TouchableWithoutFeedback,
@@ -47,7 +47,6 @@ function ImageBanner({ banner, style, onPress }: Props) {
       <TouchableWithoutFeedback onPress={handlePress}>
         <Image
           source={{ uri: source.url }}
-          contentFit="cover"
           style={[styles.image, aspectRatios[placement]]}
         />
       </TouchableWithoutFeedback>

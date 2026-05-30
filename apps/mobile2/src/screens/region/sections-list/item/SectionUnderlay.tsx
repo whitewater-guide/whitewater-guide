@@ -1,7 +1,7 @@
 import type { ListedSectionFragment } from '@whitewater-guide/clients';
 import React, { memo } from 'react';
-import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { StyleSheet, View } from 'react-native';
 import type { SharedValue } from 'react-native-reanimated';
 import {
   Extrapolation,

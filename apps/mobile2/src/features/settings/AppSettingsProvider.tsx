@@ -16,6 +16,7 @@ const SETTINGS_KEY = '@ww-settings';
 
 export interface AppSettings {
   mapType: string;
+  seenSwipeableSectionTip: boolean;
 }
 
 export interface AppSettingsCtx {
@@ -25,6 +26,7 @@ export interface AppSettingsCtx {
 
 export const DEFAULT_APP_SETTINGS: AppSettings = {
   mapType: Layers.TERRAIN.url,
+  seenSwipeableSectionTip: false,
 };
 
 const loadSettings = (): AppSettings => {
