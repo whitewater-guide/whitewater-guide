@@ -1,4 +1,5 @@
 import { useSectionQuery } from '@whitewater-guide/clients';
+import { BannerPlacement } from '@whitewater-guide/schema';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -13,6 +14,7 @@ import { Text } from 'react-native-paper';
 import { Collapsible, useCollapsible } from '../../../components/Collapsible';
 import Icon from '../../../components/Icon';
 import { Row } from '../../../components/Row';
+import { RegionBanners } from '../../../features/banners';
 import theme from '../../../theme';
 import CoordinatesInfo from './CoordinatesInfo';
 import HelpNeeded from './HelpNeeded';
@@ -123,6 +125,11 @@ function SectionInfoView() {
       <CoordinatesInfo
         putIn={section.putIn?.coordinates}
         takeOut={section.takeOut?.coordinates}
+      />
+
+      <RegionBanners
+        placement={BannerPlacement.MobileSectionDescription}
+        count={1}
       />
     </ScrollView>
   );

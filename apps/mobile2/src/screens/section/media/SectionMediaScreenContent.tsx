@@ -1,4 +1,5 @@
 import { ROOT_LICENSE, useSection } from '@whitewater-guide/clients';
+import { BannerPlacement } from '@whitewater-guide/schema';
 import groupBy from 'lodash/groupBy';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -6,6 +7,7 @@ import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
 
 import PhotoGallery from '../../../components/photo-gallery/PhotoGallery';
+import { RegionBanners } from '../../../features/banners';
 import BlogList from './BlogList';
 import PhotoGrid from './PhotoGrid';
 import VideoList from './VideoList';
@@ -39,6 +41,8 @@ function SectionMediaScreenContent() {
         </Text>
         <BlogList blogs={groups.blog} />
       </View>
+
+      <RegionBanners placement={BannerPlacement.MobileSectionMedia} />
 
       <PhotoGallery
         sectionLicense={
