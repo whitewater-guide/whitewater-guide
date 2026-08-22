@@ -1,6 +1,7 @@
 .idea/
 *.iml
 .vscode/.easyRedis.redis
+.vscode/mise-tools/
 
 node_modules/
 dist/
