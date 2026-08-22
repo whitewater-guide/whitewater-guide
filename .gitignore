@@ -8,6 +8,7 @@ dist/
 build/
 coverage/
 dev-mount/
+.agents/
 
 __generated__/
 *.generated.ts
