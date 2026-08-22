@@ -1,0 +1,11 @@
+{
+  "ios": {
+    "CFBundleDisplayName": "whitewater.guide",
+    "NSCameraUsageDescription": "This permission is required to upload your photos",
+    "NSPhotoLibraryUsageDescription": "This permission is required to upload your photos",
+    "NSPhotoLibraryAddUsageDescription": "This permission is required to upload your photos",
+    "NSLocationWhenInUseUsageDescription": "It needs this permission to show you how close you are to this or that river",
+    "NSLocationAlwaysUsageDescription": "It needs this permission to show you how close you are to this or that river",
+    "NSLocationAlwaysAndWhenInUseUsageDescription": "It needs this permission to show you how close you are to this or that river"
+  }
+}

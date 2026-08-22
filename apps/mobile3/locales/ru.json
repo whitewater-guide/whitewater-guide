@@ -1,0 +1,7 @@
+{
+  "ios": {
+    "NSLocationWhenInUseUsageDescription": "Это нужно чтобы вы могли понять как близко к той или иной реке вы находитесь",
+    "NSLocationAlwaysUsageDescription": "Это нужно чтобы вы могли понять как близко к той или иной реке вы находитесь",
+    "NSLocationAlwaysAndWhenInUseUsageDescription": "Это нужно чтобы вы могли понять как близко к той или иной реке вы находитесь"
+  }
+}
