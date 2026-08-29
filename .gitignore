@@ -2,6 +2,7 @@
 *.iml
 .vscode/.easyRedis.redis
 .vscode/mise-tools/
+.pnpm-store/
 
 node_modules/
 dist/

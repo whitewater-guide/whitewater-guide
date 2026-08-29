@@ -45,3 +45,7 @@ example
 # Firebase configs (deferred; same as legacy apps)
 GoogleService-Info.plist
 google-services.json
+
+*storybook.log
+storybook-static
+.rnstorybook/storybook.requires.ts

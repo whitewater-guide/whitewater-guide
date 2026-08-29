@@ -29,7 +29,10 @@
     "react-native-worklets": "0.10.1"
   },
   "devDependencies": {
+    "@storybook/react-native": "^10.5.4",
+    "@storybook/react-native-ui-lite": "^10.5.4",
     "@types/react": "~19.2.2",
+    "storybook": "^10.5.10",
     "typescript": "^5.9.3"
   },
   "scripts": {
@@ -39,11 +42,16 @@
     "web": "expo start --web",
     "prebuild": "expo prebuild",
     "lint": "expo lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "storybook": "EXPO_PUBLIC_STORYBOOK_ENABLED=true expo start",
+    "storybook:ios": "EXPO_PUBLIC_STORYBOOK_ENABLED=true expo start --ios",
+    "storybook:android": "EXPO_PUBLIC_STORYBOOK_ENABLED=true expo start --android"
   },
   "expo": {
     "install": {
-      "exclude": ["typescript"]
+      "exclude": [
+        "typescript"
+      ]
     }
   }
 }
