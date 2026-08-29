@@ -88,6 +88,8 @@ const config: ExpoConfig = {
   },
   plugins: [
     'expo-router',
+    'expo-secure-store',
+    'expo-localization',
     [
       'expo-splash-screen',
       {
