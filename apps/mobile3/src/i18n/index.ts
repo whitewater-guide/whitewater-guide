@@ -8,7 +8,7 @@ import {
   resources,
   SUPPORTED_LANGUAGES,
   type SupportedLanguage,
-} from './i18n-resources';
+} from './resources';
 
 function isSupportedLanguage(code: string): code is SupportedLanguage {
   return (SUPPORTED_LANGUAGES as readonly string[]).includes(code);
@@ -31,5 +31,5 @@ void i18n.use(initReactI18next).init({
 });
 
 export { i18n };
-export { LANGUAGE_NAMES, SUPPORTED_LANGUAGES } from './i18n-resources';
-export type { SupportedLanguage } from './i18n-resources';
+export { LANGUAGE_NAMES, SUPPORTED_LANGUAGES } from './resources';
+export type { SupportedLanguage } from './resources';

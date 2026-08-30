@@ -1,3 +1,4 @@
+import '@/i18n';
 import type { Preview } from '@storybook/react-native';
 
 const preview: Preview = {

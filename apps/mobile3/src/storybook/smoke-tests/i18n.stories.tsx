@@ -8,7 +8,7 @@ import {
   LANGUAGE_NAMES,
   SUPPORTED_LANGUAGES,
   type SupportedLanguage,
-} from './i18n';
+} from '@/i18n';
 import { formatNullable, InfoRow, StoryButton } from './story-ui';
 
 import { ThemedText } from '@/components/themed-text';
