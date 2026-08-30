@@ -3,6 +3,18 @@
   "main": "expo-router/entry",
   "version": "1.22.0",
   "private": true,
+  "scripts": {
+    "start": "expo start --dev-client",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "web": "expo start --web",
+    "prebuild": "expo prebuild",
+    "lint": "expo lint",
+    "typecheck": "tsc --noEmit",
+    "storybook": "EXPO_PUBLIC_STORYBOOK_ENABLED=true expo start --dev-client",
+    "storybook:ios": "EXPO_PUBLIC_STORYBOOK_ENABLED=true expo start --dev-client --ios",
+    "storybook:android": "EXPO_PUBLIC_STORYBOOK_ENABLED=true expo start --dev-client --android"
+  },
   "dependencies": {
     "@expo/ui": "~57.0.12",
     "expo": "~57.0.15",
@@ -30,6 +42,8 @@
     "react-i18next": "^13.5.0",
     "react-native": "0.86.2",
     "react-native-gesture-handler": "~2.32.0",
+    "react-native-mmkv": "^4.3.2",
+    "react-native-nitro-modules": "^0.37.1",
     "react-native-reanimated": "4.5.1",
     "react-native-safe-area-context": "~5.7.0",
     "react-native-screens": "~4.26.0",
@@ -42,18 +56,6 @@
     "@types/react": "~19.2.2",
     "storybook": "^10.5.10",
     "typescript": "^5.9.3"
-  },
-  "scripts": {
-    "start": "expo start",
-    "android": "expo run:android",
-    "ios": "expo run:ios",
-    "web": "expo start --web",
-    "prebuild": "expo prebuild",
-    "lint": "expo lint",
-    "typecheck": "tsc --noEmit",
-    "storybook": "EXPO_PUBLIC_STORYBOOK_ENABLED=true expo start",
-    "storybook:ios": "EXPO_PUBLIC_STORYBOOK_ENABLED=true expo start --ios",
-    "storybook:android": "EXPO_PUBLIC_STORYBOOK_ENABLED=true expo start --android"
   },
   "expo": {
     "install": {

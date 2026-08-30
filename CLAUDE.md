@@ -67,7 +67,8 @@ pnpm dev:cleanup    # Delete all dev docker images/volumes/containers
 | `backend` | Apollo GraphQL server on Koa. PostgreSQL via Knex. Auth via Passport (JWT, Facebook, Apple, Google). Runs in Docker. |
 | `web`     | React admin/editor app (CRA, Material-UI 4, Apollo Client 3, React Router 5)                                         |
 | `mobile`  | **Deprecated.** Legacy React Native app (RN 0.72). Do not fix build/tool failures here.                              |
-| `mobile2` | Modernized React Native app — rebuilt from scratch to replace `mobile`. Currently under construction.                |
+| `mobile2` | Previous React Native rewrite. Still the production-bound app until `mobile3` replaces it.                           |
+| `mobile3` | Expo SDK 57 rewrite of `mobile2`. Agent notes: [apps/mobile3/CLAUDE.md](apps/mobile3/CLAUDE.md).                      |
 
 #### Packages (`packages/`)
 
