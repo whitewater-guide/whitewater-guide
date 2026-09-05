@@ -88,7 +88,7 @@ function TernaryChip({ tag, onPress }: TernaryChipProps) {
   return (
     <Pressable onPress={handlePress} style={ternaryChipStyles.chip}>
       <Icon narrow icon={iconName} size={18} color={color} />
-      <ThemedText type="small" style={{ color }}>
+      <ThemedText type="small" style={[ternaryChipStyles.label, { color }]}>
         {tag.name}
       </ThemedText>
     </Pressable>
@@ -107,6 +107,11 @@ const ternaryChipStyles = StyleSheet.create({
     borderRadius: 16,
     borderWidth: 1,
     borderColor: '#9E9E9E',
+    flexShrink: 0,
+    alignSelf: 'flex-start',
+  },
+  label: {
+    flexShrink: 0,
   },
 });
 

@@ -493,6 +493,9 @@ importers:
       expo-web-browser:
         specifier: ~57.0.2
         version: 57.0.2(expo@57.0.15)(react-native@0.86.2(@babel/core@7.29.7)(@react-native/metro-config@0.86.2(@babel/core@7.29.7))(@types/react@19.2.15)(react@19.2.3))
+      formik:
+        specifier: ^2.4.9
+        version: 2.4.9(@types/react@19.2.15)(react@19.2.3)
       i18next:
         specifier: ^23.16.8
         version: 23.16.8

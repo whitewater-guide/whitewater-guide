@@ -38,6 +38,7 @@
     "expo-symbols": "~57.0.2",
     "expo-system-ui": "~57.0.2",
     "expo-web-browser": "~57.0.2",
+    "formik": "^2.4.9",
     "i18next": "^23.16.8",
     "intl-pluralrules": "^2.0.1",
     "react": "19.2.3",

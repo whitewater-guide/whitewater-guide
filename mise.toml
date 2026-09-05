@@ -2,3 +2,4 @@
 ruby = "3"
 cocoapods = "latest"
 java = "zulu-17"
+pnpm = "11"
