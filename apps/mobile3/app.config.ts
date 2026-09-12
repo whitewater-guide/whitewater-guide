@@ -12,7 +12,6 @@ const LOCATION_PERMISSION =
  * - Firebase (google-services.json / GoogleService-Info.plist are gitignored)
  * - Facebook URL scheme / SDK meta-data
  * - Sign in with Apple and IAP entitlements
- * - Mapbox download tokens
  * - Env-driven config (react-native-config / RNUC)
  * - Fastlane / EAS submit profiles
  * - Android staging applicationId suffix (guide.whitewater.staging)
@@ -98,6 +97,7 @@ const config: ExpoConfig = {
         imageWidth: 224,
       },
     ],
+    '@rnmapbox/maps',
   ],
   experiments: {
     typedRoutes: true,

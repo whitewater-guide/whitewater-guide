@@ -18,6 +18,8 @@
   "dependencies": {
     "@expo/ui": "~57.0.12",
     "@expo/vector-icons": "^15.1.1",
+    "@gorhom/bottom-sheet": "^5.2.14",
+    "@rnmapbox/maps": "^10.3.5",
     "@shopify/flash-list": "2.0.2",
     "@whitewater-guide/schema": "workspace:*",
     "expo": "~57.0.15",
@@ -30,6 +32,7 @@
     "expo-image": "~57.0.3",
     "expo-linking": "~57.0.7",
     "expo-localization": "~57.0.1",
+    "expo-location": "~57.0.16",
     "expo-network": "~57.0.1",
     "expo-router": "~57.0.15",
     "expo-secure-store": "~57.0.2",

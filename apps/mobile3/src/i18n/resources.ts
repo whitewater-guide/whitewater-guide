@@ -19,6 +19,14 @@ export interface CommonsTranslations {
   takeOut: string;
   m: string;
   m3s: string;
+  km: string;
+  unknown: string;
+  navigate: string;
+  season: string;
+  flow: string;
+  flows: string;
+  unverified: string;
+  seeDetails: string;
 }
 
 export interface ChartTranslations {
@@ -61,6 +69,14 @@ export const resources: Record<SupportedLanguage, LanguageBundle> = {
       takeOut: 'Take-out',
       m: 'm',
       m3s: 'm³/s',
+      km: 'km',
+      unknown: 'unknown',
+      navigate: 'Navigate',
+      season: 'Season',
+      flow: 'Flow',
+      flows: 'Flows',
+      unverified: 'unverified',
+      seeDetails: 'See details',
     },
     section: {
       chart: {
@@ -86,6 +102,14 @@ export const resources: Record<SupportedLanguage, LanguageBundle> = {
       takeOut: 'Финиш',
       m: 'м',
       m3s: 'м³/с',
+      km: 'км',
+      unknown: 'неизвестно',
+      navigate: 'Навигация',
+      season: 'Сезон',
+      flow: 'Расход',
+      flows: 'Уровни',
+      unverified: 'не проверено',
+      seeDetails: 'Подробнее',
     },
     section: {
       chart: {
