@@ -16,11 +16,13 @@
     "storybook:android": "EXPO_PUBLIC_STORYBOOK_ENABLED=true expo start --dev-client --android"
   },
   "dependencies": {
+    "@apollo/client": "^3.14.1",
     "@expo/ui": "~57.0.12",
     "@expo/vector-icons": "^15.1.1",
     "@gorhom/bottom-sheet": "^5.2.14",
     "@rnmapbox/maps": "^10.3.5",
     "@shopify/flash-list": "2.0.2",
+    "@shopify/react-native-skia": "2.6.2",
     "@whitewater-guide/schema": "workspace:*",
     "expo": "~57.0.15",
     "expo-application": "~57.0.2",
@@ -42,6 +44,7 @@
     "expo-system-ui": "~57.0.2",
     "expo-web-browser": "~57.0.2",
     "formik": "^2.4.9",
+    "graphql": "^16.14.0",
     "i18next": "^23.16.8",
     "intl-pluralrules": "^2.0.1",
     "react": "19.2.3",
@@ -57,7 +60,8 @@
     "react-native-screens": "~4.26.0",
     "react-native-web": "~0.21.0",
     "react-native-webview": "13.16.1",
-    "react-native-worklets": "0.10.1"
+    "react-native-worklets": "0.10.1",
+    "victory-native": "41.20.3"
   },
   "devDependencies": {
     "@storybook/react-native": "^10.5.4",

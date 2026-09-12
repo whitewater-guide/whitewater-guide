@@ -25,14 +25,25 @@ export interface CommonsTranslations {
   season: string;
   flow: string;
   flows: string;
+  level: string;
+  gauge: string;
   unverified: string;
   seeDetails: string;
 }
 
-export interface ChartTranslations {
+export interface ChartNestedTranslations {
   [key: string]: string;
+}
+
+export interface ChartTranslations {
+  [key: string]: string | ChartNestedTranslations;
   noData: string;
   noGauge: string;
+  lastUpdated: string;
+  flowToggle: string;
+  periodToggle: ChartNestedTranslations;
+  lastRecorded: ChartNestedTranslations;
+  gaugeMenu: ChartNestedTranslations;
 }
 
 export interface SectionTranslations {
@@ -75,6 +86,9 @@ export const resources: Record<SupportedLanguage, LanguageBundle> = {
       season: 'Season',
       flow: 'Flow',
       flows: 'Flows',
+      level: 'Level',
+      gauge: 'Gauge',
+      'm³/s': 'm³/s',
       unverified: 'unverified',
       seeDetails: 'See details',
     },
@@ -82,6 +96,25 @@ export const resources: Record<SupportedLanguage, LanguageBundle> = {
       chart: {
         noData: 'There is no data for this period',
         noGauge: 'There is no gauge for this section',
+        lastUpdated: 'Updated',
+        flowToggle: 'Flow / Level',
+        periodToggle: {
+          title: 'Period',
+          day: '1 day',
+          '3days': '3 days',
+          week: '1 week',
+          month: '1 month',
+        },
+        lastRecorded: {
+          title: 'Last recorded',
+          flow: 'flow',
+          level: 'level',
+        },
+        gaugeMenu: {
+          title: 'Gauge',
+          aboutSource: 'About data source',
+          webPage: 'Gauge web page',
+        },
       },
     },
   },
@@ -108,6 +141,9 @@ export const resources: Record<SupportedLanguage, LanguageBundle> = {
       season: 'Сезон',
       flow: 'Расход',
       flows: 'Уровни',
+      level: 'Уровень',
+      gauge: 'Линейка',
+      'm³/s': 'м³/с',
       unverified: 'не проверено',
       seeDetails: 'Подробнее',
     },
@@ -115,6 +151,25 @@ export const resources: Record<SupportedLanguage, LanguageBundle> = {
       chart: {
         noData: 'Нет данных за этот период',
         noGauge: 'Нет линейки для этой секции',
+        lastUpdated: 'Обновлено',
+        flowToggle: 'Расход / Уровень',
+        periodToggle: {
+          title: 'Период',
+          day: '1 день',
+          '3days': '3 дня',
+          week: '1 неделя',
+          month: '1 месяц',
+        },
+        lastRecorded: {
+          title: 'Последнее значение',
+          flow: 'расход',
+          level: 'уровень',
+        },
+        gaugeMenu: {
+          title: 'Линейка',
+          aboutSource: 'Об источнике',
+          webPage: 'Страница линейки',
+        },
       },
     },
   },
