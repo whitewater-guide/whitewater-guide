@@ -14,6 +14,7 @@ export interface IconProps {
   narrow?: boolean;
   onPress?: () => void;
   accessibilityLabel?: string;
+  testID?: string;
   style?: StyleProp<ViewStyle>;
   iconStyle?: StyleProp<TextStyle>;
 }
@@ -25,6 +26,7 @@ export function Icon({
   narrow,
   onPress,
   accessibilityLabel,
+  testID,
   style,
   iconStyle,
 }: IconProps) {
@@ -39,6 +41,7 @@ export function Icon({
         style={[styles.icon, sizeStyle, style]}
         role="button"
         accessibilityLabel={accessibilityLabel}
+        testID={testID}
       >
         <MaterialCommunityIcons
           name={icon}
@@ -54,6 +57,7 @@ export function Icon({
     <View
       style={[styles.icon, sizeStyle, style]}
       accessibilityLabel={accessibilityLabel}
+      testID={testID}
     >
       <MaterialCommunityIcons
         name={icon}

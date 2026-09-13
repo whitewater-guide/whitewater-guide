@@ -29,6 +29,7 @@ export interface CommonsTranslations {
   gauge: string;
   unverified: string;
   seeDetails: string;
+  comingSoon: string;
 }
 
 export interface ChartNestedTranslations {
@@ -51,10 +52,58 @@ export interface SectionTranslations {
   chart: ChartTranslations;
 }
 
+export interface RegionsListTranslations {
+  [key: string]: string;
+  sectionsCount: string;
+  gaugesCount: string;
+}
+
+export interface LicensePlacementTranslations {
+  [key: string]: string;
+  region: string;
+  section: string;
+  media: string;
+}
+
+export interface ComponentsTranslations {
+  [key: string]: LicensePlacementTranslations;
+  license: LicensePlacementTranslations;
+}
+
+export interface NoMediaTranslations {
+  [key: string]: string;
+  photo: string;
+  video: string;
+  blog: string;
+}
+
+export interface SectionMediaTranslations {
+  [key: string]: NoMediaTranslations;
+  noMedia: NoMediaTranslations;
+}
+
+export interface ScreensSectionTranslations {
+  [key: string]: SectionMediaTranslations;
+  media: SectionMediaTranslations;
+}
+
+export interface ScreensTranslations {
+  [key: string]: ScreensSectionTranslations;
+  section: ScreensSectionTranslations;
+}
+
 export interface LanguageBundle {
-  [key: string]: CommonsTranslations | SectionTranslations;
+  [key: string]:
+    | CommonsTranslations
+    | SectionTranslations
+    | RegionsListTranslations
+    | ComponentsTranslations
+    | ScreensTranslations;
   commons: CommonsTranslations;
   section: SectionTranslations;
+  regionsList: RegionsListTranslations;
+  components: ComponentsTranslations;
+  screens: ScreensTranslations;
 }
 
 export const LANGUAGE_NAMES: Record<SupportedLanguage, string> = {
@@ -91,6 +140,31 @@ export const resources: Record<SupportedLanguage, LanguageBundle> = {
       'm³/s': 'm³/s',
       unverified: 'unverified',
       seeDetails: 'See details',
+      comingSoon: 'Coming soon',
+    },
+    regionsList: {
+      sectionsCount: 'Sections',
+      gaugesCount: 'Gauges',
+    },
+    components: {
+      license: {
+        media: '{{ name }}',
+        region:
+          'All the information in this region is available under {{ name }}, unless stated otherwise',
+        section:
+          'All the information about this section is available under {{ name }}, unless stated otherwise',
+      },
+    },
+    screens: {
+      section: {
+        media: {
+          noMedia: {
+            blog: 'No blogs for this section yet :(',
+            photo: 'No photos for this section yet :(',
+            video: 'No videos for this section yet :(',
+          },
+        },
+      },
     },
     section: {
       chart: {
@@ -146,6 +220,31 @@ export const resources: Record<SupportedLanguage, LanguageBundle> = {
       'm³/s': 'м³/с',
       unverified: 'не проверено',
       seeDetails: 'Подробнее',
+      comingSoon: 'Скоро',
+    },
+    regionsList: {
+      sectionsCount: 'Секций',
+      gaugesCount: 'Линеек',
+    },
+    components: {
+      license: {
+        media: '{{ name }}',
+        region:
+          'Вся информация в этом регионе опубликована под лицензией {{ name }}, если не указано иное',
+        section:
+          'Все информация об этой секции опубликована под лицензией {{ name }}, если не указано иное',
+      },
+    },
+    screens: {
+      section: {
+        media: {
+          noMedia: {
+            blog: 'Для этой секции пока нет блогов :(',
+            photo: 'Для этой секции пока нет фото :(',
+            video: 'Для этой секции пока нет видео :(',
+          },
+        },
+      },
     },
     section: {
       chart: {

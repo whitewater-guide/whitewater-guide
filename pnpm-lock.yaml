@@ -475,6 +475,9 @@ importers:
       expo-image:
         specifier: ~57.0.3
         version: 57.0.3(expo@57.0.15)(react-native-web@0.21.2(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native@0.86.2(@babel/core@7.29.7)(@react-native/metro-config@0.86.2(@babel/core@7.29.7))(@types/react@19.2.15)(react@19.2.3))(react@19.2.3)
+      expo-linear-gradient:
+        specifier: ~57.0.2
+        version: 57.0.2(expo@57.0.15)(react-native@0.86.2(@babel/core@7.29.7)(@react-native/metro-config@0.86.2(@babel/core@7.29.7))(@types/react@19.2.15)(react@19.2.3))(react@19.2.3)
       expo-linking:
         specifier: ~57.0.7
         version: 57.0.7(expo@57.0.15)(react-native@0.86.2(@babel/core@7.29.7)(@react-native/metro-config@0.86.2(@babel/core@7.29.7))(@types/react@19.2.15)(react@19.2.3))(react@19.2.3)
@@ -512,7 +515,7 @@ importers:
         specifier: ^2.4.9
         version: 2.4.9(@types/react@19.2.15)(react@19.2.3)
       graphql:
-        specifier: ^16.14.0
+        specifier: ^16.8.1
         version: 16.14.0
       i18next:
         specifier: ^23.16.8
@@ -8353,6 +8356,13 @@ packages:
     peerDependencies:
       expo: '*'
       react: 19.2.3
+
+  expo-linear-gradient@57.0.2:
+    resolution: {integrity: sha512-eGNSfcbdXYvw0B/TQ3nmXKQgj0jLUi3EgsXGlvI79rlXg5RR5dQTkY2yqkf7BQDM3PMd3tqBMZdsLhvBqSUaMg==}
+    peerDependencies:
+      expo: '*'
+      react: 19.2.3
+      react-native: '*'
 
   expo-linking@57.0.7:
     resolution: {integrity: sha512-Ujn4kY0bd1MoJFLYuvIUWamlZH61pkahrUpug3hBtOeS89LDbPyKNjjmWef6+CPTGQfed2PlfuMZuPO1BCrg5w==}
@@ -24227,6 +24237,12 @@ snapshots:
     dependencies:
       expo: 57.0.15(@babel/core@7.29.7)(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.12)(expo-router@57.0.15)(react-dom@19.2.3(react@19.2.3))(react-native-web@0.21.2(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native@0.86.2(@babel/core@7.29.7)(@react-native/metro-config@0.86.2(@babel/core@7.29.7))(@types/react@19.2.15)(react@19.2.3))(react@19.2.3))(react-native-worklets@0.10.1(@babel/core@7.29.7)(@react-native/metro-config@0.86.2(@babel/core@7.29.7))(react-native@0.86.2(@babel/core@7.29.7)(@react-native/metro-config@0.86.2(@babel/core@7.29.7))(@types/react@19.2.15)(react@19.2.3))(react@19.2.3))(react-native@0.86.2(@babel/core@7.29.7)(@react-native/metro-config@0.86.2(@babel/core@7.29.7))(@types/react@19.2.15)(react@19.2.3))(react@19.2.3)(typescript@5.9.3)
       react: 19.2.3
+
+  expo-linear-gradient@57.0.2(expo@57.0.15)(react-native@0.86.2(@babel/core@7.29.7)(@react-native/metro-config@0.86.2(@babel/core@7.29.7))(@types/react@19.2.15)(react@19.2.3))(react@19.2.3):
+    dependencies:
+      expo: 57.0.15(@babel/core@7.29.7)(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.12)(expo-router@57.0.15)(react-dom@19.2.3(react@19.2.3))(react-native-web@0.21.2(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native@0.86.2(@babel/core@7.29.7)(@react-native/metro-config@0.86.2(@babel/core@7.29.7))(@types/react@19.2.15)(react@19.2.3))(react@19.2.3))(react-native-worklets@0.10.1(@babel/core@7.29.7)(@react-native/metro-config@0.86.2(@babel/core@7.29.7))(react-native@0.86.2(@babel/core@7.29.7)(@react-native/metro-config@0.86.2(@babel/core@7.29.7))(@types/react@19.2.15)(react@19.2.3))(react@19.2.3))(react-native@0.86.2(@babel/core@7.29.7)(@react-native/metro-config@0.86.2(@babel/core@7.29.7))(@types/react@19.2.15)(react@19.2.3))(react@19.2.3)(typescript@5.9.3)
+      react: 19.2.3
+      react-native: 0.86.2(@babel/core@7.29.7)(@react-native/metro-config@0.86.2(@babel/core@7.29.7))(@types/react@19.2.15)(react@19.2.3)
 
   expo-linking@57.0.7(expo@57.0.15)(react-native@0.86.2(@babel/core@7.29.7)(@react-native/metro-config@0.86.2(@babel/core@7.29.7))(@types/react@19.2.15)(react@19.2.3))(react@19.2.3):
     dependencies:
